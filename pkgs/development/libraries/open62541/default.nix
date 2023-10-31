@@ -30,8 +30,7 @@ let
     {
       inherit openssl mbedtls;
     }
-    ."${withEncryption}"
-      or (throw "Unsupported encryption backend: ${withEncryption}");
+    ."${withEncryption}" or (throw "Unsupported encryption backend: ${withEncryption}");
 in
 
 stdenv.mkDerivation (

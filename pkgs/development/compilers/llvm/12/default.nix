@@ -22,8 +22,7 @@
   # the `useLLVM` bootstrapping below.
   bootBintoolsNoLibc ?
     if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-  bootBintools ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  bootBintools ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
 }:
 
@@ -188,14 +187,10 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages =
-          [
-            libcxx.cxxabi
-            targetLlvmLibraries.compiler-rt
-          ]
-          ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-            targetLlvmLibraries.libunwind
-          ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
         extraBuildCommands =
           ''
             echo "-rtlib=compiler-rt -Wno-unused-command-line-argument" >> $out/nix-support/cc-cflags

@@ -11,9 +11,7 @@ in
 {
   options = {
     services.asusd = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "the asusd service for ASUS ROG laptops"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "the asusd service for ASUS ROG laptops");
 
       enableUserService = lib.mkOption {
         type = lib.types.bool;

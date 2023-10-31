@@ -127,8 +127,7 @@ let
   # Import generated file with metadata for provider dependencies and imports.
   # Enable additional providers using enabledProviders above.
   providers = import ./providers.nix;
-  getProviderDeps =
-    provider: map (dep: python.pkgs.${dep}) providers.${provider}.deps;
+  getProviderDeps = provider: map (dep: python.pkgs.${dep}) providers.${provider}.deps;
   getProviderImports = provider: providers.${provider}.imports;
   providerDependencies = lib.concatMap getProviderDeps enabledProviders;
   providerImports = lib.concatMap getProviderImports enabledProviders;
@@ -206,8 +205,7 @@ buildPythonPackage rec {
       unicodecsv
       werkzeug
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ]
-    ++ providerDependencies;
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-metadata ] ++ providerDependencies;
 
   buildInputs = [ airflow-frontend ];
 

@@ -114,8 +114,7 @@ let
               { contentPath = content; }
           )
           //
-            lib.optionalAttrs
-              (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
+            lib.optionalAttrs (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
               {
                 # post-link-hook expects codesign_allocate to be in PATH
                 # https://github.com/NixOS/nixpkgs/issues/154203
@@ -196,16 +195,13 @@ let
       }:
       let
         appendIfNotSet = el: list: if elem el list then list else list ++ [ el ];
-        ghcArgs' =
-          if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
+        ghcArgs' = if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
       in
       makeBinWriter
         {
           compileScript = ''
             cp $contentPath tmp.hs
-            ${ghc.withPackages (_: libraries)}/bin/ghc ${
-              lib.escapeShellArgs ghcArgs'
-            } tmp.hs
+            ${ghc.withPackages (_: libraries)}/bin/ghc ${lib.escapeShellArgs ghcArgs'} tmp.hs
             mv tmp $out
           '';
           inherit strip;

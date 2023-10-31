@@ -309,8 +309,7 @@ stdenv.mkDerivation (
       gioModuleDir = "lib/gio/modules";
 
       makeSchemaDataDirPath = dir: name: "${dir}/share/gsettings-schemas/${name}";
-      makeSchemaPath =
-        dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
+      makeSchemaPath = dir: name: "${makeSchemaDataDirPath dir name}/glib-2.0/schemas";
       getSchemaPath = pkg: makeSchemaPath pkg pkg.name;
       getSchemaDataDirPath = pkg: makeSchemaDataDirPath pkg pkg.name;
 

@@ -27,22 +27,16 @@ let
       if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
         ${
           lib.optionalString useSudo
-            "${pkgs.sudo}/bin/sudo -u ${
-              escapeShellArg config.services.postgresql.superUser
-            } \\"
+            "${pkgs.sudo}/bin/sudo -u ${escapeShellArg config.services.postgresql.superUser} \\"
         }
           ${postgresPackage}/bin/psql postgres -c \
             "CREATE ROLE ${localDatabaseUser} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${localDatabasePassword}'"
         ${
           lib.optionalString useSudo
-            "${pkgs.sudo}/bin/sudo -u ${
-              escapeShellArg config.services.postgresql.superUser
-            } \\"
+            "${pkgs.sudo}/bin/sudo -u ${escapeShellArg config.services.postgresql.superUser} \\"
         }
           ${postgresPackage}/bin/createdb \
-            --owner ${escapeShellArg localDatabaseUser} ${
-              escapeShellArg localDatabaseName
-            }
+            --owner ${escapeShellArg localDatabaseUser} ${escapeShellArg localDatabaseName}
         touch ${escapeShellArg "${statePath}/.db-created"}
       fi
     '';

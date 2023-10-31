@@ -78,9 +78,7 @@ stdenv.mkDerivation rec {
       substituteInPlace contrib/groffer/roff2.pl \
         --replace "'gs'" "'${lib.getBin ghostscript}/bin/gs'"
       substituteInPlace contrib/pdfmark/pdfroff.sh \
-        --replace '$GROFF_GHOSTSCRIPT_INTERPRETER' "${
-          lib.getBin ghostscript
-        }/bin/gs" \
+        --replace '$GROFF_GHOSTSCRIPT_INTERPRETER' "${lib.getBin ghostscript}/bin/gs" \
         --replace '$GROFF_AWK_INTERPRETER' "${lib.getBin gawk}/bin/gawk"
     '';
 

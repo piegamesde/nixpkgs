@@ -17,8 +17,7 @@ in
 
 stdenv.mkDerivation {
   pname = "boost-build";
-  version =
-    if useBoost ? version then "boost-${useBoost.version}" else defaultVersion;
+  version = if useBoost ? version then "boost-${useBoost.version}" else defaultVersion;
 
   src =
     useBoost.src or (fetchFromGitHub {
@@ -42,8 +41,7 @@ stdenv.mkDerivation {
       --replace "default-toolset = darwin" "default-toolset = clang-darwin"
     ''
     +
-      lib.optionalString
-        (useBoost ? version && lib.versionAtLeast useBoost.version "1.82")
+      lib.optionalString (useBoost ? version && lib.versionAtLeast useBoost.version "1.82")
         ''
           patchShebangs --build src/engine/build.sh
         '';

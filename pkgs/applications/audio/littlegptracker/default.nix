@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "0f2ip8z5wxk8fvlw47mczsbcrzh4nh1hgw1fwf5gjrqnzm8v111x";
   };
 
-  buildInputs =
-    [ SDL ]
-    ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
+  buildInputs = [
+    SDL
+  ] ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
 
   patches =
     [

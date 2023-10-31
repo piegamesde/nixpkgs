@@ -151,10 +151,7 @@ let
           plugin;
     in
     # make sure all the dependencies of the plugin are also derivations
-    drv
-    // {
-      dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
-    };
+    drv // { dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]); };
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
@@ -384,9 +381,7 @@ rec {
                   throw "at least one of vimrcConfig and vimrcFile must be specified";
               bin = runCommand "${name}-bin" { nativeBuildInputs = [ makeWrapper ]; } ''
                 vimrc=${lib.escapeShellArg vimrc}
-                gvimrc=${
-                  lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)
-                }
+                gvimrc=${lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)}
 
                 mkdir -p "$out/bin"
                 for exe in ${

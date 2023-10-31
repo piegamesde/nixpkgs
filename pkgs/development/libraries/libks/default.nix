@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ openssl ]
-    ++ lib.optional stdenv.isLinux libuuid
-    ++ lib.optional stdenv.isDarwin libossp_uuid;
+    ++ lib.optional stdenv.isLinux libuuid ++ lib.optional stdenv.isDarwin libossp_uuid;
 
   meta = with lib; {
     description = "Foundational support for signalwire C products";

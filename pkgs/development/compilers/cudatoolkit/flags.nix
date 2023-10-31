@@ -144,9 +144,7 @@ let
       # By default, build for all supported architectures and forward compatibility via a virtual
       # architecture for the newest supported architecture.
       # E.g. [ "sm_75" "sm_86" "compute_86" ]
-      arches =
-        realArches
-        ++ lists.optional enableForwardCompat (lists.last virtualArches);
+      arches = realArches ++ lists.optional enableForwardCompat (lists.last virtualArches);
 
       # gencode :: List String
       # A list of CUDA gencode arguments to pass to NVCC.

@@ -151,9 +151,7 @@
 
       libcommuni = callPackage ../development/libraries/libcommuni { };
 
-      libdbusmenu =
-        callPackage ../development/libraries/libdbusmenu-qt/qt-5.5.nix
-          { };
+      libdbusmenu = callPackage ../development/libraries/libdbusmenu-qt/qt-5.5.nix { };
 
       liblastfm = callPackage ../development/libraries/liblastfm { };
 
@@ -190,13 +188,9 @@
         libsForQt5.callPackage ../development/libraries/mapbox-gl-native
           { };
 
-      mapbox-gl-qml =
-        libsForQt5.callPackage ../development/libraries/mapbox-gl-qml
-          { };
+      mapbox-gl-qml = libsForQt5.callPackage ../development/libraries/mapbox-gl-qml { };
 
-      maplibre-gl-native =
-        callPackage ../development/libraries/maplibre-gl-native
-          { };
+      maplibre-gl-native = callPackage ../development/libraries/maplibre-gl-native { };
 
       maui-core = libsForQt5.callPackage ../development/libraries/maui-core { };
 
@@ -226,9 +220,9 @@
 
       pulseaudio-qt = callPackage ../development/libraries/pulseaudio-qt { };
 
-      qca-qt5 =
-        pkgs.darwin.apple_sdk_11_0.callPackage ../development/libraries/qca-qt5
-          { inherit (libsForQt5) qtbase; };
+      qca-qt5 = pkgs.darwin.apple_sdk_11_0.callPackage ../development/libraries/qca-qt5 {
+        inherit (libsForQt5) qtbase;
+      };
 
       qcoro = callPackage ../development/libraries/qcoro { };
 

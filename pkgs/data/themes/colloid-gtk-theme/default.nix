@@ -98,8 +98,7 @@ lib.checkListOfEnum "${pname}: theme variants"
           + builtins.toString colorVariants
         } \
         ${
-          lib.optionalString (sizeVariants != [ ]) "--size "
-          + builtins.toString sizeVariants
+          lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants
         } \
         ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes

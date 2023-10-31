@@ -126,9 +126,7 @@ rec {
       command = lib.toList (updateScript.command or updateScript);
       supportedFeatures = updateScript.supportedFeatures or [ ];
     }
-    // lib.optionalAttrs (updateScript ? attrPath) {
-      inherit (updateScript) attrPath;
-    };
+    // lib.optionalAttrs (updateScript ? attrPath) { inherit (updateScript) attrPath; };
 
   /* sequence : [UpdateScript] → UpdateScript
      EXPERIMENTAL! Combines multiple update scripts to run in sequence.
@@ -142,8 +140,7 @@ rec {
     let
       scripts = scriptsNormalized;
       hasCommitSupport =
-        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ])
-          null
+        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null
           null
           scripts != null;
       validateFeatures =

@@ -92,10 +92,7 @@ else
     propagatedBuildInputs = [
       ocaml-compiler-libs
       (
-        if param.useOMP2 or true then
-          ocaml-migrate-parsetree-2
-        else
-          ocaml-migrate-parsetree
+        if param.useOMP2 or true then ocaml-migrate-parsetree-2 else ocaml-migrate-parsetree
       )
       ppx_derivers
       stdio

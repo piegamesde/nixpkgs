@@ -48,9 +48,7 @@ in
       threads = mkOption {
         type = types.int;
         default = 0;
-        description =
-          lib.mdDoc
-            "Number of miner threads, defaults to available processors";
+        description = lib.mdDoc "Number of miner threads, defaults to available processors";
       };
     };
   };

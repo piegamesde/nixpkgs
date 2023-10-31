@@ -21,17 +21,13 @@ with lib.types; {
     timeout = mkOption {
       type = int;
       default = 5;
-      description =
-        lib.mdDoc
-          "Seconds after which script is considered to have failed.";
+      description = lib.mdDoc "Seconds after which script is considered to have failed.";
     };
 
     weight = mkOption {
       type = int;
       default = 0;
-      description =
-        lib.mdDoc
-          "Following a failure, adjust the priority by this weight.";
+      description = lib.mdDoc "Following a failure, adjust the priority by this weight.";
     };
 
     rise = mkOption {

@@ -80,12 +80,10 @@ let
     exit 0
   '';
   maybeDebugFlag = lib.optionalString (buildType != "release") "--debug";
-  maybeEnterBuildAndTestSubdir =
-    lib.optionalString (buildAndTestSubdir != null)
-      ''
-        export CARGO_TARGET_DIR="$(pwd)/target"
-        pushd "${buildAndTestSubdir}"
-      '';
+  maybeEnterBuildAndTestSubdir = lib.optionalString (buildAndTestSubdir != null) ''
+    export CARGO_TARGET_DIR="$(pwd)/target"
+    pushd "${buildAndTestSubdir}"
+  '';
   maybeLeaveBuildAndTestSubdir =
     lib.optionalString (buildAndTestSubdir != null)
       "popd";
@@ -172,9 +170,7 @@ let
     RUST_BACKTRACE = "full";
 
     checkNoDefaultFeatures = true;
-    checkFeatures = (args.checkFeatures or [ ]) ++ [
-      "pg_test pg${pgxPostgresMajor}"
-    ];
+    checkFeatures = (args.checkFeatures or [ ]) ++ [ "pg_test pg${pgxPostgresMajor}" ];
   };
 in
 rustPlatform.buildRustPackage finalArgs

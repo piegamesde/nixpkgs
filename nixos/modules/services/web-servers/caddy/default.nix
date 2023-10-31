@@ -273,8 +273,7 @@ in
     };
 
     virtualHosts = mkOption {
-      type =
-        with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
+      type = with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
       default = { };
       example = literalExpression ''
         {
@@ -323,8 +322,7 @@ in
       [
         {
           assertion =
-            cfg.configFile == configFile
-            -> cfg.adapter == "caddyfile" || cfg.adapter == null;
+            cfg.configFile == configFile -> cfg.adapter == "caddyfile" || cfg.adapter == null;
           message = "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
         }
       ]
@@ -353,12 +351,8 @@ in
 
     systemd.packages = [ cfg.package ];
     systemd.services.caddy = {
-      wants =
-        map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
-          acmeVHosts;
-      after =
-        map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
-          acmeVHosts;
+      wants = map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target") acmeVHosts;
+      after = map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service") acmeVHosts;
       before = map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
 
       wantedBy = [ "multi-user.target" ];

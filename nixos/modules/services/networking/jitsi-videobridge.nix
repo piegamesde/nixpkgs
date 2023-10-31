@@ -34,9 +34,7 @@ let
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    +
-      stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
-        s;
+    + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
 
   defaultJvbConfig = {
     videobridge = {

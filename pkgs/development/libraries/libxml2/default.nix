@@ -23,8 +23,7 @@
     ),
   icuSupport ? false,
   icu,
-  enableShared ?
-    stdenv.hostPlatform.libc != "msvcrt" && !stdenv.hostPlatform.isStatic,
+  enableShared ? stdenv.hostPlatform.libc != "msvcrt" && !stdenv.hostPlatform.isStatic,
   enableStatic ? !enableShared,
   gnome,
 }:
@@ -89,8 +88,7 @@ let
       ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [ gettext ]
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [ ncurses ]
       ++
-        lib.optionals
-          (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
+        lib.optionals (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
           [ libintl ]
       ++
         lib.optionals stdenv.isFreeBSD
@@ -101,13 +99,10 @@ let
             xz
           ];
 
-    propagatedBuildInputs =
-      [
-        zlib
-        findXMLCatalogs
-      ]
-      ++ lib.optionals stdenv.isDarwin [ libiconv ]
-      ++ lib.optionals icuSupport [ icu ];
+    propagatedBuildInputs = [
+      zlib
+      findXMLCatalogs
+    ] ++ lib.optionals stdenv.isDarwin [ libiconv ] ++ lib.optionals icuSupport [ icu ];
 
     configureFlags = [
       "--exec-prefix=${placeholder "dev"}"
@@ -126,15 +121,13 @@ let
     enableParallelBuilding = true;
 
     doCheck =
-      (stdenv.hostPlatform == stdenv.buildPlatform)
-      && stdenv.hostPlatform.libc != "musl";
+      (stdenv.hostPlatform == stdenv.buildPlatform) && stdenv.hostPlatform.libc != "musl";
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';
 
     preConfigure =
-      lib.optionalString
-        (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+      lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
         '';

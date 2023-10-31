@@ -53,8 +53,7 @@ rec {
           nativeDrv = overrideDerivation drv.nativeDrv f;
         })
       // lib.optionalAttrs (drv ? __spliced) {
-        __spliced =
-          { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
+        __spliced = { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
       }
     );
 
@@ -85,8 +84,7 @@ rec {
       copyArgs = g: lib.setFunctionArgs g (lib.functionArgs f);
       # Changes the original arguments with (potentially a function that returns) a set of new attributes
       overrideWith =
-        newArgs:
-        origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
+        newArgs: origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
 
       # Re-call the function but with different arguments
       overrideArgs = copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
@@ -103,10 +101,7 @@ rec {
       }
     else if lib.isFunction result then
       # Transform the result into a functor while propagating its arguments
-      lib.setFunctionArgs result (lib.functionArgs result)
-      // {
-        override = overrideArgs;
-      }
+      lib.setFunctionArgs result (lib.functionArgs result) // { override = overrideArgs; }
     else
       result;
 
@@ -214,8 +209,7 @@ rec {
       auto = builtins.intersectAttrs (lib.functionArgs f) autoArgs;
       origArgs = auto // args;
       pkgs = f origArgs;
-      mkAttrOverridable =
-        name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
+      mkAttrOverridable = name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
     in
     if lib.isDerivation pkgs then
       throw (

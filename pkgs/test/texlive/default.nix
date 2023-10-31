@@ -50,9 +50,7 @@
   chktex =
     runCommand "texlive-test-chktex"
       {
-        nativeBuildInputs = [
-          (with texlive; combine { inherit scheme-infraonly chktex; })
-        ];
+        nativeBuildInputs = [ (with texlive; combine { inherit scheme-infraonly chktex; }) ];
         input = builtins.toFile "chktex-sample.tex" ''
           \documentclass{article}
           \begin{document}

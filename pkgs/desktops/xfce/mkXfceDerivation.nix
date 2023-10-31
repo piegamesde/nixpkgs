@@ -41,8 +41,7 @@ let
 
   concatAttrLists =
     attrsets:
-    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists)
-      attrsets;
+    zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists) attrsets;
 
   template = rec {
     inherit pname version;

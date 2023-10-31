@@ -69,9 +69,7 @@ let
 
   backendFlags =
     builtins.map
-      (
-        b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled"
-      )
+      (b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled")
       (builtins.attrNames backends);
 in
 

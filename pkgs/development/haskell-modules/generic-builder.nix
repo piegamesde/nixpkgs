@@ -60,14 +60,12 @@ in
   doHaddockQuickjump ? doHoogle && lib.versionAtLeast ghc.version "8.6",
   editedCabalFile ? null,
   # aarch64 outputs otherwise exceed 2GB limit
-  enableLibraryProfiling ?
-    !(ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false),
+  enableLibraryProfiling ? !(ghc.isGhcjs or stdenv.targetPlatform.isAarch64 or false),
   enableExecutableProfiling ? false,
   profilingDetail ? "exported-functions",
   # TODO enable shared libs for cross-compiling
   enableSharedExecutables ? false,
-  enableSharedLibraries ?
-    !stdenv.hostPlatform.isStatic && (ghc.enableShared or false),
+  enableSharedLibraries ? !stdenv.hostPlatform.isStatic && (ghc.enableShared or false),
   enableDeadCodeElimination ? (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
   ,
   enableStaticLibraries ?
@@ -282,9 +280,7 @@ let
       "--verbose"
       "--prefix=$out"
       # Note: This must be kept in sync manually with mkGhcLibdir
-      (
-        "--libdir=\\$prefix/lib/\\$compiler" + lib.optionalString (ghc ? hadrian) "/lib"
-      )
+      ("--libdir=\\$prefix/lib/\\$compiler" + lib.optionalString (ghc ? hadrian) "/lib")
       "--libsubdir=\\$abi/\\$libname"
       (optionalString enableSeparateDataOutput
         "--datadir=$data/share/${ghcNameWithPrefix}"
@@ -318,8 +314,7 @@ let
       (enableFeature enableLibraryProfiling "library-profiling")
       (optionalString
         (
-          (enableExecutableProfiling || enableLibraryProfiling)
-          && versionOlder "8" ghc.version
+          (enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version
         )
         "--profiling-detail=${profilingDetail}"
       )
@@ -343,9 +338,9 @@ let
       "--enable-library-vanilla" # TODO: Should this be configurable?
       (enableFeature enableLibraryForGhci "library-for-ghci")
     ]
-    ++
-      optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version))
-        [ "--ghc-option=-split-sections" ]
+    ++ optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version)) [
+      "--ghc-option=-split-sections"
+    ]
     ++ optionals dontStrip [
       "--disable-library-stripping"
       "--disable-executable-stripping"
@@ -513,8 +508,7 @@ lib.fix (
           runHook preSetupCompilerEnvironment
 
           echo "Build with ${ghc}."
-          ${optionalString (isLibrary && hyperlinkSource)
-            "export PATH=${hscolour}/bin:$PATH"}
+          ${optionalString (isLibrary && hyperlinkSource) "export PATH=${hscolour}/bin:$PATH"}
 
           builddir="$(mktemp -d)"
           setupPackageConfDir="$builddir/setup-package.conf.d"
@@ -892,12 +886,8 @@ lib.fix (
         // optionalAttrs (args ? changelog) { inherit changelog; }
         // optionalAttrs (args ? mainProgram) { inherit mainProgram; };
     }
-    // optionalAttrs (args ? preCompileBuildDriver) {
-      inherit preCompileBuildDriver;
-    }
-    // optionalAttrs (args ? postCompileBuildDriver) {
-      inherit postCompileBuildDriver;
-    }
+    // optionalAttrs (args ? preCompileBuildDriver) { inherit preCompileBuildDriver; }
+    // optionalAttrs (args ? postCompileBuildDriver) { inherit postCompileBuildDriver; }
     // optionalAttrs (args ? preUnpack) { inherit preUnpack; }
     // optionalAttrs (args ? postUnpack) { inherit postUnpack; }
     // optionalAttrs (args ? patches) { inherit patches; }

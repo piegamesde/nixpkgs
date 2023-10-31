@@ -162,9 +162,7 @@ let
             ''
           )
           + (lib.optionalString (extraSrcPaths != [ ]) ''
-            ${rsync}/bin/rsync -a ${
-              lib.concatMapStringsSep " " (p: "${p}/src") extraSrcPaths
-            } go
+            ${rsync}/bin/rsync -a ${lib.concatMapStringsSep " " (p: "${p}/src") extraSrcPaths} go
 
           '')
           + ''
@@ -187,8 +185,7 @@ let
             inputsWithAliases = lib.filter (x: x ? goPackageAliases) (
               buildInputs ++ (args.propagatedBuildInputs or [ ])
             );
-            rename =
-              to: from: "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}";
+            rename = to: from: "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}";
             renames =
               p: lib.concatMapStringsSep "\n" (rename p.goPackagePath) p.goPackageAliases;
           in
@@ -327,9 +324,7 @@ let
         )
         + ''
           export GOPATH=${
-            lib.concatStringsSep ":" (
-              [ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths
-            )
+            lib.concatStringsSep ":" ([ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths)
           }
         ''
         + shellHook;

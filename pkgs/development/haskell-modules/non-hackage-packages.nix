@@ -9,9 +9,7 @@ self: super: {
 
   dconf2nix = self.callPackage ../tools/haskell/dconf2nix/dconf2nix.nix { };
 
-  ldgallery-compiler =
-    self.callPackage ../../tools/graphics/ldgallery/compiler
-      { };
+  ldgallery-compiler = self.callPackage ../../tools/graphics/ldgallery/compiler { };
 
   # Used by maintainers/scripts/regenerate-hackage-packages.sh, and generated
   # from the latest master instead of the current version on Hackage.

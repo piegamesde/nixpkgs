@@ -282,8 +282,7 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
+        assertion = cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
         message = ''
           If Dendrite is configured to use https, tlsCert and tlsKey must be provided.
 

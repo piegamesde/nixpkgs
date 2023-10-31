@@ -48,13 +48,10 @@ buildPythonPackage rec {
     networkx = [ networkx ];
   };
 
-  nativeCheckInputs =
-    [
-      pytest-cov
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.networkx
-    ++ passthru.optional-dependencies.html;
+  nativeCheckInputs = [
+    pytest-cov
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.networkx ++ passthru.optional-dependencies.html;
 
   pytestFlagsArray = [
     # requires network access

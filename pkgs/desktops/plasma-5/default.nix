@@ -101,9 +101,7 @@ let
 
             defaultSetupHook = if hasBin && hasDev then propagateBin else null;
             setupHook = args.setupHook or defaultSetupHook;
-            nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
-              libsForQt5.wrapQtAppsHook
-            ];
+            nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ libsForQt5.wrapQtAppsHook ];
 
             meta =
               let
@@ -144,9 +142,7 @@ let
       flatpak-kcm = callPackage ./flatpak-kcm.nix { };
       kactivitymanagerd = callPackage ./kactivitymanagerd.nix { };
       kde-cli-tools = callPackage ./kde-cli-tools.nix { };
-      kde-gtk-config = callPackage ./kde-gtk-config {
-        inherit gsettings-desktop-schemas;
-      };
+      kde-gtk-config = callPackage ./kde-gtk-config { inherit gsettings-desktop-schemas; };
       kdecoration = callPackage ./kdecoration.nix { };
       kdeplasma-addons = callPackage ./kdeplasma-addons.nix { };
       kgamma5 = callPackage ./kgamma5.nix { };
@@ -198,9 +194,7 @@ let
           inherit (libsForQt5) callPackage;
         in
         {
-          plasma-applet-caffeine-plus =
-            callPackage ./3rdparty/addons/caffeine-plus.nix
-              { };
+          plasma-applet-caffeine-plus = callPackage ./3rdparty/addons/caffeine-plus.nix { };
           plasma-applet-virtual-desktop-bar =
             callPackage ./3rdparty/addons/virtual-desktop-bar.nix
               { };

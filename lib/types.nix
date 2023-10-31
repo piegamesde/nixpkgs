@@ -541,9 +541,7 @@ let
           let
             res = mergeOneOption loc defs;
           in
-          if
-            builtins.isPath res || (builtins.isString res && !builtins.hasContext res)
-          then
+          if builtins.isPath res || (builtins.isString res && !builtins.hasContext res) then
             toDerivation res
           else
             res;
@@ -565,8 +563,7 @@ let
         mkOptionType rec {
           name = "listOf";
           description = "list of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite")
-                elemType
+              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
             }";
           descriptionClass = "composite";
           check = isList;
@@ -616,9 +613,7 @@ let
         in
         list
         // {
-          description = "non-empty ${
-              optionDescriptionPhrase (class: class == "noun") list
-            }";
+          description = "non-empty ${optionDescriptionPhrase (class: class == "noun") list}";
           emptyValue = { }; # no .value attr, meaning unset
         };
 
@@ -627,8 +622,7 @@ let
         mkOptionType rec {
           name = "attrsOf";
           description = "attribute set of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite")
-                elemType
+              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
             }";
           descriptionClass = "composite";
           check = isAttrs;
@@ -676,8 +670,7 @@ let
         mkOptionType rec {
           name = "lazyAttrsOf";
           description = "lazy attribute set of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite")
-                elemType
+              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
             }";
           descriptionClass = "composite";
           check = isAttrs;
@@ -771,8 +764,7 @@ let
         mkOptionType rec {
           name = "nullOr";
           description = "null or ${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction")
-                elemType
+              optionDescriptionPhrase (class: class == "noun" || class == "conjunction") elemType
             }";
           descriptionClass = "conjunction";
           check = x: x == null || elemType.check x;
@@ -807,8 +799,7 @@ let
         mkOptionType {
           name = "functionTo";
           description = "function that evaluates to a(n) ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite")
-                elemType
+              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
             }";
           descriptionClass = "composite";
           check = isFunction;
@@ -822,8 +813,7 @@ let
                 })
                 defs
             )).mergedValue;
-          getSubOptions =
-            prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
+          getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
           getSubModules = elemType.getSubModules;
           substSubModules = m: functionTo (elemType.substSubModules m);
           functor = (defaultFunctor "functionTo") // {
@@ -861,15 +851,11 @@ let
               ++ map
                 (
                   def:
-                  lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}"
-                    def.value
+                  lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value
                 )
                 defs;
           };
-          inherit (submoduleWith { modules = staticModules; })
-            getSubOptions
-            getSubModules
-          ;
+          inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
           substSubModules = m: deferredModuleWith (attrs // { staticModules = m; });
           functor = defaultFunctor "deferredModuleWith" // {
             type = types.deferredModuleWith;
@@ -1149,9 +1135,7 @@ let
             "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
-          description = "${
-              optionDescriptionPhrase (class: class == "noun") finalType
-            } or ${
+          description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${
               optionDescriptionPhrase (class: class == "noun") coercedType
             } convertible to it";
           check =
@@ -1165,8 +1149,7 @@ let
           emptyValue = finalType.emptyValue;
           getSubOptions = finalType.getSubOptions;
           getSubModules = finalType.getSubModules;
-          substSubModules =
-            m: coercedTo coercedType coerceFunc (finalType.substSubModules m);
+          substSubModules = m: coercedTo coercedType coerceFunc (finalType.substSubModules m);
           typeMerge = t1: t2: null;
           functor = (defaultFunctor name) // {
             wrapped = finalType;
@@ -1176,8 +1159,7 @@ let
         };
 
       # Augment the given type with an additional type check function.
-      addCheck =
-        elemType: check: elemType // { check = x: elemType.check x && check x; };
+      addCheck = elemType: check: elemType // { check = x: elemType.check x && check x; };
     };
   };
 in

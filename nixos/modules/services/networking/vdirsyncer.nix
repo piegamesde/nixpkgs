@@ -13,9 +13,7 @@ let
 
   toIniJson =
     with generators;
-    toINI {
-      mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "=";
-    };
+    toINI { mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "="; };
 
   toConfigFile =
     name: cfg':

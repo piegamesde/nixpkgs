@@ -157,9 +157,7 @@ in
     };
 
   cairo = attrs: {
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -169,9 +167,7 @@ in
   };
 
   cairo-gobject = attrs: {
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       cairo
       pcre2
@@ -199,9 +195,7 @@ in
 
   cocoapods-deploy = attrs: { dependencies = [ "cocoapods" ]; };
 
-  cocoapods-disable-podfile-validations = attrs: {
-    dependencies = [ "cocoapods" ];
-  };
+  cocoapods-disable-podfile-validations = attrs: { dependencies = [ "cocoapods" ]; };
 
   cocoapods-generate = attrs: {
     dependencies = attrs.dependencies ++ [ "cocoapods" ];
@@ -209,9 +203,7 @@ in
 
   cocoapods-git_url_rewriter = attrs: { dependencies = [ "cocoapods" ]; };
 
-  cocoapods-keys = attrs: {
-    dependencies = attrs.dependencies ++ [ "cocoapods" ];
-  };
+  cocoapods-keys = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
 
   cocoapods-open = attrs: { dependencies = [ "cocoapods" ]; };
 
@@ -338,9 +330,7 @@ in
   };
 
   gio2 = attrs: {
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs =
       [
         gtk2
@@ -402,9 +392,7 @@ in
   prettier = attrs: { meta.mainProgram = "rbprettier"; };
 
   glib2 = attrs: {
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
+    nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     buildInputs = [
       gtk2
       pcre2
@@ -466,9 +454,7 @@ in
       ++ lib.optional stdenv.isDarwin cctools
       ++
         lib.optional
-          (
-            lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64
-          )
+          (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64)
           autoSignDarwinBinariesHook;
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
@@ -488,21 +474,17 @@ in
         substituteInPlace Makefile \
           --replace '-Wno-invalid-source-encoding' ""
       ''
-      +
-        lib.optionalString (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin)
-          ''
-            # For < v1.48.0
-            substituteInPlace src/ruby/ext/grpc/extconf.rb \
-              --replace "ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/" ""
-            # For >= v1.48.0
-            substituteInPlace src/ruby/ext/grpc/extconf.rb \
-              --replace 'apple_toolchain = ' 'apple_toolchain = false && '
-          '';
+      + lib.optionalString (lib.versionOlder attrs.version "1.53.0" && stdenv.isDarwin) ''
+        # For < v1.48.0
+        substituteInPlace src/ruby/ext/grpc/extconf.rb \
+          --replace "ENV['AR'] = 'libtool -o' if RUBY_PLATFORM =~ /darwin/" ""
+        # For >= v1.48.0
+        substituteInPlace src/ruby/ext/grpc/extconf.rb \
+          --replace 'apple_toolchain = ' 'apple_toolchain = false && '
+      '';
   };
 
-  hitimes = attrs: {
-    buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
-  };
+  hitimes = attrs: { buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ]; };
 
   iconv = attrs: {
     buildFlags = lib.optional stdenv.isDarwin "--with-iconv-dir=${libiconv}";
@@ -731,9 +713,7 @@ in
 
   pcaprub = attrs: { buildInputs = [ libpcap ]; };
 
-  pg = attrs: {
-    buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ];
-  };
+  pg = attrs: { buildFlags = [ "--with-pg-config=${postgresql}/bin/pg_config" ]; };
 
   psych = attrs: { buildInputs = [ libyaml ]; };
 

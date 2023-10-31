@@ -46,9 +46,7 @@ rec {
         hash = "sha256-tIzn9xBDVFT7h9+p2NltA0v0mvB1OH9rX9+eXvIPhv0=";
       };
 
-      _variants =
-        map (variant: builtins.replaceStrings [ " " ] [ "" ] variant)
-          variants;
+      _variants = map (variant: builtins.replaceStrings [ " " ] [ "" ] variant) variants;
 
       installPhase =
         ''

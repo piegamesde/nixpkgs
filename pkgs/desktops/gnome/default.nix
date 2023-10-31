@@ -11,9 +11,7 @@ lib.makeScope pkgs.newScope (
 
     # Temporary helper until gdk-pixbuf supports multiple cache files.
     # This will go away, do not use outside Nixpkgs.
-    _gdkPixbufCacheBuilder_DO_NOT_USE =
-      callPackage ./gdk-pixbuf-cache-builder.nix
-        { };
+    _gdkPixbufCacheBuilder_DO_NOT_USE = callPackage ./gdk-pixbuf-cache-builder.nix { };
 
     libsoup = pkgs.libsoup.override { gnomeSupport = true; };
     libchamplain = pkgs.libchamplain.override { libsoup = libsoup; };
@@ -109,9 +107,7 @@ lib.makeScope pkgs.newScope (
 
     nautilus = callPackage ./core/nautilus { };
 
-    networkmanager-openvpn = pkgs.networkmanager-openvpn.override {
-      withGnome = true;
-    };
+    networkmanager-openvpn = pkgs.networkmanager-openvpn.override { withGnome = true; };
 
     networkmanager-vpnc = pkgs.networkmanager-vpnc.override { withGnome = true; };
 
@@ -125,9 +121,7 @@ lib.makeScope pkgs.newScope (
 
     networkmanager-l2tp = pkgs.networkmanager-l2tp.override { withGnome = true; };
 
-    networkmanager-iodine = pkgs.networkmanager-iodine.override {
-      withGnome = true;
-    };
+    networkmanager-iodine = pkgs.networkmanager-iodine.override { withGnome = true; };
 
     nixos-gsettings-overrides = callPackage ./nixos/gsettings-overrides { };
 

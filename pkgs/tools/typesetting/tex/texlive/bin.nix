@@ -518,9 +518,7 @@ rec {
     pname = "latexindent";
     inherit (src) version;
 
-    src = lib.head (
-      builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs
-    );
+    src = lib.head (builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs);
 
     outputs = [ "out" ];
 

@@ -68,9 +68,7 @@ in
           StateDirectoryMode = "0700";
           UMask = "0007";
           ConfigurationDirectory = "woodpecker-server";
-          EnvironmentFile =
-            lib.optional (cfg.environmentFile != null)
-              cfg.environmentFile;
+          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
           ExecStart = "${cfg.package}/bin/woodpecker-server";
           Restart = "on-failure";
           RestartSec = 15;

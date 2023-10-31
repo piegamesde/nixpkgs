@@ -67,9 +67,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUserGroup) {
-      ${cfg.group} = { };
-    };
+    users.groups = optionalAttrs (cfg.group == defaultUserGroup) { ${cfg.group} = { }; };
 
     # Give usbmuxd permission for Apple devices
     services.udev.extraRules = ''

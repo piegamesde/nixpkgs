@@ -21,8 +21,7 @@
   # the `useLLVM` bootstrapping below.
   bootBintoolsNoLibc ?
     if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-  bootBintools ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  bootBintools ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
 }:
 
@@ -32,8 +31,7 @@ let
   dash-candidate = lib.optionalString (candidate != "") "-${candidate}";
   rev = ""; # When using a Git commit
   rev-version = ""; # When using a Git commit
-  version =
-    if rev != "" then rev-version else "${release_version}${dash-candidate}";
+  version = if rev != "" then rev-version else "${release_version}${dash-candidate}";
   targetConfig = stdenv.targetPlatform.config;
 
   monorepoSrc = fetchFromGitHub {
@@ -184,14 +182,10 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages =
-          [
-            libcxx.cxxabi
-            targetLlvmLibraries.compiler-rt
-          ]
-          ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-            targetLlvmLibraries.libunwind
-          ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
           [

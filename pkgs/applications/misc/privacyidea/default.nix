@@ -9,8 +9,7 @@
 }:
 
 let
-  dropDevOutput =
-    { outputs, ... }: { outputs = lib.filter (x: x != "doc") outputs; };
+  dropDevOutput = { outputs, ... }: { outputs = lib.filter (x: x != "doc") outputs; };
 
   python3' = python310.override {
     packageOverrides = self: super: {
@@ -142,9 +141,7 @@ let
       );
       # Requires pytest-httpserver as checkInput now which requires Werkzeug>=2 which is not
       # supported by current privacyIDEA.
-      responses = super.responses.overridePythonAttrs (
-        lib.const { doCheck = false; }
-      );
+      responses = super.responses.overridePythonAttrs (lib.const { doCheck = false; });
       flask-babel =
         (super.flask-babel.override {
           sphinxHook = null;
@@ -180,20 +177,18 @@ let
       beautifulsoup4 =
         (super.beautifulsoup4.override { sphinxHook = null; }).overridePythonAttrs
           dropDevOutput;
-      pydash =
-        (super.pydash.override { sphinx-rtd-theme = null; }).overridePythonAttrs
-          (
-            old: rec {
-              version = "5.1.0";
-              src = self.fetchPypi {
-                inherit (old) pname;
-                inherit version;
-                hash = "sha256-GysFCsG64EnNB/WSCxT6u+UmOPSF2a2h6xFanuv/aDU=";
-              };
-              format = "setuptools";
-              doCheck = false;
-            }
-          );
+      pydash = (super.pydash.override { sphinx-rtd-theme = null; }).overridePythonAttrs (
+        old: rec {
+          version = "5.1.0";
+          src = self.fetchPypi {
+            inherit (old) pname;
+            inherit version;
+            hash = "sha256-GysFCsG64EnNB/WSCxT6u+UmOPSF2a2h6xFanuv/aDU=";
+          };
+          format = "setuptools";
+          doCheck = false;
+        }
+      );
     };
   };
 in

@@ -21,9 +21,7 @@
 let
   stdenv = if useClang then llvmPackages.libcxxStdenv else gccStdenv;
 
-  tests = builtins.replaceStrings [ "\n" ] [ " " ] (
-    lib.fileContents ./test-list.txt
-  );
+  tests = builtins.replaceStrings [ "\n" ] [ " " ] (lib.fileContents ./test-list.txt);
 
   # Only even numbered versions compile on aarch64; odd numbered versions have avx enabled.
   avxEnabled =

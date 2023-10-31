@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-guile-site-dir=${builtins.placeholder "out"}/share/guile/site"
     "--with-guile-site-ccache-dir=${builtins.placeholder "out"}/share/guile/site"
-    "--with-guile-extension-dir=${
-      builtins.placeholder "out"
-    }/share/guile/extensions"
+    "--with-guile-extension-dir=${builtins.placeholder "out"}/share/guile/extensions"
   ];
 
   meta = with lib; {

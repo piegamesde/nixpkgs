@@ -17,9 +17,7 @@
 let
   pname = "prowlarr";
 
-  unsupported =
-    throw
-      "Unsupported system ${stdenv.hostPlatform.system} for ${pname}";
+  unsupported = throw "Unsupported system ${stdenv.hostPlatform.system} for ${pname}";
 
   os =
     if stdenv.isDarwin then

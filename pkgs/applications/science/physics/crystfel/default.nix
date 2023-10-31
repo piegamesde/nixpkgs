@@ -94,8 +94,7 @@ let
               }/pre-built/mosflm-linux-64-noX11.zip";
             sha256 = "1rqh3nprxfmnyihllw31nb8i3wfhybmsic6y7z6wn4rafyv3w4fk";
           };
-      mosflmBinary =
-        if stdenv.isDarwin then "bin/mosflm" else "mosflm-linux-64-noX11";
+      mosflmBinary = if stdenv.isDarwin then "bin/mosflm" else "mosflm-linux-64-noX11";
     in
     stdenv.mkDerivation rec {
       pname = "mosflm";

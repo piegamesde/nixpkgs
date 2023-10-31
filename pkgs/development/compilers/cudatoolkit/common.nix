@@ -82,9 +82,7 @@ backendStdenv.mkDerivation rec {
       autoAddOpenGLRunpathHook
     ]
     ++ lib.optionals (lib.versionOlder version "11") [ libsForQt5.wrapQtAppsHook ]
-    ++ lib.optionals (lib.versionAtLeast version "11.8") [
-      qt6Packages.wrapQtAppsHook
-    ];
+    ++ lib.optionals (lib.versionAtLeast version "11.8") [ qt6Packages.wrapQtAppsHook ];
   buildInputs =
     lib.optionals (lib.versionOlder version "11") [
       libsForQt5.qt5.qtwebengine

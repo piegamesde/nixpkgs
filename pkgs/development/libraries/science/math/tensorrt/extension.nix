@@ -15,8 +15,7 @@ let
 
   toUnderscore = str: lib.replaceStrings [ "." ] [ "_" ] str;
 
-  majorMinorPatch =
-    str: lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str));
+  majorMinorPatch = str: lib.concatStringsSep "." (lib.take 3 (lib.splitVersion str));
 
   tensorRTPackages =
     with lib;

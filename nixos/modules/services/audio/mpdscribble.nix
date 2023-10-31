@@ -53,9 +53,7 @@ let
 
     # The host running MPD, possibly protected by a password
     # ([PASSWORD@]HOSTNAME).
-    host = ${
-      (optionalString (cfg.passwordFile != null) "{{MPD_PASSWORD}}@") + cfg.host
-    }
+    host = ${(optionalString (cfg.passwordFile != null) "{{MPD_PASSWORD}}@") + cfg.host}
 
     # The port that the MPD listens on and mpdscribble should try to
     # connect to.

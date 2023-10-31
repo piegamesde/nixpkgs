@@ -211,9 +211,7 @@ lib.makeScope pkgs.newScope (
 
       php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer { };
 
-      php-parallel-lint =
-        callPackage ../development/php-packages/php-parallel-lint
-          { };
+      php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint { };
 
       phpcbf = callPackage ../development/php-packages/phpcbf { };
 

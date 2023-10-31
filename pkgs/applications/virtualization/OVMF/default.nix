@@ -82,9 +82,7 @@ edk2.mkDerivation projectDscPath (
         "-D TPM2_CONFIG_ENABLE"
       ];
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isClang
-        "-Qunused-arguments";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Qunused-arguments";
 
     env.PYTHON_COMMAND = "python3";
 

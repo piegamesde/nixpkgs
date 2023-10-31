@@ -19,9 +19,7 @@ in
       authFile = mkOption {
         default = null;
         type = types.nullOr types.path;
-        description =
-          lib.mdDoc
-            "File mapping user names to pre-shared keys (passwords).";
+        description = lib.mdDoc "File mapping user names to pre-shared keys (passwords).";
       };
 
       port = mkOption {

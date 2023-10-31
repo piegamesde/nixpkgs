@@ -190,9 +190,7 @@ in
           ${if !tcpForwarding then "--no-tcpip-forward" else "--tcpip-forward"} \
           ${if x11Forwarding then "--x11-forward" else "--no-x11-forward"} \
           --subsystems=${
-            concatStringsSep "," (
-              map (pair: (head pair) + "=" + (head (tail pair))) subsystems
-            )
+            concatStringsSep "," (map (pair: (head pair) + "=" + (head (tail pair))) subsystems)
           }
       '';
     };

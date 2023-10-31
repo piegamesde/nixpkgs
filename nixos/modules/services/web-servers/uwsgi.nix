@@ -67,9 +67,7 @@ let
                 # Argh, uwsgi expects list of key-values there instead of a dictionary.
                 let
                   envs = partition (hasPrefix "PATH=") (c.env or [ ]);
-                  oldPaths =
-                    map (x: substring (stringLength "PATH=") (stringLength x) x)
-                      envs.right;
+                  oldPaths = map (x: substring (stringLength "PATH=") (stringLength x) x) envs.right;
                   paths = oldPaths ++ [ "${pythonEnv}/bin" ];
                 in
                 [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;

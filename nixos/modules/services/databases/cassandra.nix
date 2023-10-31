@@ -468,10 +468,7 @@ in
     jmxRolesFile = mkOption {
       type = types.nullOr types.path;
       default =
-        if atLeast3_11 then
-          pkgs.writeText "jmx-roles-file" defaultJmxRolesFile
-        else
-          null;
+        if atLeast3_11 then pkgs.writeText "jmx-roles-file" defaultJmxRolesFile else null;
       defaultText =
         literalMD
           "generated configuration file if version is at least 3.11, otherwise `null`";

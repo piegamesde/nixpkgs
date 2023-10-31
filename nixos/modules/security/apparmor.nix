@@ -81,9 +81,7 @@ in
             {
               options = {
                 enable = mkDisableOption "loading of the profile into the kernel";
-                enforce =
-                  mkDisableOption
-                    "enforcing of the policy or only complain in the logs";
+                enforce = mkDisableOption "enforcing of the policy or only complain in the logs";
                 profile = mkOption {
                   description = lib.mdDoc "The policy of the profile.";
                   type = types.lines;
@@ -107,9 +105,7 @@ in
       packages = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of packages to be added to AppArmor's include path";
+        description = lib.mdDoc "List of packages to be added to AppArmor's include path";
       };
       enableCache = mkEnableOption (
         lib.mdDoc ''
@@ -140,8 +136,7 @@ in
       map
         (policy: {
           assertion = match ".*/.*" policy == null;
-          message = ''
-            `security.apparmor.policies."${policy}"' must not contain a slash.'';
+          message = ''`security.apparmor.policies."${policy}"' must not contain a slash.'';
           # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
           # which does not recurse into sub-directories.
         })
@@ -253,10 +248,7 @@ in
             kill
           '';
           commonOpts =
-            p:
-            "--verbose --show-cache ${
-              optionalString (!p.enforce) "--complain "
-            }${p.profile}";
+            p: "--verbose --show-cache ${optionalString (!p.enforce) "--complain "}${p.profile}";
         in
         {
           Type = "oneshot";
@@ -266,9 +258,7 @@ in
             mapAttrsToList
               (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
               enabledPolicies;
-          ExecStartPost =
-            optional cfg.killUnconfinedConfinables
-              killUnconfinedConfinables;
+          ExecStartPost = optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).

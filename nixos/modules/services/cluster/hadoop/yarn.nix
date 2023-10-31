@@ -53,9 +53,7 @@ in
 
       resource = {
         cpuVCores = mkOption {
-          description =
-            lib.mdDoc
-              "Number of vcores that can be allocated for containers.";
+          description = lib.mdDoc "Number of vcores that can be allocated for containers.";
           type = with types; nullOr ints.positive;
           default = null;
         };

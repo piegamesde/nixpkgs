@@ -219,8 +219,7 @@ let
           "sha256-ml+koj52l5o0toAcnsGtsw0tGnO5F/LKq56ovzdmx/A=";
 
       azure-mgmt-iothubprovisioningservices =
-        overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0"
-          "zip"
+        overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0" "zip"
           "sha256-04OoJuff93L62G6IozpmHpEaUbHHHD6nKlkMHVoJvJ4=";
 
       azure-mgmt-iotcentral =
@@ -538,26 +537,24 @@ let
       );
 
       # part of azure.mgmt.datalake namespace
-      azure-mgmt-datalake-analytics =
-        super.azure-mgmt-datalake-analytics.overrideAttrs
-          (
-            oldAttrs: rec {
-              version = "0.2.1";
+      azure-mgmt-datalake-analytics = super.azure-mgmt-datalake-analytics.overrideAttrs (
+        oldAttrs: rec {
+          version = "0.2.1";
 
-              src = super.fetchPypi {
-                inherit (oldAttrs) pname;
-                inherit version;
-                hash = "sha256-THlg0JT1hH2aRWwYuKPI5gxCjjCAo5BfHJQ9gbpjUaQ=";
-                extension = "zip";
-              };
+          src = super.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-THlg0JT1hH2aRWwYuKPI5gxCjjCAo5BfHJQ9gbpjUaQ=";
+            extension = "zip";
+          };
 
-              preBuild = ''
-                rm azure_bdist_wheel.py
-                substituteInPlace setup.cfg \
-                  --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
-              '';
-            }
-          );
+          preBuild = ''
+            rm azure_bdist_wheel.py
+            substituteInPlace setup.cfg \
+              --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
+          '';
+        }
+      );
 
       azure-mgmt-datalake-store = super.azure-mgmt-datalake-store.overrideAttrs (
         oldAttrs: rec {

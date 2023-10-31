@@ -111,9 +111,7 @@ let
       ];
       importDefaultConfig =
         file:
-        lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (
-          import file { inherit pkgs; }
-        );
+        lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file { inherit pkgs; });
       c.commonModemConfig = importDefaultConfig ./modem-default.nix;
       c.faxqConfig = importDefaultConfig ./faxq-default.nix;
       c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
@@ -123,14 +121,12 @@ let
   localConfig =
     let
       c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
-      c.faxqConfig =
-        lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v))
-          {
-            AreaCode = cfg.areaCode;
-            CountryCode = cfg.countryCode;
-            LongDistancePrefix = cfg.longDistancePrefix;
-            InternationalPrefix = cfg.internationalPrefix;
-          };
+      c.faxqConfig = lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v)) {
+        AreaCode = cfg.areaCode;
+        CountryCode = cfg.countryCode;
+        LongDistancePrefix = cfg.longDistancePrefix;
+        InternationalPrefix = cfg.internationalPrefix;
+      };
       c.commonModemConfig = c.faxqConfig;
     in
     c;

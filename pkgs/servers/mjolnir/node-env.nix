@@ -587,9 +587,7 @@ let
     in
     stdenv.mkDerivation (
       {
-        name = "node-dependencies-${name}${
-            if version == null then "" else "-${version}"
-          }";
+        name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
 
         buildInputs =
           [

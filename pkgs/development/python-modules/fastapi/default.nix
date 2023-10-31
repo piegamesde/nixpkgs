@@ -47,22 +47,20 @@ buildPythonPackage rec {
     pydantic
   ];
 
-  nativeCheckInputs =
-    [
-      aiosqlite
-      # databases FIXME incompatible with SQLAlchemy 2.0
-      flask
-      httpx
-      orjson
-      passlib
-      peewee
-      python-jose
-      pytestCheckHook
-      pytest-asyncio
-      sqlalchemy
-      trio
-    ]
-    ++ passlib.optional-dependencies.bcrypt ++ pydantic.optional-dependencies.email;
+  nativeCheckInputs = [
+    aiosqlite
+    # databases FIXME incompatible with SQLAlchemy 2.0
+    flask
+    httpx
+    orjson
+    passlib
+    peewee
+    python-jose
+    pytestCheckHook
+    pytest-asyncio
+    sqlalchemy
+    trio
+  ] ++ passlib.optional-dependencies.bcrypt ++ pydantic.optional-dependencies.email;
 
   pytestFlagsArray =
     [

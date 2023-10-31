@@ -27,8 +27,7 @@ let
           { };
 
       generateDhallDirectoryPackage =
-        callPackage
-          ../development/interpreters/dhall/generate-dhall-directory-package.nix
+        callPackage ../development/interpreters/dhall/generate-dhall-directory-package.nix
           { };
     in
     {
@@ -49,9 +48,7 @@ let
 
       dhall-grafana = callPackage ../development/dhall-modules/dhall-grafana.nix { };
 
-      dhall-kubernetes =
-        callPackage ../development/dhall-modules/dhall-kubernetes.nix
-          { };
+      dhall-kubernetes = callPackage ../development/dhall-modules/dhall-kubernetes.nix { };
 
       Prelude = callPackage ../development/dhall-modules/Prelude.nix { };
     };

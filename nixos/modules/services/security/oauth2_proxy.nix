@@ -38,9 +38,7 @@ let
     };
   };
 
-  authenticatedEmailsFile =
-    pkgs.writeText "authenticated-emails"
-      cfg.email.addresses;
+  authenticatedEmailsFile = pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
   getProviderOptions =
     cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;

@@ -75,14 +75,12 @@ let
     )
   );
 
-  privacyidea-token-janitor =
-    pkgs.writeShellScriptBin "privacyidea-token-janitor"
-      ''
-        exec -a privacyidea-token-janitor \
-          /run/wrappers/bin/sudo -u ${cfg.user} \
-          env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
-          ${penv}/bin/privacyidea-token-janitor $@
-      '';
+  privacyidea-token-janitor = pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
+    exec -a privacyidea-token-janitor \
+      /run/wrappers/bin/sudo -u ${cfg.user} \
+      env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
+      ${penv}/bin/privacyidea-token-janitor $@
+  '';
 in
 
 {
@@ -264,9 +262,7 @@ in
         group = mkOption {
           type = types.str;
           default = "pi-ldap-proxy";
-          description =
-            lib.mdDoc
-              "Group account under which PrivacyIDEA LDAP proxy runs.";
+          description = lib.mdDoc "Group account under which PrivacyIDEA LDAP proxy runs.";
         };
 
         settings = mkOption {

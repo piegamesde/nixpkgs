@@ -34,8 +34,7 @@ let
     else if isList v then
       concatStringsSep "," v
     else
-      throw
-        "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+      throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
 
   # dont use the "=" operator
   settingsFormat =
@@ -47,8 +46,7 @@ let
 
   configFile = settingsFormat.generate "config" cfg.settings;
   sshconf =
-    pkgs.runCommand "sshd.conf-validated"
-      { nativeBuildInputs = [ validationPackage ]; }
+    pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; }
       ''
         cat ${configFile} - >$out <<EOL
         ${cfg.extraConfig}
@@ -766,8 +764,7 @@ in
           services.sshd = service;
         };
 
-    networking.firewall.allowedTCPPorts =
-      if cfg.openFirewall then cfg.ports else [ ];
+    networking.firewall.allowedTCPPorts = if cfg.openFirewall then cfg.ports else [ ];
 
     security.pam.services.sshd = {
       startSession = true;

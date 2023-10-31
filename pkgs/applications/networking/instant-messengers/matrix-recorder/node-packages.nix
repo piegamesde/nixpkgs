@@ -1383,17 +1383,12 @@ let
       sources."sshpk-1.16.1"
       sources."string-width-1.0.2"
       (
-        sources."string_decoder-1.1.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
+        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
       )
       sources."strip-ansi-3.0.1"
       sources."strip-json-comments-2.0.1"
       sources."tar-4.4.13"
-      (
-        sources."tough-cookie-2.4.3" // { dependencies = [ sources."punycode-1.4.1" ]; }
-      )
+      (sources."tough-cookie-2.4.3" // { dependencies = [ sources."punycode-1.4.1" ]; })
       sources."tunnel-agent-0.6.0"
       sources."tweetnacl-0.14.5"
       sources."uri-js-4.2.2"

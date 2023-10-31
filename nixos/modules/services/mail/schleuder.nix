@@ -30,11 +30,9 @@ in
 {
   options.services.schleuder = {
     enable = lib.mkEnableOption (lib.mdDoc "Schleuder secure remailer");
-    enablePostfix =
-      lib.mkEnableOption (lib.mdDoc "automatic postfix integration")
-      // {
-        default = true;
-      };
+    enablePostfix = lib.mkEnableOption (lib.mdDoc "automatic postfix integration") // {
+      default = true;
+    };
     lists = lib.mkOption {
       description = lib.mdDoc ''
         List of list addresses that should be handled by Schleuder.
@@ -187,9 +185,7 @@ in
     services.schleuder = {
       #lists_dir = "/var/lib/schleuder.lists";
       settings.filters_dir = lib.mkDefault "/var/lib/schleuder/filters";
-      settings.keyword_handlers_dir =
-        lib.mkDefault
-          "/var/lib/schleuder/keyword_handlers";
+      settings.keyword_handlers_dir = lib.mkDefault "/var/lib/schleuder/keyword_handlers";
     };
   };
 }

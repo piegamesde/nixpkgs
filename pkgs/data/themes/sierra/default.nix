@@ -92,8 +92,7 @@ lib.checkListOfEnum "${pname}: button variants"
           + builtins.toString opacityVariants
         } \
         ${
-          lib.optionalString (sizeVariants != [ ]) "--flat "
-          + builtins.toString sizeVariants
+          lib.optionalString (sizeVariants != [ ]) "--flat " + builtins.toString sizeVariants
         }
 
       # Replace duplicate files with hardlinks to the first file in each

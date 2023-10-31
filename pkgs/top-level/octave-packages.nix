@@ -114,17 +114,13 @@ makeScope newScope (
 
     image = callPackage ../development/octave-modules/image { };
 
-    image-acquisition =
-      callPackage ../development/octave-modules/image-acquisition
-        { };
+    image-acquisition = callPackage ../development/octave-modules/image-acquisition { };
 
     instrument-control =
       callPackage ../development/octave-modules/instrument-control
         { };
 
-    io = callPackage ../development/octave-modules/io {
-      inherit (octave) enableJava;
-    };
+    io = callPackage ../development/octave-modules/io { inherit (octave) enableJava; };
 
     interval = callPackage ../development/octave-modules/interval { };
 
@@ -161,9 +157,7 @@ makeScope newScope (
 
     ncarray = callPackage ../development/octave-modules/ncarray { };
 
-    netcdf = callPackage ../development/octave-modules/netcdf {
-      inherit (pkgs) netcdf;
-    };
+    netcdf = callPackage ../development/octave-modules/netcdf { inherit (pkgs) netcdf; };
 
     nurbs = callPackage ../development/octave-modules/nurbs { };
 

@@ -52,9 +52,7 @@ in
 
     databaseUrl = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc
-          "URL of the MongoDB or PostgreSQL database to connect to";
+      description = lib.mdDoc "URL of the MongoDB or PostgreSQL database to connect to";
       default = "mongodb://localhost";
     };
 
@@ -85,9 +83,7 @@ in
 
     signupEnabled = mkOption {
       type = types.bool;
-      description =
-        lib.mdDoc
-          "Whether to prevent sign-up of new users via the web UI";
+      description = lib.mdDoc "Whether to prevent sign-up of new users via the web UI";
       default = true;
     };
 

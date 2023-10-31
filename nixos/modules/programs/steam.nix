@@ -105,9 +105,7 @@ in
     };
 
     gamescopeSession = mkOption {
-      description =
-        mdDoc
-          "Run a GameScope driven Steam session from your display-manager";
+      description = mdDoc "Run a GameScope driven Steam session from your display-manager";
       default = { };
       type = types.submodule {
         options = {
@@ -140,22 +138,20 @@ in
       driSupport32Bit = true;
     };
 
-    security.wrappers =
-      mkIf (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice)
-        {
-          # needed or steam fails
-          bwrap = {
-            owner = "root";
-            group = "root";
-            source = "${pkgs.bubblewrap}/bin/bwrap";
-            setuid = true;
-          };
-        };
+    security.wrappers = mkIf (cfg.gamescopeSession.enable && gamescopeCfg.capSysNice) {
+      # needed or steam fails
+      bwrap = {
+        owner = "root";
+        group = "root";
+        source = "${pkgs.bubblewrap}/bin/bwrap";
+        setuid = true;
+      };
+    };
 
     programs.gamescope.enable = mkDefault cfg.gamescopeSession.enable;
-    services.xserver.displayManager.sessionPackages =
-      mkIf cfg.gamescopeSession.enable
-        [ gamescopeSessionFile ];
+    services.xserver.displayManager.sessionPackages = mkIf cfg.gamescopeSession.enable [
+      gamescopeSessionFile
+    ];
 
     # optionally enable 32bit pulseaudio support if pulseaudio is enabled
     hardware.pulseaudio.support32Bit = config.hardware.pulseaudio.enable;

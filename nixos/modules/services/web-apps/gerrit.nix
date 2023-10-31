@@ -20,9 +20,7 @@ let
     in
     lazyAttrsOf supersectionType;
 
-  gerritConfig = pkgs.writeText "gerrit.conf" (
-    lib.generators.toGitINI cfg.settings
-  );
+  gerritConfig = pkgs.writeText "gerrit.conf" (lib.generators.toGitINI cfg.settings);
 
   replicationConfig = pkgs.writeText "replication.conf" (
     lib.generators.toGitINI cfg.replicationSettings
@@ -158,8 +156,7 @@ in
 
     assertions = [
       {
-        assertion =
-          cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
+        assertion = cfg.replicationSettings != { } -> elem "replication" cfg.builtinPlugins;
         message = "Gerrit replicationSettings require enabling the replication plugin";
       }
     ];

@@ -191,8 +191,7 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
-              optionalString (cfg.passwordFile != "")
-                ''< "${builtins.toString cfg.passwordFile}"''
+              optionalString (cfg.passwordFile != "") ''< "${builtins.toString cfg.passwordFile}"''
             } ${cfg.relay} ${cfg.server}";
           serviceConfig = {
             RestartSec = "30s";
@@ -220,10 +219,7 @@ in
       in
       listToAttrs (
         mapAttrsToList
-          (
-            name: value:
-            nameValuePair "iodine-${name}" (createIodineClientService name value)
-          )
+          (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value))
           cfg.clients
       )
       // {
@@ -238,8 +234,7 @@ in
           serviceConfig = {
             # Filesystem access
             ProtectSystem = "strict";
-            ProtectHome =
-              if isProtected cfg.server.passwordFile then "read-only" else "true";
+            ProtectHome = if isProtected cfg.server.passwordFile then "read-only" else "true";
             PrivateTmp = true;
             ReadWritePaths = "/dev/net/tun";
             PrivateDevices = false;

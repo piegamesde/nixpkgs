@@ -477,10 +477,7 @@ in
       # Register the addresses as existing
       virtual = concatStringsSep "\n" (
         mapAttrsToList
-          (
-            _: inbox:
-            concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address
-          )
+          (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address)
           cfg.inboxes
       );
 

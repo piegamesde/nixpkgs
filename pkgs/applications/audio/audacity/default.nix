@@ -83,10 +83,7 @@ stdenv.mkDerivation rec {
     ''
     +
       lib.optionalString
-        (
-          stdenv.isDarwin
-          && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0"
-        )
+        (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinMinVersion "11.0")
         ''
           sed -z -i "s/NSAppearanceName.*systemAppearance//" src/AudacityApp.mm
         '';

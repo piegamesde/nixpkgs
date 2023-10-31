@@ -17,8 +17,7 @@ let
   javaPlatformVersion =
     javaVersion:
     "${javaVersion}-${
-      javaPlatform.${stdenv.system}
-        or (throw "Unsupported platform: ${stdenv.system}")
+      javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")
     }";
   source =
     product: javaVersion:

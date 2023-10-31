@@ -70,9 +70,7 @@ let
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
         lib.mapAttrsToList
-          (
-            name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]
-          )
+          (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
           env
       ))
     )
@@ -92,11 +90,9 @@ let
     lib.optionalString cfg.enableWebHttps ''
       add_header Strict-Transport-Security      'max-age=63072000; includeSubDomains';
     ''
-    +
-      lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-        ''
-          add_header Alt-Svc                        'h3=":443"; ma=86400';
-        ''
+    + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+      add_header Alt-Svc                        'h3=":443"; ma=86400';
+    ''
     + ''
       add_header Access-Control-Allow-Origin    '*';
       add_header Access-Control-Allow-Methods   'GET, OPTIONS';
@@ -206,9 +202,7 @@ in
       createLocally = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Configure local PostgreSQL database server for PeerTube.";
+        description = lib.mdDoc "Configure local PostgreSQL database server for PeerTube.";
       };
 
       host = lib.mkOption {
@@ -259,10 +253,7 @@ in
       host = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default =
-          if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then
-            "127.0.0.1"
-          else
-            null;
+          if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then "127.0.0.1" else null;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && !config.${opt.redis.enableUnixSocket}
           then "127.0.0.1"
@@ -341,17 +332,14 @@ in
       }
       {
         assertion =
-          !(
-            cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null)
-          );
+          !(cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null));
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
         '';
       }
       {
         assertion =
-          cfg.redis.enableUnixSocket
-          || (cfg.redis.host != null && cfg.redis.port != null);
+          cfg.redis.enableUnixSocket || (cfg.redis.host != null && cfg.redis.port != null);
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
         '';
@@ -413,9 +401,7 @@ in
           bin = lib.mkDefault "/var/lib/peertube/storage/bin/";
           avatars = lib.mkDefault "/var/lib/peertube/storage/avatars/";
           videos = lib.mkDefault "/var/lib/peertube/storage/videos/";
-          streaming_playlists =
-            lib.mkDefault
-              "/var/lib/peertube/storage/streaming-playlists/";
+          streaming_playlists = lib.mkDefault "/var/lib/peertube/storage/streaming-playlists/";
           redundancy = lib.mkDefault "/var/lib/peertube/storage/redundancy/";
           logs = lib.mkDefault "/var/lib/peertube/storage/logs/";
           previews = lib.mkDefault "/var/lib/peertube/storage/previews/";
@@ -615,11 +601,9 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            +
-              lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-                ''
-                  add_header Alt-Svc                          'h3=":443"; ma=86400';
-                '';
+            + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              add_header Alt-Svc                          'h3=":443"; ma=86400';
+            '';
         };
 
         locations."~ ^/api/v1/(videos|video-playlists|video-channels|users/me)" = {
@@ -634,11 +618,9 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            +
-              lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-                ''
-                  add_header Alt-Svc                          'h3=":443"; ma=86400';
-                '';
+            + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              add_header Alt-Svc                          'h3=":443"; ma=86400';
+            '';
         };
 
         locations."@api" = {
@@ -711,11 +693,9 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            +
-              lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-                ''
-                  add_header Alt-Svc                          'h3=":443"; ma=86400';
-                '';
+            + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              add_header Alt-Svc                          'h3=":443"; ma=86400';
+            '';
         };
 
         locations."^~ /lazy-static/avatars/" = {

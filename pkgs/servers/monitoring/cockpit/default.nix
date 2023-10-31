@@ -41,9 +41,7 @@
 }:
 
 let
-  pythonWithGobject = python3Packages.python.withPackages (
-    p: with p; [ pygobject3 ]
-  );
+  pythonWithGobject = python3Packages.python.withPackages (p: with p; [ pygobject3 ]);
 in
 
 stdenv.mkDerivation rec {

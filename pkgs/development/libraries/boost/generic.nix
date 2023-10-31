@@ -54,9 +54,7 @@ assert enableNumpy -> enablePython;
 
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
-  (
-    stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0"
-  )
+  (stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0")
   -> versionAtLeast version "1.69";
 
 let
@@ -173,8 +171,7 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
     # Fix boost-context segmentation faults on ppc64 due to ABI violation
     ++
-      lib.optional
-        (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
+      lib.optional (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
         (
           fetchpatch {
             url = "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
@@ -185,8 +182,7 @@ stdenv.mkDerivation {
         )
     # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
     ++
-      lib.optional
-        (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
+      lib.optional (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
         (
           fetchpatch {
             url = "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
@@ -195,8 +191,7 @@ stdenv.mkDerivation {
           }
         )
     ++
-      lib.optional
-        (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
+      lib.optional (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
         (
           fetchpatch {
             # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
@@ -207,8 +202,7 @@ stdenv.mkDerivation {
           }
         )
     ++
-      lib.optional
-        (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
+      lib.optional (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
         ./cmake-paths.patch
     ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
     ++ lib.optional (version == "1.77.0") (
@@ -289,9 +283,7 @@ stdenv.mkDerivation {
       EOF
     '';
 
-  NIX_CFLAGS_LINK =
-    lib.optionalString stdenv.isDarwin
-      "-headerpad_max_install_names";
+  NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin "-headerpad_max_install_names";
 
   enableParallelBuilding = true;
 

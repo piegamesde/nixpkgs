@@ -244,8 +244,7 @@ stdenv.mkDerivation rec {
     '';
 
   preFixup =
-    lib.optionalString
-      (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
+    lib.optionalString (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
       ''
         wrapProgram $out/libexec/pulse/gsettings-helper \
          --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \

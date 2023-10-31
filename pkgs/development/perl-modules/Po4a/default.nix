@@ -64,15 +64,13 @@ buildPerlPackage rec {
       kpsewhich-stub
       glibcLocales
     ];
-  propagatedBuildInputs =
-    lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N
-    ++ [
-      LocaleGettext
-      SGMLSpm
-      UnicodeLineBreak
-      PodParser
-      YAMLTiny
-    ];
+  propagatedBuildInputs = lib.optional (!stdenv.hostPlatform.isMusl) TextWrapI18N ++ [
+    LocaleGettext
+    SGMLSpm
+    UnicodeLineBreak
+    PodParser
+    YAMLTiny
+  ];
   # TODO: TermReadKey was temporarily removed from propagatedBuildInputs to unfreeze the build
   buildInputs = [ bash ];
   LC_ALL = "en_US.UTF-8";

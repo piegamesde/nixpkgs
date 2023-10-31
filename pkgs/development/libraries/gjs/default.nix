@@ -127,9 +127,7 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram "$installedTests/libexec/installed-tests/gjs/minijasmine" \
       --prefix XDG_DATA_DIRS : "$installedTestsSchemaDatadir" \
-      --prefix GI_TYPELIB_PATH : "${
-        lib.makeSearchPath "lib/girepository-1.0" testDeps
-      }"
+      --prefix GI_TYPELIB_PATH : "${lib.makeSearchPath "lib/girepository-1.0" testDeps}"
   '';
 
   checkPhase = ''

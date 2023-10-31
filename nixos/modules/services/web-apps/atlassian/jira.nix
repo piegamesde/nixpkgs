@@ -198,9 +198,7 @@ in
         JIRA_HOME = cfg.home;
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
-        JAVA_OPTS =
-          mkIf cfg.sso.enable
-            "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =

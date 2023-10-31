@@ -139,9 +139,9 @@ let
             (
               p:
               builtins.match
-                "any|manylinux(1|2010|2014)_${
+                "any|manylinux(1|2010|2014)_${escapeRegex targetMachine}|manylinux_[0-9]+_[0-9]+_${
                   escapeRegex targetMachine
-                }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}"
+                }"
                 p != null
             )
           else

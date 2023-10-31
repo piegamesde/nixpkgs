@@ -11,8 +11,7 @@ let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
   checkConfigEnabled =
-    (lib.isBool cfg.checkConfig && cfg.checkConfig)
-    || cfg.checkConfig == "syntax-only";
+    (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig == "syntax-only";
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
@@ -96,15 +95,11 @@ let
         toString cfg.alertmanagerNotificationQueueCapacity
       }"
     ]
-    ++
-      optional (cfg.webExternalUrl != null)
-        "--web.external-url=${cfg.webExternalUrl}"
+    ++ optional (cfg.webExternalUrl != null) "--web.external-url=${cfg.webExternalUrl}"
     ++
       optional (cfg.retentionTime != null)
         "--storage.tsdb.retention.time=${cfg.retentionTime}"
-    ++
-      optional (cfg.webConfigFile != null)
-        "--web.config.file=${cfg.webConfigFile}";
+    ++ optional (cfg.webConfigFile != null) "--web.config.file=${cfg.webConfigFile}";
 
   filterValidPrometheus = filterAttrsListRecursive (
     n: v: !(n == "_module" || v == null)
@@ -404,11 +399,9 @@ let
         List of Consul service discovery configurations.
       '';
 
-      digitalocean_sd_configs =
-        mkOpt (types.listOf promTypes.digitalocean_sd_config)
-          ''
-            List of DigitalOcean service discovery configurations.
-          '';
+      digitalocean_sd_configs = mkOpt (types.listOf promTypes.digitalocean_sd_config) ''
+        List of DigitalOcean service discovery configurations.
+      '';
 
       docker_sd_configs = mkOpt (types.listOf promTypes.docker_sd_config) ''
         List of Docker service discovery configurations.

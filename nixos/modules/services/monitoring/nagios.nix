@@ -44,9 +44,7 @@ let
         illegal_macro_output_chars = ''`~$&|'"<>'';
         retain_state_information = "1";
       };
-      lines = mapAttrsToList (key: value: "${key}=${value}") (
-        default // cfg.extraConfig
-      );
+      lines = mapAttrsToList (key: value: "${key}=${value}") (default // cfg.extraConfig);
       content = concatStringsSep "\n" lines;
       file = pkgs.writeText "nagios.cfg" content;
       validated = pkgs.runCommand "nagios-checked.cfg" { preferLocalBuild = true; } ''

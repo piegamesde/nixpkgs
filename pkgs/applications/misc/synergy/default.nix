@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
       ScreenSaver
     ]
     ++
-      lib.optionals
-        (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications)
+      lib.optionals (stdenv.isDarwin && darwin.apple_sdk.frameworks ? UserNotifications)
         [ darwin.apple_sdk.frameworks.UserNotifications ]
     ++ lib.optionals stdenv.isLinux [
       util-linux

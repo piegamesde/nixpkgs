@@ -248,8 +248,7 @@ in
                   # TODO for release 23.05: allow relative paths again and set
                   # working directory to cfg.dataDir
                   type = types.str // {
-                    check =
-                      x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
+                    check = x: types.str.check x && (substring 0 1 x == "/" || substring 0 2 x == "~/");
                     description = types.str.description + " starting with / or ~/";
                   };
                   default = name;

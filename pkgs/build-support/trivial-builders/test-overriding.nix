@@ -23,8 +23,7 @@ let
     rm success
   '';
 
-  simpleCase =
-    case: writeShellScript "test-trivial-overriding-${case}" extglobScript;
+  simpleCase = case: writeShellScript "test-trivial-overriding-${case}" extglobScript;
 
   callPackageCase =
     case:

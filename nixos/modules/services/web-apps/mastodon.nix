@@ -117,9 +117,7 @@ let
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
         lib.mapAttrsToList
-          (
-            name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]
-          )
+          (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
           env
       ))
     )
@@ -464,9 +462,7 @@ in
 
       database = {
         createLocally = lib.mkOption {
-          description =
-            lib.mdDoc
-              "Configure local PostgreSQL database server for Mastodon.";
+          description = lib.mdDoc "Configure local PostgreSQL database server for Mastodon.";
           type = lib.types.bool;
           default = true;
         };
@@ -906,25 +902,23 @@ in
           ];
         };
 
-        systemd.services.mastodon-media-auto-remove =
-          lib.mkIf cfg.mediaAutoRemove.enable
-            {
-              description = "Mastodon media auto remove";
-              environment = env;
-              serviceConfig = {
-                Type = "oneshot";
-                EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-              } // cfgService;
-              script =
-                let
-                  olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
-                in
-                ''
-                  ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
-                  ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-                '';
-              startAt = cfg.mediaAutoRemove.startAt;
-            };
+        systemd.services.mastodon-media-auto-remove = lib.mkIf cfg.mediaAutoRemove.enable {
+          description = "Mastodon media auto remove";
+          environment = env;
+          serviceConfig = {
+            Type = "oneshot";
+            EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+          } // cfgService;
+          script =
+            let
+              olderThanDays = toString cfg.mediaAutoRemove.olderThanDays;
+            in
+            ''
+              ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
+              ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
+            '';
+          startAt = cfg.mediaAutoRemove.startAt;
+        };
 
         services.nginx = lib.mkIf cfg.configureNginx {
           enable = true;

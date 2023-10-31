@@ -200,8 +200,7 @@ stdenv.mkDerivation rec {
       # export VERBOSE=1
     ''
     +
-      lib.optionalString
-        (stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic)
+      lib.optionalString (stdenv.targetPlatform.isMusl && !stdenv.targetPlatform.isStatic)
         ''
           # Upstream rustc still assumes that musl = static[1].  The fix for
           # this is to disable crt-static by default for non-static musl
@@ -290,13 +289,9 @@ stdenv.mkDerivation rec {
   passthru = {
     llvm = llvmShared;
     inherit llvmPackages;
-    tests =
-      {
-        inherit fd ripgrep wezterm;
-      }
-      // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-        inherit firefox thunderbird;
-      };
+    tests = {
+      inherit fd ripgrep wezterm;
+    } // lib.optionalAttrs stdenv.hostPlatform.isLinux { inherit firefox thunderbird; };
   };
 
   meta = with lib; {

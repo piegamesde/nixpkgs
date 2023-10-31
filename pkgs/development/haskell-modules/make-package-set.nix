@@ -218,8 +218,7 @@ let
     in
     self.haskellSrc2nix {
       name = "${name}-${version}";
-      sha256 = ''
-        $(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")'';
+      sha256 = ''$(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")'';
       src = "${component}/${name}.cabal";
     };
 
@@ -259,8 +258,7 @@ package-set { inherit pkgs lib callPackage; } self
   #
   # e.g., while overriding a package set:
   #    '... foo = self.callHackage "foo" "1.5.3" {}; ...'
-  callHackage =
-    name: version: callPackageKeepDeriver (self.hackage2nix name version);
+  callHackage = name: version: callPackageKeepDeriver (self.hackage2nix name version);
 
   # callHackageDirect
   #   :: { pkg :: Text, ver :: Text, sha256 :: Text }
@@ -292,8 +290,7 @@ package-set { inherit pkgs lib callPackage; } self
     name: src: extraCabal2nixOptions: args:
     let
       filter =
-        path: type:
-        pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
+        path: type: pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
       expr = self.haskellSrc2nix {
         inherit name extraCabal2nixOptions;
         src =
@@ -340,9 +337,8 @@ package-set { inherit pkgs lib callPackage; } self
   developPackage =
     {
       root,
-      name ? lib.optionalString (builtins.typeOf root == "path") (
-        builtins.baseNameOf root
-      ),
+      name ?
+        lib.optionalString (builtins.typeOf root == "path") (builtins.baseNameOf root),
       source-overrides ? { },
       overrides ? self: super: { },
       modifier ? drv: drv,
@@ -353,8 +349,7 @@ package-set { inherit pkgs lib callPackage; } self
     let
       drv =
         (extensible-self.extend (
-          pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides)
-            overrides
+          pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides) overrides
         )).callCabal2nixWithOptions
           name
           root
@@ -548,8 +543,7 @@ package-set { inherit pkgs lib callPackage; } self
       #
       #   isNotSelected lens [ frontend backend common ]
       #   => true
-      isNotSelected =
-        input: pkgs.lib.all (p: input.outPath or null != p.outPath) selected;
+      isNotSelected = input: pkgs.lib.all (p: input.outPath or null != p.outPath) selected;
 
       # A function that takes a list of list of derivations, filters out all
       # the `selected` packages from each list, and concats the results.
@@ -598,10 +592,7 @@ package-set { inherit pkgs lib callPackage; } self
       genericBuilderArgs =
         {
           pname =
-            if pkgs.lib.length selected == 1 then
-              (pkgs.lib.head selected).name
-            else
-              "packages";
+            if pkgs.lib.length selected == 1 then (pkgs.lib.head selected).name else "packages";
           version = "0";
           license = null;
         }

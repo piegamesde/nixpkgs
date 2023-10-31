@@ -62,17 +62,14 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
   };
 
-  patches = [
-    ./use-default-values-for-libretro_info_path-assets_directory.patch
-  ];
+  patches = [ ./use-default-values-for-libretro_info_path-assets_directory.patch ];
 
   nativeBuildInputs =
     [
       pkg-config
       wrapQtAppsHook
     ]
-    ++ lib.optional withWayland wayland
-    ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
+    ++ lib.optional withWayland wayland ++ lib.optional (runtimeLibs != [ ]) makeWrapper;
 
   buildInputs =
     [

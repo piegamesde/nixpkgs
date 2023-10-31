@@ -63,8 +63,7 @@ let
             substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
           ''
           +
-            lib.optionalString
-              (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
+            lib.optionalString (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
               ''
                 substituteInPlace crypto/async/arch/async_posix.h \
                   --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
@@ -102,9 +101,7 @@ let
           lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper
           ++ [ perl ]
           ++ lib.optionals static [ removeReferencesTo ];
-        buildInputs =
-          lib.optional withCryptodev cryptodev
-          ++ lib.optional withZlib zlib;
+        buildInputs = lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
 
         # TODO(@Ericson2314): Improve with mass rebuild
         configurePlatforms = [ ];
@@ -181,8 +178,7 @@ let
           # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
           ++ lib.optional (lib.versionAtLeast version "3.0.0" && enableKTLS) "enable-ktls"
           ++
-            lib.optional
-              (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64)
+            lib.optional (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isAarch64)
               "no-afalgeng"
           # OpenSSL needs a specific `no-shared` configure flag.
           # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options

@@ -56,10 +56,7 @@ let
   #version 15 is not supported yet
   applicablePostgresqlVersions =
     filterAttrs
-      (
-        _: value:
-        versionAtLeast value.version "12" && !(versionAtLeast value.version "15")
-      )
+      (_: value: versionAtLeast value.version "12" && !(versionAtLeast value.version "15"))
       postgresql-versions;
 in
 mapAttrs'

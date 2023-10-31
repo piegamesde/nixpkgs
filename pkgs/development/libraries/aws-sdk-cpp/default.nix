@@ -103,9 +103,7 @@ stdenv.mkDerivation rec {
       "-DCURL_HAS_TLS_PROXY=1"
       "-DTARGET_ARCH=${host_os}"
     ]
-    ++
-      lib.optional (apis != [ "*" ])
-        "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
+    ++ lib.optional (apis != [ "*" ]) "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
 
   env.NIX_CFLAGS_COMPILE =
     toString

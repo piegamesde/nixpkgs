@@ -406,9 +406,7 @@ let
                   ${data.postRun}
                   ${
                     optionalString (data.reloadServices != [ ])
-                      "systemctl --no-block try-reload-or-restart ${
-                        escapeShellArgs data.reloadServices
-                      }"
+                      "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
                   }
                 fi
               '');
@@ -416,8 +414,7 @@ let
           //
             optionalAttrs
               (
-                data.listenHTTP != null
-                && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
+                data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
               )
               {
                 CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
@@ -751,9 +748,7 @@ let
           type = types.str;
           readOnly = true;
           default = "/var/lib/acme/${name}";
-          description =
-            lib.mdDoc
-              "Directory where certificate and other state is stored.";
+          description = lib.mdDoc "Directory where certificate and other state is stored.";
         };
 
         domain = mkOption {
@@ -1174,9 +1169,7 @@ in
                 hash: confs:
                 let
                   leader = "acme-${(builtins.head confs).cert}.service";
-                  dependantServices = map (conf: "acme-${conf.cert}.service") (
-                    builtins.tail confs
-                  );
+                  dependantServices = map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
                 in
                 nameValuePair "acme-account-${hash}" {
                   requiredBy = dependantServices;

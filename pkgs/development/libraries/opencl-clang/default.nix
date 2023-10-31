@@ -106,9 +106,7 @@ let
 
       cmakeFlags = [
         "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
-        "-DOPENCL_HEADERS_DIR=${libclang.lib}/lib/clang/${
-          lib.getVersion libclang
-        }/include/"
+        "-DOPENCL_HEADERS_DIR=${libclang.lib}/lib/clang/${lib.getVersion libclang}/include/"
 
         "-DLLVMSPIRV_INCLUDED_IN_LLVM=OFF"
         "-DSPIRV_TRANSLATOR_DIR=${spirv-llvm-translator}"

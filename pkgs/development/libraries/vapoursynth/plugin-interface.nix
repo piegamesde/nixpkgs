@@ -22,9 +22,7 @@ let
         (
           pkg:
           let
-            cleanPropagatedBuildInputs =
-              lib.filter lib.isDerivation
-                pkg.propagatedBuildInputs;
+            cleanPropagatedBuildInputs = lib.filter lib.isDerivation pkg.propagatedBuildInputs;
           in
           cleanPropagatedBuildInputs
           ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
@@ -32,9 +30,7 @@ let
         pkgs
     );
 
-  deepPlugins = lib.unique (
-    plugins ++ (getRecursivePropagatedBuildInputs plugins)
-  );
+  deepPlugins = lib.unique (plugins ++ (getRecursivePropagatedBuildInputs plugins));
 
   pluginsEnv = buildEnv {
     name = "vapoursynth-plugins-env";

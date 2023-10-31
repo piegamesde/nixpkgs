@@ -102,9 +102,7 @@ in
       (x.overrides y)
       // {
         prePatch = ''
-          sed 's|libssl.so|${
-            pkgs.lib.getLib pkgs.openssl
-          }/lib/libssl.so|' -i src/reload.lisp
+          sed 's|libssl.so|${pkgs.lib.getLib pkgs.openssl}/lib/libssl.so|' -i src/reload.lisp
         '';
       };
   };
@@ -142,9 +140,9 @@ in
       ]
       (
         x: {
-          deps =
-            pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
+          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
+            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
+          );
           overrides =
             y:
             (x.overrides y)
@@ -165,9 +163,9 @@ in
       ]
       (
         x: {
-          deps =
-            pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath)
-              (x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ]));
+          deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
+            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
+          );
           overrides =
             y:
             (x.overrides y)

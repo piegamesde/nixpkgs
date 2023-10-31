@@ -99,9 +99,7 @@ stdenv.mkDerivation rec {
   # By default, cmake build will run ctests with all checks enabled
   # If we're building with cuda, we run ctest manually so that we can skip the GPU tests
   checkPhase = lib.optionalString cudaSupport ''
-    ctest --force-new-ctest-process ${
-      lib.optionalString cudaSupport "-E TestXGBoostLib"
-    }
+    ctest --force-new-ctest-process ${lib.optionalString cudaSupport "-E TestXGBoostLib"}
   '';
 
   # Disable finicky tests from dmlc core that fail in Hydra. XGboost team

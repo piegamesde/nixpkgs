@@ -86,9 +86,7 @@ in
                 type = types.nullOr types.path;
                 default = null;
                 description = lib.mdDoc "Profile to use";
-                example =
-                  literalExpression
-                    ''"''${pkgs.firejail}/etc/firejail/firefox.profile"'';
+                example = literalExpression ''"''${pkgs.firejail}/etc/firejail/firefox.profile"'';
               };
               extraArgs = mkOption {
                 type = types.listOf types.str;

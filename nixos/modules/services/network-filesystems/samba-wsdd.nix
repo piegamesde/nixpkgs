@@ -48,9 +48,7 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "FILESERVER";
-        description =
-          lib.mdDoc
-            "Override (NetBIOS) hostname to be used (default hostname).";
+        description = lib.mdDoc "Override (NetBIOS) hostname to be used (default hostname).";
       };
       domain = mkOption {
         type = types.nullOr types.str;

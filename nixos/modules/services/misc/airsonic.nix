@@ -154,9 +154,7 @@ in
           -Dserver.port=${toString cfg.port} \
           -Dairsonic.contextPath=${cfg.contextPath} \
           -Djava.awt.headless=true \
-          ${
-            optionalString (cfg.virtualHost != null) "-Dserver.use-forward-headers=true"
-          } \
+          ${optionalString (cfg.virtualHost != null) "-Dserver.use-forward-headers=true"} \
           ${toString cfg.jvmOptions} \
           -verbose:gc \
           -jar ${cfg.war}

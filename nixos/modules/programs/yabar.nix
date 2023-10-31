@@ -16,9 +16,7 @@ let
       mapAttrsToList
         (
           key: val:
-          "${key} = ${
-            if (isString val) then ''"${val}"'' else "${builtins.toString val}"
-          };"
+          "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};"
         )
         v
     );

@@ -95,9 +95,8 @@ let
             php = generic filteredArgs;
 
             php-packages =
-              (callPackage ../../../top-level/php-packages.nix {
-                phpPackage = phpWithExtensions;
-              }).overrideScope'
+              (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; })
+              .overrideScope'
                 packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
@@ -282,9 +281,7 @@ let
             ++
               lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
                 "--enable-maintainer-zts"
-            ++
-              lib.optional (ztsSupport && (lib.versionAtLeast version "8.0"))
-                "--enable-zts"
+            ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0")) "--enable-zts"
 
             # Sendmail
             ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ];

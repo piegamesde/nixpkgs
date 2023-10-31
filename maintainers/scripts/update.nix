@@ -103,8 +103,7 @@ let
 
   # Recursively find all packages in `pkgs` with updateScript matching given predicate.
   packagesWithUpdateScriptMatchingPredicate =
-    cond:
-    packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
+    cond: packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
 
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.
   packagesWithUpdateScriptAndMaintainer =
@@ -142,8 +141,7 @@ let
     if pathContent == null then
       builtins.throw "Attribute path `${path}` does not exist."
     else
-      packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg)
-        pathContent;
+      packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg) pathContent;
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
   packageByName =
@@ -254,8 +252,6 @@ pkgs.stdenv.mkDerivation {
   '';
   shellHook = ''
     unset shellHook # do not contaminate nested shells
-    exec ${pkgs.python3.interpreter} ${./update.py} ${
-      builtins.concatStringsSep " " args
-    }
+    exec ${pkgs.python3.interpreter} ${./update.py} ${builtins.concatStringsSep " " args}
   '';
 }

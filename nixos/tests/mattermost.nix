@@ -105,8 +105,7 @@ import ./make-test-python.nix (
         # Get the initial config
         mutable.succeed("${
           expectConfig
-            ''
-              .AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
+            ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
         }")
 
         # Edit the config
@@ -157,8 +156,7 @@ import ./make-test-python.nix (
         # Get the initial config
         immutable.succeed("${
           expectConfig
-            ''
-              .AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
+            ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
         }")
 
         # Edit the config
@@ -174,8 +172,7 @@ import ./make-test-python.nix (
         # Our edits should be ignored on restart
         immutable.succeed("${
           expectConfig
-            ''
-              .AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
+            ''.AboutLink == "https://nixos.org" and .HelpLink == "https://search.nixos.org"''
         }")
 
 

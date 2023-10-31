@@ -42,8 +42,7 @@ let
     cd ${dataDir}
 
     # generate provider keypair (first run only)
-    ${optionalString
-      (cfg.providerKey.public == null || cfg.providerKey.secret == null)
+    ${optionalString (cfg.providerKey.public == null || cfg.providerKey.secret == null)
       ''
         if [ ! -f ${publicKey} ] || [ ! -f ${secretKey} ]; then
           dnscrypt-wrapper --gen-provider-keypair
@@ -264,9 +263,7 @@ in
         User = "dnscrypt-wrapper";
         WorkingDirectory = dataDir;
         Restart = "on-failure";
-        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${
-            toString daemonArgs
-          }";
+        ExecStart = "${pkgs.dnscrypt-wrapper}/bin/dnscrypt-wrapper ${toString daemonArgs}";
       };
 
       preStart = genKeys;

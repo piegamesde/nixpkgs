@@ -67,9 +67,7 @@ in
 
     keys = mkOption {
       type = with types; listOf path;
-      description =
-        lib.mdDoc
-          "List of public key files that will be imported by gpg.";
+      description = lib.mdDoc "List of public key files that will be imported by gpg.";
     };
 
     rotateLogs = mkOption {

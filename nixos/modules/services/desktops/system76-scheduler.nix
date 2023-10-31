@@ -138,8 +138,7 @@ let
       } preempt="${p.preempt}"'';
 
   prioToString =
-    class: prio:
-    if prio == null then ''"${class}"'' else "(${class})${toString prio}";
+    class: prio: if prio == null then ''"${class}"'' else "(${class})${toString prio}";
 
   schedulerProfileToString =
     name: a: indent:
@@ -211,9 +210,7 @@ in
           useExecsnoop = mkOption {
             type = bool;
             default = true;
-            description =
-              mdDoc
-                "Use execsnoop (otherwise poll the precess list periodically).";
+            description = mdDoc "Use execsnoop (otherwise poll the precess list periodically).";
           };
 
           refreshInterval = mkOption {

@@ -171,9 +171,7 @@ in
     pidFile = mkOption {
       type = types.path;
       default = "${cfg.dataDir}/unifi-video.pid";
-      defaultText =
-        literalExpression
-          ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
+      defaultText = literalExpression ''"''${config.${opt.dataDir}}/unifi-video.pid"'';
       description = lib.mdDoc "Location of unifi-video pid file.";
     };
   };

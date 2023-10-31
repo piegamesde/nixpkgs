@@ -22,8 +22,7 @@ let
   optionalNullInt = o: i: optional (i != null) (intOpt o i);
   optionalEmptyList = o: l: optional ([ ] != l) (lstOpt o l);
 
-  mkEnableTrueOption =
-    name: mkEnableOption (lib.mdDoc name) // { default = true; };
+  mkEnableTrueOption = name: mkEnableOption (lib.mdDoc name) // { default = true; };
 
   mkEndpointOpt = name: addr: port: {
     enable = mkEnableOption (lib.mdDoc name);
@@ -206,12 +205,8 @@ let
                 else
                   [ ]
               )
-              ++ (
-                if proto ? hostname then optionalNullString "hostname" proto.hostname else [ ]
-              )
-              ++ (
-                if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [ ]
-              )
+              ++ (if proto ? hostname then optionalNullString "hostname" proto.hostname else [ ])
+              ++ (if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [ ])
               ++ (
                 if proto ? outproxyPort then
                   optionalNullInt "outproxyport" proto.outproxyPort
@@ -296,16 +291,11 @@ let
                 (strOpt "host" tun.address)
               ]
               ++ (
-                if tun ? destination then
-                  optionalNullString "destination" tun.destination
-                else
-                  [ ]
+                if tun ? destination then optionalNullString "destination" tun.destination else [ ]
               )
               ++ (if tun ? keys then optionalNullString "keys" tun.keys else [ ])
               ++ (if tun ? inPort then optionalNullInt "inport" tun.inPort else [ ])
-              ++ (
-                if tun ? accessList then optionalEmptyList "accesslist" tun.accessList else [ ]
-              );
+              ++ (if tun ? accessList then optionalEmptyList "accesslist" tun.accessList else [ ]);
           in
           concatStringsSep "\n" inTunOpts
         ))
@@ -380,9 +370,7 @@ in
         '';
       };
 
-      logCLFTime = mkEnableOption (
-        lib.mdDoc "Full CLF-formatted date and time to log"
-      );
+      logCLFTime = mkEnableOption (lib.mdDoc "Full CLF-formatted date and time to log");
 
       address = mkOption {
         type = with types; nullOr str;
@@ -777,9 +765,7 @@ in
                   accessList = mkOption {
                     type = with types; listOf str;
                     default = [ ];
-                    description =
-                      lib.mdDoc
-                        "I2P nodes that are allowed to connect to this service.";
+                    description = lib.mdDoc "I2P nodes that are allowed to connect to this service.";
                   };
                 } // commonTunOpts name;
                 config = {

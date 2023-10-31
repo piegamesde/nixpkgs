@@ -21,9 +21,7 @@ let
         if isList property then
           ''
             ${propertyName}=(${
-              lib.concatMapStrings (elem: ''"${toString elem}" '') (
-                properties.${propertyName}
-              )
+              lib.concatMapStrings (elem: ''"${toString elem}" '') (properties.${propertyName})
             })
           ''
         else
@@ -89,8 +87,7 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings
-        (containerName: linkMutableComponents { inherit containerName; })
+      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; })
         (builtins.attrNames cfg.components)}
     '';
   };
@@ -206,8 +203,7 @@ in
     environment.variables = {
       DYSNOMIA_STATEDIR = "/var/state/dysnomia-nixos";
       DYSNOMIA_CONTAINERS_PATH = "${
-          lib.concatMapStrings (containerPath: "${containerPath}:")
-            cfg.extraContainerPaths
+          lib.concatMapStrings (containerPath: "${containerPath}:") cfg.extraContainerPaths
         }/etc/dysnomia/containers";
       DYSNOMIA_MODULES_PATH = "${
           lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths
@@ -297,9 +293,7 @@ in
           // lib.optionalAttrs (config.services.postgresql.enable) {
             postgresql-database =
               { }
-              // lib.optionalAttrs (cfg.enableAuthentication) {
-                postgresqlUsername = "postgres";
-              };
+              // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; };
           }
           // lib.optionalAttrs (config.services.tomcat.enable) {
             tomcat-webapplication = {

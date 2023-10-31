@@ -35,8 +35,7 @@ let
   # Whether the given check is enabled
   hasCheck =
     class:
-    (filterAttrs
-      (n: v: v.enabled && (if v.class == null then n else v.class) == class)
+    (filterAttrs (n: v: v.enabled && (if v.class == null then n else v.class) == class)
       cfg.checks
     ) != { };
 
@@ -241,9 +240,7 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      path = flatten (
-        attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks)
-      );
+      path = flatten (attrValues (filterAttrs (n: _: hasCheck n) dependenciesForChecks));
       serviceConfig = {
         ExecStart = "${autosuspend}/bin/autosuspend -l ${autosuspend}/etc/autosuspend-logging.conf -c ${autosuspend-conf} daemon";
       };

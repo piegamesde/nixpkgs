@@ -109,9 +109,7 @@ in
       extraPackages = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        example =
-          literalExpression
-            "with pkgs; [ intel-media-driver intel-ocl vaapiIntel ]";
+        example = literalExpression "with pkgs; [ intel-media-driver intel-ocl vaapiIntel ]";
         description = lib.mdDoc ''
           Additional packages to add to OpenGL drivers.
           This can be used to add OpenCL drivers, VA-API/VDPAU drivers etc.

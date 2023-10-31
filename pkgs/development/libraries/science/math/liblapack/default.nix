@@ -81,9 +81,7 @@ stdenv.mkDerivation (
     #
     # Upstream issue to track:
     # * https://github.com/Reference-LAPACK/lapack/issues/440
-    ctestArgs =
-      lib.optionalString stdenv.isDarwin
-        "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
+    ctestArgs = lib.optionalString stdenv.isDarwin "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
 
     checkPhase = ''
       runHook preCheck

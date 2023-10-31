@@ -113,8 +113,7 @@ stdenv.mkDerivation rec {
         wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
       '';
       wrapPrograms =
-        runtimeDeps: programs:
-        lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
+        runtimeDeps: programs: lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
     in
     wrapPrograms [ gnupg ] [
       "monkeysphere-authentication"

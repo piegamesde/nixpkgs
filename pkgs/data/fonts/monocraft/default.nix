@@ -18,12 +18,8 @@ stdenv.mkDerivation {
   inherit version;
 
   srcs = [
-    (relArtifact "Monocraft.otf"
-      "sha256-PA1W+gOUStGw7cDmtEbG+B6M+sAYr8cft+Ckxj5LciU="
-    )
-    (relArtifact "Monocraft.ttf"
-      "sha256-S4j5v2bTJbhujT3Bt8daNN1YGYYP8zVPf9XXjuR64+o="
-    )
+    (relArtifact "Monocraft.otf" "sha256-PA1W+gOUStGw7cDmtEbG+B6M+sAYr8cft+Ckxj5LciU=")
+    (relArtifact "Monocraft.ttf" "sha256-S4j5v2bTJbhujT3Bt8daNN1YGYYP8zVPf9XXjuR64+o=")
     (relArtifact "Monocraft-no-ligatures.ttf"
       "sha256-MuHfoP+dsXe+ODN4vWFIj50jwOxYyIiS0dd1tzVxHts="
     )

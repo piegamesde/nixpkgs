@@ -115,9 +115,7 @@ stdenv.mkDerivation rec {
       done
 
       patchShebangs build/unix/
-      ln -s ${
-        lib.getDev stdenv.cc.libc
-      }/include/AvailabilityMacros.h cint/cint/include/
+      ln -s ${lib.getDev stdenv.cc.libc}/include/AvailabilityMacros.h cint/cint/include/
 
       # __malloc_hook is deprecated
       substituteInPlace misc/memstat/src/TMemStatHook.cxx \
@@ -170,8 +168,7 @@ stdenv.mkDerivation rec {
       "-Dxml=ON"
       "-Dxrootd=OFF"
     ]
-    ++ lib.optional stdenv.isDarwin
-      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
+    ++ lib.optional stdenv.isDarwin "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks";
 
   setupHook = ./setup-hook.sh;
 

@@ -199,8 +199,7 @@ in
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''
           HOST="http://${
-            optionalString (cfg.couchdb.pass != "")
-              "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
+            optionalString (cfg.couchdb.pass != "") "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
           }${cfg.couchdb.host}:${toString cfg.couchdb.port}"
           curl -X PUT $HOST/${cfg.couchdb.db} || true
         '')

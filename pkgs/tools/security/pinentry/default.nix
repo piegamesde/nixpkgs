@@ -30,10 +30,7 @@ assert lib.isList enabledFlavors && enabledFlavors != [ ];
 
 let
   pinentryMkDerivation =
-    if (builtins.elem "qt" enabledFlavors) then
-      mkDerivation
-    else
-      stdenv.mkDerivation;
+    if (builtins.elem "qt" enabledFlavors) then mkDerivation else stdenv.mkDerivation;
 
   enableFeaturePinentry =
     f:

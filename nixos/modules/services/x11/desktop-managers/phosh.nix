@@ -123,10 +123,7 @@ let
     name: output:
     let
       modelines =
-        if builtins.isList output.modeline then
-          output.modeline
-        else
-          [ output.modeline ];
+        if builtins.isList output.modeline then output.modeline else [ output.modeline ];
       renderModeline = l: "modeline = ${l}";
     in
     ''

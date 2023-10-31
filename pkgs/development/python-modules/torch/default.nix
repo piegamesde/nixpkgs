@@ -296,10 +296,7 @@ buildPythonPackage rec {
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     +
       lib.optionalString
-        (
-          stdenv.isDarwin
-          && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0"
-        )
+        (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
         ''
           substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
           inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
@@ -383,18 +380,16 @@ buildPythonPackage rec {
       # Suppress gcc regression: avx512 math function raises uninitialized variable warning
       # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
       # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
-      ++
-        lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0")
-          [
-            "-Wno-error=maybe-uninitialized"
-            "-Wno-error=uninitialized"
-          ]
+      ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
+        "-Wno-error=maybe-uninitialized"
+        "-Wno-error=uninitialized"
+      ]
       # Since pytorch 2.0:
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++
-        lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12")
-          [ "-Wno-error=free-nonheap-object" ]
+      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
+        "-Wno-error=free-nonheap-object"
+      ]
     )
   );
 

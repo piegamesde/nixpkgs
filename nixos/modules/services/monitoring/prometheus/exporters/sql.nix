@@ -54,9 +54,7 @@ let
       labels = mkOption {
         type = listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "A set of columns that will be used as Prometheus labels.";
+        description = lib.mdDoc "A set of columns that will be used as Prometheus labels.";
       };
       query = mkOption {
         type = str;
@@ -82,8 +80,7 @@ let
         configuration = {
           jobs = map renameStartupSql (
             nameInline (
-              mapAttrs (k: v: (v // { queries = nameInline v.queries; }))
-                cfg.configuration.jobs
+              mapAttrs (k: v: (v // { queries = nameInline v.queries; })) cfg.configuration.jobs
             )
           );
         };

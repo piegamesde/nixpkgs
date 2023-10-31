@@ -31,9 +31,7 @@ mkDerivation {
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i "/ibtool/d" configure
     mkdir -p build/Owl.app/Contents/Resources/English.lproj
-    cp ${
-      ./mac/MainMenu.nib
-    } build/Owl.app/Contents/Resources/English.lproj/MainMenu.nib
+    cp ${./mac/MainMenu.nib} build/Owl.app/Contents/Resources/English.lproj/MainMenu.nib
     cp ${
       ./mac/OwlPreferences.nib
     } build/Owl.app/Contents/Resources/English.lproj/OwlPreferences.nib

@@ -178,9 +178,7 @@ let
             (mkIf config.autoResize [ "x-nixos.autoresize" ])
             (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
           ];
-          formatOptions = mkIf (defaultFormatOptions != null) (
-            mkDefault defaultFormatOptions
-          );
+          formatOptions = mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
         };
     };
 

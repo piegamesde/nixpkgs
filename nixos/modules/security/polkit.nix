@@ -71,9 +71,7 @@ in
 
     systemd.services.polkit.serviceConfig.ExecStart = [
       ""
-      "${pkgs.polkit.out}/lib/polkit-1/polkitd ${
-        optionalString (!cfg.debug) "--no-debug"
-      }"
+      "${pkgs.polkit.out}/lib/polkit-1/polkitd ${optionalString (!cfg.debug) "--no-debug"}"
     ];
 
     systemd.services.polkit.restartTriggers = [ config.system.path ];

@@ -282,9 +282,7 @@ let
 
   attrsToFile =
     config:
-    concatStringsSep "\n" (
-      builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config)
-    );
+    concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
 
   mkDestAttrs =
     dst:
@@ -319,9 +317,7 @@ let
       tsformat = timestampFormat;
       zend_delay = toString sendDelay;
     }
-    // foldr (a: b: a // b) { } (
-      map mkDestAttrs (builtins.attrValues destinations)
-    );
+    // foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations));
 
   files =
     mapAttrs'

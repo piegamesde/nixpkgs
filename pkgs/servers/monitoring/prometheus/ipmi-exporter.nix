@@ -23,9 +23,7 @@ buildGoModule rec {
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
-    wrapProgram $out/bin/ipmi_exporter --prefix PATH : ${
-      lib.makeBinPath [ freeipmi ]
-    }
+    wrapProgram $out/bin/ipmi_exporter --prefix PATH : ${lib.makeBinPath [ freeipmi ]}
   '';
 
   passthru.tests = {

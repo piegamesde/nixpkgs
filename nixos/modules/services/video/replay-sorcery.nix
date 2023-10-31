@@ -14,9 +14,7 @@ in
 {
   options = with types; {
     services.replay-sorcery = {
-      enable = mkEnableOption (
-        lib.mdDoc "the ReplaySorcery service for instant-replays"
-      );
+      enable = mkEnableOption (lib.mdDoc "the ReplaySorcery service for instant-replays");
 
       enableSysAdminCapability = mkEnableOption (
         lib.mdDoc ''

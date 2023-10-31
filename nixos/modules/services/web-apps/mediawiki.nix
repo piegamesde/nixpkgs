@@ -141,12 +141,10 @@ let
       }
 
       ${
-        optionalString
-          (cfg.database.type == "mysql" && cfg.database.tablePrefix != null)
-          ''
-            # MySQL specific settings
-            $wgDBprefix = "${cfg.database.tablePrefix}";
-          ''
+        optionalString (cfg.database.type == "mysql" && cfg.database.tablePrefix != null) ''
+          # MySQL specific settings
+          $wgDBprefix = "${cfg.database.tablePrefix}";
+        ''
       }
 
       ${
@@ -209,9 +207,7 @@ let
       $wgDiff3 = "${pkgs.diffutils}/bin/diff3";
 
       # Enabled skins.
-      ${
-        concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadSkin('${k}');") cfg.skins)
-      }
+      ${concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadSkin('${k}');") cfg.skins)}
 
       # Enabled extensions.
       ${
@@ -295,9 +291,7 @@ in
 
       passwordFile = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "A file containing the initial password for the admin user.";
+        description = lib.mdDoc "A file containing the initial password for the admin user.";
         example = "/run/keys/mediawiki-password";
       };
 
@@ -431,9 +425,7 @@ in
             else
               null;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -548,21 +540,19 @@ in
       Vector = "${cfg.package}/share/mediawiki/skins/Vector";
     };
 
-    services.mysql =
-      mkIf (cfg.database.type == "mysql" && cfg.database.createLocally)
+    services.mysql = mkIf (cfg.database.type == "mysql" && cfg.database.createLocally) {
+      enable = true;
+      package = mkDefault pkgs.mariadb;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
         {
-          enable = true;
-          package = mkDefault pkgs.mariadb;
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "${cfg.database.name}.*" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+          name = cfg.database.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
     services.postgresql =
       mkIf (cfg.database.type == "postgres" && cfg.database.createLocally)
@@ -643,8 +633,7 @@ in
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-mediawiki.service" ];
       after =
-        optional (cfg.database.type == "mysql" && cfg.database.createLocally)
-          "mysql.service"
+        optional (cfg.database.type == "mysql" && cfg.database.createLocally) "mysql.service"
         ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally)
           "postgresql.service";
       script = ''

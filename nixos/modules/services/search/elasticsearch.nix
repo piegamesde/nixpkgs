@@ -75,9 +75,7 @@ in
     };
 
     tcp_port = mkOption {
-      description =
-        lib.mdDoc
-          "Elasticsearch port for the node to node communication.";
+      description = lib.mdDoc "Elasticsearch port for the node to node communication.";
       default = 9300;
       type = types.int;
     };
@@ -133,9 +131,7 @@ in
     };
 
     extraCmdLineOptions = mkOption {
-      description =
-        lib.mdDoc
-          "Extra command line options for the elasticsearch launcher.";
+      description = lib.mdDoc "Extra command line options for the elasticsearch launcher.";
       default = [ ];
       type = types.listOf types.str;
     };
@@ -181,9 +177,7 @@ in
         ES_PATH_CONF = configDir;
       };
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/elasticsearch ${
-            toString cfg.extraCmdLineOptions
-          }";
+        ExecStart = "${cfg.package}/bin/elasticsearch ${toString cfg.extraCmdLineOptions}";
         User = "elasticsearch";
         PermissionsStartOnly = true;
         LimitNOFILE = "1024000";

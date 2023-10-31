@@ -41,9 +41,7 @@ in
     environment = mkOption {
       type = with types; attrsOf str;
       default = { };
-      description =
-        mdDoc
-          "Additional environment variables to pass to the AESM service.";
+      description = mdDoc "Additional environment variables to pass to the AESM service.";
       # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
         AZDCAP_COLLATERAL_VERSION = "v2";

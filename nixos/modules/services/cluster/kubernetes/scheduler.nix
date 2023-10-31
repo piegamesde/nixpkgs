@@ -84,9 +84,7 @@ in
                     --kubeconfig=${top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig} \
                     --leader-elect=${boolToString cfg.leaderElect} \
                     --secure-port=${toString cfg.port} \
-                    ${
-                      optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
-                    } \
+                    ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                     ${cfg.extraOpts}
         '';
         WorkingDirectory = top.dataDir;
@@ -108,9 +106,7 @@ in
       };
     };
 
-    services.kubernetes.scheduler.kubeconfig.server =
-      mkDefault
-        top.apiserverAddress;
+    services.kubernetes.scheduler.kubeconfig.server = mkDefault top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

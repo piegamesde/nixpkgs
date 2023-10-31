@@ -35,8 +35,7 @@
 let
   dfhack_ = dfhack.override { inherit enableStoneSense; };
 
-  ptheme =
-    if builtins.isString theme then builtins.getAttr theme themes else theme;
+  ptheme = if builtins.isString theme then builtins.getAttr theme themes else theme;
 
   baseEnv = buildEnv {
     name = "dwarf-fortress-base-env-${dwarf-fortress.dfVersion}";

@@ -316,9 +316,7 @@ in
           n: v:
           "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead."
         )
-        (
-          filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups
-        );
+        (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups);
     assertions =
       mapAttrsToList
         (n: v: {
@@ -354,8 +352,7 @@ in
             ];
             # Helper functions for rclone remotes
             rcloneRemoteName = builtins.elemAt (splitString ":" backup.repository) 1;
-            rcloneAttrToOpt =
-              v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
+            rcloneAttrToOpt = v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
             rcloneAttrToConf = v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
             toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
           in
@@ -369,16 +366,14 @@ in
                   RESTIC_REPOSITORY_FILE = backup.repositoryFile;
                 }
                 // optionalAttrs (backup.rcloneOptions != null) (
-                  mapAttrs'
-                    (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
+                  mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
                     backup.rcloneOptions
                 )
                 // optionalAttrs (backup.rcloneConfigFile != null) {
                   RCLONE_CONFIG = backup.rcloneConfigFile;
                 }
                 // optionalAttrs (backup.rcloneConfig != null) (
-                  mapAttrs'
-                    (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
+                  mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
                     backup.rcloneConfig
                 );
               path = [ pkgs.openssh ];

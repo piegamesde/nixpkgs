@@ -128,18 +128,15 @@ in
     ];
 
     warnings =
-      optional
-        (cfg.package == null && versionOlder config.system.stateVersion "17.09")
-        ''
-          The configuration and storage formats of your existing Radicale
-          installation might be incompatible with the newest version.
-          For upgrade instructions see
-          https://radicale.org/2.1.html#documentation/migration-from-1xx-to-2xx.
-          Set services.radicale.package to suppress this warning.
-        ''
+      optional (cfg.package == null && versionOlder config.system.stateVersion "17.09") ''
+        The configuration and storage formats of your existing Radicale
+        installation might be incompatible with the newest version.
+        For upgrade instructions see
+        https://radicale.org/2.1.html#documentation/migration-from-1xx-to-2xx.
+        Set services.radicale.package to suppress this warning.
+      ''
       ++
-        optional
-          (cfg.package == null && versionOlder config.system.stateVersion "20.09")
+        optional (cfg.package == null && versionOlder config.system.stateVersion "20.09")
           ''
             The configuration format of your existing Radicale installation might be
             incompatible with the newest version.  For upgrade instructions see

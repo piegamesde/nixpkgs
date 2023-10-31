@@ -159,9 +159,7 @@ let
         builtins.listToAttrs
           # Collect all leaf attributes (containing hashes).
           (
-            lib.collect (attrs: attrs ? name) (
-              lib.mapAttrsRecursive createUpdateable hashesOnly
-            )
+            lib.collect (attrs: attrs ? name) (lib.mapAttrsRecursive createUpdateable hashesOnly)
           );
     };
 

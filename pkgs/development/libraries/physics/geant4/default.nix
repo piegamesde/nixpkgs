@@ -54,8 +54,7 @@ let
   };
 in
 
-lib.warnIf (enableQT != false)
-  "geant4: enableQT is deprecated, please use enableQt"
+lib.warnIf (enableQT != false) "geant4: enableQT is deprecated, please use enableQt"
 
   stdenv.mkDerivation
   rec {

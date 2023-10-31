@@ -86,9 +86,7 @@ in
           options.exit-on-end = mkEnableOption (
             lib.mdDoc "exit instead of restarting when a game ends"
           );
-          options.Guests = mkEnableOption (
-            lib.mdDoc "guests to login if auth is enabled"
-          );
+          options.Guests = mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
           options.Newusers = mkEnableOption (
             lib.mdDoc "new users to login if auth is enabled"
           );

@@ -141,8 +141,7 @@ let
   mkWrappedPrograms =
     builtins.map
       (
-        opts:
-        if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
+        opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
       )
       (lib.attrValues wrappers);
 in
@@ -276,9 +275,7 @@ in
 
     security.apparmor.includes."nixos/security.wrappers" = ''
       include "${
-        pkgs.apparmorRulesFromClosure { name = "security.wrappers"; } [
-          securityWrapper
-        ]
+        pkgs.apparmorRulesFromClosure { name = "security.wrappers"; } [ securityWrapper ]
       }"
     '';
 

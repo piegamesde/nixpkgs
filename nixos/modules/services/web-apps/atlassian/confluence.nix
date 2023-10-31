@@ -123,17 +123,13 @@ in
         applicationPassword = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "Application password of this Confluence instance in Crowd";
+          description = lib.mdDoc "Application password of this Confluence instance in Crowd";
         };
 
         applicationPasswordFile = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "Path to the application password for Crowd of Confluence.";
+          description = lib.mdDoc "Path to the application password for Crowd of Confluence.";
         };
 
         validationInterval = mkOption {
@@ -216,9 +212,7 @@ in
         CONF_USER = cfg.user;
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
-        JAVA_OPTS =
-          mkIf cfg.sso.enable
-            "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS = mkIf cfg.sso.enable "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =

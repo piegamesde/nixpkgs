@@ -92,8 +92,7 @@ in
     assertions = [
       {
         assertion =
-          hasAttr cfg.user config.users.users
-          && config.users.users."${cfg.user}".uid != null;
+          hasAttr cfg.user config.users.users && config.users.users."${cfg.user}".uid != null;
         message = "users.users.${cfg.user} and users.users.${cfg.user}.uid must be defined.";
       }
       {

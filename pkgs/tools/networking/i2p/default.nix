@@ -20,10 +20,7 @@ stdenv.mkDerivation (
     src = fetchurl {
       urls =
         map
-          (
-            mirror:
-            "${mirror}/${finalAttrs.version}/i2psource_${finalAttrs.version}.tar.bz2"
-          )
+          (mirror: "${mirror}/${finalAttrs.version}/i2psource_${finalAttrs.version}.tar.bz2")
           [
             "https://download.i2p2.de/releases"
             "https://files.i2p-projekt.de"

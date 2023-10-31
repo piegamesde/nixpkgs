@@ -130,9 +130,7 @@ let
       "${lib.getLib libgccjit}/lib/gcc"
       "${lib.getLib stdenv.cc.libc}/lib"
     ]
-    ++ lib.optionals (stdenv.cc ? cc.libgcc) [
-      "${lib.getLib stdenv.cc.cc.libgcc}/lib"
-    ];
+    ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${lib.getLib stdenv.cc.cc.libgcc}/lib" ];
 in
 (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (
   finalAttrs:
@@ -400,12 +398,10 @@ in
             -f batch-native-compile $out/share/emacs/site-lisp/site-start.el
         '';
 
-      postFixup =
-        lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid")
-          ''
-            patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
-            patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
-          '';
+      postFixup = lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
+        patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
+        patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
+      '';
 
       passthru = {
         inherit nativeComp;

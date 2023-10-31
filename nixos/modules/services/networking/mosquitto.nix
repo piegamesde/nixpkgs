@@ -152,12 +152,11 @@ let
     let
       makeLines =
         store: file:
-        mapAttrsToList
-          (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}")
-          (filterAttrs (_: u: u.${store} != null) users)
+        mapAttrsToList (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}") (
+          filterAttrs (_: u: u.${store} != null) users
+        )
         ++
-          mapAttrsToList
-            (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
+          mapAttrsToList (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
             (filterAttrs (_: u: u.${file} != null) users);
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
@@ -626,9 +625,7 @@ let
     prefix: cfg:
     flatten [
       (assertKeysValid "${prefix}.settings" freeformGlobalKeys cfg.settings)
-      (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l)
-        cfg.listeners
-      )
+      (imap0 (n: l: listenerAsserts "${prefix}.listener.${toString n}" l) cfg.listeners)
       (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b) cfg.bridges)
     ];
 

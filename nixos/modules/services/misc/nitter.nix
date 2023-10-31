@@ -246,9 +246,7 @@ in
         proxyVideos = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Proxy video streaming through the server (might be slow).";
+          description = lib.mdDoc "Proxy video streaming through the server (might be slow).";
         };
 
         muteVideos = mkOption {
@@ -272,9 +270,7 @@ in
         infiniteScroll = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Infinite scrolling (requires JavaScript, experimental!).";
+          description = lib.mdDoc "Infinite scrolling (requires JavaScript, experimental!).";
         };
 
         stickyProfile = mkOption {
@@ -364,9 +360,7 @@ in
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
-        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [
-          "CAP_NET_BIND_SERVICE"
-        ];
+        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening

@@ -61,9 +61,7 @@ let
 
   arms = lint (
     concatStringsSep "\n        " (
-      mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (
-        deprecatedAliases // licenseMap
-      )
+      mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (deprecatedAliases // licenseMap)
     )
   );
 in

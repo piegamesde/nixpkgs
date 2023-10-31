@@ -33,8 +33,7 @@ writeShellScriptBin "vscodeExts2nix" ''
     version=''${BASH_REMATCH[3]}
 
     extensions="${
-      lib.concatMapStringsSep "." (e: "${e.publisher}${e.name}@${e.sha256}")
-        extensions
+      lib.concatMapStringsSep "." (e: "${e.publisher}${e.name}@${e.sha256}") extensions
     }"
     reCurrentExt=$publisher$name"@([^.]*)"
     if [[ $extensions =~ $reCurrentExt ]]; then

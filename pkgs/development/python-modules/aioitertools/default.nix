@@ -29,9 +29,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeCheckInputs = [ unittestCheckHook ];
 

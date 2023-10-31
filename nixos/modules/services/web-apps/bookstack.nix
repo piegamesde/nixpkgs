@@ -28,10 +28,7 @@ let
   '';
 
   tlsEnabled =
-    cfg.nginx.addSSL
-    || cfg.nginx.forceSSL
-    || cfg.nginx.onlySSL
-    || cfg.nginx.enableACME;
+    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
 in
 {
   imports = [
@@ -95,8 +92,7 @@ in
         If you change this in the future you may need to run a command to update stored URLs in the database. Command example: `php artisan bookstack:update-url https://old.example.com https://new.example.com`
       '';
       default = "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-      defaultText = ''
-        http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
+      defaultText = ''http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
       example = "https://example.com";
       type = types.str;
     };

@@ -24,9 +24,7 @@ in
     port = mkOption {
       type = types.port;
       default = 41641;
-      description =
-        lib.mdDoc
-          "The port to listen on for tunnel traffic (0=autoselect).";
+      description = lib.mdDoc "The port to listen on for tunnel traffic (0=autoselect).";
     };
 
     interfaceName = mkOption {

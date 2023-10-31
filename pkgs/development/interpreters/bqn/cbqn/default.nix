@@ -10,9 +10,8 @@
   mbqn-source ? null,
   enableReplxx ? false,
   enableSingeli ? stdenv.hostPlatform.avx2Support,
-  enableLibcbqn ? (
-    (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx
-  ),
+  enableLibcbqn ?
+    ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx),
   libffi,
   pkg-config,
 }:

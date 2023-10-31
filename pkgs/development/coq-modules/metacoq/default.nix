@@ -138,9 +138,7 @@ let
               maintainers = with maintainers; [ cohencyril ];
             };
           }
-          // optionalAttrs (package != "single") {
-            passthru = genAttrs packages metacoq_;
-          }
+          // optionalAttrs (package != "single") { passthru = genAttrs packages metacoq_; }
         )).overrideAttrs
           (
             o:

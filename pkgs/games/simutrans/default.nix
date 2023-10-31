@@ -17,8 +17,7 @@
 let
   # Choose your "paksets" of objects, images, text, music, etc.
   paksets =
-    config.simutrans.paksets
-      or "pak64 pak64.japan pak128 pak128.britain pak128.german";
+    config.simutrans.paksets or "pak64 pak64.japan pak128 pak128.britain pak128.german";
 
   result =
     with lib;

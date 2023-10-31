@@ -130,9 +130,7 @@ let
 
       optionalLocation =
         let
-          pos =
-            builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name")
-              attrs;
+          pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name") attrs;
         in
         if pos == null then
           ""
@@ -183,10 +181,7 @@ let
 
       checkDrv =
         drv:
-        if (isPythonModule drv) && (isMismatchedPython drv) then
-          throwMismatch drv
-        else
-          drv;
+        if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
     in
     inputs:
     builtins.map (checkDrv) inputs;

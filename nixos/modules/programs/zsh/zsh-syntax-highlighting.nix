@@ -139,8 +139,7 @@ in
 
     assertions = [
       {
-        assertion =
-          length (attrNames cfg.patterns) > 0 -> elem "pattern" cfg.highlighters;
+        assertion = length (attrNames cfg.patterns) > 0 -> elem "pattern" cfg.highlighters;
         message = ''
           When highlighting patterns, "pattern" needs to be included in the list of highlighters.
         '';

@@ -273,9 +273,7 @@ in
             # we must do this on every prestart. Fixes welcome.
             # rm ${nodedir}/tahoe.cfg
             # ln -s /etc/tahoe-lafs/introducer-${node}.cfg ${nodedir}/tahoe.cfg
-            cp /etc/tahoe-lafs/introducer-"${node}".cfg ${
-              lib.escapeShellArg nodedir
-            }/tahoe.cfg
+            cp /etc/tahoe-lafs/introducer-"${node}".cfg ${lib.escapeShellArg nodedir}/tahoe.cfg
           '';
         }
       );
@@ -339,9 +337,7 @@ in
           }
         );
         # Actually require Tahoe, so that we will have it installed.
-        systemPackages = flip mapAttrsToList cfg.nodes (
-          node: settings: settings.package
-        );
+        systemPackages = flip mapAttrsToList cfg.nodes (node: settings: settings.package);
       };
       # Open up the firewall.
       # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.nodes

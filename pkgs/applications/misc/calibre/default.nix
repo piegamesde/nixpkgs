@@ -133,9 +133,7 @@ stdenv.mkDerivation (
         ]
         ++
           lib.optionals
-            (lib.lists.any (p: p == stdenv.hostPlatform.system)
-              pyqt6-webengine.meta.platforms
-            )
+            (lib.lists.any (p: p == stdenv.hostPlatform.system) pyqt6-webengine.meta.platforms)
             [
               # much of calibre's functionality is usable without a web
               # browser, so we enable building on platforms which qtwebengine
@@ -213,10 +211,7 @@ stdenv.mkDerivation (
       '';
       changelog = "https://github.com/kovidgoyal/calibre/releases/tag/v${finalAttrs.version}";
       license =
-        if unrarSupport then
-          lib.licenses.unfreeRedistributable
-        else
-          lib.licenses.gpl3Plus;
+        if unrarSupport then lib.licenses.unfreeRedistributable else lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [
         pSub
         AndersonTorres

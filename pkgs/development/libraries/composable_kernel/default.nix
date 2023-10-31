@@ -25,8 +25,7 @@ let
 
       outputs =
         [ "out" ]
-        ++ lib.optionals buildTests [ "test" ]
-        ++ lib.optionals buildExamples [ "example" ];
+        ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildExamples [ "example" ];
 
       # ROCm 5.6 should release composable_kernel as stable with a tag in the future
       src = fetchFromGitHub {

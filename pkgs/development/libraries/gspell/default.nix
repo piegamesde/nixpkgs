@@ -62,9 +62,7 @@ stdenv.mkDerivation rec {
     ];
 
   configureFlags = [
-    "GLIB_COMPILE_RESOURCES=${
-      lib.getDev buildPackages.glib
-    }/bin/glib-compile-resources"
+    "GLIB_COMPILE_RESOURCES=${lib.getDev buildPackages.glib}/bin/glib-compile-resources"
     "GLIB_MKENUMS=${lib.getDev buildPackages.glib}/bin/glib-mkenums"
   ];
 

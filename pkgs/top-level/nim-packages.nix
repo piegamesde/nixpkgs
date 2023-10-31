@@ -23,9 +23,7 @@ lib.makeScope newScope (
 
     asciigraph = callPackage ../development/nim-packages/asciigraph { };
 
-    astpatternmatching =
-      callPackage ../development/nim-packages/astpatternmatching
-        { };
+    astpatternmatching = callPackage ../development/nim-packages/astpatternmatching { };
 
     asynctools = callPackage ../development/nim-packages/asynctools { };
 
@@ -53,9 +51,7 @@ lib.makeScope newScope (
 
     frosty = callPackage ../development/nim-packages/frosty { };
 
-    getdns = callPackage ../development/nim-packages/getdns {
-      inherit (pkgs) getdns;
-    };
+    getdns = callPackage ../development/nim-packages/getdns { inherit (pkgs) getdns; };
 
     hts-nim = callPackage ../development/nim-packages/hts-nim { };
 
@@ -113,9 +109,7 @@ lib.makeScope newScope (
 
     segmentation = callPackage ../development/nim-packages/segmentation { };
 
-    snappy = callPackage ../development/nim-packages/snappy {
-      inherit (pkgs) snappy;
-    };
+    snappy = callPackage ../development/nim-packages/snappy { inherit (pkgs) snappy; };
 
     nimraylib-now = callPackage ../development/nim-packages/nimraylib-now { };
 

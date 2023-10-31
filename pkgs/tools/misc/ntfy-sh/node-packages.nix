@@ -11254,10 +11254,7 @@ let
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
       (
-        sources."@babel/preset-env-7.21.4"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/preset-env-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/preset-react-7.18.6"
@@ -11426,19 +11423,12 @@ let
       )
       sources."@mui/core-downloads-tracker-5.12.2"
       sources."@mui/icons-material-5.11.16"
-      (
-        sources."@mui/material-5.12.2"
-        // {
-          dependencies = [ sources."react-is-18.2.0" ];
-        }
-      )
+      (sources."@mui/material-5.12.2" // { dependencies = [ sources."react-is-18.2.0" ]; })
       sources."@mui/private-theming-5.12.0"
       sources."@mui/styled-engine-5.12.0"
       sources."@mui/system-5.12.1"
       sources."@mui/types-7.2.4"
-      (
-        sources."@mui/utils-5.12.0" // { dependencies = [ sources."react-is-18.2.0" ]; }
-      )
+      (sources."@mui/utils-5.12.0" // { dependencies = [ sources."react-is-18.2.0" ]; })
       (
         sources."@nicolo-ribaudo/eslint-scope-5-internals-5.1.1-v1"
         // {
@@ -11589,12 +11579,7 @@ let
         }
       )
       sources."ajv-keywords-3.5.2"
-      (
-        sources."ansi-escapes-4.3.2"
-        // {
-          dependencies = [ sources."type-fest-0.21.3" ];
-        }
-      )
+      (sources."ansi-escapes-4.3.2" // { dependencies = [ sources."type-fest-0.21.3" ]; })
       sources."ansi-html-community-0.0.8"
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-3.2.1"
@@ -11634,10 +11619,7 @@ let
         }
       )
       (
-        sources."babel-loader-8.3.0"
-        // {
-          dependencies = [ sources."schema-utils-2.7.1" ];
-        }
+        sources."babel-loader-8.3.0" // { dependencies = [ sources."schema-utils-2.7.1" ]; }
       )
       sources."babel-plugin-istanbul-6.1.1"
       sources."babel-plugin-jest-hoist-27.5.1"
@@ -11690,22 +11672,15 @@ let
       sources."caniuse-lite-1.0.30001481"
       sources."case-sensitive-paths-webpack-plugin-2.4.0"
       (
-        sources."chalk-2.4.2"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
+        sources."chalk-2.4.2" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; }
       )
       sources."char-regex-1.0.2"
       sources."check-types-11.2.2"
-      (
-        sources."chokidar-3.5.3" // { dependencies = [ sources."glob-parent-5.1.2" ]; }
-      )
+      (sources."chokidar-3.5.3" // { dependencies = [ sources."glob-parent-5.1.2" ]; })
       sources."chrome-trace-event-1.0.3"
       sources."ci-info-3.8.0"
       sources."cjs-module-lexer-1.2.2"
-      (
-        sources."clean-css-5.3.2" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."clean-css-5.3.2" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."cliui-7.0.4"
       sources."clsx-1.2.1"
       sources."co-4.6.0"
@@ -11850,10 +11825,7 @@ let
         }
       )
       (
-        sources."domhandler-4.3.1"
-        // {
-          dependencies = [ sources."domelementtype-2.3.0" ];
-        }
+        sources."domhandler-4.3.1" // { dependencies = [ sources."domelementtype-2.3.0" ]; }
       )
       sources."domutils-1.7.0"
       (sources."dot-case-3.0.4" // { dependencies = [ sources."tslib-2.5.0" ]; })
@@ -11917,10 +11889,7 @@ let
         }
       )
       (
-        sources."eslint-module-utils-2.8.0"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
+        sources."eslint-module-utils-2.8.0" // { dependencies = [ sources."debug-3.2.7" ]; }
       )
       sources."eslint-plugin-flowtype-8.0.3"
       (
@@ -11992,12 +11961,7 @@ let
         }
       )
       sources."fast-deep-equal-3.1.3"
-      (
-        sources."fast-glob-3.2.12"
-        // {
-          dependencies = [ sources."glob-parent-5.1.2" ];
-        }
-      )
+      (sources."fast-glob-3.2.12" // { dependencies = [ sources."glob-parent-5.1.2" ]; })
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
       sources."fastq-1.15.0"
@@ -12423,9 +12387,7 @@ let
         sources."jest-watch-typeahead-1.1.0"
         // {
           dependencies = [
-            (
-              sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; }
-            )
+            (sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; })
             sources."@jest/test-result-28.1.3"
             sources."@jest/types-28.1.3"
             sources."@types/yargs-17.0.24"
@@ -12437,12 +12399,7 @@ let
             sources."color-name-1.1.4"
             sources."emittery-0.10.2"
             sources."has-flag-4.0.0"
-            (
-              sources."jest-message-util-28.1.3"
-              // {
-                dependencies = [ sources."slash-3.0.0" ];
-              }
-            )
+            (sources."jest-message-util-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; })
             sources."jest-regex-util-28.0.2"
             sources."jest-util-28.1.3"
             (
@@ -12455,10 +12412,7 @@ let
               }
             )
             (
-              sources."pretty-format-28.1.3"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-28.1.3" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-18.2.0"
             sources."slash-4.0.0"
@@ -12677,12 +12631,7 @@ let
       sources."postcss-initial-4.0.1"
       sources."postcss-js-4.0.1"
       sources."postcss-lab-function-4.2.1"
-      (
-        sources."postcss-load-config-4.0.1"
-        // {
-          dependencies = [ sources."yaml-2.2.2" ];
-        }
-      )
+      (sources."postcss-load-config-4.0.1" // { dependencies = [ sources."yaml-2.2.2" ]; })
       sources."postcss-loader-6.2.1"
       sources."postcss-logical-5.0.4"
       sources."postcss-media-minmax-5.0.0"
@@ -12755,9 +12704,7 @@ let
       sources."promise-8.3.0"
       sources."prompts-2.4.2"
       sources."prop-types-15.8.1"
-      (
-        sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; }
-      )
+      (sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; })
       sources."psl-1.9.0"
       sources."punycode-2.3.0"
       sources."q-1.5.1"
@@ -12824,12 +12771,7 @@ let
       sources."require-from-string-2.0.2"
       sources."requires-port-1.0.0"
       sources."resolve-1.22.3"
-      (
-        sources."resolve-cwd-3.0.0"
-        // {
-          dependencies = [ sources."resolve-from-5.0.0" ];
-        }
-      )
+      (sources."resolve-cwd-3.0.0" // { dependencies = [ sources."resolve-from-5.0.0" ]; })
       sources."resolve-from-4.0.0"
       (
         sources."resolve-url-loader-4.0.0"
@@ -12942,31 +12884,20 @@ let
       )
       sources."stackframe-1.3.4"
       (
-        sources."stacktrace-gps-3.1.2"
-        // {
-          dependencies = [ sources."source-map-0.5.6" ];
-        }
+        sources."stacktrace-gps-3.1.2" // { dependencies = [ sources."source-map-0.5.6" ]; }
       )
       sources."stacktrace-js-2.0.2"
       sources."statuses-2.0.1"
       sources."stop-iteration-iterator-1.0.0"
       sources."string-length-4.0.2"
       sources."string-natural-compare-3.0.1"
-      (
-        sources."string-width-4.2.3"
-        // {
-          dependencies = [ sources."emoji-regex-8.0.0" ];
-        }
-      )
+      (sources."string-width-4.2.3" // { dependencies = [ sources."emoji-regex-8.0.0" ]; })
       sources."string.prototype.matchall-4.0.8"
       sources."string.prototype.trim-1.2.7"
       sources."string.prototype.trimend-1.0.6"
       sources."string.prototype.trimstart-1.0.6"
       (
-        sources."string_decoder-1.1.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
+        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
       )
       sources."stringify-object-3.3.0"
       sources."strip-ansi-6.0.1"
@@ -13019,17 +12950,12 @@ let
       sources."to-regex-range-5.0.1"
       sources."toidentifier-1.0.1"
       (
-        sources."tough-cookie-4.1.2"
-        // {
-          dependencies = [ sources."universalify-0.2.0" ];
-        }
+        sources."tough-cookie-4.1.2" // { dependencies = [ sources."universalify-0.2.0" ]; }
       )
       sources."tr46-0.0.3"
       sources."tryer-1.0.1"
       sources."ts-interface-checker-0.1.13"
-      (
-        sources."tsconfig-paths-3.14.2" // { dependencies = [ sources."json5-1.0.2" ]; }
-      )
+      (sources."tsconfig-paths-3.14.2" // { dependencies = [ sources."json5-1.0.2" ]; })
       sources."tslib-1.14.1"
       sources."tsutils-3.21.0"
       sources."type-check-0.4.0"
@@ -13057,10 +12983,7 @@ let
       sources."utils-merge-1.0.1"
       sources."uuid-8.3.2"
       (
-        sources."v8-to-istanbul-8.1.1"
-        // {
-          dependencies = [ sources."source-map-0.7.4" ];
-        }
+        sources."v8-to-istanbul-8.1.1" // { dependencies = [ sources."source-map-0.7.4" ]; }
       )
       sources."vary-1.1.2"
       sources."void-elements-3.1.0"

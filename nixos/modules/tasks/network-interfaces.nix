@@ -20,8 +20,7 @@ let
   hasGres = cfg.greTunnels != { };
   hasBonds = cfg.bonds != { };
   hasFous =
-    cfg.fooOverUDP != { }
-    || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
+    cfg.fooOverUDP != { } || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
@@ -38,9 +37,7 @@ let
         )
         (attrValues cfg.vswitches);
 
-  slaveIfs = map (i: cfg.interfaces.${i}) (
-    filter (i: cfg.interfaces ? ${i}) slaves
-  );
+  slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
   rstpBridges = flip filterAttrs cfg.bridges (_: { rstp, ... }: rstp);
 
@@ -90,9 +87,7 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (
-            n: n >= 0 && n <= (if v == 4 then 32 else 128)
-          );
+          type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix (`${if v == 4 then "24" else "64"}`).
@@ -109,9 +104,7 @@ let
       };
 
       prefixLength = mkOption {
-        type = types.addCheck types.int (
-          n: n >= 0 && n <= (if v == 4 then 32 else 128)
-        );
+        type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
         description = lib.mdDoc ''
           Subnet mask of the network, specified as the number of
           bits in the prefix (`${if v == 4 then "24" else "64"}`).
@@ -357,9 +350,7 @@ let
 
         virtualType = mkOption {
           default = if hasPrefix "tun" name then "tun" else "tap";
-          defaultText =
-            literalExpression
-              ''if hasPrefix "tun" name then "tun" else "tap"'';
+          defaultText = literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
           type =
             with types;
             enum [
@@ -519,8 +510,7 @@ let
     };
   };
   tempaddrDoc = concatStringsSep "\n" (
-    mapAttrsToList
-      (name: { description, ... }: ''- `"${name}"` to ${description};'')
+    mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'')
       tempaddrValues
   );
 
@@ -791,9 +781,7 @@ in
             options = {
 
               interfaces = mkOption {
-                description =
-                  lib.mdDoc
-                    "The physical network interfaces connected by the vSwitch.";
+                description = lib.mdDoc "The physical network interfaces connected by the vSwitch.";
                 type = with types; attrsOf (submodule vswitchInterfaceOpts);
               };
 
@@ -892,9 +880,7 @@ in
                   "eth1"
                 ];
                 type = types.listOf types.str;
-                description =
-                  lib.mdDoc
-                    "The physical network interfaces connected by the bridge.";
+                description = lib.mdDoc "The physical network interfaces connected by the bridge.";
               };
 
               rstp = mkOption {
@@ -1037,9 +1023,7 @@ in
               interface = mkOption {
                 example = "enp4s0";
                 type = types.str;
-                description =
-                  lib.mdDoc
-                    "The interface the macvlan will transmit packets through.";
+                description = lib.mdDoc "The interface the macvlan will transmit packets through.";
               };
 
               mode = mkOption {
@@ -1480,9 +1464,7 @@ in
               fourAddr = mkOption {
                 type = types.nullOr types.bool;
                 default = null;
-                description =
-                  lib.mdDoc
-                    "Whether to enable `4-address mode` with type `managed`.";
+                description = lib.mdDoc "Whether to enable `4-address mode` with type `managed`.";
               };
 
               mac = mkOption {
@@ -1613,8 +1595,7 @@ in
         "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
         "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
         # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
-        "net.ipv6.conf.default.use_tempaddr" =
-          tempaddrValues.${cfg.tempAddresses}.sysctl;
+        "net.ipv6.conf.default.use_tempaddr" = tempaddrValues.${cfg.tempAddresses}.sysctl;
       }
       // listToAttrs (
         forEach interfaces (
@@ -1630,8 +1611,7 @@ in
             opt = i.tempAddress;
             val = tempaddrValues.${opt}.sysctl;
           in
-          nameValuePair
-            "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
+          nameValuePair "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
             val
         )
       );
@@ -1685,9 +1665,7 @@ in
 
     # static hostname configuration needed for hostnamectl and the
     # org.freedesktop.hostname1 dbus service (both provided by systemd)
-    environment.etc.hostname = mkIf (cfg.hostName != "") {
-      text = cfg.hostName + "\n";
-    };
+    environment.etc.hostname = mkIf (cfg.hostName != "") { text = cfg.hostName + "\n"; };
 
     environment.systemPackages =
       [

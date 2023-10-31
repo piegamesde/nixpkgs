@@ -87,9 +87,7 @@ rec {
             };
           }
         )
-        (
-          lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes)
-        );
+        (lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes));
     isAarch64 = {
       cpu = {
         family = "arm";

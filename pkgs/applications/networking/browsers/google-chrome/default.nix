@@ -199,8 +199,7 @@ stdenv.mkDerivation {
     tar xf data.tar.xz
   '';
 
-  rpath =
-    lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
+  rpath = lib.makeLibraryPath deps + ":" + lib.makeSearchPathOutput "lib" "lib64" deps;
   binpath = lib.makeBinPath deps;
 
   installPhase = ''
@@ -271,9 +270,6 @@ stdenv.mkDerivation {
     # Google Chrome.
     platforms = [ "x86_64-linux" ];
     mainProgram =
-      if (channel == "dev") then
-        "google-chrome-unstable"
-      else
-        "google-chrome-${channel}";
+      if (channel == "dev") then "google-chrome-unstable" else "google-chrome-${channel}";
   };
 }

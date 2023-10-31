@@ -36,8 +36,8 @@ let
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
       if
-        stdenv.hostPlatform.gcc.float
-          or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
+        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard")
+        == "soft"
       then
         "yes"
       else
@@ -104,8 +104,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               i586 = "i386";
               i686 = "i386";
             }
-            .${stdenv'.hostPlatform.parsed.cpu.name}
-              or stdenv'.hostPlatform.parsed.cpu.name;
+            .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
           MACHINE =
             {
@@ -115,8 +114,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               i586 = "i386";
               i686 = "i386";
             }
-            .${stdenv'.hostPlatform.parsed.cpu.name}
-              or stdenv'.hostPlatform.parsed.cpu.name;
+            .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
           COMPONENT_PATH = attrs.path;
 
@@ -339,9 +337,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             (fetchNetBSD "external/bsd/flex" "9.2"
               "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m"
             )
-            (fetchNetBSD "sys/sys" "9.2"
-              "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd"
-            )
+            (fetchNetBSD "sys/sys" "9.2" "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd")
             (fetchNetBSD "common/include/rpc/types.h" "9.2"
               "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a"
             )
@@ -565,9 +561,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
       extraPaths = [
-        (fetchNetBSD "share/mk" "9.2"
-          "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy"
-        )
+        (fetchNetBSD "share/mk" "9.2" "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
       ];
     };
 

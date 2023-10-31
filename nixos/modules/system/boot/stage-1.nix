@@ -235,9 +235,7 @@ let
           patchelf --set-rpath $out/lib $i
         done
 
-        if [ -z "${
-          toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)
-        }" ]; then
+        if [ -z "${toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)}" ]; then
         # Make sure that the patchelf'ed binaries still work.
         echo "testing patched programs..."
         $out/bin/ash -c 'echo hello world' | grep "hello world"
@@ -395,9 +393,7 @@ let
           (builtins.concatStringsSep "," fs.options)
         ];
       in
-      pkgs.writeText "initrd-fsinfo" (
-        concatStringsSep "\n" (concatMap f fileSystems)
-      );
+      pkgs.writeText "initrd-fsinfo" (concatStringsSep "\n" (concatMap f fileSystems));
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -425,9 +421,7 @@ let
           symlink = "/init";
         }
         {
-          object =
-            pkgs.writeText "mdadm.conf"
-              config.boot.initrd.services.swraid.mdadmConf;
+          object = pkgs.writeText "mdadm.conf" config.boot.initrd.services.swraid.mdadmConf;
           symlink = "/etc/mdadm.conf";
         }
         {
@@ -680,9 +674,7 @@ in
           else
             "gzip"
         );
-      defaultText =
-        literalMD
-          "`zstd` if the kernel supports it (5.9+), `gzip` if not";
+      defaultText = literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
       description = lib.mdDoc ''
         The compressor to use on the initrd image. May be any of:

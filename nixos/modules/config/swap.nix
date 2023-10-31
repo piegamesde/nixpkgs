@@ -175,9 +175,7 @@ let
 
       config = rec {
         device = mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
-        deviceName = lib.replaceStrings [ "\\" ] [ "" ] (
-          escapeSystemdPath config.device
-        );
+        deviceName = lib.replaceStrings [ "\\" ] [ "" ] (escapeSystemdPath config.device);
         realDevice =
           if config.randomEncryption.enable then
             "/dev/mapper/${deviceName}"

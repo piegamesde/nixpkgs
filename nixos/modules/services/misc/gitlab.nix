@@ -45,8 +45,7 @@ let
       { production = val; };
 
   # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally =
-    cfg.databaseCreateLocally && cfg.databaseHost == "";
+  databaseActuallyCreateLocally = cfg.databaseCreateLocally && cfg.databaseHost == "";
 
   gitalyToml = pkgs.writeText "gitaly.toml" ''
     socket_path = "${lib.escape [ ''"'' ] gitalySocket}"
@@ -197,9 +196,7 @@ let
       SCHEMA = "${cfg.statePath}/db/structure.sql";
       GITLAB_UPLOADS_PATH = "${cfg.statePath}/uploads";
       GITLAB_LOG_PATH = "${cfg.statePath}/log";
-      GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (
-        builtins.toJSON redisConfig
-      );
+      GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (builtins.toJSON redisConfig);
       prometheus_multiproc_dir = "/run/gitlab";
       RAILS_ENV = "production";
       MALLOC_ARENA_MAX = "2";
@@ -226,9 +223,7 @@ let
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
           ${
-            concatStrings (
-              mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv
-            )
+            concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --set RAKEOPT '-f ${cfg.packages.gitlab}/share/gitlab/Rakefile' \
@@ -245,9 +240,7 @@ let
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
           ${
-            concatStrings (
-              mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv
-            )
+            concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)
           } \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --chdir '${cfg.packages.gitlab}/share/gitlab'
@@ -265,12 +258,9 @@ let
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
         ${
-          optionalString (cfg.smtp.username != null)
-            ''user_name: "${cfg.smtp.username}",''
+          optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''
         }
-        ${
-          optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''
-        }
+        ${optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''}
         domain: "${cfg.smtp.domain}",
         ${
           optionalString (cfg.smtp.authentication != null)
@@ -690,15 +680,11 @@ in
         externalAddress = mkOption {
           type = types.str;
           default = "";
-          description =
-            lib.mdDoc
-              "External address used to access registry from the internet";
+          description = lib.mdDoc "External address used to access registry from the internet";
         };
         externalPort = mkOption {
           type = types.int;
-          description =
-            lib.mdDoc
-              "External port used to access registry from the internet";
+          description = lib.mdDoc "External port used to access registry from the internet";
         };
       };
 
@@ -1658,8 +1644,7 @@ in
               else if isSecret v then
                 builtins.hashString "sha256" v._secret
               else
-                throw
-                  "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+                throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
           };
         };
         secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
@@ -1673,9 +1658,7 @@ in
           }
         '';
         secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-        configFile = pkgs.writeText "gitlab-pages.conf" (
-          mkPagesKeyValue filteredConfig
-        );
+        configFile = pkgs.writeText "gitlab-pages.conf" (mkPagesKeyValue filteredConfig);
       in
       mkIf cfg.pages.enable {
         description = "GitLab static pages daemon";
@@ -1830,12 +1813,10 @@ in
       after = [ "gitlab.service" ];
       bindsTo = [ "gitlab.service" ];
       startAt = cfg.backup.startAt;
-      environment =
-        {
-          RAILS_ENV = "production";
-          CRON = "1";
-        }
-        // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; };
+      environment = {
+        RAILS_ENV = "production";
+        CRON = "1";
+      } // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; };
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

@@ -15,9 +15,7 @@ let
         libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime
           { };
 
-      libcsys =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys
-          { };
+      libcsys = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys { };
 
       # Apps
       coreaction =
@@ -36,53 +34,53 @@ let
         libsForQt5.callPackage ../applications/misc/cubocore-packages/coregarage
           { inherit libcprime libcsys; };
 
-      corehunt =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corehunt
-          { inherit libcprime libcsys; };
+      corehunt = libsForQt5.callPackage ../applications/misc/cubocore-packages/corehunt {
+        inherit libcprime libcsys;
+      };
 
-      coreimage =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/coreimage
-          { inherit libcprime libcsys; };
+      coreimage = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreimage {
+        inherit libcprime libcsys;
+      };
 
-      coreinfo =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/coreinfo
-          { inherit libcprime libcsys; };
+      coreinfo = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreinfo {
+        inherit libcprime libcsys;
+      };
 
       corekeyboard =
         libsForQt5.callPackage ../applications/misc/cubocore-packages/corekeyboard
           { inherit libcprime libcsys; };
 
-      corepad =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corepad
-          { inherit libcprime libcsys; };
+      corepad = libsForQt5.callPackage ../applications/misc/cubocore-packages/corepad {
+        inherit libcprime libcsys;
+      };
 
-      corepaint =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corepaint
-          { inherit libcprime libcsys; };
+      corepaint = libsForQt5.callPackage ../applications/misc/cubocore-packages/corepaint {
+        inherit libcprime libcsys;
+      };
 
-      corepdf =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corepdf
-          { inherit libcprime libcsys; };
+      corepdf = libsForQt5.callPackage ../applications/misc/cubocore-packages/corepdf {
+        inherit libcprime libcsys;
+      };
 
-      corepins =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corepins
-          { inherit libcprime libcsys; };
+      corepins = libsForQt5.callPackage ../applications/misc/cubocore-packages/corepins {
+        inherit libcprime libcsys;
+      };
 
       corerenamer =
         libsForQt5.callPackage ../applications/misc/cubocore-packages/corerenamer
           { inherit libcprime libcsys; };
 
-      coreshot =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/coreshot
-          { inherit libcprime libcsys; };
+      coreshot = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreshot {
+        inherit libcprime libcsys;
+      };
 
-      corestats =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corestats
-          { inherit libcprime libcsys; };
+      corestats = libsForQt5.callPackage ../applications/misc/cubocore-packages/corestats {
+        inherit libcprime libcsys;
+      };
 
-      corestuff =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corestuff
-          { inherit libcprime libcsys; };
+      corestuff = libsForQt5.callPackage ../applications/misc/cubocore-packages/corestuff {
+        inherit libcprime libcsys;
+      };
 
       coreterminal =
         libsForQt5.callPackage ../applications/misc/cubocore-packages/coreterminal
@@ -91,9 +89,9 @@ let
             inherit libcprime libcsys;
           };
 
-      coretime =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/coretime
-          { inherit libcprime libcsys; };
+      coretime = libsForQt5.callPackage ../applications/misc/cubocore-packages/coretime {
+        inherit libcprime libcsys;
+      };
 
       coretoppings =
         libsForQt5.callPackage ../applications/misc/cubocore-packages/coretoppings

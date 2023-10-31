@@ -24,8 +24,7 @@ assert withGUI -> qtbase != null && wrapQtAppsHook != null;
 stdenv.mkDerivation (
   finalAttrs: {
     pname =
-      "alice-tools"
-      + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}";
+      "alice-tools" + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}";
     version = "0.13.0";
 
     src = fetchFromGitHub {

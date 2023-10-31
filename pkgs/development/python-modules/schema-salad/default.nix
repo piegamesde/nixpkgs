@@ -35,9 +35,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.pycodegen;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.pycodegen;
 
   preCheck = ''
     rm tox.ini

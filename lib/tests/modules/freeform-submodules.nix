@@ -2,8 +2,7 @@
 with lib.types; {
 
   options.fooDeclarations = lib.mkOption {
-    default =
-      (options.free.type.getSubOptions [ ])._freeformOptions.foo.declarations;
+    default = (options.free.type.getSubOptions [ ])._freeformOptions.foo.declarations;
   };
 
   options.free = lib.mkOption {

@@ -23,9 +23,7 @@ in
 stdenv.mkDerivation {
   pname = "compiler-rt" + lib.optionalString (haveLibc) "-libc";
   inherit version;
-  src =
-    fetch "compiler-rt"
-      "1yjqjri753w0fzmxcyz687nvd97sbc9rsqrxzpq720na47hwh3fr";
+  src = fetch "compiler-rt" "1yjqjri753w0fzmxcyz687nvd97sbc9rsqrxzpq720na47hwh3fr";
 
   nativeBuildInputs = [
     cmake
@@ -116,10 +114,9 @@ stdenv.mkDerivation {
 
   # Hack around weird upsream RPATH bug
   postInstall =
-    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
-      ''
-        ln -s "$out/lib"/*/* "$out/lib"
-      ''
+    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
+      ln -s "$out/lib"/*/* "$out/lib"
+    ''
     + lib.optionalString (useLLVM) ''
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o
@@ -130,8 +127,7 @@ stdenv.mkDerivation {
     ''
     # See https://reviews.llvm.org/D37278 for why android exception
     +
-      lib.optionalString
-        (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid)
+      lib.optionalString (stdenv.hostPlatform.isx86_32 && !stdenv.hostPlatform.isAndroid)
         ''
           for f in $out/lib/*/*builtins-i?86*; do
             ln -s "$f" $(echo "$f" | sed -e 's/builtins-i.86/builtins-i386/')

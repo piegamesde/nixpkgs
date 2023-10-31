@@ -90,9 +90,7 @@ let
 
             networking.firewall.allowedTCPPorts =
               mkIf
-                (
-                  (builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall
-                )
+                ((builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall)
                 allowedTCPPorts;
           }
           extraConfig

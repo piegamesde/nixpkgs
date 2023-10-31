@@ -31,8 +31,7 @@ let
     args:
     let
       build =
-        (build-asdf-system (args // { version = args.version + "-build"; }))
-        .overrideAttrs
+        (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs
           (
             o: {
               buildPhase = with builtins; ''

@@ -21,8 +21,7 @@
   haveKeys =
     expected: actual:
     if
-      builtins.all (ex: builtins.any (ac: ex == ac) (builtins.attrNames actual))
-        expected
+      builtins.all (ex: builtins.any (ac: ex == ac) (builtins.attrNames actual)) expected
     then
       (test.passed "has expected keys")
     else

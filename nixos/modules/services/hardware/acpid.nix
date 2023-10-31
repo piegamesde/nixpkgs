@@ -76,9 +76,7 @@ in
 
               action = mkOption {
                 type = types.lines;
-                description =
-                  lib.mdDoc
-                    "Shell commands to execute when the event is triggered.";
+                description = lib.mdDoc "Shell commands to execute when the event is triggered.";
               };
             };
           }

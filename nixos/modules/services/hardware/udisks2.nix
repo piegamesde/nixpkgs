@@ -13,8 +13,7 @@ let
     listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
   };
   configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (
-    mapAttrs' (name: value: nameValuePair name value)
-      config.services.udisks2.settings
+    mapAttrs' (name: value: nameValuePair name value) config.services.udisks2.settings
   );
 in
 

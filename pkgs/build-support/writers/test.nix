@@ -50,17 +50,15 @@ let
             _ -> print "fail"
         '';
 
-    js =
-      writeJSBin "test-writers-js-bin" { libraries = [ nodePackages.semver ]; }
-        ''
-          var semver = require('semver');
+    js = writeJSBin "test-writers-js-bin" { libraries = [ nodePackages.semver ]; } ''
+      var semver = require('semver');
 
-          if (semver.valid('1.2.3')) {
-            console.log('success')
-          } else {
-            console.log('fail')
-          }
-        '';
+      if (semver.valid('1.2.3')) {
+        console.log('success')
+      } else {
+        console.log('fail')
+      }
+    '';
 
     perl =
       writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; }
@@ -122,8 +120,7 @@ let
     '';
 
     haskell =
-      writeHaskell "test-writers-haskell"
-        { libraries = [ haskellPackages.acme-default ]; }
+      writeHaskell "test-writers-haskell" { libraries = [ haskellPackages.acme-default ]; }
         ''
           import Data.Default
 
@@ -146,25 +143,21 @@ let
       }
     '';
 
-    perl =
-      writePerl "test-writers-perl" { libraries = [ perlPackages.boolean ]; }
-        ''
-          use boolean;
-          print "success\n" if true;
-        '';
+    perl = writePerl "test-writers-perl" { libraries = [ perlPackages.boolean ]; } ''
+      use boolean;
+      print "success\n" if true;
+    '';
 
-    pypy2 =
-      writePyPy2 "test-writers-pypy2" { libraries = [ pypy2Packages.enum ]; }
-        ''
-          from enum import Enum
+    pypy2 = writePyPy2 "test-writers-pypy2" { libraries = [ pypy2Packages.enum ]; } ''
+      from enum import Enum
 
 
-          class Test(Enum):
-              a = "success"
+      class Test(Enum):
+          a = "success"
 
 
-          print Test.a
-        '';
+      print Test.a
+    '';
 
     python3 =
       writePython3 "test-writers-python3" { libraries = [ python3Packages.pyyaml ]; }
@@ -177,16 +170,14 @@ let
           print(y[0]['test'])
         '';
 
-    pypy3 =
-      writePyPy3 "test-writers-pypy3" { libraries = [ pypy3Packages.pyyaml ]; }
-        ''
-          import yaml
+    pypy3 = writePyPy3 "test-writers-pypy3" { libraries = [ pypy3Packages.pyyaml ]; } ''
+      import yaml
 
-          y = yaml.load("""
-            - test: success
-          """)
-          print(y[0]['test'])
-        '';
+      y = yaml.load("""
+        - test: success
+      """)
+      print(y[0]['test'])
+    '';
 
     fsharp =
       makeFSharpWriter

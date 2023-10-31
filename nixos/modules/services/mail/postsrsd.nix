@@ -22,9 +22,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the postsrsd SRS server for Postfix.";
+        description = lib.mdDoc "Whether to enable the postsrsd SRS server for Postfix.";
       };
 
       secretsFile = mkOption {

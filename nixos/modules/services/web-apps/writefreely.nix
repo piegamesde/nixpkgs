@@ -71,8 +71,7 @@ let
       bind = cfg.settings.server.bind or "localhost";
       gopher_port = cfg.settings.server.gopher_port or 0;
       autocert = !cfg.nginx.enable && cfg.acme.enable;
-      templates_parent_dir =
-        cfg.settings.server.templates_parent_dir or cfg.package.src;
+      templates_parent_dir = cfg.settings.server.templates_parent_dir or cfg.package.src;
       static_parent_dir = cfg.settings.server.static_parent_dir or assets;
       pages_parent_dir = cfg.settings.server.pages_parent_dir or cfg.package.src;
       keys_parent_dir = cfg.settings.server.keys_parent_dir or cfg.stateDir;
@@ -275,9 +274,7 @@ in
       migrate = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether or not to automatically run migrations on startup.";
+        description = lib.mdDoc "Whether or not to automatically run migrations on startup.";
       };
 
       createLocally = mkOption {
@@ -363,9 +360,7 @@ in
       groups = optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
     };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.writefreely = {
       after =
@@ -450,8 +445,7 @@ in
         WorkingDirectory = cfg.stateDir;
         ReadOnlyPaths =
           optional isMysqlLocal cfg.database.passwordFile
-          ++ optional (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile;
+          ++ optional (cfg.admin.initialPasswordFile != null) cfg.admin.initialPasswordFile;
       };
 
       script =

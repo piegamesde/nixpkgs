@@ -107,9 +107,7 @@ let
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
-      inputs' =
-        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-          inputs;
+      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
       override =
         attr:
         let
@@ -404,15 +402,13 @@ stdenv.mkDerivation {
     CPPFLAGS = concatStringsSep " " (map (p: "-I${getDev p}/include") buildInputs);
     LDFLAGS = concatStringsSep " " (map (p: "-L${getLib p}/lib") buildInputs);
     LIBS = "${optionalString (!stdenv.isDarwin) "-lcrypt"}";
-    NIX_LDFLAGS =
-      lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
-        (
-          {
-            "glibc" = "-lgcc_s";
-            "musl" = "-lgcc_eh";
-          }
-          ."${stdenv.hostPlatform.libc}" or ""
-        );
+    NIX_LDFLAGS = lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) (
+      {
+        "glibc" = "-lgcc_s";
+        "musl" = "-lgcc_eh";
+      }
+      ."${stdenv.hostPlatform.libc}" or ""
+    );
     # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };
@@ -435,9 +431,7 @@ stdenv.mkDerivation {
           # This is unconditionally true starting in CPython 3.7.
           "--with-threads"
         ]
-    ++ optionals (sqlite != null && isPy3k) [
-      "--enable-loadable-sqlite-extensions"
-    ]
+    ++ optionals (sqlite != null && isPy3k) [ "--enable-loadable-sqlite-extensions" ]
     ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
     ++ optionals (libxcrypt != null) [
       "CFLAGS=-I${libxcrypt}/include"
@@ -465,9 +459,9 @@ stdenv.mkDerivation {
       "ac_cv_file__dev_ptmx=yes"
       "ac_cv_file__dev_ptc=yes"
     ]
-    ++
-      optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11")
-        [ "--with-build-python=${pythonForBuildInterpreter}" ]
+    ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
+      "--with-build-python=${pythonForBuildInterpreter}"
+    ]
     ++
       optionals stdenv.hostPlatform.isLinux
         [
@@ -486,9 +480,7 @@ stdenv.mkDerivation {
     ''
     + optionalString stdenv.isDarwin ''
       # Override the auto-detection in setup.py, which assumes a universal build
-      export PYTHON_DECIMAL_WITH_MACHINE=${
-        if stdenv.isAarch64 then "uint128" else "x64"
-      }
+      export PYTHON_DECIMAL_WITH_MACHINE=${if stdenv.isAarch64 then "uint128" else "x64"}
     ''
     + optionalString (isPy3k && pythonOlder "3.7") ''
       # Determinism: The interpreter is patched to write null timestamps when compiling Python files

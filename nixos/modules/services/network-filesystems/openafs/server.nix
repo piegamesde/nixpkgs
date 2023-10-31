@@ -64,11 +64,7 @@ let
       ''
     )
     + (optionalString
-      (
-        cfg.roles.database.enable
-        && cfg.roles.backup.enable
-        && cfg.roles.backup.enableFabs
-      )
+      (cfg.roles.database.enable && cfg.roles.backup.enable && cfg.roles.backup.enableFabs)
       ''
         bnode simple buserver 1
         parm ${
@@ -159,9 +155,7 @@ in
       cellServDB = mkOption {
         default = [ ];
         type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
-        description =
-          lib.mdDoc
-            "Definition of all cell-local database server machines.";
+        description = lib.mdDoc "Definition of all cell-local database server machines.";
       };
 
       package = mkOption {
@@ -184,35 +178,27 @@ in
           fileserverArgs = mkOption {
             default = "-vattachpar 128 -vhashsize 11 -L -rxpck 400 -cb 1000000";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the dafileserver process. See its man page.";
+            description = lib.mdDoc "Arguments to the dafileserver process. See its man page.";
           };
 
           volserverArgs = mkOption {
             default = "";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the davolserver process. See its man page.";
+            description = lib.mdDoc "Arguments to the davolserver process. See its man page.";
             example = "-sync never";
           };
 
           salvageserverArgs = mkOption {
             default = "";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the salvageserver process. See its man page.";
+            description = lib.mdDoc "Arguments to the salvageserver process. See its man page.";
             example = "-showlog";
           };
 
           salvagerArgs = mkOption {
             default = "";
             type = types.str;
-            description =
-              lib.mdDoc
-                "Arguments to the dasalvager process. See its man page.";
+            description = lib.mdDoc "Arguments to the dasalvager process. See its man page.";
             example = "-showlog -showmounts";
           };
         };

@@ -125,9 +125,7 @@ stdenv.mkDerivation (
       autoreconfHook
     ];
 
-    buildInputs =
-      getAttrDef "buildInputs" [ ] pkg
-      ++ lib.optional ifDeps joinedDeps;
+    buildInputs = getAttrDef "buildInputs" [ ] pkg ++ lib.optional ifDeps joinedDeps;
 
     dontUseCmakeConfigure = true;
 

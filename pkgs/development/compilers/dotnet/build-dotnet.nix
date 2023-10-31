@@ -61,9 +61,7 @@ stdenv.mkDerivation (
     inherit pname version;
 
     # Some of these dependencies are `dlopen()`ed.
-    nativeBuildInputs = [
-      makeWrapper
-    ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
     buildInputs = [
       stdenv.cc.cc

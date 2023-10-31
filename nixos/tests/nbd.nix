@@ -41,9 +41,7 @@ import ./make-test-python.nix (
           ## `aaa.disk` is just here because "[aaa]" sorts before
           ## "[generic]" lexicographically, and nbd-server breaks if
           ## "[generic]" isn't the first section.
-          systemd.services.create-aaa-file = mkCreateSmallFileService {
-            path = "/aaa.disk";
-          };
+          systemd.services.create-aaa-file = mkCreateSmallFileService { path = "/aaa.disk"; };
 
           # Needed only for nbd-client used in the tests.
           environment.systemPackages = [ pkgs.nbd ];

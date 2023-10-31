@@ -107,10 +107,7 @@ in
         "net.ipv4.conf.all.rp_filter" = 0;
       }
       // lib.mapAttrs'
-        (
-          ifname: _:
-          lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
-        )
+        (ifname: _: lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0))
         config.services.babeld.interfaces;
 
     systemd.services.babeld = {

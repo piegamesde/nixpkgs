@@ -21,10 +21,7 @@ let
   discoverTests =
     val:
     if isAttrs val then
-      if hasAttr "test" val then
-        callTest val
-      else
-        mapAttrs (n: s: discoverTests s) val
+      if hasAttr "test" val then callTest val else mapAttrs (n: s: discoverTests s) val
     else if isFunction val then
       # Tests based on make-test-python.nix will return the second lambda
       # in that file, which are then forwarded to the test definition
@@ -163,12 +160,8 @@ in
   cage = handleTest ./cage.nix { };
   cagebreak = handleTest ./cagebreak.nix { };
   calibre-web = handleTest ./calibre-web.nix { };
-  cassandra_3_0 = handleTest ./cassandra.nix {
-    testPackage = pkgs.cassandra_3_0;
-  };
-  cassandra_3_11 = handleTest ./cassandra.nix {
-    testPackage = pkgs.cassandra_3_11;
-  };
+  cassandra_3_0 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_3_0; };
+  cassandra_3_11 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_3_11; };
   cassandra_4 = handleTest ./cassandra.nix { testPackage = pkgs.cassandra_4; };
   ceph-multi-node =
     handleTestOn
@@ -253,18 +246,12 @@ in
   containers-macvlans = handleTest ./containers-macvlans.nix { };
   containers-names = handleTest ./containers-names.nix { };
   containers-nested = handleTest ./containers-nested.nix { };
-  containers-physical_interfaces =
-    handleTest ./containers-physical_interfaces.nix
-      { };
+  containers-physical_interfaces = handleTest ./containers-physical_interfaces.nix { };
   containers-portforward = handleTest ./containers-portforward.nix { };
   containers-reloadable = handleTest ./containers-reloadable.nix { };
-  containers-restart_networking =
-    handleTest ./containers-restart_networking.nix
-      { };
+  containers-restart_networking = handleTest ./containers-restart_networking.nix { };
   containers-tmpfs = handleTest ./containers-tmpfs.nix { };
-  containers-unified-hierarchy =
-    handleTest ./containers-unified-hierarchy.nix
-      { };
+  containers-unified-hierarchy = handleTest ./containers-unified-hierarchy.nix { };
   convos = handleTest ./convos.nix { };
   corerad = handleTest ./corerad.nix { };
   coturn = handleTest ./coturn.nix { };
@@ -331,10 +318,8 @@ in
   dovecot = handleTest ./dovecot.nix { };
   drbd = handleTest ./drbd.nix { };
   earlyoom = handleTestOn [ "x86_64-linux" ] ./earlyoom.nix { };
-  ec2-config =
-    (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-config or { };
-  ec2-nixops =
-    (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-nixops or { };
+  ec2-config = (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-config or { };
+  ec2-nixops = (handleTestOn [ "x86_64-linux" ] ./ec2.nix { }).boot-ec2-nixops or { };
   ecryptfs = handleTest ./ecryptfs.nix { };
   fscrypt = handleTest ./fscrypt.nix { };
   ejabberd = handleTest ./xmpp/ejabberd.nix { };
@@ -350,9 +335,7 @@ in
   ergo = handleTest ./ergo.nix { };
   ergochat = handleTest ./ergochat.nix { };
   esphome = handleTest ./esphome.nix { };
-  etc = pkgs.callPackage ../modules/system/etc/test.nix {
-    inherit evalMinimalConfig;
-  };
+  etc = pkgs.callPackage ../modules/system/etc/test.nix { inherit evalMinimalConfig; };
   activation = pkgs.callPackage ../modules/system/activation/test.nix { };
   etcd = handleTestOn [ "x86_64-linux" ] ./etcd.nix { };
   etcd-cluster = handleTestOn [ "x86_64-linux" ] ./etcd-cluster.nix { };
@@ -478,9 +461,7 @@ in
   influxdb = handleTest ./influxdb.nix { };
   initrd-network-openvpn = handleTest ./initrd-network-openvpn { };
   initrd-network-ssh = handleTest ./initrd-network-ssh { };
-  initrd-luks-empty-passphrase =
-    handleTest ./initrd-luks-empty-passphrase.nix
-      { };
+  initrd-luks-empty-passphrase = handleTest ./initrd-luks-empty-passphrase.nix { };
   initrdNetwork = handleTest ./initrd-network.nix { };
   initrd-secrets = handleTest ./initrd-secrets.nix { };
   initrd-secrets-changing = handleTest ./initrd-secrets-changing.nix { };
@@ -506,9 +487,7 @@ in
   kanidm = handleTest ./kanidm.nix { };
   karma = handleTest ./karma.nix { };
   kbd-setfont-decompress = handleTest ./kbd-setfont-decompress.nix { };
-  kbd-update-search-paths-patch =
-    handleTest ./kbd-update-search-paths-patch.nix
-      { };
+  kbd-update-search-paths-patch = handleTest ./kbd-update-search-paths-patch.nix { };
   kea = handleTest ./kea.nix { };
   keepalived = handleTest ./keepalived.nix { };
   keepassxc = handleTest ./keepassxc.nix { };
@@ -559,9 +538,7 @@ in
   lorri = handleTest ./lorri/default.nix { };
   maddy = discoverTests (import ./maddy { inherit handleTest; });
   maestral = handleTest ./maestral.nix { };
-  magic-wormhole-mailbox-server =
-    handleTest ./magic-wormhole-mailbox-server.nix
-      { };
+  magic-wormhole-mailbox-server = handleTest ./magic-wormhole-mailbox-server.nix { };
   magnetico = handleTest ./magnetico.nix { };
   mailcatcher = handleTest ./mailcatcher.nix { };
   mailhog = handleTest ./mailhog.nix { };
@@ -665,9 +642,7 @@ in
   nix-serve-ssh = handleTest ./nix-serve-ssh.nix { };
   nixops = handleTest ./nixops/default.nix { };
   nixos-generate-config = handleTest ./nixos-generate-config.nix { };
-  nixos-rebuild-specialisations =
-    handleTest ./nixos-rebuild-specialisations.nix
-      { };
+  nixos-rebuild-specialisations = handleTest ./nixos-rebuild-specialisations.nix { };
   nixpkgs = pkgs.callPackage ../modules/misc/nixpkgs/test.nix {
     inherit evalMinimalConfig;
   };
@@ -897,9 +872,7 @@ in
   systemd-initrd-luks-empty-passphrase =
     handleTest ./initrd-luks-empty-passphrase.nix
       { systemdStage1 = true; };
-  systemd-initrd-luks-password =
-    handleTest ./systemd-initrd-luks-password.nix
-      { };
+  systemd-initrd-luks-password = handleTest ./systemd-initrd-luks-password.nix { };
   systemd-initrd-luks-tpm2 = handleTest ./systemd-initrd-luks-tpm2.nix { };
   systemd-initrd-modprobe = handleTest ./systemd-initrd-modprobe.nix { };
   systemd-initrd-shutdown = handleTest ./systemd-shutdown.nix {

@@ -129,9 +129,7 @@ let
       ''
         HADDOCK_DOCS = ${if enableHaddockProgram then "YES" else "NO"}
         DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
-        INTEGER_LIBRARY = ${
-          if enableIntegerSimple then "integer-simple" else "integer-gmp"
-        }
+        INTEGER_LIBRARY = ${if enableIntegerSimple then "integer-simple" else "integer-gmp"}
       ''
     # We only need to build stage1 on most cross-compilation because
     # we will be running the compiler on the native system. In some
@@ -174,9 +172,7 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
-    ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-        libiconv;
+    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST

@@ -49604,9 +49604,7 @@ in
       (getAttr "hu_dot_dwim_dot_asdf" pkgs)
       (getAttr "hu_dot_dwim_dot_common" pkgs)
       (getAttr "hu_dot_dwim_dot_def" pkgs)
-      (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def_plus_contextl"
-        pkgs
-      )
+      (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def_plus_contextl" pkgs)
       (getAttr "hu_dot_dwim_dot_logger" pkgs)
       (getAttr "hu_dot_dwim_dot_syntax-sugar" pkgs)
       (getAttr "hu_dot_dwim_dot_util" pkgs)

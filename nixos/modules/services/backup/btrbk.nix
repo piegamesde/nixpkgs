@@ -146,9 +146,7 @@ in
                   type =
                     let
                       t = types.attrsOf (
-                        types.either types.str (
-                          t // { description = "instances of this type recursively"; }
-                        )
+                        types.either types.str (t // { description = "instances of this type recursively"; })
                       );
                     in
                     t;

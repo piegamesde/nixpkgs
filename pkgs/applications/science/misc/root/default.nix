@@ -171,9 +171,7 @@ stdenv.mkDerivation rec {
     ''
     +
       lib.optionalString
-        (
-          stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-        )
+        (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
         '';

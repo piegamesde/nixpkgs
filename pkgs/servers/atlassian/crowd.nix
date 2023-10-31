@@ -49,9 +49,7 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
         ''
         + lib.optionalString (proxyUrl != null) ''
           sed -i crowd-openidserver-webapp/WEB-INF/classes/crowd.properties \
-            -e 's,http://localhost:${
-              toString port
-            }/openidserver,${proxyUrl}/openidserver,'
+            -e 's,http://localhost:${toString port}/openidserver,${proxyUrl}/openidserver,'
         '';
 
       installPhase = ''

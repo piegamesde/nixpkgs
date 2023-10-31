@@ -35,8 +35,7 @@ let
         importlib-metadata
         toml
       ]
-      ++ lib.optional stdenv.isLinux pyinotify
-      ++ lib.optional stdenv.isDarwin macfsevents;
+      ++ lib.optional stdenv.isLinux pyinotify ++ lib.optional stdenv.isDarwin macfsevents;
 
     nativeCheckInputs = [
       configclass

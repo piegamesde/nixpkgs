@@ -9,8 +9,7 @@ with lib;
 
 let
 
-  smbToString =
-    x: if builtins.typeOf x == "bool" then boolToString x else toString x;
+  smbToString = x: if builtins.typeOf x == "bool" then boolToString x else toString x;
 
   cfg = config.services.samba;
 
@@ -52,9 +51,7 @@ let
   daemonService = appName: args: {
     description = "Samba Service Daemon ${appName}";
 
-    after = [
-      (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service")
-    ];
+    after = [ (mkIf (cfg.enableNmbd && "${appName}" == "smbd") "samba-nmbd.service") ];
     requiredBy = [ "samba.target" ];
     partOf = [ "samba.target" ];
 

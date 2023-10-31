@@ -42,9 +42,7 @@ let
       };
       description = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "A short description of the endpoint you want to advertise";
+        description = lib.mdDoc "A short description of the endpoint you want to advertise";
       };
     };
   };
@@ -184,9 +182,7 @@ let
     mam = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Store messages in an archive and allow users to access it";
+      description = lib.mdDoc "Store messages in an archive and allow users to access it";
     };
 
     smacks = mkOption {
@@ -392,9 +388,7 @@ let
         vcard_muc = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Adds the ability to set vCard for Multi User Chat rooms";
+          description = lib.mdDoc "Adds the ability to set vCard for Multi User Chat rooms";
         };
 
         # Extra parameters. Defaulting to prosody default values.
@@ -429,16 +423,12 @@ let
         roomDefaultChangeSubject = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "If set, the rooms will display the public JIDs by default.";
+          description = lib.mdDoc "If set, the rooms will display the public JIDs by default.";
         };
         roomDefaultHistoryLength = mkOption {
           type = types.int;
           default = 20;
-          description =
-            lib.mdDoc
-              "Number of history message sent to participants by default.";
+          description = lib.mdDoc "Number of history message sent to participants by default.";
         };
         roomDefaultLanguage = mkOption {
           type = types.str;
@@ -890,9 +880,7 @@ in
               lib.mapAttrsToList (name: val: optionalString val "${toLua name};") cfg.modules
             )
           }
-          ${
-            lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)
-          }
+          ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)}
           ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
         };
 
@@ -929,9 +917,7 @@ in
         ${lib.concatMapStrings
           (muc: ''
             Component ${toLua muc.domain} "muc"
-                modules_enabled = { "muc_mam"; ${
-                  optionalString muc.vcard_muc ''"vcard_muc";''
-                } }
+                modules_enabled = { "muc_mam"; ${optionalString muc.vcard_muc ''"vcard_muc";''} }
                 name = ${toLua muc.name}
                 restrict_room_creation = ${toLua muc.restrictRoomCreation}
                 max_history_messages = ${toLua muc.maxHistoryMessages}

@@ -46,17 +46,12 @@ let
         hostOpts
         // {
           certName =
-            if hostOpts.useACMEHost != null then
-              hostOpts.useACMEHost
-            else
-              hostOpts.hostName;
+            if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName;
         }
       )
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
 
-  dependentCertNames = unique (
-    map (hostOpts: hostOpts.certName) acmeEnabledVhosts
-  );
+  dependentCertNames = unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
 
   mkListenInfo =
     hostOpts:
@@ -201,8 +196,7 @@ let
   mkVHostConf =
     hostOpts:
     let
-      adminAddr =
-        if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr;
+      adminAddr = if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr;
       listen = filter (listen: !listen.ssl) (mkListenInfo hostOpts);
       listenSSL = filter (listen: listen.ssl) (mkListenInfo hostOpts);
 
@@ -217,8 +211,7 @@ let
 
       sslServerCert =
         if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
-      sslServerKey =
-        if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
+      sslServerKey = if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
       sslServerChain =
         if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
 
@@ -266,8 +259,7 @@ let
     ''
     + optionalString (listenSSL != [ ]) ''
       <VirtualHost ${
-        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}")
-          listenSSL
+        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listenSSL
       }>
           ServerName ${hostOpts.hostName}
           ${
@@ -282,8 +274,7 @@ let
           SSLCertificateFile ${sslServerCert}
           SSLCertificateKeyFile ${sslServerKey}
           ${
-            optionalString (sslServerChain != null)
-              "SSLCertificateChainFile ${sslServerChain}"
+            optionalString (sslServerChain != null) "SSLCertificateChainFile ${sslServerChain}"
           }
           ${optionalString hostOpts.http2 "Protocols h2 h2c http/1.1"}
           ${acmeChallenge}
@@ -295,10 +286,7 @@ let
     hostOpts:
     let
       documentRoot =
-        if hostOpts.documentRoot != null then
-          hostOpts.documentRoot
-        else
-          pkgs.emptyDirectory;
+        if hostOpts.documentRoot != null then hostOpts.documentRoot else pkgs.emptyDirectory;
 
       mkLocations =
         locations:
@@ -367,8 +355,7 @@ let
         </Directory>
       ''}
 
-      ${optionalString
-        (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "")
+      ${optionalString (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "")
         ''
           RedirectPermanent / ${hostOpts.globalRedirect}
         ''}
@@ -433,8 +420,7 @@ let
         else
           throw "Expecting either a string or attribute set including a name and path.";
     in
-    concatMapStringsSep "\n"
-      (module: "LoadModule ${module.name}_module ${module.path}")
+    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}")
       (unique (map mkModule modules))}
 
     AddHandler type-map var
@@ -1118,9 +1104,7 @@ in
     systemd.services.httpd-config-reload =
       let
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
-        sslTargets =
-          map (certName: "acme-finished-${certName}.target")
-            dependentCertNames;
+        sslTargets = map (certName: "acme-finished-${certName}.target") dependentCertNames;
       in
       mkIf (sslServices != [ ]) {
         wantedBy = sslServices ++ [ "multi-user.target" ];

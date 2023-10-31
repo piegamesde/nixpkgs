@@ -68,9 +68,7 @@ let
     else
       defs.bundler.override (attrs: { inherit ruby; });
 
-  gems = lib.flip lib.mapAttrs configuredGemset (
-    name: attrs: buildGem name attrs
-  );
+  gems = lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 
   name' =
     if name != null then

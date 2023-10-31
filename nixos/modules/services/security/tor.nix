@@ -284,9 +284,7 @@ let
     else if isBool v then
       (if v then "1" else "0")
     else if v ? "unix" && v.unix != null then
-      "unix:"
-      + v.unix
-      + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
+      "unix:" + v.unix + optionalString (v ? "flags") (" " + concatStringsSep " " v.flags)
     else if v ? "port" && v.port != null then
       optionalString (v ? "addr" && v.addr != null) "${v.addr}:"
       + toString v.port
@@ -1013,12 +1011,8 @@ in
                       // {
                         description = "settings option";
                       };
-                    options.HiddenServiceAllowUnknownPorts =
-                      optionBool
-                        "HiddenServiceAllowUnknownPorts";
-                    options.HiddenServiceDirGroupReadable =
-                      optionBool
-                        "HiddenServiceDirGroupReadable";
+                    options.HiddenServiceAllowUnknownPorts = optionBool "HiddenServiceAllowUnknownPorts";
+                    options.HiddenServiceDirGroupReadable = optionBool "HiddenServiceDirGroupReadable";
                     options.HiddenServiceExportCircuitID = mkOption {
                       description = lib.mdDoc (descriptionGeneric "HiddenServiceExportCircuitID");
                       type = with types; nullOr (enum [ "haproxy" ]);
@@ -1033,9 +1027,7 @@ in
                       optionBool
                         "HiddenServiceMaxStreamsCloseCircuit";
                     options.HiddenServiceNumIntroductionPoints = mkOption {
-                      description = lib.mdDoc (
-                        descriptionGeneric "HiddenServiceNumIntroductionPoints"
-                      );
+                      description = lib.mdDoc (descriptionGeneric "HiddenServiceNumIntroductionPoints");
                       type = with types; nullOr (ints.between 0 20);
                       default = null;
                     };
@@ -1126,9 +1118,7 @@ in
           };
           options.ClientPreferIPv6DirPort = optionBool "ClientPreferIPv6DirPort"; # default is null and like "auto"
           options.ClientPreferIPv6ORPort = optionBool "ClientPreferIPv6ORPort"; # default is null and like "auto"
-          options.ClientRejectInternalAddresses =
-            optionBool
-              "ClientRejectInternalAddresses";
+          options.ClientRejectInternalAddresses = optionBool "ClientRejectInternalAddresses";
           options.ClientUseIPv4 = optionBool "ClientUseIPv4";
           options.ClientUseIPv6 = optionBool "ClientUseIPv6";
           options.ConnDirectionStatistics = optionBool "ConnDirectionStatistics";
@@ -1180,9 +1170,7 @@ in
                 ))
               ];
           };
-          options.ControlPortFileGroupReadable =
-            optionBool
-              "ControlPortFileGroupReadable";
+          options.ControlPortFileGroupReadable = optionBool "ControlPortFileGroupReadable";
           options.ControlPortWriteToFile = optionPath "ControlPortWriteToFile";
           options.ControlSocket = optionPath "ControlSocket";
           options.ControlSocketsGroupWritable = optionBool "ControlSocketsGroupWritable";
@@ -1301,9 +1289,7 @@ in
               }
             ];
           };
-          options.HiddenServiceNonAnonymousMode =
-            optionBool
-              "HiddenServiceNonAnonymousMode";
+          options.HiddenServiceNonAnonymousMode = optionBool "HiddenServiceNonAnonymousMode";
           options.HiddenServiceStatistics = optionBool "HiddenServiceStatistics";
           options.HSLayer2Nodes = optionStrings "HSLayer2Nodes";
           options.HSLayer3Nodes = optionStrings "HSLayer3Nodes";
@@ -1514,9 +1500,7 @@ in
         ];
       })
       (mkIf cfg.relay.enable (
-        optionalAttrs (cfg.relay.role != "exit") {
-          ExitPolicy = mkForce [ "reject *:*" ];
-        }
+        optionalAttrs (cfg.relay.role != "exit") { ExitPolicy = mkForce [ "reject *:*" ]; }
         //
           optionalAttrs
             (elem cfg.relay.role [
@@ -1666,9 +1650,7 @@ in
                             ''
                               printf "%s:" ${escapeShellArg hostname} | cat - ${escapeShellArg prvKeyPath} |
                               install -o tor -g tor -m 0700 /dev/stdin \
-                               ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${
-                                 toString i
-                               }.auth_private
+                               ${runDir}/ClientOnionAuthDir/${escapeShellArg hostname}.${toString i}.auth_private
                             ''
                           )
                           onion.clientAuthorizations
@@ -1700,8 +1682,7 @@ in
             "tor/onion"
           ]
           ++ flatten (
-            mapAttrsToList
-              (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
+            mapAttrsToList (name: onion: optional (onion.secretKey == null) "tor/onion/${name}")
               cfg.relay.onionServices
           );
         # The following options are only to optimize:

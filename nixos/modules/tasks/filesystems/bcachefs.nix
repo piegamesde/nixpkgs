@@ -65,8 +65,7 @@ in
         boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;
       }
 
-      (mkIf
-        ((elem "bcachefs" config.boot.initrd.supportedFilesystems) || (bootFs != { }))
+      (mkIf ((elem "bcachefs" config.boot.initrd.supportedFilesystems) || (bootFs != { }))
         {
           # chacha20 and poly1305 are required only for decryption attempts
           boot.initrd.availableKernelModules = [
@@ -83,11 +82,9 @@ in
             '';
           };
 
-          boot.initrd.extraUtilsCommands =
-            lib.mkIf (!config.boot.initrd.systemd.enable)
-              ''
-                copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
-              '';
+          boot.initrd.extraUtilsCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
+            copy_bin_and_libs ${pkgs.bcachefs-tools}/bin/bcachefs
+          '';
           boot.initrd.extraUtilsCommandsTest = ''
             $out/bin/bcachefs version
           '';

@@ -144,9 +144,7 @@ in
             Group = "hledger";
             PrivateTmp = true;
           }
-          (mkIf (cfg.stateDir == "/var/lib/hledger-web") {
-            StateDirectory = "hledger-web";
-          })
+          (mkIf (cfg.stateDir == "/var/lib/hledger-web") { StateDirectory = "hledger-web"; })
         ];
       };
   };

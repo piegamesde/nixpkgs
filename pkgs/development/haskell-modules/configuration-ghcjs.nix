@@ -91,9 +91,7 @@ self: super:
   jsaddle =
     overrideCabal
       (drv: {
-        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [
-          self.ghcjs-base
-        ];
+        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
       })
       super.jsaddle;
 
@@ -111,9 +109,7 @@ self: super:
   reflex =
     overrideCabal
       (drv: {
-        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [
-          self.ghcjs-base
-        ];
+        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
       })
       super.reflex;
 

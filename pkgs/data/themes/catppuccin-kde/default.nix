@@ -46,9 +46,7 @@ lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
   validFlavours
   flavour
   lib.checkListOfEnum
-  "Invalid window decoration style, valid styles are ${
-    toString validWinDecStyles
-  }"
+  "Invalid window decoration style, valid styles are ${toString validWinDecStyles}"
   validWinDecStyles
   winDecStyles
 

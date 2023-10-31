@@ -326,9 +326,7 @@ let
 
       ''
       + lib.optionalString systemdSupport ''
-        sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
-          lib.getLib systemd
-        }/lib/\1!' \
+        sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${lib.getLib systemd}/lib/\1!' \
           device/udev_linux/udev?_loader.cc
       ''
       + ''

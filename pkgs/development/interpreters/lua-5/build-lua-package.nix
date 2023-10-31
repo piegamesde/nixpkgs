@@ -136,9 +136,7 @@ let
               # closure, as it doesn't have a rock tree :)
               # luaLib.hasLuaModule
               requiredLuaRocks = lib.filter luaLib.hasLuaModule (
-                lua.pkgs.requiredLuaModules (
-                  self.nativeBuildInputs ++ self.propagatedBuildInputs
-                )
+                lua.pkgs.requiredLuaModules (self.nativeBuildInputs ++ self.propagatedBuildInputs)
               );
               inherit (self) extraVariables rocksSubdir;
             };

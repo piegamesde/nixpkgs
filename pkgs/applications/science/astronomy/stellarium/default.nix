@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
   '';
 
   # fatal error: 'QtSerialPort/QSerialPortInfo' file not found
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin
-      "-F${qtserialport}/lib";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-F${qtserialport}/lib";
 
   dontWrapGApps = true;
 

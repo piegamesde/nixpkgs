@@ -617,9 +617,7 @@ rec {
     let
       vectorise =
         s:
-        map (x: if isList x then toInt (head x) else x) (
-          builtins.split "(0|[1-9][0-9]*)" s
-        );
+        map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
       prepared =
         map
           (x: [
@@ -729,8 +727,7 @@ rec {
        => [ "13" "14" "23" "24" ]
   */
   crossLists =
-    builtins.trace
-      "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
+    builtins.trace "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
       (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
 
   /* Remove duplicate elements from the list. O(n^2) complexity.

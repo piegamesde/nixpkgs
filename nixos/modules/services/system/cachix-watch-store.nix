@@ -17,9 +17,7 @@ in
   ];
 
   options.services.cachix-watch-store = {
-    enable = mkEnableOption (
-      lib.mdDoc "Cachix Watch Store: https://docs.cachix.org"
-    );
+    enable = mkEnableOption (lib.mdDoc "Cachix Watch Store: https://docs.cachix.org");
 
     cacheName = mkOption {
       type = types.str;

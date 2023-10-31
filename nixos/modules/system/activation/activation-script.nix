@@ -32,8 +32,7 @@ let
       set' =
         mapAttrs
           (
-            _: v:
-            if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v
+            _: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v
           )
           set;
       withHeadlines = addAttributeName set';
@@ -112,9 +111,7 @@ let
           deps = mkOption {
             type = types.listOf types.str;
             default = [ ];
-            description =
-              lib.mdDoc
-                "List of dependencies. The script will run after these.";
+            description = lib.mdDoc "List of dependencies. The script will run after these.";
           };
           text = mkOption {
             type = types.lines;
@@ -180,8 +177,7 @@ in
       readOnly = true;
       internal = true;
       default =
-        systemActivationScript
-          (removeAttrs config.system.activationScripts [ "script" ])
+        systemActivationScript (removeAttrs config.system.activationScripts [ "script" ])
           true;
       defaultText = literalMD "generated activation script";
     };

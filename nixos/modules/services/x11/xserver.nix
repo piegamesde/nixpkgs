@@ -162,8 +162,7 @@ let
       ''; # */
 
   prefixStringLines =
-    prefix: str:
-    concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
+    prefix: str: concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
 
   indent = prefixStringLines "  ";
 
@@ -256,9 +255,7 @@ in
         default = [ ];
         example = literalExpression "[ pkgs.xterm ]";
         type = types.listOf types.package;
-        description =
-          lib.mdDoc
-            "Which X11 packages to exclude from the default environment";
+        description = lib.mdDoc "Which X11 packages to exclude from the default environment";
       };
 
       exportConfiguration = mkOption {
@@ -541,9 +538,7 @@ in
         type =
           with types;
           listOf (
-            coercedTo str (output: { inherit output; }) (
-              submodule { options = xrandrOptions; }
-            )
+            coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; })
           );
         # Set primary to true for the first head if no other has been set
         # primary already.
@@ -757,9 +752,7 @@ in
 
     hardware.opengl.enable = mkDefault true;
 
-    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [
-      cfg.videoDriver
-    ];
+    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
 
     # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
@@ -925,9 +918,7 @@ in
       ++ optional (cfg.logFile != null) "-logfile ${toString cfg.logFile}"
       ++ optional (cfg.verbose != null) "-verbose ${toString cfg.verbose}"
       ++ optional (!cfg.enableTCP) "-nolisten tcp"
-      ++
-        optional (cfg.autoRepeatDelay != null)
-          "-ardelay ${toString cfg.autoRepeatDelay}"
+      ++ optional (cfg.autoRepeatDelay != null) "-ardelay ${toString cfg.autoRepeatDelay}"
       ++
         optional (cfg.autoRepeatInterval != null)
           "-arinterval ${toString cfg.autoRepeatInterval}"
@@ -1035,9 +1026,7 @@ in
                   (
                     driver.name != "virtualbox"
                     && (
-                      cfg.resolutions != [ ]
-                      || cfg.extraDisplaySettings != ""
-                      || cfg.virtualScreen != null
+                      cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null
                     )
                   )
                   (
@@ -1048,8 +1037,7 @@ in
                           ${
                             optionalString (cfg.resolutions != [ ])
                               "Modes ${
-                                concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'')
-                                  cfg.resolutions
+                                concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions
                               }"
                           }
                         ${indent cfg.extraDisplaySettings}
@@ -1080,12 +1068,7 @@ in
 
     fonts.enableDefaultFonts = mkDefault true;
     fonts.fonts = [
-      (
-        if cfg.upscaleDefaultCursor then
-          fontcursormisc_hidpi
-        else
-          pkgs.xorg.fontcursormisc
-      )
+      (if cfg.upscaleDefaultCursor then fontcursormisc_hidpi else pkgs.xorg.fontcursormisc)
       pkgs.xorg.fontmiscmisc
     ];
   };

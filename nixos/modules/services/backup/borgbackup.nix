@@ -65,8 +65,7 @@ let
         (
           set -o pipefail
           ${
-            optionalString (cfg.dumpCommand != null)
-              "${escapeShellArg cfg.dumpCommand} | \\"
+            optionalString (cfg.dumpCommand != null) "${escapeShellArg cfg.dumpCommand} | \\"
           }
           borg create $extraArgs \
             --compression ${cfg.compression} \
@@ -180,17 +179,16 @@ let
       name,
       set ? { },
     }:
-    pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-      (
-        with lib; ''
-          makeWrapper "${original}" "$out/bin/${name}" \
-            ${
-              concatStringsSep " \\\n " (
-                mapAttrsToList (name: value: ''--set ${name} "${value}"'') set
-              )
-            }
-        ''
-      );
+    pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
+      with lib; ''
+        makeWrapper "${original}" "$out/bin/${name}" \
+          ${
+            concatStringsSep " \\\n " (
+              mapAttrsToList (name: value: ''--set ${name} "${value}"'') set
+            )
+          }
+      ''
+    );
 
   mkBorgWrapper =
     name: cfg:
@@ -226,8 +224,7 @@ let
 
   mkPassAssertion = name: cfg: {
     assertion =
-      with cfg.encryption;
-      mode != "none" -> passCommand != null || passphrase != null;
+      with cfg.encryption; mode != "none" -> passCommand != null || passphrase != null;
     message =
       "passCommand or passphrase has to be specified because"
       + ''borgbackup.jobs.${name}.encryption != "none"'';
@@ -279,8 +276,7 @@ let
   mkKeysAssertion = name: cfg: {
     assertion = cfg.authorizedKeys != [ ] || cfg.authorizedKeysAppendOnly != [ ];
     message =
-      "borgbackup.repos.${name} does not make sense"
-      + " without at least one public key";
+      "borgbackup.repos.${name} does not make sense" + " without at least one public key";
   };
 
   mkSourceAssertions = name: cfg: {
@@ -512,9 +508,7 @@ in
               # "auto" is optional,
               # compression mode must be given,
               # compression level is optional
-              type =
-                types.strMatching
-                  "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?";
+              type = types.strMatching "none|(auto,)?(lz4|zstd|zlib|lzma)(,[[:digit:]]{1,2})?";
               description = lib.mdDoc ''
                 Compression method to use. Refer to
                 {command}`borg help compression`

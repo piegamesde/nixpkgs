@@ -186,9 +186,7 @@ in
           ETCD_ADVERTISE_CLIENT_URLS = concatStringsSep "," cfg.advertiseClientUrls;
           ETCD_LISTEN_CLIENT_URLS = concatStringsSep "," cfg.listenClientUrls;
           ETCD_LISTEN_PEER_URLS = concatStringsSep "," cfg.listenPeerUrls;
-          ETCD_INITIAL_ADVERTISE_PEER_URLS =
-            concatStringsSep ","
-              cfg.initialAdvertisePeerUrls;
+          ETCD_INITIAL_ADVERTISE_PEER_URLS = concatStringsSep "," cfg.initialAdvertisePeerUrls;
           ETCD_PEER_TRUSTED_CA_FILE = cfg.peerTrustedCaFile;
           ETCD_PEER_CERT_FILE = cfg.peerCertFile;
           ETCD_PEER_KEY_FILE = cfg.peerKeyFile;

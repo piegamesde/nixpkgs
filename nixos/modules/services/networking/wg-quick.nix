@@ -261,10 +261,7 @@ let
         else
           null;
       preDownFile =
-        if values.preDown != "" then
-          writeScriptFile "preDown.sh" values.preDown
-        else
-          null;
+        if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
       postDownFile =
         if values.postDown != "" then
           writeScriptFile "postDown.sh" values.postDown
@@ -308,8 +305,7 @@ let
             concatMapStringsSep "\n"
               (
                 peer:
-                assert assertMsg
-                    (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
+                assert assertMsg (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
                     "Only one of presharedKey or presharedKeyFile may be set";
                 ''
                   [Peer]
@@ -360,8 +356,7 @@ let
       };
 
       script = ''
-        ${optionalString (!config.boot.isContainer)
-          "${pkgs.kmod}/bin/modprobe wireguard"}
+        ${optionalString (!config.boot.isContainer) "${pkgs.kmod}/bin/modprobe wireguard"}
         ${optionalString (values.configFile != null) ''
           cp ${values.configFile} ${configPath}
         ''}
@@ -420,8 +415,6 @@ in
         false;
 
     # WireGuard interfaces should be ignored in determining whether the network is online.
-    systemd.network.wait-online.ignoredInterfaces =
-      builtins.attrNames
-        cfg.interfaces;
+    systemd.network.wait-online.ignoredInterfaces = builtins.attrNames cfg.interfaces;
   };
 }

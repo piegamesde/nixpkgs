@@ -10,9 +10,7 @@ with lib;
 let
   dataDir = "/var/lib/tedicross";
   cfg = config.services.tedicross;
-  configJSON = pkgs.writeText "tedicross-settings.json" (
-    builtins.toJSON cfg.config
-  );
+  configJSON = pkgs.writeText "tedicross-settings.json" (builtins.toJSON cfg.config);
   configYAML =
     pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; }
       ''
@@ -22,9 +20,7 @@ in
 {
   options = {
     services.tedicross = {
-      enable = mkEnableOption (
-        lib.mdDoc "the TediCross Telegram-Discord bridge service"
-      );
+      enable = mkEnableOption (lib.mdDoc "the TediCross Telegram-Discord bridge service");
 
       config = mkOption {
         type = types.attrs;

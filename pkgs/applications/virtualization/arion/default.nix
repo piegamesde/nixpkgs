@@ -18,8 +18,7 @@ let
        - make it self-contained by including docker-compose
   */
   arion =
-    (justStaticExecutables (overrideCabal cabalOverrides arion-compose))
-    .overrideAttrs
+    (justStaticExecutables (overrideCabal cabalOverrides arion-compose)).overrideAttrs
       (
         o: {
           # Patch away the arion-compose name. Unlike the Haskell library, the program
@@ -73,9 +72,7 @@ let
   */
   eval =
     args@{ ... }:
-    import (srcUnpacked + "/src/nix/eval-composition.nix") (
-      { inherit pkgs; } // args
-    );
+    import (srcUnpacked + "/src/nix/eval-composition.nix") ({ inherit pkgs; } // args);
 
   /* Function to derivation of the docker compose yaml file
       NOTE: The output will change: https://github.com/hercules-ci/arion/issues/82

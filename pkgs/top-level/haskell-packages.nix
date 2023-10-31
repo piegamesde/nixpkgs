@@ -99,33 +99,27 @@ in
       llvmPackages = pkgs.llvmPackages_9;
     };
 
-    ghc8102BinaryMinimal =
-      callPackage ../development/compilers/ghc/8.10.2-binary.nix
-        {
-          llvmPackages = pkgs.llvmPackages_9;
-          minimal = true;
-        };
+    ghc8102BinaryMinimal = callPackage ../development/compilers/ghc/8.10.2-binary.nix {
+      llvmPackages = pkgs.llvmPackages_9;
+      minimal = true;
+    };
 
     ghc8107Binary = callPackage ../development/compilers/ghc/8.10.7-binary.nix {
       llvmPackages = pkgs.llvmPackages_12;
     };
 
-    ghc8107BinaryMinimal =
-      callPackage ../development/compilers/ghc/8.10.7-binary.nix
-        {
-          llvmPackages = pkgs.llvmPackages_12;
-          minimal = true;
-        };
+    ghc8107BinaryMinimal = callPackage ../development/compilers/ghc/8.10.7-binary.nix {
+      llvmPackages = pkgs.llvmPackages_12;
+      minimal = true;
+    };
 
     ghc924Binary = callPackage ../development/compilers/ghc/9.2.4-binary.nix {
       llvmPackages = pkgs.llvmPackages_12;
     };
-    ghc924BinaryMinimal =
-      callPackage ../development/compilers/ghc/9.2.4-binary.nix
-        {
-          llvmPackages = pkgs.llvmPackages_12;
-          minimal = true;
-        };
+    ghc924BinaryMinimal = callPackage ../development/compilers/ghc/9.2.4-binary.nix {
+      llvmPackages = pkgs.llvmPackages_12;
+      minimal = true;
+    };
 
     ghc884 = callPackage ../development/compilers/ghc/8.8.4.nix {
       bootPkgs =

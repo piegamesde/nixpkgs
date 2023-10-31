@@ -25,17 +25,14 @@ let
       include = mkLines { Include = conf.Include or [ ]; };
       other = mkLines (conf // { Include = [ ]; });
     in
-    pkgs.writeText "hylafax-config${name}" (
-      concatStringsSep "\n" (include ++ other)
-    );
+    pkgs.writeText "hylafax-config${name}" (concatStringsSep "\n" (include ++ other));
 
   globalConfigPath = mkConfigFile "" cfg.faxqConfig;
 
   modemConfigPath =
     let
       mkModemConfigFile =
-        { config, name, ... }:
-        mkConfigFile ".${name}" (cfg.commonModemConfig // config);
+        { config, name, ... }: mkConfigFile ".${name}" (cfg.commonModemConfig // config);
       mkLine =
         { name, type, ... }@modem:
         ''
@@ -198,9 +195,7 @@ let
     after = [ "hylafax-spool.service" ];
     requires = [ "hylafax-spool.service" ];
     wantedBy = mkIf cfg.faxcron.enable.spoolInit requires;
-    startAt =
-      mkIf (cfg.faxcron.enable.frequency != null)
-        cfg.faxcron.enable.frequency;
+    startAt = mkIf (cfg.faxcron.enable.frequency != null) cfg.faxcron.enable.frequency;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxcron"
       ''-q "${cfg.spoolAreaPath}"''

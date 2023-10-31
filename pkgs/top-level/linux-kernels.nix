@@ -24,8 +24,7 @@ with linuxKernel;
 
 let
   deblobKernel =
-    kernel:
-    callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; };
+    kernel: callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; };
 
   # Hardened Linux
   hardenedKernelFor =
@@ -45,8 +44,7 @@ let
       };
       argsOverride = {
         inherit version;
-        modDirVersion =
-          modDirVersion' + kernelPatches.hardened.${kernel.meta.branch}.extra;
+        modDirVersion = modDirVersion' + kernelPatches.hardened.${kernel.meta.branch}.extra;
         src = fetchurl {
           url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
           inherit sha256;
@@ -622,9 +620,7 @@ in
           else
             null;
 
-        x86_energy_perf_policy =
-          callPackage ../os-specific/linux/x86_energy_perf_policy
-            { };
+        x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
         xone =
           if lib.versionAtLeast kernel.version "5.4" then
@@ -655,9 +651,7 @@ in
         hid-ite8291r3 = callPackage ../os-specific/linux/hid-ite8291r3 { };
       }
       // lib.optionalAttrs config.allowAliases {
-        ati_drivers_x11 =
-          throw
-            "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
+        ati_drivers_x11 = throw "ati drivers are no longer supported by any kernel >=4.1"; # added 2021-05-18;
         xmm7360-pci =
           throw
             "Support for the XMM7360 WWAN card was added to the iosm kmod in mainline kernel version 5.18";
@@ -749,25 +743,15 @@ in
           };
         }
       );
-      linux_5_10_hardened = recurseIntoAttrs (
-        hardenedPackagesFor kernels.linux_5_10 { }
-      );
-      linux_5_15_hardened = recurseIntoAttrs (
-        hardenedPackagesFor kernels.linux_5_15 { }
-      );
-      linux_6_1_hardened = recurseIntoAttrs (
-        hardenedPackagesFor kernels.linux_6_1 { }
-      );
+      linux_5_10_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_10 { });
+      linux_5_15_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_5_15 { });
+      linux_6_1_hardened = recurseIntoAttrs (hardenedPackagesFor kernels.linux_6_1 { });
 
       linux_zen = recurseIntoAttrs (packagesFor kernels.linux_zen);
       linux_lqx = recurseIntoAttrs (packagesFor kernels.linux_lqx);
       linux_xanmod = recurseIntoAttrs (packagesFor kernels.linux_xanmod);
-      linux_xanmod_stable = recurseIntoAttrs (
-        packagesFor kernels.linux_xanmod_stable
-      );
-      linux_xanmod_latest = recurseIntoAttrs (
-        packagesFor kernels.linux_xanmod_latest
-      );
+      linux_xanmod_stable = recurseIntoAttrs (packagesFor kernels.linux_xanmod_stable);
+      linux_xanmod_latest = recurseIntoAttrs (packagesFor kernels.linux_xanmod_latest);
 
       hardkernel_4_14 = recurseIntoAttrs (packagesFor kernels.linux_hardkernel_4_14);
 

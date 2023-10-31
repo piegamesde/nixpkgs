@@ -31,22 +31,20 @@ buildPythonPackage rec {
     sha256 = "0q41j99718y7m95zg1vaybnsp31lp6lhyqkbv4yqz5ys6jixh3qv";
   };
 
-  propagatedBuildInputs =
-    [
-      spake2
-      pynacl
-      six
-      attrs
-      twisted
-      autobahn
-      automat
-      hkdf
-      tqdm
-      click
-      humanize
-      txtorcon
-    ]
-    ++ autobahn.optional-dependencies.twisted ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs = [
+    spake2
+    pynacl
+    six
+    attrs
+    twisted
+    autobahn
+    automat
+    hkdf
+    tqdm
+    click
+    humanize
+    txtorcon
+  ] ++ autobahn.optional-dependencies.twisted ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     mock

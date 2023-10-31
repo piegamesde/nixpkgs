@@ -113,8 +113,7 @@ rec {
     value:
     let
       len = length attrPath;
-      atDepth =
-        n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
+      atDepth = n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
     in
     atDepth 0;
 
@@ -469,9 +468,7 @@ rec {
     foldr
       (
         n: a:
-        foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (
-          attrNames n
-        )
+        foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)
       )
       { }
       list_of_attrs;
@@ -1096,8 +1093,7 @@ rec {
         builtins.mapAttrs
           (
             name: value:
-            builtins.throw
-              "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
+            builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
           )
           intersection;
     in

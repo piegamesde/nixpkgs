@@ -69,9 +69,7 @@ let
     toFile "strongswan.conf" ''
       charon {
         ${optionalString managePlugins "load_modular = no"}
-        ${
-          optionalString managePlugins ("load = " + (concatStringsSep " " enabledPlugins))
-        }
+        ${optionalString managePlugins ("load = " + (concatStringsSep " " enabledPlugins))}
         plugins {
           stroke {
             secrets_file = ${secretsFile}

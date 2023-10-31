@@ -34,9 +34,7 @@ in
       passwordFile = mkOption {
         type = types.path;
         example = "/run/secrets/mysql-auth-db-passwd";
-        description =
-          lib.mdDoc
-            "The path to the file containing the password for the user";
+        description = lib.mdDoc "The path to the file containing the password for the user";
       };
       pam = mkOption {
         description = lib.mdDoc "Settings for `pam_mysql`";
@@ -61,9 +59,7 @@ in
             userColumn = mkOption {
               type = types.str;
               example = "username";
-              description =
-                lib.mdDoc
-                  "The name of the column that contains a unix login name.";
+              description = lib.mdDoc "The name of the column that contains a unix login name.";
             };
             passwordColumn = mkOption {
               type = types.str;

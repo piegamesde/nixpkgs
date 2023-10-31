@@ -369,9 +369,7 @@ let
       # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
       # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
       # with the intent to make scripting more obvious.
-      serviceName =
-        peerUnitServiceName interfaceName peer.publicKey
-          dynamicRefreshEnabled;
+      serviceName = peerUnitServiceName interfaceName peer.publicKey dynamicRefreshEnabled;
     in
     nameValuePair serviceName {
       description = "WireGuard Peer - ${interfaceName} - ${peer.publicKey}";
@@ -411,9 +409,7 @@ let
               else
                 peer.dynamicEndpointRefreshSeconds;
           };
-      unitConfig = lib.optionalAttrs dynamicRefreshEnabled {
-        StartLimitIntervalSec = 0;
-      };
+      unitConfig = lib.optionalAttrs dynamicRefreshEnabled { StartLimitIntervalSec = 0; };
 
       script =
         let
@@ -477,9 +473,7 @@ let
     let
       mkPeerUnit =
         peer:
-        (peerUnitServiceName name peer.publicKey (
-          peer.dynamicEndpointRefreshSeconds != 0
-        ))
+        (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0))
         + ".service";
     in
     nameValuePair "wireguard-${name}" rec {
@@ -538,8 +532,7 @@ let
         ${optionalString (values.mtu != null)
           ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
-        ${concatMapStringsSep "\n"
-          (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'')
+        ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'')
           values.ips}
 
         ${concatStringsSep " " (

@@ -298,9 +298,7 @@ in
       ignoreLid = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Treat outputs as connected even if their lids are closed";
+        description = lib.mdDoc "Treat outputs as connected even if their lids are closed";
       };
 
       hooks = mkOption {

@@ -210,8 +210,7 @@ in
     callPackage
       (
         { makePythonHook }:
-        makePythonHook { name = "python-output-dist-hook"; }
-          ./python-output-dist-hook.sh
+        makePythonHook { name = "python-output-dist-hook"; } ./python-output-dist-hook.sh
       )
       { };
 

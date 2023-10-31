@@ -401,11 +401,9 @@ stdenv.mkDerivation {
     ###
     ### Remove LC_UUID
     ###
-    +
-      optionalString (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false))
-        ''
-          echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
-        ''
+    + optionalString (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
+      echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
+    ''
 
     + ''
       for flags in "$out/nix-support"/*flags*; do

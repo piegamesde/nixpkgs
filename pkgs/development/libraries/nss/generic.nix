@@ -123,8 +123,7 @@ stdenv.mkDerivation rec {
         ${lib.optionalString enableFIPS "--enable-fips"} \
         ${lib.optionalString stdenv.isDarwin "--clang"} \
         ${
-          lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-            "--disable-tests"
+          lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "--disable-tests"
         }
 
       runHook postBuild

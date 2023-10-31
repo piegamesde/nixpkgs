@@ -23,8 +23,7 @@
   # the `useLLVM` bootstrapping below.
   bootBintoolsNoLibc ?
     if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-  bootBintools ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  bootBintools ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
   # LLVM release information; specify one of these but not both:
   gitRelease ? null,
@@ -245,14 +244,10 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages =
-          [
-            libcxx.cxxabi
-            targetLlvmLibraries.compiler-rt
-          ]
-          ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-            targetLlvmLibraries.libunwind
-          ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
           [

@@ -169,8 +169,7 @@ let
 
   # on aarch64 Darwin, `uname -m` returns "arm64"
   arch =
-    with stdenv.hostPlatform;
-    if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
+    with stdenv.hostPlatform; if isDarwin && isAarch64 then "arm64" else parsed.cpu.name;
 
   remote_java_tools = stdenv.mkDerivation {
     name = "remote_java_tools_${system}";

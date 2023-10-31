@@ -240,9 +240,7 @@ in
         if cfg.consumptionDirIsPublic then
           "d '${cfg.consumptionDir}' 777 - - - -"
         else
-          "d '${cfg.consumptionDir}' - ${cfg.user} ${
-            config.users.users.${cfg.user}.group
-          } - -"
+          "d '${cfg.consumptionDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
       )
     ];
 

@@ -138,10 +138,7 @@ let
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
       configurePlatforms ? lib.optionals
-          (
-            stdenv.hostPlatform != stdenv.buildPlatform
-            || config.configurePlatformsByDefault
-          )
+          (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault)
           [
             "build"
             "host"
@@ -502,9 +499,7 @@ let
             depsTargetTarget = lib.elemAt (lib.elemAt dependencies 2) 0;
 
             depsBuildBuildPropagated = lib.elemAt (lib.elemAt propagatedDependencies 0) 0;
-            propagatedNativeBuildInputs =
-              lib.elemAt (lib.elemAt propagatedDependencies 0)
-                1;
+            propagatedNativeBuildInputs = lib.elemAt (lib.elemAt propagatedDependencies 0) 1;
             depsBuildTargetPropagated = lib.elemAt (lib.elemAt propagatedDependencies 0) 2;
             depsHostHostPropagated = lib.elemAt (lib.elemAt propagatedDependencies 1) 0;
             propagatedBuildInputs = lib.elemAt (lib.elemAt propagatedDependencies 1) 1;
@@ -534,9 +529,7 @@ let
               ++
                 optional (elem "build" configurePlatforms)
                   "--build=${stdenv.buildPlatform.config}"
-              ++
-                optional (elem "host" configurePlatforms)
-                  "--host=${stdenv.hostPlatform.config}"
+              ++ optional (elem "host" configurePlatforms) "--host=${stdenv.hostPlatform.config}"
               ++
                 optional (elem "target" configurePlatforms)
                   "--target=${stdenv.targetPlatform.config}";
@@ -659,13 +652,10 @@ let
           }
           //
             lib.optionalAttrs
-              (
-                hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl
-              )
+              (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl)
               { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
           //
-            lib.optionalAttrs
-              (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch)
+            lib.optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch)
               {
                 requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [
                   "gccarch-${stdenv.hostPlatform.gcc.arch}"
@@ -684,9 +674,7 @@ let
                     propagatedSandboxProfile
                     sandboxProfile
                   ];
-                final = lib.concatStringsSep "\n" (
-                  lib.filter (x: x != "") (lib.unique profiles)
-                );
+                final = lib.concatStringsSep "\n" (lib.filter (x: x != "") (lib.unique profiles));
               in
               final;
             __propagatedSandboxProfile = lib.unique (

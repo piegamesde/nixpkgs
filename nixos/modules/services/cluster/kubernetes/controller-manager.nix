@@ -67,9 +67,7 @@ in
     enable = mkEnableOption (lib.mdDoc "Kubernetes controller manager");
 
     extraOpts = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes controller manager extra command line options.";
+      description = lib.mdDoc "Kubernetes controller manager extra command line options.";
       default = "";
       type = separatedString " ";
     };
@@ -177,16 +175,13 @@ in
                       optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
                     } \
                     ${
-                      optionalString (cfg.tlsKeyFile != null)
-                        "--tls-private-key-file=${cfg.tlsKeyFile}"
+                      optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                     } \
                     ${
                       optionalString (elem "RBAC" top.apiserver.authorizationMode)
                         "--use-service-account-credentials"
                     } \
-                    ${
-                      optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
-                    } \
+                    ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                     ${cfg.extraOpts}
         '';
         WorkingDirectory = top.dataDir;

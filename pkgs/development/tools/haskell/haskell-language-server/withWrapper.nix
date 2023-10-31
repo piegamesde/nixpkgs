@@ -58,9 +58,7 @@ let
     concatMapStringsSep "\n"
       (
         x:
-        "ln -s ${
-          tunedHls (getPackages version)
-        }/bin/haskell-language-server $out/bin/${x}"
+        "ln -s ${tunedHls (getPackages version)}/bin/haskell-language-server $out/bin/${x}"
       )
       (targets version);
 in
@@ -79,8 +77,7 @@ stdenv.mkDerivation {
     maintainers = [ lib.maintainers.maralorn ];
     longDescription = ''
       This package provides the executables ${
-        concatMapStringsSep ", " (x: concatStringsSep ", " (targets x))
-          supportedGhcVersions
+        concatMapStringsSep ", " (x: concatStringsSep ", " (targets x)) supportedGhcVersions
       } and haskell-language-server-wrapper.
       You can choose for which ghc versions to install hls with pkgs.haskell-language-server.override { supportedGhcVersions = [ "90" "92" ]; }.
     '';

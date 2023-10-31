@@ -62,8 +62,7 @@ let
 
       mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
 
-      mkKeyValuePairs =
-        attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
+      mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
     in
     pkgs.writeTextFile {
       name = "nix.conf";
@@ -90,13 +89,10 @@ let
                 optionalString (isNixAtLeast "2.3pre") "--no-net"
               } \
                 ${
-                  optionalString (isNixAtLeast "2.4pre")
-                    "--option experimental-features nix-command"
+                  optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"
                 } \
               |& sed -e 's/^warning:/error:/' \
-              | (! grep '${
-                if cfg.checkAllErrors then "^error:" else "^error: unknown setting"
-              }')
+              | (! grep '${if cfg.checkAllErrors then "^error:" else "^error: unknown setting"}')
             set -o pipefail
           ''
       );

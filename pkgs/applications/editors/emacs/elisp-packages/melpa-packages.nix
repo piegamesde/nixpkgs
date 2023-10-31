@@ -161,10 +161,7 @@ let
 
           # upstream issue: missing file header
           revbufs =
-            if super.revbufs.version == "1.2" then
-              markBroken super.revbufs
-            else
-              super.revbufs;
+            if super.revbufs.version == "1.2" then markBroken super.revbufs else super.revbufs;
 
           # upstream issue: missing file header
           elmine = markBroken super.elmine;
@@ -327,9 +324,9 @@ let
           );
 
           # Build same version as Haskell package
-          hindent =
-            (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs
-              (attrs: { packageRequires = [ self.haskell-mode ]; });
+          hindent = (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs (
+            attrs: { packageRequires = [ self.haskell-mode ]; }
+          );
 
           irony = super.irony.overrideAttrs (
             old: {
@@ -566,9 +563,7 @@ let
           );
 
           shm = super.shm.overrideAttrs (
-            attrs: {
-              propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ];
-            }
+            attrs: { propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ]; }
           );
 
           # Telega has a server portion for it's network protocol
@@ -679,16 +674,14 @@ let
           );
 
           # missing dependencies
-          evil-search-highlight-persist =
-            super.evil-search-highlight-persist.overrideAttrs
-              (
-                attrs: {
-                  packageRequires = with self; [
-                    evil
-                    highlight
-                  ];
-                }
-              );
+          evil-search-highlight-persist = super.evil-search-highlight-persist.overrideAttrs (
+            attrs: {
+              packageRequires = with self; [
+                evil
+                highlight
+              ];
+            }
+          );
 
           hamlet-mode = super.hamlet-mode.overrideAttrs (
             attrs: {
@@ -721,9 +714,7 @@ let
             }
           );
 
-          spaceline = super.spaceline.override {
-            inherit (self.melpaPackages) powerline;
-          };
+          spaceline = super.spaceline.override { inherit (self.melpaPackages) powerline; };
 
           vterm = super.vterm.overrideAttrs (
             old: {

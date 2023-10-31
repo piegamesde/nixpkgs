@@ -96,8 +96,7 @@ in
             rustPlatform = bootRustPlatform;
           }
           //
-            lib.optionalAttrs
-              (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform)
+            lib.optionalAttrs (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform)
               {
                 stdenv = llvmBootstrapForDarwin.stdenv;
                 pkgsBuildBuild = pkgsBuildBuild // {

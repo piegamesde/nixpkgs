@@ -14,13 +14,11 @@ let
 
   verifyRequiredField = type: field: n: c: {
     assertion = hasAttr field c;
-    message = ''
-      stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
+    message = ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
   };
 
   verifyChainPathAssert = n: c: {
-    assertion =
-      (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
+    assertion = (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
     message =
       ''stunnel: "${n}" client configuration - hostname verification ''
       + "is not possible without either verifyChain or verifyPeer enabled";
@@ -191,8 +189,7 @@ in
     assertions = concatLists [
       (singleton {
         assertion =
-          (length (attrValues cfg.servers) != 0)
-          || ((length (attrValues cfg.clients)) != 0);
+          (length (attrValues cfg.servers) != 0) || ((length (attrValues cfg.clients)) != 0);
         message = "stunnel: At least one server- or client-configuration has to be present.";
       })
 

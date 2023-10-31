@@ -21,8 +21,7 @@ import ./make-test-python.nix (
     '';
 
     tlsCert =
-      pkgs.runCommand "selfSignedCerts"
-        { nativeBuildInputs = with pkgs; [ openssl ]; }
+      pkgs.runCommand "selfSignedCerts" { nativeBuildInputs = with pkgs; [ openssl ]; }
         ''
           mkdir -p $out
           openssl req -x509 \

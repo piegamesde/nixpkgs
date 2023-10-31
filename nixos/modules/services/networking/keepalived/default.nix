@@ -333,10 +333,7 @@ in
     systemd.services.keepalived =
       let
         finalConfigFile =
-          if cfg.secretFile == null then
-            keepalivedConf
-          else
-            "/run/keepalived/keepalived.conf";
+          if cfg.secretFile == null then keepalivedConf else "/run/keepalived/keepalived.conf";
       in
       {
         description = "Keepalive Daemon (LVS and VRRP)";

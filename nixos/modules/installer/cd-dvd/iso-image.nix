@@ -28,9 +28,7 @@ let
             # Name appended to menuentry defaults to params if no specific name given.
             option.name or (optionalString (option ? params) "(${option.params})")
           }' ${optionalString (option ? class) " --class ${option.class}"} {
-            linux ${defaults.image} \''${isoboot} ${defaults.params} ${
-              option.params or ""
-            }
+            linux ${defaults.image} \''${isoboot} ${defaults.params} ${option.params or ""}
             initrd ${defaults.initrd}
           }
         '')
@@ -119,9 +117,7 @@ let
     LABEL boot
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    }
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with 'nomodeset'
@@ -189,8 +185,7 @@ let
     else
       "# No refind for ${targetArch}";
 
-  grubPkgs =
-    if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
+  grubPkgs = if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
 
   grubMenuCfg = ''
     #
@@ -743,12 +738,10 @@ in
     # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
-    environment.systemPackages =
-      [
-        grubPkgs.grub2
-        grubPkgs.grub2_efi
-      ]
-      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux;
+    environment.systemPackages = [
+      grubPkgs.grub2
+      grubPkgs.grub2_efi
+    ] ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
     # that we don't need to know its device.  We pass the label of the
@@ -884,17 +877,12 @@ in
         bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
         bootImage = "/isolinux/isolinux.bin";
         syslinux =
-          if config.isoImage.makeBiosBootable && canx86BiosBoot then
-            pkgs.syslinux
-          else
-            null;
+          if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;
       }
       //
         optionalAttrs
           (
-            config.isoImage.makeUsbBootable
-            && config.isoImage.makeBiosBootable
-            && canx86BiosBoot
+            config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot
           )
           {
             usbBootable = true;

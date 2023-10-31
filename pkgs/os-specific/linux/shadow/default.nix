@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs =
-    [ libxcrypt ]
-    ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb;
+  buildInputs = [
+    libxcrypt
+  ] ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb;
 
   patches = [
     ./keep-path.patch

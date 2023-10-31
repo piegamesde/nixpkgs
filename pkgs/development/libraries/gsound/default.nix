@@ -40,12 +40,8 @@ stdenv.mkDerivation rec {
   ];
 
   mesonFlags = [
-    "-Dintrospection=${
-      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
-    }"
-    "-Denable_vala=${
-      lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)
-    }"
+    "-Dintrospection=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
+    "-Denable_vala=${lib.boolToString (stdenv.buildPlatform == stdenv.hostPlatform)}"
   ];
 
   passthru = {

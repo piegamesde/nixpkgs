@@ -26,9 +26,7 @@ let
 
   mkXmlAttrs =
     attrs:
-    lib.concatStrings (
-      lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs
-    );
+    lib.concatStrings (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
   mkXmlValues =
     attrs:
     lib.concatStrings (
@@ -103,9 +101,7 @@ stdenv.mkDerivation (
   {
     inherit buildInputs;
     pname = lib.concatMapStringsSep "-" (package: package.name) sortedPackages;
-    version =
-      lib.concatMapStringsSep "-" (package: package.revision)
-        sortedPackages;
+    version = lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
     src =
       map
         (
@@ -166,9 +162,7 @@ stdenv.mkDerivation (
     dontAutoPatchelf = true;
 
     meta = {
-      description =
-        lib.concatMapStringsSep "\n" (package: package.displayName)
-          packages;
+      description = lib.concatMapStringsSep "\n" (package: package.displayName) packages;
     } // meta;
   }
   // extraParams

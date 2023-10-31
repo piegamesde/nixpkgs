@@ -117,17 +117,13 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--with-curl"
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-    "--with-systemdsystemgeneratordir=${
-      placeholder "out"
-    }/lib/systemd/system-generators"
+    "--with-systemdsystemgeneratordir=${placeholder "out"}/lib/systemd/system-generators"
     "--enable-installed-tests"
     "--with-ed25519-libsodium"
   ];
 
   makeFlags = [
-    "installed_testdir=${
-      placeholder "installedTests"
-    }/libexec/installed-tests/libostree"
+    "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/libostree"
     "installed_test_metadir=${
       placeholder "installedTests"
     }/share/installed-tests/libostree"

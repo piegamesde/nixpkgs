@@ -357,5 +357,4 @@ let
           self.overrideScope;
     };
 in
-makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { })
-  addPackages
+makeScopeWithSplicing (generateSplicesForMkScope "qt5") (_: { }) (_: { }) addPackages

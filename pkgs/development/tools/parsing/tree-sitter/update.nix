@@ -402,9 +402,7 @@ let
         };
         inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
       }
-      (
-        writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; } ./update_impl.py
-      );
+      (writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; } ./update_impl.py);
 
   # Pass the given arguments to the command, in the ARGS environment variable.
   # The arguments are just a json object that should be available in the script.
@@ -417,9 +415,7 @@ let
 
   foreachSh =
     attrs: f:
-    lib.concatMapStringsSep "\n" f (
-      lib.mapAttrsToList (k: v: { name = k; } // v) attrs
-    );
+    lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
 
   jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON { });
 
@@ -455,8 +451,7 @@ let
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
          allGrammars =
-           (lib.mapAttrsToList
-             (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
+           (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
              allGrammars
            );
          inherit outputDir;

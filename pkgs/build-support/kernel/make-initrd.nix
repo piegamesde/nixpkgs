@@ -17,8 +17,7 @@ let
   # compression command, for the purpose of guessing the u-boot
   # compression type and filename extension.
   compressorName =
-    fullCommand:
-    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+    fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
 in
 {
   stdenvNoCC,
@@ -92,9 +91,7 @@ let
   toValidStoreName =
     x:
     with builtins;
-    lib.concatStringsSep "-" (
-      filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x)
-    );
+    lib.concatStringsSep "-" (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x));
 in
 stdenvNoCC.mkDerivation rec {
   inherit
@@ -114,9 +111,7 @@ stdenvNoCC.mkDerivation rec {
     libarchive
   ] ++ lib.optional makeUInitrd ubootTools;
 
-  compress = "${_compressorExecutable} ${
-      lib.escapeShellArgs _compressorArgsReal
-    }";
+  compress = "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
 
   # Pass the function through, for reuse in append-initrd-secrets. The
   # function is used instead of the string, in order to support

@@ -12,12 +12,7 @@ let
   fixClient =
     client:
     if client ? secretFile then
-      (
-        (builtins.removeAttrs client [ "secretFile" ])
-        // {
-          secret = client.secretFile;
-        }
-      )
+      ((builtins.removeAttrs client [ "secretFile" ]) // { secret = client.secretFile; })
     else
       client;
   filteredSettings =
@@ -120,9 +115,7 @@ in
             "-/etc/resolv.conf"
             "-/etc/ssl/certs/ca-certificates.crt"
           ];
-          BindPaths =
-            optional (cfg.settings.storage.type == "postgres")
-              "/var/run/postgresql";
+          BindPaths = optional (cfg.settings.storage.type == "postgres") "/var/run/postgresql";
           CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
           # ProtectClock= adds DeviceAllow=char-rtc r
           DeviceAllow = "";

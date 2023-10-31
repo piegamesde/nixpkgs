@@ -40,9 +40,7 @@ in
       config = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Configuration to use for Cyrus SASL authentication daemon.";
+        description = lib.mdDoc "Configuration to use for Cyrus SASL authentication daemon.";
       };
     };
   };

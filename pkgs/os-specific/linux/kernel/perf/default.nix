@@ -150,9 +150,7 @@ stdenv.mkDerivation {
     ++ lib.optional withGtk gtk2
     ++ lib.optional withZstd zstd
     ++ lib.optional withLibcap libcap
-    ++
-      lib.optional (lib.versionAtLeast kernel.version "6.0")
-        python3.pkgs.setuptools;
+    ++ lib.optional (lib.versionAtLeast kernel.version "6.0") python3.pkgs.setuptools;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=cpp"

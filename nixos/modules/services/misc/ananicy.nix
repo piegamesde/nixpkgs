@@ -9,9 +9,7 @@ with lib;
 
 let
   cfg = config.services.ananicy;
-  configFile = pkgs.writeText "ananicy.conf" (
-    generators.toKeyValue { } cfg.settings
-  );
+  configFile = pkgs.writeText "ananicy.conf" (generators.toKeyValue { } cfg.settings);
   extraRules = pkgs.writeText "extraRules" cfg.extraRules;
   servicename =
     if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then

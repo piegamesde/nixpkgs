@@ -265,9 +265,7 @@ stdenv.mkDerivation rec {
       testsHW = lib.filterAttrs (_: v: v ? "name") (
         callPackage ../samples { sgxMode = "HW"; }
       );
-      testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (
-        lib.attrValues testsHW
-      );
+      testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
     in
     writeShellApplication {
       name = "run-tests-hw";

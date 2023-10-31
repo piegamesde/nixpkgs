@@ -547,9 +547,7 @@ final: prev: {
 
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
     postInstall = ''
-      wrapProgram "$out/bin/pulp" --suffix PATH : ${
-        lib.makeBinPath [ pkgs.purescript ]
-      }
+      wrapProgram "$out/bin/pulp" --suffix PATH : ${lib.makeBinPath [ pkgs.purescript ]}
     '';
   };
 
@@ -656,9 +654,7 @@ final: prev: {
       buildInputs = [ final.node-pre-gyp ];
       postInstall = ''
         echo /var/lib/thelounge > $out/lib/node_modules/thelounge/.thelounge_home
-        patch -d $out/lib/node_modules/thelounge -p1 < ${
-          ./thelounge-packages-path.patch
-        }
+        patch -d $out/lib/node_modules/thelounge -p1 < ${./thelounge-packages-path.patch}
       '';
       passthru.tests = {
         inherit (nixosTests) thelounge;

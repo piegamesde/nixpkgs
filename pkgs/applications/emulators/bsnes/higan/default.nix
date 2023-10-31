@@ -102,12 +102,8 @@ stdenv.mkDerivation rec {
           install icarus/out/icarus -t ${placeholder "out"}/bin/
 
           install -d ${placeholder "out"}/share/applications
-          install higan-ui/resource/higan.desktop -t ${
-            placeholder "out"
-          }/share/applications/
-          install icarus/resource/icarus.desktop -t ${
-            placeholder "out"
-          }/share/applications/
+          install higan-ui/resource/higan.desktop -t ${placeholder "out"}/share/applications/
+          install icarus/resource/icarus.desktop -t ${placeholder "out"}/share/applications/
 
           install -d ${placeholder "out"}/share/pixmaps
           install higan/higan/resource/higan.svg ${
@@ -116,12 +112,8 @@ stdenv.mkDerivation rec {
           install higan/higan/resource/logo.png ${
             placeholder "out"
           }/share/pixmaps/higan-icon.png
-          install icarus/resource/icarus.svg ${
-            placeholder "out"
-          }/share/pixmaps/icarus-icon.svg
-          install icarus/resource/icarus.png ${
-            placeholder "out"
-          }/share/pixmaps/icarus-icon.png
+          install icarus/resource/icarus.svg ${placeholder "out"}/share/pixmaps/icarus-icon.svg
+          install icarus/resource/icarus.png ${placeholder "out"}/share/pixmaps/icarus-icon.png
         ''
     )
     + ''

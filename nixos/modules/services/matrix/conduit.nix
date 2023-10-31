@@ -23,9 +23,7 @@ in
 
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
-      description =
-        lib.mdDoc
-          "Extra Environment variables to pass to the conduit server.";
+      description = lib.mdDoc "Extra Environment variables to pass to the conduit server.";
       default = { };
       example = {
         RUST_BACKTRACE = "yes";

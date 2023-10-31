@@ -10,18 +10,14 @@ let
   # Replace a list entry at defined index with set value
   ireplace =
     idx: value: list:
-    (genList (i: if i == idx then value else (builtins.elemAt list i)) (
-      length list
-    ));
+    (genList (i: if i == idx then value else (builtins.elemAt list i)) (length list));
 
   # Normalize package names as per PEP 503
   normalizePackageName =
     name:
     let
       parts = builtins.split "[-_.]+" name;
-      partsWithoutSeparator =
-        builtins.filter (x: builtins.typeOf x == "string")
-          parts;
+      partsWithoutSeparator = builtins.filter (x: builtins.typeOf x == "string") parts;
     in
     lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator);
 
@@ -56,9 +52,7 @@ let
       splitRe =
         "("
         + (builtins.concatStringsSep "|" (
-          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (
-            lib.attrNames operators
-          )
+          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators)
         ))
         + ")";
     in
@@ -228,8 +222,7 @@ let
       hash,
     }:
     let
-      pathParts =
-        (builtins.filter ({ prefix, path }: "NETRC" == prefix) builtins.nixPath);
+      pathParts = (builtins.filter ({ prefix, path }: "NETRC" == prefix) builtins.nixPath);
       netrc_file = if (pathParts != [ ]) then (builtins.head pathParts).path else "";
     in
     pkgs.runCommand file
@@ -327,8 +320,7 @@ let
 
   # Machine tag for our target platform (if available)
   getTargetMachine =
-    stdenv:
-    manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
+    stdenv: manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
 in
 {
   inherit

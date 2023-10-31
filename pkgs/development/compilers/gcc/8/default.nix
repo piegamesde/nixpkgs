@@ -88,14 +88,11 @@ let
     ++
       optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
         ../ppc-musl.patch
-    ++
-      optional (targetPlatform.libc == "musl")
-        ../libgomp-dont-force-initial-exec.patch
+    ++ optional (targetPlatform.libc == "musl") ../libgomp-dont-force-initial-exec.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ [ ../libsanitizer-no-cyclades-9.patch ];
 
@@ -344,9 +341,7 @@ stdenv.mkDerivation (
   //
     optionalAttrs
       (
-        targetPlatform != hostPlatform
-        && targetPlatform.libc == "msvcrt"
-        && crossStageStatic
+        targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
       )
       {
         makeFlags = [

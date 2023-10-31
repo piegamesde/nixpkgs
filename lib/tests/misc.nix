@@ -342,9 +342,7 @@ runTests {
       in
       {
         storePath = isStorePath goodPath;
-        storePathDerivation =
-          isStorePath
-            (import ../.. { system = "x86_64-linux"; }).hello;
+        storePathDerivation = isStorePath (import ../.. { system = "x86_64-linux"; }).hello;
         storePathAppendix = isStorePath "${goodPath}/bin/python";
         nonAbsolute = isStorePath (concatStrings (tail (stringToCharacters goodPath)));
         asPath = isStorePath (/. + goodPath);

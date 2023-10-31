@@ -172,9 +172,7 @@ in
         default = defaultShortcut;
         example = "a";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Ctrl following by this key is used as the main shortcut.";
+        description = lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
       };
 
       terminal = mkOption {

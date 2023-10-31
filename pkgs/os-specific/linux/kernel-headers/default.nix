@@ -69,8 +69,7 @@ let
           rsync
         ]
         ++
-          lib.optionals
-            (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips)
+          lib.optionals (stdenvNoCC.buildPlatform.isDarwin && stdenvNoCC.hostPlatform.isMips)
             [
               darwin-endian-h
               darwin-byteswap-h

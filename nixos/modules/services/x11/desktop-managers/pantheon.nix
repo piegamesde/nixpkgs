@@ -115,9 +115,7 @@ in
             Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
           '';
 
-      services.xserver.displayManager.lightdm.greeters.pantheon.enable =
-        mkDefault
-          true;
+      services.xserver.displayManager.lightdm.greeters.pantheon.enable = mkDefault true;
 
       # Without this, elementary LightDM greeter will pre-select non-existent `default` session
       # https://github.com/elementary/greeter/issues/368
@@ -207,9 +205,7 @@ in
             gala
             gnome-settings-daemon
             (switchboard-with-plugs.override { plugs = cfg.extraSwitchboardPlugs; })
-            (wingpanel-with-indicators.override {
-              indicators = cfg.extraWingpanelIndicators;
-            })
+            (wingpanel-with-indicators.override { indicators = cfg.extraWingpanelIndicators; })
           ]
         )
         ++ utils.removePackagesByName

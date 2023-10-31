@@ -12,8 +12,7 @@ with lib; {
 
             options.specialisation = mkOption {
               default = { };
-              inherit
-                (extendModules { modules = [ { specialisation = mkOverride 0 { }; } ]; })
+              inherit (extendModules { modules = [ { specialisation = mkOverride 0 { }; } ]; })
                 type
               ;
             };

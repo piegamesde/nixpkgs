@@ -57,9 +57,7 @@ let
       '';
 
   serviceOptions = service: {
-    enable = mkEnableOption (
-      lib.mdDoc "the FRR ${toUpper service} routing protocol"
-    );
+    enable = mkEnableOption (lib.mdDoc "the FRR ${toUpper service} routing protocol");
 
     configFile = mkOption {
       type = types.nullOr types.path;
@@ -218,9 +216,7 @@ in
               ExecStart =
                 "${pkgs.frr}/libexec/frr/${daemon} -f /etc/frr/${service}.conf"
                 + optionalString (scfg.vtyListenAddress != "") " -A ${scfg.vtyListenAddress}"
-                +
-                  optionalString (scfg.vtyListenPort != null)
-                    " -P ${toString scfg.vtyListenPort}"
+                + optionalString (scfg.vtyListenPort != null) " -P ${toString scfg.vtyListenPort}"
                 + " "
                 + (concatStringsSep " " scfg.extraOptions);
               ExecReload = "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${

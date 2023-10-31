@@ -110,9 +110,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/exaile \
       --set PYTHONPATH $PYTHONPATH \
       --prefix PATH : ${
-        lib.makeBinPath (
-          [ python3 ] ++ lib.optionals streamripperSupport [ streamripper ]
-        )
+        lib.makeBinPath ([ python3 ] ++ lib.optionals streamripperSupport [ streamripper ])
       }
   '';
 

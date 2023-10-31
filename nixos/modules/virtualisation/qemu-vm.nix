@@ -64,10 +64,7 @@ let
 
   selectPartitionTableLayout =
     { useEFIBoot, useDefaultFilesystems }:
-    if useDefaultFilesystems then
-      if useEFIBoot then "efi" else "legacy"
-    else
-      "none";
+    if useDefaultFilesystems then if useEFIBoot then "efi" else "legacy" else "none";
 
   driveCmdline =
     idx:
@@ -109,15 +106,11 @@ let
     let
       letter = elemAt lowerChars (idx - 1);
     in
-    if cfg.qemu.diskInterface == "scsi" then
-      "/dev/sd${letter}"
-    else
-      "/dev/vd${letter}";
+    if cfg.qemu.diskInterface == "scsi" then "/dev/sd${letter}" else "/dev/vd${letter}";
 
   lookupDriveDeviceName =
     driveName: driveList:
-    (findSingle (drive: drive.name == driveName)
-      (throw "Drive ${driveName} not found")
+    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found")
       (throw "Multiple drives named ${driveName}")
       driveList
     ).device;
@@ -249,8 +242,7 @@ let
           concatStringsSep " \\\n    " (
             mapAttrsToList
               (
-                tag: share:
-                "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
+                tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
               )
               config.virtualisation.sharedDirectories
           )
@@ -261,9 +253,7 @@ let
         "$@"
   '';
 
-  regInfo = pkgs.closureInfo {
-    rootPaths = config.virtualisation.additionalPaths;
-  };
+  regInfo = pkgs.closureInfo { rootPaths = config.virtualisation.additionalPaths; };
 
   # System image is akin to a complete NixOS install with
   # a boot partition and root partition.
@@ -412,9 +402,7 @@ in
     virtualisation.bootLoaderDevice = mkOption {
       type = types.path;
       default = lookupDriveDeviceName "root" cfg.qemu.drives;
-      defaultText =
-        literalExpression
-          ''lookupDriveDeviceName "root" cfg.qemu.drives'';
+      defaultText = literalExpression ''lookupDriveDeviceName "root" cfg.qemu.drives'';
       example = "/dev/vda";
       description = lib.mdDoc ''
         The disk to be used for the boot filesystem.
@@ -944,17 +932,14 @@ in
     boot.loader.grub.device = mkVMOverride (
       if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice
     );
-    boot.loader.grub.gfxmodeBios =
-      with cfg.resolution; "${toString x}x${toString y}";
+    boot.loader.grub.gfxmodeBios = with cfg.resolution; "${toString x}x${toString y}";
     virtualisation.rootDevice = mkDefault suggestedRootDevice;
 
-    boot.initrd.kernelModules =
-      optionals (cfg.useNixStoreImage && !cfg.writableStore)
-        [ "erofs" ];
+    boot.initrd.kernelModules = optionals (cfg.useNixStoreImage && !cfg.writableStore) [
+      "erofs"
+    ];
 
-    boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (
-      mkVMOverride false
-    );
+    boot.loader.supportsInitrdSecrets = mkIf (!cfg.useBootLoader) (mkVMOverride false);
 
     boot.initrd.extraUtilsCommands =
       lib.mkIf (cfg.useDefaultFilesystems && !config.boot.initrd.systemd.enable)
@@ -1135,10 +1120,7 @@ in
       let
         mkSharedDir = tag: share: {
           name =
-            if tag == "nix-store" && cfg.writableStore then
-              "/nix/.ro-store"
-            else
-              share.target;
+            if tag == "nix-store" && cfg.writableStore then "/nix/.ro-store" else share.target;
           value.device = tag;
           value.fsType = "9p";
           value.neededForBoot = true;
@@ -1226,9 +1208,7 @@ in
           };
         };
 
-    swapDevices =
-      (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
-        [ ];
+    swapDevices = (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) [ ];
     boot.initrd.luks.devices =
       (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault)
         { };

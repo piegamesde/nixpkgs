@@ -24,8 +24,7 @@
   qtdeclarative,
   qtEnv,
   enablePython ? false,
-  python ?
-    throw "vtk: Python support requested, but no python interpreter was given.",
+  python ? throw "vtk: Python support requested, but no python interpreter was given.",
   # Darwin support
   AGL,
   Cocoa,
@@ -150,12 +149,8 @@ stdenv.mkDerivation rec {
           "VTK_GROUP_ENABLE_Qt:STRING=YES"
       }"
     ]
-    ++ optionals (enableQt && lib.versionOlder version "8.0") [
-      "-DVTK_QT_VERSION=5"
-    ]
-    ++ optionals stdenv.isDarwin [
-      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    ]
+    ++ optionals (enableQt && lib.versionOlder version "8.0") [ "-DVTK_QT_VERSION=5" ]
+    ++ optionals stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
     ++ optionals enablePython [
       "-DVTK_WRAP_PYTHON:BOOL=ON"
       "-DVTK_PYTHON_VERSION:STRING=${pythonMajor}"

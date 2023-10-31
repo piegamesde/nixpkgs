@@ -110,8 +110,7 @@ let
     assert expectedTestOutputs != null -> hasTests;
     assert hasTests -> expectedTestOutputs != null;
 
-    runCommand "run-buildRustCrate-${crateName}-test"
-      { nativeBuildInputs = [ crate ]; }
+    runCommand "run-buildRustCrate-${crateName}-test" { nativeBuildInputs = [ crate ]; }
       (
         if !hasTests then
           ''
@@ -119,8 +118,7 @@ let
               (
                 binary:
                 # Can't actually run the binary when cross-compiling
-                (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ")
-                + binary
+                (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ") + binary
               )
               binaries}
             ${lib.optionalString isLib ''
@@ -139,8 +137,7 @@ let
             ${lib.concatMapStringsSep "\n"
               (
                 o:
-                ''
-                  grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }''
+                ''grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }''
               )
               expectedTestOutputs}
           ''
@@ -654,10 +651,7 @@ rec {
               "workspace_member"
             ];
           in
-          withoutCargoTomlSearch
-          // {
-            expectedTestOutputs = [ "test ignore_main ... ok" ];
-          };
+          withoutCargoTomlSearch // { expectedTestOutputs = [ "test ignore_main ... ok" ]; };
         procMacroInPrelude = {
           procMacro = true;
           edition = "2018";
@@ -789,10 +783,9 @@ rec {
         let
           pkg = brotliCrates.brotli_decompressor_1_3_1 { };
         in
-        runCommand "run-brotli-decompressor-test-cmd" { nativeBuildInputs = [ pkg ]; }
-          ''
-            test -e ${pkg}/bin/brotli-decompressor && touch $out
-          '';
+        runCommand "run-brotli-decompressor-test-cmd" { nativeBuildInputs = [ pkg ]; } ''
+          test -e ${pkg}/bin/brotli-decompressor && touch $out
+        '';
 
       rcgenTest =
         let

@@ -60,11 +60,9 @@ stdenv.mkDerivation (
 
     dontConfigure = stdenv.hostPlatform.libc == "msvcrt";
 
-    preConfigure =
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-        ''
-          export CHOST=${stdenv.hostPlatform.config}
-        '';
+    preConfigure = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      export CHOST=${stdenv.hostPlatform.config}
+    '';
 
     # For zlib's ./configure (as of verion 1.2.11), the order
     # of --static/--shared flags matters!
@@ -78,9 +76,7 @@ stdenv.mkDerivation (
     # `--static --shared`, `--shared` and giving nothing.
     # Of these, we choose `--static --shared`, for clarity and simpler
     # conditions.
-    configureFlags =
-      lib.optional static "--static"
-      ++ lib.optional shared "--shared";
+    configureFlags = lib.optional static "--static" ++ lib.optional shared "--shared";
     # We do the right thing manually, above, so don't need these.
     dontDisableStatic = true;
     dontAddStaticConfigureFlags = true;

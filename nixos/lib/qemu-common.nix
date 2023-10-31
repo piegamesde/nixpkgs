@@ -17,9 +17,7 @@ rec {
   qemuNicMac = net: machine: "52:54:00:12:${zeroPad net}:${zeroPad machine}";
 
   qemuNICFlags = nic: net: machine: [
-    "-device virtio-net-pci,netdev=vlan${toString nic},mac=${
-      qemuNicMac net machine
-    }"
+    "-device virtio-net-pci,netdev=vlan${toString nic},mac=${qemuNicMac net machine}"
     ''-netdev vde,id=vlan${toString nic},sock="$QEMU_VDE_SOCKET_${toString net}"''
   ];
 
@@ -29,8 +27,7 @@ rec {
     else if (with pkgs.stdenv.hostPlatform; isAarch || isPower) then
       "ttyAMA0"
     else
-      throw
-        "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
+      throw "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
 
   qemuBinary =
     qemuPkg:

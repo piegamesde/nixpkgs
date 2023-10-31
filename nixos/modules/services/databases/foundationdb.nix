@@ -123,9 +123,7 @@ in
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/foundationdb";
-      description =
-        lib.mdDoc
-          "Data directory. All cluster data will be put under here.";
+      description = lib.mdDoc "Data directory. All cluster data will be put under here.";
     };
 
     logDir = mkOption {
@@ -192,9 +190,7 @@ in
     backupProcesses = mkOption {
       type = types.int;
       default = 1;
-      description =
-        lib.mdDoc
-          "Number of backup_agent processes to run for snapshots.";
+      description = lib.mdDoc "Number of backup_agent processes to run for snapshots.";
     };
 
     memory = mkOption {
@@ -364,8 +360,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
+        assertion = lib.versionOlder cfg.package.version "6.1" -> cfg.traceFormat == "xml";
         message =
           ''
             Versions of FoundationDB before 6.1 do not support configurable trace formats (only XML is supported).

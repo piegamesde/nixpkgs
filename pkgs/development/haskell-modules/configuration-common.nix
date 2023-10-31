@@ -92,9 +92,7 @@ self: super:
       in
       {
         cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
-        cabal-install-solver =
-          super.cabal-install-solver.overrideScope
-            cabalInstallOverlay;
+        cabal-install-solver = super.cabal-install-solver.overrideScope cabalInstallOverlay;
 
         guardian =
           lib.pipe
@@ -862,9 +860,7 @@ self: super:
   # because the wrappers in curlc.c don't use static values for the different
   # arguments to curl_easy_getinfo, it complains and needs to be disabled.
   # https://github.com/GaloisInc/curl/issues/28
-  curl =
-    appendConfigureFlags [ "--ghc-option=-DCURL_DISABLE_TYPECHECK" ]
-      super.curl;
+  curl = appendConfigureFlags [ "--ghc-option=-DCURL_DISABLE_TYPECHECK" ] super.curl;
 
   # https://github.com/hvr/token-bucket/issues/3
   token-bucket = dontCheck super.token-bucket;
@@ -1192,18 +1188,14 @@ self: super:
   sensei =
     overrideCabal
       (drv: {
-        testHaskellDepends = drv.testHaskellDepends or [ ] ++ [
-          self.hspec-meta_2_10_5
-        ];
+        testHaskellDepends = drv.testHaskellDepends or [ ] ++ [ self.hspec-meta_2_10_5 ];
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.git ];
       })
       (
         super.sensei.override {
           hspec = self.hspec_2_11_0;
           hspec-wai = self.hspec-wai.override { hspec = self.hspec_2_11_0; };
-          hspec-contrib = self.hspec-contrib.override {
-            hspec-core = self.hspec-core_2_11_0;
-          };
+          hspec-contrib = self.hspec-contrib.override { hspec-core = self.hspec-core_2_11_0; };
           fsnotify = self.fsnotify_0_4_1_0;
         }
       );
@@ -1333,9 +1325,7 @@ self: super:
     addExtraLibrary pkgs.vulkan-headers
       super.VulkanMemoryAllocator;
   # dontCheck can be removed on the next package set bump
-  vulkan-utils = dontCheck (
-    addExtraLibrary pkgs.vulkan-headers super.vulkan-utils
-  );
+  vulkan-utils = dontCheck (addExtraLibrary pkgs.vulkan-headers super.vulkan-utils);
 
   # https://github.com/dmwit/encoding/pull/3
   encoding = doJailbreak (
@@ -1396,17 +1386,15 @@ self: super:
         "yaml-to-dhall"
       ]
       super.dhall-yaml;
-  dhall-nixpkgs =
-    self.generateOptparseApplicativeCompletions [ "dhall-to-nixpkgs" ]
-      (
-        overrideCabal
-          (drv: {
-            # Allow hnix 0.16, needs unreleased bounds change
-            # https://github.com/dhall-lang/dhall-haskell/pull/2474
-            jailbreak = assert drv.version == "1.0.9" && drv.revision == "1"; true;
-          })
-          super.dhall-nixpkgs
-      );
+  dhall-nixpkgs = self.generateOptparseApplicativeCompletions [ "dhall-to-nixpkgs" ] (
+    overrideCabal
+      (drv: {
+        # Allow hnix 0.16, needs unreleased bounds change
+        # https://github.com/dhall-lang/dhall-haskell/pull/2474
+        jailbreak = assert drv.version == "1.0.9" && drv.revision == "1"; true;
+      })
+      super.dhall-nixpkgs
+  );
 
   stack = self.generateOptparseApplicativeCompletions [ "stack" ] (
     super.stack.override {
@@ -1656,9 +1644,7 @@ self: super:
   # https://github.com/haskell-CI/haskell-ci/commit/6ad0d5d701cbe101013335d597acaf5feadd3ab9#r82681900
   cabal-install-parsers = doJailbreak (
     dontCheck (
-      super.cabal-install-parsers.override {
-        Cabal-syntax = self.Cabal-syntax_3_10_1_0;
-      }
+      super.cabal-install-parsers.override { Cabal-syntax = self.Cabal-syntax_3_10_1_0; }
     )
   );
 
@@ -2051,9 +2037,7 @@ self: super:
   # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
   # is overlayed to hspec-core.
   hspec-core_2_11_0 = doDistribute (
-    dontCheck (
-      super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; }
-    )
+    dontCheck (super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; })
   );
 
   # Point hspec 2.7.10 to correct dependencies
@@ -2076,9 +2060,7 @@ self: super:
 
   hercules-ci-cli = lib.pipe super.hercules-ci-cli [
     unmarkBroken
-    (overrideCabal (
-      drv: { hydraPlatforms = super.hercules-ci-cli.meta.platforms; }
-    ))
+    (overrideCabal (drv: { hydraPlatforms = super.hercules-ci-cli.meta.platforms; }))
     # See hercules-ci-optparse-applicative in non-hackage-packages.nix.
     (addBuildDepend super.hercules-ci-optparse-applicative)
     (self.generateOptparseApplicativeCompletions [ "hci" ])
@@ -2211,9 +2193,7 @@ self: super:
   spacecookie =
     overrideCabal
       (old: {
-        buildTools = (old.buildTools or [ ]) ++ [
-          pkgs.buildPackages.installShellFiles
-        ];
+        buildTools = (old.buildTools or [ ]) ++ [ pkgs.buildPackages.installShellFiles ];
         # let testsuite discover the resulting binary
         preCheck =
           ''
@@ -2541,9 +2521,7 @@ self: super:
               self.cryptonite
               self.memory
             ];
-            testHaskellDepends = drv.testHaskellDepends or [ ] ++ [
-              self.inspection-testing
-            ];
+            testHaskellDepends = drv.testHaskellDepends or [ ] ++ [ self.inspection-testing ];
           }
         ))
         # https://github.com/factisresearch/large-hashable/issues/24
@@ -2781,17 +2759,15 @@ self: super:
 
   # Fixes compilation with GHC 9.0 and above
   # https://hub.darcs.net/shelarcy/regex-compat-tdfa/issue/3
-  regex-compat-tdfa =
-    appendPatches [ ./patches/regex-compat-tdfa-ghc-9.0.patch ]
-      (
-        overrideCabal
-          {
-            # Revision introduces bound base < 4.15
-            revision = null;
-            editedCabalFile = null;
-          }
-          super.regex-compat-tdfa
-      );
+  regex-compat-tdfa = appendPatches [ ./patches/regex-compat-tdfa-ghc-9.0.patch ] (
+    overrideCabal
+      {
+        # Revision introduces bound base < 4.15
+        revision = null;
+        editedCabalFile = null;
+      }
+      super.regex-compat-tdfa
+  );
 
   # https://github.com/kowainik/validation-selective/issues/64
   validation-selective = doJailbreak super.validation-selective;
@@ -2852,8 +2828,7 @@ self: super:
   system-fileio = doJailbreak super.system-fileio;
 
   # Bounds too strict on base and ghc-prim: https://github.com/tibbe/ekg-core/pull/43 (merged); waiting on hackage release
-  ekg-core =
-    assert super.ekg-core.version == "0.1.1.7"; doJailbreak super.ekg-core;
+  ekg-core = assert super.ekg-core.version == "0.1.1.7"; doJailbreak super.ekg-core;
   hasura-ekg-core = doJailbreak super.hasura-ekg-core;
 
   # https://github.com/Synthetica9/nix-linter/issues/65
@@ -2950,9 +2925,7 @@ self: super:
       super.conduit-aeson;
 
   # Disabling doctests.
-  regex-tdfa =
-    overrideCabal { testTarget = "regex-tdfa-unittest"; }
-      super.regex-tdfa;
+  regex-tdfa = overrideCabal { testTarget = "regex-tdfa-unittest"; } super.regex-tdfa;
 
   # Missing test files https://github.com/kephas/xdg-basedir-compliant/issues/1
   xdg-basedir-compliant = dontCheck super.xdg-basedir-compliant;
@@ -3149,8 +3122,7 @@ self: super:
   # 2023-04-05: The last version to support libsoup-2.4, required for
   # compatability with other gi- packages.
   # Take another look when gi-webkit2 updates as it may have become compatible with libsoup-3
-  gi-soup =
-    assert versions.major self.gi-webkit2.version == "4"; self.gi-soup_2_4_28;
+  gi-soup = assert versions.major self.gi-webkit2.version == "4"; self.gi-soup_2_4_28;
 
   llvm-ffi = super.llvm-ffi.override { LLVM = pkgs.llvmPackages_13.libllvm; };
 

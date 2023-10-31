@@ -57,9 +57,7 @@ let
   ldPath =
     lib.optionals stdenv.is64bit [ "/lib64" ]
     ++ [ "/lib32" ]
-    ++
-      map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x)
-        steam-runtime-wrapped.libs
+    ++ map (x: "/steamrt/${steam-runtime-wrapped.arch}/" + x) steam-runtime-wrapped.libs
     ++ lib.optionals (steam-runtime-wrapped-i686 != null) (
       map (x: "/steamrt/${steam-runtime-wrapped-i686.arch}/" + x)
         steam-runtime-wrapped-i686.libs

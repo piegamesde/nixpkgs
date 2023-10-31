@@ -27,18 +27,14 @@ in
 
       extraPackages = mkOption {
         default = [ ];
-        description =
-          lib.mdDoc
-            "Packages that are available in the PATH of code-server.";
+        description = lib.mdDoc "Packages that are available in the PATH of code-server.";
         example = "[ pkgs.go ]";
         type = types.listOf types.package;
       };
 
       extraEnvironment = mkOption {
         type = types.attrsOf types.str;
-        description =
-          lib.mdDoc
-            "Additional environment variables to passed to code-server.";
+        description = lib.mdDoc "Additional environment variables to passed to code-server.";
         default = { };
         example = {
           PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";

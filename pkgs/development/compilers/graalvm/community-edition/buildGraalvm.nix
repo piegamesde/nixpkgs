@@ -52,8 +52,7 @@ let
       gtk3
     ]
   );
-  mapProducts =
-    key: default: (map (p: p.graalvmPhases.${key} or default) products);
+  mapProducts = key: default: (map (p: p.graalvmPhases.${key} or default) products);
   concatProducts = key: lib.concatStringsSep "\n" (mapProducts key "");
 
   graalvmXXX-ce = stdenv.mkDerivation (
@@ -74,9 +73,7 @@ let
         #   graalvm-ce-java11-20.3.0/Contents/Home/*
         #
         # We therefor use --strip-components=1 vs 3 depending on the platform.
-        tar xf "$src" -C "$out" --strip-components=${
-          if stdenv.isLinux then "1" else "3"
-        }
+        tar xf "$src" -C "$out" --strip-components=${if stdenv.isLinux then "1" else "3"}
 
         # Sanity check
         if [ ! -d "$out/bin" ]; then

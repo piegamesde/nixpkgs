@@ -26,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-NMnb9DiW5xvfsI1nHFNIwvA/yH2boqe+WeD5re/ojAM=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
-    importlib-metadata
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   pythonImportsCheck = [ "pdm.backend" ];
 

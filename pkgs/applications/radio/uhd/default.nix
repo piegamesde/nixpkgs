@@ -139,12 +139,10 @@ stdenv.mkDerivation rec {
       ./no-adapter-tests.patch
     ];
 
-  postPhases =
-    [
-      "installFirmware"
-      "removeInstalledTests"
-    ]
-    ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) [ "moveUdevRules" ];
+  postPhases = [
+    "installFirmware"
+    "removeInstalledTests"
+  ] ++ optionals (enableUtils && stdenv.targetPlatform.isLinux) [ "moveUdevRules" ];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''

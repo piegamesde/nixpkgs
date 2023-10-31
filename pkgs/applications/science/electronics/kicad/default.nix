@@ -132,8 +132,7 @@ stdenv.mkDerivation rec {
   };
 
   inherit pname;
-  version =
-    if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
+  version = if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
 
   src = base;
   dontUnpack = true;

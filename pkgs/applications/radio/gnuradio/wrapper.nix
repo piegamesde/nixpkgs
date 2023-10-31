@@ -61,9 +61,7 @@ let
     # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++
       lib.optionals
-        (
-          (unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui")
-        )
+        ((unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui"))
         [
           "--prefix"
           "XDG_DATA_DIRS"
@@ -139,8 +137,7 @@ let
               ":"
               "${lib.makeSearchPath unwrapped.qt.qtbase.qtPluginPrefix (
                 builtins.map lib.getBin (
-                  [ unwrapped.qt.qtbase ]
-                  ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
+                  [ unwrapped.qt.qtbase ] ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
                 )
               )}"
               "--prefix"
@@ -148,8 +145,7 @@ let
               ":"
               "${lib.makeSearchPath unwrapped.qt.qtbase.qtQmlPrefix (
                 builtins.map lib.getBin (
-                  [ unwrapped.qt.qtbase ]
-                  ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
+                  [ unwrapped.qt.qtbase ] ++ lib.optionals stdenv.isLinux [ unwrapped.qt.qtwayland ]
                 )
               )}"
             ]

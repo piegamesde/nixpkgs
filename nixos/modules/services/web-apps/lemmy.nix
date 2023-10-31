@@ -34,9 +34,7 @@ in
       port = mkOption {
         type = types.port;
         default = 1234;
-        description =
-          lib.mdDoc
-            "Port where lemmy-ui should listen for incoming requests.";
+        description = lib.mdDoc "Port where lemmy-ui should listen for incoming requests.";
       };
     };
 

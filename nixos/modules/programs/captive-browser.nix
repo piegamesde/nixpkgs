@@ -59,9 +59,7 @@ in
 
       interface = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "your public network interface (wlp3s0, wlan0, eth0, ...)";
+        description = lib.mdDoc "your public network interface (wlp3s0, wlan0, eth0, ...)";
       };
 
       # the options below are the same as in "captive-browser.toml"
@@ -123,9 +121,7 @@ in
       let
         iface =
           prefixes:
-          optionalString cfg.bindInterface (
-            escapeShellArgs (prefixes ++ [ cfg.interface ])
-          );
+          optionalString cfg.bindInterface (escapeShellArgs (prefixes ++ [ cfg.interface ]));
       in
       mkOptionDefault (
         if config.networking.networkmanager.enable then

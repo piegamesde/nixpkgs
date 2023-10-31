@@ -105,10 +105,7 @@ rec {
           let
             x = builtins.head argList;
           in
-          if (head x) == name then
-            (head (tail x))
-          else
-            (getValue attrSet (tail argList) name)
+          if (head x) == name then (head (tail x)) else (getValue attrSet (tail argList) name)
       )
       attrSet
     );
@@ -288,10 +285,7 @@ rec {
     );
 
   closePropagation =
-    if builtins ? genericClosure then
-      closePropagationFast
-    else
-      closePropagationSlow;
+    if builtins ? genericClosure then closePropagationFast else closePropagationSlow;
 
   # calls a function (f attr value ) for each record item. returns a list
   mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
@@ -321,9 +315,7 @@ rec {
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
-  mergeAttrsConcatenateValues = mergeAttrsWithFunc (
-    a: b: (toList a) ++ (toList b)
-  );
+  mergeAttrsConcatenateValues = mergeAttrsWithFunc (a: b: (toList a) ++ (toList b));
 
   # merges attributes using //, if a name exists in both attributes
   # an error will be triggered unless its listed in mergeLists

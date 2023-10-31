@@ -34,8 +34,7 @@
   gnome,
   gsettings-desktop-schemas,
   sassc,
-  trackerSupport ?
-    stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform),
+  trackerSupport ? stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform),
   tracker,
   x11Support ? stdenv.isLinux,
   waylandSupport ? stdenv.isLinux,

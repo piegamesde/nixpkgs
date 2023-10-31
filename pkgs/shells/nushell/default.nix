@@ -63,9 +63,7 @@ rustPlatform.buildRustPackage (
         libgit2
       ];
 
-    buildFeatures = additionalFeatures [
-      (lib.optional withDefaultFeatures "default")
-    ];
+    buildFeatures = additionalFeatures [ (lib.optional withDefaultFeatures "default") ];
 
     # TODO investigate why tests are broken on darwin
     # failures show that tests try to write to paths

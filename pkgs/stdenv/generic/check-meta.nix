@@ -21,8 +21,7 @@ let
       "${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}"
     );
 
-  allowUnfree =
-    config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
+  allowUnfree = config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
 
   allowNonSource =
     let
@@ -57,8 +56,7 @@ let
       lib.lists.toList attrs.meta.license
     );
 
-  allowBroken =
-    config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
+  allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
   allowUnsupportedSystem =
     config.allowUnsupportedSystem
@@ -107,8 +105,7 @@ let
   isNonSource = sourceTypes: lib.lists.any (t: !t.isSource) sourceTypes;
 
   hasNonSourceProvenance =
-    attrs:
-    (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance;
+    attrs: (attrs ? meta.sourceProvenance) && isNonSource attrs.meta.sourceProvenance;
 
   # Allow granular checks to allow only some non-source-built packages
   # Example:
@@ -124,9 +121,7 @@ let
   # `allowNonSourcePredicate` function.
   hasDeniedNonSourceProvenance =
     attrs:
-    hasNonSourceProvenance attrs
-    && !allowNonSource
-    && !allowNonSourcePredicate attrs;
+    hasNonSourceProvenance attrs && !allowNonSource && !allowNonSourcePredicate attrs;
 
   showLicenseOrSourceType =
     value: toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
@@ -136,9 +131,7 @@ let
   pos_str = meta: meta.position or "«unknown-file»";
 
   remediation = {
-    unfree = remediate_allowlist "Unfree" (
-      remediate_predicate "allowUnfreePredicate"
-    );
+    unfree = remediate_allowlist "Unfree" (remediate_predicate "allowUnfreePredicate");
     non-source = remediate_allowlist "NonSource" (
       remediate_predicate "allowNonSourcePredicate"
     );
@@ -203,9 +196,7 @@ let
 
       Known issues:
     ''
-    + (lib.concatStrings (
-      map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities
-    ))
+    + (lib.concatStrings (map (issue: " - ${issue}\n") attrs.meta.knownVulnerabilities))
     + ''
 
       You can install it anyway by allowing this package, using the
@@ -278,8 +269,7 @@ let
           ''
           + (builtins.getAttr reason remediation) attrs;
 
-      handler =
-        if config ? handleEvalIssue then config.handleEvalIssue reason else throw;
+      handler = if config ? handleEvalIssue then config.handleEvalIssue reason else throw;
     in
     handler msg;
 
@@ -570,9 +560,7 @@ let
     }
     // attrs.meta or { }
     # Fill `meta.position` to identify the source location of the package.
-    // lib.optionalAttrs (pos != null) {
-      position = pos.file + ":" + toString pos.line;
-    }
+    // lib.optionalAttrs (pos != null) { position = pos.file + ":" + toString pos.line; }
     // {
       # Expose the result of the checks for everyone to see.
       inherit (validity)
@@ -603,9 +591,7 @@ let
       # or, alternatively, just output a warning message.
       handled =
         {
-          no = handleEvalIssue { inherit meta attrs; } {
-            inherit (validity) reason errormsg;
-          };
+          no = handleEvalIssue { inherit meta attrs; } { inherit (validity) reason errormsg; };
           warn = handleEvalWarning { inherit meta attrs; } {
             inherit (validity) reason errormsg;
           };

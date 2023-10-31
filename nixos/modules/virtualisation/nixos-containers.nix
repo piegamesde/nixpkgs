@@ -276,9 +276,7 @@ let
 
     Type = "notify";
 
-    RuntimeDirectory =
-      lib.optional cfg.ephemeral
-        "${configurationDirectoryName}/%i";
+    RuntimeDirectory = lib.optional cfg.ephemeral "${configurationDirectoryName}/%i";
 
     # Note that on reboot, systemd-nspawn returns 133, so this
     # unit will be restarted. On poweroff, it returns 0, so the
@@ -363,10 +361,7 @@ let
     let
       flagPrefix = if d.isReadOnly then " --bind-ro=" else " --bind=";
       mountstr =
-        if d.hostPath != null then
-          "${d.hostPath}:${d.mountPoint}"
-        else
-          "${d.mountPoint}";
+        if d.hostPath != null then "${d.hostPath}:${d.mountPoint}" else "${d.mountPoint}";
     in
     flagPrefix + mountstr;
 
@@ -531,9 +526,7 @@ in
                               _file = "module at ${__curPos.file}:${toString __curPos.line}";
                               config = {
                                 nixpkgs =
-                                  if
-                                    options.nixpkgs ? hostPlatform && host.options.nixpkgs.hostPlatform.isDefined
-                                  then
+                                  if options.nixpkgs ? hostPlatform && host.options.nixpkgs.hostPlatform.isDefined then
                                     { inherit (host.config.nixpkgs) hostPlatform; }
                                   else
                                     { inherit (host.config.nixpkgs) localSystem; };
@@ -945,10 +938,7 @@ in
             + (toString p.hostPort)
             + ":"
             + (
-              if p.containerPort == null then
-                toString p.hostPort
-              else
-                toString p.containerPort
+              if p.containerPort == null then toString p.hostPort else toString p.containerPort
             );
         in
         mapAttrs'
@@ -985,9 +975,7 @@ in
                 ''}
                 EXTRA_NSPAWN_FLAGS="${
                   mkBindFlags cfg.bindMounts
-                  + optionalString (cfg.extraFlags != [ ]) (
-                    " " + concatStringsSep " " cfg.extraFlags
-                  )
+                  + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
                 }"
               '';
             }
@@ -1011,12 +999,10 @@ in
         "vb-*"
       ];
 
-      services.udev.extraRules =
-        optionalString config.networking.networkmanager.enable
-          ''
-            # Don't manage interfaces created by nixos-container.
-            ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
-          '';
+      services.udev.extraRules = optionalString config.networking.networkmanager.enable ''
+        # Don't manage interfaces created by nixos-container.
+        ENV{INTERFACE}=="v[eb]-*", ENV{NM_UNMANAGED}="1"
+      '';
 
       environment.systemPackages = [ nixos-container ];
 

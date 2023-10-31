@@ -119,9 +119,7 @@ in
       stateDir = mkOption {
         type = types.str;
         default = "/var/lib/redmine";
-        description =
-          lib.mdDoc
-            "The state directory, logs and plugins are stored here.";
+        description = lib.mdDoc "The state directory, logs and plugins are stored here.";
       };
 
       settings = mkOption {
@@ -244,9 +242,7 @@ in
               null;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           example = "/run/mysqld/mysqld.sock";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -330,8 +326,7 @@ in
         message = "services.redmine.database.host must be set to localhost if services.redmine.database.createLocally is set to true";
       }
       {
-        assertion =
-          cfg.components.imagemagick -> cfg.components.minimagick_font_path != "";
+        assertion = cfg.components.imagemagick -> cfg.components.minimagick_font_path != "";
         message = "services.redmine.components.minimagick_font_path must be configured with a path to a font file if services.redmine.components.imagemagick is set to true.";
       }
     ];
@@ -346,15 +341,11 @@ in
             "${pkgs.mercurial}/bin/hg";
         scm_git_command = optionalString cfg.components.git "${pkgs.git}/bin/git";
         scm_cvs_command = optionalString cfg.components.cvs "${pkgs.cvs}/bin/cvs";
-        scm_bazaar_command =
-          optionalString cfg.components.breezy
-            "${pkgs.breezy}/bin/bzr";
+        scm_bazaar_command = optionalString cfg.components.breezy "${pkgs.breezy}/bin/bzr";
         imagemagick_convert_command =
           optionalString cfg.components.imagemagick
             "${pkgs.imagemagick}/bin/convert";
-        gs_command =
-          optionalString cfg.components.ghostscript
-            "${pkgs.ghostscript}/bin/gs";
+        gs_command = optionalString cfg.components.ghostscript "${pkgs.ghostscript}/bin/gs";
         minimagick_font_path = "${cfg.components.minimagick_font_path}";
       };
     };
@@ -416,10 +407,9 @@ in
     ];
 
     systemd.services.redmine = {
-      after =
-        [ "network.target" ]
-        ++ optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service";
+      after = [
+        "network.target"
+      ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";
@@ -464,9 +454,7 @@ in
 
 
         # link in all user specified plugins
-        for plugin in ${
-          concatStringsSep " " (mapAttrsToList unpackPlugin cfg.plugins)
-        }; do
+        for plugin in ${concatStringsSep " " (mapAttrsToList unpackPlugin cfg.plugins)}; do
           ln -fs $plugin/* "${cfg.stateDir}/plugins/''${plugin##*-redmine-plugin-}"
         done
 

@@ -61,8 +61,7 @@ in
       '';
       format = "raw";
       partitionTableType = "none";
-      configFile =
-        if cfg.configFile == null then defaultConfigFile else cfg.configFile;
+      configFile = if cfg.configFile == null then defaultConfigFile else cfg.configFile;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

@@ -21,9 +21,7 @@ let
       protocols = ${concatStringsSep " " cfg.protocols}
       sendmail_path = /run/wrappers/bin/sendmail
       # defining mail_plugins must be done before the first protocol {} filter because of https://doc.dovecot.org/configuration_manual/config_file/config_file_syntax/#variable-expansion
-      mail_plugins = $mail_plugins ${
-        concatStringsSep " " cfg.mailPlugins.globally.enable
-      }
+      mail_plugins = $mail_plugins ${concatStringsSep " " cfg.mailPlugins.globally.enable}
     ''
 
     (concatStringsSep "\n" (
@@ -86,8 +84,7 @@ let
       plugin {
         ${
           concatStringsSep "\n" (
-            mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
-              cfg.sieveScripts
+            mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}") cfg.sieveScripts
           )
         }
       }
@@ -126,8 +123,7 @@ let
   modulesDir = pkgs.symlinkJoin {
     name = "dovecot-modules";
     paths = map (pkg: "${pkg}/lib/dovecot") (
-      [ dovecotPkg ]
-      ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules
+      [ dovecotPkg ] ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules
     );
   };
 
@@ -218,9 +214,7 @@ in
     );
 
     enableImap =
-      mkEnableOption (
-        lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)"
-      )
+      mkEnableOption (lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)")
       // {
         default = true;
       };
@@ -232,9 +226,7 @@ in
     protocols = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      description =
-        lib.mdDoc
-          "Additional listeners to start when Dovecot is enabled.";
+      description = lib.mdDoc "Additional listeners to start when Dovecot is enabled.";
     };
 
     user = mkOption {
@@ -409,8 +401,7 @@ in
     };
 
     showPAMFailure = mkEnableOption (
-      lib.mdDoc
-        "showing the PAM failure message on authentication error (useful for OTPW)"
+      lib.mdDoc "showing the PAM failure message on authentication error (useful for OTPW)"
     );
 
     mailboxes = mkOption {
@@ -435,9 +426,7 @@ in
           Spam = { specialUse = "Junk"; auto = "create"; };
         }
       '';
-      description =
-        lib.mdDoc
-          "Configure mailboxes and auto create or subscribe them.";
+      description = lib.mdDoc "Configure mailboxes and auto create or subscribe them.";
     };
 
     enableQuota = mkEnableOption (lib.mdDoc "the dovecot quota service");
@@ -570,8 +559,7 @@ in
         assertion =
           (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
           && (
-            cfg.sslCACert != null
-            -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
+            cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
           );
         message = "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }

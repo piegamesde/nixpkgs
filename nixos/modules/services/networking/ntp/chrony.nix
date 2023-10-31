@@ -19,11 +19,7 @@ let
     ${concatMapStringsSep "\n"
       (
         server:
-        "server "
-        + server
-        + " "
-        + cfg.serverOption
-        + optionalString (cfg.enableNTS) " nts"
+        "server " + server + " " + cfg.serverOption + optionalString (cfg.enableNTS) " nts"
       )
       cfg.servers}
 

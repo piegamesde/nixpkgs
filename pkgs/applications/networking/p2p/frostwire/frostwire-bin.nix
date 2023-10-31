@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
         "export JAVA_PROGRAM_DIR=${jre}/bin/"
 
     substituteInPlace $out/share/java/frostwire.desktop \
-      --replace "Exec=/usr/bin/frostwire %U" "Exec=${
-        placeholder "out"
-      }/bin/frostwire %U"
+      --replace "Exec=/usr/bin/frostwire %U" "Exec=${placeholder "out"}/bin/frostwire %U"
 
     runHook postInstall
   '';

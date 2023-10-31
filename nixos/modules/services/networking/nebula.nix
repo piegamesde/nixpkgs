@@ -211,8 +211,7 @@ in
                   };
                   tun = {
                     disabled = netCfg.tun.disable;
-                    dev =
-                      if (netCfg.tun.device != null) then netCfg.tun.device else "nebula.${netName}";
+                    dev = if (netCfg.tun.device != null) then netCfg.tun.device else "nebula.${netName}";
                   };
                   firewall = {
                     inbound = netCfg.firewall.inbound;

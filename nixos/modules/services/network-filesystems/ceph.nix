@@ -87,9 +87,7 @@ let
             User = "ceph";
             Group = if daemonType == "osd" then "disk" else "ceph";
             ExecStart = ''
-              ${ceph.out}/bin/${
-                if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"
-              } \
+              ${ceph.out}/bin/${if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"} \
                                   -f --cluster ${clusterName} --id ${daemonId}'';
           }
           // optionalAttrs (daemonType == "osd") {
@@ -423,9 +421,7 @@ in
       let
         # Merge the extraConfig set for mgr daemons, as mgr don't have their own section
         globalSection = expandCamelCaseAttrs (
-          cfg.global
-          // cfg.extraConfig
-          // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig
+          cfg.global // cfg.extraConfig // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig
         );
         # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
         globalSection' = filterAttrs (name: value: value != null) globalSection;

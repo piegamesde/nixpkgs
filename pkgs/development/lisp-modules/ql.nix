@@ -20,9 +20,7 @@ let
       cl-cffi-gtk-cairo = super.cl-cffi-gtk-cairo.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.cairo ]; }
       );
-      cl-cairo2 = super.cl-cairo2.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.cairo ]; }
-      );
+      cl-cairo2 = super.cl-cairo2.overrideLispAttrs (o: { nativeLibs = [ pkgs.cairo ]; });
       cl-cairo2-xlib = super.cl-cairo2-xlib.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
       );
@@ -36,9 +34,7 @@ let
           patches = [ ./patches/cl-freetype2-fix-grovel-includes.patch ];
         }
       );
-      cl-pango = super.cl-pango.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.pango ]; }
-      );
+      cl-pango = super.cl-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
       cl-gtk2-gdk = super.cl-gtk2-gdk.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
       );
@@ -48,9 +44,7 @@ let
       cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.pango ]; }
       );
-      cl-rsvg2 = super.cl-rsvg2.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.librsvg ]; }
-      );
+      cl-rsvg2 = super.cl-rsvg2.overrideLispAttrs (o: { nativeLibs = [ pkgs.librsvg ]; });
       cl-cffi-gtk-gdk = super.cl-cffi-gtk-gdk.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gtk3 ]; }
       );
@@ -125,27 +119,19 @@ let
             [ ode' ];
         }
       );
-      classimp = super.classimp.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.assimp ]; }
-      );
+      classimp = super.classimp.overrideLispAttrs (o: { nativeLibs = [ pkgs.assimp ]; });
       sdl2 = super.sdl2.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL2 ]; });
       lispbuilder-sdl-cffi = super.lispbuilder-sdl-cffi.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.SDL ]; }
       );
-      cl-opengl = super.cl-opengl.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libGL ]; }
-      );
+      cl-opengl = super.cl-opengl.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGL ]; });
       cl-glu = super.cl-glu.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGLU ]; });
-      cl-glut = super.cl-glut.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.freeglut ]; }
-      );
+      cl-glut = super.cl-glut.overrideLispAttrs (o: { nativeLibs = [ pkgs.freeglut ]; });
       cl-glfw = super.cl-glfw.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
       cl-glfw-opengl-core = super.cl-glfw-opengl-core.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.libGL ]; }
       );
-      cl-glfw3 = super.cl-glfw3.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.glfw ]; }
-      );
+      cl-glfw3 = super.cl-glfw3.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
       lev = super.lev.overrideLispAttrs (o: { nativeLibs = [ pkgs.libev ]; });
       cl-rdkafka = super.cl-rdkafka.overrideLispAttrs (
         o: {

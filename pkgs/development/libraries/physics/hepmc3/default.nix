@@ -9,8 +9,7 @@
 }:
 
 let
-  pythonVersion =
-    with lib.versions; "${major python.version}${minor python.version}";
+  pythonVersion = with lib.versions; "${major python.version}${minor python.version}";
   withPython = python != null;
   # ensure that root is built with the same python interpreter, as it links against numpy
   root_py = if withPython then root.override { inherit python; } else root;
@@ -34,9 +33,7 @@ stdenv.mkDerivation rec {
   # error: invalid version number in 'MACOSX_DEPLOYMENT_TARGET=11.0'
   preConfigure =
     lib.optionalString
-      (
-        stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
-      )
+      (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       '';

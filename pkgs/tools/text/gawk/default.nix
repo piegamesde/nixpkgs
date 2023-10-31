@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
       else
         "--without-libsigsegv"
     )
-    (
-      if interactive then "--with-readline=${readline.dev}" else "--without-readline"
-    )
+    (if interactive then "--with-readline=${readline.dev}" else "--without-readline")
   ];
 
   makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];

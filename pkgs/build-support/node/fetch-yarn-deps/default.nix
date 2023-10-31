@@ -121,8 +121,5 @@ in
           ])
         );
     in
-    lib.setFunctionArgs f (lib.functionArgs f)
-    // {
-      tests = callPackage ./tests { };
-    };
+    lib.setFunctionArgs f (lib.functionArgs f) // { tests = callPackage ./tests { }; };
 }

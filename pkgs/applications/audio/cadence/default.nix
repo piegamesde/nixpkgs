@@ -78,8 +78,7 @@ mkDerivation rec {
       scriptAndSource =
         lib.mapAttrs'
           (
-            script: source:
-            lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source)
+            script: source: lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source)
           )
           {
             "cadence" = "cadence.py";

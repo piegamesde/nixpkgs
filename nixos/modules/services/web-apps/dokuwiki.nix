@@ -76,9 +76,7 @@ let
       v._raw
     else
       abort
-        "The dokuwiki localConf value ${
-          lib.generators.toPretty { } v
-        } can not be encoded.";
+        "The dokuwiki localConf value ${lib.generators.toPretty { } v} can not be encoded.";
 
   mkPhpAttrVals = v: flatten (mapAttrsToList mkPhpKeyVal v);
   mkPhpKeyVal =

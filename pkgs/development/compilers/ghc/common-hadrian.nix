@@ -78,8 +78,7 @@
 
   ,
   # Whether to build terminfo.
-  enableTerminfo ?
-    !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
+  enableTerminfo ? !(stdenv.targetPlatform.isWindows || stdenv.targetPlatform.isGhcjs)
 
   ,
   # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
@@ -224,9 +223,7 @@ let
     ++ lib.optional (!enableNativeBignum) gmp
     ++
       lib.optional
-        (
-          platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs
-        )
+        (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
         libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
@@ -402,9 +399,8 @@ stdenv.mkDerivation (
       if targetPlatform.isGhcjs then "configureScript" else null
     } = "emconfigure ./configure";
     # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
-    ${
-      if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null
-    } = true;
+    ${if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null} =
+      true;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms = [
@@ -475,9 +471,7 @@ stdenv.mkDerivation (
         # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
         python3
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
       ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs

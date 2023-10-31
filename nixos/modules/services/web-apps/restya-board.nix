@@ -386,10 +386,8 @@ in
       restya-board-users restya-board restya_board
     '';
 
-    services.postgresql.authentication =
-      optionalString (cfg.database.host == null)
-        ''
-          local restya_board all ident map=restya-board-users
-        '';
+    services.postgresql.authentication = optionalString (cfg.database.host == null) ''
+      local restya_board all ident map=restya-board-users
+    '';
   };
 }

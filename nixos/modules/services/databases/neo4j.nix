@@ -18,9 +18,7 @@ let
   sslPolicies =
     mapAttrsToList
       (name: conf: ''
-        dbms.ssl.policy.${name}.allow_key_generation=${
-          boolToString conf.allowKeyGeneration
-        }
+        dbms.ssl.policy.${name}.allow_key_generation=${boolToString conf.allowKeyGeneration}
         dbms.ssl.policy.${name}.base_directory=${conf.baseDirectory}
         ${optionalString (conf.ciphers != null) ''
           dbms.ssl.policy.${name}.ciphers=${concatStringsSep "," conf.ciphers}
@@ -421,9 +419,7 @@ in
       imports = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/import";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.directories.home}}/import"'';
+        defaultText = literalExpression ''"''${config.${opt.directories.home}}/import"'';
         description = lib.mdDoc ''
           The root directory for file URLs used with the Cypher
           `LOAD CSV` clause. Only meaningful when
@@ -439,9 +435,7 @@ in
       plugins = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/plugins";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.directories.home}}/plugins"'';
+        defaultText = literalExpression ''"''${config.${opt.directories.home}}/plugins"'';
         description = lib.mdDoc ''
           Path of the database plugin directory. Compiled Java JAR files that
           contain database procedures will be loaded if they are placed in
@@ -622,9 +616,7 @@ in
                 revokedDir = mkOption {
                   type = types.path;
                   default = "${config.baseDirectory}/revoked";
-                  defaultText =
-                    literalExpression
-                      ''"''${config.${options.baseDirectory}}/revoked"'';
+                  defaultText = literalExpression ''"''${config.${options.baseDirectory}}/revoked"'';
                   description = lib.mdDoc ''
                     Path to directory of CRLs (Certificate Revocation Lists) in
                     PEM format. Must be an absolute path. The existence of this
@@ -660,9 +652,7 @@ in
                 trustedDir = mkOption {
                   type = types.path;
                   default = "${config.baseDirectory}/trusted";
-                  defaultText =
-                    literalExpression
-                      ''"''${config.${options.baseDirectory}}/trusted"'';
+                  defaultText = literalExpression ''"''${config.${options.baseDirectory}}/trusted"'';
                   description = lib.mdDoc ''
                     Path to directory of X.509 certificates in PEM format for
                     trusted parties. Must be an absolute path. The existence of this

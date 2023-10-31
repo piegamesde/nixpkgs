@@ -217,9 +217,7 @@ in
                     --directory=${escapeShellArg config.directory} \
                     --status-interval=${toString config.statusInterval} \
                     --dbname=${escapeShellArg config.connection} \
-                    ${
-                      optionalString (config.compress > 0) "--compress=${toString config.compress}"
-                    } \
+                    ${optionalString (config.compress > 0) "--compress=${toString config.compress}"} \
                     ${optionalString (config.slot != "") "--slot=${escapeShellArg config.slot}"} \
                     ${optionalString config.synchronous "--synchronous"} \
                     ${concatStringsSep " " config.extraArgs}

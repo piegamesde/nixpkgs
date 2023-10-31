@@ -172,9 +172,7 @@ rec {
         (onSystems [ "x86_64-linux" ] "nixos.tests.podman")
         (onFullSupported "nixos.tests.predictable-interface-names.predictableNetworkd")
         (onFullSupported "nixos.tests.predictable-interface-names.predictable")
-        (onFullSupported
-          "nixos.tests.predictable-interface-names.unpredictableNetworkd"
-        )
+        (onFullSupported "nixos.tests.predictable-interface-names.unpredictableNetworkd")
         (onFullSupported "nixos.tests.predictable-interface-names.unpredictable")
         (onFullSupported "nixos.tests.printing-service")
         (onFullSupported "nixos.tests.printing-socket")

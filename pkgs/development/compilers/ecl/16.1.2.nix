@@ -91,9 +91,7 @@ stdenv.mkDerivation rec {
     # create the variables with suffixSalt (which seems to be necessary for
     # NIX_CFLAGS_COMPILE even).
     + lib.optionalString useBoehmgc ''
-      --prefix NIX_CFLAGS_COMPILE_${gcc.suffixSalt} ' ' "-I${
-        lib.getDev boehmgc
-      }/include" \
+      --prefix NIX_CFLAGS_COMPILE_${gcc.suffixSalt} ' ' "-I${lib.getDev boehmgc}/include" \
       --prefix NIX_LDFLAGS_BEFORE_${gcc.bintools.suffixSalt} ' ' "-L${
         lib.getLib boehmgc
       }/lib" \

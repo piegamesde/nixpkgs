@@ -41,9 +41,7 @@ let
     sha256 = "14nhk0kls83xfb64d5xy14vpi6k8laswjycjg80indq9pkcr2rlv";
   };
 
-  freebsdSetupHook =
-    makeSetupHook { name = "freebsd-setup-hook"; }
-      ./setup-hook.sh;
+  freebsdSetupHook = makeSetupHook { name = "freebsd-setup-hook"; } ./setup-hook.sh;
 
   mkBsdArch =
     stdenv':
@@ -54,8 +52,7 @@ let
       i586 = "i386";
       i686 = "i386";
     }
-    .${stdenv'.hostPlatform.parsed.cpu.name}
-      or stdenv'.hostPlatform.parsed.cpu.name;
+    .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name;
 
   install-wrapper = ''
     set -eu
@@ -118,9 +115,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           pname = "${attrs.pname or (baseNameOf attrs.path)}-freebsd";
           inherit version;
           src = runCommand "${pname}-filtered-src" { nativeBuildInputs = [ rsync ]; } ''
-            for p in ${
-              lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])
-            }; do
+            for p in ${lib.concatStringsSep " " ([ attrs.path ] ++ attrs.extraPaths or [ ])}; do
               set -x
               path="$out/$p"
               mkdir -p "$(dirname "$path")"
@@ -416,8 +411,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "STRIP=-s" # flag to install, not command
           "MK_WERROR=no"
         ]
-        ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-          "INSTALL=boot-install";
+        ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
       buildInputs = with self; compatIfNeeded;
     };
 
@@ -458,8 +452,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             "MK_WERROR=no"
             "TESTSDIR=${builtins.placeholder "test"}"
           ]
-          ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-            "INSTALL=boot-install";
+          ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
           substituteInPlace $out/bin/binstall --subst-var out

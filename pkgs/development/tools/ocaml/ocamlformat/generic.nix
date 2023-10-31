@@ -64,10 +64,7 @@ buildDunePackage {
         [ (odoc-parser.override { version = "0.9.0"; }) ]
     )
     ++ (
-      if lib.versionAtLeast version "0.21.0" then
-        [ cmdliner_1_1 ]
-      else
-        [ cmdliner_1_0 ]
+      if lib.versionAtLeast version "0.21.0" then [ cmdliner_1_1 ] else [ cmdliner_1_0 ]
     )
     ++ lib.optionals (lib.versionAtLeast version "0.22.4") [ csexp ];
 

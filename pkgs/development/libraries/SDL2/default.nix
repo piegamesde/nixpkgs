@@ -4,8 +4,7 @@
   config,
   fetchurl,
   pkg-config,
-  libGLSupported ?
-    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   openglSupport ? libGLSupported,
   libGL,
   alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,

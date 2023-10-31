@@ -55,8 +55,7 @@ let
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
   ghc761OrLater = isGhcjs || isHaLVM || lib.versionOlder "7.6.1" ghc.version;
-  packageDBFlag =
-    if ghc761OrLater then "--global-package-db" else "--global-conf";
+  packageDBFlag = if ghc761OrLater then "--global-package-db" else "--global-conf";
   ghcCommand' = if isGhcjs then "ghcjs" else "ghc";
   ghcCommand = "${ghc.targetPrefix}${ghcCommand'}";
   ghcCommandCaps = lib.toUpper ghcCommand';
@@ -70,9 +69,7 @@ let
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
     builtins.map
-      (
-        pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]
-      )
+      (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ])
       (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages))
   );
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
@@ -95,9 +92,7 @@ else
     # as a dedicated drv attribute, like `compiler-name`
     name = ghc.name + "-with-packages";
     paths =
-      paths
-      ++ [ ghc ]
-      ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
+      paths ++ [ ghc ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" ghc) ];
     nativeBuildInputs = [ makeWrapper ];
     postBuild =
       ''

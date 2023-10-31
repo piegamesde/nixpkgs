@@ -52862,9 +52862,7 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_asdf" self)
           (getAttr "hu_dot_dwim_dot_common" self)
           (getAttr "hu_dot_dwim_dot_def" self)
-          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def_plus_contextl"
-            self
-          )
+          (getAttr "hu_dot_dwim_dot_defclass-star_plus_hu_dot_dwim_dot_def_plus_contextl" self)
           (getAttr "hu_dot_dwim_dot_logger" self)
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)
           (getAttr "hu_dot_dwim_dot_util" self)

@@ -274,9 +274,7 @@ in
               pkgs.klipper-flash.override {
                 mcu = lib.strings.sanitizeDerivationName mcu;
                 klipper-firmware = firmware;
-                flashDevice =
-                  default cfg.firmwares."${mcu}".serial
-                    cfg.settings."${mcu}".serial;
+                flashDevice = default cfg.firmwares."${mcu}".serial cfg.settings."${mcu}".serial;
                 firmwareConfig = cfg.firmwares."${mcu}".configFile;
               }
             )

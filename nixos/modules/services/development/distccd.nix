@@ -148,8 +148,7 @@ in
             --enable-tcp-insecure \
             --port ${toString cfg.port} \
             ${
-              optionalString (cfg.jobTimeout != null)
-                "--job-lifetime ${toString cfg.jobTimeout}"
+              optionalString (cfg.jobTimeout != null) "--job-lifetime ${toString cfg.jobTimeout}"
             } \
             ${optionalString (cfg.logLevel != null) "--log-level ${cfg.logLevel}"} \
             ${optionalString (cfg.maxJobs != null) "--jobs ${toString cfg.maxJobs}"} \

@@ -34,16 +34,14 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      mesa
-      glfw
-      libXi
-      libXcursor
-      libXrandr
-      libXinerama
-    ]
-    ++ lib.optional alsaSupport alsa-lib ++ lib.optional pulseSupport libpulseaudio;
+  buildInputs = [
+    mesa
+    glfw
+    libXi
+    libXcursor
+    libXrandr
+    libXinerama
+  ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional pulseSupport libpulseaudio;
   propagatedBuildInputs = [
     libGLU
     libX11

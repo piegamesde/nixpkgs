@@ -33,9 +33,7 @@ in
         type = types.package;
         default = pkgs.dwm-status;
         defaultText = literalExpression "pkgs.dwm-status";
-        example =
-          literalExpression
-            "pkgs.dwm-status.override { enableAlsaUtils = false; }";
+        example = literalExpression "pkgs.dwm-status.override { enableAlsaUtils = false; }";
         description = lib.mdDoc ''
           Which dwm-status package to use.
         '';

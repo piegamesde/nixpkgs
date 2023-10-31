@@ -22,9 +22,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [
-    importlib-resources
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   # Circular dependency on asdf
   doCheck = false;

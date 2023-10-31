@@ -162,8 +162,7 @@ in
 
   config = {
 
-    environment.systemPackages =
-      requiredPackages ++ config.environment.defaultPackages;
+    environment.systemPackages = requiredPackages ++ config.environment.defaultPackages;
 
     environment.pathsToLink = [
       "/bin"

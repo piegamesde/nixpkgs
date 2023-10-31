@@ -12,8 +12,7 @@ let
 
   virtualbox = cfg.package.override {
     inherit (cfg) enableHardening headless enableWebService;
-    extensionPack =
-      if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
+    extensionPack = if cfg.enableExtensionPack then pkgs.virtualboxExtpack else null;
   };
 
   kernelModules = config.boot.kernelPackages.virtualbox.override {
@@ -34,18 +33,16 @@ in
       '';
     };
 
-    enableExtensionPack =
-      mkEnableOption (lib.mdDoc "VirtualBox extension pack")
-      // {
-        description = lib.mdDoc ''
-          Whether to install the Oracle Extension Pack for VirtualBox.
+    enableExtensionPack = mkEnableOption (lib.mdDoc "VirtualBox extension pack") // {
+      description = lib.mdDoc ''
+        Whether to install the Oracle Extension Pack for VirtualBox.
 
-          ::: {.important}
-          You must set `nixpkgs.config.allowUnfree = true` in
-          order to use this.  This requires you accept the VirtualBox PUEL.
-          :::
-        '';
-      };
+        ::: {.important}
+        You must set `nixpkgs.config.allowUnfree = true` in
+        order to use this.  This requires you accept the VirtualBox PUEL.
+        :::
+      '';
+    };
 
     package = mkOption {
       type = types.package;
@@ -100,11 +97,9 @@ in
   config = mkIf cfg.enable (
     mkMerge [
       {
-        warnings =
-          mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false)
-            [
-              "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
-            ];
+        warnings = mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false) [
+          "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
+        ];
         boot.kernelModules = [
           "vboxdrv"
           "vboxnetadp"

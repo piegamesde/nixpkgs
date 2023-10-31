@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
-      placeholder "out"
-    }/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
 
   meta = with lib; {
     homepage = "https://github.com/linux-speakup/espeakup";

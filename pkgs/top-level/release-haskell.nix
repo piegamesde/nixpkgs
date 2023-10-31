@@ -96,9 +96,7 @@ let
   #   ...
   # }
   # ```
-  compilerPlatforms =
-    lib.mapAttrs (_: v: packagePlatforms v)
-      pkgs.haskell.packages;
+  compilerPlatforms = lib.mapAttrs (_: v: packagePlatforms v) pkgs.haskell.packages;
 
   # This function lets you specify specific packages
   # which are to be tested on a list of specific GHC
@@ -253,8 +251,7 @@ let
               # the ghcjs attributes in haskell.compiler with a reference to the bootstrap
               # ghcjs attribute in their bootstrap package set (exposed via passthru) which
               # would otherwise be ignored by Hydra.
-              bootGhcjs =
-                (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
+              bootGhcjs = (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
             }
           )
         );
@@ -468,10 +465,7 @@ let
             };
 
             haskell.packages.ghcHEAD = {
-              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
-                ghc
-                hello
-              ;
+              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD) ghc hello;
             };
           };
     })

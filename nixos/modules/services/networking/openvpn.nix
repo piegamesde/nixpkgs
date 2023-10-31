@@ -236,9 +236,7 @@ in
     services.openvpn.restartAfterSleep = mkOption {
       default = true;
       type = types.bool;
-      description =
-        lib.mdDoc
-          "Whether OpenVPN client should be restarted after sleep.";
+      description = lib.mdDoc "Whether OpenVPN client should be restarted after sleep.";
     };
   };
 

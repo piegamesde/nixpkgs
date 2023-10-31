@@ -151,8 +151,7 @@ rec {
   */
   appendConfigureFlag = x: appendConfigureFlags [ x ];
   appendConfigureFlags =
-    xs:
-    overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
+    xs: overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
 
   appendBuildFlag =
     x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
@@ -166,9 +165,7 @@ rec {
   */
   removeConfigureFlag =
     x:
-    overrideCabal (
-      drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); }
-    );
+    overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
 
   addBuildTool = x: addBuildTools [ x ];
   addBuildTools =
@@ -176,8 +173,7 @@ rec {
 
   addExtraLibrary = x: addExtraLibraries [ x ];
   addExtraLibraries =
-    xs:
-    overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
+    xs: overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
 
   addBuildDepend = x: addBuildDepends [ x ];
   addBuildDepends =
@@ -185,15 +181,12 @@ rec {
 
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
-    xs:
-    overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
+    xs: overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =
     xs:
-    overrideCabal (
-      drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; }
-    );
+    overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
@@ -217,12 +210,8 @@ rec {
   markBrokenVersion = version: drv: assert drv.version == version; markBroken drv;
   markUnbroken = overrideCabal (drv: { broken = false; });
 
-  enableLibraryProfiling = overrideCabal (
-    drv: { enableLibraryProfiling = true; }
-  );
-  disableLibraryProfiling = overrideCabal (
-    drv: { enableLibraryProfiling = false; }
-  );
+  enableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = true; });
+  disableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = false; });
 
   enableExecutableProfiling = overrideCabal (
     drv: { enableExecutableProfiling = true; }
@@ -231,17 +220,11 @@ rec {
     drv: { enableExecutableProfiling = false; }
   );
 
-  enableSharedExecutables = overrideCabal (
-    drv: { enableSharedExecutables = true; }
-  );
-  disableSharedExecutables = overrideCabal (
-    drv: { enableSharedExecutables = false; }
-  );
+  enableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = true; });
+  disableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = false; });
 
   enableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = true; });
-  disableSharedLibraries = overrideCabal (
-    drv: { enableSharedLibraries = false; }
-  );
+  disableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = false; });
 
   enableDeadCodeElimination = overrideCabal (
     drv: { enableDeadCodeElimination = true; }
@@ -251,17 +234,12 @@ rec {
   );
 
   enableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = true; });
-  disableStaticLibraries = overrideCabal (
-    drv: { enableStaticLibraries = false; }
-  );
+  disableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = false; });
 
-  enableSeparateBinOutput = overrideCabal (
-    drv: { enableSeparateBinOutput = true; }
-  );
+  enableSeparateBinOutput = overrideCabal (drv: { enableSeparateBinOutput = true; });
 
   appendPatch = x: appendPatches [ x ];
-  appendPatches =
-    xs: overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; });
+  appendPatches = xs: overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; });
 
   # Set a specific build target instead of compiling all targets in the package.
   # For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
@@ -402,9 +380,7 @@ rec {
   /* Turn on most of the compiler warnings and fail the build if any
      of them occur.
   */
-  failOnAllWarnings =
-    appendConfigureFlag
-      "--ghc-option=-Wall --ghc-option=-Werror";
+  failOnAllWarnings = appendConfigureFlag "--ghc-option=-Wall --ghc-option=-Werror";
 
   /* Add a post-build check to verify that dependencies declared in
      the cabal file are actually used.
@@ -635,9 +611,7 @@ rec {
         libraryPkgconfigDepends =
           propagatedPlainBuildInputs
             old.libraryPkgconfigDepends or [ ];
-        testPkgconfigDepends =
-          propagatedPlainBuildInputs
-            old.testPkgconfigDepends or [ ];
+        testPkgconfigDepends = propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
       }
     );
 }

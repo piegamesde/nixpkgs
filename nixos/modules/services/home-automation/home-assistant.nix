@@ -19,12 +19,10 @@ let
   filteredConfig =
     lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
       cfg.config or { };
-  configFile =
-    pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; }
-      ''
-        cp ${format.generate "configuration.yaml" filteredConfig} $out
-        sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
-      '';
+  configFile = pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
+    cp ${format.generate "configuration.yaml" filteredConfig} $out
+    sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
+  '';
   lovelaceConfig = cfg.lovelaceConfig or { };
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
@@ -76,8 +74,7 @@ let
         # Respect overrides that already exist in the passed package and
         # concat it with values passed via the module.
         extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
-        extraPackages =
-          ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
+        extraPackages = ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
       }
     ));
 in
@@ -394,9 +391,7 @@ in
     };
 
     package = mkOption {
-      default = pkgs.home-assistant.overrideAttrs (
-        oldAttrs: { doInstallCheck = false; }
-      );
+      default = pkgs.home-assistant.overrideAttrs (oldAttrs: { doInstallCheck = false; });
       defaultText = literalExpression ''
         pkgs.home-assistant.overrideAttrs (oldAttrs: {
           doInstallCheck = false;
@@ -666,9 +661,9 @@ in
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SupplementaryGroups =
-            optionals (any useComponent componentsUsingSerialDevices)
-              [ "dialout" ];
+          SupplementaryGroups = optionals (any useComponent componentsUsingSerialDevices) [
+            "dialout"
+          ];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service"

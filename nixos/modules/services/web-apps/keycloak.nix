@@ -535,8 +535,7 @@ in
         done
 
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}")
-            cfg.themes
+          mapAttrsToList (name: theme: "linkTheme ${theme} ${escapeShellArg name}") cfg.themes
         )}
       '';
 
@@ -621,8 +620,7 @@ in
         in
         mkMerge [
           {
-            db =
-              if cfg.database.type == "postgresql" then "postgres" else cfg.database.type;
+            db = if cfg.database.type == "postgresql" then "postgres" else cfg.database.type;
             db-username =
               if databaseActuallyCreateLocally then "keycloak" else cfg.database.username;
             db-password._secret = cfg.database.passwordFile;
@@ -772,12 +770,10 @@ in
               sed -i '/db-/ s|\\|\\\\|g' /run/keycloak/conf/keycloak.conf
 
             ''
-            +
-              optionalString (cfg.sslCertificate != null && cfg.sslCertificateKey != null)
-                ''
-                  mkdir -p /run/keycloak/ssl
-                  cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
-                ''
+            + optionalString (cfg.sslCertificate != null && cfg.sslCertificateKey != null) ''
+              mkdir -p /run/keycloak/ssl
+              cp $CREDENTIALS_DIRECTORY/ssl_{cert,key} /run/keycloak/ssl/
+            ''
             + ''
               export KEYCLOAK_ADMIN=admin
               export KEYCLOAK_ADMIN_PASSWORD=${escapeShellArg cfg.initialAdminPassword}

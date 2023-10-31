@@ -116,9 +116,8 @@
   # WARNING: NEVER set any of the options below to `true` by default.
   # Set to `!privacySupport` or `false`.
 
-  crashreporterSupport ? !privacySupport
-    && !stdenv.hostPlatform.isRiscV
-    && !stdenv.hostPlatform.isMusl,
+  crashreporterSupport ?
+    !privacySupport && !stdenv.hostPlatform.isRiscV && !stdenv.hostPlatform.isMusl,
   curl,
   geolocationSupport ? !privacySupport,
   googleAPISupport ? geolocationSupport,
@@ -181,10 +180,7 @@ let
   buildStdenv = overrideCC llvmPackages.stdenv (
     llvmPackages.stdenv.cc.override {
       bintools =
-        if ltoSupport then
-          buildPackages.rustc.llvmPackages.bintools
-        else
-          stdenv.cc.bintools;
+        if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools;
     }
   );
 
@@ -271,9 +267,7 @@ buildStdenv.mkDerivation ({
             hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
           })
         ]
-    ++
-      lib.optional (lib.versionOlder version "111")
-        ./env_var_for_system_dir-ff86.patch
+    ++ lib.optional (lib.versionOlder version "111") ./env_var_for_system_dir-ff86.patch
     ++
       lib.optional (lib.versionAtLeast version "111")
         ./env_var_for_system_dir-ff111.patch
@@ -423,9 +417,7 @@ buildStdenv.mkDerivation ({
       "--disable-tests"
       "--disable-updater"
       "--enable-application=${application}"
-      "--enable-default-toolkit=cairo-gtk3${
-        lib.optionalString waylandSupport "-wayland"
-      }"
+      "--enable-default-toolkit=cairo-gtk3${lib.optionalString waylandSupport "-wayland"}"
       "--enable-system-pixman"
       "--with-distribution-id=org.nixos"
       "--with-libclang-path=${llvmPackagesBuildBuild.libclang.lib}/lib"
@@ -453,10 +445,7 @@ buildStdenv.mkDerivation ({
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
     ++
       lib.optional
-        (
-          ltoSupport
-          && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64)
-        )
+        (ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64))
         "--disable-elf-hack"
     ++ lib.optional (!drmSupport) "--disable-eme"
     ++ [

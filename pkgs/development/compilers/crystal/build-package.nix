@@ -49,10 +49,7 @@ let
       (name: value: {
         inherit name;
         path =
-          if (builtins.hasAttr "url" value) then
-            fetchgit value
-          else
-            fetchFromGitHub value;
+          if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value;
       })
       (import shardsFile)
   );
@@ -141,9 +138,7 @@ stdenv.mkDerivation (
     installPhase =
       args.installPhase or (lib.concatStringsSep "\n" (
         [ "runHook preInstall" ]
-        ++
-          lib.optional (format == "make")
-            "make \${installTargets:-install} $installFlags"
+        ++ lib.optional (format == "make") "make \${installTargets:-install} $installFlags"
         ++ lib.optionals (format == "crystal") (
           map
             (bin: ''

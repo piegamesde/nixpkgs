@@ -27,9 +27,7 @@ stdenv.mkDerivation {
   };
 
   # https://git.savannah.gnu.org/cgit/gnulib.git/commit/?id=b50c6442e43d79471a31a2a202d3e50c0557446f
-  patches =
-    lib.optional stdenv.hostPlatform.isLoongArch64
-      ./sigsegv-loongarch.patch;
+  patches = lib.optional stdenv.hostPlatform.isLoongArch64 ./sigsegv-loongarch.patch;
 
   # Perl is needed for testing
   nativeBuildInputs = [

@@ -140,8 +140,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."are-we-there-yet"."~1.0.0" =
-    self.by-version."are-we-there-yet"."1.0.4";
+  by-spec."are-we-there-yet"."~1.0.0" = self.by-version."are-we-there-yet"."1.0.4";
   by-version."are-we-there-yet"."1.0.4" = self.buildNodePackage {
     name = "are-we-there-yet-1.0.4";
     version = "1.0.4";
@@ -854,8 +853,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."component-emitter"."1.1.2" =
-    self.by-version."component-emitter"."1.1.2";
+  by-spec."component-emitter"."1.1.2" = self.by-version."component-emitter"."1.1.2";
   by-version."component-emitter"."1.1.2" = self.buildNodePackage {
     name = "component-emitter-1.1.2";
     version = "1.1.2";
@@ -1999,8 +1997,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."generate-function"."^2.0.0" =
-    self.by-version."generate-function"."2.0.0";
+  by-spec."generate-function"."^2.0.0" = self.by-version."generate-function"."2.0.0";
   by-version."generate-function"."2.0.0" = self.buildNodePackage {
     name = "generate-function-2.0.0";
     version = "2.0.0";
@@ -2035,8 +2032,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."generic-pool-redux"."~0.1.0" =
-    self.by-version."generic-pool-redux"."0.1.0";
+  by-spec."generic-pool-redux"."~0.1.0" = self.by-version."generic-pool-redux"."0.1.0";
   by-version."generic-pool-redux"."0.1.0" = self.buildNodePackage {
     name = "generic-pool-redux-0.1.0";
     version = "0.1.0";
@@ -2178,8 +2174,7 @@
     cpu = [ ];
   };
   by-spec."graceful-fs"."~3.0.2" = self.by-version."graceful-fs"."3.0.6";
-  by-spec."graceful-readlink".">= 1.0.0" =
-    self.by-version."graceful-readlink"."1.0.1";
+  by-spec."graceful-readlink".">= 1.0.0" = self.by-version."graceful-readlink"."1.0.1";
   by-version."graceful-readlink"."1.0.1" = self.buildNodePackage {
     name = "graceful-readlink-1.0.1";
     version = "1.0.1";
@@ -2518,8 +2513,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."is-my-json-valid"."^2.10.1" =
-    self.by-version."is-my-json-valid"."2.11.0";
+  by-spec."is-my-json-valid"."^2.10.1" = self.by-version."is-my-json-valid"."2.11.0";
   by-version."is-my-json-valid"."2.11.0" = self.buildNodePackage {
     name = "is-my-json-valid-2.11.0";
     version = "2.11.0";
@@ -3063,8 +3057,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."merge-descriptors"."1.0.0" =
-    self.by-version."merge-descriptors"."1.0.0";
+  by-spec."merge-descriptors"."1.0.0" = self.by-version."merge-descriptors"."1.0.0";
   by-version."merge-descriptors"."1.0.0" = self.buildNodePackage {
     name = "merge-descriptors-1.0.0";
     version = "1.0.0";
@@ -4018,8 +4011,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."1.0.27-1" =
-    self.by-version."readable-stream"."1.0.27-1";
+  by-spec."readable-stream"."1.0.27-1" = self.by-version."readable-stream"."1.0.27-1";
   by-version."readable-stream"."1.0.27-1" = self.buildNodePackage {
     name = "readable-stream-1.0.27-1";
     version = "1.0.27-1";
@@ -4040,8 +4032,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."^1.1.12" =
-    self.by-version."readable-stream"."1.1.13";
+  by-spec."readable-stream"."^1.1.12" = self.by-version."readable-stream"."1.1.13";
   by-version."readable-stream"."1.1.13" = self.buildNodePackage {
     name = "readable-stream-1.1.13";
     version = "1.1.13";
@@ -4062,8 +4053,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."^1.1.13" =
-    self.by-version."readable-stream"."1.1.13";
+  by-spec."readable-stream"."^1.1.13" = self.by-version."readable-stream"."1.1.13";
   by-spec."readable-stream"."~1.0.2" = self.by-version."readable-stream"."1.0.33";
   by-version."readable-stream"."1.0.33" = self.buildNodePackage {
     name = "readable-stream-1.0.33";
@@ -4085,8 +4075,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."~1.0.26" =
-    self.by-version."readable-stream"."1.0.33";
+  by-spec."readable-stream"."~1.0.26" = self.by-version."readable-stream"."1.0.33";
   by-spec."reduce-component"."1.0.1" = self.by-version."reduce-component"."1.0.1";
   by-version."reduce-component"."1.0.1" = self.buildNodePackage {
     name = "reduce-component-1.0.1";
@@ -4169,8 +4158,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."require-directory"."^1.2.0" =
-    self.by-version."require-directory"."1.2.0";
+  by-spec."require-directory"."^1.2.0" = self.by-version."require-directory"."1.2.0";
   by-version."require-directory"."1.2.0" = self.buildNodePackage {
     name = "require-directory-1.2.0";
     version = "1.2.0";
@@ -4270,8 +4258,7 @@
       "extend-1.2.1" = self.by-version."extend"."1.2.1";
       "lodash-3.8.0" = self.by-version."lodash"."3.8.0";
       "lru-cache-2.5.2" = self.by-version."lru-cache"."2.5.2";
-      "ripple-wallet-generator-1.0.3" =
-        self.by-version."ripple-wallet-generator"."1.0.3";
+      "ripple-wallet-generator-1.0.3" = self.by-version."ripple-wallet-generator"."1.0.3";
       "ws-0.7.1" = self.by-version."ws"."0.7.1";
     };
     optionalDependencies = { };
@@ -5000,8 +4987,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."underscore.string"."~2.4.0" =
-    self.by-version."underscore.string"."2.4.0";
+  by-spec."underscore.string"."~2.4.0" = self.by-version."underscore.string"."2.4.0";
   by-version."underscore.string"."2.4.0" = self.buildNodePackage {
     name = "underscore.string-2.4.0";
     version = "2.4.0";

@@ -44,8 +44,7 @@
           mkBindZoneNames = zones: map (zone: addDot zone.name) zones;
           getZones =
             cfg:
-            mkNsdZoneNames cfg.services.nsd.zones
-            ++ mkBindZoneNames cfg.services.bind.zones;
+            mkNsdZoneNames cfg.services.nsd.zones ++ mkBindZoneNames cfg.services.bind.zones;
 
           getZonesForNode = attrs: {
             ip = attrs.config.networking.primaryIPAddress;

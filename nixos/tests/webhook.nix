@@ -53,9 +53,7 @@ in
       webhookMachine.wait_for_open_port(${toString internalPort})
 
       with subtest("Check that webhooks can be called externally"):
-        response = requests.get("http://localhost:${
-          toString forwardedPort
-        }/hooks/echo")
+        response = requests.get("http://localhost:${toString forwardedPort}/hooks/echo")
         print(f"Response code: {response.status_code}")
         print("Response: %r" % response.content)
 

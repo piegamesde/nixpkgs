@@ -32,10 +32,7 @@ rec {
           lockfile;
 
       gemset =
-        if gemset == null then
-          assert gemdir != null; gemdir + "/gemset.nix"
-        else
-          gemset;
+        if gemset == null then assert gemdir != null; gemdir + "/gemset.nix" else gemset;
     };
 
   filterGemset =

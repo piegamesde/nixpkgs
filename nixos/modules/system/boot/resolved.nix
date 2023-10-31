@@ -144,8 +144,7 @@ in
             "DNS=${concatStringsSep " " config.networking.nameservers}"}
           ${optionalString (cfg.fallbackDns != [ ])
             "FallbackDNS=${concatStringsSep " " cfg.fallbackDns}"}
-          ${optionalString (cfg.domains != [ ])
-            "Domains=${concatStringsSep " " cfg.domains}"}
+          ${optionalString (cfg.domains != [ ]) "Domains=${concatStringsSep " " cfg.domains}"}
           LLMNR=${cfg.llmnr}
           DNSSEC=${cfg.dnssec}
           ${config.services.resolved.extraConfig}

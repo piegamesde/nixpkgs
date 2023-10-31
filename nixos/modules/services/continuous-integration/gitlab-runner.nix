@@ -144,9 +144,7 @@ let
                           ++ optional service.dockerPrivileged "--docker-privileged"
                           ++ map (v: "--docker-volumes ${escapeShellArg v}") service.dockerVolumes
                           ++ map (v: "--docker-extra-hosts ${escapeShellArg v}") service.dockerExtraHosts
-                          ++
-                            map (v: "--docker-allowed-images ${escapeShellArg v}")
-                              service.dockerAllowedImages
+                          ++ map (v: "--docker-allowed-images ${escapeShellArg v}") service.dockerAllowedImages
                           ++
                             map (v: "--docker-allowed-services ${escapeShellArg v}")
                               service.dockerAllowedServices
@@ -645,9 +643,7 @@ in
           ];
 
           script = ''
-            ${pkgs.gitlab-runner}/bin/clear-docker-cache ${
-              toString cfg.clear-docker-cache.flags
-            }
+            ${pkgs.gitlab-runner}/bin/clear-docker-cache ${toString cfg.clear-docker-cache.flags}
           '';
 
           startAt = cfg.clear-docker-cache.dates;

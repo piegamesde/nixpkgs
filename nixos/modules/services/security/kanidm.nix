@@ -29,8 +29,7 @@ let
   # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
   hasPrefixInList =
     list: newPath:
-    lib.any
-      (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
+    lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
       list;
   mergePaths =
     lib.foldl'
@@ -42,8 +41,7 @@ let
             lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
               merged;
           # If a prefix of the new path is already in the list, do not add it
-          filteredNew =
-            if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+          filteredNew = if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
         in
         filteredPaths ++ filteredNew
       )
@@ -247,8 +245,7 @@ in
         '';
       }
       {
-        assertion =
-          !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
+        assertion = !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
         message = ''
           <option>services.kanidm.clientSettings</option> needs to be configured
           if the client is enabled.
@@ -289,9 +286,7 @@ in
         (
           defaultServiceConfig
           // {
-            BindReadOnlyPaths = mergePaths (
-              defaultServiceConfig.BindReadOnlyPaths ++ certPaths
-            );
+            BindReadOnlyPaths = mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
           }
         )
         {

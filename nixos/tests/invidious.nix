@@ -72,9 +72,7 @@ import ./make-test-python.nix (
             machine.succeed(f"${nodes.machine.config.system.build.toplevel}/specialisation/{name}/bin/switch-to-configuration test >&2")
 
 
-        url = "http://localhost:${
-          toString nodes.machine.config.services.invidious.port
-        }"
+        url = "http://localhost:${toString nodes.machine.config.services.invidious.port}"
         port = ${toString nodes.machine.config.services.invidious.port}
 
         machine.wait_for_open_port(port)

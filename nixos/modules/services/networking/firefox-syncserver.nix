@@ -61,9 +61,7 @@ let
           ON DUPLICATE KEY UPDATE service='sync-1.5', pattern='{node}/1.5/{uid}';
         INSERT INTO `nodes` (`id`, `service`, `node`, `available`, `current_load`,
                              `capacity`, `downed`, `backoff`)
-          VALUES (1, 1, '${cfg.singleNode.url}', ${
-            toString cfg.singleNode.capacity
-          },
+          VALUES (1, 1, '${cfg.singleNode.url}', ${toString cfg.singleNode.capacity},
           0, ${toString cfg.singleNode.capacity}, 0, 0)
           ON DUPLICATE KEY UPDATE node = '${cfg.singleNode.url}', capacity=${
             toString cfg.singleNode.capacity
@@ -324,9 +322,7 @@ in
       requires = [
         "firefox-syncserver.service"
       ] ++ lib.optional dbIsLocal "mysql.service";
-      after = [
-        "firefox-syncserver.service"
-      ] ++ lib.optional dbIsLocal "mysql.service";
+      after = [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

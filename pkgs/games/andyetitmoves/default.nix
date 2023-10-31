@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
       || stdenv.hostPlatform.system == "x86_64-linux"
     then
       let
-        postfix =
-          if stdenv.hostPlatform.system == "i686-linux" then "i386" else "x86_64";
+        postfix = if stdenv.hostPlatform.system == "i686-linux" then "i386" else "x86_64";
         commercialName = "${pname}-${version}_${postfix}.tar.gz";
         demoUrl = "http://www.andyetitmoves.net/demo/${pname}Demo-${version}_${postfix}.tar.gz";
       in

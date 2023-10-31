@@ -257,9 +257,7 @@ in
       };
 
       aggregationRules = mkOption {
-        description =
-          lib.mdDoc
-            "Defines if and how received metrics will be aggregated.";
+        description = lib.mdDoc "Defines if and how received metrics will be aggregated.";
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -397,9 +395,7 @@ in
     })
 
     (mkIf
-      (
-        cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay
-      )
+      (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay)
       { environment.systemPackages = [ pkgs.python3Packages.carbon ]; }
     )
 

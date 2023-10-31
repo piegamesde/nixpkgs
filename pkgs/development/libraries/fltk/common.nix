@@ -190,9 +190,7 @@ stdenv.mkDerivation rec {
       }
 
       rm $out/bin/fluid.icns
-      for app in $out/bin/*.app ${
-        lib.optionalString withExamples "$bin/bin/*.app"
-      }; do
+      for app in $out/bin/*.app ${lib.optionalString withExamples "$bin/bin/*.app"}; do
         moveAppBundles "$app"
       done
     '';

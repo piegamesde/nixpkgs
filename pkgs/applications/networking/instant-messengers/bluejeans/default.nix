@@ -40,8 +40,7 @@
 }:
 
 let
-  getFirst =
-    n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
+  getFirst = n: v: builtins.concatStringsSep "." (lib.take n (lib.splitString "." v));
 in
 
 stdenv.mkDerivation rec {

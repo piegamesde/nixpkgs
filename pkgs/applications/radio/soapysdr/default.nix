@@ -19,8 +19,7 @@
 let
 
   version = "0.8.1";
-  modulesVersion =
-    with lib; versions.major version + "." + versions.minor version;
+  modulesVersion = with lib; versions.major version + "." + versions.minor version;
   modulesPath = "lib/SoapySDR/modules" + modulesVersion;
   extraPackagesSearchPath = lib.makeSearchPath modulesPath extraPackages;
 in

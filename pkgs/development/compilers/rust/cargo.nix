@@ -64,19 +64,17 @@ rustPlatform.buildRustPackage.override
       # when cross-compiling.
       #
       # [1]: https://github.com/rust-lang/compiler-team/issues/422
-      postPatch =
-        lib.optionalString (with stdenv.buildPlatform; isMusl && !isStatic)
-          ''
-            mkdir -p .cargo
-            cat <<EOF >> .cargo/config
-            [host]
-            rustflags = "-C target-feature=-crt-static"
-            linker = "${pkgsBuildHost.stdenv.cc}/bin/${pkgsBuildHost.stdenv.cc.targetPrefix}cc"
-            [unstable]
-            host-config = true
-            target-applies-to-host = true
-            EOF
-          '';
+      postPatch = lib.optionalString (with stdenv.buildPlatform; isMusl && !isStatic) ''
+        mkdir -p .cargo
+        cat <<EOF >> .cargo/config
+        [host]
+        rustflags = "-C target-feature=-crt-static"
+        linker = "${pkgsBuildHost.stdenv.cc}/bin/${pkgsBuildHost.stdenv.cc.targetPrefix}cc"
+        [unstable]
+        host-config = true
+        target-applies-to-host = true
+        EOF
+      '';
 
       # changes hash of vendor directory otherwise
       dontUpdateAutotoolsGnuConfigScripts = true;
@@ -131,9 +129,7 @@ rustPlatform.buildRustPackage.override
 
       doInstallCheck =
         !stdenv.hostPlatform.isStatic
-        &&
-          stdenv.hostPlatform.parsed.kernel.execFormat
-          == lib.systems.parse.execFormats.elf;
+        && stdenv.hostPlatform.parsed.kernel.execFormat == lib.systems.parse.execFormats.elf;
       installCheckPhase = ''
         runHook preInstallCheck
         readelf -a $out/bin/.cargo-wrapped | grep -F 'Shared library: [libcurl.so'
@@ -153,8 +149,6 @@ rustPlatform.buildRustPackage.override
     }
     //
       lib.optionalAttrs
-        (
-          rust.toRustTarget stdenv.buildPlatform != rust.toRustTarget stdenv.hostPlatform
-        )
+        (rust.toRustTarget stdenv.buildPlatform != rust.toRustTarget stdenv.hostPlatform)
         { HOST_PKG_CONFIG_PATH = "${pkgsBuildBuild.pkg-config}/bin/pkg-config"; }
   )

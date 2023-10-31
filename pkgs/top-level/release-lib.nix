@@ -37,8 +37,7 @@ rec {
   mkPkgsFor =
     crossSystem:
     let
-      packageSet' =
-        args: packageSet (args // { inherit crossSystem; } // nixpkgsArgs);
+      packageSet' = args: packageSet (args // { inherit crossSystem; } // nixpkgsArgs);
 
       pkgs_x86_64_linux = packageSet' { system = "x86_64-linux"; };
       pkgs_i686_linux = packageSet' { system = "i686-linux"; };
@@ -101,9 +100,7 @@ rec {
     in
     if crossSystem == null then
       native
-    else if
-      candidate != null && lib.matchAttrs crossSystem candidate.crossSystem
-    then
+    else if candidate != null && lib.matchAttrs crossSystem candidate.crossSystem then
       candidate.pkgsFor
     else
       mkPkgsFor crossSystem; # uncached fallback
@@ -180,9 +177,7 @@ rec {
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,
   # and triggering the build of the host derivation.
-  mapTestOnCross = _mapTestOnHelper (
-    addMetaAttrs { maintainers = crossMaintainers; }
-  );
+  mapTestOnCross = _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
 
   /* Recursively map a (nested) set of derivations to an isomorphic
      set of meta.platforms values.
@@ -190,12 +185,10 @@ rec {
   packagePlatforms = mapAttrs (
     name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or [ ])
-        (value.meta.platforms or [ "x86_64-linux" ])
-      )
-    else if
-      value.recurseForDerivations or false || value.recurseForRelease or false
-    then
+      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or [ ]) (
+        value.meta.platforms or [ "x86_64-linux" ]
+      ))
+    else if value.recurseForDerivations or false || value.recurseForRelease or false then
       packagePlatforms value
     else
       [ ]

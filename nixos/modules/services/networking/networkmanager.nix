@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.networking.networkmanager;
 
-  delegateWireless =
-    config.networking.wireless.enable == true && cfg.unmanaged != [ ];
+  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [ ];
 
   enableIwd = cfg.wifi.backend == "iwd";
 
@@ -520,11 +519,9 @@ in
       // optionalAttrs cfg.enableFccUnlock {
         "ModemManager/fcc-unlock.d".source = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
       }
-      //
-        optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
-          {
-            "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
-          }
+      // optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ]) {
+        "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
+      }
       // listToAttrs (
         lib.imap1
           (i: s: {

@@ -20,9 +20,7 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for the bazarr web interface.";
+        description = lib.mdDoc "Open ports in the firewall for the bazarr web interface.";
       };
 
       listenPort = mkOption {

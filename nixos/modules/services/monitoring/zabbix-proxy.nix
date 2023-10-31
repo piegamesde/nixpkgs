@@ -181,9 +181,7 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {

@@ -51,8 +51,7 @@ in
 assert pythonSupport -> python3 != null;
 
 stdenv.mkDerivation rec {
-  pname =
-    targetPrefix + basename + lib.optionalString hostCpuOnly "-host-cpu-only";
+  pname = targetPrefix + basename + lib.optionalString hostCpuOnly "-host-cpu-only";
   version = "13.1";
 
   src = fetchurl {
@@ -98,9 +97,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional pythonSupport python3
     ++ lib.optional doCheck dejagnu
-    ++ lib.optional enableDebuginfod (
-      elfutils.override { enableDebuginfod = true; }
-    );
+    ++ lib.optional enableDebuginfod (elfutils.override { enableDebuginfod = true; });
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 

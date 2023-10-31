@@ -224,9 +224,7 @@ let
                   type = types.bool;
                   default = false;
                   example = true;
-                  description =
-                    mdDoc
-                      "Whether to also log to stdout when a `file_path` is defined.";
+                  description = mdDoc "Whether to also log to stdout when a `file_path` is defined.";
                 };
               };
 
@@ -338,8 +336,7 @@ in
           environment =
             (lib.filterAttrs (_: v: v != null) {
               AUTHELIA_JWT_SECRET_FILE = instance.secrets.jwtSecretFile;
-              AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE =
-                instance.secrets.storageEncryptionKeyFile;
+              AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = instance.secrets.storageEncryptionKeyFile;
               AUTHELIA_SESSION_SECRET_FILE = instance.secrets.sessionSecretFile;
               AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE =
                 instance.secrets.oidcIssuerPrivateKeyFile;
@@ -453,8 +450,7 @@ in
           instances
       );
       users = lib.mkMerge (
-        map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance))
-          instances
+        map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)) instances
       );
     };
 }

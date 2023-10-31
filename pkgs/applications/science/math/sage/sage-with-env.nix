@@ -56,10 +56,7 @@ let
       parts = lib.splitString "-" pkg.name;
       # remove python3.8-
       stripped_parts =
-        if (builtins.head parts) == python3.libPrefix then
-          builtins.tail parts
-        else
-          parts;
+        if (builtins.head parts) == python3.libPrefix then builtins.tail parts else parts;
       version = lib.last stripped_parts;
       orig_pkgname = lib.init stripped_parts;
       pkgname = patch_names (lib.concatStringsSep "_" orig_pkgname);
@@ -77,9 +74,7 @@ let
       [ dep ]
       ++ (
         if builtins.hasAttr "propagatedBuildInputs" dep then
-          lib.unique (
-            builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs)
-          )
+          lib.unique (builtins.concatLists (map transitiveClosure dep.propagatedBuildInputs))
         else
           [ ]
       );
@@ -87,9 +82,7 @@ let
   allInputs = lib.remove null (
     nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ]
   );
-  transitiveDeps = lib.unique (
-    builtins.concatLists (map transitiveClosure allInputs)
-  );
+  transitiveDeps = lib.unique (builtins.concatLists (map transitiveClosure allInputs));
   # fix differences between spkg and sage names
   # (could patch sage instead, but this is more lightweight and also works for packages depending on sage)
   patch_names =

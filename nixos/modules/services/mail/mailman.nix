@@ -707,9 +707,7 @@ in
                     manage-script-name = true;
                   }
               );
-            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
-              builtins.toJSON uwsgiConfig
-            );
+            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
           in
           {
             wantedBy = [ "multi-user.target" ];

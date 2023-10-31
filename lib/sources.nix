@@ -44,8 +44,7 @@ let
       (
         baseName == ".git"
         ||
-          type == "directory"
-          && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
+          type == "directory" && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
       )
       ||
         # Filter out editor backup / swap files.

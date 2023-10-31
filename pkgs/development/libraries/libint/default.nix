@@ -80,9 +80,7 @@ assert (eri3Deriv >= 0 && eri3Deriv <= 4);
 # Ensure valid arguments for generated angular momenta in ERI derivatives are used.
 assert (
   builtins.length eriAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (
-    builtins.map (a: a <= maxAm && a >= 0) eriAm
-  )
+  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriAm)
 );
 assert (
   builtins.length eri3Am == eriDeriv + 1
@@ -198,18 +196,10 @@ let
       with lib;
       [
         "--with-max-am=${builtins.toString maxAm}"
-        "--with-eri-max-am=${
-          concatStringsSep "," (builtins.map builtins.toString eriAm)
-        }"
-        "--with-eri3-max-am=${
-          concatStringsSep "," (builtins.map builtins.toString eri3Am)
-        }"
-        "--with-eri2-max-am=${
-          concatStringsSep "," (builtins.map builtins.toString eri2Am)
-        }"
-        "--with-eri-opt-am=${
-          concatStringsSep "," (builtins.map builtins.toString eriOptAm)
-        }"
+        "--with-eri-max-am=${concatStringsSep "," (builtins.map builtins.toString eriAm)}"
+        "--with-eri3-max-am=${concatStringsSep "," (builtins.map builtins.toString eri3Am)}"
+        "--with-eri2-max-am=${concatStringsSep "," (builtins.map builtins.toString eri2Am)}"
+        "--with-eri-opt-am=${concatStringsSep "," (builtins.map builtins.toString eriOptAm)}"
         "--with-eri3-opt-am=${
           concatStringsSep "," (builtins.map builtins.toString eri3OptAm)
         }"

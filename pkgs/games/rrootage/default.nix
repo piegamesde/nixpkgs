@@ -28,12 +28,8 @@ stdenv.mkDerivation {
   };
 
   patches = [
-    (debianPatch "01_makefile"
-      "0wgplznx9kgb82skwqplpydbpallgrby3w662h52wky5zl0pyijj"
-    )
-    (debianPatch "02_data_dir"
-      "12vw60s94by3f6k8pk45k555h4y7gzlqfds0a96nrrryammpgnq3"
-    )
+    (debianPatch "01_makefile" "0wgplznx9kgb82skwqplpydbpallgrby3w662h52wky5zl0pyijj")
+    (debianPatch "02_data_dir" "12vw60s94by3f6k8pk45k555h4y7gzlqfds0a96nrrryammpgnq3")
     (debianPatch "03_texture_filename"
       "1qxkxy6821xvanacf25mi43wj8nf40c1qiyavhc8av798xprpkjh"
     )

@@ -12,12 +12,11 @@ let
   settingsFormat = pkgs.formats.json { };
 
   rawDefaultConfig = lib.importJSON (
-    pkgs.runCommand "kubo-default-config" { nativeBuildInputs = [ cfg.package ]; }
-      ''
-        export IPFS_PATH="$TMPDIR"
-        ipfs init --empty-repo --profile=${profile}
-        ipfs --offline config show > "$out"
-      ''
+    pkgs.runCommand "kubo-default-config" { nativeBuildInputs = [ cfg.package ]; } ''
+      export IPFS_PATH="$TMPDIR"
+      ipfs init --empty-repo --profile=${profile}
+      ipfs --offline config show > "$out"
+    ''
   );
 
   # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
@@ -409,17 +408,13 @@ in
             cfg.dataDir
           ];
         }
-        // optionalAttrs (cfg.serviceFdlimit != null) {
-          LimitNOFILE = cfg.serviceFdlimit;
-        };
+        // optionalAttrs (cfg.serviceFdlimit != null) { LimitNOFILE = cfg.serviceFdlimit; };
     } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
 
     systemd.sockets.ipfs-gateway = {
       wantedBy = [ "sockets.target" ];
       socketConfig = {
-        ListenStream = [
-          ""
-        ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
+        ListenStream = [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
         ListenDatagram = [
           ""
         ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);

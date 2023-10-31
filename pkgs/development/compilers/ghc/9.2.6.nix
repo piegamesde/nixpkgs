@@ -59,8 +59,7 @@
   ,
   # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ? with stdenv.targetPlatform;
-    !isWindows && !useiOSPrebuilt && !isStatic
+  enableShared ? with stdenv.targetPlatform; !isWindows && !useiOSPrebuilt && !isStatic
 
   ,
   # Whether to build terminfo.
@@ -138,9 +137,7 @@ let
         BIGNUM_BACKEND = ${if enableNativeBignum then "native" else "gmp"}
       ''
     + lib.optionalString (targetPlatform != hostPlatform) ''
-      Stage1Only = ${
-        if targetPlatform.system == hostPlatform.system then "NO" else "YES"
-      }
+      Stage1Only = ${if targetPlatform.system == hostPlatform.system then "NO" else "YES"}
       CrossCompilePrefix = ${targetPrefix}
     ''
     + lib.optionalString (!enableProfiledLibs) ''
@@ -164,9 +161,7 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableNativeBignum) gmp
-    ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-        libiconv;
+    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -264,8 +259,7 @@ stdenv.mkDerivation (
           sha256 = "sha256-yRQ6YmMiwBwiYseC5BsrEtDgFbWvst+maGgDtdD0vAY=";
         })
       ]
-      ++ lib.optionals
-        (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)
+      ++ lib.optionals (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)
         [
           # Prevent the paths module from emitting symbols that we don't use
           # when building with separate outputs.
@@ -412,9 +406,7 @@ stdenv.mkDerivation (
         bootPkgs.happy
         bootPkgs.hscolour
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
       ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs

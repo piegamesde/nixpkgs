@@ -3931,12 +3931,7 @@ let
       sources."aws-sign2-0.7.0"
       sources."aws4-1.11.0"
       sources."balanced-match-1.0.2"
-      (
-        sources."basic-auth-2.0.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."basic-auth-2.0.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."bcrypt-pbkdf-1.0.2"
       sources."binary-extensions-2.2.0"
       sources."bluebird-3.7.2"
@@ -4030,12 +4025,7 @@ let
           ];
         }
       )
-      (
-        sources."eslint-scope-5.1.1"
-        // {
-          dependencies = [ sources."estraverse-4.3.0" ];
-        }
-      )
+      (sources."eslint-scope-5.1.1" // { dependencies = [ sources."estraverse-4.3.0" ]; })
       (
         sources."eslint-utils-2.1.0"
         // {
@@ -4241,10 +4231,7 @@ let
       sources."postcss-8.4.14"
       sources."prelude-ls-1.1.2"
       (
-        sources."pretty-format-27.5.1"
-        // {
-          dependencies = [ sources."ansi-styles-5.2.0" ];
-        }
+        sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
       )
       sources."progress-2.0.3"
       sources."proxy-addr-2.0.7"
@@ -4345,9 +4332,7 @@ let
           ];
         }
       )
-      (
-        sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; }
-      )
+      (sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; })
       sources."tslib-1.14.1"
       (
         sources."tslint-6.1.3"

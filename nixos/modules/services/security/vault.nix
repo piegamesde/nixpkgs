@@ -282,9 +282,7 @@ in
         Restart = "on-failure";
       };
 
-      unitConfig.RequiresMountsFor =
-        optional (cfg.storagePath != null)
-          cfg.storagePath;
+      unitConfig.RequiresMountsFor = optional (cfg.storagePath != null) cfg.storagePath;
     };
   };
 }

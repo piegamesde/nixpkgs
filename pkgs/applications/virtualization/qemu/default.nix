@@ -44,8 +44,7 @@
   numactl,
   seccompSupport ? stdenv.isLinux,
   libseccomp,
-  alsaSupport ?
-    lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner,
+  alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner,
   pulseSupport ? !stdenv.isDarwin && !nixosTestRunner,
   libpulseaudio,
   sdlSupport ? !stdenv.isDarwin && !nixosTestRunner,

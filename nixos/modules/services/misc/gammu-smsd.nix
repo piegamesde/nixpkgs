@@ -30,8 +30,7 @@ let
       ErrorSMSPath = ${cfg.backend.files.errorSMSPath}
     ''}
 
-    ${optionalString
-      (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite")
+    ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite")
       ''
         Driver = ${cfg.backend.sql.driver}
         DBDir = ${cfg.backend.sql.database}

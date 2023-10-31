@@ -44,9 +44,7 @@ let
       };
     };
 
-  allTests = foldAttrs recursiveUpdate { } (
-    map allTestsForSystem supportedSystems
-  );
+  allTests = foldAttrs recursiveUpdate { } (map allTestsForSystem supportedSystems);
 
   pkgs = import ./.. { system = "x86_64-linux"; };
 
@@ -119,8 +117,7 @@ let
       inherit config;
     };
 
-  makeClosure =
-    module: buildFromConfig module (config: config.system.build.toplevel);
+  makeClosure = module: buildFromConfig module (config: config.system.build.toplevel);
 
   buildFromConfig =
     module: sel:
@@ -183,16 +180,13 @@ rec {
   );
   manual = manualHTML; # TODO(@oxij): remove eventually
   manualEpub =
-    (buildFromConfig ({ ... }: { }) (
-      config: config.system.build.manual.manualEpub
-    ));
+    (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualEpub));
   manpages = buildFromConfig ({ ... }: { }) (
     config: config.system.build.manual.manpages
   );
   options =
-    (buildFromConfig ({ ... }: { }) (
-      config: config.system.build.manual.optionsJSON
-    )).x86_64-linux;
+    (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.optionsJSON))
+    .x86_64-linux;
 
   # Build the initial ramdisk so Hydra can keep track of its size over time.
   initialRamdisk = buildFromConfig ({ ... }: { }) (

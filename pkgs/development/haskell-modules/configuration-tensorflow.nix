@@ -42,9 +42,7 @@ in
     setTensorflowSourceRoot "tensorflow-logging"
       super.tensorflow-logging;
 
-  tensorflow-opgen =
-    setTensorflowSourceRoot "tensorflow-opgen"
-      super.tensorflow-opgen;
+  tensorflow-opgen = setTensorflowSourceRoot "tensorflow-opgen" super.tensorflow-opgen;
 
   tensorflow-ops = setTensorflowSourceRoot "tensorflow-ops" super.tensorflow-ops;
 }

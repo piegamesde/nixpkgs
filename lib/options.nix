@@ -201,8 +201,7 @@ rec {
           check = x: true;
           merge = loc: defs: false;
         };
-        apply =
-          x: throw "Option value is not readable because the option is not declared.";
+        apply = x: throw "Option value is not readable because the option is not declared.";
       }
       // attrs
     );
@@ -318,10 +317,7 @@ rec {
               declarations = filter (x: x != unknownModule) opt.declarations;
               internal = opt.internal or false;
               visible =
-                if (opt ? visible && opt.visible == "shallow") then
-                  true
-                else
-                  opt.visible or true;
+                if (opt ? visible && opt.visible == "shallow") then true else opt.visible or true;
               readOnly = opt.readOnly or false;
               type = opt.type.description or "unspecified";
             }
@@ -332,8 +328,7 @@ rec {
             }
             // optionalAttrs (opt ? default) {
               default =
-                builtins.addErrorContext
-                  "while evaluating the default value of option `${name}`"
+                builtins.addErrorContext "while evaluating the default value of option `${name}`"
                   (renderOptionValue (opt.defaultText or opt.default));
             }
             // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {

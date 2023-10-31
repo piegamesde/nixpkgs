@@ -70,8 +70,7 @@ let
 
     src = fetchurl {
       url =
-        "https://wire-app.wire.com/linux/debian/pool/main/"
-        + "Wire-${version}_amd64.deb";
+        "https://wire-app.wire.com/linux/debian/pool/main/" + "Wire-${version}_amd64.deb";
       inherit hash;
     };
 

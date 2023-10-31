@@ -44,9 +44,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
     ++ lib.optionals withOptionalDependencies (
-      builtins.attrValues {
-        inherit (passthru.optional-dependencies) embeddings wandb;
-      }
+      builtins.attrValues { inherit (passthru.optional-dependencies) embeddings wandb; }
     );
 
   passthru.optional-dependencies = {

@@ -394,23 +394,17 @@ self: super:
         super.rio;
 
     # https://github.com/haskell-crypto/cryptonite/issues/360
-    cryptonite =
-      appendPatch ./patches/cryptonite-remove-argon2.patch
-        super.cryptonite;
+    cryptonite = appendPatch ./patches/cryptonite-remove-argon2.patch super.cryptonite;
 
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
     ormolu =
       overrideCabal
-        (drv: {
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-        })
+        (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.ormolu);
     fourmolu =
       overrideCabal
-        (drv: {
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-        })
+        (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.fourmolu);
 
     # https://github.com/NixOS/nixpkgs/issues/149692

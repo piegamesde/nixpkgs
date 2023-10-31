@@ -180,8 +180,6 @@ in
       '';
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ serverPort ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ serverPort ]; };
   };
 }

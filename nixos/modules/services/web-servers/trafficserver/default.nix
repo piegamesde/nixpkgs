@@ -216,9 +216,7 @@ in
         Configure SSL server certificates to terminate the SSL sessions.
 
         Consult the [
-        upstream documentation](${
-          getManualUrl "ssl_multicert.config"
-        }) for more details.
+        upstream documentation](${getManualUrl "ssl_multicert.config"}) for more details.
       '';
     };
 

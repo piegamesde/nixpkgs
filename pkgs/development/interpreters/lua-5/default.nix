@@ -41,15 +41,12 @@ let
               makeScopeWithSplicing,
             }:
             let
-              luaPackagesFun = callPackage ../../../top-level/lua-packages.nix {
-                lua = self;
-              };
+              luaPackagesFun = callPackage ../../../top-level/lua-packages.nix { lua = self; };
               generatedPackages =
                 if (builtins.pathExists ../../lua-modules/generated-packages.nix) then
                   (
                     final: prev:
-                    callPackage ../../lua-modules/generated-packages.nix
-                      { inherit (final) callPackage; }
+                    callPackage ../../lua-modules/generated-packages.nix { inherit (final) callPackage; }
                       final
                       prev
                   )
@@ -72,9 +69,7 @@ let
                 overrides
               ];
             in
-            makeScopeWithSplicing otherSplices keep extra (
-              lib.extends extensions luaPackagesFun
-            )
+            makeScopeWithSplicing otherSplices keep extra (lib.extends extensions luaPackagesFun)
           )
           {
             overrides = packageOverrides;

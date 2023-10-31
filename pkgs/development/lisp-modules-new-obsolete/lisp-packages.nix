@@ -98,14 +98,12 @@ let
       (
         ff
         // {
-          overrideLispAttrs =
-            newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+          overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         }
       )
     else if builtins.isFunction ff then
       {
-        overrideLispAttrs =
-          newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+        overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         __functor = self: ff;
       }
     else

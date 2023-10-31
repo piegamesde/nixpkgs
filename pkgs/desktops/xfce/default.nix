@@ -146,9 +146,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-sensors-plugin = callPackage ./panel-plugins/xfce4-sensors-plugin { };
 
-    xfce4-systemload-plugin =
-      callPackage ./panel-plugins/xfce4-systemload-plugin
-        { };
+    xfce4-systemload-plugin = callPackage ./panel-plugins/xfce4-systemload-plugin { };
 
     xfce4-time-out-plugin = callPackage ./panel-plugins/xfce4-time-out-plugin { };
 
@@ -160,15 +158,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-weather-plugin = callPackage ./panel-plugins/xfce4-weather-plugin { };
 
-    xfce4-whiskermenu-plugin =
-      callPackage ./panel-plugins/xfce4-whiskermenu-plugin
-        { };
+    xfce4-whiskermenu-plugin = callPackage ./panel-plugins/xfce4-whiskermenu-plugin { };
 
     xfce4-windowck-plugin = callPackage ./panel-plugins/xfce4-windowck-plugin { };
 
-    xfce4-pulseaudio-plugin =
-      callPackage ./panel-plugins/xfce4-pulseaudio-plugin
-        { };
+    xfce4-pulseaudio-plugin = callPackage ./panel-plugins/xfce4-pulseaudio-plugin { };
   }
   // lib.optionalAttrs config.allowAliases {
     #### ALIASES

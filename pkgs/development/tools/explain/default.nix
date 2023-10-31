@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
       (debian-patch "termiox-no-more-exists-since-kernel-5.12.patch"
         "sha256-cocgEYKoDMDnGk9VNQDtgoVxMGnnNpdae0hzgUlacOw="
       )
-      (debian-patch "gcc-10.patch"
-        "sha256-YNcYGyOOqPUuwpUpXGcR7zsWbepVg8SAqcVKlxENSQk="
-      )
+      (debian-patch "gcc-10.patch" "sha256-YNcYGyOOqPUuwpUpXGcR7zsWbepVg8SAqcVKlxENSQk=")
     ];
 
   nativeBuildInputs = [

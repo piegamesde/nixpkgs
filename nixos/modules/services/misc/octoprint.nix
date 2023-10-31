@@ -22,9 +22,7 @@ let
 
   cfgUpdate = pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
 
-  pluginsEnv = package.python.withPackages (
-    ps: [ ps.octoprint ] ++ (cfg.plugins ps)
-  );
+  pluginsEnv = package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
 
   package = pkgs.octoprint;
 in

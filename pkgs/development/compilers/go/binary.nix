@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "https://go.dev/dl/go${version}.${platform}.tar.gz";
     sha256 =
-      hashes.${platform}
-        or (throw "Missing Go bootstrap hash for platform ${platform}");
+      hashes.${platform} or (throw "Missing Go bootstrap hash for platform ${platform}");
   };
 
   nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];

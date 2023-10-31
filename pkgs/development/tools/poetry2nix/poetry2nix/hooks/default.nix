@@ -13,9 +13,7 @@ let
   pythonInterpreter = python.pythonForBuild.interpreter;
   pythonSitePackages = python.sitePackages;
 
-  nonOverlayedPython = pkgs.python3.pythonForBuild.withPackages (
-    ps: [ ps.tomlkit ]
-  );
+  nonOverlayedPython = pkgs.python3.pythonForBuild.withPackages (ps: [ ps.tomlkit ]);
   makeRemoveSpecialDependenciesHook =
     { fields, kind }:
     nonOverlayedPython.pkgs.callPackage
@@ -128,9 +126,7 @@ in
             '';
           };
 
-          pythonPath =
-            [ ]
-            ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
+          pythonPath = [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
         in
         makeSetupHook
           {

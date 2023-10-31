@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       yurrriq
     ];
     platforms =
-      with platforms;
-      linux ++ darwin ++ freebsd ++ netbsd ++ openbsd ++ cygwin ++ illumos;
+      with platforms; linux ++ darwin ++ freebsd ++ netbsd ++ openbsd ++ cygwin ++ illumos;
     license = licenses.publicDomain;
     homepage = "https://www.cs.arizona.edu/icon/";
   };

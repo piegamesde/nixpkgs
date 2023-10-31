@@ -192,8 +192,7 @@ let
   # stdenvOverrides is used to avoid having multiple of versions
   # of certain dependencies that were used in bootstrapping the
   # standard environment.
-  stdenvOverrides =
-    self: super: (super.stdenv.overrides or (_: _: { })) self super;
+  stdenvOverrides = self: super: (super.stdenv.overrides or (_: _: { })) self super;
 
   # Allow packages to be overridden globally via the `packageOverrides'
   # configuration option, which must be a function that takes `pkgs'
@@ -244,10 +243,7 @@ let
         nixpkgsFun {
           overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
           ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              "localSystem"
-            else
-              "crossSystem"
+            if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"
           } = {
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
           };
@@ -262,10 +258,7 @@ let
         nixpkgsFun {
           overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
           ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              "localSystem"
-            else
-              "crossSystem"
+            if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"
           } = {
             parsed = stdenv.hostPlatform.parsed // {
               cpu = lib.systems.parse.cpuTypes.i686;

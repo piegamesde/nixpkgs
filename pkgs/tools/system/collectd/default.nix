@@ -39,9 +39,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ libtool ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.ApplicationServices
-    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.ApplicationServices ]
     ++ plugins.buildInputs;
 
   configureFlags =

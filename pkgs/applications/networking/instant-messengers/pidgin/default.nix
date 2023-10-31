@@ -151,8 +151,7 @@ let
     postFixup =
       let
         # TODO: python is a script, so it doesn't work as interpreter on darwin
-        binsToTest =
-          lib.optionalString stdenv.isLinux "purple-remote," + "pidgin,finch";
+        binsToTest = lib.optionalString stdenv.isLinux "purple-remote," + "pidgin,finch";
       in
       lib.optionalString doInstallCheck ''
         for f in "''${!outputBin}"/bin/{${binsToTest}}; do

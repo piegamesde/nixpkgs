@@ -25,8 +25,7 @@ let
       }' | ${jq}/bin/jq -s add > ${vscodeSettingsFile}
     )'';
 
-  createEmptySettingsCmd = ''
-    mkdir -p .vscode && echo "{}" > ${vscodeSettingsFile}'';
+  createEmptySettingsCmd = ''mkdir -p .vscode && echo "{}" > ${vscodeSettingsFile}'';
   fileName = builtins.baseNameOf vscodeSettingsFile;
   symlinkFromUserSettingCmd =
     lib.optionalString symlinkFromUserSetting

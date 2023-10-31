@@ -29,10 +29,7 @@ let
   '';
 
   tlsEnabled =
-    cfg.nginx.addSSL
-    || cfg.nginx.forceSSL
-    || cfg.nginx.onlySSL
-    || cfg.nginx.enableACME;
+    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
 in
 {
   options.services.monica = {
@@ -81,8 +78,7 @@ in
         Command example: <code>php artisan monica:update-url https://old.example.com https://new.example.com</code>
       '';
       default = "http${lib.optionalString tlsEnabled "s"}://${cfg.hostname}";
-      defaultText = ''
-        http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
+      defaultText = ''http''${lib.optionalString tlsEnabled "s"}://''${cfg.hostname}'';
       example = "https://example.com";
       type = types.str;
     };

@@ -13,9 +13,7 @@ in
 
   options = {
     services.step-ca = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "the smallstep certificate authority server"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "the smallstep certificate authority server");
       openFirewall = lib.mkEnableOption (
         lib.mdDoc "opening the certificate authority server port"
       );
@@ -142,9 +140,7 @@ in
 
       users.groups.step-ca = { };
 
-      networking.firewall = lib.mkIf cfg.openFirewall {
-        allowedTCPPorts = [ cfg.port ];
-      };
+      networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
     }
   );
 }

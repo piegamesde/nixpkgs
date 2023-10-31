@@ -159,8 +159,7 @@ let
           builtins.mapAttrs
             (architecture: variants: {
               base =
-                map
-                  (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
+                map (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
                   variants.base;
               variants =
                 builtins.mapAttrs

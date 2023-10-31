@@ -488,11 +488,9 @@ let
           + optionalString cfg.mysqlAuth ''
             account sufficient ${pkgs.pam_mysql}/lib/security/pam_mysql.so config_file=/etc/security/pam_mysql.conf
           ''
-          +
-            optionalString (config.services.sssd.enable && cfg.sssdStrictAccess == false)
-              ''
-                account sufficient ${pkgs.sssd}/lib/security/pam_sss.so
-              ''
+          + optionalString (config.services.sssd.enable && cfg.sssdStrictAccess == false) ''
+            account sufficient ${pkgs.sssd}/lib/security/pam_sss.so
+          ''
           + optionalString (config.services.sssd.enable && cfg.sssdStrictAccess) ''
             account [default=bad success=ok user_unknown=ignore] ${pkgs.sssd}/lib/security/pam_sss.so
           ''
@@ -552,11 +550,9 @@ let
                 optionalString u2f.debug "debug"
               } ${optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"} "
               + ''
-                ${optionalString u2f.interactive "interactive"} ${
-                  optionalString u2f.cue "cue"
-                } ${optionalString (u2f.appId != null) "appid=${u2f.appId}"} ${
-                  optionalString (u2f.origin != null) "origin=${u2f.origin}"
-                }
+                ${optionalString u2f.interactive "interactive"} ${optionalString u2f.cue "cue"} ${
+                  optionalString (u2f.appId != null) "appid=${u2f.appId}"
+                } ${optionalString (u2f.origin != null) "origin=${u2f.origin}"}
               ''
             )
           )
@@ -741,9 +737,7 @@ let
             session required pam_unix.so
           ''
           + optionalString cfg.setLoginUid ''
-            session ${
-              if config.boot.isContainer then "optional" else "required"
-            } pam_loginuid.so
+            session ${if config.boot.isContainer then "optional" else "required"} pam_loginuid.so
           ''
           + optionalString cfg.ttyAudit.enable (
             concatStringsSep " \\\n  " (
@@ -866,9 +860,7 @@ let
         {
           options = {
             domain = mkOption {
-              description =
-                lib.mdDoc
-                  "Username, groupname, or wildcard this limit applies to";
+              description = lib.mdDoc "Username, groupname, or wildcard this limit applies to";
               example = "@wheel";
               type = str;
             };
@@ -1481,8 +1473,7 @@ in
 
     security.apparmor.includes."abstractions/pam" =
       let
-        isEnabled =
-          test: fold or false (map test (attrValues config.security.pam.services));
+        isEnabled = test: fold or false (map test (attrValues config.security.pam.services));
       in
       lib.concatMapStrings
         (name: ''

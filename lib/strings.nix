@@ -102,9 +102,8 @@ rec {
         => "usr/local/bin"
   */
   concatStringsSep =
-    builtins.concatStringsSep or (
-      separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list)
-    );
+    builtins.concatStringsSep
+      or (separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list));
 
   /* Maps a function over a list of strings and then concatenates the
      result with the specified separator interspersed between
@@ -170,9 +169,7 @@ rec {
     subDir:
     # List of base paths
     paths:
-    concatStringsSep ":" (
-      map (path: path + "/" + subDir) (filter (x: x != null) paths)
-    );
+    concatStringsSep ":" (map (path: path + "/" + subDir) (filter (x: x != null) paths));
 
   /* Construct a Unix-style search path by appending the given
      `subDir` to the specified `output` of each of the packages. If no
@@ -364,8 +361,7 @@ rec {
        stringToCharacters "🦄"
        => [ "�" "�" "�" "�" ]
   */
-  stringToCharacters =
-    s: map (p: substring p 1 s) (lib.range 0 (stringLength s - 1));
+  stringToCharacters = s: map (p: substring p 1 s) (lib.range 0 (stringLength s - 1));
 
   /* Manipulate a string character by character and replace them by
      strings before concatenating the results.
@@ -418,9 +414,7 @@ rec {
   */
   escapeC =
     list:
-    replaceStrings list (
-      map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list
-    );
+    replaceStrings list (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list);
 
   /* Escape the string so it can be safely placed inside a URL
      query.
@@ -504,8 +498,7 @@ rec {
       toEscape = builtins.removeAttrs asciiTable unreserved;
     in
     replaceStrings (builtins.attrNames toEscape) (
-      lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}")
-        toEscape
+      lib.mapAttrsToList (_: c: "%${fixedWidthString 2 "0" (lib.toHexString c)}") toEscape
     );
 
   /* Quote string to be used safely within the Bourne shell.
@@ -1022,8 +1015,7 @@ rec {
       result = toString float;
       precise = float == fromJSON result;
     in
-    lib.warnIf (!precise) "Imprecise conversion from float to string ${result}"
-      result;
+    lib.warnIf (!precise) "Imprecise conversion from float to string ${result}" result;
 
   /* Soft-deprecated function. While the original implementation is available as
      isConvertibleWithToString, consider using isStringLike instead, if suitable.

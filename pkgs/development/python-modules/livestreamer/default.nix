@@ -30,9 +30,7 @@ buildPythonPackage rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/livestreamer --prefix PATH : ${
-      lib.makeBinPath [ rtmpdump ]
-    }
+    wrapProgram $out/bin/livestreamer --prefix PATH : ${lib.makeBinPath [ rtmpdump ]}
   '';
 
   meta = with lib; {

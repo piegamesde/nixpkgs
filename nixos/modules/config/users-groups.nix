@@ -182,9 +182,7 @@ let
         };
 
         shell = mkOption {
-          type = types.nullOr (
-            types.either types.shellPackage (types.passwdEntry types.path)
-          );
+          type = types.nullOr (types.either types.shellPackage (types.passwdEntry types.path));
           default = pkgs.shadow;
           defaultText = literalExpression "pkgs.shadow";
           example = literalExpression "pkgs.bashInteractive";
@@ -371,9 +369,7 @@ let
           hashedPassword = mkDefault config.initialHashedPassword;
         })
         (mkIf
-          (
-            config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]
-          )
+          (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ])
           { autoSubUidGidRange = mkDefault true; }
         )
       ];
@@ -493,19 +489,13 @@ let
       (builtins.attrNames set)
     ).dup;
 
-  uidsAreUnique =
-    idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users)
-      "uid";
-  gidsAreUnique =
-    idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups)
-      "gid";
+  uidsAreUnique = idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
+  gidsAreUnique = idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
   sdInitrdUidsAreUnique =
-    idsAreUnique
-      (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
+    idsAreUnique (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
       "uid";
   sdInitrdGidsAreUnique =
-    idsAreUnique
-      (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
+    idsAreUnique (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
       "gid";
 
   spec = pkgs.writeText "users-groups.json" (
@@ -955,8 +945,7 @@ in
                 assertion =
                   let
                     xor = a: b: a && !b || b && !a;
-                    isEffectivelySystemUser =
-                      user.isSystemUser || (user.uid != null && user.uid < 1000);
+                    isEffectivelySystemUser = user.isSystemUser || (user.uid != null && user.uid < 1000);
                   in
                   xor isEffectivelySystemUser user.isNormalUser;
                 message = ''

@@ -62,9 +62,7 @@ in
 
       enable = mkEnableOption (lib.mdDoc "installing proxychains configuration");
 
-      package = mkPackageOptionMD pkgs "proxychains" {
-        example = "pkgs.proxychains-ng";
-      };
+      package = mkPackageOptionMD pkgs "proxychains" { example = "pkgs.proxychains-ng"; };
 
       chain = {
         type = mkOption {
@@ -105,9 +103,7 @@ in
         description = lib.mdDoc "Proxy DNS requests - no leak for DNS data.";
       };
 
-      quietMode = mkEnableOption (
-        lib.mdDoc "Quiet mode (no output from the library)"
-      );
+      quietMode = mkEnableOption (lib.mdDoc "Quiet mode (no output from the library)");
 
       remoteDNSSubnet = mkOption {
         type = types.enum [
@@ -136,9 +132,7 @@ in
       localnet = mkOption {
         type = types.str;
         default = "127.0.0.0/255.0.0.0";
-        description =
-          lib.mdDoc
-            "By default enable localnet for loopback address ranges.";
+        description = lib.mdDoc "By default enable localnet for loopback address ranges.";
       };
 
       proxies = mkOption {

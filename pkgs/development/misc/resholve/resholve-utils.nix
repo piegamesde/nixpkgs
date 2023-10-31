@@ -187,8 +187,7 @@ rec {
   phraseSolution =
     name: solution: (phraseContextForOut (phraseInvocation name solution));
   phraseSolutions =
-    solutions: unresholved:
-    phraseContextForOut (phraseCommands solutions unresholved);
+    solutions: unresholved: phraseContextForOut (phraseCommands solutions unresholved);
 
   writeScript =
     name: partialSolution: text:
@@ -198,9 +197,7 @@ rec {
       checkPhase =
         ''
           ${(phraseContextForPWD (
-            phraseInvocation name (
-              partialSolution // { scripts = [ "${placeholder "out"}" ]; }
-            )
+            phraseInvocation name (partialSolution // { scripts = [ "${placeholder "out"}" ]; })
           ))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''

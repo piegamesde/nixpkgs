@@ -14,8 +14,7 @@ let
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
-    interface:
-    "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
+    interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
 
   serviceName =
     iface:

@@ -89,9 +89,7 @@ in
       options = mkOption {
         type = types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Extra configuration options to be passed to Git daemon.";
+        description = lib.mdDoc "Extra configuration options to be passed to Git daemon.";
       };
 
       user = mkOption {
@@ -120,9 +118,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "git") {
-      git.gid = config.ids.gids.git;
-    };
+    users.groups = optionalAttrs (cfg.group == "git") { git.gid = config.ids.gids.git; };
 
     systemd.services.git-daemon = {
       after = [ "network.target" ];

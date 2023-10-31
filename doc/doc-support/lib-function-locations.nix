@@ -18,8 +18,7 @@ let
           }
         ]
         ++
-          nixpkgsLib.optionals
-            (builtins.length prefix == 0 && builtins.isAttrs set.${name})
+          nixpkgsLib.optionals (builtins.length prefix == 0 && builtins.isAttrs set.${name})
             (libDefPos (prefix ++ [ name ]) set.${name})
       )
       (builtins.attrNames set);

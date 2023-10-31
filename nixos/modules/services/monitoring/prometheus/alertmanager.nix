@@ -9,9 +9,7 @@ with lib;
 
 let
   cfg = config.services.prometheus.alertmanager;
-  mkConfigFile = pkgs.writeText "alertmanager.yml" (
-    builtins.toJSON cfg.configuration
-  );
+  mkConfigFile = pkgs.writeText "alertmanager.yml" (builtins.toJSON cfg.configuration);
 
   checkedConfig =
     file:
@@ -39,9 +37,7 @@ let
       "--storage.path /var/lib/alertmanager"
       (toString (map (peer: "--cluster.peer ${peer}:9094") cfg.clusterPeers))
     ]
-    ++ (optional (cfg.webExternalUrl != null)
-      "--web.external-url ${cfg.webExternalUrl}"
-    )
+    ++ (optional (cfg.webExternalUrl != null) "--web.external-url ${cfg.webExternalUrl}")
     ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}");
 in
 {
@@ -213,9 +209,7 @@ in
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
         preStart = ''
-          ${
-            lib.getBin pkgs.envsubst
-          }/bin/envsubst -o "/tmp/alert-manager-substituted.yaml" \
+          ${lib.getBin pkgs.envsubst}/bin/envsubst -o "/tmp/alert-manager-substituted.yaml" \
                                                    -i "${alertmanagerYml}"
         '';
         serviceConfig = {

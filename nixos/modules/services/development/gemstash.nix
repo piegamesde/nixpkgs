@@ -61,9 +61,7 @@ in
           bind = mkOption {
             type = types.str;
             default = "tcp://0.0.0.0:9292";
-            description =
-              lib.mdDoc
-                "Host and port combination for the server to listen on.";
+            description = lib.mdDoc "Host and port combination for the server to listen on.";
           };
           db_adapter = mkOption {
             type = types.nullOr (

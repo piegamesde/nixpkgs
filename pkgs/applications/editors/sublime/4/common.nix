@@ -125,8 +125,7 @@ let
 
       # No need to patch these libraries, it works well with our own
       rm libcrypto.so.1.1 libssl.so.1.1
-      ${lib.optionalString (lib.versionAtLeast buildVersion "4145")
-        "rm libsqlite3.so"}
+      ${lib.optionalString (lib.versionAtLeast buildVersion "4145") "rm libsqlite3.so"}
 
       mkdir -p $out
       cp -r * $out/

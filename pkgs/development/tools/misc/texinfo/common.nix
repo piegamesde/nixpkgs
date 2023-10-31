@@ -125,8 +125,7 @@ stdenv.mkDerivation {
       oxij
     ];
     # see comment above in patches section
-    broken =
-      stdenv.hostPlatform.isPower64 && lib.strings.versionOlder version "6.0";
+    broken = stdenv.hostPlatform.isPower64 && lib.strings.versionOlder version "6.0";
 
     longDescription = ''
       Texinfo is the official documentation format of the GNU project.

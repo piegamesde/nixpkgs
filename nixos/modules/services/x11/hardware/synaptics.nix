@@ -92,9 +92,7 @@ in
         type = types.bool;
         default = cfg.twoFingerScroll;
         defaultText = literalExpression "config.${opt.twoFingerScroll}";
-        description =
-          lib.mdDoc
-            "Whether to enable horizontal two-finger drag-scrolling.";
+        description = lib.mdDoc "Whether to enable horizontal two-finger drag-scrolling.";
       };
 
       vertTwoFingerScroll = mkOption {
@@ -168,9 +166,7 @@ in
         type = types.nullOr types.int;
         default = null;
         example = 5;
-        description =
-          lib.mdDoc
-            "Minimum finger width at which touch is considered a palm";
+        description = lib.mdDoc "Minimum finger width at which touch is considered a palm";
       };
 
       palmMinZ = mkOption {
@@ -217,12 +213,8 @@ in
         MatchIsTouchpad "on"
         ${optionalString (cfg.dev != null) ''MatchDevicePath "${cfg.dev}"''}
         Driver "synaptics"
-        ${
-          optionalString (cfg.minSpeed != null) ''Option "MinSpeed" "${cfg.minSpeed}"''
-        }
-        ${
-          optionalString (cfg.maxSpeed != null) ''Option "MaxSpeed" "${cfg.maxSpeed}"''
-        }
+        ${optionalString (cfg.minSpeed != null) ''Option "MinSpeed" "${cfg.minSpeed}"''}
+        ${optionalString (cfg.maxSpeed != null) ''Option "MaxSpeed" "${cfg.maxSpeed}"''}
         ${
           optionalString (cfg.accelFactor != null)
             ''Option "AccelFactor" "${cfg.accelFactor}"''
@@ -232,9 +224,7 @@ in
         Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
         Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
         Option "VertTwoFingerScroll" "${if cfg.vertTwoFingerScroll then "1" else "0"}"
-        Option "HorizTwoFingerScroll" "${
-          if cfg.horizTwoFingerScroll then "1" else "0"
-        }"
+        Option "HorizTwoFingerScroll" "${if cfg.horizTwoFingerScroll then "1" else "0"}"
         Option "VertEdgeScroll" "${if cfg.vertEdgeScroll then "1" else "0"}"
         Option "HorizEdgeScroll" "${if cfg.horizEdgeScroll then "1" else "0"}"
         ${optionalString cfg.palmDetect ''Option "PalmDetect" "1"''}

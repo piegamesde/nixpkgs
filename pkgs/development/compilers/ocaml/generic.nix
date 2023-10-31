@@ -144,8 +144,7 @@ stdenv.mkDerivation (
         ];
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
-      lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl)
-        "pie"
+      lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
       ++
         lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
           "strictoverflow"
@@ -188,11 +187,9 @@ stdenv.mkDerivation (
         # This is required for aarch64-darwin, everything else works as is.
         AS="${stdenv.cc}/bin/cc -c" ASPP="${stdenv.cc}/bin/cc -c"
       ''
-      +
-        optionalString (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic)
-          ''
-            configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
-          '';
+      + optionalString (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic) ''
+        configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
+      '';
     postBuild = ''
       mkdir -p $out/include
       ln -sv $out/lib/ocaml/caml $out/include/caml

@@ -28,8 +28,7 @@ in
           root-files;
       # Subdirectories of the root with a cabal file.
       cabal-subdirs =
-        builtins.filter
-          ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
+        builtins.filter ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
           root-files-with-paths;
     in
     builtins.listToAttrs cabal-subdirs;

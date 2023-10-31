@@ -7,8 +7,7 @@ let
   # compression command, for the purpose of guessing the u-boot
   # compression type and filename extension.
   compressorName =
-    fullCommand:
-    builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+    fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
 in
 {
   stdenvNoCC,
@@ -84,9 +83,7 @@ in
 }:
 runCommand name
   ({
-    compress = "${_compressorExecutable} ${
-        lib.escapeShellArgs _compressorArgsReal
-      }";
+    compress = "${_compressorExecutable} ${lib.escapeShellArgs _compressorArgsReal}";
     passthru = {
       compressorExecutableFunction = _compressorFunction;
       compressorArgs = _compressorArgsReal;

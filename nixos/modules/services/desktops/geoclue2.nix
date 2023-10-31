@@ -285,7 +285,5 @@ in
     );
   };
 
-  meta = with lib; {
-    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
-  };
+  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
 }

@@ -67,9 +67,7 @@ stdenv.mkDerivation (
     # the libxcrypt port has been installed.
     #
     # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
-    propagatedBuildInputs =
-      lib.optional (enableCrypt && !stdenv.isFreeBSD)
-        libxcrypt;
+    propagatedBuildInputs = lib.optional (enableCrypt && !stdenv.isFreeBSD) libxcrypt;
 
     disallowedReferences = [ stdenv.cc ];
 
@@ -153,9 +151,7 @@ stdenv.mkDerivation (
         "-Dman3dir=${placeholder "out"}/share/man/man3"
       ];
 
-    configureScript =
-      lib.optionalString (!crossCompiling)
-        "${stdenv.shell} ./Configure";
+    configureScript = lib.optionalString (!crossCompiling) "${stdenv.shell} ./Configure";
 
     dontAddStaticConfigureFlags = true;
 
@@ -209,9 +205,7 @@ stdenv.mkDerivation (
     passthru =
       let
         # When we override the interpreter we also need to override the spliced versions of the interpreter
-        inputs' =
-          lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-            inputs;
+        inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
         override =
           attr:
           let

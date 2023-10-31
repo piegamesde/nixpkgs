@@ -25,9 +25,7 @@ let
     pool: poolOpts:
     pkgs.writeText "phpfpm-${pool}.conf" ''
       [global]
-      ${concatStringsSep "\n" (
-        mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings)}
       ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
 
       [${pool}]

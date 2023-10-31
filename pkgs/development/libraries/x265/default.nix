@@ -14,8 +14,7 @@
   numactl,
 
   # Multi bit-depth support (8bit+10bit+12bit):
-  multibitdepthSupport ?
-    (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux)),
+  multibitdepthSupport ? (stdenv.is64bit && !(stdenv.isAarch64 && stdenv.isLinux)),
 
   # Other options:
   cliSupport ? true # Build standalone CLI application
@@ -39,18 +38,15 @@ let
 
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 
-  cmakeCommonFlags =
-    [
-      "-Wno-dev"
-      (mkFlag custatsSupport "DETAILED_CU_STATS")
-      (mkFlag debugSupport "CHECKED_BUILD")
-      (mkFlag ppaSupport "ENABLE_PPA")
-      (mkFlag vtuneSupport "ENABLE_VTUNE")
-      (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
-      # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
-    ]
-    ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV)
-      "-DENABLE_ASSEMBLY=OFF";
+  cmakeCommonFlags = [
+    "-Wno-dev"
+    (mkFlag custatsSupport "DETAILED_CU_STATS")
+    (mkFlag debugSupport "CHECKED_BUILD")
+    (mkFlag ppaSupport "ENABLE_PPA")
+    (mkFlag vtuneSupport "ENABLE_VTUNE")
+    (mkFlag werrorSupport "WARNINGS_AS_ERRORS")
+    # Potentially riscv cross could be fixed by providing the correct CMAKE_SYSTEM_PROCESSOR flag
+  ] ++ lib.optional (isCross && stdenv.hostPlatform.isRiscV) "-DENABLE_ASSEMBLY=OFF";
 
   cmakeStaticLibFlags =
     [

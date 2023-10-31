@@ -67,9 +67,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [
-      stdenv.cc.libc.static
-    ];
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
     Foundation
@@ -79,9 +77,7 @@ stdenv.mkDerivation rec {
 
   depsBuildTarget = lib.optional isCross targetCC;
 
-  depsTargetTarget =
-    lib.optional stdenv.targetPlatform.isWindows
-      threadsCross.package;
+  depsTargetTarget = lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
 
   postPatch = ''
     patchShebangs .
@@ -180,13 +176,12 @@ stdenv.mkDerivation rec {
           ''}
         ''
       else
-        lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
-          ''
-            rm -rf bin/*_*
-            ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-              rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
-            ''}
-          ''
+        lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
+          rm -rf bin/*_*
+          ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+            rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+          ''}
+        ''
     );
 
   installPhase = ''
@@ -207,9 +202,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog = "https://go.dev/doc/devel/release#go${
-        lib.versions.majorMinor version
-      }";
+    changelog = "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
     description = "The Go Programming language";
     homepage = "https://go.dev/";
     license = licenses.bsd3;

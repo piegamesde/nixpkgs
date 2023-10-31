@@ -44,9 +44,7 @@ let
   datasourceFileOrDir =
     mkProvisionCfg "datasource" "datasources"
       cfg.provision.datasources;
-  dashboardFileOrDir =
-    mkProvisionCfg "dashboard" "providers"
-      cfg.provision.dashboards;
+  dashboardFileOrDir = mkProvisionCfg "dashboard" "providers" cfg.provision.dashboards;
 
   notifierConfiguration = {
     apiVersion = 1;
@@ -86,8 +84,7 @@ let
       fi
     '';
   provisionConfDir =
-    pkgs.runCommand "grafana-provisioning"
-      { nativeBuildInputs = [ pkgs.xorg.lndir ]; }
+    pkgs.runCommand "grafana-provisioning" { nativeBuildInputs = [ pkgs.xorg.lndir ]; }
       ''
         mkdir -p $out/{datasources,dashboards,notifiers,alerting}
         ${ln {
@@ -1047,9 +1044,7 @@ in
       description =
         lib.mdDoc
           "If non-null, then a list of packages containing Grafana plugins to install. If set, plugins cannot be manually installed.";
-      example =
-        literalExpression
-          "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]";
+      example = literalExpression "with pkgs.grafanaPlugins; [ grafana-piechart-panel ]";
       # Make sure each plugin is added only once; otherwise building
       # the link farm fails, since the same path is added multiple
       # times.
@@ -1233,9 +1228,7 @@ in
                 lib.mdDoc
                   "Only applicable to sqlite3 database. The file path where the database will be stored.";
               default = "${cfg.dataDir}/data/grafana.db";
-              defaultText =
-                literalExpression
-                  ''"''${config.${opt.dataDir}}/data/grafana.db"'';
+              defaultText = literalExpression ''"''${config.${opt.dataDir}}/data/grafana.db"'';
               type = types.path;
             };
           };
@@ -1320,9 +1313,7 @@ in
             };
 
             auto_assign_org = mkOption {
-              description =
-                lib.mdDoc
-                  "Whether to automatically assign new users to default org.";
+              description = lib.mdDoc "Whether to automatically assign new users to default org.";
               default = true;
               type = types.bool;
             };
@@ -1751,9 +1742,7 @@ in
                   };
 
                   resetPolicies = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of orgIds that should be reset to the default policy.";
+                    description = lib.mdDoc "List of orgIds that should be reset to the default policy.";
                     default = [ ];
                     type = types.listOf types.int;
                   };
@@ -1912,9 +1901,7 @@ in
                         freeformType = provisioningSettingsFormat.type;
 
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the mute time interval, must be unique. Required.";
+                          description = lib.mdDoc "Name of the mute time interval, must be unique. Required.";
                           type = types.str;
                         };
                       }
@@ -1933,9 +1920,7 @@ in
                         };
 
                         options.name = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the mute time interval, must be unique. Required.";
+                          description = lib.mdDoc "Name of the mute time interval, must be unique. Required.";
                           type = types.str;
                         };
                       }
@@ -2048,16 +2033,14 @@ in
     assertions = [
       {
         assertion =
-          cfg.provision.datasources.settings == null
-          || cfg.provision.datasources.path == null;
+          cfg.provision.datasources.settings == null || cfg.provision.datasources.path == null;
         message = "Cannot set both datasources settings and datasources path";
       }
       {
         assertion =
           let
             prometheusIsNotDirect =
-              opt:
-              all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
+              opt: all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
           in
           cfg.provision.datasources.settings == null
           || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
@@ -2065,8 +2048,7 @@ in
       }
       {
         assertion =
-          cfg.provision.dashboards.settings == null
-          || cfg.provision.dashboards.path == null;
+          cfg.provision.dashboards.settings == null || cfg.provision.dashboards.path == null;
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {

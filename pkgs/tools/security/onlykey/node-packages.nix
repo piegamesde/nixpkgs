@@ -6010,22 +6010,12 @@ in
           sources."acorn-jsx-5.3.2"
           sources."ajv-6.12.6"
           sources."ansi-colors-1.1.0"
-          (
-            sources."ansi-escapes-4.3.2"
-            // {
-              dependencies = [ sources."type-fest-0.21.3" ];
-            }
-          )
+          (sources."ansi-escapes-4.3.2" // { dependencies = [ sources."type-fest-0.21.3" ]; })
           sources."ansi-gray-0.1.1"
           sources."ansi-regex-2.1.1"
           sources."ansi-styles-2.2.1"
           sources."ansi-wrap-0.1.0"
-          (
-            sources."anymatch-2.0.0"
-            // {
-              dependencies = [ sources."normalize-path-2.1.1" ];
-            }
-          )
+          (sources."anymatch-2.0.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; })
           sources."append-buffer-1.0.2"
           sources."applescript-1.0.0"
           sources."archy-1.0.0"
@@ -6036,15 +6026,8 @@ in
           sources."arr-map-2.0.2"
           sources."arr-union-3.1.0"
           sources."array-each-1.0.1"
-          (
-            sources."array-initial-1.1.0"
-            // {
-              dependencies = [ sources."is-number-4.0.0" ];
-            }
-          )
-          (
-            sources."array-last-1.3.0" // { dependencies = [ sources."is-number-4.0.0" ]; }
-          )
+          (sources."array-initial-1.1.0" // { dependencies = [ sources."is-number-4.0.0" ]; })
+          (sources."array-last-1.3.0" // { dependencies = [ sources."is-number-4.0.0" ]; })
           sources."array-slice-1.1.0"
           (sources."array-sort-1.0.0" // { dependencies = [ sources."kind-of-5.1.0" ]; })
           sources."array-unique-0.3.2"
@@ -6063,9 +6046,7 @@ in
           sources."aws4-1.11.0"
           sources."bach-1.2.0"
           sources."balanced-match-1.0.2"
-          (
-            sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; }
-          )
+          (sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; })
           sources."base64-js-1.5.1"
           sources."bcrypt-pbkdf-1.0.2"
           sources."binary-0.3.0"
@@ -6073,9 +6054,7 @@ in
           sources."bindings-1.5.0"
           sources."bl-1.2.3"
           sources."brace-expansion-1.1.11"
-          (
-            sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-          )
+          (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
           sources."browser-stdout-1.3.1"
           sources."buffer-5.7.1"
           sources."buffer-alloc-1.2.0"
@@ -6118,10 +6097,7 @@ in
                   }
                 )
                 (
-                  sources."is-data-descriptor-0.1.4"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6155,10 +6131,7 @@ in
           )
           sources."copy-descriptor-0.1.1"
           (
-            sources."copy-props-2.0.5"
-            // {
-              dependencies = [ sources."is-plain-object-5.0.0" ];
-            }
+            sources."copy-props-2.0.5" // { dependencies = [ sources."is-plain-object-5.0.0" ]; }
           )
           sources."core-util-is-1.0.3"
           sources."create-error-class-3.0.2"
@@ -6168,9 +6141,7 @@ in
           sources."dashdash-1.14.1"
           sources."debounce-1.2.1"
           sources."debug-4.3.4"
-          (
-            sources."debug-fabulous-1.1.0" // { dependencies = [ sources."debug-3.2.7" ]; }
-          )
+          (sources."debug-fabulous-1.1.0" // { dependencies = [ sources."debug-3.2.7" ]; })
           sources."decamelize-1.2.0"
           sources."decode-uri-component-0.2.0"
           sources."decompress-4.2.1"
@@ -6183,10 +6154,7 @@ in
           )
           sources."decompress-targz-4.1.1"
           (
-            sources."decompress-unzip-4.0.1"
-            // {
-              dependencies = [ sources."file-type-3.9.0" ];
-            }
+            sources."decompress-unzip-4.0.1" // { dependencies = [ sources."file-type-3.9.0" ]; }
           )
           (
             sources."decompress-zip-0.3.3"
@@ -6200,12 +6168,7 @@ in
           )
           sources."deep-eql-3.0.1"
           sources."deep-is-0.1.4"
-          (
-            sources."default-compare-1.0.0"
-            // {
-              dependencies = [ sources."kind-of-5.1.0" ];
-            }
-          )
+          (sources."default-compare-1.0.0" // { dependencies = [ sources."kind-of-5.1.0" ]; })
           sources."default-resolution-2.0.0"
           sources."define-properties-1.1.4"
           sources."define-property-2.0.2"
@@ -6247,9 +6210,7 @@ in
           sources."espree-6.2.1"
           sources."esprima-4.0.1"
           (sources."esquery-1.4.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
-          (
-            sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; }
-          )
+          (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
           sources."estraverse-4.3.0"
           sources."esutils-2.0.3"
           sources."event-emitter-0.3.5"
@@ -6267,10 +6228,7 @@ in
                   }
                 )
                 (
-                  sources."is-data-descriptor-0.1.4"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6323,10 +6281,7 @@ in
           sources."filename-reserved-regex-2.0.0"
           sources."filenamify-2.1.0"
           (
-            sources."fill-range-4.0.0"
-            // {
-              dependencies = [ sources."extend-shallow-2.0.1" ];
-            }
+            sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
           )
           sources."find-up-1.1.2"
           sources."findup-sync-3.0.0"
@@ -6547,12 +6502,7 @@ in
           sources."mimic-fn-2.1.0"
           sources."minimatch-3.1.2"
           sources."minimist-1.2.6"
-          (
-            sources."mixin-deep-1.3.2"
-            // {
-              dependencies = [ sources."is-extendable-1.0.1" ];
-            }
-          )
+          (sources."mixin-deep-1.3.2" // { dependencies = [ sources."is-extendable-1.0.1" ]; })
           sources."mkdirp-0.5.6"
           sources."mkpath-0.1.0"
           (
@@ -6632,9 +6582,7 @@ in
                 sources."define-property-0.2.5"
                 sources."is-accessor-descriptor-0.1.6"
                 sources."is-data-descriptor-0.1.4"
-                (
-                  sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; }
-                )
+                (sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; })
                 sources."kind-of-3.2.2"
               ];
             }
@@ -6700,9 +6648,7 @@ in
           sources."punycode-2.1.1"
           sources."q-1.5.1"
           sources."qs-6.5.3"
-          (
-            sources."randomatic-3.1.1" // { dependencies = [ sources."is-number-4.0.0" ]; }
-          )
+          (sources."randomatic-3.1.1" // { dependencies = [ sources."is-number-4.0.0" ]; })
           sources."randombytes-2.1.0"
           sources."read-pkg-1.1.0"
           sources."read-pkg-up-1.0.1"
@@ -6742,22 +6688,12 @@ in
           sources."safer-buffer-2.1.2"
           sources."sax-1.2.4"
           sources."seek-bzip-1.0.6"
-          (
-            sources."selenium-webdriver-3.6.0"
-            // {
-              dependencies = [ sources."tmp-0.0.30" ];
-            }
-          )
+          (sources."selenium-webdriver-3.6.0" // { dependencies = [ sources."tmp-0.0.30" ]; })
           sources."semver-5.7.1"
           sources."semver-greatest-satisfied-range-1.1.0"
           sources."serialize-javascript-5.0.1"
           sources."set-blocking-2.0.0"
-          (
-            sources."set-value-2.0.1"
-            // {
-              dependencies = [ sources."extend-shallow-2.0.1" ];
-            }
-          )
+          (sources."set-value-2.0.1" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
           sources."setimmediate-1.0.5"
           sources."shebang-command-1.2.0"
           sources."shebang-regex-1.0.0"
@@ -6785,10 +6721,7 @@ in
                   }
                 )
                 (
-                  sources."is-data-descriptor-0.1.4"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6802,12 +6735,7 @@ in
               dependencies = [ sources."define-property-1.0.0" ];
             }
           )
-          (
-            sources."snapdragon-util-3.0.1"
-            // {
-              dependencies = [ sources."kind-of-3.2.2" ];
-            }
-          )
+          (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
           sources."source-map-0.5.7"
           sources."source-map-resolve-0.5.3"
           sources."source-map-url-0.4.1"
@@ -6832,10 +6760,7 @@ in
                   }
                 )
                 (
-                  sources."is-data-descriptor-0.1.4"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
@@ -6846,10 +6771,7 @@ in
           sources."stream-shift-1.0.1"
           sources."string-width-1.0.2"
           (
-            sources."string_decoder-1.1.1"
-            // {
-              dependencies = [ sources."safe-buffer-5.1.2" ];
-            }
+            sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
           )
           sources."strip-ansi-3.0.1"
           sources."strip-bom-2.0.0"
@@ -6883,12 +6805,7 @@ in
           sources."tmp-0.0.33"
           sources."to-absolute-glob-2.0.2"
           sources."to-buffer-1.1.1"
-          (
-            sources."to-object-path-0.3.0"
-            // {
-              dependencies = [ sources."kind-of-3.2.2" ];
-            }
-          )
+          (sources."to-object-path-0.3.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
           sources."to-regex-3.0.2"
           sources."to-regex-range-2.1.1"
           sources."to-through-2.0.0"
@@ -6940,9 +6857,7 @@ in
           sources."v8flags-3.2.0"
           sources."validate-npm-package-license-3.0.4"
           sources."value-or-function-3.0.0"
-          (
-            sources."verror-1.10.0" // { dependencies = [ sources."core-util-is-1.0.2" ]; }
-          )
+          (sources."verror-1.10.0" // { dependencies = [ sources."core-util-is-1.0.2" ]; })
           sources."vinyl-2.2.1"
           sources."vinyl-fs-3.0.3"
           (
@@ -6984,12 +6899,7 @@ in
               ];
             }
           )
-          (
-            sources."yargs-parser-5.0.1"
-            // {
-              dependencies = [ sources."camelcase-3.0.0" ];
-            }
-          )
+          (sources."yargs-parser-5.0.1" // { dependencies = [ sources."camelcase-3.0.0" ]; })
           (
             sources."yargs-unparser-2.0.0"
             // {

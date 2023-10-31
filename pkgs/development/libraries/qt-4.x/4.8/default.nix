@@ -34,8 +34,7 @@
   coreutils,
   libXi,
   alsa-lib,
-  libGLSupported ?
-    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   gtkStyle ? stdenv.hostPlatform == stdenv.buildPlatform,
   gtk2,
   gdk-pixbuf,
@@ -212,10 +211,7 @@ stdenv.mkDerivation rec {
     let
       mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
       platformFlag =
-        if stdenv.hostPlatform != stdenv.buildPlatform then
-          "-xplatform"
-        else
-          "-platform";
+        if stdenv.hostPlatform != stdenv.buildPlatform then "-xplatform" else "-platform";
     in
     (
       if stdenv.hostPlatform != stdenv.buildPlatform then
@@ -365,9 +361,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1"
   );
 
-  NIX_LDFLAGS =
-    lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin)
-      "-lglib-2.0";
+  NIX_LDFLAGS = lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin) "-lglib-2.0";
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # resolve "extra qualification on member" error

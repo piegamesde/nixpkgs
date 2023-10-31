@@ -61,12 +61,7 @@
 }:
 
 assert langJava
-  ->
-    zip != null
-    && unzip != null
-    && zlib != null
-    && boehmgc != null
-    && perl != null; # for `--enable-java-home'
+  -> zip != null && unzip != null && zlib != null && boehmgc != null && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -425,9 +420,7 @@ stdenv.mkDerivation (
   //
     optionalAttrs
       (
-        targetPlatform != hostPlatform
-        && targetPlatform.libc == "msvcrt"
-        && crossStageStatic
+        targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
       )
       {
         makeFlags = [

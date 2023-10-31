@@ -201,8 +201,7 @@ in
         find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
           optionalString (rules != { }) ''
             -not \( ${
-              concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'")
-                rules
+              concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules
             } \) \
           ''
         } -delete

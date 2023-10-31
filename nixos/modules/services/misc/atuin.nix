@@ -13,9 +13,7 @@ in
 {
   options = {
     services.atuin = {
-      enable = mkEnableOption (
-        mdDoc "Enable server for shell history sync with atuin"
-      );
+      enable = mkEnableOption (mdDoc "Enable server for shell history sync with atuin");
 
       openRegistration = mkOption {
         type = types.bool;

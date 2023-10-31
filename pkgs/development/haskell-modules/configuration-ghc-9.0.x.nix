@@ -220,12 +220,7 @@ self: super: {
   # We use a GHC patch to support the fix for https://github.com/fpco/inline-c/issues/127
   # which means that the upstream cabal file isn't allowed to add the flag.
   inline-c-cpp =
-    (
-      if isDarwin then
-        appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ]
-      else
-        x: x
-    )
+    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
       super.inline-c-cpp;
 
   # 2022-05-31: weeder 2.3.0 requires GHC 9.2
@@ -241,9 +236,7 @@ self: super: {
 
   apply-refact = self.apply-refact_0_9_3_0;
 
-  hls-hlint-plugin = super.hls-hlint-plugin.override {
-    inherit (self) apply-refact;
-  };
+  hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) apply-refact; };
 
   # Needs OneTuple for ghc < 9.2
   binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;

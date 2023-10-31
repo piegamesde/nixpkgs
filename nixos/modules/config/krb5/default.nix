@@ -62,9 +62,7 @@ let
   filterEmbeddedMetadata =
     value:
     if isAttrs value then
-      (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null)
-        value
-      )
+      (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null) value)
     else
       value;
 
@@ -87,9 +85,7 @@ let
       (toString value)
     else if (isAttrs value) then
       let
-        configLines = concatLists (
-          map (splitString "\n") (mapAttrsToList mkRelation value)
-        );
+        configLines = concatLists (map (splitString "\n") (mapAttrsToList mkRelation value));
       in
       (concatStringsSep
         ''
@@ -364,9 +360,7 @@ in
             [plugins]
             ${mkMappedAttrsOrString mergedConfig.plugins}
           ''
-          + optionalString (mergedConfig.extraConfig != null) (
-            "\n" + mergedConfig.extraConfig
-          )
+          + optionalString (mergedConfig.extraConfig != null) ("\n" + mergedConfig.extraConfig)
         );
 
     warnings = flatten [

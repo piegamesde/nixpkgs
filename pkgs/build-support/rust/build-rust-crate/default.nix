@@ -33,8 +33,7 @@ let
           # Find a choice that matches in name and optionally version.
           findMatchOrUseExtern =
             choices:
-            lib.findFirst
-              (choice: (!(choice ? version) || choice.version == dep.version or ""))
+            lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or ""))
               { rename = extern; }
               choices;
           name =
@@ -43,10 +42,7 @@ let
                 choices = crateRenames.${dep.crateName};
               in
               normalizeName (
-                if builtins.isList choices then
-                  (findMatchOrUseExtern choices).rename
-                else
-                  choices
+                if builtins.isList choices then (findMatchOrUseExtern choices).rename else choices
               )
             else
               extern;
@@ -62,9 +58,7 @@ let
       dependencies;
 
   # Create feature arguments for rustc.
-  mkRustcFeatureArgs = lib.concatMapStringsSep " " (
-    f: ''--cfg feature=\"${f}\"''
-  );
+  mkRustcFeatureArgs = lib.concatMapStringsSep " " (f: ''--cfg feature=\"${f}\"'');
 
   # Whether we need to use unstable command line flags
   #
@@ -240,8 +234,7 @@ lib.makeOverridable
 
     let
       crate =
-        crate_
-        // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_);
+        crate_ // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_);
       dependencies_ = dependencies;
       buildDependencies_ = buildDependencies;
       processedAttrs = [
@@ -327,9 +320,7 @@ lib.makeOverridable
         );
         completeBuildDeps = lib.unique (
           buildDependencies
-          ++
-            lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps)
-              buildDependencies
+          ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps) buildDependencies
         );
 
         # Create a list of features that are enabled by the crate itself and

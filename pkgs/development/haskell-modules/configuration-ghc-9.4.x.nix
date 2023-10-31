@@ -14,8 +14,7 @@ in
 with haskellLib;
 self: super:
 let
-  jailbreakForCurrentVersion =
-    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 {
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
@@ -70,9 +69,9 @@ in
 
   # consequences of doctest breakage follow:
 
-  ghc-source-gen =
-    checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build"
-      (markBroken super.ghc-source-gen);
+  ghc-source-gen = checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (
+    markBroken super.ghc-source-gen
+  );
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
@@ -117,8 +116,7 @@ in
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
   polyparse =
-    overrideCabal
-      (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
+    overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
       (doJailbreak super.polyparse);
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
@@ -247,9 +245,7 @@ in
   # https://github.com/tweag/ormolu/issues/941
   fourmolu =
     overrideCabal
-      (drv: {
-        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-      })
+      (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
       (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455

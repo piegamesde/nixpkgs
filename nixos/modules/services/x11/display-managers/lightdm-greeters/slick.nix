@@ -33,9 +33,7 @@ in
 {
   options = {
     services.xserver.displayManager.lightdm.greeters.slick = {
-      enable = mkEnableOption (
-        lib.mdDoc "lightdm-slick-greeter as the lightdm greeter"
-      );
+      enable = mkEnableOption (lib.mdDoc "lightdm-slick-greeter as the lightdm greeter");
 
       theme = {
         package = mkOption {

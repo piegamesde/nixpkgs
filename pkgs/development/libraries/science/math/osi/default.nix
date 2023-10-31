@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
       "--with-cplex-lib=-lcplex${cplex.libSuffix}"
     ];
 
-  NIX_LDFLAGS =
-    lib.optionalString withCplex
-      "-L${cplex}/cplex/bin/${cplex.libArch}";
+  NIX_LDFLAGS = lib.optionalString withCplex "-L${cplex}/cplex/bin/${cplex.libArch}";
 
   # Compile errors
   env.NIX_CFLAGS_COMPILE = "-Wno-cast-qual";

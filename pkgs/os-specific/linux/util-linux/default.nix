@@ -23,9 +23,7 @@
 stdenv.mkDerivation rec {
   pname =
     "util-linux"
-    +
-      lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport)
-        "-minimal";
+    + lib.optionalString (!nlsSupport && !ncursesSupport && !systemdSupport) "-minimal";
   version = "2.38.1";
 
   src = fetchurl {

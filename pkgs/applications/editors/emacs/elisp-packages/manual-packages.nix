@@ -63,9 +63,7 @@ in
     ;
   };
 
-  matrix-client = callPackage ./manual-packages/matrix-client {
-    _map = self.map;
-  };
+  matrix-client = callPackage ./manual-packages/matrix-client { _map = self.map; };
 
   ott-mode = callPackage ./manual-packages/ott-mode { };
 

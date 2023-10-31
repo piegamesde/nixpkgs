@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.services.node-red;
   defaultUser = "node-red";
-  finalPackage =
-    if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
+  finalPackage = if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
   node-red_withNpmAndGcc =
     pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
       ''
@@ -112,9 +111,7 @@ in
     define = mkOption {
       type = types.attrs;
       default = { };
-      description =
-        lib.mdDoc
-          "List of settings.js overrides to pass via -D to Node-RED.";
+      description = lib.mdDoc "List of settings.js overrides to pass via -D to Node-RED.";
       example = literalExpression ''
         {
           "logging.console.level" = "trace";
@@ -131,9 +128,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
-    };
+    users.groups = optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
 
     networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
@@ -153,9 +148,7 @@ in
             } --settings ${cfg.configFile} --port ${
               toString cfg.port
             } --userDir ${cfg.userDir} ${
-              concatStringsSep " " (
-                mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define
-              )
+              concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)
             }";
           PrivateTmp = true;
           Restart = "always";

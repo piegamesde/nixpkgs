@@ -87,8 +87,7 @@ makeSetupHook
             in
             testLib.runTest "basic-contains-dconf" (
               testLib.skip stdenv.isDarwin ''
-                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-                  "GIO_EXTRA_MODULES"
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GIO_EXTRA_MODULES"
                   "${dconf.lib}/lib/gio/modules"}
                 ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                   "GIO_EXTRA_MODULES"
@@ -151,8 +150,7 @@ makeSetupHook
               tested = typelib-user;
             in
             testLib.runTest "typelib-user-has-gi-typelib-path" ''
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-                "GI_TYPELIB_PATH"
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
                 "${typelib-Mahjong}/lib/girepository-1.0"}
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
@@ -207,8 +205,7 @@ makeSetupHook
               tested = typelib-multiout-user;
             in
             testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-                "GI_TYPELIB_PATH"
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
                 "${typelib-Bechamel.lib}/lib/girepository-1.0"}
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"
@@ -244,8 +241,7 @@ makeSetupHook
               tested = typelib-self-user;
             in
             testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo"
-                "GI_TYPELIB_PATH"
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
                 "${typelib-self-user}/lib/girepository-1.0"}
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar"
                 "GI_TYPELIB_PATH"

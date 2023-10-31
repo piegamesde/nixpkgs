@@ -73,8 +73,7 @@ let
     map
       (drv: {
         name = discard (toString drv);
-        value =
-          elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
+        value = elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
       })
       (builtins.attrNames references)
   );
@@ -90,12 +89,9 @@ let
   rewriteHashes =
     drv: hashes:
     runCommandLocal (drvName drv) { nixStore = "${nix.out}/bin/nix-store"; } ''
-      $nixStore --dump ${drv} | sed 's|${
-        baseNameOf drv
-      }|'$(basename $out)'|g' | sed -e ${
+      $nixStore --dump ${drv} | sed 's|${baseNameOf drv}|'$(basename $out)'|g' | sed -e ${
         concatStringsSep " -e " (
-          mapAttrsToList (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'")
-            hashes
+          mapAttrsToList (name: value: "'s|${baseNameOf name}|${baseNameOf value}|g'") hashes
         )
       } | $nixStore --restore $out
     '';
@@ -114,10 +110,7 @@ let
           name = discard (toString drv);
           value = rewriteHashes (builtins.storePath drv) (
             filterAttrs
-              (
-                n: v:
-                builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv)
-              )
+              (n: v: builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv))
               rewriteMemo
           );
         })

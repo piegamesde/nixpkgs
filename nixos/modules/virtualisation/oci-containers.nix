@@ -66,9 +66,7 @@ let
         cmd = mkOption {
           type = with types; listOf str;
           default = [ ];
-          description =
-            lib.mdDoc
-              "Commandline arguments to pass to the image's entrypoint.";
+          description = lib.mdDoc "Commandline arguments to pass to the image's entrypoint.";
           example = literalExpression ''
             ["--port=9000"]
           '';
@@ -189,9 +187,7 @@ let
         workdir = mkOption {
           type = with types; nullOr str;
           default = null;
-          description =
-            lib.mdDoc
-              "Override the default working directory for the container.";
+          description = lib.mdDoc "Override the default working directory for the container.";
           example = "/var/lib/hello_world";
         };
 
@@ -383,10 +379,7 @@ in
         "docker"
       ];
       default =
-        if versionAtLeast config.system.stateVersion "22.05" then
-          "podman"
-        else
-          "docker";
+        if versionAtLeast config.system.stateVersion "22.05" then "podman" else "docker";
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
 

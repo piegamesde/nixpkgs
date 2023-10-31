@@ -16,10 +16,7 @@ let
 
   mkDest =
     externalIP:
-    if externalIP == null then
-      "-j MASQUERADE"
-    else
-      "-j SNAT --to-source ${externalIP}";
+    if externalIP == null then "-j MASQUERADE" else "-j SNAT --to-source ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -90,8 +87,7 @@ let
             (
               loopbackip:
               let
-                matchIP =
-                  if isIPv6 fwd.destination then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
+                matchIP = if isIPv6 fwd.destination then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
                 m = builtins.match "${matchIP}:([0-9-]+)" fwd.destination;
                 destinationIP =
                   if m == null then throw "bad ip:ports `${fwd.destination}'" else elemAt m 0;
@@ -102,9 +98,7 @@ let
                     builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1);
               in
               ''
-                # Allow connections to ${loopbackip}:${
-                  toString fwd.sourcePort
-                } from the host itself
+                # Allow connections to ${loopbackip}:${toString fwd.sourcePort} from the host itself
                 ${iptables} -w -t nat -A nixos-nat-out \
                   -d ${loopbackip} -p ${fwd.proto} \
                   --dport ${builtins.toString fwd.sourcePort} \

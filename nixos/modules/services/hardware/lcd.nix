@@ -143,11 +143,9 @@ with lib; {
       mkIf (cfg.server.enable && cfg.server.openPorts)
         [ cfg.serverPort ];
 
-    services.udev.extraRules =
-      mkIf (cfg.server.enable && cfg.server.usbPermissions)
-        ''
-          ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${cfg.server.usbVid}", ATTRS{idProduct}=="${cfg.server.usbPid}", MODE="660", GROUP="${cfg.server.usbGroup}"
-        '';
+    services.udev.extraRules = mkIf (cfg.server.enable && cfg.server.usbPermissions) ''
+      ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${cfg.server.usbVid}", ATTRS{idProduct}=="${cfg.server.usbPid}", MODE="660", GROUP="${cfg.server.usbGroup}"
+    '';
 
     systemd.services = {
       lcdd = mkIf cfg.server.enable {

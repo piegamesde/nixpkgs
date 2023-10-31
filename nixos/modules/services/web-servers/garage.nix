@@ -23,9 +23,7 @@ in
 
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
-      description =
-        lib.mdDoc
-          "Extra environment variables to pass to the Garage server.";
+      description = lib.mdDoc "Extra environment variables to pass to the Garage server.";
       default = { };
       example = {
         RUST_BACKTRACE = "yes";

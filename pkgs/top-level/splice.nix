@@ -70,9 +70,7 @@ let
                     buildTarget = valueBuildTarget;
                   })
                   // (lib.optionalAttrs (pkgsHostHost ? ${name}) { hostHost = valueHostHost; })
-                  // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
-                    hostTarget = valueHostTarget;
-                  })
+                  // (lib.optionalAttrs (pkgsHostTarget ? ${name}) { hostTarget = valueHostTarget; })
                   // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
                     targetTarget = valueTargetTarget;
                   });

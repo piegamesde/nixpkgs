@@ -26,9 +26,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/dundee/gdu/v${
-      lib.versions.major version
-    }/build.Version=${version}"
+    "-X github.com/dundee/gdu/v${lib.versions.major version}/build.Version=${version}"
   ];
 
   postPatch = ''

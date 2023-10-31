@@ -421,9 +421,7 @@ in
         enable = mkEnableOption (lib.mdDoc "statsd monitoring for rippled");
 
         address = mkOption {
-          description =
-            lib.mdDoc
-              "The UDP address and port of the listening StatsD server.";
+          description = lib.mdDoc "The UDP address and port of the listening StatsD server.";
           default = "127.0.0.1:8125";
           type = types.str;
         };

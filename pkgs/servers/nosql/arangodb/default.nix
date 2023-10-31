@@ -23,10 +23,7 @@ let
     if gcc10Stdenv.targetPlatform.isx86 then "haswell" else "core";
 
   targetArch =
-    if targetArchitecture == null then
-      defaultTargetArchitecture
-    else
-      targetArchitecture;
+    if targetArchitecture == null then defaultTargetArchitecture else targetArchitecture;
 in
 
 gcc10Stdenv.mkDerivation rec {
@@ -83,9 +80,7 @@ gcc10Stdenv.mkDerivation rec {
     ]
     ++ lib.optionals asmOptimizations [
       "-DASM_OPTIMIZATIONS=ON"
-      "-DHAVE_SSE42=${
-        if gcc10Stdenv.targetPlatform.sse4_2Support then "ON" else "OFF"
-      }"
+      "-DHAVE_SSE42=${if gcc10Stdenv.targetPlatform.sse4_2Support then "ON" else "OFF"}"
     ];
 
   meta = with lib; {

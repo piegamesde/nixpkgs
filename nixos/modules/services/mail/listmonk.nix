@@ -23,19 +23,17 @@ let
       )
     )
   );
-  updateDatabaseConfigScript =
-    pkgs.writeShellScriptBin "update-database-config.sh"
+  updateDatabaseConfigScript = pkgs.writeShellScriptBin "update-database-config.sh" ''
+    ${if cfg.database.mutableSettings then
       ''
-        ${if cfg.database.mutableSettings then
-          ''
-            if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
-              ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
-              touch /var/lib/listmonk/.db_settings_initialized
-            fi
-          ''
-        else
-          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
-      '';
+        if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
+          ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
+          touch /var/lib/listmonk/.db_settings_initialized
+        fi
+      ''
+    else
+      "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
+  '';
 
   databaseSettingsOpts = with types; {
     freeformType = oneOf [
@@ -99,9 +97,7 @@ let
               };
               max_conns = mkOption {
                 type = types.int;
-                description =
-                  lib.mdDoc
-                    "Maximum number of simultaneous connections, defaults to 1";
+                description = lib.mdDoc "Maximum number of simultaneous connections, defaults to 1";
                 default = 1;
               };
               tls_type = mkOption {
@@ -157,9 +153,7 @@ in
         createLocally = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Create the PostgreSQL database and database user locally.";
+          description = lib.mdDoc "Create the PostgreSQL database and database user locally.";
         };
 
         settings = mkOption {

@@ -41,8 +41,7 @@ let
     aarch64-linux = "linux-aarch64";
   };
 
-  arch =
-    archs.${stdenv.system} or (throw "system ${stdenv.system} not supported");
+  arch = archs.${stdenv.system} or (throw "system ${stdenv.system} not supported");
   isAarch64Darwin = stdenv.system == "aarch64-darwin";
 
   nativeCheckInputs = [

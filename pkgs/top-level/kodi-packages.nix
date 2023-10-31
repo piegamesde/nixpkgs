@@ -54,9 +54,7 @@ let
 
     # package builders
 
-    buildKodiAddon =
-      callPackage ../applications/video/kodi/build-kodi-addon.nix
-        { };
+    buildKodiAddon = callPackage ../applications/video/kodi/build-kodi-addon.nix { };
 
     buildKodiBinaryAddon =
       callPackage ../applications/video/kodi/build-kodi-binary-addon.nix
@@ -82,17 +80,17 @@ let
 
     libretro = callPackage ../applications/video/kodi/addons/libretro { };
 
-    libretro-genplus =
-      callPackage ../applications/video/kodi/addons/libretro-genplus
-        { inherit genesis-plus-gx; };
+    libretro-genplus = callPackage ../applications/video/kodi/addons/libretro-genplus {
+      inherit genesis-plus-gx;
+    };
 
     libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba {
       inherit mgba;
     };
 
-    libretro-snes9x =
-      callPackage ../applications/video/kodi/addons/libretro-snes9x
-        { inherit snes9x; };
+    libretro-snes9x = callPackage ../applications/video/kodi/addons/libretro-snes9x {
+      inherit snes9x;
+    };
 
     jellyfin = callPackage ../applications/video/kodi/addons/jellyfin { };
 
@@ -110,9 +108,7 @@ let
       callPackage ../applications/video/kodi/addons/steam-controller
         { };
 
-    steam-launcher =
-      callPackage ../applications/video/kodi/addons/steam-launcher
-        { };
+    steam-launcher = callPackage ../applications/video/kodi/addons/steam-launcher { };
 
     steam-library = callPackage ../applications/video/kodi/addons/steam-library { };
 
@@ -122,17 +118,13 @@ let
 
     pvr-hdhomerun = callPackage ../applications/video/kodi/addons/pvr-hdhomerun { };
 
-    pvr-iptvsimple =
-      callPackage ../applications/video/kodi/addons/pvr-iptvsimple
-        { };
+    pvr-iptvsimple = callPackage ../applications/video/kodi/addons/pvr-iptvsimple { };
 
     osmc-skin = callPackage ../applications/video/kodi/addons/osmc-skin { };
 
     vfs-sftp = callPackage ../applications/video/kodi/addons/vfs-sftp { };
 
-    vfs-libarchive =
-      callPackage ../applications/video/kodi/addons/vfs-libarchive
-        { };
+    vfs-libarchive = callPackage ../applications/video/kodi/addons/vfs-libarchive { };
 
     visualization-waveform =
       callPackage ../applications/video/kodi/addons/visualization-waveform
@@ -178,9 +170,7 @@ let
 
     requests = callPackage ../applications/video/kodi/addons/requests { };
 
-    requests-cache =
-      callPackage ../applications/video/kodi/addons/requests-cache
-        { };
+    requests-cache = callPackage ../applications/video/kodi/addons/requests-cache { };
 
     routing = callPackage ../applications/video/kodi/addons/routing { };
 

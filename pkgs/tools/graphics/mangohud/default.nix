@@ -197,17 +197,15 @@ stdenv.mkDerivation (
 
     # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
     # This is needed for the same reason the 32bit preload workaround is needed.
-    postInstall =
-      lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux")
-        ''
-          ln -s ${mangohud32}/share/vulkan/implicit_layer.d/MangoHud.x86.json \
-            "$out/share/vulkan/implicit_layer.d"
+    postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+      ln -s ${mangohud32}/share/vulkan/implicit_layer.d/MangoHud.x86.json \
+        "$out/share/vulkan/implicit_layer.d"
 
-          ${lib.optionalString gamescopeSupport ''
-            ln -s ${mangohud32}/share/vulkan/implicit_layer.d/libMangoApp.x86.json \
-              "$out/share/vulkan/implicit_layer.d"
-          ''}
-        '';
+      ${lib.optionalString gamescopeSupport ''
+        ln -s ${mangohud32}/share/vulkan/implicit_layer.d/libMangoApp.x86.json \
+          "$out/share/vulkan/implicit_layer.d"
+      ''}
+    '';
 
     postFixup = ''
       # Add OpenGL driver path to RUNPATH to support NVIDIA cards

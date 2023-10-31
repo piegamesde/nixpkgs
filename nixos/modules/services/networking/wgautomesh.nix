@@ -19,10 +19,7 @@ let
       )
     );
   runtimeConfigFile =
-    if cfg.enableGossipEncryption then
-      "/run/wgautomesh/wgautomesh.toml"
-    else
-      configFile;
+    if cfg.enableGossipEncryption then "/run/wgautomesh/wgautomesh.toml" else configFile;
 in
 {
   options.services.wgautomesh = {
@@ -53,9 +50,7 @@ in
     enablePersistence = mkOption {
       type = types.bool;
       default = true;
-      description =
-        mdDoc
-          "Enable persistence of Wireguard peer info between restarts.";
+      description = mdDoc "Enable persistence of Wireguard peer info between restarts.";
     };
     openFirewall = mkOption {
       type = types.bool;
@@ -87,9 +82,7 @@ in
           lan_discovery = mkOption {
             type = types.bool;
             default = true;
-            description =
-              mdDoc
-                "Enable discovery of peers on the same LAN using UDP broadcast.";
+            description = mdDoc "Enable discovery of peers on the same LAN using UDP broadcast.";
           };
           upnp_forward_external_port = mkOption {
             type = types.nullOr types.port;

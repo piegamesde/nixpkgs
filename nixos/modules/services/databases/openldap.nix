@@ -9,8 +9,7 @@ with lib;
 let
   cfg = config.services.openldap;
   openldap = cfg.package;
-  configDir =
-    if cfg.configDir != null then cfg.configDir else "/etc/openldap/slapd.d";
+  configDir = if cfg.configDir != null then cfg.configDir else "/etc/openldap/slapd.d";
 
   ldapValueType =
     let
@@ -108,9 +107,7 @@ let
     [
       ''
         dn: ${dn}
-        ${lib.concatStringsSep "\n" (
-          lib.flatten (lib.mapAttrsToList valueToLdif attrs)
-        )}
+        ${lib.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList valueToLdif attrs))}
       ''
     ]
     ++ (map
@@ -272,13 +269,11 @@ in
 
   config =
     let
-      dbSettings =
-        mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs)
-          (
-            filterAttrs
-              (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
-              cfg.settings.children
-          );
+      dbSettings = mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs) (
+        filterAttrs
+          (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
+          cfg.settings.children
+      );
       settingsFile = pkgs.writeText "config.ldif" (
         lib.concatStringsSep "\n" (attrsToLdif "cn=config" cfg.settings)
       );

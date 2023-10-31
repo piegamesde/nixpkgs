@@ -395,14 +395,12 @@ in
       inherit initialRamdisk;
     };
 
-    boot.initrd.availableKernelModules =
-      [
-        # systemd needs this for some features
-        "autofs4"
-        # systemd-cryptenroll
-        "tpm-tis"
-      ]
-      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
+    boot.initrd.availableKernelModules = [
+      # systemd needs this for some features
+      "autofs4"
+      # systemd-cryptenroll
+      "tpm-tis"
+    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
 
     boot.initrd.systemd = {
       initrdBin = [
@@ -517,9 +515,7 @@ in
       targets.initrd.aliases = [ "default.target" ];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-        //
-          mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-            cfg.services
+        // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
         // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v)) cfg.slices
         // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v)) cfg.sockets
         // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets

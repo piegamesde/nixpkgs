@@ -19,9 +19,7 @@ with pkgs.lib;
         { args, name }:
         pkgs.writeScriptBin name ''
           #!${pkgs.runtimeShell}
-          exec ${pkgs.ctags}/bin/ctags ${
-            concatStringsSep " " (map escapeShellArg args)
-          } "$@"
+          exec ${pkgs.ctags}/bin/ctags ${concatStringsSep " " (map escapeShellArg args)} "$@"
         ''
       )
       {

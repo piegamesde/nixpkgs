@@ -14,9 +14,9 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      (stdenv.targetPlatform.config + "-");
+  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
+    stdenv.targetPlatform.config + "-"
+  );
 in
 
 makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
@@ -191,26 +191,22 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       lsusb = callPackage ../os-specific/darwin/lsusb { };
 
-      moltenvk =
-        pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/moltenvk
-          {
-            inherit (apple_sdk_11_0.frameworks)
-              AppKit
-              Foundation
-              Metal
-              QuartzCore
-            ;
-            inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
-            inherit (pkgs.darwin) cctools sigtool;
-          };
+      moltenvk = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/moltenvk {
+        inherit (apple_sdk_11_0.frameworks)
+          AppKit
+          Foundation
+          Metal
+          QuartzCore
+        ;
+        inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
+        inherit (pkgs.darwin) cctools sigtool;
+      };
 
       opencflite = callPackage ../os-specific/darwin/opencflite { };
 
-      openwith =
-        pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith
-          {
-            inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
-          };
+      openwith = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith {
+        inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
+      };
 
       stubs = pkgs.callPackages ../os-specific/darwin/stubs { };
 

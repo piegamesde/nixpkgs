@@ -57,9 +57,7 @@ in
 
     keysDir = mkOption {
       type = with types; nullOr str;
-      description =
-        mdDoc
-          "Directory containing ssh keys, defaulting to auto-generation";
+      description = mdDoc "Directory containing ssh keys, defaulting to auto-generation";
       default = null;
     };
   };

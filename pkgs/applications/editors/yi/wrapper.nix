@@ -8,9 +8,7 @@
   extraPackages ? (s: [ ]),
 }:
 let
-  yiEnv = haskellPackages.ghcWithPackages (
-    self: [ self.yi ] ++ extraPackages self
-  );
+  yiEnv = haskellPackages.ghcWithPackages (self: [ self.yi ] ++ extraPackages self);
 in
 stdenv.mkDerivation {
   pname = "yi-custom";

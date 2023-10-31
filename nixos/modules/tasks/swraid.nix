@@ -39,11 +39,9 @@ in
           "raid456"
         ];
 
-    boot.initrd.extraUdevRulesCommands =
-      lib.mkIf (!config.boot.initrd.systemd.enable)
-        ''
-          cp -v ${pkgs.mdadm}/lib/udev/rules.d/*.rules $out/
-        '';
+    boot.initrd.extraUdevRulesCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
+      cp -v ${pkgs.mdadm}/lib/udev/rules.d/*.rules $out/
+    '';
 
     boot.initrd.systemd = lib.mkIf cfg.enable {
       contents."/etc/mdadm.conf" = lib.mkIf (cfg.mdadmConf != "") {

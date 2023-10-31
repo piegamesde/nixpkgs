@@ -8,9 +8,7 @@
 }:
 
 let
-  kodiPackages = callPackage ../../../top-level/kodi-packages.nix {
-    inherit kodi;
-  };
+  kodiPackages = callPackage ../../../top-level/kodi-packages.nix { inherit kodi; };
 
   # linux distros are supposed to provide pillow and pycryptodome
   requiredPythonPath =
@@ -28,9 +26,7 @@ let
       addonsWithPythonPath = lib.filter (addon: addon ? pythonPath) addons;
     in
     lib.concatMapStringsSep ":"
-      (
-        addon: "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}"
-      )
+      (addon: "${addon}${kodiPackages.addonDir}/${addon.namespace}/${addon.pythonPath}")
       addonsWithPythonPath;
 in
 

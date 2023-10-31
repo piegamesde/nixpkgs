@@ -132,9 +132,7 @@ let
       ++ lib.optionals withLibseccomp [ libseccomp ]
       ++ lib.optionals withAWS [ aws-sdk-cpp ];
 
-    propagatedBuildInputs = [
-      boehmgc
-    ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
+    propagatedBuildInputs = [ boehmgc ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
 
     NIX_LDFLAGS = lib.optionals (!atLeast24) [
       # https://github.com/NixOS/nix/commit/3e85c57a6cbf46d5f0fe8a89b368a43abd26daba
@@ -168,19 +166,18 @@ let
         # removes config.nix entirely and is not present in 2.3.x, we need to
         # patch around an issue where the Nix configure step pulls in the build
         # system's bash and other utilities when cross-compiling.
-        lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24)
-          ''
-            mkdir tmp/
-            substitute corepkgs/config.nix.in tmp/config.nix.in \
-              --subst-var-by bash ${bash}/bin/bash \
-              --subst-var-by coreutils ${coreutils}/bin \
-              --subst-var-by bzip2 ${bzip2}/bin/bzip2 \
-              --subst-var-by gzip ${gzip}/bin/gzip \
-              --subst-var-by xz ${xz}/bin/xz \
-              --subst-var-by tar ${gnutar}/bin/tar \
-              --subst-var-by tr ${coreutils}/bin/tr
-            mv tmp/config.nix.in corepkgs/config.nix.in
-          '';
+        lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform && !atLeast24) ''
+          mkdir tmp/
+          substitute corepkgs/config.nix.in tmp/config.nix.in \
+            --subst-var-by bash ${bash}/bin/bash \
+            --subst-var-by coreutils ${coreutils}/bin \
+            --subst-var-by bzip2 ${bzip2}/bin/bzip2 \
+            --subst-var-by gzip ${gzip}/bin/gzip \
+            --subst-var-by xz ${xz}/bin/xz \
+            --subst-var-by tar ${gnutar}/bin/tar \
+            --subst-var-by tr ${coreutils}/bin/tr
+          mv tmp/config.nix.in corepkgs/config.nix.in
+        '';
 
     configureFlags =
       [
@@ -202,9 +199,9 @@ let
       ++ lib.optionals stdenv.isLinux [
         "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"
       ]
-      ++
-        lib.optionals (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic)
-          [ "--enable-embedded-sandbox-shell" ]
+      ++ lib.optionals (atLeast210 && stdenv.isLinux && stdenv.hostPlatform.isStatic) [
+        "--enable-embedded-sandbox-shell"
+      ]
       ++
         lib.optionals
           (
@@ -219,9 +216,7 @@ let
             # RISC-V support in progress https://github.com/seccomp/libseccomp/pull/50
             "--disable-seccomp-sandboxing"
           ]
-      ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [
-        "--enable-lto"
-      ];
+      ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [ "--enable-lto" ];
 
     makeFlags =
       [
@@ -231,8 +226,7 @@ let
         "--jobserver-style=pipe"
         "profiledir=$(out)/etc/profile.d"
       ]
-      ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "PRECOMPILE_HEADERS=0"
+      ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "PRECOMPILE_HEADERS=0"
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1";
 
     installFlags = [ "sysconfdir=$(out)/etc" ];

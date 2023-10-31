@@ -56,8 +56,7 @@ let
   disableBootstrap' = disableBootstrap && !langFortran && !langGo;
 
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
-  crossDarwin =
-    targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
+  crossDarwin = targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
 
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
@@ -296,14 +295,12 @@ let
       lib.optional (targetPlatform.libc == "musl")
         # musl at least, disable: https://git.buildroot.net/buildroot/commit/?id=873d4019f7fb00f6a80592224236b3ba7d657865
         "--disable-libmpx"
-    ++
-      lib.optionals (targetPlatform == hostPlatform && targetPlatform.libc == "musl")
-        [
-          "--disable-libsanitizer"
-          "--disable-symvers"
-          "libat_cv_have_ifunc=no"
-          "--disable-gnu-indirect-function"
-        ]
+    ++ lib.optionals (targetPlatform == hostPlatform && targetPlatform.libc == "musl") [
+      "--disable-libsanitizer"
+      "--disable-symvers"
+      "libat_cv_have_ifunc=no"
+      "--disable-gnu-indirect-function"
+    ]
     ++ lib.optionals langJit [ "--enable-host-shared" ]
     ++ lib.optionals (langD) [ "--with-target-system-zlib=yes" ];
 in

@@ -62,25 +62,22 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      libpng
-      libtiff
-      zlib
-      boostWithPython.dev
-      python3
-      embree
-      openexr
-      openimagedenoise
-      tbb
-      c-blosc
-      gtk3
-      pcre
-      openimageio_1.dev
-      openimageio_1.out
-    ]
-    ++ lib.optionals withOpenCL [ ocl-icd ]
-    ++ lib.optionals withCuda [ cudatoolkit ];
+  buildInputs = [
+    libpng
+    libtiff
+    zlib
+    boostWithPython.dev
+    python3
+    embree
+    openexr
+    openimagedenoise
+    tbb
+    c-blosc
+    gtk3
+    pcre
+    openimageio_1.dev
+    openimageio_1.out
+  ] ++ lib.optionals withOpenCL [ ocl-icd ] ++ lib.optionals withCuda [ cudatoolkit ];
 
   cmakeFlags =
     [ "-DPYTHON_V=${pythonVersion}" ]

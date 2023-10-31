@@ -8376,10 +8376,7 @@ let
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
       (
-        sources."@babel/preset-env-7.19.1"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/preset-env-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/runtime-7.19.0"
@@ -8841,10 +8838,7 @@ let
         }
       )
       (
-        sources."eslint-module-utils-2.7.4"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
+        sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; }
       )
       (
         sources."eslint-plugin-es-4.1.0"
@@ -8904,9 +8898,7 @@ let
       sources."espree-9.4.0"
       sources."esprima-4.0.1"
       (sources."esquery-1.4.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
-      (
-        sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; }
-      )
+      (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
       sources."estraverse-4.3.0"
       sources."estree-walker-2.0.2"
       sources."esutils-2.0.3"
@@ -9267,10 +9259,7 @@ let
       sources."postcss-discard-empty-5.1.1"
       sources."postcss-discard-overridden-5.1.0"
       (
-        sources."postcss-loader-6.2.1"
-        // {
-          dependencies = [ sources."cosmiconfig-7.0.1" ];
-        }
+        sources."postcss-loader-6.2.1" // { dependencies = [ sources."cosmiconfig-7.0.1" ]; }
       )
       sources."postcss-merge-longhand-5.1.6"
       sources."postcss-merge-rules-5.1.2"
@@ -9303,9 +9292,7 @@ let
       sources."pretty-error-4.0.0"
       sources."process-nextick-args-2.0.1"
       sources."progress-webpack-plugin-1.0.16"
-      (
-        sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; }
-      )
+      (sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; })
       sources."pseudomap-1.0.2"
       sources."pump-3.0.0"
       sources."punycode-2.1.1"
@@ -9315,9 +9302,7 @@ let
       sources."range-parser-1.2.1"
       (sources."raw-body-2.5.1" // { dependencies = [ sources."bytes-3.1.2" ]; })
       sources."read-pkg-5.2.0"
-      (
-        sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; }
-      )
+      (sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; })
       sources."readable-stream-3.6.0"
       sources."readdirp-3.6.0"
       sources."regenerate-1.4.2"
@@ -9403,10 +9388,7 @@ let
       sources."string.prototype.trimend-1.0.5"
       sources."string.prototype.trimstart-1.0.5"
       (
-        sources."string_decoder-1.3.0"
-        // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
       sources."strip-ansi-6.0.1"
       sources."strip-bom-3.0.0"
@@ -9431,10 +9413,7 @@ let
       sources."thenify-3.3.1"
       sources."thenify-all-1.6.0"
       (
-        sources."thread-loader-3.0.4"
-        // {
-          dependencies = [ sources."schema-utils-3.1.1" ];
-        }
+        sources."thread-loader-3.0.4" // { dependencies = [ sources."schema-utils-3.1.1" ]; }
       )
       sources."thunky-1.1.0"
       sources."to-fast-properties-2.0.0"
@@ -9455,9 +9434,7 @@ let
           ];
         }
       )
-      (
-        sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; }
-      )
+      (sources."tsconfig-paths-3.14.1" // { dependencies = [ sources."json5-1.0.1" ]; })
       sources."tslib-1.14.1"
       sources."tsutils-3.21.0"
       sources."type-check-0.4.0"
@@ -9526,9 +9503,7 @@ let
       sources."wbuf-1.7.3"
       sources."wcwidth-1.0.1"
       sources."webidl-conversions-3.0.1"
-      (
-        sources."webpack-5.74.0" // { dependencies = [ sources."schema-utils-3.1.1" ]; }
-      )
+      (sources."webpack-5.74.0" // { dependencies = [ sources."schema-utils-3.1.1" ]; })
       (
         sources."webpack-bundle-analyzer-4.6.1"
         // {
@@ -9543,12 +9518,7 @@ let
           ];
         }
       )
-      (
-        sources."webpack-chain-6.5.1"
-        // {
-          dependencies = [ sources."deepmerge-1.5.2" ];
-        }
-      )
+      (sources."webpack-chain-6.5.1" // { dependencies = [ sources."deepmerge-1.5.2" ]; })
       (
         sources."webpack-dev-middleware-5.3.3"
         // {

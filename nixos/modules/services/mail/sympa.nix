@@ -63,8 +63,7 @@ let
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
   robotConfig =
-    fqdn: domain:
-    pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
+    fqdn: domain: pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
 
   transport = pkgs.writeText "transport.sympa" (
     concatStringsSep "\n" (
@@ -258,9 +257,7 @@ in
       user = mkOption {
         type = nullOr str;
         default = user;
-        description =
-          lib.mdDoc
-            "Database user. The system user name is used as a default.";
+        description = lib.mdDoc "Database user. The system user name is used as a default.";
       };
 
       passwordFile = mkOption {

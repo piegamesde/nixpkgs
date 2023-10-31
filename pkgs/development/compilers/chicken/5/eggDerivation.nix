@@ -36,9 +36,7 @@ in
       runHook preInstall
 
       export CHICKEN_INSTALL_PREFIX=$out
-      export CHICKEN_INSTALL_REPOSITORY=$out/lib/chicken/${
-        toString chicken.binaryVersion
-      }
+      export CHICKEN_INSTALL_REPOSITORY=$out/lib/chicken/${toString chicken.binaryVersion}
       chicken-install -cached ${lib.concatStringsSep " " chickenInstallFlags}
 
       for f in $out/bin/*

@@ -139,9 +139,7 @@ let
 in
 {
   options = {
-    services.consul-template.instances = commonOptions {
-      pkgName = "consul-template";
-    };
+    services.consul-template.instances = commonOptions { pkgName = "consul-template"; };
     services.vault-agent.instances = commonOptions {
       pkgName = "vault";
       flavour = "vault-agent";

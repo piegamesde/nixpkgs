@@ -25,9 +25,7 @@ python3Packages.buildPythonPackage rec {
     substituteInPlace pyproject.toml \
       --replace 'fido2 = ">=0.9, <1.0"' 'fido2 = ">*"'
     substituteInPlace "ykman/pcsc/__init__.py" \
-      --replace 'pkill' '${
-        if stdenv.isLinux then "${procps}" else "/usr"
-      }/bin/pkill'
+      --replace 'pkill' '${if stdenv.isLinux then "${procps}" else "/usr"}/bin/pkill'
   '';
 
   nativeBuildInputs = with python3Packages; [ poetry-core ];

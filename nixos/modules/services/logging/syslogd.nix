@@ -12,8 +12,7 @@ let
   cfg = config.services.syslogd;
 
   syslogConf = pkgs.writeText "syslog.conf" ''
-    ${optionalString (cfg.tty != "")
-      "kern.warning;*.err;authpriv.none /dev/${cfg.tty}"}
+    ${optionalString (cfg.tty != "") "kern.warning;*.err;authpriv.none /dev/${cfg.tty}"}
     ${cfg.defaultConfig}
     ${cfg.extraConfig}
   '';

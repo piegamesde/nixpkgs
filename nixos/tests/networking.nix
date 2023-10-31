@@ -1344,9 +1344,7 @@ mapAttrs
     makeTest (
       attrs
       // {
-        name = "${attrs.name}-Networking-${
-            if networkd then "Networkd" else "Scripted"
-          }";
+        name = "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}";
       }
     )
   ))

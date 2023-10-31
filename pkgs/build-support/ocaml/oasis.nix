@@ -19,8 +19,7 @@
 }@args:
 
 if
-  args ? minimumOCamlVersion
-  && lib.versionOlder ocaml.version args.minimumOCamlVersion
+  args ? minimumOCamlVersion && lib.versionOlder ocaml.version args.minimumOCamlVersion
 then
   throw "${pname}-${version} is not available for OCaml ${ocaml.version}"
 else

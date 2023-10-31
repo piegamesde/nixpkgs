@@ -1387,9 +1387,7 @@ let
       sources."buffer-writer-2.0.0"
       sources."busboy-0.2.4"
       sources."camelcase-6.3.0"
-      (
-        sources."chalk-4.1.2" // { dependencies = [ sources."supports-color-7.2.0" ]; }
-      )
+      (sources."chalk-4.1.2" // { dependencies = [ sources."supports-color-7.2.0" ]; })
       sources."chokidar-3.5.1"
       (
         sources."cliui-7.0.4"

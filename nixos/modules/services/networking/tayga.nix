@@ -33,9 +33,7 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (
-            n: n >= 0 && n <= (if v == 4 then 32 else 128)
-          );
+          type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix ("${if v == 4 then "24" else "64"}").
@@ -56,9 +54,7 @@ let
       address = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "The source IPv${toString v} address of the TAYGA server.";
+        description = lib.mdDoc "The source IPv${toString v} address of the TAYGA server.";
       };
 
       pool = mkOption {

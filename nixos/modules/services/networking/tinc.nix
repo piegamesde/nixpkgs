@@ -367,12 +367,8 @@ in
                     PrivateKeyFile = mkIf (config.rsaPrivateKeyFile != null) (
                       mkDefault config.rsaPrivateKeyFile
                     );
-                    ListenAddress = mkIf (config.listenAddress != null) (
-                      mkDefault config.listenAddress
-                    );
-                    BindToAddress = mkIf (config.bindToAddress != null) (
-                      mkDefault config.bindToAddress
-                    );
+                    ListenAddress = mkIf (config.listenAddress != null) (mkDefault config.listenAddress);
+                    BindToAddress = mkIf (config.bindToAddress != null) (mkDefault config.bindToAddress);
                   };
                 };
               }

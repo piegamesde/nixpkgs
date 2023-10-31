@@ -49,8 +49,7 @@ buildPythonPackage rec {
       pytestCheckHook
       requests
     ]
-    ++ passthru.optional-dependencies.watchdog
-    ++ passthru.optional-dependencies.aiohttp;
+    ++ passthru.optional-dependencies.watchdog ++ passthru.optional-dependencies.aiohttp;
 
   pythonImportsCheck = [ "telebot" ];
 

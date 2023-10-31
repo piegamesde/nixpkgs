@@ -182,8 +182,7 @@ let
             "-DCURSES_LIBRARY=${ncurses.out}/lib/libncurses.dylib"
           ]
           ++
-            lib.optionals
-              (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6")
+            lib.optionals (stdenv.hostPlatform.isDarwin && lib.versionAtLeast version "10.6")
               [
                 # workaround for https://jira.mariadb.org/browse/MDEV-29925
                 "-Dhave_C__Wl___as_needed="

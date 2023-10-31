@@ -107,10 +107,7 @@ stdenv.mkDerivation (
     postFixup =
       let
         abiVersion-extension =
-          if stdenv.isDarwin then
-            "${abiVersion}.$dylibtype"
-          else
-            "$dylibtype.${abiVersion}";
+          if stdenv.isDarwin then "${abiVersion}.$dylibtype" else "$dylibtype.${abiVersion}";
       in
       ''
         # Determine what suffixes our libraries have
@@ -171,11 +168,9 @@ stdenv.mkDerivation (
         moveToOutput "bin/infocmp" "$out"
       '';
 
-    preFixup =
-      lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic)
-        ''
-          rm "$out"/lib/*.a
-        '';
+    preFixup = lib.optionalString (!stdenv.hostPlatform.isCygwin && !enableStatic) ''
+      rm "$out"/lib/*.a
+    '';
 
     meta = with lib; {
       homepage = "https://www.gnu.org/software/ncurses/";

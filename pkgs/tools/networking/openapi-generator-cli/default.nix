@@ -42,9 +42,7 @@ let
       maintainers = [ maintainers.shou ];
     };
 
-    passthru.tests.example = callPackage ./example.nix {
-      openapi-generator-cli = this;
-    };
+    passthru.tests.example = callPackage ./example.nix { openapi-generator-cli = this; };
   };
 in
 this

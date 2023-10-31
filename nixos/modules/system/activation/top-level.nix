@@ -11,11 +11,9 @@ let
   systemBuilder =
     let
       kernelPath =
-        "${config.boot.kernelPackages.kernel}/"
-        + "${config.system.boot.loader.kernelFile}";
+        "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
       initrdPath =
-        "${config.system.build.initialRamdisk}/"
-        + "${config.system.boot.loader.initrdFile}";
+        "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
     in
     ''
       mkdir $out
@@ -142,9 +140,7 @@ let
 
   # Handle assertions and warnings
 
-  failedAssertions = map (x: x.message) (
-    filter (x: !x.assertion) config.assertions
-  );
+  failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
 
   baseSystemAssertWarn =
     if failedAssertions != [ ] then
@@ -358,10 +354,7 @@ in
     system.name = mkOption {
       type = types.str;
       default =
-        if config.networking.hostName == "" then
-          "unnamed"
-        else
-          config.networking.hostName;
+        if config.networking.hostName == "" then "unnamed" else config.networking.hostName;
       defaultText = literalExpression ''
         if config.networking.hostName == ""
         then "unnamed"

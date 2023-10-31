@@ -147,9 +147,7 @@ with lib;
       boot.kernelParams = [ "nosmt" ];
     })
 
-    (mkIf config.security.forcePageTableIsolation {
-      boot.kernelParams = [ "pti=on" ];
-    })
+    (mkIf config.security.forcePageTableIsolation { boot.kernelParams = [ "pti=on" ]; })
 
     (mkIf (config.security.virtualisation.flushL1DataCache != null) {
       boot.kernelParams = [

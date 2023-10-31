@@ -196,8 +196,7 @@ in
                       p
                     ])
                     cfg.exclude
-                ++ (lib.optionals
-                  (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always")
+                ++ (lib.optionals (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always")
                   [
                     "--full-if-older-than"
                     cfg.fullIfOlderThan
@@ -217,9 +216,7 @@ in
           // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; };
       } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
 
-      tmpfiles.rules =
-        optional (localTarget != null)
-          "d ${localTarget} 0700 root root -";
+      tmpfiles.rules = optional (localTarget != null) "d ${localTarget} 0700 root root -";
     };
 
     assertions = singleton {

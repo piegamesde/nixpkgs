@@ -269,8 +269,7 @@ rec {
       merged =
         let
           collected =
-            collectModules (specialArgs.modulesPath or "")
-              (regularModules ++ [ internalModule ])
+            collectModules (specialArgs.modulesPath or "") (regularModules ++ [ internalModule ])
               (
                 {
                   inherit
@@ -304,10 +303,7 @@ rec {
                   })
                   merged.unmatchedDefns;
             in
-            if defs == [ ] then
-              { }
-            else
-              declaredConfig._module.freeformType.merge prefix defs;
+            if defs == [ ] then { } else declaredConfig._module.freeformType.merge prefix defs;
         in
         if declaredConfig._module.freeformType == null then
           declaredConfig
@@ -332,8 +328,9 @@ rec {
                   builtins.addErrorContext
                     "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
                     (
-                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'"
-                        (showDefs [ firstDef ])
+                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (
+                        showDefs [ firstDef ]
+                      )
                     );
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
@@ -352,9 +349,7 @@ rec {
               throw ''
                 ${baseMsg}
 
-                However there are no options defined in `${
-                  showOption prefix
-                }'. Are you sure you've
+                However there are no options defined in `${showOption prefix}'. Are you sure you've
                 declared your options properly? This can happen if you e.g. declared your options in `types.submodule'
                 under `config' rather than `options'.
               ''
@@ -600,25 +595,23 @@ rec {
         }
     else
       # shorthand syntax
-      lib.throwIfNot (isAttrs m)
-        "module ${file} (${key}) does not look like a module."
-        {
-          _file = toString m._file or file;
-          key = toString m.key or key;
-          disabledModules = m.disabledModules or [ ];
-          imports = m.require or [ ] ++ m.imports or [ ];
-          options = { };
-          config = addFreeformType (
-            removeAttrs m [
-              "_file"
-              "key"
-              "disabledModules"
-              "require"
-              "imports"
-              "freeformType"
-            ]
-          );
-        };
+      lib.throwIfNot (isAttrs m) "module ${file} (${key}) does not look like a module." {
+        _file = toString m._file or file;
+        key = toString m.key or key;
+        disabledModules = m.disabledModules or [ ];
+        imports = m.require or [ ] ++ m.imports or [ ];
+        options = { };
+        config = addFreeformType (
+          removeAttrs m [
+            "_file"
+            "key"
+            "disabledModules"
+            "require"
+            "imports"
+            "freeformType"
+          ]
+        );
+      };
 
   applyModuleArgsIfFunction =
     key: f:
@@ -647,9 +640,7 @@ rec {
           builtins.mapAttrs
             (
               name: _:
-              builtins.addErrorContext (context name) (
-                args.${name} or config._module.args.${name}
-              )
+              builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})
             )
             (lib.functionArgs f);
       in
@@ -983,8 +974,7 @@ rec {
             # For a better error message, evaluate all readOnly definitions as
             # if they were the only definition.
             separateDefs =
-              map
-                (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; })
+              map (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; })
                 defs';
           in
           throw
@@ -1071,9 +1061,7 @@ rec {
           throw
             "A definition for option `${
               showOption loc
-            }' is not of type `${type.description}'. Definition values:${
-              showDefs allInvalid
-            }"
+            }' is not of type `${type.description}'. Definition values:${showDefs allInvalid}"
       else
         # (nixos-option detects this specific error message and gives it special
         # handling.  If changed here, please change it there too.)
@@ -1106,9 +1094,7 @@ rec {
     else if cfg._type or "" == "if" then
       map (mapAttrs (n: v: mkIf cfg.condition v)) (pushDownProperties cfg.content)
     else if cfg._type or "" == "override" then
-      map (mapAttrs (n: v: mkOverride cfg.priority v)) (
-        pushDownProperties cfg.content
-      )
+      map (mapAttrs (n: v: mkOverride cfg.priority v)) (pushDownProperties cfg.content)
     else # FIXME: handle mkOrder?
       [ cfg ];
 
@@ -1198,8 +1184,7 @@ rec {
           def;
       defs' = map strip defs;
       compare =
-        a: b:
-        (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
+        a: b: (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
     in
     sort compare defs';
 
@@ -1472,9 +1457,7 @@ rec {
                 optionalString (val != "_mkMergedOptionModule")
                   "The option `${showOption f}' defined in ${
                     showFiles opt.files
-                  } has been changed to `${
-                    showOption to
-                  }' that has a different type. Please read `${
+                  } has been changed to `${showOption to}' that has a different type. Please read `${
                     showOption to
                   }' documentation and update your configuration accordingly."
               )

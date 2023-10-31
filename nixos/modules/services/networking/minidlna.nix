@@ -224,9 +224,7 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      cfg.settings.port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.port ];
     networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 1900 ];
 
     users.users.minidlna = {

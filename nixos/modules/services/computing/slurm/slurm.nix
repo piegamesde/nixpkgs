@@ -20,8 +20,7 @@ let
     ClusterName=${cfg.clusterName}
     StateSaveLocation=${cfg.stateSaveLocation}
     SlurmUser=${cfg.user}
-    ${optionalString (cfg.controlMachine != null)
-      "controlMachine=${cfg.controlMachine}"}
+    ${optionalString (cfg.controlMachine != null) "controlMachine=${cfg.controlMachine}"}
     ${optionalString (cfg.controlAddr != null) "controlAddr=${cfg.controlAddr}"}
     ${toString (
       map
@@ -43,8 +42,7 @@ let
   '';
 
   plugStackConfig = pkgs.writeTextDir "plugstack.conf" ''
-    ${optionalString cfg.enableSrunX11
-      "optional ${pkgs.slurm-spank-x11}/lib/x11.so"}
+    ${optionalString cfg.enableSrunX11 "optional ${pkgs.slurm-spank-x11}/lib/x11.so"}
     ${cfg.extraPlugstackConfig}
   '';
 
@@ -374,12 +372,7 @@ in
       };
     in
     mkIf
-      (
-        cfg.enableStools
-        || cfg.client.enable
-        || cfg.server.enable
-        || cfg.dbdserver.enable
-      )
+      (cfg.enableStools || cfg.client.enable || cfg.server.enable || cfg.dbdserver.enable)
       {
 
         environment.systemPackages = [ wrappedSlurm ];
@@ -428,9 +421,7 @@ in
           "d /var/spool/slurmd 755 root root -"
         ];
 
-        services.openssh.settings.X11Forwarding = mkIf cfg.client.enable (
-          mkDefault true
-        );
+        services.openssh.settings.X11Forwarding = mkIf cfg.client.enable (mkDefault true);
 
         systemd.services.slurmctld = mkIf (cfg.server.enable) {
           path =

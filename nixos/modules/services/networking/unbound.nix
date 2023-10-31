@@ -101,9 +101,7 @@ in
       enableRootTrustAnchor = mkOption {
         default = true;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Use and update root trust anchor for DNSSEC validation.";
+        description = lib.mdDoc "Use and update root trust anchor for DNSSEC validation.";
       };
 
       localControlSocketPath = mkOption {
@@ -220,8 +218,7 @@ in
           [ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1")
         );
         access-control = mkDefault (
-          [ "127.0.0.0/8 allow" ]
-          ++ (optional config.networking.enableIPv6 "::1/128 allow")
+          [ "127.0.0.0/8 allow" ] ++ (optional config.networking.enableIPv6 "::1/128 allow")
         );
         auto-trust-anchor-file = mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";

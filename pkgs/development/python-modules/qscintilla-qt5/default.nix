@@ -35,9 +35,7 @@ buildPythonPackage rec {
     pythonPackages.setuptools
   ];
   buildInputs = [ qtbase ];
-  propagatedBuildInputs = [
-    pyqt5
-  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
+  propagatedBuildInputs = [ pyqt5 ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   dontWrapQtApps = true;
 

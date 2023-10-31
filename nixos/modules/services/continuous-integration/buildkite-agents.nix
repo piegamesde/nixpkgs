@@ -272,9 +272,7 @@ in
       };
     }
   );
-  config.users.groups = mapAgents (
-    name: cfg: { "buildkite-agent-${name}" = { }; }
-  );
+  config.users.groups = mapAgents (name: cfg: { "buildkite-agent-${name}" = { }; });
 
   config.systemd.services = mapAgents (
     name: cfg: {

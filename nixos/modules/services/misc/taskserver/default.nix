@@ -502,9 +502,7 @@ in
               {
                 cert = "${cfg.pki.manual.server.cert}";
                 key = "${cfg.pki.manual.server.key}";
-                ${
-                  mapNullable (_: "crl") cfg.pki.manual.server.crl
-                } = "${cfg.pki.manual.server.crl}";
+                ${mapNullable (_: "crl") cfg.pki.manual.server.crl} = "${cfg.pki.manual.server.crl}";
               }
           );
 

@@ -31,9 +31,7 @@ let
   androidArgs = builtins.intersectAttrs androidSdkFormalArgs args;
   androidsdk = (composeAndroidPackages androidArgs).androidsdk;
 
-  extraArgs = removeAttrs args (
-    [ "name" ] ++ builtins.attrNames androidSdkFormalArgs
-  );
+  extraArgs = removeAttrs args ([ "name" ] ++ builtins.attrNames androidSdkFormalArgs);
 in
 stdenv.mkDerivation (
   {

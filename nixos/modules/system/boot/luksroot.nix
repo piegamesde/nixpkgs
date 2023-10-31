@@ -258,8 +258,7 @@ let
                 if wait_target "key file" ${dev.keyFile}; then
                     ${csopen} --key-file=${dev.keyFile} \
                       ${
-                        optionalString (dev.keyFileSize != null)
-                          "--keyfile-size=${toString dev.keyFileSize}"
+                        optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"
                       } \
                       ${
                         optionalString (dev.keyFileOffset != null)
@@ -328,9 +327,7 @@ let
             salt="$(cat /crypt-storage${dev.yubikey.storage.path} | sed -n 1p | tr -d '\n')"
             iterations="$(cat /crypt-storage${dev.yubikey.storage.path} | sed -n 2p | tr -d '\n')"
             challenge="$(echo -n $salt | openssl-wrap dgst -binary -sha512 | rbtohex)"
-            response="$(ykchalresp -${
-              toString dev.yubikey.slot
-            } -x $challenge 2>/dev/null)"
+            response="$(ykchalresp -${toString dev.yubikey.slot} -x $challenge 2>/dev/null)"
 
             for try in $(seq 3); do
                 ${
@@ -618,9 +615,7 @@ let
                 "no-write-workqueue"
               ]
               ++ optional (v.header != null) "header=${v.header}"
-              ++
-                optional (v.keyFileOffset != null)
-                  "keyfile-offset=${toString v.keyFileOffset}"
+              ++ optional (v.keyFileOffset != null) "keyfile-offset=${toString v.keyFileOffset}"
               ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
               ++
                 optional (v.keyFileTimeout != null)
@@ -737,9 +732,7 @@ in
                   default = name;
                   example = "luksroot";
                   type = types.str;
-                  description =
-                    lib.mdDoc
-                      "Name of the unencrypted device in {file}`/dev/mapper`.";
+                  description = lib.mdDoc "Name of the unencrypted device in {file}`/dev/mapper`.";
                 };
 
                 device = mkOption {
@@ -963,9 +956,7 @@ in
                           keyLength = mkOption {
                             default = 64;
                             type = types.int;
-                            description =
-                              lib.mdDoc
-                                "Length of the LUKS slot key derived with PBKDF2 in byte.";
+                            description = lib.mdDoc "Length of the LUKS slot key derived with PBKDF2 in byte.";
                           };
 
                           iterationStep = mkOption {
@@ -1124,8 +1115,7 @@ in
       }
       {
         assertion =
-          config.boot.initrd.systemd.enable
-          -> all (dev: dev.preLVM) (attrValues luks.devices);
+          config.boot.initrd.systemd.enable -> all (dev: dev.preLVM) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
       {
@@ -1238,24 +1228,22 @@ in
         ''}
       '';
 
-    boot.initrd.extraUtilsCommandsTest =
-      mkIf (!config.boot.initrd.systemd.enable)
-        ''
-          $out/bin/cryptsetup --version
-          ${optionalString luks.yubikeySupport ''
-            $out/bin/ykchalresp -V
-            $out/bin/ykinfo -V
-            $out/bin/openssl-wrap version
-          ''}
-          ${optionalString luks.gpgSupport ''
-            $out/bin/gpg --version
-            $out/bin/gpg-agent --version
-            $out/bin/scdaemon --version
-          ''}
-          ${optionalString luks.fido2Support ''
-            $out/bin/fido2luks --version
-          ''}
-        '';
+    boot.initrd.extraUtilsCommandsTest = mkIf (!config.boot.initrd.systemd.enable) ''
+      $out/bin/cryptsetup --version
+      ${optionalString luks.yubikeySupport ''
+        $out/bin/ykchalresp -V
+        $out/bin/ykinfo -V
+        $out/bin/openssl-wrap version
+      ''}
+      ${optionalString luks.gpgSupport ''
+        $out/bin/gpg --version
+        $out/bin/gpg-agent --version
+        $out/bin/scdaemon --version
+      ''}
+      ${optionalString luks.fido2Support ''
+        $out/bin/fido2luks --version
+      ''}
+    '';
 
     boot.initrd.systemd = {
       contents."/etc/crypttab".source = stage1Crypttab;
@@ -1275,9 +1263,7 @@ in
     # We do this because we need the udev rules from the package
     boot.initrd.services.lvm.enable = true;
 
-    boot.initrd.preFailCommands =
-      mkIf (!config.boot.initrd.systemd.enable)
-        postCommands;
+    boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) postCommands;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
       commonFunctions
       + preCommands

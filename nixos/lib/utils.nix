@@ -10,8 +10,7 @@ rec {
   # Copy configuration files to avoid having the entire sources in the system closure
   copyFile =
     filePath:
-    pkgs.runCommand
-      (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath))
+    pkgs.runCommand (builtins.unsafeDiscardStringContext (builtins.baseNameOf filePath))
       { }
       ''
         cp ${filePath} $out
@@ -267,9 +266,7 @@ rec {
     + "${pkgs.jq}/bin/jq >'${output}' "
     + lib.escapeShellArg (
       concatStringsSep " | " (
-        imap1 (index: name: "${name} = $ENV.secret${toString index}") (
-          attrNames secrets
-        )
+        imap1 (index: name: "${name} = $ENV.secret${toString index}") (attrNames secrets)
       )
     )
     + ''

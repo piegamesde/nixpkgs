@@ -32,9 +32,7 @@ let
   enable32BitAlsaPlugins =
     cfg.support32Bit
     && stdenv.isx86_64
-    && (
-      pkgs.pkgsi686Linux.alsa-lib != null && pkgs.pkgsi686Linux.libpulseaudio != null
-    );
+    && (pkgs.pkgsi686Linux.alsa-lib != null && pkgs.pkgsi686Linux.libpulseaudio != null);
 
   myConfigFile =
     let
@@ -170,10 +168,7 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if config.services.jack.jackd.enable then
-            pkgs.pulseaudioFull
-          else
-            pkgs.pulseaudio;
+          if config.services.jack.jackd.enable then pkgs.pulseaudioFull else pkgs.pulseaudio;
         defaultText = literalExpression "pkgs.pulseaudio";
         example = literalExpression "pkgs.pulseaudioFull";
         description = lib.mdDoc ''
@@ -208,9 +203,7 @@ in
         config = mkOption {
           type = types.attrsOf types.unspecified;
           default = { };
-          description =
-            lib.mdDoc
-              "Config of the pulse daemon. See `man pulse-daemon.conf`.";
+          description = lib.mdDoc "Config of the pulse daemon. See `man pulse-daemon.conf`.";
           example = literalExpression ''{ realtime-scheduling = "yes"; }'';
         };
       };

@@ -55,10 +55,7 @@ let
 
   withPackages =
     arg:
-    if builtins.isAttrs arg then
-      withPackages' arg
-    else
-      withPackages' { pkgs = arg; };
+    if builtins.isAttrs arg then withPackages' arg else withPackages' { pkgs = arg; };
 
   extensions = [
     "agda"
@@ -86,9 +83,7 @@ let
       ...
     }:
     let
-      agdaWithArgs = withPackages (
-        builtins.filter (p: p ? isAgdaDerivation) buildInputs
-      );
+      agdaWithArgs = withPackages (builtins.filter (p: p ? isAgdaDerivation) buildInputs);
       includePathArgs = concatMapStrings (path: "-i" + path + " ") (
         includePaths ++ [ (dirOf everythingFile) ]
       );
@@ -120,9 +115,7 @@ let
             find -not \( -path ${everythingFile} -or -path ${
               lib.interfaceFile everythingFile
             } \) -and \( ${
-              concatMapStringsSep " -or " (p: "-name '*.${p}'") (
-                extensions ++ extraExtensions
-              )
+              concatMapStringsSep " -or " (p: "-name '*.${p}'") (extensions ++ extraExtensions)
             } \) -exec cp -p --parents -t "$out" {} +
             runHook postInstall
           '';

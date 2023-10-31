@@ -51,8 +51,7 @@ let
   hostPortToString = { host, port }: "${host}:${builtins.toString port}";
   localRemoteToString =
     { local, remote }:
-    utils.escapeSystemdExecArg
-      "${hostPortToString local}:${hostPortToString remote}";
+    utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
   commonOptions = {
     enable = mkOption {
       description = mdDoc "Whether to enable this `wstunnel` instance.";
@@ -63,9 +62,7 @@ let
     package = mkPackageOptionMD pkgs "wstunnel" { };
 
     autoStart = mkOption {
-      description =
-        mdDoc
-          "Whether this tunnel server should be started automatically.";
+      description = mdDoc "Whether this tunnel server should be started automatically.";
       type = types.bool;
       default = true;
     };
@@ -418,16 +415,13 @@ let
             } \
             ${
               optionalString (dynamicToRemote != null)
-                "--dynamicToRemote=${
-                  utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)
-                }"
+                "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
             } \
             ${optionalString udp "--udp"} \
             ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
             ${optionalString (soMark != null) "--soMark=${toString soMark}"} \
             ${
-              optionalString (upgradePathPrefix != null)
-                "--upgradePathPrefix=${upgradePathPrefix}"
+              optionalString (upgradePathPrefix != null) "--upgradePathPrefix=${upgradePathPrefix}"
             } \
             ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
             ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
@@ -558,8 +552,7 @@ in
       )
       ++ (mapAttrsToList
         (name: clientCfg: {
-          assertion =
-            !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
+          assertion = !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
           message = ''
             Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
           '';

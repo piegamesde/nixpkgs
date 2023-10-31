@@ -141,9 +141,7 @@ let
 
           # Needed for elm-format
           avh4-lib = doJailbreak (self.callPackage ./packages/avh4-lib.nix { });
-          elm-format-lib = doJailbreak (
-            self.callPackage ./packages/elm-format-lib.nix { }
-          );
+          elm-format-lib = doJailbreak (self.callPackage ./packages/elm-format-lib.nix { });
           elm-format-test-lib = self.callPackage ./packages/elm-format-test-lib.nix { };
           elm-format-markdown = self.callPackage ./packages/elm-format-markdown.nix { };
 
@@ -209,19 +207,17 @@ lib.makeScope pkgs.newScope (
   // (
     with elmLib;
     with (hs810Pkgs self).elmPkgs; {
-      elm-verify-examples =
-        patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples
-        // {
-          meta =
-            with lib;
-            nodePkgs.elm-verify-examples.meta
-            // {
-              description = "Verify examples in your docs";
-              homepage = "https://github.com/stoeffel/elm-verify-examples";
-              license = licenses.bsd3;
-              maintainers = [ maintainers.turbomack ];
-            };
-        };
+      elm-verify-examples = patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples // {
+        meta =
+          with lib;
+          nodePkgs.elm-verify-examples.meta
+          // {
+            description = "Verify examples in your docs";
+            homepage = "https://github.com/stoeffel/elm-verify-examples";
+            license = licenses.bsd3;
+            maintainers = [ maintainers.turbomack ];
+          };
+      };
 
       elm-coverage =
         let

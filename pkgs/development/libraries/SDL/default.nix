@@ -8,8 +8,7 @@
   audiofile,
   libcap,
   libiconv,
-  libGLSupported ?
-    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   openglSupport ? libGLSupported,
   libGL,
   libGLU,

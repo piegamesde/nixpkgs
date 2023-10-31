@@ -38,9 +38,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  patches =
-    lib.optional (stdenv.hostPlatform.system == "i686-cygwin")
-      ./cygwin.patch;
+  patches = lib.optional (stdenv.hostPlatform.system == "i686-cygwin") ./cygwin.patch;
 
   meta = with lib; {
     description = "Cryptographic library";

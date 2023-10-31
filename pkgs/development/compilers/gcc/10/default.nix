@@ -98,8 +98,7 @@ let
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++
@@ -368,9 +367,7 @@ stdenv.mkDerivation (
   //
     optionalAttrs
       (
-        targetPlatform != hostPlatform
-        && targetPlatform.libc == "msvcrt"
-        && crossStageStatic
+        targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
       )
       {
         makeFlags = [

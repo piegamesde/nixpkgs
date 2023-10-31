@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
     ./satacmds.patch
   ];
 
-  configureFlags = [
-    "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db"
-  ];
+  configureFlags = [ "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db" ];
 
   postInstall = ''
     install -Dm444 ${db} $out/share/${pname}/hddtemp.db

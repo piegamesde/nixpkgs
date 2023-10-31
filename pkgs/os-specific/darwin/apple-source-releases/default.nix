@@ -280,8 +280,7 @@ let
     namePath: version: sdkName: sha256:
     let
       pname = builtins.head (lib.splitString "/" namePath);
-      appleDerivation' =
-        stdenv: appleDerivation'' stdenv pname version sdkName sha256;
+      appleDerivation' = stdenv: appleDerivation'' stdenv pname version sdkName sha256;
       appleDerivation = appleDerivation' stdenv;
       callPackage = self.newScope { inherit appleDerivation' appleDerivation; };
     in

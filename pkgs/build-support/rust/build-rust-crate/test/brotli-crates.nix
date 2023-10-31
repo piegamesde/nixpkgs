@@ -26,8 +26,7 @@ let
   updateFeatures =
     f: up: functions:
     builtins.deepSeq f (
-      lib.lists.foldl' (features: fun: fun features)
-        (lib.attrsets.recursiveUpdate f up)
+      lib.lists.foldl' (features: fun: fun features) (lib.attrsets.recursiveUpdate f up)
         functions
     );
   mapFeatures = features: map (fun: fun { features = features; });
@@ -166,8 +165,7 @@ rec {
           (f.alloc_no_stdlib_1_3_0.unsafe or false)
           || (brotli_decompressor_1_3_1.unsafe or false)
           || (f.brotli_decompressor_1_3_1.unsafe or false);
-        brotli_decompressor_1_3_1.default =
-          (f.brotli_decompressor_1_3_1.default or true);
+        brotli_decompressor_1_3_1.default = (f.brotli_decompressor_1_3_1.default or true);
       })
       [ alloc_no_stdlib_1_3_0_features ];
 }

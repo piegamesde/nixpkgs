@@ -91,9 +91,7 @@ in
         };
 
         exports = mkOption {
-          description =
-            lib.mdDoc
-              "Files or block devices to make available over the network.";
+          description = lib.mdDoc "Files or block devices to make available over the network.";
           default = { };
           type =
             with types;

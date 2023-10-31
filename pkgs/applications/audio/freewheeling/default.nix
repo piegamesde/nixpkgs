@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
     libSM
     (gnutls.overrideAttrs (
       oldAttrs: {
-        configureFlags = oldAttrs.configureFlags ++ [
-          "--enable-openssl-compatibility"
-        ];
+        configureFlags = oldAttrs.configureFlags ++ [ "--enable-openssl-compatibility" ];
       }
     ))
   ];

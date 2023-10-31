@@ -42,10 +42,7 @@ let
     let
 
       wrapperArgsStr =
-        if lib.isString wrapperArgs then
-          wrapperArgs
-        else
-          lib.escapeShellArgs wrapperArgs;
+        if lib.isString wrapperArgs then wrapperArgs else lib.escapeShellArgs wrapperArgs;
 
       # "--add-flags" (lib.escapeShellArgs flags)
       # wrapper args used both when generating the manifest and in the final neovim executable

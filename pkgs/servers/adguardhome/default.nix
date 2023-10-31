@@ -15,8 +15,7 @@ stdenv.mkDerivation rec {
   pname = "adguardhome";
   version = "0.107.29";
   src =
-    sources.${system}
-      or (throw "Source for ${pname} is not available for ${system}");
+    sources.${system} or (throw "Source for ${pname} is not available for ${system}");
 
   installPhase = ''
     install -m755 -D ./AdGuardHome $out/bin/adguardhome

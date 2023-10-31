@@ -39,9 +39,7 @@ stdenv.mkDerivation (
     doCheck = true;
 
     env = {
-      PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR = "${
-          placeholder "dev"
-        }/share/gir-1.0";
+      PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR = "${placeholder "dev"}/share/gir-1.0";
       PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR = "${
           placeholder "out"
         }/lib/girepository-1.0";

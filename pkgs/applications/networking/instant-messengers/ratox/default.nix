@@ -7,9 +7,7 @@
 }:
 
 let
-  configFile = lib.optionalString (conf != null) (
-    builtins.toFile "config.h" conf
-  );
+  configFile = lib.optionalString (conf != null) (builtins.toFile "config.h" conf);
 in
 stdenv.mkDerivation {
   pname = "ratox";

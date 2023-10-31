@@ -56,9 +56,7 @@ stdenv.mkDerivation {
       # - strip: the binutils one seems to break mach-o files
       # - lipo: gcc build assumes it exists
       # - nm: the gnu one doesn't understand many new load commands
-      for i in ${
-        lib.concatStringsSep " " (builtins.map (e: targetPrefix + e) cmds)
-      }; do
+      for i in ${lib.concatStringsSep " " (builtins.map (e: targetPrefix + e) cmds)}; do
         ln -sf "${cctools}/bin/$i" "$out/bin/$i"
       done
 

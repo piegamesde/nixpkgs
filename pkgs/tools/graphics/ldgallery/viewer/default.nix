@@ -31,8 +31,7 @@ let
 in
 
 # making sure that the source and the node package are in sync
-assert lib.versions.majorMinor nodePkg.version
-  == lib.removePrefix "v" sourcePkg.rev;
+assert lib.versions.majorMinor nodePkg.version == lib.removePrefix "v" sourcePkg.rev;
 
 stdenv.mkDerivation {
   pname = nodePkg.packageName;

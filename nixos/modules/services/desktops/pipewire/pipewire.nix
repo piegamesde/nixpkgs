@@ -11,9 +11,7 @@ with lib;
 let
   cfg = config.services.pipewire;
   enable32BitAlsaPlugins =
-    cfg.alsa.support32Bit
-    && pkgs.stdenv.isx86_64
-    && pkgs.pkgsi686Linux.pipewire != null;
+    cfg.alsa.support32Bit && pkgs.stdenv.isx86_64 && pkgs.pkgsi686Linux.pipewire != null;
 
   # The package doesn't output to $out/lib/pipewire directly so that the
   # overlays can use the outputs to replace the originals in FHS environments.
@@ -63,9 +61,7 @@ in
 
       alsa = {
         enable = mkEnableOption (lib.mdDoc "ALSA support");
-        support32Bit = mkEnableOption (
-          lib.mdDoc "32-bit ALSA support on 64-bit systems"
-        );
+        support32Bit = mkEnableOption (lib.mdDoc "32-bit ALSA support on 64-bit systems");
       };
 
       jack = {

@@ -62,9 +62,7 @@ let
       '';
 
       postInstall = ''
-        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${
-          lib.makeBinPath [ stdenv.cc ]
-        }"
+        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${lib.makeBinPath [ stdenv.cc ]}"
       '';
 
       # https://github.com/varnishcache/varnish-cache/issues/1875

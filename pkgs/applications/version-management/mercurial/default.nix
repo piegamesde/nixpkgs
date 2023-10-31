@@ -79,9 +79,7 @@ let
           rust.rustc
         ]
       );
-    buildInputs = [
-      docutils
-    ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+    buildInputs = [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
     makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
 

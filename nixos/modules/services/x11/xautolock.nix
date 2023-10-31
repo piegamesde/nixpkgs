@@ -152,8 +152,7 @@ in
         ]
         (
           option: {
-            assertion =
-              cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
+            assertion = cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
             message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
           }
         )

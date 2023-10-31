@@ -441,9 +441,7 @@ in
         interface=${cfg.bridge.name}
         except-interface=lo
         bind-interfaces
-        auth-zone=xen.local,$XEN_BRIDGE_NETWORK_ADDRESS/${
-          toString cfg.bridge.prefixLength
-        }
+        auth-zone=xen.local,$XEN_BRIDGE_NETWORK_ADDRESS/${toString cfg.bridge.prefixLength}
         domain=xen.local
         addn-hosts=/var/run/xen/dnsmasq.hostsfile
         expand-hosts

@@ -20,9 +20,7 @@ let
         path: type:
         type != "directory"
         || (
-          baseNameOf path != ".git"
-          && baseNameOf path != ".git"
-          && baseNameOf path != ".svn"
+          baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn"
         )
       )
       src;
@@ -160,11 +158,9 @@ let
                   namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
                   mkdir -p "$namespaceDir"
                   ${if symlinkDependencies then
-                    ''
-                      ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                    ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
                   else
-                    ''
-                      cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
+                    ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
                 ''}
             ''
           )

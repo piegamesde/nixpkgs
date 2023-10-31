@@ -51,9 +51,7 @@ let
           );
       mkEntry = name: value: "${escape name} =${mkVal value}";
     in
-    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config)
-    + "\n"
-    + cfg.extraConfig;
+    concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config) + "\n" + cfg.extraConfig;
 
   masterCfOptions =
     {
@@ -606,9 +604,7 @@ in
       tlsTrustedAuthorities = mkOption {
         type = types.str;
         default = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-        defaultText =
-          literalExpression
-            ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
+        defaultText = literalExpression ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
         description = lib.mdDoc ''
           File containing trusted certification authorities (CA) to verify certificates of mailservers contacted for mail delivery. This basically sets smtp_tls_CAfile and enables opportunistic tls. Defaults to NixOS trusted certification authorities.
         '';
@@ -723,9 +719,7 @@ in
         type = types.lines;
         default = "";
         example = "submission inet n - n - - smtpd";
-        description =
-          lib.mdDoc
-            "Extra lines to append to the generated master.cf file.";
+        description = lib.mdDoc "Extra lines to append to the generated master.cf file.";
       };
 
       enableHeaderChecks = mkOption {
@@ -765,9 +759,7 @@ in
       mapFiles = mkOption {
         type = types.attrsOf types.path;
         default = { };
-        description =
-          lib.mdDoc
-            "Maps to be compiled and placed into /var/lib/postfix/conf.";
+        description = lib.mdDoc "Maps to be compiled and placed into /var/lib/postfix/conf.";
       };
 
       useSrs = mkOption {
@@ -950,16 +942,12 @@ in
             inet_protocols = mkDefault "ipv4";
           }
           // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
-          // optionalAttrs (cfg.networksStyle != "") {
-            mynetworks_style = cfg.networksStyle;
-          }
+          // optionalAttrs (cfg.networksStyle != "") { mynetworks_style = cfg.networksStyle; }
           // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
           // optionalAttrs (cfg.domain != "") { mydomain = cfg.domain; }
           // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
           // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
-          // optionalAttrs (cfg.relayDomains != null) {
-            relay_domains = cfg.relayDomains;
-          }
+          // optionalAttrs (cfg.relayDomains != null) { relay_domains = cfg.relayDomains; }
           // optionalAttrs (cfg.recipientDelimiter != "") {
             recipient_delimiter = cfg.recipientDelimiter;
           }

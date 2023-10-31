@@ -173,9 +173,7 @@ stdenv.mkDerivation rec {
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
-      inputs' =
-        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-          inputs;
+      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
       override =
         attr:
         let

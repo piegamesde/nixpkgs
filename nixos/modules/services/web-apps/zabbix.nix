@@ -156,9 +156,7 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
       };
 
@@ -290,8 +288,6 @@ in
       inherit group;
     };
 
-    users.groups.${group} = mapAttrs (name: mkDefault) {
-      gid = config.ids.gids.zabbix;
-    };
+    users.groups.${group} = mapAttrs (name: mkDefault) { gid = config.ids.gids.zabbix; };
   };
 }

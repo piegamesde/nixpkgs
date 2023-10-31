@@ -565,8 +565,7 @@ in
                 '';
             in
             "+${
-              pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
-                startPreFullPrivileges
+              pkgs.writeShellScript "parsedmarc-start-pre-full-privileges" startPreFullPrivileges
             }";
           Type = "simple";
           User = "parsedmarc";

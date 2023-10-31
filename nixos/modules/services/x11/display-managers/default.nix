@@ -284,9 +284,7 @@ in
         apply = val: {
           wrapper = xsessionWrapper;
           desktops = installedSessions;
-          sessionNames =
-            concatMap (p: p.providedSessions)
-              cfg.displayManager.sessionPackages;
+          sessionNames = concatMap (p: p.providedSessions) cfg.displayManager.sessionPackages;
           # We do not want to force users to set defaultSession when they have only single DE.
           autologinSession =
             if cfg.displayManager.defaultSession != null then
@@ -307,9 +305,7 @@ in
             check =
               d:
               assertMsg
-                (
-                  d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames)
-                )
+                (d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames))
                 ''
                   Default graphical session, '${d}', not found.
                   Valid names for 'services.xserver.displayManager.defaultSession' are:
@@ -346,9 +342,7 @@ in
           type = types.lines;
           default = "";
           example = "rm -f /var/log/my-display-manager.log";
-          description =
-            lib.mdDoc
-              "Script executed before the display manager is started.";
+          description = lib.mdDoc "Script executed before the display manager is started.";
         };
 
         execCmd = mkOption {
@@ -422,8 +416,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.displayManager.autoLogin.enable
-          -> cfg.displayManager.autoLogin.user != null;
+          cfg.displayManager.autoLogin.enable -> cfg.displayManager.autoLogin.user != null;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';

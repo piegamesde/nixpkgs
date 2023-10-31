@@ -27,8 +27,7 @@ import ./make-test-python.nix (
             (_: drv: !(builtins.elem drv.terminfo config.environment.systemPackages))
             terminfos;
         includedOuts =
-          lib.filterAttrs
-            (_: drv: builtins.elem drv.out config.environment.systemPackages)
+          lib.filterAttrs (_: drv: builtins.elem drv.out config.environment.systemPackages)
             terminfos;
       in
       {

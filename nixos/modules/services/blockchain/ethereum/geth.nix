@@ -98,9 +98,7 @@ let
           vhosts = mkOption {
             type = types.nullOr (types.listOf types.str);
             default = [ "localhost" ];
-            description =
-              lib.mdDoc
-                "List of virtual hostnames from which to accept requests.";
+            description = lib.mdDoc "List of virtual hostnames from which to accept requests.";
             example = [
               "localhost"
               "geth.example.org"
@@ -255,9 +253,7 @@ in
                   } \
                   ${
                     optionalString cfg.websocket.enable
-                      "--ws --ws.addr ${cfg.websocket.address} --ws.port ${
-                        toString cfg.websocket.port
-                      }"
+                      "--ws --ws.addr ${cfg.websocket.address} --ws.port ${toString cfg.websocket.port}"
                   } \
                   ${
                     optionalString (cfg.websocket.apis != null)

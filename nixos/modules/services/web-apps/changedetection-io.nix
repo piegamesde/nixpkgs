@@ -123,8 +123,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          !((cfg.webDriverSupport == true) && (cfg.playwrightSupport == true));
+        assertion = !((cfg.webDriverSupport == true) && (cfg.playwrightSupport == true));
         message = "'services.changedetection-io.webDriverSupport' and 'services.changedetection-io.playwrightSupport' cannot be used together.";
       }
     ];

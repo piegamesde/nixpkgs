@@ -10,15 +10,11 @@ with lib;
 let
   cfg = config.services.nginx;
   inherit (config.security.acme) certs;
-  vhostsConfigs =
-    mapAttrsToList (vhostName: vhostConfig: vhostConfig)
-      virtualHosts;
+  vhostsConfigs = mapAttrsToList (vhostName: vhostConfig: vhostConfig) virtualHosts;
   acmeEnabledVhosts =
     filter (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
       vhostsConfigs;
-  dependentCertNames = unique (
-    map (hostOpts: hostOpts.certName) acmeEnabledVhosts
-  );
+  dependentCertNames = unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
   virtualHosts =
     mapAttrs
       (
@@ -110,16 +106,14 @@ let
     REDIRECT_STATUS = "200";
   };
 
-  recommendedProxyConfig =
-    pkgs.writeText "nginx-recommended-proxy-headers.conf"
-      ''
-        proxy_set_header        Host $host;
-        proxy_set_header        X-Real-IP $remote_addr;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Forwarded-Proto $scheme;
-        proxy_set_header        X-Forwarded-Host $host;
-        proxy_set_header        X-Forwarded-Server $host;
-      '';
+  recommendedProxyConfig = pkgs.writeText "nginx-recommended-proxy-headers.conf" ''
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+    proxy_set_header        X-Forwarded-Host $host;
+    proxy_set_header        X-Forwarded-Server $host;
+  '';
 
   proxyCachePathConfig = concatStringsSep "\n" (
     mapAttrsToList
@@ -319,9 +313,7 @@ let
           optionalString cfg.statusPage ''
             server {
               listen ${toString cfg.defaultHTTPListenPort};
-              ${
-                optionalString enableIPv6 "listen [::]:${toString cfg.defaultHTTPListenPort};"
-              }
+              ${optionalString enableIPv6 "listen [::]:${toString cfg.defaultHTTPListenPort};"}
 
               server_name localhost;
 
@@ -444,9 +436,7 @@ let
             # We use ^~ here, so that we don't check any regexes (which could
             # otherwise easily override this intended match accidentally).
             location ^~ /.well-known/acme-challenge/ {
-              ${
-                optionalString (vhost.acmeFallbackHost != null) "try_files $uri @acme-fallback;"
-              }
+              ${optionalString (vhost.acmeFallbackHost != null) "try_files $uri @acme-fallback;"}
               ${optionalString (vhost.acmeRoot != null) "root ${vhost.acmeRoot};"}
               auth_basic off;
             }
@@ -485,9 +475,7 @@ let
             ${
               optionalString (vhost.globalRedirect != null) ''
                 location / {
-                  return 301 http${
-                    optionalString hasSSL "s"
-                  }://${vhost.globalRedirect}$request_uri;
+                  return 301 http${optionalString hasSSL "s"}://${vhost.globalRedirect}$request_uri;
                 }
               ''
             }
@@ -734,8 +722,7 @@ in
         default = pkgs.nginxStable;
         defaultText = literalExpression "pkgs.nginxStable";
         type = types.package;
-        apply =
-          p: p.override { modules = lib.unique (p.modules ++ cfg.additionalModules); };
+        apply = p: p.override { modules = lib.unique (p.modules ++ cfg.additionalModules); };
         description = lib.mdDoc ''
           Nginx package to use. This defaults to the stable version. Note
           that the nginx team recommends to use the mainline version which
@@ -907,9 +894,7 @@ in
         type = types.nullOr types.str;
         # Keep in sync with https://ssl-config.mozilla.org/#server=nginx&config=intermediate
         default = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
-        description =
-          lib.mdDoc
-            "Ciphers to choose from when negotiating TLS handshakes.";
+        description = lib.mdDoc "Ciphers to choose from when negotiating TLS handshakes.";
       };
 
       sslProtocols = mkOption {
@@ -1341,8 +1326,7 @@ in
 
         {
           assertion =
-            cfg.package.pname != "nginxQuic"
-            -> all (host: !host.quic) (attrValues virtualHosts);
+            cfg.package.pname != "nginxQuic" -> all (host: !host.quic) (attrValues virtualHosts);
           message = ''
             services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
             which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
@@ -1462,9 +1446,7 @@ in
       };
     };
 
-    environment.etc."nginx/nginx.conf" = mkIf cfg.enableReload {
-      source = configFile;
-    };
+    environment.etc."nginx/nginx.conf" = mkIf cfg.enableReload { source = configFile; };
 
     # This service waits for all certificates to be available
     # before reloading nginx configuration.
@@ -1474,9 +1456,7 @@ in
     systemd.services.nginx-config-reload =
       let
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
-        sslTargets =
-          map (certName: "acme-finished-${certName}.target")
-            dependentCertNames;
+        sslTargets = map (certName: "acme-finished-${certName}.target") dependentCertNames;
       in
       mkIf (cfg.enableReload || sslServices != [ ]) {
         wants = optionals cfg.enableReload [ "nginx.service" ];
@@ -1490,8 +1470,7 @@ in
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
         unitConfig.ConditionPathExists = optionals (sslServices != [ ]) (
-          map (certName: certs.${certName}.directory + "/fullchain.pem")
-            dependentCertNames
+          map (certName: certs.${certName}.directory + "/fullchain.pem") dependentCertNames
         );
         serviceConfig = {
           Type = "oneshot";

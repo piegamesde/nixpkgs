@@ -51,8 +51,7 @@ let
     };
   };
   remotes =
-    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote))
-      { }
+    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote)) { }
       cfg.extraRemotes
     )
     // (

@@ -15,7 +15,5 @@ in
     lib.mdDoc "udev rules for Ledger devices"
   );
 
-  config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.ledger-udev-rules ];
-  };
+  config = mkIf cfg.enable { services.udev.packages = [ pkgs.ledger-udev-rules ]; };
 }

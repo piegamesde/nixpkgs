@@ -413,9 +413,7 @@ in
         ${if (cfg.tls.loader == "file") then
           ''
             tls file ${
-              concatStringsSep " " (
-                map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates
-              )
+              concatStringsSep " " (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)
             } ${
               optionalString (cfg.tls.extraConfig != "") ''
                 { ${cfg.tls.extraConfig} }

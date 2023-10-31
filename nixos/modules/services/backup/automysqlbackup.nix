@@ -150,8 +150,7 @@ in
     ];
 
     services.mysql.ensureUsers =
-      optional
-        (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")
+      optional (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")
         {
           name = user;
           ensurePermissions = {

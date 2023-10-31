@@ -63,9 +63,7 @@ let
   masterCfg = settingsFormat.generate "mfsmaster.cfg" cfg.master.settings;
 
   # metalogger config file
-  metaloggerCfg =
-    settingsFormat.generate "mfsmetalogger.cfg"
-      cfg.metalogger.settings;
+  metaloggerCfg = settingsFormat.generate "mfsmetalogger.cfg" cfg.metalogger.settings;
 
   # chunkserver config file
   chunkserverCfg =
@@ -169,9 +167,7 @@ in
             };
           };
 
-          description =
-            lib.mdDoc
-              "Contents of metalogger config file (mfsmetalogger.cfg).";
+          description = lib.mdDoc "Contents of metalogger config file (mfsmetalogger.cfg).";
         };
       };
 
@@ -206,9 +202,7 @@ in
             };
           };
 
-          description =
-            lib.mdDoc
-              "Contents of chunkserver config file (mfschunkserver.cfg).";
+          description = lib.mdDoc "Contents of chunkserver config file (mfschunkserver.cfg).";
         };
       };
     };

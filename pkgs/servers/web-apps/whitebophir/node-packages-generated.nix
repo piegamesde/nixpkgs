@@ -966,10 +966,7 @@ in
           sources."stream-from-promise-1.0.0"
           sources."stream-to-string-1.2.0"
           (
-            sources."string_decoder-1.1.1"
-            // {
-              dependencies = [ sources."safe-buffer-5.1.2" ];
-            }
+            sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
           )
           sources."toidentifier-1.0.1"
           sources."toposort-2.0.2"

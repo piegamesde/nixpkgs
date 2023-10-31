@@ -46,8 +46,7 @@ let
     };
 
   remote =
-    with config.services;
-    "https://${kubernetes.masterAddress}:${toString cfssl.port}";
+    with config.services; "https://${kubernetes.masterAddress}:${toString cfssl.port}";
 in
 {
   ###### interface
@@ -117,9 +116,7 @@ in
     };
 
     caSpec = mkOption {
-      description =
-        lib.mdDoc
-          "Certificate specification for the auto-generated CAcert.";
+      description = lib.mdDoc "Certificate specification for the auto-generated CAcert.";
       default = {
         CN = "kubernetes-cluster-ca";
         O = "NixOS";

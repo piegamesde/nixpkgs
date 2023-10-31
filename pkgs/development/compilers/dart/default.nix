@@ -38,8 +38,7 @@ stdenv.mkDerivation (
       updateScript = ./update.sh;
       tests = {
         testCreate =
-          runCommand "dart-test-create"
-            { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+          runCommand "dart-test-create" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
             ''
               PROJECTNAME="dart_test_project"
               dart create --no-pub $PROJECTNAME

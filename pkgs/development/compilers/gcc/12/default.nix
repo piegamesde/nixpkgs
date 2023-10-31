@@ -146,17 +146,14 @@ let
     ]
 
     # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
-    ++
-      optional (stdenv.isDarwin && langAda)
-        ../ada-cctools-as-detection-configure.patch
+    ++ optional (stdenv.isDarwin && langAda) ../ada-cctools-as-detection-configure.patch
 
     # Use absolute path in GNAT dylib install names on Darwin
     ++ optional (stdenv.isDarwin && langAda) ../gnat-darwin-dylib-install-name.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch;
 
   # Cross-gcc settings (build == host != target)
@@ -359,9 +356,7 @@ lib.pipe
             +
               lib.optionalString
                 (
-                  targetPlatform == hostPlatform
-                  && hostPlatform == buildPlatform
-                  && !disableBootstrap
+                  targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap
                 )
                 "bootstrap";
         in
@@ -431,9 +426,7 @@ lib.pipe
     //
       optionalAttrs
         (
-          targetPlatform != hostPlatform
-          && targetPlatform.libc == "msvcrt"
-          && crossStageStatic
+          targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
         )
         {
           makeFlags = [

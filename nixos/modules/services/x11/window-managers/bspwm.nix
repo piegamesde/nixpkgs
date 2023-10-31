@@ -27,9 +27,7 @@ in
       };
       configFile = mkOption {
         type = with types; nullOr path;
-        example =
-          literalExpression
-            ''"''${pkgs.bspwm}/share/doc/bspwm/examples/bspwmrc"'';
+        example = literalExpression ''"''${pkgs.bspwm}/share/doc/bspwm/examples/bspwmrc"'';
         default = null;
         description = lib.mdDoc ''
           Path to the bspwm configuration file.
@@ -49,9 +47,7 @@ in
         };
         configFile = mkOption {
           type = with types; nullOr path;
-          example =
-            literalExpression
-              ''"''${pkgs.bspwm}/share/doc/bspwm/examples/sxhkdrc"'';
+          example = literalExpression ''"''${pkgs.bspwm}/share/doc/bspwm/examples/sxhkdrc"'';
           default = null;
           description = lib.mdDoc ''
             Path to the sxhkd configuration file.

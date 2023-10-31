@@ -157,9 +157,7 @@ in
 
   config = mkIf config.services.influxdb.enable {
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0770 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.influxdb = {
       description = "InfluxDB Server";

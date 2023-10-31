@@ -54,11 +54,9 @@ stdenv.mkDerivation rec {
     chmod -R u+w .
   '';
 
-  patches =
-    [ ./gnu-install-dirs.patch ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
-      ../../libcxx-0001-musl-hacks.patch
-    ];
+  patches = [
+    ./gnu-install-dirs.patch
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
 
   postPatch = ''
     cd ../runtimes
@@ -84,8 +82,7 @@ stdenv.mkDerivation rec {
           "c++abi" = "system-libcxxabi";
           "cxxrt" = "libcxxrt";
         }
-        .${cxxabi.libName}
-          or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
+        .${cxxabi.libName} or (throw "unknown cxxabi: ${cxxabi.libName} (${cxxabi.pname})");
     in
     [
       "-DLLVM_ENABLE_RUNTIMES=libcxx"
@@ -97,9 +94,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
         "-DLIBCXX_HAS_MUSL_LIBC=1"
-    ++
-      lib.optional (stdenv.hostPlatform.useLLVM or false)
-        "-DLIBCXX_USE_COMPILER_RT=ON"
+    ++ lib.optional (stdenv.hostPlatform.useLLVM or false) "-DLIBCXX_USE_COMPILER_RT=ON"
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"

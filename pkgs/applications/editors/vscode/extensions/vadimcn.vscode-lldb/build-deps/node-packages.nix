@@ -2864,9 +2864,7 @@ let
       sources."call-bind-1.0.2"
       sources."camelcase-6.3.0"
       sources."caniuse-lite-1.0.30001368"
-      (
-        sources."chalk-4.1.2" // { dependencies = [ sources."supports-color-7.2.0" ]; }
-      )
+      (sources."chalk-4.1.2" // { dependencies = [ sources."supports-color-7.2.0" ]; })
       sources."cheerio-1.0.0-rc.12"
       sources."cheerio-select-2.1.0"
       sources."chokidar-3.5.1"
@@ -2915,9 +2913,7 @@ let
       sources."escalade-3.1.1"
       sources."escape-string-regexp-4.0.0"
       sources."eslint-scope-5.1.1"
-      (
-        sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; }
-      )
+      (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
       sources."estraverse-4.3.0"
       sources."events-3.3.0"
       sources."expand-template-2.0.3"
@@ -2977,9 +2973,7 @@ let
       sources."locate-path-6.0.0"
       sources."log-symbols-4.0.0"
       sources."lru-cache-6.0.0"
-      (
-        sources."markdown-it-12.3.2" // { dependencies = [ sources."entities-2.1.0" ]; }
-      )
+      (sources."markdown-it-12.3.2" // { dependencies = [ sources."entities-2.1.0" ]; })
       sources."mdurl-1.0.1"
       sources."memory-fs-0.5.0"
       sources."merge-stream-2.0.0"
@@ -3036,12 +3030,7 @@ let
       sources."punycode-2.1.1"
       sources."qs-6.11.0"
       sources."randombytes-2.1.0"
-      (
-        sources."rc-1.2.8"
-        // {
-          dependencies = [ sources."strip-json-comments-2.0.1" ];
-        }
-      )
+      (sources."rc-1.2.8" // { dependencies = [ sources."strip-json-comments-2.0.1" ]; })
       sources."read-1.0.7"
       (
         sources."readable-stream-2.3.7"
@@ -3072,10 +3061,7 @@ let
       sources."string-argv-0.3.1"
       sources."string-width-2.1.1"
       (
-        sources."string_decoder-1.1.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
+        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
       )
       sources."strip-ansi-4.0.0"
       sources."strip-json-comments-3.1.1"
@@ -3084,10 +3070,7 @@ let
       sources."tapable-1.1.3"
       sources."tar-fs-2.1.1"
       (
-        sources."tar-stream-2.2.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
+        sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
       )
       (sources."terser-5.14.2" // { dependencies = [ sources."commander-2.20.3" ]; })
       (
@@ -3134,12 +3117,7 @@ let
           ];
         }
       )
-      (
-        sources."webpack-cli-4.10.0"
-        // {
-          dependencies = [ sources."commander-7.2.0" ];
-        }
-      )
+      (sources."webpack-cli-4.10.0" // { dependencies = [ sources."commander-7.2.0" ]; })
       sources."webpack-merge-5.8.0"
       sources."webpack-sources-3.2.3"
       sources."which-2.0.2"

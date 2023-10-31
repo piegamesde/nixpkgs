@@ -54,10 +54,7 @@ let
             ''
         ++
           lib.optional
-            (
-              checkedAttrs.email != null
-              && lib.hasSuffix "noreply.github.com" checkedAttrs.email
-            )
+            (checkedAttrs.email != null && lib.hasSuffix "noreply.github.com" checkedAttrs.email)
             ''
               echo ${
                 lib.escapeShellArg (lib.showOption prefix)

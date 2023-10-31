@@ -23,8 +23,7 @@ let
   # as you use, but with another kernel
   # !!! fix this
   children =
-    mapAttrs
-      (childName: childConfig: childConfig.configuration.system.build.toplevel)
+    mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel)
       config.specialisation;
 in
 {
@@ -88,8 +87,7 @@ in
     system.systemBuilderCommands = ''
       mkdir $out/specialisation
       ${concatStringsSep "\n" (
-        mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}")
-          children
+        mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}") children
       )}
     '';
   };

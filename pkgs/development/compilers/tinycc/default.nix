@@ -11,8 +11,7 @@
 
 let
   # avoid "malformed 32-bit x.y.z" error on mac when using clang
-  isCleanVer =
-    version: builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
+  isCleanVer = version: builtins.match "^[0-9]\\.+[0-9]+\\.[0-9]+" version != null;
 in
 stdenv.mkDerivation rec {
   pname = "tcc";

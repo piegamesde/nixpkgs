@@ -108,9 +108,7 @@ let
           opt: { name = showOption opt.loc; } // builtins.tryEval (strict opt.value)
         );
     in
-    keepNames (
-      filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new))
-    );
+    keepNames (filterChanges (zipLists (tryCollectOptions old) (tryCollectOptions new)));
 
   # Create a list of modules where each module contains only one failling
   # options.
@@ -165,9 +163,7 @@ let
     digraph "Option Usages" {
       ${
         concatMapStrings
-          (
-            { option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy
-          )
+          ({ option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
           displayOptionsGraph
       }
     }

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   # This is needed by freeimage
   patches =
     [ ./0001-Compile-transupp.c-as-part-of-the-library.patch ]
-    ++ lib.optional (stdenv.hostPlatform.libc or null == "msvcrt")
-      ./mingw-boolean.patch;
+    ++ lib.optional (stdenv.hostPlatform.libc or null == "msvcrt") ./mingw-boolean.patch;
 
   outputs = [
     "bin"

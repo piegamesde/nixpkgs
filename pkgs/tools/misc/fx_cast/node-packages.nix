@@ -1975,10 +1975,7 @@ let
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tar-fs-2.1.1"
       (
-        sources."tar-stream-2.2.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
+        sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
       )
       sources."tiny-typed-emitter-2.1.0"
       sources."to-fast-properties-2.0.0"

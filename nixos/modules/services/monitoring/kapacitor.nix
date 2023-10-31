@@ -173,9 +173,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.kapacitor ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.kapacitor = {
       description = "Kapacitor Real-Time Stream Processing Engine";

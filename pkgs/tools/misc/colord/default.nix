@@ -107,9 +107,7 @@ stdenv.mkDerivation rec {
     glib-compile-schemas $out/share/glib-2.0/schemas
   '';
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
-      placeholder "out"
-    }/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
   PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
   PKG_CONFIG_SYSTEMD_TMPFILESDIR = "${placeholder "out"}/lib/tmpfiles.d";
   PKG_CONFIG_BASH_COMPLETION_COMPLETIONSDIR = "${

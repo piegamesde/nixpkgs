@@ -17,13 +17,11 @@ let
     BASE ${cfg.basedn}
     TLS_CACERT /etc/ipa/ca.crt
   '';
-  nssDb =
-    pkgs.runCommand "ipa-nssdb" { nativeBuildInputs = [ pkgs.nss.tools ]; }
-      ''
-        mkdir -p $out
-        certutil -d $out -N --empty-password
-        certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
-      '';
+  nssDb = pkgs.runCommand "ipa-nssdb" { nativeBuildInputs = [ pkgs.nss.tools ]; } ''
+    mkdir -p $out
+    certutil -d $out -N --empty-password
+    certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
+  '';
 in
 {
   options = {
@@ -87,9 +85,7 @@ in
       ifpAllowedUids = mkOption {
         type = types.listOf types.string;
         default = [ "root" ];
-        description =
-          lib.mdDoc
-            "A list of users allowed to access the ifp dbus interface.";
+        description = lib.mdDoc "A list of users allowed to access the ifp dbus interface.";
       };
 
       dyndns = {
@@ -103,9 +99,7 @@ in
           type = types.str;
           example = "eth0";
           default = "*";
-          description =
-            lib.mdDoc
-              "Network interface to perform hostname updates through.";
+          description = lib.mdDoc "Network interface to perform hostname updates through.";
         };
       };
 
@@ -181,13 +175,11 @@ in
       "openldap/ldap.conf".source = ldapConf;
     };
 
-    environment.etc."chromium/policies/managed/freeipa.json" =
-      mkIf cfg.chromiumSupport
-        {
-          text = ''
-            { "AuthServerWhitelist": "*.${cfg.domain}" }
-          '';
-        };
+    environment.etc."chromium/policies/managed/freeipa.json" = mkIf cfg.chromiumSupport {
+      text = ''
+        { "AuthServerWhitelist": "*.${cfg.domain}" }
+      '';
+    };
 
     system.activationScripts.ipa = stringAfter [ "etc" ] ''
       # libcurl requires a hard copy of the certificate

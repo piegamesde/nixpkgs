@@ -82,8 +82,7 @@ let
             qemu-common = import ../qemu-common.nix { inherit lib pkgs; };
           in
           flip concatMap interfacesNumbered (
-            { fst, snd }:
-            qemu-common.qemuNICFlags snd fst config.virtualisation.test.nodeNumber
+            { fst, snd }: qemu-common.qemuNICFlags snd fst config.virtualisation.test.nodeNumber
           );
       };
     in

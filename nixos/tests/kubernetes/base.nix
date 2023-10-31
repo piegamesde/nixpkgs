@@ -18,8 +18,9 @@ let
     }:
     let
       masterName = head (
-        filter (machineName: any (role: role == "master") machines.${machineName}.roles)
-          (attrNames machines)
+        filter (machineName: any (role: role == "master") machines.${machineName}.roles) (
+          attrNames machines
+        )
       );
       master = machines.${masterName};
       extraHosts = ''
@@ -166,9 +167,5 @@ let
     );
 in
 {
-  inherit
-    mkKubernetesBaseTest
-    mkKubernetesSingleNodeTest
-    mkKubernetesMultiNodeTest
-  ;
+  inherit mkKubernetesBaseTest mkKubernetesSingleNodeTest mkKubernetesMultiNodeTest;
 }

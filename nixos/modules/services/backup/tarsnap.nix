@@ -463,9 +463,7 @@ in
 
     environment.etc =
       mapAttrs'
-        (
-          name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
-        )
+        (name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; })
         gcfg.archives;
 
     environment.systemPackages = [ pkgs.tarsnap ];

@@ -105,9 +105,7 @@ in
           };
         }
       '';
-      description =
-        lib.mdDoc
-          "zope2 instances to be created automatically by the system.";
+      description = lib.mdDoc "zope2 instances to be created automatically by the system.";
     };
   };
 

@@ -83,9 +83,7 @@ let
         dataDir = mkOption {
           type = types.path;
           default = "/var/lib/blockbook-frontend-${name}";
-          description =
-            lib.mdDoc
-              "Location of blockbook-frontend-${name} data directory.";
+          description = lib.mdDoc "Location of blockbook-frontend-${name} data directory.";
         };
 
         debug = mkOption {
@@ -223,9 +221,7 @@ in
     services.blockbook-frontend = mkOption {
       type = types.attrsOf (types.submodule blockbookOpts);
       default = { };
-      description =
-        lib.mdDoc
-          "Specification of one or more blockbook-frontend instances.";
+      description = lib.mdDoc "Specification of one or more blockbook-frontend instances.";
     };
   };
 

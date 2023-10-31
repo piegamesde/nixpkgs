@@ -276,9 +276,9 @@ let
   };
 
   # Python 2.7 needs this
-  crossCompileEnv =
-    lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform)
-      { _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config; };
+  crossCompileEnv = lib.optionalAttrs (stdenv.hostPlatform != stdenv.buildPlatform) {
+    _PYTHON_HOST_PLATFORM = stdenv.hostPlatform.config;
+  };
 in
 # Build the basic Python interpreter without modules that have
 # external dependencies.

@@ -16,9 +16,7 @@ let
   chooseNotNull = x: y: if x != null then x else y;
 
   ctrlAgentConfig = chooseNotNull cfg.ctrl-agent.configFile (
-    format.generate "kea-ctrl-agent.conf" {
-      Control-agent = cfg.ctrl-agent.settings;
-    }
+    format.generate "kea-ctrl-agent.conf" { Control-agent = cfg.ctrl-agent.settings; }
   );
 
   dhcp4Config = chooseNotNull cfg.dhcp4.configFile (
@@ -261,10 +259,7 @@ in
     in
     mkIf
       (
-        cfg.ctrl-agent.enable
-        || cfg.dhcp4.enable
-        || cfg.dhcp6.enable
-        || cfg.dhcp-ddns.enable
+        cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable || cfg.dhcp-ddns.enable
       )
       (
         mkMerge [
@@ -407,9 +402,7 @@ in
           (mkIf cfg.dhcp-ddns.enable {
             assertions = [
               {
-                assertion = xor (cfg.dhcp-ddns.settings == null) (
-                  cfg.dhcp-ddns.configFile == null
-                );
+                assertion = xor (cfg.dhcp-ddns.settings == null) (cfg.dhcp-ddns.configFile == null);
                 message = "Either services.kea.dhcp-ddns.settings or services.kea.dhcp-ddns.configFile must be set to a non-null value.";
               }
             ];

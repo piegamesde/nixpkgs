@@ -270,9 +270,7 @@ in
             i + 1
           else
             throw ''
-              lib.path.subpath.join: Element at index ${
-                toString i
-              } is not a valid subpath string:
+              lib.path.subpath.join: Element at index ${toString i} is not a valid subpath string:
                   ${subpathInvalidReason path}''
         )
         0

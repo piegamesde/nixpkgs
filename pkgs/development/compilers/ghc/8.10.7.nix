@@ -133,14 +133,10 @@ let
         EXTRA_HADDOCK_OPTS += --hyperlinked-source --quickjump
 
         DYNAMIC_GHC_PROGRAMS = ${if enableShared then "YES" else "NO"}
-        INTEGER_LIBRARY = ${
-          if enableIntegerSimple then "integer-simple" else "integer-gmp"
-        }
+        INTEGER_LIBRARY = ${if enableIntegerSimple then "integer-simple" else "integer-gmp"}
       ''
     + lib.optionalString (targetPlatform != hostPlatform) ''
-      Stage1Only = ${
-        if targetPlatform.system == hostPlatform.system then "NO" else "YES"
-      }
+      Stage1Only = ${if targetPlatform.system == hostPlatform.system then "NO" else "YES"}
       CrossCompilePrefix = ${targetPrefix}
     ''
     + lib.optionalString (!enableProfiledLibs) ''
@@ -166,9 +162,7 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableIntegerSimple) gmp
-    ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
-        libiconv;
+    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -292,8 +286,7 @@ stdenv.mkDerivation (
           })
         ]
       ++
-        lib.optionals
-          (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)
+        lib.optionals (stdenv.targetPlatform.isDarwin && stdenv.targetPlatform.isAarch64)
           [
             # Prevent the paths module from emitting symbols that we don't use
             # when building with separate outputs.
@@ -436,9 +429,7 @@ stdenv.mkDerivation (
         bootPkgs.happy
         bootPkgs.hscolour
       ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-        autoSignDarwinBinariesHook
-      ]
+      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
       ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs

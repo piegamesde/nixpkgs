@@ -387,8 +387,7 @@ let
               else
                 "/dev/vdb";
             virtualisation.bootLoaderDevice = "/dev/vda";
-            virtualisation.qemu.diskInterface =
-              if grubVersion == 1 then "scsi" else "virtio";
+            virtualisation.qemu.diskInterface = if grubVersion == 1 then "scsi" else "virtio";
 
             # We don't want to have any networking in the guest whatsoever.
             # Also, if any vlans are enabled, the guest will reboot
@@ -573,9 +572,7 @@ let
   # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
-      (final: super: {
-        zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; });
-      })
+      (final: super: { zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; }); })
     ];
   };
 in
@@ -617,9 +614,9 @@ in
   simpleUefiGrub = makeInstallerTest "simpleUefiGrub" simple-uefi-grub-config;
 
   # Test cloned configurations with the uefi grub configuration
-  simpleUefiGrubSpecialisation =
-    makeInstallerTest "simpleUefiGrubSpecialisation"
-      (simple-uefi-grub-config // specialisation-test-extraconfig);
+  simpleUefiGrubSpecialisation = makeInstallerTest "simpleUefiGrubSpecialisation" (
+    simple-uefi-grub-config // specialisation-test-extraconfig
+  );
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {

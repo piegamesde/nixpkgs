@@ -95,9 +95,7 @@ stdenv.mkDerivation rec {
   mesonFlags = [
     "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     "-Dgtk_doc=true"
-    "-Dtests=${
-      lib.boolToString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-    }"
+    "-Dtests=${lib.boolToString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)}"
   ];
 
   doCheck = true;

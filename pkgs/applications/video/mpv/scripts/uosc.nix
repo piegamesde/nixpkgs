@@ -41,9 +41,7 @@ stdenvNoCC.mkDerivation (
       "--set"
       "FONTCONFIG_FILE"
       (toString (
-        makeFontsConf {
-          fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
-        }
+        makeFontsConf { fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ]; }
       ))
     ];
 

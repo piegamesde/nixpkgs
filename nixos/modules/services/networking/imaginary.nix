@@ -88,8 +88,7 @@ in
             args =
               lib.mapAttrsToList
                 (
-                  key: val:
-                  "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val))
+                  key: val: "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val))
                 )
                 (
                   cfg.settings

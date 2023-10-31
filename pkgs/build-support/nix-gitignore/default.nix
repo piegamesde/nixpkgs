@@ -83,9 +83,7 @@ rec {
               recurse =
                 str:
                 [ (substring 0 1 str) ]
-                ++ (
-                  if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str))
-                );
+                ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
             in
             str:
             recurse str;
@@ -134,8 +132,7 @@ rec {
           findSlash = l: if (match ".+/.+" l) != null then "" else l;
           hasSlash = mapAroundCharclass findSlash l != l;
         in
-        (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)")
-        + (elemAt split 1);
+        (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)") + (elemAt split 1);
 
       # regex -> regex
       handleSlashSuffix =
@@ -189,8 +186,7 @@ rec {
   compileRecursiveGitignore =
     root:
     let
-      dirOrIgnore =
-        file: type: baseNameOf file == ".gitignore" || type == "directory";
+      dirOrIgnore = file: type: baseNameOf file == ".gitignore" || type == "directory";
       ignores = builtins.filterSource dirOrIgnore root;
     in
     readFile (
@@ -247,8 +243,7 @@ rec {
 
   gitignoreFilterRecursiveSource =
     filter: patterns: root:
-    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root)
-      root;
+    gitignoreFilterSourcePure filter (withRecursiveGitignoreFile patterns root) root;
 
   # "Filter"-less alternatives
 

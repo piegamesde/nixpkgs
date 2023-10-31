@@ -19,9 +19,7 @@ let
   boehmgc-nix = boehmgc-nix_2_3.overrideAttrs (
     drv: {
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
-      patches = (drv.patches or [ ]) ++ [
-        ./patches/boehmgc-coroutine-sp-fallback.patch
-      ];
+      patches = (drv.patches or [ ]) ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
     }
   );
 

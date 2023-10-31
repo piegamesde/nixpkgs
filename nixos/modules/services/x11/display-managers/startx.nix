@@ -48,13 +48,11 @@ in
     services.xserver.logFile = mkDefault null;
 
     # Implement xserverArgs via xinit's system-wide xserverrc
-    environment.etc."X11/xinit/xserverrc".source =
-      pkgs.writeShellScript "xserverrc"
-        ''
-          exec ${pkgs.xorg.xorgserver}/bin/X ${
-            toString config.services.xserver.displayManager.xserverArgs
-          } "$@"
-        '';
+    environment.etc."X11/xinit/xserverrc".source = pkgs.writeShellScript "xserverrc" ''
+      exec ${pkgs.xorg.xorgserver}/bin/X ${
+        toString config.services.xserver.displayManager.xserverArgs
+      } "$@"
+    '';
     environment.systemPackages = with pkgs; [ xorg.xinit ];
   };
 }

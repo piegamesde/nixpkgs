@@ -100,13 +100,11 @@ stdenv.mkDerivation rec {
     lrelease gui/*.ts gui/coretool/*.ts
   '';
 
-  qmakeFlags =
-    [
-      "WITH_LIBUSB=pkgconfig"
-      "WITH_SHAPELIB=pkgconfig"
-      "WITH_ZLIB=pkgconfig"
-    ]
-    ++ lib.optionals (withGUI && !withMapPreview) [ "CONFIG+=disable-mappreview" ];
+  qmakeFlags = [
+    "WITH_LIBUSB=pkgconfig"
+    "WITH_SHAPELIB=pkgconfig"
+    "WITH_ZLIB=pkgconfig"
+  ] ++ lib.optionals (withGUI && !withMapPreview) [ "CONFIG+=disable-mappreview" ];
 
   makeFlags =
     lib.optional withGUI "gui"

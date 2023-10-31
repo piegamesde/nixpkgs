@@ -21,9 +21,7 @@ let
     ]
     ++ optional (cfg.pools != null)
       "--pools=${escapeShellArg (concatStringsSep "," cfg.pools)}"
-    ++
-      optional (cfg.globalRateBps != null)
-        "--global-rate=${toString cfg.globalRateBps}"
+    ++ optional (cfg.globalRateBps != null) "--global-rate=${toString cfg.globalRateBps}"
     ++
       optional (cfg.perSessionRateBps != null)
         "--per-session-rate=${toString cfg.perSessionRateBps}"

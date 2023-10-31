@@ -57,9 +57,7 @@ let
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
         ${
-          lib.concatMapStringsSep " " (x: "-c ${x}") (
-            [ configFile ] ++ cfg.extraConfigFiles
-          )
+          lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)
         } \
         "${listenerProtocol}://${
           if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
@@ -926,10 +924,7 @@ in
                   "psycopg2"
                 ];
                 default =
-                  if versionAtLeast config.system.stateVersion "18.03" then
-                    "psycopg2"
-                  else
-                    "sqlite3";
+                  if versionAtLeast config.system.stateVersion "18.03" then "psycopg2" else "sqlite3";
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"
@@ -1201,9 +1196,7 @@ in
 
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";
-      after = [
-        "network.target"
-      ] ++ optional hasLocalPostgresDB "postgresql.service";
+      after = [ "network.target" ] ++ optional hasLocalPostgresDB "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \

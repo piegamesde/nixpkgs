@@ -54,9 +54,7 @@ args@{
         {
           networking.firewall.allowedTCPPorts = [ 80 ];
 
-          systemd.tmpfiles.rules = [
-            "d /var/lib/nextcloud-data 0750 nextcloud nginx - -"
-          ];
+          systemd.tmpfiles.rules = [ "d /var/lib/nextcloud-data 0750 nextcloud nginx - -" ];
 
           system.stateVersion = "22.11"; # stateVersion >=21.11 to make sure that we use OpenSSL3
 

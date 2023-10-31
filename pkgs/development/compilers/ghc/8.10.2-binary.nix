@@ -190,8 +190,7 @@ let
     map ({ nixPackage, ... }: nixPackage) binDistUsed.archSpecificLibraries
   );
 
-  libEnvVar =
-    lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
+  libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
   runtimeDeps =
     [

@@ -1578,10 +1578,7 @@ in
           sources."jsonfile-2.4.0"
           sources."jstransformer-1.0.0"
           (
-            sources."lazystream-1.0.1"
-            // {
-              dependencies = [ sources."readable-stream-2.3.7" ];
-            }
+            sources."lazystream-1.0.1" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
           )
           sources."lodash.defaults-4.2.0"
           sources."lodash.difference-4.5.0"
@@ -1591,9 +1588,7 @@ in
           sources."media-typer-0.3.0"
           sources."merge-descriptors-1.0.1"
           sources."meterstream-1.0.1"
-          (
-            sources."method-override-3.0.0" // { dependencies = [ sources."debug-3.1.0" ]; }
-          )
+          (sources."method-override-3.0.0" // { dependencies = [ sources."debug-3.1.0" ]; })
           sources."methods-1.1.2"
           sources."mime-1.6.0"
           sources."mime-db-1.52.0"

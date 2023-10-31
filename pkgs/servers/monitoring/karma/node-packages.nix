@@ -17551,10 +17551,7 @@ let
             sources."source-map-0.6.1"
             sources."supports-color-7.2.0"
             (
-              sources."v8-to-istanbul-8.1.1"
-              // {
-                dependencies = [ sources."source-map-0.7.4" ];
-              }
+              sources."v8-to-istanbul-8.1.1" // { dependencies = [ sources."source-map-0.7.4" ]; }
             )
           ];
         }
@@ -17647,12 +17644,7 @@ let
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       (sources."@npmcli/fs-1.1.1" // { dependencies = [ sources."semver-7.3.7" ]; })
-      (
-        sources."@npmcli/move-file-1.1.2"
-        // {
-          dependencies = [ sources."mkdirp-1.0.4" ];
-        }
-      )
+      (sources."@npmcli/move-file-1.1.2" // { dependencies = [ sources."mkdirp-1.0.4" ]; })
       sources."@percy/cli-1.10.1"
       sources."@percy/cli-app-1.10.1"
       sources."@percy/cli-build-1.10.1"
@@ -17707,9 +17699,7 @@ let
             sources."ajv-6.12.6"
             sources."ajv-keywords-3.5.2"
             sources."ansi-regex-2.1.1"
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."camelcase-5.3.1"
             sources."chownr-1.1.4"
             sources."clean-css-4.2.4"
@@ -17729,18 +17719,12 @@ let
             sources."domhandler-4.3.1"
             sources."domutils-2.8.0"
             (
-              sources."enhanced-resolve-4.5.0"
-              // {
-                dependencies = [ sources."memory-fs-0.5.0" ];
-              }
+              sources."enhanced-resolve-4.5.0" // { dependencies = [ sources."memory-fs-0.5.0" ]; }
             )
             sources."eslint-scope-4.0.3"
             sources."estraverse-4.3.0"
             (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."find-cache-dir-3.3.2"
             (
@@ -17792,10 +17776,7 @@ let
             sources."string_decoder-1.1.1"
             sources."strip-ansi-3.0.1"
             (
-              sources."style-loader-1.3.0"
-              // {
-                dependencies = [ sources."schema-utils-2.7.1" ];
-              }
+              sources."style-loader-1.3.0" // { dependencies = [ sources."schema-utils-2.7.1" ]; }
             )
             sources."supports-color-7.2.0"
             sources."terser-webpack-plugin-4.2.3"
@@ -17864,9 +17845,7 @@ let
             sources."ajv-6.12.6"
             sources."ajv-keywords-3.5.2"
             sources."ansi-styles-4.3.0"
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."cacache-12.0.4"
             sources."chalk-4.1.2"
             sources."chownr-1.1.4"
@@ -17874,18 +17853,12 @@ let
             sources."color-name-1.1.4"
             sources."commander-2.20.3"
             (
-              sources."enhanced-resolve-4.5.0"
-              // {
-                dependencies = [ sources."memory-fs-0.5.0" ];
-              }
+              sources."enhanced-resolve-4.5.0" // { dependencies = [ sources."memory-fs-0.5.0" ]; }
             )
             sources."eslint-scope-4.0.3"
             sources."estraverse-4.3.0"
             (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."has-flag-4.0.0"
             sources."is-buffer-1.1.6"
@@ -17939,27 +17912,19 @@ let
             sources."ajv-6.12.6"
             sources."ajv-keywords-3.5.2"
             sources."ansi-styles-4.3.0"
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."cacache-12.0.4"
             sources."chalk-4.1.2"
             sources."chownr-1.1.4"
             sources."color-convert-2.0.1"
             sources."color-name-1.1.4"
             (
-              sources."enhanced-resolve-4.5.0"
-              // {
-                dependencies = [ sources."memory-fs-0.5.0" ];
-              }
+              sources."enhanced-resolve-4.5.0" // { dependencies = [ sources."memory-fs-0.5.0" ]; }
             )
             sources."eslint-scope-4.0.3"
             sources."estraverse-4.3.0"
             (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."has-flag-4.0.0"
             sources."is-buffer-1.1.6"
@@ -18017,9 +17982,7 @@ let
             sources."ajv-keywords-3.5.2"
             sources."ansi-regex-2.1.1"
             sources."ansi-styles-4.3.0"
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."camelcase-5.3.1"
             sources."chalk-4.1.2"
             sources."chownr-1.1.4"
@@ -18042,18 +18005,12 @@ let
             sources."domhandler-4.3.1"
             sources."domutils-2.8.0"
             (
-              sources."enhanced-resolve-4.5.0"
-              // {
-                dependencies = [ sources."memory-fs-0.5.0" ];
-              }
+              sources."enhanced-resolve-4.5.0" // { dependencies = [ sources."memory-fs-0.5.0" ]; }
             )
             sources."eslint-scope-4.0.3"
             sources."estraverse-4.3.0"
             (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."find-cache-dir-3.3.2"
             sources."has-flag-4.0.0"
@@ -18099,10 +18056,7 @@ let
             sources."string_decoder-1.1.1"
             sources."strip-ansi-3.0.1"
             (
-              sources."style-loader-1.3.0"
-              // {
-                dependencies = [ sources."schema-utils-2.7.1" ];
-              }
+              sources."style-loader-1.3.0" // { dependencies = [ sources."schema-utils-2.7.1" ]; }
             )
             sources."supports-color-7.2.0"
             sources."terser-webpack-plugin-4.2.3"
@@ -18463,12 +18417,7 @@ let
       sources."ajv-keywords-5.1.0"
       sources."ansi-align-3.0.1"
       sources."ansi-colors-3.2.4"
-      (
-        sources."ansi-escapes-4.3.2"
-        // {
-          dependencies = [ sources."type-fest-0.21.3" ];
-        }
-      )
+      (sources."ansi-escapes-4.3.2" // { dependencies = [ sources."type-fest-0.21.3" ]; })
       sources."ansi-html-community-0.0.8"
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-3.2.1"
@@ -18584,9 +18533,7 @@ let
       sources."babel-preset-react-app-10.0.1"
       sources."bail-1.0.5"
       sources."balanced-match-1.0.2"
-      (
-        sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; }
-      )
+      (sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; })
       sources."base64-js-1.5.1"
       sources."batch-0.6.1"
       (sources."better-opn-2.1.1" // { dependencies = [ sources."open-7.4.2" ]; })
@@ -18675,12 +18622,7 @@ let
       sources."camel-case-4.1.2"
       sources."camelcase-6.3.0"
       sources."camelcase-css-2.0.1"
-      (
-        sources."camelcase-keys-2.1.0"
-        // {
-          dependencies = [ sources."camelcase-2.1.1" ];
-        }
-      )
+      (sources."camelcase-keys-2.1.0" // { dependencies = [ sources."camelcase-2.1.1" ]; })
       sources."caniuse-api-3.0.0"
       sources."caniuse-lite-1.0.30001384"
       sources."case-sensitive-paths-webpack-plugin-2.4.0"
@@ -18701,9 +18643,7 @@ let
         }
       )
       sources."cheerio-select-2.1.0"
-      (
-        sources."chokidar-3.5.3" // { dependencies = [ sources."glob-parent-5.1.2" ]; }
-      )
+      (sources."chokidar-3.5.3" // { dependencies = [ sources."glob-parent-5.1.2" ]; })
       sources."chownr-2.0.0"
       sources."chrome-trace-event-1.0.3"
       sources."ci-info-3.3.2"
@@ -18722,19 +18662,14 @@ let
             )
             sources."is-buffer-1.1.6"
             (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
           ];
         }
       )
-      (
-        sources."clean-css-5.3.1" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."clean-css-5.3.1" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."clean-stack-2.2.0"
       sources."cli-boxes-2.2.1"
       sources."cli-table3-0.6.2"
@@ -18806,12 +18741,7 @@ let
       sources."copy-descriptor-0.1.1"
       sources."copy-to-clipboard-3.3.2"
       sources."core-js-3.25.0"
-      (
-        sources."core-js-compat-3.25.0"
-        // {
-          dependencies = [ sources."semver-7.0.0" ];
-        }
-      )
+      (sources."core-js-compat-3.25.0" // { dependencies = [ sources."semver-7.0.0" ]; })
       sources."core-js-pure-3.25.0"
       sources."core-util-is-1.0.3"
       (sources."cosmiconfig-7.0.1" // { dependencies = [ sources."yaml-1.10.2" ]; })
@@ -18822,16 +18752,11 @@ let
           dependencies = [
             sources."@nodelib/fs.stat-1.1.3"
             sources."array-union-1.0.2"
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."dir-glob-2.2.2"
             sources."fast-glob-2.2.7"
             (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
             sources."globby-9.2.0"
@@ -19002,9 +18927,7 @@ let
       sources."didyoumean-1.2.2"
       sources."diff-sequences-29.0.0"
       sources."diffable-html-5.0.0"
-      (
-        sources."diffie-hellman-5.0.3" // { dependencies = [ sources."bn.js-4.12.0" ]; }
-      )
+      (sources."diffie-hellman-5.0.3" // { dependencies = [ sources."bn.js-4.12.0" ]; })
       sources."dir-glob-3.0.1"
       sources."discontinuous-range-1.0.0"
       sources."dlv-1.1.3"
@@ -19014,12 +18937,7 @@ let
       sources."dom-accessibility-api-0.5.14"
       sources."dom-converter-0.2.0"
       sources."dom-helpers-5.2.1"
-      (
-        sources."dom-serializer-2.0.0"
-        // {
-          dependencies = [ sources."entities-4.3.1" ];
-        }
-      )
+      (sources."dom-serializer-2.0.0" // { dependencies = [ sources."entities-4.3.1" ]; })
       sources."dom-walk-0.1.2"
       sources."domain-browser-1.2.0"
       sources."domelementtype-2.3.0"
@@ -19057,10 +18975,7 @@ let
       sources."end-of-stream-1.4.4"
       sources."endent-2.1.0"
       (
-        sources."enhanced-resolve-5.10.0"
-        // {
-          dependencies = [ sources."tapable-2.2.1" ];
-        }
+        sources."enhanced-resolve-5.10.0" // { dependencies = [ sources."tapable-2.2.1" ]; }
       )
       sources."entities-2.2.0"
       sources."enzyme-3.11.0"
@@ -19080,9 +18995,7 @@ let
       sources."escalade-3.1.1"
       sources."escape-html-1.0.3"
       sources."escape-string-regexp-1.0.5"
-      (
-        sources."escodegen-2.0.0" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."escodegen-2.0.0" // { dependencies = [ sources."source-map-0.6.1" ]; })
       (
         sources."eslint-8.23.0"
         // {
@@ -19115,10 +19028,7 @@ let
         }
       )
       (
-        sources."eslint-module-utils-2.7.4"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
+        sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; }
       )
       sources."eslint-plugin-flowtype-8.0.3"
       (
@@ -19198,10 +19108,7 @@ let
             )
             sources."is-buffer-1.1.6"
             (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
             sources."is-descriptor-0.1.6"
             sources."is-extendable-0.1.1"
@@ -19224,10 +19131,7 @@ let
             sources."jest-message-util-29.0.1"
             sources."jest-util-29.0.1"
             (
-              sources."pretty-format-29.0.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-29.0.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-18.2.0"
             sources."supports-color-7.2.0"
@@ -19258,20 +19162,10 @@ let
           ];
         }
       )
-      (
-        sources."extract-zip-2.0.1"
-        // {
-          dependencies = [ sources."get-stream-5.2.0" ];
-        }
-      )
+      (sources."extract-zip-2.0.1" // { dependencies = [ sources."get-stream-5.2.0" ]; })
       sources."fast-deep-equal-3.1.3"
       sources."fast-diff-1.2.0"
-      (
-        sources."fast-glob-3.2.11"
-        // {
-          dependencies = [ sources."glob-parent-5.1.2" ];
-        }
-      )
+      (sources."fast-glob-3.2.11" // { dependencies = [ sources."glob-parent-5.1.2" ]; })
       sources."fast-json-parse-1.0.3"
       sources."fast-json-stable-stringify-2.1.0"
       sources."fast-levenshtein-2.0.6"
@@ -19281,10 +19175,7 @@ let
       sources."fb-watchman-2.0.1"
       sources."fd-slicer-1.1.0"
       (
-        sources."fetch-mock-9.11.0"
-        // {
-          dependencies = [ sources."path-to-regexp-2.4.0" ];
-        }
+        sources."fetch-mock-9.11.0" // { dependencies = [ sources."path-to-regexp-2.4.0" ]; }
       )
       sources."fetch-retry-5.0.3"
       sources."figgy-pudding-3.5.2"
@@ -19426,9 +19317,7 @@ let
       sources."grapheme-splitter-1.0.4"
       sources."gzip-size-6.0.0"
       sources."handle-thing-2.0.1"
-      (
-        sources."handlebars-4.7.7" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."handlebars-4.7.7" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."harmony-reflect-1.6.2"
       sources."has-1.0.3"
       sources."has-bigints-1.0.2"
@@ -19449,16 +19338,12 @@ let
           ];
         }
       )
-      (
-        sources."hash-base-3.1.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."hash-base-3.1.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."hash.js-1.1.7"
       sources."hast-to-hyperscript-9.0.1"
       sources."hast-util-from-parse5-6.0.1"
       sources."hast-util-parse-selector-2.2.5"
-      (
-        sources."hast-util-raw-6.0.1" // { dependencies = [ sources."parse5-6.0.1" ]; }
-      )
+      (sources."hast-util-raw-6.0.1" // { dependencies = [ sources."parse5-6.0.1" ]; })
       sources."hast-util-to-parse5-6.0.0"
       sources."hastscript-6.0.0"
       sources."he-1.2.0"
@@ -19545,10 +19430,7 @@ let
       sources."immer-9.0.15"
       sources."immutable-4.1.0"
       (
-        sources."import-fresh-3.3.0"
-        // {
-          dependencies = [ sources."resolve-from-4.0.0" ];
-        }
+        sources."import-fresh-3.3.0" // { dependencies = [ sources."resolve-from-4.0.0" ]; }
       )
       (
         sources."import-local-3.1.0"
@@ -19743,10 +19625,7 @@ let
             sources."color-name-1.1.4"
             sources."has-flag-4.0.0"
             (
-              sources."pretty-format-29.0.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-29.0.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-18.2.0"
             sources."supports-color-7.2.0"
@@ -19859,10 +19738,7 @@ let
             sources."color-name-1.1.4"
             sources."has-flag-4.0.0"
             (
-              sources."pretty-format-29.0.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-29.0.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-18.2.0"
             sources."supports-color-7.2.0"
@@ -19879,10 +19755,7 @@ let
             sources."color-name-1.1.4"
             sources."has-flag-4.0.0"
             (
-              sources."pretty-format-28.1.3"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-28.1.3" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-18.2.0"
             sources."supports-color-7.2.0"
@@ -20028,9 +19901,7 @@ let
         sources."jest-watch-typeahead-1.1.0"
         // {
           dependencies = [
-            (
-              sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; }
-            )
+            (sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; })
             sources."@jest/test-result-28.1.3"
             sources."ansi-regex-6.0.1"
             sources."ansi-styles-4.3.0"
@@ -20051,12 +19922,7 @@ let
               }
             )
             sources."slash-4.0.0"
-            (
-              sources."string-length-5.0.1"
-              // {
-                dependencies = [ sources."char-regex-2.0.1" ];
-              }
-            )
+            (sources."string-length-5.0.1" // { dependencies = [ sources."char-regex-2.0.1" ]; })
             sources."strip-ansi-7.0.1"
             sources."supports-color-7.2.0"
           ];
@@ -20314,9 +20180,7 @@ let
             sources."is-accessor-descriptor-0.1.6"
             sources."is-buffer-1.1.6"
             sources."is-data-descriptor-0.1.4"
-            (
-              sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; }
-            )
+            (sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; })
             sources."kind-of-3.2.2"
           ];
         }
@@ -20426,9 +20290,7 @@ let
       sources."posix-character-classes-0.1.1"
       (sources."postcss-7.0.39" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."postcss-flexbugs-fixes-4.2.1"
-      (
-        sources."postcss-loader-4.3.0" // { dependencies = [ sources."semver-7.3.7" ]; }
-      )
+      (sources."postcss-loader-4.3.0" // { dependencies = [ sources."semver-7.3.7" ]; })
       sources."postcss-modules-extract-imports-2.0.0"
       sources."postcss-modules-local-by-default-3.0.3"
       sources."postcss-modules-scope-2.2.0"
@@ -20442,10 +20304,7 @@ let
       sources."pretty-bytes-5.6.0"
       sources."pretty-error-4.0.0"
       (
-        sources."pretty-format-27.5.1"
-        // {
-          dependencies = [ sources."ansi-styles-5.2.0" ];
-        }
+        sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
       )
       sources."pretty-hrtime-1.0.3"
       sources."process-0.11.10"
@@ -20456,19 +20315,12 @@ let
       sources."promise.allsettled-1.0.5"
       sources."promise.prototype.finally-3.1.3"
       sources."prompts-2.4.2"
-      (
-        sources."prop-types-15.8.1"
-        // {
-          dependencies = [ sources."react-is-16.13.1" ];
-        }
-      )
+      (sources."prop-types-15.8.1" // { dependencies = [ sources."react-is-16.13.1" ]; })
       sources."property-information-5.6.0"
       sources."proxy-addr-2.0.7"
       sources."prr-1.0.1"
       sources."psl-1.9.0"
-      (
-        sources."public-encrypt-4.0.3" // { dependencies = [ sources."bn.js-4.12.0" ]; }
-      )
+      (sources."public-encrypt-4.0.3" // { dependencies = [ sources."bn.js-4.12.0" ]; })
       sources."pump-3.0.0"
       (sources."pumpify-1.5.1" // { dependencies = [ sources."pump-2.0.1" ]; })
       sources."punycode-2.1.1"
@@ -20518,12 +20370,7 @@ let
           ];
         }
       )
-      (
-        sources."react-docgen-5.4.3"
-        // {
-          dependencies = [ sources."commander-2.20.3" ];
-        }
-      )
+      (sources."react-docgen-5.4.3" // { dependencies = [ sources."commander-2.20.3" ]; })
       sources."react-docgen-typescript-2.2.2"
       sources."react-dom-17.0.2"
       (
@@ -20811,10 +20658,7 @@ let
             )
             sources."is-buffer-1.1.6"
             (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
             sources."is-descriptor-0.1.6"
             sources."is-extendable-0.1.1"
@@ -20890,10 +20734,7 @@ let
             )
             sources."is-buffer-1.1.6"
             (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
@@ -20926,12 +20767,7 @@ let
       sources."stream-shift-1.0.1"
       sources."string-length-4.0.2"
       sources."string-natural-compare-3.0.1"
-      (
-        sources."string-width-4.2.3"
-        // {
-          dependencies = [ sources."emoji-regex-8.0.0" ];
-        }
-      )
+      (sources."string-width-4.2.3" // { dependencies = [ sources."emoji-regex-8.0.0" ]; })
       sources."string.prototype.matchall-4.0.7"
       sources."string.prototype.padend-3.1.3"
       sources."string.prototype.padstart-3.1.3"
@@ -20939,10 +20775,7 @@ let
       sources."string.prototype.trimend-1.0.5"
       sources."string.prototype.trimstart-1.0.5"
       (
-        sources."string_decoder-1.3.0"
-        // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
       sources."stringify-object-3.3.0"
       sources."strip-ansi-6.0.1"
@@ -20974,12 +20807,7 @@ let
             sources."css-select-2.1.0"
             sources."css-what-3.4.2"
             sources."dom-serializer-0.2.2"
-            (
-              sources."domutils-1.7.0"
-              // {
-                dependencies = [ sources."domelementtype-1.3.1" ];
-              }
-            )
+            (sources."domutils-1.7.0" // { dependencies = [ sources."domelementtype-1.3.1" ]; })
             sources."js-yaml-3.14.1"
             sources."nth-check-1.0.2"
           ];
@@ -21053,10 +20881,7 @@ let
       sources."toggle-selection-1.0.6"
       sources."toidentifier-1.0.1"
       (
-        sources."tough-cookie-4.1.2"
-        // {
-          dependencies = [ sources."universalify-0.2.0" ];
-        }
+        sources."tough-cookie-4.1.2" // { dependencies = [ sources."universalify-0.2.0" ]; }
       )
       sources."tr46-1.0.1"
       sources."traverse-0.6.6"
@@ -21098,10 +20923,7 @@ let
       sources."unicode-property-aliases-ecmascript-2.0.0"
       sources."unified-9.2.0"
       (
-        sources."union-value-1.0.1"
-        // {
-          dependencies = [ sources."is-extendable-0.1.1" ];
-        }
+        sources."union-value-1.0.1" // { dependencies = [ sources."is-extendable-0.1.1" ]; }
       )
       sources."unique-filename-1.1.1"
       sources."unique-slug-2.0.2"
@@ -21171,22 +20993,12 @@ let
         sources."watchpack-chokidar2-2.0.1"
         // {
           dependencies = [
-            (
-              sources."anymatch-2.0.0"
-              // {
-                dependencies = [ sources."normalize-path-2.1.1" ];
-              }
-            )
+            (sources."anymatch-2.0.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; })
             sources."binary-extensions-1.13.1"
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."chokidar-2.1.8"
             (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
+              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
             )
             sources."fsevents-1.2.13"
             (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })

@@ -78,8 +78,7 @@ let
       # when cross-compiling ./compiler/valac is valac for host
       # so add the build vala in nativeBuildInputs
       preBuild =
-        lib.optionalString
-          (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
+        lib.optionalString (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
           ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
 
       outputs = [

@@ -177,8 +177,7 @@ let
   };
 
   configureFlags = lib.optionals (enabledPlugins != null) (
-    [ "--disable-all-plugins" ]
-    ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
+    [ "--disable-all-plugins" ] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
   );
 
   pluginBuildInputs =

@@ -191,9 +191,7 @@ stdenv.mkDerivation rec {
     [
       "--enable-freetype"
       (if fontconfigSupport then "--enable-fontconfig" else "--disable-fontconfig")
-      (
-        if x11Support then "--enable-x11 --enable-gl" else "--disable-x11 --disable-gl"
-      )
+      (if x11Support then "--enable-x11 --enable-gl" else "--disable-x11 --disable-gl")
       (if xineramaSupport then "--enable-xinerama" else "--disable-xinerama")
       (if xvSupport then "--enable-xv" else "--disable-xv")
       (if alsaSupport then "--enable-alsa" else "--disable-alsa")
@@ -202,12 +200,7 @@ stdenv.mkDerivation rec {
       (if cddaSupport then "--enable-cdparanoia" else "--disable-cdparanoia")
       (if dvdnavSupport then "--enable-dvdnav" else "--disable-dvdnav")
       (if bluraySupport then "--enable-bluray" else "--disable-bluray")
-      (
-        if amrSupport then
-          "--enable-libopencore_amrnb"
-        else
-          "--disable-libopencore_amrnb"
-      )
+      (if amrSupport then "--enable-libopencore_amrnb" else "--disable-libopencore_amrnb")
       (if cacaSupport then "--enable-caca" else "--disable-caca")
       (
         if lameSupport then

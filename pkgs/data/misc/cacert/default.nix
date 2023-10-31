@@ -216,8 +216,7 @@ stdenv.mkDerivation rec {
               "NixOS cacert extra certificate file" = "88:B8:BE:A7:57:AC:F1:FE:D6:98:8B:50:E0:BD:0A:AE:88:C7:DF:70:26:E1:67:5E:F5:F6:91:27:FF:02:D4:A5";
             };
             mapExtra =
-              f:
-              lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint);
+              f: lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint);
           in
           runCommand "verify-the-cacert-extra-output"
             {

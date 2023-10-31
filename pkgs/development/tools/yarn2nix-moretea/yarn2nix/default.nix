@@ -259,8 +259,7 @@ rec {
         if globElems == [ ] then
           [ base ]
         else
-          lib.concatMap (child: expandGlobList (base + ("/" + child)) rest)
-            matchingChildren;
+          lib.concatMap (child: expandGlobList (base + ("/" + child)) rest) matchingChildren;
 
       # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);
@@ -293,8 +292,7 @@ rec {
                   [
                     (lib.filter (x: x != null))
                     (lib.mapAttrsToList (
-                      pname: _version:
-                      lib.findFirst (package: package.pname == pname) null packageList
+                      pname: _version: lib.findFirst (package: package.pname == pname) null packageList
                     ))
                   ]
                   allDependencies;
@@ -355,9 +353,7 @@ rec {
       baseName = unlessNull name "${safeName}-${version}";
 
       workspaceDependenciesTransitive = lib.unique (
-        (lib.flatten (
-          builtins.map (dep: dep.workspaceDependencies) workspaceDependencies
-        ))
+        (lib.flatten (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies))
         ++ workspaceDependencies
       );
 
@@ -594,17 +590,15 @@ rec {
     '';
   };
 
-  fixup_yarn_lock =
-    runCommandLocal "fixup_yarn_lock" { buildInputs = [ nodejs ]; }
-      ''
-        mkdir -p $out/lib
-        mkdir -p $out/bin
+  fixup_yarn_lock = runCommandLocal "fixup_yarn_lock" { buildInputs = [ nodejs ]; } ''
+    mkdir -p $out/lib
+    mkdir -p $out/bin
 
-        cp ${./lib/urlToName.js} $out/lib/urlToName.js
-        cp ${./internal/fixup_yarn_lock.js} $out/bin/fixup_yarn_lock
+    cp ${./lib/urlToName.js} $out/lib/urlToName.js
+    cp ${./internal/fixup_yarn_lock.js} $out/bin/fixup_yarn_lock
 
-        patchShebangs $out
-      '';
+    patchShebangs $out
+  '';
 }
 // lib.optionalAttrs allowAliases {
   # Aliases

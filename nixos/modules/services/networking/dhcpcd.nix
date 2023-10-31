@@ -31,17 +31,13 @@ let
         interfaces
     )
     ++ mapAttrsToList (i: _: i) config.networking.sits
-    ++ concatLists (
-      attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges)
-    )
+    ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (
       concatMap
         (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues config.networking.vswitches)
     )
-    ++ concatLists (
-      attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds)
-    )
+    ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
     ++ config.networking.dhcpcd.denyInterfaces;
 
   arrayAppendOrNull =
@@ -124,9 +120,7 @@ let
     ''}
 
     ${optionalString
-      (
-        config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ]
-      )
+      (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ])
       noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs

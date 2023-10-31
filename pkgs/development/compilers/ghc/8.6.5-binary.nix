@@ -34,8 +34,7 @@ let
     ++ lib.optional (stdenv.hostPlatform.isDarwin) libiconv
   );
 
-  libEnvVar =
-    lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
+  libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
   glibcDynLinker =
     assert stdenv.isLinux;
@@ -92,8 +91,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-tWSsJdPVrCiqDyIKzpBt5DaXb3b6j951tCya584kWs4=";
       };
     }
-    .${stdenv.hostPlatform.system}
-      or (throw "cannot bootstrap GHC on this platform")
+    .${stdenv.hostPlatform.system} or (throw "cannot bootstrap GHC on this platform")
   );
 
   nativeBuildInputs = [ perl ];

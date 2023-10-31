@@ -51,8 +51,7 @@ let
         with stdenv.hostPlatform;
         [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
       listToDirs =
-        list:
-        lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
+        list: lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
     in
     symlinkJoin {
@@ -91,46 +90,42 @@ let
             wrapped = wrapper { };
           in
           {
-            simple =
-              runCommand "${name}-test-simple" { nativeBuildInputs = [ wrapped ]; }
-                ''
-                  cat <<EOF >test.c
-                  #include <stdio.h>
-                  int main() {
-                    printf ("Testing OpenWatcom C89 compiler.\n");
-                    return 0;
-                  }
-                  EOF
-                  cat test.c
-                  wcl386 -fe=test_c test.c
-                  # Only test execution if hostPlatform is targetable
-                  ${lib.optionalString
-                    (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
-                    "./test_c"}
+            simple = runCommand "${name}-test-simple" { nativeBuildInputs = [ wrapped ]; } ''
+              cat <<EOF >test.c
+              #include <stdio.h>
+              int main() {
+                printf ("Testing OpenWatcom C89 compiler.\n");
+                return 0;
+              }
+              EOF
+              cat test.c
+              wcl386 -fe=test_c test.c
+              # Only test execution if hostPlatform is targetable
+              ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
+                "./test_c"}
 
-                  cat <<EOF >test.cpp
-                  #include <string>
-                  #include <iostream>
-                  int main() {
-                    std::cout << "Testing OpenWatcom C++ library implementation." << std::endl;
-                    watcom::istring HELLO ("HELLO");
-                    if (HELLO != "hello") {
-                      return 1;
-                    }
-                    if (HELLO.find ("ello") != 1) {
-                      return 2;
-                    }
-                    return 0;
-                  }
-                  EOF
-                  cat test.cpp
-                  wcl386 -fe=test_cpp test.cpp
-                  # Only test execution if hostPlatform is targetable
-                  ${lib.optionalString
-                    (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
-                    "./test_cpp"}
-                  touch $out
-                '';
+              cat <<EOF >test.cpp
+              #include <string>
+              #include <iostream>
+              int main() {
+                std::cout << "Testing OpenWatcom C++ library implementation." << std::endl;
+                watcom::istring HELLO ("HELLO");
+                if (HELLO != "hello") {
+                  return 1;
+                }
+                if (HELLO.find ("ello") != 1) {
+                  return 2;
+                }
+                return 0;
+              }
+              EOF
+              cat test.cpp
+              wcl386 -fe=test_cpp test.cpp
+              # Only test execution if hostPlatform is targetable
+              ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
+                "./test_cpp"}
+              touch $out
+            '';
             cross =
               runCommand "${name}-test-cross"
                 {

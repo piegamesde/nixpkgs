@@ -107,9 +107,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     ${lib.optionalString tileMode "mv $out/bin/crawl $out/bin/crawl-tiles"}
-    sed -i 's#/usr/games/##' debian/crawl${
-      lib.optionalString tileMode "-tiles"
-    }.desktop
+    sed -i 's#/usr/games/##' debian/crawl${lib.optionalString tileMode "-tiles"}.desktop
     install -m 444 -D debian/crawl${lib.optionalString tileMode "-tiles"}.desktop \
       $out/share/applications/crawl${lib.optionalString tileMode "-tiles"}.desktop
     install -m 444 -D dat/tiles/stone_soup_icon-512x512.png $out/share/icons/hicolor/512x512/apps/crawl.png

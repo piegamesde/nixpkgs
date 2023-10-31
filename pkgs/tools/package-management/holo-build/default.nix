@@ -22,9 +22,7 @@ buildGoModule rec {
     substituteInPlace Makefile \
       --replace 'VERSION :=' 'VERSION ?='
     substituteInPlace src/holo-build.sh \
-      --replace '/usr/lib/holo/holo-build' '${
-        placeholder "out"
-      }/lib/holo/holo-build'
+      --replace '/usr/lib/holo/holo-build' '${placeholder "out"}/lib/holo/holo-build'
   '';
 
   vendorSha256 = null;

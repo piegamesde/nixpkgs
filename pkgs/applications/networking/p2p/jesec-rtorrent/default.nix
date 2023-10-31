@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
       libtorrent
       ncurses
     ]
-    ++ lib.optional jsonRpcSupport nlohmann_json
-    ++ lib.optional xmlRpcSupport xmlrpc_c;
+    ++ lib.optional jsonRpcSupport nlohmann_json ++ lib.optional xmlRpcSupport xmlrpc_c;
 
   cmakeFlags =
     [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]

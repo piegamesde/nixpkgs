@@ -250,8 +250,7 @@ rec {
           args: {
             dontStrip = true;
             env = (args.env or { }) // {
-              NIX_CFLAGS_COMPILE =
-                toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
+              NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "") + " -ggdb -Og";
             };
           }
         );
@@ -264,9 +263,7 @@ rec {
     stdenv.override (
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
-          args: {
-            NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold";
-          }
+          args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=gold"; }
         );
       }
     );
@@ -279,9 +276,7 @@ rec {
           wrap ld.mold ${
             ../build-support/bintools-wrapper/ld-wrapper.sh
           } ${pkgs.mold}/bin/ld.mold
-          wrap ld ${
-            ../build-support/bintools-wrapper/ld-wrapper.sh
-          } ${pkgs.mold}/bin/ld.mold
+          wrap ld ${../build-support/bintools-wrapper/ld-wrapper.sh} ${pkgs.mold}/bin/ld.mold
         '';
       };
     in
@@ -308,15 +303,10 @@ rec {
       }
       //
         lib.optionalAttrs
-          (
-            stdenv.cc.isClang
-            || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-          )
+          (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"))
           {
             mkDerivationFromStdenv = extendMkDerivationArgs old (
-              args: {
-                NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
-              }
+              args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold"; }
             );
           }
     );
@@ -333,8 +323,7 @@ rec {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
             env = (args.env or { }) // {
-              NIX_CFLAGS_COMPILE =
-                toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
+              NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "") + " -march=native";
             };
 
             NIX_ENFORCE_NO_NATIVE = false;

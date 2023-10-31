@@ -71,9 +71,7 @@ stdenv.mkDerivation (
     inherit version;
 
     src = fetch pname "199yq3a214avcbi4kk2q0ajriifkvsr0l2dkx3a666m033ihi1ff";
-    polly_src =
-      fetch "polly"
-        "031r23ijhx7v93a5n33m2nc0x9xyqmx0d8xg80z7q971p6qd63sq";
+    polly_src = fetch "polly" "031r23ijhx7v93a5n33m2nc0x9xyqmx0d8xg80z7q971p6qd63sq";
 
     unpackPhase =
       ''
@@ -275,9 +273,7 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [
-        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-      ]
+      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
       ++ optionals isDarwin [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

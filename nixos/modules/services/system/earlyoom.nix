@@ -133,9 +133,7 @@ in
         "-g"
         "--prefer '(^|/)(java|chromium)$'"
       ];
-      description =
-        lib.mdDoc
-          "Extra command-line arguments to be passed to earlyoom.";
+      description = lib.mdDoc "Extra command-line arguments to be passed to earlyoom.";
     };
   };
 

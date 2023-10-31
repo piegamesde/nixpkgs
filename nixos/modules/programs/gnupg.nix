@@ -15,8 +15,7 @@ let
 
   defaultPinentryFlavor =
     if
-      xserverCfg.desktopManager.lxqt.enable
-      || xserverCfg.desktopManager.plasma5.enable
+      xserverCfg.desktopManager.lxqt.enable || xserverCfg.desktopManager.plasma5.enable
     then
       "qt"
     else if xserverCfg.desktopManager.xfce.enable then
@@ -130,9 +129,7 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [
-      pkgs.gcr
-    ];
+    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [ pkgs.gcr ];
 
     environment.systemPackages = with pkgs; [ cfg.package ];
     systemd.packages = [ cfg.package ];

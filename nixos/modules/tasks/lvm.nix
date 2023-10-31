@@ -27,9 +27,7 @@ in
       '';
     };
     dmeventd.enable = mkEnableOption (lib.mdDoc "the LVM dmevent daemon");
-    boot.thin.enable = mkEnableOption (
-      lib.mdDoc "support for booting from ThinLVs"
-    );
+    boot.thin.enable = mkEnableOption (lib.mdDoc "support for booting from ThinLVs");
     boot.vdo.enable = mkEnableOption (lib.mdDoc "support for booting from VDOLVs");
   };
 
@@ -56,9 +54,9 @@ in
         lib.mkIf config.boot.initrd.services.lvm.enable
           [ cfg.package ];
       # The device-mapper rules want to call tools from lvm2
-      boot.initrd.systemd.initrdBin =
-        lib.mkIf config.boot.initrd.services.lvm.enable
-          [ cfg.package ];
+      boot.initrd.systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [
+        cfg.package
+      ];
       boot.initrd.services.udev.binPackages =
         lib.mkIf config.boot.initrd.services.lvm.enable
           [ cfg.package ];
@@ -115,9 +113,7 @@ in
         initrd = {
           kernelModules = [ "kvdo" ];
 
-          systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [
-            pkgs.vdo
-          ];
+          systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ pkgs.vdo ];
 
           extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
             ls ${pkgs.vdo}/bin/ | while read BIN; do
@@ -142,17 +138,16 @@ in
     })
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
       boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text =
-        optionalString (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable)
-          (
-            concatMapStringsSep "\n" (bin: "global/${bin}_executable = /bin/${bin}") [
-              "thin_check"
-              "thin_dump"
-              "thin_repair"
-              "cache_check"
-              "cache_dump"
-              "cache_repair"
-            ]
-          )
+        optionalString (config.boot.initrd.services.lvm.enable && cfg.boot.thin.enable) (
+          concatMapStringsSep "\n" (bin: "global/${bin}_executable = /bin/${bin}") [
+            "thin_check"
+            "thin_dump"
+            "thin_repair"
+            "cache_check"
+            "cache_dump"
+            "cache_repair"
+          ]
+        )
         + "\n"
         + optionalString cfg.dmeventd.enable ''
           dmeventd/executable = /bin/false
@@ -163,16 +158,14 @@ in
         mkdir -p /etc/lvm
         cat << EOF >> /etc/lvm/lvm.conf
         ${optionalString cfg.boot.thin.enable (
-          concatMapStringsSep "\n"
-            (bin: "global/${bin}_executable = $(command -v ${bin})")
-            [
-              "thin_check"
-              "thin_dump"
-              "thin_repair"
-              "cache_check"
-              "cache_dump"
-              "cache_repair"
-            ]
+          concatMapStringsSep "\n" (bin: "global/${bin}_executable = $(command -v ${bin})") [
+            "thin_check"
+            "thin_dump"
+            "thin_repair"
+            "cache_check"
+            "cache_dump"
+            "cache_repair"
+          ]
         )}
         ${optionalString cfg.dmeventd.enable ''
           dmeventd/executable = "$(command -v false)"

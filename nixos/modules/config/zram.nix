@@ -122,8 +122,7 @@ in
       }
     ];
 
-    system.requiredKernelConfig =
-      with config.lib.kernelConfig; [ (isModule "ZRAM") ];
+    system.requiredKernelConfig = with config.lib.kernelConfig; [ (isModule "ZRAM") ];
 
     # Disabling this for the moment, as it would create and mkswap devices twice,
     # once in stage 2 boot, and again when the zram-reloader service starts.

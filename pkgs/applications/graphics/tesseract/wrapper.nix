@@ -98,5 +98,4 @@ in
 if enableLanguagesHash == null then
   tesseract
 else
-  lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed."
-    tesseract
+  lib.warn "Argument `enableLanguagesHash` is obsolete and can be removed." tesseract

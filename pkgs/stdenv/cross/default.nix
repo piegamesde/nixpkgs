@@ -49,10 +49,7 @@ lib.init bootStages
     buildPackages:
     let
       adaptStdenv =
-        if crossSystem.isStatic then
-          buildPackages.stdenvAdapters.makeStatic
-        else
-          lib.id;
+        if crossSystem.isStatic then buildPackages.stdenvAdapters.makeStatic else lib.id;
     in
     {
       inherit config;

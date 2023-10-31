@@ -22,9 +22,7 @@ in
 stdenv.mkDerivation {
   pname = "compiler-rt" + lib.optionalString (haveLibc) "-libc";
   inherit version;
-  src =
-    fetch "compiler-rt"
-      "1n48p8gjarihkws0i2bay5w9bdwyxyxxbpwyng7ba58jb30dlyq5";
+  src = fetch "compiler-rt" "1n48p8gjarihkws0i2bay5w9bdwyxyxxbpwyng7ba58jb30dlyq5";
 
   nativeBuildInputs = [
     cmake
@@ -112,10 +110,9 @@ stdenv.mkDerivation {
 
   # Hack around weird upsream RPATH bug
   postInstall =
-    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm)
-      ''
-        ln -s "$out/lib"/*/* "$out/lib"
-      ''
+    lib.optionalString (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isWasm) ''
+      ln -s "$out/lib"/*/* "$out/lib"
+    ''
     + lib.optionalString (useLLVM) ''
       ln -s $out/lib/*/clang_rt.crtbegin-*.o $out/lib/crtbegin.o
       ln -s $out/lib/*/clang_rt.crtend-*.o $out/lib/crtend.o

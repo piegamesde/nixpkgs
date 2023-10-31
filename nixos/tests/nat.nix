@@ -12,8 +12,7 @@ import ./make-test-python.nix (
     ...
   }:
   let
-    unit =
-      if nftables then "nftables" else (if withFirewall then "firewall" else "nat");
+    unit = if nftables then "nftables" else (if withFirewall then "firewall" else "nat");
 
     routerBase = lib.mkMerge [
       {

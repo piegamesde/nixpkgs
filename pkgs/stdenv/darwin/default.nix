@@ -922,9 +922,7 @@ rec {
                   }
                 );
                 libraries = super."${finalLlvmPackages}".libraries.extend (
-                  llvmSelf: _: {
-                    inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt;
-                  }
+                  llvmSelf: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi compiler-rt; }
                 );
               in
               { inherit tools libraries; } // tools // libraries

@@ -164,9 +164,7 @@ stdenv.mkDerivation rec {
       (withFeaturesList "gui" enableGuis)
       (lib.withFeature enableX11 "x")
     ]
-    ++ lib.optionals (gtk != null) [
-      "--with-gtk=${lib.versions.major gtk.version}.0"
-    ]
+    ++ lib.optionals (gtk != null) [ "--with-gtk=${lib.versions.major gtk.version}.0" ]
     ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures)
     ++ [ ];
 

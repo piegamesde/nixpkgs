@@ -12,8 +12,7 @@ then
   let
     name = args.name or "${args.pname}";
   in
-  throw
-    "Package ${name} is incompatible with GNURadio ${unwrapped.versionAttr.major}"
+  throw "Package ${name} is incompatible with GNURadio ${unwrapped.versionAttr.major}"
 else
 
   let

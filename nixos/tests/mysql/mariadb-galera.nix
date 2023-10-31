@@ -56,8 +56,7 @@ let
                   ];
                 };
                 extraHosts =
-                  lib.concatMapStringsSep "\n"
-                    (i: "192.168.1.${toString i} galera_0${toString i}")
+                  lib.concatMapStringsSep "\n" (i: "192.168.1.${toString i} galera_0${toString i}")
                     (lib.range 1 6);
                 firewall.allowedTCPPorts = [
                   3306

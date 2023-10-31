@@ -38,9 +38,7 @@ stdenv.mkDerivation (
       libqt5pas
     ];
 
-    NIX_LDFLAGS = "--as-needed -rpath ${
-        lib.makeLibraryPath finalAttrs.buildInputs
-      }";
+    NIX_LDFLAGS = "--as-needed -rpath ${lib.makeLibraryPath finalAttrs.buildInputs}";
 
     postPatch = ''
       patchShebangs build.sh install/linux/install.sh

@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
       qtsvg
       qtx11extras
     ]
-    ++ lib.optional stdenv.isLinux libcec
-    ++ lib.optional withRPiDispmanx libraspberrypi;
+    ++ lib.optional stdenv.isLinux libcec ++ lib.optional withRPiDispmanx libraspberrypi;
 
   nativeBuildInputs = [
     cmake

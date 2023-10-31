@@ -11,8 +11,7 @@ let
     lib.filterAttrs
       (
         k: v:
-        builtins.match "nextcloud[0-9]+" k != null
-        && (builtins.tryEval v.version).success
+        builtins.match "nextcloud[0-9]+" k != null && (builtins.tryEval v.version).success
       )
       pkgs
   );

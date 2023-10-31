@@ -20,10 +20,7 @@ let
   # writers.
   checkInPkgs =
     n: alias:
-    if builtins.hasAttr n prev then
-      throw "Alias ${n} is still in writers"
-    else
-      alias;
+    if builtins.hasAttr n prev then throw "Alias ${n} is still in writers" else alias;
 
   mapAliases =
     aliases:

@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
     cmake
     ninja
   ];
-  buildInputs =
-    [ openssl ]
-    ++ lib.optionals withJdbc [ openjdk11 ] ++ lib.optionals withOdbc [ unixODBC ];
+  buildInputs = [
+    openssl
+  ] ++ lib.optionals withJdbc [ openjdk11 ] ++ lib.optionals withOdbc [ unixODBC ];
 
   cmakeFlags =
     [

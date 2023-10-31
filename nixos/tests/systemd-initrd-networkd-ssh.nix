@@ -44,9 +44,7 @@ import ./make-test-python.nix (
                 "${
                   toString (
                     head (
-                      splitString " " (
-                        toString (elemAt (splitString "\n" config.networking.extraHosts) 2)
-                      )
+                      splitString " " (toString (elemAt (splitString "\n" config.networking.extraHosts) 2))
                     )
                   )
                 } "

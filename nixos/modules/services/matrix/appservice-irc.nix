@@ -102,9 +102,7 @@ in
               options = {
                 url = mkOption {
                   type = str;
-                  description =
-                    lib.mdDoc
-                      "The URL to the home server for client-server API calls";
+                  description = lib.mdDoc "The URL to the home server for client-server API calls";
                 };
 
                 domain = mkOption {

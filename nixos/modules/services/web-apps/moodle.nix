@@ -62,9 +62,7 @@ let
     );
 
     $CFG->wwwroot   = '${
-      if
-        cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL
-      then
+      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then
         "https"
       else
         "http"
@@ -209,9 +207,7 @@ in
           else
             null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
-        description =
-          lib.mdDoc
-            "Path to the unix socket file to use for authentication.";
+        description = lib.mdDoc "Path to the unix socket file to use for authentication.";
       };
 
       createLocally = mkOption {

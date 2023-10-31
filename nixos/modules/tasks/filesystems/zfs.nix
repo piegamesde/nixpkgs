@@ -113,8 +113,7 @@ let
       # Remove the "/" suffix because even though most mountpoints
       # won't have it, the "/" mountpoint will, and we can't have the
       # trailing slash in "/sysroot/" in stage 1.
-      mountPoint =
-        fs: escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
+      mountPoint = fs: escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
     in
     map (x: "${mountPoint x}.mount") (getPoolFilesystems pool);
 
@@ -606,9 +605,7 @@ in
         # https://github.com/openzfs/zfs/issues/260
         # https://github.com/openzfs/zfs/issues/12842
         # https://github.com/NixOS/nixpkgs/issues/106093
-        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [
-          "nohibernate"
-        ];
+        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
         extraModulePackages = [
           (
@@ -710,9 +707,7 @@ in
       boot.loader.grub = mkIf (inInitrd || inSystem) { zfsSupport = true; };
 
       services.zfs.zed.settings = {
-        ZED_EMAIL_PROG = mkIf cfgZED.enableMail (
-          mkDefault "${pkgs.mailutils}/bin/mail"
-        );
+        ZED_EMAIL_PROG = mkIf cfgZED.enableMail (mkDefault "${pkgs.mailutils}/bin/mail");
         PATH = lib.makeBinPath [
           cfgZfs.package
           pkgs.coreutils

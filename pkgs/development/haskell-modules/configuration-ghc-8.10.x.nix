@@ -53,9 +53,7 @@ self: super: {
   xhtml = if self.ghc.hasHaddock or true then null else self.xhtml_3000_2_2_1;
 
   # Additionally depends on OneTuple for GHC < 9.0
-  base-compat-batteries =
-    addBuildDepend self.OneTuple
-      super.base-compat-batteries;
+  base-compat-batteries = addBuildDepend self.OneTuple super.base-compat-batteries;
 
   # Pick right versions for GHC-specific packages
   ghc-api-compat = doDistribute (unmarkBroken self.ghc-api-compat_8_10_7);
@@ -241,9 +239,7 @@ self: super: {
 
   apply-refact = self.apply-refact_0_9_3_0;
 
-  hls-hlint-plugin = super.hls-hlint-plugin.override {
-    inherit (self) apply-refact;
-  };
+  hls-hlint-plugin = super.hls-hlint-plugin.override { inherit (self) apply-refact; };
 
   # Needs OneTuple for ghc < 9.2
   binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;

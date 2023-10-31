@@ -45,11 +45,10 @@ in
           conf = format.generate "vector.toml" cfg.settings;
           validateConfig =
             file:
-            pkgs.runCommand "validate-vector-conf" { nativeBuildInputs = [ pkgs.vector ]; }
-              ''
-                vector validate --no-environment "${file}"
-                ln -s "${file}" "$out"
-              '';
+            pkgs.runCommand "validate-vector-conf" { nativeBuildInputs = [ pkgs.vector ]; } ''
+              vector validate --no-environment "${file}"
+              ln -s "${file}" "$out"
+            '';
         in
         {
           ExecStart = "${pkgs.vector}/bin/vector --config ${validateConfig conf}";

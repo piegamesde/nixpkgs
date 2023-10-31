@@ -28,14 +28,12 @@ rustPlatform.buildRustPackage rec {
 
   NIX_EVAL_JOBS = "${nix-eval-jobs}/bin/nix-eval-jobs";
 
-  postInstall =
-    lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform)
-      ''
-        installShellCompletion --cmd colmena \
-          --bash <($out/bin/colmena gen-completions bash) \
-          --zsh <($out/bin/colmena gen-completions zsh) \
-          --fish <($out/bin/colmena gen-completions fish)
-      '';
+  postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
+    installShellCompletion --cmd colmena \
+      --bash <($out/bin/colmena gen-completions bash) \
+      --zsh <($out/bin/colmena gen-completions zsh) \
+      --fish <($out/bin/colmena gen-completions fish)
+  '';
 
   # Recursive Nix is not stable yet
   doCheck = false;

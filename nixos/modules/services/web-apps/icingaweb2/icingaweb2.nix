@@ -61,9 +61,7 @@ in
       migrate.enable = mkEnableOption (lib.mdDoc "the icingaweb2 migrate module");
       setup.enable = mkEnableOption (lib.mdDoc "the icingaweb2 setup module");
       test.enable = mkEnableOption (lib.mdDoc "the icingaweb2 test module");
-      translation.enable = mkEnableOption (
-        lib.mdDoc "the icingaweb2 translation module"
-      );
+      translation.enable = mkEnableOption (lib.mdDoc "the icingaweb2 translation module");
     };
 
     modulePackages = mkOption {
@@ -194,9 +192,7 @@ in
             )
           );
         };
-        phpPackage = pkgs.php.withExtensions (
-          { enabled, all }: [ all.imagick ] ++ enabled
-        );
+        phpPackage = pkgs.php.withExtensions ({ enabled, all }: [ all.imagick ] ++ enabled);
         phpOptions = ''
           date.timezone = "${cfg.timezone}"
         '';
@@ -261,8 +257,7 @@ in
       in
       { }
       # Module packages
-      // (mapAttrs'
-        (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
+      // (mapAttrs' (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
         cfg.modulePackages
       )
       # Built-in modules

@@ -54,8 +54,7 @@ let
       "xmit_hash_policy"
     ];
     filterDeprecated =
-      bond:
-      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond);
+      bond: (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond);
   };
 
   bondWarnings =
@@ -110,15 +109,11 @@ let
         hasDefaultGatewaySet =
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
           || (
-            cfg.enableIPv6
-            && cfg.defaultGateway6 != null
-            && cfg.defaultGateway6.address != ""
+            cfg.enableIPv6 && cfg.defaultGateway6 != null && cfg.defaultGateway6.address != ""
           );
 
         needNetworkSetup =
-          cfg.resolvconf.enable
-          || cfg.defaultGateway != null
-          || cfg.defaultGateway6 != null;
+          cfg.resolvconf.enable || cfg.defaultGateway != null || cfg.defaultGateway6 != null;
 
         networkLocalCommands = lib.mkIf needNetworkSetup {
           after = [ "network-setup.service" ];
@@ -165,9 +160,7 @@ let
               ${optionalString (cfg.nameservers != [ ] && cfg.domain != null) ''
                 domain ${cfg.domain}
               ''}
-              ${optionalString (cfg.search != [ ]) (
-                "search " + concatStringsSep " " cfg.search
-              )}
+              ${optionalString (cfg.search != [ ]) ("search " + concatStringsSep " " cfg.search)}
               ${flip concatMapStrings cfg.nameservers (
                 ns: ''
                   nameserver ${ns}
@@ -177,28 +170,25 @@ let
             ''}
 
             # Set the default gateway.
-            ${optionalString
-              (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
-              ''
-                ${optionalString (cfg.defaultGateway.interface != null) ''
-                  ip route replace ${cfg.defaultGateway.address} dev ${cfg.defaultGateway.interface} ${
-                    optionalString (cfg.defaultGateway.metric != null)
-                      "metric ${toString cfg.defaultGateway.metric}"
-                  } proto static
-                ''}
-                ip route replace default ${
+            ${optionalString (cfg.defaultGateway != null && cfg.defaultGateway.address != "") ''
+              ${optionalString (cfg.defaultGateway.interface != null) ''
+                ip route replace ${cfg.defaultGateway.address} dev ${cfg.defaultGateway.interface} ${
                   optionalString (cfg.defaultGateway.metric != null)
                     "metric ${toString cfg.defaultGateway.metric}"
-                } via "${cfg.defaultGateway.address}" ${
-                  optionalString (cfg.defaultGatewayWindowSize != null)
-                    "window ${toString cfg.defaultGatewayWindowSize}"
-                } ${
-                  optionalString (cfg.defaultGateway.interface != null)
-                    "dev ${cfg.defaultGateway.interface}"
                 } proto static
               ''}
-            ${optionalString
-              (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "")
+              ip route replace default ${
+                optionalString (cfg.defaultGateway.metric != null)
+                  "metric ${toString cfg.defaultGateway.metric}"
+              } via "${cfg.defaultGateway.address}" ${
+                optionalString (cfg.defaultGatewayWindowSize != null)
+                  "window ${toString cfg.defaultGatewayWindowSize}"
+              } ${
+                optionalString (cfg.defaultGateway.interface != null)
+                  "dev ${cfg.defaultGateway.interface}"
+              } proto static
+            ''}
+            ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "")
               ''
                 ${optionalString (cfg.defaultGateway6.interface != null) ''
                   ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
@@ -513,8 +503,7 @@ let
                       mapAttrsToList
                         (
                           name: config:
-                          optionalString (config.type != null)
-                            " -- set interface ${name} type=${config.type}"
+                          optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
                         )
                         v.interfaces
                     )
@@ -570,8 +559,7 @@ let
                 ip link add name "${n}" type bond \
                 ${let
                   opts =
-                    (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
-                    // v.driverOptions;
+                    (mapAttrs (const toString) (bondDeprecation.filterDeprecated v)) // v.driverOptions;
                 in
                 concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
 

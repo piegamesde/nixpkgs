@@ -16,8 +16,7 @@
 }:
 
 let
-  merlinVersion =
-    if lib.versionAtLeast ocaml.version "4.14" then "4.8" else "4.7";
+  merlinVersion = if lib.versionAtLeast ocaml.version "4.14" then "4.8" else "4.7";
 
   hashes = {
     "4.7-412" = "sha256-0U3Ia7EblKULNy8AuXFVKACZvGN0arYJv7BWiBRgT0Y=";
@@ -34,8 +33,7 @@ let
 in
 
 if !lib.hasAttr version hashes then
-  builtins.throw
-    "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
+  builtins.throw "merlin ${merlinVersion} is not available for OCaml ${ocaml.version}"
 else
 
   buildDunePackage {

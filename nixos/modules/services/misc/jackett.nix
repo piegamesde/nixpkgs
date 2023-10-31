@@ -24,9 +24,7 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for the Jackett web interface.";
+        description = lib.mdDoc "Open ports in the firewall for the Jackett web interface.";
       };
 
       user = mkOption {
@@ -51,9 +49,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.jackett = {
       description = "Jackett";

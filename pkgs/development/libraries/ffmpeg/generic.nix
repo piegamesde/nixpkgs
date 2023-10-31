@@ -426,8 +426,7 @@ assert buildSwscale -> buildAvutil;
 
 stdenv.mkDerivation (
   finalAttrs: {
-    pname =
-      "ffmpeg" + (if ffmpegVariant == "small" then "" else "-${ffmpegVariant}");
+    pname = "ffmpeg" + (if ffmpegVariant == "small" then "" else "-${ffmpegVariant}");
     inherit version;
 
     src = fetchgit {
@@ -454,15 +453,12 @@ stdenv.mkDerivation (
 
     patches = map (patch: fetchpatch patch) (
       extraPatches
-      ++ (lib.optional
-        (lib.versionAtLeast version "6" && lib.versionOlder version "6.1")
-        {
-          # this can be removed post 6.1
-          name = "fix_aacps_tablegen";
-          url = "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
-          hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
-        }
-      )
+      ++ (lib.optional (lib.versionAtLeast version "6" && lib.versionOlder version "6.1") {
+        # this can be removed post 6.1
+        name = "fix_aacps_tablegen";
+        url = "https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/814178f92647be2411516bbb82f48532373d2554";
+        hash = "sha256-FQV9/PiarPXCm45ldtCsxGHjlrriL8DKpn1LaKJ8owI=";
+      })
     );
 
     configurePlatforms = [ ];
@@ -496,9 +492,7 @@ stdenv.mkDerivation (
         (enableFeature withSafeBitstreamReader "safe-bitstream-reader")
 
         (enableFeature (withMultithread && stdenv.targetPlatform.isUnix) "pthreads")
-        (enableFeature (withMultithread && stdenv.targetPlatform.isWindows)
-          "w32threads"
-        )
+        (enableFeature (withMultithread && stdenv.targetPlatform.isWindows) "w32threads")
         "--disable-os2threads" # We don't support OS/2
 
         (enableFeature withNetwork "network")
@@ -671,12 +665,7 @@ stdenv.mkDerivation (
       optionals withFullDeps [ libdc1394 ]
       ++ optionals (withFullDeps && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
       ++ optionals (withNvdec || withNvenc) [
-        (
-          if (lib.versionAtLeast version "6") then
-            nv-codec-headers-11
-          else
-            nv-codec-headers
-        )
+        (if (lib.versionAtLeast version "6") then nv-codec-headers-11 else nv-codec-headers)
       ]
       ++ optionals withAlsa [ alsa-lib ]
       ++ optionals withAom [ libaom ]

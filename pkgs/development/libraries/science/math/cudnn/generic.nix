@@ -95,11 +95,9 @@ backendStdenv.mkDerivation {
     '';
 
   # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
-  postFixup =
-    strings.optionalString (strings.versionAtLeast versionTriple "8.0.5")
-      ''
-        patchelf $out/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
-      '';
+  postFixup = strings.optionalString (strings.versionAtLeast versionTriple "8.0.5") ''
+    patchelf $out/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
+  '';
 
   passthru = {
     inherit useCudatoolkitRunfile;

@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.mautrix-facebook;
   settingsFormat = pkgs.formats.json { };
-  settingsFile =
-    settingsFormat.generate "mautrix-facebook-config.json"
-      cfg.settings;
+  settingsFile = settingsFormat.generate "mautrix-facebook-config.json" cfg.settings;
 
   puppetRegex = concatStringsSep ".*" (
     map escapeRegex (splitString "{userid}" cfg.settings.bridge.username_template)

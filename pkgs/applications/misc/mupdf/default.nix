@@ -32,8 +32,7 @@
 let
 
   # OpenJPEG version is hardcoded in package source
-  openJpegVersion =
-    with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
+  openJpegVersion = with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
 
   freeglut-mupdf = freeglut.overrideAttrs (
     old: rec {

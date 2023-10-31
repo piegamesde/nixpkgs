@@ -477,8 +477,7 @@ in
             hasDeprecated = builtins.hasAttr "StartLimitInterval" service.serviceConfig;
           in
           concatLists [
-            (optional
-              (type == "oneshot" && (restart == "always" || restart == "on-success"))
+            (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
               "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
             )
             (optional hasDeprecated
@@ -618,9 +617,7 @@ in
 
     systemd.units =
       mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-      //
-        mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-          cfg.services
+      // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
       // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v)) cfg.slices
       // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v)) cfg.sockets
       // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
@@ -689,10 +686,7 @@ in
           wantedBy = [ "timers.target" ];
           timerConfig.OnCalendar = service.startAt;
         })
-        (
-          filterAttrs (name: service: service.enable && service.startAt != [ ])
-            cfg.services
-        );
+        (filterAttrs (name: service: service.enable && service.startAt != [ ]) cfg.services);
 
     # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;

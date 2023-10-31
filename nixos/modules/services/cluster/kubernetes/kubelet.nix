@@ -25,9 +25,7 @@ let
           imap
             (
               i: entry:
-              pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (
-                builtins.toJSON entry
-              )
+              pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
             )
             cfg.cni.config;
       });
@@ -152,9 +150,7 @@ in
     };
 
     clientCaFile = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes apiserver CA file for client authentication.";
+      description = lib.mdDoc "Kubernetes apiserver CA file for client authentication.";
       default = top.caFile;
       defaultText = literalExpression "config.${otop.caFile}";
       type = nullOr path;
@@ -294,9 +290,7 @@ in
     };
 
     tlsKeyFile = mkOption {
-      description =
-        lib.mdDoc
-          "File containing x509 private key matching tlsCertFile.";
+      description = lib.mdDoc "File containing x509 private key matching tlsCertFile.";
       default = null;
       type = nullOr path;
     };
@@ -415,16 +409,13 @@ in
                         } \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
-                        ${
-                          optionalString (taints != "") "--register-with-taints=${taints}"
-                        } \
+                        ${optionalString (taints != "") "--register-with-taints=${taints}"} \
                         --root-dir=${top.dataDir} \
                         ${
                           optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
                         } \
                         ${
-                          optionalString (cfg.tlsKeyFile != null)
-                            "--tls-private-key-file=${cfg.tlsKeyFile}"
+                          optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \
                         ${
                           optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
@@ -451,9 +442,7 @@ in
         "overlay"
       ];
 
-      services.kubernetes.kubelet.hostname =
-        mkDefault
-          config.networking.fqdnOrHostName;
+      services.kubernetes.kubelet.hostname = mkDefault config.networking.fqdnOrHostName;
 
       services.kubernetes.pki.certs = with top.lib; {
         kubelet = mkCert {

@@ -104,9 +104,7 @@ in
       testnet = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Connect to testnet network instead of the default mainnet.";
+        description = lib.mdDoc "Connect to testnet network instead of the default mainnet.";
       };
 
       user = mkOption {

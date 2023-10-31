@@ -36,15 +36,11 @@ with lib;
           ffmpeg_5 = super.ffmpeg_5.override { ffmpegVariant = "headless"; };
           # dep of graphviz, libXpm is optional for Xpm support
           gd = super.gd.override { withXorg = false; };
-          gobject-introspection = super.gobject-introspection.override {
-            x11Support = false;
-          };
+          gobject-introspection = super.gobject-introspection.override { x11Support = false; };
           gpsd = super.gpsd.override { guiSupport = false; };
           graphviz = super.graphviz-nox;
           gst_all_1 = super.gst_all_1 // {
-            gst-plugins-base = super.gst_all_1.gst-plugins-base.override {
-              enableX11 = false;
-            };
+            gst-plugins-base = super.gst_all_1.gst-plugins-base.override { enableX11 = false; };
           };
           imagemagick = super.imagemagick.override {
             libX11Support = false;
@@ -68,9 +64,7 @@ with lib;
           networkmanager-fortisslvpn = super.networkmanager-fortisslvpn.override {
             withGnome = false;
           };
-          networkmanager-iodine = super.networkmanager-iodine.override {
-            withGnome = false;
-          };
+          networkmanager-iodine = super.networkmanager-iodine.override { withGnome = false; };
           networkmanager-l2tp = super.networkmanager-l2tp.override { withGnome = false; };
           networkmanager-openconnect = super.networkmanager-openconnect.override {
             withGnome = false;

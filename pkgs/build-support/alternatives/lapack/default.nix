@@ -72,22 +72,17 @@ stdenv.mkDerivation {
         chmod +w $out/lib/liblapack${canonicalExtension}
 
       ''
-      + (lib.optionalString
-        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
-        ''
-          patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
-          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
-        ''
-      )
+      + (lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
+        patchelf --set-soname liblapack${canonicalExtension} $out/lib/liblapack${canonicalExtension}
+        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapack${canonicalExtension}):${lapackProvider'}/lib" $out/lib/liblapack${canonicalExtension}
+      '')
       + ''
 
           if [ "$out/lib/liblapack${canonicalExtension}" != "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}" ]; then
             ln -s $out/lib/liblapack${canonicalExtension} "$out/lib/liblapack${stdenv.hostPlatform.extensions.sharedLibrary}"
           fi
 
-          install -D ${
-            lib.getDev lapack-reference
-          }/include/lapack.h $dev/include/lapack.h
+          install -D ${lib.getDev lapack-reference}/include/lapack.h $dev/include/lapack.h
 
           cat <<EOF > $dev/lib/pkgconfig/lapack.pc
         Name: lapack
@@ -108,15 +103,12 @@ stdenv.mkDerivation {
           chmod +w $out/lib/liblapacke${canonicalExtension}
 
       ''
-      + (lib.optionalString
-        (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
-        ''
-          patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
-            lib.getLib lapackProvider'
-          }/lib" $out/lib/liblapacke${canonicalExtension}
-        ''
-      )
+      + (lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
+        patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
+        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
+          lib.getLib lapackProvider'
+        }/lib" $out/lib/liblapacke${canonicalExtension}
+      '')
       + ''
 
           if [ -f "$out/lib/liblapacke.so.3" ]; then

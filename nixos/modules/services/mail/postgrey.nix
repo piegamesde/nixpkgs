@@ -126,9 +126,7 @@ in
       greylistAction = mkOption {
         type = str;
         default = "DEFER_IF_PERMIT";
-        description =
-          lib.mdDoc
-            "Response status for greylisted messages (see access(5))";
+        description = lib.mdDoc "Response status for greylisted messages (see access(5))";
       };
       greylistHeader = mkOption {
         type = str;
@@ -167,16 +165,12 @@ in
       IPv4CIDR = mkOption {
         type = natural;
         default = 24;
-        description =
-          lib.mdDoc
-            "Strip N bits from IPv4 addresses if lookupBySubnet is true";
+        description = lib.mdDoc "Strip N bits from IPv4 addresses if lookupBySubnet is true";
       };
       IPv6CIDR = mkOption {
         type = natural;
         default = 64;
-        description =
-          lib.mdDoc
-            "Strip N bits from IPv6 addresses if lookupBySubnet is true";
+        description = lib.mdDoc "Strip N bits from IPv6 addresses if lookupBySubnet is true";
       };
       privacy = mkOption {
         type = bool;
@@ -186,9 +180,7 @@ in
       autoWhitelist = mkOption {
         type = nullOr natural';
         default = 5;
-        description =
-          lib.mdDoc
-            "Whitelist clients after successful delivery of N messages";
+        description = lib.mdDoc "Whitelist clients after successful delivery of N messages";
       };
       whitelistClients = mkOption {
         type = listOf path;
@@ -254,9 +246,7 @@ in
                       ${
                         if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"
                       } \
-                      --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${
-                        toString cfg.IPv6CIDR
-                      } \
+                      --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${toString cfg.IPv6CIDR} \
                       ${optionalString cfg.privacy "--privacy"} \
                       --auto-whitelist-clients=${
                         toString (if cfg.autoWhitelist == null then 0 else cfg.autoWhitelist)
@@ -268,8 +258,7 @@ in
                         concatMapStringsSep " " (x: "--whitelist-clients=" + x) cfg.whitelistClients
                       } \
                       ${
-                        concatMapStringsSep " " (x: "--whitelist-recipients=" + x)
-                          cfg.whitelistRecipients
+                        concatMapStringsSep " " (x: "--whitelist-recipients=" + x) cfg.whitelistRecipients
                       }
           '';
           Restart = "always";

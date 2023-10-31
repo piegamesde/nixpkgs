@@ -76,9 +76,7 @@ in
     environment.systemPackages = [ pkgs.borgmatic ];
 
     environment.etc =
-      (optionalAttrs (cfg.settings != null) {
-        "borgmatic/config.yaml".source = cfgfile;
-      })
+      (optionalAttrs (cfg.settings != null) { "borgmatic/config.yaml".source = cfgfile; })
       // mapAttrs'
         (
           name: value:

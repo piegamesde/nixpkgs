@@ -207,8 +207,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.enableSSL
-          -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null;
+          cfg.enableSSL -> cfg.certFile != null && cfg.keyFile != null && cfg.caFile != null;
         message = "SSL is enabled for ttyd, but no certFile, keyFile or caFile has been specified.";
       }
       {

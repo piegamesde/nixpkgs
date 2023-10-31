@@ -61,9 +61,7 @@ in
           passAsFile = [ "ids" ];
         }
         ''
-          cat $idsPath <(echo) ${
-            settingsFormat.generate "keyd-main.conf" cfg.settings
-          } >$out
+          cat $idsPath <(echo) ${settingsFormat.generate "keyd-main.conf" cfg.settings} >$out
         '';
 
     hardware.uinput.enable = lib.mkDefault true;

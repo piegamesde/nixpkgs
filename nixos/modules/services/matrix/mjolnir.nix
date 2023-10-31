@@ -53,8 +53,7 @@ let
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
     let
       yqEvalStr =
-        concatImapStringsSep " * "
-          (pos: _: "select(fileIndex == ${toString (pos - 1)})")
+        concatImapStringsSep " * " (pos: _: "select(fileIndex == ${toString (pos - 1)})")
           configFiles;
       yqEvalArgs = concatStringsSep " " configFiles;
     in

@@ -15,9 +15,7 @@ let
     +
       optionalString (cfg.extraModules != [ ])
         " -p vmod_path='${
-           makeSearchPathOutput "lib" "lib/varnish/vmods" (
-             [ cfg.package ] ++ cfg.extraModules
-           )
+           makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)
          }' -r vmod_path";
 in
 {

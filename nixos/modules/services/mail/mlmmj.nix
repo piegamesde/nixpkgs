@@ -32,8 +32,7 @@ let
     "List-Subscribe: <mailto:${list}+subscribe@${domain}>"
     "List-Unsubscribe: <mailto:${list}+unsubscribe@${domain}>"
   ];
-  footer =
-    domain: list: "To unsubscribe send a mail to ${list}+unsubscribe@${domain}";
+  footer = domain: list: "To unsubscribe send a mail to ${list}+unsubscribe@${domain}";
   createList =
     d: l:
     let

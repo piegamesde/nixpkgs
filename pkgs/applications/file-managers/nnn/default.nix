@@ -33,9 +33,7 @@ stdenv.mkDerivation (
     };
 
     configFile = lib.optionalString (conf != null) (builtins.toFile "nnn.h" conf);
-    preBuild =
-      lib.optionalString (conf != null)
-        "cp ${finalAttrs.configFile} src/nnn.h";
+    preBuild = lib.optionalString (conf != null) "cp ${finalAttrs.configFile} src/nnn.h";
 
     nativeBuildInputs = [
       installShellFiles

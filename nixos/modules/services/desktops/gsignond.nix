@@ -10,9 +10,7 @@
 with lib;
 
 let
-  package = pkgs.gsignond.override {
-    plugins = config.services.gsignond.plugins;
-  };
+  package = pkgs.gsignond.override { plugins = config.services.gsignond.plugins; };
 in
 {
 

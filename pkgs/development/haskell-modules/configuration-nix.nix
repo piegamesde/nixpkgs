@@ -236,9 +236,7 @@ builtins.intersectAttrs super {
   cuda =
     overrideCabal
       (drv: {
-        extraLibraries = (drv.extraLibraries or [ ]) ++ [
-          pkgs.linuxPackages.nvidia_x11
-        ];
+        extraLibraries = (drv.extraLibraries or [ ]) ++ [ pkgs.linuxPackages.nvidia_x11 ];
         configureFlags = (drv.configureFlags or [ ]) ++ [
           "--extra-lib-dirs=${pkgs.cudatoolkit.lib}/lib"
           "--extra-include-dirs=${pkgs.cudatoolkit}/include"
@@ -312,8 +310,7 @@ builtins.intersectAttrs super {
       super.arbtt;
 
   hzk =
-    appendConfigureFlag
-      "--extra-include-dirs=${pkgs.zookeeper_mt}/include/zookeeper"
+    appendConfigureFlag "--extra-include-dirs=${pkgs.zookeeper_mt}/include/zookeeper"
       super.hzk;
 
   # Foreign dependency name clashes with another Haskell package.
@@ -352,9 +349,7 @@ builtins.intersectAttrs super {
       addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.glib
     )
   );
-  gtk3 = disableHardening [ "fortify" ] (
-    super.gtk3.override { inherit (pkgs) gtk3; }
-  );
+  gtk3 = disableHardening [ "fortify" ] (super.gtk3.override { inherit (pkgs) gtk3; });
   gtk = lib.pipe super.gtk (
     [
       (disableHardening [ "fortify" ])
@@ -384,10 +379,7 @@ builtins.intersectAttrs super {
       ))
     ]
     ++ (
-      if pkgs.stdenv.isDarwin then
-        [ (appendConfigureFlag "-fhave-quartz-gtk") ]
-      else
-        [ ]
+      if pkgs.stdenv.isDarwin then [ (appendConfigureFlag "-fhave-quartz-gtk") ] else [ ]
     )
   );
   gtksourceview2 = addPkgconfigDepend pkgs.gtk2 super.gtksourceview2;
@@ -485,8 +477,7 @@ builtins.intersectAttrs super {
 
   # Help the test suite find system timezone data.
   tz =
-    overrideCabal
-      (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; })
+    overrideCabal (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; })
       super.tz;
 
   # https://hydra.nixos.org/build/128665302/nixlog/3
@@ -625,8 +616,7 @@ builtins.intersectAttrs super {
           "--extra-include-dirs=${pkgs.cwiid}/include"
           "--extra-include-dirs=${pkgs.bluez.dev}/include"
         ];
-        prePatch = ''
-          sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
+        prePatch = ''sed -i -e "/Extra-Lib-Dirs/d" -e "/Include-Dirs/d" "hcwiid.cabal" '';
       })
       super.hcwiid;
 
@@ -637,9 +627,7 @@ builtins.intersectAttrs super {
       g' =
         overrideCabal
           (drv: {
-            executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [
-              pkgs.ncurses
-            ];
+            executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ];
           })
           g;
     in
@@ -719,9 +707,9 @@ builtins.intersectAttrs super {
   #
   # Additional note: nixpkgs' freeglut and macOS's OpenGL implementation do not cooperate,
   # so disable this on Darwin only
-  ${if pkgs.stdenv.isDarwin then null else "GLUT"} =
-    addPkgconfigDepend pkgs.freeglut
-      (appendPatch ./patches/GLUT.patch super.GLUT);
+  ${if pkgs.stdenv.isDarwin then null else "GLUT"} = addPkgconfigDepend pkgs.freeglut (
+    appendPatch ./patches/GLUT.patch super.GLUT
+  );
 
   libsystemd-journal = doJailbreak (
     addExtraLibrary pkgs.systemd super.libsystemd-journal
@@ -777,9 +765,7 @@ builtins.intersectAttrs super {
       super.hapistrano;
 
   # This propagates this to everything depending on haskell-gi-base
-  haskell-gi-base =
-    addBuildDepend pkgs.gobject-introspection
-      super.haskell-gi-base;
+  haskell-gi-base = addBuildDepend pkgs.gobject-introspection super.haskell-gi-base;
 
   # requires valid, writeable $HOME
   hatex-guide =
@@ -852,18 +838,14 @@ builtins.intersectAttrs super {
   LDAP = dontCheck (
     overrideCabal
       (drv: {
-        librarySystemDepends = drv.librarySystemDepends or [ ] ++ [
-          pkgs.cyrus_sasl.dev
-        ];
+        librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ];
       })
       super.LDAP
   );
 
   # Not running the "example" test because it requires a binary from lsps test
   # suite which is not part of the output of lsp.
-  lsp-test =
-    overrideCabal (old: { testTarget = "tests func-test"; })
-      super.lsp-test;
+  lsp-test = overrideCabal (old: { testTarget = "tests func-test"; }) super.lsp-test;
 
   # the test suite attempts to run the binaries built in this package
   # through $PATH but they aren't in $PATH
@@ -1101,9 +1083,7 @@ builtins.intersectAttrs super {
       (addBuildTool pkgs.buildPackages.makeWrapper super.cut-the-crap);
 
   # Compiling the readme throws errors and has no purpose in nixpkgs
-  aeson-gadt-th = disableCabalFlag "build-readme" (
-    doJailbreak super.aeson-gadt-th
-  );
+  aeson-gadt-th = disableCabalFlag "build-readme" (doJailbreak super.aeson-gadt-th);
 
   # Fix compilation of Setup.hs by removing the module declaration.
   # See: https://github.com/tippenein/guid/issues/1
@@ -1212,9 +1192,7 @@ builtins.intersectAttrs super {
       );
 
   # Pass the correct libarchive into the package.
-  streamly-archive = super.streamly-archive.override {
-    archive = pkgs.libarchive;
-  };
+  streamly-archive = super.streamly-archive.override { archive = pkgs.libarchive; };
 
   hlint =
     overrideCabal
@@ -1229,9 +1207,7 @@ builtins.intersectAttrs super {
 
   taglib =
     overrideCabal
-      (drv: {
-        librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]);
-      })
+      (drv: { librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]); })
       super.taglib;
 
   # random 1.2.0 has tests that indirectly depend on
@@ -1343,15 +1319,13 @@ builtins.intersectAttrs super {
         }
       );
 
-  cachix_1_3_3 =
-    overrideCabal (drv: { hydraPlatforms = pkgs.lib.platforms.all; })
-      (
-        super.cachix_1_3_3.override {
-          nix = self.hercules-ci-cnix-store.nixPackage;
-          fsnotify = dontCheck super.fsnotify_0_4_1_0;
-          hnix-store-core = super.hnix-store-core_0_6_1_0;
-        }
-      );
+  cachix_1_3_3 = overrideCabal (drv: { hydraPlatforms = pkgs.lib.platforms.all; }) (
+    super.cachix_1_3_3.override {
+      nix = self.hercules-ci-cnix-store.nixPackage;
+      fsnotify = dontCheck super.fsnotify_0_4_1_0;
+      hnix-store-core = super.hnix-store-core_0_6_1_0;
+    }
+  );
 
   hercules-ci-api-core =
     # 2023-05-02: Work around a corrupted file on cache.nixos.org. This is a hash for x86_64-linux. Remove when it has changed.
@@ -1381,9 +1355,7 @@ builtins.intersectAttrs super {
   aeson-typescript =
     overrideCabal
       (drv: {
-        testToolDepends = drv.testToolDepends or [ ] ++ [
-          pkgs.nodePackages.typescript
-        ];
+        testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.nodePackages.typescript ];
         # the testsuite assumes that tsc is in the PATH if it thinks it's in
         # CI, otherwise trying to install it.
         #
@@ -1416,9 +1388,7 @@ builtins.intersectAttrs super {
             ''
             + (drv.preCompileBuildDriver or "");
           # install man page
-          buildTools = [
-            pkgs.buildPackages.installShellFiles
-          ] ++ (drv.buildTools or [ ]);
+          buildTools = [ pkgs.buildPackages.installShellFiles ] ++ (drv.buildTools or [ ]);
           postInstall =
             ''
               installManPage man/atsfmt.1
@@ -1437,10 +1407,7 @@ builtins.intersectAttrs super {
   # So executing and building it on non-x86 platforms will always fail.
   hashes =
     overrideCabal
-      {
-        doCheck =
-          with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86;
-      }
+      { doCheck = with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86; }
       super.hashes;
 
   # Tries to access network

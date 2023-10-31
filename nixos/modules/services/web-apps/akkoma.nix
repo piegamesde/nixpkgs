@@ -173,8 +173,7 @@ let
       text,
       runtimeInputs ? [ ],
     }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; }
-    + "/bin/${name}";
+    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}";
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
@@ -368,16 +367,12 @@ let
 
       # Create role if non‐existent
       psql -tAc "SELECT 1 FROM pg_roles
-        WHERE rolname = "${
-          escapeShellArg (escapeSqlStr db.username)
-        } | grep -F -q 1 || \
+        WHERE rolname = "${escapeShellArg (escapeSqlStr db.username)} | grep -F -q 1 || \
         psql -tAc "CREATE ROLE "${escapeShellArg (escapeSqlId db.username)}
 
       # Create database if non‐existent
       psql -tAc "SELECT 1 FROM pg_database
-        WHERE datname = "${
-          escapeShellArg (escapeSqlStr db.database)
-        } | grep -F -q 1 || \
+        WHERE datname = "${escapeShellArg (escapeSqlStr db.database)} | grep -F -q 1 || \
         psql -tAc "CREATE DATABASE "${escapeShellArg (escapeSqlId db.database)}"
           OWNER "${escapeShellArg (escapeSqlId db.username)}"
           TEMPLATE template0
@@ -1059,9 +1054,7 @@ in
         type =
           with types;
           nullOr (
-            submodule (
-              import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
-            )
+            submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
           );
         default = null;
         description = mdDoc ''

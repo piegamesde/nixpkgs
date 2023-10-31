@@ -14,9 +14,7 @@ let
       overrideWith =
         update: args // (if lib.isFunction update then update args else update);
 
-      overridePackage = copyArgs (
-        update: makePackageOverridable f (overrideWith update)
-      );
+      overridePackage = copyArgs (update: makePackageOverridable f (overrideWith update));
     in
     result // { inherit overridePackage; };
 in

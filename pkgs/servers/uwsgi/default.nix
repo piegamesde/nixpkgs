@@ -163,9 +163,7 @@ stdenv.mkDerivation rec {
     ${lib.concatMapStringsSep ";"
       (x: ''
         ${x.preBuild or ""}
-         ${
-           x.interpreter or "python3"
-         } uwsgiconfig.py --plugin ${x.path} nixos ${x.name}'')
+         ${x.interpreter or "python3"} uwsgiconfig.py --plugin ${x.path} nixos ${x.name}'')
       needed}
   '';
 

@@ -40,9 +40,7 @@ let
         upload_limit = cfg.uploadLimit;
         lan_encrypt_data = cfg.encryptLAN;
       }
-      // optionalAttrs (cfg.directoryRoot != "") {
-        directory_root = cfg.directoryRoot;
-      }
+      // optionalAttrs (cfg.directoryRoot != "") { directory_root = cfg.directoryRoot; }
       // optionalAttrs cfg.enableWebUI {
         webui =
           {

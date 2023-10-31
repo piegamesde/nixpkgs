@@ -28,9 +28,7 @@ let
       recursive = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether the indexation must take place recursively or not.";
+        description = lib.mdDoc "Whether the indexation must take place recursively or not.";
       };
       hidden-files = mkOption {
         type = types.bool;
@@ -392,9 +390,7 @@ in
   config =
     let
       binaryCommand = "${pkg}/bin/${name}";
-      interfaceFlag =
-        optionalString (cfg.interface != "")
-          "--interface ${cfg.interface}";
+      interfaceFlag = optionalString (cfg.interface != "") "--interface ${cfg.interface}";
       configFlag =
         optionalString (!cfg.customCfg)
           "--config ${pkgs.writeText "config.xml" configText}";
@@ -416,9 +412,7 @@ in
         serviceConfig.Group = cfg.group;
       };
 
-      users.groups = optionalAttrs (cfg.group == "mediatomb") {
-        mediatomb.gid = gid;
-      };
+      users.groups = optionalAttrs (cfg.group == "mediatomb") { mediatomb.gid = gid; };
 
       users.users = optionalAttrs (cfg.user == "mediatomb") {
         mediatomb = {

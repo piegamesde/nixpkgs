@@ -101,14 +101,10 @@
             shellcheck -s bash sample_source_patched.bash
 
             echo "Testing in Bash if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            bash ${./test-sourcing-bash} ${
-              ./sample_source.bash
-            } ./sample_source_patched.bash
+            bash ${./test-sourcing-bash} ${./sample_source.bash} ./sample_source_patched.bash
 
             echo "Testing in Ksh if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            ksh ${./test-sourcing-bash} ${
-              ./sample_source.bash
-            } "$PWD/sample_source_patched.bash"
+            ksh ${./test-sourcing-bash} ${./sample_source.bash} "$PWD/sample_source_patched.bash"
 
             echo "Testing in Zsh if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
             zsh ${./test-sourcing-bash} ${./sample_source.bash} ./sample_source_patched.bash
@@ -124,14 +120,10 @@
             shellcheck -s ksh sample_source_patched.bash
 
             echo "Testing in Bash if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            bash ${./test-sourcing-bash} ${
-              ./sample_source.bash
-            } ./sample_source_patched.bash
+            bash ${./test-sourcing-bash} ${./sample_source.bash} ./sample_source_patched.bash
 
             echo "Testing in Ksh if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            ksh ${./test-sourcing-bash} ${
-              ./sample_source.bash
-            } "$PWD/sample_source_patched.bash"
+            ksh ${./test-sourcing-bash} ${./sample_source.bash} "$PWD/sample_source_patched.bash"
 
             echo "Testing in Zsh if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
             zsh ${./test-sourcing-bash} ${./sample_source.bash} ./sample_source_patched.bash
@@ -432,9 +424,7 @@
             dash ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Ksh if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
-            ksh ${
-              ./test-sourcing-posix
-            } "$PWD/sample_source.sh" "$PWD/sample_source_patched.sh"
+            ksh ${./test-sourcing-posix} "$PWD/sample_source.sh" "$PWD/sample_source_patched.sh"
 
 
             # Test double-patching the sample source
@@ -455,9 +445,7 @@
             dash ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Ksh if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
-            ksh ${
-              ./test-sourcing-posix
-            } "$PWD/sample_source.sh" "$PWD/sample_source_patched.sh"
+            ksh ${./test-sourcing-posix} "$PWD/sample_source.sh" "$PWD/sample_source_patched.sh"
 
 
             # Create a dummy output

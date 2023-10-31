@@ -39,9 +39,7 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.sessionPackages = [
-      pkgs.mate.mate-session-manager
-    ];
+    services.xserver.displayManager.sessionPackages = [ pkgs.mate.mate-session-manager ];
 
     # Let caja find extensions
     environment.sessionVariables.CAJA_EXTENSION_DIRS = [

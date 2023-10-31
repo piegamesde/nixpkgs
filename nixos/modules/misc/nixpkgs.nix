@@ -66,8 +66,7 @@ let
   # is defined elsewhere does not seem feasible.
   constructedByMe = !opt.pkgs.isDefined;
 
-  hasBuildPlatform =
-    opt.buildPlatform.highestPrio < (mkOptionDefault { }).priority;
+  hasBuildPlatform = opt.buildPlatform.highestPrio < (mkOptionDefault { }).priority;
   hasHostPlatform = opt.hostPlatform.isDefined;
   hasPlatform = hasHostPlatform || hasBuildPlatform;
 
@@ -113,10 +112,7 @@ let
       };
 
   finalPkgs =
-    if opt.pkgs.isDefined then
-      cfg.pkgs.appendOverlays cfg.overlays
-    else
-      defaultPkgs;
+    if opt.pkgs.isDefined then cfg.pkgs.appendOverlays cfg.overlays else defaultPkgs;
 in
 
 {
@@ -397,8 +393,7 @@ in
           pkgsSystem = finalPkgs.stdenv.targetPlatform.system;
         in
         {
-          assertion =
-            constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem;
+          assertion = constructedByMe -> !hasPlatform -> nixosExpectedSystem == pkgsSystem;
           message = "The NixOS nixpkgs.pkgs option was set to a Nixpkgs invocation that compiles to target system ${pkgsSystem} but NixOS was configured for system ${nixosExpectedSystem} via NixOS option ${nixosOption}. The NixOS system settings must match the Nixpkgs target system.";
         }
       )

@@ -16,9 +16,7 @@ let
       // {
         pname = "octoprint-plugin-${args.pname}";
         inherit (args) version;
-        propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ [
-          super.octoprint
-        ];
+        propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ [ super.octoprint ];
         # none of the following have tests
         doCheck = false;
       }
@@ -500,6 +498,4 @@ in
     };
   };
 }
-// lib.optionalAttrs config.allowAliases {
-  octoprint-dashboard = self.dashboard;
-}
+// lib.optionalAttrs config.allowAliases { octoprint-dashboard = self.dashboard; }

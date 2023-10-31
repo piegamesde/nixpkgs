@@ -16,9 +16,7 @@ let
   isRBACEnabled = elem "RBAC" cfg.authorizationMode;
 
   apiserverServiceIP =
-    (
-      concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1"
-    );
+    (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1");
 in
 {
 
@@ -466,9 +464,7 @@ in
           ExecStart = ''
             ${top.package}/bin/kube-apiserver \
                           --allow-privileged=${boolToString cfg.allowPrivileged} \
-                          --authorization-mode=${
-                            concatStringsSep "," cfg.authorizationMode
-                          } \
+                          --authorization-mode=${concatStringsSep "," cfg.authorizationMode} \
                             ${
                               optionalString (elem "ABAC" cfg.authorizationMode)
                                 "--authorization-policy-file=${
@@ -500,8 +496,7 @@ in
                             optionalString (cfg.etcd.caFile != null) "--etcd-cafile=${cfg.etcd.caFile}"
                           } \
                           ${
-                            optionalString (cfg.etcd.certFile != null)
-                              "--etcd-certfile=${cfg.etcd.certFile}"
+                            optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"
                           } \
                           ${
                             optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"
@@ -513,8 +508,7 @@ in
                               }"
                           } \
                           ${
-                            optionalString (cfg.basicAuthFile != null)
-                              "--basic-auth-file=${cfg.basicAuthFile}"
+                            optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"
                           } \
                           ${
                             optionalString (cfg.kubeletClientCaFile != null)
@@ -554,12 +548,10 @@ in
                             optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
                           } \
                           ${
-                            optionalString (cfg.tlsKeyFile != null)
-                              "--tls-private-key-file=${cfg.tlsKeyFile}"
+                            optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.tokenAuthFile != null)
-                              "--token-auth-file=${cfg.tokenAuthFile}"
+                            optionalString (cfg.tokenAuthFile != null) "--token-auth-file=${cfg.tokenAuthFile}"
                           } \
                           ${
                             optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"

@@ -255,9 +255,7 @@ in
                                                   --httpPort=${toString cfg.port} \
                                                   --prefix=${cfg.prefix} \
                                                   -Djava.awt.headless=true \
-                                                  ${
-                                                    concatStringsSep " " cfg.extraOptions
-                                                  }
+                                                  ${concatStringsSep " " cfg.extraOptions}
       '';
 
       postStart = ''

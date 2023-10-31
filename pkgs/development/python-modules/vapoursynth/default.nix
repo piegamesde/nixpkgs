@@ -27,9 +27,7 @@ buildPythonPackage {
   passthru = {
     withPlugins =
       plugins:
-      python.pkgs.vapoursynth.override {
-        vapoursynth = vapoursynth.withPlugins plugins;
-      };
+      python.pkgs.vapoursynth.override { vapoursynth = vapoursynth.withPlugins plugins; };
   };
 
   inherit (vapoursynth) meta;

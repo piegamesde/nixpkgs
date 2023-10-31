@@ -60,9 +60,7 @@ import ./make-test-python.nix (
       # multi-user.target, we should now be able to access it.
       # ip = machine.succeed("nixos-container show-ip webserver").strip()
       machine.succeed("ping -n -c1 ${hostIp}")
-      machine.succeed("curl --fail http://${hostIp}:${
-        toString hostPort
-      }/ > /dev/null")
+      machine.succeed("curl --fail http://${hostIp}:${toString hostPort}/ > /dev/null")
 
       # Stop the container.
       machine.succeed("nixos-container stop webserver")

@@ -197,9 +197,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.quorum ];
-    systemd.tmpfiles.rules = [
-      "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
     systemd.services.quorum = {
       description = "Quorum daemon";
       after = [ "network.target" ];

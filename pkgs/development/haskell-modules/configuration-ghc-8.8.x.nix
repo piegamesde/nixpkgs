@@ -59,9 +59,7 @@ self: super: {
   cabal2spec = super.cabal2spec.override { Cabal = self.Cabal_3_2_1_0; };
 
   # Additionally depends on OneTuple for GHC < 9.0
-  base-compat-batteries =
-    addBuildDepend self.OneTuple
-      super.base-compat-batteries;
+  base-compat-batteries = addBuildDepend self.OneTuple super.base-compat-batteries;
 
   # Ignore overly restrictive upper version bounds.
   aeson-diff = doJailbreak super.aeson-diff;

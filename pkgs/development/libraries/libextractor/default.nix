@@ -83,9 +83,7 @@ stdenv.mkDerivation rec {
       libgsf
       rpm
     ]
-    ++ lib.optionals gstreamerSupport (
-      [ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1
-    )
+    ++ lib.optionals gstreamerSupport ([ gst_all_1.gstreamer ] ++ gstPlugins gst_all_1)
     ++ lib.optionals gtkSupport [
       glib
       gtk3

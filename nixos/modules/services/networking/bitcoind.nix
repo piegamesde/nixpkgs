@@ -253,10 +253,7 @@ in
                 ExecStart = ''
                   ${cfg.package}/bin/bitcoind \
                   ${
-                    if (cfg.configFile != null) then
-                      "-conf=${cfg.configFile}"
-                    else
-                      "-conf=${configFile}"
+                    if (cfg.configFile != null) then "-conf=${cfg.configFile}" else "-conf=${configFile}"
                   } \
                   -datadir=${cfg.dataDir} \
                   -pid=${cfg.pidFile} \
@@ -283,9 +280,7 @@ in
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
-        (bitcoindName: cfg: [
-          "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
-        ])
+        (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
         eachBitcoind
     );
 

@@ -1755,9 +1755,7 @@ rec {
                 || (
                   ((target."arch" == "aarch64") || (target."arch" == "arm"))
                   && (
-                    (target."os" == "android")
-                    || (target."os" == "fuchsia")
-                    || (target."os" == "linux")
+                    (target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux")
                   )
                 )
               );
@@ -3963,8 +3961,7 @@ rec {
           {
             name = "winapi-i686-pc-windows-gnu";
             packageId = "winapi-i686-pc-windows-gnu";
-            target =
-              { target, features }: (stdenv.hostPlatform.config == "i686-pc-windows-gnu");
+            target = { target, features }: (stdenv.hostPlatform.config == "i686-pc-windows-gnu");
           }
           {
             name = "winapi-x86_64-pc-windows-gnu";
@@ -4302,8 +4299,7 @@ rec {
         }
         ''
           echo tested by ${test}
-          ${lib.concatMapStringsSep "\n"
-            (output: "ln -s ${crate.${output}} ${"$"}${output}")
+          ${lib.concatMapStringsSep "\n" (output: "ln -s ${crate.${output}} ${"$"}${output}")
             crate.outputs}
         '';
 
@@ -4343,9 +4339,7 @@ rec {
                     buildRustCrateForPkgs
                   else
                     pkgs:
-                    (buildRustCrateForPkgs pkgs).override {
-                      defaultCrateOverrides = crateOverrides;
-                    }
+                    (buildRustCrateForPkgs pkgs).override { defaultCrateOverrides = crateOverrides; }
                 );
             builtRustCrates = builtRustCratesWithFeatures {
               inherit packageId features;
@@ -4458,8 +4452,7 @@ rec {
               dependencies = crateConfig.buildDependencies or [ ];
             };
             filterEnabledDependenciesForThis =
-              dependencies:
-              filterEnabledDependencies { inherit dependencies features target; };
+              dependencies: filterEnabledDependencies { inherit dependencies features target; };
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
                 (crateConfig.buildDependencies or [ ])
@@ -4660,12 +4653,9 @@ rec {
       assert (builtins.isBool runTests);
       let
         crateConfig =
-          crateConfigs."${packageId}"
-            or (builtins.throw "Package not found: ${packageId}");
+          crateConfigs."${packageId}" or (builtins.throw "Package not found: ${packageId}");
         expandedFeatures = expandFeatures (crateConfig.features or { }) features;
-        enabledFeatures =
-          enableFeatures (crateConfig.dependencies or [ ])
-            expandedFeatures;
+        enabledFeatures = enableFeatures (crateConfig.dependencies or [ ]) expandedFeatures;
         depWithResolvedFeatures =
           dependency:
           let
@@ -4746,8 +4736,7 @@ rec {
           in
           targetFunc { inherit features target; }
           && (
-            !(dep.optional or false)
-            || builtins.any (doesFeatureEnableDependency dep) features
+            !(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features
           )
         )
         dependencies;
@@ -4818,15 +4807,12 @@ rec {
       assert (builtins.isList features);
       assert (builtins.isAttrs dependency);
       let
-        defaultOrNil =
-          if dependency.usesDefaultFeatures or true then [ "default" ] else [ ];
+        defaultOrNil = if dependency.usesDefaultFeatures or true then [ "default" ] else [ ];
         explicitFeatures = dependency.features or [ ];
         additionalDependencyFeatures =
           let
             dependencyPrefix = (dependency.rename or dependency.name) + "/";
-            dependencyFeatures =
-              builtins.filter (f: lib.hasPrefix dependencyPrefix f)
-                features;
+            dependencyFeatures = builtins.filter (f: lib.hasPrefix dependencyPrefix f) features;
           in
           builtins.map (lib.removePrefix dependencyPrefix) dependencyFeatures;
       in
@@ -4838,9 +4824,7 @@ rec {
       assert (builtins.isList features);
       assert (builtins.all builtins.isString features);
       let
-        outFeaturesSet =
-          lib.foldl (set: feature: set // { "${feature}" = 1; }) { }
-            features;
+        outFeaturesSet = lib.foldl (set: feature: set // { "${feature}" = 1; }) { } features;
         outFeaturesUnique = builtins.attrNames outFeaturesSet;
       in
       builtins.sort (a: b: a < b) outFeaturesUnique;

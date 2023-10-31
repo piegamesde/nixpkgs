@@ -163,9 +163,7 @@ let
       --replace \
           '@MODULE_CHAPTERS@' \
           ${
-            lib.escapeShellArg (
-              lib.concatMapStringsSep "\n" (p: "${p.value}") config.meta.doc
-            )
+            lib.escapeShellArg (lib.concatMapStringsSep "\n" (p: "${p.value}") config.meta.doc)
           }
     substituteInPlace ./nixos-options.md \
       --replace \
@@ -255,9 +253,7 @@ rec {
             ]
           else
             [ buildPackages.nixos-render-docs ];
-        inputs = lib.optionals (!allowDocBook) (
-          lib.sourceFilesBySuffices ./. [ ".md" ]
-        );
+        inputs = lib.optionals (!allowDocBook) (lib.sourceFilesBySuffices ./. [ ".md" ]);
         meta.description = "The NixOS manual in HTML format";
         allowedReferences = [ "out" ];
       }

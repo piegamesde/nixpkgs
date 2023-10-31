@@ -937,8 +937,7 @@ in
           }
           {
             assertion =
-              !cfg.trustedBoot.enable
-              || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
+              !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
             message = "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
           }
           {
@@ -964,10 +963,7 @@ in
             }
             {
               assertion =
-                if args.efiSysMountPoint == null then
-                  true
-                else
-                  hasPrefix "/" args.efiSysMountPoint;
+                if args.efiSysMountPoint == null then true else hasPrefix "/" args.efiSysMountPoint;
               message = "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
           ]

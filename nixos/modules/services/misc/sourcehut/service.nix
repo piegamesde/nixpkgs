@@ -425,8 +425,7 @@ in
               partOf = [ "${srvsrht}.service" ];
               preStart = ''
                 cp ${
-                  pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
-                    srvCfg.webhooks.celeryConfig
+                  pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" srvCfg.webhooks.celeryConfig
                 } \
                    /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
               '';

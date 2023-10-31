@@ -83,9 +83,7 @@ in
         default = [ ];
         type = types.listOf types.str;
         example = [ "users" ];
-        description =
-          lib.mdDoc
-            "Defines extra groups to which the tomcat user belongs.";
+        description = lib.mdDoc "Defines extra groups to which the tomcat user belongs.";
       };
 
       user = mkOption {

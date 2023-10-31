@@ -146,16 +146,13 @@ let
         if component.platform == { } then
           lib.platforms.all
         else
-          builtins.concatMap
-            (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
+          builtins.concatMap (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
             architectures;
       snapshot = snapshotFromComponent attrs;
     };
 
   # Filter out dependencies not supported by current system
-  filterForSystem = builtins.filter (
-    drv: builtins.elem system drv.meta.platforms
-  );
+  filterForSystem = builtins.filter (drv: builtins.elem system drv.meta.platforms);
 
   # Make a google-cloud-sdk component
   mkComponent =

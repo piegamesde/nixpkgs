@@ -367,9 +367,7 @@ self: super:
   coc-nginx = buildVimPluginFrom2Nix {
     pname = "coc-nginx";
     inherit (nodePackages."@yaegassy/coc-nginx") version meta;
-    src = "${
-        nodePackages."@yaegassy/coc-nginx"
-      }/lib/node_modules/@yaegassy/coc-nginx";
+    src = "${nodePackages."@yaegassy/coc-nginx"}/lib/node_modules/@yaegassy/coc-nginx";
   };
 
   command-t = super.command-t.overrideAttrs (
@@ -539,9 +537,7 @@ self: super:
         + ''
           substituteInPlace $out/autoload/direnv.vim \
             --replace "let s:direnv_cmd = get(g:, 'direnv_cmd', 'direnv')" \
-              "let s:direnv_cmd = get(g:, 'direnv_cmd', '${
-                lib.getBin direnv
-              }/bin/direnv')"
+              "let s:direnv_cmd = get(g:, 'direnv_cmd', '${lib.getBin direnv}/bin/direnv')"
         '';
     }
   );
@@ -627,9 +623,7 @@ self: super:
     }
   );
 
-  fzf-lua = super.fzf-lua.overrideAttrs (
-    old: { propagatedBuildInputs = [ fzf ]; }
-  );
+  fzf-lua = super.fzf-lua.overrideAttrs (old: { propagatedBuildInputs = [ fzf ]; });
 
   fzf-vim = super.fzf-vim.overrideAttrs (
     old: { dependencies = with self; [ fzfWrapper ]; }
@@ -646,9 +640,7 @@ self: super:
     '';
   };
 
-  ghcid = super.ghcid.overrideAttrs (
-    old: { configurePhase = "cd plugins/nvim"; }
-  );
+  ghcid = super.ghcid.overrideAttrs (old: { configurePhase = "cd plugins/nvim"; });
 
   gitlinker-nvim = super.gitlinker-nvim.overrideAttrs (
     old: { dependencies = with self; [ plenary-nvim ]; }
@@ -855,9 +847,7 @@ self: super:
     }
   );
 
-  ncm2 = super.ncm2.overrideAttrs (
-    old: { dependencies = with self; [ nvim-yarp ]; }
-  );
+  ncm2 = super.ncm2.overrideAttrs (old: { dependencies = with self; [ nvim-yarp ]; });
 
   ncm2-jedi = super.ncm2-jedi.overrideAttrs (
     old: {
@@ -976,9 +966,7 @@ self: super:
   );
 
   orgmode = super.orgmode.overrideAttrs (
-    old: {
-      dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ];
-    }
+    old: { dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ]; }
   );
 
   inherit parinfer-rust;
@@ -1083,9 +1071,7 @@ self: super:
     src = skim.vim;
   };
 
-  skim-vim = super.skim-vim.overrideAttrs (
-    old: { dependencies = [ self.skim ]; }
-  );
+  skim-vim = super.skim-vim.overrideAttrs (old: { dependencies = [ self.skim ]; });
 
   sniprun =
     let
@@ -1402,9 +1388,9 @@ self: super:
     old: { dependencies = with self; [ tlib_vim ]; }
   );
 
-  vim-addon-goto-thing-at-cursor =
-    super.vim-addon-goto-thing-at-cursor.overrideAttrs
-      (old: { dependencies = with self; [ tlib_vim ]; });
+  vim-addon-goto-thing-at-cursor = super.vim-addon-goto-thing-at-cursor.overrideAttrs (
+    old: { dependencies = with self; [ tlib_vim ]; }
+  );
 
   vim-addon-manager = super.vim-addon-manager.overrideAttrs (
     old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; }
@@ -1638,9 +1624,7 @@ self: super:
       }
     );
 
-  vim-metamath = super.vim-metamath.overrideAttrs (
-    old: { preInstall = "cd vim"; }
-  );
+  vim-metamath = super.vim-metamath.overrideAttrs (old: { preInstall = "cd vim"; });
 
   vim-snipmate = super.vim-snipmate.overrideAttrs (
     old: {

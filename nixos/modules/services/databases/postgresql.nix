@@ -25,10 +25,7 @@ let
         else
           cfg.package;
     in
-    if cfg.extraPlugins == [ ] then
-      base
-    else
-      base.withPackages (_: cfg.extraPlugins);
+    if cfg.extraPlugins == [ ] then base else base.withPackages (_: cfg.extraPlugins);
 
   toStr =
     value:
@@ -95,9 +92,7 @@ in
       checkConfig = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Check the syntax of the configuration file at compile time";
+        description = lib.mdDoc "Check the syntax of the configuration file at compile time";
       };
 
       dataDir = mkOption {
@@ -414,9 +409,7 @@ in
       extraPlugins = mkOption {
         type = types.listOf types.path;
         default = [ ];
-        example =
-          literalExpression
-            "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
+        example = literalExpression "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
         description = lib.mdDoc ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
           match version for `services.postgresql.package` value.
@@ -494,8 +487,7 @@ in
     services.postgresql.package =
       let
         mkThrow =
-          ver:
-          throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
+          ver: throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
         base =
           if versionAtLeast config.system.stateVersion "22.05" then
             pkgs.postgresql_14

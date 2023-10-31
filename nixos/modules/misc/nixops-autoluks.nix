@@ -23,10 +23,7 @@ in
     assertions = [
       {
         assertion =
-          if hasAutoLuksConfig then
-            hasAutoLuksConfig && enableDeprecatedAutoLuks
-          else
-            true;
+          if hasAutoLuksConfig then hasAutoLuksConfig && enableDeprecatedAutoLuks else true;
         message = ''
           ⚠️  !!! WARNING !!! ⚠️
 

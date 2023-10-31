@@ -51,8 +51,7 @@ pythonPackages.callPackage
       ;
       fileCandidates =
         let
-          supportedRegex =
-            ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
+          supportedRegex = ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
           matchesVersion =
             fname:
             builtins.match
@@ -79,10 +78,7 @@ pythonPackages.callPackage
             || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
         in
         builtins.filter
-          (
-            f:
-            matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file
-          )
+          (f: matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file)
           files;
       toPath = s: pwd + "/${s}";
       isLocked = lib.length fileCandidates > 0;

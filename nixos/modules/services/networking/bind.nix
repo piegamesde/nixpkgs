@@ -47,9 +47,7 @@ let
         };
         masters = mkOption {
           type = types.listOf types.str;
-          description =
-            lib.mdDoc
-              "List of servers for inclusion in stub and secondary zones.";
+          description = lib.mdDoc "List of servers for inclusion in stub and secondary zones.";
         };
         slaves = mkOption {
           type = types.listOf types.str;
@@ -83,12 +81,8 @@ let
       inet 127.0.0.1 allow {localhost;} keys {"rndc-key";};
     };
 
-    acl cachenetworks { ${
-      concatMapStrings (entry: " ${entry}; ") cfg.cacheNetworks
-    } };
-    acl badnetworks { ${
-      concatMapStrings (entry: " ${entry}; ") cfg.blockedNetworks
-    } };
+    acl cachenetworks { ${concatMapStrings (entry: " ${entry}; ") cfg.cacheNetworks} };
+    acl badnetworks { ${concatMapStrings (entry: " ${entry}; ") cfg.blockedNetworks} };
 
     options {
       listen-on { ${concatMapStrings (entry: " ${entry}; ") cfg.listenOn} };
@@ -247,9 +241,7 @@ in
         default = [ ];
         type =
           with types;
-          coercedTo (listOf attrs) bindZoneCoerce (
-            attrsOf (types.submodule bindZoneOptions)
-          );
+          coercedTo (listOf attrs) bindZoneCoerce (attrsOf (types.submodule bindZoneOptions));
         description = lib.mdDoc ''
           List of zones we claim authority over.
         '';

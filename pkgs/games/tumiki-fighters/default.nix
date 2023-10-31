@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
   patches = [
     (debianPatch "imports" "1l3kc67b43gdi139cpz5cka1nkn0pjp9mrgrrxlmr0liwx2aryhn")
     (debianPatch "fixes" "1iy1a5vii6yz9zdlk2bcj6gkj4y25hn9y2fczz15jpqd9r2zm603")
-    (debianPatch "directories"
-      "0kmv0s7jgr693fzrkjsmz4dnicc4w7njanxm2la3cf4vmgdyipmm"
-    )
+    (debianPatch "directories" "0kmv0s7jgr693fzrkjsmz4dnicc4w7njanxm2la3cf4vmgdyipmm")
     (debianPatch "windowed" "1wp74l0bi8wq85pcxnmkwrlfmlf09im95n27pxgz082lhwf2ksy1")
     (debianPatch "dotfile" "0d8x519bclh41j992qn6ijzfcrgacb79px6zjd1awypkwyc0j2p6")
     (debianPatch "makefile" "11xf2b31kjyps53jfryv82dv0g6q0smc9xgp8imrbr93mzi51vf0")

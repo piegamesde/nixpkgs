@@ -270,9 +270,7 @@ in
         lib.mdDoc "opening of the peer port(s) in the firewall"
       );
 
-      openRPCPort = mkEnableOption (
-        lib.mdDoc "opening of the RPC port in the firewall"
-      );
+      openRPCPort = mkEnableOption (lib.mdDoc "opening of the RPC port in the firewall");
 
       performanceNetParameters = mkEnableOption (lib.mdDoc "performance tweaks") // {
         description = lib.mdDoc ''

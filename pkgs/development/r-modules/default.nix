@@ -212,8 +212,7 @@ let
         (builtins.getAttr name old).overrideAttrs (
           attrs: {
             nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
-            propagatedNativeBuildInputs =
-              (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
+            propagatedNativeBuildInputs = (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
           }
         )
       )
@@ -1293,9 +1292,7 @@ let
       }
     );
 
-    rzmq = old.rzmq.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    rzmq = old.rzmq.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     clustermq = old.clustermq.overrideAttrs (
       attrs: { preConfigure = "patchShebangs configure"; }
@@ -1303,17 +1300,13 @@ let
 
     Cairo = old.Cairo.overrideAttrs (attrs: { NIX_LDFLAGS = "-lfontconfig"; });
 
-    curl = old.curl.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    curl = old.curl.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     RcppParallel = old.RcppParallel.overrideAttrs (
       attrs: { preConfigure = "patchShebangs configure"; }
     );
 
-    purrr = old.purrr.overrideAttrs (
-      attrs: { patchPhase = "patchShebangs configure"; }
-    );
+    purrr = old.purrr.overrideAttrs (attrs: { patchPhase = "patchShebangs configure"; });
 
     RcppArmadillo = old.RcppArmadillo.overrideAttrs (
       attrs: { patchPhase = "patchShebangs configure"; }
@@ -1337,9 +1330,7 @@ let
       }
     );
 
-    rpf = old.rpf.overrideAttrs (
-      attrs: { patchPhase = "patchShebangs configure"; }
-    );
+    rpf = old.rpf.overrideAttrs (attrs: { patchPhase = "patchShebangs configure"; });
 
     rJava = old.rJava.overrideAttrs (
       attrs: {
@@ -1610,9 +1601,7 @@ let
       }
     );
 
-    ps = old.ps.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    ps = old.ps.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     rlang = old.rlang.overrideAttrs (
       attrs: { preConfigure = "patchShebangs configure"; }
@@ -1785,9 +1774,7 @@ let
       }
     );
 
-    rhdf5 = old.rhdf5.overrideAttrs (
-      attrs: { patches = [ ./patches/rhdf5.patch ]; }
-    );
+    rhdf5 = old.rhdf5.overrideAttrs (attrs: { patches = [ ./patches/rhdf5.patch ]; });
 
     textshaping = old.textshaping.overrideAttrs (
       attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; }

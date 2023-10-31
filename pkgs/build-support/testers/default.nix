@@ -80,8 +80,7 @@
   testVersion =
     {
       package,
-      command ?
-        "${package.meta.mainProgram or package.pname or package.name} --version",
+      command ? "${package.meta.mainProgram or package.pname or package.name} --version",
       version ? package.version,
     }:
     runCommand "${package.name}-test-version"
@@ -114,9 +113,7 @@
     let
       drvPath = (f args).drvPath;
       # It's safe to discard the context, because we don't access the path.
-      salt = builtins.unsafeDiscardStringContext (
-        lib.substring 0 12 (baseNameOf drvPath)
-      );
+      salt = builtins.unsafeDiscardStringContext (lib.substring 0 12 (baseNameOf drvPath));
       # New derivation incorporating the original drv hash in the name
       salted = f (args // { name = "${args.name or "source"}-salted-${salt}"; });
       # Make sure we did change the derivation. If the fetcher ignores `name`,

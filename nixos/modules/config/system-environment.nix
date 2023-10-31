@@ -75,9 +75,7 @@ in
       let
         suffixedVariables = flip mapAttrs cfg.profileRelativeSessionVariables (
           envVar: suffixes:
-          flip concatMap cfg.profiles (
-            profile: map (suffix: "${profile}${suffix}") suffixes
-          )
+          flip concatMap cfg.profiles (profile: map (suffix: "${profile}${suffix}") suffixes)
         );
 
         # We're trying to use the same syntax for PAM variables and env variables.
@@ -95,8 +93,7 @@ in
             ];
 
         pamVariable =
-          n: v:
-          ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"'';
+          n: v: ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"'';
 
         pamVariables = concatStringsSep "\n" (
           mapAttrsToList pamVariable (

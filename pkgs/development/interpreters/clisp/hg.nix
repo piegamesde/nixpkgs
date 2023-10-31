@@ -112,8 +112,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = lib.optionalString (withModules != [ ]) (
-    ''
-      ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
+    ''./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
     + lib.concatMapStrings (x: " " + x) withModules
   );
 

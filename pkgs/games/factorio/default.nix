@@ -30,9 +30,7 @@
   ,
 }:
 
-assert releaseType == "alpha"
-  || releaseType == "headless"
-  || releaseType == "demo";
+assert releaseType == "alpha" || releaseType == "headless" || releaseType == "demo";
 
 let
 

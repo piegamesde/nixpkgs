@@ -34,9 +34,7 @@ in
 
   options.services.multipath = with types; {
 
-    enable = mkEnableOption (
-      lib.mdDoc "the device mapper multipath (DM-MP) daemon"
-    );
+    enable = mkEnableOption (lib.mdDoc "the device mapper multipath (DM-MP) daemon");
 
     package = mkOption {
       type = package;
@@ -627,9 +625,7 @@ in
           cfg:
           let
             nonNullCfg = lib.filterAttrs (k: v: v != null) cfg;
-            attrs =
-              lib.mapAttrsToList (name: value: "  ${name} ${toString value}")
-                nonNullCfg;
+            attrs = lib.mapAttrsToList (name: value: "  ${name} ${toString value}") nonNullCfg;
           in
           ''
             device {

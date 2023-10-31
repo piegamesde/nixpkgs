@@ -104,14 +104,12 @@ let
               value = expr;
             }
         );
-      parse =
-        expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
+      parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
     builtins.foldl'
       (
         acc: v:
-        acc
-        ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
+        acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
       )
       [ ]
       exprs;

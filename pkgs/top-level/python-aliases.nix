@@ -39,9 +39,7 @@ in
 mapAliases ({
   abodepy = jaraco-abode; # added 2023-02-01
   aioh2 = throw "aioh2 has been removed because it is abandoned and broken."; # Added 2022-03-30
-  ansible-base =
-    throw
-      "ansible-base has been removed, because it is end of life"; # added 2022-03-30
+  ansible-base = throw "ansible-base has been removed, because it is end of life"; # added 2022-03-30
   anyjson =
     throw
       "anyjson has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
@@ -161,18 +159,14 @@ mapAliases ({
   google-apitools =
     throw
       "google-apitools was removed because it is deprecated and unsupported by upstream"; # added 2023-02-25
-  graphite_api =
-    throw
-      "graphite_api was removed, because it is no longer maintained"; # added 2022-07-10
+  graphite_api = throw "graphite_api was removed, because it is no longer maintained"; # added 2022-07-10
   graphite_beacon =
     throw
       "graphite_beacon was removed, because it is no longer maintained"; # added 2022-07-09
   grpc_google_iam_v1 = grpc-google-iam-v1; # added 2021-08-21
   ha-av = throw "ha-av was removed, because it is no longer maintained"; # added 2022-04-06
   HAP-python = hap-python; # added 2021-06-01
-  hangups =
-    throw
-      "hangups was removed because Google Hangouts has been shut down"; # added 2023-02-13
+  hangups = throw "hangups was removed because Google Hangouts has been shut down"; # added 2023-02-13
   hbmqtt = throw "hbmqtt was removed because it is no longer maintained"; # added 2021-11-07
   hdlparse =
     throw
@@ -215,13 +209,9 @@ mapAliases ({
   MechanicalSoup = mechanicalsoup; # added 2021-06-01
   memcached = python-memcached; # added 2022-05-06
   mailman = throw "Please use pkgs.mailman"; # added 2022-04-29
-  mailman-hyperkitty =
-    throw
-      "Please use pkgs.mailmanPackages.mailman-hyperkitty"; # added 2022-04-29
+  mailman-hyperkitty = throw "Please use pkgs.mailmanPackages.mailman-hyperkitty"; # added 2022-04-29
   mailman-web = throw "Please use pkgs.mailman-web"; # added 2022-04-29
-  mistune_0_8 =
-    throw
-      "mistune_0_8 was removed because it was outdated and insecure"; # added 2022-08-12
+  mistune_0_8 = throw "mistune_0_8 was removed because it was outdated and insecure"; # added 2022-08-12
   mistune_2_0 = mistune; # added 2022-08-12
   mox = throw "mox was removed because it is unmaintained"; # added 2023-02-21
   mutmut = throw "mutmut has been promoted to a top-level attribute"; # added 2022-10-02
@@ -288,9 +278,7 @@ mapAliases ({
       "The package was removed together with the component support in home-assistant 2022.7.0"; # added 2022-07-07
   PyICU = pyicu; # Added 2022-12-22
   pyjson5 = json5; # added 2022-08-28
-  pylibgen =
-    throw
-      "pylibgen is unmaintained upstreamed, and removed from nixpkgs"; # added 2020-06-20
+  pylibgen = throw "pylibgen is unmaintained upstreamed, and removed from nixpkgs"; # added 2020-06-20
   PyLD = pyld; # added 2022-06-22
   pymc3 = pymc; # added 2022-06-05, module was rename starting with 4.0.0
   pymssql = throw "pymssql has been abandoned upstream."; # added 2020-05-04
@@ -437,9 +425,7 @@ mapAliases ({
   types-cryptography =
     throw
       "types-cryptography has been removed because it is obsolete since cryptography version 3.4.4."; # added 2022-05-30
-  types-paramiko =
-    throw
-      "types-paramiko has been removed because it was unused."; # added 2022-05-30
+  types-paramiko = throw "types-paramiko has been removed because it was unused."; # added 2022-05-30
   unittest2 =
     throw
       "unittest2 has been removed as it's a backport of unittest that's unmaintained and not needed beyond Python 3.4."; # added 2022-12-01

@@ -246,10 +246,7 @@ rec {
           subsections = tail sections;
           subsection = concatStringsSep "." subsections;
         in
-        if containsQuote || subsections == [ ] then
-          name
-        else
-          ''${section} "${subsection}"'';
+        if containsQuote || subsections == [ ] then name else ''${section} "${subsection}"'';
 
       # generation for multiple ini values
       mkKeyValue =
@@ -432,8 +429,7 @@ rec {
           let
             fna = lib.functionArgs v;
             showFnas = concatStringsSep ", " (
-              libAttr.mapAttrsToList (name: hasDefVal: if hasDefVal then name + "?" else name)
-                fna
+              libAttr.mapAttrsToList (name: hasDefVal: if hasDefVal then name + "?" else name) fna
             );
           in
           if fna == { } then "<function>" else "<function, args: {${showFnas}}>"

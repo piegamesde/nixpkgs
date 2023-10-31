@@ -37,8 +37,7 @@ let
   keywordsSection =
     let
       mustBeAList =
-        attr: attrName:
-        lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr;
+        attr: attrName: lib.throwIfNot (lib.isList attr) "'${attrName}' must be a list" attr;
     in
     {
       "Name" = name;

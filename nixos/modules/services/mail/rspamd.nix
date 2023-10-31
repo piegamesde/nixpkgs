@@ -48,15 +48,12 @@ let
       config.rawEntry =
         let
           maybeOption =
-            option:
-            optionalString options.${option}.isDefined " ${option}=${config.${option}}";
+            option: optionalString options.${option}.isDefined " ${option}=${config.${option}}";
         in
         if (!(hasPrefix "/" config.socket)) then
           "${config.socket}"
         else
-          "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
-            maybeOption "group"
-          }";
+          "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${maybeOption "group"}";
     };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
@@ -165,10 +162,7 @@ let
       config =
         mkIf
           (
-            name == "normal"
-            || name == "controller"
-            || name == "fuzzy"
-            || name == "rspamd_proxy"
+            name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy"
           )
           {
             type = mkDefault name;
@@ -328,10 +322,7 @@ let
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )
     // (
-      if cfg.extraConfig == "" then
-        { }
-      else
-        { "extra-config.inc".text = cfg.extraConfig; }
+      if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; }
     );
 in
 

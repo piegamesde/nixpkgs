@@ -286,8 +286,7 @@ stdenv.mkDerivation (
 
     # INFO: Otherwise it fails with:
     # `./sanity.sh: line 36: $out/bin/size: not found`
-    doInstallCheck =
-      (buildPlatform == hostPlatform) && (hostPlatform == targetPlatform);
+    doInstallCheck = (buildPlatform == hostPlatform) && (hostPlatform == targetPlatform);
 
     enableParallelBuilding = true;
 
@@ -297,12 +296,10 @@ stdenv.mkDerivation (
     #   $out/$host/$target/include/* to $dev/include/*
     # TODO(trofi): fix installation paths upstream so we could remove this
     # code and have "lib" output unconditionally.
-    postInstall =
-      lib.optionalString (hostPlatform.config != targetPlatform.config)
-        ''
-          ln -s $out/${hostPlatform.config}/${targetPlatform.config}/lib/*     $out/lib/
-          ln -s $out/${hostPlatform.config}/${targetPlatform.config}/include/* $dev/include/
-        '';
+    postInstall = lib.optionalString (hostPlatform.config != targetPlatform.config) ''
+      ln -s $out/${hostPlatform.config}/${targetPlatform.config}/lib/*     $out/lib/
+      ln -s $out/${hostPlatform.config}/${targetPlatform.config}/include/* $dev/include/
+    '';
 
     passthru = {
       inherit targetPrefix;

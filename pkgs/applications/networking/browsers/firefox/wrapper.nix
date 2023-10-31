@@ -147,9 +147,7 @@ let
 
       usesNixExtensions = nixExtensions != null;
 
-      nameArray = builtins.map (a: a.name) (
-        lib.optionals usesNixExtensions nixExtensions
-      );
+      nameArray = builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions);
 
       requiresSigning =
         browser ? MOZ_REQUIRE_SIGNING -> toString browser.MOZ_REQUIRE_SIGNING != "";
@@ -160,8 +158,7 @@ let
         if nameArray != (lib.unique nameArray) then
           throw "Firefox addon name needs to be unique"
         else if requiresSigning && !lib.hasSuffix "esr" browser.name then
-          throw
-            "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
+          throw "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
           builtins.map
             (
@@ -487,8 +484,7 @@ let
 
       preferLocalBuild = true;
 
-      libs =
-        lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
+      libs = lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
       gtk_modules = map (x: x + x.gtkModule) gtk_modules;
 
       passthru = {

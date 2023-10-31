@@ -147,13 +147,11 @@ stdenv.mkDerivation {
   # Check whether importing of (extension) modules functions
   installCheckPhase =
     let
-      modules =
-        [
-          "ssl"
-          "sys"
-          "curses"
-        ]
-        ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [ "tkinter" ];
+      modules = [
+        "ssl"
+        "sys"
+        "curses"
+      ] ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [ "tkinter" ];
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''

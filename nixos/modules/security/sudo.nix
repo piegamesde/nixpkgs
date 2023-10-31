@@ -14,8 +14,7 @@ let
   inherit (pkgs) sudo;
 
   toUserString = user: if (isInt user) then "#${toString user}" else "${user}";
-  toGroupString =
-    group: if (isInt group) then "%#${toString group}" else "%${group}";
+  toGroupString = group: if (isInt group) then "%#${toString group}" else "%${group}";
 
   toCommandOptionsString =
     options:
@@ -267,9 +266,7 @@ in
                   (map
                     (
                       user:
-                      "${toUserString user}	${rule.host}=(${rule.runAs})	${
-                        toCommandsString rule.commands
-                      }"
+                      "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}"
                     )
                     rule.users
                   )

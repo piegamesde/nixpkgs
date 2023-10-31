@@ -80,9 +80,7 @@ with lib; {
     fetchTags = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Fetch tags for imported images and webm from gelbooru.";
+      description = lib.mdDoc "Fetch tags for imported images and webm from gelbooru.";
     };
   };
 

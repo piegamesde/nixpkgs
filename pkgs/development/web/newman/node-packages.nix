@@ -4985,12 +4985,7 @@ in
       sources."buffer-alloc-unsafe-1.1.0"
       sources."buffer-fill-1.0.0"
       sources."buffer-from-1.1.2"
-      (
-        sources."cache-point-2.0.0"
-        // {
-          dependencies = [ sources."array-back-4.0.2" ];
-        }
-      )
+      (sources."cache-point-2.0.0" // { dependencies = [ sources."array-back-4.0.2" ]; })
       (
         sources."caching-transform-4.0.0"
         // {
@@ -5059,12 +5054,7 @@ in
       sources."commondir-1.0.1"
       sources."concat-map-0.0.1"
       sources."concat-stream-1.6.2"
-      (
-        sources."config-master-3.1.0"
-        // {
-          dependencies = [ sources."walk-back-2.0.1" ];
-        }
-      )
+      (sources."config-master-3.1.0" // { dependencies = [ sources."walk-back-2.0.1" ]; })
       sources."convert-source-map-1.9.0"
       sources."core-util-is-1.0.2"
       sources."cross-spawn-7.0.3"
@@ -5159,16 +5149,11 @@ in
       )
       sources."eslint-visitor-keys-2.1.0"
       (
-        sources."espree-7.3.1"
-        // {
-          dependencies = [ sources."eslint-visitor-keys-1.3.0" ];
-        }
+        sources."espree-7.3.1" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; }
       )
       sources."esprima-4.0.1"
       (sources."esquery-1.4.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
-      (
-        sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; }
-      )
+      (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
       sources."estraverse-4.3.0"
       sources."esutils-2.0.3"
       sources."eventemitter3-4.0.7"
@@ -5193,12 +5178,7 @@ in
           ];
         }
       )
-      (
-        sources."find-replace-3.0.0"
-        // {
-          dependencies = [ sources."array-back-3.1.0" ];
-        }
-      )
+      (sources."find-replace-3.0.0" // { dependencies = [ sources."array-back-3.1.0" ]; })
       sources."find-up-5.0.0"
       sources."flat-5.0.2"
       sources."flat-cache-3.0.4"
@@ -5350,9 +5330,7 @@ in
       sources."loupe-2.3.6"
       sources."lru-cache-6.0.0"
       sources."make-dir-1.3.0"
-      (
-        sources."markdown-it-12.3.2" // { dependencies = [ sources."argparse-2.0.1" ]; }
-      )
+      (sources."markdown-it-12.3.2" // { dependencies = [ sources."argparse-2.0.1" ]; })
       sources."markdown-it-anchor-8.6.5"
       sources."marked-4.2.4"
       sources."mdurl-1.0.1"
@@ -5459,12 +5437,7 @@ in
       sources."path-is-absolute-1.0.1"
       sources."path-key-3.1.1"
       sources."path-parse-1.0.7"
-      (
-        sources."path-to-regexp-1.8.0"
-        // {
-          dependencies = [ sources."isarray-0.0.1" ];
-        }
-      )
+      (sources."path-to-regexp-1.8.0" // { dependencies = [ sources."isarray-0.0.1" ]; })
       sources."pathval-1.1.1"
       sources."performance-now-2.1.0"
       sources."picocolors-1.0.0"
@@ -5561,9 +5534,7 @@ in
       sources."safer-buffer-2.1.2"
       sources."sax-1.2.4"
       sources."semver-7.3.5"
-      (
-        sources."serialised-error-1.1.3" // { dependencies = [ sources."uuid-3.4.0" ]; }
-      )
+      (sources."serialised-error-1.1.3" // { dependencies = [ sources."uuid-3.4.0" ]; })
       sources."serialize-javascript-6.0.0"
       sources."server-destroy-1.0.1"
       sources."set-blocking-2.0.0"
@@ -5618,19 +5589,13 @@ in
       sources."sshpk-1.17.0"
       sources."stack-trace-0.0.9"
       (
-        sources."stream-connect-1.0.2"
-        // {
-          dependencies = [ sources."array-back-1.0.4" ];
-        }
+        sources."stream-connect-1.0.2" // { dependencies = [ sources."array-back-1.0.4" ]; }
       )
       sources."stream-length-1.0.2"
       sources."stream-via-1.0.4"
       sources."string-width-4.2.3"
       (
-        sources."string_decoder-1.1.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
+        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
       )
       sources."strip-ansi-6.0.1"
       sources."strip-bom-4.0.0"
@@ -5646,21 +5611,14 @@ in
           ];
         }
       )
-      (
-        sources."table-layout-0.4.5"
-        // {
-          dependencies = [ sources."array-back-2.0.0" ];
-        }
-      )
+      (sources."table-layout-0.4.5" // { dependencies = [ sources."array-back-2.0.0" ]; })
       sources."taffydb-2.6.2"
       (sources."tar-fs-1.16.3" // { dependencies = [ sources."mkdirp-0.5.6" ]; })
       sources."tar-stream-1.6.2"
       sources."teleport-javascript-1.0.0"
       sources."temp-path-1.0.0"
       sources."test-exclude-6.0.0"
-      (
-        sources."test-value-3.0.0" // { dependencies = [ sources."array-back-2.0.0" ]; }
-      )
+      (sources."test-value-3.0.0" // { dependencies = [ sources."array-back-2.0.0" ]; })
       sources."text-table-0.2.0"
       sources."through-2.3.8"
       sources."to-buffer-1.1.1"

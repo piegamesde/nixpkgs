@@ -245,8 +245,7 @@ assert (lib.assertMsg
 );
 # Either both or none of {user,group} need to be set
 assert (lib.assertMsg
-  (lib.all
-    (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null))
+  (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null))
     contents
   )
   "Contents of the disk image should set none of {user, group} or both at the same time."
@@ -487,9 +486,7 @@ let
     echo "running nixos-install..."
     nixos-install --root $root --no-bootloader --no-root-passwd \
       --system ${config.system.build.toplevel} \
-      ${
-        if copyChannel then "--channel ${channelSources}" else "--no-channel-copy"
-      } \
+      ${if copyChannel then "--channel ${channelSources}" else "--no-channel-copy"} \
       --substituters ""
 
     ${optionalString (additionalPaths' != [ ]) ''
@@ -578,9 +575,7 @@ let
       ''}
 
     echo "copying staging root to image..."
-    cptofs -p ${
-      optionalString (partitionTableType != "none") "-P ${rootPartition}"
-    } \
+    cptofs -p ${optionalString (partitionTableType != "none") "-P ${rootPartition}"} \
            -t ${fsType} \
            -i $diskImage \
            $root${optionalString onlyNixStore builtins.storeDir}/* / ||
@@ -618,9 +613,7 @@ let
         QEMU_OPTS = concatStringsSep " " (
           lib.optional useEFIBoot
             "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
-          ++ lib.optionals touchEFIVars [
-            "-drive if=pflash,format=raw,unit=1,file=$efiVars"
-          ]
+          ++ lib.optionals touchEFIVars [ "-drive if=pflash,format=raw,unit=1,file=$efiVars" ]
         );
         inherit memSize;
       }
@@ -635,9 +628,7 @@ let
         # bootloader might get the wrong one and fail to boot.
         # At the end, we reset again because we want deterministic timestamps.
         ${optionalString (fsType == "ext4" && deterministic) ''
-          tune2fs -T now ${
-            optionalString deterministic "-U ${rootFSUID}"
-          } -c 0 -i 0 $rootDisk
+          tune2fs -T now ${optionalString deterministic "-U ${rootFSUID}"} -c 0 -i 0 $rootDisk
         ''}
         # make systemd-boot find ESP without udev
         mkdir /dev/block
@@ -649,15 +640,13 @@ let
 
         # Create the ESP and mount it. Unlike e2fsprogs, mkfs.vfat doesn't support an
         # '-E offset=X' option, so we can't do this outside the VM.
-        ${optionalString (partitionTableType == "efi" || partitionTableType == "hybrid")
-          ''
-            mkdir -p /mnt/boot
-            mkfs.vfat -n ESP /dev/vda1
-            mount /dev/vda1 /mnt/boot
+        ${optionalString (partitionTableType == "efi" || partitionTableType == "hybrid") ''
+          mkdir -p /mnt/boot
+          mkfs.vfat -n ESP /dev/vda1
+          mount /dev/vda1 /mnt/boot
 
-            ${optionalString touchEFIVars
-              "mount -t efivarfs efivarfs /sys/firmware/efi/efivars"}
-          ''}
+          ${optionalString touchEFIVars "mount -t efivarfs efivarfs /sys/firmware/efi/efivars"}
+        ''}
 
         # Install a configuration.nix
         mkdir -p /mnt/etc/nixos
@@ -703,9 +692,7 @@ let
         # This two-step approach is necessary otherwise `tune2fs` will want a fresher filesystem to perform
         # some changes.
         ${optionalString (fsType == "ext4") ''
-          tune2fs -T now ${
-            optionalString deterministic "-U ${rootFSUID}"
-          } -c 0 -i 0 $rootDisk
+          tune2fs -T now ${optionalString deterministic "-U ${rootFSUID}"} -c 0 -i 0 $rootDisk
           ${optionalString deterministic "tune2fs -f -T 19700101 $rootDisk"}
         ''}
       ''

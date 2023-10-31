@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     ];
 
   preConfigure =
-    lib.optionalString
-      (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+    lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
       '';
@@ -43,9 +42,7 @@ stdenv.mkDerivation rec {
   outputBin = "dev";
   propagatedBuildOutputs = [ "out" ] ++ lib.optional sslSupport "openssl";
 
-  nativeBuildInputs =
-    lib.optional stdenv.hostPlatform.isDarwin
-      fixDarwinDylibNames;
+  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs =
     lib.optional sslSupport openssl

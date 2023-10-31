@@ -57,9 +57,7 @@ stdenv.mkDerivation rec {
 
   postInstall = lib.optionalString addThumbnailer ''
     mkdir -p $out/share/thumbnailers
-    substituteAll ${
-      ./nufraw.thumbnailer
-    } $out/share/thumbnailers/${pname}.thumbnailer
+    substituteAll ${./nufraw.thumbnailer} $out/share/thumbnailers/${pname}.thumbnailer
   '';
 
   # Fixes an upstream issue where headers with templates were included in an extern-C scope

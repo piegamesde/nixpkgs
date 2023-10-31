@@ -41,13 +41,10 @@ let
 
   # Creates a WPA2 fallback network
   mkWPA2Fallback =
-    opts:
-    opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
+    opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
 
   # Networks attrset as a list
-  networkList =
-    mapAttrsToList (ssid: opts: opts // { inherit ssid; })
-      cfg.networks;
+  networkList = mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
@@ -105,9 +102,7 @@ let
         ]
         ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
-        ++ optionals (opts.auth != null) (
-          filter (x: x != "") (splitString "\n" opts.auth)
-        )
+        ++ optionals (opts.auth != null) (filter (x: x != "") (splitString "\n" opts.auth))
         ++ optional (opts.priority != null) "priority=${toString opts.priority}"
         ++ optional (opts.extraConfig != "") opts.extraConfig;
     in
@@ -132,8 +127,7 @@ let
     in
     {
       description =
-        "WPA Supplicant instance"
-        + optionalString (iface != null) " for interface ${iface}";
+        "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";
 
       after = deviceUnit;
       before = [ "network.target" ];
@@ -587,9 +581,7 @@ in
       if cfg.interfaces == [ ] then
         { wpa_supplicant = mkUnit null; }
       else
-        listToAttrs (
-          map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces
-        );
+        listToAttrs (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces);
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (

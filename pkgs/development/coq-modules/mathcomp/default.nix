@@ -167,9 +167,7 @@ let
             ];
           };
         }
-        // optionalAttrs (package != "single") {
-          passthru = genAttrs packages mathcomp_;
-        }
+        // optionalAttrs (package != "single") { passthru = genAttrs packages mathcomp_; }
         // optionalAttrs withDoc {
           htmldoc_template = fetchzip {
             url = "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";

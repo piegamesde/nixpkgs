@@ -47,13 +47,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      ffmpeg
-      libX11
-    ]
-    ++ lib.optional drmSupport libdrm
-    ++ lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs = [
+    ffmpeg
+    libX11
+  ] ++ lib.optional drmSupport libdrm ++ lib.optional pulseaudioSupport libpulseaudio;
 
   cmakeFlags = [
     "-DRS_SYSTEMD_DIR=${placeholder "out"}/lib/systemd/user"

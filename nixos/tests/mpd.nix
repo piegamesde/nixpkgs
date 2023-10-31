@@ -96,8 +96,7 @@ import ./make-test-python.nix (
               '';
             };
 
-            musicService =
-              with defaultCfg; musicService { inherit user group musicDirectory; };
+            musicService = with defaultCfg; musicService { inherit user group musicDirectory; };
           })
           {
             hardware.pulseaudio = {

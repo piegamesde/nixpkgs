@@ -24,9 +24,7 @@ in
       };
 
       capacity = mkOption {
-        description =
-          lib.mdDoc
-            "Limits the amount of maximum concurrent clients allowed.";
+        description = lib.mdDoc "Limits the amount of maximum concurrent clients allowed.";
         type = with types; nullOr int;
         default = null;
       };

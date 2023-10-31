@@ -108,14 +108,11 @@ let
       })
     ]
     # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
-    ++
-      optional (stdenv.isDarwin && targetPlatform.isAvr)
-        ./avr-gcc-11.3-darwin.patch
+    ++ optional (stdenv.isDarwin && targetPlatform.isAvr) ./avr-gcc-11.3-darwin.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     # openjdk build fails without this on -march=opteron; is upstream in gcc12
@@ -317,9 +314,7 @@ lib.pipe
             +
               lib.optionalString
                 (
-                  targetPlatform == hostPlatform
-                  && hostPlatform == buildPlatform
-                  && !disableBootstrap
+                  targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap
                 )
                 "bootstrap";
         in
@@ -390,9 +385,7 @@ lib.pipe
     //
       optionalAttrs
         (
-          targetPlatform != hostPlatform
-          && targetPlatform.libc == "msvcrt"
-          && crossStageStatic
+          targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
         )
         {
           makeFlags = [

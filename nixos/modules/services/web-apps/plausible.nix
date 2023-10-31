@@ -47,9 +47,7 @@ in
         '';
       };
 
-      activate = mkEnableOption (
-        lib.mdDoc "activating the freshly created admin-user"
-      );
+      activate = mkEnableOption (lib.mdDoc "activating the freshly created admin-user");
     };
 
     database = {

@@ -942,24 +942,22 @@ let
         };
       };
 
-      divyanshuagrawal.competitive-programming-helper =
-        buildVscodeMarketplaceExtension
-          {
-            mktplcRef = {
-              name = "competitive-programming-helper";
-              publisher = "DivyanshuAgrawal";
-              version = "5.10.0";
-              sha256 = "sha256-KALTldVaptKt8k2Y6PMqhJEMrayB4yn86x2CxHn6Ba0=";
-            };
-            meta = {
-              changelog = "https://marketplace.visualstudio.com/items/DivyanshuAgrawal.competitive-programming-helper/changelog";
-              description = "Makes judging, compiling, and downloading problems for competitve programming easy. Also supports auto-submit for a few sites.";
-              downloadPage = "https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper";
-              homepage = "https://github.com/agrawal-d/cph";
-              license = lib.licenses.gpl3;
-              maintainers = [ lib.maintainers.arcticlimer ];
-            };
-          };
+      divyanshuagrawal.competitive-programming-helper = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "competitive-programming-helper";
+          publisher = "DivyanshuAgrawal";
+          version = "5.10.0";
+          sha256 = "sha256-KALTldVaptKt8k2Y6PMqhJEMrayB4yn86x2CxHn6Ba0=";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/DivyanshuAgrawal.competitive-programming-helper/changelog";
+          description = "Makes judging, compiling, and downloading problems for competitve programming easy. Also supports auto-submit for a few sites.";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=DivyanshuAgrawal.competitive-programming-helper";
+          homepage = "https://github.com/agrawal-d/cph";
+          license = lib.licenses.gpl3;
+          maintainers = [ lib.maintainers.arcticlimer ];
+        };
+      };
 
       donjayamanne.githistory = buildVscodeMarketplaceExtension {
         meta = {

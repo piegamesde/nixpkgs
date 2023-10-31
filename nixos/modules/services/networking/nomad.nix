@@ -181,9 +181,7 @@ in
           Restart = "on-failure";
           RestartSec = 2;
           TasksMax = "infinity";
-          LoadCredential =
-            lib.mapAttrsToList (key: value: "${key}:${value}")
-              cfg.credentials;
+          LoadCredential = lib.mapAttrsToList (key: value: "${key}:${value}") cfg.credentials;
         }
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string

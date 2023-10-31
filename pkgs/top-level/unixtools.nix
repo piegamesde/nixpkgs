@@ -24,8 +24,7 @@ let
   singleBinary =
     cmd: providers:
     let
-      provider =
-        providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
+      provider = providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
       bin = "${getBin provider}/bin/${cmd}";
       manpage = "${getOutput "man" provider}/share/man/man1/${cmd}.1.gz";
     in

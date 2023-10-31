@@ -95,10 +95,7 @@ lib.makeOverridable (
           throw ''buildRubyGem: don't know how to build a gem of type "${type}"''
       );
     documentFlag =
-      if document == [ ] then
-        "-N"
-      else
-        "--document ${lib.concatStringsSep "," document}";
+      if document == [ ] then "-N" else "--document ${lib.concatStringsSep "," document}";
   in
 
   stdenv.mkDerivation (
@@ -118,9 +115,7 @@ lib.makeOverridable (
         ++ lib.optionals (type != "gem") [ bundler ]
         ++ nativeBuildInputs;
 
-      buildInputs = [
-        ruby
-      ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ buildInputs;
+      buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ buildInputs;
 
       #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
       name = attrs.name or "${namePrefix}${gemName}-${version}";

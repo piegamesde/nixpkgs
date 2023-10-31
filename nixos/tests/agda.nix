@@ -30,9 +30,7 @@ import ./make-test-python.nix (
 
     testScript = ''
       assert (
-          "${
-            pkgs.agdaPackages.lib.interfaceFile "Everything.agda"
-          }" == "Everything.agdai"
+          "${pkgs.agdaPackages.lib.interfaceFile "Everything.agda"}" == "Everything.agdai"
       ), "wrong interface file for Everything.agda"
       assert (
           "${

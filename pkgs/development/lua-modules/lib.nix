@@ -11,9 +11,7 @@ let
     let
       modules = filter hasLuaModule drvs;
     in
-    unique (
-      [ lua ] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules)
-    );
+    unique ([ lua ] ++ modules ++ concatLists (catAttrs "requiredLuaModules" modules));
   # Check whether a derivation provides a lua module.
   hasLuaModule = drv: drv ? luaModule;
 
@@ -22,10 +20,7 @@ let
     drv: f:
     (drv.override (
       args:
-      args
-      // {
-        buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f;
-      }
+      args // { buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f; }
     ))
     // {
       overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;
@@ -46,10 +41,8 @@ rec {
   luaCPathRelStr = lib.concatStringsSep ";" luaCPathList;
 
   # generate LUA_(C)PATH value for a specific derivation, i.e., with absolute paths
-  genLuaPathAbsStr =
-    drv: lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaPathList;
-  genLuaCPathAbsStr =
-    drv: lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaCPathList;
+  genLuaPathAbsStr = drv: lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaPathList;
+  genLuaCPathAbsStr = drv: lib.concatMapStringsSep ";" (x: "${drv}/${x}") luaCPathList;
 
   # Generate a LUA_PATH with absolute paths
   # genLuaPathAbs = drv:
@@ -69,8 +62,7 @@ rec {
       getDataFolder luaPackages.stdlib
       => stdlib-41.2.2-1-rocks/stdlib/41.2.2-1/doc
   */
-  getDataFolder =
-    drv: "${drv.pname}-${drv.version}-rocks/${drv.pname}/${drv.version}";
+  getDataFolder = drv: "${drv.pname}-${drv.version}-rocks/${drv.pname}/${drv.version}";
 
   /* Convert derivation to a lua module.
      so that luaRequireModules can be run later

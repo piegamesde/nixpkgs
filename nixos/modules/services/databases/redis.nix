@@ -31,9 +31,7 @@ let
     );
 
   redisName = name: "redis" + optionalString (name != "") ("-" + name);
-  enabledServers =
-    filterAttrs (name: conf: conf.enable)
-      config.services.redis.servers;
+  enabledServers = filterAttrs (name: conf: conf.enable) config.services.redis.servers;
 in
 {
   imports = [
@@ -512,9 +510,7 @@ in
                   maxclients = mkOption {
                     type = types.int;
                     default = 10000;
-                    description =
-                      lib.mdDoc
-                        "Set the max number of connected clients at the same time.";
+                    description = lib.mdDoc "Set the max number of connected clients at the same time.";
                   };
 
                   save = mkOption {
@@ -565,9 +561,7 @@ in
                       );
 
                     default = null;
-                    description =
-                      lib.mdDoc
-                        "IP and port to which this redis instance acts as a slave.";
+                    description = lib.mdDoc "IP and port to which this redis instance acts as a slave.";
                     example = {
                       ip = "192.168.1.100";
                       port = 6379;
@@ -755,9 +749,9 @@ in
             after = [ "network.target" ];
 
             serviceConfig = {
-              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${
-                  redisName name
-                }/redis.conf ${escapeShellArgs conf.extraParams}";
+              ExecStart = "${cfg.package}/bin/redis-server /var/lib/${redisName name}/redis.conf ${
+                  escapeShellArgs conf.extraParams
+                }";
               ExecStartPre =
                 "+"
                 + pkgs.writeShellScript "${redisName name}-prep-conf" (

@@ -97,9 +97,7 @@ lib.makeScope pkgs.newScope (
 
     #### DESKTOP
 
-    elementary-default-settings =
-      callPackage ./desktop/elementary-default-settings
-        { };
+    elementary-default-settings = callPackage ./desktop/elementary-default-settings { };
 
     elementary-greeter = callPackage ./desktop/elementary-greeter { };
 
@@ -107,13 +105,11 @@ lib.makeScope pkgs.newScope (
 
     elementary-print-shim = callPackage ./desktop/elementary-print-shim { };
 
-    elementary-session-settings =
-      callPackage ./desktop/elementary-session-settings
-        { inherit (gnome) gnome-session gnome-keyring; };
+    elementary-session-settings = callPackage ./desktop/elementary-session-settings {
+      inherit (gnome) gnome-session gnome-keyring;
+    };
 
-    elementary-shortcut-overlay =
-      callPackage ./desktop/elementary-shortcut-overlay
-        { };
+    elementary-shortcut-overlay = callPackage ./desktop/elementary-shortcut-overlay { };
 
     file-roller-contract = callPackage ./desktop/file-roller-contract {
       inherit (gnome) file-roller;
@@ -145,17 +141,13 @@ lib.makeScope pkgs.newScope (
 
     elementary-notifications = callPackage ./services/elementary-notifications { };
 
-    elementary-settings-daemon =
-      callPackage ./services/elementary-settings-daemon
-        { };
+    elementary-settings-daemon = callPackage ./services/elementary-settings-daemon { };
 
     pantheon-agent-geoclue2 = callPackage ./services/pantheon-agent-geoclue2 { };
 
     pantheon-agent-polkit = callPackage ./services/pantheon-agent-polkit { };
 
-    xdg-desktop-portal-pantheon =
-      callPackage ./services/xdg-desktop-portal-pantheon
-        { };
+    xdg-desktop-portal-pantheon = callPackage ./services/xdg-desktop-portal-pantheon { };
 
     #### WINGPANEL INDICATORS
 
@@ -177,9 +169,7 @@ lib.makeScope pkgs.newScope (
       callPackage ./desktop/wingpanel-indicators/keyboard
         { };
 
-    wingpanel-indicator-network =
-      callPackage ./desktop/wingpanel-indicators/network
-        { };
+    wingpanel-indicator-network = callPackage ./desktop/wingpanel-indicators/network { };
 
     wingpanel-indicator-nightlight =
       callPackage ./desktop/wingpanel-indicators/nightlight
@@ -193,13 +183,9 @@ lib.makeScope pkgs.newScope (
       inherit (gnome) gnome-power-manager;
     };
 
-    wingpanel-indicator-session =
-      callPackage ./desktop/wingpanel-indicators/session
-        { };
+    wingpanel-indicator-session = callPackage ./desktop/wingpanel-indicators/session { };
 
-    wingpanel-indicator-sound =
-      callPackage ./desktop/wingpanel-indicators/sound
-        { };
+    wingpanel-indicator-sound = callPackage ./desktop/wingpanel-indicators/sound { };
 
     #### SWITCHBOARD
 
@@ -263,9 +249,7 @@ lib.makeScope pkgs.newScope (
 
     elementary-icon-theme = callPackage ./artwork/elementary-icon-theme { };
 
-    elementary-redacted-script =
-      callPackage ./artwork/elementary-redacted-script
-        { };
+    elementary-redacted-script = callPackage ./artwork/elementary-redacted-script { };
 
     elementary-sound-theme = callPackage ./artwork/elementary-sound-theme { };
 

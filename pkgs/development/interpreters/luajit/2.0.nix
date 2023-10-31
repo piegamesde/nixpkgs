@@ -19,8 +19,7 @@ callPackage ./default.nix {
   extraMeta = {
     # this isn't precise but it at least stops the useless Hydra build
     platforms =
-      with lib;
-      filter (p: !hasPrefix "aarch64-" p) (platforms.linux ++ platforms.darwin);
+      with lib; filter (p: !hasPrefix "aarch64-" p) (platforms.linux ++ platforms.darwin);
   };
   inherit self passthruFun;
 }

@@ -39,9 +39,7 @@ graalvmCEPackages.buildGraalvmProduct rec {
     wrapProgram $out/bin/native-image \
       --prefix PATH : ${binPath} \
       ${
-        lib.concatStringsSep " " (
-          map (l: "--add-flags '-H:CLibraryPath=${l}/lib'") cLibs
-        )
+        lib.concatStringsSep " " (map (l: "--add-flags '-H:CLibraryPath=${l}/lib'") cLibs)
       }
   '';
 

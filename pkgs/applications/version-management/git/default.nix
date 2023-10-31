@@ -168,8 +168,7 @@ stdenv.mkDerivation (
 
     # required to support pthread_cancel()
     NIX_LDFLAGS =
-      lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc")
-        "-lgcc_s"
+      lib.optionalString (stdenv.cc.isGNU && stdenv.hostPlatform.libc == "glibc") "-lgcc_s"
       + lib.optionalString (stdenv.isFreeBSD) "-lthr";
 
     configureFlags =
@@ -198,10 +197,7 @@ stdenv.mkDerivation (
           [ "NO_PERL=1" ]
       )
       ++ (
-        if pythonSupport then
-          [ "PYTHON_PATH=${python3}/bin/python" ]
-        else
-          [ "NO_PYTHON=1" ]
+        if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ]
       )
       ++ lib.optionals stdenv.isSunOS [
         "INSTALL=install"
@@ -209,10 +205,7 @@ stdenv.mkDerivation (
         "NO_INET_PTON="
       ]
       ++ (
-        if stdenv.isDarwin then
-          [ "NO_APPLE_COMMON_CRYPTO=1" ]
-        else
-          [ "sysconfdir=/etc" ]
+        if stdenv.isDarwin then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ]
       )
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         "NO_SYS_POLL_H=1"
@@ -229,9 +222,9 @@ stdenv.mkDerivation (
       # See https://github.com/Homebrew/homebrew-core/commit/dfa3ccf1e7d3901e371b5140b935839ba9d8b706
       ++ lib.optional stdenv.isDarwin "TKFRAMEWORK=/nonexistent";
 
-    disallowedReferences =
-      lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-        [ stdenv.shellPackage ];
+    disallowedReferences = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+      stdenv.shellPackage
+    ];
 
     postBuild =
       ''

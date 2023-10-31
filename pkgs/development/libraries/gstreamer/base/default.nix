@@ -125,9 +125,7 @@ stdenv.mkDerivation (
         }"
         (lib.mesonEnable "doc" enableDocumentation)
       ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        "-Dtests=disabled"
-      ]
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dtests=disabled" ]
       ++ lib.optional (!enableX11) "-Dx11=disabled"
       # TODO How to disable Wayland?
       ++ lib.optional (!enableGl) "-Dgl=disabled"

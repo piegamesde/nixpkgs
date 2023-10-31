@@ -14,10 +14,7 @@ let
       major = lib.toInt (lib.elemAt versionParts 0);
       minor = lib.toInt (lib.elemAt versionParts 1);
       patch =
-        if lib.length versionParts > 2 then
-          lib.toInt (lib.elemAt versionParts 2)
-        else
-          0;
+        if lib.length versionParts > 2 then lib.toInt (lib.elemAt versionParts 2) else 0;
     in
     toString (major * 10000 + minor * 100 + patch);
 in

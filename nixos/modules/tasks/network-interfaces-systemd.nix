@@ -38,8 +38,7 @@ let
     override:
     let
       gateway =
-        optional
-          (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
+        optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
           cfg.defaultGateway.address
         ++ optional
           (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
@@ -122,9 +121,7 @@ let
           {
             name = mkDefault i.name;
             DHCP = mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false));
-            address = forEach (interfaceIps i) (
-              ip: "${ip.address}/${toString ip.prefixLength}"
-            );
+            address = forEach (interfaceIps i) (ip: "${ip.address}/${toString ip.prefixLength}");
             routes = forEach (interfaceRoutes i) (
               route: {
                 # Most of these route options have not been tested.
@@ -149,12 +146,8 @@ let
                   // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
                   // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
                   // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
-                  // optionalAttrs (route.options ? protocol) {
-                    Protocol = route.options.protocol;
-                  }
-                  // optionalAttrs (route.options ? quickack) {
-                    QuickAck = route.options.quickack;
-                  }
+                  // optionalAttrs (route.options ? protocol) { Protocol = route.options.protocol; }
+                  // optionalAttrs (route.options ? quickack) { QuickAck = route.options.quickack; }
                   // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
                   // optionalAttrs (route.options ? from) { Source = route.options.from; }
                   // optionalAttrs (route.options ? table) { Table = route.options.table; }
@@ -203,8 +196,7 @@ in
             message = "networking.defaultGateway.interface is not supported by networkd.";
           }
           {
-            assertion =
-              cfg.defaultGateway6 == null || cfg.defaultGateway6.interface == null;
+            assertion = cfg.defaultGateway6 == null || cfg.defaultGateway6.interface == null;
             message = "networking.defaultGateway6.interface is not supported by networkd.";
           }
         ]
@@ -422,10 +414,7 @@ in
                     {
                       FooOverUDP = true;
                       Encapsulation =
-                        if sit.encapsulation.type == "fou" then
-                          "FooOverUDP"
-                        else
-                          "GenericUDPEncapsulation";
+                        if sit.encapsulation.type == "fou" then "FooOverUDP" else "GenericUDPEncapsulation";
                       FOUDestinationPort = sit.encapsulation.port;
                     }
                     // (optionalAttrs (sit.encapsulation.sourcePort != null) {
@@ -554,8 +543,7 @@ in
                         mapAttrsToList
                           (
                             name: config:
-                            optionalString (config.type != null)
-                              " -- set interface ${name} type=${config.type}"
+                            optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
                           )
                           v.interfaces
                       )

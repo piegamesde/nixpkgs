@@ -83,9 +83,7 @@ let
       );
   commonServiceSettings = srv: {
     origin = mkOption {
-      description =
-        lib.mdDoc
-          "URL ${srv}.sr.ht is being served at (protocol://domain)";
+      description = lib.mdDoc "URL ${srv}.sr.ht is being served at (protocol://domain)";
       type = types.str;
       default = "https://${srv}.${domain}";
       defaultText = "https://${srv}.example.com";
@@ -343,9 +341,7 @@ in
             default = null;
           };
           s3-access-key = mkOption {
-            description =
-              lib.mdDoc
-                "Access key to the S3-compatible object storage service";
+            description = lib.mdDoc "Access key to the S3-compatible object storage service";
             type = with types; nullOr str;
             default = null;
           };
@@ -618,9 +614,7 @@ in
           };
         };
         options."meta.sr.ht::aliases" = mkOption {
-          description =
-            lib.mdDoc
-              "Aliases for the client IDs of commonly used OAuth clients.";
+          description = lib.mdDoc "Aliases for the client IDs of commonly used OAuth clients.";
           type = with types; attrsOf int;
           default = { };
           example = {
@@ -1130,9 +1124,7 @@ in
             # Allow nginx access to buildlogs
             users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [
-                cfg.settings."builds.sr.ht::worker".buildlogs
-              ];
+              serviceConfig.BindReadOnlyPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
             };
             services.nginx.virtualHosts."logs.${domain}" = mkMerge [
               {
@@ -1405,8 +1397,7 @@ in
           serviceConfig = {
             preStart = ''
               cp ${
-                pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
-                  cfg.lists.process.celeryConfig
+                pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" cfg.lists.process.celeryConfig
               } \
                  /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
             '';
@@ -1471,9 +1462,7 @@ in
                     (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null))
                     ''
                       # Configure ${srv}'s OAuth client as "preauthorized"
-                      ${postgresql.package}/bin/psql '${
-                        cfg.settings."meta.sr.ht".connection-string
-                      }' \
+                      ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \
                         -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
                     ''
                 )
@@ -1492,8 +1481,7 @@ in
                 let
                   s = cfg.settings."meta.sr.ht::billing";
                 in
-                s.enabled == "yes"
-                -> (s.stripe-public-key != null && s.stripe-secret-key != null);
+                s.enabled == "yes" -> (s.stripe-public-key != null && s.stripe-secret-key != null);
               message = "If meta.sr.ht::billing is enabled, the keys must be defined.";
             }
           ];

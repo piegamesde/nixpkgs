@@ -82,9 +82,7 @@ buildGoModule rec {
   allowGoReference = true;
   tags = [ "llvm${llvmMajor}" ];
   ldflags = [
-    "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${
-      placeholder "out"
-    }/share/tinygo"
+    "-X github.com/tinygo-org/tinygo/goenv.TINYGOROOT=${placeholder "out"}/share/tinygo"
   ];
   subPackages = [ "." ];
 

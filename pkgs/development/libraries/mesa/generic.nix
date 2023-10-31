@@ -244,9 +244,7 @@ let
         "-Dmicrosoft-clc=disabled" # Only relevant on Windows (OpenCL 1.2 API on top of D3D12)
 
         # To enable non-mesa gbm backends to be found (e.g. Nvidia)
-        "-Dgbm-backends-path=${libglvnd.driverLink}/lib/gbm:${
-          placeholder "out"
-        }/lib/gbm"
+        "-Dgbm-backends-path=${libglvnd.driverLink}/lib/gbm:${placeholder "out"}/lib/gbm"
       ]
       ++ lib.optionals stdenv.isLinux [
         "-Dglvnd=true"

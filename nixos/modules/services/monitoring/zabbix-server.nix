@@ -190,9 +190,7 @@ in
           type = types.nullOr types.path;
           default = null;
           example = "/run/postgresql";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -401,7 +399,6 @@ in
 
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
-      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
-        "postgresql.service";
+      ++ optional (config.services.zabbixWeb.enable && pgsqlLocal) "postgresql.service";
   };
 }

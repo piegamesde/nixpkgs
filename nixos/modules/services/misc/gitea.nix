@@ -323,9 +323,7 @@ in
               null;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
 
         path = mkOption {
@@ -507,9 +505,7 @@ in
                   literalExpression
                     ''
                       if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
-                description =
-                  lib.mdDoc
-                    "Listen address. Must be a path when using a unix socket.";
+                description = lib.mdDoc "Listen address. Must be a path when using a unix socket.";
               };
 
               HTTP_PORT = mkOption {
@@ -656,21 +652,19 @@ in
       lfs = mkIf cfg.lfs.enable { PATH = cfg.lfs.contentDir; };
     };
 
-    services.postgresql =
-      optionalAttrs (usePostgresql && cfg.database.createDatabase)
-        {
-          enable = mkDefault true;
+    services.postgresql = optionalAttrs (usePostgresql && cfg.database.createDatabase) {
+      enable = mkDefault true;
 
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
       enable = mkDefault true;

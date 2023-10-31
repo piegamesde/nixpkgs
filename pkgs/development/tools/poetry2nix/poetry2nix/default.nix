@@ -35,9 +35,7 @@ let
   toPluginAble = (import ./plugins.nix { inherit pkgs lib; }).toPluginAble;
 
   # List of known build systems that are passed through from nixpkgs unmodified
-  knownBuildSystems = builtins.fromJSON (
-    builtins.readFile ./known-build-systems.json
-  );
+  knownBuildSystems = builtins.fromJSON (builtins.readFile ./known-build-systems.json);
   nixpkgsBuildSystems =
     lib.subtractLists
       [
@@ -104,8 +102,7 @@ let
         getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
         ++ lib.flatten (
-          map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
-            checkGroups
+          map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })) checkGroups
         );
     in
     {
@@ -117,9 +114,7 @@ let
         ++ (
           # >=poetry-1.2.0 dependency groups
           if pyProject.tool.poetry.group or { } != { } then
-            lib.flatten (
-              map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups
-            )
+            lib.flatten (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups)
           else
             [ ]
         )
@@ -252,8 +247,7 @@ lib.makeScope pkgs.newScope (
               if pkgMeta ? marker then
                 (evalPep508 pkgMeta.marker)
               else
-                true
-                && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
+                true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
           in
           lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
@@ -286,10 +280,9 @@ lib.makeScope pkgs.newScope (
                         pythonPackages = self;
 
                         sourceSpec =
-                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { })
+                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
+                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { })
                             .${normalizedName} or (normalizePackageSet
-                              pyProject.tool.poetry.dev-dependencies or { }
-                            ).${normalizedName} or (normalizePackageSet
                               pyProject.tool.poetry.group.dev.dependencies or { }
                             ).${normalizedName} # Poetry 1.2.0+
                               or { }

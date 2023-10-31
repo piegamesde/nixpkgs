@@ -44,9 +44,7 @@
     # path for these (`crossStageStatic`).  Hopefully at some point that build
     # path will be merged with this one and this conditional will be removed.
     else if
-      (
-        with stdenvNoCC; buildPlatform != hostPlatform || hostPlatform != targetPlatform
-      )
+      (with stdenvNoCC; buildPlatform != hostPlatform || hostPlatform != targetPlatform)
     then
       false
 
@@ -127,9 +125,7 @@ let
 
   expand-response-params =
     lib.optionalString
-      (
-        (buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null"
-      )
+      ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null")
       (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
   useGccForLibs =
@@ -266,9 +262,7 @@ stdenv.mkDerivation {
         local dst="$1"
         local wrapper="$2"
         export prog="$3"
-        export use_response_file_by_default=${
-          if isClang && !isCcache then "1" else "0"
-        }
+        export use_response_file_by_default=${if isClang && !isCcache then "1" else "0"}
         substituteAll "$wrapper" "$out/bin/$dst"
         chmod +x "$out/bin/$dst"
       }
@@ -467,9 +461,7 @@ stdenv.mkDerivation {
       ''
         touch "$out/nix-support/libc-cflags"
         touch "$out/nix-support/libc-ldflags"
-        echo "-B${libc_lib}${
-          libc.libdir or "/lib/"
-        }" >> $out/nix-support/libc-crt1-cflags
+        echo "-B${libc_lib}${libc.libdir or "/lib/"}" >> $out/nix-support/libc-crt1-cflags
       ''
       + optionalString (!(cc.langD or false)) ''
         echo "-idirafter ${libc_dev}${
@@ -563,8 +555,7 @@ stdenv.mkDerivation {
       echo "$ccCFlags" >> $out/nix-support/cc-cflags
     ''
     +
-      optionalString
-        (targetPlatform.isDarwin && (libcxx != null) && (cc.isClang or false))
+      optionalString (targetPlatform.isDarwin && (libcxx != null) && (cc.isClang or false))
         ''
           echo " -L${lib.getLib libcxx}/lib" >> $out/nix-support/cc-ldflags
         ''
@@ -615,10 +606,7 @@ stdenv.mkDerivation {
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     +
       optionalString
-        (
-          (targetPlatform ? gcc.cpu)
-          && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
-        )
+        ((targetPlatform ? gcc.cpu) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)))
         ''
           echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
         ''
@@ -712,9 +700,7 @@ stdenv.mkDerivation {
     ''
 
     + optionalString cc.langAda or false ''
-      substituteAll ${
-        ./add-gnat-extra-flags.sh
-      } $out/nix-support/add-gnat-extra-flags.sh
+      substituteAll ${./add-gnat-extra-flags.sh} $out/nix-support/add-gnat-extra-flags.sh
     ''
 
     ##

@@ -352,9 +352,7 @@ in
         }
       ];
 
-    networking.firewall.checkReversePath = mkIf (!kernelHasRPFilter) (
-      mkDefault false
-    );
+    networking.firewall.checkReversePath = mkIf (!kernelHasRPFilter) (mkDefault false);
 
     systemd.services.firewall = {
       description = "Firewall";

@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       openssl
       icu
     ]
-    ++ lib.optional (!stdenv.isDarwin) jemalloc
-    ++ lib.optional stdenv.isDarwin libtool;
+    ++ lib.optional (!stdenv.isDarwin) jemalloc ++ lib.optional stdenv.isDarwin libtool;
 
   nativeBuildInputs = [
     which

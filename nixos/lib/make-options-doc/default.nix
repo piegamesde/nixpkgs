@@ -116,8 +116,7 @@ rec {
   inherit optionsNix;
 
   optionsAsciiDoc =
-    pkgs.runCommand "options.adoc"
-      { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    pkgs.runCommand "options.adoc" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
       ''
         nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
           --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \

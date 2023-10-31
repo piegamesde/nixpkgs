@@ -287,9 +287,7 @@ stdenv.mkDerivation {
       ${copySource "llvm-project"}
       ${copySource "swift"}
       ${copySource "swift-experimental-string-processing"}
-      ${lib.optionalString (!stdenv.isDarwin) (
-        copySource "swift-corelibs-libdispatch"
-      )}
+      ${lib.optionalString (!stdenv.isDarwin) (copySource "swift-corelibs-libdispatch")}
 
       chmod -R u+w .
     '';

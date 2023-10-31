@@ -45,13 +45,11 @@ let
     mkKeyValue = generators.mkKeyValueDefault { } " = ";
   };
 
-  phpOptions =
-    {
-      upload_max_filesize = cfg.maxUploadSize;
-      post_max_size = cfg.maxUploadSize;
-      memory_limit = cfg.maxUploadSize;
-    }
-    // cfg.phpOptions // optionalAttrs cfg.caching.apcu { "apc.enable_cli" = "1"; };
+  phpOptions = {
+    upload_max_filesize = cfg.maxUploadSize;
+    post_max_size = cfg.maxUploadSize;
+    memory_limit = cfg.maxUploadSize;
+  } // cfg.phpOptions // optionalAttrs cfg.caching.apcu { "apc.enable_cli" = "1"; };
 
   occ = pkgs.writeScriptBin "nextcloud-occ" ''
     #! ${pkgs.runtimeShell}
@@ -760,9 +758,7 @@ in
             upgradeWarning = major: nixos: ''
               A legacy Nextcloud install (from before NixOS ${nixos}) may be installed.
 
-              After nextcloud${
-                toString major
-              } is installed successfully, you can safely upgrade
+              After nextcloud${toString major} is installed successfully, you can safely upgrade
               to ${toString (major + 1)}. The latest version available is nextcloud${
                 toString latest
               }.
@@ -778,18 +774,10 @@ in
             Using config.services.nextcloud.poolConfig is deprecated and will become unsupported in a future release.
             Please migrate your configuration to config.services.nextcloud.poolSettings.
           '')
-          ++ (optional (versionOlder cfg.package.version "23") (
-            upgradeWarning 22 "22.05"
-          ))
-          ++ (optional (versionOlder cfg.package.version "24") (
-            upgradeWarning 23 "22.05"
-          ))
-          ++ (optional (versionOlder cfg.package.version "25") (
-            upgradeWarning 24 "22.11"
-          ))
-          ++ (optional (versionOlder cfg.package.version "26") (
-            upgradeWarning 25 "23.05"
-          ))
+          ++ (optional (versionOlder cfg.package.version "23") (upgradeWarning 22 "22.05"))
+          ++ (optional (versionOlder cfg.package.version "24") (upgradeWarning 23 "22.05"))
+          ++ (optional (versionOlder cfg.package.version "25") (upgradeWarning 24 "22.11"))
+          ++ (optional (versionOlder cfg.package.version "26") (upgradeWarning 25 "23.05"))
           ++ (optional cfg.enableBrokenCiphersForSSE ''
             You're using PHP's openssl extension built against OpenSSL 1.1 for Nextcloud.
             This is only necessary if you're using Nextcloud's server-side encryption.
@@ -879,8 +867,7 @@ in
           nextcloud-setup =
             let
               c = cfg.config;
-              writePhpArray =
-                a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
+              writePhpArray = a: "[${concatMapStringsSep "," (val: ''"${toString val}"'') a}]";
               requiresReadSecretFunction = c.dbpassFile != null || c.objectstore.s3.enable;
               objectstoreConfig =
                 let
@@ -957,9 +944,7 @@ in
                   }
                   'datadirectory' => '${datadir}/data',
                   'skeletondirectory' => '${cfg.skeletonDirectory}',
-                  ${
-                    optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"
-                  }
+                  ${optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"}
                   'log_type' => '${cfg.logType}',
                   'loglevel' => '${builtins.toString cfg.logLevel}',
                   ${
@@ -982,9 +967,7 @@ in
                     ''
                   }
                   'dbtype' => '${c.dbtype}',
-                  'trusted_domains' => ${
-                    writePhpArray ([ cfg.hostName ] ++ c.extraTrustedDomains)
-                  },
+                  'trusted_domains' => ${writePhpArray ([ cfg.hostName ] ++ c.extraTrustedDomains)},
                   'trusted_proxies' => ${writePhpArray (c.trustedProxies)},
                   ${
                     optionalString (c.defaultPhoneRegion != null)
@@ -1029,8 +1012,7 @@ in
                       # will be omitted.
                       ${if c.dbname != null then "--database-name" else null} = ''"${c.dbname}"'';
                       ${if c.dbhost != null then "--database-host" else null} = ''"${c.dbhost}"'';
-                      ${if c.dbport != null then "--database-port" else null} = ''
-                        "${toString c.dbport}"'';
+                      ${if c.dbport != null then "--database-port" else null} = ''"${toString c.dbport}"'';
                       ${if c.dbuser != null then "--database-user" else null} = ''"${c.dbuser}"'';
                       "--database-pass" = ''"''$${dbpass.arg}"'';
                       "--admin-user" = ''"${c.adminuser}"'';
@@ -1118,9 +1100,7 @@ in
 
                 ${optionalString (cfg.extraAppsEnable && cfg.extraApps != { }) ''
                   # Try to enable apps
-                  ${occ}/bin/nextcloud-occ app:enable ${
-                    concatStringsSep " " (attrNames cfg.extraApps)
-                  }
+                  ${occ}/bin/nextcloud-occ app:enable ${concatStringsSep " " (attrNames cfg.extraApps)}
                 ''}
 
                 ${occSetTrustedDomainsCmd}

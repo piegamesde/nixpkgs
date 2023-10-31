@@ -149,9 +149,7 @@ stdenv.mkDerivation {
   prePatch = ''
     set -x
     sed -e 's@MKISOFS --version@MKISOFS -version@' \
-        -e 's@PYTHONDIR=.*@PYTHONDIR=${
-          lib.optionalString pythonBindings python3
-        }@' \
+        -e 's@PYTHONDIR=.*@PYTHONDIR=${lib.optionalString pythonBindings python3}@' \
         -e 's@CXX_FLAGS="\(.*\)"@CXX_FLAGS="-std=c++11 \1"@' \
         ${
           optionalString (!headless) ''
@@ -255,9 +253,7 @@ stdenv.mkDerivation {
       ${optionalString (!enableHardening) "--disable-hardening"} \
       ${optionalString (!enable32bitGuests) "--disable-vmmraw"} \
       ${optionalString enableWebService "--enable-webservice"} \
-      ${
-        optionalString (open-watcom-bin != null) "--with-ow-dir=${open-watcom-bin}"
-      } \
+      ${optionalString (open-watcom-bin != null) "--with-ow-dir=${open-watcom-bin}"} \
       --disable-kmods
     sed -e 's@PKG_CONFIG_PATH=.*@PKG_CONFIG_PATH=${libIDL}/lib/pkgconfig:${glib.dev}/lib/pkgconfig ${libIDL}/bin/libIDL-config-2@' \
         -i AutoConfig.kmk

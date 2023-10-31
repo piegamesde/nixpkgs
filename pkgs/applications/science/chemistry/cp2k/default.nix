@@ -110,9 +110,7 @@ stdenv.mkDerivation rec {
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \
-                 -fopenmp ${
-                   lib.optionalString enableElpa "$(pkg-config --libs elpa)"
-                 } \
+                 -fopenmp ${lib.optionalString enableElpa "$(pkg-config --libs elpa)"} \
                  -lz -ldl -lstdc++ ${
                    lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"
                  } \

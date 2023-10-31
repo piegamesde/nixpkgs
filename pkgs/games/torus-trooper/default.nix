@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
   patches = [
     (debianPatch "imports" "0mifw0mj66zljpq6iqnh0rhkgs2sky8rz0p32k98vxfnsb39ibsf")
     (debianPatch "fixes" "05f93zq2v14lymq748c9g646ckbh9mqpr5rrahb63s90x8hlcqil")
-    (debianPatch "directories"
-      "0y5xvf26v9fk0rx6ncrxx4czckhjbi891hp3pixlmv568pg9cihd"
-    )
+    (debianPatch "directories" "0y5xvf26v9fk0rx6ncrxx4czckhjbi891hp3pixlmv568pg9cihd")
     (debianPatch "windowed" "1d8ghj4shvpb0s8l16kscz4l7rz1fxmfdpddy1ikz3678pw1sc8p")
     (debianPatch "dotfile" "17yirmnjhbd1clzhmdd2mfdhbxkyinaahd6v3yz5kzbcylvjz2r2")
     (debianPatch "window-resizing"
@@ -57,9 +55,7 @@ stdenv.mkDerivation rec {
     (debianPatch "libbulletml0v5-segfault"
       "0pad2daz60hswkhkdpssxaqc9p9ca0sw1nraqzr453x0zdwwq0hn"
     )
-    (debianPatch "std.math.fabs"
-      "18xnnqlj20bxv2h9fa8dn4rmxwi3k6y3g50kwvh8i8p3b4hgag3r"
-    )
+    (debianPatch "std.math.fabs" "18xnnqlj20bxv2h9fa8dn4rmxwi3k6y3g50kwvh8i8p3b4hgag3r")
     (debianPatch "gdc-8" "10z702y75c48hjcnvv8m7f3ka52cj3r3jqafdbby85nb0p2lbssx")
   ];
 

@@ -149,8 +149,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.role == "agent" -> (cfg.configPath != null || cfg.serverAddr != "");
+        assertion = cfg.role == "agent" -> (cfg.configPath != null || cfg.serverAddr != "");
         message = "serverAddr or configPath (with 'server' key) should be set if role is 'agent'";
       }
       {

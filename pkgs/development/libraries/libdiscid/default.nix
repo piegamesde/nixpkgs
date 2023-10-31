@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.IOKit
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.IOKit ];
 
   src = fetchurl {
     url = "http://ftp.musicbrainz.org/pub/musicbrainz/${pname}/${pname}-${version}.tar.gz";

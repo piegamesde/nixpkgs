@@ -303,15 +303,11 @@ in
     hardware.nvidia.package = lib.mkOption {
       type = types.package;
       default = config.boot.kernelPackages.nvidiaPackages.stable;
-      defaultText =
-        literalExpression
-          "config.boot.kernelPackages.nvidiaPackages.stable";
+      defaultText = literalExpression "config.boot.kernelPackages.nvidiaPackages.stable";
       description = lib.mdDoc ''
         The NVIDIA X11 derivation to use.
       '';
-      example =
-        literalExpression
-          "config.boot.kernelPackages.nvidiaPackages.legacy_340";
+      example = literalExpression "config.boot.kernelPackages.nvidiaPackages.legacy_340";
     };
 
     hardware.nvidia.open = lib.mkOption {
@@ -387,8 +383,7 @@ in
         }
 
         {
-          assertion =
-            cfg.powerManagement.enable -> versionAtLeast nvidia_x11.version "430.09";
+          assertion = cfg.powerManagement.enable -> versionAtLeast nvidia_x11.version "430.09";
           message = "Required files for driver based power management only exist on versions >= 430.09.";
         }
 

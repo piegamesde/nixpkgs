@@ -12989,10 +12989,7 @@ let
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
       (
-        sources."@babel/preset-env-7.19.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/preset-env-7.19.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/preset-react-7.18.6"
@@ -13213,10 +13210,7 @@ let
             sources."@types/yargs-16.0.4"
             sources."chalk-4.1.1"
             (
-              sources."pretty-format-27.0.6"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.0.6" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -13268,9 +13262,7 @@ let
       sources."@types/q-1.5.4"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
-      (
-        sources."@types/react-17.0.0" // { dependencies = [ sources."csstype-3.0.6" ]; }
-      )
+      (sources."@types/react-17.0.0" // { dependencies = [ sources."csstype-3.0.6" ]; })
       sources."@types/react-dom-17.0.5"
       sources."@types/react-redux-7.1.24"
       sources."@types/react-test-renderer-17.0.1"
@@ -13353,12 +13345,7 @@ let
           ];
         }
       )
-      (
-        sources."ansi-escapes-4.3.2"
-        // {
-          dependencies = [ sources."type-fest-0.21.3" ];
-        }
-      )
+      (sources."ansi-escapes-4.3.2" // { dependencies = [ sources."type-fest-0.21.3" ]; })
       sources."ansi-html-community-0.0.8"
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-4.2.1"
@@ -13464,12 +13451,7 @@ let
       (sources."camel-case-4.1.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."camelcase-6.3.0"
       sources."camelcase-css-2.0.1"
-      (
-        sources."camelcase-keys-6.2.2"
-        // {
-          dependencies = [ sources."camelcase-5.3.1" ];
-        }
-      )
+      (sources."camelcase-keys-6.2.2" // { dependencies = [ sources."camelcase-5.3.1" ]; })
       sources."caniuse-api-3.0.0"
       sources."caniuse-lite-1.0.30001414"
       sources."case-sensitive-paths-webpack-plugin-2.4.0"
@@ -13595,12 +13577,7 @@ let
       sources."date-fns-1.30.1"
       sources."debug-4.3.4"
       sources."decamelize-1.2.0"
-      (
-        sources."decamelize-keys-1.1.0"
-        // {
-          dependencies = [ sources."map-obj-1.0.1" ];
-        }
-      )
+      (sources."decamelize-keys-1.1.0" // { dependencies = [ sources."map-obj-1.0.1" ]; })
       sources."decimal.js-10.4.1"
       sources."decode-uri-component-0.2.2"
       sources."decompress-response-3.3.0"
@@ -13656,10 +13633,7 @@ let
         }
       )
       (
-        sources."domhandler-4.3.1"
-        // {
-          dependencies = [ sources."domelementtype-2.3.0" ];
-        }
+        sources."domhandler-4.3.1" // { dependencies = [ sources."domelementtype-2.3.0" ]; }
       )
       sources."domutils-1.7.0"
       (sources."dot-case-3.0.4" // { dependencies = [ sources."tslib-2.4.0" ]; })
@@ -13727,10 +13701,7 @@ let
         }
       )
       (
-        sources."eslint-module-utils-2.7.4"
-        // {
-          dependencies = [ sources."debug-3.2.7" ];
-        }
+        sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; }
       )
       sources."eslint-plugin-flowtype-8.0.3"
       (
@@ -13832,15 +13803,8 @@ let
       sources."fb-watchman-2.0.2"
       sources."figures-3.2.0"
       sources."file-entry-cache-6.0.1"
-      (
-        sources."file-loader-6.2.0"
-        // {
-          dependencies = [ sources."schema-utils-3.1.1" ];
-        }
-      )
-      (
-        sources."file-selector-0.1.19" // { dependencies = [ sources."tslib-2.3.1" ]; }
-      )
+      (sources."file-loader-6.2.0" // { dependencies = [ sources."schema-utils-3.1.1" ]; })
+      (sources."file-selector-0.1.19" // { dependencies = [ sources."tslib-2.3.1" ]; })
       (
         sources."filelist-1.0.4"
         // {
@@ -13955,10 +13919,7 @@ let
       sources."http-errors-2.0.0"
       sources."http-parser-js-0.5.8"
       (
-        sources."http-proxy-1.18.1"
-        // {
-          dependencies = [ sources."eventemitter3-4.0.7" ];
-        }
+        sources."http-proxy-1.18.1" // { dependencies = [ sources."eventemitter3-4.0.7" ]; }
       )
       sources."http-proxy-agent-4.0.1"
       (
@@ -14064,10 +14025,7 @@ let
             sources."@types/yargs-16.0.4"
             sources."chalk-4.1.2"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14093,10 +14051,7 @@ let
             sources."ci-info-3.4.0"
             sources."jest-get-type-27.5.1"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14113,10 +14068,7 @@ let
             sources."chalk-4.1.2"
             sources."jest-get-type-27.5.1"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14167,10 +14119,7 @@ let
             sources."@types/yargs-16.0.4"
             sources."chalk-4.1.2"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14196,10 +14145,7 @@ let
             sources."jest-diff-27.5.1"
             sources."jest-get-type-27.5.1"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14213,10 +14159,7 @@ let
             sources."@types/yargs-16.0.4"
             sources."chalk-4.1.2"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14292,10 +14235,7 @@ let
             sources."jest-diff-27.5.1"
             sources."jest-get-type-27.5.1"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14321,10 +14261,7 @@ let
             sources."chalk-4.1.2"
             sources."jest-get-type-27.5.1"
             (
-              sources."pretty-format-27.5.1"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-17.0.2"
           ];
@@ -14334,21 +14271,14 @@ let
         sources."jest-watch-typeahead-1.1.0"
         // {
           dependencies = [
-            (
-              sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; }
-            )
+            (sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; })
             sources."@jest/test-result-28.1.3"
             sources."@jest/types-28.1.3"
             sources."@types/yargs-17.0.13"
             sources."chalk-4.1.2"
             sources."ci-info-3.4.0"
             sources."emittery-0.10.2"
-            (
-              sources."jest-message-util-28.1.3"
-              // {
-                dependencies = [ sources."slash-3.0.0" ];
-              }
-            )
+            (sources."jest-message-util-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; })
             sources."jest-regex-util-28.0.2"
             sources."jest-util-28.1.3"
             (
@@ -14361,22 +14291,12 @@ let
               }
             )
             (
-              sources."pretty-format-28.1.3"
-              // {
-                dependencies = [ sources."ansi-styles-5.2.0" ];
-              }
+              sources."pretty-format-28.1.3" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
             )
             sources."react-is-18.2.0"
             sources."slash-4.0.0"
-            (
-              sources."string-length-5.0.1"
-              // {
-                dependencies = [ sources."char-regex-2.0.1" ];
-              }
-            )
-            (
-              sources."strip-ansi-7.0.1" // { dependencies = [ sources."ansi-regex-6.0.1" ]; }
-            )
+            (sources."string-length-5.0.1" // { dependencies = [ sources."char-regex-2.0.1" ]; })
+            (sources."strip-ansi-7.0.1" // { dependencies = [ sources."ansi-regex-6.0.1" ]; })
           ];
         }
       )
@@ -14454,9 +14374,7 @@ let
         // {
           dependencies = [
             (sources."read-pkg-5.2.0" // { dependencies = [ sources."type-fest-0.6.0" ]; })
-            (
-              sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; }
-            )
+            (sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; })
             sources."type-fest-0.13.1"
           ];
         }
@@ -14487,12 +14405,7 @@ let
       sources."minimalistic-assert-1.0.1"
       sources."minimatch-3.1.2"
       sources."minimist-1.2.6"
-      (
-        sources."minimist-options-4.1.0"
-        // {
-          dependencies = [ sources."arrify-1.0.1" ];
-        }
-      )
+      (sources."minimist-options-4.1.0" // { dependencies = [ sources."arrify-1.0.1" ]; })
       sources."mkdirp-0.5.5"
       sources."ms-2.1.2"
       sources."multicast-dns-7.2.5"
@@ -14670,24 +14583,12 @@ let
       sources."prettier-2.8.2"
       sources."pretty-bytes-5.6.0"
       sources."pretty-error-4.0.0"
-      (
-        sources."pretty-format-26.6.2"
-        // {
-          dependencies = [ sources."react-is-17.0.1" ];
-        }
-      )
+      (sources."pretty-format-26.6.2" // { dependencies = [ sources."react-is-17.0.1" ]; })
       sources."process-nextick-args-2.0.1"
       sources."promise-8.2.0"
       sources."prompts-2.4.2"
-      (
-        sources."prop-types-15.8.1"
-        // {
-          dependencies = [ sources."react-is-16.13.1" ];
-        }
-      )
-      (
-        sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; }
-      )
+      (sources."prop-types-15.8.1" // { dependencies = [ sources."react-is-16.13.1" ]; })
+      (sources."proxy-addr-2.0.7" // { dependencies = [ sources."ipaddr.js-1.9.1" ]; })
       sources."psl-1.9.0"
       sources."pump-3.0.0"
       sources."punycode-2.1.1"
@@ -14698,9 +14599,7 @@ let
       sources."querystringify-2.2.0"
       sources."queue-microtask-1.2.3"
       sources."quick-lru-4.0.1"
-      (
-        sources."ra-core-3.18.3" // { dependencies = [ sources."inflection-1.12.0" ]; }
-      )
+      (sources."ra-core-3.18.3" // { dependencies = [ sources."inflection-1.12.0" ]; })
       sources."ra-data-json-server-3.18.3"
       sources."ra-i18n-polyglot-3.18.3"
       sources."ra-language-english-3.18.3"
@@ -14724,12 +14623,7 @@ let
       sources."randombytes-2.1.0"
       sources."range-parser-1.2.1"
       (sources."raw-body-2.5.1" // { dependencies = [ sources."bytes-3.1.2" ]; })
-      (
-        sources."rc-1.2.8"
-        // {
-          dependencies = [ sources."strip-json-comments-2.0.1" ];
-        }
-      )
+      (sources."rc-1.2.8" // { dependencies = [ sources."strip-json-comments-2.0.1" ]; })
       sources."rc-align-4.0.9"
       sources."rc-motion-2.4.3"
       sources."rc-slider-9.7.2"
@@ -14772,9 +14666,7 @@ let
       sources."react-lifecycles-compat-3.0.4"
       sources."react-measure-2.5.2"
       sources."react-modal-3.11.2"
-      (
-        sources."react-redux-7.2.9" // { dependencies = [ sources."react-is-17.0.2" ]; }
-      )
+      (sources."react-redux-7.2.9" // { dependencies = [ sources."react-is-17.0.2" ]; })
       sources."react-refresh-0.11.0"
       sources."react-router-5.2.1"
       sources."react-router-dom-5.3.0"
@@ -14834,12 +14726,7 @@ let
       sources."reselect-3.0.1"
       sources."resize-observer-polyfill-1.5.1"
       sources."resolve-1.22.1"
-      (
-        sources."resolve-cwd-3.0.0"
-        // {
-          dependencies = [ sources."resolve-from-5.0.0" ];
-        }
-      )
+      (sources."resolve-cwd-3.0.0" // { dependencies = [ sources."resolve-from-5.0.0" ]; })
       sources."resolve-from-4.0.0"
       sources."resolve-pathname-3.0.0"
       (
@@ -14953,17 +14840,9 @@ let
       sources."string.prototype.trimend-1.0.5"
       sources."string.prototype.trimstart-1.0.5"
       (
-        sources."string_decoder-1.3.0"
-        // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
-      (
-        sources."stringify-object-3.3.0"
-        // {
-          dependencies = [ sources."is-obj-1.0.1" ];
-        }
-      )
+      (sources."stringify-object-3.3.0" // { dependencies = [ sources."is-obj-1.0.1" ]; })
       sources."strip-ansi-6.0.1"
       sources."strip-bom-4.0.0"
       sources."strip-comments-2.0.1"
@@ -15038,10 +14917,7 @@ let
       sources."to-regex-range-5.0.1"
       sources."toidentifier-1.0.1"
       (
-        sources."tough-cookie-4.1.2"
-        // {
-          dependencies = [ sources."universalify-0.2.0" ];
-        }
+        sources."tough-cookie-4.1.2" // { dependencies = [ sources."universalify-0.2.0" ]; }
       )
       sources."tr46-2.1.0"
       sources."trim-newlines-3.0.1"
@@ -15081,10 +14957,7 @@ let
       sources."uri-js-4.4.1"
       sources."url-parse-1.5.10"
       (
-        sources."url-parse-lax-3.0.0"
-        // {
-          dependencies = [ sources."prepend-http-2.0.0" ];
-        }
+        sources."url-parse-lax-3.0.0" // { dependencies = [ sources."prepend-http-2.0.0" ]; }
       )
       sources."util-deprecate-1.0.2"
       sources."util.promisify-1.0.1"
@@ -15092,10 +14965,7 @@ let
       sources."utils-merge-1.0.1"
       sources."uuid-8.3.2"
       (
-        sources."v8-to-istanbul-8.1.1"
-        // {
-          dependencies = [ sources."source-map-0.7.4" ];
-        }
+        sources."v8-to-istanbul-8.1.1" // { dependencies = [ sources."source-map-0.7.4" ]; }
       )
       sources."validate-npm-package-license-3.0.4"
       sources."value-equal-1.0.1"
@@ -15189,12 +15059,7 @@ let
       sources."workbox-cacheable-response-6.5.4"
       (sources."workbox-cli-6.5.4" // { dependencies = [ sources."chalk-4.1.2" ]; })
       sources."workbox-core-6.5.4"
-      (
-        sources."workbox-expiration-6.5.4"
-        // {
-          dependencies = [ sources."idb-7.1.0" ];
-        }
-      )
+      (sources."workbox-expiration-6.5.4" // { dependencies = [ sources."idb-7.1.0" ]; })
       sources."workbox-google-analytics-6.5.4"
       sources."workbox-navigation-preload-6.5.4"
       sources."workbox-precaching-6.5.4"
@@ -15221,15 +15086,8 @@ let
       sources."y18n-5.0.8"
       sources."yallist-4.0.0"
       sources."yaml-1.10.2"
-      (
-        sources."yargs-16.2.0" // { dependencies = [ sources."yargs-parser-20.2.9" ]; }
-      )
-      (
-        sources."yargs-parser-18.1.3"
-        // {
-          dependencies = [ sources."camelcase-5.3.1" ];
-        }
-      )
+      (sources."yargs-16.2.0" // { dependencies = [ sources."yargs-parser-20.2.9" ]; })
+      (sources."yargs-parser-18.1.3" // { dependencies = [ sources."camelcase-5.3.1" ]; })
       sources."yocto-queue-0.1.0"
     ];
     buildInputs = globalBuildInputs;

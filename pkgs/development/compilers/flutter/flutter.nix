@@ -88,12 +88,8 @@ let
       ''
         ${builtins.concatStringsSep "\n" (
           (map
-            (
-              name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }
-            )
-            (
-              if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ]
-            )
+            (name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; })
+            (if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ])
           )
           ++ (builtins.foldl'
             (
@@ -122,8 +118,7 @@ let
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}
                       )
                     )
-                    (map
-                      (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
+                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
                       engineArtifacts.platform.${os}.${architecture}.base
                     )
                     includedEngineArtifacts.platform.${os}.${architecture}
@@ -136,10 +131,7 @@ let
             [ ]
             (
               builtins.attrNames (
-                if includedEngineArtifacts ? platform then
-                  includedEngineArtifacts.platform
-                else
-                  { }
+                if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else { }
               )
             )
           )

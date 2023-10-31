@@ -119,9 +119,7 @@ in
       extraArguments = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Additional command line arguments to pass to Pixiecore";
+        description = lib.mdDoc "Additional command line arguments to pass to Pixiecore";
       };
     };
   };

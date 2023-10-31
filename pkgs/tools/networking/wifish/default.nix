@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
     install -D -m0644 awk/wscan2menu.awk ${
       placeholder "out"
     }/var/lib/wifish/wscan2menu.awk
-    install -D -m0644 awk/iwparse.awk ${
-      placeholder "out"
-    }/var/lib/wifish/iwparse.awk
+    install -D -m0644 awk/iwparse.awk ${placeholder "out"}/var/lib/wifish/iwparse.awk
     install -D -m0755 wifish ${placeholder "out"}/bin/wifish
   '';
 

@@ -32,16 +32,14 @@ let
   nixos-background-dark = pkgs.nixos-artwork.wallpapers.simple-dark-gray;
 
   # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
-  nixos-gsettings-desktop-schemas =
-    pkgs.gnome.nixos-gsettings-overrides.override
-      {
-        inherit (cfg)
-          extraGSettingsOverrides
-          extraGSettingsOverridePackages
-          favoriteAppsOverride
-        ;
-        inherit flashbackEnabled nixos-background-dark nixos-background-light;
-      };
+  nixos-gsettings-desktop-schemas = pkgs.gnome.nixos-gsettings-overrides.override {
+    inherit (cfg)
+      extraGSettingsOverrides
+      extraGSettingsOverridePackages
+      favoriteAppsOverride
+    ;
+    inherit flashbackEnabled nixos-background-dark nixos-background-light;
+  };
 
   nixos-background-info = pkgs.writeTextFile rec {
     name = "nixos-background-info";
@@ -309,9 +307,7 @@ in
   options = {
 
     services.gnome = {
-      core-os-services.enable = mkEnableOption (
-        lib.mdDoc "essential services for GNOME3"
-      );
+      core-os-services.enable = mkEnableOption (lib.mdDoc "essential services for GNOME3");
       core-shell.enable = mkEnableOption (lib.mdDoc "GNOME Shell services");
       core-utilities.enable = mkEnableOption (lib.mdDoc "GNOME core utilities");
       core-developer-tools.enable = mkEnableOption (
@@ -513,9 +509,7 @@ in
         "${pkgs.gnome.gnome-flashback}/share"
       ];
       # TODO: switch to sessionVariables (resolve conflict)
-      environment.variables.XDG_CONFIG_DIRS = [
-        "${pkgs.gnome.gnome-flashback}/etc/xdg"
-      ];
+      environment.variables.XDG_CONFIG_DIRS = [ "${pkgs.gnome.gnome-flashback}/etc/xdg" ];
     })
 
     (mkIf serviceCfg.core-os-services.enable {

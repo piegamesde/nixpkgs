@@ -135,10 +135,7 @@ let
         else
           "${package}";
       pname =
-        if package == "single" then
-          "mathcomp-analysis-single"
-        else
-          "mathcomp-${package}";
+        if package == "single" then "mathcomp-analysis-single" else "mathcomp-${package}";
       derivation = mkCoqDerivation ({
         inherit
           version

@@ -17,8 +17,7 @@ let
     else
       builtins.throw
         "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
-  jailbreakForCurrentVersion =
-    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 
 self: super: {

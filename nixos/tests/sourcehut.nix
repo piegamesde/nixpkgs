@@ -5,14 +5,12 @@ import ./make-test-python.nix (
 
     # Note that wildcard certificates just under the TLD (eg. *.com)
     # would be rejected by clients like curl.
-    tls-cert =
-      pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; }
-        ''
-          openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
-            -subj '/CN=${domain}' -extensions v3_req \
-            -addext 'subjectAltName = DNS:*.${domain}'
-          install -D -t $out key.pem cert.pem
-        '';
+    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+      openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
+        -subj '/CN=${domain}' -extensions v3_req \
+        -addext 'subjectAltName = DNS:*.${domain}'
+      install -D -t $out key.pem cert.pem
+    '';
 
     images = {
       nixos.unstable.x86_64 =

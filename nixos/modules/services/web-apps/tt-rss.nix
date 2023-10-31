@@ -104,9 +104,7 @@ let
         putenv('TTRSS_PUBSUBHUBBUB_HUB=${cfg.pubSubHubbub.hub}');
 
         putenv('TTRSS_SPHINX_SERVER=${cfg.sphinx.server}');
-        putenv('TTRSS_SPHINX_INDEX=${
-          builtins.concatStringsSep "," cfg.sphinx.index
-        }');
+        putenv('TTRSS_SPHINX_INDEX=${builtins.concatStringsSep "," cfg.sphinx.index}');
 
         putenv('TTRSS_ENABLE_REGISTRATION=${boolToString cfg.registration.enable}');
         putenv('TTRSS_REG_NOTIFY_ADDRESS=${cfg.registration.notifyAddress}');
@@ -681,8 +679,7 @@ in
               if cfg.database.type == "pgsql" then
                 ''
                   ${
-                    optionalString (cfg.database.password != null)
-                      "PGPASSWORD=${cfg.database.password}"
+                    optionalString (cfg.database.password != null) "PGPASSWORD=${cfg.database.password}"
                   } \
                   ${
                     optionalString (cfg.database.passwordFile != null)
@@ -701,9 +698,7 @@ in
                 ''
                   echo '${e}' | ${config.services.mysql.package}/bin/mysql \
                     -u ${cfg.database.user} \
-                    ${
-                      optionalString (cfg.database.password != null) "-p${cfg.database.password}"
-                    } \
+                    ${optionalString (cfg.database.password != null) "-p${cfg.database.password}"} \
                     ${
                       optionalString (cfg.database.host != null)
                         "-h ${cfg.database.host} -P ${toString dbPort}"
@@ -714,9 +709,7 @@ in
                 "";
           in
           (optionalString (cfg.database.type == "pgsql") ''
-            exists=$(${
-              callSql "select count(*) > 0 from pg_tables where tableowner = user"
-            } \
+            exists=$(${callSql "select count(*) > 0 from pg_tables where tableowner = user"} \
             | tail -n+3 | head -n-2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == 'f' ]; then
@@ -753,10 +746,9 @@ in
         requires =
           optional mysqlLocal "mysql.service"
           ++ optional pgsqlLocal "postgresql.service";
-        after =
-          [ "network.target" ]
-          ++ optional mysqlLocal "mysql.service"
-          ++ optional pgsqlLocal "postgresql.service";
+        after = [
+          "network.target"
+        ] ++ optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       };
     };
 

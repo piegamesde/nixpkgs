@@ -120,8 +120,7 @@ stdenv.mkDerivation (
       // {
         name = "${name}-deps.tar.gz";
 
-        impureEnvVars =
-          lib.fetchers.proxyImpureEnvVars ++ fFetchAttrs.impureEnvVars or [ ];
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ fFetchAttrs.impureEnvVars or [ ];
 
         nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
 

@@ -180,9 +180,7 @@ in
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
-      description =
-        lib.mdDoc
-          "A list of additional packages supplying kernel modules.";
+      description = lib.mdDoc "A list of additional packages supplying kernel modules.";
     };
 
     boot.kernelModules = mkOption {

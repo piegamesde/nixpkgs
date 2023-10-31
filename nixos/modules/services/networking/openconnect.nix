@@ -131,9 +131,7 @@ let
       ExecStart = "${openconnect}/bin/openconnect --config=${
           generateConfig name icfg
         } ${icfg.gateway}";
-      StandardInput =
-        lib.mkIf (icfg.passwordFile != null)
-          "file:${icfg.passwordFile}";
+      StandardInput = lib.mkIf (icfg.passwordFile != null) "file:${icfg.passwordFile}";
 
       ProtectHome = true;
     };

@@ -24,9 +24,7 @@ let
     (_src "macOS-BigSur-White-Windows" "zip"
       "sha256-V6J2Ddgq46BkgxCWVReZrvE7CsOczzV7slOpilKFG9E="
     )
-    (_src "macOS-BigSur" "tar.gz"
-      "sha256-VZWFf1AHum2xDJPMZrBmcyVrrmYGKwCdXOPATw7myOA="
-    )
+    (_src "macOS-BigSur" "tar.gz" "sha256-VZWFf1AHum2xDJPMZrBmcyVrrmYGKwCdXOPATw7myOA=")
     (_src "macOS-BigSur-Windows" "zip"
       "sha256-lp28ACsK8BXe6rSDELL4GdXb1QEdOVC8Y6eLofctkR4="
     )

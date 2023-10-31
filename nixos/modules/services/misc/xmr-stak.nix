@@ -21,9 +21,7 @@ in
       openclSupport = mkEnableOption (
         lib.mdDoc "support for OpenCL (AMD/ATI graphics cards)"
       );
-      cudaSupport = mkEnableOption (
-        lib.mdDoc "support for CUDA (NVidia graphics cards)"
-      );
+      cudaSupport = mkEnableOption (lib.mdDoc "support for CUDA (NVidia graphics cards)");
 
       extraArgs = mkOption {
         type = types.listOf types.str;

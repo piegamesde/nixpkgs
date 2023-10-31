@@ -79,8 +79,7 @@ let
 
   mkDevices =
     devices:
-    optionalString ((length devices) > 0)
-      "linux-dev ${concatStringsSep ":" devices}";
+    optionalString ((length devices) > 0) "linux-dev ${concatStringsSep ":" devices}";
 
   mkConfig =
     name: keyboard:

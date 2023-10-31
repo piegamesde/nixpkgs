@@ -394,8 +394,7 @@ in
             }
             {
               assertion =
-                cfg.sql.enable
-                -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
+                cfg.sql.enable -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.sql.configuration' or
                   'services.prometheus.exporters.sql.configFile'
@@ -404,8 +403,7 @@ in
           ]
           ++ (flip map (attrNames exporterOpts) (
             exporter: {
-              assertion =
-                cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
+              assertion = cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
               message = ''
                 The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
                 `openFirewall' is set to `true'!
@@ -418,9 +416,7 @@ in
     ]
     ++ [
       (mkIf config.services.minio.enable {
-        services.prometheus.exporters.minio.minioAddress =
-          mkDefault
-            "http://localhost:9000";
+        services.prometheus.exporters.minio.minioAddress = mkDefault "http://localhost:9000";
         services.prometheus.exporters.minio.minioAccessKey =
           mkDefault
             config.services.minio.accessKey;

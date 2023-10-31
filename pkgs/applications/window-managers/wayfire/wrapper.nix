@@ -38,9 +38,7 @@ runCommand "${application.name}-wrapped"
     do
         makeWrapper "$bin" $out/bin/''${bin##*/} \
             --suffix PATH : ${escapeShellArg (makeBinPath plugins)} \
-            --suffix WAYFIRE_PLUGIN_PATH : ${
-              escapeShellArg (makePluginPath plugins)
-            } \
+            --suffix WAYFIRE_PLUGIN_PATH : ${escapeShellArg (makePluginPath plugins)} \
             --suffix WAYFIRE_PLUGIN_XML_PATH : ${
               escapeShellArg (makePluginXMLPath plugins)
             }

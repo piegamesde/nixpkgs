@@ -35,9 +35,8 @@ let
         };
 
         systemPlatform =
-          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw
-            "scudo not supported on ${pkgs.stdenv.hostPlatform.system}"
-          );
+          platformMap.${pkgs.stdenv.hostPlatform.system}
+            or (throw "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
       in
       {
         libPath = "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";
@@ -96,9 +95,7 @@ in
         - `libc`: the standard allocator provided by libc
         ${concatStringsSep "\n" (
           mapAttrsToList
-            (
-              name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
-            )
+            (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
             providers
         )}
 
@@ -112,9 +109,9 @@ in
   };
 
   config = mkIf (cfg.provider != "libc") {
-    boot.kernel.sysctl."vm.max_map_count" =
-      mkIf (cfg.provider == "graphene-hardened")
-        (mkDefault 1048576);
+    boot.kernel.sysctl."vm.max_map_count" = mkIf (cfg.provider == "graphene-hardened") (
+      mkDefault 1048576
+    );
     environment.etc."ld-nix.so.preload".text = ''
       ${providerLibPath}
     '';

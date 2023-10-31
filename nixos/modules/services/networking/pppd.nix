@@ -105,9 +105,7 @@ in
               ];
             in
             {
-              ExecStart = "${
-                  getBin cfg.package
-                }/sbin/pppd call ${peerCfg.name} nodetach nolog";
+              ExecStart = "${getBin cfg.package}/sbin/pppd call ${peerCfg.name} nodetach nolog";
               Restart = "always";
               RestartSec = 5;
 
