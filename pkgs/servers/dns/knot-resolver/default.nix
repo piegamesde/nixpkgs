@@ -119,7 +119,6 @@ let # un-indented, over the whole file
       ++ optional doInstallCheck "-Dunit_tests=enabled"
       ++ optional doInstallCheck "-Dconfig_tests=enabled"
       ++ optional stdenv.isLinux "-Dsystemd_files=enabled" # used by NixOS service
-
     #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
     ;
 
