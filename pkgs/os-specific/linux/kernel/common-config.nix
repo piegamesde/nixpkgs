@@ -1096,10 +1096,7 @@ let
       }
       //
         optionalAttrs
-          (
-            versionAtLeast version "5.4"
-            && (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux")
-          )
+          (versionAtLeast version "5.4" && (stdenv.hostPlatform.system == "x86_64-linux" || stdenv.hostPlatform.system == "aarch64-linux"))
           {
             # Required for various hardware features on Chrome OS devices
             CHROME_PLATFORMS = yes;

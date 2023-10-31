@@ -231,11 +231,9 @@ in
 
     # Set default session in session chooser to a specified values – basically ignore session history.
     # Auto-login is already covered by a config value.
-    services.xserver.displayManager.job.preStart =
-      optionalString (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
-        ''
-          ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-        '';
+    services.xserver.displayManager.job.preStart = optionalString (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null) ''
+      ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
+    '';
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS = "${dmcfg.sessionData.desktops}/share/";

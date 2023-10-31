@@ -132,10 +132,7 @@ let
       $wgDBport = "${toString cfg.database.port}";
       $wgDBname = "${cfg.database.name}";
       $wgDBuser = "${cfg.database.user}";
-      ${
-        optionalString (cfg.database.passwordFile != null)
-          ''$wgDBpassword = file_get_contents("${cfg.database.passwordFile}");''
-      }
+      ${optionalString (cfg.database.passwordFile != null) ''$wgDBpassword = file_get_contents("${cfg.database.passwordFile}");''}
 
       ${
         optionalString (cfg.database.type == "mysql" && cfg.database.tablePrefix != null) ''
@@ -252,10 +249,7 @@ in
         default =
           if cfg.webserver == "apache" then
             "${
-              if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then
-                "https"
-              else
-                "http"
+              if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then "https" else "http"
             }://${cfg.httpd.virtualHost.hostName}"
           else
             "http://localhost";
@@ -649,8 +643,7 @@ in
 
     systemd.services.httpd.after =
       optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql") "mysql.service"
-      ++ optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")
-        "postgresql.service";
+      ++ optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres") "postgresql.service";
 
     users.users.${user} = {
       group = group;

@@ -294,8 +294,7 @@ let
     );
 
   assertions =
-    lib.assertMsg (tlpdbVersion.year == version.texliveYear)
-      "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
+    lib.assertMsg (tlpdbVersion.year == version.texliveYear) "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     &&
       lib.assertMsg (tlpdbVersion.frozen == version.final)
         "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";

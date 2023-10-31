@@ -54,9 +54,7 @@ stdenv.mkDerivation {
   # applying a patch to add support for CHICKEN_REPOSITORY_EXTRA
   patches = lib.optionals (bootstrap-chicken != null) [ ./0001-Introduce-CHICKEN_REPOSITORY_EXTRA.patch ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 

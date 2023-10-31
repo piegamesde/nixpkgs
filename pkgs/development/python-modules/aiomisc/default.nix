@@ -41,18 +41,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs =
-    [
-      aiocontextvars
-      async-timeout
-      fastapi
-      pytestCheckHook
-      raven
-      setproctitle
-    ]
-    ++ passthru.optional-dependencies.aiohttp
-    ++ passthru.optional-dependencies.cron
-    ++ passthru.optional-dependencies.uvloop;
+  nativeCheckInputs = [
+    aiocontextvars
+    async-timeout
+    fastapi
+    pytestCheckHook
+    raven
+    setproctitle
+  ] ++ passthru.optional-dependencies.aiohttp ++ passthru.optional-dependencies.cron ++ passthru.optional-dependencies.uvloop;
 
   passthru.optional-dependencies = {
     aiohttp = [ aiohttp ];

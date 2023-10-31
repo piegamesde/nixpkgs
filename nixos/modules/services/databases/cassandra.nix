@@ -55,12 +55,7 @@ let
 
   cassandraConfigWithAddresses =
     cassandraConfig
-    // (
-      if cfg.listenAddress == null then
-        { listen_interface = cfg.listenInterface; }
-      else
-        { listen_address = cfg.listenAddress; }
-    )
+    // (if cfg.listenAddress == null then { listen_interface = cfg.listenInterface; } else { listen_address = cfg.listenAddress; })
     // (if cfg.rpcAddress == null then { rpc_interface = cfg.rpcInterface; } else { rpc_address = cfg.rpcAddress; });
 
   cassandraEtc = pkgs.stdenv.mkDerivation {

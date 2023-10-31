@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  passthru.tests = lib.optionalAttrs stdenv.hostPlatform.isx86 {
-    installer-simpleLabels = nixosTests.installer.simpleLabels;
-  };
+  passthru.tests = lib.optionalAttrs stdenv.hostPlatform.isx86 { installer-simpleLabels = nixosTests.installer.simpleLabels; };
 
   meta = with lib; {
     description = "Set of text-mode partitioning tools for Globally Unique Identifier (GUID) Partition Table (GPT) disks";

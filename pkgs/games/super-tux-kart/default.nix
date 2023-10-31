@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     # Deletes all bundled libs in stk-code/lib except those
     # That couldn't be replaced with system packages
-    find lib -maxdepth 1 -type d | egrep -v "^lib$|${
-      (lib.concatStringsSep "|" bundledLibraries)
-    }" | xargs -n1 -L1 -r -I{} rm -rf {}
+    find lib -maxdepth 1 -type d | egrep -v "^lib$|${(lib.concatStringsSep "|" bundledLibraries)}" | xargs -n1 -L1 -r -I{} rm -rf {}
 
     # Allow building with system-installed wiiuse on Darwin
     substituteInPlace CMakeLists.txt \

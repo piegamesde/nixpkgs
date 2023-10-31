@@ -478,12 +478,7 @@ lib.makeOverridable (
       meta = {
         description =
           "The Linux kernel"
-          + (
-            if kernelPatches == [ ] then
-              ""
-            else
-              " (with patches: " + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")"
-          );
+          + (if kernelPatches == [ ] then "" else " (with patches: " + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")");
         license = lib.licenses.gpl2Only;
         homepage = "https://www.kernel.org/";
         maintainers = lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];

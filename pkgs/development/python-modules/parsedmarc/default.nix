@@ -97,9 +97,7 @@ buildPythonPackage rec {
   };
 
   meta = {
-    changelog = "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }";
+    changelog = "https://github.com/domainaware/parsedmarc/blob/master/CHANGELOG.md#${lib.replaceStrings [ "." ] [ "" ] version}";
     description = "Python module and CLI utility for parsing DMARC reports";
     homepage = "https://domainaware.github.io/parsedmarc/";
     maintainers = with lib.maintainers; [ talyz ];

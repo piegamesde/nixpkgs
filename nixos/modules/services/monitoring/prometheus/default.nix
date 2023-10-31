@@ -68,8 +68,7 @@ let
     let
       yml = if cfg.configText != null then pkgs.writeText "prometheus.yml" cfg.configText else generatedPrometheusYml;
     in
-    promtoolCheck "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}" "prometheus.yml"
-      yml;
+    promtoolCheck "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}" "prometheus.yml" yml;
 
   cmdlineArgs =
     cfg.extraFlags
@@ -1911,8 +1910,7 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/prometheus"
-          + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
+          "${cfg.package}/bin/prometheus" + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";
         Restart = "always";

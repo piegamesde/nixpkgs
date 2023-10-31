@@ -178,8 +178,7 @@ let
     [ "--disable-all-plugins" ] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
   );
 
-  pluginBuildInputs =
-    plugin: lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs) plugins.${plugin}.buildInputs;
+  pluginBuildInputs = plugin: lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs) plugins.${plugin}.buildInputs;
 
   buildInputs =
     if enabledPlugins == null then

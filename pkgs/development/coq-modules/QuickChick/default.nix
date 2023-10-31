@@ -113,9 +113,7 @@ in
   release."20170512".sha256 = "033ch10i5wmqyw8j6wnr0dlbnibgfpr1vr0c07q3yj6h23xkmqpg";
   releaseRev = v: "v${v}";
 
-  preConfigure =
-    lib.optionalString recent
-      "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native";
+  preConfigure = lib.optionalString recent "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native";
 
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;

@@ -103,9 +103,7 @@ let
 
         bitv = callPackage ../development/ocaml-modules/bitv { };
 
-        bjack = callPackage ../development/ocaml-modules/bjack {
-          inherit (pkgs.darwin.apple_sdk.frameworks) Accelerate CoreAudio;
-        };
+        bjack = callPackage ../development/ocaml-modules/bjack { inherit (pkgs.darwin.apple_sdk.frameworks) Accelerate CoreAudio; };
 
         bls12-381 = callPackage ../development/ocaml-modules/bls12-381 { };
         bls12-381-gen = callPackage ../development/ocaml-modules/bls12-381/gen.nix { };
@@ -129,9 +127,7 @@ let
 
         ca-certs-nss = callPackage ../development/ocaml-modules/ca-certs-nss { };
 
-        cairo2 = callPackage ../development/ocaml-modules/cairo2 {
-          inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
-        };
+        cairo2 = callPackage ../development/ocaml-modules/cairo2 { inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices; };
 
         calendar = callPackage ../development/ocaml-modules/calendar { };
 
@@ -586,8 +582,7 @@ let
 
         gnuplot = callPackage ../development/ocaml-modules/gnuplot { inherit (pkgs) gnuplot; };
 
-        graphics =
-          if lib.versionOlder "4.09" ocaml.version then callPackage ../development/ocaml-modules/graphics { } else null;
+        graphics = if lib.versionOlder "4.09" ocaml.version then callPackage ../development/ocaml-modules/graphics { } else null;
 
         graphql = callPackage ../development/ocaml-modules/graphql { };
 
@@ -601,9 +596,7 @@ let
 
         gsl = callPackage ../development/ocaml-modules/gsl { inherit (pkgs) gsl; };
 
-        gstreamer = callPackage ../development/ocaml-modules/gstreamer {
-          inherit (pkgs.darwin.apple_sdk.frameworks) AppKit Foundation;
-        };
+        gstreamer = callPackage ../development/ocaml-modules/gstreamer { inherit (pkgs.darwin.apple_sdk.frameworks) AppKit Foundation; };
 
         ### H ###
 
@@ -1147,8 +1140,7 @@ let
 
         ocaml-vdom = callPackage ../development/ocaml-modules/ocaml-vdom { };
 
-        ocamlbuild =
-          if lib.versionOlder "4.03" ocaml.version then callPackage ../development/tools/ocaml/ocamlbuild { } else null;
+        ocamlbuild = if lib.versionOlder "4.03" ocaml.version then callPackage ../development/tools/ocaml/ocamlbuild { } else null;
 
         ocamlc-loc = callPackage ../development/ocaml-modules/ocamlc-loc { };
 
@@ -1347,8 +1339,7 @@ let
 
         ppx_repr = callPackage ../development/ocaml-modules/repr/ppx.nix { };
 
-        ppx_tools =
-          if lib.versionAtLeast ocaml.version "4.02" then callPackage ../development/ocaml-modules/ppx_tools { } else null;
+        ppx_tools = if lib.versionAtLeast ocaml.version "4.02" then callPackage ../development/ocaml-modules/ppx_tools { } else null;
 
         ppx_tools_versioned = callPackage ../development/ocaml-modules/ppx_tools_versioned { };
 

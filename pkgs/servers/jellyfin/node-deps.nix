@@ -12075,12 +12075,7 @@ let
       sources."@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression-7.16.7"
       sources."@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining-7.16.7"
       sources."@babel/plugin-proposal-async-generator-functions-7.16.8"
-      (
-        sources."@babel/plugin-proposal-class-properties-7.16.7"
-        // {
-          dependencies = [ sources."@babel/helper-plugin-utils-7.16.7" ];
-        }
-      )
+      (sources."@babel/plugin-proposal-class-properties-7.16.7" // { dependencies = [ sources."@babel/helper-plugin-utils-7.16.7" ]; })
       sources."@babel/plugin-proposal-class-static-block-7.16.7"
       sources."@babel/plugin-proposal-dynamic-import-7.16.7"
       sources."@babel/plugin-proposal-export-namespace-from-7.16.7"
@@ -12217,19 +12212,9 @@ let
       (sources."@csstools/postcss-hwb-function-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."@csstools/postcss-ic-unit-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."@csstools/postcss-is-pseudo-class-2.0.1"
-      (
-        sources."@csstools/postcss-normalize-display-values-1.0.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."@csstools/postcss-normalize-display-values-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."@csstools/postcss-oklab-function-1.0.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
-      (
-        sources."@csstools/postcss-progressive-custom-properties-1.3.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."@csstools/postcss-progressive-custom-properties-1.3.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."@discoveryjs/json-ext-0.5.6"
       (
         sources."@eslint/eslintrc-1.2.1"

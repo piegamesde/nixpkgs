@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
   installPhase =
     let
       copy =
-        arch: version:
-        { input, output }:
-        "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/.";
+        arch: version: { input, output }: "mkdir -p $out/${arch}/${output}; cp ${input}/${version}/${arch}/* $out/${arch}/${output}/.";
       virtio = [
         {
           input = "Balloon";

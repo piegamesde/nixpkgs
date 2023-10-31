@@ -167,9 +167,7 @@ in
           }
         );
         default = [ ];
-        description =
-          lib.mdDoc
-            "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
+        description = lib.mdDoc "List consisting of a virtual host name and a list of web applications to deploy on each virtual host";
       };
 
       logPerVirtualHost = mkOption {
@@ -196,9 +194,7 @@ in
         services = mkOption {
           default = [ ];
           type = types.listOf types.str;
-          description =
-            lib.mdDoc
-              "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
+          description = lib.mdDoc "List containing AAR files or directories with AAR files which are web services to be deployed on Axis2";
         };
       };
     };

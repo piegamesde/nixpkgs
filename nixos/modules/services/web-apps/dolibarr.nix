@@ -370,9 +370,7 @@ in
 
         users.groups = optionalAttrs (cfg.group == "dolibarr") { dolibarr = { }; };
       }
-      (mkIf (cfg.nginx != null) {
-        users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ];
-      })
+      (mkIf (cfg.nginx != null) { users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ]; })
     ]
   );
 }

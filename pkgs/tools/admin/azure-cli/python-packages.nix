@@ -116,9 +116,7 @@ let
 
       antlr4-python3-runtime = super.antlr4-python3-runtime.override (_: { antlr4 = super.pkgs.antlr4_9; });
 
-      azure-batch =
-        overrideAzureMgmtPackage super.azure-batch "13.0.0" "zip"
-          "sha256-6Sld5wQE0nbtoN0iU9djl0Oavl2PGMH8oZnEm41q4wo=";
+      azure-batch = overrideAzureMgmtPackage super.azure-batch "13.0.0" "zip" "sha256-6Sld5wQE0nbtoN0iU9djl0Oavl2PGMH8oZnEm41q4wo=";
 
       azure-data-tables =
         overrideAzureMgmtPackage super.azure-data-tables "12.4.0" "zip"

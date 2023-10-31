@@ -194,8 +194,7 @@ let
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
     makeFlags =
-      lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags) stdenv.hostPlatform.linux-kernel.makeFlags
-      ++ extraMakeFlags;
+      lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags) stdenv.hostPlatform.linux-kernel.makeFlags ++ extraMakeFlags;
 
     postPatch =
       kernel.postPatch

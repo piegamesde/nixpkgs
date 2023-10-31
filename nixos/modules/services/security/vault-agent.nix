@@ -127,9 +127,7 @@ let
         User = instance.user;
         Group = instance.group;
         RuntimeDirectory = flavour;
-        ExecStart = "${getExe instance.package} ${
-            optionalString ((getName instance.package) == "vault") "agent"
-          } -config ${configFile}";
+        ExecStart = "${getExe instance.package} ${optionalString ((getName instance.package) == "vault") "agent"} -config ${configFile}";
         ExecReload = "${pkgs.coreutils}/bin/kill -SIGHUP $MAINPID";
         KillSignal = "SIGINT";
         TimeoutStopSec = "30s";

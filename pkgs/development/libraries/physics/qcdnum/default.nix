@@ -11,9 +11,7 @@ stdenv.mkDerivation rec {
   version = "18-00-00";
 
   src = fetchurl {
-    url = "http://www.nikhef.nl/user/h24/qcdnum-files/download/qcdnum${
-        builtins.replaceStrings [ "-" ] [ "" ] version
-      }.tar.gz";
+    url = "http://www.nikhef.nl/user/h24/qcdnum-files/download/qcdnum${builtins.replaceStrings [ "-" ] [ "" ] version}.tar.gz";
     hash = "sha256-4Qj5JreEA1LkCAunGRTTQD7YEYNk+HcQ4iH97DIO4gA=";
   };
 

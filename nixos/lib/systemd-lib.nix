@@ -92,14 +92,12 @@ rec {
 
   assertByteFormat =
     name: group: attr:
-    optional (attr ? ${name} && !isByteFormat attr.${name})
-      "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
+    optional (attr ? ${name} && !isByteFormat attr.${name}) "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
   isMacAddress =
-    s:
-    stringLength s == 17 && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
+    s: stringLength s == 17 && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
 
   assertMacAddress =
     name: group: attr:
@@ -306,9 +304,7 @@ rec {
         # Symlink units defined by systemd.units which shall be
         # treated as drop-in file.
         for i in ${
-          toString (
-            mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units)
-          )
+          toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units))
         }; do
           fn=$(basename $i/*)
           mkdir -p $out/$fn.d
@@ -417,16 +413,12 @@ rec {
           // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
             X-Restart-Triggers = toString config.restartTriggers;
           }
-          // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) {
-            X-Reload-Triggers = toString config.reloadTriggers;
-          }
+          // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) { X-Reload-Triggers = toString config.reloadTriggers; }
           // optionalAttrs (config.description != "") { Description = config.description; }
           // optionalAttrs (config.documentation != [ ]) { Documentation = toString config.documentation; }
           // optionalAttrs (config.onFailure != [ ]) { OnFailure = toString config.onFailure; }
           // optionalAttrs (config.onSuccess != [ ]) { OnSuccess = toString config.onSuccess; }
-          // optionalAttrs (options.startLimitIntervalSec.isDefined) {
-            StartLimitIntervalSec = toString config.startLimitIntervalSec;
-          }
+          // optionalAttrs (options.startLimitIntervalSec.isDefined) { StartLimitIntervalSec = toString config.startLimitIntervalSec; }
           // optionalAttrs (options.startLimitBurst.isDefined) { StartLimitBurst = toString config.startLimitBurst; };
       };
     };
@@ -434,9 +426,7 @@ rec {
   serviceConfig =
     { config, ... }:
     {
-      config.environment.PATH =
-        mkIf (config.path != [ ])
-          "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}";
+      config.environment.PATH = mkIf (config.path != [ ]) "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}";
     };
 
   stage2ServiceConfig = {

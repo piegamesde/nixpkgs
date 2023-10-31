@@ -209,13 +209,10 @@ qtModule {
     fi
   '';
 
-  qmakeFlags =
-    [
-      "--"
-      "-system-ffmpeg"
-    ]
-    ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
-    ++ lib.optional enableProprietaryCodecs "-proprietary-codecs";
+  qmakeFlags = [
+    "--"
+    "-system-ffmpeg"
+  ] ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire" ++ lib.optional enableProprietaryCodecs "-proprietary-codecs";
 
   propagatedBuildInputs =
     [
@@ -357,9 +354,7 @@ qtModule {
     platforms = lib.trivial.pipe lib.systems.doubles.all [
       (map (double: lib.systems.elaborate { system = double; }))
       (lib.lists.filter (
-        parsedPlatform:
-        with parsedPlatform;
-        isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian))
+        parsedPlatform: with parsedPlatform; isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian))
       ))
       (map (plat: plat.system))
     ];

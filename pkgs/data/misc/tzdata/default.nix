@@ -57,9 +57,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # needs more tools
 
-  installFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "zic=${buildPackages.tzdata.bin}/bin/zic"
-  ];
+  installFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "zic=${buildPackages.tzdata.bin}/bin/zic" ];
 
   postInstall = ''
     rm $out/share/zoneinfo-posix

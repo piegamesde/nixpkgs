@@ -48,9 +48,9 @@ let
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
     ${concatStringsSep "\n" (
-      mapAttrsToList
-        (k: v: optionalString (v.hostname != "") "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}")
-        (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo)
+      mapAttrsToList (k: v: optionalString (v.hostname != "") "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}") (
+        cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo
+      )
     )}
   '';
 

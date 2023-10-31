@@ -117,9 +117,9 @@ let
       ]
       targetPlatform.config;
 
-  expand-response-params =
-    lib.optionalString ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null")
-      (import ../expand-response-params { inherit (buildPackages) stdenv; });
+  expand-response-params = lib.optionalString ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null") (
+    import ../expand-response-params { inherit (buildPackages) stdenv; }
+  );
 
   useGccForLibs =
     useCcForLibs
@@ -474,9 +474,7 @@ stdenv.mkDerivation {
     # additional -isystem flags will confuse gfortran (see
     # https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903)
     + optionalString (libcxx == null && isClang && (useGccForLibs && gccForLibs.langCC or false)) ''
-      for dir in ${gccForLibs}${
-        lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
-      }/include/c++/*; do
+      for dir in ${gccForLibs}${lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"}/include/c++/*; do
         echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
       done
       for dir in ${gccForLibs}${
@@ -554,11 +552,7 @@ stdenv.mkDerivation {
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     +
       optionalString
-        (
-          (targetPlatform ? gcc.arch)
-          && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))
-          && isGccArchSupported targetPlatform.gcc.arch
-        )
+        ((targetPlatform ? gcc.arch) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)) && isGccArchSupported targetPlatform.gcc.arch)
         ''
           echo "-march=${targetPlatform.gcc.arch}" >> $out/nix-support/cc-cflags-before
         ''

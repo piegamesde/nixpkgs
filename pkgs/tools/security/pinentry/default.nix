@@ -130,9 +130,7 @@ pinentryMkDerivation rec {
       )
     )
     + ''
-      ln -sf ${placeholder (lib.head enabledFlavors)}/bin/pinentry-${
-        flavorInfo.${lib.head enabledFlavors}.bin
-      } $out/bin/pinentry
+      ln -sf ${placeholder (lib.head enabledFlavors)}/bin/pinentry-${flavorInfo.${lib.head enabledFlavors}.bin} $out/bin/pinentry
     '';
 
   outputs = [ "out" ] ++ enabledFlavors;

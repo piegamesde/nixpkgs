@@ -1062,9 +1062,7 @@ in
             plugins = mkOption {
               description = lib.mdDoc "Directory where grafana will automatically scan and look for plugins";
               default = if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
-              defaultText =
-                literalExpression
-                  ''if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
+              defaultText = literalExpression ''if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
               type = types.path;
             };
 
@@ -1952,10 +1950,7 @@ in
       # is specified, this can be achieved by using the file/env provider:
       # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#variable-expansion
       (optional
-        (
-          doesntUseFileProvider cfg.settings.database.password ""
-          || doesntUseFileProvider cfg.settings.security.admin_password "admin"
-        )
+        (doesntUseFileProvider cfg.settings.database.password "" || doesntUseFileProvider cfg.settings.security.admin_password "admin")
         ''
           Grafana passwords will be stored as plaintext in the Nix store!
           Use file provider or an env-var instead.
@@ -1971,9 +1966,7 @@ in
       ++ (optional
         (
           let
-            datasourcesToCheck =
-              optionals (cfg.provision.datasources.settings != null)
-                cfg.provision.datasources.settings.datasources;
+            datasourcesToCheck = optionals (cfg.provision.datasources.settings != null) cfg.provision.datasources.settings.datasources;
             declarationUnsafe =
               { secureJsonData, ... }: secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
           in
@@ -2032,9 +2025,7 @@ in
     systemd.services.grafana = {
       description = "Grafana Service Daemon";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "networking.target"
-      ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
+      after = [ "networking.target" ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
       script = ''
         set -o errexit -o pipefail -o nounset -o errtrace
         shopt -s inherit_errexit

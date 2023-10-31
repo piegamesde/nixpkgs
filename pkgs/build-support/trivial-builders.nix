@@ -775,10 +775,9 @@ rec {
         lib.mapAttrsToList
           (
             name: value:
-            (map
-              (output: lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string))
-              (lib.remove "out" value.outputs)
-            )
+            (map (output: lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string)) (
+              lib.remove "out" value.outputs
+            ))
           )
           packages
       );

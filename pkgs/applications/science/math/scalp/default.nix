@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    lib.optionals withGurobi [ gurobi ] ++ lib.optionals withCplex [ cplex ] ++ lib.optionals withLpsolve [ lp_solve ];
+  buildInputs = lib.optionals withGurobi [ gurobi ] ++ lib.optionals withCplex [ cplex ] ++ lib.optionals withLpsolve [ lp_solve ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \

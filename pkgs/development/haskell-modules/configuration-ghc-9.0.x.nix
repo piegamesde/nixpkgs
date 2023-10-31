@@ -189,9 +189,7 @@ self: super: {
   ghc-api-compat = unmarkBroken super.ghc-api-compat;
 
   # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
-  hiedb =
-    overrideCabal (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; })
-      super.hiedb;
+  hiedb = overrideCabal (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; }) super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206
   # Restrictive upper bound on ormolu

@@ -13,8 +13,7 @@ let
   # on the derivations likely to be used as `cfgc.package`.
   # This middle-ground solution ensures *an* sshd can do their basic validation
   # on the configuration.
-  validationPackage =
-    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then cfgc.package else pkgs.buildPackages.openssh;
+  validationPackage = if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then cfgc.package else pkgs.buildPackages.openssh;
 
   # reports boolean as yes / no
   mkValueStringSshd =

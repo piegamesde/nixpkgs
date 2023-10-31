@@ -387,12 +387,8 @@ in
               rm config.js
               rm interface_config.js
               cp -R . $out
-              cp ${
-                overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config) cfg.extraConfig
-              } $out/config.js
-              cp ${
-                overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig ""
-              } $out/interface_config.js
+              cp ${overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config) cfg.extraConfig} $out/config.js
+              cp ${overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig ""} $out/interface_config.js
               cp ./libs/external_api.min.js $out/external_api.js
             '';
           in

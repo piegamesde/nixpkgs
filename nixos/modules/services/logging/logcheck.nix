@@ -234,9 +234,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.logcheck.extraRulesDirs =
-      mapAttrsToList writeIgnoreRule cfg.ignore
-      ++ mapAttrsToList writeIgnoreCronRule cfg.ignoreCron;
+    services.logcheck.extraRulesDirs = mapAttrsToList writeIgnoreRule cfg.ignore ++ mapAttrsToList writeIgnoreCronRule cfg.ignoreCron;
 
     users.users = optionalAttrs (cfg.user == "logcheck") {
       logcheck = {

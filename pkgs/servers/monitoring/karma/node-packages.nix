@@ -17352,12 +17352,7 @@ let
       sources."@babel/plugin-transform-react-pure-annotations-7.18.6"
       sources."@babel/plugin-transform-regenerator-7.18.6"
       sources."@babel/plugin-transform-reserved-words-7.18.6"
-      (
-        sources."@babel/plugin-transform-runtime-7.18.10"
-        // {
-          dependencies = [ sources."babel-plugin-polyfill-corejs3-0.5.3" ];
-        }
-      )
+      (sources."@babel/plugin-transform-runtime-7.18.10" // { dependencies = [ sources."babel-plugin-polyfill-corejs3-0.5.3" ]; })
       sources."@babel/plugin-transform-shorthand-properties-7.18.6"
       sources."@babel/plugin-transform-spread-7.18.9"
       sources."@babel/plugin-transform-sticky-regex-7.18.6"
@@ -18394,28 +18389,16 @@ let
         }
       )
       sources."babel-plugin-add-react-displayname-0.0.5"
-      (
-        sources."babel-plugin-apply-mdx-type-prop-1.6.22" // { dependencies = [ sources."@babel/helper-plugin-utils-7.10.4" ]; }
-      )
+      (sources."babel-plugin-apply-mdx-type-prop-1.6.22" // { dependencies = [ sources."@babel/helper-plugin-utils-7.10.4" ]; })
       sources."babel-plugin-dynamic-import-node-2.3.3"
-      (
-        sources."babel-plugin-extract-import-names-1.6.22"
-        // {
-          dependencies = [ sources."@babel/helper-plugin-utils-7.10.4" ];
-        }
-      )
+      (sources."babel-plugin-extract-import-names-1.6.22" // { dependencies = [ sources."@babel/helper-plugin-utils-7.10.4" ]; })
       sources."babel-plugin-istanbul-6.1.1"
       sources."babel-plugin-jest-hoist-27.5.1"
       sources."babel-plugin-macros-3.1.0"
       sources."babel-plugin-named-asset-import-0.3.8"
       sources."babel-plugin-named-exports-order-0.0.2"
       sources."babel-plugin-polyfill-corejs2-0.3.2"
-      (
-        sources."babel-plugin-polyfill-corejs3-0.1.7"
-        // {
-          dependencies = [ sources."@babel/helper-define-polyfill-provider-0.1.5" ];
-        }
-      )
+      (sources."babel-plugin-polyfill-corejs3-0.1.7" // { dependencies = [ sources."@babel/helper-define-polyfill-provider-0.1.5" ]; })
       sources."babel-plugin-polyfill-regenerator-0.4.0"
       sources."babel-plugin-react-docgen-4.2.1"
       sources."babel-plugin-transform-react-remove-prop-types-0.4.24"

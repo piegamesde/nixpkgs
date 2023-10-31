@@ -77,8 +77,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          (cfg.auth.username != null -> cfg.auth.password != null) && (cfg.auth.password != null -> cfg.auth.username != null);
+        assertion = (cfg.auth.username != null -> cfg.auth.password != null) && (cfg.auth.password != null -> cfg.auth.username != null);
         message = "You must set either both services.hqplayer.auth.username and password, or neither.";
       }
     ];

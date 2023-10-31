@@ -88,9 +88,7 @@ in
         type = types.nullOr types.str;
         default = null;
         example = "wheel";
-        description =
-          lib.mdDoc
-            "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
+        description = lib.mdDoc "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
       };
 
       openMulticastPort = mkOption {

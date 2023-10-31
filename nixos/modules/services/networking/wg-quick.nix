@@ -240,8 +240,7 @@ let
         ++ (concatMap
           (
             peer:
-            optional (peer.presharedKeyFile != null)
-              "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
+            optional (peer.presharedKeyFile != null) "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
           )
           values.peers
         )

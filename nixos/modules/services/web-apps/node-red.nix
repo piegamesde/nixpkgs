@@ -139,11 +139,9 @@ in
         {
           User = cfg.user;
           Group = cfg.group;
-          ExecStart = "${finalPackage}/bin/node-red ${
-              pkgs.lib.optionalString cfg.safe "--safe"
-            } --settings ${cfg.configFile} --port ${toString cfg.port} --userDir ${cfg.userDir} ${
-              concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)
-            }";
+          ExecStart = "${finalPackage}/bin/node-red ${pkgs.lib.optionalString cfg.safe "--safe"} --settings ${cfg.configFile} --port ${
+              toString cfg.port
+            } --userDir ${cfg.userDir} ${concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)}";
           PrivateTmp = true;
           Restart = "always";
           WorkingDirectory = cfg.userDir;

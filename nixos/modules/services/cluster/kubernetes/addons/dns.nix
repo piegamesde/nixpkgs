@@ -25,8 +25,7 @@ in
       description = lib.mdDoc "Dns addon clusterIP";
 
       # this default is also what kubernetes users
-      default =
-        (concatStringsSep "." (take 3 (splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange))) + ".254";
+      default = (concatStringsSep "." (take 3 (splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange))) + ".254";
       defaultText = literalMD ''
         The `x.y.z.254` IP of
         `config.${options.services.kubernetes.apiserver.serviceClusterIpRange}`.

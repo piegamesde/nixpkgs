@@ -20,8 +20,7 @@ let
           name: value:
           if name == "servers" then
             nameValuePair (toLower name) (
-              (map (srv: (mapAttrs' (n: v: nameValuePair (toLower n) v) (filterAttrs (n: v: !(n == "_module" || v == null)) srv))))
-                value
+              (map (srv: (mapAttrs' (n: v: nameValuePair (toLower n) v) (filterAttrs (n: v: !(n == "_module" || v == null)) srv)))) value
             )
           else
             nameValuePair (toLower name) value

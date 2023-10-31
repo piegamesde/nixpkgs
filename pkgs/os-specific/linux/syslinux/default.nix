@@ -61,9 +61,7 @@ stdenv.mkDerivation {
         "012e1dd312eb"
         "sha256-C6VmdlTs1blMGUHH3OfOlFBZsfpwRn9vWodwqVn8+Cs="
       )
-      (fetchDebianPatch "0018-prevent-pow-optimization.patch" "26f0e7b2"
-        "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E="
-      )
+      (fetchDebianPatch "0018-prevent-pow-optimization.patch" "26f0e7b2" "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E=")
     ];
 
   postPatch = ''

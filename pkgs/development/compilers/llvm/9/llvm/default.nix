@@ -18,10 +18,7 @@
   zlib,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux
-    && (!stdenv.isx86_32)
-    && (!stdenv.hostPlatform.isRiscV)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  doCheck ? stdenv.isLinux && (!stdenv.isx86_32) && (!stdenv.hostPlatform.isRiscV) && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245

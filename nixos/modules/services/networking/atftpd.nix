@@ -59,9 +59,7 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       # runs as nobody
-      serviceConfig.ExecStart = "${pkgs.atftp}/sbin/atftpd --daemon --no-fork ${
-          lib.concatStringsSep " " cfg.extraOptions
-        } ${cfg.root}";
+      serviceConfig.ExecStart = "${pkgs.atftp}/sbin/atftpd --daemon --no-fork ${lib.concatStringsSep " " cfg.extraOptions} ${cfg.root}";
     };
   };
 }

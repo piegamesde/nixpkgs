@@ -119,9 +119,7 @@ in
               destination = mkOption {
                 type = types.str;
                 example = "10.0.0.1:80";
-                description =
-                  lib.mdDoc
-                    "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
+                description = lib.mdDoc "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
               };
 
               proto = mkOption {

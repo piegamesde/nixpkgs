@@ -79,9 +79,7 @@ let
               serviceConfig = {
                 inherit User;
                 SyslogIdentifier = "hdfs-${toLower name}";
-                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${
-                    escapeShellArgs serviceOptions.extraFlags
-                  }";
+                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${escapeShellArgs serviceOptions.extraFlags}";
                 Restart = "always";
               };
             };
@@ -173,9 +171,7 @@ in
         8019 # dfs.ha.zkfc.port
       ];
       preStart =
-        (mkIf cfg.hdfs.namenode.formatOnInit
-          "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true"
-        );
+        (mkIf cfg.hdfs.namenode.formatOnInit "${cfg.package}/bin/hdfs --config ${hadoopConf} namenode -format -nonInteractive || true");
     })
 
     (hadoopServiceConfig {

@@ -58,9 +58,7 @@ let
         )
       ))
       # Map all extensions to their pname, with potential overwrites
-      (map (
-        extension: lib.nameValuePair (extensionRenames.${extension.extensionUuid} or extension.extensionPortalSlug) extension
-      ))
+      (map (extension: lib.nameValuePair (extensionRenames.${extension.extensionUuid} or extension.extensionPortalSlug) extension))
       builtins.listToAttrs
     ];
 in

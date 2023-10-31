@@ -64,8 +64,7 @@ let
   buildPackages = pkgsBuildHost;
   inherit (passthru) pythonForBuild;
 
-  pythonForBuildInterpreter =
-    if stdenv.hostPlatform == stdenv.buildPlatform then "$out/bin/python" else pythonForBuild.interpreter;
+  pythonForBuildInterpreter = if stdenv.hostPlatform == stdenv.buildPlatform then "$out/bin/python" else pythonForBuild.interpreter;
 
   passthru =
     passthruFun rec {

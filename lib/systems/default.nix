@@ -253,9 +253,7 @@ rec {
                 };
                 wine = (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}").minimal;
               in
-              if
-                final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name && pkgs.stdenv.hostPlatform.canExecute final
-              then
+              if final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name && pkgs.stdenv.hostPlatform.canExecute final then
                 ''${pkgs.runtimeShell} -c '"$@"' --''
               else if final.isWindows then
                 "${wine}/bin/wine${lib.optionalString (final.parsed.cpu.bits == 64) "64"}"
@@ -272,11 +270,7 @@ rec {
             emulatorAvailable = pkgs: (selectEmulator pkgs) != null;
 
             emulator =
-              pkgs:
-              if (final.emulatorAvailable pkgs) then
-                selectEmulator pkgs
-              else
-                throw "Don't know how to run ${final.config} executables.";
+              pkgs: if (final.emulatorAvailable pkgs) then selectEmulator pkgs else throw "Don't know how to run ${final.config} executables.";
           }
         )
         // mapAttrs (n: v: v final.parsed) inspect.predicates

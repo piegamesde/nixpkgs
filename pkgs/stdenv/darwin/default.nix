@@ -762,9 +762,7 @@ rec {
             super."${finalLlvmPackages}"
             // (
               let
-                libraries = super."${finalLlvmPackages}".libraries.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi; }
-                );
+                libraries = super."${finalLlvmPackages}".libraries.extend (_: _: { inherit (pkgs."${finalLlvmPackages}") libcxx libcxxabi; });
               in
               { inherit libraries; } // libraries
             );
@@ -898,9 +896,7 @@ rec {
               let
                 tools = super."${finalLlvmPackages}".tools.extend (
                   llvmSelf: _: {
-                    clang-unwrapped-all-outputs = pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override {
-                      llvm = llvmSelf.llvm;
-                    };
+                    clang-unwrapped-all-outputs = pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override { llvm = llvmSelf.llvm; };
                     libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
                   }
                 );
@@ -994,9 +990,7 @@ rec {
                 rewrite-tbd
               ;
             }
-            // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
-              inherit (darwin) binutils binutils-unwrapped cctools;
-            }
+            // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) { inherit (darwin) binutils binutils-unwrapped cctools; }
           );
         }
         // lib.optionalAttrs (super.stdenv.targetPlatform == localSystem) {
@@ -1007,9 +1001,7 @@ rec {
             super."${finalLlvmPackages}"
             // (
               let
-                tools = super."${finalLlvmPackages}".tools.extend (
-                  _: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; }
-                );
+                tools = super."${finalLlvmPackages}".tools.extend (_: super: { inherit (pkgs."${finalLlvmPackages}") llvm clang-unwrapped; });
                 libraries = super."${finalLlvmPackages}".libraries.extend (
                   _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
                 );

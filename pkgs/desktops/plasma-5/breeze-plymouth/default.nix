@@ -26,10 +26,7 @@ let
     "neon_green"
   ];
   resolvedLogoName =
-    if (logoFile != null && logoName == null) then
-      lib.strings.removeSuffix ".png" (baseNameOf (toString logoFile))
-    else
-      logoName;
+    if (logoFile != null && logoName == null) then lib.strings.removeSuffix ".png" (baseNameOf (toString logoFile)) else logoName;
 in
 assert lib.asserts.assertOneOf "topColor" topColor validColors;
 assert lib.asserts.assertOneOf "bottomColor" bottomColor validColors;

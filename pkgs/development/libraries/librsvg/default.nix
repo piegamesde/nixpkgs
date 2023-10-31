@@ -105,9 +105,9 @@ stdenv.mkDerivation rec {
   doCheck = false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
 
   GDK_PIXBUF_QUERYLOADERS = writeScript "gdk-pixbuf-loader-loaders-wrapped" ''
-    ${
-      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (stdenv.hostPlatform.emulator buildPackages)
-    } ${lib.getDev gdk-pixbuf}/bin/gdk-pixbuf-query-loaders
+    ${lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (stdenv.hostPlatform.emulator buildPackages)} ${
+      lib.getDev gdk-pixbuf
+    }/bin/gdk-pixbuf-query-loaders
   '';
 
   preConfigure = ''
@@ -138,21 +138,16 @@ stdenv.mkDerivation rec {
       # 'error: linker `cc` not found' when cross-compiling
       export RUSTFLAGS="-Clinker=$CC"
     ''
-    +
-      lib.optionalString
-        ((stdenv.buildPlatform != stdenv.hostPlatform) && (stdenv.hostPlatform.emulatorAvailable buildPackages))
-        ''
-          # the replacement is the native conditional
-          substituteInPlace gdk-pixbuf-loader/Makefile \
-            --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
-        '';
+    + lib.optionalString ((stdenv.buildPlatform != stdenv.hostPlatform) && (stdenv.hostPlatform.emulatorAvailable buildPackages)) ''
+      # the replacement is the native conditional
+      substituteInPlace gdk-pixbuf-loader/Makefile \
+        --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
+    '';
 
   # Not generated when cross compiling.
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
     # Merge gdkpixbuf and librsvg loaders
-    cat ${
-      lib.getLib gdk-pixbuf
-    }/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
+    cat ${lib.getLib gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache $GDK_PIXBUF/loaders.cache > $GDK_PIXBUF/loaders.cache.tmp
     mv $GDK_PIXBUF/loaders.cache.tmp $GDK_PIXBUF/loaders.cache
   '';
 

@@ -162,8 +162,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.database.createLocally
-          -> cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
+          cfg.database.createLocally -> cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
         message = "if you want to create the database locally, you need to use a local database";
       }
     ];

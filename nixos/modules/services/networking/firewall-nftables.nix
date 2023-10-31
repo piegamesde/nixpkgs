@@ -14,8 +14,7 @@ let
   ifaceSet = concatStringsSep ", " (map (x: ''"${x}"'') cfg.trustedInterfaces);
 
   portsToNftSet =
-    ports: portRanges:
-    concatStringsSep ", " (map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges);
+    ports: portRanges: concatStringsSep ", " (map (x: toString x) ports ++ map (x: "${toString x.from}-${toString x.to}") portRanges);
 in
 
 {
@@ -155,9 +154,7 @@ in
 
           ${
             optionalString cfg.allowPing ''
-              icmp type echo-request ${
-                optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
-              } accept comment "allow ping"
+              icmp type echo-request ${optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"} accept comment "allow ping"
             ''
           }
 

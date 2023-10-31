@@ -49,8 +49,7 @@ let
   baseLib = python3Packages.callPackage ./lib.nix { };
 in
 mkDerivation {
-  pname =
-    baseLib.pname + lib.optionalString (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport) "-full";
+  pname = baseLib.pname + lib.optionalString (pdfSupport && presentationSupport && vlcSupport && gstreamerSupport) "-full";
   inherit (baseLib) version src;
 
   nativeBuildInputs = [

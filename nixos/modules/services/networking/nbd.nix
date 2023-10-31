@@ -48,9 +48,7 @@ let
         // {
           exportname = path;
         }
-        // (optionalAttrs (allowAddresses != null) {
-          authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
-        })
+        // (optionalAttrs (allowAddresses != null) { authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses); })
       )
       cfg.server.exports;
   serverConfig = pkgs.writeText "nbd-server-config" ''

@@ -62,9 +62,7 @@ rec {
     description = "instruction set architecture name and information";
     merge = mergeOneOption;
     check =
-      x:
-      types.bitWidth.check x.bits
-      && (if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte));
+      x: types.bitWidth.check x.bits && (if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte));
   };
 
   types.cpuType = enum (attrValues cpuTypes);

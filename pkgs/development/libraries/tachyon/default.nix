@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CSA8ECMRFJ9d9cw2dAn5bHJXQmZtGcJNtbqZTVqBpvU=";
   };
   buildInputs =
-    lib.optionals stdenv.isDarwin [ Carbon ]
-    ++ lib.optionals withJpegSupport [ libjpeg ]
-    ++ lib.optionals withPngSupport [ libpng ];
+    lib.optionals stdenv.isDarwin [ Carbon ] ++ lib.optionals withJpegSupport [ libjpeg ] ++ lib.optionals withPngSupport [ libpng ];
   preBuild =
     ''
       cd unix

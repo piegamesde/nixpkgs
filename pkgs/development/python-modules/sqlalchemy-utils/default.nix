@@ -64,23 +64,20 @@ buildPythonPackage rec {
     encrypted = [ cryptography ];
   };
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      pygments
-      jinja2
-      docutils
-      flexmock
-      psycopg2
-      psycopg2cffi
-      pg8000
-      pytz
-      python-dateutil
-      pymysql
-      pyodbc
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  nativeCheckInputs = [
+    pytestCheckHook
+    pygments
+    jinja2
+    docutils
+    flexmock
+    psycopg2
+    psycopg2cffi
+    pg8000
+    pytz
+    python-dateutil
+    pymysql
+    pyodbc
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies) ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   pytestFlagsArray = [
     "--deselect tests/functions/test_database.py::TestDatabasePostgresCreateDatabaseCloseConnection::test_create_database_twice"

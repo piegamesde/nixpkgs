@@ -180,9 +180,9 @@ let
 
         ${
           optionalString (cfg.resolver.addresses != [ ]) ''
-            resolver ${toString cfg.resolver.addresses} ${
-              optionalString (cfg.resolver.valid != "") "valid=${cfg.resolver.valid}"
-            } ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
+            resolver ${toString cfg.resolver.addresses} ${optionalString (cfg.resolver.valid != "") "valid=${cfg.resolver.valid}"} ${
+              optionalString (!cfg.resolver.ipv6) "ipv6=off"
+            };
           ''
         }
         ${upstreamConfig}

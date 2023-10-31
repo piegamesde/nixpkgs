@@ -92,9 +92,7 @@ in
     systemd.services.mopidy-scan = {
       description = "mopidy local files scanner";
       serviceConfig = {
-        ExecStart = "${mopidyEnv}/bin/mopidy --config ${
-            concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)
-          } local scan";
+        ExecStart = "${mopidyEnv}/bin/mopidy --config ${concatStringsSep ":" ([ mopidyConf ] ++ cfg.extraConfigFiles)} local scan";
         User = "mopidy";
         Type = "oneshot";
       };

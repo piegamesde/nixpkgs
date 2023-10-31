@@ -181,9 +181,7 @@ in
         let
           whatOpt =
             optName:
-            "The 'serviceConfig' option '${optName}' for"
-            + " service '${name}' is enabled in conjunction with"
-            + " 'confinement.enable'";
+            "The 'serviceConfig' option '${optName}' for" + " service '${name}' is enabled in conjunction with" + " 'confinement.enable'";
         in
         lib.optionals cfg.confinement.enable [
           {

@@ -87,8 +87,7 @@
   meta ? { },
 }:
 
-assert wxSupport
-  -> (if stdenv.isDarwin then wxGTK != null else libGL != null && libGLU != null && wxGTK != null && xorg != null);
+assert wxSupport -> (if stdenv.isDarwin then wxGTK != null else libGL != null && libGLU != null && wxGTK != null && xorg != null);
 
 assert odbcSupport -> unixODBC != null;
 assert javacSupport -> openjdk11 != null;

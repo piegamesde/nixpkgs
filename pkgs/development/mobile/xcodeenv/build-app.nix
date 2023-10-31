@@ -121,8 +121,7 @@ stdenv.mkDerivation (
         lib.optionalString (generateIPA || generateXCArchive) ''-archivePath "${name}.xcarchive" archive''
       } ${
         lib.optionalString release
-          ''
-            PROVISIONING_PROFILE=$PROVISIONING_PROFILE OTHER_CODE_SIGN_FLAGS="--keychain $HOME/Library/Keychains/$keychainName-db"''
+          ''PROVISIONING_PROFILE=$PROVISIONING_PROFILE OTHER_CODE_SIGN_FLAGS="--keychain $HOME/Library/Keychains/$keychainName-db"''
       } ${xcodeFlags}
 
       ${lib.optionalString release ''

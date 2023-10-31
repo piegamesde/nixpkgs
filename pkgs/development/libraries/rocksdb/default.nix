@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
     zstd
   ];
 
-  buildInputs =
-    lib.optional enableJemalloc jemalloc
-    ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads;
+  buildInputs = lib.optional enableJemalloc jemalloc ++ lib.optional stdenv.hostPlatform.isMinGW windows.mingw_w64_pthreads;
 
   outputs = [
     "out"

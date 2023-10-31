@@ -58,9 +58,7 @@ let
             cp ${snakeOilPrivateKey} ~/.ssh/id_ed25519
             chmod 0400 ~/.ssh/id_ed25519
           '';
-          serverNetworkJSON = pkgs.writeText "server-network.json" (
-            builtins.toJSON nodes.server.config.system.build.networkConfig
-          );
+          serverNetworkJSON = pkgs.writeText "server-network.json" (builtins.toJSON nodes.server.config.system.build.networkConfig);
         in
         ''
           import shlex

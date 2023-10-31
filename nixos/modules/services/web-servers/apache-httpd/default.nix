@@ -40,8 +40,7 @@ let
 
   # certName is used later on to determine systemd service names.
   acmeEnabledVhosts =
-    map
-      (hostOpts: hostOpts // { certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName; })
+    map (hostOpts: hostOpts // { certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName; })
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
 
   dependentCertNames = unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
@@ -847,9 +846,7 @@ in
           '';
         }
         {
-          assertion =
-            all (hostOpts: with hostOpts; !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL))
-              vhosts;
+          assertion = all (hostOpts: with hostOpts; !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL)) vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
             `services.httpd.virtualHosts.<name>.onlySSL` and `services.httpd.virtualHosts.<name>.forceSSL`

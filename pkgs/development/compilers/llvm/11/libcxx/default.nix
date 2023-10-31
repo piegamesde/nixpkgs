@@ -82,8 +82,7 @@ stdenv.mkDerivation {
     # not null, then this property will be set via mkDerivation (TODO: how can
     # we set this?).
     ++
-      lib.optional
-        (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform != stdenv.buildPlatform)
+      lib.optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform != stdenv.buildPlatform)
         "-DCMAKE_SYSTEM_VERSION=20.1.0";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''

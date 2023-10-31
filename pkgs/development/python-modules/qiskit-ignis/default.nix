@@ -36,16 +36,12 @@ buildPythonPackage rec {
     hash = "sha256-WyLNtZhtuGzqCJdOBvtBjZZiGFQihpeSjJQtP7lI248=";
   };
 
-  propagatedBuildInputs =
-    [
-      numpy
-      qiskit-terra
-      scikit-learn
-      scipy
-    ]
-    ++ lib.optionals (withCvx) [ cvxpy ]
-    ++ lib.optionals (withVisualization) [ matplotlib ]
-    ++ lib.optionals (withJit) [ numba ];
+  propagatedBuildInputs = [
+    numpy
+    qiskit-terra
+    scikit-learn
+    scipy
+  ] ++ lib.optionals (withCvx) [ cvxpy ] ++ lib.optionals (withVisualization) [ matplotlib ] ++ lib.optionals (withJit) [ numba ];
 
   # Tests
   pythonImportsCheck = [ "qiskit.ignis" ];

@@ -20,9 +20,9 @@ let
 
   baseAttrs = {
     src = fetchurl {
-      url = "https://github.com/unicode-org/icu/releases/download/release-${
-          lib.replaceStrings [ "." ] [ "-" ] version
-        }/icu4c-${lib.replaceStrings [ "." ] [ "_" ] version}-src.tgz";
+      url = "https://github.com/unicode-org/icu/releases/download/release-${lib.replaceStrings [ "." ] [ "-" ] version}/icu4c-${
+          lib.replaceStrings [ "." ] [ "_" ] version
+        }-src.tgz";
       inherit sha256;
     };
 
@@ -137,6 +137,4 @@ let
 
   attrs = if buildRootOnly then buildRootOnlyAttrs else realAttrs;
 in
-stdenv.mkDerivation (
-  finalAttrs: attrs // { passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage; }
-)
+stdenv.mkDerivation (finalAttrs: attrs // { passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage; })

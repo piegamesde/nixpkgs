@@ -4409,10 +4409,7 @@ rec {
               buildByPackageId =
                 depPackageId:
                 # proc_macro crates must be compiled for the build architecture
-                if crateConfigs.${depPackageId}.procMacro or false then
-                  self.build.crates.${depPackageId}
-                else
-                  self.crates.${depPackageId};
+                if crateConfigs.${depPackageId}.procMacro or false then self.build.crates.${depPackageId} else self.crates.${depPackageId};
               dependencies = (crateConfig.dependencies or [ ]) ++ devDependencies;
             };
             buildDependencies = dependencyDerivations {
@@ -4422,9 +4419,7 @@ rec {
             };
             filterEnabledDependenciesForThis = dependencies: filterEnabledDependencies { inherit dependencies features target; };
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
-              filterEnabledDependenciesForThis (
-                (crateConfig.buildDependencies or [ ]) ++ (crateConfig.dependencies or [ ]) ++ devDependencies
-              )
+              filterEnabledDependenciesForThis ((crateConfig.buildDependencies or [ ]) ++ (crateConfig.dependencies or [ ]) ++ devDependencies)
             );
             # Crate renames have the form:
             #
@@ -4571,10 +4566,7 @@ rec {
         onlyInCrate2Nix = builtins.attrNames (lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined);
         differentFeatures =
           lib.filterAttrs
-            (
-              n: v:
-              (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
-            )
+            (n: v: (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ]))
             combined;
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; };
@@ -4659,8 +4651,7 @@ rec {
           in
           featuresByPackageId // { "${packageId}" = combinedFeatures; };
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
-          crateConfig.dependencies or [ ]
-          ++ lib.optionals (runTests && packageId == rootPackageId) (crateConfig.devDependencies or [ ])
+          crateConfig.dependencies or [ ] ++ lib.optionals (runTests && packageId == rootPackageId) (crateConfig.devDependencies or [ ])
         );
         cacheWithAll = resolveDependencies cacheWithDependencies "build" (crateConfig.buildDependencies or [ ]);
       in
@@ -4683,8 +4674,7 @@ rec {
           let
             targetFunc = dep.target or (features: true);
           in
-          targetFunc { inherit features target; }
-          && (!(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features)
+          targetFunc { inherit features target; } && (!(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features)
         )
         dependencies;
 
@@ -4711,9 +4701,7 @@ rec {
       assert (builtins.isList inputFeatures);
       let
         expandFeature =
-          feature:
-          assert (builtins.isString feature);
-          [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]));
+          feature: assert (builtins.isString feature); [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]));
         outFeatures = lib.concatMap expandFeature inputFeatures;
       in
       sortedUnique outFeatures;
@@ -4775,10 +4763,7 @@ rec {
 
     deprecationWarning =
       message: value:
-      if strictDeprecation then
-        builtins.throw "strictDeprecation enabled, aborting: ${message}"
-      else
-        builtins.trace message value;
+      if strictDeprecation then builtins.throw "strictDeprecation enabled, aborting: ${message}" else builtins.trace message value;
 
     #
     # crate2nix/default.nix (excerpt end)

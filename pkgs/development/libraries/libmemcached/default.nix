@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   version = "1.0.18";
 
   src = fetchurl {
-    url = "https://launchpad.net/libmemcached/${
-        lib.versions.majorMinor version
-      }/${version}/+download/libmemcached-${version}.tar.gz";
+    url = "https://launchpad.net/libmemcached/${lib.versions.majorMinor version}/${version}/+download/libmemcached-${version}.tar.gz";
     sha256 = "10jzi14j32lpq0if0p9vygcl2c1352hwbywzvr9qzq7x6aq0nb72";
   };
 

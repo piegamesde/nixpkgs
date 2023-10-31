@@ -57,9 +57,7 @@ let
 
   variant = lib.concatStringsSep "," (lib.optional enableRelease "release" ++ lib.optional enableDebug "debug");
 
-  threading = lib.concatStringsSep "," (
-    lib.optional enableSingleThreaded "single" ++ lib.optional enableMultiThreaded "multi"
-  );
+  threading = lib.concatStringsSep "," (lib.optional enableSingleThreaded "single" ++ lib.optional enableMultiThreaded "multi");
 
   link = lib.concatStringsSep "," (lib.optional enableShared "shared" ++ lib.optional enableStatic "static");
 

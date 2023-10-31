@@ -1339,7 +1339,5 @@ let
   };
 in
 mapAttrs
-  (const (
-    attrs: makeTest (attrs // { name = "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}"; })
-  ))
+  (const (attrs: makeTest (attrs // { name = "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}"; })))
   testCases

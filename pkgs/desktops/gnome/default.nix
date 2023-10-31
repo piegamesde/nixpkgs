@@ -273,7 +273,5 @@ lib.makeScope pkgs.newScope (
   gnome-settings-daemon338 =
     throw
       "The ‘gnome.gnome-settings-daemon338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
-  gnome-settings-daemon42 =
-    throw
-      "The ‘gnome.gnome-settings-daemon42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
+  gnome-settings-daemon42 = throw "The ‘gnome.gnome-settings-daemon42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
 }

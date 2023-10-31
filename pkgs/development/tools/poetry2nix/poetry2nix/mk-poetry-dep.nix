@@ -72,8 +72,7 @@ pythonPackages.callPackage
               )
               fname != null;
           hasSupportedExtension = fname: builtins.match supportedRegex fname != null;
-          isCompatibleEgg =
-            fname: !lib.strings.hasSuffix ".egg" fname || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
+          isCompatibleEgg = fname: !lib.strings.hasSuffix ".egg" fname || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
         in
         builtins.filter (f: matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file) files;
       toPath = s: pwd + "/${s}";
@@ -108,9 +107,7 @@ pythonPackages.callPackage
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
           entries = (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist) ++ eggs;
           lockFileEntry =
-            (
-              if lib.length entries > 0 then builtins.head entries else throw "Missing suitable source/wheel file entry for ${name}"
-            );
+            (if lib.length entries > 0 then builtins.head entries else throw "Missing suitable source/wheel file entry for ${name}");
           _isEgg = isEgg lockFileEntry;
         in
         rec {

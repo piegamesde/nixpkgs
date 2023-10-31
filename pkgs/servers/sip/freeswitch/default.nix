@@ -142,24 +142,22 @@ stdenv.mkDerivation rec {
     which
     yasm
   ];
-  buildInputs =
-    [
-      openssl
-      ncurses
-      gnutls
-      readline
-      libjpeg
-      sqlite
-      pcre
-      speex
-      ldns
-      libedit
-      libsndfile
-      libtiff
-      libuuid
-      libxcrypt
-    ]
-    ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules) ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = [
+    openssl
+    ncurses
+    gnutls
+    readline
+    libjpeg
+    sqlite
+    pcre
+    speex
+    ldns
+    libedit
+    libsndfile
+    libtiff
+    libuuid
+    libxcrypt
+  ] ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules) ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   enableParallelBuilding = true;
 

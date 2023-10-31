@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description =
-      "A retro-styled platform game" + lib.optionalString makeAndPlay " (redistributable, without original levels)";
+    description = "A retro-styled platform game" + lib.optionalString makeAndPlay " (redistributable, without original levels)";
     longDescription =
       ''
         VVVVVV is a platform game all about exploring one simple mechanical

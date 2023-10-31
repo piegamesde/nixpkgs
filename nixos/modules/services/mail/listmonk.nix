@@ -12,12 +12,9 @@ let
   cfgFile = tomlFormat.generate "listmonk.toml" cfg.settings;
   # Escaping is done according to https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-CONSTANTS
   setDatabaseOption =
-    key: value:
-    "UPDATE settings SET value = '${lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)}' WHERE key = '${key}';";
+    key: value: "UPDATE settings SET value = '${lib.replaceStrings [ "'" ] [ "''" ] (builtins.toJSON value)}' WHERE key = '${key}';";
   updateDatabaseConfigSQL = pkgs.writeText "update-database-config.sql" (
-    concatStringsSep "\n" (
-      mapAttrsToList setDatabaseOption (if (cfg.database.settings != null) then cfg.database.settings else { })
-    )
+    concatStringsSep "\n" (mapAttrsToList setDatabaseOption (if (cfg.database.settings != null) then cfg.database.settings else { }))
   );
   updateDatabaseConfigScript = pkgs.writeShellScriptBin "update-database-config.sh" ''
     ${if cfg.database.mutableSettings then

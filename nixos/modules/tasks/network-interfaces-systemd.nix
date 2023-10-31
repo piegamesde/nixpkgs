@@ -28,9 +28,7 @@ let
     ++ map (vlan: vlan.interface) (attrValues cfg.vlans)
     # add dependency to physical or independently created vswitch member interface
     # TODO: warn the user that any address configured on those interfaces will be useless
-    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
-      attrValues cfg.vswitches
-    );
+    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (attrValues cfg.vswitches);
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
   genericNetwork =
@@ -75,10 +73,7 @@ let
         ];
         DHCP = "yes";
         linkConfig.RequiredForOnline = lib.mkDefault (
-          if initrd then
-            config.boot.initrd.systemd.network.wait-online.anyInterface
-          else
-            config.systemd.network.wait-online.anyInterface
+          if initrd then config.boot.initrd.systemd.network.wait-online.anyInterface else config.systemd.network.wait-online.anyInterface
         );
         networkConfig.IPv6PrivacyExtensions = "kernel";
       };
@@ -496,15 +491,13 @@ in
                   echo "Configuring Open vSwitch ${n}..."
                   ovs-vsctl ${
                     concatStrings (
-                      mapAttrsToList
-                        (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
+                      mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
                         v.interfaces
                     )
                   } \
                     ${
                       concatStrings (
-                        mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
-                          v.interfaces
+                        mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces
                       )
                     } \
                     ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \

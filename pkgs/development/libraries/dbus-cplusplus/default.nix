@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     })
     (fetchurl {
       name = "template-operators.patch"; # since gcc12
-      url =
-        "https://src.fedoraproject.org/cgit/rpms/dbus-c++.git/plain/" + "dbus-c++-template-operators.patch?id=d3f0d8bb519c0af";
+      url = "https://src.fedoraproject.org/cgit/rpms/dbus-c++.git/plain/" + "dbus-c++-template-operators.patch?id=d3f0d8bb519c0af";
       sha256 = "N25Y7jXDbr0qb7MfRr2yz3zRySppgGOe+oCfNQhRvVc=";
     })
   ];

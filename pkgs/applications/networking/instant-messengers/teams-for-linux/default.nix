@@ -62,9 +62,7 @@ stdenv.mkDerivation rec {
     runHook preBuild
 
     yarn --offline electron-builder \
-      --dir ${if stdenv.isDarwin then "--macos" else "--linux"} ${
-        if stdenv.hostPlatform.isAarch64 then "--arm64" else "--x64"
-      } \
+      --dir ${if stdenv.isDarwin then "--macos" else "--linux"} ${if stdenv.hostPlatform.isAarch64 then "--arm64" else "--x64"} \
       -c.electronDist=${electron}/lib/electron \
       -c.electronVersion=${electron.version}
 

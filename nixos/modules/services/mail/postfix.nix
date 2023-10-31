@@ -309,9 +309,7 @@ let
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
   canonicalFile = pkgs.writeText "postfix-canonical" cfg.canonical;
   virtualFile = pkgs.writeText "postfix-virtual" cfg.virtual;
-  localRecipientMapFile = pkgs.writeText "postfix-local-recipient-map" (
-    concatMapStrings (x: x + " ACCEPT\n") cfg.localRecipients
-  );
+  localRecipientMapFile = pkgs.writeText "postfix-local-recipient-map" (concatMapStrings (x: x + " ACCEPT\n") cfg.localRecipients);
   checkClientAccessFile = pkgs.writeText "postfix-check-client-access" cfg.dnsBlacklistOverrides;
   mainCfFile = pkgs.writeText "postfix-main.cf" mainCf;
   masterCfFile = pkgs.writeText "postfix-master.cf" masterCfContent;
@@ -902,8 +900,7 @@ in
             setgid_group = cfg.setgidGroup;
           })
           // optionalAttrs (cfg.relayHost != "") {
-            relayhost =
-              if cfg.lookupMX then "${cfg.relayHost}:${toString cfg.relayPort}" else "[${cfg.relayHost}]:${toString cfg.relayPort}";
+            relayhost = if cfg.lookupMX then "${cfg.relayHost}:${toString cfg.relayPort}" else "[${cfg.relayHost}]:${toString cfg.relayPort}";
           }
           // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
           // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }

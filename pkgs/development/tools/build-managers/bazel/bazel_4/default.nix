@@ -83,12 +83,7 @@ let
         srcs.bazel_skylib
         srcs.io_bazel_rules_sass
         srcs.platforms
-        (
-          if stdenv.hostPlatform.isDarwin then
-            srcs."java_tools_javac11_darwin-v10.6.zip"
-          else
-            srcs."java_tools_javac11_linux-v10.6.zip"
-        )
+        (if stdenv.hostPlatform.isDarwin then srcs."java_tools_javac11_darwin-v10.6.zip" else srcs."java_tools_javac11_linux-v10.6.zip")
         srcs."coverage_output_generator-v2.5.zip"
         srcs.build_bazel_rules_nodejs
         srcs."android_tools_pkg-0.23.0.tar.gz"

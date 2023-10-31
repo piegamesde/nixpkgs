@@ -67,16 +67,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optionals withPythonModule [ swig ];
 
-  buildInputs =
-    [
-      openssl
-      nettle
-      expat
-      libevent
-    ]
-    ++ lib.optionals withSystemd [ systemd ]
-    ++ lib.optionals withDoH [ libnghttp2 ]
-    ++ lib.optionals withPythonModule [ python ];
+  buildInputs = [
+    openssl
+    nettle
+    expat
+    libevent
+  ] ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withDoH [ libnghttp2 ] ++ lib.optionals withPythonModule [ python ];
 
   enableParallelBuilding = true;
 
@@ -175,8 +171,7 @@ stdenv.mkDerivation rec {
       lib.concatMapStrings
         (
           pkg:
-          lib.optionalString (pkg ? dev)
-            " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
+          lib.optionalString (pkg ? dev) " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'"
         )
         (builtins.filter (p: p != null) buildInputs);
 

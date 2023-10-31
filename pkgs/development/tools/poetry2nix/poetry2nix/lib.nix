@@ -22,9 +22,7 @@ let
     lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator);
 
   # Normalize an entire attrset of packages
-  normalizePackageSet = lib.attrsets.mapAttrs' (
-    name: value: lib.attrsets.nameValuePair (normalizePackageName name) value
-  );
+  normalizePackageSet = lib.attrsets.mapAttrs' (name: value: lib.attrsets.nameValuePair (normalizePackageName name) value);
 
   # Get a full semver pythonVersion from a python derivation
   getPythonVersion =
@@ -48,9 +46,7 @@ let
         "&&" = cond1: cond2: cond1 && cond2;
       };
       splitRe =
-        "("
-        + (builtins.concatStringsSep "|" (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators)))
-        + ")";
+        "(" + (builtins.concatStringsSep "|" (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators))) + ")";
     in
     expr:
     let
@@ -250,8 +246,7 @@ let
           pyProject;
       requiredPkgs = builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0) requires;
     in
-    builtins.map (drvAttr: pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}"))
-      requiredPkgs;
+    builtins.map (drvAttr: pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}")) requiredPkgs;
 
   # Find gitignore files recursively in parent directory stopping with .git
   findGitIgnores =
@@ -263,8 +258,7 @@ let
       hasGitIgnore = builtins.pathExists gitIgnore;
       gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
     in
-    lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (findGitIgnores parent)
-    ++ gitIgnores;
+    lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (findGitIgnores parent) ++ gitIgnores;
 
   /* Provides a source filtering mechanism that:
 
@@ -278,8 +272,7 @@ let
       gitIgnores = findGitIgnores src;
       pycacheFilter =
         name: type:
-        (type == "directory" && !lib.strings.hasInfix "__pycache__" name)
-        || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
+        (type == "directory" && !lib.strings.hasInfix "__pycache__" name) || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
     in
     lib.cleanSourceWith {
       filter = lib.cleanSourceFilter;

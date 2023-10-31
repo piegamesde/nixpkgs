@@ -13,24 +13,21 @@
   xvfb-run,
 }:
 let
-  testNames =
-    [
-      "calib3d"
-      "core"
-      "features2d"
-      "flann"
-      "imgcodecs"
-      "imgproc"
-      "ml"
-      "objdetect"
-      "photo"
-      "stitching"
-      "video"
-      #"videoio" # - a lot of GStreamer warnings and failed tests
-      #"dnn" #- some caffe tests failed, probably because github workflow also downloads additional models
-    ]
-    ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ]
-    ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ];
+  testNames = [
+    "calib3d"
+    "core"
+    "features2d"
+    "flann"
+    "imgcodecs"
+    "imgproc"
+    "ml"
+    "objdetect"
+    "photo"
+    "stitching"
+    "video"
+    #"videoio" # - a lot of GStreamer warnings and failed tests
+    #"dnn" #- some caffe tests failed, probably because github workflow also downloads additional models
+  ] ++ lib.optionals (!stdenv.isAarch64 && enableGStreamer) [ "gapi" ] ++ lib.optionals (enableGtk2 || enableGtk3) [ "highgui" ];
   perfTestNames = [
     "calib3d"
     "core"
@@ -58,10 +55,7 @@ let
   accuracyTests = lib.optionalString runAccuracyTests ''
     ${builtins.concatStringsSep "\n" (
       map
-        (
-          test:
-          "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER"
-        )
+        (test: "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER")
         testNames
     )}
   '';

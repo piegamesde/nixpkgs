@@ -19,8 +19,7 @@ let
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
   providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes) (builtins.attrNames sourcePerArch);
   result = stdenv.mkDerivation {
-    pname =
-      if sourcePerArch.packageType == "jdk" then "${name-prefix}-bin" else "${name-prefix}-${sourcePerArch.packageType}-bin";
+    pname = if sourcePerArch.packageType == "jdk" then "${name-prefix}-bin" else "${name-prefix}-${sourcePerArch.packageType}-bin";
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };

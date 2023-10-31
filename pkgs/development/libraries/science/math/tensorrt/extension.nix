@@ -25,15 +25,12 @@ let
       # Return the first file that is supported. In practice there should only ever be one anyway.
       supportedFile = files: findFirst isSupported null files;
       # Supported versions with versions as keys and file as value
-      supportedVersions = filterAttrs (version: file: file != null) (
-        mapAttrs (version: files: supportedFile files) tensorRTVersions
-      );
+      supportedVersions = filterAttrs (version: file: file != null) (mapAttrs (version: files: supportedFile files) tensorRTVersions);
       # Compute versioned attribute name to be used in this package set
       computeName = version: "tensorrt_${toUnderscore version}";
       # Add all supported builds as attributes
       allBuilds =
-        mapAttrs'
-          (version: file: nameValuePair (computeName version) (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ])))
+        mapAttrs' (version: file: nameValuePair (computeName version) (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ])))
           supportedVersions;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {

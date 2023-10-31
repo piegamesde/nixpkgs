@@ -155,9 +155,7 @@ in
   crossIphone32 = mapTestOnCross lib.systems.examples.iphone32 darwinCommon;
 
   # Test some cross builds to the Sheevaplug
-  crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug (
-    linuxCommon // { ubootSheevaplug = nativePlatforms; }
-  );
+  crossSheevaplugLinux = mapTestOnCross lib.systems.examples.sheevaplug (linuxCommon // { ubootSheevaplug = nativePlatforms; });
 
   # Test some cross builds on 32 bit mingw-w64
   crossMingw32 = mapTestOnCross lib.systems.examples.mingw32 windowsCommon;
@@ -245,8 +243,7 @@ in
     let
       tools = import ../stdenv/linux/make-bootstrap-tools-cross.nix { system = "x86_64-linux"; };
       maintainers = [ lib.maintainers.dezgeg ];
-      mkBootstrapToolsJob =
-        drv: assert lib.elem drv.system supportedSystems; hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
+      mkBootstrapToolsJob = drv: assert lib.elem drv.system supportedSystems; hydraJob' (lib.addMetaAttrs { inherit maintainers; } drv);
     in
     lib.mapAttrsRecursiveCond (as: !lib.isDerivation as) (name: mkBootstrapToolsJob)
       # The `bootstrapTools.${platform}.bootstrapTools` derivation

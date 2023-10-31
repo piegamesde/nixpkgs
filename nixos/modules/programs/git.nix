@@ -85,9 +85,7 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       environment.systemPackages = [ cfg.package ];
-      environment.etc.gitconfig = mkIf (cfg.config != [ ]) {
-        text = concatMapStringsSep "\n" generators.toGitINI cfg.config;
-      };
+      environment.etc.gitconfig = mkIf (cfg.config != [ ]) { text = concatMapStringsSep "\n" generators.toGitINI cfg.config; };
     })
     (mkIf (cfg.enable && cfg.lfs.enable) {
       environment.systemPackages = [ cfg.lfs.package ];

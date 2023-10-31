@@ -45,9 +45,7 @@ in
           metrics_endpoint = cfg.metricsEndpoint;
         };
       };
-      completeConfig = pkgs.writeText "nginxlog-exporter.yaml" (
-        builtins.toJSON (lib.recursiveUpdate listenConfig cfg.settings)
-      );
+      completeConfig = pkgs.writeText "nginxlog-exporter.yaml" (builtins.toJSON (lib.recursiveUpdate listenConfig cfg.settings));
     in
     {
       serviceConfig = {

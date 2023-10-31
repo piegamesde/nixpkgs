@@ -289,8 +289,7 @@ in
           let
             sshDir = "${cfg.dataDir}/.ssh";
             tagStr =
-              name: value:
-              if lib.isList value then lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value) else "${name}=${value}";
+              name: value: if lib.isList value then lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value) else "${name}=${value}";
             tagsStr = lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
           in
           optionalString (cfg.privateSshKeyPath != null) ''

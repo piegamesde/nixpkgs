@@ -18,9 +18,7 @@ let
       # Apps
       coreaction = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreaction { inherit libcprime libcsys; };
 
-      corearchiver = libsForQt5.callPackage ../applications/misc/cubocore-packages/corearchiver {
-        inherit libcprime libcsys;
-      };
+      corearchiver = libsForQt5.callPackage ../applications/misc/cubocore-packages/corearchiver { inherit libcprime libcsys; };
 
       corefm = libsForQt5.callPackage ../applications/misc/cubocore-packages/corefm { inherit libcprime libcsys; };
 
@@ -32,9 +30,7 @@ let
 
       coreinfo = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreinfo { inherit libcprime libcsys; };
 
-      corekeyboard = libsForQt5.callPackage ../applications/misc/cubocore-packages/corekeyboard {
-        inherit libcprime libcsys;
-      };
+      corekeyboard = libsForQt5.callPackage ../applications/misc/cubocore-packages/corekeyboard { inherit libcprime libcsys; };
 
       corepad = libsForQt5.callPackage ../applications/misc/cubocore-packages/corepad { inherit libcprime libcsys; };
 
@@ -59,13 +55,9 @@ let
 
       coretime = libsForQt5.callPackage ../applications/misc/cubocore-packages/coretime { inherit libcprime libcsys; };
 
-      coretoppings = libsForQt5.callPackage ../applications/misc/cubocore-packages/coretoppings {
-        inherit libcprime libcsys;
-      };
+      coretoppings = libsForQt5.callPackage ../applications/misc/cubocore-packages/coretoppings { inherit libcprime libcsys; };
 
-      coreuniverse = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreuniverse {
-        inherit libcprime libcsys;
-      };
+      coreuniverse = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreuniverse { inherit libcprime libcsys; };
     };
 in
 lib.makeScope newScope packages

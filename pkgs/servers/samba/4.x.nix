@@ -185,9 +185,7 @@ stdenv.mkDerivation rec {
       "--without-ldap"
       "--without-ads"
     ]
-    ++ optionals (!enableLDAP && stdenv.isLinux) [
-      "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb"
-    ]
+    ++ optionals (!enableLDAP && stdenv.isLinux) [ "--bundled-libraries=!ldb,!pyldb-util!talloc,!pytalloc-util,!tevent,!tdb,!pytdb" ]
     ++ optional enableLibunwind "--with-libunwind"
     ++ optional enableProfiling "--with-profiling-data"
     ++ optional (!enableAcl) "--without-acl-support"

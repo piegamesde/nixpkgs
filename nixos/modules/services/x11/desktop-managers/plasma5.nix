@@ -555,8 +555,7 @@ in
         }
         {
           # The user interface breaks without pulse
-          assertion =
-            config.hardware.pulseaudio.enable || (config.services.pipewire.enable && config.services.pipewire.pulse.enable);
+          assertion = config.hardware.pulseaudio.enable || (config.services.pipewire.enable && config.services.pipewire.pulse.enable);
           message = "Plasma Mobile requires pulseaudio.";
         }
       ];

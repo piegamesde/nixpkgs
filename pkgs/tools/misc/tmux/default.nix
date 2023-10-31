@@ -55,9 +55,7 @@ stdenv.mkDerivation rec {
       ncurses
       libevent
     ]
-    ++ lib.optionals withSystemd [ systemd ]
-    ++ lib.optionals withUtf8proc [ utf8proc ]
-    ++ lib.optionals withUtempter [ libutempter ];
+    ++ lib.optionals withSystemd [ systemd ] ++ lib.optionals withUtf8proc [ utf8proc ] ++ lib.optionals withUtempter [ libutempter ];
 
   configureFlags =
     [

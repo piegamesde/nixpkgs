@@ -79,22 +79,18 @@ assert (eri3Deriv >= 0 && eri3Deriv <= 4);
 
 # Ensure valid arguments for generated angular momenta in ERI derivatives are used.
 assert (
-  builtins.length eriAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriAm)
+  builtins.length eriAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriAm)
 );
 assert (
-  builtins.length eri3Am == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3Am)
+  builtins.length eri3Am == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3Am)
 );
 assert (
-  builtins.length eri2Am == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2Am)
+  builtins.length eri2Am == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2Am)
 );
 
 # Ensure valid arguments for generated angular momenta in optimised ERI derivatives are used.
 assert (
-  builtins.length eriOptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriOptAm)
+  builtins.length eriOptAm == eriDeriv + 1 && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriOptAm)
 );
 assert (
   builtins.length eri3OptAm == eriDeriv + 1
@@ -246,8 +242,7 @@ let
     # Fortran interface is incompatible with changing the LIBINT2_REALTYPE.
     cmakeFlags =
       [ "-DLIBINT2_SHGAUSS_ORDERING=${shGaussOrd}" ]
-      ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON"
-      ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
+      ++ lib.optional enableFortran "-DENABLE_FORTRAN=ON" ++ lib.optional enableSSE "-DLIBINT2_REALTYPE=libint2::simd::VectorSSEDouble";
 
     # Can only build in the source-tree. A lot of preprocessing magic fails otherwise.
     dontUseCmakeBuildDir = true;

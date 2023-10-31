@@ -179,10 +179,7 @@ in
       serviceConfig =
         let
           importMode =
-            if cfg.minLedger != null && cfg.maxLedger != null then
-              "${toString cfg.minLedger} ${toString cfg.maxLedger}"
-            else
-              cfg.importMode;
+            if cfg.minLedger != null && cfg.maxLedger != null then "${toString cfg.minLedger} ${toString cfg.maxLedger}" else cfg.importMode;
         in
         {
           ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";

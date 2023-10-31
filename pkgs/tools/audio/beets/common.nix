@@ -157,9 +157,7 @@ python3Packages.buildPythonApplication rec {
     ]
     ++ pluginWrapperBins;
 
-  disabledTestPaths = lib.flatten (
-    attrValues (lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ]) disabledPlugins)
-  );
+  disabledTestPaths = lib.flatten (attrValues (lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ]) disabledPlugins));
 
   checkPhase = ''
     runHook preCheck

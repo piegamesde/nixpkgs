@@ -33,10 +33,7 @@ assert forceWayland -> !enableQt;
 stdenv.mkDerivation (
   finalAttrs: {
     pname =
-      "ppsspp"
-      + lib.optionalString enableQt "-qt"
-      + lib.optionalString (!enableQt) "-sdl"
-      + lib.optionalString forceWayland "-wayland";
+      "ppsspp" + lib.optionalString enableQt "-qt" + lib.optionalString (!enableQt) "-sdl" + lib.optionalString forceWayland "-wayland";
     version = "1.14.4";
 
     src = fetchFromGitHub {
@@ -138,8 +135,7 @@ stdenv.mkDerivation (
 
     meta = {
       homepage = "https://www.ppsspp.org/";
-      description =
-        "A HLE Playstation Portable emulator, written in C++ (" + (if enableQt then "Qt" else "SDL + headless") + ")";
+      description = "A HLE Playstation Portable emulator, written in C++ (" + (if enableQt then "Qt" else "SDL + headless") + ")";
       license = lib.licenses.gpl2Plus;
       maintainers = [ lib.maintainers.AndersonTorres ];
       platforms = lib.platforms.linux;

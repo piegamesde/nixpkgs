@@ -48,9 +48,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   src = fetchurl {
-    url = "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${
-        majorMinorPatch version
-      }/lazarus-${version}.tar.gz";
+    url = "mirror://sourceforge/lazarus/Lazarus%20Zip%20_%20GZip/Lazarus%20${majorMinorPatch version}/lazarus-${version}.tar.gz";
     sha256 = "a9832004cffec8aca69de87290441d54772bf95d5d04372249d5a5491fb674c4";
   };
 

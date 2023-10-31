@@ -156,8 +156,7 @@ let
     );
 
   # Converts a license name to a list of license hashes.
-  mkLicenseHashes =
-    licenseName: builtins.map (licenseText: builtins.hashString "sha1" licenseText) (mkLicenses licenseName);
+  mkLicenseHashes = licenseName: builtins.map (licenseText: builtins.hashString "sha1" licenseText) (mkLicenses licenseName);
 
   # The list of all license names we're accepting. Put android-sdk-license there
   # by default.

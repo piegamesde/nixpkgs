@@ -191,22 +191,14 @@ in
       temurin-bin = recurseIntoAttrs (
         callPackage
           (
-            if stdenv.isLinux then
-              ../development/compilers/temurin-bin/jdk-linux.nix
-            else
-              ../development/compilers/temurin-bin/jdk-darwin.nix
+            if stdenv.isLinux then ../development/compilers/temurin-bin/jdk-linux.nix else ../development/compilers/temurin-bin/jdk-darwin.nix
           )
           { }
       );
 
       semeru-bin = recurseIntoAttrs (
         callPackage
-          (
-            if stdenv.isLinux then
-              ../development/compilers/semeru-bin/jdk-linux.nix
-            else
-              ../development/compilers/semeru-bin/jdk-darwin.nix
-          )
+          (if stdenv.isLinux then ../development/compilers/semeru-bin/jdk-linux.nix else ../development/compilers/semeru-bin/jdk-darwin.nix)
           { }
       );
     };
@@ -226,10 +218,7 @@ in
     classworlds_1_1
   ;
 
-  inherit (callPackage ../development/java-modules/apache/commons-cli.nix { inherit fetchMaven; })
-    commonsCli_1_0
-    commonsCli_1_2
-  ;
+  inherit (callPackage ../development/java-modules/apache/commons-cli.nix { inherit fetchMaven; }) commonsCli_1_0 commonsCli_1_2;
 
   inherit (callPackage ../development/java-modules/apache/commons-io.nix { inherit fetchMaven; }) commonsIo_2_1;
 
@@ -241,9 +230,7 @@ in
 
   inherit (callPackage ../development/java-modules/apache/commons-lang3.nix { inherit fetchMaven; }) commonsLang3_3_1;
 
-  inherit (callPackage ../development/java-modules/apache/commons-logging-api.nix { inherit fetchMaven; })
-    commonsLoggingApi_1_1
-  ;
+  inherit (callPackage ../development/java-modules/apache/commons-logging-api.nix { inherit fetchMaven; }) commonsLoggingApi_1_1;
 
   inherit (callPackage ../development/java-modules/findbugs/jsr305.nix { inherit fetchMaven; }) findbugsJsr305_2_0_1;
 
@@ -253,11 +240,7 @@ in
 
   inherit (callPackage ../development/java-modules/hamcrest/core.nix { inherit fetchMaven; }) hamcrestCore_1_3;
 
-  inherit (callPackage ../development/java-modules/junit { inherit mavenbuild fetchMaven; })
-    junit_3_8_1
-    junit_3_8_2
-    junit_4_12
-  ;
+  inherit (callPackage ../development/java-modules/junit { inherit mavenbuild fetchMaven; }) junit_3_8_1 junit_3_8_2 junit_4_12;
 
   inherit (callPackage ../development/java-modules/jogl { }) jogl_2_3_2;
 
@@ -296,9 +279,7 @@ in
     mavenCore_2_2_1
   ;
 
-  inherit (callPackage ../development/java-modules/maven/dependency-tree.nix { inherit fetchMaven; })
-    mavenDependencyTree_2_1
-  ;
+  inherit (callPackage ../development/java-modules/maven/dependency-tree.nix { inherit fetchMaven; }) mavenDependencyTree_2_1;
 
   inherit (callPackage ../development/java-modules/maven/doxia-sink-api.nix { inherit fetchMaven; })
     mavenDoxiaSinkApi_1_0_alpha6
@@ -411,9 +392,7 @@ in
     mavenSettings_2_2_1
   ;
 
-  inherit (callPackage ../development/java-modules/maven/shared-incremental.nix { inherit fetchMaven; })
-    mavenSharedIncremental_1_1
-  ;
+  inherit (callPackage ../development/java-modules/maven/shared-incremental.nix { inherit fetchMaven; }) mavenSharedIncremental_1_1;
 
   inherit (callPackage ../development/java-modules/maven/shared-utils.nix { inherit fetchMaven; }) mavenSharedUtils_0_1;
 
@@ -432,9 +411,7 @@ in
     mavenSurefireCommon_2_17
   ;
 
-  inherit (callPackage ../development/java-modules/maven/surefire-junit4.nix { inherit fetchMaven; })
-    mavenSurefireJunit4_2_12_4
-  ;
+  inherit (callPackage ../development/java-modules/maven/surefire-junit4.nix { inherit fetchMaven; }) mavenSurefireJunit4_2_12_4;
 
   inherit (callPackage ../development/java-modules/maven/toolchain.nix { inherit fetchMaven; })
     mavenToolchain_1_0
@@ -442,9 +419,7 @@ in
     mavenToolchain_2_2_1
   ;
 
-  inherit (callPackage ../development/java-modules/mojo/animal-sniffer.nix { inherit fetchMaven; })
-    mojoAnimalSniffer_1_11
-  ;
+  inherit (callPackage ../development/java-modules/mojo/animal-sniffer.nix { inherit fetchMaven; }) mojoAnimalSniffer_1_11;
 
   inherit (callPackage ../development/java-modules/mojo/java-boot-classpath-detector.nix { inherit fetchMaven; })
     mojoJavaBootClasspathDetector_1_11

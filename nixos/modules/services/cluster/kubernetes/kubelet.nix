@@ -21,9 +21,7 @@ let
     else
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
-        paths =
-          imap (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry))
-            cfg.cni.config;
+        paths = imap (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)) cfg.cni.config;
       });
 
   infraContainer = pkgs.dockerTools.buildImage {
@@ -280,9 +278,7 @@ in
     };
 
     unschedulable = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to set node taint to unschedulable=true as it is the case of node that has only master role.";
+      description = lib.mdDoc "Whether to set node taint to unschedulable=true as it is the case of node that has only master role.";
       default = false;
       type = bool;
     };

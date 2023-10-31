@@ -271,9 +271,7 @@ self: super:
     }
   );
 
-  cmp-nvim-lsp-signature-help = super.cmp-nvim-lsp-signature-help.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-nvim-lsp-signature-help = super.cmp-nvim-lsp-signature-help.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
   cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
@@ -385,9 +383,7 @@ self: super:
     }
   );
 
-  compiler-explorer-nvim = super.compiler-explorer-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  compiler-explorer-nvim = super.compiler-explorer-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   completion-buffers = super.completion-buffers.overrideAttrs (old: { dependencies = with self; [ completion-nvim ]; });
 
@@ -753,9 +749,9 @@ self: super:
     old:
     let
       # We only need its dependencies `node-modules`.
-      nodeDep =
-        nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs
-          (old: { dontNpmInstall = true; });
+      nodeDep = nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs (
+        old: { dontNpmInstall = true; }
+      );
     in
     {
       patches = [
@@ -785,9 +781,7 @@ self: super:
     }
   );
 
-  mason-tool-installer-nvim = super.mason-tool-installer-nvim.overrideAttrs (
-    old: { dependencies = with self; [ mason-nvim ]; }
-  );
+  mason-tool-installer-nvim = super.mason-tool-installer-nvim.overrideAttrs (old: { dependencies = with self; [ mason-nvim ]; });
 
   meson = buildVimPluginFrom2Nix {
     inherit (meson) pname version src;
@@ -903,9 +897,7 @@ self: super:
     }
   );
 
-  orgmode = super.orgmode.overrideAttrs (
-    old: { dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ]; }
-  );
+  orgmode = super.orgmode.overrideAttrs (old: { dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ]; });
 
   inherit parinfer-rust;
 
@@ -945,9 +937,7 @@ self: super:
     }
   );
 
-  range-highlight-nvim = super.range-highlight-nvim.overrideAttrs (
-    old: { dependencies = with self; [ cmd-parser-nvim ]; }
-  );
+  range-highlight-nvim = super.range-highlight-nvim.overrideAttrs (old: { dependencies = with self; [ cmd-parser-nvim ]; });
 
   refactoring-nvim = super.refactoring-nvim.overrideAttrs (
     old: {
@@ -1217,9 +1207,7 @@ self: super:
 
   telescope-nvim = super.telescope-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
-  telescope-symbols-nvim = super.telescope-symbols-nvim.overrideAttrs (
-    old: { dependencies = with self; [ telescope-nvim ]; }
-  );
+  telescope-symbols-nvim = super.telescope-symbols-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-nvim ]; });
 
   telescope-undo-nvim = super.telescope-undo-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-nvim ]; });
 

@@ -348,9 +348,7 @@ let
                 }
 
                 if [ ! -z "$k_user" ]; then
-                    k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
-                      toString dev.yubikey.keyLength
-                    } $iterations $response | rbtohex)"
+                    k_luks="$(echo -n $k_user | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
                 else
                     k_luks="$(echo | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $iterations $response | rbtohex)"
                 fi
@@ -398,9 +396,7 @@ let
             new_response="$(ykchalresp -${toString dev.yubikey.slot} -x $new_challenge 2>/dev/null)"
 
             if [ ! -z "$k_user" ]; then
-                new_k_luks="$(echo -n $k_user | pbkdf2-sha512 ${
-                  toString dev.yubikey.keyLength
-                } $new_iterations $new_response | rbtohex)"
+                new_k_luks="$(echo -n $k_user | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $new_iterations $new_response | rbtohex)"
             else
                 new_k_luks="$(echo | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $new_iterations $new_response | rbtohex)"
             fi
@@ -862,9 +858,7 @@ in
 
                   credentials = mkOption {
                     default = [ ];
-                    example = [
-                      "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2"
-                    ];
+                    example = [ "f1d00200d8dc783f7fb1e10ace8da27f8312d72692abfca2f7e4960a73f48e82e1f7571f6ebfcee9fb434f9886ccc8fcc52a6614d8d2" ];
                     type = types.listOf types.str;
                     description = lib.mdDoc ''
                       List of FIDO2 credential IDs.
@@ -1059,8 +1053,7 @@ in
       }
 
       {
-        assertion =
-          any (dev: dev.bypassWorkqueues) (attrValues luks.devices) -> versionAtLeast kernelPackages.kernel.version "5.9";
+        assertion = any (dev: dev.bypassWorkqueues) (attrValues luks.devices) -> versionAtLeast kernelPackages.kernel.version "5.9";
         message = "boot.initrd.luks.devices.<name>.bypassWorkqueues is not supported for kernels older than 5.9";
       }
 
@@ -1083,8 +1076,7 @@ in
       }
       {
         assertion =
-          config.boot.initrd.systemd.enable
-          -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (attrValues luks.devices);
+          config.boot.initrd.systemd.enable -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
       # TODO

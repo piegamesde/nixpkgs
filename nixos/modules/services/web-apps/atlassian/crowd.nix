@@ -17,18 +17,14 @@ let
       port = cfg.listenPort;
       openidPassword = cfg.openidPassword;
     }
-    // (optionalAttrs cfg.proxy.enable {
-      proxyUrl = "${cfg.proxy.scheme}://${cfg.proxy.name}:${toString cfg.proxy.port}";
-    });
+    // (optionalAttrs cfg.proxy.enable { proxyUrl = "${cfg.proxy.scheme}://${cfg.proxy.name}:${toString cfg.proxy.port}"; });
 
   crowdPropertiesFile = pkgs.writeText "crowd.properties" ''
     application.name                        crowd-openid-server
     application.password @NIXOS_CROWD_OPENID_PW@
     application.base.url                    http://localhost:${toString cfg.listenPort}/openidserver
     application.login.url                   http://localhost:${toString cfg.listenPort}/openidserver
-    application.login.url.template          http://localhost:${
-      toString cfg.listenPort
-    }/openidserver?returnToUrl=''${RETURN_TO_URL}
+    application.login.url.template          http://localhost:${toString cfg.listenPort}/openidserver?returnToUrl=''${RETURN_TO_URL}
 
     crowd.server.url                        http://localhost:${toString cfg.listenPort}/crowd/services/
 

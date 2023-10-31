@@ -551,9 +551,7 @@ in
 
         "systemd/system.conf".text = ''
           [Manager]
-          ManagerEnvironment=${
-            lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment)
-          }
+          ManagerEnvironment=${lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment)}
           ${optionalString config.systemd.enableCgroupAccounting ''
             DefaultCPUAccounting=yes
             DefaultIOAccounting=yes

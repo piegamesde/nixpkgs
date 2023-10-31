@@ -133,27 +133,24 @@ stdenv.mkDerivation rec {
     ];
   };
 
-  gnFlags =
-    [
-      "use_custom_libcxx=false"
-      "is_clang=${lib.boolToString stdenv.cc.isClang}"
-      "use_sysroot=false"
-      # "use_system_icu=true"
-      "clang_use_chrome_plugins=false"
-      "is_component_build=false"
-      "v8_use_external_startup_data=false"
-      "v8_monolithic=true"
-      "is_debug=true"
-      "is_official_build=false"
-      "treat_warnings_as_errors=false"
-      "v8_enable_i18n_support=true"
-      "use_gold=false"
-      # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
-      ''host_toolchain="//build/toolchain/linux/unbundle:default"''
-      ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
-    ]
-    ++ lib.optional stdenv.cc.isClang ''clang_base_path="${llvmCcAndBintools}"''
-    ++ lib.optional stdenv.isDarwin "use_lld=false";
+  gnFlags = [
+    "use_custom_libcxx=false"
+    "is_clang=${lib.boolToString stdenv.cc.isClang}"
+    "use_sysroot=false"
+    # "use_system_icu=true"
+    "clang_use_chrome_plugins=false"
+    "is_component_build=false"
+    "v8_use_external_startup_data=false"
+    "v8_monolithic=true"
+    "is_debug=true"
+    "is_official_build=false"
+    "treat_warnings_as_errors=false"
+    "v8_enable_i18n_support=true"
+    "use_gold=false"
+    # ''custom_toolchain="//build/toolchain/linux/unbundle:default"''
+    ''host_toolchain="//build/toolchain/linux/unbundle:default"''
+    ''v8_snapshot_toolchain="//build/toolchain/linux/unbundle:default"''
+  ] ++ lib.optional stdenv.cc.isClang ''clang_base_path="${llvmCcAndBintools}"'' ++ lib.optional stdenv.isDarwin "use_lld=false";
 
   env.NIX_CFLAGS_COMPILE = "-O2";
   FORCE_MAC_SDK_MIN = stdenv.targetPlatform.sdkVer or "10.12";

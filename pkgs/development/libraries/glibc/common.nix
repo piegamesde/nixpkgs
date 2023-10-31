@@ -161,9 +161,7 @@ stdenv.mkDerivation (
         "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
       ]
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        (lib.flip lib.withFeature "fp" (
-          stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
-        ))
+        (lib.flip lib.withFeature "fp" (stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"))
         "--with-__thread"
       ]
       ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform && stdenv.hostPlatform.isAarch32) [
@@ -247,8 +245,7 @@ stdenv.mkDerivation (
           configureScript="`pwd`/../$sourceRoot/configure"
 
           ${lib.optionalString (stdenv.cc.libc != null)
-            ''
-              makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib OBJDUMP=${stdenv.cc.bintools.bintools}/bin/objdump"''}
+            ''makeFlags="$makeFlags BUILD_LDFLAGS=-Wl,-rpath,${stdenv.cc.libc}/lib OBJDUMP=${stdenv.cc.bintools.bintools}/bin/objdump"''}
 
 
         ''

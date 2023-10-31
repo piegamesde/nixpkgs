@@ -67,15 +67,13 @@
 with builtins;
 
 assert goPackagePath != "" -> throw "`goPackagePath` is not needed with `buildGoModule`";
-assert (vendorSha256 == "_unset" && vendorHash == "_unset")
-  -> throw "either `vendorHash` or `vendorSha256` is required";
+assert (vendorSha256 == "_unset" && vendorHash == "_unset") -> throw "either `vendorHash` or `vendorSha256` is required";
 assert (vendorSha256 != "_unset" && vendorHash != "_unset")
   -> throw "both `vendorHash` and `vendorSha256` set. only one can be set.";
 
 let
   hasAnyVendorHash = (vendorSha256 != null && vendorSha256 != "_unset") || (vendorHash != null && vendorHash != "_unset");
-  vendorHashType =
-    if hasAnyVendorHash then if vendorSha256 != null && vendorSha256 != "_unset" then "sha256" else "sri" else null;
+  vendorHashType = if hasAnyVendorHash then if vendorSha256 != null && vendorSha256 != "_unset" then "sha256" else "sri" else null;
 
   args = removeAttrs args' [
     "overrideModAttrs"

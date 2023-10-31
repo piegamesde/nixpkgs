@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
       include <abstractions/base>
       include <abstractions/consoles>
       include <abstractions/nameservice>
-      include "${
-        apparmorRulesFromClosure { name = "ping"; } ([ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2)
-      }"
+      include "${apparmorRulesFromClosure { name = "ping"; } ([ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2)}"
       include <local/bin.ping>
       capability net_raw,
       network inet raw,

@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
   # Desktop file from Debian
   postInstall = ''
     mkdir -p $out/etc/xdg/autostart
-    substituteAll ${
-      ./polkit-gnome-authentication-agent-1.desktop
-    } $out/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
+    substituteAll ${./polkit-gnome-authentication-agent-1.desktop} $out/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
   '';
 
   meta = {

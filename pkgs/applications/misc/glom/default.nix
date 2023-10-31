@@ -116,9 +116,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags = [
-    "--with-boost-python=boost_python${lib.versions.major python3.version}${lib.versions.minor python3.version}"
-  ];
+  configureFlags = [ "--with-boost-python=boost_python${lib.versions.major python3.version}${lib.versions.minor python3.version}" ];
 
   makeFlags = [
     "libdocdir=${placeholder "doc"}/share/doc/$(book_name)"

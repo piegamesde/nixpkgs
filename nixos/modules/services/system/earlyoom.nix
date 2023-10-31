@@ -182,8 +182,7 @@ in
           [
             "${pkgs.earlyoom}/bin/earlyoom"
             (
-              "-m ${toString cfg.freeMemThreshold}"
-              + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}"
+              "-m ${toString cfg.freeMemThreshold}" + optionalString (cfg.freeMemKillThreshold != null) ",${toString cfg.freeMemKillThreshold}"
             )
             (
               "-s ${toString cfg.freeSwapThreshold}"

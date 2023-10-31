@@ -36,11 +36,7 @@ in
 
 stdenv.mkDerivation {
   inherit pname version;
-  src =
-    if (builtins.elem system platforms) then
-      sources.${system}
-    else
-      throw "Source for ${pname} is not available for ${system}";
+  src = if (builtins.elem system platforms) then sources.${system} else throw "Source for ${pname} is not available for ${system}";
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 

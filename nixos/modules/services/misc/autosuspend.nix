@@ -29,8 +29,7 @@ let
   wakeups = mapAttrs' (n: v: nameValuePair "wakeup.${n}" (filterAttrs (_: v: v != null) v)) cfg.wakeups;
 
   # Whether the given check is enabled
-  hasCheck =
-    class: (filterAttrs (n: v: v.enabled && (if v.class == null then n else v.class) == class) cfg.checks) != { };
+  hasCheck = class: (filterAttrs (n: v: v.enabled && (if v.class == null then n else v.class) == class) cfg.checks) != { };
 
   # Dependencies needed by specific checks
   dependenciesForChecks = {

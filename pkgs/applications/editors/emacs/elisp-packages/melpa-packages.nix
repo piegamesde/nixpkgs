@@ -24,11 +24,7 @@
 variant: self:
 let
   dontConfigure =
-    pkg:
-    if pkg != null then
-      pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); })
-    else
-      null;
+    pkg: if pkg != null then pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); }) else null;
 
   markBroken =
     pkg:
@@ -70,8 +66,7 @@ let
     else
       null;
 
-  buildWithGit =
-    pkg: pkg.overrideAttrs (attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; });
+  buildWithGit = pkg: pkg.overrideAttrs (attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; });
 
   fix-rtags = pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 
@@ -572,9 +567,7 @@ let
             }
           );
 
-          vdiff-magit = super.vdiff-magit.overrideAttrs (
-            attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
-          );
+          vdiff-magit = super.vdiff-magit.overrideAttrs (attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; });
 
           zmq = super.zmq.overrideAttrs (
             old: {

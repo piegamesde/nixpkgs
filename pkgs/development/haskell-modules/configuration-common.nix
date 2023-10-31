@@ -472,8 +472,7 @@ self: super:
 
   # 2023-01-29: Restrictive base bound already loosened on master but not released: https://github.com/sebastiaanvisser/clay/commit/4483bdf7a452903f177220958f1610030ab7f28a
   clay =
-    throwIfNot (super.clay.version == "0.14.0")
-      "Remove clay jailbreak in configuration-common.nix when you see this eval error."
+    throwIfNot (super.clay.version == "0.14.0") "Remove clay jailbreak in configuration-common.nix when you see this eval error."
       (doJailbreak super.clay);
 
   # These packages try to execute non-existent external programs.
@@ -1979,9 +1978,7 @@ self: super:
   hspec-discover_2_11_0 = doDistribute (super.hspec-discover_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; });
   # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
   # is overlayed to hspec-core.
-  hspec-core_2_11_0 = doDistribute (
-    dontCheck (super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; })
-  );
+  hspec-core_2_11_0 = doDistribute (dontCheck (super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; }));
 
   # Point hspec 2.7.10 to correct dependencies
   hspec_2_7_10 = super.hspec_2_7_10.override {
@@ -2973,8 +2970,7 @@ self: super:
   webauthn = dontCheck super.webauthn;
 
   # Too strict lower bound on hspec
-  wai-token-bucket-ratelimiter =
-    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.wai-token-bucket-ratelimiter;
+  wai-token-bucket-ratelimiter = assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.wai-token-bucket-ratelimiter;
 
   # doctest <0.19
   polysemy = doJailbreak super.polysemy;

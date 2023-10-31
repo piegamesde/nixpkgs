@@ -143,10 +143,8 @@ makeSetupHook
               tested = typelib-user;
             in
             testLib.runTest "typelib-user-has-gi-typelib-path" ''
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
-                "${typelib-Mahjong}/lib/girepository-1.0"}
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
-                "${typelib-Mahjong}/lib/girepository-1.0"}
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH" "${typelib-Mahjong}/lib/girepository-1.0"}
             '';
 
           # Simple derivation containing a gobject-introspection typelib in lib output.
@@ -197,8 +195,7 @@ makeSetupHook
               tested = typelib-multiout-user;
             in
             testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
-                "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH" "${typelib-Bechamel.lib}/lib/girepository-1.0"}
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
                 "${typelib-Bechamel.lib}/lib/girepository-1.0"}
             '';
@@ -232,8 +229,7 @@ makeSetupHook
               tested = typelib-self-user;
             in
             testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
-              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
-                "${typelib-self-user}/lib/girepository-1.0"}
+              ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH" "${typelib-self-user}/lib/girepository-1.0"}
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
                 "${typelib-self-user}/lib/girepository-1.0"}
             '';

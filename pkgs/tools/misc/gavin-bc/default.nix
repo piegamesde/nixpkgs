@@ -33,8 +33,7 @@ stdenv.mkDerivation (
       hash = "sha256-V0L5OmpcI0Zu5JvESjuhp4wEs5Bu/CvjF6B5WllTEqo=";
     };
 
-    buildInputs =
-      (lib.optional (historyType == "editline") editline) ++ (lib.optional (historyType == "readline") readline);
+    buildInputs = (lib.optional (historyType == "editline") editline) ++ (lib.optional (historyType == "readline") readline);
 
     configureFlags =
       [ "--disable-nls" ]

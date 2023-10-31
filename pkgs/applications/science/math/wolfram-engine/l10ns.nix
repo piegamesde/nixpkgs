@@ -57,8 +57,7 @@ let
         }
       );
   minVersion =
-    with lib;
-    if majorVersion == null then elemAt (builtins.splitVersion (elemAt allVersions 0).version) 0 else majorVersion;
+    with lib; if majorVersion == null then elemAt (builtins.splitVersion (elemAt allVersions 0).version) 0 else majorVersion;
   maxVersion = toString (1 + builtins.fromJSON minVersion);
 in
 with lib;

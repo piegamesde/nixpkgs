@@ -25,12 +25,7 @@ let
         # use OpenSSL 1.1 for RC4 Nextcloud encryption if user
         # has acknowledged the brokenness of the ciphers (RC4).
         # TODO: remove when https://github.com/nextcloud/server/issues/32003 is fixed.
-        ++ (
-          if cfg.enableBrokenCiphersForSSE then
-            [ cfg.phpPackage.extensions.openssl-legacy ]
-          else
-            [ cfg.phpPackage.extensions.openssl ]
-        )
+        ++ (if cfg.enableBrokenCiphersForSSE then [ cfg.phpPackage.extensions.openssl-legacy ] else [ cfg.phpPackage.extensions.openssl ])
         ++ optional cfg.enableImagemagick imagick
         # Optionally enabled depending on caching settings
         ++ optional cfg.caching.apcu apcu
@@ -920,9 +915,7 @@ in
                 }
                 $CONFIG = [
                   'apps_paths' => [
-                    ${
-                      optionalString (cfg.extraApps != { }) "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
-                    }
+                    ${optionalString (cfg.extraApps != { }) "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"}
                     [ 'path' => '${cfg.home}/apps', 'url' => '/apps', 'writable' => false ],
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],
                   ],

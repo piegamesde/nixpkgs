@@ -39,11 +39,9 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  cmakeFlags =
-    [ "-DLLD_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/lld" ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen"
-    ];
+  cmakeFlags = [
+    "-DLLD_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/lld"
+  ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "-DLLVM_TABLEGEN_EXE=${buildLlvmTools.llvm}/bin/llvm-tblgen" ];
 
   # Musl's default stack size is too small for lld to be able to link Firefox.
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-Wl,-z,stack-size=2097152";

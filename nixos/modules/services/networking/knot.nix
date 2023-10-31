@@ -101,9 +101,7 @@ in
 
       serviceConfig = {
         Type = "notify";
-        ExecStart = "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${
-            concatStringsSep " " cfg.extraArgs
-          }";
+        ExecStart = "${cfg.package}/bin/knotd --config=${configFile} --socket=${socketFile} ${concatStringsSep " " cfg.extraArgs}";
         ExecReload = "${knot-cli-wrappers}/bin/knotc reload";
         User = "knot";
         Group = "knot";

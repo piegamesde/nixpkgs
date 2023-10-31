@@ -31,13 +31,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs =
-    [
-      swig
-      pkg-config
-      libtool
-    ]
-    ++ lib.optionals pythonBindings [ python3 ] ++ lib.optionals tclBindings [ tcl ] ++ lib.optionals perlBindings [ perl ];
+  nativeBuildInputs = [
+    swig
+    pkg-config
+    libtool
+  ] ++ lib.optionals pythonBindings [ python3 ] ++ lib.optionals tclBindings [ tcl ] ++ lib.optionals perlBindings [ perl ];
 
   buildInputs =
     [

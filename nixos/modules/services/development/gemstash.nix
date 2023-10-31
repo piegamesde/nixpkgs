@@ -53,9 +53,7 @@ in
           base_path = mkOption {
             type = types.path;
             default = "/var/lib/gemstash";
-            description =
-              lib.mdDoc
-                "Path to store the gem files and the sqlite database. If left unchanged, the directory will be created.";
+            description = lib.mdDoc "Path to store the gem files and the sqlite database. If left unchanged, the directory will be created.";
           };
           bind = mkOption {
             type = types.str;
@@ -72,9 +70,7 @@ in
               ]
             );
             default = null;
-            description =
-              lib.mdDoc
-                "Which database type to use. For choices other than sqlite3, the dbUrl has to be specified as well.";
+            description = lib.mdDoc "Which database type to use. For choices other than sqlite3, the dbUrl has to be specified as well.";
           };
           db_url = mkOption {
             type = types.nullOr types.str;

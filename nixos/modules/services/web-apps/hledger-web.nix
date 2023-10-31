@@ -109,8 +109,7 @@ in
     systemd.services.hledger-web =
       let
         capabilityString =
-          with cfg.capabilities;
-          concatStringsSep "," ((optional view "view") ++ (optional add "add") ++ (optional manage "manage"));
+          with cfg.capabilities; concatStringsSep "," ((optional view "view") ++ (optional add "add") ++ (optional manage "manage"));
         serverArgs =
           with cfg;
           escapeShellArgs (

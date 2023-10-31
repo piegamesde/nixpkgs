@@ -255,9 +255,7 @@ buildPythonApplication rec {
       --fish <("$out/bin/kitty" +complete setup fish2) \
       --zsh  <("$out/bin/kitty" +complete setup zsh)
 
-    terminfo_src=${
-      if stdenv.isDarwin then ''"$out/Applications/kitty.app/Contents/Resources/terminfo"'' else "$out/share/terminfo"
-    }
+    terminfo_src=${if stdenv.isDarwin then ''"$out/Applications/kitty.app/Contents/Resources/terminfo"'' else "$out/share/terminfo"}
 
     mkdir -p $terminfo/share
     mv "$terminfo_src" $terminfo/share/terminfo

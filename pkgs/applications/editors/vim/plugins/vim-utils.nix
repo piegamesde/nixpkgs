@@ -154,8 +154,7 @@ let
     drv // { dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]); };
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
-  transitiveClosure =
-    plugin: [ plugin ] ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
+  transitiveClosure = plugin: [ plugin ] ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
@@ -195,8 +194,7 @@ let
           depsOfOptionalPlugins = lib.subtractLists opt (findDependenciesRecursively opt);
           startWithDeps = findDependenciesRecursively start;
           allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
-          allPython3Dependencies =
-            ps: lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins);
+          allPython3Dependencies = ps: lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins);
           python3Env = python3.withPackages allPython3Dependencies;
 
           packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
@@ -282,9 +280,7 @@ let
 
       entries =
         [ beforePlugins ]
-        ++ lib.optional (vam != null) (
-          lib.warn "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration" vamImpl
-        )
+        ++ lib.optional (vam != null) (lib.warn "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration" vamImpl)
         ++ lib.optional (packages != null && packages != [ ]) (nativeImpl packages)
         ++ lib.optional (pathogen != null) (
           throw "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"

@@ -29,14 +29,11 @@ stdenv.mkDerivation (
     pname = "gdk-pixbuf";
     version = "2.42.10";
 
-    outputs =
-      [
-        "out"
-        "dev"
-        "man"
-      ]
-      ++ lib.optional withIntrospection "devdoc"
-      ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "installedTests";
+    outputs = [
+      "out"
+      "dev"
+      "man"
+    ] ++ lib.optional withIntrospection "devdoc" ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "installedTests";
 
     src =
       let

@@ -15,19 +15,7 @@ in
 with lib.systems.doubles;
 lib.runTests {
   testall = mseteq all (
-    linux
-    ++ darwin
-    ++ freebsd
-    ++ openbsd
-    ++ netbsd
-    ++ illumos
-    ++ wasi
-    ++ windows
-    ++ embedded
-    ++ mmix
-    ++ js
-    ++ genode
-    ++ redox
+    linux ++ darwin ++ freebsd ++ openbsd ++ netbsd ++ illumos ++ wasi ++ windows ++ embedded ++ mmix ++ js ++ genode ++ redox
   );
 
   testarm = mseteq arm [

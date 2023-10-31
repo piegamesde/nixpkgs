@@ -146,9 +146,7 @@ in
     mutualTlsClientKey = mkOption {
       default = null;
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store.";
+      description = lib.mdDoc "Mutual TLS - client key to call remote instance requiring client certs. Do not put this in nix-store.";
     };
 
     dbConfig = mkOption {

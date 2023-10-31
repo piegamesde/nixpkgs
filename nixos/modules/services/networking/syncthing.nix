@@ -633,9 +633,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.systemService && cfg.group == defaultGroup) {
-      ${defaultGroup}.gid = config.ids.gids.syncthing;
-    };
+    users.groups = mkIf (cfg.systemService && cfg.group == defaultGroup) { ${defaultGroup}.gid = config.ids.gids.syncthing; };
 
     systemd.services = {
       # upstream reference:

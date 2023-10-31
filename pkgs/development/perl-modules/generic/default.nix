@@ -39,8 +39,7 @@
   ...
 }@attrs:
 
-lib.throwIf (attrs ? name)
-  ''buildPerlPackage: `name` ("${attrs.name}") is deprecated, use `pname` and `version` instead''
+lib.throwIf (attrs ? name) ''buildPerlPackage: `name` ("${attrs.name}") is deprecated, use `pname` and `version` instead''
 
   (
     let
@@ -57,8 +56,7 @@ lib.throwIf (attrs ? name)
           builder = ./builder.sh;
 
           buildInputs = buildInputs ++ [ perl ];
-          nativeBuildInputs =
-            nativeBuildInputs ++ (if stdenv.buildPlatform != stdenv.hostPlatform then [ perl.mini ] else [ perl ]);
+          nativeBuildInputs = nativeBuildInputs ++ (if stdenv.buildPlatform != stdenv.hostPlatform then [ perl.mini ] else [ perl ]);
 
           inherit
             outputs

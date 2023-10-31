@@ -257,9 +257,7 @@ in
               cfg.xmppConfigs
           ))
           + ''
-            ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${
-              if (cfg.apis == [ ]) then "none" else concatStringsSep "," cfg.apis
-            }
+            ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${if (cfg.apis == [ ]) then "none" else concatStringsSep "," cfg.apis}
           '';
 
         serviceConfig = {

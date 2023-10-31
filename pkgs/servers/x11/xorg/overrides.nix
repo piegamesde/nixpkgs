@@ -235,12 +235,8 @@ self: super:
   libXxf86misc = super.libXxf86misc.overrideAttrs (
     attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
-  libdmx = super.libdmx.overrideAttrs (
-    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
-  );
-  libFS = super.libFS.overrideAttrs (
-    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
-  );
+  libdmx = super.libdmx.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
+  libFS = super.libFS.overrideAttrs (attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; });
   libWindowsWM = super.libWindowsWM.overrideAttrs (
     attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
@@ -1157,10 +1153,7 @@ self: super:
               mesa
             ];
             propagatedBuildInputs =
-              attrs.propagatedBuildInputs or [ ]
-              ++ [ libpciaccess ]
-              ++ commonPropagatedBuildInputs
-              ++ lib.optionals stdenv.isLinux [ udev ];
+              attrs.propagatedBuildInputs or [ ] ++ [ libpciaccess ] ++ commonPropagatedBuildInputs ++ lib.optionals stdenv.isLinux [ udev ];
             depsBuildBuild = [ buildPackages.stdenv.cc ];
             prePatch = lib.optionalString stdenv.hostPlatform.isMusl ''
               export CFLAGS+=" -D__uid_t=uid_t -D__gid_t=gid_t"
@@ -1540,6 +1533,5 @@ self: super:
       );
     mapNamesToAttrs = f: names: with lib; listToAttrs (zipListsWith nameValuePair names (map f names));
   in
-  mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
-  // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree
+  mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree
 )

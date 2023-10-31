@@ -408,8 +408,7 @@ in
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
                 fastcgi_param REDIRECT_STATUS 200;
                 fastcgi_pass unix:${config.services.phpfpm.pools."snipe-it".socket};
-                ${optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME)
-                  "fastcgi_param HTTPS on;"}
+                ${optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME) "fastcgi_param HTTPS on;"}
               '';
             };
             "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {

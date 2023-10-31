@@ -85,9 +85,7 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; }) (
-        builtins.attrNames cfg.components
-      )}
+      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; }) (builtins.attrNames cfg.components)}
     '';
   };
 
@@ -150,17 +148,13 @@ in
       };
 
       extraContainerProperties = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set providing additional container settings in addition to the default properties";
+        description = lib.mdDoc "An attribute set providing additional container settings in addition to the default properties";
         default = { };
         type = types.attrs;
       };
 
       extraContainerPaths = mkOption {
-        description =
-          lib.mdDoc
-            "A list of paths containing additional container configurations that are added to the search folders";
+        description = lib.mdDoc "A list of paths containing additional container configurations that are added to the search folders";
         default = [ ];
         type = types.listOf types.path;
       };
@@ -198,9 +192,7 @@ in
       DYSNOMIA_CONTAINERS_PATH = "${
           lib.concatMapStrings (containerPath: "${containerPath}:") cfg.extraContainerPaths
         }/etc/dysnomia/containers";
-      DYSNOMIA_MODULES_PATH = "${
-          lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths
-        }/etc/dysnomia/modules";
+      DYSNOMIA_MODULES_PATH = "${lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths}/etc/dysnomia/modules";
     };
 
     environment.systemPackages = [ cfg.package ];

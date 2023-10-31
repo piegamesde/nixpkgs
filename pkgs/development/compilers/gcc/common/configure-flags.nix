@@ -259,9 +259,7 @@ let
     ++ lib.optional disableBootstrap' "--disable-bootstrap"
 
     # Platform-specific flags
-    ++
-      lib.optional (targetPlatform == hostPlatform && targetPlatform.isx86_32)
-        "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
+    ++ lib.optional (targetPlatform == hostPlatform && targetPlatform.isx86_32) "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
     ++ lib.optional targetPlatform.isNetBSD "--disable-libssp" # Provided by libc.
     ++ lib.optionals hostPlatform.isSunOS [
       "--enable-long-long"

@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
   configurePhase = ''
     ./configure ${
       lib.escapeShellArgs (
-        [ "--make-llvm-lib" ]
-        ++ lib.optional (!debugRuntime) "--enable-release"
-        ++ lib.optional runtimeAsserts "--enable-assertions"
+        [ "--make-llvm-lib" ] ++ lib.optional (!debugRuntime) "--enable-release" ++ lib.optional runtimeAsserts "--enable-assertions"
       )
     }
 

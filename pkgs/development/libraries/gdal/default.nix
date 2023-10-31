@@ -205,9 +205,7 @@ stdenv.mkDerivation rec {
           # flaky on macos
           "test_rda_download_queue"
         ]
-    ++ lib.optionals (lib.versionOlder proj.version "8") [
-      "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
-    ];
+    ++ lib.optionals (lib.versionOlder proj.version "8") [ "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members" ];
   postCheck = ''
     popd # ../autotest
   '';

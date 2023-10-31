@@ -20,8 +20,7 @@ let
       .functor.wrapped
       0;
 
-  useSpamAssassin =
-    cfg.settings.publicinboxmda.spamcheck == "spamc" || cfg.settings.publicinboxwatch.spamcheck == "spamc";
+  useSpamAssassin = cfg.settings.publicinboxmda.spamcheck == "spamc" || cfg.settings.publicinboxwatch.spamcheck == "spamc";
 
   publicInboxDaemonOptions = proto: defaultPort: {
     args = mkOption {
@@ -453,8 +452,7 @@ in
 
       # Deliver the addresses with the public-inbox transport
       transport = concatStringsSep "\n" (
-        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address)
-          cfg.inboxes
+        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address) cfg.inboxes
       );
 
       # The public-inbox transport

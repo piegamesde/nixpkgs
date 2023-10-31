@@ -442,9 +442,7 @@ in
         "mysql.service"
         "postgresql.service"
       ];
-      reloadTriggers =
-        lib.optional (cfg.config != null) configFile
-        ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile;
+      reloadTriggers = lib.optional (cfg.config != null) configFile ++ lib.optional (cfg.lovelaceConfig != null) lovelaceConfigFile;
 
       preStart =
         let

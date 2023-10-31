@@ -123,9 +123,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ] ++ optionals cfg.stats.enable [ cfg.stats.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ] ++ optionals cfg.stats.enable [ cfg.stats.port ]; };
 
     systemd.services.distccd = {
       after = [ "network.target" ];

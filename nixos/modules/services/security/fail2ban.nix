@@ -104,9 +104,7 @@ in
 
       banaction = mkOption {
         default = if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
-        defaultText =
-          literalExpression
-            ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
+        defaultText = literalExpression ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -118,9 +116,7 @@ in
 
       banaction-allports = mkOption {
         default = if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
-        defaultText =
-          literalExpression
-            ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+        defaultText = literalExpression ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -381,8 +377,7 @@ in
       ${optionalString (cfg.bantime-increment.maxtime != null) "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
       ${optionalString (cfg.bantime-increment.factor != null) "bantime.factor = ${cfg.bantime-increment.factor}"}
       ${optionalString (cfg.bantime-increment.formula != null) "bantime.formula = ${cfg.bantime-increment.formula}"}
-      ${optionalString (cfg.bantime-increment.multipliers != null)
-        "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
+      ${optionalString (cfg.bantime-increment.multipliers != null) "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
       ${optionalString (cfg.bantime-increment.overalljails != null)
         "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
       # Miscellaneous options

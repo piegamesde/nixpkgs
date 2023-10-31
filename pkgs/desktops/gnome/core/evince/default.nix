@@ -108,13 +108,10 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  mesonFlags =
-    [
-      "-Dnautilus=false"
-      "-Dps=enabled"
-    ]
-    ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ]
-    ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ];
+  mesonFlags = [
+    "-Dnautilus=false"
+    "-Dps=enabled"
+  ] ++ lib.optionals (!withLibsecret) [ "-Dkeyring=disabled" ] ++ lib.optionals (!supportMultimedia) [ "-Dmultimedia=disabled" ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

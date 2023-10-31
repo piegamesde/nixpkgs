@@ -72,9 +72,7 @@ import ./make-test-python.nix (
         ldapBaseDN = builtins.concatStringsSep "," (map (s: "dc=" + s) (pkgs.lib.splitString "." serverDomain));
 
         # We need access to the config file in the test script.
-        filteredConfig =
-          pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null))
-            nodes.server.services.kanidm.serverSettings;
+        filteredConfig = pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null)) nodes.server.services.kanidm.serverSettings;
         serverConfigFile = (pkgs.formats.toml { }).generate "server.toml" filteredConfig;
       in
       ''

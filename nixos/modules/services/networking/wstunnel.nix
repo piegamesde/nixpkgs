@@ -11,9 +11,7 @@ let
   cfg = config.services.wstunnel;
   attrsToArgs =
     attrs:
-    utils.escapeSystemdExecArgs (
-      mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs
-    );
+    utils.escapeSystemdExecArgs (mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs);
   hostPortSubmodule = {
     options = {
       host = mkOption {
@@ -47,8 +45,7 @@ let
     };
   };
   hostPortToString = { host, port }: "${host}:${builtins.toString port}";
-  localRemoteToString =
-    { local, remote }: utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
+  localRemoteToString = { local, remote }: utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
   commonOptions = {
     enable = mkOption {
       description = mdDoc "Whether to enable this `wstunnel` instance.";
@@ -334,9 +331,7 @@ let
               ${package}/bin/wstunnel \
                 --server \
                 ${optionalString (restrictTo != null) "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"} \
-                ${
-                  optionalString (resolvedTlsCertificate != null) "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
-                } \
+                ${optionalString (resolvedTlsCertificate != null) "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"} \
                 ${optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"} \
                 ${optionalString verboseLogging "--verbose"} \
                 ${attrsToArgs extraArgs} \
@@ -380,8 +375,7 @@ let
             ${concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)} \
             ${concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)} \
             ${
-              optionalString (dynamicToRemote != null)
-                "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
+              optionalString (dynamicToRemote != null) "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
             } \
             ${optionalString udp "--udp"} \
             ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
@@ -402,10 +396,9 @@ let
         PrivateTmp = true;
         AmbientCapabilities =
           (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
-          ++ (optionals
-            ((clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote))
-            [ "CAP_NET_BIND_SERVICE" ]
-          );
+          ++ (optionals ((clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote)) [
+            "CAP_NET_BIND_SERVICE"
+          ]);
         NoNewPrivileges = true;
         RestrictNamespaces = "uts ipc pid user cgroup";
         ProtectSystem = "strict";
@@ -487,8 +480,7 @@ in
         (name: serverCfg: {
           assertion =
             !(
-              (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
-              && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
+              (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null) && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
             );
           message = ''
             services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.

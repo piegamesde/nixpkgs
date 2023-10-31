@@ -32,8 +32,7 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags =
-    [ ] ++ lib.optional preferQWebView "-DQST_BUILD_WEBKIT=1" ++ lib.optional preferNative "-DQST_BUILD_NATIVEBROWSER=1";
+  cmakeFlags = [ ] ++ lib.optional preferQWebView "-DQST_BUILD_WEBKIT=1" ++ lib.optional preferNative "-DQST_BUILD_NATIVEBROWSER=1";
 
   patches = [
     (fetchpatch {

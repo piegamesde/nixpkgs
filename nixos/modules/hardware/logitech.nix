@@ -93,8 +93,7 @@ in
       # ltunifi and solaar both provide udev rules but the most up-to-date have been split
       # out into a dedicated derivation
 
-      packages =
-        [ ] ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
+      packages = [ ] ++ lib.optional cfg.wireless.enable pkgs.logitech-udev-rules ++ lib.optional cfg.lcd.enable pkgs.g15daemon;
 
       extraRules =
         ''

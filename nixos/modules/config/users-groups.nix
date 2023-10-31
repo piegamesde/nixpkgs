@@ -64,10 +64,7 @@ let
 
         name = mkOption {
           type = types.passwdEntry types.str;
-          apply =
-            x:
-            assert (builtins.stringLength x < 32 || abort "Username '${x}' is longer than 31 characters which is not allowed!");
-            x;
+          apply = x: assert (builtins.stringLength x < 32 || abort "Username '${x}' is longer than 31 characters which is not allowed!"); x;
           description = lib.mdDoc ''
             The name of the user account. If undefined, the name of the
             attribute set will be used.
@@ -126,9 +123,7 @@ let
         group = mkOption {
           type = types.str;
           apply =
-            x:
-            assert (builtins.stringLength x < 32 || abort "Group name '${x}' is longer than 31 characters which is not allowed!");
-            x;
+            x: assert (builtins.stringLength x < 32 || abort "Group name '${x}' is longer than 31 characters which is not allowed!"); x;
           default = "";
           description = lib.mdDoc "The user's primary group.";
         };
@@ -357,12 +352,8 @@ let
         # If !mutableUsers, setting ‘initialPassword’ is equivalent to
         # setting ‘password’ (and similarly for hashed passwords).
         (mkIf (!cfg.mutableUsers && config.initialPassword != null) { password = mkDefault config.initialPassword; })
-        (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
-          hashedPassword = mkDefault config.initialHashedPassword;
-        })
-        (mkIf (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]) {
-          autoSubUidGidRange = mkDefault true;
-        })
+        (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) { hashedPassword = mkDefault config.initialHashedPassword; })
+        (mkIf (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]) { autoSubUidGidRange = mkDefault true; })
       ];
     };
 
@@ -830,9 +821,7 @@ in
             )}
           '';
           "/etc/group".text = ''
-            ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups
-            )}
+            ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups)}
           '';
         };
 

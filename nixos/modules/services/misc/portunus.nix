@@ -12,9 +12,7 @@ let
 in
 {
   options.services.portunus = {
-    enable = mkEnableOption (
-      lib.mdDoc "Portunus, a self-contained user/group management and authentication service for LDAP"
-    );
+    enable = mkEnableOption (lib.mdDoc "Portunus, a self-contained user/group management and authentication service for LDAP");
 
     domain = mkOption {
       type = types.str;

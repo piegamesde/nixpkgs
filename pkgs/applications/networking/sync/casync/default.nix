@@ -39,9 +39,7 @@ stdenv.mkDerivation {
       xz
       zstd
     ]
-    ++ lib.optionals (fuseSupport) [ fuse ]
-    ++ lib.optionals (selinuxSupport) [ libselinux ]
-    ++ lib.optionals (udevSupport) [ udev ];
+    ++ lib.optionals (fuseSupport) [ fuse ] ++ lib.optionals (selinuxSupport) [ libselinux ] ++ lib.optionals (udevSupport) [ udev ];
   nativeBuildInputs = [
     meson
     ninja

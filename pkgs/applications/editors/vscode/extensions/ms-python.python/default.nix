@@ -75,9 +75,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
     if [[ $version != ${mktplcRef.version} ]]; then
       tmp=$(mktemp)
-      curl -sLo $tmp $(echo ${
-        (import ../mktplcExtRefToFetchArgs.nix mktplcRef).url
-      } | sed "s|${mktplcRef.version}|$version|")
+      curl -sLo $tmp $(echo ${(import ../mktplcExtRefToFetchArgs.nix mktplcRef).url} | sed "s|${mktplcRef.version}|$version|")
       hash=$(nix hash file --type sha256 --base32 --sri $tmp)
       sed -i -e "s|${mktplcRef.sha256}|$hash|" -e "s|${mktplcRef.version}|$version|" pkgs/applications/editors/vscode/extensions/python/default.nix
     fi

@@ -483,19 +483,13 @@ in
                               "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                           } \
                           ${optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"} \
-                          ${
-                            optionalString (cfg.kubeletClientCaFile != null) "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
-                          } \
-                          ${
-                            optionalString (cfg.kubeletClientCertFile != null) "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
-                          } \
+                          ${optionalString (cfg.kubeletClientCaFile != null) "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"} \
+                          ${optionalString (cfg.kubeletClientCertFile != null) "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"} \
                           ${optionalString (cfg.kubeletClientKeyFile != null) "--kubelet-client-key=${cfg.kubeletClientKeyFile}"} \
                           ${
                             optionalString (cfg.preferredAddressTypes != null) "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
                           } \
-                          ${
-                            optionalString (cfg.proxyClientCertFile != null) "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
-                          } \
+                          ${optionalString (cfg.proxyClientCertFile != null) "--proxy-client-cert-file=${cfg.proxyClientCertFile}"} \
                           ${optionalString (cfg.proxyClientKeyFile != null) "--proxy-client-key-file=${cfg.proxyClientKeyFile}"} \
                           ${optionalString (cfg.runtimeConfig != "") "--runtime-config=${cfg.runtimeConfig}"} \
                           --secure-port=${toString cfg.securePort} \

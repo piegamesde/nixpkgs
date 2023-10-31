@@ -164,9 +164,7 @@ in
           reloadScript = ''
             echo "Asking Jenkins to reload config"
             curl_opts="--silent --fail --show-error"
-            access_token_file=${
-              if cfg.accessTokenFile != "" then cfg.accessTokenFile else "$RUNTIME_DIRECTORY/jenkins_access_token.txt"
-            }
+            access_token_file=${if cfg.accessTokenFile != "" then cfg.accessTokenFile else "$RUNTIME_DIRECTORY/jenkins_access_token.txt"}
             if [ "${cfg.accessToken}" != "" ]; then
                (umask 0077; printf "${cfg.accessToken}" >"$access_token_file")
             fi

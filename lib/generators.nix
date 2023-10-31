@@ -95,8 +95,7 @@ rec {
     }:
     let
       mkLine = k: v: mkKeyValue k v + "\n";
-      mkLines =
-        if listsAsDuplicateKeys then k: v: map (mkLine k) (if lib.isList v then v else [ v ]) else k: v: [ (mkLine k v) ];
+      mkLines = if listsAsDuplicateKeys then k: v: map (mkLine k) (if lib.isList v then v else [ v ]) else k: v: [ (mkLine k v) ];
     in
     attrs:
     libStr.concatStrings (lib.concatLists (libAttr.mapAttrsToList mkLines attrs));
@@ -293,8 +292,7 @@ rec {
         depth:
         if depthLimit != null && depth > depthLimit then
           if throwOnDepthLimit then
-            throw
-              "Exceeded maximum eval-depth limit of ${toString depthLimit} while trying to evaluate with `generators.withRecursion'!"
+            throw "Exceeded maximum eval-depth limit of ${toString depthLimit} while trying to evaluate with `generators.withRecursion'!"
           else
             const "<unevaluated>"
         else
@@ -401,10 +399,7 @@ rec {
         else if isPath v then
           toString v
         else if isList v then
-          if v == [ ] then
-            "[ ]"
-          else
-            "[" + introSpace + libStr.concatMapStringsSep introSpace (go (indent + "  ")) v + outroSpace + "]"
+          if v == [ ] then "[ ]" else "[" + introSpace + libStr.concatMapStringsSep introSpace (go (indent + "  ")) v + outroSpace + "]"
         else if isFunction v then
           let
             fna = lib.functionArgs v;

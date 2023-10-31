@@ -352,8 +352,7 @@ in
         oldcfg: {
           backend = "docker";
           containers =
-            lib.mapAttrs
-              (n: v: builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ])
+            lib.mapAttrs (n: v: builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ])
               oldcfg.docker-containers;
         }
       )

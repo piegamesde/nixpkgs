@@ -54,9 +54,7 @@ let
     " - option(s) with prefix `${showOption (loc ++ [ prefix ])}' in module `${decl._file}'";
   showRawDecls =
     loc: decls:
-    concatStringsSep "\n" (
-      sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls)
-    );
+    concatStringsSep "\n" (sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls));
 in
 
 rec {
@@ -113,8 +111,7 @@ rec {
     let
       withWarnings =
         x:
-        lib.warnIf (evalModulesArgs ? args)
-          "The args argument to evalModules is deprecated. Please set config._module.args instead."
+        lib.warnIf (evalModulesArgs ? args) "The args argument to evalModules is deprecated. Please set config._module.args instead."
           lib.warnIf
           (evalModulesArgs ? check)
           "The check argument to evalModules is deprecated. Please set config._module.check instead."
@@ -391,8 +388,7 @@ rec {
               }
             ];
           in
-          throw
-            "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${showDefs defs}"
+          throw "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${showDefs defs}"
         else
           unifyModuleSyntax (toString m) (toString m) (applyModuleArgsIfFunction (toString m) (import m) args);
 
@@ -608,9 +604,9 @@ rec {
         # not their values.  The values are forwarding the result of the
         # evaluation of the option.
         context = name: ''while evaluating the module argument `${name}' in "${key}":'';
-        extraArgs =
-          builtins.mapAttrs (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name}))
-            (lib.functionArgs f);
+        extraArgs = builtins.mapAttrs (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})) (
+          lib.functionArgs f
+        );
       in
       # Note: we append in the opposite order such that we can add an error
       # context on the explicit arguments of "args" too. This update
@@ -886,18 +882,13 @@ rec {
           bothHave = k: opt.options ? ${k} && res ? ${k};
         in
         if
-          bothHave "default"
-          || bothHave "example"
-          || bothHave "description"
-          || bothHave "apply"
-          || (bothHave "type" && (!typesMergeable))
+          bothHave "default" || bothHave "example" || bothHave "description" || bothHave "apply" || (bothHave "type" && (!typesMergeable))
         then
           throw "The option `${showOption loc}' in `${opt._file}' is already declared in ${showFiles res.declarations}."
         else
           let
             getSubModules = opt.options.type.getSubModules or null;
-            submodules =
-              if getSubModules != null then map (setDefaultModuleLocation opt._file) getSubModules ++ res.options else res.options;
+            submodules = if getSubModules != null then map (setDefaultModuleLocation opt._file) getSubModules ++ res.options else res.options;
           in
           opt.options
           // res
@@ -936,8 +927,7 @@ rec {
             # if they were the only definition.
             separateDefs = map (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; }) defs';
           in
-          throw
-            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${showDefs separateDefs}"
+          throw "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${showDefs separateDefs}"
         else
           mergeDefinitions loc opt.type defs';
 
@@ -1004,10 +994,7 @@ rec {
           let
             allInvalid = filter (def: !type.check def.value) defsFinal;
           in
-          throw
-            "A definition for option `${showOption loc}' is not of type `${type.description}'. Definition values:${
-              showDefs allInvalid
-            }"
+          throw "A definition for option `${showOption loc}' is not of type `${type.description}'. Definition values:${showDefs allInvalid}"
       else
         # (nixos-option detects this specific error message and gives it special
         # handling.  If changed here, please change it there too.)
@@ -1255,8 +1242,7 @@ rec {
         mkOption {
           visible = false;
           apply =
-            x:
-            throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
+            x: throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
         }
       );
       config.assertions =
@@ -1365,27 +1351,23 @@ rec {
           from
       );
 
-      config =
-        {
-          warnings = filter (x: x != "") (
-            map
-              (
-                f:
-                let
-                  val = getAttrFromPath f config;
-                  opt = getAttrFromPath f options;
-                in
-                optionalString (val != "_mkMergedOptionModule")
-                  "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
-                    showOption to
-                  }' that has a different type. Please read `${showOption to}' documentation and update your configuration accordingly."
-              )
-              from
-          );
-        }
-        // setAttrByPath to (
-          mkMerge (optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (mergeFn config))
+      config = {
+        warnings = filter (x: x != "") (
+          map
+            (
+              f:
+              let
+                val = getAttrFromPath f config;
+                opt = getAttrFromPath f options;
+              in
+              optionalString (val != "_mkMergedOptionModule")
+                "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
+                  showOption to
+                }' that has a different type. Please read `${showOption to}' documentation and update your configuration accordingly."
+            )
+            from
         );
+      } // setAttrByPath to (mkMerge (optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (mergeFn config)));
     };
 
   /* Single "from" version of mkMergedOptionModule.

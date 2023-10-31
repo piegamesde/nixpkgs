@@ -43,9 +43,7 @@ let
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
     ++ lib.flatten (
       lib.mapAttrsToList
-        (
-          feat: info: (lib.optionals ((unwrapped.hasFeature feat) && (builtins.hasAttr "pythonRuntime" info)) info.pythonRuntime)
-        )
+        (feat: info: (lib.optionals ((unwrapped.hasFeature feat) && (builtins.hasAttr "pythonRuntime" info)) info.pythonRuntime))
         unwrapped.featuresInfo
     );
   pythonEnv = unwrapped.python.withPackages (ps: pythonPkgs);

@@ -162,17 +162,13 @@ buildPythonPackage rec {
     pool = [ psycopg-pool ];
   };
 
-  nativeCheckInputs =
-    [
-      anyio
-      pproxy
-      pytest-randomly
-      pytestCheckHook
-      postgresql
-    ]
-    ++ lib.optional (stdenv.isLinux) postgresqlTestHook
-    ++ passthru.optional-dependencies.c
-    ++ passthru.optional-dependencies.pool;
+  nativeCheckInputs = [
+    anyio
+    pproxy
+    pytest-randomly
+    pytestCheckHook
+    postgresql
+  ] ++ lib.optional (stdenv.isLinux) postgresqlTestHook ++ passthru.optional-dependencies.c ++ passthru.optional-dependencies.pool;
 
   env = {
     postgresqlEnableTCP = 1;

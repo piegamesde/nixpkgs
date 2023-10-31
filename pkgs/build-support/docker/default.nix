@@ -955,9 +955,7 @@ rec {
       passthru ? { },
     }:
     assert (lib.assertMsg (maxLayers > 1)
-      "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${
-        toString maxLayers
-      })"
+      "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${toString maxLayers})"
     );
     let
       baseName = baseNameOf name;

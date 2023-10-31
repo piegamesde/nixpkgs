@@ -123,11 +123,9 @@ in
 
     virtualisation.containers.containersConf.settings = {
       network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
-      engine =
-        {
-          init_path = "${pkgs.catatonit}/bin/catatonit";
-        }
-        // lib.optionalAttrs cfg.ociSeccompBpfHook.enable { hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ]; };
+      engine = {
+        init_path = "${pkgs.catatonit}/bin/catatonit";
+      } // lib.optionalAttrs cfg.ociSeccompBpfHook.enable { hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ]; };
     };
 
     environment.etc."containers/containers.conf".source = toml.generate "containers.conf" cfg.containersConf.settings;

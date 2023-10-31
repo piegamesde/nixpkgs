@@ -120,6 +120,4 @@ let
   };
 in
 # Maps the generic function over all attributes of PostgreSQL packages
-builtins.listToAttrs (
-  map makePostgresqlWalReceiverTest (builtins.attrNames (import ../../pkgs/servers/sql/postgresql pkgs))
-)
+builtins.listToAttrs (map makePostgresqlWalReceiverTest (builtins.attrNames (import ../../pkgs/servers/sql/postgresql pkgs)))

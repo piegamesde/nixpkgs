@@ -31,10 +31,7 @@ assert monolithic || (!monolithic && (enableDaemon || client || httpServer));
 
 stdenv.mkDerivation rec {
   pname =
-    "amule"
-    + lib.optionalString httpServer "-web"
-    + lib.optionalString enableDaemon "-daemon"
-    + lib.optionalString client "-gui";
+    "amule" + lib.optionalString httpServer "-web" + lib.optionalString enableDaemon "-daemon" + lib.optionalString client "-gui";
   version = "2.3.3";
 
   src = fetchFromGitHub {

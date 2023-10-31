@@ -231,8 +231,7 @@ rec {
         in
         innerClosePropagation acc' (
           uniqList {
-            inputList =
-              (maybeAttrNullable "propagatedBuildInputs" [ ] y) ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
+            inputList = (maybeAttrNullable "propagatedBuildInputs" [ ] y) ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y) ++ ys;
             acc = acc';
           }
         );

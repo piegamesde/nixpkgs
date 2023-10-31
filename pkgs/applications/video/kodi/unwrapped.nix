@@ -207,8 +207,7 @@ let
     sha256 = "sha256-AphBQhXud+a6wm52zjzC5biz53NnqWdgpL2QDt2ZuXc=";
   };
 
-  kodi_platforms =
-    lib.optional gbmSupport "gbm" ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11";
+  kodi_platforms = lib.optional gbmSupport "gbm" ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11";
 in
 stdenv.mkDerivation {
   pname = "kodi";

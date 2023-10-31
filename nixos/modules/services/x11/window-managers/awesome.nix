@@ -12,9 +12,7 @@ let
   cfg = config.services.xserver.windowManager.awesome;
   awesome = cfg.package;
   getLuaPath = lib: dir: "${lib}/${dir}/lua/${awesome.lua.luaversion}";
-  makeSearchPath = lib.concatMapStrings (
-    path: " --search " + (getLuaPath path "share") + " --search " + (getLuaPath path "lib")
-  );
+  makeSearchPath = lib.concatMapStrings (path: " --search " + (getLuaPath path "share") + " --search " + (getLuaPath path "lib"));
 in
 
 {
@@ -44,9 +42,7 @@ in
       noArgb = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Disable client transparency support, which can be greatly detrimental to performance in some setups";
+        description = lib.mdDoc "Disable client transparency support, which can be greatly detrimental to performance in some setups";
       };
     };
   };

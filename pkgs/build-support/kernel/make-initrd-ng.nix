@@ -45,8 +45,7 @@ in
   # included for clarity, but $out/initrd will always be a symlink to
   # the final image.
   # If this isn't guessed, you may want to complete the metadata above and send a PR :)
-  extension ? _compressorMeta.extension
-    or (throw "Unrecognised compressor ${_compressorName}, please specify filename extension"),
+  extension ? _compressorMeta.extension or (throw "Unrecognised compressor ${_compressorName}, please specify filename extension"),
 
   # List of { object = path_or_derivation; symlink = "/path"; }
   # The paths are copied into the initramfs in their nix store path

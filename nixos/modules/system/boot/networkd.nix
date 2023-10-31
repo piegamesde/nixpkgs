@@ -3536,9 +3536,7 @@ let
           wantedBy = [ "network-online.target" ];
           serviceConfig.ExecStart = [
             ""
-            "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online ${
-              utils.escapeSystemdExecArgs cfg.wait-online.extraArgs
-            }"
+            "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online ${utils.escapeSystemdExecArgs cfg.wait-online.extraArgs}"
           ];
         };
 

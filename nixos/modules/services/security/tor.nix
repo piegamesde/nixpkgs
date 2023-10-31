@@ -1625,14 +1625,10 @@ in
         ];
         RuntimeDirectoryMode = "0710";
         StateDirectoryMode = "0700";
-        StateDirectory =
-          [
-            "tor"
-            "tor/onion"
-          ]
-          ++ flatten (
-            mapAttrsToList (name: onion: optional (onion.secretKey == null) "tor/onion/${name}") cfg.relay.onionServices
-          );
+        StateDirectory = [
+          "tor"
+          "tor/onion"
+        ] ++ flatten (mapAttrsToList (name: onion: optional (onion.secretKey == null) "tor/onion/${name}") cfg.relay.onionServices);
         # The following options are only to optimize:
         # systemd-analyze security tor
         RootDirectory = runDir + "/root";

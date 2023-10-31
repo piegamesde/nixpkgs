@@ -343,10 +343,7 @@ in
             ''
           );
           ExecStart =
-            "${pkgs.keepalived}/sbin/keepalived"
-            + " -f ${finalConfigFile}"
-            + " -p ${pidFile}"
-            + optionalString cfg.snmp.enable " --snmp";
+            "${pkgs.keepalived}/sbin/keepalived" + " -f ${finalConfigFile}" + " -p ${pidFile}" + optionalString cfg.snmp.enable " --snmp";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "always";
           RestartSec = "1s";

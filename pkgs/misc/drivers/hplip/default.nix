@@ -58,8 +58,7 @@ let
     aarch64-linux = "arm64";
   };
 
-  hplipArch =
-    hplipPlatforms.${stdenv.hostPlatform.system} or (throw "HPLIP not supported on ${stdenv.hostPlatform.system}");
+  hplipArch = hplipPlatforms.${stdenv.hostPlatform.system} or (throw "HPLIP not supported on ${stdenv.hostPlatform.system}");
 
   pluginArches = [
     "x86_32"
@@ -69,8 +68,7 @@ let
   ];
 in
 
-assert withPlugin
-  -> builtins.elem hplipArch pluginArches || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
+assert withPlugin -> builtins.elem hplipArch pluginArches || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";
 
 python3Packages.buildPythonApplication {
   inherit pname version src;

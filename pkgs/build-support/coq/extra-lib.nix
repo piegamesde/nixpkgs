@@ -234,6 +234,5 @@ recursiveUpdate lib (rec {
      coqPackages.QuickChick.override { version = "1.4.0"; }
      ```
   */
-  overrideCoqDerivation =
-    f: drv: (drv.override (args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }));
+  overrideCoqDerivation = f: drv: (drv.override (args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }));
 })

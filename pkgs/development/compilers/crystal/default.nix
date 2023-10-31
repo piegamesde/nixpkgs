@@ -59,13 +59,9 @@ let
     if arch == archs.aarch64-linux then
       "https://dev.alpinelinux.org/archive/crystal/crystal-${version}-aarch64-alpine-linux-musl.tar.gz"
     else if arch == archs.x86_64-darwin && lib.versionOlder version "1.2.0" then
-      "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${
-        toString rel
-      }-darwin-x86_64.tar.gz"
+      "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${toString rel}-darwin-x86_64.tar.gz"
     else
-      "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${
-        toString rel
-      }-${arch}.tar.gz";
+      "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${toString rel}-${arch}.tar.gz";
 
   genericBinary =
     {

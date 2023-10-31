@@ -110,9 +110,7 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    changelog = "https://github.com/sqlalchemy/sqlalchemy/releases/tag/rel_${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }";
+    changelog = "https://github.com/sqlalchemy/sqlalchemy/releases/tag/rel_${builtins.replaceStrings [ "." ] [ "_" ] version}";
     description = "The Python SQL toolkit and Object Relational Mapper";
     homepage = "http://www.sqlalchemy.org/";
     license = licenses.mit;

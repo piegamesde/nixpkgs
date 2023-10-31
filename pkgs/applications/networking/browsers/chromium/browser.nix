@@ -88,16 +88,14 @@ mkChromiumDerivation (
 
     meta = {
       description =
-        "An open source web browser from Google"
-        + lib.optionalString ungoogled ", with dependencies on Google web services removed";
+        "An open source web browser from Google" + lib.optionalString ungoogled ", with dependencies on Google web services removed";
       longDescription = ''
         Chromium is an open source web browser from Google that aims to build a
         safer, faster, and more stable way for all Internet users to experience
         the web. It has a minimalist user interface and provides the vast majority
         of source code for Google Chrome (which has some additional features).
       '';
-      homepage =
-        if ungoogled then "https://github.com/ungoogled-software/ungoogled-chromium" else "https://www.chromium.org/";
+      homepage = if ungoogled then "https://github.com/ungoogled-software/ungoogled-chromium" else "https://www.chromium.org/";
       maintainers =
         with lib.maintainers;
         if ungoogled then

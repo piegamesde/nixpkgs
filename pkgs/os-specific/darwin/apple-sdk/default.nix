@@ -329,9 +329,7 @@ rec {
 
       CoreMedia = lib.overrideDerivation super.CoreMedia (
         drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
-            "/System/Library/Frameworks/CoreImage.framework"
-          ];
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/Frameworks/CoreImage.framework" ];
         }
       );
 
@@ -343,9 +341,7 @@ rec {
       );
 
       IMServicePlugIn = lib.overrideDerivation super.IMServicePlugIn (
-        drv: {
-          extraTBDFiles = [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ];
-        }
+        drv: { extraTBDFiles = [ "Versions/A/Frameworks/IMServicePlugInSupport.framework/Versions/A/IMServicePlugInSupport.tbd" ]; }
       );
 
       Security = lib.overrideDerivation super.Security (drv: { setupHook = ./security-setup-hook.sh; });

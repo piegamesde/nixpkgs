@@ -42,25 +42,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ] ++ lib.optionals (useGtk) [ wrapGAppsHook ] ++ lib.optionals (useQt) [ wrapQtAppsHook ];
 
-  buildInputs =
-    [
-      SDL2
-      alsa-lib
-      ffmpeg_4
-      libusb1
-      libv4l
-      portaudio
-      udev
-      gsl
-      libpng
-      sfml
-    ]
-    ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ]
-    ++ lib.optionals (useGtk) [ gtk3 ]
-    ++ lib.optionals (useQt) [ qtbase ];
-  configureFlags = [
-    "--enable-sfml"
-  ] ++ lib.optionals (useGtk) [ "--enable-gtk3" ] ++ lib.optionals (useQt) [ "--enable-qt5" ];
+  buildInputs = [
+    SDL2
+    alsa-lib
+    ffmpeg_4
+    libusb1
+    libv4l
+    portaudio
+    udev
+    gsl
+    libpng
+    sfml
+  ] ++ lib.optionals (pulseaudioSupport) [ libpulseaudio ] ++ lib.optionals (useGtk) [ gtk3 ] ++ lib.optionals (useQt) [ qtbase ];
+  configureFlags = [ "--enable-sfml" ] ++ lib.optionals (useGtk) [ "--enable-gtk3" ] ++ lib.optionals (useQt) [ "--enable-qt5" ];
 
   meta = with lib; {
     description = "A simple interface for devices supported by the linux UVC driver";

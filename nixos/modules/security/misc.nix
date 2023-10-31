@@ -132,9 +132,7 @@ with lib;
       ];
     })
 
-    (mkIf config.security.unprivilegedUsernsClone {
-      boot.kernel.sysctl."kernel.unprivileged_userns_clone" = mkDefault true;
-    })
+    (mkIf config.security.unprivilegedUsernsClone { boot.kernel.sysctl."kernel.unprivileged_userns_clone" = mkDefault true; })
 
     (mkIf config.security.protectKernelImage {
       # Disable hibernation (allows replacing the running kernel)

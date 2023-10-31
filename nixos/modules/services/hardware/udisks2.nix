@@ -23,9 +23,7 @@ in
 
     services.udisks2 = {
 
-      enable = mkEnableOption (
-        mdDoc "udisks2, a DBus service that allows applications to query and manipulate storage devices"
-      );
+      enable = mkEnableOption (mdDoc "udisks2, a DBus service that allows applications to query and manipulate storage devices");
 
       mountOnMedia = mkOption {
         type = types.bool;
@@ -86,9 +84,7 @@ in
 
     services.dbus.packages = [ pkgs.udisks2 ];
 
-    systemd.tmpfiles.rules = [
-      "d /var/lib/udisks2 0755 root root -"
-    ] ++ optional cfg.mountOnMedia "D! /media 0755 root root -";
+    systemd.tmpfiles.rules = [ "d /var/lib/udisks2 0755 root root -" ] ++ optional cfg.mountOnMedia "D! /media 0755 root root -";
 
     services.udev.packages = [ pkgs.udisks2 ];
 

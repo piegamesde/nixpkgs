@@ -28,9 +28,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ recode ];
 
-  cmakeFlags = [
-    "-DLOCALDIR=${placeholder "out"}/share/fortunes"
-  ] ++ lib.optional (!withOffensive) "-DNO_OFFENSIVE=true";
+  cmakeFlags = [ "-DLOCALDIR=${placeholder "out"}/share/fortunes" ] ++ lib.optional (!withOffensive) "-DNO_OFFENSIVE=true";
 
   patches = [
     (builtins.toFile "not-a-game.patch" ''

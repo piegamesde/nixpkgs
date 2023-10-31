@@ -114,9 +114,7 @@ let
 
   envFile = pkgs.writeText "mastodon.env" (
     lib.concatMapStrings (s: s + "\n") (
-      (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env
-      ))
+      (lib.concatLists (lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env))
     )
   );
 
@@ -670,8 +668,7 @@ in
               1 == builtins.length (
                 lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]) cfg.sidekiqProcesses
               );
-            message = ''
-              There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
+            message = ''There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
           }
         ];
 
@@ -742,9 +739,7 @@ in
               export PGPASSFILE
               PGPASSFILE=$(mktemp)
               cat > $PGPASSFILE <<EOF
-              ${cfg.database.host}:${
-                toString cfg.database.port
-              }:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
+              ${cfg.database.host}:${toString cfg.database.port}:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
               EOF
 
             ''
@@ -857,8 +852,7 @@ in
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon web";
           environment =
-            env
-            // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); });
+            env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); });
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
             Restart = "always";
@@ -918,12 +912,7 @@ in
 
             locations."@proxy" = {
               proxyPass =
-                (
-                  if cfg.enableUnixSocket then
-                    "http://unix:/run/mastodon-web/web.socket"
-                  else
-                    "http://127.0.0.1:${toString (cfg.webPort)}"
-                );
+                (if cfg.enableUnixSocket then "http://unix:/run/mastodon-web/web.socket" else "http://127.0.0.1:${toString (cfg.webPort)}");
               proxyWebsockets = true;
             };
 

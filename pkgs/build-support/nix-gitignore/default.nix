@@ -144,9 +144,7 @@ rec {
     map
       (
         l: # `l' for "line"
-        mapPat (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l)))) (
-          computeNegation l
-        )
+        mapPat (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l)))) (computeNegation l)
       )
       (filter (l: !isList l && !isComment l) (split "\n" gitignore));
 

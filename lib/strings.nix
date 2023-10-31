@@ -101,8 +101,7 @@ rec {
         concatStringsSep "/" ["usr" "local" "bin"]
         => "usr/local/bin"
   */
-  concatStringsSep =
-    builtins.concatStringsSep or (separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list));
+  concatStringsSep = builtins.concatStringsSep or (separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list));
 
   /* Maps a function over a list of strings and then concatenates the
      result with the specified separator interspersed between
@@ -537,9 +536,7 @@ rec {
     name: value:
     lib.throwIfNot (isValidPosixName name) "toShellVar: ${name} is not a valid shell variable name" (
       if isAttrs value && !isStringLike value then
-        "declare -A ${name}=(${
-          concatStringsSep " " (lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value)
-        })"
+        "declare -A ${name}=(${concatStringsSep " " (lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value)})"
       else if isList value then
         "declare -a ${name}=(${escapeShellArgs value})"
       else
@@ -849,10 +846,7 @@ rec {
         => "-Dstatic=false"
   */
   mesonBool =
-    condition: flag:
-    assert (lib.isString condition);
-    assert (lib.isBool flag);
-    mesonOption condition (lib.boolToString flag);
+    condition: flag: assert (lib.isString condition); assert (lib.isBool flag); mesonOption condition (lib.boolToString flag);
 
   /* Create a -D<feature>={enabled,disabled} string that can be passed to
       typical Meson invocations.
@@ -947,9 +941,7 @@ rec {
       reqWidth = width - (lib.stringLength filler);
     in
     assert lib.assertMsg (strw <= width)
-        "fixedWidthString: requested string length (${toString width}) must not be shorter than actual length (${
-          toString strw
-        })";
+        "fixedWidthString: requested string length (${toString width}) must not be shorter than actual length (${toString strw})";
     if strw == width then str else filler + fixedWidthString reqWidth filler str;
 
   /* Format a number adding leading zeroes up to fixed width.
@@ -1069,8 +1061,7 @@ rec {
 
       generalError = "toInt: Could not convert ${escapeNixString str} to int.";
 
-      octalAmbigError =
-        "toInt: Ambiguity in interpretation of ${escapeNixString str}" + " between octal and zero padded integer.";
+      octalAmbigError = "toInt: Ambiguity in interpretation of ${escapeNixString str}" + " between octal and zero padded integer.";
     in
     # Error on presence of non digit characters.
     if strippedInput == null then

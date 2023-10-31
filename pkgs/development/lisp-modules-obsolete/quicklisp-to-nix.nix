@@ -159,9 +159,7 @@ let
     );
 
     "glsl-spec" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."glsl-spec" or (x: { })) (
-        import ./quicklisp-to-nix-output/glsl-spec.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."glsl-spec" or (x: { })) (import ./quicklisp-to-nix-output/glsl-spec.nix { inherit fetchurl; })
     );
 
     "glsl-docs" = buildLispPackage (
@@ -195,15 +193,11 @@ let
     );
 
     "dissect" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."dissect" or (x: { })) (
-        import ./quicklisp-to-nix-output/dissect.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."dissect" or (x: { })) (import ./quicklisp-to-nix-output/dissect.nix { inherit fetchurl; })
     );
 
     "lisp-unit" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."lisp-unit" or (x: { })) (
-        import ./quicklisp-to-nix-output/lisp-unit.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."lisp-unit" or (x: { })) (import ./quicklisp-to-nix-output/lisp-unit.nix { inherit fetchurl; })
     );
 
     "cl-fuzz" = buildLispPackage (
@@ -302,9 +296,7 @@ let
     );
 
     "parseq" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."parseq" or (x: { })) (
-        import ./quicklisp-to-nix-output/parseq.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."parseq" or (x: { })) (import ./quicklisp-to-nix-output/parseq.nix { inherit fetchurl; })
     );
 
     "colorize" = buildLispPackage (
@@ -493,8 +485,7 @@ let
           "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
           "hu_dot_dwim_dot_def_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
           "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-          "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
-            quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
+          "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
           "hu_dot_dwim_dot_stefil_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
           "iterate" = quicklisp-to-nix-packages."iterate";
           "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
@@ -1371,9 +1362,7 @@ let
     );
 
     "cl-aa" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-aa" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-aa.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-aa" or (x: { })) (import ./quicklisp-to-nix-output/cl-aa.nix { inherit fetchurl; })
     );
 
     "global-vars" = buildLispPackage (
@@ -1395,9 +1384,7 @@ let
     );
 
     "clunit" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."clunit" or (x: { })) (
-        import ./quicklisp-to-nix-output/clunit.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."clunit" or (x: { })) (import ./quicklisp-to-nix-output/clunit.nix { inherit fetchurl; })
     );
 
     "zpng" = buildLispPackage (
@@ -1425,9 +1412,7 @@ let
     );
 
     "s-xml" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."s-xml" or (x: { })) (
-        import ./quicklisp-to-nix-output/s-xml.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."s-xml" or (x: { })) (import ./quicklisp-to-nix-output/s-xml.nix { inherit fetchurl; })
     );
 
     "s-sysdeps" = buildLispPackage (
@@ -1446,15 +1431,11 @@ let
     "cl-ppcre-test" = quicklisp-to-nix-packages."cl-ppcre";
 
     "zpb-ttf" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."zpb-ttf" or (x: { })) (
-        import ./quicklisp-to-nix-output/zpb-ttf.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."zpb-ttf" or (x: { })) (import ./quicklisp-to-nix-output/zpb-ttf.nix { inherit fetchurl; })
     );
 
     "cl-paths" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-paths" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-paths.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-paths" or (x: { })) (import ./quicklisp-to-nix-output/cl-paths.nix { inherit fetchurl; })
     );
 
     "hu_dot_dwim_dot_stefil" = buildLispPackage (
@@ -1495,9 +1476,7 @@ let
     );
 
     "unit-test" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."unit-test" or (x: { })) (
-        import ./quicklisp-to-nix-output/unit-test.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."unit-test" or (x: { })) (import ./quicklisp-to-nix-output/unit-test.nix { inherit fetchurl; })
     );
 
     "dbi" = buildLispPackage (
@@ -1646,9 +1625,7 @@ let
     );
 
     "ptester" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."ptester" or (x: { })) (
-        import ./quicklisp-to-nix-output/ptester.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."ptester" or (x: { })) (import ./quicklisp-to-nix-output/ptester.nix { inherit fetchurl; })
     );
 
     "kmrcl" = buildLispPackage (
@@ -1699,9 +1676,7 @@ let
     );
 
     "jpl-util" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."jpl-util" or (x: { })) (
-        import ./quicklisp-to-nix-output/jpl-util.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."jpl-util" or (x: { })) (import ./quicklisp-to-nix-output/jpl-util.nix { inherit fetchurl; })
     );
 
     "jpl-queues" = buildLispPackage (
@@ -1731,9 +1706,7 @@ let
     );
 
     "clunit2" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."clunit2" or (x: { })) (
-        import ./quicklisp-to-nix-output/clunit2.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."clunit2" or (x: { })) (import ./quicklisp-to-nix-output/clunit2.nix { inherit fetchurl; })
     );
 
     "rt" = buildLispPackage (
@@ -1776,9 +1749,7 @@ let
     );
 
     "xsubseq" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."xsubseq" or (x: { })) (
-        import ./quicklisp-to-nix-output/xsubseq.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."xsubseq" or (x: { })) (import ./quicklisp-to-nix-output/xsubseq.nix { inherit fetchurl; })
     );
 
     "xmls" = buildLispPackage (
@@ -1981,9 +1952,7 @@ let
     );
 
     "unix-opts" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."unix-opts" or (x: { })) (
-        import ./quicklisp-to-nix-output/unix-opts.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."unix-opts" or (x: { })) (import ./quicklisp-to-nix-output/unix-opts.nix { inherit fetchurl; })
     );
 
     "unix-options" = buildLispPackage (
@@ -2116,9 +2085,7 @@ let
     );
 
     "trees" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trees" or (x: { })) (
-        import ./quicklisp-to-nix-output/trees.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."trees" or (x: { })) (import ./quicklisp-to-nix-output/trees.nix { inherit fetchurl; })
     );
 
     "symbol-munger" = buildLispPackage (
@@ -2154,9 +2121,7 @@ let
     );
 
     "swank" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."swank" or (x: { })) (
-        import ./quicklisp-to-nix-output/swank.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."swank" or (x: { })) (import ./quicklisp-to-nix-output/swank.nix { inherit fetchurl; })
     );
 
     "stumpwm" = buildLispPackage (
@@ -2286,9 +2251,7 @@ let
     );
 
     "slynk" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."slynk" or (x: { })) (
-        import ./quicklisp-to-nix-output/slynk.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."slynk" or (x: { })) (import ./quicklisp-to-nix-output/slynk.nix { inherit fetchurl; })
     );
 
     "simple-date-time" = buildLispPackage (
@@ -2362,9 +2325,7 @@ let
     );
 
     "rfc2388" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."rfc2388" or (x: { })) (
-        import ./quicklisp-to-nix-output/rfc2388.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."rfc2388" or (x: { })) (import ./quicklisp-to-nix-output/rfc2388.nix { inherit fetchurl; })
     );
 
     "quri" = buildLispPackage (
@@ -2629,9 +2590,7 @@ let
     );
 
     "mt19937" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."mt19937" or (x: { })) (
-        import ./quicklisp-to-nix-output/mt19937.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."mt19937" or (x: { })) (import ./quicklisp-to-nix-output/mt19937.nix { inherit fetchurl; })
     );
 
     "more-conditions" = buildLispPackage (
@@ -2682,9 +2641,7 @@ let
     );
 
     "minheap" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."minheap" or (x: { })) (
-        import ./quicklisp-to-nix-output/minheap.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."minheap" or (x: { })) (import ./quicklisp-to-nix-output/minheap.nix { inherit fetchurl; })
     );
 
     "mgl-pax" = buildLispPackage (
@@ -2720,9 +2677,7 @@ let
     );
 
     "marshal" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."marshal" or (x: { })) (
-        import ./quicklisp-to-nix-output/marshal.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."marshal" or (x: { })) (import ./quicklisp-to-nix-output/marshal.nix { inherit fetchurl; })
     );
 
     "lquery" = buildLispPackage (
@@ -2926,9 +2881,7 @@ let
     );
 
     "jsown" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."jsown" or (x: { })) (
-        import ./quicklisp-to-nix-output/jsown.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."jsown" or (x: { })) (import ./quicklisp-to-nix-output/jsown.nix { inherit fetchurl; })
     );
 
     "jonathan" = buildLispPackage (
@@ -2956,9 +2909,7 @@ let
     );
 
     "iterate" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."iterate" or (x: { })) (
-        import ./quicklisp-to-nix-output/iterate.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."iterate" or (x: { })) (import ./quicklisp-to-nix-output/iterate.nix { inherit fetchurl; })
     );
 
     "ironclad" = buildLispPackage (
@@ -3358,9 +3309,7 @@ let
     );
 
     "fare-csv" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."fare-csv" or (x: { })) (
-        import ./quicklisp-to-nix-output/fare-csv.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."fare-csv" or (x: { })) (import ./quicklisp-to-nix-output/fare-csv.nix { inherit fetchurl; })
     );
 
     "external-program" = buildLispPackage (
@@ -3767,9 +3716,7 @@ let
     );
 
     "css-lite" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."css-lite" or (x: { })) (
-        import ./quicklisp-to-nix-output/css-lite.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."css-lite" or (x: { })) (import ./quicklisp-to-nix-output/css-lite.nix { inherit fetchurl; })
     );
 
     "command-line-arguments" = buildLispPackage (
@@ -4094,9 +4041,7 @@ let
     );
 
     "cl-svg" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-svg" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-svg.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-svg" or (x: { })) (import ./quicklisp-to-nix-output/cl-svg.nix { inherit fetchurl; })
     );
 
     "cl-store" = buildLispPackage (
@@ -4313,9 +4258,7 @@ let
     );
 
     "cl-markup" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-markup" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-markup.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-markup" or (x: { })) (import ./quicklisp-to-nix-output/cl-markup.nix { inherit fetchurl; })
     );
 
     "cl-locale" = buildLispPackage (
@@ -4388,9 +4331,7 @@ let
     );
 
     "cl-jpeg" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-jpeg" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-jpeg.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-jpeg" or (x: { })) (import ./quicklisp-to-nix-output/cl-jpeg.nix { inherit fetchurl; })
     );
 
     "cl-interpol" = buildLispPackage (
@@ -4447,9 +4388,7 @@ let
     );
 
     "cl-heap" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-heap" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-heap.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-heap" or (x: { })) (import ./quicklisp-to-nix-output/cl-heap.nix { inherit fetchurl; })
     );
 
     "cl-gobject-introspection" = buildLispPackage (
@@ -4614,9 +4553,7 @@ let
     );
 
     "cl-css" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-css" or (x: { })) (
-        import ./quicklisp-to-nix-output/cl-css.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."cl-css" or (x: { })) (import ./quicklisp-to-nix-output/cl-css.nix { inherit fetchurl; })
     );
 
     "cl-cookie" = buildLispPackage (
@@ -4839,9 +4776,7 @@ let
     );
 
     "chipz" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."chipz" or (x: { })) (
-        import ./quicklisp-to-nix-output/chipz.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."chipz" or (x: { })) (import ./quicklisp-to-nix-output/chipz.nix { inherit fetchurl; })
     );
 
     "check-it" = buildLispPackage (

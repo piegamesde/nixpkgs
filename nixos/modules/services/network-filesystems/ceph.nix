@@ -18,8 +18,7 @@ let
     (
       daemonType: daemonIds:
       mkMerge (
-        map (daemonId: { "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph; })
-          daemonIds
+        map (daemonId: { "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph; }) daemonIds
       )
     );
 
@@ -409,9 +408,7 @@ in
     environment.etc."ceph/ceph.conf".text =
       let
         # Merge the extraConfig set for mgr daemons, as mgr don't have their own section
-        globalSection = expandCamelCaseAttrs (
-          cfg.global // cfg.extraConfig // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig
-        );
+        globalSection = expandCamelCaseAttrs (cfg.global // cfg.extraConfig // optionalAttrs cfg.mgr.enable cfg.mgr.extraConfig);
         # Remove all name-value pairs with null values from the attribute set to avoid making empty sections in the ceph.conf
         globalSection' = filterAttrs (name: value: value != null) globalSection;
         totalConfig =

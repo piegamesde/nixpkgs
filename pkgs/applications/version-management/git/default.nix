@@ -77,9 +77,7 @@ stdenv.mkDerivation (
     pname =
       "git"
       + lib.optionalString svnSupport "-with-svn"
-      +
-        lib.optionalString (!svnSupport && !guiSupport && !sendEmailSupport && !withManual && !pythonSupport && !withpcre2)
-          "-minimal";
+      + lib.optionalString (!svnSupport && !guiSupport && !sendEmailSupport && !withManual && !pythonSupport && !withpcre2) "-minimal";
     inherit version;
 
     src = fetchurl {
@@ -324,9 +322,7 @@ stdenv.mkDerivation (
           ''
             # wrap git-svn
             wrapProgram $out/libexec/git-core/git-svn                                                                                \
-                         --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                           perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
-                         }" \
+                         --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath (perlLibs ++ [ svn.out ])}" \
                          --prefix PATH : "${svn.out}/bin" ''
         else
           ''

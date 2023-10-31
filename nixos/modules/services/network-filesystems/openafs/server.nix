@@ -77,9 +77,7 @@ let
     else
       null;
 
-  buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}" (
-    mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
-  );
+  buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}" (mkCellServDB cfg.cellName cfg.roles.backup.cellServDB);
 
   useBuCellServDB = (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
 

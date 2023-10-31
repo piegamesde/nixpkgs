@@ -194,10 +194,7 @@ let
             inherit imports;
             options = (mkExporterOpts { inherit name port; } // extraOpts);
           }
-          (
-            { config, ... }:
-            mkIf config.openFirewall { firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}"; }
-          )
+          ({ config, ... }: mkIf config.openFirewall { firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}"; })
         ];
         internal = true;
         default = { };

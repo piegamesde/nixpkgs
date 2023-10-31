@@ -41,9 +41,7 @@ let
         };
         file = mkOption {
           type = types.either types.str types.path;
-          description =
-            lib.mdDoc
-              "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
+          description = lib.mdDoc "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
         };
         masters = mkOption {
           type = types.listOf types.str;

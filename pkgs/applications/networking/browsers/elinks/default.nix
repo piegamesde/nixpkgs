@@ -83,9 +83,7 @@ stdenv.mkDerivation rec {
       "--with-libev"
       "--with-terminfo"
     ]
-    ++ lib.optional enableGuile "--with-guile"
-    ++ lib.optional enablePython "--with-python"
-    ++ lib.optional enablePerl "--with-perl";
+    ++ lib.optional enableGuile "--with-guile" ++ lib.optional enablePython "--with-python" ++ lib.optional enablePerl "--with-perl";
 
   meta = with lib; {
     description = "Full-featured text-mode web browser (package based on the fork felinks)";

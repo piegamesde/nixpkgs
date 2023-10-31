@@ -105,8 +105,7 @@ let
         );
       parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
-    builtins.foldl' (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])) [ ]
-      exprs;
+    builtins.foldl' (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])) [ ] exprs;
 
   # Transform individual expressions to structured expressions
   # This function also performs variable substitution, replacing environment markers with their explicit values
@@ -209,8 +208,7 @@ let
             builtins.fromJSON v
         );
       hasElem =
-        needle: haystack:
-        builtins.elem needle (builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack));
+        needle: haystack: builtins.elem needle (builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack));
       op = {
         "true" = x: y: true;
         "<=" = x: y: op.">=" y x;

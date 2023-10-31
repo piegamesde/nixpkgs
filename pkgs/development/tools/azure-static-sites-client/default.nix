@@ -54,9 +54,7 @@ stdenv.mkDerivation {
     install -m755 "$src" -D "$out/bin/StaticSitesClient"
 
     for icu_lib in 'icui18n' 'icuuc' 'icudata'; do
-      patchelf --add-needed "lib''${icu_lib}.so.${
-        with lib; head (splitVersion (getVersion icu70.name))
-      }" "$out/bin/StaticSitesClient"
+      patchelf --add-needed "lib''${icu_lib}.so.${with lib; head (splitVersion (getVersion icu70.name))}" "$out/bin/StaticSitesClient"
     done
 
     patchelf --add-needed 'libgssapi_krb5.so' \
@@ -83,8 +81,7 @@ stdenv.mkDerivation {
   passthru = {
     # Create tests for all flavors
     tests =
-      with lib;
-      genAttrs (map (x: x.version) versions) (versionFlavor: azure-static-sites-client.override { inherit versionFlavor; });
+      with lib; genAttrs (map (x: x.version) versions) (versionFlavor: azure-static-sites-client.override { inherit versionFlavor; });
     updateScript = ./update.sh;
   };
 

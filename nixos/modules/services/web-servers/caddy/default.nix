@@ -351,9 +351,9 @@ in
         # If the empty string is assigned to this option, the list of commands to start is reset, prior assignments of this option will have no effect.
         ExecStart = [
           ""
-          "${cfg.package}/bin/caddy run --config ${cfg.configFile} ${
-            optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-          } ${optionalString cfg.resume "--resume"}"
+          "${cfg.package}/bin/caddy run --config ${cfg.configFile} ${optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"} ${
+            optionalString cfg.resume "--resume"
+          }"
         ];
         ExecReload = [
           ""

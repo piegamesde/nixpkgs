@@ -89,9 +89,7 @@ let
     csi = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Implements the CSI protocol that allows clients to report their active/inactive state to the server";
+      description = lib.mdDoc "Implements the CSI protocol that allows clients to report their active/inactive state to the server";
     };
 
     cloud_notify = mkOption {

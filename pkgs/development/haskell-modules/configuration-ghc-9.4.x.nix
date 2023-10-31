@@ -101,9 +101,7 @@ in
   lzma-conduit = doJailbreak super.lzma-conduit;
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
-  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (
-    doJailbreak super.polyparse
-  );
+  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (doJailbreak super.polyparse);
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;

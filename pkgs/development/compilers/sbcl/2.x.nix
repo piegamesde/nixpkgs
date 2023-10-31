@@ -7,11 +7,8 @@
   sbclBootstrap,
   zstd,
   sbclBootstrapHost ? "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit",
-  threadSupport ? (
-    stdenv.hostPlatform.isx86
-    || "aarch64-linux" == stdenv.hostPlatform.system
-    || "aarch64-darwin" == stdenv.hostPlatform.system
-  ),
+  threadSupport ?
+    (stdenv.hostPlatform.isx86 || "aarch64-linux" == stdenv.hostPlatform.system || "aarch64-darwin" == stdenv.hostPlatform.system),
   linkableRuntime ? stdenv.hostPlatform.isx86,
   disableImmobileSpace ? false,
   # Meant for sbcl used for creating binaries portable to non-NixOS via save-lisp-and-die.
@@ -133,9 +130,7 @@ stdenv.mkDerivation rec {
     runHook preBuild
 
     sh make.sh --prefix=$out --xc-host="${sbclBootstrapHost}" ${
-      lib.concatStringsSep " " (
-        builtins.map (x: "--with-${x}") enableFeatures ++ builtins.map (x: "--without-${x}") disableFeatures
-      )
+      lib.concatStringsSep " " (builtins.map (x: "--with-${x}") enableFeatures ++ builtins.map (x: "--without-${x}") disableFeatures)
     } ${lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin") "--arch=arm64"}
     (cd doc/manual ; make info)
 

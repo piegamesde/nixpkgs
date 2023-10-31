@@ -31,10 +31,7 @@
 }:
 let
   arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "amd64"
-    else
-      throw "Unsupported system ${stdenv.hostPlatform.system} ";
+    if stdenv.hostPlatform.system == "x86_64-linux" then "amd64" else throw "Unsupported system ${stdenv.hostPlatform.system} ";
 in
 mkDerivation rec {
   pname = "googleearth-pro";

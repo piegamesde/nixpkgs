@@ -366,10 +366,7 @@ rec {
         "yes"
       ]
     then
-      msg:
-      builtins.trace "[1;31mwarning: ${msg}[0m" (
-        abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors."
-      )
+      msg: builtins.trace "[1;31mwarning: ${msg}[0m" (abort "NIX_ABORT_ON_WARN=true; warnings are treated as unrecoverable errors.")
     else
       msg: builtins.trace "[1;31mwarning: ${msg}[0m";
 
@@ -459,8 +456,7 @@ rec {
      has the same return type and semantics as builtins.functionArgs.
      setFunctionArgs : (a → b) → Map String Bool.
   */
-  functionArgs =
-    f: if f ? __functor then f.__functionArgs or (lib.functionArgs (f.__functor f)) else builtins.functionArgs f;
+  functionArgs = f: if f ? __functor then f.__functionArgs or (lib.functionArgs (f.__functor f)) else builtins.functionArgs f;
 
   /* Check whether something is a function or something
      annotated with function args.

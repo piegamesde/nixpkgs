@@ -45,9 +45,7 @@ stdenv.mkDerivation rec {
   # We download the full distribution to extract prl-tools-lin.iso from
   # => ${dmg}/Parallels\ Desktop.app/Contents/Resources/Tools/prl-tools-lin.iso
   src = fetchurl {
-    url = "https://download.parallels.com/desktop/v${
-        lib.versions.major version
-      }/${version}/ParallelsDesktop-${version}.dmg";
+    url = "https://download.parallels.com/desktop/v${lib.versions.major version}/${version}/ParallelsDesktop-${version}.dmg";
     hash = "sha256-FpAbQQapIcZ7GsGjH4ZeJ81Ke+NUF7GvgV1wEDLKoUU=";
   };
 
@@ -87,9 +85,7 @@ stdenv.mkDerivation rec {
 
     undmg $src
     export sourceRoot=prl-tools-build
-    7z x "Parallels Desktop.app/Contents/Resources/Tools/prl-tools-lin${
-      lib.optionalString stdenv.isAarch64 "-arm"
-    }.iso" -o$sourceRoot
+    7z x "Parallels Desktop.app/Contents/Resources/Tools/prl-tools-lin${lib.optionalString stdenv.isAarch64 "-arm"}.iso" -o$sourceRoot
     ( cd $sourceRoot/kmods; tar -xaf prl_mod.tar.gz )
 
     runHook postUnpack

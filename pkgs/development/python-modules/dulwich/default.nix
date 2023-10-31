@@ -45,17 +45,13 @@ buildPythonPackage rec {
     paramiko = [ paramiko ];
   };
 
-  nativeCheckInputs =
-    [
-      gevent
-      geventhttpclient
-      git
-      glibcLocales
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.fastimport
-    ++ passthru.optional-dependencies.pgp
-    ++ passthru.optional-dependencies.paramiko;
+  nativeCheckInputs = [
+    gevent
+    geventhttpclient
+    git
+    glibcLocales
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.fastimport ++ passthru.optional-dependencies.pgp ++ passthru.optional-dependencies.paramiko;
 
   doCheck = !stdenv.isDarwin;
 

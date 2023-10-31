@@ -860,9 +860,7 @@ with self; {
 
   aws-xray-sdk = callPackage ../development/python-modules/aws-xray-sdk { };
 
-  awscrt = callPackage ../development/python-modules/awscrt {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security;
-  };
+  awscrt = callPackage ../development/python-modules/awscrt { inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation Security; };
 
   awsiotpythonsdk = callPackage ../development/python-modules/awsiotpythonsdk { };
 
@@ -996,9 +994,7 @@ with self; {
 
   azure-mgmt-iothub = callPackage ../development/python-modules/azure-mgmt-iothub { };
 
-  azure-mgmt-iothubprovisioningservices =
-    callPackage ../development/python-modules/azure-mgmt-iothubprovisioningservices
-      { };
+  azure-mgmt-iothubprovisioningservices = callPackage ../development/python-modules/azure-mgmt-iothubprovisioningservices { };
 
   azure-mgmt-keyvault = callPackage ../development/python-modules/azure-mgmt-keyvault { };
 
@@ -1066,9 +1062,7 @@ with self; {
 
   azure-mgmt-servicefabric = callPackage ../development/python-modules/azure-mgmt-servicefabric { };
 
-  azure-mgmt-servicefabricmanagedclusters =
-    callPackage ../development/python-modules/azure-mgmt-servicefabricmanagedclusters
-      { };
+  azure-mgmt-servicefabricmanagedclusters = callPackage ../development/python-modules/azure-mgmt-servicefabricmanagedclusters { };
 
   azure-mgmt-servicelinker = callPackage ../development/python-modules/azure-mgmt-servicelinker { };
 
@@ -1114,9 +1108,7 @@ with self; {
 
   azure-synapse-artifacts = callPackage ../development/python-modules/azure-synapse-artifacts { };
 
-  azure-synapse-managedprivateendpoints =
-    callPackage ../development/python-modules/azure-synapse-managedprivateendpoints
-      { };
+  azure-synapse-managedprivateendpoints = callPackage ../development/python-modules/azure-synapse-managedprivateendpoints { };
 
   azure-synapse-spark = callPackage ../development/python-modules/azure-synapse-spark { };
 
@@ -2278,9 +2270,7 @@ with self; {
 
   datadog = callPackage ../development/python-modules/datadog { };
 
-  datafusion = callPackage ../development/python-modules/datafusion {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
-  };
+  datafusion = callPackage ../development/python-modules/datafusion { inherit (pkgs.darwin.apple_sdk.frameworks) Security; };
 
   datamodeldict = callPackage ../development/python-modules/datamodeldict { };
 
@@ -2819,9 +2809,7 @@ with self; {
 
   dm-sonnet = callPackage ../development/python-modules/dm-sonnet { };
 
-  dm-tree = callPackage ../development/python-modules/dm-tree {
-    abseil-cpp = pkgs.abseil-cpp.override { cxxStandard = "14"; };
-  };
+  dm-tree = callPackage ../development/python-modules/dm-tree { abseil-cpp = pkgs.abseil-cpp.override { cxxStandard = "14"; }; };
 
   dnachisel = callPackage ../development/python-modules/dnachisel { };
 
@@ -4971,9 +4959,7 @@ with self; {
 
   jax-jumpy = callPackage ../development/python-modules/jax-jumpy { };
 
-  jaxlib-bin = callPackage ../development/python-modules/jaxlib/bin.nix {
-    cudaSupport = pkgs.config.cudaSupport or false;
-  };
+  jaxlib-bin = callPackage ../development/python-modules/jaxlib/bin.nix { cudaSupport = pkgs.config.cudaSupport or false; };
 
   jaxlib-build = callPackage ../development/python-modules/jaxlib rec {
     inherit (pkgs.darwin) cctools;
@@ -5279,9 +5265,7 @@ with self; {
 
   keyrings-cryptfile = callPackage ../development/python-modules/keyrings-cryptfile { };
 
-  keyrings-google-artifactregistry-auth =
-    callPackage ../development/python-modules/keyrings-google-artifactregistry-auth
-      { };
+  keyrings-google-artifactregistry-auth = callPackage ../development/python-modules/keyrings-google-artifactregistry-auth { };
 
   keyrings-alt = callPackage ../development/python-modules/keyrings-alt { };
 
@@ -5426,9 +5410,7 @@ with self; {
 
   ledgercomm = callPackage ../development/python-modules/ledgercomm { };
 
-  ledgerwallet = callPackage ../development/python-modules/ledgerwallet {
-    inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
-  };
+  ledgerwallet = callPackage ../development/python-modules/ledgerwallet { inherit (pkgs.darwin.apple_sdk.frameworks) AppKit; };
 
   leidenalg = callPackage ../development/python-modules/leidenalg { igraph-c = pkgs.igraph; };
 
@@ -5843,9 +5825,7 @@ with self; {
 
   manhole = callPackage ../development/python-modules/manhole { };
 
-  manimpango = callPackage ../development/python-modules/manimpango {
-    inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
-  };
+  manimpango = callPackage ../development/python-modules/manimpango { inherit (pkgs.darwin.apple_sdk.frameworks) AppKit; };
 
   manifestparser = callPackage ../development/python-modules/marionette-harness/manifestparser.nix { };
 
@@ -6138,9 +6118,7 @@ with self; {
   mkdocs-gitlab = callPackage ../development/python-modules/mkdocs-gitlab-plugin { };
   mkdocs-macros = callPackage ../development/python-modules/mkdocs-macros { };
   mkdocs-material = callPackage ../development/python-modules/mkdocs-material { };
-  mkdocs-material-extensions =
-    callPackage ../development/python-modules/mkdocs-material/mkdocs-material-extensions.nix
-      { };
+  mkdocs-material-extensions = callPackage ../development/python-modules/mkdocs-material/mkdocs-material-extensions.nix { };
   mkdocs-minify = callPackage ../development/python-modules/mkdocs-minify { };
   mkdocs-redirects = callPackage ../development/python-modules/mkdocs-redirects { };
   mkdocs-simple-hooks = callPackage ../development/python-modules/mkdocs-simple-hooks { };
@@ -6416,9 +6394,7 @@ with self; {
 
   napalm-hp-procurve = callPackage ../development/python-modules/napalm/hp-procurve.nix { };
 
-  napari = callPackage ../development/python-modules/napari {
-    inherit (pkgs.libsForQt5) mkDerivationWith wrapQtAppsHook;
-  };
+  napari = callPackage ../development/python-modules/napari { inherit (pkgs.libsForQt5) mkDerivationWith wrapQtAppsHook; };
 
   napari-console = callPackage ../development/python-modules/napari-console { };
 
@@ -6850,9 +6826,7 @@ with self; {
 
   openai-triton-bin = callPackage ../development/python-modules/openai-triton/bin.nix { };
 
-  openai-whisper = callPackage ../development/python-modules/openai-whisper {
-    cudaSupport = pkgs.config.cudaSupport or false;
-  };
+  openai-whisper = callPackage ../development/python-modules/openai-whisper { cudaSupport = pkgs.config.cudaSupport or false; };
 
   openant = callPackage ../development/python-modules/openant { };
 
@@ -6932,9 +6906,7 @@ with self; {
 
   opentracing = callPackage ../development/python-modules/opentracing { };
 
-  openvino = callPackage ../development/python-modules/openvino {
-    openvino-native = pkgs.openvino.override { inherit python; };
-  };
+  openvino = callPackage ../development/python-modules/openvino { openvino-native = pkgs.openvino.override { inherit python; }; };
 
   openwebifpy = callPackage ../development/python-modules/openwebifpy { };
 
@@ -7868,9 +7840,7 @@ with self; {
 
   psd-tools = callPackage ../development/python-modules/psd-tools { };
 
-  psutil = callPackage ../development/python-modules/psutil {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation IOKit;
-  };
+  psutil = callPackage ../development/python-modules/psutil { inherit (pkgs.darwin.apple_sdk.frameworks) CoreFoundation IOKit; };
 
   psutil-home-assistant = callPackage ../development/python-modules/psutil-home-assistant { };
 
@@ -8680,9 +8650,7 @@ with self; {
 
   pymumble = callPackage ../development/python-modules/pymumble { };
 
-  pymunk = callPackage ../development/python-modules/pymunk {
-    inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices;
-  };
+  pymunk = callPackage ../development/python-modules/pymunk { inherit (pkgs.darwin.apple_sdk.frameworks) ApplicationServices; };
 
   pymupdf = callPackage ../development/python-modules/pymupdf { };
 
@@ -9388,9 +9356,7 @@ with self; {
 
   pytest-runner = callPackage ../development/python-modules/pytest-runner { };
 
-  pytest-sanic = callPackage ../development/python-modules/pytest-sanic {
-    sanic = self.sanic.override { doCheck = false; };
-  };
+  pytest-sanic = callPackage ../development/python-modules/pytest-sanic { sanic = self.sanic.override { doCheck = false; }; };
 
   pytest-server-fixtures = callPackage ../development/python-modules/pytest-server-fixtures { };
 
@@ -10775,9 +10741,7 @@ with self; {
 
   shellingham = callPackage ../development/python-modules/shellingham { };
 
-  shiboken2 = toPythonModule (
-    callPackage ../development/python-modules/shiboken2 { inherit (pkgs) cmake llvmPackages qt5; }
-  );
+  shiboken2 = toPythonModule (callPackage ../development/python-modules/shiboken2 { inherit (pkgs) cmake llvmPackages qt5; });
 
   shippai = callPackage ../development/python-modules/shippai { };
 
@@ -11574,9 +11538,7 @@ with self; {
 
   tensorboardx = callPackage ../development/python-modules/tensorboardx { };
 
-  tensorflow-bin = callPackage ../development/python-modules/tensorflow/bin.nix {
-    cudaSupport = pkgs.config.cudaSupport or false;
-  };
+  tensorflow-bin = callPackage ../development/python-modules/tensorflow/bin.nix { cudaSupport = pkgs.config.cudaSupport or false; };
 
   tensorflow-build = callPackage ../development/python-modules/tensorflow {
     inherit (pkgs.darwin) cctools;
@@ -11596,9 +11558,7 @@ with self; {
 
   tensorflow-metadata = callPackage ../development/python-modules/tensorflow-metadata { };
 
-  tensorflow-probability = callPackage ../development/python-modules/tensorflow-probability {
-    inherit (pkgs.darwin) cctools;
-  };
+  tensorflow-probability = callPackage ../development/python-modules/tensorflow-probability { inherit (pkgs.darwin) cctools; };
 
   tensorflow = self.tensorflow-build;
 
@@ -11818,9 +11778,7 @@ with self; {
 
   token-bucket = callPackage ../development/python-modules/token-bucket { };
 
-  tokenizers = callPackage ../development/python-modules/tokenizers {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
-  };
+  tokenizers = callPackage ../development/python-modules/tokenizers { inherit (pkgs.darwin.apple_sdk.frameworks) Security; };
 
   tokenize-rt = toPythonModule (callPackage ../development/python-modules/tokenize-rt { });
 
@@ -12512,13 +12470,9 @@ with self; {
     wasmer-compiler-singlepass
   ;
 
-  watchdog = callPackage ../development/python-modules/watchdog {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices;
-  };
+  watchdog = callPackage ../development/python-modules/watchdog { inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
 
-  watchfiles = callPackage ../development/python-modules/watchfiles {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices;
-  };
+  watchfiles = callPackage ../development/python-modules/watchfiles { inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
 
   watchgod = callPackage ../development/python-modules/watchgod { };
 

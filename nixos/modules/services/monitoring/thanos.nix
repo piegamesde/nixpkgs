@@ -759,9 +759,7 @@ in
     };
 
     downsample = paramsToOptions params.downsample // {
-      enable = mkEnableOption (
-        lib.mdDoc "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
-      );
+      enable = mkEnableOption (lib.mdDoc "the Thanos downsampler which continuously downsamples blocks in an object store bucket");
       arguments = mkArgumentsOption "downsample";
     };
 
@@ -787,8 +785,7 @@ in
         {
           assertion =
             !(
-              config.services.prometheus.globalConfig.external_labels == null
-              || config.services.prometheus.globalConfig.external_labels == { }
+              config.services.prometheus.globalConfig.external_labels == null || config.services.prometheus.globalConfig.external_labels == { }
             );
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "

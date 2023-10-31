@@ -84,8 +84,7 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStartPre = ''
-          ${pkgs.bee-clef}/share/bee-clef/ensure-clef-account "${cfg.dataDir}" "${pkgs.bee-clef}/share/bee-clef/"'';
+        ExecStartPre = ''${pkgs.bee-clef}/share/bee-clef/ensure-clef-account "${cfg.dataDir}" "${pkgs.bee-clef}/share/bee-clef/"'';
         ExecStart = [
           "" # this hides/overrides what's in the original entry
           "${pkgs.bee-clef}/share/bee-clef/bee-clef-service start"

@@ -204,8 +204,7 @@ let
 
       # Turn a derivation into its outPath without a string context attached.
       # See the comment at the usage site.
-      unsafeDerivationToUntrackedOutpath =
-        drv: if lib.isDerivation drv then builtins.unsafeDiscardStringContext drv.outPath else drv;
+      unsafeDerivationToUntrackedOutpath = drv: if lib.isDerivation drv then builtins.unsafeDiscardStringContext drv.outPath else drv;
 
       noNonNativeDeps =
         builtins.length (
@@ -264,9 +263,7 @@ let
         else
           lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable);
       # hardeningDisable additionally supports "all".
-      erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (
-        hardeningEnable ++ lib.remove "all" hardeningDisable
-      );
+      erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (hardeningEnable ++ lib.remove "all" hardeningDisable);
 
       checkDependencyList = checkDependencyList' [ ];
       checkDependencyList' =
@@ -327,22 +324,14 @@ let
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
             (map (drv: drv.__spliced.buildBuild or drv) (checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated))
-            (map (drv: drv.__spliced.buildHost or drv) (
-              checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs
-            ))
-            (map (drv: drv.__spliced.buildTarget or drv) (
-              checkDependencyList "depsBuildTargetPropagated" depsBuildTargetPropagated
-            ))
+            (map (drv: drv.__spliced.buildHost or drv) (checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs))
+            (map (drv: drv.__spliced.buildTarget or drv) (checkDependencyList "depsBuildTargetPropagated" depsBuildTargetPropagated))
           ]
           [
             (map (drv: drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHostPropagated" depsHostHostPropagated))
             (map (drv: drv.__spliced.hostTarget or drv) (checkDependencyList "propagatedBuildInputs" propagatedBuildInputs))
           ]
-          [
-            (map (drv: drv.__spliced.targetTarget or drv) (
-              checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated
-            ))
-          ]
+          [ (map (drv: drv.__spliced.targetTarget or drv) (checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated)) ]
         ];
 
         computedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (
@@ -500,13 +489,9 @@ let
                   ++ lib.optionals (stdenv.hostPlatform.uname.processor != null) [
                     "-DCMAKE_SYSTEM_PROCESSOR=${stdenv.hostPlatform.uname.processor}"
                   ]
-                  ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [
-                    "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}"
-                  ]
+                  ++ lib.optionals (stdenv.hostPlatform.uname.release != null) [ "-DCMAKE_SYSTEM_VERSION=${stdenv.hostPlatform.uname.release}" ]
                   ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ "-DCMAKE_OSX_ARCHITECTURES=${stdenv.hostPlatform.darwinArch}" ]
-                  ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [
-                    "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}"
-                  ]
+                  ++ lib.optionals (stdenv.buildPlatform.uname.system != null) [ "-DCMAKE_HOST_SYSTEM_NAME=${stdenv.buildPlatform.uname.system}" ]
                   ++ lib.optionals (stdenv.buildPlatform.uname.processor != null) [
                     "-DCMAKE_HOST_SYSTEM_PROCESSOR=${stdenv.buildPlatform.uname.processor}"
                   ]
@@ -663,8 +648,7 @@ let
           let
             overlappingNames = lib.attrNames (builtins.intersectAttrs env derivationArg);
           in
-          assert lib.assertMsg envIsExportable
-              "When using structured attributes, `env` must be an attribute set of environment variables.";
+          assert lib.assertMsg envIsExportable "When using structured attributes, `env` must be an attribute set of environment variables.";
           assert lib.assertMsg (overlappingNames == [ ])
               "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${
                 lib.concatStringsSep ", " overlappingNames

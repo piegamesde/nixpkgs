@@ -334,8 +334,7 @@ stdenv.mkDerivation (
     meta = {
       homepage = "http://www.xen.org/";
       description =
-        "Xen hypervisor and related components"
-        + optionalString (args ? meta && args.meta ? description) " (${args.meta.description})";
+        "Xen hypervisor and related components" + optionalString (args ? meta && args.meta ? description) " (${args.meta.description})";
       longDescription =
         (args.meta.longDescription or "")
         + ''

@@ -158,19 +158,16 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
-  sconsFlags =
-    [
-      "--release"
-      "--ssl"
-      #"--rocksdb" # Don't have this packaged yet
-      "--wiredtiger=on"
-      "--js-engine=mozjs"
-      "--use-sasl-client"
-      "--disable-warnings-as-errors"
-      "VARIANT_DIR=nixos" # Needed so we don't produce argument lists that are too long for gcc / ld
-    ]
-    ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ]
-    ++ map (lib: "--use-system-${lib}") system-libraries;
+  sconsFlags = [
+    "--release"
+    "--ssl"
+    #"--rocksdb" # Don't have this packaged yet
+    "--wiredtiger=on"
+    "--js-engine=mozjs"
+    "--use-sasl-client"
+    "--disable-warnings-as-errors"
+    "VARIANT_DIR=nixos" # Needed so we don't produce argument lists that are too long for gcc / ld
+  ] ++ lib.optionals (versionAtLeast version "4.4") [ "--link-model=static" ] ++ map (lib: "--use-system-${lib}") system-libraries;
 
   preBuild =
     ''

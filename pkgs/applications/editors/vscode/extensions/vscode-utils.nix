@@ -103,10 +103,7 @@ let
   mktplcExtRefToExtDrv =
     ext:
     buildVscodeMarketplaceExtension (
-      removeAttrs ext mktplcRefAttrList
-      // {
-        mktplcRef = builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext;
-      }
+      removeAttrs ext mktplcRefAttrList // { mktplcRef = builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext; }
     );
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;

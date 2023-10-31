@@ -112,8 +112,7 @@ in
           config
           // {
             config =
-              lib.warnIf (lib.isInOldestRelease 2211)
-                "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
+              lib.warnIf (lib.isInOldestRelease 2211) "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
                 config;
           }
         )

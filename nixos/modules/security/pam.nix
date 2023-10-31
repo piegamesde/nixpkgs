@@ -562,11 +562,11 @@ let
               ussh = config.security.pam.ussh;
             in
             optionalString (config.security.pam.ussh.enable && cfg.usshAuth) ''
-              auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
-                optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
-              } ${optionalString (ussh.authorizedPrincipals != null) "authorized_principals=${ussh.authorizedPrincipals}"} ${
-                optionalString (ussh.authorizedPrincipalsFile != null) "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
-              } ${optionalString (ussh.group != null) "group=${ussh.group}"}
+              auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"} ${
+                optionalString (ussh.authorizedPrincipals != null) "authorized_principals=${ussh.authorizedPrincipals}"
+              } ${optionalString (ussh.authorizedPrincipalsFile != null) "authorized_principals_file=${ussh.authorizedPrincipalsFile}"} ${
+                optionalString (ussh.group != null) "group=${ussh.group}"
+              }
             ''
           )
           + (
@@ -621,9 +621,7 @@ let
                   auth optional ${config.systemd.package}/lib/security/pam_systemd_home.so
                 ''
                 + optionalString cfg.unixAuth ''
-                  auth optional pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${
-                    optionalString cfg.nodelay "nodelay"
-                  } likeauth
+                  auth optional pam_unix.so ${optionalString cfg.allowNullPassword "nullok"} ${optionalString cfg.nodelay "nodelay"} likeauth
                 ''
                 + optionalString config.security.pam.enableEcryptfs ''
                   auth optional ${pkgs.ecryptfs}/lib/security/pam_ecryptfs.so unwrap
@@ -1325,9 +1323,7 @@ in
       };
     };
 
-    security.pam.enableEcryptfs = mkEnableOption (
-      lib.mdDoc "eCryptfs PAM module (mounting ecryptfs home directory on login)"
-    );
+    security.pam.enableEcryptfs = mkEnableOption (lib.mdDoc "eCryptfs PAM module (mounting ecryptfs home directory on login)");
     security.pam.enableFscrypt = mkEnableOption (
       lib.mdDoc ''
         Enables fscrypt to automatically unlock directories with the user's login password.

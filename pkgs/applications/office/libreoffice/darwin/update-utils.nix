@@ -17,9 +17,7 @@ let
   getHtml = url: builtins.readFile (builtins.fetchurl url);
 
   # getLatestStableVersion :: String
-  getLatestStableVersion = extractLatestVersionFromHtml (
-    getHtml "https://download.documentfoundation.org/libreoffice/stable/"
-  );
+  getLatestStableVersion = extractLatestVersionFromHtml (getHtml "https://download.documentfoundation.org/libreoffice/stable/");
 
   # extractSha256FromHtml :: String -> String
   extractSha256FromHtml =

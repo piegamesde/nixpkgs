@@ -64,8 +64,7 @@ let
       sha256 = "008d8x1s0vxsq78rkczlnf57pv1n5hi1v5nbd1l5w3yls7lk11sc";
     };
     "pak128.german" = {
-      url =
-        "mirror://sourceforge/simutrans/PAK128.german/" + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip";
+      url = "mirror://sourceforge/simutrans/PAK128.german/" + "pak128.german_1.2_for_ST_121.0/PAK128.german_1.2_for_ST_121-0.zip";
       sha256 = "1cv1rzl1a3i5dvk476zq094wawk9hhdh2f0y4xrdny5gn17mb2xi";
     };
 

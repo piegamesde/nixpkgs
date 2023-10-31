@@ -65,21 +65,19 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs =
-    [
-      opencl-clhpp
-      fftw
-      fftwFloat
-      blas
-      lapack
-      libGLU
-      libGL
-      mesa
-      freeimage
-      boost.out
-      boost.dev
-    ]
-    ++ (lib.optional stdenv.isLinux ocl-icd) ++ (lib.optional cudaSupport cudatoolkit) ++ (lib.optional buildDocs doxygen);
+  buildInputs = [
+    opencl-clhpp
+    fftw
+    fftwFloat
+    blas
+    lapack
+    libGLU
+    libGL
+    mesa
+    freeimage
+    boost.out
+    boost.dev
+  ] ++ (lib.optional stdenv.isLinux ocl-icd) ++ (lib.optional cudaSupport cudatoolkit) ++ (lib.optional buildDocs doxygen);
 
   meta = with lib; {
     description = "A general-purpose library for parallel and massively-parallel computations";

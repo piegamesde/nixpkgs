@@ -78,9 +78,7 @@ buildPythonPackage rec {
       manipulate Ogg streams on an individual packet/page level.
     '';
     homepage = "https://mutagen.readthedocs.io";
-    changelog = "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }";
+    changelog = "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${lib.replaceStrings [ "." ] [ "-" ] version}";
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ ];
   };

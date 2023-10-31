@@ -39,13 +39,10 @@ let
     mkMerge [
       extraService
       {
-        after =
-          [ "network.target" ]
-          ++ optional cfg.postgresql.enable "postgresql.service"
-          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
-        requires =
-          optional cfg.postgresql.enable "postgresql.service"
-          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
+        after = [
+          "network.target"
+        ] ++ optional cfg.postgresql.enable "postgresql.service" ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
+        requires = optional cfg.postgresql.enable "postgresql.service" ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
         path = [ pkgs.gawk ];
         environment.HOME = runDir;
         serviceConfig = {

@@ -251,9 +251,7 @@ in
         '')
       ];
 
-    systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable [
-      "L! /run/docker.sock - - - - /run/podman/podman.sock"
-    ];
+    systemd.tmpfiles.rules = lib.optionals cfg.dockerSocket.enable [ "L! /run/docker.sock - - - - /run/podman/podman.sock" ];
 
     users.groups.podman = { };
 

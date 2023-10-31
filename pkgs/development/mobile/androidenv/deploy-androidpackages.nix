@@ -90,8 +90,7 @@ stdenv.mkDerivation (
     pname = lib.concatMapStringsSep "-" (package: package.name) sortedPackages;
     version = lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
     src =
-      map
-        (package: if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all)
+      map (package: if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all)
         packages;
     nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
     preferLocalBuild = true;

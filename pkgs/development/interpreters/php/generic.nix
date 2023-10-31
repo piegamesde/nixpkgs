@@ -168,9 +168,7 @@ let
                 unwrapped = php;
                 # Select the right php tests for the php version
                 tests = {
-                  nixos =
-                    lib.recurseIntoAttrs
-                      nixosTests."php${lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)}";
+                  nixos = lib.recurseIntoAttrs nixosTests."php${lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)}";
                   package = tests.php;
                 };
                 inherit (php-packages) extensions buildPecl mkExtension;
@@ -340,9 +338,9 @@ let
                       jq
                     ]
                   }
-                  new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${
-                    lib.versions.major version
-                  }"."${lib.versions.majorMinor version}".version')
+                  new_version=$(curl --silent "https://www.php.net/releases/active" | jq --raw-output '."${lib.versions.major version}"."${
+                    lib.versions.majorMinor version
+                  }".version')
                   update-source-version "$UPDATE_NIX_ATTR_PATH.unwrapped" "$new_version" "--file=$1"
                 '';
               in

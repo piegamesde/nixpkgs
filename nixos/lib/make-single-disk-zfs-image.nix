@@ -111,9 +111,7 @@ let
       echo -n ${config.system.nixos.versionSuffix} > $out/nixos/.version-suffix
     '';
 
-  closureInfo = pkgs.closureInfo {
-    rootPaths = [ config.system.build.toplevel ] ++ (lib.optional includeChannel channelSources);
-  };
+  closureInfo = pkgs.closureInfo { rootPaths = [ config.system.build.toplevel ] ++ (lib.optional includeChannel channelSources); };
 
   modulesTree = pkgs.aggregateModules (
     with config.boot.kernelPackages; [

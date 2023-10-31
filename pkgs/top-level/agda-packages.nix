@@ -27,9 +27,7 @@ let
 
       agda = withPackages [ ];
 
-      standard-library = callPackage ../development/libraries/agda/standard-library {
-        inherit (pkgs.haskellPackages) ghcWithPackages;
-      };
+      standard-library = callPackage ../development/libraries/agda/standard-library { inherit (pkgs.haskellPackages) ghcWithPackages; };
 
       iowa-stdlib = callPackage ../development/libraries/agda/iowa-stdlib { };
 

@@ -674,9 +674,7 @@ builtins.intersectAttrs super {
   #
   # Additional note: nixpkgs' freeglut and macOS's OpenGL implementation do not cooperate,
   # so disable this on Darwin only
-  ${if pkgs.stdenv.isDarwin then null else "GLUT"} = addPkgconfigDepend pkgs.freeglut (
-    appendPatch ./patches/GLUT.patch super.GLUT
-  );
+  ${if pkgs.stdenv.isDarwin then null else "GLUT"} = addPkgconfigDepend pkgs.freeglut (appendPatch ./patches/GLUT.patch super.GLUT);
 
   libsystemd-journal = doJailbreak (addExtraLibrary pkgs.systemd super.libsystemd-journal);
 
@@ -1160,9 +1158,7 @@ builtins.intersectAttrs super {
       })
       super.hlint;
 
-  taglib =
-    overrideCabal (drv: { librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]); })
-      super.taglib;
+  taglib = overrideCabal (drv: { librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]); }) super.taglib;
 
   # random 1.2.0 has tests that indirectly depend on
   # itself causing an infinite recursion at evaluation
@@ -1283,9 +1279,7 @@ builtins.intersectAttrs super {
 
   hercules-ci-api-core =
     # 2023-05-02: Work around a corrupted file on cache.nixos.org. This is a hash for x86_64-linux. Remove when it has changed.
-    if
-      super.hercules-ci-api-core.drvPath == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv"
-    then
+    if super.hercules-ci-api-core.drvPath == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv" then
       super.hercules-ci-api-core.overrideAttrs (_: { dummyAttr = 1; })
     else
       super.hercules-ci-api-core;
@@ -1352,9 +1346,7 @@ builtins.intersectAttrs super {
 
   # Some hash implementations are x86 only, but part of the test suite.
   # So executing and building it on non-x86 platforms will always fail.
-  hashes =
-    overrideCabal { doCheck = with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86; }
-      super.hashes;
+  hashes = overrideCabal { doCheck = with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86; } super.hashes;
 
   # Tries to access network
   aws-sns-verify = dontCheck super.aws-sns-verify;

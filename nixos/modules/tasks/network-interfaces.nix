@@ -25,8 +25,7 @@ let
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
     ++
-      concatMap
-        (i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces))
+      concatMap (i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces))
         (attrValues cfg.vswitches);
 
   slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
@@ -1778,18 +1777,15 @@ in
                   #!${pkgs.runtimeShell}
                   # Configure the new interface
                   ${pkgs.iw}/bin/iw dev ${new._iName} set type ${new.type}
-                  ${optionalString (new.type == "mesh" && new.meshID != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
-                  ${optionalString (new.type == "monitor" && new.flags != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
+                  ${optionalString (new.type == "mesh" && new.meshID != null) "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
+                  ${optionalString (new.type == "monitor" && new.flags != null) "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
                   ${optionalString (new.type == "managed" && new.fourAddr != null)
                     "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${if new.fourAddr then "on" else "off"}"}
                   ${optionalString (new.mac != null) "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
                 '';
 
               # Udev attributes for systemd to name the device and to create a .device target.
-              systemdAttrs =
-                n: ''NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
+              systemdAttrs = n: ''NAME:="${n}", ENV{INTERFACE}="${n}", ENV{SYSTEMD_ALIAS}="/sys/subsystem/net/devices/${n}", TAG+="systemd"'';
             in
             flip (concatMapStringsSep "\n") (attrNames wlanDeviceInterfaces) (
               device:

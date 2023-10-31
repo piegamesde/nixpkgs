@@ -16,9 +16,7 @@ in
 
   options = {
     services.woodpecker-server = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests");
       package = lib.mkPackageOptionMD pkgs "woodpecker-server" { };
       environment = lib.mkOption {
         default = { };

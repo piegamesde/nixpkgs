@@ -70,9 +70,7 @@ stdenv.mkDerivation (
     strictDeps = true;
     depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ buildPackages.ncurses ];
+    nativeBuildInputs = [ pkg-config ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ buildPackages.ncurses ];
 
     buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
 

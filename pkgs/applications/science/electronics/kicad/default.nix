@@ -94,8 +94,7 @@ let
   # default, or use the appropriate attribute from `srcs` if building
   # unstable with `srcs` properly defined.
   kicadSrc = if srcOverridep "kicad" then srcs.kicad else kicadSrcFetch;
-  kicadVersion =
-    if srcOverridep "kicadVersion" then srcs.kicadVersion else versionsImport.${baseName}.kicadVersion.version;
+  kicadVersion = if srcOverridep "kicadVersion" then srcs.kicadVersion else versionsImport.${baseName}.kicadVersion.version;
 
   libSrc = name: if srcOverridep name then srcs.${name} else libSrcFetch name;
   # TODO does it make sense to only have one version for all libs?

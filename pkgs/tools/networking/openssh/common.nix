@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!linkOpenssl) "--without-openssl"
     ++ extraConfigureFlags;
 
-  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} = [
-    "-laudit"
-  ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
+  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} = [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
 
   buildFlags = [ "SSH_KEYSIGN=ssh-keysign" ];
 

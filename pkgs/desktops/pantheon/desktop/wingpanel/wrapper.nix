@@ -14,10 +14,7 @@
 
 let
   selectedIndicators =
-    if indicators == null then
-      wingpanelIndicators
-    else
-      indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators);
+    if indicators == null then wingpanelIndicators else indicators ++ (lib.optionals useDefaultIndicators wingpanelIndicators);
 in
 stdenv.mkDerivation rec {
   pname = "${wingpanel.pname}-with-indicators";

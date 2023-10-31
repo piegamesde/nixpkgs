@@ -24,9 +24,7 @@ let
     moduleName: pkg:
     if !lib.isDerivation pkg then
       throw
-        "pkg-config module `${
-          escapeNixIdentifier moduleName
-        }` is not defined to be a derivation. Please check the attribute value for `${
+        "pkg-config module `${escapeNixIdentifier moduleName}` is not defined to be a derivation. Please check the attribute value for `${
           escapeNixIdentifier moduleName
         }` in `pkgs/top-level/pkg-config-packages.nix` in Nixpkgs."
 

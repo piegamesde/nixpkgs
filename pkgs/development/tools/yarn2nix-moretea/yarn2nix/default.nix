@@ -233,10 +233,7 @@ rec {
           children = lib.attrNames (lib.filterAttrs (name: type: type == "directory") (builtins.readDir base));
           matchingChildren = lib.filter (child: builtins.match elemRegex child != null) children;
         in
-        if globElems == [ ] then
-          [ base ]
-        else
-          lib.concatMap (child: expandGlobList (base + ("/" + child)) rest) matchingChildren;
+        if globElems == [ ] then [ base ] else lib.concatMap (child: expandGlobList (base + ("/" + child)) rest) matchingChildren;
 
       # Path -> PathGlob -> [Path]
       expandGlob = base: glob: expandGlobList base (splitGlob glob);

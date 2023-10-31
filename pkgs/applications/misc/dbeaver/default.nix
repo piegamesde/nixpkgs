@@ -83,8 +83,7 @@
           x86_64-linux = "x86_64";
         };
 
-        systemPlatform =
-          platformMap.${stdenv.hostPlatform.system} or (throw "dbeaver not supported on ${stdenv.hostPlatform.system}");
+        systemPlatform = platformMap.${stdenv.hostPlatform.system} or (throw "dbeaver not supported on ${stdenv.hostPlatform.system}");
       in
       if stdenv.isDarwin then
         ''

@@ -80,11 +80,7 @@ let
             }
           else if lib.isAttrs evaluatedPathContent then
             # If user explicitly points to an attrSet or it is marked for recursion, we recur.
-            if
-              path == rootPath
-              || evaluatedPathContent.recurseForDerivations or false
-              || evaluatedPathContent.recurseForRelease or false
-            then
+            if path == rootPath || evaluatedPathContent.recurseForDerivations or false || evaluatedPathContent.recurseForRelease or false then
               dedupResults (lib.mapAttrsToList (name: elem: packagesWithPathInner (path ++ [ name ]) elem) evaluatedPathContent)
             else
               [ ]
@@ -99,8 +95,7 @@ let
   packagesWith = packagesWithPath [ ];
 
   # Recursively find all packages in `pkgs` with updateScript matching given predicate.
-  packagesWithUpdateScriptMatchingPredicate =
-    cond: packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
+  packagesWithUpdateScriptMatchingPredicate = cond: packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
 
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.
   packagesWithUpdateScriptAndMaintainer =
@@ -117,10 +112,7 @@ let
       (
         if builtins.hasAttr "maintainers" pkg.meta then
           (
-            if builtins.isList pkg.meta.maintainers then
-              builtins.elem maintainer pkg.meta.maintainers
-            else
-              maintainer == pkg.meta.maintainers
+            if builtins.isList pkg.meta.maintainers then builtins.elem maintainer pkg.meta.maintainers else maintainer == pkg.meta.maintainers
           )
         else
           false

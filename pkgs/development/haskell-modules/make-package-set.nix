@@ -566,9 +566,7 @@ package-set { inherit pkgs lib callPackage; } self
       #
       # See the Note in `zipperCombinedPkgs` for what gets filtered out from
       # each of these dependency lists.
-      packageInputs = pkgs.lib.zipAttrsWith (_name: zipperCombinedPkgs) (
-        cabalDepsForSelected ++ [ (extraDependencies self) ]
-      );
+      packageInputs = pkgs.lib.zipAttrsWith (_name: zipperCombinedPkgs) (cabalDepsForSelected ++ [ (extraDependencies self) ]);
 
       # A attribute set to pass to `haskellPackages.mkDerivation`.
       #

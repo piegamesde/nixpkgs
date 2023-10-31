@@ -547,8 +547,7 @@ in
       }
       {
         assertion =
-          cfg.database.ignorePostgresqlVersion
-          || (databaseActuallyCreateLocally -> upstreamPostgresqlVersion == postgresqlVersion);
+          cfg.database.ignorePostgresqlVersion || (databaseActuallyCreateLocally -> upstreamPostgresqlVersion == postgresqlVersion);
         message =
           "The PostgreSQL version recommended for use with Discourse is ${upstreamPostgresqlVersion}, you're using ${postgresqlVersion}. "
           + "Either update your PostgreSQL package to the correct version or set services.discourse.database.ignorePostgresqlVersion. "
@@ -1031,10 +1030,7 @@ in
         script =
           let
             apiKeyPath =
-              if cfg.mail.incoming.apiKeyFile == null then
-                "/var/lib/discourse-mail-receiver/api_key"
-              else
-                cfg.mail.incoming.apiKeyFile;
+              if cfg.mail.incoming.apiKeyFile == null then "/var/lib/discourse-mail-receiver/api_key" else cfg.mail.incoming.apiKeyFile;
           in
           ''
             set -o errexit -o pipefail -o nounset -o errtrace

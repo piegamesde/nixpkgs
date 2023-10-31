@@ -18,8 +18,7 @@ let
 
   ruby = cfg.packages.gitlab.ruby;
 
-  postgresqlPackage =
-    if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql_12;
+  postgresqlPackage = if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql_12;
 
   gitlabSocket = "${cfg.statePath}/tmp/sockets/gitlab.socket";
   gitalySocket = "${cfg.statePath}/tmp/sockets/gitaly.socket";
@@ -36,10 +35,7 @@ let
         pool = cfg.databasePool;
       } // cfg.extraDatabaseConfig;
     in
-    if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then
-      { production.main = val; }
-    else
-      { production = val; };
+    if lib.versionAtLeast (lib.getVersion cfg.packages.gitlab) "15.0" then { production.main = val; } else { production = val; };
 
   # We only want to create a database if we're actually going to connect to it.
   databaseActuallyCreateLocally = cfg.databaseCreateLocally && cfg.databaseHost == "";
@@ -731,9 +727,7 @@ in
         opensslVerifyMode = mkOption {
           type = types.str;
           default = "peer";
-          description =
-            lib.mdDoc
-              "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          description = lib.mdDoc "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
       };
 
@@ -1481,10 +1475,9 @@ in
         "gitlab-postgresql.service"
         "postgresql.service"
       ];
-      bindsTo =
-        [ "gitlab-config.service" ]
-        ++ optional (cfg.databaseHost == "") "postgresql.service"
-        ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service";
+      bindsTo = [
+        "gitlab-config.service"
+      ] ++ optional (cfg.databaseHost == "") "postgresql.service" ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service";
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       serviceConfig = {

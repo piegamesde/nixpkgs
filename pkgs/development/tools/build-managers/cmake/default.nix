@@ -44,10 +44,7 @@ assert lib.subtractLists
 assert isBootstrap -> (uiToolkits == [ ]);
 stdenv.mkDerivation rec {
   pname =
-    "cmake"
-    + lib.optionalString isBootstrap "-boot"
-    + lib.optionalString cursesUI "-cursesUI"
-    + lib.optionalString qt5UI "-qt5UI";
+    "cmake" + lib.optionalString isBootstrap "-boot" + lib.optionalString cursesUI "-cursesUI" + lib.optionalString qt5UI "-qt5UI";
   version = "3.25.3";
 
   src = fetchurl {
@@ -85,8 +82,7 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs =
-    setupHooks ++ [ pkg-config ] ++ lib.optionals buildDocs [ texinfo ] ++ lib.optionals qt5UI [ wrapQtAppsHook ];
+  nativeBuildInputs = setupHooks ++ [ pkg-config ] ++ lib.optionals buildDocs [ texinfo ] ++ lib.optionals qt5UI [ wrapQtAppsHook ];
 
   buildInputs =
     lib.optionals useSharedLibraries [
@@ -184,9 +180,7 @@ stdenv.mkDerivation rec {
       configuration files, and generate native makefiles and workspaces that can
       be used in the compiler environment of your choice.
     '';
-    changelog = "https://cmake.org/cmake/help/v${lib.versions.majorMinor version}/release/${
-        lib.versions.majorMinor version
-      }.html";
+    changelog = "https://cmake.org/cmake/help/v${lib.versions.majorMinor version}/release/${lib.versions.majorMinor version}.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       ttuegel

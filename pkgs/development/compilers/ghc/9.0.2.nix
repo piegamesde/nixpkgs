@@ -168,10 +168,7 @@ let
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
-        targetCC.bintools
-      else
-        targetCC.bintools.bintools;
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then targetCC.bintools else targetCC.bintools.bintools;
   };
 
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.

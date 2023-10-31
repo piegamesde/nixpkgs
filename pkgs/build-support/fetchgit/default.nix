@@ -101,8 +101,7 @@ else
       # git-sparse-checkout(1) says:
       # > When the --stdin option is provided, the directories or patterns are read
       # > from standard in as a newline-delimited list instead of from the arguments.
-      sparseCheckout =
-        if builtins.isString sparseCheckout then sparseCheckout else builtins.concatStringsSep "\n" sparseCheckout;
+      sparseCheckout = if builtins.isString sparseCheckout then sparseCheckout else builtins.concatStringsSep "\n" sparseCheckout;
 
       inherit
         url

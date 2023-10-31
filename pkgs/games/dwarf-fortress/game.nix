@@ -40,11 +40,7 @@ let
   baseVersion = elemAt dfVersionTriple 1;
   patchVersion = elemAt dfVersionTriple 2;
 
-  game =
-    if hasAttr dfVersion df-hashes then
-      getAttr dfVersion df-hashes
-    else
-      throw "Unknown Dwarf Fortress version: ${dfVersion}";
+  game = if hasAttr dfVersion df-hashes then getAttr dfVersion df-hashes else throw "Unknown Dwarf Fortress version: ${dfVersion}";
   dfPlatform =
     if hasAttr stdenv.hostPlatform.system platforms then
       getAttr stdenv.hostPlatform.system platforms

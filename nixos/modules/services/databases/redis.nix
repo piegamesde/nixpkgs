@@ -487,9 +487,7 @@ in
                   logfile = mkOption {
                     type = types.str;
                     default = "/dev/null";
-                    description =
-                      lib.mdDoc
-                        "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
+                    description = lib.mdDoc "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
                     example = "/var/log/redis.log";
                   };
 
@@ -708,9 +706,7 @@ in
       (mkIf cfg.vmOverCommit { "vm.overcommit_memory" = "1"; })
     ];
 
-    networking.firewall.allowedTCPPorts = concatMap (conf: optional conf.openFirewall conf.port) (
-      attrValues enabledServers
-    );
+    networking.firewall.allowedTCPPorts = concatMap (conf: optional conf.openFirewall conf.port) (attrValues enabledServers);
 
     environment.systemPackages = [ cfg.package ];
 

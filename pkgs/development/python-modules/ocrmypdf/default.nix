@@ -68,21 +68,18 @@ buildPythonPackage rec {
     installShellFiles
   ];
 
-  propagatedBuildInputs =
-    [
-      coloredlogs
-      deprecation
-      img2pdf
-      packaging
-      pdfminer-six
-      pikepdf
-      pillow
-      pluggy
-      reportlab
-      tqdm
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    coloredlogs
+    deprecation
+    img2pdf
+    packaging
+    pdfminer-six
+    pikepdf
+    pillow
+    pluggy
+    reportlab
+    tqdm
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeCheckInputs = [
     pytest-xdist

@@ -20,9 +20,7 @@ let
     localnet ${cfg.localnet}
     [ProxyList]
     ${builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "${v.type} ${v.host} ${builtins.toString v.port}") (
-        lib.filterAttrs (k: v: v.enable) cfg.proxies
-      )
+      lib.mapAttrsToList (k: v: "${v.type} ${v.host} ${builtins.toString v.port}") (lib.filterAttrs (k: v: v.enable) cfg.proxies)
     )}
   '';
 

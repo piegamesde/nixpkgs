@@ -62,8 +62,7 @@ let
   configIsGenerated = with cfg; networks != { } || extraConfig != "" || userControlled.enable;
 
   # the original configuration file
-  configFile =
-    if configIsGenerated then pkgs.writeText "wpa_supplicant.conf" generatedConfig else "/etc/wpa_supplicant.conf";
+  configFile = if configIsGenerated then pkgs.writeText "wpa_supplicant.conf" generatedConfig else "/etc/wpa_supplicant.conf";
   # the config file with environment variables replaced
   finalConfig = ''"$RUNTIME_DIRECTORY"/wpa_supplicant.conf'';
 
@@ -79,12 +78,7 @@ let
       options =
         [
           "ssid=${quote opts.ssid}"
-          (
-            if pskString != null || opts.auth != null then
-              "key_mgmt=${concatStringsSep " " opts.authProtocols}"
-            else
-              "key_mgmt=NONE"
-          )
+          (if pskString != null || opts.auth != null then "key_mgmt=${concatStringsSep " " opts.authProtocols}" else "key_mgmt=NONE")
         ]
         ++ optional opts.hidden "scan_ssid=1"
         ++ optional (pskString != null) "psk=${pskString}"
@@ -103,8 +97,7 @@ let
     iface:
     let
       deviceUnit = optional (iface != null) "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
-      configStr =
-        if cfg.allowAuxiliaryImperativeNetworks then "-c /etc/wpa_supplicant.conf -I ${finalConfig}" else "-c ${finalConfig}";
+      configStr = if cfg.allowAuxiliaryImperativeNetworks then "-c /etc/wpa_supplicant.conf -I ${finalConfig}" else "-c ${finalConfig}";
     in
     {
       description = "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";

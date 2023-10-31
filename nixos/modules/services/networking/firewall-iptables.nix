@@ -162,9 +162,7 @@ let
           iface: cfg:
           concatMapStrings
             (port: ''
-              ip46tables -A nixos-fw -p tcp --dport ${toString port} -j nixos-fw-accept ${
-                optionalString (iface != "default") "-i ${iface}"
-              }
+              ip46tables -A nixos-fw -p tcp --dport ${toString port} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
             '')
             cfg.allowedTCPPorts
         )
@@ -198,9 +196,7 @@ let
           iface: cfg:
           concatMapStrings
             (port: ''
-              ip46tables -A nixos-fw -p udp --dport ${toString port} -j nixos-fw-accept ${
-                optionalString (iface != "default") "-i ${iface}"
-              }
+              ip46tables -A nixos-fw -p udp --dport ${toString port} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
             '')
             cfg.allowedUDPPorts
         )

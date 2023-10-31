@@ -138,8 +138,7 @@ rec {
         extraBuildInputs = [ pkgs.buildPackages.darwin.CF ];
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
-            NIX_CFLAGS_LINK =
-              toString (args.NIX_CFLAGS_LINK or "") + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
+            NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
             nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
               (pkgs.buildPackages.makeSetupHook
                 {

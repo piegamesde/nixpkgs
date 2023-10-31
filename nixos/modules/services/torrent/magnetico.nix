@@ -52,12 +52,7 @@ let
     escapeShellArgs (
       [
         "--database=${dbURI}"
-        (
-          if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
-            "--credentials=${toString credFile}"
-          else
-            "--no-auth"
-        )
+        (if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then "--credentials=${toString credFile}" else "--no-auth")
         "--addr=${address}:${toString port}"
       ]
       ++ extraOptions

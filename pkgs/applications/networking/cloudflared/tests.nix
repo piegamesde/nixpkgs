@@ -18,18 +18,16 @@ in
     package = cloudflared;
     command = "cloudflared help";
   };
-  refuses-to-autoupdate =
-    runCommand "cloudflared-${version}-refuses-to-autoupdate" { nativeBuildInputs = [ cloudflared ]; }
-      ''
-        set -e
-        cloudflared update 2>&1 | tee output.txt
-        if ! grep "cloudflared was installed by nixpkgs" output.txt
-        then
-          echo "cloudflared's output didn't contain the package manager name"
-          exit 1
-        fi
-        mkdir $out
-      '';
+  refuses-to-autoupdate = runCommand "cloudflared-${version}-refuses-to-autoupdate" { nativeBuildInputs = [ cloudflared ]; } ''
+    set -e
+    cloudflared update 2>&1 | tee output.txt
+    if ! grep "cloudflared was installed by nixpkgs" output.txt
+    then
+      echo "cloudflared's output didn't contain the package manager name"
+      exit 1
+    fi
+    mkdir $out
+  '';
 }
 // lib.optionalAttrs (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64)) {
   runs-through-wine =

@@ -91,9 +91,7 @@ let
             let
               from = ''services.rspamd.workers."${name}".type'';
               files = options.type.files;
-              warning = "The option `${from}` defined in ${
-                  showFiles files
-                } has enum value `proxy` which has been renamed to `rspamd_proxy`";
+              warning = "The option `${from}` defined in ${showFiles files} has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
             x:
             if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
@@ -183,8 +181,7 @@ let
 
   isUnixSocket = socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
 
-  mkBindSockets =
-    enabled: socks: concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
+  mkBindSockets = enabled: socks: concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"

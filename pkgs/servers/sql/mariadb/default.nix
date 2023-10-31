@@ -88,13 +88,10 @@ let
           "man"
         ];
 
-        nativeBuildInputs =
-          [
-            cmake
-            pkg-config
-          ]
-          ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-          ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
+        nativeBuildInputs = [
+          cmake
+          pkg-config
+        ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
 
         buildInputs =
           [
@@ -138,9 +135,7 @@ let
           [ ./patch/cmake-includedir.patch ]
           # Fixes a build issue as documented on
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
-          ++
-            lib.optional (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
-              ./patch/macos-MDEV-26769-regression-fix.patch;
+          ++ lib.optional (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6") ./patch/macos-MDEV-26769-regression-fix.patch;
 
         cmakeFlags =
           [

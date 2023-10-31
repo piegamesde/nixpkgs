@@ -47,9 +47,7 @@ let
         map
           (
             subName:
-            run (name + "." + subName) (if hasAttr subName under then getAttr subName under else "<MISSING!>") (
-              getAttr subName tests
-            )
+            run (name + "." + subName) (if hasAttr subName under then getAttr subName under else "<MISSING!>") (getAttr subName tests)
           )
           (attrNames tests)
       ))
@@ -57,10 +55,7 @@ let
       let
         res = tests under;
       in
-      if isBool res then
-        [ (prefixName name (if tests under then passed "passed" else failed "failed")) ]
-      else
-        [ (prefixName name res) ]
+      if isBool res then [ (prefixName name (if tests under then passed "passed" else failed "failed")) ] else [ (prefixName name res) ]
     else
       [
         failed

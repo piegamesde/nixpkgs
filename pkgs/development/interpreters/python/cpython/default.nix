@@ -57,8 +57,7 @@
   enableOptimizations ? false,
   # enableNoSemanticInterposition is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # clang starts supporting `-fno-sematic-interposition` with version 10
-  enableNoSemanticInterposition ?
-    (!stdenv.cc.isClang || (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10")),
+  enableNoSemanticInterposition ? (!stdenv.cc.isClang || (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "10")),
   # enableLTO is a subset of the enableOptimizations flag that doesn't harm reproducibility.
   # enabling LTO on 32bit arch causes downstream packages to fail when linking
   # enabling LTO on *-darwin causes python3 to fail when linking.
@@ -123,8 +122,7 @@ let
       pythonOnBuildForHost = override pkgsBuildHost.${pythonAttr};
       pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
       pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
-      pythonOnTargetForTarget =
-        if lib.hasAttr pythonAttr pkgsTargetTarget then (override pkgsTargetTarget.${pythonAttr}) else { };
+      pythonOnTargetForTarget = if lib.hasAttr pythonAttr pkgsTargetTarget then (override pkgsTargetTarget.${pythonAttr}) else { };
     };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
@@ -140,10 +138,9 @@ let
       buildPackages.stdenv.cc
       pythonForBuild
     ]
-    ++
-      optionals
-        (stdenv.cc.isClang && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations))
-        [ stdenv.cc.cc.libllvm.out ];
+    ++ optionals (stdenv.cc.isClang && (!stdenv.hostPlatform.useAndroidPrebuilt or false) && (enableLTO || enableOptimizations)) [
+      stdenv.cc.cc.libllvm.out
+    ];
 
   buildInputs =
     filter (p: p != null) (
@@ -175,8 +172,7 @@ let
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
-  pythonForBuildInterpreter =
-    if stdenv.hostPlatform == stdenv.buildPlatform then "$out/bin/python" else pythonForBuild.interpreter;
+  pythonForBuildInterpreter = if stdenv.hostPlatform == stdenv.buildPlatform then "$out/bin/python" else pythonForBuild.interpreter;
 
   # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
   # module that is imported by the sysconfig and distutils.sysconfig modules.

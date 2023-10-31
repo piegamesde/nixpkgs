@@ -309,9 +309,7 @@ in
 
     system.replaceRuntimeDependencies = mkOption {
       default = [ ];
-      example =
-        lib.literalExpression
-          "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
+      example = lib.literalExpression "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
       type = types.listOf (
         types.submodule (
           { ... }:

@@ -87,9 +87,7 @@ in
       wantedBy = [ "remote-fs.target" ];
       serviceConfig.ExecStartPre =
         mkIf (cfg.discoverPortal != null)
-          "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal ${
-            escapeShellArg cfg.discoverPortal
-          } --discover";
+          "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal ${escapeShellArg cfg.discoverPortal} --discover";
     };
 
     environment.systemPackages = [ cfg.package ];

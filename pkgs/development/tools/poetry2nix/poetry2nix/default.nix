@@ -305,10 +305,7 @@ lib.makeScope pkgs.newScope (
             (
               self: super:
               lib.attrsets.mapAttrs
-                (
-                  name: value:
-                  if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value
-                )
+                (name: value: if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value)
                 super
             )
 

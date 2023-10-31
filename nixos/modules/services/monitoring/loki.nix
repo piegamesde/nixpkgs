@@ -82,8 +82,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          ((cfg.configuration == { } -> cfg.configFile != null) && (cfg.configFile != null -> cfg.configuration == { }));
+        assertion = ((cfg.configuration == { } -> cfg.configFile != null) && (cfg.configFile != null -> cfg.configuration == { }));
         message = ''
           Please specify either
           'services.loki.configuration' or

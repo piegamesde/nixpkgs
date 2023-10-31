@@ -397,8 +397,7 @@ rec {
   };
 
   matchAnyAttrs =
-    patterns:
-    if builtins.isList patterns then attrs: any (pattern: matchAttrs pattern attrs) patterns else matchAttrs patterns;
+    patterns: if builtins.isList patterns then attrs: any (pattern: matchAttrs pattern attrs) patterns else matchAttrs patterns;
 
   predicates = mapAttrs (_: matchAnyAttrs) patterns;
 

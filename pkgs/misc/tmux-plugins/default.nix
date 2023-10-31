@@ -10,13 +10,7 @@ let
 
   addRtp =
     path: rtpFilePath: attrs: derivation:
-    derivation
-    // {
-      rtp = "${derivation}/${path}/${rtpFilePath}";
-    }
-    // {
-      overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
-    };
+    derivation // { rtp = "${derivation}/${path}/${rtpFilePath}"; } // { overrideAttrs = f: mkTmuxPlugin (attrs // f attrs); };
 
   mkTmuxPlugin =
     a@{
@@ -281,9 +275,7 @@ rec {
     postInstall = ''
       for f in config.sh tmux-fingers.sh setup-fingers-mode-bindings.sh; do
       wrapProgram $target/scripts/$f \
-        --prefix PATH : ${
-          with pkgs; lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
-        }
+        --prefix PATH : ${with pkgs; lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])}
       done
     '';
   };

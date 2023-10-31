@@ -171,9 +171,7 @@ stdenv.mkDerivation (
             "arm64-linux"
         }
         for f in contrib/*/$arch/{z3,epclextract,nunchaku,SPASS,zipperposition}; do
-          patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f"${
-            lib.optionalString stdenv.isAarch64 " || true"
-          }
+          patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) "$f"${lib.optionalString stdenv.isAarch64 " || true"}
         done
         patchelf --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) contrib/bash_process-*/platform_$arch/bash_process
         for d in contrib/kodkodi-*/jni/$arch; do

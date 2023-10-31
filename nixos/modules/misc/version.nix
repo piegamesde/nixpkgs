@@ -39,8 +39,7 @@ let
             ]
             s
         }"'';
-  attrsToText =
-    attrs: concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs) + "\n";
+  attrsToText = attrs: concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs) + "\n";
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";

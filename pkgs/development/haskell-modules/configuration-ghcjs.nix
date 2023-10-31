@@ -101,15 +101,11 @@ self: super:
   # Terminal test not supported on ghcjs
   QuickCheck = dontCheck super.QuickCheck;
 
-  reflex =
-    overrideCabal (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
-      super.reflex;
+  reflex = overrideCabal (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; }) super.reflex;
 
   reflex-dom =
     overrideCabal
-      (drv: {
-        libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]);
-      })
+      (drv: { libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]); })
       super.reflex-dom;
 
   # https://github.com/dreixel/syb/issues/21

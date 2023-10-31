@@ -84,8 +84,7 @@ let
                         This patch should be removed.
                       fi
                       ln -s ${
-                        lib.findSingle (pkg: lib.getName pkg == "flutter-artifact-linux-x64-artifacts")
-                          (throw "Could not find the x64 artifact archive.")
+                        lib.findSingle (pkg: lib.getName pkg == "flutter-artifact-linux-x64-artifacts") (throw "Could not find the x64 artifact archive.")
                           (throw "Could not find the correct x64 artifact archive.")
                           artifactDerivations.platform.linux.x64.base
                       }/shader_lib .
@@ -116,8 +115,7 @@ let
       ...
     }@args:
     let
-      artifactDirectory =
-        if platform == null then null else "${platform}${lib.optionalString (variant != null) "-${variant}"}";
+      artifactDirectory = if platform == null then null else "${platform}${lib.optionalString (variant != null) "-${variant}"}";
       archiveBasename = lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
     stdenv.mkDerivation (

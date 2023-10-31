@@ -71,9 +71,7 @@
         armv7l-linux = import ./bootstrap-files/armv7l.nix;
         aarch64-linux = import ./bootstrap-files/aarch64.nix;
         mipsel-linux = import ./bootstrap-files/mipsel.nix;
-        mips64el-linux = import (
-          if localSystem.isMips64n32 then ./bootstrap-files/mips64el-n32.nix else ./bootstrap-files/mips64el.nix
-        );
+        mips64el-linux = import (if localSystem.isMips64n32 then ./bootstrap-files/mips64el-n32.nix else ./bootstrap-files/mips64el.nix);
         powerpc64le-linux = import ./bootstrap-files/powerpc64le.nix;
         riscv64-linux = import ./bootstrap-files/riscv64.nix;
       };
@@ -103,9 +101,8 @@
 
     archLookupTable = table.${localSystem.libc} or (abort "unsupported libc for the pure Linux stdenv");
     files =
-      archLookupTable.${localSystem.system} or (
-        if getCompatibleTools != null then getCompatibleTools else (abort "unsupported platform for the pure Linux stdenv")
-      );
+      archLookupTable.${localSystem.system}
+        or (if getCompatibleTools != null then getCompatibleTools else (abort "unsupported platform for the pure Linux stdenv"));
   in
   files,
 }:

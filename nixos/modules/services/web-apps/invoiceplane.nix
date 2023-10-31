@@ -73,8 +73,7 @@ let
         ln -s ${extraConfig hostName cfg} $out/extraConfig.php
 
         # symlink additional templates
-        ${concatMapStringsSep "\n" (template: "cp -r ${template}/. $out/application/views/invoice_templates/pdf/")
-          cfg.invoiceTemplates}
+        ${concatMapStringsSep "\n" (template: "cp -r ${template}/. $out/application/views/invoice_templates/pdf/") cfg.invoiceTemplates}
       '';
     };
 

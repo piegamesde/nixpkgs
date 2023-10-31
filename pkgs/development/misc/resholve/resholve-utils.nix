@@ -139,14 +139,13 @@ rec {
     solution: value:
     if validateSolution value then
       # we pass resholve a directory
-      "RESHOLVE_LORE=${binlore.collect (phraseBinloreArgs value)} ${
-        phraseEnvs solution value
-      } ${resholve}/bin/resholve --overwrite ${phraseArgs value}"
+      "RESHOLVE_LORE=${binlore.collect (phraseBinloreArgs value)} ${phraseEnvs solution value} ${resholve}/bin/resholve --overwrite ${
+        phraseArgs value
+      }"
     else
       throw "invalid solution"; # shouldn't trigger for now
 
-  injectUnresholved =
-    solutions: unresholved: (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
+  injectUnresholved = solutions: unresholved: (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
 
   # Build resholve invocation for each solution.
   phraseCommands =

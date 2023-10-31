@@ -13,8 +13,7 @@ let
   cfg = config.services.multipath;
 
   indentLines =
-    n: str:
-    concatStringsSep "\n" (map (line: "${fixedWidthString n " " " "}${line}") (filter (x: x != "") (splitString "\n" str)));
+    n: str: concatStringsSep "\n" (map (line: "${fixedWidthString n " " " "}${line}") (filter (x: x != "") (splitString "\n" str)));
 
   addCheckDesc =
     desc: elemType: check:

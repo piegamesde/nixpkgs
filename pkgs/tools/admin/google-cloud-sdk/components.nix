@@ -112,9 +112,7 @@ let
           component
       );
       # Operating systems supported by this component
-      operating_systems =
-        builtins.filter (os: builtins.elem os (builtins.attrNames oses))
-          component.platform.operating_systems;
+      operating_systems = builtins.filter (os: builtins.elem os (builtins.attrNames oses)) component.platform.operating_systems;
     in
     mkComponent {
       pname = component.id;

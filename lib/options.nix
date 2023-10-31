@@ -92,10 +92,7 @@ rec {
       default = false;
       example = true;
       description =
-        if name ? _type && name._type == "mdDoc" then
-          lib.mdDoc "Whether to enable ${name.text}."
-        else
-          "Whether to enable ${name}.";
+        if name ? _type && name._type == "mdDoc" then lib.mdDoc "Whether to enable ${name.text}." else "Whether to enable ${name}.";
       type = lib.types.bool;
     };
 

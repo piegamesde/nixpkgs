@@ -363,9 +363,7 @@ in
         nscache ${toString cfg.resolution.nscache}
         nscache6 ${toString cfg.resolution.nscache6}
 
-        ${concatMapStringsSep "\n" (x: "nsrecord " + x) (
-          mapAttrsToList (name: value: "${name} ${value}") cfg.resolution.nsrecord
-        )}
+        ${concatMapStringsSep "\n" (x: "nsrecord " + x) (mapAttrsToList (name: value: "${name} ${value}") cfg.resolution.nsrecord)}
 
         ${optionalString (cfg.usersFile != null) ''users $"${cfg.usersFile}"''}
 
@@ -393,9 +391,9 @@ in
 
             ${optionalString (service.extraConfig != null) service.extraConfig}
 
-            ${service.type} -i${toString service.bindAddress} ${
-              optionalString (service.bindPort != null) "-p${toString service.bindPort}"
-            } ${optionalString (service.extraArguments != null) service.extraArguments}
+            ${service.type} -i${toString service.bindAddress} ${optionalString (service.bindPort != null) "-p${toString service.bindPort}"} ${
+              optionalString (service.extraArguments != null) service.extraArguments
+            }
 
             flush
           '')

@@ -639,9 +639,7 @@ stdenv.mkDerivation (
     buildInputs =
       optionals withFullDeps [ libdc1394 ]
       ++ optionals (withFullDeps && !stdenv.isDarwin) [ libraw1394 ] # TODO where does this belong to
-      ++ optionals (withNvdec || withNvenc) [
-        (if (lib.versionAtLeast version "6") then nv-codec-headers-11 else nv-codec-headers)
-      ]
+      ++ optionals (withNvdec || withNvenc) [ (if (lib.versionAtLeast version "6") then nv-codec-headers-11 else nv-codec-headers) ]
       ++ optionals withAlsa [ alsa-lib ]
       ++ optionals withAom [ libaom ]
       ++ optionals withAss [ libass ]

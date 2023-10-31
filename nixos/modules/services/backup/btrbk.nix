@@ -54,8 +54,7 @@ let
     sec: secName: value:
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
   genPair =
-    { name, value }:
-    if !isAttrs value then [ "${name} ${value}" ] else concatLists (mapAttrsToList (genSection name) value);
+    { name, value }: if !isAttrs value then [ "${name} ${value}" ] else concatLists (mapAttrsToList (genSection name) value);
 
   sudo_doas =
     if config.security.sudo.enable then
@@ -102,9 +101,7 @@ in
         example = literalExpression "[ pkgs.xz ]";
       };
       niceness = mkOption {
-        description =
-          lib.mdDoc
-            "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive.";
+        description = lib.mdDoc "Niceness for local instances of btrbk. Also applies to remote ones connecting via ssh when positive.";
         type = types.ints.between (-20) 19;
         default = 10;
       };

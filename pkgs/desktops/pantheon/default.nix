@@ -103,9 +103,7 @@ lib.makeScope pkgs.newScope (
 
     elementary-print-shim = callPackage ./desktop/elementary-print-shim { };
 
-    elementary-session-settings = callPackage ./desktop/elementary-session-settings {
-      inherit (gnome) gnome-session gnome-keyring;
-    };
+    elementary-session-settings = callPackage ./desktop/elementary-session-settings { inherit (gnome) gnome-session gnome-keyring; };
 
     elementary-shortcut-overlay = callPackage ./desktop/elementary-shortcut-overlay { };
 
@@ -243,9 +241,7 @@ lib.makeScope pkgs.newScope (
 
   evince = pkgs.gnome.evince; # added 2022-03-18
 
-  extra-elementary-contracts =
-    throw
-      "extra-elementary-contracts has been removed as all contracts have been upstreamed."; # added 2021-12-01
+  extra-elementary-contracts = throw "extra-elementary-contracts has been removed as all contracts have been upstreamed."; # added 2021-12-01
 
   file-roller = pkgs.gnome.file-roller; # added 2022-03-12
 

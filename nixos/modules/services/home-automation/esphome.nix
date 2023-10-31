@@ -21,10 +21,7 @@ let
   stateDir = "/var/lib/esphome";
 
   esphomeParams =
-    if cfg.enableUnixSocket then
-      "--socket /run/esphome/esphome.sock"
-    else
-      "--address ${cfg.address} --port ${toString cfg.port}";
+    if cfg.enableUnixSocket then "--socket /run/esphome/esphome.sock" else "--address ${cfg.address} --port ${toString cfg.port}";
 in
 {
   meta.maintainers = with maintainers; [ oddlama ];

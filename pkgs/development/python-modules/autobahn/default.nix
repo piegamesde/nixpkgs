@@ -80,15 +80,11 @@ buildPythonPackage rec {
     txaio
   ];
 
-  nativeCheckInputs =
-    [
-      mock
-      pytest-asyncio
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.scram
-    ++ passthru.optional-dependencies.serialization
-    ++ passthru.optional-dependencies.xbr;
+  nativeCheckInputs = [
+    mock
+    pytest-asyncio
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.scram ++ passthru.optional-dependencies.serialization ++ passthru.optional-dependencies.xbr;
 
   preCheck = ''
     # Run asyncio tests (requires twisted)

@@ -67,8 +67,7 @@ buildPythonPackage rec {
     etree-dm = [ dm-tree ] ++ etree;
     etree-jax = [ jax ] ++ etree;
     etree-tf = [ tensorflow ] ++ etree;
-    all =
-      array-types ++ eapp ++ ecolab ++ edc ++ enp ++ epath ++ epy ++ etqdm ++ etree ++ etree-dm ++ etree-jax ++ etree-tf;
+    all = array-types ++ eapp ++ ecolab ++ edc ++ enp ++ epath ++ epy ++ etqdm ++ etree ++ etree-dm ++ etree-jax ++ etree-tf;
   };
 
   pythonImportsCheck = [ "etils" ];

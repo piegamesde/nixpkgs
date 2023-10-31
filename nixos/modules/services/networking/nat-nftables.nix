@@ -56,8 +56,7 @@ let
       toFwdMap =
         forwardPorts:
         toNftSet (
-          map (fwd: with (splitIPPorts fwd.destination); "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}")
-            forwardPorts
+          map (fwd: with (splitIPPorts fwd.destination); "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}") forwardPorts
         );
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
@@ -72,9 +71,7 @@ let
               fwd:
               map
                 (
-                  loopbackip:
-                  with (splitIPPorts fwd.destination);
-                  "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+                  loopbackip: with (splitIPPorts fwd.destination); "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
                 )
                 fwd.loopbackIPs
             )
@@ -85,9 +82,7 @@ let
 
       # nftables set for port forward loopback snat
       # daddr . l4proto . dport
-      fwdLoopSnatSet = toNftSet (
-        map (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}") forwardPorts
-      );
+      fwdLoopSnatSet = toNftSet (map (fwd: with (splitIPPorts fwd.destination); "${IP} . ${fwd.proto} . ${ports}") forwardPorts);
     in
     ''
       chain pre {

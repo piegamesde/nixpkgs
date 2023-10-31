@@ -122,8 +122,7 @@ rec {
     map ({ system, ... }: system) matchingPlatforms;
 
   assertTrue =
-    bool:
-    if bool then pkgs.runCommand "evaluated-to-true" { } "touch $out" else pkgs.runCommand "evaluated-to-false" { } "false";
+    bool: if bool then pkgs.runCommand "evaluated-to-true" { } "touch $out" else pkgs.runCommand "evaluated-to-false" { } "false";
 
   /* The working or failing mails for cross builds will be sent only to
      the following maintainers, as most package maintainers will not be
@@ -175,8 +174,7 @@ rec {
   packagePlatforms = mapAttrs (
     name: value:
     if isDerivation value then
-      value.meta.hydraPlatforms
-        or (lib.subtractLists (value.meta.badPlatforms or [ ]) (value.meta.platforms or [ "x86_64-linux" ]))
+      value.meta.hydraPlatforms or (lib.subtractLists (value.meta.badPlatforms or [ ]) (value.meta.platforms or [ "x86_64-linux" ]))
     else if value.recurseForDerivations or false || value.recurseForRelease or false then
       packagePlatforms value
     else

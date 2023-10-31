@@ -9,10 +9,7 @@
 let
   hasVPrefix = ver: (builtins.elemAt (lib.stringToCharacters ver) 0) == "v";
   k3sVersionSet =
-    if k3sVersion != null then
-      if hasVPrefix k3sVersion then throw "k3sVersion should not have a v prefix" else true
-    else
-      false;
+    if k3sVersion != null then if hasVPrefix k3sVersion then throw "k3sVersion should not have a v prefix" else true else false;
 in
 buildGoModule rec {
   pname = "kube3d";
@@ -61,9 +58,7 @@ buildGoModule rec {
   installCheckPhase = ''
     runHook preInstallCheck
     $out/bin/k3d --help
-    $out/bin/k3d --version | grep -e "k3d version v${version}" ${
-      lib.optionalString k3sVersionSet ''-e "k3s version v${k3sVersion}"''
-    }
+    $out/bin/k3d --version | grep -e "k3d version v${version}" ${lib.optionalString k3sVersionSet ''-e "k3s version v${k3sVersion}"''}
     runHook postInstallCheck
   '';
 

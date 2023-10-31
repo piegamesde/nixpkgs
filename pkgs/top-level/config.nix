@@ -54,9 +54,7 @@ let
 
     enableParallelBuildingByDefault = mkMassRebuild { feature = "set `enableParallelBuilding` to true by default"; };
 
-    configurePlatformsByDefault = mkMassRebuild {
-      feature = ''set `configurePlatforms` to `["build" "host"]` by default'';
-    };
+    configurePlatformsByDefault = mkMassRebuild { feature = ''set `configurePlatforms` to `["build" "host"]` by default''; };
 
     contentAddressedByDefault = mkMassRebuild { feature = "set `__contentAddressed` to true by default"; };
 

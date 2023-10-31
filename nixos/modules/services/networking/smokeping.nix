@@ -290,9 +290,7 @@ in
       user = mkOption {
         type = types.str;
         default = "smokeping";
-        description =
-          lib.mdDoc
-            "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well.";
+        description = lib.mdDoc "User that runs smokeping and (optionally) thttpd. A group of the same name will be created as well.";
       };
       webService = mkOption {
         type = types.bool;

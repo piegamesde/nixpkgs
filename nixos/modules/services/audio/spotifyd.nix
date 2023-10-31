@@ -16,10 +16,7 @@ let
     else
       id;
   spotifydConf =
-    if cfg.settings != { } then
-      toml.generate "spotify.conf" cfg.settings
-    else
-      warnConfig (pkgs.writeText "spotifyd.conf" cfg.config);
+    if cfg.settings != { } then toml.generate "spotify.conf" cfg.settings else warnConfig (pkgs.writeText "spotifyd.conf" cfg.config);
 in
 {
   options = {

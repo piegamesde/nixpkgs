@@ -35,9 +35,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  buildInputs =
-    lib.optional stdenv.isLinux alsa-lib
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.OpenAL ];
+  buildInputs = lib.optional stdenv.isLinux alsa-lib ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.OpenAL ];
 
   meta = with lib; {
     description = "Tool for shell commands execution, visualization and alerting";

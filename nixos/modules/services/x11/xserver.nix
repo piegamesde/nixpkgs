@@ -991,9 +991,7 @@ in
                               "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
                           }
                         ${indent cfg.extraDisplaySettings}
-                          ${
-                            optionalString (cfg.virtualScreen != null) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
-                          }
+                          ${optionalString (cfg.virtualScreen != null) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"}
                         EndSubSection
                       '';
                     in

@@ -34,9 +34,7 @@ let
       ]
     )
   );
-  extraCertificatesBundle = writeText "cacert-extra-certificates-bundle.crt" (
-    lib.concatStringsSep "\n\n" extraCertificateStrings
-  );
+  extraCertificatesBundle = writeText "cacert-extra-certificates-bundle.crt" (lib.concatStringsSep "\n\n" extraCertificateStrings);
 
   srcVersion = "3.86";
   version = if nssOverride != null then nssOverride.version else srcVersion;
@@ -59,9 +57,7 @@ let
         nssOverride.src
       else
         fetchurl {
-          url = "mirror://mozilla/security/nss/releases/NSS_${
-              lib.replaceStrings [ "." ] [ "_" ] version
-            }_RTM/src/nss-${version}.tar.gz";
+          url = "mirror://mozilla/security/nss/releases/NSS_${lib.replaceStrings [ "." ] [ "_" ] version}_RTM/src/nss-${version}.tar.gz";
           sha256 = "sha256-PzhfxoZHa7uoEQNfpoIbVCR11VdHsYwgwiHU1mVzuXU=";
         };
 

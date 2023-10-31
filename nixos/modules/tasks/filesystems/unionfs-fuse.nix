@@ -40,8 +40,6 @@
       };
     })
 
-    (lib.mkIf (lib.any (fs: fs == "unionfs-fuse") config.boot.supportedFilesystems) {
-      system.fsPackages = [ pkgs.unionfs-fuse ];
-    })
+    (lib.mkIf (lib.any (fs: fs == "unionfs-fuse") config.boot.supportedFilesystems) { system.fsPackages = [ pkgs.unionfs-fuse ]; })
   ];
 }

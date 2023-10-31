@@ -161,8 +161,7 @@ let
       # FIXME when mkChangedOptionModule supports submodules, change to that.
       # This is a workaround
       extraDomains =
-        data.extraDomainNames
-        ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (builtins.attrNames data.extraDomains));
+        data.extraDomainNames ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (builtins.attrNames data.extraDomains));
 
       # Create hashes for cert data directories based on configuration
       # Flags are separated to avoid collisions
@@ -248,9 +247,7 @@ let
 
       # We need to collect all the ACME webroots to grant them write
       # access in the systemd service.
-      webroots = lib.remove null (
-        lib.unique (builtins.map (certAttrs: certAttrs.webroot) (lib.attrValues config.security.acme.certs))
-      );
+      webroots = lib.remove null (lib.unique (builtins.map (certAttrs: certAttrs.webroot) (lib.attrValues config.security.acme.certs)));
     in
     {
       inherit accountHash cert selfsignedDeps;
@@ -391,8 +388,7 @@ let
                   rm renewed
                   ${data.postRun}
                   ${
-                    optionalString (data.reloadServices != [ ])
-                      "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
+                    optionalString (data.reloadServices != [ ]) "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
                   }
                 fi
               '');
@@ -473,9 +469,7 @@ let
             # Produce a nice error for those doing their first nixos-rebuild with these certs
             echo Failed to fetch certificates. \
               This may mean your DNS records are set up incorrectly. \
-              ${
-                optionalString (cfg.preliminarySelfsigned) "Selfsigned certs are in place and dependant services will still start."
-              }
+              ${optionalString (cfg.preliminarySelfsigned) "Selfsigned certs are in place and dependant services will still start."}
             # Exit 10 so that users can potentially amend SuccessExitStatus to ignore this error.
             # High number to avoid Systemd reserved codes.
             exit 10

@@ -33,10 +33,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    if !stdenv.isDarwin then
-      [ "--with-libc=libc.so.6" ]
-    else
-      [ "--with-libc=libc${stdenv.targetPlatform.extensions.sharedLibrary}" ];
+    if !stdenv.isDarwin then [ "--with-libc=libc.so.6" ] else [ "--with-libc=libc${stdenv.targetPlatform.extensions.sharedLibrary}" ];
 
   dontAddDisableDepTrack = stdenv.isDarwin;
 

@@ -46,8 +46,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (spliced: sp
     useAppleSDKLibs = stdenv.hostPlatform.isAarch64;
 
     selectAttrs =
-      attrs: names:
-      lib.listToAttrs (lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names);
+      attrs: names: lib.listToAttrs (lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names);
 
     chooseLibs =
       (
@@ -103,9 +102,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (spliced: sp
       bintools = self.binutils-unwrapped;
     };
 
-    cctools = callPackage ../os-specific/darwin/cctools/port.nix {
-      stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;
-    };
+    cctools = callPackage ../os-specific/darwin/cctools/port.nix { stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv; };
 
     cctools-apple = callPackage ../os-specific/darwin/cctools/apple.nix {
       stdenv = if stdenv.isDarwin then stdenv else pkgs.libcxxStdenv;

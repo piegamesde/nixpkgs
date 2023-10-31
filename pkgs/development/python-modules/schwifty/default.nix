@@ -23,13 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-YEBBrU+Xcl5zFPEt/EvPD5eFPUYSpGJ3ZoIK6PRVwlc=";
   };
 
-  propagatedBuildInputs =
-    [
-      iso3166
-      pycountry
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-resources ]
-    ++ lib.optionals (pythonOlder "3.7") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    iso3166
+    pycountry
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-resources ] ++ lib.optionals (pythonOlder "3.7") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-cov

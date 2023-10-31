@@ -196,8 +196,6 @@ in
       }
       // optionalAttrs (!cfg.generalConfig.mutable) { "icingaweb2/modules/monitoring/config.ini".text = configIni; }
       // optionalAttrs (!cfg.mutableBackends) { "icingaweb2/modules/monitoring/backends.ini".text = backendsIni; }
-      // optionalAttrs (!cfg.mutableTransports) {
-        "icingaweb2/modules/monitoring/commandtransports.ini".text = transportsIni;
-      };
+      // optionalAttrs (!cfg.mutableTransports) { "icingaweb2/modules/monitoring/commandtransports.ini".text = transportsIni; };
   };
 }

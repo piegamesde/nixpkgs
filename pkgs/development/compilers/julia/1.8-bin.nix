@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
   src =
     {
       x86_64-linux = fetchurl {
-        url = "https://julialang-s3.julialang.org/bin/linux/x64/${
-            lib.versions.majorMinor version
-          }/julia-${version}-linux-x86_64.tar.gz";
+        url = "https://julialang-s3.julialang.org/bin/linux/x64/${lib.versions.majorMinor version}/julia-${version}-linux-x86_64.tar.gz";
         sha256 = "sha256-5xokgW6P6dX0gHZky7tCc49aqf4FOX01yB1MXWSbnQU=";
       };
       aarch64-linux = fetchurl {
@@ -49,9 +47,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-oahZ7af7QaC1VGczmhHDwcDfeLJ9HhYOgLxnWLPY2uA=";
       };
       aarch64-darwin = fetchurl {
-        url = "https://julialang-s3.julialang.org/bin/mac/aarch64/${
-            lib.versions.majorMinor version
-          }/julia-${version}-macaarch64.tar.gz";
+        url = "https://julialang-s3.julialang.org/bin/mac/aarch64/${lib.versions.majorMinor version}/julia-${version}-macaarch64.tar.gz";
         sha256 = "sha256-6oXgSJw2MkxNpiFjqhuC/PL1L3LRc+590hOjqSmSyrc=";
       };
     }

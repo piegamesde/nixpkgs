@@ -130,10 +130,7 @@ let
   overrideNativeBuildInputs =
     overrides: old:
     lib.mapAttrs
-      (
-        name: value:
-        (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; })
-      )
+      (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }))
       overrides;
 
   # Overrides package definitions with buildInputs.
@@ -152,8 +149,7 @@ let
   # }
   overrideBuildInputs =
     overrides: old:
-    lib.mapAttrs
-      (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; }))
+    lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; }))
       overrides;
 
   # Overrides package definitions with maintainers.
@@ -1714,8 +1710,7 @@ let
 
     rhdf5filters = old.rhdf5filters.overrideAttrs (
       attrs: {
-        propagatedBuildInputs =
-          with pkgs; attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+        propagatedBuildInputs = with pkgs; attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
         patches = [ ./patches/rhdf5filters.patch ];
       }
     );

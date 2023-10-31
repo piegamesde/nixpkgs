@@ -31,9 +31,7 @@ let
 
   pythonDict =
     params:
-    "\n    {\n        ${
-              concatStringsSep ",\n        " (mapAttrsToList (name: param: ''"${name}": "${param}"'') params)
-            },\n    }\n";
+    "\n    {\n        ${concatStringsSep ",\n        " (mapAttrsToList (name: param: ''"${name}": "${param}"'') params)},\n    }\n";
 
   makeBootTest =
     name: extraConfig:

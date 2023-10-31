@@ -239,9 +239,7 @@ let
                     type = types.str;
                     default = "tcp://127.0.0.1:9959";
                     example = "tcp://0.0.0.0:8888";
-                    description =
-                      mdDoc
-                        "The address to listen on for metrics. This should be on a different port to the main `server.port` value.";
+                    description = mdDoc "The address to listen on for metrics. This should be on a different port to the main `server.port` value.";
                   };
                 };
               };
@@ -414,8 +412,7 @@ in
           name: instance: [
             {
               assertion =
-                instance.secrets.manual
-                || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
+                instance.secrets.manual || (instance.secrets.jwtSecretFile != null && instance.secrets.storageEncryptionKeyFile != null);
               message = ''
                 Authelia requires a JWT Secret and a Storage Encryption Key to work.
                 Either set them like so:

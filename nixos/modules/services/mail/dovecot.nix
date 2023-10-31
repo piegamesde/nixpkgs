@@ -117,9 +117,7 @@ let
 
   modulesDir = pkgs.symlinkJoin {
     name = "dovecot-modules";
-    paths = map (pkg: "${pkg}/lib/dovecot") (
-      [ dovecotPkg ] ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules
-    );
+    paths = map (pkg: "${pkg}/lib/dovecot") ([ dovecotPkg ] ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules);
   };
 
   mailboxConfig =
@@ -171,9 +169,7 @@ let
           );
           default = null;
           example = "Junk";
-          description =
-            lib.mdDoc
-              "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
+          description = lib.mdDoc "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
         };
         autoexpunge = mkOption {
           type = types.nullOr types.str;
@@ -421,8 +417,7 @@ in
       enable = true;
       params.dovecot2 = { };
     };
-    services.dovecot2.protocols =
-      optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3" ++ optional cfg.enableLmtp "lmtp";
+    services.dovecot2.protocols = optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3" ++ optional cfg.enableLmtp "lmtp";
 
     services.dovecot2.mailPlugins = mkIf cfg.enableQuota {
       globally.enable = [ "quota" ];

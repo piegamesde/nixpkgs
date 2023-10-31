@@ -952,8 +952,7 @@ rec {
      Type:
        getOutput :: String -> Derivation -> String
   */
-  getOutput =
-    output: pkg: if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
+  getOutput = output: pkg: if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
 
   /* Get a package's `bin` output.
      If the output does not exist, fallback to `.out` and then to the default.

@@ -38,11 +38,9 @@ stdenv.mkDerivation (
     pname = "miopengemm";
     version = "5.4.3";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

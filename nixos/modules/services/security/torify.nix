@@ -13,9 +13,7 @@ let
     name = "tsocks";
     text = ''
       #!${pkgs.runtimeShell}
-      TSOCKS_CONF_FILE=${
-        pkgs.writeText "tsocks.conf" cfg.tsocks.config
-      } LD_PRELOAD="${pkgs.tsocks}/lib/libtsocks.so $LD_PRELOAD" "$@"
+      TSOCKS_CONF_FILE=${pkgs.writeText "tsocks.conf" cfg.tsocks.config} LD_PRELOAD="${pkgs.tsocks}/lib/libtsocks.so $LD_PRELOAD" "$@"
     '';
     executable = true;
     destination = "/bin/tsocks";

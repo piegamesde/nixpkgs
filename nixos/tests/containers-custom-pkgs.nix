@@ -2,9 +2,7 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   let
 
-    customPkgs = pkgs.appendOverlays [
-      (self: super: { hello = super.hello.overrideAttrs (old: { name = "custom-hello"; }); })
-    ];
+    customPkgs = pkgs.appendOverlays [ (self: super: { hello = super.hello.overrideAttrs (old: { name = "custom-hello"; }); }) ];
   in
   {
     name = "containers-custom-pkgs";

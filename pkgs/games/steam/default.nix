@@ -27,8 +27,7 @@ let
       steam = callPackage ./steam.nix { };
       steam-fhsenv = callPackage ./fhsenv.nix {
         glxinfo-i686 = if self.steamArch == "amd64" then pkgsi686Linux.glxinfo else glxinfo;
-        steam-runtime-wrapped-i686 =
-          if self.steamArch == "amd64" then pkgsi686Linux.steamPackages.steam-runtime-wrapped else null;
+        steam-runtime-wrapped-i686 = if self.steamArch == "amd64" then pkgsi686Linux.steamPackages.steam-runtime-wrapped else null;
         inherit buildFHSEnv;
       };
       steam-fhsenv-small = steam-fhsenv.override { withGameSpecificLibraries = false; };

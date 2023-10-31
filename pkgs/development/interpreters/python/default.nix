@@ -53,8 +53,7 @@
                   if lib.isDerivation value then
                     lib.extendDerivation
                       (
-                        valid value
-                        || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
+                        valid value || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
                       )
                       { }
                       value
@@ -95,13 +94,9 @@
                   pythonExtension = import ../../../top-level/python-packages.nix;
                   python2Extension = import ../../../top-level/python2-packages.nix;
                   extensions = lib.composeManyExtensions (
-                    [ pythonExtension ]
-                    ++ (optionalExtensions (!self.isPy3k) [ python2Extension ])
-                    ++ pythonPackagesExtensions
-                    ++ [ overrides ]
+                    [ pythonExtension ] ++ (optionalExtensions (!self.isPy3k) [ python2Extension ]) ++ pythonPackagesExtensions ++ [ overrides ]
                   );
-                  aliases =
-                    self: super: lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
+                  aliases = self: super: lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
                 in
                 makeScopeWithSplicing otherSplices keep extra (lib.extends (lib.composeExtensions aliases extensions) keep)
               )

@@ -58,6 +58,4 @@
     maintainers = [ maintainers.vbgl ];
   };
 }).overrideAttrs
-  (
-    o: { propagatedBuildInputs = o.propagatedBuildInputs ++ lib.optional (lib.versionAtLeast o.version "0.3.0") deriving; }
-  )
+  (o: { propagatedBuildInputs = o.propagatedBuildInputs ++ lib.optional (lib.versionAtLeast o.version "0.3.0") deriving; })

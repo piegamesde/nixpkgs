@@ -953,8 +953,7 @@ in
 
     assertions = singleton {
       assertion = zoneConfigs ? "." -> cfg.rootServer;
-      message =
-        "You have a root zone configured. If this is really what you " + "want, please enable 'services.nsd.rootServer'.";
+      message = "You have a root zone configured. If this is really what you " + "want, please enable 'services.nsd.rootServer'.";
     };
 
     environment = {

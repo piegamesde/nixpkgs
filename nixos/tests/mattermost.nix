@@ -109,9 +109,7 @@ import ./make-test-python.nix (
         mutable.wait_for_open_port(8065)
 
         # AboutLink and HelpLink should be changed
-        mutable.succeed("${
-          expectConfig ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''
-        }")
+        mutable.succeed("${expectConfig ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''}")
 
         ## Mostly mutable node tests ##
         mostlyMutable.wait_for_unit("mattermost.service")
@@ -127,9 +125,7 @@ import ./make-test-python.nix (
         mostlyMutable.wait_for_open_port(8065)
 
         # AboutLink should be overridden by NixOS configuration; HelpLink should be what we set above
-        mostlyMutable.succeed("${
-          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''
-        }")
+        mostlyMutable.succeed("${expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''}")
 
         ## Immutable node tests ##
         immutable.wait_for_unit("mattermost.service")

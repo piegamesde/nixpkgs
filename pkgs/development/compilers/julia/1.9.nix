@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
         # https://github.com/JuliaCI/julia-buildbot/blob/master/master/inventory.py
         "JULIA_CPU_TARGET=generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
       ]
-    ++ lib.optionals stdenv.isAarch64 [
-      "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm"
-    ];
+    ++ lib.optionals stdenv.isAarch64 [ "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm" ];
 
   # remove forbidden reference to $TMPDIR
   preFixup = ''

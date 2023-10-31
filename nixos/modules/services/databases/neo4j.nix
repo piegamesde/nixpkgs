@@ -705,9 +705,7 @@ in
       validPolicyNameString = concatStringsSep ", " validPolicyNameList;
 
       # Capture various directories left at their default so they can be created.
-      defaultDirectoriesToCreate = map (opt: opt.value) (
-        filter isDefaultPathOption (attrValues options.services.neo4j.directories)
-      );
+      defaultDirectoriesToCreate = map (opt: opt.value) (filter isDefaultPathOption (attrValues options.services.neo4j.directories));
       policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
     in
 

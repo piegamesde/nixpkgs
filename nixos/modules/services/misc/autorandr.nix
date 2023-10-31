@@ -258,8 +258,7 @@ let
         ++ optional (config.rotate != null) "rotate ${config.rotate}"
         ++ optional (config.transform != null) ("transform " + concatMapStringsSep "," toString (flatten config.transform))
         ++ optional (config.scale != null) (
-          (if config.scale.method == "factor" then "scale" else "scale-from")
-          + " ${toString config.scale.x}x${toString config.scale.y}"
+          (if config.scale.method == "factor" then "scale" else "scale-from") + " ${toString config.scale.x}x${toString config.scale.y}"
         )
       )
     else

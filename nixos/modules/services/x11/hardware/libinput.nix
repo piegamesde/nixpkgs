@@ -231,8 +231,7 @@ let
     ${optionalString (cfg.${deviceType}.dev != null) ''MatchDevicePath "${cfg.${deviceType}.dev}"''}
     Option "AccelProfile" "${cfg.${deviceType}.accelProfile}"
     ${optionalString (cfg.${deviceType}.accelSpeed != null) ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
-    ${optionalString (cfg.${deviceType}.buttonMapping != null)
-      ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
+    ${optionalString (cfg.${deviceType}.buttonMapping != null) ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
     ${optionalString (cfg.${deviceType}.calibrationMatrix != null)
       ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
     ${optionalString (cfg.${deviceType}.transformationMatrix != null)
@@ -241,8 +240,7 @@ let
     Option "LeftHanded" "${xorgBool cfg.${deviceType}.leftHanded}"
     Option "MiddleEmulation" "${xorgBool cfg.${deviceType}.middleEmulation}"
     Option "NaturalScrolling" "${xorgBool cfg.${deviceType}.naturalScrolling}"
-    ${optionalString (cfg.${deviceType}.scrollButton != null)
-      ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''}
+    ${optionalString (cfg.${deviceType}.scrollButton != null) ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''}
     Option "ScrollMethod" "${cfg.${deviceType}.scrollMethod}"
     Option "HorizontalScrolling" "${xorgBool cfg.${deviceType}.horizontalScrolling}"
     Option "SendEventsMode" "${cfg.${deviceType}.sendEventsMode}"

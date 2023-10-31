@@ -107,8 +107,7 @@ let
 
   lookupDriveDeviceName =
     driveName: driveList:
-    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found")
-      (throw "Multiple drives named ${driveName}")
+    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found") (throw "Multiple drives named ${driveName}")
       driveList
     ).device;
 
@@ -122,9 +121,7 @@ let
 
     set -e
 
-    NIX_DISK_IMAGE=$(readlink -f "''${NIX_DISK_IMAGE:-${
-      toString config.virtualisation.diskImage
-    }}") || test -z "$NIX_DISK_IMAGE"
+    NIX_DISK_IMAGE=$(readlink -f "''${NIX_DISK_IMAGE:-${toString config.virtualisation.diskImage}}") || test -z "$NIX_DISK_IMAGE"
 
     if test -n "$NIX_DISK_IMAGE" && ! test -e "$NIX_DISK_IMAGE"; then
         echo "Disk image do not exist, creating the virtualisation disk image..."
@@ -881,8 +878,7 @@ in
     );
 
     warnings =
-      optional
-        (cfg.writableStore && cfg.useNixStoreImage && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority)
+      optional (cfg.writableStore && cfg.useNixStoreImage && opt.writableStore.highestPrio > lib.modules.defaultOverridePriority)
         ''
           You have enabled ${opt.useNixStoreImage} = true,
           without setting ${opt.writableStore} = false.
@@ -1021,8 +1017,7 @@ in
         let
           alphaNumericChars = lowerChars ++ upperChars ++ (map toString (range 0 9));
           # Replace all non-alphanumeric characters with underscores
-          sanitizeShellIdent =
-            s: concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
+          sanitizeShellIdent = s: concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
         in
         mkIf (!cfg.useBootLoader) [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${sanitizeShellIdent config.system.name}:-${config.system.build.toplevel}/kernel}"

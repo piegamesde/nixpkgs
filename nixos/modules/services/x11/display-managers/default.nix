@@ -72,8 +72,7 @@ let
 
     # Import environment variables into the systemd user environment.
     ${optionalString (cfg.displayManager.importedVariables != [ ]) (
-      "/run/current-system/systemd/bin/systemctl --user import-environment "
-      + toString (unique cfg.displayManager.importedVariables)
+      "/run/current-system/systemd/bin/systemctl --user import-environment " + toString (unique cfg.displayManager.importedVariables)
     )}
 
     # Speed up application start by 50-150ms according to
@@ -149,8 +148,7 @@ let
   dmFallbackDefault = if dmDefault != null then dmDefault else "none";
   wmDefault = cfg.windowManager.default;
 
-  defaultSessionFromLegacyOptions =
-    dmFallbackDefault + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
+  defaultSessionFromLegacyOptions = dmFallbackDefault + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
 in
 
 {

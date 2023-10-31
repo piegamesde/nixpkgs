@@ -276,9 +276,7 @@ let
     ]
     ++ [
       "--package-db=$packageConfDir"
-      (optionalString (enableSharedExecutables && stdenv.isLinux)
-        "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}"
-      )
+      (optionalString (enableSharedExecutables && stdenv.isLinux) "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}")
       (optionalString (enableSharedExecutables && stdenv.isDarwin) "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
       (optionalString enableParallelBuilding "--ghc-options=${parallelBuildingFlags}")
       (optionalString useCpphs
@@ -301,9 +299,7 @@ let
       (enableFeature enableSharedLibraries "shared")
       (optionalString (versionAtLeast ghc.version "7.10") (enableFeature doCoverage "coverage"))
       (optionalString (versionOlder "8.4" ghc.version) (enableFeature enableStaticLibraries "static"))
-      (optionalString (isGhcjs || versionOlder "7.4" ghc.version) (
-        enableFeature enableSharedExecutables "executable-dynamic"
-      ))
+      (optionalString (isGhcjs || versionOlder "7.4" ghc.version) (enableFeature enableSharedExecutables "executable-dynamic"))
       (optionalString (isGhcjs || versionOlder "7" ghc.version) (enableFeature doCheck "tests"))
       (enableFeature doBenchmark "benchmarks")
       "--enable-library-vanilla" # TODO: Should this be configurable?
@@ -370,9 +366,7 @@ let
     ++ executableFrameworkDepends
     ++ allPkgconfigDepends
     ++ optionals doCheck (testDepends ++ testHaskellDepends ++ testSystemDepends ++ testFrameworkDepends)
-    ++ optionals doBenchmark (
-      benchmarkDepends ++ benchmarkHaskellDepends ++ benchmarkSystemDepends ++ benchmarkFrameworkDepends
-    );
+    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends ++ benchmarkSystemDepends ++ benchmarkFrameworkDepends);
 
   setupCommand = "./Setup";
 
@@ -652,8 +646,7 @@ lib.fix (
           done
         ''}
         ${optionalString doCoverage "mkdir -p $out/share && cp -r dist/hpc $out/share"}
-        ${optionalString
-          (enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10")
+        ${optionalString (enableSharedExecutables && isExecutable && !isGhcjs && stdenv.isDarwin && lib.versionOlder ghc.version "7.10")
           ''
             for exe in "${binDir}/"* ; do
               install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"
@@ -771,9 +764,7 @@ lib.fix (
             # shadowing each other on the PATH.
             ghcEnvForBuild = assert isCross; buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
 
-            ghcEnv = withPackages (
-              _: otherBuildInputsHaskell ++ propagatedBuildInputs ++ lib.optionals (!isCross) setupHaskellDepends
-            );
+            ghcEnv = withPackages (_: otherBuildInputsHaskell ++ propagatedBuildInputs ++ lib.optionals (!isCross) setupHaskellDepends);
 
             ghcCommandCaps = lib.toUpper ghcCommand';
           in
@@ -793,8 +784,7 @@ lib.fix (
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
             # TODO: is this still valid?
             "NIX_${ghcCommandCaps}_DOCDIR" = "${ghcEnv}/share/doc/ghc/html";
-            "NIX_${ghcCommandCaps}_LIBDIR" =
-              if ghc.isHaLVM or false then "${ghcEnv}/lib/HaLVM-${ghc.version}" else "${ghcEnv}/${ghcLibdir}";
+            "NIX_${ghcCommandCaps}_LIBDIR" = if ghc.isHaLVM or false then "${ghcEnv}/lib/HaLVM-${ghc.version}" else "${ghcEnv}/${ghcLibdir}";
           });
 
         env = envFunc { };
@@ -834,8 +824,6 @@ lib.fix (
     // optionalAttrs (args ? preFixup) { inherit preFixup; }
     // optionalAttrs (args ? postFixup) { inherit postFixup; }
     // optionalAttrs (args ? dontStrip) { inherit dontStrip; }
-    // optionalAttrs (stdenv.buildPlatform.libc == "glibc") {
-      LOCALE_ARCHIVE = "${glibcLocales}/lib/locale/locale-archive";
-    }
+    // optionalAttrs (stdenv.buildPlatform.libc == "glibc") { LOCALE_ARCHIVE = "${glibcLocales}/lib/locale/locale-archive"; }
   )
 )

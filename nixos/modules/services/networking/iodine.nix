@@ -215,9 +215,7 @@ in
           };
         };
       in
-      listToAttrs (
-        mapAttrsToList (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value)) cfg.clients
-      )
+      listToAttrs (mapAttrsToList (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value)) cfg.clients)
       // {
         iodined = mkIf (cfg.server.enable) {
           description = "iodine, ip over dns server daemon";

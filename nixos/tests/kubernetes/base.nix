@@ -17,16 +17,12 @@ let
       extraConfiguration ? null,
     }:
     let
-      masterName = head (
-        filter (machineName: any (role: role == "master") machines.${machineName}.roles) (attrNames machines)
-      );
+      masterName = head (filter (machineName: any (role: role == "master") machines.${machineName}.roles) (attrNames machines));
       master = machines.${masterName};
       extraHosts = ''
         ${master.ip}  etcd.${domain}
         ${master.ip}  api.${domain}
-        ${concatMapStringsSep "\n" (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}") (
-          attrNames machines
-        )}
+        ${concatMapStringsSep "\n" (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}") (attrNames machines)}
       '';
       wrapKubectl =
         with pkgs;

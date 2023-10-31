@@ -149,9 +149,7 @@ in
 
       requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
 
-      environment.GIT_SSH_COMMAND =
-        lib.mkIf (cfg.sshKeyFile != null)
-          "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
+      environment.GIT_SSH_COMMAND = lib.mkIf (cfg.sshKeyFile != null) "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
 
       restartIfChanged = false;
 

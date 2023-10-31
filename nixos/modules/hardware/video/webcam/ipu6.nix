@@ -41,8 +41,7 @@ in
     boot.extraModulePackages = with config.boot.kernelPackages; [ ipu6-drivers ];
 
     hardware.firmware =
-      with pkgs;
-      [ ] ++ optional (cfg.platform == "ipu6") ipu6-camera-bin ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin;
+      with pkgs; [ ] ++ optional (cfg.platform == "ipu6") ipu6-camera-bin ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin;
 
     services.udev.extraRules = ''
       SUBSYSTEM=="intel-ipu6-psys", MODE="0660", GROUP="video"

@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs =
-    with lib; concatLists (mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ])) features);
+  buildInputs = with lib; concatLists (mapAttrsToList (feat: enabled: optionals enabled (featureDeps."${feat}" or [ ])) features);
 
   enableParallelBuilding = true;
 

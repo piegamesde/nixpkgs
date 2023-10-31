@@ -56,23 +56,19 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  buildInputs =
-    [
-      fribidi
-      gdbm
-      gnutls
-      gss
-      libmysqlclient
-      mailcap
-      ncurses
-      pam
-      readline
-      sasl
-      libxcrypt
-    ]
-    ++ lib.optionals stdenv.isLinux [ nettools ]
-    ++ lib.optionals pythonSupport [ python3 ]
-    ++ lib.optionals guileSupport [ guile ];
+  buildInputs = [
+    fribidi
+    gdbm
+    gnutls
+    gss
+    libmysqlclient
+    mailcap
+    ncurses
+    pam
+    readline
+    sasl
+    libxcrypt
+  ] ++ lib.optionals stdenv.isLinux [ nettools ] ++ lib.optionals pythonSupport [ python3 ] ++ lib.optionals guileSupport [ guile ];
 
   patches = [
     ./fix-build-mb-len-max.patch

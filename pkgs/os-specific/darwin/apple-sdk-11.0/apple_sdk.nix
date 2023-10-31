@@ -16,8 +16,7 @@
 let
   stdenv = stdenvNoCC;
 
-  standardFrameworkPath =
-    name: private: "/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework";
+  standardFrameworkPath = name: private: "/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework";
 
   mkDepsRewrites =
     deps:
@@ -49,8 +48,7 @@ let
           )
         );
 
-      rewrites =
-        depList: lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList));
+      rewrites = depList: lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList));
     in
     lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
 

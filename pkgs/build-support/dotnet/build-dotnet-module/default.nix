@@ -89,10 +89,7 @@
 
 let
   platforms =
-    if args ? meta.platforms then
-      lib.intersectLists args.meta.platforms dotnet-sdk.meta.platforms
-    else
-      dotnet-sdk.meta.platforms;
+    if args ? meta.platforms then lib.intersectLists args.meta.platforms dotnet-sdk.meta.platforms else dotnet-sdk.meta.platforms;
 
   inherit
     (callPackage ./hooks {
@@ -105,8 +102,7 @@ let
         runtimeDeps
         buildType
       ;
-      runtimeId =
-        if runtimeId != null then runtimeId else dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
+      runtimeId = if runtimeId != null then runtimeId else dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
     })
     dotnetConfigureHook
     dotnetBuildHook
@@ -115,8 +111,7 @@ let
     dotnetFixupHook
   ;
 
-  localDeps =
-    if (projectReferences != [ ]) then linkFarmFromDrvs "${name}-project-references" projectReferences else null;
+  localDeps = if (projectReferences != [ ]) then linkFarmFromDrvs "${name}-project-references" projectReferences else null;
 
   _nugetDeps =
     if (nugetDeps != null) then
@@ -191,8 +186,7 @@ stdenvNoCC.mkDerivation (
       fetch-deps =
         let
           flags = dotnetFlags ++ dotnetRestoreFlags;
-          runtimeIds =
-            if runtimeId != null then [ runtimeId ] else map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
+          runtimeIds = if runtimeId != null then [ runtimeId ] else map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
           defaultDepsFile =
             # Wire in the nugetDeps file such that running the script with no args
             # runs it agains the correct deps file by default.

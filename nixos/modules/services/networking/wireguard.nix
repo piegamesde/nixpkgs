@@ -417,8 +417,7 @@ let
             ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
-            concatMapStringsSep "\n"
-              (allowedIP: ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
+            concatMapStringsSep "\n" (allowedIP: ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
               peer.allowedIPs
           );
         in
@@ -440,8 +439,7 @@ let
       postStop =
         let
           route_destroy = optionalString interfaceCfg.allowedIPsAsRoutes (
-            concatMapStringsSep "\n"
-              (allowedIP: ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
+            concatMapStringsSep "\n" (allowedIP: ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
               peer.allowedIPs
           );
         in
@@ -590,8 +588,7 @@ in
   config = mkIf cfg.enable (
     let
       all_peers = flatten (
-        mapAttrsToList
-          (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers)
+        mapAttrsToList (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers)
           cfg.interfaces
       );
     in

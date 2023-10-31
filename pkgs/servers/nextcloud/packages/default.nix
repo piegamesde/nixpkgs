@@ -23,8 +23,7 @@ let
       mkNextcloudDerivation = self.callPackage ({ }: { data }: pkgs.fetchNextcloudApp { inherit (data) url sha256; }) { };
     }
     //
-      lib.mapAttrs
-        (type: pkgs: lib.makeExtensible (_: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs))
+      lib.mapAttrs (type: pkgs: lib.makeExtensible (_: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs))
         generatedJson;
 in
 (lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfNC: superNC: { })

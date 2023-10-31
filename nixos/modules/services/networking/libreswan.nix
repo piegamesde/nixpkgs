@@ -26,10 +26,7 @@ let
           (stringToCharacters str)
       );
     in
-    if length nonchars == 0 then
-      ""
-    else
-      substring (head nonchars).ind (add 1 (sub (last nonchars).ind (head nonchars).ind)) str;
+    if length nonchars == 0 then "" else substring (head nonchars).ind (add 1 (sub (last nonchars).ind (head nonchars).ind)) str;
   indent =
     str:
     concatStrings (

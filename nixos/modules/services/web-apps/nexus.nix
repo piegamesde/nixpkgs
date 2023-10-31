@@ -140,12 +140,8 @@ in
         else
           sed 's/^application-port=.*/application-port=${toString cfg.listenPort}/' -i ${cfg.home}/nexus3/etc/nexus.properties
           sed 's/^# application-port=.*/application-port=${toString cfg.listenPort}/' -i ${cfg.home}/nexus3/etc/nexus.properties
-          sed 's/^application-host=.*/application-host=${
-            toString cfg.listenAddress
-          }/' -i ${cfg.home}/nexus3/etc/nexus.properties
-          sed 's/^# application-host=.*/application-host=${
-            toString cfg.listenAddress
-          }/' -i ${cfg.home}/nexus3/etc/nexus.properties
+          sed 's/^application-host=.*/application-host=${toString cfg.listenAddress}/' -i ${cfg.home}/nexus3/etc/nexus.properties
+          sed 's/^# application-host=.*/application-host=${toString cfg.listenAddress}/' -i ${cfg.home}/nexus3/etc/nexus.properties
         fi
       '';
 

@@ -118,9 +118,7 @@ in
           enable = true;
           description = "Physlock";
           wantedBy =
-            optional cfg.lockOn.suspend "suspend.target"
-            ++ optional cfg.lockOn.hibernate "hibernate.target"
-            ++ cfg.lockOn.extraTargets;
+            optional cfg.lockOn.suspend "suspend.target" ++ optional cfg.lockOn.hibernate "hibernate.target" ++ cfg.lockOn.extraTargets;
           before =
             optional cfg.lockOn.suspend "systemd-suspend.service"
             ++ optional cfg.lockOn.hibernate "systemd-hibernate.service"
@@ -128,9 +126,9 @@ in
             ++ cfg.lockOn.extraTargets;
           serviceConfig = {
             Type = "forking";
-            ExecStart = "${pkgs.physlock}/bin/physlock -d${optionalString cfg.muteKernelMessages "m"}${
-                optionalString cfg.disableSysRq "s"
-              }${optionalString (cfg.lockMessage != "") " -p \"${cfg.lockMessage}\""}";
+            ExecStart = "${pkgs.physlock}/bin/physlock -d${optionalString cfg.muteKernelMessages "m"}${optionalString cfg.disableSysRq "s"}${
+                optionalString (cfg.lockMessage != "") " -p \"${cfg.lockMessage}\""
+              }";
           };
         };
 

@@ -156,9 +156,7 @@ in
       description = "shadowsocks-libev Daemon";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [
-        pkgs.shadowsocks-libev
-      ] ++ optional (cfg.plugin != null) cfg.plugin ++ optional (cfg.passwordFile != null) pkgs.jq;
+      path = [ pkgs.shadowsocks-libev ] ++ optional (cfg.plugin != null) cfg.plugin ++ optional (cfg.passwordFile != null) pkgs.jq;
       serviceConfig.PrivateTmp = true;
       script = ''
         ${optionalString (cfg.passwordFile != null) ''

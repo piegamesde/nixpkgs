@@ -448,15 +448,13 @@ let
                 echo "Configuring Open vSwitch ${n}..."
                 ovs-vsctl ${
                   concatStrings (
-                    mapAttrsToList
-                      (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
+                    mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}")
                       v.interfaces
                   )
                 } \
                   ${
                     concatStrings (
-                      mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
-                        v.interfaces
+                      mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces
                     )
                   } \
                   ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \

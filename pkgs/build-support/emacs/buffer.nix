@@ -50,9 +50,7 @@ rec {
       ; setenv modifies in place, so copy the environment first
       (setq process-environment (copy-tree process-environment))
       (setenv "PATH" (concat "${lib.makeSearchPath "bin" pkgs}:" (getenv "PATH")))
-      (inherit-local-permanent exec-path (append '(${
-        builtins.concatStringsSep " " (map (p: ''"${p}/bin"'') pkgs)
-      }) exec-path))
+      (inherit-local-permanent exec-path (append '(${builtins.concatStringsSep " " (map (p: ''"${p}/bin"'') pkgs)}) exec-path))
 
       (inherit-local-permanent eshell-path-env (concat "${lib.makeSearchPath "bin" pkgs}:" eshell-path-env))
 

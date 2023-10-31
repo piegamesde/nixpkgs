@@ -167,9 +167,7 @@ in
       };
       script =
         let
-          genConfigScript = pkgs.writeScript "engelsystem-gen-config.sh" (
-            utils.genJqSecretsReplacementSnippet cfg.config "config.json"
-          );
+          genConfigScript = pkgs.writeScript "engelsystem-gen-config.sh" (utils.genJqSecretsReplacementSnippet cfg.config "config.json");
         in
         ''
           umask 077

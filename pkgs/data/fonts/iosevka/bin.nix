@@ -11,9 +11,7 @@ let
   name = if lib.hasPrefix "sgr" variant then variant else "iosevka" + lib.optionalString (variant != "") "-" + variant;
 
   variantHashes = import ./variants.nix;
-  validVariants = map (lib.removePrefix "iosevka-") (
-    builtins.attrNames (builtins.removeAttrs variantHashes [ "iosevka" ])
-  );
+  validVariants = map (lib.removePrefix "iosevka-") (builtins.attrNames (builtins.removeAttrs variantHashes [ "iosevka" ]));
 in
 stdenv.mkDerivation rec {
   pname = "${name}-bin";

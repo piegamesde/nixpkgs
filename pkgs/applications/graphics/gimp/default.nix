@@ -67,9 +67,7 @@ stdenv.mkDerivation (
     ];
 
     src = fetchurl {
-      url = "http://download.gimp.org/pub/gimp/v${
-          lib.versions.majorMinor finalAttrs.version
-        }/gimp-${finalAttrs.version}.tar.bz2";
+      url = "http://download.gimp.org/pub/gimp/v${lib.versions.majorMinor finalAttrs.version}/gimp-${finalAttrs.version}.tar.bz2";
       sha256 = "hABGQtNRs5ikKTzX/TWSBEqUTwW7UoUO5gaPJHxleqM=";
     };
 

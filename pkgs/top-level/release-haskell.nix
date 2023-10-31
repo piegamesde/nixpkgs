@@ -43,10 +43,7 @@ let
     lib.concatMap
       (
         attrs:
-        if lib.isDerivation attrs then
-          [ attrs ]
-        else
-          lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
+        if lib.isDerivation attrs then [ attrs ] else lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
       )
       jobList;
 
@@ -184,8 +181,7 @@ let
   pkgsPlatforms = packagePlatforms pkgs;
 
   # names of packages in an attribute set that are maintained
-  maintainedPkgNames =
-    set: builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set);
+  maintainedPkgNames = set: builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set);
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 

@@ -576,8 +576,7 @@ in
               default = "http://${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
               defaultText =
                 lib.literalMD
-                  ''
-                    `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
+                  ''`"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
             };
             webhooks = mkOption {
               description = lib.mdDoc "The Redis connection used for the webhooks worker.";
@@ -611,9 +610,7 @@ in
         };
         options."meta.sr.ht::billing" = {
           enabled = mkEnableOption (lib.mdDoc "the billing system");
-          stripe-public-key =
-            mkOptionNullOrStr
-              "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys";
+          stripe-public-key = mkOptionNullOrStr "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys";
           stripe-secret-key =
             mkOptionNullOrStr ''
               An absolute file path (which should be outside the Nix-store)
@@ -1210,9 +1207,7 @@ in
         extraServices.gitsrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart = "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${
-              toString (cfg.git.port + 100)
-            }";
+          serviceConfig.ExecStart = "${pkgs.sourcehut.gitsrht}/bin/gitsrht-api -b ${cfg.listenAddress}:${toString (cfg.git.port + 100)}";
         };
         extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
           serviceConfig = {
@@ -1277,9 +1272,7 @@ in
         extraServices.hgsrht-api = {
           serviceConfig.Restart = "always";
           serviceConfig.RestartSec = "5s";
-          serviceConfig.ExecStart = "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${
-              toString (cfg.hg.port + 100)
-            }";
+          serviceConfig.ExecStart = "${pkgs.sourcehut.hgsrht}/bin/hgsrht-api -b ${cfg.listenAddress}:${toString (cfg.hg.port + 100)}";
         };
         extraConfig = mkMerge [
           {
@@ -1432,9 +1425,7 @@ in
                 cfg.settings
             )
           );
-        serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.meta.port + 100)
-          }";
+        serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";
       };
       extraConfig = mkMerge [
         {
@@ -1510,9 +1501,7 @@ in
             cd /run/sourcehut/${srvsrht}
 
             if test ! -e ${stateDir}/db; then
-              ${postgresql.package}/bin/psql '${
-                cfg.settings.${iniKey}.connection-string
-              }' -f ${pkgs.sourcehut.pagessrht}/share/sql/schema.sql
+              ${postgresql.package}/bin/psql '${cfg.settings.${iniKey}.connection-string}' -f ${pkgs.sourcehut.pagessrht}/share/sql/schema.sql
               echo ${version} >${stateDir}/db
             fi
 
@@ -1544,9 +1533,7 @@ in
       extraServices.todosrht-api = {
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = "5s";
-        serviceConfig.ExecStart = "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${
-            toString (cfg.todo.port + 100)
-          }";
+        serviceConfig.ExecStart = "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${toString (cfg.todo.port + 100)}";
       };
       extraServices.todosrht-lmtp = {
         wants = [ "postfix.service" ];

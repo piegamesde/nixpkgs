@@ -32,8 +32,7 @@ let
   );
 
   specPaths = map dirOf (
-    concatMap
-      (spec: if isAttrs spec then collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec) else [ spec ])
+    concatMap (spec: if isAttrs spec then collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec) else [ spec ])
       (attrValues cfg.specs)
   );
 
@@ -68,9 +67,7 @@ in
     renewInterval = mkOption {
       default = "30m";
       type = types.str;
-      description =
-        lib.mdDoc
-          "How often to check certificate expirations and how often to update the cert_next_expires metric.";
+      description = lib.mdDoc "How often to check certificate expirations and how often to update the cert_next_expires metric.";
     };
 
     metricsAddress = mkOption {

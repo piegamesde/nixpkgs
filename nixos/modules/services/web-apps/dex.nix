@@ -11,14 +11,9 @@ let
   cfg = config.services.dex;
   fixClient =
     client:
-    if client ? secretFile then
-      ((builtins.removeAttrs client [ "secretFile" ]) // { secret = client.secretFile; })
-    else
-      client;
+    if client ? secretFile then ((builtins.removeAttrs client [ "secretFile" ]) // { secret = client.secretFile; }) else client;
   filteredSettings = mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v) cfg.settings;
-  secretFiles = flatten (
-    builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (cfg.settings.staticClients or [ ])
-  );
+  secretFiles = flatten (builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (cfg.settings.staticClients or [ ]));
 
   settingsFormat = pkgs.formats.yaml { };
   configFile = settingsFormat.generate "config.yaml" filteredSettings;

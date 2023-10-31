@@ -172,9 +172,7 @@
 assert !enableNativeBignum -> gmp != null;
 
 let
-  src = (if rev != null then fetchgit else fetchurl) (
-    { inherit url sha256; } // lib.optionalAttrs (rev != null) { inherit rev; }
-  );
+  src = (if rev != null then fetchgit else fetchurl) ({ inherit url sha256; } // lib.optionalAttrs (rev != null) { inherit rev; });
 
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
@@ -228,10 +226,7 @@ let
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
-      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
-        targetCC.bintools
-      else
-        targetCC.bintools.bintools;
+      if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then targetCC.bintools else targetCC.bintools.bintools;
   };
 
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
@@ -411,23 +406,20 @@ stdenv.mkDerivation (
     # Don’t add -liconv to LDFLAGS automatically so that GHC will add it itself.
     dontAddExtraLibs = true;
 
-    nativeBuildInputs =
-      [
-        perl
-        ghc
-        hadrian
-        bootPkgs.alex
-        bootPkgs.happy
-        bootPkgs.hscolour
-        # autoconf and friends are necessary for hadrian to create the bindist
-        autoconf
-        automake
-        m4
-        # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
-        python3
-      ]
-      ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-      ++ lib.optionals enableDocs [ sphinx ];
+    nativeBuildInputs = [
+      perl
+      ghc
+      hadrian
+      bootPkgs.alex
+      bootPkgs.happy
+      bootPkgs.hscolour
+      # autoconf and friends are necessary for hadrian to create the bindist
+      autoconf
+      automake
+      m4
+      # Python is used in a few scripts invoked by hadrian to generate e.g. rts headers.
+      python3
+    ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ] ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;

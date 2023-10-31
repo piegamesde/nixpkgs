@@ -514,8 +514,7 @@ in
                 default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
                 defaultText =
                   literalExpression
-                    ''
-                      "http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
+                    ''"http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 
@@ -595,8 +594,7 @@ in
       database = mkMerge [
         { DB_TYPE = cfg.database.type; }
         (mkIf (useMysql || usePostgresql) {
-          HOST =
-            if cfg.database.socket != null then cfg.database.socket else cfg.database.host + ":" + toString cfg.database.port;
+          HOST = if cfg.database.socket != null then cfg.database.socket else cfg.database.host + ":" + toString cfg.database.port;
           NAME = cfg.database.name;
           USER = cfg.database.user;
           PASSWD = "#dbpass#";
@@ -697,9 +695,7 @@ in
 
     systemd.services.gitea = {
       description = "gitea";
-      after = [
-        "network.target"
-      ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
+      after = [ "network.target" ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
       path = [
         cfg.package

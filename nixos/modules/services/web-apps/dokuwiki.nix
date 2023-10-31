@@ -77,10 +77,7 @@ let
     k: v:
     let
       values =
-        if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then
-          [ " = ${mkPhpValue v};" ]
-        else
-          mkPhpAttrVals v;
+        if (isAttrs v && (hasAttr "_file" v || hasAttr "_raw" v)) || !isAttrs v then [ " = ${mkPhpValue v};" ] else mkPhpAttrVals v;
     in
     map (e: "[${escapeShellArg k}]${e}") (flatten values);
 
@@ -184,8 +181,7 @@ let
         mkOption {
           visible = false;
           description = lib.mdDoc "Alias of {option}${showOption toPath}";
-          apply =
-            x: builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}" toOp;
+          apply = x: builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}" toOp;
         }
       );
       config = mkMerge [
@@ -581,8 +577,7 @@ in
                 phpEnv =
                   optionalAttrs (cfg.usersFile != null) { DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}"; }
                   // optionalAttrs (cfg.mergedConfig.useacl) {
-                    DOKUWIKI_ACL_AUTH_CONFIG =
-                      if (cfg.acl != null) then "${dokuwikiAclAuthConfig hostName cfg}" else "${toString cfg.aclFile}";
+                    DOKUWIKI_ACL_AUTH_CONFIG = if (cfg.acl != null) then "${dokuwikiAclAuthConfig hostName cfg}" else "${toString cfg.aclFile}";
                   };
 
                 settings = {

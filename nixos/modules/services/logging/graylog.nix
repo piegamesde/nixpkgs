@@ -110,9 +110,7 @@ in
       mongodbUri = mkOption {
         type = types.str;
         default = "mongodb://localhost/graylog";
-        description =
-          lib.mdDoc
-            "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details";
+        description = lib.mdDoc "MongoDB connection string. See http://docs.mongodb.org/manual/reference/connection-string/ for details";
       };
 
       extraConfig = mkOption {

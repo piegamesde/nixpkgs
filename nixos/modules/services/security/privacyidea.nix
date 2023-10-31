@@ -474,8 +474,7 @@ in
             ''}";
             ExecStart =
               let
-                configPath =
-                  if cfg.ldap-proxy.settings != { } then "%S/privacyidea-ldap-proxy/ldap-proxy.ini" else cfg.ldap-proxy.configFile;
+                configPath = if cfg.ldap-proxy.settings != { } then "%S/privacyidea-ldap-proxy/ldap-proxy.ini" else cfg.ldap-proxy.configFile;
               in
               ''
                 ${ldap-proxy-env}/bin/twistd \

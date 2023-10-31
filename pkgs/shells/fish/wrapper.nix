@@ -17,9 +17,7 @@ lib.makeOverridable (
   }:
 
   let
-    aliasesStr = builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "alias ${k} ${lib.escapeShellArg v}") shellAliases
-    );
+    aliasesStr = builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "alias ${k} ${lib.escapeShellArg v}") shellAliases);
 
     shellAliasesFishConfig = writeTextFile {
       name = "wrapfish.aliases.fish";

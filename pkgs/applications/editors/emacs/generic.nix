@@ -146,10 +146,7 @@ in
         ++ lib.optionals nativeComp [
           (substituteAll {
             src =
-              if lib.versionOlder finalAttrs.version "29" then
-                ./native-comp-driver-options-28.patch
-              else
-                ./native-comp-driver-options.patch;
+              if lib.versionOlder finalAttrs.version "29" then ./native-comp-driver-options-28.patch else ./native-comp-driver-options.patch;
             backendPath =
               (lib.concatStringsSep " " (
                 builtins.map (x: ''"-B${x}"'') (
@@ -408,8 +405,7 @@ in
 
       meta = with lib; {
         description =
-          "The extensible, customizable GNU text editor"
-          + optionalString withMacport " with Mitsuharu Yamamoto's macport patches";
+          "The extensible, customizable GNU text editor" + optionalString withMacport " with Mitsuharu Yamamoto's macport patches";
         homepage = if withMacport then "https://bitbucket.org/mituharu/emacs-mac/" else "https://www.gnu.org/software/emacs/";
         license = licenses.gpl3Plus;
         maintainers = with maintainers; [

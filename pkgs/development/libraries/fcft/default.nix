@@ -49,15 +49,12 @@ stdenv.mkDerivation rec {
     ninja
     scdoc
   ];
-  buildInputs =
-    [
-      freetype
-      fontconfig
-      pixman
-      tllist
-    ]
-    ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
-    ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ];
+  buildInputs = [
+    freetype
+    fontconfig
+    pixman
+    tllist
+  ] ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ] ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ];
   nativeCheckInputs = [ check ];
 
   mesonBuildType = "release";

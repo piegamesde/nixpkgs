@@ -16,8 +16,7 @@ let
       cudaMajorMinorVersion = lib.versions.majorMinor final.cudaVersion;
       inherit lib pkgs;
 
-      addBuildInputs =
-        drv: buildInputs: drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
+      addBuildInputs = drv: buildInputs: drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
     }
   );
 

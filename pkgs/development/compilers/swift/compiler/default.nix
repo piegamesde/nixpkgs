@@ -75,8 +75,7 @@ let
         #watchos
         #watchsimulator
       }
-      .${targetPlatform.darwinPlatform}
-        or (throw "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'")
+      .${targetPlatform.darwinPlatform} or (throw "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'")
     else
       targetPlatform.parsed.kernel.name;
 

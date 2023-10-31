@@ -54,16 +54,12 @@ let
       version = platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
       src = fetchurl {
         url =
-          "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"
-          + optionalString stdenv.isAarch64 "-aarch64"
-          + ".tar.gz";
+          "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}" + optionalString stdenv.isAarch64 "-aarch64" + ".tar.gz";
         inherit (platformAttrs.${stdenv.system}) hash;
       };
       doCheck = true;
 
-      nativeBuildInputs = [
-        makeWrapper
-      ] ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
+      nativeBuildInputs = [ makeWrapper ] ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
       buildInputs = [ openssl ] ++ nativeLibs;
 
       installPhase =

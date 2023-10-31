@@ -40,9 +40,7 @@ let
         rc-manager = if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
         firewall-backend = cfg.firewallBackend;
       })
-      (mkSection "keyfile" {
-        unmanaged-devices = if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
-      })
+      (mkSection "keyfile" { unmanaged-devices = if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged; })
       (mkSection "logging" {
         audit = config.security.audit.enable;
         level = cfg.logLevel;
@@ -493,9 +491,7 @@ in
         map
           (
             pkg:
-            nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" {
-              source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}";
-            }
+            nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" { source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}"; }
           )
           cfg.plugins
       )

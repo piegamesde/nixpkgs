@@ -127,8 +127,7 @@ in
           User = "yarn";
           SyslogIdentifier = "yarn-resourcemanager";
           ExecStart =
-            "${cfg.package}/bin/yarn --config ${hadoopConf} "
-            + " resourcemanager ${escapeShellArgs cfg.yarn.resourcemanager.extraFlags}";
+            "${cfg.package}/bin/yarn --config ${hadoopConf} " + " resourcemanager ${escapeShellArgs cfg.yarn.resourcemanager.extraFlags}";
           Restart = "always";
         };
       };
@@ -148,9 +147,7 @@ in
     (mkIf cfg.yarn.nodemanager.enable {
       # Needed because yarn hardcodes /bin/bash in container start scripts
       # These scripts can't be patched, they are generated at runtime
-      systemd.tmpfiles.rules = [
-        (mkIf cfg.yarn.nodemanager.addBinBash "L /bin/bash - - - - /run/current-system/sw/bin/bash")
-      ];
+      systemd.tmpfiles.rules = [ (mkIf cfg.yarn.nodemanager.addBinBash "L /bin/bash - - - - /run/current-system/sw/bin/bash") ];
 
       systemd.services.yarn-nodemanager = {
         description = "Hadoop YARN NodeManager";
@@ -177,8 +174,7 @@ in
           User = "yarn";
           SyslogIdentifier = "yarn-nodemanager";
           PermissionsStartOnly = true;
-          ExecStart =
-            "${cfg.package}/bin/yarn --config ${hadoopConf} " + " nodemanager ${escapeShellArgs cfg.yarn.nodemanager.extraFlags}";
+          ExecStart = "${cfg.package}/bin/yarn --config ${hadoopConf} " + " nodemanager ${escapeShellArgs cfg.yarn.nodemanager.extraFlags}";
           Restart = "always";
         };
       };
