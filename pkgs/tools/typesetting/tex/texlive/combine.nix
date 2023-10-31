@@ -192,8 +192,7 @@ in
             ''
             # pick up all sections matching packages that we combine
             +
-              lib.concatMapStrings
-                (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$")
+              lib.concatMapStrings (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$")
                 hyphenPNames
             # pick up the footer (for language.def)
             + ''

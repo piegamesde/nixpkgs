@@ -233,9 +233,7 @@ in
     };
 
     nginx = mkOption {
-      type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
-      );
+      type = types.submodule (recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { });
       default = { };
       example = literalExpression ''
         {
@@ -462,12 +460,7 @@ in
           mkSecretReplacement = file: ''
             replace-secret ${
               escapeShellArgs [
-                (
-                  if (isString file) then
-                    builtins.hashString "sha256" file
-                  else
-                    builtins.hashString "sha256" (builtins.readFile file)
-                )
+                (if (isString file) then builtins.hashString "sha256" file else builtins.hashString "sha256" (builtins.readFile file))
                 file
                 "${cfg.dataDir}/.env"
               ]

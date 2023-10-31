@@ -70,9 +70,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    description = "A vi-like file manager${
-        lib.optionalString isFullPackage "; Includes support for optional features"
-      }";
+    description = "A vi-like file manager${lib.optionalString isFullPackage "; Includes support for optional features"}";
     maintainers = with maintainers; [ raskin ];
     platforms = if mediaSupport then platforms.linux else platforms.unix;
     license = licenses.gpl2;

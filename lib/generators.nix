@@ -201,9 +201,7 @@ rec {
       listsAsDuplicateKeys ? false,
     }:
     { globalSection, sections }:
-    (
-      if globalSection == { } then "" else (toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } globalSection) + "\n"
-    )
+    (if globalSection == { } then "" else (toKeyValue { inherit mkKeyValue listsAsDuplicateKeys; } globalSection) + "\n")
     + (toINI { inherit mkSectionName mkKeyValue listsAsDuplicateKeys; } sections);
 
   # Generate a git-config file from an attrset.
@@ -296,9 +294,7 @@ rec {
         if depthLimit != null && depth > depthLimit then
           if throwOnDepthLimit then
             throw
-              "Exceeded maximum eval-depth limit of ${
-                toString depthLimit
-              } while trying to evaluate with `generators.withRecursion'!"
+              "Exceeded maximum eval-depth limit of ${toString depthLimit} while trying to evaluate with `generators.withRecursion'!"
           else
             const "<unevaluated>"
         else
@@ -412,9 +408,7 @@ rec {
         else if isFunction v then
           let
             fna = lib.functionArgs v;
-            showFnas = concatStringsSep ", " (
-              libAttr.mapAttrsToList (name: hasDefVal: if hasDefVal then name + "?" else name) fna
-            );
+            showFnas = concatStringsSep ", " (libAttr.mapAttrsToList (name: hasDefVal: if hasDefVal then name + "?" else name) fna);
           in
           if fna == { } then "<function>" else "<function, args: {${showFnas}}>"
         else if isAttrs v then
@@ -643,9 +637,7 @@ rec {
     else if isInt v || isFloat v || isString v || isBool v then
       builtins.toJSON v
     else if isList v then
-      (
-        if v == [ ] then "{}" else "{${introSpace}${concatItems (map (value: "${toLua innerArgs value}") v)}${outroSpace}}"
-      )
+      (if v == [ ] then "{}" else "{${introSpace}${concatItems (map (value: "${toLua innerArgs value}") v)}${outroSpace}}")
     else if isAttrs v then
       (
         if isLuaInline v then

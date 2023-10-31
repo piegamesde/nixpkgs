@@ -14,9 +14,7 @@ let
     "-f ${pkgs.writeText "default.vcl" cfg.config}"
     +
       optionalString (cfg.extraModules != [ ])
-        " -p vmod_path='${
-           makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)
-         }' -r vmod_path";
+        " -p vmod_path='${makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)}' -r vmod_path";
 in
 {
   options = {

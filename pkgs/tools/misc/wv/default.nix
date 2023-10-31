@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
     bzip2
   ];
 
-  configureFlags = [
-    "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config"
-  ];
+  configureFlags = [ "PKG_CONFIG=${buildPackages.pkg-config}/bin/${buildPackages.pkg-config.targetPrefix}pkg-config" ];
 
   hardeningDisable = [ "format" ];
 

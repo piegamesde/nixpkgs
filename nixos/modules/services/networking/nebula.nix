@@ -266,9 +266,7 @@ in
     );
 
     # Open the chosen ports for UDP.
-    networking.firewall.allowedUDPPorts = unique (
-      mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks
-    );
+    networking.firewall.allowedUDPPorts = unique (mapAttrsToList (netName: netCfg: netCfg.listen.port) enabledNetworks);
 
     # Create the service users and groups.
     users.users = mkMerge (

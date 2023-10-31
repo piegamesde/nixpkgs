@@ -3582,9 +3582,7 @@ let
 
         systemd.services.systemd-networkd = {
           wantedBy = [ "multi-user.target" ];
-          restartTriggers = map (x: x.source) (attrValues unitFiles) ++ [
-            config.environment.etc."systemd/networkd.conf".source
-          ];
+          restartTriggers = map (x: x.source) (attrValues unitFiles) ++ [ config.environment.etc."systemd/networkd.conf".source ];
           aliases = [ "dbus-org.freedesktop.network1.service" ];
         };
 

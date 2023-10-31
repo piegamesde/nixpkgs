@@ -297,9 +297,7 @@ let
       (optionalString ((enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version)
         "--profiling-detail=${profilingDetail}"
       )
-      (enableFeature enableExecutableProfiling (
-        if versionOlder ghc.version "8" then "executable-profiling" else "profiling"
-      ))
+      (enableFeature enableExecutableProfiling (if versionOlder ghc.version "8" then "executable-profiling" else "profiling"))
       (enableFeature enableSharedLibraries "shared")
       (optionalString (versionAtLeast ghc.version "7.10") (enableFeature doCoverage "coverage"))
       (optionalString (versionOlder "8.4" ghc.version) (enableFeature enableStaticLibraries "static"))
@@ -311,9 +309,7 @@ let
       "--enable-library-vanilla" # TODO: Should this be configurable?
       (enableFeature enableLibraryForGhci "library-for-ghci")
     ]
-    ++ optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version)) [
-      "--ghc-option=-split-sections"
-    ]
+    ++ optionals (enableDeadCodeElimination && (lib.versionOlder "8.0.1" ghc.version)) [ "--ghc-option=-split-sections" ]
     ++ optionals dontStrip [
       "--disable-library-stripping"
       "--disable-executable-stripping"
@@ -354,8 +350,7 @@ let
     ghc
     removeReferencesTo
   ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
-  propagatedBuildInputs =
-    buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
+  propagatedBuildInputs = buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
   otherBuildInputsHaskell =
     optionals doCheck (testDepends ++ testHaskellDepends)
     ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends);

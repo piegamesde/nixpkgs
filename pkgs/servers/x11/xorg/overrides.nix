@@ -54,9 +54,7 @@
 let
   inherit (stdenv) isDarwin;
 
-  malloc0ReturnsNullCrossFlag =
-    lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "--enable-malloc0returnsnull";
+  malloc0ReturnsNullCrossFlag = lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--enable-malloc0returnsnull";
 
   brokenOnDarwin =
     pkg:
@@ -922,9 +920,7 @@ self: super:
     }
   );
 
-  xf86videoqxl = super.xf86videoqxl.overrideAttrs (
-    attrs: { buildInputs = attrs.buildInputs ++ [ spice-protocol ]; }
-  );
+  xf86videoqxl = super.xf86videoqxl.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ spice-protocol ]; });
 
   xf86videosiliconmotion = super.xf86videosiliconmotion.overrideAttrs (
     attrs: {

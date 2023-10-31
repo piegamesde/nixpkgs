@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
       pkg-config
       libtool
     ]
-    ++ lib.optionals pythonBindings [ python3 ]
-    ++ lib.optionals tclBindings [ tcl ]
-    ++ lib.optionals perlBindings [ perl ];
+    ++ lib.optionals pythonBindings [ python3 ] ++ lib.optionals tclBindings [ tcl ] ++ lib.optionals perlBindings [ perl ];
 
   buildInputs =
     [

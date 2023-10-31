@@ -259,8 +259,7 @@ let
       // (
         args
         // {
-          src =
-            if builtins.length (args.patches or [ ]) > 0 then pkgs.applyPatches { inherit (args) src patches; } else args.src;
+          src = if builtins.length (args.patches or [ ]) > 0 then pkgs.applyPatches { inherit (args) src patches; } else args.src;
           patches = [ ];
           propagatedBuildInputs = args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
           meta = (args.meta or { }) // {

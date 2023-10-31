@@ -156,8 +156,7 @@ lib.makeScope pkgs.newScope (
             phpize
             ${postPhpize}
 
-            ${lib.concatMapStringsSep "\n" (dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}")
-              internalDeps}
+            ${lib.concatMapStringsSep "\n" (dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}") internalDeps}
           '';
 
           checkPhase = ''
@@ -636,9 +635,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "tokenizer";
-              patches =
-                lib.optional (lib.versionAtLeast php.version "8.1")
-                  ../development/interpreters/php/fix-tokenizer-php81.patch;
+              patches = lib.optional (lib.versionAtLeast php.version "8.1") ../development/interpreters/php/fix-tokenizer-php81.patch;
             }
             {
               name = "xml";

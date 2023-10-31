@@ -4,9 +4,7 @@ let
   # Removing recurseForDerivation prevents derivations of aliased attribute
   # set to appear while listing all the packages available.
   removeRecurseForDerivations =
-    alias:
-    with lib;
-    if alias.recurseForDerivations or false then removeAttrs alias [ "recurseForDerivations" ] else alias;
+    alias: with lib; if alias.recurseForDerivations or false then removeAttrs alias [ "recurseForDerivations" ] else alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.

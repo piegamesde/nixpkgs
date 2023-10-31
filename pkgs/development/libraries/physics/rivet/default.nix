@@ -86,12 +86,10 @@ stdenv.mkDerivation rec {
       --replace 'ch_cmd = [sys.executable, os.path.join(os.path.dirname(__file__),' 'ch_cmd = [('
   '';
 
-  configureFlags =
-    [
-      "--with-fastjet=${fastjet}"
-      "--with-yoda=${yoda}"
-    ]
-    ++ (if lib.versions.major hepmc.version == "3" then [ "--with-hepmc3=${hepmc}" ] else [ "--with-hepmc=${hepmc}" ]);
+  configureFlags = [
+    "--with-fastjet=${fastjet}"
+    "--with-yoda=${yoda}"
+  ] ++ (if lib.versions.major hepmc.version == "3" then [ "--with-hepmc3=${hepmc}" ] else [ "--with-hepmc=${hepmc}" ]);
 
   enableParallelBuilding = true;
 

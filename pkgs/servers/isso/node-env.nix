@@ -400,18 +400,14 @@ let
         node ${addIntegrityFieldsScript}
       ''}
 
-      npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${
-        lib.optionalString production "--production"
-      } rebuild
+      npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} rebuild
 
       if [ "''${dontNpmInstall-}" != "1" ]
       then
           # NPM tries to download packages even when they already exist if npm-shrinkwrap is used.
           rm -f npm-shrinkwrap.json
 
-          npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${
-            lib.optionalString production "--production"
-          } install
+          npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} install
       fi
     '';
 

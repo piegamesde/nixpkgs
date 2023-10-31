@@ -397,8 +397,7 @@ lib.makeScope pkgs.newScope (
       in
       {
         python = py;
-        poetryPackages =
-          storePackages ++ lib.optional hasScripts scriptsPackage ++ lib.optional hasEditable editablePackage;
+        poetryPackages = storePackages ++ lib.optional hasScripts scriptsPackage ++ lib.optional hasEditable editablePackage;
         poetryLock = poetryLock;
         inherit pyProject;
       };
@@ -585,9 +584,7 @@ lib.makeScope pkgs.newScope (
             pos = builtins.unsafeGetAttrPos (lib.elemAt (lib.attrNames attrs) 0) attrs;
 
             meta =
-              lib.optionalAttrs (lib.hasAttr "description" pyProject.tool.poetry) {
-                inherit (pyProject.tool.poetry) description;
-              }
+              lib.optionalAttrs (lib.hasAttr "description" pyProject.tool.poetry) { inherit (pyProject.tool.poetry) description; }
               // lib.optionalAttrs (lib.hasAttr "homepage" pyProject.tool.poetry) { inherit (pyProject.tool.poetry) homepage; }
               // {
                 inherit (py.meta) platforms;

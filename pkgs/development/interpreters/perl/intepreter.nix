@@ -219,8 +219,7 @@ stdenv.mkDerivation (
         perlOnBuildForHost = override pkgsBuildHost.${perlAttr};
         perlOnBuildForTarget = override pkgsBuildTarget.${perlAttr};
         perlOnHostForHost = override pkgsHostHost.${perlAttr};
-        perlOnTargetForTarget =
-          if lib.hasAttr perlAttr pkgsTargetTarget then (override pkgsTargetTarget.${perlAttr}) else { };
+        perlOnTargetForTarget = if lib.hasAttr perlAttr pkgsTargetTarget then (override pkgsTargetTarget.${perlAttr}) else { };
       };
 
     doCheck = false; # some tests fail, expensive

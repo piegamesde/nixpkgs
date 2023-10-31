@@ -311,9 +311,7 @@ rec {
               type = opt.type.description or "unspecified";
             }
             // optionalAttrs (opt ? example) {
-              example = builtins.addErrorContext "while evaluating the example of option `${name}`" (
-                renderOptionValue opt.example
-              );
+              example = builtins.addErrorContext "while evaluating the example of option `${name}`" (renderOptionValue opt.example);
             }
             // optionalAttrs (opt ? default) {
               default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (
@@ -395,8 +393,7 @@ rec {
       };
 
   literalExample =
-    lib.warn
-      "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
+    lib.warn "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
       literalExpression;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the

@@ -14,8 +14,7 @@ let
   # used for initial cluster configuration
   initialIpAddr = if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
 
-  fdbServers =
-    n: concatStringsSep "\n" (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1)));
+  fdbServers = n: concatStringsSep "\n" (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1)));
 
   backupAgents = n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
 

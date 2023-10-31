@@ -19,9 +19,7 @@ let
 
   # The targetPrefix prepended to binary names to allow multiple binuntils on the
   # PATH to both be usable.
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-";
+  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) "${stdenv.targetPlatform.config}-";
 in
 
 # Non-Darwin alternatives

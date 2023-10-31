@@ -171,8 +171,7 @@ let
   #   };
   # }
   overrideMaintainers =
-    overrides: old:
-    lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; }) overrides;
+    overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; }) overrides;
 
   # Overrides package definitions with new R dependencies.
   # For example,

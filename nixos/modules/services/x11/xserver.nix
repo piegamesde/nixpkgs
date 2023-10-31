@@ -980,10 +980,7 @@ in
 
               ${
                 optionalString
-                  (
-                    driver.name != "virtualbox"
-                    && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
-                  )
+                  (driver.name != "virtualbox" && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null))
                   (
                     let
                       f = depth: ''
@@ -995,8 +992,7 @@ in
                           }
                         ${indent cfg.extraDisplaySettings}
                           ${
-                            optionalString (cfg.virtualScreen != null)
-                              "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
+                            optionalString (cfg.virtualScreen != null) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
                           }
                         EndSubSection
                       '';

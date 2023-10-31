@@ -99,13 +99,11 @@ rec {
 
   isMacAddress =
     s:
-    stringLength s == 17
-    && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
+    stringLength s == 17 && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
 
   assertMacAddress =
     name: group: attr:
-    optional (attr ? ${name} && !isMacAddress attr.${name})
-      "Systemd ${group} field `${name}' must be a valid mac address.";
+    optional (attr ? ${name} && !isMacAddress attr.${name}) "Systemd ${group} field `${name}' must be a valid mac address.";
 
   isPort = i: i >= 0 && i <= 65535;
 
@@ -309,9 +307,7 @@ rec {
         # treated as drop-in file.
         for i in ${
           toString (
-            mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units
-            )
+            mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units)
           )
         }; do
           fn=$(basename $i/*)

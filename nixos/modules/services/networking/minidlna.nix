@@ -95,9 +95,7 @@ in
         type = types.str;
         default = "warn";
         example = "general,artwork,database,inotify,scanner,metadata,http,ssdp,tivo=warn";
-        description =
-          lib.mdDoc
-            "Defines the type of messages that should be logged and down to which level of importance.";
+        description = lib.mdDoc "Defines the type of messages that should be logged and down to which level of importance.";
       };
       options.inotify = mkOption {
         type = types.enum [

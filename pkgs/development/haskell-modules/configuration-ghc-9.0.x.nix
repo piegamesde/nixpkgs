@@ -67,9 +67,7 @@ self: super: {
     (addBuildDepend self.base-orphans)
   ];
   hashable-time = doJailbreak super.hashable-time;
-  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (
-    doJailbreak super.HTTP
-  );
+  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (doJailbreak super.HTTP);
   integer-logarithms =
     overrideCabal (drv: { postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal"; })
       (doJailbreak super.integer-logarithms);
@@ -204,9 +202,7 @@ self: super: {
 
   # We use a GHC patch to support the fix for https://github.com/fpco/inline-c/issues/127
   # which means that the upstream cabal file isn't allowed to add the flag.
-  inline-c-cpp =
-    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
-      super.inline-c-cpp;
+  inline-c-cpp = (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x) super.inline-c-cpp;
 
   # 2022-05-31: weeder 2.3.0 requires GHC 9.2
   weeder = doDistribute self.weeder_2_3_1;

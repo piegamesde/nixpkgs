@@ -16,8 +16,6 @@ gsmakeDerivation rec {
   patches = [ ./fixup-all.patch ];
   meta = {
     description = "A GUI class library of GNUstep";
-    changelog = "https://github.com/gnustep/libs-gui/releases/tag/gui-${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }";
+    changelog = "https://github.com/gnustep/libs-gui/releases/tag/gui-${builtins.replaceStrings [ "." ] [ "_" ] version}";
   };
 }

@@ -80,9 +80,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.lgpl2Plus;
     homepage = "https://github.com/cern-fts/davix";
-    changelog = "https://github.com/cern-fts/davix/blob/R_${
-        lib.replaceStrings [ "." ] [ "_" ] version
-      }/RELEASE-NOTES.md";
+    changelog = "https://github.com/cern-fts/davix/blob/R_${lib.replaceStrings [ "." ] [ "_" ] version}/RELEASE-NOTES.md";
     maintainers = with maintainers; [ adev ];
     platforms = platforms.all;
   };

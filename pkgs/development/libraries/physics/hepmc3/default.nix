@@ -29,11 +29,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ root_py ] ++ lib.optional withPython python;
 
   # error: invalid version number in 'MACOSX_DEPLOYMENT_TARGET=11.0'
-  preConfigure =
-    lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-      ''
-        MACOSX_DEPLOYMENT_TARGET=10.16
-      '';
+  preConfigure = lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+    MACOSX_DEPLOYMENT_TARGET=10.16
+  '';
 
   cmakeFlags =
     [ "-DHEPMC3_ENABLE_PYTHON=${if withPython then "ON" else "OFF"}" ]

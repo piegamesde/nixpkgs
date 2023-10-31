@@ -21,9 +21,7 @@ let
     generate =
       name: attrs:
       pkgs.writeText name (
-        lib.strings.concatStringsSep "\n" (
-          lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}") attrs
-        )
+        lib.strings.concatStringsSep "\n" (lib.attrsets.mapAttrsToList (key: value: "${key}=${builtins.toJSON value}") attrs)
       );
   };
 in

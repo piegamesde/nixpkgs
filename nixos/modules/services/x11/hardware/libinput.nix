@@ -237,8 +237,7 @@ let
       ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
     ${optionalString (cfg.${deviceType}.transformationMatrix != null)
       ''Option "TransformationMatrix" "${cfg.${deviceType}.transformationMatrix}"''}
-    ${optionalString (cfg.${deviceType}.clickMethod != null)
-      ''Option "ClickMethod" "${cfg.${deviceType}.clickMethod}"''}
+    ${optionalString (cfg.${deviceType}.clickMethod != null) ''Option "ClickMethod" "${cfg.${deviceType}.clickMethod}"''}
     Option "LeftHanded" "${xorgBool cfg.${deviceType}.leftHanded}"
     Option "MiddleEmulation" "${xorgBool cfg.${deviceType}.middleEmulation}"
     Option "NaturalScrolling" "${xorgBool cfg.${deviceType}.naturalScrolling}"

@@ -188,9 +188,7 @@ in
               ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
           in
           ''
-            exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${
-              concatStringsSep " ! " outputPipeline
-            }"
+            exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${concatStringsSep " ! " outputPipeline}"
           '';
 
         preStart = ''
@@ -207,8 +205,7 @@ in
       mkInstanceServices =
         instances:
         listToAttrs (
-          map (instance: nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (mkInstanceService instance))
-            instances
+          map (instance: nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (mkInstanceService instance)) instances
         );
 
       enabledInstances = attrValues (filterAttrs (n: v: v.enable) cfg.instances);

@@ -14,8 +14,7 @@ let
   conditionalBoolToString = value: if (isBool value) then (boolToString value) else (toString value);
 
   paramsString =
-    params:
-    concatMapStringsSep " " (name: "${name} ${conditionalBoolToString (getAttr name params)}") (attrNames params);
+    params: concatMapStringsSep " " (name: "${name} ${conditionalBoolToString (getAttr name params)}") (attrNames params);
 
   interfaceConfig =
     name:

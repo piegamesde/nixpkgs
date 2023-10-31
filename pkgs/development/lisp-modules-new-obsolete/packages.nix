@@ -58,8 +58,7 @@ let
         patches = [ ];
         src = build;
         # TODO(kasper): handle this with a setup hook
-        LD_LIBRARY_PATH =
-          build.LD_LIBRARY_PATH + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":") + "${build}";
+        LD_LIBRARY_PATH = build.LD_LIBRARY_PATH + (optionalString (stringLength build.LD_LIBRARY_PATH != 0) ":") + "${build}";
       }
     );
 

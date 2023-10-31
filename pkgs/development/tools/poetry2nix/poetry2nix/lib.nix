@@ -49,9 +49,7 @@ let
       };
       splitRe =
         "("
-        + (builtins.concatStringsSep "|" (
-          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators)
-        ))
+        + (builtins.concatStringsSep "|" (builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators)))
         + ")";
     in
     expr:

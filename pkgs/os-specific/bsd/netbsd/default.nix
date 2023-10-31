@@ -130,9 +130,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           CPP = "${stdenv'.cc.targetPrefix}cpp";
         }
         // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
-        // lib.optionalAttrs (stdenv'.cc.isClang or false) {
-          HAVE_LLVM = lib.versions.major (lib.getVersion stdenv'.cc.cc);
-        }
+        // lib.optionalAttrs (stdenv'.cc.isClang or false) { HAVE_LLVM = lib.versions.major (lib.getVersion stdenv'.cc.cc); }
         // lib.optionalAttrs (stdenv'.cc.isGNU or false) { HAVE_GCC = lib.versions.major (lib.getVersion stdenv'.cc.cc); }
         // lib.optionalAttrs (stdenv'.isx86_32) { USE_SSP = "no"; }
         // lib.optionalAttrs (attrs.headersOnly or false) {
@@ -884,8 +882,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       postInstall = ''
         make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
       '';
-      extraPaths =
-        with self; [ (fetchNetBSD "share/terminfo" "9.2" "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7") ];
+      extraPaths = with self; [ (fetchNetBSD "share/terminfo" "9.2" "1vh9rl4w8118a9qdpblfxmv1wkpm83rm9gb4rzz5bpm56i6d7kk7") ];
     };
 
     libcurses = mkDerivation {

@@ -695,8 +695,7 @@ rec {
        last [ 1 2 3 ]
        => 3
   */
-  last =
-    list: assert lib.assertMsg (list != [ ]) "lists.last: list must not be empty!"; elemAt list (length list - 1);
+  last = list: assert lib.assertMsg (list != [ ]) "lists.last: list must not be empty!"; elemAt list (length list - 1);
 
   /* Return all elements but the last.
 

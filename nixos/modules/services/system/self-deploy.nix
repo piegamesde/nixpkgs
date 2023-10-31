@@ -182,8 +182,7 @@ in
           }
         } ${lib.escapeShellArg "${repositoryDirectory}${cfg.nixFile}"}
 
-        ${lib.optionalString (cfg.switchCommand != "test")
-          "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
+        ${lib.optionalString (cfg.switchCommand != "test") "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
 
         ${outPath}/bin/switch-to-configuration ${cfg.switchCommand}
 

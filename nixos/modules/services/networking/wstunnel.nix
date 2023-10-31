@@ -262,9 +262,7 @@ let
         };
 
         tlsSNI = mkOption {
-          description =
-            mdDoc
-              "Use this as the SNI while connecting via TLS. Useful for circumventing hostname-based firewalls.";
+          description = mdDoc "Use this as the SNI while connecting via TLS. Useful for circumventing hostname-based firewalls.";
           type = types.nullOr types.str;
           default = null;
         };
@@ -335,12 +333,9 @@ let
             ''
               ${package}/bin/wstunnel \
                 --server \
+                ${optionalString (restrictTo != null) "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"} \
                 ${
-                  optionalString (restrictTo != null) "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
-                } \
-                ${
-                  optionalString (resolvedTlsCertificate != null)
-                    "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
+                  optionalString (resolvedTlsCertificate != null) "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
                 } \
                 ${optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"} \
                 ${optionalString verboseLogging "--verbose"} \

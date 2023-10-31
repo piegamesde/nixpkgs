@@ -61,10 +61,7 @@ let
         bootPath = args.path;
         storePath = config.boot.loader.grub.storePath;
         bootloaderId =
-          if args.efiBootloaderId == null then
-            "${config.system.nixos.distroName}${efiSysMountPoint'}"
-          else
-            args.efiBootloaderId;
+          if args.efiBootloaderId == null then "${config.system.nixos.distroName}${efiSysMountPoint'}" else args.efiBootloaderId;
         timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
           if cfg.users == { } || cfg.version != 1 then cfg.users else throw "GRUB version 1 does not support user accounts.";
@@ -895,8 +892,7 @@ in
               + "'boot.loader.grub.mirroredBoots' to make the system bootable.";
           }
           {
-            assertion =
-              cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
+            assertion = cfg.efiSupport || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {

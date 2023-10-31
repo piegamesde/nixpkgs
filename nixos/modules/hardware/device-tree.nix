@@ -228,9 +228,6 @@ in
       };
 
     hardware.deviceTree.package =
-      if (cfg.overlays != [ ]) then
-        pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
-      else
-        filteredDTBs;
+      if (cfg.overlays != [ ]) then pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays) else filteredDTBs;
   };
 }

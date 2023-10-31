@@ -16,8 +16,7 @@ let
   # Keep in sync with https://github.com/discourse/discourse_docker/blob/main/image/base/slim.Dockerfile#L5
   upstreamPostgresqlVersion = lib.getVersion pkgs.postgresql_13;
 
-  postgresqlPackage =
-    if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql;
+  postgresqlPackage = if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql;
 
   postgresqlVersion = lib.getVersion postgresqlPackage;
 

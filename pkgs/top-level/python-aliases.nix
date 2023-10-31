@@ -6,9 +6,7 @@ let
   # Removing recurseForDerivation prevents derivations of aliased attribute
   # set to appear while listing all the packages available.
   removeRecurseForDerivations =
-    alias:
-    with lib;
-    if alias.recurseForDerivations or false then removeAttrs alias [ "recurseForDerivations" ] else alias;
+    alias: with lib; if alias.recurseForDerivations or false then removeAttrs alias [ "recurseForDerivations" ] else alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -16,8 +14,7 @@ let
 
   # Make sure that we are not shadowing something from
   # python-packages.nix.
-  checkInPkgs =
-    n: alias: if builtins.hasAttr n super then throw "Alias ${n} is still in python-packages.nix" else alias;
+  checkInPkgs = n: alias: if builtins.hasAttr n super then throw "Alias ${n} is still in python-packages.nix" else alias;
 
   mapAliases =
     aliases: lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))) aliases;
@@ -42,9 +39,7 @@ mapAliases ({
     throw
       "bitcoin-price-api has been removed, it was using setuptools 2to3 translation feautre, which has been removed in setuptools 58"; # added 2022-02-15
   BlinkStick = blinkstick; # added 2023-02-19
-  blockdiagcontrib-cisco =
-    throw
-      "blockdiagcontrib-cisco is not compatible with blockdiag 2.0.0 and has been removed."; # added 2020-11-29
+  blockdiagcontrib-cisco = throw "blockdiagcontrib-cisco is not compatible with blockdiag 2.0.0 and has been removed."; # added 2020-11-29
   bsblan = python-bsblan; # added 2022-11-04
   btchip = btchip-python; # added 2023-03-03
   buildbot = throw "use pkgs.buildbot instead"; # added 2022-04-07
@@ -139,9 +134,7 @@ mapAliases ({
   ihatemoney = throw "ihatemoney was removed because it is no longer maintained downstream"; # added 2023-04-08
   IMAPClient = imapclient; # added 2021-10-28
   imdbpy = throw "imdbpy has been renamed to cinemagoer"; # added 2022-08-08
-  intreehook =
-    throw
-      "intreehooks has been removed because it is obsolete as a backend-path key was added to PEP 517"; # added 2023-04-11
+  intreehook = throw "intreehooks has been removed because it is obsolete as a backend-path key was added to PEP 517"; # added 2023-04-11
   ipaddress = throw "ipaddress has been removed because it is no longer required since python 2.7."; # added 2022-05-30
   influxgraph = throw "influxgraph has been removed because it is no longer maintained"; # added 2022-07-10
   itanium_demangler = itanium-demangler; # added 2022-1017
@@ -296,9 +289,7 @@ mapAliases ({
   runway-python = throw "SDK has been deprecated and was archived by upstream"; # added 2023-05-03
   sapi-python-client = kbcstorage; # added 2022-04-20
   scikitlearn = scikit-learn; # added 2021-07-21
-  selectors34 =
-    throw
-      "selectors34 has been removed: functionality provided by Python itself; archived by upstream."; # added 2021-06-10
+  selectors34 = throw "selectors34 has been removed: functionality provided by Python itself; archived by upstream."; # added 2021-06-10
   setuptools_scm = setuptools-scm; # added 2021-06-03
   sharkiqpy = sharkiq; # added 2022-05-21
   smart_open = smart-open; # added 2021-03-14

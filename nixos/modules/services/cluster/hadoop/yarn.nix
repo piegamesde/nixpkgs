@@ -178,8 +178,7 @@ in
           SyslogIdentifier = "yarn-nodemanager";
           PermissionsStartOnly = true;
           ExecStart =
-            "${cfg.package}/bin/yarn --config ${hadoopConf} "
-            + " nodemanager ${escapeShellArgs cfg.yarn.nodemanager.extraFlags}";
+            "${cfg.package}/bin/yarn --config ${hadoopConf} " + " nodemanager ${escapeShellArgs cfg.yarn.nodemanager.extraFlags}";
           Restart = "always";
         };
       };

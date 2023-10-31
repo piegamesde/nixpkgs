@@ -458,8 +458,7 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)) { }
-      list_of_attrs;
+    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)) { } list_of_attrs;
 
   /* Recursively collect sets that verify a given predicate named `pred`
      from the set `attrs`.  The recursion is stopped when the predicate is
@@ -641,8 +640,7 @@ rec {
       recurse =
         path:
         let
-          g =
-            name: value: if isAttrs value && cond value then recurse (path ++ [ name ]) value else f (path ++ [ name ]) value;
+          g = name: value: if isAttrs value && cond value then recurse (path ++ [ name ]) value else f (path ++ [ name ]) value;
         in
         mapAttrs g;
     in
@@ -1056,8 +1054,7 @@ rec {
       intersection = builtins.intersectAttrs x y;
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
       mask =
-        builtins.mapAttrs
-          (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
+        builtins.mapAttrs (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
           intersection;
     in
     (x // y) // mask;

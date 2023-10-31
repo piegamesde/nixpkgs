@@ -601,25 +601,23 @@ in
           }
         ];
       })
-      (mkIf (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes) || cfg.settings.publicinboxwatch.watchspam != null)
-        {
-          public-inbox-watch = mkMerge [
-            (serviceConfig "watch")
-            {
-              inherit (cfg) path;
-              wants = [ "public-inbox-init.service" ];
-              requires = [
-                "public-inbox-init.service"
-              ] ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc") "spamassassin.service";
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                ExecStart = "${cfg.package}/bin/public-inbox-watch";
-                ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-              };
-            }
-          ];
-        }
-      )
+      (mkIf (any (inbox: inbox.watch != [ ]) (attrValues cfg.inboxes) || cfg.settings.publicinboxwatch.watchspam != null) {
+        public-inbox-watch = mkMerge [
+          (serviceConfig "watch")
+          {
+            inherit (cfg) path;
+            wants = [ "public-inbox-init.service" ];
+            requires = [
+              "public-inbox-init.service"
+            ] ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc") "spamassassin.service";
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+              ExecStart = "${cfg.package}/bin/public-inbox-watch";
+              ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+            };
+          }
+        ];
+      })
       ({
         public-inbox-init =
           let

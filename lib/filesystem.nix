@@ -27,9 +27,7 @@ in
           })
           root-files;
       # Subdirectories of the root with a cabal file.
-      cabal-subdirs =
-        builtins.filter ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
-          root-files-with-paths;
+      cabal-subdirs = builtins.filter ({ name, value }: builtins.pathExists (value + "/${name}.cabal")) root-files-with-paths;
     in
     builtins.listToAttrs cabal-subdirs;
   /* Find the first directory containing a file matching 'pattern'
@@ -75,9 +73,7 @@ in
     dir:
     lib.flatten (
       lib.mapAttrsToList
-        (
-          name: type: if type == "directory" then lib.filesystem.listFilesRecursive (dir + "/${name}") else dir + "/${name}"
-        )
+        (name: type: if type == "directory" then lib.filesystem.listFilesRecursive (dir + "/${name}") else dir + "/${name}")
         (builtins.readDir dir)
     );
 }

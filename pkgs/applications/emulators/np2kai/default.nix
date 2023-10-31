@@ -99,9 +99,7 @@ let
     ''SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
   ];
   x11Bins = concatStringsSep " " (
-    optionals enable16Bit [ "xnp2kai" ]
-    ++ optionals enable32Bit [ "xnp21kai" ]
-    ++ optionals enableHAXM [ "xnp21kai_haxm" ]
+    optionals enable16Bit [ "xnp2kai" ] ++ optionals enable32Bit [ "xnp21kai" ] ++ optionals enableHAXM [ "xnp21kai_haxm" ]
   );
 in
 stdenv.mkDerivation rec {

@@ -27,8 +27,7 @@ let
       ld-linux = "ld-linux-x86-64.so.2";
     };
   };
-  platform =
-    platforms."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  platform = platforms."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   download =
     if stdenv.isDarwin then
       {

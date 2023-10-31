@@ -33,9 +33,7 @@ in
 
     postgresqlDataDir = mkOption {
       type = types.path;
-      defaultText =
-        literalExpression
-          ''"/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
+      defaultText = literalExpression ''"/var/lib/postgresql/''${config.services.patroni.postgresqlPackage.psqlSchema}"'';
       example = "/var/lib/postgresql/14";
       default = "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}";
       description = mdDoc ''
@@ -260,8 +258,7 @@ in
           }
           (mkIf
             (
-              cfg.postgresqlDataDir == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}"
-              && cfg.dataDir == "/var/lib/patroni"
+              cfg.postgresqlDataDir == "/var/lib/postgresql/${cfg.postgresqlPackage.psqlSchema}" && cfg.dataDir == "/var/lib/patroni"
             )
             {
               StateDirectory = "patroni patroni/raft postgresql postgresql/${cfg.postgresqlPackage.psqlSchema}";

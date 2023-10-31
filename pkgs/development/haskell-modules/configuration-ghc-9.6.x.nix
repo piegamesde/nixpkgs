@@ -5,8 +5,7 @@ with haskellLib;
 let
   inherit (pkgs) lib;
 
-  jailbreakWhileRevision =
-    rev: overrideCabal (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
+  jailbreakWhileRevision = rev: overrideCabal (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
   checkAgainAfter =
     pkg: ver: msg: act:
     if builtins.compareVersions pkg.version ver <= 0 then

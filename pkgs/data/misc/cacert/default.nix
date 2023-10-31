@@ -97,9 +97,7 @@ stdenv.mkDerivation rec {
     mkdir unbundled
     buildcatrust \
       --certdata_input certdata.txt \
-      --ca_bundle_input "${extraCertificatesBundle}" ${
-        lib.escapeShellArgs (map (arg: "${arg}") extraCertificateFiles)
-      } \
+      --ca_bundle_input "${extraCertificatesBundle}" ${lib.escapeShellArgs (map (arg: "${arg}") extraCertificateFiles)} \
       --blocklist "${blocklist}" \
       --ca_bundle_output ca-bundle.crt \
       --ca_unpacked_output unbundled \

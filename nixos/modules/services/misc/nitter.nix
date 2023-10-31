@@ -18,10 +18,7 @@ let
             {
               mkValueString =
                 v:
-                if isString v then
-                  ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
-                else
-                  generators.mkValueStringDefault { } v;
+                if isString v then ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"'' else generators.mkValueStringDefault { } v;
             }
             " = ";
       }
@@ -93,9 +90,7 @@ in
         https = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS.";
+          description = lib.mdDoc "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS.";
         };
 
         httpMaxConnections = mkOption {

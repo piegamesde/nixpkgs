@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       with lib.versions;
-      "https://launchpad.net/gencfsm/trunk/${major version}.${
-        minor version
-      }/+download/gnome-encfs-manager_${version}.tar.xz";
+      "https://launchpad.net/gencfsm/trunk/${major version}.${minor version}/+download/gnome-encfs-manager_${version}.tar.xz";
     sha256 = "RXVwg/xhfAQv3pWp3UylOhMKDh9ZACTuKM4lPrn1dk8=";
   };
 

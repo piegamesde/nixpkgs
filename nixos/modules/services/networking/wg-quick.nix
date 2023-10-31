@@ -246,8 +246,7 @@ let
           values.peers
         )
         ++ optional (values.postUp != "") values.postUp;
-      postUpFile =
-        if postUp != [ ] then writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp) else null;
+      postUpFile = if postUp != [ ] then writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp) else null;
       preDownFile = if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
       postDownFile = if values.postDown != "" then writeScriptFile "postDown.sh" values.postDown else null;
       configDir = pkgs.writeTextFile {

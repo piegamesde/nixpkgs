@@ -13,9 +13,7 @@ import ./make-test-python.nix (
       };
       environment.systemPackages = [ mpitest ];
       networking.firewall.enable = false;
-      systemd.tmpfiles.rules = [
-        "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
-      ];
+      systemd.tmpfiles.rules = [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ];
     };
 
     mpitest =
@@ -96,9 +94,7 @@ import ./make-test-python.nix (
           in
           {
             networking.firewall.enable = false;
-            systemd.tmpfiles.rules = [
-              "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest"
-            ];
+            systemd.tmpfiles.rules = [ "f /etc/munge/munge.key 0400 munge munge - mungeverryweakkeybuteasytointegratoinatest" ];
             services.slurm.dbdserver = {
               enable = true;
               storagePassFile = "${passFile}";

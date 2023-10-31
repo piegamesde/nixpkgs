@@ -30,9 +30,8 @@
   enablePython ? false,
   enableNumpy ? false,
   enableIcu ? stdenv.hostPlatform == stdenv.buildPlatform,
-  taggedLayout ? (
-    (enableRelease && enableDebug) || (enableSingleThreaded && enableMultiThreaded) || (enableShared && enableStatic)
-  ),
+  taggedLayout ?
+    ((enableRelease && enableDebug) || (enableSingleThreaded && enableMultiThreaded) || (enableShared && enableStatic)),
   patches ? [ ],
   boostBuildPatches ? [ ],
   useMpi ? false,
@@ -52,8 +51,7 @@ assert enableNumpy -> enablePython;
 
 # Boost <1.69 can't be built on linux with clang >8, because pth was removed
 assert with lib;
-  (stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0")
-  -> versionAtLeast version "1.69";
+  (stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0") -> versionAtLeast version "1.69";
 
 let
 

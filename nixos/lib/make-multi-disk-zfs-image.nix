@@ -157,8 +157,7 @@ let
   stringifyProperties =
     prefix: properties:
     lib.concatStringsSep " \\\n" (
-      lib.mapAttrsToList (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
-        properties
+      lib.mapAttrsToList (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}") properties
     );
 
   createDatasets =

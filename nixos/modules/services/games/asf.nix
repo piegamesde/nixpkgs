@@ -111,9 +111,7 @@ in
     ipcPasswordFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc
-          "Path to a file containing the password. The file must be readable by the `asf` user/group.";
+      description = lib.mdDoc "Path to a file containing the password. The file must be readable by the `asf` user/group.";
     };
 
     ipcSettings = mkOption {
@@ -145,9 +143,7 @@ in
             };
             passwordFile = mkOption {
               type = types.path;
-              description =
-                lib.mdDoc
-                  "Path to a file containing the password. The file must be readable by the `asf` user/group.";
+              description = lib.mdDoc "Path to a file containing the password. The file must be readable by the `asf` user/group.";
             };
             enabled = mkOption {
               type = types.bool;

@@ -26,9 +26,7 @@ let
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
     ++
       concatMap
-        (
-          i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces)
-        )
+        (i: attrNames (filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces))
         (attrValues cfg.vswitches);
 
   slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
@@ -1813,9 +1811,9 @@ in
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the
                 # persistent, default name as assigned by udev.
-                ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${
-                  systemdAttrs curInterface._iName
-                }, RUN+="${curInterfaceScript device curInterface newInterfaces}"
+                ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${systemdAttrs curInterface._iName}, RUN+="${
+                  curInterfaceScript device curInterface newInterfaces
+                }"
                 # Generate the same systemd events for both 'add' and 'move' udev events.
                 ACTION=="move", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", NAME=="${device}", ${systemdAttrs curInterface._iName}
               ''

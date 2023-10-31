@@ -22,18 +22,14 @@ let
   # you can provide an easy way to boot the same configuration
   # as you use, but with another kernel
   # !!! fix this
-  children =
-    mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel)
-      config.specialisation;
+  children = mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel) config.specialisation;
 in
 {
   options = {
 
     specialisation = mkOption {
       default = { };
-      example =
-        lib.literalExpression
-          "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
+      example = lib.literalExpression "{ fewJobsManyCores.configuration = { nix.settings = { core = 0; max-jobs = 1; }; }; }";
       description = lib.mdDoc ''
         Additional configurations to build. If
         `inheritParentConfig` is true, the system

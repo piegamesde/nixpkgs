@@ -602,9 +602,7 @@ builtins.intersectAttrs super {
   ginsu =
     let
       g = addBuildDepend pkgs.perl super.ginsu;
-      g' =
-        overrideCabal (drv: { executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ]; })
-          g;
+      g' = overrideCabal (drv: { executableSystemDepends = (drv.executableSystemDepends or [ ]) ++ [ pkgs.ncurses ]; }) g;
     in
     g';
 
@@ -650,9 +648,7 @@ builtins.intersectAttrs super {
       (drv: {
         libraryHaskellDepends =
           (drv.libraryHaskellDepends or [ ])
-          ++ lib.optionals (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64)) [
-            self.unbounded-delays
-          ];
+          ++ lib.optionals (!(pkgs.stdenv.hostPlatform.isAarch64 || pkgs.stdenv.hostPlatform.isx86_64)) [ self.unbounded-delays ];
       })
       super.tasty;
 
@@ -804,8 +800,7 @@ builtins.intersectAttrs super {
   spatial-rotations = dontCheck super.spatial-rotations;
 
   LDAP = dontCheck (
-    overrideCabal (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; })
-      super.LDAP
+    overrideCabal (drv: { librarySystemDepends = drv.librarySystemDepends or [ ] ++ [ pkgs.cyrus_sasl.dev ]; }) super.LDAP
   );
 
   # Not running the "example" test because it requires a binary from lsps test
@@ -1289,8 +1284,7 @@ builtins.intersectAttrs super {
   hercules-ci-api-core =
     # 2023-05-02: Work around a corrupted file on cache.nixos.org. This is a hash for x86_64-linux. Remove when it has changed.
     if
-      super.hercules-ci-api-core.drvPath
-      == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv"
+      super.hercules-ci-api-core.drvPath == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv"
     then
       super.hercules-ci-api-core.overrideAttrs (_: { dummyAttr = 1; })
     else

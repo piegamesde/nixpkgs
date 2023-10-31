@@ -42,9 +42,7 @@ in
         default = "10m";
         example = "1h";
         type = types.str;
-        description =
-          lib.mdDoc
-            "When to perform a {command}`flexget` run. See {command}`man 7 systemd.time` for the format.";
+        description = lib.mdDoc "When to perform a {command}`flexget` run. See {command}`man 7 systemd.time` for the format.";
       };
 
       systemScheduler = mkOption {

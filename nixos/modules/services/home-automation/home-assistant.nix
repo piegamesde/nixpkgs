@@ -118,9 +118,7 @@ in
   options.services.home-assistant = {
     # Running home-assistant on NixOS is considered an installation method that is unsupported by the upstream project.
     # https://github.com/home-assistant/architecture/blob/master/adr/0012-define-supported-installation-method.md#decision
-    enable = mkEnableOption (
-      lib.mdDoc "Home Assistant. Please note that this installation method is unsupported upstream"
-    );
+    enable = mkEnableOption (lib.mdDoc "Home Assistant. Please note that this installation method is unsupported upstream");
 
     configDir = mkOption {
       default = "/var/lib/hass";
@@ -471,8 +469,7 @@ in
                 ln -s /etc/home-assistant/ui-lovelace.yaml "${cfg.configDir}/ui-lovelace.yaml"
               '';
         in
-        (optionalString (cfg.config != null) copyConfig)
-        + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig);
+        (optionalString (cfg.config != null) copyConfig) + (optionalString (cfg.lovelaceConfig != null) copyLovelaceConfig);
       environment.PYTHONPATH = package.pythonPath;
       serviceConfig =
         let

@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
   version = "2.9.1";
 
   src = fetchurl {
-    url = "https://www.open-mpi.org/software/hwloc/v${
-        lib.versions.majorMinor version
-      }/downloads/hwloc-${version}.tar.bz2";
+    url = "https://www.open-mpi.org/software/hwloc/v${lib.versions.majorMinor version}/downloads/hwloc-${version}.tar.bz2";
     sha256 = "sha256-fMSTGiD+9Ffgkzrz83W+bq+ncD/eIeE3v7loWxQJWZ4=";
   };
 

@@ -164,9 +164,7 @@ let
         host = cfg.registry.externalAddress;
         port = cfg.registry.externalPort;
         key = cfg.registry.keyFile;
-        api_url = "http://${config.services.dockerRegistry.listenAddress}:${
-            toString config.services.dockerRegistry.port
-          }/";
+        api_url = "http://${config.services.dockerRegistry.listenAddress}:${toString config.services.dockerRegistry.port}/";
         issuer = cfg.registry.issuer;
       };
       extra = { };
@@ -715,9 +713,7 @@ in
         authentication = mkOption {
           type = with types; nullOr str;
           default = null;
-          description =
-            lib.mdDoc
-              "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
+          description = lib.mdDoc "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
 
         enableStartTLSAuto = mkOption {

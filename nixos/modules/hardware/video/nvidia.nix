@@ -456,8 +456,7 @@ in
               "`${pkgs.xorg.xrandr}/bin/xrandr --listproviders | ${pkgs.gnugrep}/bin/grep -i AMD | ${pkgs.gnused}/bin/sed -n 's/^.*name://p'`"
             else
               igpuDriver;
-          providerCmdParams =
-            if syncCfg.enable then ''"${gpuProviderName}" NVIDIA-0'' else ''NVIDIA-G0 "${gpuProviderName}"'';
+          providerCmdParams = if syncCfg.enable then ''"${gpuProviderName}" NVIDIA-0'' else ''NVIDIA-G0 "${gpuProviderName}"'';
         in
         optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
           # Added by nvidia configuration module for Optimus/PRIME.

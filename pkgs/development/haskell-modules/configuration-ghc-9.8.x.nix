@@ -82,7 +82,5 @@ self: super: {
 
   # https://github.com/fpco/inline-c/pull/131
   # and/or https://gitlab.haskell.org/ghc/ghc/-/merge_requests/7739
-  inline-c-cpp =
-    (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x)
-      super.inline-c-cpp;
+  inline-c-cpp = (if isDarwin then appendConfigureFlags [ "--ghc-option=-fcompact-unwind" ] else x: x) super.inline-c-cpp;
 }

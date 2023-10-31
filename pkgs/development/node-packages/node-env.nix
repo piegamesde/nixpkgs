@@ -495,9 +495,7 @@ let
         node ${addIntegrityFieldsScript}
       ''}
 
-      npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${
-        lib.optionalString production "--production"
-      } rebuild
+      npm ${forceOfflineFlag} --nodedir=${nodeSources} ${npmFlags} ${lib.optionalString production "--production"} rebuild
 
       runHook postRebuild
 

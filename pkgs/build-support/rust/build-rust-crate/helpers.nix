@@ -9,9 +9,9 @@
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures =
     feat:
-    lib.foldl (features: featureName: if feat.${featureName} or false then [ featureName ] ++ features else features)
-      [ ]
-      (lib.attrNames feat);
+    lib.foldl (features: featureName: if feat.${featureName} or false then [ featureName ] ++ features else features) [ ] (
+      lib.attrNames feat
+    );
   include =
     includedFiles: src:
     builtins.filterSource
@@ -30,7 +30,6 @@
       src;
   exclude =
     excludedFiles: src:
-    builtins.filterSource
-      (path: type: lib.all (f: !lib.strings.hasPrefix (toString (src + ("/" + f))) path) excludedFiles)
+    builtins.filterSource (path: type: lib.all (f: !lib.strings.hasPrefix (toString (src + ("/" + f))) path) excludedFiles)
       src;
 }

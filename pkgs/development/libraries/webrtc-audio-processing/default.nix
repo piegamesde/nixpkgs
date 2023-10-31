@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
     description = "A more Linux packaging friendly copy of the AudioProcessing module from the WebRTC project";
     license = licenses.bsd3;
     # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/blob/master/webrtc/rtc_base/system/arch.h
-    platforms = intersectLists platforms.unix (
-      platforms.aarch64 ++ platforms.mips ++ platforms.riscv ++ platforms.x86
-    );
+    platforms = intersectLists platforms.unix (platforms.aarch64 ++ platforms.mips ++ platforms.riscv ++ platforms.x86);
     # attempts to inline 256bit AVX instructions on x86
     # https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing/-/issues/5
     broken = stdenv.isx86_32;

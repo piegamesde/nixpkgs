@@ -102,8 +102,7 @@ stdenv.mkDerivation (
 
     inherit enableParallelBuilding;
     strictDeps = true;
-    buildInputs =
-      args.buildInputs or [ ] ++ [ crystal ] ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
+    buildInputs = args.buildInputs or [ ] ++ [ crystal ] ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
 
     nativeBuildInputs =
       args.nativeBuildInputs or [ ]

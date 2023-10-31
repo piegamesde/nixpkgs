@@ -201,8 +201,7 @@ rec {
            stdenv;
   */
   addAttrsToDerivation =
-    extraAttrs: stdenv:
-    stdenv.override (old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); });
+    extraAttrs: stdenv: stdenv.override (old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); });
 
   /* Use the trace output to report all processed derivations with their
      license name.

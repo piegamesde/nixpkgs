@@ -76,8 +76,7 @@ let
         );
       toList = attrValues;
       walk =
-        acc: node:
-        if length node.lispLibs == 0 then acc else builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
+        acc: node: if length node.lispLibs == 0 then acc else builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
     in
     toList (walk { } { inherit lispLibs; });
 
@@ -286,8 +285,7 @@ let
         // (
           args
           // {
-            src =
-              if builtins.length (args.patches or [ ]) > 0 then pkgs.applyPatches { inherit (args) src patches; } else args.src;
+            src = if builtins.length (args.patches or [ ]) > 0 then pkgs.applyPatches { inherit (args) src patches; } else args.src;
             patches = [ ];
 
             # make sure that propagated build-inputs from lispLibs are propagated

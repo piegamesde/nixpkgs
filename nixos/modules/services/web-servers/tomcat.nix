@@ -105,9 +105,7 @@ in
       catalinaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
+        description = lib.mdDoc "Parameters to pass to the Java Virtual Machine which spawns the Catalina servlet container";
       };
 
       sharedLibs = mkOption {

@@ -67,10 +67,7 @@ let
 
         # Add typical values expected by TEA for configureFlags
         configureFlags =
-          if (!dontConfigure && addTclConfigureFlags) then
-            (configureFlags ++ defaultTclPkgConfigureFlags)
-          else
-            configureFlags;
+          if (!dontConfigure && addTclConfigureFlags) then (configureFlags ++ defaultTclPkgConfigureFlags) else configureFlags;
 
         meta = {
           platforms = tcl.meta.platforms;

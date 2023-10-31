@@ -137,11 +137,10 @@ let
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-      configurePlatforms ?
-        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault) [
-          "build"
-          "host"
-        ],
+      configurePlatforms ? lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault) [
+        "build"
+        "host"
+      ],
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
       # Check phase
@@ -327,9 +326,7 @@ let
         ];
         propagatedDependencies = map (map lib.chooseDevOutputs) [
           [
-            (map (drv: drv.__spliced.buildBuild or drv) (
-              checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated
-            ))
+            (map (drv: drv.__spliced.buildBuild or drv) (checkDependencyList "depsBuildBuildPropagated" depsBuildBuildPropagated))
             (map (drv: drv.__spliced.buildHost or drv) (
               checkDependencyList "propagatedNativeBuildInputs" propagatedNativeBuildInputs
             ))
@@ -736,7 +733,4 @@ let
         (derivation (derivationArg // lib.optionalAttrs envIsExportable checkedEnv));
 in
 fnOrAttrs:
-if builtins.isFunction fnOrAttrs then
-  makeDerivationExtensible fnOrAttrs
-else
-  makeDerivationExtensibleConst fnOrAttrs
+if builtins.isFunction fnOrAttrs then makeDerivationExtensible fnOrAttrs else makeDerivationExtensibleConst fnOrAttrs

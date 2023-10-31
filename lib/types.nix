@@ -581,9 +581,7 @@ let
         elemType:
         mkOptionType rec {
           name = "attrsOf";
-          description = "attribute set of ${
-              optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType
-            }";
+          description = "attribute set of ${optionDescriptionPhrase (class: class == "noun" || class == "composite") elemType}";
           descriptionClass = "composite";
           check = isAttrs;
           merge =
@@ -949,10 +947,7 @@ let
                   lhs.specialArgs // rhs.specialArgs
                 else
                   throw
-                    ''
-                      A submoduleWith option is declared multiple times with the same specialArgs "${
-                        toString (attrNames intersecting)
-                      }"'';
+                    ''A submoduleWith option is declared multiple times with the same specialArgs "${toString (attrNames intersecting)}"'';
               shorthandOnlyDefinesConfig =
                 if lhs.shorthandOnlyDefinesConfig == null then
                   rhs.shorthandOnlyDefinesConfig

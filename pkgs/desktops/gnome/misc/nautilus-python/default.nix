@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/nautilus-python/${
-        lib.versions.majorMinor version
-      }/nautilus-python-${version}.tar.xz";
+    url = "mirror://gnome/sources/nautilus-python/${lib.versions.majorMinor version}/nautilus-python-${version}.tar.xz";
     sha256 = "FyQ9Yut9fYOalGGrjQcBaIgFxxYaZwXmFBOljsJoKBo=";
   };
 

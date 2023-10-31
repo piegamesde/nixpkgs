@@ -9896,9 +9896,7 @@ let
       sources."@bugsnag/node-7.16.2"
       sources."@bugsnag/safe-json-stringify-6.0.0"
       sources."@colors/colors-1.5.0"
-      (
-        sources."@cspotcode/source-map-support-0.8.1" // { dependencies = [ sources."@jridgewell/trace-mapping-0.3.9" ]; }
-      )
+      (sources."@cspotcode/source-map-support-0.8.1" // { dependencies = [ sources."@jridgewell/trace-mapping-0.3.9" ]; })
       sources."@dabh/diagnostics-2.0.2"
       sources."@import-maps/resolve-1.0.1"
       (sources."@jest/types-27.5.1" // { dependencies = [ sources."@types/yargs-16.0.4" ]; })

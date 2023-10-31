@@ -116,9 +116,7 @@ in
     mutableTransports = mkOption {
       type = bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface).";
+      description = lib.mdDoc "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface).";
     };
 
     transports = mkOption {

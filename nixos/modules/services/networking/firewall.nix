@@ -184,9 +184,7 @@ in
           ]
         );
         default = true;
-        defaultText =
-          literalMD
-            "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support";
+        defaultText = literalMD "`true` except if the iptables based firewall is in use and the kernel lacks rpfilter support";
         example = "loose";
         description = lib.mdDoc ''
           Performs a reverse path filter test on a packet.  If a reply

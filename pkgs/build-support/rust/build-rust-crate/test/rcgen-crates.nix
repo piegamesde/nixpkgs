@@ -1762,9 +1762,7 @@ rec {
             usesDefaultFeatures = false;
             target =
               { target, features }:
-              (
-                (target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == "")
-              );
+              ((target."arch" == "wasm32") && (target."vendor" == "unknown") && (target."os" == "unknown") && (target."env" == ""));
             features = [
               "Crypto"
               "Window"
@@ -4422,8 +4420,7 @@ rec {
               buildByPackageId = depPackageId: self.build.crates.${depPackageId};
               dependencies = crateConfig.buildDependencies or [ ];
             };
-            filterEnabledDependenciesForThis =
-              dependencies: filterEnabledDependencies { inherit dependencies features target; };
+            filterEnabledDependenciesForThis = dependencies: filterEnabledDependencies { inherit dependencies features target; };
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
                 (crateConfig.buildDependencies or [ ]) ++ (crateConfig.dependencies or [ ]) ++ devDependencies

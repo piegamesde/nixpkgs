@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=ON" ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${lib.getLib libGL}/lib/libGL.so.1\"'"
-    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "-DCMAKE_C_FLAGS=-D_GLFW_GLX_LIBRARY='\"${lib.getLib libGL}/lib/libGL.so.1\"'" ]
     ++ lib.optionals waylandSupport [
       "-DGLFW_USE_WAYLAND=ON"
       "-DCMAKE_C_FLAGS=-D_GLFW_EGL_LIBRARY='\"${lib.getLib libGL}/lib/libEGL.so.1\"'"

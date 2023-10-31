@@ -305,9 +305,7 @@ in
           --datadir ${cfg.validator.dataDir}/${cfg.network} \
           ${
             optionalString cfg.validator.metrics.enable
-              "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${
-                toString cfg.validator.metrics.port
-              }"
+              "--metrics --metrics-address ${cfg.validator.metrics.address} --metrics-port ${toString cfg.validator.metrics.port}"
           } \
           ${cfg.extraArgs} ${cfg.validator.extraArgs}
       '';

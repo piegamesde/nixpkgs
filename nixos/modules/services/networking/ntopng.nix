@@ -14,8 +14,7 @@ let
   opt = options.services.ntopng;
 
   createRedis = cfg.redis.createInstance != null;
-  redisService =
-    if cfg.redis.createInstance == "" then "redis.service" else "redis-${cfg.redis.createInstance}.service";
+  redisService = if cfg.redis.createInstance == "" then "redis.service" else "redis-${cfg.redis.createInstance}.service";
 
   configFile =
     if cfg.configText != "" then
@@ -140,9 +139,7 @@ in
   config = mkIf cfg.enable {
 
     # ntopng uses redis for data storage
-    services.ntopng.redis.address =
-      mkIf createRedis
-        config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
+    services.ntopng.redis.address = mkIf createRedis config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
 
     services.redis.servers = mkIf createRedis {
       ${cfg.redis.createInstance} = {

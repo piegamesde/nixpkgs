@@ -19,17 +19,13 @@ let
         name = mkOption {
           default = "${name}";
           type = types.str;
-          description =
-            lib.mdDoc
-              "The name of the zope2 instance. If undefined, the name of the attribute set will be used.";
+          description = lib.mdDoc "The name of the zope2 instance. If undefined, the name of the attribute set will be used.";
         };
 
         threads = mkOption {
           default = 2;
           type = types.int;
-          description =
-            lib.mdDoc
-              "Specify the number of threads that Zope's ZServer web server will use to service requests. ";
+          description = lib.mdDoc "Specify the number of threads that Zope's ZServer web server will use to service requests. ";
         };
 
         http_address = mkOption {

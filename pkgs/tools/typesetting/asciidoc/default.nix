@@ -134,9 +134,7 @@ let
 in
 python3.pkgs.buildPythonApplication rec {
   pname =
-    "asciidoc"
-    + lib.optionalString enableStandardFeatures "-full"
-    + lib.optionalString enableExtraPlugins "-with-plugins";
+    "asciidoc" + lib.optionalString enableStandardFeatures "-full" + lib.optionalString enableExtraPlugins "-with-plugins";
   version = "10.2.0";
 
   src = fetchFromGitHub {

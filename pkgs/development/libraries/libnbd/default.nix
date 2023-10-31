@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.16.0";
 
   src = fetchurl {
-    url = "https://download.libguestfs.org/libnbd/${
-        lib.versions.majorMinor version
-      }-stable/${pname}-${version}.tar.gz";
+    url = "https://download.libguestfs.org/libnbd/${lib.versions.majorMinor version}-stable/${pname}-${version}.tar.gz";
     hash = "sha256-Tkd46NxLvGe+RpCSFdCsYrFWc3PAtXI1aCq8177jla0=";
   };
 

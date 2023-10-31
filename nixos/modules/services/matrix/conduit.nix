@@ -46,9 +46,7 @@ in
           global.server_name = mkOption {
             type = types.str;
             example = "example.com";
-            description =
-              lib.mdDoc
-                "The server_name is the name of this server. It is used as a suffix for user # and room ids.";
+            description = lib.mdDoc "The server_name is the name of this server. It is used as a suffix for user # and room ids.";
           };
           global.port = mkOption {
             type = types.port;

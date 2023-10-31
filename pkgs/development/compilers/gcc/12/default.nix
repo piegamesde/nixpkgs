@@ -90,15 +90,13 @@ let
     ]
     # We only apply this patch when building a native toolchain for aarch64-darwin, as it breaks building
     # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
-    ++
-      optional (stdenv.isDarwin && stdenv.isAarch64 && buildPlatform == hostPlatform && hostPlatform == targetPlatform)
-        (
-          fetchpatch {
-            name = "gcc-12-darwin-aarch64-support.patch";
-            url = "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
-            sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
-          }
-        )
+    ++ optional (stdenv.isDarwin && stdenv.isAarch64 && buildPlatform == hostPlatform && hostPlatform == targetPlatform) (
+      fetchpatch {
+        name = "gcc-12-darwin-aarch64-support.patch";
+        url = "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
+        sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
+      }
+    )
     ++ optional langD ../libphobos.patch
 
     # backport fixes to build gccgo with musl libc
@@ -344,9 +342,7 @@ lib.pipe
         let
           target =
             lib.optionalString (profiledCompiler) "profiled"
-            +
-              lib.optionalString (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
-                "bootstrap";
+            + lib.optionalString (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap) "bootstrap";
         in
         lib.optional (target != "") target;
 

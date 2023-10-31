@@ -225,12 +225,8 @@ in
         "d '${cfg.dataDir}/.config/deluge' 0770 ${cfg.user} ${cfg.group}"
       ]
       ++ optional (cfg.config ? download_location) "d '${cfg.config.download_location}' 0770 ${cfg.user} ${cfg.group}"
-      ++
-        optional (cfg.config ? torrentfiles_location)
-          "d '${cfg.config.torrentfiles_location}' 0770 ${cfg.user} ${cfg.group}"
-      ++
-        optional (cfg.config ? move_completed_path)
-          "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}";
+      ++ optional (cfg.config ? torrentfiles_location) "d '${cfg.config.torrentfiles_location}' 0770 ${cfg.user} ${cfg.group}"
+      ++ optional (cfg.config ? move_completed_path) "d '${cfg.config.move_completed_path}' 0770 ${cfg.user} ${cfg.group}";
 
     systemd.services.deluged = {
       after = [ "network.target" ];

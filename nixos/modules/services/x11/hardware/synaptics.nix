@@ -38,9 +38,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable.";
+        description = lib.mdDoc "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable.";
       };
 
       dev = mkOption {

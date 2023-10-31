@@ -25,9 +25,7 @@ let
     x86_64-linux.target = "i386";
   };
 
-  inPCSystems = lib.any (system: stdenv.hostPlatform.system == system) (
-    lib.mapAttrsToList (name: _: name) pcSystems
-  );
+  inPCSystems = lib.any (system: stdenv.hostPlatform.system == system) (lib.mapAttrsToList (name: _: name) pcSystems);
 
   version = if for_HP_laptop then "1.2.1" else "1.2.0";
 

@@ -234,9 +234,7 @@ lib.composeManyExtensions [
             cargoRoot = "src/_bcrypt";
           }
         );
-      bjoern = super.bjoern.overridePythonAttrs (
-        old: { buildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.libev ]; }
-      );
+      bjoern = super.bjoern.overridePythonAttrs (old: { buildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.libev ]; });
 
       borgbackup = super.borgbackup.overridePythonAttrs (
         old: {
@@ -331,9 +329,7 @@ lib.composeManyExtensions [
         }
       );
 
-      contourpy = super.contourpy.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pybind11 ]; }
-      );
+      contourpy = super.contourpy.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pybind11 ]; });
 
       cloudflare = super.cloudflare.overridePythonAttrs (
         old: {
@@ -951,9 +947,7 @@ lib.composeManyExtensions [
 
       # importlib-metadata has an incomplete dependency specification
       importlib-metadata = super.importlib-metadata.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional self.python.isPy2 self.pathlib2;
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional self.python.isPy2 self.pathlib2; }
       );
 
       intreehooks = super.intreehooks.overridePythonAttrs (old: { doCheck = false; });
@@ -1086,9 +1080,7 @@ lib.composeManyExtensions [
 
       keyring = super.keyring.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.toml ]; });
 
-      kiwisolver = super.kiwisolver.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.cppy ]; }
-      );
+      kiwisolver = super.kiwisolver.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.cppy ]; });
 
       lap = super.lap.overridePythonAttrs (
         old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.numpy ]; }
@@ -1427,30 +1419,24 @@ lib.composeManyExtensions [
           #        https://github.com/python/mypy/pull/11143
           patches =
             (old.patches or [ ])
-            ++
-              lib.optionals ((lib.strings.versionAtLeast old.version "0.900") && lib.strings.versionOlder old.version "0.940")
-                [
-                  (pkgs.fetchpatch {
-                    url = "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
-                    sha256 = "sha256-5gPahX2X6+/qUaqDQIGJGvh9lQ2EDtks2cpQutgbOHk=";
-                  })
-                ]
-            ++
-              lib.optionals ((lib.strings.versionAtLeast old.version "0.940") && lib.strings.versionOlder old.version "0.960")
-                [
-                  (pkgs.fetchpatch {
-                    url = "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
-                    sha256 = "sha256-waIZ+m3tfvYE4HJ8kL6rN/C4fMjvLEe9UoPbt9mHWIM=";
-                  })
-                ]
-            ++
-              lib.optionals ((lib.strings.versionAtLeast old.version "0.960") && (lib.strings.versionOlder old.version "0.971"))
-                [
-                  (pkgs.fetchpatch {
-                    url = "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
-                    sha256 = "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
-                  })
-                ];
+            ++ lib.optionals ((lib.strings.versionAtLeast old.version "0.900") && lib.strings.versionOlder old.version "0.940") [
+              (pkgs.fetchpatch {
+                url = "https://github.com/python/mypy/commit/f1755259d54330cd087cae763cd5bbbff26e3e8a.patch";
+                sha256 = "sha256-5gPahX2X6+/qUaqDQIGJGvh9lQ2EDtks2cpQutgbOHk=";
+              })
+            ]
+            ++ lib.optionals ((lib.strings.versionAtLeast old.version "0.940") && lib.strings.versionOlder old.version "0.960") [
+              (pkgs.fetchpatch {
+                url = "https://github.com/python/mypy/commit/e7869f05751561958b946b562093397027f6d5fa.patch";
+                sha256 = "sha256-waIZ+m3tfvYE4HJ8kL6rN/C4fMjvLEe9UoPbt9mHWIM=";
+              })
+            ]
+            ++ lib.optionals ((lib.strings.versionAtLeast old.version "0.960") && (lib.strings.versionOlder old.version "0.971")) [
+              (pkgs.fetchpatch {
+                url = "https://github.com/python/mypy/commit/2004ae023b9d3628d9f09886cbbc20868aee8554.patch";
+                sha256 = "sha256-y+tXvgyiECO5+66YLvaje8Bz5iPvfWNIBJcsnZ2nOdI=";
+              })
+            ];
         }
       );
 
@@ -2011,9 +1997,7 @@ lib.composeManyExtensions [
         }
       );
 
-      pylint = super.pylint.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      pylint = super.pylint.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       pymediainfo = super.pymediainfo.overridePythonAttrs (
         old: {
@@ -2059,9 +2043,7 @@ lib.composeManyExtensions [
         }
       );
 
-      pyopenssl = super.pyopenssl.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.openssl ]; }
-      );
+      pyopenssl = super.pyopenssl.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.openssl ]; });
 
       pyproj = super.pyproj.overridePythonAttrs (
         old: {
@@ -2075,9 +2057,7 @@ lib.composeManyExtensions [
         old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libusb1.out ]; }
       );
 
-      pyrfr = super.pyrfr.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.swig ]; }
-      );
+      pyrfr = super.pyrfr.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.swig ]; });
 
       pyscard = super.pyscard.overridePythonAttrs (
         old:
@@ -2106,13 +2086,9 @@ lib.composeManyExtensions [
         }
       );
 
-      pytaglib = super.pytaglib.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.taglib ]; }
-      );
+      pytaglib = super.pytaglib.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.taglib ]; });
 
-      pytezos = super.pytezos.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libsodium ]; }
-      );
+      pytezos = super.pytezos.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libsodium ]; });
 
       python-bugzilla = super.python-bugzilla.overridePythonAttrs (
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.docutils ]; }
@@ -2323,9 +2299,7 @@ lib.composeManyExtensions [
         }
       );
 
-      recommonmark = super.rich.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.commonmark ]; }
-      );
+      recommonmark = super.rich.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.commonmark ]; });
 
       rich = super.rich.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.commonmark ]; });
 
@@ -2593,9 +2567,7 @@ lib.composeManyExtensions [
         }
       );
 
-      tensorflow-macos = super.tensorflow-macos.overridePythonAttrs (
-        old: { postInstall = self.tensorflow.postInstall; }
-      );
+      tensorflow-macos = super.tensorflow-macos.overridePythonAttrs (old: { postInstall = self.tensorflow.postInstall; });
 
       tensorpack = super.tensorpack.overridePythonAttrs (
         old: {
@@ -2818,9 +2790,7 @@ lib.composeManyExtensions [
         if super.zipp == null then
           null
         else
-          super.zipp.overridePythonAttrs (
-            old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toml ]; }
-          );
+          super.zipp.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toml ]; });
 
       packaging =
         let
@@ -2838,9 +2808,7 @@ lib.composeManyExtensions [
           old;
 
       psutil = super.psutil.overridePythonAttrs (
-        old: {
-          buildInputs = (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit;
-        }
+        old: { buildInputs = (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit; }
       );
 
       sentencepiece = super.sentencepiece.overridePythonAttrs (

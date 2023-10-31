@@ -68,8 +68,7 @@ let
   metacoq_ =
     package:
     let
-      metacoq-deps =
-        if package == "single" then [ ] else map metacoq_ (head (splitList (lib.pred.equal package) packages));
+      metacoq-deps = if package == "single" then [ ] else map metacoq_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "./" else "./${package}";
       pname = if package == "all" then "metacoq" else "metacoq-${package}";
       pkgallMake = ''
@@ -145,9 +144,7 @@ let
                 || (o.version == "dev" && (versionAtLeast coq.coq-version "8.16" || coq.coq-version == "dev"));
             in
             {
-              propagatedBuildInputs =
-                o.propagatedBuildInputs
-                ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
+              propagatedBuildInputs = o.propagatedBuildInputs ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
             }
           );
     in

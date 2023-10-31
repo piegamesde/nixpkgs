@@ -17,9 +17,7 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
-      attrValues cfg.vswitches
-    )
+    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans);
 
@@ -412,9 +410,7 @@ let
           n: v:
           nameValuePair "${n}-netdev" (
             let
-              deps = concatLists (
-                map deviceDependency (attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces))
-              );
+              deps = concatLists (map deviceDependency (attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)));
               internalConfigs = map (i: "network-addresses-${i}.service") (
                 attrNames (filterAttrs (_: config: config.type == "internal") v.interfaces)
               );
@@ -574,9 +570,7 @@ let
               );
               fouSpec = "port ${toString v.port} ${if v.protocol != null then "ipproto ${toString v.protocol}" else "gue"} ${
                   optionalString (v.local != null)
-                    "local ${escapeShellArg v.local.address} ${
-                      optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"
-                    }"
+                    "local ${escapeShellArg v.local.address} ${optionalString (v.local.dev != null) "dev ${escapeShellArg v.local.dev}"}"
                 }";
             in
             {

@@ -138,8 +138,7 @@ in
     environment.etc = {
       "systemd/resolved.conf".text = ''
         [Resolve]
-        ${optionalString (config.networking.nameservers != [ ])
-          "DNS=${concatStringsSep " " config.networking.nameservers}"}
+        ${optionalString (config.networking.nameservers != [ ]) "DNS=${concatStringsSep " " config.networking.nameservers}"}
         ${optionalString (cfg.fallbackDns != [ ]) "FallbackDNS=${concatStringsSep " " cfg.fallbackDns}"}
         ${optionalString (cfg.domains != [ ]) "Domains=${concatStringsSep " " cfg.domains}"}
         LLMNR=${cfg.llmnr}

@@ -192,9 +192,7 @@ let
         {
           warnings =
             optional fromOpt.isDefined
-              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${
-                showOption toPath
-              }'.";
+              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
@@ -326,8 +324,7 @@ let
 
         aclFile = mkOption {
           type = with types; nullOr str;
-          default =
-            if (config.mergedConfig.useacl && config.acl == null) then "/var/lib/dokuwiki/${name}/acl.auth.php" else null;
+          default = if (config.mergedConfig.useacl && config.acl == null) then "/var/lib/dokuwiki/${name}/acl.auth.php" else null;
           description = lib.mdDoc ''
             Location of the dokuwiki acl rules. Mutually exclusive with services.dokuwiki.acl
             Mutually exclusive with services.dokuwiki.acl which is preferred.

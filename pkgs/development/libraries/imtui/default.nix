@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs =
-    lib.optional withEmscripten emscripten ++ lib.optional withCurl curl ++ lib.optional withNcurses ncurses;
+  buildInputs = lib.optional withEmscripten emscripten ++ lib.optional withCurl curl ++ lib.optional withNcurses ncurses;
 
   postPatch = ''
     cp -r ${imgui}/include/imgui third-party/imgui

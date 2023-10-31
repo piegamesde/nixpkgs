@@ -156,9 +156,7 @@ let
         + optionalString dev.allowDiscards " --allow-discards"
         + optionalString dev.bypassWorkqueues " --perf-no_read_workqueue --perf-no_write_workqueue"
         + optionalString (dev.header != null) " --header=${dev.header}";
-      cschange = "cryptsetup luksChangeKey ${dev.device} ${
-          optionalString (dev.header != null) "--header=${dev.header}"
-        }";
+      cschange = "cryptsetup luksChangeKey ${dev.device} ${optionalString (dev.header != null) "--header=${dev.header}"}";
       fido2luksCredentials = dev.fido2.credentials ++ optional (dev.fido2.credential != null) dev.fido2.credential;
     in
     ''
@@ -404,9 +402,7 @@ let
                   toString dev.yubikey.keyLength
                 } $new_iterations $new_response | rbtohex)"
             else
-                new_k_luks="$(echo | pbkdf2-sha512 ${
-                  toString dev.yubikey.keyLength
-                } $new_iterations $new_response | rbtohex)"
+                new_k_luks="$(echo | pbkdf2-sha512 ${toString dev.yubikey.keyLength} $new_iterations $new_response | rbtohex)"
             fi
 
             echo -n "$new_k_luks" | hextorb > /crypt-ramfs/new_key
@@ -1082,8 +1078,7 @@ in
         message = "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
       {
-        assertion =
-          config.boot.initrd.systemd.enable -> options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio;
+        assertion = config.boot.initrd.systemd.enable -> options.boot.initrd.luks.reusePassphrases.highestPrio == defaultPrio;
         message = "boot.initrd.luks.reusePassphrases has no effect with systemd stage 1.";
       }
       {

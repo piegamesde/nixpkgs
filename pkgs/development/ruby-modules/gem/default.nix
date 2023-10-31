@@ -75,9 +75,7 @@ lib.makeOverridable (
       attrs.src or (
         if type == "gem" then
           fetchurl {
-            urls = map (remote: "${remote}/gems/${gemName}-${version}.gem") (
-              attrs.source.remotes or [ "https://rubygems.org" ]
-            );
+            urls = map (remote: "${remote}/gems/${gemName}-${version}.gem") (attrs.source.remotes or [ "https://rubygems.org" ]);
             inherit (attrs.source) sha256;
           }
         else if type == "git" then
@@ -105,12 +103,10 @@ lib.makeOverridable (
       inherit dontStrip;
       gemType = type;
 
-      nativeBuildInputs =
-        [
-          ruby
-          makeWrapper
-        ]
-        ++ lib.optionals (type == "git") [ gitMinimal ] ++ lib.optionals (type != "gem") [ bundler ] ++ nativeBuildInputs;
+      nativeBuildInputs = [
+        ruby
+        makeWrapper
+      ] ++ lib.optionals (type == "git") [ gitMinimal ] ++ lib.optionals (type != "gem") [ bundler ] ++ nativeBuildInputs;
 
       buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ buildInputs;
 

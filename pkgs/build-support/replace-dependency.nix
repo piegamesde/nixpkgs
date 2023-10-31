@@ -114,6 +114,4 @@ let
 in
 assert (stringLength (drvName (toString oldDependency)) == stringLength (drvName (toString newDependency)));
 rewriteMemo.${drvHash}
-  or (warn "replace-dependency.nix: Derivation ${drvHash} does not depend on ${discard (toString oldDependency)}"
-    drv
-  )
+  or (warn "replace-dependency.nix: Derivation ${drvHash} does not depend on ${discard (toString oldDependency)}" drv)

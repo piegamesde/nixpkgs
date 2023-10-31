@@ -887,8 +887,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         User = cfg.user;
-        ExecStart =
-          "${exe} dump --type ${cfg.dump.type}" + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
+        ExecStart = "${exe} dump --type ${cfg.dump.type}" + optionalString (cfg.dump.file != null) " --file ${cfg.dump.file}";
         WorkingDirectory = cfg.dump.backupDir;
       };
     };

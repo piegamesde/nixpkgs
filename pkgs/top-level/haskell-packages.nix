@@ -100,9 +100,7 @@ in
       minimal = true;
     };
 
-    ghc8107Binary = callPackage ../development/compilers/ghc/8.10.7-binary.nix {
-      llvmPackages = pkgs.llvmPackages_12;
-    };
+    ghc8107Binary = callPackage ../development/compilers/ghc/8.10.7-binary.nix { llvmPackages = pkgs.llvmPackages_12; };
 
     ghc8107BinaryMinimal = callPackage ../development/compilers/ghc/8.10.7-binary.nix {
       llvmPackages = pkgs.llvmPackages_12;
@@ -387,9 +385,7 @@ in
     # build with integer-simple instead of integer-gmp.
     integer-simple =
       let
-        integerSimpleGhcNames = pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes) (
-          pkgs.lib.attrNames compiler
-        );
+        integerSimpleGhcNames = pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes) (pkgs.lib.attrNames compiler);
       in
       pkgs.recurseIntoAttrs (
         pkgs.lib.genAttrs integerSimpleGhcNames (name: compiler.${name}.override { enableIntegerSimple = true; })
@@ -399,9 +395,7 @@ in
     # with "native" and "gmp" backends.
     native-bignum =
       let
-        nativeBignumGhcNames = pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes) (
-          pkgs.lib.attrNames compiler
-        );
+        nativeBignumGhcNames = pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes) (pkgs.lib.attrNames compiler);
       in
       pkgs.recurseIntoAttrs (
         pkgs.lib.genAttrs nativeBignumGhcNames (name: compiler.${name}.override { enableNativeBignum = true; })
@@ -544,9 +538,7 @@ in
       # using integer-simple instead of integer-gmp.
       integer-simple =
         let
-          integerSimpleGhcNames = pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes) (
-            pkgs.lib.attrNames packages
-          );
+          integerSimpleGhcNames = pkgs.lib.filter (name: !builtins.elem name integerSimpleExcludes) (pkgs.lib.attrNames packages);
         in
         pkgs.lib.genAttrs integerSimpleGhcNames (
           name:
@@ -561,9 +553,7 @@ in
 
       native-bignum =
         let
-          nativeBignumGhcNames = pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes) (
-            pkgs.lib.attrNames compiler
-          );
+          nativeBignumGhcNames = pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes) (pkgs.lib.attrNames compiler);
         in
         pkgs.lib.genAttrs nativeBignumGhcNames (
           name:

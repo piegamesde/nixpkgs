@@ -68,9 +68,7 @@ with pkgs;
   cuda = callPackage ./cuda { };
 
   trivial-builders = recurseIntoAttrs {
-    writeStringReferencesToFile =
-      callPackage ../build-support/trivial-builders/test/writeStringReferencesToFile.nix
-        { };
+    writeStringReferencesToFile = callPackage ../build-support/trivial-builders/test/writeStringReferencesToFile.nix { };
     writeTextFile = callPackage ../build-support/trivial-builders/test/write-text-file.nix { };
     writeShellScript = callPackage ../build-support/trivial-builders/test/write-shell-script.nix { };
     references = callPackage ../build-support/trivial-builders/test/references.nix { };

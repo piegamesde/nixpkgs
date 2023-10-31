@@ -235,13 +235,10 @@ in
                   --gcmode ${cfg.gcmode} \
                   --port ${toString cfg.port} \
                   --maxpeers ${toString cfg.maxpeers} \
-                  ${
-                    optionalString cfg.http.enable "--http --http.addr ${cfg.http.address} --http.port ${toString cfg.http.port}"
-                  } \
+                  ${optionalString cfg.http.enable "--http --http.addr ${cfg.http.address} --http.port ${toString cfg.http.port}"} \
                   ${optionalString (cfg.http.apis != null) "--http.api ${lib.concatStringsSep "," cfg.http.apis}"} \
                   ${
-                    optionalString cfg.websocket.enable
-                      "--ws --ws.addr ${cfg.websocket.address} --ws.port ${toString cfg.websocket.port}"
+                    optionalString cfg.websocket.enable "--ws --ws.addr ${cfg.websocket.address} --ws.port ${toString cfg.websocket.port}"
                   } \
                   ${optionalString (cfg.websocket.apis != null) "--ws.api ${lib.concatStringsSep "," cfg.websocket.apis}"} \
                   ${

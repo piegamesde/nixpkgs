@@ -455,8 +455,7 @@ let
   generateInterfaceTarget =
     name: values:
     let
-      mkPeerUnit =
-        peer: (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
+      mkPeerUnit = peer: (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -470,8 +469,7 @@ let
     # exactly one way to specify the private key must be set
     #assert (values.privateKey != null) != (values.privateKeyFile != null);
     let
-      privKey =
-        if values.privateKeyFile != null then values.privateKeyFile else pkgs.writeText "wg-key" values.privateKey;
+      privKey = if values.privateKeyFile != null then values.privateKeyFile else pkgs.writeText "wg-key" values.privateKey;
       src = values.socketNamespace;
       dst = values.interfaceNamespace;
       ipPreMove = nsWrap "ip" src null;

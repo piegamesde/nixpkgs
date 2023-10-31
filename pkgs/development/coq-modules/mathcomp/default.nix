@@ -109,8 +109,7 @@ let
   mathcomp_ =
     package:
     let
-      mathcomp-deps =
-        if package == "single" then [ ] else map mathcomp_ (head (splitList (lib.pred.equal package) packages));
+      mathcomp-deps = if package == "single" then [ ] else map mathcomp_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "mathcomp" else "mathcomp/${package}";
       pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
       pkgallMake = ''
@@ -191,11 +190,7 @@ let
         o:
         optionalAttrs
           (
-            o.pname != null
-            && o.pname == "mathcomp-all"
-            && o.version != null
-            && o.version != "dev"
-            && versions.isLt "1.7" o.version
+            o.pname != null && o.pname == "mathcomp-all" && o.version != null && o.version != "dev" && versions.isLt "1.7" o.version
           )
           {
             preBuild = "";

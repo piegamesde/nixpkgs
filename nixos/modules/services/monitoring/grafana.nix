@@ -1975,8 +1975,7 @@ in
               optionals (cfg.provision.datasources.settings != null)
                 cfg.provision.datasources.settings.datasources;
             declarationUnsafe =
-              { secureJsonData, ... }:
-              secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
+              { secureJsonData, ... }: secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);
           in
           any declarationUnsafe datasourcesToCheck
         )
@@ -2013,8 +2012,7 @@ in
         message = "Cannot set both rules settings and rules path";
       }
       {
-        assertion =
-          cfg.provision.alerting.contactPoints.settings == null || cfg.provision.alerting.contactPoints.path == null;
+        assertion = cfg.provision.alerting.contactPoints.settings == null || cfg.provision.alerting.contactPoints.path == null;
         message = "Cannot set both contact points settings and contact points path";
       }
       {

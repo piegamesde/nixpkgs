@@ -123,10 +123,7 @@ rec {
 
   assertTrue =
     bool:
-    if bool then
-      pkgs.runCommand "evaluated-to-true" { } "touch $out"
-    else
-      pkgs.runCommand "evaluated-to-false" { } "false";
+    if bool then pkgs.runCommand "evaluated-to-true" { } "touch $out" else pkgs.runCommand "evaluated-to-false" { } "false";
 
   /* The working or failing mails for cross builds will be sent only to
      the following maintainers, as most package maintainers will not be

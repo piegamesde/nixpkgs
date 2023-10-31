@@ -24,8 +24,7 @@ let
     in
     recursiveUpdate lhs rhs
     // optionalAttrs (lhs ? packageOverrides) {
-      packageOverrides =
-        pkgs: optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
+      packageOverrides = pkgs: optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =

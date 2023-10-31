@@ -15,8 +15,7 @@ let
 
   interfaces = attrValues config.networking.interfaces;
 
-  enableDHCP =
-    config.networking.dhcpcd.enable && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
+  enableDHCP = config.networking.dhcpcd.enable && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
 
   # Don't start dhcpcd on explicitly configured interfaces or on
   # interfaces that are part of a bridge, bond or sit device.
@@ -46,10 +45,7 @@ let
   # If dhcp is disabled but explicit interfaces are enabled,
   # we need to provide dhcp just for those interfaces.
   allowInterfaces = arrayAppendOrNull cfg.allowInterfaces (
-    if !config.networking.useDHCP && enableDHCP then
-      map (i: i.name) (filter (i: i.useDHCP == true) interfaces)
-    else
-      null
+    if !config.networking.useDHCP && enableDHCP then map (i: i.name) (filter (i: i.useDHCP == true) interfaces) else null
   );
 
   staticIPv6Addresses = map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);

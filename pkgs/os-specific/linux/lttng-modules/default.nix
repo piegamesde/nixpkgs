@@ -42,7 +42,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = [ maintainers.bjornfor ];
     broken =
-      (lib.versions.majorMinor kernel.modDirVersion) == "5.10"
-      || (lib.versions.majorMinor kernel.modDirVersion) == "5.4";
+      (lib.versions.majorMinor kernel.modDirVersion) == "5.10" || (lib.versions.majorMinor kernel.modDirVersion) == "5.4";
   };
 }

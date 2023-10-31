@@ -328,20 +328,12 @@ in
               refresh-rate ${toString ps.refreshInterval}
               assignments {
                 ${
-                  if ps.foregroundBoost.enable then
-                    (schedulerProfileToString "foreground" ps.foregroundBoost.foreground "    ")
-                  else
-                    ""
+                  if ps.foregroundBoost.enable then (schedulerProfileToString "foreground" ps.foregroundBoost.foreground "    ") else ""
                 }
                 ${
-                  if ps.foregroundBoost.enable then
-                    (schedulerProfileToString "background" ps.foregroundBoost.background "    ")
-                  else
-                    ""
+                  if ps.foregroundBoost.enable then (schedulerProfileToString "background" ps.foregroundBoost.background "    ") else ""
                 }
-                ${
-                  if ps.pipewireBoost.enable then (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ") else ""
-                }
+                ${if ps.pipewireBoost.enable then (schedulerProfileToString "pipewire" ps.pipewireBoost.profile "    ") else ""}
               }
             }
           '';

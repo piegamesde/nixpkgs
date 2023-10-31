@@ -167,8 +167,7 @@ with lib;
         '';
       inherit (cfg) partitionTableType;
       supportEfi = partitionTableType == "efi" || partitionTableType == "hybrid";
-      supportBios =
-        partitionTableType == "legacy" || partitionTableType == "hybrid" || partitionTableType == "legacy+gpt";
+      supportBios = partitionTableType == "legacy" || partitionTableType == "hybrid" || partitionTableType == "legacy+gpt";
       hasBootPartition = partitionTableType == "efi" || partitionTableType == "hybrid";
       hasNoFsPartition = partitionTableType == "hybrid" || partitionTableType == "legacy+gpt";
     in

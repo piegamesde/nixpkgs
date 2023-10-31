@@ -141,8 +141,7 @@ stdenv.mkDerivation rec {
       luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
       luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
       luaOnHostForHost = override pkgsHostHost.${luaAttr};
-      luaOnTargetForTarget =
-        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
+      luaOnTargetForTarget = if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
     };
 
   meta =

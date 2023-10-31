@@ -123,21 +123,17 @@ stdenv.mkDerivation rec {
     ))
   ];
 
-  mesonFlags =
-    [
-      "--datadir=${system}/share"
-      "--sysconfdir=/etc"
-      "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
-      "-Dpolkitd_user=polkituser" # TODO? <nixos> config.ids.uids.polkituser
-      "-Dos_type=redhat" # only affects PAM includes
-      "-Dintrospection=${lib.boolToString withIntrospection}"
-      "-Dtests=${lib.boolToString doCheck}"
-      "-Dgtk_doc=${lib.boolToString withIntrospection}"
-      "-Dman=true"
-    ]
-    ++ lib.optionals stdenv.isLinux [
-      "-Dsession_tracking=${if useSystemd then "libsystemd-login" else "libelogind"}"
-    ];
+  mesonFlags = [
+    "--datadir=${system}/share"
+    "--sysconfdir=/etc"
+    "-Dsystemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    "-Dpolkitd_user=polkituser" # TODO? <nixos> config.ids.uids.polkituser
+    "-Dos_type=redhat" # only affects PAM includes
+    "-Dintrospection=${lib.boolToString withIntrospection}"
+    "-Dtests=${lib.boolToString doCheck}"
+    "-Dgtk_doc=${lib.boolToString withIntrospection}"
+    "-Dman=true"
+  ] ++ lib.optionals stdenv.isLinux [ "-Dsession_tracking=${if useSystemd then "libsystemd-login" else "libelogind"}" ];
 
   # HACK: We want to install policy files files to $out/share but polkit
   # should read them from /run/current-system/sw/share on a NixOS system.

@@ -194,8 +194,7 @@ in
       assertions = singleton {
         assertion = cfg.configuration != null || cfg.configText != null;
         message =
-          "Can not enable alertmanager without a configuration. "
-          + "Set either the `configuration` or `configText` attribute.";
+          "Can not enable alertmanager without a configuration. " + "Set either the `configuration` or `configText` attribute.";
       };
     })
     (mkIf cfg.enable {

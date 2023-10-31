@@ -31,9 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     [ openssl ]
-    ++ lib.optional withALSA alsa-lib
-    ++ lib.optional withPortAudio portaudio
-    ++ lib.optional withPulseAudio libpulseaudio;
+    ++ lib.optional withALSA alsa-lib ++ lib.optional withPortAudio portaudio ++ lib.optional withPulseAudio libpulseaudio;
 
   buildNoDefaultFeatures = true;
   buildFeatures =

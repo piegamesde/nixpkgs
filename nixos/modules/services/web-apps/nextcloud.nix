@@ -921,8 +921,7 @@ in
                 $CONFIG = [
                   'apps_paths' => [
                     ${
-                      optionalString (cfg.extraApps != { })
-                        "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
+                      optionalString (cfg.extraApps != { }) "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
                     }
                     [ 'path' => '${cfg.home}/apps', 'url' => '/apps', 'writable' => false ],
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],

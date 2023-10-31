@@ -40,9 +40,7 @@ let
   templates =
     if cfg.templates != { } then
       let
-        list = mapAttrsToList (name: value: { inherit name; } // value) (
-          filterAttrs (name: value: value.enable) cfg.templates
-        );
+        list = mapAttrsToList (name: value: { inherit name; } // value) (filterAttrs (name: value: value.enable) cfg.templates);
       in
       {
         files =

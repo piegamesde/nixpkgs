@@ -153,13 +153,9 @@ stdenv.mkDerivation rec {
     ++ optionals (stdenv.isLinux && !stdenv.targetPlatform.isRedox) [
       "--enable-profiler" # build libprofiler_builtins
     ]
-    ++ optionals stdenv.buildPlatform.isMusl [
-      "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}"
-    ]
+    ++ optionals stdenv.buildPlatform.isMusl [ "${setBuild}.musl-root=${pkgsBuildBuild.targetPackages.stdenv.cc.libc}" ]
     ++ optionals stdenv.hostPlatform.isMusl [ "${setHost}.musl-root=${pkgsBuildHost.targetPackages.stdenv.cc.libc}" ]
-    ++ optionals stdenv.targetPlatform.isMusl [
-      "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}"
-    ]
+    ++ optionals stdenv.targetPlatform.isMusl [ "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}" ]
     ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) [ "--disable-docs" ]
     ++
       optionals (stdenv.isDarwin && stdenv.isx86_64)

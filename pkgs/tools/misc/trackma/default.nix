@@ -73,9 +73,7 @@ python3.pkgs.buildPythonApplication rec {
   dontWrapQtApps = true;
   dontWrapGApps = true;
 
-  preFixup =
-    lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
-    ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
+  preFixup = lib.optional withQT "wrapQtApp $out/bin/trackma-qt" ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
 
   desktopItems =
     lib.optional withQT (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)" false)

@@ -318,9 +318,7 @@ rec {
     super:
     {
       AppKit = lib.overrideDerivation super.AppKit (
-        drv: {
-          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ];
-        }
+        drv: { __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ]; }
       );
 
       Carbon = lib.overrideDerivation super.Carbon (

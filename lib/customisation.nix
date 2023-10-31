@@ -342,8 +342,7 @@ rec {
         callPackage = newScope spliced; # == self.newScope {};
         # N.B. the other stages of the package set spliced in are *not*
         # overridden.
-        overrideScope =
-          g: makeScopeWithSplicing splicePackages newScope otherSplices keep extra (lib.fixedPoints.extends g f);
+        overrideScope = g: makeScopeWithSplicing splicePackages newScope otherSplices keep extra (lib.fixedPoints.extends g f);
         packages = f;
       };
     in

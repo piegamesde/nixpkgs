@@ -314,10 +314,8 @@ in
               [sftpd]
               enabled = ${boolToString settings.sftpd.enable}
               ${optionalString (settings.sftpd.port != null) "port = ${toString settings.sftpd.port}"}
-              ${optionalString (settings.sftpd.hostPublicKeyFile != null)
-                "host_pubkey_file = ${settings.sftpd.hostPublicKeyFile}"}
-              ${optionalString (settings.sftpd.hostPrivateKeyFile != null)
-                "host_privkey_file = ${settings.sftpd.hostPrivateKeyFile}"}
+              ${optionalString (settings.sftpd.hostPublicKeyFile != null) "host_pubkey_file = ${settings.sftpd.hostPublicKeyFile}"}
+              ${optionalString (settings.sftpd.hostPrivateKeyFile != null) "host_privkey_file = ${settings.sftpd.hostPrivateKeyFile}"}
               ${optionalString (settings.sftpd.accounts.file != null) "accounts.file = ${settings.sftpd.accounts.file}"}
               ${optionalString (settings.sftpd.accounts.url != null) "accounts.url = ${settings.sftpd.accounts.url}"}
             '';

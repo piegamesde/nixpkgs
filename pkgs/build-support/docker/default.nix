@@ -423,9 +423,9 @@ rec {
         # Tar up the layer and throw it into 'layer.tar'.
         echo "Packing layer..."
         mkdir $out
-        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=${
-          toString uid
-        } --group=${toString gid} -cf - . | tee -p $out/layer.tar | tarsum)
+        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=${toString uid} --group=${
+          toString gid
+        } -cf - . | tee -p $out/layer.tar | tarsum)
 
         # Add a 'checksum' field to the JSON, with the value set to the
         # checksum of the tarball.
@@ -674,8 +674,7 @@ rec {
             layerClosure = writeReferencesToFile layer;
             passthru.buildArgs = args;
             passthru.layer = layer;
-            passthru.imageTag =
-              if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
+            passthru.imageTag = if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
           }
           ''
             ${lib.optionalString (tag == null) ''
@@ -1171,9 +1170,7 @@ rec {
 
       # A binary that calls the command to build the derivation
       builder = writeShellScriptBin "buildDerivation" ''
-        exec ${lib.escapeShellArg (stringValue drv.drvAttrs.builder)} ${
-          lib.escapeShellArgs (map stringValue drv.drvAttrs.args)
-        }
+        exec ${lib.escapeShellArg (stringValue drv.drvAttrs.builder)} ${lib.escapeShellArgs (map stringValue drv.drvAttrs.args)}
       '';
 
       staticPath = "${dirOf shell}:${lib.makeBinPath [ builder ]}";

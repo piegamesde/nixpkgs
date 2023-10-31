@@ -93,10 +93,7 @@ in
       buildInputs =
         oldAttrs.buildInputs
         ++ (
-          if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-            [ pkgs.qt5.qtwebview ]
-          else
-            [ pkgs.qt6.qtwebview ]
+          if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then [ pkgs.qt5.qtwebview ] else [ pkgs.qt6.qtwebview ]
         );
     }
   );

@@ -25,9 +25,7 @@ let
     lib.concatStringsSep "\n" (lib.mapAttrsToList (key: value: "${key}: ${value}") pkgInfoFields)
   );
 
-  entryPointsFile = builtins.toFile "${name}-entry_points.txt" (
-    lib.generators.toINI { } pyProject.tool.poetry.plugins
-  );
+  entryPointsFile = builtins.toFile "${name}-entry_points.txt" (lib.generators.toINI { } pyProject.tool.poetry.plugins);
 
   # A python package that contains simple .egg-info and .pth files for an editable installation
   editablePackage = python.pkgs.toPythonModule (

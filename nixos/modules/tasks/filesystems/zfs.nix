@@ -822,8 +822,7 @@ in
           # If the `pools` option is `true`, we want to dynamically
           # expand every pool. Otherwise we want to enumerate
           # just the specifically provided list of pools.
-          poolListProvider =
-            if cfgExpandOnBoot == "all" then "$(zpool list -H -o name)" else lib.escapeShellArgs cfgExpandOnBoot;
+          poolListProvider = if cfgExpandOnBoot == "all" then "$(zpool list -H -o name)" else lib.escapeShellArgs cfgExpandOnBoot;
         in
         {
           description = "Expand specified ZFS pools";

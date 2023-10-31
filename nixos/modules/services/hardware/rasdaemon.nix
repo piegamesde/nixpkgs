@@ -44,9 +44,7 @@ in
     labels = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels";
+      description = lib.mdDoc "Additional memory module label descriptions to be placed in /etc/ras/dimm_labels.d/labels";
       example = ''
         # vendor and model may be shown by 'ras-mc-ctl --mainboard'
         vendor: ASRock

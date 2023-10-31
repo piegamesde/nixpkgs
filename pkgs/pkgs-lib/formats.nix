@@ -220,10 +220,7 @@ rec {
         name: value:
         let
           transformedValue =
-            if listToValue != null then
-              lib.mapAttrs (key: val: if lib.isList val then listToValue val else val) value
-            else
-              value;
+            if listToValue != null then lib.mapAttrs (key: val: if lib.isList val then listToValue val else val) value else value;
         in
         pkgs.writeText name (lib.generators.toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue);
     };

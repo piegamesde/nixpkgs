@@ -86,8 +86,7 @@ let
 
   defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
 
-  mozLocale =
-    if systemLocale == "ca_ES@valencia" then "ca-valencia" else lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+  mozLocale = if systemLocale == "ca_ES@valencia" then "ca-valencia" else lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 in

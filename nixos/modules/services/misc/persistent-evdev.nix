@@ -16,9 +16,7 @@ let
 in
 {
   options.services.persistent-evdev = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "virtual input devices that persist even if the backing device is hotplugged"
-    );
+    enable = lib.mkEnableOption (lib.mdDoc "virtual input devices that persist even if the backing device is hotplugged");
 
     devices = lib.mkOption {
       default = { };

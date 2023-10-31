@@ -392,9 +392,7 @@ rec {
             ];
           in
           throw
-            "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
-              showDefs defs
-            }"
+            "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${showDefs defs}"
         else
           unifyModuleSyntax (toString m) (toString m) (applyModuleArgsIfFunction (toString m) (import m) args);
 
@@ -899,10 +897,7 @@ rec {
           let
             getSubModules = opt.options.type.getSubModules or null;
             submodules =
-              if getSubModules != null then
-                map (setDefaultModuleLocation opt._file) getSubModules ++ res.options
-              else
-                res.options;
+              if getSubModules != null then map (setDefaultModuleLocation opt._file) getSubModules ++ res.options else res.options;
           in
           opt.options
           // res
@@ -942,9 +937,7 @@ rec {
             separateDefs = map (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; }) defs';
           in
           throw
-            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${
-              showDefs separateDefs
-            }"
+            "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${showDefs separateDefs}"
         else
           mergeDefinitions loc opt.type defs';
 
@@ -1263,8 +1256,7 @@ rec {
           visible = false;
           apply =
             x:
-            throw
-              "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
+            throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
         }
       );
       config.assertions =
@@ -1275,9 +1267,7 @@ rec {
           {
             assertion = !opt.isDefined;
             message = ''
-              The option definition `${showOption optionName}' in ${
-                showFiles opt.files
-              } no longer has any effect; please remove it.
+              The option definition `${showOption optionName}' in ${showFiles opt.files} no longer has any effect; please remove it.
               ${replacementInstructions}
             '';
           }
@@ -1388,9 +1378,7 @@ rec {
                 optionalString (val != "_mkMergedOptionModule")
                   "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
                     showOption to
-                  }' that has a different type. Please read `${
-                    showOption to
-                  }' documentation and update your configuration accordingly."
+                  }' that has a different type. Please read `${showOption to}' documentation and update your configuration accordingly."
               )
               from
           );
@@ -1490,10 +1478,7 @@ rec {
         mkOption {
           inherit visible;
           description =
-            if markdown then
-              lib.mdDoc "Alias of {option}`${showOption to}`."
-            else
-              "Alias of <option>${showOption to}</option>.";
+            if markdown then lib.mdDoc "Alias of {option}`${showOption to}`." else "Alias of <option>${showOption to}</option>.";
           apply = x: use (toOf config);
         }
         // optionalAttrs (toType != null) { type = toType; }

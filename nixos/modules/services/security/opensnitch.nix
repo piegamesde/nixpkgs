@@ -171,9 +171,7 @@ in
 
     # pkg.opensnitch is referred to elsewhere in the module so we don't need to worry about it being garbage collected
     services.opensnitch.settings = mapAttrs (_: v: mkDefault v) (
-      builtins.fromJSON (
-        builtins.unsafeDiscardStringContext (builtins.readFile "${pkgs.opensnitch}/etc/default-config.json")
-      )
+      builtins.fromJSON (builtins.unsafeDiscardStringContext (builtins.readFile "${pkgs.opensnitch}/etc/default-config.json"))
     );
 
     systemd = {

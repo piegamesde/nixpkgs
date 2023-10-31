@@ -74,12 +74,8 @@ let
 
     # generate the new config by merging with the NixOS config options
     new_cfg=$(printf '%s\n' "$old_cfg" | ${pkgs.jq}/bin/jq -c '. * {
-        "devices": (${builtins.toJSON devices}${
-          optionalString (cfg.devices == { } || !cfg.overrideDevices) " + .devices"
-        }),
-        "folders": (${builtins.toJSON folders}${
-          optionalString (cfg.folders == { } || !cfg.overrideFolders) " + .folders"
-        })
+        "devices": (${builtins.toJSON devices}${optionalString (cfg.devices == { } || !cfg.overrideDevices) " + .devices"}),
+        "folders": (${builtins.toJSON folders}${optionalString (cfg.folders == { } || !cfg.overrideFolders) " + .folders"})
     } * ${builtins.toJSON cfg.extraOptions}')
 
     # send the new config
@@ -97,9 +93,7 @@ in
   options = {
     services.syncthing = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync"
-      );
+      enable = mkEnableOption (lib.mdDoc "Syncthing, a self-hosted open-source alternative to Dropbox and Bittorrent Sync");
 
       cert = mkOption {
         type = types.nullOr types.str;

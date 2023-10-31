@@ -500,8 +500,7 @@ in
 
         perf = callPackage ../os-specific/linux/kernel/perf { };
 
-        phc-intel =
-          if lib.versionAtLeast kernel.version "4.10" then callPackage ../os-specific/linux/phc-intel { } else null;
+        phc-intel = if lib.versionAtLeast kernel.version "4.10" then callPackage ../os-specific/linux/phc-intel { } else null;
 
         prl-tools = callPackage ../os-specific/linux/prl-tools { };
 

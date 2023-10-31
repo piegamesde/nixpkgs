@@ -247,9 +247,7 @@ stdenv.mkDerivation rec {
           stdenv.cc.libc # ldd
         ]
       }" \
-      --prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [ xrootd ]
-      }"
+      --prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xrootd ]}"
 
     # Patch thisroot.{sh,csh,fish}
 

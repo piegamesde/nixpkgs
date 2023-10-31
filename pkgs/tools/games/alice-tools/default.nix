@@ -88,8 +88,7 @@ stdenv.mkDerivation (
       updateScript = gitUpdater { };
       tests.version = testers.testVersion {
         package = finalAttrs.finalPackage;
-        command =
-          lib.optionalString withGUI "env QT_QPA_PLATFORM=minimal " + "${lib.getExe finalAttrs.finalPackage} --version";
+        command = lib.optionalString withGUI "env QT_QPA_PLATFORM=minimal " + "${lib.getExe finalAttrs.finalPackage} --version";
       };
     };
 

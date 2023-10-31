@@ -29,8 +29,7 @@ let
 
   # Gives a WPA3 network higher priority
   increaseWPA3Priority =
-    opts:
-    opts // optionalAttrs (hasMixedWPA opts) { priority = if opts.priority == null then 1 else opts.priority + 1; };
+    opts: opts // optionalAttrs (hasMixedWPA opts) { priority = if opts.priority == null then 1 else opts.priority + 1; };
 
   # Creates a WPA2 fallback network
   mkWPA2Fallback = opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
@@ -105,10 +104,7 @@ let
     let
       deviceUnit = optional (iface != null) "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
       configStr =
-        if cfg.allowAuxiliaryImperativeNetworks then
-          "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
-        else
-          "-c ${finalConfig}";
+        if cfg.allowAuxiliaryImperativeNetworks then "-c /etc/wpa_supplicant.conf -I ${finalConfig}" else "-c ${finalConfig}";
     in
     {
       description = "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";

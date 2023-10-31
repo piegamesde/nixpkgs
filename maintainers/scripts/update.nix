@@ -148,8 +148,7 @@ let
     if package == null then
       builtins.throw "Package with an attribute name `${path}` does not exist."
     else if !builtins.hasAttr "updateScript" package then
-      builtins.throw
-        "Package with an attribute name `${path}` does not have a `passthru.updateScript` attribute defined."
+      builtins.throw "Package with an attribute name `${path}` does not have a `passthru.updateScript` attribute defined."
     else
       {
         attrPath = path;

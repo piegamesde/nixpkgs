@@ -76,10 +76,7 @@ let
 
   # Condition preserves sharing which in turn affects equality.
   crossSystem =
-    if crossSystem0 == null || crossSystem0 == args.localSystem then
-      localSystem
-    else
-      lib.systems.elaborate crossSystem0;
+    if crossSystem0 == null || crossSystem0 == args.localSystem then localSystem else lib.systems.elaborate crossSystem0;
 
   # Allow both:
   # { /* the config */ } and

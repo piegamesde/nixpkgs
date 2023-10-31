@@ -373,9 +373,7 @@ buildPythonPackage rec {
       # Since pytorch 2.0:
       # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
       # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
-        "-Wno-error=free-nonheap-object"
-      ]
+      ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [ "-Wno-error=free-nonheap-object" ]
     )
   );
 

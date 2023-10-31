@@ -308,14 +308,11 @@ let
         flakeIgnore ? [ ],
       }:
       let
-        ignoreAttribute =
-          optionalString (flakeIgnore != [ ])
-            "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
+        ignoreAttribute = optionalString (flakeIgnore != [ ]) "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
       in
       makeScriptWriter
         {
-          interpreter =
-            if libraries == [ ] then "${python}/bin/python" else "${python.withPackages (ps: libraries)}/bin/python";
+          interpreter = if libraries == [ ] then "${python}/bin/python" else "${python.withPackages (ps: libraries)}/bin/python";
           check = optionalString python.isPy3k (
             writeDash "pythoncheck.sh" ''
               exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"

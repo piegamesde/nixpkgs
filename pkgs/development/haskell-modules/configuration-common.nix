@@ -1757,8 +1757,7 @@ self: super:
   # Fixed upstream but not released to Hackage yet:
   # https://github.com/k0001/hs-libsodium/issues/2
   libsodium =
-    overrideCabal
-      (drv: { libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ]; })
+    overrideCabal (drv: { libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ]; })
       super.libsodium;
 
   svgcairo =
@@ -1977,9 +1976,7 @@ self: super:
       hspec-core = self.hspec-core_2_11_0;
     }
   );
-  hspec-discover_2_11_0 = doDistribute (
-    super.hspec-discover_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; }
-  );
+  hspec-discover_2_11_0 = doDistribute (super.hspec-discover_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; });
   # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
   # is overlayed to hspec-core.
   hspec-core_2_11_0 = doDistribute (
@@ -2969,9 +2966,7 @@ self: super:
   # multiple bounds too strict
   snaplet-sqlite-simple = doJailbreak super.snaplet-sqlite-simple;
 
-  emanote = super.emanote.overrideScope (
-    lself: lsuper: { commonmark-extensions = lself.commonmark-extensions_0_2_3_2; }
-  );
+  emanote = super.emanote.overrideScope (lself: lsuper: { commonmark-extensions = lself.commonmark-extensions_0_2_3_2; });
 
   # Test files missing from sdist
   # https://github.com/tweag/webauthn/issues/166

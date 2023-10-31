@@ -125,7 +125,5 @@ rec {
   # customized.
   makeExtensibleWithCustomName =
     extenderName: rattrs:
-    fix' (
-      self: (rattrs self) // { ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs); }
-    );
+    fix' (self: (rattrs self) // { ${extenderName} = f: makeExtensibleWithCustomName extenderName (extends f rattrs); });
 }

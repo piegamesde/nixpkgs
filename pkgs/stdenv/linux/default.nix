@@ -607,21 +607,19 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         }
         // {
           ${localSystem.libc} = getLibc prevStage;
-          gcc-unwrapped =
-            (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; })).overrideAttrs
-              (
-                a: {
-                  # so we can add them to allowedRequisites below
-                  passthru = a.passthru // {
-                    inherit (self)
-                      gmp
-                      mpfr
-                      libmpc
-                      isl
-                    ;
-                  };
-                }
-              );
+          gcc-unwrapped = (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; })).overrideAttrs (
+            a: {
+              # so we can add them to allowedRequisites below
+              passthru = a.passthru // {
+                inherit (self)
+                  gmp
+                  mpfr
+                  libmpc
+                  isl
+                ;
+              };
+            }
+          );
         };
       extraNativeBuildInputs =
         [ prevStage.patchelf ]

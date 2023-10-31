@@ -19,13 +19,9 @@ let
     format.generate "kea-ctrl-agent.conf" { Control-agent = cfg.ctrl-agent.settings; }
   );
 
-  dhcp4Config = chooseNotNull cfg.dhcp4.configFile (
-    format.generate "kea-dhcp4.conf" { Dhcp4 = cfg.dhcp4.settings; }
-  );
+  dhcp4Config = chooseNotNull cfg.dhcp4.configFile (format.generate "kea-dhcp4.conf" { Dhcp4 = cfg.dhcp4.settings; });
 
-  dhcp6Config = chooseNotNull cfg.dhcp6.configFile (
-    format.generate "kea-dhcp6.conf" { Dhcp6 = cfg.dhcp6.settings; }
-  );
+  dhcp6Config = chooseNotNull cfg.dhcp6.configFile (format.generate "kea-dhcp6.conf" { Dhcp6 = cfg.dhcp6.settings; });
 
   dhcpDdnsConfig = chooseNotNull cfg.dhcp-ddns.configFile (
     format.generate "kea-dhcp-ddns.conf" { DhcpDdns = cfg.dhcp-ddns.settings; }
@@ -296,9 +292,7 @@ in
             restartTriggers = [ ctrlAgentConfig ];
 
             serviceConfig = {
-              ExecStart = "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${
-                  lib.escapeShellArgs cfg.ctrl-agent.extraArgs
-                }";
+              ExecStart = "${package}/bin/kea-ctrl-agent -c /etc/kea/ctrl-agent.conf ${lib.escapeShellArgs cfg.ctrl-agent.extraArgs}";
               KillMode = "process";
               Restart = "on-failure";
             } // commonServiceConfig;
@@ -420,9 +414,7 @@ in
             restartTriggers = [ dhcpDdnsConfig ];
 
             serviceConfig = {
-              ExecStart = "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${
-                  lib.escapeShellArgs cfg.dhcp-ddns.extraArgs
-                }";
+              ExecStart = "${package}/bin/kea-dhcp-ddns -c /etc/kea/dhcp-ddns.conf ${lib.escapeShellArgs cfg.dhcp-ddns.extraArgs}";
               AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
               CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
             } // commonServiceConfig;

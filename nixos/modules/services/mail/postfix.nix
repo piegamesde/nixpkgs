@@ -292,8 +292,7 @@ let
       };
     };
 
-  headerChecks =
-    concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks) + cfg.extraHeaderChecks;
+  headerChecks = concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks) + cfg.extraHeaderChecks;
 
   aliases =
     let
@@ -904,10 +903,7 @@ in
           })
           // optionalAttrs (cfg.relayHost != "") {
             relayhost =
-              if cfg.lookupMX then
-                "${cfg.relayHost}:${toString cfg.relayPort}"
-              else
-                "[${cfg.relayHost}]:${toString cfg.relayPort}";
+              if cfg.lookupMX then "${cfg.relayHost}:${toString cfg.relayPort}" else "[${cfg.relayHost}]:${toString cfg.relayPort}";
           }
           // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
           // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }

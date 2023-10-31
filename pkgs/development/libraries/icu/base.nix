@@ -33,9 +33,7 @@ let
 
     # https://sourceware.org/glibc/wiki/Release/2.26#Removal_of_.27xlocale.h.27
     postPatch =
-      if
-        (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl") && lib.versionOlder version "62.1"
-      then
+      if (stdenv.hostPlatform.libc == "glibc" || stdenv.hostPlatform.libc == "musl") && lib.versionOlder version "62.1" then
         "substituteInPlace i18n/digitlst.cpp --replace '<xlocale.h>' '<locale.h>'"
       else
         null; # won't find locale_t on darwin

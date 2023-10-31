@@ -1580,9 +1580,7 @@ in
                           key="$(cut -f1 -d: ${escapeShellArg onion.secretKey} | head -1)"
                           case "$key" in
                            ("== ed25519v"*"-secret")
-                            install -o tor -g tor -m 0400 ${escapeShellArg onion.secretKey} ${
-                              escapeShellArg onion.path
-                            }/hs_ed25519_secret_key;;
+                            install -o tor -g tor -m 0400 ${escapeShellArg onion.secretKey} ${escapeShellArg onion.path}/hs_ed25519_secret_key;;
                            (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
                           esac
                         ''

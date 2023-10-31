@@ -92,10 +92,7 @@ pythonPackages.callPackage
           pyProjectPath = localDepPath + "/pyproject.toml";
           pyProject = poetryLib.readTOML pyProjectPath;
         in
-        if builtins.pathExists pyProjectPath then
-          poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; }
-        else
-          [ ];
+        if builtins.pathExists pyProjectPath then poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; } else [ ];
 
       pname = normalizePackageName name;
       preferWheel' = preferWheel && pname != "wheel";
@@ -112,10 +109,7 @@ pythonPackages.callPackage
           entries = (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist) ++ eggs;
           lockFileEntry =
             (
-              if lib.length entries > 0 then
-                builtins.head entries
-              else
-                throw "Missing suitable source/wheel file entry for ${name}"
+              if lib.length entries > 0 then builtins.head entries else throw "Missing suitable source/wheel file entry for ${name}"
             );
           _isEgg = isEgg lockFileEntry;
         in

@@ -192,9 +192,7 @@ in
       };
     };
 
-    services.etcd.enable = mkDefault (
-      cfg.storageBackend == "etcd" && cfg.etcd.endpoints == [ "http://127.0.0.1:2379" ]
-    );
+    services.etcd.enable = mkDefault (cfg.storageBackend == "etcd" && cfg.etcd.endpoints == [ "http://127.0.0.1:2379" ]);
 
     # for some reason, flannel doesn't let you configure this path
     # see: https://github.com/coreos/flannel/blob/master/Documentation/configuration.md#configuration

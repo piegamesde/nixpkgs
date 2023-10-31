@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
     hackrf
   ] ++ lib.optional stdenv.isLinux limesuite;
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang
-      "-Wno-implicit-function-declaration -Wno-int-conversion";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-implicit-function-declaration -Wno-int-conversion";
 
   buildFlags = [
     "dump1090"

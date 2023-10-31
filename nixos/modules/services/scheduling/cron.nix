@@ -27,8 +27,7 @@ let
     sendmailPath = "/run/wrappers/bin/sendmail";
   };
 
-  allFiles =
-    optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile ++ config.services.cron.cronFiles;
+  allFiles = optional (config.services.cron.systemCronJobs != [ ]) systemCronJobsFile ++ config.services.cron.cronFiles;
 in
 
 {

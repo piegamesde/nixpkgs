@@ -223,9 +223,7 @@ in
       }
       {
         assertion =
-          !cfg.enableServer
-          || ((cfg.serverSettings.tls_key or null) == null)
-          || (!lib.isStorePath cfg.serverSettings.tls_key);
+          !cfg.enableServer || ((cfg.serverSettings.tls_key or null) == null) || (!lib.isStorePath cfg.serverSettings.tls_key);
         message = ''
           <option>services.kanidm.serverSettings.tls_key</option> points to
           a file in the Nix store. You should use a quoted absolute path to

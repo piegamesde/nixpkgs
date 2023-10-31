@@ -415,9 +415,7 @@ in
         udevPath = config.boot.initrd.systemd.contents."/bin".source;
         udev = config.boot.initrd.systemd.package;
         systemd = config.boot.initrd.systemd.package;
-        binPackages = config.boot.initrd.services.udev.binPackages ++ [
-          config.boot.initrd.systemd.contents."/bin".source
-        ];
+        binPackages = config.boot.initrd.services.udev.binPackages ++ [ config.boot.initrd.systemd.contents."/bin".source ];
       };
     };
     # Insert initrd rules

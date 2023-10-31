@@ -55,9 +55,7 @@ let
     authorizedUsersFile = mkOption {
       type = types.nullOr types.path;
       default = null;
-      description =
-        lib.mdDoc
-          "Path to the configuration file containing authorized users credentials to run iperf tests.";
+      description = lib.mdDoc "Path to the configuration file containing authorized users credentials to run iperf tests.";
     };
     extraFlags = mkOption {
       type = types.listOf types.str;

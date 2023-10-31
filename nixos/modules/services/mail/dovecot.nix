@@ -369,9 +369,7 @@ in
       description = lib.mdDoc "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
     };
 
-    showPAMFailure = mkEnableOption (
-      lib.mdDoc "showing the PAM failure message on authentication error (useful for OTPW)"
-    );
+    showPAMFailure = mkEnableOption (lib.mdDoc "showing the PAM failure message on authentication error (useful for OTPW)");
 
     mailboxes = mkOption {
       type =

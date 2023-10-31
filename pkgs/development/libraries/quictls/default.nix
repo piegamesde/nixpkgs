@@ -33,12 +33,7 @@ stdenv.mkDerivation rec {
     # This patch disables build-time detection.
     ../openssl/3.0/openssl-disable-kernel-detection.patch
 
-    (
-      if stdenv.hostPlatform.isDarwin then
-        ../openssl/use-etc-ssl-certs-darwin.patch
-      else
-        ../openssl/use-etc-ssl-certs.patch
-    )
+    (if stdenv.hostPlatform.isDarwin then ../openssl/use-etc-ssl-certs-darwin.patch else ../openssl/use-etc-ssl-certs.patch)
   ];
 
   postPatch =

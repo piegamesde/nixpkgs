@@ -141,9 +141,7 @@ in
   export CARGO_CFG_TARGET_ENDIAN=${
     if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big"
   }
-  export CARGO_CFG_TARGET_POINTER_WIDTH=${
-    with stdenv.hostPlatform; toString (if isILP32 then 32 else parsed.cpu.bits)
-  }
+  export CARGO_CFG_TARGET_POINTER_WIDTH=${with stdenv.hostPlatform; toString (if isILP32 then 32 else parsed.cpu.bits)}
   export CARGO_CFG_TARGET_VENDOR=${stdenv.hostPlatform.parsed.vendor.name}
 
   export CARGO_MANIFEST_DIR=$(pwd)

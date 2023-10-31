@@ -153,9 +153,7 @@ import ./make-test-python.nix (
         with subtest("mutable config"):
           machine.succeed('${specializations}/mutableConfig/bin/switch-to-configuration test')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w notapassword')
-          machine.succeed('ldapmodify -D cn=root,cn=config -w configpassword -f ${
-            pkgs.writeText "rootpw.ldif" changeRootPw
-          }')
+          machine.succeed('ldapmodify -D cn=root,cn=config -w configpassword -f ${pkgs.writeText "rootpw.ldif" changeRootPw}')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
 
         with subtest("manual config dir"):
@@ -167,9 +165,7 @@ import ./make-test-python.nix (
             '${specializations}/manualConfigDir/bin/switch-to-configuration test',
           )
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w notapassword')
-          machine.succeed('ldapmodify -D cn=root,cn=config -w configpassword -f ${
-            pkgs.writeText "rootpw.ldif" changeRootPw
-          }')
+          machine.succeed('ldapmodify -D cn=root,cn=config -w configpassword -f ${pkgs.writeText "rootpw.ldif" changeRootPw}')
           machine.succeed('ldapsearch -LLL -D "cn=root,dc=example" -w foobar')
       '';
   }

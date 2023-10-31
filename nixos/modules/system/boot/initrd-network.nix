@@ -11,9 +11,7 @@ let
 
   cfg = config.boot.initrd.network;
 
-  dhcpInterfaces = lib.attrNames (
-    lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or { })
-  );
+  dhcpInterfaces = lib.attrNames (lib.filterAttrs (iface: v: v.useDHCP == true) (config.networking.interfaces or { }));
   doDhcp = config.networking.useDHCP || dhcpInterfaces != [ ];
   dhcpIfShellExpr =
     if config.networking.useDHCP then

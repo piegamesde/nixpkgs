@@ -118,9 +118,7 @@ import ./make-test-python.nix {
                 ];
               }
               ''
-                fp=$(openssl x509 -in ${
-                  certs.${domain}.cert
-                } -noout -fingerprint -sha256 | cut -d = -f 2 | tr -d : | tr 'A-Z' 'a-z')
+                fp=$(openssl x509 -in ${certs.${domain}.cert} -noout -fingerprint -sha256 | cut -d = -f 2 | tr -d : | tr 'A-Z' 'a-z')
                 cat > $out <<EOF
                 host: localhost
                 port: 4443

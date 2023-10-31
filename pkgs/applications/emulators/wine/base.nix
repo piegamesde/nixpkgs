@@ -230,9 +230,7 @@ stdenv.mkDerivation (
       in
       lib.optionalString supportFlags.embedInstallers ''
         mkdir -p $out/share/wine/gecko $out/share/wine/mono/
-        ${lib.strings.concatStringsSep "\n" (
-          (map (links "share/wine/gecko") geckos) ++ (map (links "share/wine/mono") monos)
-        )}
+        ${lib.strings.concatStringsSep "\n" ((map (links "share/wine/gecko") geckos) ++ (map (links "share/wine/mono") monos))}
       ''
       + lib.optionalString supportFlags.gstreamerSupport ''
         # Wrapping Wine is tricky.

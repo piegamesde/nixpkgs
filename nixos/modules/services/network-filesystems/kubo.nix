@@ -288,8 +288,7 @@ in
         '';
       }
       {
-        assertion =
-          !((builtins.hasAttr "Pinning" cfg.settings) && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning));
+        assertion = !((builtins.hasAttr "Pinning" cfg.settings) && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning));
         message = ''
           You can't set services.kubo.settings.Pinning.RemoteServices because the ``config replace`` subcommand used at startup does not work with it.
         '';

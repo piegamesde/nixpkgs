@@ -22,9 +22,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-wXgAmZEXdM4FcMCQbAs+ydXshCAMu7nl/yVv/3sqaXE=";
 
-  propagatedBuildInputs =
-    lib.optionals stdenv.isLinux [ trezor-udev-rules ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  propagatedBuildInputs = lib.optionals stdenv.isLinux [ trezor-udev-rules ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   ldflags = [
     "-s"

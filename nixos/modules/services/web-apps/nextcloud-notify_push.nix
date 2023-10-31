@@ -62,9 +62,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =
       let
-        nextcloudUrl = "http${
-            lib.optionalString config.services.nextcloud.https "s"
-          }://${config.services.nextcloud.hostName}";
+        nextcloudUrl = "http${lib.optionalString config.services.nextcloud.https "s"}://${config.services.nextcloud.hostName}";
       in
       {
         description = "Push daemon for Nextcloud clients";

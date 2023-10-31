@@ -78,9 +78,7 @@ in
 
   config = lib.mkIf config.services.step-ca.enable (
     let
-      configFile = settingsFormat.generate "ca.json" (
-        cfg.settings // { address = cfg.address + ":" + toString cfg.port; }
-      );
+      configFile = settingsFormat.generate "ca.json" (cfg.settings // { address = cfg.address + ":" + toString cfg.port; });
     in
     {
       assertions = [

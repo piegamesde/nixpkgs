@@ -47,8 +47,7 @@ buildGoModule rec {
 
   postInstall =
     let
-      rcloneBin =
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then "$out" else lib.getBin buildPackages.rclone;
+      rcloneBin = if stdenv.buildPlatform.canExecute stdenv.hostPlatform then "$out" else lib.getBin buildPackages.rclone;
     in
     ''
       installManPage rclone.1

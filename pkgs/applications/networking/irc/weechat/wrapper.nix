@@ -85,9 +85,7 @@ let
 
           mkScript = drv: lib.forEach drv.scripts (script: "/script load ${drv}/share/${script}");
 
-          scripts = builtins.concatStringsSep ";" (
-            lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (config.scripts or [ ])
-          );
+          scripts = builtins.concatStringsSep ";" (lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (config.scripts or [ ]));
         in
         "${scripts};${init}";
 

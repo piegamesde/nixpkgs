@@ -54,8 +54,7 @@ let
     )}
   '';
 
-  parseModules =
-    x: x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
+  parseModules = x: x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
 
   cjdrouteConf = builtins.toJSON (
     recursiveUpdate

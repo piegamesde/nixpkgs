@@ -6,8 +6,7 @@ args:
 
 # Check if it's supposed to not get built for the current gnuradio version
 if
-  (builtins.hasAttr "disabledForGRafter" args)
-  && (lib.versionAtLeast unwrapped.versionAttr.major args.disabledForGRafter)
+  (builtins.hasAttr "disabledForGRafter" args) && (lib.versionAtLeast unwrapped.versionAttr.major args.disabledForGRafter)
 then
   let
     name = args.name or "${args.pname}";

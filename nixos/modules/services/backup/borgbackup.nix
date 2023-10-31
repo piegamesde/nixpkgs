@@ -209,8 +209,7 @@ let
 
   mkPassAssertion = name: cfg: {
     assertion = with cfg.encryption; mode != "none" -> passCommand != null || passphrase != null;
-    message =
-      "passCommand or passphrase has to be specified because" + ''borgbackup.jobs.${name}.encryption != "none"'';
+    message = "passCommand or passphrase has to be specified because" + ''borgbackup.jobs.${name}.encryption != "none"'';
   };
 
   mkRepoService =
@@ -243,9 +242,7 @@ let
   mkUsersConfig = name: cfg: {
     users.${cfg.user} = {
       openssh.authorizedKeys.keys =
-        (
-          map (mkAuthorizedKey cfg false) cfg.authorizedKeys ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
-        );
+        (map (mkAuthorizedKey cfg false) cfg.authorizedKeys ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly);
       useDefaultShell = true;
       group = cfg.group;
       isSystemUser = true;

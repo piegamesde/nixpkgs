@@ -79,9 +79,7 @@ stdenv.mkDerivation rec {
       boost.out
       boost.dev
     ]
-    ++ (lib.optional stdenv.isLinux ocl-icd)
-    ++ (lib.optional cudaSupport cudatoolkit)
-    ++ (lib.optional buildDocs doxygen);
+    ++ (lib.optional stdenv.isLinux ocl-icd) ++ (lib.optional cudaSupport cudatoolkit) ++ (lib.optional buildDocs doxygen);
 
   meta = with lib; {
     description = "A general-purpose library for parallel and massively-parallel computations";

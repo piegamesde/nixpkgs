@@ -78,9 +78,7 @@ import ./make-test-python.nix (
           server.wait_until_succeeds(
               "journalctl -o cat -u snapserver.service | grep -q 'Hello from'"
           )
-          server.wait_until_succeeds("journalctl -o cat -u snapcast-local-client | grep -q 'buffer: ${
-            toString bufferSize
-          }'")
+          server.wait_until_succeeds("journalctl -o cat -u snapcast-local-client | grep -q 'buffer: ${toString bufferSize}'")
 
       with subtest("test a connection"):
           client.execute("systemd-run --unit=snapcast-client snapclient -h server -p ${toString port}")

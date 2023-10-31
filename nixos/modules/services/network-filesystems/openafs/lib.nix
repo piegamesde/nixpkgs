@@ -15,9 +15,7 @@ in
     ''
       >${cellName}
     ''
-    + (concatStringsSep "\n" (
-      map (dbm: optionalString (dbm.ip != "" && dbm.dnsname != "") "${dbm.ip} #${dbm.dnsname}") db
-    ))
+    + (concatStringsSep "\n" (map (dbm: optionalString (dbm.ip != "" && dbm.dnsname != "") "${dbm.ip} #${dbm.dnsname}") db))
     + "\n";
 
   # CellServDB configuration type

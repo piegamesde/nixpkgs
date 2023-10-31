@@ -129,8 +129,7 @@ let
   stdenvBootstappingAndPlatforms =
     self: super:
     let
-      withFallback =
-        thisPkgs: (if adjacentPackages == null then self else thisPkgs) // { recurseForDerivations = false; };
+      withFallback = thisPkgs: (if adjacentPackages == null then self else thisPkgs) // { recurseForDerivations = false; };
     in
     {
       # Here are package sets of from related stages. They are all in the form
@@ -195,8 +194,7 @@ let
   # (un-overridden) set of packages, allowing packageOverrides
   # attributes to refer to the original attributes (e.g. "foo =
   # ... pkgs.foo ...").
-  configOverrides =
-    self: super: lib.optionalAttrs allowCustomOverrides ((config.packageOverrides or (super: { })) super);
+  configOverrides = self: super: lib.optionalAttrs allowCustomOverrides ((config.packageOverrides or (super: { })) super);
 
   # Convenience attributes for instantitating package sets. Each of
   # these will instantiate a new version of allPackages. Currently the

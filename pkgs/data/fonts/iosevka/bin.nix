@@ -8,8 +8,7 @@
 }:
 
 let
-  name =
-    if lib.hasPrefix "sgr" variant then variant else "iosevka" + lib.optionalString (variant != "") "-" + variant;
+  name = if lib.hasPrefix "sgr" variant then variant else "iosevka" + lib.optionalString (variant != "") "-" + variant;
 
   variantHashes = import ./variants.nix;
   validVariants = map (lib.removePrefix "iosevka-") (

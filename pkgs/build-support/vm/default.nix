@@ -802,9 +802,7 @@ rec {
           '')
           packagesLists}
         perl -w ${rpm/rpm-closure.pl} \
-          ${
-            lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (lib.zipLists packagesLists urlPrefixes)
-          } \
+          ${lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (lib.zipLists packagesLists urlPrefixes)} \
           ${toString packages} > $out
       '';
 

@@ -48,8 +48,7 @@ let
 
   allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
-  allowUnsupportedSystem =
-    config.allowUnsupportedSystem || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
+  allowUnsupportedSystem = config.allowUnsupportedSystem || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1";
 
   isUnfree = licenses: lib.lists.any (l: !l.free or true) licenses;
 
@@ -81,8 +80,7 @@ let
   allowInsecurePredicate = x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
 
   hasAllowedInsecure =
-    attrs:
-    !(isMarkedInsecure attrs) || allowInsecurePredicate attrs || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
+    attrs: !(isMarkedInsecure attrs) || allowInsecurePredicate attrs || builtins.getEnv "NIXPKGS_ALLOW_INSECURE" == "1";
 
   isNonSource = sourceTypes: lib.lists.any (t: !t.isSource) sourceTypes;
 
@@ -100,8 +98,7 @@ let
   # Check whether non-source packages are allowed and if not, whether the
   # package has non-source provenance and is not explicitly allowed by the
   # `allowNonSourcePredicate` function.
-  hasDeniedNonSourceProvenance =
-    attrs: hasNonSourceProvenance attrs && !allowNonSource && !allowNonSourcePredicate attrs;
+  hasDeniedNonSourceProvenance = attrs: hasNonSourceProvenance attrs && !allowNonSource && !allowNonSourcePredicate attrs;
 
   showLicenseOrSourceType = value: toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
   showLicense = showLicenseOrSourceType;

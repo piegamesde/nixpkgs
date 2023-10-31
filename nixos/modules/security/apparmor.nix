@@ -250,9 +250,7 @@ in
           Type = "oneshot";
           RemainAfterExit = "yes";
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
-          ExecStart =
-            mapAttrsToList (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
-              enabledPolicies;
+          ExecStart = mapAttrsToList (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}") enabledPolicies;
           ExecStartPost = optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies

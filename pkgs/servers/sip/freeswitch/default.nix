@@ -159,8 +159,7 @@ stdenv.mkDerivation rec {
       libuuid
       libxcrypt
     ]
-    ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+    ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules) ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   enableParallelBuilding = true;
 

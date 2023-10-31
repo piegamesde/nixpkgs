@@ -77,9 +77,7 @@ let
       }">
         ${mkXmlDoc "type-details" package.type-details}
         ${mkXmlDoc "revision" package.revision-details}
-        ${
-          lib.optionalString (lib.hasAttrByPath [ "dependencies" ] package) (mkXmlDoc "dependencies" package.dependencies)
-        }
+        ${lib.optionalString (lib.hasAttrByPath [ "dependencies" ] package) (mkXmlDoc "dependencies" package.dependencies)}
         <display-name>${package.displayName}</display-name>
         <uses-license ref="${package.license}"/>
       </localPackage>
@@ -93,10 +91,7 @@ stdenv.mkDerivation (
     version = lib.concatMapStringsSep "-" (package: package.revision) sortedPackages;
     src =
       map
-        (
-          package:
-          if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all
-        )
+        (package: if os != null && builtins.hasAttr os package.archives then package.archives.${os} else package.archives.all)
         packages;
     nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
     preferLocalBuild = true;

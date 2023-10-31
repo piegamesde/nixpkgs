@@ -80,9 +80,7 @@ let
     __toString =
       self:
       self.majMinTiny
-      + (
-        if self.patchLevel != null then "-p${self.patchLevel}" else lib.optionalString (self.tail != "") "-${self.tail}"
-      );
+      + (if self.patchLevel != null then "-p${self.patchLevel}" else lib.optionalString (self.tail != "") "-${self.tail}");
   };
 in
 rubyVersion

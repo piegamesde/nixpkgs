@@ -27,10 +27,7 @@ let
       adapter: ${cfg.database.type}
       database: ${cfg.database.name}
       host: ${
-        if (cfg.database.type == "postgresql" && cfg.database.socket != null) then
-          cfg.database.socket
-        else
-          cfg.database.host
+        if (cfg.database.type == "postgresql" && cfg.database.socket != null) then cfg.database.socket else cfg.database.host
       }
       port: ${toString cfg.database.port}
       username: ${cfg.database.user}

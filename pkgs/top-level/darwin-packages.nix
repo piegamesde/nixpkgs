@@ -14,9 +14,7 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
-    stdenv.targetPlatform.config + "-"
-  );
+  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (stdenv.targetPlatform.config + "-");
 in
 
 makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { }) (spliced: spliced.apple_sdk.frameworks) (

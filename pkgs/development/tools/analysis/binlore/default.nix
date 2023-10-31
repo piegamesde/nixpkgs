@@ -105,9 +105,7 @@ rec {
       mkdir $out
       for lorefile in ${toString lore.types}; do
         cat ${
-          lib.concatMapStrings (x: x + "/$lorefile ") (
-            map (make lore) (map lib.getBin (builtins.filter lib.isDerivation drvs))
-          )
+          lib.concatMapStrings (x: x + "/$lorefile ") (map (make lore) (map lib.getBin (builtins.filter lib.isDerivation drvs)))
         } > $out/$lorefile
         substituteInPlace $out/$lorefile ${lib.concatMapStrings (x: "--replace '${x}/' '' ") strip}
       done

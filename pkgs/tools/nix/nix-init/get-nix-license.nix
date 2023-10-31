@@ -47,14 +47,10 @@ let
     "invalid aliases" = attrNames (filterAttrs (k: v: licenses.${v}.deprecated or true) deprecatedAliases);
   };
 
-  lint = flip pipe (
-    flip mapAttrsToList lints (k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}")
-  );
+  lint = flip pipe (flip mapAttrsToList lints (k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}"));
 
   arms = lint (
-    concatStringsSep "\n        " (
-      mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (deprecatedAliases // licenseMap)
-    )
+    concatStringsSep "\n        " (mapAttrsToList (k: v: ''"${k}" => Some("${v}"),'') (deprecatedAliases // licenseMap))
   );
 in
 

@@ -164,9 +164,7 @@ in
         default = { };
       };
       sshAccess = mkOption {
-        description =
-          lib.mdDoc
-            "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
+        description = lib.mdDoc "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
         type =
           with types;
           listOf (

@@ -273,9 +273,7 @@ in
 
       graphiteUrl = mkOption {
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
-        defaultText =
-          literalExpression
-            ''"http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
+        defaultText = literalExpression ''"http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };
@@ -462,13 +460,7 @@ in
     })
 
     (mkIf
-      (
-        cfg.carbon.enableCache
-        || cfg.carbon.enableAggregator
-        || cfg.carbon.enableRelay
-        || cfg.web.enable
-        || cfg.seyren.enable
-      )
+      (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay || cfg.web.enable || cfg.seyren.enable)
       {
         users.users.graphite = {
           uid = config.ids.uids.graphite;

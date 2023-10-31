@@ -100,17 +100,13 @@ stdenv.mkDerivation rec {
       "--enable-always-build-tests"
     ]
     ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
-    ++
-      lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-        "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}";
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}";
 
   doCheck = false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
 
   GDK_PIXBUF_QUERYLOADERS = writeScript "gdk-pixbuf-loader-loaders-wrapped" ''
     ${
-      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
-        stdenv.hostPlatform.emulator buildPackages
-      )
+      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (stdenv.hostPlatform.emulator buildPackages)
     } ${lib.getDev gdk-pixbuf}/bin/gdk-pixbuf-query-loaders
   '';
 

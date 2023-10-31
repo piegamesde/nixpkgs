@@ -150,9 +150,7 @@ let
         }"
       ])
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
-      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
-        "--with-arm-float-abi=${gcc.float-abi}"
-      ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [ "--with-arm-float-abi=${gcc.float-abi}" ])
       ++ extraConfigFlags;
 
     configurePlatforms = [ ];

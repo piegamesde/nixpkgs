@@ -51,9 +51,7 @@ let
 
   # build the final rustc arguments that can be different between different
   # crates
-  libRustcOpts = lib.concatStringsSep " " (
-    baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType)
-  );
+  libRustcOpts = lib.concatStringsSep " " (baseRustcOpts ++ [ rustcMeta ] ++ (map (x: "--crate-type ${x}") crateType));
 
   binRustcOpts = lib.concatStringsSep " " (baseRustcOpts);
 

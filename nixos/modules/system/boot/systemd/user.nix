@@ -225,9 +225,7 @@ in
 
     # /run/current-system/sw/etc/xdg is in systemd's $XDG_CONFIG_DIRS so we can
     # write the tmpfiles.d rules for everyone there
-    environment.systemPackages = optional (cfg.tmpfiles.rules != [ ]) (
-      writeTmpfiles { inherit (cfg.tmpfiles) rules; }
-    );
+    environment.systemPackages = optional (cfg.tmpfiles.rules != [ ]) (writeTmpfiles { inherit (cfg.tmpfiles) rules; });
 
     # /etc/profiles/per-user/$USER/etc/xdg is in systemd's $XDG_CONFIG_DIRS so
     # we can write a single user's tmpfiles.d rules there

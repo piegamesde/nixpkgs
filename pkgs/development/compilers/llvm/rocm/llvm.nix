@@ -32,9 +32,7 @@
   extraBuildInputs ? [ ],
   extraCMakeFlags ? [ ],
   extraPostPatch ? "",
-  checkTargets ? [
-    (lib.optionalString buildTests (if targetDir == "runtimes" then "check-runtimes" else "check-all"))
-  ],
+  checkTargets ? [ (lib.optionalString buildTests (if targetDir == "runtimes" then "check-runtimes" else "check-all")) ],
   extraPostInstall ? "",
   extraLicenses ? [ ],
   isBroken ? false,

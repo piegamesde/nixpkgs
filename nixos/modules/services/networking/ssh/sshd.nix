@@ -35,9 +35,7 @@ let
 
   # dont use the "=" operator
   settingsFormat =
-    (pkgs.formats.keyValue {
-      mkKeyValue = lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; } " ";
-    });
+    (pkgs.formats.keyValue { mkKeyValue = lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; } " "; });
 
   configFile = settingsFormat.generate "config" cfg.settings;
   sshconf = pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; } ''

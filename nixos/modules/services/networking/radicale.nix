@@ -15,10 +15,7 @@ let
   pkg = if cfg.package == null then pkgs.radicale else cfg.package;
 
   confFile =
-    if cfg.settings == { } then
-      pkgs.writeText "radicale.conf" cfg.config
-    else
-      format.generate "radicale.conf" cfg.settings;
+    if cfg.settings == { } then pkgs.writeText "radicale.conf" cfg.config else format.generate "radicale.conf" cfg.settings;
 
   rightsFile = format.generate "radicale.rights" cfg.rights;
 

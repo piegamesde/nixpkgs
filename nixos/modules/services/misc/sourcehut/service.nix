@@ -72,15 +72,13 @@ let
           # config.ini is looked up in there, before /etc/srht/config.ini
           # Note that it fails to be set in ExecStartPre=
           WorkingDirectory = mkDefault ("-" + runDir);
-          BindReadOnlyPaths =
-            [
-              builtins.storeDir
-              "/etc"
-              "/run/booted-system"
-              "/run/current-system"
-              "/run/systemd"
-            ]
-            ++ optional cfg.postgresql.enable "/run/postgresql" ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
+          BindReadOnlyPaths = [
+            builtins.storeDir
+            "/etc"
+            "/run/booted-system"
+            "/run/current-system"
+            "/run/systemd"
+          ] ++ optional cfg.postgresql.enable "/run/postgresql" ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
           # LoadCredential= are unfortunately not available in ExecStartPre=
           # Hence this one is run as root (the +) with RootDirectoryStartOnly=
           # to reach credentials wherever they are.
@@ -357,9 +355,7 @@ in
                     StateDirectory = [ "sourcehut/${srvsrht}" ];
                     StateDirectoryMode = "2750";
                     ExecStart =
-                      "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
-                        toString srvCfg.port
-                      } "
+                      "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${toString srvCfg.port} "
                       + concatStringsSep " " srvCfg.gunicorn.extraArgs;
                   };
                   preStart =

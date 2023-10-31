@@ -12,9 +12,7 @@ let
   settingsFormat = pkgs.formats.json { };
   settingsFile = settingsFormat.generate "mautrix-facebook-config.json" cfg.settings;
 
-  puppetRegex = concatStringsSep ".*" (
-    map escapeRegex (splitString "{userid}" cfg.settings.bridge.username_template)
-  );
+  puppetRegex = concatStringsSep ".*" (map escapeRegex (splitString "{userid}" cfg.settings.bridge.username_template));
 in
 {
   options = {

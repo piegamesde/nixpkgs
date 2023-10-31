@@ -56,9 +56,7 @@ in
       default = map (n: n + ":53") config.networking.nameservers;
       defaultText = literalExpression ''map (n: n + ":53") config.networking.nameservers'';
       type = types.listOf types.str;
-      description =
-        lib.mdDoc
-          "Skydns list of nameservers to forward DNS requests to when not authoritative for a domain.";
+      description = lib.mdDoc "Skydns list of nameservers to forward DNS requests to when not authoritative for a domain.";
       example = [
         "8.8.8.8:53"
         "8.8.4.4:53"

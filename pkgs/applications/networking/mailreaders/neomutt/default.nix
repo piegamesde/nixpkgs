@@ -100,25 +100,21 @@ stdenv.mkDerivation rec {
       --replace /etc/mime.types ${mailcap}/etc/mime.types
   '';
 
-  configureFlags =
-    [
-      "--enable-autocrypt"
-      "--gpgme"
-      "--gss"
-      "--lmdb"
-      "--notmuch"
-      "--ssl"
-      "--sasl"
-      "--with-homespool=mailbox"
-      "--with-mailpath="
-      # To make it not reference .dev outputs. See:
-      # https://github.com/neomutt/neomutt/pull/2367
-      "--disable-include-path-in-cflags"
-      "--zlib"
-    ]
-    ++ lib.optional enableZstd "--zstd"
-    ++ lib.optional enableLua "--lua"
-    ++ lib.optional enableMixmaster "--mixmaster";
+  configureFlags = [
+    "--enable-autocrypt"
+    "--gpgme"
+    "--gss"
+    "--lmdb"
+    "--notmuch"
+    "--ssl"
+    "--sasl"
+    "--with-homespool=mailbox"
+    "--with-mailpath="
+    # To make it not reference .dev outputs. See:
+    # https://github.com/neomutt/neomutt/pull/2367
+    "--disable-include-path-in-cflags"
+    "--zlib"
+  ] ++ lib.optional enableZstd "--zstd" ++ lib.optional enableLua "--lua" ++ lib.optional enableMixmaster "--mixmaster";
 
   postInstall =
     ''

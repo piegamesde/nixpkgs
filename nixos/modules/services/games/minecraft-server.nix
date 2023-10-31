@@ -55,8 +55,7 @@ let
 
   rconPort = if cfg.serverProperties.enable-rcon or false then cfg.serverProperties."rcon.port" or 25575 else null;
 
-  queryPort =
-    if cfg.serverProperties.enable-query or false then cfg.serverProperties."query.port" or 25565 else null;
+  queryPort = if cfg.serverProperties.enable-query or false then cfg.serverProperties."query.port" or 25565 else null;
 in
 {
   options = {

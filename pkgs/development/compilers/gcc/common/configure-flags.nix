@@ -58,9 +58,7 @@ let
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   crossDarwin = targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
 
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-";
+  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) "${stdenv.targetPlatform.config}-";
 
   crossConfigureFlags =
     # Ensure that -print-prog-name is able to find the correct programs.

@@ -37,8 +37,7 @@ let
   getSep = v: if isAttrs v then ":" else "=";
 
   convertAttrs =
-    attrs:
-    concatStringsSep "\n" (mapAttrsToList (name: value: "${toString name} ${getSep value} ${toConf value};") attrs);
+    attrs: concatStringsSep "\n" (mapAttrsToList (name: value: "${toString name} ${getSep value} ${toConf value};") attrs);
 
   clightConf = pkgs.writeText "clight.conf" (convertAttrs (filterAttrs (_: value: value != null) cfg.settings));
 in

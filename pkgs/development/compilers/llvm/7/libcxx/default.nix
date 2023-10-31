@@ -54,10 +54,9 @@ stdenv.mkDerivation {
       patchShebangs utils/cat_files.py
     '';
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optional stdenv.hostPlatform.isMusl python3
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional stdenv.hostPlatform.isMusl python3 ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 

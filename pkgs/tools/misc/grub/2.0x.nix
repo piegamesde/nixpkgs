@@ -57,12 +57,8 @@ let
     riscv64-linux.target = "riscv64";
   };
 
-  canEfi = lib.any (system: stdenv.hostPlatform.system == system) (
-    lib.mapAttrsToList (name: _: name) efiSystemsBuild
-  );
-  inPCSystems = lib.any (system: stdenv.hostPlatform.system == system) (
-    lib.mapAttrsToList (name: _: name) pcSystems
-  );
+  canEfi = lib.any (system: stdenv.hostPlatform.system == system) (lib.mapAttrsToList (name: _: name) efiSystemsBuild);
+  inPCSystems = lib.any (system: stdenv.hostPlatform.system == system) (lib.mapAttrsToList (name: _: name) pcSystems);
 
   version = "2.06";
 in

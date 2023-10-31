@@ -34,13 +34,10 @@ let
           --replace ' ''${CMAKE_SOURCE_DIR}/../clang-tools-extra' ' ''${CMAKE_SOURCE_DIR}/tools/extra'
       '';
 
-      nativeBuildInputs =
-        [
-          cmake
-          python3
-        ]
-        ++ lib.optional enableManpages python3.pkgs.sphinx
-        ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+      nativeBuildInputs = [
+        cmake
+        python3
+      ] ++ lib.optional enableManpages python3.pkgs.sphinx ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
       buildInputs = [
         libxml2

@@ -26,9 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-OjZTroaBuUB/dakl5gAYigJkim9EFiCwUEBo7z35vhQ=";
   };
 
-  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-    ./darwin-azure-c-shared-utility-corefoundation.patch
-  ];
+  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ ./darwin-azure-c-shared-utility-corefoundation.patch ];
 
   postPatch = lib.optionalString (stdenv.isDarwin && !stdenv.isx86_64) ''
     # force darwin aarch64 to use openssl instead of applessl, removing

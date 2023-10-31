@@ -515,9 +515,7 @@ with self; {
 
   ansiwrap = callPackage ../development/python-modules/ansiwrap { };
 
-  antlr4-python3-runtime = callPackage ../development/python-modules/antlr4-python3-runtime {
-    inherit (pkgs) antlr4;
-  };
+  antlr4-python3-runtime = callPackage ../development/python-modules/antlr4-python3-runtime { inherit (pkgs) antlr4; };
 
   anyascii = callPackage ../development/python-modules/anyascii { };
 
@@ -1010,9 +1008,7 @@ with self; {
 
   azure-mgmt-logic = callPackage ../development/python-modules/azure-mgmt-logic { };
 
-  azure-mgmt-machinelearningcompute =
-    callPackage ../development/python-modules/azure-mgmt-machinelearningcompute
-      { };
+  azure-mgmt-machinelearningcompute = callPackage ../development/python-modules/azure-mgmt-machinelearningcompute { };
 
   azure-mgmt-managedservices = callPackage ../development/python-modules/azure-mgmt-managedservices { };
 
@@ -1046,9 +1042,7 @@ with self; {
 
   azure-mgmt-rdbms = callPackage ../development/python-modules/azure-mgmt-rdbms { };
 
-  azure-mgmt-recoveryservicesbackup =
-    callPackage ../development/python-modules/azure-mgmt-recoveryservicesbackup
-      { };
+  azure-mgmt-recoveryservicesbackup = callPackage ../development/python-modules/azure-mgmt-recoveryservicesbackup { };
 
   azure-mgmt-recoveryservices = callPackage ../development/python-modules/azure-mgmt-recoveryservices { };
 
@@ -1160,15 +1154,11 @@ with self; {
 
   backports-datetime-fromisoformat = callPackage ../development/python-modules/backports-datetime-fromisoformat { };
 
-  backports-entry-points-selectable =
-    callPackage ../development/python-modules/backports-entry-points-selectable
-      { };
+  backports-entry-points-selectable = callPackage ../development/python-modules/backports-entry-points-selectable { };
 
   backports_functools_lru_cache = callPackage ../development/python-modules/backports_functools_lru_cache { };
 
-  backports_shutil_get_terminal_size =
-    callPackage ../development/python-modules/backports_shutil_get_terminal_size
-      { };
+  backports_shutil_get_terminal_size = callPackage ../development/python-modules/backports_shutil_get_terminal_size { };
 
   backports-shutil-which = callPackage ../development/python-modules/backports-shutil-which { };
 
@@ -1563,9 +1553,7 @@ with self; {
 
   cachy = callPackage ../development/python-modules/cachy { };
 
-  cadquery = callPackage ../development/python-modules/cadquery {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-  };
+  cadquery = callPackage ../development/python-modules/cadquery { inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa; };
 
   caffe = toPythonModule (
     pkgs.caffe.override {
@@ -3210,9 +3198,7 @@ with self; {
 
   etelemetry = callPackage ../development/python-modules/etelemetry { };
 
-  etebase = callPackage ../development/python-modules/etebase {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Security;
-  };
+  etebase = callPackage ../development/python-modules/etebase { inherit (pkgs.darwin.apple_sdk.frameworks) Security; };
 
   etebase-server = callPackage ../servers/etebase { };
 
@@ -4050,9 +4036,7 @@ with self; {
 
   google-auth-oauthlib = callPackage ../development/python-modules/google-auth-oauthlib { };
 
-  google-cloud-access-context-manager =
-    callPackage ../development/python-modules/google-cloud-access-context-manager
-      { };
+  google-cloud-access-context-manager = callPackage ../development/python-modules/google-cloud-access-context-manager { };
 
   google-cloud-appengine-logging = callPackage ../development/python-modules/google-cloud-appengine-logging { };
 
@@ -4064,9 +4048,7 @@ with self; {
 
   google-cloud-bigquery = callPackage ../development/python-modules/google-cloud-bigquery { };
 
-  google-cloud-bigquery-datatransfer =
-    callPackage ../development/python-modules/google-cloud-bigquery-datatransfer
-      { };
+  google-cloud-bigquery-datatransfer = callPackage ../development/python-modules/google-cloud-bigquery-datatransfer { };
 
   google-cloud-bigquery-logging = callPackage ../development/python-modules/google-cloud-bigquery-logging { };
 
@@ -9057,9 +9039,7 @@ with self; {
 
   pyshp = callPackage ../development/python-modules/pyshp { };
 
-  pyside2-tools = toPythonModule (
-    callPackage ../development/python-modules/pyside2-tools { inherit (pkgs) cmake qt5; }
-  );
+  pyside2-tools = toPythonModule (callPackage ../development/python-modules/pyside2-tools { inherit (pkgs) cmake qt5; });
 
   pyside2 = toPythonModule (callPackage ../development/python-modules/pyside2 { inherit (pkgs) cmake ninja qt5; });
 
@@ -10036,9 +10016,7 @@ with self; {
 
   qscintilla-qt4 = callPackage ../development/python-modules/qscintilla-qt4 { };
 
-  qscintilla-qt5 = pkgs.libsForQt5.callPackage ../development/python-modules/qscintilla-qt5 {
-    pythonPackages = self;
-  };
+  qscintilla-qt5 = pkgs.libsForQt5.callPackage ../development/python-modules/qscintilla-qt5 { pythonPackages = self; };
 
   qscintilla = self.qscintilla-qt5;
 
@@ -10618,9 +10596,7 @@ with self; {
 
   scikits-odes = callPackage ../development/python-modules/scikits-odes { };
 
-  scikits-samplerate = callPackage ../development/python-modules/scikits-samplerate {
-    inherit (pkgs) libsamplerate;
-  };
+  scikits-samplerate = callPackage ../development/python-modules/scikits-samplerate { inherit (pkgs) libsamplerate; };
 
   scikit-tda = callPackage ../development/python-modules/scikit-tda { };
 
@@ -10753,9 +10729,7 @@ with self; {
 
   setupmeta = callPackage ../development/python-modules/setupmeta { };
 
-  setuptools-declarative-requirements =
-    callPackage ../development/python-modules/setuptools-declarative-requirements
-      { };
+  setuptools-declarative-requirements = callPackage ../development/python-modules/setuptools-declarative-requirements { };
 
   setuptools-gettext = callPackage ../development/python-modules/setuptools-gettext { };
 
@@ -11191,9 +11165,7 @@ with self; {
 
   sphinxcontrib-openapi = callPackage ../development/python-modules/sphinxcontrib-openapi { };
 
-  sphinxcontrib-plantuml = callPackage ../development/python-modules/sphinxcontrib-plantuml {
-    inherit (pkgs) plantuml;
-  };
+  sphinxcontrib-plantuml = callPackage ../development/python-modules/sphinxcontrib-plantuml { inherit (pkgs) plantuml; };
 
   sphinxcontrib-programoutput = callPackage ../development/python-modules/sphinxcontrib-programoutput { };
 

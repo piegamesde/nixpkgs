@@ -48,9 +48,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optionals stdenv.isDarwin [ "--disable-nls" ];
 
-  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ];
+  makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ];
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libnewt.so.${version} $out/lib/libnewt.so.${version}

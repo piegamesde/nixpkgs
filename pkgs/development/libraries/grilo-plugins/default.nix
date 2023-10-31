@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       (substituteAll {
         src = ./chromaprint-gst-plugins.patch;
         load_plugins =
-          lib.concatMapStrings
-            (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
+          lib.concatMapStrings (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
             (
               with gst_all_1; [
                 gstreamer

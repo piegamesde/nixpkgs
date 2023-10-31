@@ -3079,9 +3079,7 @@ with self;
       AuthenHtpasswd
       CatalystPluginAuthentication
     ];
-    patches = [
-      ../development/perl-modules/CatalystAuthenticationStoreHtpasswd-test-replace-DES-hash-with-bcrypt.patch
-    ];
+    patches = [ ../development/perl-modules/CatalystAuthenticationStoreHtpasswd-test-replace-DES-hash-with-bcrypt.patch ];
     meta = {
       description = "Authen::Htpasswd based user storage/authentication";
       license = with lib.licenses; [

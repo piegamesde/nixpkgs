@@ -45,9 +45,7 @@ let
         concatMapAttrs
           (
             name: value:
-            optionalAttrs (value != null) {
-              ${nameToEnvVar name} = if isBool value then boolToString value else toString value;
-            }
+            optionalAttrs (value != null) { ${nameToEnvVar name} = if isBool value then boolToString value else toString value; }
           )
           cfg.config;
     in

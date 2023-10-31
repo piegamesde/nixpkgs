@@ -20,9 +20,7 @@ let
 
   buildLuaApplication = args: buildLuarocksPackage ({ namePrefix = ""; } // args);
 
-  buildLuarocksPackage = lib.makeOverridable (
-    callPackage ../development/interpreters/lua-5/build-lua-package.nix { }
-  );
+  buildLuarocksPackage = lib.makeOverridable (callPackage ../development/interpreters/lua-5/build-lua-package.nix { });
 
   luaLib = callPackage ../development/lua-modules/lib.nix { };
 

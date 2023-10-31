@@ -128,9 +128,7 @@ stdenvNoCC.mkDerivation (
 
         # Dynamic libraries
         mkdir -p $out/lib
-        cp -a opt/intel/oneapi/mkl/${mklVersion}/lib/${
-          lib.optionalString stdenvNoCC.isLinux "intel64"
-        }/*${shlibExt}* $out/lib
+        cp -a opt/intel/oneapi/mkl/${mklVersion}/lib/${lib.optionalString stdenvNoCC.isLinux "intel64"}/*${shlibExt}* $out/lib
         cp -a opt/intel/oneapi/compiler/${mklVersion}/${if stdenvNoCC.isDarwin then "mac" else "linux"}/compiler/lib/${
           lib.optionalString stdenvNoCC.isLinux "intel64_lin"
         }/*${shlibExt}* $out/lib

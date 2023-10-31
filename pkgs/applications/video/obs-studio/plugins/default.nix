@@ -44,9 +44,7 @@
 
   obs-vaapi = callPackage ./obs-vaapi { };
 
-  obs-vkcapture = callPackage ./obs-vkcapture.nix {
-    obs-vkcapture32 = pkgsi686Linux.obs-studio-plugins.obs-vkcapture;
-  };
+  obs-vkcapture = callPackage ./obs-vkcapture.nix { obs-vkcapture32 = pkgsi686Linux.obs-studio-plugins.obs-vkcapture; };
 
   obs-websocket = throw "obs-websocket has been removed: Functionality has been integrated into obs-studio itself.";
 

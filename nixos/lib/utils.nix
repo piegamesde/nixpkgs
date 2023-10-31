@@ -57,9 +57,7 @@ rec {
       a' = normalise a;
       b' = normalise b;
     in
-    hasPrefix a'.mountPoint b'.device
-    || hasPrefix a'.mountPoint b'.mountPoint
-    || any (hasPrefix a'.mountPoint) b'.depends;
+    hasPrefix a'.mountPoint b'.device || hasPrefix a'.mountPoint b'.mountPoint || any (hasPrefix a'.mountPoint) b'.depends;
 
   # Escape a path according to the systemd rules. FIXME: slow
   # The rules are described in systemd.unit(5) as follows:

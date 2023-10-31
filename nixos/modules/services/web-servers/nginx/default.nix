@@ -543,9 +543,7 @@ let
             ${optionalString (config.alias != null) "alias ${config.alias};"}
             ${optionalString (config.return != null) "return ${config.return};"}
             ${config.extraConfig}
-            ${
-              optionalString (config.proxyPass != null && config.recommendedProxySettings) "include ${recommendedProxyConfig};"
-            }
+            ${optionalString (config.proxyPass != null && config.recommendedProxySettings) "include ${recommendedProxyConfig};"}
             ${mkBasicAuth "sublocation" config}
           }
         '')
@@ -1386,9 +1384,7 @@ in
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute =
-          !(
-            (builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules) || (cfg.package == pkgs.openresty)
-          );
+          !((builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules) || (cfg.package == pkgs.openresty));
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;

@@ -11,8 +11,7 @@ let
 
   configVersion = 26;
 
-  dbPort =
-    if cfg.database.port == null then (if cfg.database.type == "pgsql" then 5432 else 3306) else cfg.database.port;
+  dbPort = if cfg.database.port == null then (if cfg.database.type == "pgsql" then 5432 else 3306) else cfg.database.port;
 
   poolName = "tt-rss";
 

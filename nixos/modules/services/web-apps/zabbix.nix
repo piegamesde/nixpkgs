@@ -50,10 +50,7 @@ let
     $DB['USER'] = '${cfg.database.user}';
     # NOTE: file_get_contents adds newline at the end of returned string
     $DB['PASSWORD'] = ${
-      if cfg.database.passwordFile != null then
-        ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''
-      else
-        "''"
+      if cfg.database.passwordFile != null then ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")'' else "''"
     };
     // Schema name. Used for IBM DB2 and PostgreSQL.
     $DB['SCHEMA'] = ''';
@@ -212,8 +209,7 @@ in
   config = mkIf cfg.enable {
 
     services.zabbixWeb.extraConfig =
-      optionalString
-        ((versionAtLeast config.system.stateVersion "20.09") && (versionAtLeast cfg.package.version "5.0.0"))
+      optionalString ((versionAtLeast config.system.stateVersion "20.09") && (versionAtLeast cfg.package.version "5.0.0"))
         ''
           $DB['DOUBLE_IEEE754'] = 'true';
         '';

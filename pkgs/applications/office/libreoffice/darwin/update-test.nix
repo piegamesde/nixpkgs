@@ -40,8 +40,7 @@ nixt.mkSuite "LibreOffice Updater" {
     in
     "7.3.3" == actual;
 
-  "should extract latest stable version from website" =
-    (builtins.compareVersions getLatestStableVersion "7.3.3") >= 0;
+  "should extract latest stable version from website" = (builtins.compareVersions getLatestStableVersion "7.3.3") >= 0;
 
   "should extract sha256 from html" =
     let

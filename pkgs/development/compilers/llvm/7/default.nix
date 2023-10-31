@@ -278,23 +278,17 @@ let
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
         stdenv =
-          if stdenv.hostPlatform.useLLVM or false then
-            overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
-          else
-            stdenv;
+          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc else stdenv;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
-        stdenv =
-          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoCompilerRt else stdenv;
+        stdenv = if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoCompilerRt else stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
       compiler-rt =
-        if
-          stdenv.hostPlatform.isAndroid || (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isDarwin)
-        then
+        if stdenv.hostPlatform.isAndroid || (stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isDarwin) then
           libraries.compiler-rt-libc
         else
           libraries.compiler-rt-no-libc;

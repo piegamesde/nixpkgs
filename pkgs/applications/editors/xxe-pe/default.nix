@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
         or by using `xxe-pe.override { acceptLicense = true; }` package.
       '';
     fetchurl {
-      url = "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${
-          builtins.replaceStrings [ "." ] [ "_" ] version
-        }.zip";
+      url = "https://www.xmlmind.com/xmleditor/_download/xxe-perso-${builtins.replaceStrings [ "." ] [ "_" ] version}.zip";
       sha256 = "sha256-JZ9nQwMrQL/1HKGwvXoWlnTx55ZK/UYjMJAddCtm0rw=";
     };
 

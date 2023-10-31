@@ -28,9 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = lib.optional stdenv.isLinux pkg-config;
   buildInputs =
-    lib.optionals dbusSupport [ dbus ]
-    ++ lib.optionals useOpenSSL [ openssl ]
-    ++ lib.optional stdenv.isDarwin Foundation;
+    lib.optionals dbusSupport [ dbus ] ++ lib.optionals useOpenSSL [ openssl ] ++ lib.optional stdenv.isDarwin Foundation;
 
   buildFeatures = lib.optional notificationSupport "desktop-notifications";
 

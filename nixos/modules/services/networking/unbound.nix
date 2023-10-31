@@ -41,9 +41,7 @@ let
 
   confFile = pkgs.writeText "unbound.conf" ''
     server:
-    ${optionalString (cfg.settings.server.define-tag != "") (
-      toOption "  " "define-tag" cfg.settings.server.define-tag
-    )}
+    ${optionalString (cfg.settings.server.define-tag != "") (toOption "  " "define-tag" cfg.settings.server.define-tag)}
     ${confServer}
     ${confNoServer}
   '';

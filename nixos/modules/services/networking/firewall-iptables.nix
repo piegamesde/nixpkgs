@@ -183,9 +183,7 @@ let
                 range = toString rangeAttr.from + ":" + toString rangeAttr.to;
               in
               ''
-                ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${
-                  optionalString (iface != "default") "-i ${iface}"
-                }
+                ip46tables -A nixos-fw -p tcp --dport ${range} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
               ''
             )
             cfg.allowedTCPPortRanges
@@ -221,9 +219,7 @@ let
                 range = toString rangeAttr.from + ":" + toString rangeAttr.to;
               in
               ''
-                ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${
-                  optionalString (iface != "default") "-i ${iface}"
-                }
+                ip46tables -A nixos-fw -p udp --dport ${range} -j nixos-fw-accept ${optionalString (iface != "default") "-i ${iface}"}
               ''
             )
             cfg.allowedUDPPortRanges

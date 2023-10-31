@@ -29,9 +29,7 @@ let
   isSupported =
     moduleData:
     moduleData ? supportedWhenPlatformAttrsEqual
-    -> all (x: x) (
-      mapAttrsToList (k: v: platform ? ${k} && platform.${k} == v) moduleData.supportedWhenPlatformAttrsEqual
-    );
+    -> all (x: x) (mapAttrsToList (k: v: platform ? ${k} && platform.${k} == v) moduleData.supportedWhenPlatformAttrsEqual);
 
   modulePkgs = flip mapAttrs modules (
     _moduleName: moduleData:

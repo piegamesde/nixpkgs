@@ -292,11 +292,7 @@ rec {
   sd_image_new_kernel_no_zfs = forMatchingSystems [ "aarch64-linux" ] (
     system:
     makeSdImage {
-      module =
-        {
-          aarch64-linux = ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix;
-        }
-        .${system};
+      module = { aarch64-linux = ./modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix; }.${system};
       type = "minimal-new-kernel-no-zfs";
       inherit system;
     }

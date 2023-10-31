@@ -42,9 +42,7 @@ let
 
       generate =
         name: value:
-        pkgs.writeText name (
-          lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value)
-        );
+        pkgs.writeText name (lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value));
     };
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
@@ -233,8 +231,7 @@ in
       groups.moosefs = { };
     };
 
-    environment.systemPackages =
-      (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
+    environment.systemPackages = (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
 
     networking.firewall.allowedTCPPorts =
       (lib.optionals cfg.master.openFirewall [

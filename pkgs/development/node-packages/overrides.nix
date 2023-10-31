@@ -109,8 +109,7 @@ final: prev: {
 
   bitwarden-cli = prev."@bitwarden/cli".override {
     name = "bitwarden-cli";
-    nativeBuildInputs =
-      with pkgs; [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+    nativeBuildInputs = with pkgs; [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
     buildInputs = with pkgs; [
       pixman
       cairo
@@ -221,9 +220,7 @@ final: prev: {
     '';
   };
 
-  firebase-tools = prev.firebase-tools.override {
-    nativeBuildInputs = lib.optionals stdenv.isDarwin [ pkgs.xcbuild ];
-  };
+  firebase-tools = prev.firebase-tools.override { nativeBuildInputs = lib.optionals stdenv.isDarwin [ pkgs.xcbuild ]; };
 
   flood = prev.flood.override { buildInputs = [ final.node-pre-gyp ]; };
 
@@ -639,9 +636,7 @@ final: prev: {
     }
   );
 
-  thelounge-plugin-closepms = prev.thelounge-plugin-closepms.override {
-    nativeBuildInputs = [ final.node-pre-gyp ];
-  };
+  thelounge-plugin-closepms = prev.thelounge-plugin-closepms.override { nativeBuildInputs = [ final.node-pre-gyp ]; };
 
   thelounge-plugin-giphy = prev.thelounge-plugin-giphy.override { nativeBuildInputs = [ final.node-pre-gyp ]; };
 

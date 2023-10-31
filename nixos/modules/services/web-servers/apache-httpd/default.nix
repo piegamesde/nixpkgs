@@ -41,10 +41,7 @@ let
   # certName is used later on to determine systemd service names.
   acmeEnabledVhosts =
     map
-      (
-        hostOpts:
-        hostOpts // { certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName; }
-      )
+      (hostOpts: hostOpts // { certName = if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName; })
       (filter (hostOpts: hostOpts.enableACME || hostOpts.useACMEHost != null) vhosts);
 
   dependentCertNames = unique (map (hostOpts: hostOpts.certName) acmeEnabledVhosts);
@@ -402,9 +399,7 @@ let
         else
           throw "Expecting either a string or attribute set including a name and path.";
     in
-    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}") (
-      unique (map mkModule modules)
-    )}
+    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}") (unique (map mkModule modules))}
 
     AddHandler type-map var
 

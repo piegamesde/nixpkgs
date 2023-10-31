@@ -45,8 +45,7 @@ in
 
     boot.kernelModules =
       [ "i2c-dev" ]
-      ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ]
-      ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ];
+      ++ lib.optionals (cfg.motherboard == "amd") [ "i2c-piix" ] ++ lib.optionals (cfg.motherboard == "intel") [ "i2c-i801" ];
 
     systemd.services.openrgb = {
       description = "OpenRGB server daemon";

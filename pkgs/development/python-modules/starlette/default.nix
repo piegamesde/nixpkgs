@@ -42,17 +42,14 @@ buildPythonPackage rec {
     sed -i '/--cov/d' setup.cfg
   '';
 
-  propagatedBuildInputs =
-    [
-      anyio
-      itsdangerous
-      jinja2
-      python-multipart
-      pyyaml
-      httpx
-    ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+  propagatedBuildInputs = [
+    anyio
+    itsdangerous
+    jinja2
+    python-multipart
+    pyyaml
+    httpx
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
   nativeCheckInputs = [
     pytestCheckHook

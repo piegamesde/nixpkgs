@@ -14806,9 +14806,7 @@ in
       sources."@jridgewell/resolve-uri-3.1.0"
       sources."@jridgewell/set-array-1.1.2"
       sources."@jridgewell/sourcemap-codec-1.4.15"
-      (
-        sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; }
-      )
+      (sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; })
       sources."@mrmlnc/readdir-enhanced-2.2.1"
       sources."@nodelib/fs.stat-1.1.3"
       sources."@types/glob-7.2.0"
@@ -15146,10 +15144,7 @@ in
       sources."define-properties-1.2.0"
       sources."define-property-2.0.2"
       (
-        sources."del-4.1.1"
-        // {
-          dependencies = [ (sources."globby-6.1.0" // { dependencies = [ sources."pify-2.3.0" ]; }) ];
-        }
+        sources."del-4.1.1" // { dependencies = [ (sources."globby-6.1.0" // { dependencies = [ sources."pify-2.3.0" ]; }) ]; }
       )
       sources."delayed-stream-1.0.0"
       sources."depd-2.0.0"
@@ -16764,9 +16759,7 @@ in
       sources."@jridgewell/set-array-1.1.2"
       sources."@jridgewell/source-map-0.3.3"
       sources."@jridgewell/sourcemap-codec-1.4.15"
-      (
-        sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; }
-      )
+      (sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; })
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"

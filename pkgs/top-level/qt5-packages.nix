@@ -164,9 +164,7 @@
         ;
       };
 
-      libqglviewer = callPackage ../development/libraries/libqglviewer {
-        inherit (pkgs.darwin.apple_sdk.frameworks) AGL;
-      };
+      libqglviewer = callPackage ../development/libraries/libqglviewer { inherit (pkgs.darwin.apple_sdk.frameworks) AGL; };
 
       libqofono = callPackage ../development/libraries/libqofono { };
 

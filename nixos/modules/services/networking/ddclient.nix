@@ -18,9 +18,7 @@ let
     foreground=YES
     use=${cfg.use}
     login=${cfg.username}
-    password=${
-      if cfg.protocol == "nsupdate" then "/run/${RuntimeDirectory}/ddclient.key" else "@password_placeholder@"
-    }
+    password=${if cfg.protocol == "nsupdate" then "/run/${RuntimeDirectory}/ddclient.key" else "@password_placeholder@"}
     protocol=${cfg.protocol}
     ${lib.optionalString (cfg.script != "") "script=${cfg.script}"}
     ${lib.optionalString (cfg.server != "") "server=${cfg.server}"}
@@ -136,9 +134,7 @@ with lib;
 
       username = mkOption {
         # For `nsupdate` username contains the path to the nsupdate executable
-        default =
-          lib.optionalString (config.services.ddclient.protocol == "nsupdate")
-            "${pkgs.bind.dnsutils}/bin/nsupdate";
+        default = lib.optionalString (config.services.ddclient.protocol == "nsupdate") "${pkgs.bind.dnsutils}/bin/nsupdate";
         defaultText = "";
         type = str;
         description = lib.mdDoc ''

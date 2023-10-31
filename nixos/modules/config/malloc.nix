@@ -35,8 +35,7 @@ let
         };
 
         systemPlatform =
-          platformMap.${pkgs.stdenv.hostPlatform.system}
-            or (throw "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
+          platformMap.${pkgs.stdenv.hostPlatform.system} or (throw "scudo not supported on ${pkgs.stdenv.hostPlatform.system}");
       in
       {
         libPath = "${pkgs.llvmPackages_latest.compiler-rt}/lib/linux/libclang_rt.scudo-${systemPlatform}.so";

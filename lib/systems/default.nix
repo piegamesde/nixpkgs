@@ -42,8 +42,7 @@ rec {
             && parse.isCompatible final.parsed.cpu platform.parsed.cpu
             && final.parsed.kernel == platform.parsed.kernel;
           isCompatible =
-            _:
-            throw "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details";
+            _: throw "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details";
           # Derived meta-data
           libc =
             if final.isDarwin then
@@ -255,8 +254,7 @@ rec {
                 wine = (pkgs.winePackagesFor "wine${toString final.parsed.cpu.bits}").minimal;
               in
               if
-                final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name
-                && pkgs.stdenv.hostPlatform.canExecute final
+                final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name && pkgs.stdenv.hostPlatform.canExecute final
               then
                 ''${pkgs.runtimeShell} -c '"$@"' --''
               else if final.isWindows then

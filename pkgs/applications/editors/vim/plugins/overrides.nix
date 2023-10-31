@@ -389,9 +389,7 @@ self: super:
     old: { dependencies = with self; [ plenary-nvim ]; }
   );
 
-  completion-buffers = super.completion-buffers.overrideAttrs (
-    old: { dependencies = with self; [ completion-nvim ]; }
-  );
+  completion-buffers = super.completion-buffers.overrideAttrs (old: { dependencies = with self; [ completion-nvim ]; });
 
   completion-tabnine = super.completion-tabnine.overrideAttrs (
     old: {
@@ -868,9 +866,7 @@ self: super:
     }
   );
 
-  nvim-treesitter = super.nvim-treesitter.overrideAttrs (
-    old: callPackage ./nvim-treesitter/overrides.nix { } self super
-  );
+  nvim-treesitter = super.nvim-treesitter.overrideAttrs (old: callPackage ./nvim-treesitter/overrides.nix { } self super);
 
   nvim-ufo = super.nvim-ufo.overrideAttrs (old: { dependencies = with self; [ promise-async ]; });
 
@@ -1225,9 +1221,7 @@ self: super:
     old: { dependencies = with self; [ telescope-nvim ]; }
   );
 
-  telescope-undo-nvim = super.telescope-undo-nvim.overrideAttrs (
-    old: { dependencies = with self; [ telescope-nvim ]; }
-  );
+  telescope-undo-nvim = super.telescope-undo-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-nvim ]; });
 
   telescope-z-nvim = super.telescope-z-nvim.overrideAttrs (old: { dependencies = with self; [ telescope-nvim ]; });
 
@@ -1320,9 +1314,7 @@ self: super:
     old: { dependencies = with self; [ tlib_vim ]; }
   );
 
-  vim-addon-manager = super.vim-addon-manager.overrideAttrs (
-    old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; }
-  );
+  vim-addon-manager = super.vim-addon-manager.overrideAttrs (old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; });
 
   vim-addon-mru = super.vim-addon-mru.overrideAttrs (
     old: {
@@ -1387,9 +1379,7 @@ self: super:
 
   vim-bazel = super.vim-bazel.overrideAttrs (old: { dependencies = with self; [ vim-maktaba ]; });
 
-  vim-beancount = super.vim-beancount.overrideAttrs (
-    old: { passthru.python3Dependencies = ps: with ps; [ beancount ]; }
-  );
+  vim-beancount = super.vim-beancount.overrideAttrs (old: { passthru.python3Dependencies = ps: with ps; [ beancount ]; });
 
   vim-clap = callPackage ./vim-clap { };
 

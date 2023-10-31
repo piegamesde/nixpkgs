@@ -18395,10 +18395,7 @@ let
       )
       sources."babel-plugin-add-react-displayname-0.0.5"
       (
-        sources."babel-plugin-apply-mdx-type-prop-1.6.22"
-        // {
-          dependencies = [ sources."@babel/helper-plugin-utils-7.10.4" ];
-        }
+        sources."babel-plugin-apply-mdx-type-prop-1.6.22" // { dependencies = [ sources."@babel/helper-plugin-utils-7.10.4" ]; }
       )
       sources."babel-plugin-dynamic-import-node-2.3.3"
       (

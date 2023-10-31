@@ -21,10 +21,7 @@ buildLinux (
 
     # modDirVersion needs a patch number, change X.Y-rtZ to X.Y.0-rtZ.
     modDirVersion =
-      if (builtins.match "[^.]*[.][^.]*-.*" version) == null then
-        version
-      else
-        lib.replaceStrings [ "-" ] [ ".0-" ] version;
+      if (builtins.match "[^.]*[.][^.]*-.*" version) == null then version else lib.replaceStrings [ "-" ] [ ".0-" ] version;
 
     src = fetchurl {
       url = "mirror://kernel/linux/kernel/v6.x/linux-${kversion}.tar.xz";

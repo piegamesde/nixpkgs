@@ -163,9 +163,7 @@ let
         }
       );
       cl-sat_dot_minisat = super.cl-sat_dot_minisat.overrideLispAttrs (o: { propagatedBuildInputs = [ pkgs.minisat ]; });
-      hu_dot_dwim_dot_graphviz = super.hu_dot_dwim_dot_graphviz.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.graphviz ]; }
-      );
+      hu_dot_dwim_dot_graphviz = super.hu_dot_dwim_dot_graphviz.overrideLispAttrs (o: { nativeLibs = [ pkgs.graphviz ]; });
       math = super.math.overrideLispAttrs (
         o: {
           patches = [ ./patches/math-no-compile-time-directory.patch ];

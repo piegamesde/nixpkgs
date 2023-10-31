@@ -120,9 +120,7 @@ let
                         ++ optional service.runUntagged "--run-untagged"
                         ++ optional service.protected "--access-level ref_protected"
                         ++ optional service.debugTraceDisabled "--debug-trace-disabled"
-                        ++ map (e: "--env ${escapeShellArg e}") (
-                          mapAttrsToList (name: value: "${name}=${value}") service.environmentVariables
-                        )
+                        ++ map (e: "--env ${escapeShellArg e}") (mapAttrsToList (name: value: "${name}=${value}") service.environmentVariables)
                         ++ optionals (hasPrefix "docker" service.executor) (
                           assert (assertMsg (service.dockerImage != null)
                             "dockerImage option is required for ${service.executor} executor (${name})"

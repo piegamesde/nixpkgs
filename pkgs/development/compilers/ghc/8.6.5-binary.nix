@@ -20,8 +20,7 @@ assert stdenv.targetPlatform == stdenv.hostPlatform;
 let
   useLLVM = !stdenv.targetPlatform.isx86;
 
-  useNcurses6 =
-    stdenv.hostPlatform.system == "x86_64-linux" || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
+  useNcurses6 = stdenv.hostPlatform.system == "x86_64-linux" || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
 
   ourNcurses = if useNcurses6 then ncurses6 else ncurses5;
 

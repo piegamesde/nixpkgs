@@ -1527,9 +1527,7 @@ in
             touch ${stateDir}/webhook
           '';
           serviceConfig = {
-            ExecStart =
-              mkForce
-                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${toString cfg.pages.port}";
+            ExecStart = mkForce "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${toString cfg.pages.port}";
           };
         };
     })

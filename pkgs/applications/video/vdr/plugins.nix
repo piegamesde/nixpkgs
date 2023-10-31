@@ -37,9 +37,7 @@ in
 
   xineliboutput = callPackage ./xineliboutput { };
 
-  skincurses = (mkPlugin "skincurses").overrideAttrs (
-    oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; }
-  );
+  skincurses = (mkPlugin "skincurses").overrideAttrs (oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; });
 
   inherit
     (lib.genAttrs

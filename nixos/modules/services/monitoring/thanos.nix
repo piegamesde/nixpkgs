@@ -738,9 +738,7 @@ in
 
     query = paramsToOptions params.query // {
       enable = mkEnableOption (
-        lib.mdDoc (
-          "the Thanos query node exposing PromQL enabled Query API " + "with data retrieved from multiple store nodes"
-        )
+        lib.mdDoc ("the Thanos query node exposing PromQL enabled Query API " + "with data retrieved from multiple store nodes")
       );
       arguments = mkArgumentsOption "query";
     };
@@ -756,9 +754,7 @@ in
     };
 
     compact = paramsToOptions params.compact // {
-      enable = mkEnableOption (
-        lib.mdDoc "the Thanos compactor which continuously compacts blocks in an object store bucket"
-      );
+      enable = mkEnableOption (lib.mdDoc "the Thanos compactor which continuously compacts blocks in an object store bucket");
       arguments = mkArgumentsOption "compact";
     };
 

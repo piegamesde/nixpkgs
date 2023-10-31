@@ -80,8 +80,7 @@ rec {
           escs = "\\*?";
           splitString =
             let
-              recurse =
-                str: [ (substring 0 1 str) ] ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
+              recurse = str: [ (substring 0 1 str) ] ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
             in
             str:
             recurse str;
@@ -116,9 +115,7 @@ rec {
         let
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
-        concatStringsSep "" (
-          map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (split "(\\[([^\\\\]|\\\\.)+])" r)
-        );
+        concatStringsSep "" (map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (split "(\\[([^\\\\]|\\\\.)+])" r));
 
       # regex -> regex
       handleSlashPrefix =
@@ -216,8 +213,7 @@ rec {
 
   withGitignoreFile = patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
 
-  withRecursiveGitignoreFile =
-    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
+  withRecursiveGitignoreFile = patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
 
   # filterSource derivatives
 
@@ -242,8 +238,7 @@ rec {
       type = typeOf patterns;
     in
     if (type == "string" && pathExists patterns) || type == "path" then
-      throw "type error in gitignoreSource(patterns -> source -> path), "
-        ''use [] or "" if there are no additional patterns''
+      throw "type error in gitignoreSource(patterns -> source -> path), " ''use [] or "" if there are no additional patterns''
     else
       gitignoreFilterSource (_: _: true) patterns;
 

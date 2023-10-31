@@ -29,17 +29,13 @@ rustPlatform.buildRustPackage rec {
 
   buildPhase = ''
     runHook preBuild
-    cargo cbuild -j $NIX_BUILD_CORES --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo cbuild -j $NIX_BUILD_CORES --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
-    cargo cinstall -j $NIX_BUILD_CORES --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo cinstall -j $NIX_BUILD_CORES --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
     runHook postInstall
   '';
 

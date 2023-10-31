@@ -70,9 +70,7 @@ let
   preAutoreconf = "patchShebangs --build common" + appendByAttr "preAutoreconf" "\n" pkg;
 
   # Tell OpenModelica where built dependencies are located.
-  configureFlags =
-    lib.optional ifDeps "--with-openmodelicahome=${joinedDeps}"
-    ++ getAttrDef "configureFlags" [ ] pkg;
+  configureFlags = lib.optional ifDeps "--with-openmodelicahome=${joinedDeps}" ++ getAttrDef "configureFlags" [ ] pkg;
 
   # Our own configurePhase that accounts for omautoconf
   configurePhase = ''

@@ -175,9 +175,7 @@ let
 
   darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin (stdenv.targetPlatform.darwinMinVersion);
 
-  darwinMinVersionVariable =
-    optionalString stdenv.targetPlatform.isDarwin
-      stdenv.targetPlatform.darwinMinVersionVariable;
+  darwinMinVersionVariable = optionalString stdenv.targetPlatform.isDarwin stdenv.targetPlatform.darwinMinVersionVariable;
 in
 
 # Ensure bintools matches
@@ -467,12 +465,10 @@ stdenv.mkDerivation {
 
     # We have a libc++ directly, we have one via "smuggled" GCC, or we have one
     # bundled with the C compiler because it is GCC
-    +
-      optionalString (libcxx != null || (useGccForLibs && gccForLibs.langCC or false) || (isGNU && cc.langCC or false))
-        ''
-          touch "$out/nix-support/libcxx-cxxflags"
-          touch "$out/nix-support/libcxx-ldflags"
-        ''
+    + optionalString (libcxx != null || (useGccForLibs && gccForLibs.langCC or false) || (isGNU && cc.langCC or false)) ''
+      touch "$out/nix-support/libcxx-cxxflags"
+      touch "$out/nix-support/libcxx-ldflags"
+    ''
     # Adding -isystem flags should be done only for clang; gcc
     # already knows how to find its own libstdc++, and adding
     # additional -isystem flags will confuse gfortran (see

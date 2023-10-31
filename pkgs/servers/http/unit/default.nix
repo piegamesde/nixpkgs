@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
   usedPhp81 = optionals withPHP81 php81-unit;
 
   postConfigure = ''
-    ${optionalString withPython3
-      "./configure python --module=python3  --config=python3-config  --lib-path=${python3}/lib"}
+    ${optionalString withPython3 "./configure python --module=python3  --config=python3-config  --lib-path=${python3}/lib"}
     ${optionalString withPHP81
       "./configure php    --module=php81    --config=${php81-unit.unwrapped.dev}/bin/php-config --lib-path=${php81-unit}/lib"}
     ${optionalString withPHP82

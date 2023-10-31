@@ -7,8 +7,7 @@
 let
   cfg = config.virtualisation.containerd;
 
-  configFile =
-    if cfg.configFile == null then settingsFormat.generate "containerd.toml" cfg.settings else cfg.configFile;
+  configFile = if cfg.configFile == null then settingsFormat.generate "containerd.toml" cfg.settings else cfg.configFile;
 
   containerdConfigChecked =
     pkgs.runCommand "containerd-config-checked.toml" { nativeBuildInputs = [ pkgs.containerd ]; }
@@ -79,9 +78,7 @@ in
         ]
         ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
-        ExecStart = "${pkgs.containerd}/bin/containerd ${
-            lib.concatStringsSep " " (lib.cli.toGNUCommandLine { } cfg.args)
-          }";
+        ExecStart = "${pkgs.containerd}/bin/containerd ${lib.concatStringsSep " " (lib.cli.toGNUCommandLine { } cfg.args)}";
         Delegate = "yes";
         KillMode = "process";
         Type = "notify";

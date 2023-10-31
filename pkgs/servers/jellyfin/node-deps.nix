@@ -12213,12 +12213,7 @@ let
       )
       sources."@babel/types-7.13.14"
       (sources."@csstools/postcss-color-function-1.0.3" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
-      (
-        sources."@csstools/postcss-font-format-keywords-1.0.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."@csstools/postcss-font-format-keywords-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."@csstools/postcss-hwb-function-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."@csstools/postcss-ic-unit-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."@csstools/postcss-is-pseudo-class-2.0.1"
@@ -13349,9 +13344,7 @@ let
       (sources."postcss-normalize-positions-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-normalize-repeat-style-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (sources."postcss-normalize-string-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
-      (
-        sources."postcss-normalize-timing-functions-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
-      )
+      (sources."postcss-normalize-timing-functions-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-normalize-unicode-5.1.0"
         // {

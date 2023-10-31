@@ -481,9 +481,7 @@ rec {
             super."${finalLlvmPackages}"
             // (
               let
-                tools = super."${finalLlvmPackages}".tools.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
-                );
+                tools = super."${finalLlvmPackages}".tools.extend (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; });
                 libraries = super."${finalLlvmPackages}".libraries.extend (
                   _: _: { inherit (pkgs."${finalLlvmPackages}") compiler-rt libcxx libcxxabi; }
                 );
@@ -601,9 +599,7 @@ rec {
             super."${finalLlvmPackages}"
             // (
               let
-                tools = super."${finalLlvmPackages}".tools.extend (
-                  _: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; }
-                );
+                tools = super."${finalLlvmPackages}".tools.extend (_: _: { inherit (pkgs."${finalLlvmPackages}") clang-unwrapped; });
                 libraries = super."${finalLlvmPackages}".libraries.extend (
                   _: libSuper: {
                     inherit (pkgs."${finalLlvmPackages}") compiler-rt;

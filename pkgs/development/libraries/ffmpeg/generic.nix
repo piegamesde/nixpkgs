@@ -98,10 +98,8 @@
   ,
   withMysofa ? withFullDeps # HRTF support via SOFAlizer
   ,
-  withNvdec ?
-    withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isAarch32,
-  withNvenc ?
-    withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isAarch32,
+  withNvdec ? withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isAarch32,
+  withNvenc ? withHeadlessDeps && !stdenv.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform && !stdenv.isAarch32,
   withOgg ? withHeadlessDeps # Ogg container used by vorbis & theora
   ,
   withOpenal ? withFullDeps # OpenAL 1.1 capture support
@@ -808,10 +806,7 @@ stdenv.mkDerivation (
       '';
       license =
         with licenses;
-        [ lgpl21Plus ]
-        ++ optional withGPL gpl2Plus
-        ++ optional withGPLv3 gpl3Plus
-        ++ optional withUnfree unfreeRedistributable;
+        [ lgpl21Plus ] ++ optional withGPL gpl2Plus ++ optional withGPLv3 gpl3Plus ++ optional withUnfree unfreeRedistributable;
       pkgConfigModules = [ "libavutil" ];
       platforms = platforms.all;
       maintainers = with maintainers; [ atemu ];

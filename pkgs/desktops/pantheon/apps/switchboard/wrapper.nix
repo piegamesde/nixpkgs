@@ -13,8 +13,7 @@
 }:
 
 let
-  selectedPlugs =
-    if plugs == null then switchboardPlugs else plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs);
+  selectedPlugs = if plugs == null then switchboardPlugs else plugs ++ (lib.optionals useDefaultPlugs switchboardPlugs);
 
   testingName = lib.optionalString (testName != null) "${testName}-";
 in

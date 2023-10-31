@@ -348,8 +348,7 @@ in
               '';
             }
             {
-              assertion =
-                cfg.ipmi.enable -> (cfg.ipmi.webConfigFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile));
+              assertion = cfg.ipmi.enable -> (cfg.ipmi.webConfigFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile));
               message = ''
                 Config file specified in `services.prometheus.exporters.ipmi.webConfigFile' must
                   not reside within /tmp - it won't be visible to the systemd service.

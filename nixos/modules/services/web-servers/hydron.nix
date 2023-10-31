@@ -127,8 +127,7 @@ with lib; {
       serviceConfig = {
         User = "hydron";
         Group = "hydron";
-        ExecStart =
-          "${pkgs.hydron}/bin/hydron serve" + optionalString (cfg.listenAddress != null) " -a ${cfg.listenAddress}";
+        ExecStart = "${pkgs.hydron}/bin/hydron serve" + optionalString (cfg.listenAddress != null) " -a ${cfg.listenAddress}";
       };
     };
 

@@ -36,9 +36,7 @@ let
                       profile = null;
                       extraArgs = [ ];
                     };
-                args = lib.escapeShellArgs (
-                  opts.extraArgs ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
-                );
+                args = lib.escapeShellArgs (opts.extraArgs ++ (optional (opts.profile != null) "--profile=${toString opts.profile}"));
               in
               ''
                 cat <<_EOF >$out/bin/${command}

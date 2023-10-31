@@ -212,9 +212,7 @@ let
     IOFWDVComponents = fetchApple "osx-10.10.5" "sha256-KenCX9C/Z2ErUK8tpKpm65gEmhn2NsXFxlzK7NKomaI=";
     IOFireWireAVC = fetchApple "osx-10.10.5" "sha256-Gd8+PK/mk+xEXgF8dGAx+3jsXv4NX1GiBFyjyrf6sTo=";
     IOFireWireSBP2 = fetchApple "osx-10.10.5" "sha256-Z3nP8pX1YG4Fbt7MrnqO06ihE9aYOex5Eib/rqOpoPk=";
-    IOFireWireSerialBusProtocolTransport =
-      fetchApple "osx-10.10.5"
-        "sha256-zdYE0UCKiVhDRGdWaH8L51ArbYTnsQOmcN/OMmpNdFA=";
+    IOFireWireSerialBusProtocolTransport = fetchApple "osx-10.10.5" "sha256-zdYE0UCKiVhDRGdWaH8L51ArbYTnsQOmcN/OMmpNdFA=";
     IOGraphics = fetchApple "osx-10.10.5" "sha256-lXoW4sx3pyl5fg5Qde3sQi2i8rTLnpeCdDaTHjbfaMI=";
     IOHIDFamily = fetchApple "osx-10.10.5" "sha256-b+S1p3p5d8olYE18VrBns4euerVINaQSFEp34sko5rM=";
     IONetworkingFamily = fetchApple "osx-10.10.5" "sha256-NOpFOBKS6iwFj9DJxduZYZfZJuhDyBQw2QMKHbu7j40=";
@@ -259,9 +257,7 @@ let
     applePackage' namePath version sdkName sha256;
 
   # Only used for bootstrapping. It’s convenient because it was the last version to come with a real makefile.
-  adv_cmds-boot =
-    applePackage "adv_cmds/boot.nix" "osx-10.5.8" "sha256-/OJLNpATyS31W5nWfJgSVO5itp8j55TRwG57/QLT5Fg="
-      { };
+  adv_cmds-boot = applePackage "adv_cmds/boot.nix" "osx-10.5.8" "sha256-/OJLNpATyS31W5nWfJgSVO5itp8j55TRwG57/QLT5Fg=" { };
 in
 
 developerToolsPackages_11_3_1
@@ -272,9 +268,7 @@ developerToolsPackages_11_3_1
   inherit (adv_cmds-boot) ps locale;
   architecture = applePackage "architecture" "osx-10.11.6" "sha256-cUKeMx6mOAxBSRHIdfzsrR65Qv86m7+20XvpKqVfwVI=" { };
   bsdmake = applePackage "bsdmake" "dev-tools-3.2.6" "sha256-CW8zP5QZMhWTGp+rhrm8oHE/vSLsRlv1VRAGe1OUDmI=" { };
-  CarbonHeaders =
-    applePackage "CarbonHeaders" "osx-10.6.2" "sha256-UNaHvxzYzEBnYYuoMLqWUVprZa6Wqn/3XleoSCco050="
-      { };
+  CarbonHeaders = applePackage "CarbonHeaders" "osx-10.6.2" "sha256-UNaHvxzYzEBnYYuoMLqWUVprZa6Wqn/3XleoSCco050=" { };
   CommonCrypto = applePackage "CommonCrypto" "osx-10.12.6" "sha256-FLgODBrfv+XsGaAjddncYAm/BIJJYw6LcwX/z7ncKFM=" { };
   configd = applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI=" {
     Security = applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI=" { };
@@ -308,9 +302,7 @@ developerToolsPackages_11_3_1
   Libsystem = applePackage "Libsystem" "osx-10.12.6" "sha256-zvRdCP//TjKCGAqm/5nJXPppshU1cv2fg/L/yK/olGQ=" { };
   libutil = applePackage "libutil" "osx-10.12.6" "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs=" { };
   libunwind = applePackage "libunwind" "osx-10.12.6" "sha256-CC0sndP/mKYe3dZu3v7fjuDASV4V4w7dAcnWMvpoquE=" { };
-  mDNSResponder =
-    applePackage "mDNSResponder" "osx-10.12.6" "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY="
-      { };
+  mDNSResponder = applePackage "mDNSResponder" "osx-10.12.6" "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY=" { };
   objc4 = applePackage "objc4" "osx-10.12.6" "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM=" { };
   ppp = applePackage "ppp" "osx-10.12.6" "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
   removefile = applePackage "removefile" "osx-10.12.6" "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M=" { };
@@ -325,9 +317,7 @@ developerToolsPackages_11_3_1
   Librpcsvc = applePackage "Librpcsvc" "osx-10.11.6" "sha256-YHbGws901xONzAbo6sB5zSea4Wp0sgYUJ8YgwVfWxnE=" { };
   adv_cmds = applePackage "adv_cmds" "osx-10.11.6" "sha256-Ztp8ALWcviEpthoiY8ttWzGI8OcsLzsULjlqe8GIzw8=" { };
   basic_cmds = applePackage "basic_cmds" "osx-10.11.6" "sha256-BYPPTg4/7x6RPs0WwwQlkNiZxxArV+7EVe6bM+a/I6Q=" { };
-  developer_cmds =
-    applePackage "developer_cmds" "osx-10.11.6" "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo="
-      { };
+  developer_cmds = applePackage "developer_cmds" "osx-10.11.6" "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo=" { };
   diskdev_cmds = applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" {
     macosPackages_11_0_1 = macosPackages_11_0_1;
   };

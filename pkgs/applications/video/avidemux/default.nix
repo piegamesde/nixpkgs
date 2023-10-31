@@ -104,8 +104,7 @@ stdenv.mkDerivation rec {
   buildCommand =
     let
       wrapWith =
-        makeWrapper: filename:
-        "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib";
+        makeWrapper: filename: "${makeWrapper} ${filename} --set ADM_ROOT_DIR $out --prefix LD_LIBRARY_PATH : ${libXext}/lib";
       wrapQtApp = wrapWith "wrapQtApp";
       wrapProgram = wrapWith "wrapProgram";
     in

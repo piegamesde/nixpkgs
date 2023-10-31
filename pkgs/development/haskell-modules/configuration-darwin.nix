@@ -80,9 +80,7 @@ self: super:
 
     al =
       overrideCabal
-        (drv: {
-          libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]);
-        })
+        (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]); })
         super.al;
 
     proteaaudio = addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox super.proteaaudio;
@@ -141,9 +139,7 @@ self: super:
 
     blas-hs =
       overrideCabal
-        (drv: {
-          libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]);
-        })
+        (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]); })
         super.blas-hs;
 
     # Ensure the necessary frameworks are propagatedBuildInputs on darwin

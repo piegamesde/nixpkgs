@@ -565,8 +565,7 @@ let
               auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
                 optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
               } ${optionalString (ussh.authorizedPrincipals != null) "authorized_principals=${ussh.authorizedPrincipals}"} ${
-                optionalString (ussh.authorizedPrincipalsFile != null)
-                  "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
+                optionalString (ussh.authorizedPrincipalsFile != null) "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
               } ${optionalString (ussh.group != null) "group=${ussh.group}"}
             ''
           )
@@ -793,9 +792,7 @@ let
             session optional ${pkgs.gnome.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
           ''
           + optionalString cfg.gnupg.enable ''
-            session optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${
-              optionalString cfg.gnupg.noAutostart " no-autostart"
-            }
+            session optional ${pkgs.pam_gnupg}/lib/security/pam_gnupg.so ${optionalString cfg.gnupg.noAutostart " no-autostart"}
           ''
           + optionalString (config.virtualisation.lxc.lxcfs.enable) ''
             session optional ${pkgs.lxc}/lib/security/pam_cgfs.so -c all

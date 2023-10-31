@@ -32,11 +32,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [ libsidplayfp ]
-    ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional pulseSupport libpulseaudio
-    ++ lib.optional out123Support mpg123;
+  buildInputs = [
+    libsidplayfp
+  ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional pulseSupport libpulseaudio ++ lib.optional out123Support mpg123;
 
   configureFlags = lib.optionals out123Support [ "--with-out123" ];
 

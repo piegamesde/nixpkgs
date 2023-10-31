@@ -281,9 +281,7 @@ let
         inherit (darwin.apple_sdk_11_0.frameworks) OpenGL;
       };
       qtwebsockets = callPackage ../modules/qtwebsockets.nix { };
-      qtwebview = callPackage ../modules/qtwebview.nix {
-        inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation WebKit;
-      };
+      qtwebview = callPackage ../modules/qtwebview.nix { inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation WebKit; };
       qtx11extras = callPackage ../modules/qtx11extras.nix { };
       qtxmlpatterns = callPackage ../modules/qtxmlpatterns.nix { };
 

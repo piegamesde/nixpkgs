@@ -81,8 +81,7 @@ let
     }:
     let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;
-      super =
-        (lib.listToAttrs (builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))));
+      super = (lib.listToAttrs (builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))));
 
       overrides =
         lib.optionalAttrs (variant == "stable") {
@@ -531,9 +530,7 @@ let
             }
           );
 
-          shm = super.shm.overrideAttrs (
-            attrs: { propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ]; }
-          );
+          shm = super.shm.overrideAttrs (attrs: { propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ]; });
 
           # Telega has a server portion for it's network protocol
           telega = super.telega.overrideAttrs (

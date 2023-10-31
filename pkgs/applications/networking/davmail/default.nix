@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/davmail
     cp -vR ./* $out/share/davmail
     makeWrapper $out/share/davmail/davmail $out/bin/davmail \
-      --set-default JAVA_OPTS "-Xmx512M -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=${
-        lib.versions.major gtk'.version
-      }" \
+      --set-default JAVA_OPTS "-Xmx512M -Dsun.net.inetaddr.ttl=60 -Djdk.gtk.version=${lib.versions.major gtk'.version}" \
       --prefix PATH : ${jre'}/bin \
       --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [

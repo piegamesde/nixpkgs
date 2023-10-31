@@ -14,9 +14,7 @@ let
 
   indentLines =
     n: str:
-    concatStringsSep "\n" (
-      map (line: "${fixedWidthString n " " " "}${line}") (filter (x: x != "") (splitString "\n" str))
-    );
+    concatStringsSep "\n" (map (line: "${fixedWidthString n " " " "}${line}") (filter (x: x != "") (splitString "\n" str)));
 
   addCheckDesc =
     desc: elemType: check:
@@ -149,9 +147,7 @@ in
                 ]
               );
               default = null; # real default: "service-time 0"
-              description =
-                lib.mdDoc
-                  "The default path selector algorithm to use; they are offered by the kernel multipath target";
+              description = lib.mdDoc "The default path selector algorithm to use; they are offered by the kernel multipath target";
             };
 
             path_checker = mkOption {

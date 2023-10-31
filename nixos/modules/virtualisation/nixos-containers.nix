@@ -190,9 +190,7 @@ let
       ip link del dev "vb-$INSTANCE" 2> /dev/null || true
     fi
 
-    ${concatStringsSep "\n" (
-      mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ") cfg.extraVeths
-    )}
+    ${concatStringsSep "\n" (mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ") cfg.extraVeths)}
   '';
 
   postStartScript =
@@ -519,8 +517,7 @@ in
                                 networking.useDHCP = false;
                                 assertions = [
                                   {
-                                    assertion =
-                                      (builtins.compareVersions kernelVersion "5.8" <= 0) -> config.privateNetwork -> stringLength name <= 11;
+                                    assertion = (builtins.compareVersions kernelVersion "5.8" <= 0) -> config.privateNetwork -> stringLength name <= 11;
                                     message = ''
                                       Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
                                       not be longer than 11 characters, because the container's interface name is derived from it.

@@ -168,9 +168,7 @@ rec {
 
     configureFlags =
       common.configureFlags
-      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-        "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
-      ]
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
       ++ [ "--without-x" ] # disable xdvik and xpdfopen
       ++ map (what: "--disable-${what}") [
         "chktex"

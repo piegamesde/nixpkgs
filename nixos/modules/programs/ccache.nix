@@ -64,9 +64,7 @@ in
       nixpkgs.overlays = [
         (
           self: super:
-          genAttrs cfg.packageNames (
-            pn: super.${pn}.override { stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv; }
-          )
+          genAttrs cfg.packageNames (pn: super.${pn}.override { stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv; })
         )
 
         (self: super: {

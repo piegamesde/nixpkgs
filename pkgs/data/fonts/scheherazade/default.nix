@@ -19,9 +19,7 @@ stdenvNoCC.mkDerivation rec {
   inherit pname version;
 
   src = fetchzip {
-    url = "http://software.sil.org/downloads/r/scheherazade/Scheherazade${
-        lib.optionalString new "New"
-      }-${version}.zip";
+    url = "http://software.sil.org/downloads/r/scheherazade/Scheherazade${lib.optionalString new "New"}-${version}.zip";
     inherit hash;
   };
 

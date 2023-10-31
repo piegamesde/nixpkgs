@@ -11386,9 +11386,7 @@ let
       sources."@jridgewell/set-array-1.1.2"
       sources."@jridgewell/source-map-0.3.3"
       sources."@jridgewell/sourcemap-codec-1.4.15"
-      (
-        sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; }
-      )
+      (sources."@jridgewell/trace-mapping-0.3.18" // { dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ]; })
       sources."@leichtgewicht/ip-codec-2.0.4"
       (sources."@mui/base-5.0.0-alpha.127" // { dependencies = [ sources."react-is-18.2.0" ]; })
       sources."@mui/core-downloads-tracker-5.12.2"

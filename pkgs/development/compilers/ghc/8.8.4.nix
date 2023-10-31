@@ -35,8 +35,7 @@
   ,
   # If enabled, GHC will be built with the GPL-free but slower integer-simple
   # library instead of the faster but GPLed integer-gmp library.
-  enableIntegerSimple ?
-    !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp),
+  enableIntegerSimple ? !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp),
   gmp
 
   ,
@@ -58,9 +57,8 @@
   ,
   # What flavour to build. An empty string indicates no
   # specific flavour and falls back to ghc default values.
-  ghcFlavour ? lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
-    if useLLVM then "perf-cross" else "perf-cross-ncg"
-  )
+  ghcFlavour ?
+    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (if useLLVM then "perf-cross" else "perf-cross-ncg")
 
   ,
   #  Whether to build sphinx documentation.

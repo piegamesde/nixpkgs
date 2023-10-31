@@ -122,8 +122,7 @@ let
         mathcomp.field
         mathcomp-bigenough
       ];
-      intra-deps =
-        if package == "single" then [ ] else map mathcomp_ (head (splitList (lib.pred.equal package) packages));
+      intra-deps = if package == "single" then [ ] else map mathcomp_ (head (splitList (lib.pred.equal package) packages));
       pkgpath =
         if package == "single" then
           "."

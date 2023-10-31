@@ -9,8 +9,7 @@ with lib;
 
 let
   cfg = config.xdg.mime;
-  associationOptions =
-    with types; attrsOf (coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str);
+  associationOptions = with types; attrsOf (coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str);
 in
 
 {

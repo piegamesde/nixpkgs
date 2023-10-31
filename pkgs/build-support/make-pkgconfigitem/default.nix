@@ -48,8 +48,7 @@ let
   renderVariable =
     name: value: lib.optionalString (value != "" && value != [ ]) "${name}=${replacePlaceholderAndListToString value}";
   renderKeyword =
-    name: value:
-    lib.optionalString (value != "" && value != [ ]) "${name}: ${replacePlaceholderAndListToString value}";
+    name: value: lib.optionalString (value != "" && value != [ ]) "${name}: ${replacePlaceholderAndListToString value}";
 
   renderSomething =
     renderFunc: attrs:

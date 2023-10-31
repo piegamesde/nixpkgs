@@ -50,10 +50,7 @@ let
 
   eventToShellCmds =
     event:
-    if builtins.hasAttr event cfg.hooks then
-      (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks))
-    else
-      "";
+    if builtins.hasAttr event cfg.hooks then (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks)) else "";
 
   scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; } (
     ''

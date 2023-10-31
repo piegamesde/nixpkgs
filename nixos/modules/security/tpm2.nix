@@ -158,10 +158,7 @@ in
             (
               _:
               "${cfg.tctiEnvironment.interface}:${
-                if cfg.tctiEnvironment.interface == "tabrmd" then
-                  cfg.tctiEnvironment.tabrmdConf
-                else
-                  cfg.tctiEnvironment.deviceConf
+                if cfg.tctiEnvironment.interface == "tabrmd" then cfg.tctiEnvironment.tabrmdConf else cfg.tctiEnvironment.deviceConf
               }"
             )
         );

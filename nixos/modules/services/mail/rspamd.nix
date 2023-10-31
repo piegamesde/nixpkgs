@@ -295,10 +295,9 @@ let
     };
 
   configOverrides =
-    (mapAttrs'
-      (n: v: nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; })
-      (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
-    )
+    (mapAttrs' (n: v: nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }) (
+      filterAttrs (n: v: v.extraConfig != "") cfg.workers
+    ))
     // (if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; });
 in
 

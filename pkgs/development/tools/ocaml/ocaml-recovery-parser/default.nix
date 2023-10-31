@@ -9,8 +9,7 @@
   gitUpdater,
 }:
 
-lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
-  "ocaml-recovery-parser is not available for OCaml ${ocaml.version}"
+lib.throwIf (lib.versionAtLeast ocaml.version "5.0") "ocaml-recovery-parser is not available for OCaml ${ocaml.version}"
 
   buildDunePackage
   rec {

@@ -85,10 +85,8 @@ makeSetupHook
             in
             testLib.runTest "basic-contains-dconf" (
               testLib.skip stdenv.isDarwin ''
-                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GIO_EXTRA_MODULES"
-                  "${dconf.lib}/lib/gio/modules"}
-                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GIO_EXTRA_MODULES"
-                  "${dconf.lib}/lib/gio/modules"}
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GIO_EXTRA_MODULES" "${dconf.lib}/lib/gio/modules"}
               ''
             );
 

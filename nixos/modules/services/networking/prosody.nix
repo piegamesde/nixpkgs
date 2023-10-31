@@ -907,9 +907,7 @@ in
           Component ${toLua cfg.uploadHttp.domain} "http_upload"
               http_upload_file_size_limit = ${cfg.uploadHttp.uploadFileSizeLimit}
               http_upload_expire_after = ${cfg.uploadHttp.uploadExpireAfter}
-              ${
-                lib.optionalString (cfg.uploadHttp.userQuota != null) "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"
-              }
+              ${lib.optionalString (cfg.uploadHttp.userQuota != null) "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"}
               http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
         ''}
 

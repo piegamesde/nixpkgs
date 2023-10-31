@@ -858,9 +858,7 @@ in
           description = "Mastodon web";
           environment =
             env
-            // (
-              if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); }
-            );
+            // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); });
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/puma -C config/puma.rb";
             Restart = "always";
