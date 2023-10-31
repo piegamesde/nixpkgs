@@ -12,8 +12,7 @@ import ./make-test-python.nix (
             enable = true;
             withCLI = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

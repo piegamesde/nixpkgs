@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       (cd lp_solve  && bash -x -e ${ccc})
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   installPhase = ''
     runHook preInstall

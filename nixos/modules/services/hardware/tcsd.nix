@@ -80,8 +80,7 @@ in
         type = types.str;
         description =
           lib.mdDoc
-            "PCR indices used in the TPM for firmware measurements."
-        ;
+            "PCR indices used in the TPM for firmware measurements.";
       };
 
       kernelPCRs = mkOption {
@@ -108,8 +107,7 @@ in
         default = "${cfg.stateDir}/conformance.cert";
         defaultText =
           literalExpression
-            ''"''${config.${opt.stateDir}}/conformance.cert"''
-        ;
+            ''"''${config.${opt.stateDir}}/conformance.cert"'';
         type = types.path;
         description = lib.mdDoc ''
           Path to the conformance credential for your TPM.
@@ -120,8 +118,7 @@ in
         default = "${cfg.stateDir}/endorsement.cert";
         defaultText =
           literalExpression
-            ''"''${config.${opt.stateDir}}/endorsement.cert"''
-        ;
+            ''"''${config.${opt.stateDir}}/endorsement.cert"'';
         type = types.path;
         description = lib.mdDoc ''
           Path to the endorsement credential for your TPM.

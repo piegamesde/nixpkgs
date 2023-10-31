@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
       [
         # configure.ac uses pkg-config only to locate libopusfile
         pkg-config
-      ]
-  ;
+      ];
 
   patches = [ ./0001-musl-rewind-pipe-workaround.patch ];
 

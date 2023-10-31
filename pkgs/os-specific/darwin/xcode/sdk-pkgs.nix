@@ -55,8 +55,7 @@ rec {
     })
     // {
       inherit sdk;
-    }
-  ;
+    };
 
   libraries =
     let
@@ -74,6 +73,5 @@ rec {
             exit 1
         fi
         ln -s ${sdk}/usr $out
-      ''
-  ;
+      '';
 }

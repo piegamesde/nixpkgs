@@ -38,8 +38,7 @@ buildPythonPackage rec {
     ++ lib.optionals (!stdenv.isDarwin && stdenv.isAarch64) [
       gcc10
       perl
-    ]
-  ;
+    ];
 
   dontUseCmakeConfigure = true;
 

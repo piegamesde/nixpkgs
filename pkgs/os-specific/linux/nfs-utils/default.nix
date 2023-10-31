@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
           url = "https://raw.githubusercontent.com/alpinelinux/aports/cb880042d48d77af412d4688f24b8310ae44f55f/main/nfs-utils/musl-getservbyport.patch";
           sha256 = "1fqws9dz8n1d9a418c54r11y3w330qgy2652dpwcy96cm44sqyhf";
         })
-      ]
-  ;
+      ];
 
   postPatch = ''
     patchShebangs tests

@@ -133,8 +133,7 @@ let
         let
           pos =
             builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name")
-              attrs
-          ;
+              attrs;
         in
         if pos == null then
           ""
@@ -147,8 +146,7 @@ let
         let
           len = lib.max (lib.stringLength name) (lib.stringLength against);
         in
-        lib.strings.fixedWidthString len " " name
-      ;
+        lib.strings.fixedWidthString len " " name;
 
       throwMismatch =
         drv:
@@ -183,8 +181,7 @@ let
                   } ] }" ];
 
           ${optionalLocation}
-        ''
-      ;
+        '';
 
       checkDrv =
         drv:
@@ -195,8 +192,7 @@ let
       ;
     in
     inputs:
-    builtins.map (checkDrv) inputs
-  ;
+    builtins.map (checkDrv) inputs;
 
   # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
   self = toPythonModule (
@@ -297,8 +293,7 @@ let
         # Python packages built through cross-compilation are always for the host platform.
         disallowedReferences =
           lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
-            [ python.pythonForBuild ]
-        ;
+            [ python.pythonForBuild ];
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 
@@ -326,8 +321,7 @@ let
     attrs.passthru.updateScript or [
       update-python-libraries
       filename
-    ]
-  ;
+    ];
 in
 lib.extendDerivation
   (disabled -> throw "${name} not supported for interpreter ${python.executable}")

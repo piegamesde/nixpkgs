@@ -133,8 +133,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       xar
       cpio
-    ]
-  ;
+    ];
 
   installPhase = ''
     runHook preInstall

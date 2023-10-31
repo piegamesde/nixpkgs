@@ -37,8 +37,7 @@ mkCoqDerivation {
         ];
         out = "2.0";
       } ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [
     mathcomp.algebra

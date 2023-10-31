@@ -30,8 +30,7 @@ let
           default = [ ];
         };
       };
-    }
-  ;
+    };
 
   checkTeam =
     team: uncheckedAttrs:
@@ -53,8 +52,7 @@ let
           ];
         }).config;
     in
-    checkedAttrs
-  ;
+    checkedAttrs;
 
   checkedTeams = lib.mapAttrs checkTeam lib.teams;
 in

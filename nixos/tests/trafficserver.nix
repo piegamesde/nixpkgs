@@ -80,8 +80,7 @@ import ./make-test-python.nix (
           services.udev.extraRules = ''
             KERNEL=="vdb", OWNER="${user}", GROUP="${group}"
           '';
-        }
-      ;
+        };
 
       httpbin =
         { pkgs, lib, ... }:
@@ -106,8 +105,7 @@ import ./make-test-python.nix (
           };
 
           networking.firewall.allowedTCPPorts = [ 80 ];
-        }
-      ;
+        };
 
       client =
         { pkgs, lib, ... }: { environment.systemPackages = with pkgs; [ curl ]; };
@@ -198,7 +196,6 @@ import ./make-test-python.nix (
             out = json.loads(ats.succeed(f"traffic_logstats -jf {access_log_path}"))
             assert isinstance(out, dict)
             assert out["total"]["error.total"]["req"] == "0", "unexpected log stat"
-      ''
-    ;
+      '';
   }
 )

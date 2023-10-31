@@ -56,25 +56,21 @@ let
     ];
     filterDeprecated =
       bond:
-      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond)
-    ;
+      (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond);
   };
 
   bondWarnings =
     let
       oneBondWarnings =
         bondName: bond:
-        mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond)
-      ;
+        mapAttrsToList (bondText bondName) (bondDeprecation.filterDeprecated bond);
       bondText =
         bondName: optName: _:
-        "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions"
-      ;
+        "${bondName}.${optName} is deprecated, use ${bondName}.driverOptions";
     in
     {
       warnings = flatten (mapAttrsToList oneBondWarnings cfg.bonds);
-    }
-  ;
+    };
 
   normalConfig = {
     systemd.network.links =
@@ -88,11 +84,9 @@ let
               // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; }
               // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; }
             ;
-          }
-        ;
+          };
       in
-      listToAttrs (map createNetworkLink interfaces)
-    ;
+      listToAttrs (map createNetworkLink interfaces);
     systemd.services =
       let
 
@@ -156,8 +150,7 @@ let
           conflicts = [ "shutdown.target" ];
           wantedBy =
             [ "multi-user.target" ]
-            ++ optional hasDefaultGatewaySet "network-online.target"
-          ;
+            ++ optional hasDefaultGatewaySet "network-online.target";
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
 
@@ -329,8 +322,7 @@ let
                 rm -f "$state"
               fi
             '';
-          }
-        ;
+          };
 
         createTunDevice =
           i:
@@ -357,8 +349,7 @@ let
             postStop = ''
               ip link del ${i.name} || true
             '';
-          }
-        ;
+          };
 
         createBridgeDevice =
           n: v:
@@ -464,8 +455,7 @@ let
               '';
               reloadIfChanged = true;
             }
-          )
-        ;
+          );
 
         createVswitchDevice =
           n: v:
@@ -552,8 +542,7 @@ let
                 ovs-vsctl --if-exists del-br ${n} || true
               '';
             }
-          )
-        ;
+          );
 
         createBondDevice =
           n: v:
@@ -571,8 +560,7 @@ let
               partOf = [ "network-setup.service" ];
               after =
                 [ "network-pre.target" ]
-                ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces
-              ;
+                ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -592,8 +580,7 @@ let
                     // v.driverOptions
                   ;
                 in
-                concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
-                }
+                concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
 
                 # !!! There must be a better way to wait for the interface
                 while [ ! -d "/sys/class/net/${n}" ]; do sleep 0.1; done;
@@ -609,8 +596,7 @@ let
               '';
               postStop = destroyBond n;
             }
-          )
-        ;
+          );
 
         createMacvlanDevice =
           n: v:
@@ -642,8 +628,7 @@ let
                 ip link delete "${n}" || true
               '';
             }
-          )
-        ;
+          );
 
         createFouEncapsulation =
           n: v:
@@ -685,8 +670,7 @@ let
                 ip fou del ${fouSpec} || true
               '';
             }
-          )
-        ;
+          );
 
         createSitDevice =
           n: v:
@@ -728,8 +712,7 @@ let
                 ip link delete "${n}" || true
               '';
             }
-          )
-        ;
+          );
 
         createGreDevice =
           n: v:
@@ -765,8 +748,7 @@ let
                 ip link delete "${n}" || true
               '';
             }
-          )
-        ;
+          );
 
         createVlanDevice =
           n: v:
@@ -802,8 +784,7 @@ let
                 ip link delete "${n}" || true
               '';
             }
-          )
-        ;
+          );
       in
       listToAttrs (
         map configureAddrs interfaces

@@ -54,8 +54,7 @@ stdenv.mkDerivation {
       libpng
       libGLU
       libGL
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "http://armagetronad.org";

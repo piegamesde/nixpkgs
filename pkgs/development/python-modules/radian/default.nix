@@ -49,8 +49,7 @@ buildPythonPackage rec {
         reticulate
         askpass
       ]
-    )
-  ;
+    );
 
   nativeCheckInputs = [
     pytestCheckHook

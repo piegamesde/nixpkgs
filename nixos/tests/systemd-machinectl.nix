@@ -56,8 +56,7 @@ import ./make-test-python.nix (
             ];
           overrideStrategy = "asDropin";
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

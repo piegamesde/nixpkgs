@@ -51,8 +51,7 @@ import ./make-test-python.nix (
       pkgs.runCommand "mpitest" { } ''
         mkdir -p $out/bin
         ${pkgs.openmpi}/bin/mpicc ${mpitestC} -o $out/bin/mpitest
-      ''
-    ;
+      '';
   in
   {
     name = "slurm";
@@ -70,8 +69,7 @@ import ./make-test-python.nix (
             services.slurm = {
               client.enable = true;
             };
-          }
-        ;
+          };
       in
       {
 
@@ -82,8 +80,7 @@ import ./make-test-python.nix (
             services.slurm = {
               server.enable = true;
             };
-          }
-        ;
+          };
 
         submit =
           { ... }:
@@ -92,8 +89,7 @@ import ./make-test-python.nix (
             services.slurm = {
               enableStools = true;
             };
-          }
-        ;
+          };
 
         dbd =
           { pkgs, ... }:
@@ -130,14 +126,12 @@ import ./make-test-python.nix (
                 innodb_lock_wait_timeout = 900;
               };
             };
-          }
-        ;
+          };
 
         node1 = computeNode;
         node2 = computeNode;
         node3 = computeNode;
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

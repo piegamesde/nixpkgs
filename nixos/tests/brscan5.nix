@@ -27,8 +27,7 @@ import ./make-test-python.nix (
             };
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       import re

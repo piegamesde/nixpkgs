@@ -23,8 +23,7 @@ let
           </property>
         '')
         configAttr
-    ))
-  ;
+    ));
 
   configFile = pkgs.writeText "hbase-site.xml" ''
     <configuration>
@@ -118,8 +117,7 @@ in
               int
               bool
             ]
-          )
-        ;
+          );
         default = {
           "hbase.rootdir" = "file://${cfg.dataDir}/hbase";
           "hbase.zookeeper.property.dataDir" = "${cfg.dataDir}/zookeeper";

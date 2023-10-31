@@ -51,8 +51,7 @@ in
               name = x.name;
               filename = x;
             })
-            cfg.DBs
-        ;
+            cfg.DBs;
       };
     in
     mkIf cfg.enable {
@@ -82,6 +81,5 @@ in
         serviceConfig.Type = "forking";
         script = "${pkgs.dict}/sbin/dictd -s -c ${dictdb}/share/dictd/dictd.conf --locale en_US.UTF-8";
       };
-    }
-  ;
+    };
 }

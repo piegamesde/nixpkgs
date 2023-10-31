@@ -33,8 +33,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
 
       local_router =
         { pkgs, lib, ... }:
@@ -97,8 +96,7 @@ import ./make-test-python.nix (
               redistribute local deny
             '';
           };
-        }
-      ;
+        };
       remote_router =
         { pkgs, lib, ... }:
         {
@@ -160,8 +158,7 @@ import ./make-test-python.nix (
               redistribute local deny
             '';
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

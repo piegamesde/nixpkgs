@@ -27,8 +27,7 @@ stdenv.mkDerivation {
 
   buildInputs =
     [ oracle-instantclient ]
-    ++ lib.optionals stdenv.isLinux [ libaio ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ libaio ];
 
   dontPatchELF = true;
   makeFlags = [

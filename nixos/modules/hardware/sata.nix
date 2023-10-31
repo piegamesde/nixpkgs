@@ -22,8 +22,7 @@ let
       ''ENV{ID_${lib.toUpper d.idBy}}=="${d.name}"''
       ''TAG+="systemd"''
       ''ENV{SYSTEMD_WANTS}="${unitName d}"''
-    ]
-  ;
+    ];
 
   devicePath = device: "/dev/disk/by-${device.idBy}/${device.name}";
 

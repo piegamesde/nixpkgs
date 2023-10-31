@@ -162,8 +162,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useNvidia [
       "CONF_LDPATH_NVIDIA=${nvidiaLibs}"
       "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
-    ]
-  ;
+    ];
 
   CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
 

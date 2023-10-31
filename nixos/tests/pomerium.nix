@@ -32,8 +32,7 @@ import ./make-test-python.nix (
                 prefixLength = 24;
               } ];
             };
-          }
-        ;
+          };
       in
       {
         pomerium =
@@ -74,8 +73,7 @@ import ./make-test-python.nix (
                 IDP_CLIENT_SECRET=dummy
               '';
             };
-          }
-        ;
+          };
         backend =
           { pkgs, lib, ... }:
           {
@@ -103,10 +101,8 @@ import ./make-test-python.nix (
                 echo hello I am login page >"$out/auth.txt"
               '';
             };
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript =
       { ... }:
@@ -135,7 +131,6 @@ import ./make-test-python.nix (
               # check for a string that only appears if the UI is displayed correctly
                 "chromium --no-sandbox --headless --disable-gpu --dump-dom --host-resolver-rules='MAP login.required 127.0.0.1:80' http://login.required/.pomerium | grep 'contact your administrator'"
             )
-      ''
-    ;
+      '';
   }
 )

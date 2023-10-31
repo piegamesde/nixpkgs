@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
         cd "$exampleDirWritable"
         ${raspa}/bin/simulate
         touch "$out"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A general purpose classical molecular simulation package";

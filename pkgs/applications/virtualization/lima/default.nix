@@ -31,8 +31,7 @@ buildGoModule rec {
     ++ lib.optionals stdenv.isDarwin [
       xcbuild.xcrun
       sigtool
-    ]
-  ;
+    ];
 
   # clean fails with read only vendor dir
   postPatch = ''

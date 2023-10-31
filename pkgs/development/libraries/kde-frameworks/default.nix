@@ -56,8 +56,7 @@ let
         }:
         mkDerivation
       )
-      { }
-  ;
+      { };
 
   packages =
     self:
@@ -80,11 +79,9 @@ let
                       propagatedBuildInputs="''${propagatedBuildInputs-} @dev@"
                   fi
               fi
-            ''
-          ;
+            '';
         in
-        callPackage setupHook { }
-      ;
+        callPackage setupHook { };
 
       propagateBin = propagate "bin";
 
@@ -135,8 +132,7 @@ let
                 version
               ;
             }
-          )
-        ;
+          );
       };
     in
     {
@@ -232,7 +228,6 @@ let
       kmediaplayer = callPackage ./kmediaplayer.nix { };
       kross = callPackage ./kross.nix { };
       kxmlrpcclient = callPackage ./kxmlrpcclient.nix { };
-    }
-  ;
+    };
 in
 lib.makeScope libsForQt5.newScope packages

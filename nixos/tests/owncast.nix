@@ -19,8 +19,7 @@ import ./make-test-python.nix (
               prefixLength = 24;
             } ];
           };
-        }
-      ;
+        };
       server =
         { pkgs, ... }:
         with pkgs.lib; {
@@ -44,8 +43,7 @@ import ./make-test-python.nix (
             enable = true;
             listen = "0.0.0.0";
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

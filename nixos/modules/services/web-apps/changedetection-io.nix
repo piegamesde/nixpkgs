@@ -170,8 +170,7 @@ in
         tmpfiles.rules = mkIf defaultStateDir [
           "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
         ];
-      }
-    ;
+      };
 
     users = {
       users = optionalAttrs (cfg.user == "changedetection-io") {

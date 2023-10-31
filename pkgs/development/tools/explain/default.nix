@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
           name = fname;
           url = "${debian-src}/libe/libexplain/${debian-ver}/debian/patches/${fname}";
           hash = hash;
-        }
-      ;
+        };
     in
     [
       (debian-patch "sanitize-bison.patch"
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
       (debian-patch "gcc-10.patch"
         "sha256-YNcYGyOOqPUuwpUpXGcR7zsWbepVg8SAqcVKlxENSQk="
       )
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     libtool

@@ -79,8 +79,7 @@ in
       mkIf (!config.boot.initrd.systemd.enable)
         ''
           $out/bin/openvpn --show-gateway
-        ''
-    ;
+        '';
 
     boot.initrd.network.postCommands = mkIf (!config.boot.initrd.systemd.enable) ''
       openvpn /etc/initrd.ovpn &

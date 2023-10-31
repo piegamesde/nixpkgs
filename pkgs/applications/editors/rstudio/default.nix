@@ -122,8 +122,7 @@ in
             qtwebengine
             qtwebchannel
           ]
-      )
-    ;
+      );
 
     cmakeFlags = [
       "-DRSTUDIO_TARGET=${if server then "Server" else "Desktop"}"
@@ -180,8 +179,7 @@ in
             && elem d.dictFileName (map (d: d.dictFileName) largeDicts)
           )
         )
-        hunspellDictionaries
-    ;
+        hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 
     preConfigure = ''

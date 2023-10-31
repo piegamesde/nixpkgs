@@ -121,20 +121,17 @@ in
                   type = types.nullOr path;
                   description =
                     lib.mdDoc
-                      "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`."
-                  ;
+                      "Path to serial port this printer is connected to. Leave `null` to derive it from `service.klipper.settings`.";
                 };
                 configFile = mkOption {
                   type = path;
                   description =
                     lib.mdDoc
-                      "Path to firmware config which is generated using `klipper-genconf`"
-                  ;
+                      "Path to firmware config which is generated using `klipper-genconf`";
                 };
               };
             }
-          )
-        ;
+          );
       };
     };
   };
@@ -250,10 +247,8 @@ in
                 DynamicUser = true;
                 User = "klipper";
               }
-          )
-        ;
-      }
-    ;
+          );
+      };
 
     environment.systemPackages =
       with pkgs;
@@ -287,16 +282,13 @@ in
                 klipper-firmware = firmware;
                 flashDevice =
                   default cfg.firmwares."${mcu}".serial
-                    cfg.settings."${mcu}".serial
-                ;
+                    cfg.settings."${mcu}".serial;
                 firmwareConfig = cfg.firmwares."${mcu}".configFile;
               }
             )
-            firmwares
-        ;
+            firmwares;
       in
-      [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares
-    ;
+      [ klipper-genconf ] ++ firmwareFlasher ++ attrValues firmwares;
   };
   meta.maintainers = [ maintainers.cab404 ];
 }

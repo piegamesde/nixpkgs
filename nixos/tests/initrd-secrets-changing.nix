@@ -33,8 +33,7 @@ testing.makeTest {
           "/run/keys/test" = secret2InStore;
         };
       };
-    }
-  ;
+    };
 
   testScript = ''
     start_all()

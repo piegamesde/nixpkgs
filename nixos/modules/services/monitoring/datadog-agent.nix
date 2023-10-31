@@ -45,8 +45,7 @@ let
         name = "datadog-agent/conf.d/${name}.d/conf.yaml";
         value.source = pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
       })
-      entries
-  ;
+      entries;
 
   defaultChecks = {
     disk = cfg.diskCheck;
@@ -132,8 +131,7 @@ in
     hostname = mkOption {
       description =
         lib.mdDoc
-          "The hostname to show in the Datadog dashboard (optional)"
-      ;
+          "The hostname to show in the Datadog dashboard (optional)";
       default = null;
       example = "mymachine.mydomain";
       type = types.nullOr types.str;
@@ -301,8 +299,7 @@ in
               };
               restartTriggers = [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
             }
-            attrs
-        ;
+            attrs;
       in
       {
         datadog-agent = makeService {
@@ -353,8 +350,7 @@ in
             '';
           }
         );
-      }
-    ;
+      };
 
     environment.etc = etcfiles;
   };

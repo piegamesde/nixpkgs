@@ -22,8 +22,7 @@
           type = "jar";
           sha512 = "36vir8jja85cg7khaf2qjln7m8q5iq0n43vvkxkwwngv67ffpvqqz6j1fscvl16hzb0nf6j9gzkcrgk3mk9jl49vrj3fw7c173m4xzb";
         }
-      ]
-  ;
+      ];
 
   classworlds_1_1 =
     map
@@ -46,6 +45,5 @@
           type = "jar";
           sha512 = "1cs8v7hhbgwfmlx4dm7r78mki5vk0gjn798qy4w1qzkz90hf9yl52srpjair2fg96qsmk22nd73r92vdmjji65l75ji3kfghzx9872x";
         }
-      ]
-  ;
+      ];
 }

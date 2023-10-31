@@ -73,8 +73,7 @@ let
         mesa
         libGL
       ]
-    )
-  ;
+    );
 
   self = stdenv.mkDerivation {
     name = "nvidia-x11-${version}${nameSuffix}";
@@ -185,20 +184,17 @@ let
               broken = brokenOpen;
             }
           )
-          openSha256
-      ;
+          openSha256;
       settings =
         (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
           (import ./settings.nix self settingsSha256)
           {
             withGtk2 = preferGtk2;
             withGtk3 = !preferGtk2;
-          }
-      ;
+          };
       persistenced =
         mapNullable (hash: callPackage (import ./persistenced.nix self hash) { })
-          persistencedSha256
-      ;
+          persistencedSha256;
       inherit persistencedVersion settingsVersion;
       compressFirmware = false;
       ibtSupport = ibtSupport || (lib.versionAtLeast version "530");

@@ -43,8 +43,7 @@ python3.pkgs.buildPythonApplication rec {
         selenium
         tabulate
       ]
-    )
-  ;
+    );
 
   preFixup = ''
     wrapQtApp "$out/bin/anime" --prefix PATH : ${

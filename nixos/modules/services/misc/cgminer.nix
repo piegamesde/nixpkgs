@@ -13,8 +13,7 @@ let
   convType = with builtins; v: if isBool v then boolToString v else toString v;
   mergedHwConfig =
     mapAttrsToList (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'')
-      (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware)
-  ;
+      (foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
   mergedConfig =
     with builtins;
     mapAttrsToList
@@ -25,8 +24,7 @@ let
             if isBool v then "" else ''"''
           }''
       )
-      cfg.config
-  ;
+      cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {

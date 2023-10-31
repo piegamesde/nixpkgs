@@ -60,8 +60,7 @@ mkDerivation rec {
         gstreamer
         gst-plugins-base
       ]
-    )
-  ;
+    );
 
   unpackPhase = ''
     rpmextract $src

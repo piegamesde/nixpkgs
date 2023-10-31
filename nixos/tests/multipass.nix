@@ -24,8 +24,7 @@ import ./make-test-python.nix (
 
           multipass.enable = true;
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("sockets.target")

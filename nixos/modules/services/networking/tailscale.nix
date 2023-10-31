@@ -26,8 +26,7 @@ in
       default = 41641;
       description =
         lib.mdDoc
-          "The port to listen on for tunnel traffic (0=autoselect)."
-      ;
+          "The port to listen on for tunnel traffic (0=autoselect).";
     };
 
     interfaceName = mkOption {
@@ -36,8 +35,7 @@ in
       description =
         lib.mdDoc
           ''
-            The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.''
-      ;
+            The interface name for tunnel traffic. Use "userspace-networking" (beta) to not use TUN.'';
     };
 
     permitCertUid = mkOption {
@@ -45,8 +43,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node."
-      ;
+          "Username or user ID of the user allowed to to fetch Tailscale TLS certificates for the node.";
     };
 
     package = mkOption {
@@ -93,8 +90,7 @@ in
         ]
         ++ (lib.optionals (cfg.permitCertUid != null) [
           "TS_PERMIT_CERT_UID=${cfg.permitCertUid}"
-        ])
-      ;
+        ]);
       # Restart tailscaled with a single `systemctl restart` at the
       # end of activation, rather than a `stop` followed by a later
       # `start`. Activation over Tailscale can hang for tens of
@@ -114,13 +110,11 @@ in
         {
           "net.ipv4.conf.all.forwarding" = mkOverride 97 true;
           "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
-        }
-    ;
+        };
 
     networking.firewall.checkReversePath =
       mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
-        "loose"
-    ;
+        "loose";
 
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 

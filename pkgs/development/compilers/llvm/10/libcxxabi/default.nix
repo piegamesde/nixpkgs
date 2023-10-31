@@ -47,8 +47,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ cmake ];
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
-      libunwind
-  ;
+      libunwind;
 
   cmakeFlags =
     lib.optionals (stdenv.hostPlatform.useLLVM or false) [

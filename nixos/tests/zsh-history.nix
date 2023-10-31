@@ -15,8 +15,7 @@ import ./make-test-python.nix (
           source ${pkgs.zsh-history.out}/share/zsh/init.zsh
         '';
         users.users.root.shell = "${pkgs.zsh}/bin/zsh";
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

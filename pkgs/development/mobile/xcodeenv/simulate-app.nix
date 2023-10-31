@@ -15,8 +15,7 @@ assert app != null -> bundleId != null;
 let
   xcodewrapperArgs =
     builtins.intersectAttrs (builtins.functionArgs composeXcodeWrapper)
-      args
-  ;
+      args;
 
   xcodewrapper = composeXcodeWrapper xcodewrapperArgs;
 in

@@ -241,8 +241,7 @@ let
             substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
               --replace kAudioObjectPropertyElement{Main,Master} \
               --replace kAudioHardwareServiceDeviceProperty_Virtual{Main,Master}Volume
-          ''
-      ;
+          '';
 
       # Otherwise, the meson log says:
       #
@@ -295,8 +294,7 @@ let
           files while being controlled by its network protocol.
         '';
       };
-    }
-  ;
+    };
 in
 {
   mpd = run { };

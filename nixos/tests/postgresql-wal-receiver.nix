@@ -70,10 +70,8 @@ let
             # default 60sec is fine for real system, but is too much for a test
             systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec =
               lib.mkForce
-                5
-            ;
-          }
-        ;
+                5;
+          };
 
         testScript = ''
           # make an initial base backup
@@ -121,8 +119,7 @@ let
               "test $(sudo -u postgres psql --pset='pager=off' --tuples-only --command='select count(distinct val) from dummy;') -eq 100"
           )
         '';
-      }
-    ;
+      };
   };
 in
 # Maps the generic function over all attributes of PostgreSQL packages

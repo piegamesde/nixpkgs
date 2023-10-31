@@ -29,13 +29,11 @@ import ../make-test-python.nix (
               locations."/" = {
                 index = "index.php index.html";
               };
-            }
-          ;
+            };
           phpPackage = php;
           enablePHP = true;
         };
-      }
-    ;
+      };
     testScript =
       { ... }:
       ''
@@ -48,7 +46,6 @@ import ../make-test-python.nix (
         # Check so we have database and some other extensions loaded
         for ext in ["json", "opcache", "pdo_mysql", "pdo_pgsql", "pdo_sqlite"]:
             assert ext in response, f"Missing {ext} extension"
-      ''
-    ;
+      '';
   }
 )

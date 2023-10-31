@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
               ]
         )
       }"
-    ]
-  ;
+    ];
 
   doCheck = true;
 

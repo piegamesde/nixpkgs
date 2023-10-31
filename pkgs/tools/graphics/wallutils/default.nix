@@ -60,8 +60,7 @@ buildGoModule rec {
       export XDG_RUNTIME_DIR=`mktemp -d`
 
       buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    ''
-  ;
+    '';
 
   meta = {
     description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";

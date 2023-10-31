@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
         CoreFoundation
         Security
       ]
-    )
-  ;
+    );
 
   postInstall =
     ''

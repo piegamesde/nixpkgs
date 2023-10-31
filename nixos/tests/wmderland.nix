@@ -36,11 +36,9 @@ import ./make-test-python.nix (
             ''
               mkdir -p $HOME/.config/wmderland
               cp ${config} $HOME/.config/wmderland/config
-            ''
-          ;
+            '';
         };
-      }
-    ;
+      };
 
     testScript =
       { ... }:
@@ -61,7 +59,6 @@ import ./make-test-python.nix (
             machine.succeed("pgrep xterm")
             machine.execute("DISPLAY=:0 wmderlandc kill")
             machine.fail("pgrep xterm")
-      ''
-    ;
+      '';
   }
 )

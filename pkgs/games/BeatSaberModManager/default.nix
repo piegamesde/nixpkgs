@@ -32,8 +32,7 @@ buildDotnetModule rec {
     combinePackages [
       sdk_7_0
       sdk_6_0
-    ]
-  ;
+    ];
 
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 

@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
         libXxf86vm
         libXext
       ]
-    )
-  ;
+    );
 
   dontWrapGApps = true; # We also need zenity (see below)
 

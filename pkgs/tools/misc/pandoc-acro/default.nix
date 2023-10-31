@@ -53,8 +53,7 @@ buildPythonApplication {
         -T txt -o $out/example.txt
 
       ! grep -q "\+afaik" $out/example.txt
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://pypi.org/project/pandoc-acro/";

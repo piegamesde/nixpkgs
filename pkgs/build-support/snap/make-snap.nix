@@ -47,8 +47,7 @@ let
         }
       ;
     in
-    writeText "snap.yaml" (builtins.toJSON (validate meta))
-  ;
+    writeText "snap.yaml" (builtins.toJSON (validate meta));
 
   # These are specifically required by snapd, so don't change them
   # unless you've verified snapcraft / snapd can handle them. Best bet

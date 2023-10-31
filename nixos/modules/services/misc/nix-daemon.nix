@@ -101,8 +101,7 @@ let
             set -o pipefail
           ''
       );
-    }
-  ;
+    };
 
   legacyConfMappings = {
     useSandbox = "sandbox";
@@ -135,11 +134,9 @@ let
         )
         // {
           description = "Nix config atom (null, bool, int, float, str, path or package)";
-        }
-      ;
+        };
     in
-    attrsOf (either confAtom (listOf confAtom))
-  ;
+    attrsOf (either confAtom (listOf confAtom));
 in
 
 {
@@ -213,8 +210,7 @@ in
           ];
         }
       )
-      legacyConfMappings
-  ;
+      legacyConfMappings;
 
   ###### interface
 
@@ -527,8 +523,7 @@ in
                     path
                     package
                   ]
-                )
-              ;
+                );
             in
             { config, name, ... }:
             {
@@ -866,8 +861,7 @@ in
             ))
             + "\n"
           )
-          cfg.buildMachines
-      ;
+          cfg.buildMachines;
     };
 
     assertions =
@@ -887,8 +881,7 @@ in
             map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
           ))
         ;
-      } ]
-    ;
+      } ];
 
     systemd.packages = [ nixPackage ];
 
@@ -995,8 +988,7 @@ in
           if [ ! -e "/root/.nix-channels" ]; then
               echo "${config.system.defaultChannel} nixos" > "/root/.nix-channels"
           fi
-        ''
-    ;
+        '';
 
     # Legacy configuration conversion.
     nix.settings = mkMerge [

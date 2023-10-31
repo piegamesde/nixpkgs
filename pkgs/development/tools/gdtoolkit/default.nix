@@ -42,8 +42,7 @@ python3Packages.buildPythonApplication rec {
         pyyaml
         setuptools
       ]
-    )
-  ;
+    );
 
   doCheck = true;
 
@@ -79,8 +78,7 @@ python3Packages.buildPythonApplication rec {
       # Remove broken test case
       # (hard to skip via disabledTests since the test name contains an absolute path)
       rm tests/potential-godot-bugs/multiline-subscription-expression.gd
-    ''
-  ;
+    '';
 
   pythonImportsCheck = [
     "gdtoolkit"

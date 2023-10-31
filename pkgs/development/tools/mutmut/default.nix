@@ -43,7 +43,6 @@ let
         license = licenses.bsd3;
         maintainers = with maintainers; [ synthetica ];
       };
-    }
-  ;
+    };
 in
 self

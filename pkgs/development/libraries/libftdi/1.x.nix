@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals pythonSupport [
       "-DPYTHON_EXECUTABLE=${python3.pythonForBuild.interpreter}"
       "-DPYTHON_LIBRARY=${python3}/lib/libpython${python3.pythonVersion}${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ libusb1 ];
 

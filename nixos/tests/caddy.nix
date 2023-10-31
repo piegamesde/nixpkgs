@@ -56,8 +56,7 @@ import ./make-test-python.nix (
               "http://localhost:8081" = { };
             };
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -112,7 +111,6 @@ import ./make-test-python.nix (
             )
             webserver.wait_for_open_port(8080)
             webserver.wait_for_open_port(8081)
-      ''
-    ;
+      '';
   }
 )

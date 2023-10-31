@@ -22,8 +22,7 @@ mkCoqDerivation {
           out = "20181102";
         }
       ]
-      null
-  ;
+      null;
   release."20210328".rev = "179bd5312e9d8b63fc3f4071c628cddfc496d741";
   release."20210328".sha256 = "sha256:1y5r1zm3hli10ah6lnj7n8hxad6rb6rgldd0g7m2fjibzvwqzhdg";
   release."20181102".rev = "82a85b7ec07e71fa6b30cfc05f6a7bfb09ef2510";

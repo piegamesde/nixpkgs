@@ -32,8 +32,7 @@ let
           description = lib.mdDoc "Extra SSL configuration options.";
         };
       };
-    }
-  ;
+    };
 
   discoOpts = {
     options = {
@@ -45,8 +44,7 @@ let
         type = types.str;
         description =
           lib.mdDoc
-            "A short description of the endpoint you want to advertise"
-        ;
+            "A short description of the endpoint you want to advertise";
       };
     };
   };
@@ -64,8 +62,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Authentication for clients and servers. Recommended if you want to log in."
-      ;
+          "Authentication for clients and servers. Recommended if you want to log in.";
     };
 
     tls = mkOption {
@@ -98,8 +95,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Implements the CSI protocol that allows clients to report their active/inactive state to the server"
-      ;
+          "Implements the CSI protocol that allows clients to report their active/inactive state to the server";
     };
 
     cloud_notify = mkOption {
@@ -107,8 +103,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online"
-      ;
+          "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online";
     };
 
     pep = mkOption {
@@ -116,8 +111,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Enables users to publish their mood, activity, playing music and more"
-      ;
+          "Enables users to publish their mood, activity, playing music and more";
     };
 
     private = mkOption {
@@ -143,8 +137,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Converts users profiles and Avatars between old and new formats"
-      ;
+          "Converts users profiles and Avatars between old and new formats";
     };
 
     bookmarks = mkOption {
@@ -152,8 +145,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP"
-      ;
+          "Allows interop between older clients that use XEP-0048: Bookmarks in its 1.0 version and recent clients which use it in PEP";
     };
 
     # Nice to have
@@ -186,8 +178,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Allow users to register on this server using a client and change passwords"
-      ;
+          "Allow users to register on this server using a client and change passwords";
     };
 
     mam = mkOption {
@@ -195,8 +186,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Store messages in an archive and allow users to access it"
-      ;
+          "Store messages in an archive and allow users to access it";
     };
 
     smacks = mkOption {
@@ -204,8 +194,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Allow a client to resume a disconnected session, and prevent message loss"
-      ;
+          "Allow a client to resume a disconnected session, and prevent message loss";
     };
 
     # Admin interfaces
@@ -214,8 +203,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Allows administration via an XMPP client that supports ad-hoc commands"
-      ;
+          "Allows administration via an XMPP client that supports ad-hoc commands";
     };
 
     http_files = mkOption {
@@ -229,8 +217,7 @@ let
       default = true;
       description =
         lib.mdDoc
-          "Enables a file transfer proxy service which clients behind NAT can use"
-      ;
+          "Enables a file transfer proxy service which clients behind NAT can use";
     };
 
     admin_telnet = mkOption {
@@ -300,8 +287,7 @@ let
       default = false;
       description =
         lib.mdDoc
-          "Legacy authentication. Only used by some old clients and bots"
-      ;
+          "Legacy authentication. Only used by some old clients and bots";
     };
   };
 
@@ -344,8 +330,7 @@ let
           type = types.str;
           description =
             lib.mdDoc
-              "The name to return in service discovery responses for the MUC service itself"
-          ;
+              "The name to return in service discovery responses for the MUC service itself";
           default = "Prosody Chatrooms";
         };
         restrictRoomCreation = mkOption {
@@ -363,8 +348,7 @@ let
           default = 20;
           description =
             lib.mdDoc
-              "Specifies a limit on what each room can be configured to keep"
-          ;
+              "Specifies a limit on what each room can be configured to keep";
         };
         roomLocking = mkOption {
           type = types.bool;
@@ -411,8 +395,7 @@ let
           default = true;
           description =
             lib.mdDoc
-              "Adds the ability to set vCard for Multi User Chat rooms"
-          ;
+              "Adds the ability to set vCard for Multi User Chat rooms";
         };
 
         # Extra parameters. Defaulting to prosody default values.
@@ -430,8 +413,7 @@ let
           default = false;
           description =
             lib.mdDoc
-              "If set, the MUC rooms will only be accessible to the members by default."
-          ;
+              "If set, the MUC rooms will only be accessible to the members by default.";
         };
         roomDefaultModerated = mkOption {
           type = types.bool;
@@ -443,24 +425,21 @@ let
           default = false;
           description =
             lib.mdDoc
-              "If set, the MUC rooms will display the public JIDs by default."
-          ;
+              "If set, the MUC rooms will display the public JIDs by default.";
         };
         roomDefaultChangeSubject = mkOption {
           type = types.bool;
           default = false;
           description =
             lib.mdDoc
-              "If set, the rooms will display the public JIDs by default."
-          ;
+              "If set, the rooms will display the public JIDs by default.";
         };
         roomDefaultHistoryLength = mkOption {
           type = types.int;
           default = 20;
           description =
             lib.mdDoc
-              "Number of history message sent to participants by default."
-          ;
+              "Number of history message sent to participants by default.";
         };
         roomDefaultLanguage = mkOption {
           type = types.str;
@@ -473,8 +452,7 @@ let
           description = lib.mdDoc "Additional MUC specific configuration";
         };
       };
-    }
-  ;
+    };
 
   uploadHttpOpts =
     { ... }:
@@ -513,8 +491,7 @@ let
           default = "/var/lib/prosody";
         };
       };
-    }
-  ;
+    };
 
   vHostOpts =
     { ... }:
@@ -546,8 +523,7 @@ let
           description = lib.mdDoc "Additional virtual host specific configuration";
         };
       };
-    }
-  ;
+    };
 in
 
 {
@@ -860,8 +836,7 @@ in
           }
         ];
       in
-      errors
-    ;
+      errors;
 
     environment.systemPackages = [ cfg.package ];
 
@@ -887,8 +862,7 @@ in
               ++ acc
             )
             [ ]
-            cfg.muc
-        ;
+            cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
       ''
@@ -998,8 +972,7 @@ in
             '')
             cfg.virtualHosts
         )}
-      ''
-    ;
+      '';
 
     users.users.prosody = mkIf (cfg.user == "prosody") {
       uid = config.ids.uids.prosody;

@@ -34,8 +34,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the Radarr web interface."
-        ;
+            "Open ports in the firewall for the Radarr web interface.";
       };
 
       user = mkOption {

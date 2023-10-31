@@ -71,12 +71,10 @@ let
                   envs = partition (hasPrefix "PATH=") (c.env or [ ]);
                   oldPaths =
                     map (x: substring (stringLength "PATH=") (stringLength x) x)
-                      envs.right
-                  ;
+                      envs.right;
                   paths = oldPaths ++ [ "${pythonEnv}/bin" ];
                 in
-                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong
-              ;
+                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
             }
           else if isEmperor then
             {
@@ -100,8 +98,7 @@ let
         ;
       };
     in
-    pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg)
-  ;
+    pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);
 in
 {
 
@@ -149,11 +146,9 @@ in
               // {
                 description = "Json value or lambda";
                 emptyValue.value = { };
-              }
-            ;
+              };
           in
-          valueType
-        ;
+          valueType;
         default = {
           type = "normal";
         };

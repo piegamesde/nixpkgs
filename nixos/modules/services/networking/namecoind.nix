@@ -19,8 +19,7 @@ let
       (value: ''
         ${option}=${value}
       '')
-      list
-  ;
+      list;
 
   configFile = pkgs.writeText "namecoin.conf" (
     ''

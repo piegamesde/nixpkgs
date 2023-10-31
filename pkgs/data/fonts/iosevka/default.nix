@@ -76,8 +76,7 @@ buildNpmPackage rec {
       [
         # libtool
         darwin.cctools
-      ]
-  ;
+      ];
 
   buildPlan =
     if builtins.isAttrs privateBuildPlan then
@@ -96,8 +95,7 @@ buildNpmPackage rec {
           && lib.hasPrefix builtins.storeDir privateBuildPlan
         )
       )
-      [ "buildPlan" ]
-  ;
+      [ "buildPlan" ];
 
   configurePhase = ''
     runHook preConfigure

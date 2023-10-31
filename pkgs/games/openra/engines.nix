@@ -40,8 +40,7 @@ let
             ( cd $out/share/applications; sed -e 's/Dawn/Sun/g' -e 's/cnc/ts/g' openra-cnc.desktop > openra-ts.desktop )
           '';
         }
-      )
-  ;
+      );
 in
 {
   release =
@@ -53,8 +52,7 @@ in
         sha256 = "15pvn5cx3g0nzbrgpsfz8dngad5wkzp5dz25ydzn8bmxafiijvcr";
       }
       name
-    )
-  ;
+    );
 
   playtest =
     name:
@@ -65,8 +63,7 @@ in
         sha256 = "1vqvfk2p2lpk3m0d3rpvj34i8cmk3mfc7w4cn4llqd9zp4kk9pya";
       }
       name
-    )
-  ;
+    );
 
   bleed = buildUpstreamOpenRAEngine {
     version = "8ee1102";

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
       [
         # TODO: could be replaced by setting CMAKE_INSTALL_NAME_DIR?
         fixDarwinDylibNames
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Lightweight multi-platform, multi-architecture assembler framework";

@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-error=c++11-narrowing"
-  ;
+      "-Wno-error=c++11-narrowing";
 
   meta = with lib; {
     description = "Renders an image of the earth or other planets into the X root window";

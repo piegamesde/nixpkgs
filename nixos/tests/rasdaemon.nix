@@ -20,8 +20,7 @@ import ./make-test-python.nix (
                 DIMM_0: 0.0.0;
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

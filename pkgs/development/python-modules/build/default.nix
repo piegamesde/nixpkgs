@@ -70,8 +70,7 @@ buildPythonPackage rec {
       [
         # Expects Apple's Python and its quirks
         "test_can_get_venv_paths_with_conflicting_default_scheme"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "build" ];
 

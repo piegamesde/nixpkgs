@@ -119,8 +119,7 @@ rec {
           "${nginxPort}/tcp" = { };
         };
       };
-    }
-  ;
+    };
 
   # 4. example of pulling an image. could be used as a base for other images
   nixFromDockerHub = pullImage {
@@ -329,8 +328,7 @@ rec {
         mkdir -p tmp
         echo layer3 > tmp/layer3
       '';
-    }
-  ;
+    };
 
   # 15. Environment variable inheritance.
   # Child image should inherit parents environment variables,
@@ -503,8 +501,7 @@ rec {
             #!${pkgs.runtimeShell}
             echo -n "${layerName}" >> /layer-order
           '';
-        }
-      ;
+        };
       # When executing the runAsRoot script when building layer C, if layer B is
       # not unpacked on top of layer A, the contents of /layer-order will not be
       # "ABC".
@@ -512,8 +509,7 @@ rec {
       layerB = layerOnTopOf layerA "b";
       layerC = layerOnTopOf layerB "c";
     in
-    layerC
-  ;
+    layerC;
 
   # buildImage without explicit tag
   bashNoTag = pkgs.dockerTools.buildImage {
@@ -560,8 +556,7 @@ rec {
             root:x::
             ${user}:x::
           '')
-        ]
-      ;
+        ];
     in
     pkgs.dockerTools.buildLayeredImage {
       name = "bash-layered-with-user";
@@ -574,10 +569,8 @@ rec {
         ++ nonRootShadowSetup {
           uid = 999;
           user = "somebody";
-        }
-      ;
-    }
-  ;
+        };
+    };
 
   # basic example, with cross compilation
   cross =
@@ -598,8 +591,7 @@ rec {
         pathsToLink = [ "/bin" ];
         paths = [ crossPkgs.hello ];
       };
-    }
-  ;
+    };
 
   # layered image where a store path is itself a symlink
   layeredStoreSymlink =
@@ -736,8 +728,7 @@ rec {
         #!${pkgs.busybox}/bin/sh
         ${pkgs.busybox}/bin/cat /etc/some-config-file
       '';
-    }
-  ;
+    };
 
   # Example export of the bash image
   exportBash = pkgs.dockerTools.exportImage { fromImage = bash; };

@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     lib.optional stdenv.isDarwin
-      "arch=${stdenv.hostPlatform.darwinArch}"
-  ;
+      "arch=${stdenv.hostPlatform.darwinArch}";
 
   checkPhase = ''
     ./runCmdStanTests.py -j$NIX_BUILD_CORES src/test/interface

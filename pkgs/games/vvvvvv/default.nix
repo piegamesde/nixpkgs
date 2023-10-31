@@ -52,16 +52,14 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       IOKit
-    ]
-  ;
+    ];
 
   # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
 
   cmakeFlags =
     [ "-DBUNDLE_DEPENDENCIES=OFF" ]
-    ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON"
-  ;
+    ++ lib.optional makeAndPlay "-DMAKEANDPLAY=ON";
 
   desktopItems = [
     (makeDesktopItem {

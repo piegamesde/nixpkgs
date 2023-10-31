@@ -29,14 +29,12 @@ let
           mkKeyValue = generators.mkKeyValueDefault { inherit mkValueString; } " ";
         }
         settings
-    )
-  ;
+    );
 
   redisName = name: "redis" + optionalString (name != "") ("-" + name);
   enabledServers =
     filterAttrs (name: conf: conf.enable)
-      config.services.redis.servers
-  ;
+      config.services.redis.servers;
 in
 {
   imports = [
@@ -488,8 +486,7 @@ in
                     example = "debug";
                     description =
                       lib.mdDoc
-                        "Specify the server verbosity level, options: debug, verbose, notice, warning."
-                    ;
+                        "Specify the server verbosity level, options: debug, verbose, notice, warning.";
                   };
 
                   logfile = mkOption {
@@ -497,8 +494,7 @@ in
                     default = "/dev/null";
                     description =
                       lib.mdDoc
-                        "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output."
-                    ;
+                        "Specify the log file name. Also 'stdout' can be used to force Redis to log on the standard output.";
                     example = "/var/log/redis.log";
                   };
 
@@ -519,8 +515,7 @@ in
                     default = 10000;
                     description =
                       lib.mdDoc
-                        "Set the max number of connected clients at the same time."
-                    ;
+                        "Set the max number of connected clients at the same time.";
                   };
 
                   save = mkOption {
@@ -568,14 +563,12 @@ in
                             };
                           }
                         )
-                      )
-                    ;
+                      );
 
                     default = null;
                     description =
                       lib.mdDoc
-                        "IP and port to which this redis instance acts as a slave."
-                    ;
+                        "IP and port to which this redis instance acts as a slave.";
                     example = {
                       ip = "192.168.1.100";
                       port = 6379;
@@ -614,8 +607,7 @@ in
                     default = false;
                     description =
                       lib.mdDoc
-                        "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence."
-                    ;
+                        "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
                   };
 
                   appendFsync = mkOption {
@@ -623,8 +615,7 @@ in
                     default = "everysec"; # no, always, everysec
                     description =
                       lib.mdDoc
-                        "How often to fsync the append-only log, options: no, always, everysec."
-                    ;
+                        "How often to fsync the append-only log, options: no, always, everysec.";
                   };
 
                   slowLogLogSlowerThan = mkOption {
@@ -632,8 +623,7 @@ in
                     default = 10000;
                     description =
                       lib.mdDoc
-                        "Log queries whose execution take longer than X in milliseconds."
-                    ;
+                        "Log queries whose execution take longer than X in milliseconds.";
                     example = 1000;
                   };
 
@@ -654,8 +644,7 @@ in
                           str
                           (listOf str)
                         ]
-                      )
-                    ;
+                      );
                     default = { };
                     description = lib.mdDoc ''
                       Redis configuration. Refer to
@@ -708,8 +697,7 @@ in
                 ];
               }
             )
-          )
-        ;
+          );
         description = lib.mdDoc "Configuration of multiple `redis-server` instances.";
         default = { };
       };
@@ -739,8 +727,7 @@ in
 
     networking.firewall.allowedTCPPorts =
       concatMap (conf: optional conf.openFirewall conf.port)
-        (attrValues enabledServers)
-    ;
+        (attrValues enabledServers);
 
     environment.systemPackages = [ cfg.package ];
 
@@ -754,12 +741,10 @@ in
             group = redisName name;
           }
         )
-        enabledServers
-    ;
+        enabledServers;
     users.groups =
       mapAttrs' (name: conf: nameValuePair (redisName name) { })
-        enabledServers
-    ;
+        enabledServers;
 
     systemd.services =
       mapAttrs'
@@ -848,7 +833,6 @@ in
             };
           }
         )
-        enabledServers
-    ;
+        enabledServers;
   };
 }

@@ -96,8 +96,7 @@ buildPythonPackage rec {
       "test_cleanup"
       "test_with_autoscaler_file_descriptor_safety"
       "test_with_file_descriptor_safety"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "celery" ];
 

@@ -98,8 +98,7 @@ let
       installPhase = ''
         mv repo.json $out
       '';
-    }
-  ;
+    };
 
   # Reads the repo JSON. If repoXmls is provided, will build a repo JSON into the Nix store.
   repo =
@@ -134,8 +133,7 @@ let
         else
           value
       )
-      attrSet
-  ;
+      attrSet;
 
   # Converts the repo attrset into fetch calls
   packages = fetchArchives repo.packages;
@@ -163,16 +161,14 @@ let
             (mkLicenses licenseName)
         )
         licenseNames
-    )
-  ;
+    );
 
   # Converts a license name to a list of license hashes.
   mkLicenseHashes =
     licenseName:
     builtins.map (licenseText: builtins.hashString "sha1" licenseText) (
       mkLicenses licenseName
-    )
-  ;
+    );
 
   # The list of all license names we're accepting. Put android-sdk-license there
   # by default.
@@ -260,8 +256,7 @@ rec {
           '';
         }
       )
-      buildToolsVersions
-  ;
+      buildToolsVersions;
 
   emulator = callPackage ./emulator.nix {
     inherit deployAndroidPackage os;
@@ -284,8 +279,7 @@ rec {
           package = packages.platforms.${version};
         }
       )
-      platformVersions
-  ;
+      platformVersions;
 
   sources =
     map
@@ -296,8 +290,7 @@ rec {
           package = packages.sources.${version};
         }
       )
-      platformVersions
-  ;
+      platformVersions;
 
   system-images = lib.flatten (
     map
@@ -330,8 +323,7 @@ rec {
                           system-images-packages
                       )
                       abiVersions
-                  )
-              ;
+                  );
 
               instructions = builtins.listToAttrs (
                 map
@@ -369,8 +361,7 @@ rec {
           package = packages.cmake.${version};
         }
       )
-      cmakeVersions
-  ;
+      cmakeVersions;
 
   # Creates a NDK bundle.
   makeNdkBundle =
@@ -378,8 +369,7 @@ rec {
     callPackage ./ndk-bundle {
       inherit deployAndroidPackage os platform-tools;
       package = packages.ndk-bundle.${ndkVersion} or packages.ndk.${ndkVersion};
-    }
-  ;
+    };
 
   # All NDK bundles.
   ndk-bundles = lib.optionals includeNDK (map makeNdkBundle ndkVersions);
@@ -397,8 +387,7 @@ rec {
           package = addons.addons.${version}.google_apis;
         }
       )
-      (builtins.filter (platformVersion: platformVersion < "26") platformVersions)
-  ; # API level 26 and higher include Google APIs by default
+      (builtins.filter (platformVersion: platformVersion < "26") platformVersions); # API level 26 and higher include Google APIs by default
 
   google-tv-addons =
     map
@@ -409,8 +398,7 @@ rec {
           package = addons.addons.${version}.google_tv_addon;
         }
       )
-      platformVersions
-  ;
+      platformVersions;
 
   # Function that automatically links all plugins for which multiple versions can coexist
   linkPlugins =
@@ -422,8 +410,7 @@ rec {
           ln -s ${plugin}/libexec/android-sdk/${name}/* ${name}
         '')
         plugins}
-    ''
-  ;
+    '';
 
   # Function that automatically links all NDK plugins.
   linkNdkPlugins =
@@ -439,8 +426,7 @@ rec {
           ln -s ${plugin}/libexec/android-sdk/${name} ${rootName}/${plugin.version}
         '')
         plugins}
-    ''
-  ;
+    '';
 
   # Function that automatically links the default NDK plugin.
   linkNdkPlugin =
@@ -451,8 +437,7 @@ rec {
     }:
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}
-    ''
-  ;
+    '';
 
   # Function that automatically links a plugin for which only one version exists
   linkPlugin =
@@ -463,8 +448,7 @@ rec {
     }:
     lib.optionalString check ''
       ln -s ${plugin}/libexec/android-sdk/${name} ${name}
-    ''
-  ;
+    '';
 
   linkSystemImages =
     { images, check }:
@@ -478,8 +462,7 @@ rec {
           ln -s ${system-image}/libexec/android-sdk/system-images/$apiVersion/$type system-images/$apiVersion/$type
         '')
         images}
-    ''
-  ;
+    '';
 
   # Links all plugins related to a requested platform
   linkPlatformPlugins =
@@ -495,8 +478,7 @@ rec {
           ln -s ${plugin}/libexec/android-sdk/${name}/* ${name}
         '')
         plugins}
-    ''
-  ; # */
+    ''; # */
 
   # This derivation deploys the tools package and symlinks all the desired
   # plugins that we want to use. If the license isn't accepted, prints all the licenses

@@ -8,8 +8,7 @@ let
     check = email: elem email (attrValues lib.maintainers);
     merge =
       loc: defs:
-      listToAttrs (singleton (nameValuePair (last defs).file (last defs).value))
-    ;
+      listToAttrs (singleton (nameValuePair (last defs).file (last defs).value));
   };
 
   listOfMaintainers = types.listOf maintainer // {
@@ -37,8 +36,7 @@ let
             )
             defs
         )
-      )
-    ;
+      );
   };
 
   docFile = types.path // {

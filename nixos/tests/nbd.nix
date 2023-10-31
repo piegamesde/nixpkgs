@@ -18,8 +18,7 @@ import ./make-test-python.nix (
         };
         wantedBy = [ "multi-user.target" ];
         before = [ "nbd-server.service" ];
-      }
-    ;
+      };
   in
   {
     name = "nbd";
@@ -73,8 +72,7 @@ import ./make-test-python.nix (
             listenAddress = "0.0.0.0";
             listenPort = listenPort;
           };
-        }
-      ;
+        };
 
       client = { config, pkgs, ... }: { programs.nbd.enable = true; };
     };

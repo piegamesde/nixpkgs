@@ -36,8 +36,7 @@ stdenv.mkDerivation {
             + name
           ;
           inherit name hash;
-        }
-      ;
+        };
       fetchArchlinuxPatch =
         name: commit: hash:
         fetchurl {
@@ -48,8 +47,7 @@ stdenv.mkDerivation {
             + name
           ;
           inherit name hash;
-        }
-      ;
+        };
     in
     [
       ./gcc10.patch
@@ -80,8 +78,7 @@ stdenv.mkDerivation {
       (fetchDebianPatch "0018-prevent-pow-optimization.patch" "26f0e7b2"
         "sha256-dVzXBi/oSV9vYgU85mRFHBKuZdup+1x1BipJX74ED7E="
       )
-    ]
-  ;
+    ];
 
   postPatch = ''
     substituteInPlace Makefile --replace /bin/pwd $(type -P pwd)
@@ -138,8 +135,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isi686 [
       "bios"
       "efi32"
-    ]
-  ;
+    ];
 
   # Some tests require qemu, some others fail in a sandboxed environment
   doCheck = false;

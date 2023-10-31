@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isMusl
-      "-D__THROW="
-  ;
+      "-D__THROW=";
 
   # efi-boot-patch extracted from http://arm.koji.fedoraproject.org/koji/rpminfo?rpmID=174244
   patches = [

@@ -22,8 +22,7 @@ import ./make-test-python.nix (
             settings."hbase.unsafe.stream.capability.enforce" = "false";
           };
           environment.systemPackages = with pkgs; [ package ];
-        }
-      ;
+        };
     };
 
     testScript = ''

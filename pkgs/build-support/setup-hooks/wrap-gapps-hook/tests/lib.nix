@@ -7,8 +7,7 @@ rec {
       set -o errexit
       ${body}
       touch $out
-    ''
-  ;
+    '';
 
   skip =
     cond: text:

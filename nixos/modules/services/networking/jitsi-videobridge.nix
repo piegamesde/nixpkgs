@@ -239,8 +239,7 @@ in
         {
           "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
           "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
-        }
-    ;
+        };
 
     systemd.services.jitsi-videobridge2 =
       let
@@ -307,13 +306,11 @@ in
           LimitNPROC = 65000;
           LimitNOFILE = 65000;
         };
-      }
-    ;
+      };
 
     environment.etc."jitsi/videobridge/logging.properties".source =
       mkDefault
-        "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal"
-    ;
+        "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal";
 
     # (from videobridge2 .deb)
     # this sets the max, so that we can bump the JVB UDP single port buffer size.

@@ -19,8 +19,7 @@ with lib;
       )
       // {
         default = true;
-      }
-    ;
+      };
 
     boot.blacklistedKernelModules = mkOption {
       type = types.listOf types.str;

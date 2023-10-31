@@ -59,8 +59,7 @@ in
           ${cfg.extraConfig}
           ${optionalString cfg.enableAutoLoginOut "node.startup = automatic"}
           EOF
-        ''
-    ;
+        '';
     environment.etc."iscsi/initiatorname.iscsi".text = "InitiatorName=${cfg.name}";
 
     system.activationScripts.iscsid =
@@ -79,8 +78,7 @@ in
           cat ${config.environment.etc."iscsi/iscsid.conf.fragment".source}
           ${extraCfgDumper}
         ) > /etc/iscsi/iscsid.conf
-      ''
-    ;
+      '';
 
     systemd.packages = [ cfg.package ];
 
@@ -93,8 +91,7 @@ in
         mkIf (cfg.discoverPortal != null)
           "${cfg.package}/bin/iscsiadm --mode discoverydb --type sendtargets --portal ${
             escapeShellArg cfg.discoverPortal
-          } --discover"
-      ;
+          } --discover";
     };
 
     environment.systemPackages = [ cfg.package ];

@@ -52,8 +52,7 @@ stdenv.mkDerivation (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isGNU
-        "-Wno-error=format-truncation"
-    ;
+        "-Wno-error=format-truncation";
 
     meta = {
       description = "Fork of Chez Scheme for Racket";

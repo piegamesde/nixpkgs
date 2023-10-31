@@ -39,8 +39,7 @@ import ./make-test-python.nix (
             ExecStart = "${pkgs.coreutils}/bin/sleep infinity";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       # Start the system.

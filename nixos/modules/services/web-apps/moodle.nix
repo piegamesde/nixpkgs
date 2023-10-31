@@ -124,8 +124,7 @@ let
         opcache
         exif
         sodium
-      ]
-    ;
+      ];
     extraConfig = "max_input_vars = 5000";
   };
 in
@@ -213,8 +212,7 @@ in
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc
-            "Path to the unix socket file to use for authentication."
-        ;
+            "Path to the unix socket file to use for authentication.";
       };
 
       createLocally = mkOption {
@@ -249,8 +247,7 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;

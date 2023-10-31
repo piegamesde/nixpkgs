@@ -81,8 +81,7 @@ in
     programs.tsmClient.enable = true;
     programs.tsmClient.servers.${cfg.servername}.passwdDir =
       mkDefault
-        "/var/lib/tsm-backup/password"
-    ;
+        "/var/lib/tsm-backup/password";
     systemd.services.tsm-backup = {
       description = "IBM Spectrum Protect (Tivoli Storage Manager) Backup";
       # DSM_LOG needs a trailing slash to have it treated as a directory.

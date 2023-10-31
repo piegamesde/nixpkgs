@@ -35,8 +35,7 @@ python3Packages.buildPythonApplication rec {
       postgresql
       lzop
       pv
-    ]
-  ;
+    ];
 
   meta = {
     description = "A Postgres WAL-shipping disaster recovery and replication toolkit";

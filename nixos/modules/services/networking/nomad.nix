@@ -185,8 +185,7 @@ in
           TasksMax = "infinity";
           LoadCredential =
             lib.mapAttrsToList (key: value: "${key}:${value}")
-              cfg.credentials
-          ;
+              cfg.credentials;
         }
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string

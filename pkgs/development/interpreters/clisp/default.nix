@@ -35,7 +35,8 @@
       "zlib"
       "wildcard"
     ]
-    ++ lib.optional x11Support "clx/new-clx",
+    ++ lib.optional x11Support "clx/new-clx"
+  ,
 }:
 
 assert x11Support
@@ -46,7 +47,8 @@ assert x11Support
     && libXpm != null
     && xorgproto != null
     && libXext != null
-  );
+  )
+;
 
 stdenv.mkDerivation rec {
   version = "2.49";

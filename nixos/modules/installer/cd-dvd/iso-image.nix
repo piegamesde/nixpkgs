@@ -35,8 +35,7 @@ let
           }
         '')
         options
-    )
-  ;
+    );
 
   #
   # Builds the default options.
@@ -78,8 +77,7 @@ let
         class = "debug";
         params = "debug";
       }
-    ]
-  ;
+    ];
 
   # Timeout in syslinux is in units of 1/10 of a second.
   # null means max timeout (35996, just under 1h in 1/10 seconds)
@@ -269,7 +267,8 @@ let
           set menu_color_normal=cyan/blue
           set menu_color_highlight=white/blue
         fi
-      ''}
+      ''
+    }
   '';
 
   # The EFI boot image.
@@ -443,8 +442,7 @@ let
         EOF
 
         ${refind}
-      ''
-  ;
+      '';
 
   efiImg =
     pkgs.runCommand "efi-image_eltorito"
@@ -489,8 +487,7 @@ let
 
         # Verify the FAT partition.
         fsck.vfat -vn "$out"
-      ''
-  ; # */
+      ''; # */
 
   # Syslinux (and isolinux) only supports x86-based architectures.
   canx86BiosBoot = pkgs.stdenv.hostPlatform.isx86;
@@ -741,8 +738,7 @@ in
           howmany = toString length;
           toomany = toString (length - 32);
         in
-        "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32."
-      ;
+        "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
     } ];
 
     boot.loader.grub.version = 2;
@@ -756,8 +752,7 @@ in
         grubPkgs.grub2
         grubPkgs.grub2_efi
       ]
-      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux
-    ;
+      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
     # that we don't need to know its device.  We pass the label of the
@@ -791,8 +786,7 @@ in
     isoImage.storeContents =
       [ config.system.build.toplevel ]
       ++ optional config.isoImage.includeSystemBuildDependencies
-        config.system.build.toplevel.drvPath
-    ;
+        config.system.build.toplevel.drvPath;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {

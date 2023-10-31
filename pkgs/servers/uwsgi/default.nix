@@ -45,8 +45,7 @@ let
         ${pkg.pythonForBuild.executable} -m compileall $out/${pkg.sitePackages}/
         ${pkg.pythonForBuild.executable} -O -m compileall $out/${pkg.sitePackages}/
       '';
-    }
-  ;
+    };
 
   available = lib.listToAttrs [
     (pythonPlugin python2)
@@ -158,8 +157,7 @@ stdenv.mkDerivation rec {
           "--library-path=${php-embed.extensions.session}/lib/php/extensions/"
           "-l:session.so"
         ]
-      )
-  ;
+      );
 
   buildPhase = ''
     mkdir -p $pluginDir

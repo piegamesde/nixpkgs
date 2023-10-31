@@ -49,8 +49,7 @@ buildGoModule rec {
     ++ lib.optionals stdenv.isLinux [
       lvm2
       btrfs-progs
-    ]
-  ;
+    ];
 
   buildPhase = ''
     runHook preBuild

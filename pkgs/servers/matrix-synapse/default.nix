@@ -51,8 +51,7 @@ buildPythonApplication rec {
         cargo
         rustc
       ]
-    )
-  ;
+    );
 
   buildInputs = [ openssl ];
 

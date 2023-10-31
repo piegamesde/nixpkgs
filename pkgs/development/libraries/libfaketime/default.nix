@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         # https://github.com/wolfcw/libfaketime/issues/277
         ./0001-Remove-unsupported-clang-flags.patch
       ]
-    )
-  ;
+    );
 
   postPatch = ''
     patchShebangs test src
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-error=cast-function-type -Wno-error=format-truncation"
-  ;
+      "-Wno-error=cast-function-type -Wno-error=format-truncation";
 
   nativeCheckInputs = [ perl ];
 

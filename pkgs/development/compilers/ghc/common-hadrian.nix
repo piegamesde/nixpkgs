@@ -5,7 +5,8 @@
   url ? if rev != null then
     "https://gitlab.haskell.org/ghc/ghc.git"
   else
-    "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz",
+    "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz"
+  ,
 
 }:
 
@@ -60,7 +61,8 @@
     lib.meta.availableOn stdenv.hostPlatform gmp
     && lib.meta.availableOn stdenv.targetPlatform gmp
   )
-    || stdenv.targetPlatform.isGhcjs,
+    || stdenv.targetPlatform.isGhcjs
+  ,
   gmp
 
   ,
@@ -93,7 +95,8 @@
       # HACK: elfutils is marked as broken on static platforms
       # which availableOn can't tell.
       !stdenv.targetPlatform.isStatic
-    && !stdenv.hostPlatform.isStatic,
+    && !stdenv.hostPlatform.isStatic
+  ,
   elfutils
 
   ,
@@ -192,8 +195,7 @@ let
   # TODO(@Ericson2314) Make unconditional
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-"
-  ;
+      "${targetPlatform.config}-";
 
   hadrianSettings =
     # -fexternal-dynamic-refs apparently (because it's not clear from the
@@ -290,10 +292,12 @@ in
 # the resulting GHC's settings file and used at runtime. This means that we are
 # currently only able to build GHC if hostPlatform == buildPlatform.
 assert !targetPlatform.isGhcjs
-  -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
+  -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc
+;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang
+;
 
 stdenv.mkDerivation (
   {
@@ -522,8 +526,7 @@ stdenv.mkDerivation (
     # that in turn causes GHCi to abort
     stripDebugFlags =
       [ "-S" ]
-      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols"
-    ;
+      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 

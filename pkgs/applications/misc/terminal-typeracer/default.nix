@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
   nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {

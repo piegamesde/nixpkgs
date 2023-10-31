@@ -29,8 +29,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -39,8 +38,7 @@ import ./make-test-python.nix (
             curl
             netcat
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

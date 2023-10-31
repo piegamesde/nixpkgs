@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--with-yoda=${yoda}" ]
-    ++ lib.optional withPython "--enable-pyext"
-  ;
+    ++ lib.optional withPython "--enable-pyext";
 
   enableParallelBuilding = true;
 

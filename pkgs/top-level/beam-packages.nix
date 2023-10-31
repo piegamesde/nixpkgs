@@ -21,8 +21,7 @@ let
       "25"
       "24"
       "23"
-    ]
-  ;
+    ];
 
   interpretersAliases = versionLoop (
     version: {

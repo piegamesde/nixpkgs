@@ -182,8 +182,7 @@ pkgs.mkShell rec {
             exit 1
           fi
           touch $out
-        ''
-    ;
+        '';
 
     shell-sdkmanager-packages-test =
       pkgs.runCommand "shell-sdkmanager-packages-test"
@@ -221,7 +220,6 @@ pkgs.mkShell rec {
           done
 
           touch "$out"
-        ''
-    ;
+        '';
   };
 }

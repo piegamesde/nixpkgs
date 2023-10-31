@@ -86,8 +86,7 @@ in
         default = "http://localhost:${toString cfg.port}";
         defaultText =
           literalExpression
-            ''"http://localhost:''${toString config.${opt.port}}"''
-        ;
+            ''"http://localhost:''${toString config.${opt.port}}"'';
         description = lib.mdDoc ''
           The URL where the application service is listening for HS requests.
         '';
@@ -113,8 +112,7 @@ in
         type = with types; listOf str;
         default =
           optional config.services.matrix-synapse.enable
-            "matrix-synapse.service"
-        ;
+            "matrix-synapse.service";
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';

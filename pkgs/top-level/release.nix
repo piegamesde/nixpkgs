@@ -49,8 +49,7 @@ let
         "x86_64"
         "aarch64"
       ]
-      (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport)
-  ;
+      (arch: builtins.elem "${arch}-darwin" systemsWithAnySupport);
 
   nonPackageJobs = {
     tarball = import ./make-tarball.nix {
@@ -229,8 +228,7 @@ let
           }
         else
           abort "No bootstrap implementation for system: ${system}"
-      )
-    ;
+      );
   };
 
   # Do not allow attribute collision between jobs inserted in

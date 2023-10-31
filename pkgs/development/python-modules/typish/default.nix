@@ -39,8 +39,7 @@ buildPythonPackage rec {
       [
         # https://github.com/ramonhagenaars/typish/issues/32
         "test_get_origin"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "typish" ];
 

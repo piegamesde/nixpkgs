@@ -26,8 +26,7 @@ import ./make-test-python.nix (
           musescore
           pdfgrep
         ];
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -103,7 +102,6 @@ import ./make-test-python.nix (
         machine.succeed('pdfgrep "Untitled score" "/root/Documents/MuseScore4/Scores/Untitled score.pdf"')
 
         machine.screenshot("MuseScore5")
-      ''
-    ;
+      '';
   }
 )

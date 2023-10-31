@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
   '';
   makeFlags =
     lib.optional stdenv.hostPlatform.isStatic
-      "AR=${stdenv.cc.targetPrefix}ar"
-  ;
+      "AR=${stdenv.cc.targetPrefix}ar";
 
   configureFlags =
     [ "--with-htslib=${htslib}" ]

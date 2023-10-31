@@ -34,8 +34,7 @@ buildPythonPackage rec {
       "thresholdPen"
       "thresholdPointPen"
       "transformPointPen"
-    ])
-  ;
+    ]);
 
   meta = with lib; {
     description = "A collection of classes implementing the pen protocol for manipulating glyphs";

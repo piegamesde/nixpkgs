@@ -67,8 +67,7 @@ in
         in
         ''
           ${compress} $diskImage
-        ''
-      ;
+        '';
       configFile =
         if cfg.configFile == null then
           config.virtualisation.digitalOcean.defaultConfigFile

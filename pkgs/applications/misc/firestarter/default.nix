@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
         ]
       else
         [ glibc.static ]
-    )
-  ;
+    );
 
   NIX_LDFLAGS = lib.optionals withCuda [ "-L${cudatoolkit}/lib/stubs" ];
 

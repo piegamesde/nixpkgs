@@ -145,8 +145,7 @@ let
         # Run the start script as root
         ExecStart = "+" + (pkgs.writeShellScript "acme-fixperms" script);
       };
-    }
-  ;
+    };
 
   certToConfig =
     cert: data:
@@ -532,8 +531,7 @@ let
           chmod 640 out/*
         '';
       };
-    }
-  ;
+    };
 
   certConfigs = mapAttrs certToConfig cfg.certs;
 
@@ -582,8 +580,7 @@ let
           mkEnableOption (lib.mdDoc "debug logging for this certificate")
           // {
             inherit (defaultAndText "enableDebugLogs" true) default defaultText;
-          }
-        ;
+          };
 
         webroot = mkOption {
           type = types.nullOr types.str;
@@ -733,8 +730,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   certOpts =
     { name, config, ... }:
@@ -764,8 +760,7 @@ let
           default = "/var/lib/acme/${name}";
           description =
             lib.mdDoc
-              "Directory where certificate and other state is stored."
-          ;
+              "Directory where certificate and other state is stored.";
         };
 
         domain = mkOption {
@@ -773,8 +768,7 @@ let
           default = name;
           description =
             lib.mdDoc
-              "Domain to fetch certificate for (defaults to the entry name)."
-          ;
+              "Domain to fetch certificate for (defaults to the entry name).";
         };
 
         extraDomainNames = mkOption {
@@ -810,13 +804,11 @@ let
           example = true;
           description =
             lib.mdDoc
-              "Whether to inherit values set in `security.acme.defaults` or not."
-          ;
+              "Whether to inherit values set in `security.acme.defaults` or not.";
           type = lib.types.bool;
         };
       };
-    }
-  ;
+    };
 in
 {
 
@@ -875,8 +867,7 @@ in
               (inheritableModule false)
               certOpts
             ]
-          )
-        ;
+          );
         description = lib.mdDoc ''
           Attribute set of certificates to get signed and renewed. Creates
           `acme-''${cert}.{service,timer}` systemd units for
@@ -1160,8 +1151,7 @@ in
 
       systemd.timers =
         mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
-          certConfigs
-      ;
+          certConfigs;
 
       systemd.targets =
         let
@@ -1176,8 +1166,7 @@ in
                   after = [ "acme-${cert}.service" ];
                 }
               )
-              certConfigs
-          ;
+              certConfigs;
 
           # Create targets to limit the number of simultaneous account creations
           # How it works:
@@ -1205,11 +1194,9 @@ in
                   after = [ leader ];
                 }
               )
-              (groupBy (conf: conf.accountHash) (attrValues certConfigs))
-          ;
+              (groupBy (conf: conf.accountHash) (attrValues certConfigs));
         in
-        finishedTargets // accountTargets
-      ;
+        finishedTargets // accountTargets;
     })
   ];
 

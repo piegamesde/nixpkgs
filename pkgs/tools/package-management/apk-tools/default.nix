@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals luaSupport [
       lua
       lua.pkgs.lua-zlib
-    ]
-  ;
+    ];
   buildInputs = [
     openssl
     zlib

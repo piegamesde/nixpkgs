@@ -24,8 +24,7 @@ let
     p:
     lib.filterAttrs (n: v: ("_module" != n) && (null != v) && (false != v)) (
       lib.optionalAttrs (null != p) p
-    )
-  ;
+    );
 
   # renderBackend :: BackendSubmodule -> String
   renderBackend =
@@ -49,8 +48,7 @@ let
             else
               "${n}=${builtins.toString v}"
           )
-          (filterParams backend.params)
-      ;
+          (filterParams backend.params);
 
       # NB: params are delimited by a ";" which is the same delimiter
       # to separate the host;[pattern];[params] sections of a backend
@@ -63,8 +61,7 @@ let
       );
       formattedSections = lib.concatStringsSep ";" sections;
     in
-    "backend=${formattedSections}"
-  ;
+    "backend=${formattedSections}";
 
   # renderFrontend :: FrontendSubmodule -> String
   renderFrontend =
@@ -82,8 +79,7 @@ let
       sections = [ host ] ++ params1;
       formattedSections = lib.concatStringsSep ";" sections;
     in
-    "frontend=${formattedSections}"
-  ;
+    "frontend=${formattedSections}";
 
   configurationFile = pkgs.writeText "nghttpx.conf" ''
     ${lib.optionalString (null != cfg.tls) ("private-key-file=" + cfg.tls.key)}

@@ -78,8 +78,7 @@ let
         };
       }
       // (args.argsOverride or { })
-    )
-  ;
+    );
 in
 {
   lts = xanmodKernelFor ltsVariant;

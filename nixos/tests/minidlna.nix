@@ -22,8 +22,7 @@ import ./make-test-python.nix (
               "Folder.jpg/folder.jpg/Thumb.jpg/thumb.jpg"
             ];
           };
-        }
-      ;
+        };
       client = { ... }: { };
     };
 

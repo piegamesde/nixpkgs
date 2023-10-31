@@ -93,8 +93,7 @@ import ./make-test-python.nix (
         };
 
         fonts.fonts = [ pkgs.inconsolata ];
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -133,7 +132,6 @@ import ./make-test-python.nix (
         # machine.send_chars("exit\n")
         # machine.wait_until_fails("pgrep alacritty")
         machine.succeed("pkill alacritty")
-      ''
-    ;
+      '';
   }
 )

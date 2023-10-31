@@ -18,8 +18,7 @@ let
     pkgs.runCommand "checked-config" { buildInputs = [ cfg.package ]; } ''
       ln -s ${file} $out
       amtool check-config $out
-    ''
-  ;
+    '';
 
   alertmanagerYml =
     let
@@ -30,8 +29,7 @@ let
           mkConfigFile
       ;
     in
-    checkedConfig yml
-  ;
+    checkedConfig yml;
 
   cmdlineArgs =
     cfg.extraFlags

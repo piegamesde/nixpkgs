@@ -59,8 +59,7 @@ let
           unpackFile ${source}
         '';
       }
-    )
-  ;
+    );
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";
@@ -122,8 +121,7 @@ in
         default = "/var/lib/redmine";
         description =
           lib.mdDoc
-            "The state directory, logs and plugins are stored here."
-        ;
+            "The state directory, logs and plugins are stored here.";
       };
 
       settings = mkOption {
@@ -249,8 +247,7 @@ in
           example = "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
-              "Path to the unix socket file to use for authentication."
-          ;
+              "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -344,26 +341,21 @@ in
       production = {
         scm_subversion_command =
           optionalString cfg.components.subversion
-            "${pkgs.subversion}/bin/svn"
-        ;
+            "${pkgs.subversion}/bin/svn";
         scm_mercurial_command =
           optionalString cfg.components.mercurial
-            "${pkgs.mercurial}/bin/hg"
-        ;
+            "${pkgs.mercurial}/bin/hg";
         scm_git_command = optionalString cfg.components.git "${pkgs.git}/bin/git";
         scm_cvs_command = optionalString cfg.components.cvs "${pkgs.cvs}/bin/cvs";
         scm_bazaar_command =
           optionalString cfg.components.breezy
-            "${pkgs.breezy}/bin/bzr"
-        ;
+            "${pkgs.breezy}/bin/bzr";
         imagemagick_convert_command =
           optionalString cfg.components.imagemagick
-            "${pkgs.imagemagick}/bin/convert"
-        ;
+            "${pkgs.imagemagick}/bin/convert";
         gs_command =
           optionalString cfg.components.ghostscript
-            "${pkgs.ghostscript}/bin/gs"
-        ;
+            "${pkgs.ghostscript}/bin/gs";
         minimagick_font_path = "${cfg.components.minimagick_font_path}";
       };
     };

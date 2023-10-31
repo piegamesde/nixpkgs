@@ -94,8 +94,7 @@ let
           types.nullOr (types.addCheck (types.either types.int types.float) (x: x > 0))
           // {
             description = "null or positive integer or float";
-          }
-        ;
+          };
         default = null;
         example = 2;
       };
@@ -124,7 +123,10 @@ let
     name: output:
     let
       modelines =
-        if builtins.isList output.modeline then output.modeline else [ output.modeline ]
+        if builtins.isList output.modeline then
+          output.modeline
+        else
+          [ output.modeline ]
       ;
       renderModeline = l: "modeline = ${l}";
     in
@@ -134,8 +136,7 @@ let
       ${optionalKV "mode" output.mode}
       ${optionalKV "scale" output.scale}
       ${optionalKV "rotate" output.rotate}
-    ''
-  ;
+    '';
 
   renderPhocConfig =
     phoc:
@@ -148,8 +149,7 @@ let
       ${concatStringsSep "\n" outputs}
       [cursor]
       theme = ${phoc.cursorTheme}
-    ''
-  ;
+    '';
 in
 
 {

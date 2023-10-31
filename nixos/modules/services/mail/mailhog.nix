@@ -72,8 +72,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "List of additional arguments to pass to the MailHog process."
-        ;
+            "List of additional arguments to pass to the MailHog process.";
       };
     };
   };

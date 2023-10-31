@@ -45,8 +45,7 @@ stdenv.mkDerivation {
       wrapProgram $out/bin/adb-channel --suffix PATH : "${dependencies}"
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A tool to synchronise files between a PC and an Android devices using ADB (Android Debug Bridge)";

@@ -22,8 +22,7 @@ let
               generators.mkValueStringDefault { } v
           ;
         }
-        "="
-    ;
+        "=";
   };
   configFile = format.generate "merecat.conf" cfg.settings;
 in

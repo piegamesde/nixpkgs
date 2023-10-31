@@ -66,8 +66,7 @@ let
               position = package.meta.position or null;
               # We cannot always use `meta.position` since it might not be available
               # or it might be shared among multiple packages.
-            }
-          ;
+            };
 
           dedupResults = lst: nubOn somewhatUniqueRepresentant (lib.concatLists lst);
         in
@@ -99,8 +98,7 @@ let
           [ ]
       ;
     in
-    packagesWithPathInner rootPath pkgs
-  ;
+    packagesWithPathInner rootPath pkgs;
 
   # Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
   packagesWith = packagesWithPath [ ];
@@ -108,8 +106,7 @@ let
   # Recursively find all packages in `pkgs` with updateScript matching given predicate.
   packagesWithUpdateScriptMatchingPredicate =
     cond:
-    packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg)
-  ;
+    packagesWith (path: pkg: builtins.hasAttr "updateScript" pkg && cond path pkg);
 
   # Recursively find all packages in `pkgs` with updateScript by given maintainer.
   packagesWithUpdateScriptAndMaintainer =
@@ -136,8 +133,7 @@ let
         else
           false
       )
-    )
-  ;
+    );
 
   # Recursively find all packages under `path` in `pkgs` with updateScript.
   packagesWithUpdateScript =
@@ -236,8 +232,7 @@ let
       );
       supportedFeatures = package.updateScript.supportedFeatures or [ ];
       attrPath = package.updateScript.attrPath or attrPath;
-    }
-  ;
+    };
 
   # JSON file with data for update.py.
   packagesJson = pkgs.writeText "packages.json" (

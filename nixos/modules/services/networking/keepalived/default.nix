@@ -45,8 +45,7 @@ let
         enable_snmp_rfcv3
       ''
       + optionalString enableTraps "enable_traps"
-    )
-  ;
+    );
 
   vrrpScriptStr = concatStringsSep "\n" (
     map
@@ -127,13 +126,11 @@ let
 
   vrrpScripts =
     mapAttrsToList (name: config: { inherit name; } // config)
-      cfg.vrrpScripts
-  ;
+      cfg.vrrpScripts;
 
   vrrpInstances =
     mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)
-      cfg.vrrpInstances
-  ;
+      cfg.vrrpInstances;
 
   vrrpInstanceAssertions =
     i:
@@ -372,7 +369,6 @@ in
           Restart = "always";
           RestartSec = "1s";
         };
-      }
-    ;
+      };
   };
 }

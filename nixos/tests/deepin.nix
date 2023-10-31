@@ -21,8 +21,7 @@ import ./make-test-python.nix (
         };
 
         services.xserver.desktopManager.deepin.enable = true;
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -55,7 +54,6 @@ import ./make-test-python.nix (
             machine.wait_for_window("deepin-terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

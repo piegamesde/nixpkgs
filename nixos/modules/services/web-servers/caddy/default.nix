@@ -31,8 +31,7 @@ let
 
         ${hostOpts.extraConfig}
       }
-    ''
-  ;
+    '';
 
   configFile =
     let
@@ -49,23 +48,20 @@ let
             mkdir -p $out
             cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
             caddy fmt --overwrite $out/Caddyfile
-          ''
-      ;
+          '';
     in
     "${
       if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
         Caddyfile-formatted
       else
         Caddyfile
-    }/Caddyfile"
-  ;
+    }/Caddyfile";
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
   mkCertOwnershipAssertion =
     import
-      ../../../security/acme/mk-cert-ownership-assertion.nix
-  ;
+      ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 {
   imports = [
@@ -340,8 +336,7 @@ in
             groups = config.users.groups;
           }
         )
-        acmeHosts
-    ;
+        acmeHosts;
 
     services.caddy.extraConfig = concatMapStringsSep "\n" mkVHostConf virtualHosts;
     services.caddy.globalConfig = ''
@@ -359,12 +354,10 @@ in
     systemd.services.caddy = {
       wants =
         map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
-          acmeVHosts
-      ;
+          acmeVHosts;
       after =
         map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
-          acmeVHosts
-      ;
+          acmeVHosts;
       before = map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
 
       wantedBy = [ "multi-user.target" ];
@@ -426,10 +419,8 @@ in
                 reloadServices = [ "caddy.service" ];
               }
             )
-            acmeHosts
-        ;
+            acmeHosts;
       in
-      listToAttrs certCfg
-    ;
+      listToAttrs certCfg;
   };
 }

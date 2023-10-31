@@ -46,7 +46,8 @@ assert lib.assertOneOf "withSDLVersion" withSDLVersion [
 assert enableHAXM
   -> (lib.assertMsg enableX11
     "Must enable X11 graphics interface for HAXM build."
-  );
+  )
+;
 let
   inherit (lib) optional optionals optionalString;
   inherit (lib.strings) concatStringsSep concatMapStringsSep;
@@ -170,8 +171,7 @@ stdenv.mkDerivation rec {
   # TODO Remove when bumping past rev22
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.hostPlatform.isDarwin
-      "-D_DARWIN_C_SOURCE"
-  ;
+      "-D_DARWIN_C_SOURCE";
 
   buildPhase =
     optionalString enableSDL ''

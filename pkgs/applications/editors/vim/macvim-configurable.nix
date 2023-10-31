@@ -70,13 +70,11 @@ let
                 done
               '';
               meta = macvim.meta;
-            }
-          ;
+            };
         in
         lib.makeOverridable (
           lib.setFunctionArgs doConfig (lib.functionArgs vimUtils.vimrcFile)
-        )
-      ;
+        );
 
       override = f: makeCustomizable (macvim.override f);
       overrideAttrs = f: makeCustomizable (macvim.overrideAttrs f);

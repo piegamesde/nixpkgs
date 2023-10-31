@@ -43,8 +43,7 @@ let
       eager =
         p.wrong
         ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
-    }
-  ;
+    };
 
   manual = import ../../doc/manual rec {
     inherit pkgs config;
@@ -72,8 +71,7 @@ let
                 wholeName = "${namePrefix}.${name}";
                 guard =
                   lib.warn
-                    "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead."
-                ;
+                    "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead.";
               in
               if isAttrs value then
                 scrubDerivations wholeName value
@@ -84,11 +82,9 @@ let
               else
                 value
             )
-            pkgSet
-        ;
+            pkgSet;
       in
-      scrubbedEval.options
-    ;
+      scrubbedEval.options;
 
     baseOptionsJSON =
       let
@@ -106,8 +102,7 @@ let
           nixosPath = filter (pkgs.path + "/nixos");
           modules =
             map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
-              docModules.lazy
-          ;
+              docModules.lazy;
         }
         ''
           export NIX_STORE_DIR=$TMPDIR/store
@@ -136,8 +131,7 @@ let
               echo -en "\e[0m"
               exit 1
             } >&2
-        ''
-    ;
+        '';
 
     inherit (cfg.nixos.options) warningsAreErrors allowDocBook;
   };
@@ -177,8 +171,7 @@ let
         helpScript
         desktopItem
       ];
-    }
-  ;
+    };
 in
 
 {
@@ -398,8 +391,7 @@ in
         environment.pathsToLink = [ "/share/man" ];
         environment.extraOutputsToInstall =
           [ "man" ]
-          ++ optional cfg.dev.enable "devman"
-        ;
+          ++ optional cfg.dev.enable "devman";
       })
 
       (mkIf cfg.info.enable {
@@ -407,8 +399,7 @@ in
         environment.pathsToLink = [ "/share/info" ];
         environment.extraOutputsToInstall =
           [ "info" ]
-          ++ optional cfg.dev.enable "devinfo"
-        ;
+          ++ optional cfg.dev.enable "devinfo";
         environment.extraSetup = ''
           if [ -w $out/share/info ]; then
             shopt -s nullglob
@@ -423,8 +414,7 @@ in
         environment.pathsToLink = [ "/share/doc" ];
         environment.extraOutputsToInstall =
           [ "doc" ]
-          ++ optional cfg.dev.enable "devdoc"
-        ;
+          ++ optional cfg.dev.enable "devdoc";
       })
 
       (mkIf cfg.nixos.enable {

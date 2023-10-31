@@ -47,8 +47,7 @@ import ./make-test-python.nix (
           virtualisation.qemu.options = [
             "-vga none -device virtio-gpu-pci,xres=720,yres=1440"
           ];
-        }
-      ;
+        };
     };
 
     enableOCR = true;

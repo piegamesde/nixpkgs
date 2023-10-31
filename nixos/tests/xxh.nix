@@ -42,8 +42,7 @@ import ./make-test-python.nix (
         {
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-        }
-      ;
+        };
 
       client =
         { ... }:
@@ -54,8 +53,7 @@ import ./make-test-python.nix (
             xxh
             git
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

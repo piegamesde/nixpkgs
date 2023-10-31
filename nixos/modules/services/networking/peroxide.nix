@@ -139,8 +139,7 @@ in
 
     environment.etc."peroxide.conf".source =
       settingsFormat.generate "peroxide.conf"
-        cfg.settings
-    ;
+        cfg.settings;
     environment.systemPackages = [ cfg.package ];
   };
 

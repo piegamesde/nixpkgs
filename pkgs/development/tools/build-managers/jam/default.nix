@@ -72,8 +72,7 @@ let
         }
         // meta
       ;
-    }
-  ;
+    };
 in
 {
   jam =
@@ -105,8 +104,7 @@ in
           "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
         ];
       }
-    )
-  ;
+    );
 
   ftjam =
     let
@@ -151,6 +149,5 @@ in
           "--host=${stdenv.buildPlatform.config}"
         ];
       }
-    )
-  ;
+    );
 }

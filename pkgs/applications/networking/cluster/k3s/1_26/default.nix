@@ -347,8 +347,7 @@ buildGoModule rec {
     {
       single-node = nixosTests.k3s.single-node.${k3s_version};
       multi-node = nixosTests.k3s.multi-node.${k3s_version};
-    }
-  ;
+    };
   passthru.tests = passthru.mkTests k3sVersion;
 
   meta = baseMeta;

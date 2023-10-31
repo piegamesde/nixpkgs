@@ -24,22 +24,19 @@ foldl
           {
             inherit system pkgs;
             nextcloudVersion = ver;
-          }
-      ;
+          };
       "with-mysql-and-memcached${toString ver}" =
         import ./with-mysql-and-memcached.nix
           {
             inherit system pkgs;
             nextcloudVersion = ver;
-          }
-      ;
+          };
       "with-declarative-redis-and-secrets${toString ver}" =
         import ./with-declarative-redis-and-secrets.nix
           {
             inherit system pkgs;
             nextcloudVersion = ver;
-          }
-      ;
+          };
     }
   )
   { }

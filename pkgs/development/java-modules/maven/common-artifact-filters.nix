@@ -22,8 +22,7 @@
           type = "jar";
           sha512 = "1z55x8hrb9g4kk21jsk9n4r26ncgsxinr18nmjgxsrcbaxcjhxbhx3nin24gwvcy6zh2d6gv26dng8i90ccc1qxvpmga2ahk68jfyjk";
         }
-      ]
-  ;
+      ];
 
   mavenCommonArtifactFilters_1_3 =
     map
@@ -46,8 +45,7 @@
           type = "jar";
           sha512 = "060siqwk0mscxznl05lzyp72hqr9jr23l3fa9k1kdyks1hghw76cp01jbfj9ijy81n62vb6am98c1695mzpgf453kw1gxp40mwv0ryh";
         }
-      ]
-  ;
+      ];
 
   mavenCommonArtifactFilters_1_4 =
     map
@@ -70,6 +68,5 @@
           type = "jar";
           sha512 = "1bv4lp1a8sb79almnygiq0pmm0fdhy9pyakp6xhz91b4v1cqg03sb586yc4lg2934yv4jjbybqjbh4l0y3kgnanjbxdxdgxgyf14iif";
         }
-      ]
-  ;
+      ];
 }

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook
-  ;
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) autoPatchelfHook;
 
   buildInputs = [
     jre_headless

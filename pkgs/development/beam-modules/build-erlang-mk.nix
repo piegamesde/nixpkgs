@@ -30,16 +30,14 @@
 let
   debugInfoFlag =
     lib.optionalString (enableDebugInfo || erlang.debugInfo)
-      "+debug_info"
-  ;
+      "+debug_info";
 
   shell =
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
-    }
-  ;
+    };
 
   pkg =
     self:
@@ -140,7 +138,6 @@ let
           inherit beamDeps;
         };
       }
-    )
-  ;
+    );
 in
 lib.fix pkg

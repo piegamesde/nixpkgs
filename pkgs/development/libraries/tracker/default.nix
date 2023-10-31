@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIntrospection [
       gobject-introspection
       vala
-    ]
-  ;
+    ];
 
   buildInputs = [
     glib
@@ -140,8 +139,7 @@ stdenv.mkDerivation rec {
       # We are using a symlink that will be overridden during installation.
       mkdir -p $out/lib
       ln -s $PWD/src/libtracker-sparql/libtracker-sparql-3.0${darwinDot0}${extension} $out/lib/libtracker-sparql-3.0${darwinDot0}${extension}${linuxDot0}
-    ''
-  ;
+    '';
 
   checkPhase = ''
     runHook preCheck

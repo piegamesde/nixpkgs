@@ -43,13 +43,11 @@ let
       server = top.apiserverAddress;
       certFile = cert;
       keyFile = key;
-    }
-  ;
+    };
 
   remote =
     with config.services;
-    "https://${kubernetes.masterAddress}:${toString cfssl.port}"
-  ;
+    "https://${kubernetes.masterAddress}:${toString cfssl.port}";
 in
 {
   ###### interface
@@ -102,8 +100,7 @@ in
     pkiTrustOnBootstrap = mkOption {
       description =
         lib.mdDoc
-          "Whether to always trust remote cfssl server upon initial PKI bootstrap."
-      ;
+          "Whether to always trust remote cfssl server upon initial PKI bootstrap.";
       default = true;
       type = bool;
     };
@@ -122,8 +119,7 @@ in
     caSpec = mkOption {
       description =
         lib.mdDoc
-          "Certificate specification for the auto-generated CAcert."
-      ;
+          "Certificate specification for the auto-generated CAcert.";
       default = {
         CN = "kubernetes-cluster-ca";
         O = "NixOS";
@@ -207,8 +203,7 @@ in
               chown cfssl "${cfsslAPITokenPath}" && chmod 400 "${cfsslAPITokenPath}"
             '')
           ]
-        )
-      ;
+        );
 
       systemd.services.kube-certmgr-bootstrap = {
         description = "Kubernetes certmgr bootstrapper";
@@ -272,8 +267,7 @@ in
               };
             };
           in
-          mapAttrs mkSpec cfg.certs
-        ;
+          mapAttrs mkSpec cfg.certs;
       };
 
       #TODO: Get rid of kube-addon-manager in the future for the following reasons
@@ -290,8 +284,7 @@ in
                 server = top.apiserverAddress;
                 certFile = cert;
                 keyFile = key;
-              }
-            ;
+              };
           }
 
           (optionalAttrs (top.addonManager.bootstrapAddons != { }) {
@@ -301,22 +294,19 @@ in
               let
                 files =
                   mapAttrsToList (n: v: writeText "${n}.json" (builtins.toJSON v))
-                    top.addonManager.bootstrapAddons
-                ;
+                    top.addonManager.bootstrapAddons;
               in
               ''
                 export KUBECONFIG=${clusterAdminKubeconfig}
                 ${top.package}/bin/kubectl apply -f ${concatStringsSep " \\\n -f " files}
-              ''
-            ;
+              '';
           })
         ]
       );
 
       environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
         mkIf (cfg.etcClusterAdminKubeconfig != null)
-          clusterAdminKubeconfig
-      ;
+          clusterAdminKubeconfig;
 
       environment.systemPackages = mkIf (top.kubelet.enable || top.proxy.enable) [
         (pkgs.writeScriptBin "nixos-kubernetes-node-join" ''

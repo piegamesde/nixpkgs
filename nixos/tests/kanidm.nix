@@ -43,8 +43,7 @@ import ./make-test-python.nix (
           openldap
           ripgrep
         ];
-      }
-    ;
+      };
 
     nodes.client =
       { pkgs, nodes, ... }:
@@ -67,8 +66,7 @@ import ./make-test-python.nix (
         ];
 
         security.pki.certificateFiles = [ certs.ca.cert ];
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -80,12 +78,10 @@ import ./make-test-python.nix (
         # We need access to the config file in the test script.
         filteredConfig =
           pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null))
-            nodes.server.services.kanidm.serverSettings
-        ;
+            nodes.server.services.kanidm.serverSettings;
         serverConfigFile =
           (pkgs.formats.toml { }).generate "server.toml"
-            filteredConfig
-        ;
+            filteredConfig;
       in
       ''
         start_all()
@@ -97,7 +93,6 @@ import ./make-test-python.nix (
         assert rv == 0
         client.wait_for_unit("kanidm-unixd.service")
         client.succeed("kanidm_unixd_status | grep working!")
-      ''
-    ;
+      '';
   }
 )

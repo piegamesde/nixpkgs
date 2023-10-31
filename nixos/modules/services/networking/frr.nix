@@ -94,8 +94,7 @@ let
             '';
           };
         in
-        examples.${service} or ""
-      ;
+        examples.${service} or "";
       description = lib.mdDoc ''
         ${daemonName service} configuration statements.
       '';
@@ -233,11 +232,9 @@ in
                 } --bindir ${pkgs.frr}/bin --rundir /run/frr /etc/frr/${service}.conf";
               Restart = "on-abnormal";
             };
-          })
-        ;
+          });
       in
-      listToAttrs (map frrService (filter isEnabled allServices))
-    ;
+      listToAttrs (map frrService (filter isEnabled allServices));
   };
 
   meta.maintainers = with lib.maintainers; [ woffs ];

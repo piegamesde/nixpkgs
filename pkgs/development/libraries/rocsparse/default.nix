@@ -53,8 +53,7 @@ stdenv.mkDerivation (
         boost
         python3Packages.python
         python3Packages.pyyaml
-      ]
-    ;
+      ];
 
     cmakeFlags =
       [

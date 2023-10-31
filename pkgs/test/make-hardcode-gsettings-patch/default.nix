@@ -40,8 +40,7 @@ let
           git diff --no-index "src/$sourceFile" "src-expected/$sourceFile" | cat
         done
         touch "$out"
-      ''
-  ;
+      '';
 in
 {
   basic = mkTest {

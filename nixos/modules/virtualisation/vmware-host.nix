@@ -19,8 +19,7 @@ let
       (mkVmwareSymlink "pkexec")
       (mkVmwareSymlink "mount")
       (mkVmwareSymlink "umount")
-    ]
-  ;
+    ];
 in
 {
   options = with lib; {
@@ -130,8 +129,7 @@ in
             # For initial setup
             ln --symbolic "$wrapperDir" "${wrapperDir}"
           fi
-        ''
-    ;
+        '';
 
     # Services
 

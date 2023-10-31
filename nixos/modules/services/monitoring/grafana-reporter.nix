@@ -49,8 +49,7 @@ in
     templateDir = mkOption {
       description =
         lib.mdDoc
-          "Optional template directory to use custom tex templates"
-      ;
+          "Optional template directory to use custom tex templates";
       default = pkgs.grafana_reporter;
       defaultText = literalExpression "pkgs.grafana_reporter";
       type = types.either types.str types.path;
@@ -73,8 +72,7 @@ in
         in
         {
           ExecStart = "${pkgs.grafana_reporter}/bin/grafana-reporter ${args}";
-        }
-      ;
+        };
     };
   };
 }

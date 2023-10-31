@@ -60,8 +60,7 @@ let
       bazelFetchFlags = bazelFetchFlags;
       bazelTestTargets = bazelTestTargets;
       dontAddBazelOpts = dontAddBazelOpts;
-    }
-  ;
+    };
   fBuildAttrs = fArgs // buildAttrs;
   fFetchAttrs = fArgs // removeAttrs fetchAttrs [ "sha256" ];
   bazelCmd =
@@ -88,8 +87,7 @@ let
         $bazelFlags \
         ${lib.strings.concatStringsSep " " additionalFlags} \
         ${lib.strings.concatStringsSep " " targets}
-    ''
-  ;
+    '';
   # we need this to chmod dangling symlinks on darwin, gnu coreutils refuses to do so:
   # chmod: cannot operate on dangling symlink '$symlink'
   chmodder = writeCBin "chmodder" ''

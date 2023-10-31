@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
       mkdir -p "$out/etc/fbterm"
       cp "${fbtermrc}" "$out/etc/fbterm"
-    ''
-  ;
+    '';
 
   # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
   patches = [

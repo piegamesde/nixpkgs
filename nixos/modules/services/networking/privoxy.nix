@@ -156,8 +156,7 @@ in
           default = "127.0.0.1:8118";
           description =
             lib.mdDoc
-              "Pair of address:port the proxy server is listening to."
-          ;
+              "Pair of address:port the proxy server is listening to.";
         };
 
         options.enable-edit-actions = mkOption {
@@ -165,8 +164,7 @@ in
           default = false;
           description =
             lib.mdDoc
-              "Whether the web-based actions file editor may be used."
-          ;
+              "Whether the web-based actions file editor may be used.";
         };
 
         options.actionsfile = mkOption {
@@ -249,8 +247,7 @@ in
 
     systemd.tmpfiles.rules =
       optional cfg.inspectHttps
-        "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}"
-    ;
+        "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}";
 
     systemd.services.privoxy = {
       description = "Filtering web proxy";
@@ -285,8 +282,7 @@ in
             port = 9063;
             IsolateDestAddr = false;
           }
-        ]
-    ;
+        ];
 
     services.privoxy.settings =
       {
@@ -342,8 +338,7 @@ in
         text for config as introduced by RFC0042:
         https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md
       '')
-    ]
-  ;
+    ];
 
   meta.maintainers = with lib.maintainers; [ rnhmjoj ];
 }

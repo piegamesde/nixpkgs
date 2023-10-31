@@ -109,8 +109,7 @@ stdenv.mkDerivation {
       gtk3
       librsvg
       wrapGAppsHook
-    ]
-  ;
+    ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

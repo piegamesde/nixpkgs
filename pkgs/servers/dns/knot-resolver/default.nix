@@ -184,7 +184,6 @@ let # un-indented, over the whole file
         echo "Checking that 'http' module loads, i.e. lua search paths work:"
         echo "modules.load('http')" > test-http.lua
         echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
-      ''
-  ;
+      '';
 in
 result

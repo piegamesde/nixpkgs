@@ -108,8 +108,7 @@ in
                 "-prometheus_port=${toString prometheus.port}"
               ]
               ++ extraOptions
-            )
-          ;
+            );
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];
@@ -148,8 +147,7 @@ in
             "@system-service"
             "~@privileged"
           ];
-        }
-      ;
+        };
     };
 
     networking.firewall.allowedTCPPorts =
@@ -157,8 +155,7 @@ in
       optionals openFirewall [
         port
         prometheus.port
-      ]
-    ;
+      ];
   };
 
   meta.maintainers = with maintainers; [ azahi ];

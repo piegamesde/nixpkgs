@@ -24,8 +24,7 @@ buildDunePackage rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-I${lib.getDev libcxx}/include/c++/v1"
-  ;
+      "-I${lib.getDev libcxx}/include/c++/v1";
 
   propagatedBuildInputs = [ ctypes ];
 

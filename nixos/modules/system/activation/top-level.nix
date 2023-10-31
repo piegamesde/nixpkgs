@@ -66,7 +66,8 @@ let
         ''
           cp ${config.system.build.bootStage2} $out/init
           substituteInPlace $out/init --subst-var-by systemConfig $out
-        ''}
+        ''
+      }
 
       ln -s ${config.system.build.etc}/etc $out/etc
       ln -s ${config.system.path} $out/sw
@@ -102,8 +103,7 @@ let
       ''}
 
       ${config.system.extraSystemBuilderCmds}
-    ''
-  ;
+    '';
 
   # Putting it all together.  This builds a store path containing
   # symlinks to the various parts of the built configuration (the
@@ -168,8 +168,7 @@ let
         pkgs.replaceDependency { inherit oldDependency newDependency drv; }
       )
       baseSystemAssertWarn
-      config.system.replaceRuntimeDependencies
-  ;
+      config.system.replaceRuntimeDependencies;
 
   systemWithBuildDeps = system.overrideAttrs (
     o: {
@@ -253,8 +252,7 @@ in
                 definition. Change your configuration to enable only one bootloader.
               '';
             }
-            (types.either types.str types.package)
-        ;
+            (types.either types.str types.package);
       };
 
       toplevel = mkOption {
@@ -331,8 +329,7 @@ in
       default = [ ];
       example =
         lib.literalExpression
-          "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]"
-      ;
+          "[ ({ original = pkgs.openssl; replacement = pkgs.callPackage /path/to/openssl { }; }) ]";
       type = types.listOf (
         types.submodule (
           { ... }:
@@ -443,8 +440,7 @@ in
                 ))
               ];
           };
-        }
-    ;
+        };
 
     system.build.toplevel =
       if config.system.includeBuildDependencies then systemWithBuildDeps else system;

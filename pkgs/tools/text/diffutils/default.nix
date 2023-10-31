@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     # configure where it is. Covers the cross and native case alike.
     lib.optional (coreutils != null) "PR_PROGRAM=${coreutils}/bin/pr"
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      "gl_cv_func_getopt_gnu=yes"
-  ;
+      "gl_cv_func_getopt_gnu=yes";
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/diffutils/diffutils.html";

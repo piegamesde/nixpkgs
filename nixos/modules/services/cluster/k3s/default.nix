@@ -18,8 +18,7 @@ let
         ]
         ++ config
       )
-      instruction
-  ;
+      instruction;
 in
 {
   imports = [
@@ -109,8 +108,7 @@ in
       type = types.nullOr types.path;
       description =
         lib.mdDoc
-          "File path containing k3s token to use when connecting to the server."
-      ;
+          "File path containing k3s token to use when connecting to the server.";
       default = null;
     };
 
@@ -126,8 +124,7 @@ in
       default = false;
       description =
         lib.mdDoc
-          "Only run the server. This option only makes sense for a server."
-      ;
+          "Only run the server. This option only makes sense for a server.";
     };
 
     environmentFile = mkOption {
@@ -143,8 +140,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot)."
-      ;
+          "File path containing the k3s YAML config. This is useful when the config is generated (for example on boot).";
     };
   };
 

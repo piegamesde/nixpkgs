@@ -92,8 +92,7 @@ let
           "skimage/filters/tests/test_thresholding.py::TestSimpleImage::test_try_all_threshold"
           "skimage/io/tests/test_mpl_imshow.py::"
         ]
-      )
-    ;
+      );
 
     # Check cythonized modules
     pythonImportsCheck = [

@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString waylandSupport
-      "-I${wayland.dev}/include"
-  ;
+      "-I${wayland.dev}/include";
 
   meta = with lib; {
     description = "Qt platform plugins for DDE";

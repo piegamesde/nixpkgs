@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
         "ThreadGroup.TimerThreadSimple"
       ];
     in
-    "-${builtins.concatStringsSep ":" filteredTests}"
-  ;
+    "-${builtins.concatStringsSep ":" filteredTests}";
 
   installPhase =
     let

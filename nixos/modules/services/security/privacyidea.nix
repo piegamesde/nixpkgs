@@ -83,8 +83,7 @@ let
           /run/wrappers/bin/sudo -u ${cfg.user} \
           env PRIVACYIDEA_CONFIGFILE=${cfg.stateDir}/privacyidea.cfg \
           ${penv}/bin/privacyidea-token-janitor $@
-      ''
-  ;
+      '';
 in
 
 {
@@ -268,8 +267,7 @@ in
           default = "pi-ldap-proxy";
           description =
             lib.mdDoc
-              "Group account under which PrivacyIDEA LDAP proxy runs."
-          ;
+              "Group account under which PrivacyIDEA LDAP proxy runs.";
         };
 
         settings = mkOption {
@@ -284,8 +282,7 @@ in
                   (listOf str)
                 ]
               )
-            )
-          ;
+            );
           default = { };
           description = lib.mdDoc ''
             Attribute-set containing the settings for `privacyidea-ldap-proxy`.
@@ -428,8 +425,7 @@ in
                 chmod g+r "${cfg.stateDir}/enckey" "${cfg.stateDir}/private.pem"
               fi
               ${pi-manage} db upgrade -d ${penv}/lib/privacyidea/migrations
-            ''
-          ;
+            '';
           serviceConfig = {
             Type = "notify";
             ExecStart = "${uwsgi}/bin/uwsgi --json ${piuwsgi}";
@@ -439,8 +435,7 @@ in
             NotifyAccess = "main";
             KillSignal = "SIGQUIT";
           };
-        }
-      ;
+        };
 
       users.users.privacyidea = mkIf (cfg.user == "privacyidea") {
         group = cfg.group;
@@ -457,8 +452,7 @@ in
           let
             xor = a: b: a && !b || !a && b;
           in
-          xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null)
-        ;
+          xor (cfg.ldap-proxy.settings == { }) (cfg.ldap-proxy.configFile == null);
         message = "configFile & settings are mutually exclusive for services.privacyidea.ldap-proxy!";
       } ];
 
@@ -503,12 +497,10 @@ in
                   -g ${cfg.ldap-proxy.group} \
                   ldap-proxy \
                   -c ${configPath}
-              ''
-            ;
+              '';
             Restart = "always";
           };
-        }
-      ;
+        };
 
       users.users.pi-ldap-proxy = mkIf (cfg.ldap-proxy.user == "pi-ldap-proxy") {
         group = cfg.ldap-proxy.group;

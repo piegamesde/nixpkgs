@@ -16,8 +16,7 @@ import ./make-test-python.nix (
           passwordFile = pkgs.writeText "password" "secret";
           dataDir = "/srv/freshrss";
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

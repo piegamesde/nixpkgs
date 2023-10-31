@@ -14,8 +14,7 @@ let
     with pkgs.qt5; [
       qtbase
       qtmultimedia
-    ]
-  ;
+    ];
   gnomeDeps =
     pkgs:
     with pkgs; [
@@ -24,8 +23,7 @@ let
       gnome-desktop
       gnome.libgnome-keyring
       webkitgtk
-    ]
-  ;
+    ];
   xorgDeps =
     pkgs:
     with pkgs.xorg; [
@@ -45,8 +43,7 @@ let
       libXi
       libXcursor
       libXcomposite
-    ]
-  ;
+    ];
 in
 buildFHSEnv {
   name = "lutris";

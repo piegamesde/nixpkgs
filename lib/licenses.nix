@@ -27,8 +27,7 @@ lib.mapAttrs
           applyDefaults
           applySpdx
           applyRedistributable
-        ]
-      ;
+        ];
     in
     mkLicense lset
   )

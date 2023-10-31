@@ -24,8 +24,7 @@
         compressManPages $out
         [[ -e $out/share/man/small-man.1.gz ]]
       '';
-    }
-  ;
+    };
   make-symlinks-relative = stdenv.mkDerivation {
     name = "test-make-symlinks-relative";
     outputs = [
@@ -118,8 +117,7 @@
         # confirm file doesn't only contain the above
         grep "^old_library='''" $out/lib/libFoo.la
       '';
-    }
-  ;
+    };
   reproducible-builds = stdenv.mkDerivation {
     name = "test-reproducible-builds";
     buildCommand = ''

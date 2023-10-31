@@ -32,8 +32,7 @@ let
       isOdd = n: lib.trivial.mod n 2 != 0;
       patch = lib.toInt (lib.versions.patch version);
     in
-    isOdd patch
-  ;
+    isOdd patch;
 
   makeFdb =
     {
@@ -63,8 +62,7 @@ let
         ++ lib.optionals (lib.versionAtLeast version "7.1.0") [
           msgpack
           toml11
-        ]
-      ;
+        ];
 
       nativeBuildInputs = [
         pkg-config
@@ -193,14 +191,12 @@ let
           [ "x86_64-linux" ]
           ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [
             "aarch64-linux"
-          ]
-        ;
+          ];
         maintainers = with maintainers; [
           thoughtpolice
           lostnet
         ];
       };
-    }
-  ;
+    };
 in
 makeFdb

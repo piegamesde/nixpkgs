@@ -44,8 +44,7 @@ in
             default = { };
           };
           options.bottom = lib.mkOption { type = enum [ ]; };
-        }
-      ;
+        };
     }
 
     {

@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       libXext
       libXpm
       libXrandr
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

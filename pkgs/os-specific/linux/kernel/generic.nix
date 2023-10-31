@@ -57,7 +57,8 @@
   # optionally be compressed with gzip or bzip2.
   kernelPatches ? [ ],
   ignoreConfigErrors ? stdenv.hostPlatform.linux-kernel.name != "pc"
-    || stdenv.hostPlatform != stdenv.buildPlatform,
+    || stdenv.hostPlatform != stdenv.buildPlatform
+  ,
   extraMeta ? { },
 
   isZen ? false,
@@ -114,8 +115,7 @@ let
         }
         // features
       )
-      kernelPatches
-  ;
+      kernelPatches;
 
   commonStructuredConfig = import ./common-config.nix {
     inherit lib stdenv version;
@@ -141,8 +141,7 @@ let
           settings = extraStructuredConfig;
         }
       )
-      kernelPatches
-  ;
+      kernelPatches;
 
   # appends kernel patches extraConfig
   kernelConfigFun =
@@ -157,11 +156,9 @@ let
             }:
             extraConfig
           )
-          kernelPatches
-      ;
+          kernelPatches;
     in
-    lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches)
-  ;
+    lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches);
 
   configfile = stdenv.mkDerivation {
     inherit
@@ -296,8 +293,7 @@ let
           };
         }
         // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
-      )
-  ;
+      );
 
   passthru = basicArgs // {
     features = kernelFeatures;
@@ -312,8 +308,7 @@ let
     isXen =
       lib.warn
         "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
-        true
-    ;
+        true;
 
     # Adds dependencies needed to edit the config:
     # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
@@ -342,12 +337,10 @@ let
                 "override is stubbed for NixOS kernel tests, not applying changes these arguments: "
                 + toString (lib.attrNames (if lib.isAttrs args then args else args { }))
               )
-              overridableKernel
-          ;
+              overridableKernel;
         };
       in
-      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ] ++ kernelTests
-    ;
+      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ] ++ kernelTests;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;

@@ -244,8 +244,7 @@ stdenvNoCC.mkDerivation (
             curlOptsList = [ ${
               lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts
             } ];''
-        curlOpts
-    ;
+        curlOpts;
     curlOptsList = lib.escapeShellArgs curlOptsList;
     inherit
       showURLs

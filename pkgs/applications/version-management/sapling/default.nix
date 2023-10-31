@@ -165,8 +165,7 @@ python3Packages.buildPythonApplication {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [ openssl ]
@@ -176,8 +175,7 @@ python3Packages.buildPythonApplication {
       CoreFoundation
       CoreServices
       Security
-    ]
-  ;
+    ];
 
   HGNAME = "sl";
   SAPLING_OSS_BUILD = "true";

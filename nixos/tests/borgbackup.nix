@@ -112,8 +112,7 @@ import ./make-test-python.nix (
               environment.BORG_RSH = "ssh -oStrictHostKeyChecking=no -i /root/id_ed25519";
             };
           };
-        }
-      ;
+        };
 
       server =
         { ... }:
@@ -137,8 +136,7 @@ import ./make-test-python.nix (
             path = "/data/borgbackup";
             quota = ".5G";
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

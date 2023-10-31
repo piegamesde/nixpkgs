@@ -43,8 +43,7 @@ let
       mapAttrsToList
         (name: value: "${toString name} ${getSep value} ${toConf value};")
         attrs
-    )
-  ;
+    );
 
   clightConf = pkgs.writeText "clight.conf" (
     convertAttrs (filterAttrs (_: value: value != null) cfg.settings)
@@ -82,15 +81,13 @@ in
             str
             bool
             float
-          ]
-        ;
+          ];
         collectionTypes =
           with types;
           oneOf [
             validConfigTypes
             (listOf validConfigTypes)
-          ]
-        ;
+          ];
       in
       mkOption {
         type =
@@ -110,8 +107,7 @@ in
           <https://github.com/FedeDP/Clight/blob/master/Extra/clight.conf> for a
           sample configuration file.
         '';
-      }
-    ;
+      };
   };
 
   config = mkIf cfg.enable {
@@ -119,8 +115,7 @@ in
       let
         inRange =
           v: l: r:
-          v >= l && v <= r
-        ;
+          v >= l && v <= r;
       in
       [ {
         assertion =
@@ -130,8 +125,7 @@ in
             && inRange config.location.longitude (-180) 180
         ;
         message = "You must specify a valid latitude and longitude if manually providing location";
-      } ]
-    ;
+      } ];
 
     boot.kernelModules = [ "i2c_dev" ];
     environment.systemPackages = with pkgs; [
@@ -151,14 +145,12 @@ in
           mkDefault [
             day
             night
-          ]
-        ;
+          ];
       }
       // (optionalAttrs (config.location.provider == "manual") {
         daytime.latitude = mkDefault config.location.latitude;
         daytime.longitude = mkDefault config.location.longitude;
-      })
-    ;
+      });
 
     services.geoclue2.appConfig.clightc = {
       isAllowed = true;

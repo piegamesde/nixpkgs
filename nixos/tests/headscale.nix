@@ -9,8 +9,7 @@ import ./make-test-python.nix (
       {
         services.headscale.enable = true;
         environment.systemPackages = [ pkgs.headscale ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("headscale")

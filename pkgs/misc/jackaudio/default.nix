@@ -86,8 +86,7 @@ stdenv.mkDerivation (
         CoreAudio
         Accelerate
         libobjc
-      ]
-    ;
+      ];
 
     prePatch = ''
       substituteInPlace svnversion_regenerate.sh \

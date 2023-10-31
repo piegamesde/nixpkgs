@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       wrapProgram $out/bin/hall \
         --prefix GUILE_LOAD_PATH : "$out/share/guile/site/${guileVersion}:$GUILE_LOAD_PATH" \
         --prefix GUILE_LOAD_COMPILED_PATH : "$out/lib/guile/${guileVersion}/site-ccache:$GUILE_LOAD_COMPILED_PATH"
-    ''
-  ;
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''

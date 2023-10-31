@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags =
     [ "-D systemdunitdir=lib/systemd/user" ]
-    ++ lib.optional waylandSupport "-Dwl=true"
-  ;
+    ++ lib.optional waylandSupport "-Dwl=true";
 
   passthru.providedSessions = [ "enlightenment" ];
 

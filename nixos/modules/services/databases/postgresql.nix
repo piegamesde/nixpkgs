@@ -100,16 +100,14 @@ in
         default = true;
         description =
           lib.mdDoc
-            "Check the syntax of the configuration file at compile time"
-        ;
+            "Check the syntax of the configuration file at compile time";
       };
 
       dataDir = mkOption {
         type = types.path;
         defaultText =
           literalExpression
-            ''"/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"''
-        ;
+            ''"/var/lib/postgresql/''${config.services.postgresql.package.psqlSchema}"'';
         example = "/var/lib/postgresql/11";
         description = lib.mdDoc ''
           The data directory for PostgreSQL. If left as the default value
@@ -362,8 +360,7 @@ in
                         default = null;
                         inherit defaultText;
                       };
-                    }
-                  ;
+                    };
                 };
               };
             };
@@ -422,8 +419,7 @@ in
         default = [ ];
         example =
           literalExpression
-            "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]"
-        ;
+            "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
         description = lib.mdDoc ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
           match version for `services.postgresql.package` value.
@@ -440,8 +436,7 @@ in
               int
               str
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           PostgreSQL configuration. Refer to
@@ -503,8 +498,7 @@ in
       let
         mkThrow =
           ver:
-          throw "postgresql_${ver} was removed, please upgrade your postgresql version."
-        ;
+          throw "postgresql_${ver} was removed, please upgrade your postgresql version.";
         base =
           if versionAtLeast config.system.stateVersion "22.05" then
             pkgs.postgresql_14
@@ -521,13 +515,11 @@ in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
       # systems!
-      mkDefault (if cfg.enableJIT then base.withJIT else base)
-    ;
+      mkDefault (if cfg.enableJIT then base.withJIT else base);
 
     services.postgresql.dataDir =
       mkDefault
-        "/var/lib/postgresql/${cfg.package.psqlSchema}"
-    ;
+        "/var/lib/postgresql/${cfg.package.psqlSchema}";
 
     services.postgresql.authentication = mkAfter ''
       # Generated file; do not edit!
@@ -554,8 +546,7 @@ in
     system.extraDependencies =
       lib.optional
         (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
-        configFileCheck
-    ;
+        configFileCheck;
 
     systemd.services.postgresql = {
       description = "PostgreSQL Server";

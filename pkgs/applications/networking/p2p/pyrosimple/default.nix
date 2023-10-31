@@ -76,6 +76,5 @@ buildPythonPackage {
       changelog = "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
       platforms = platforms.all;
       maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
-    }
-  ;
+    };
 }

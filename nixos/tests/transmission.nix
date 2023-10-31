@@ -14,8 +14,7 @@ import ./make-test-python.nix (
         security.apparmor.enable = true;
 
         services.transmission.enable = true;
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

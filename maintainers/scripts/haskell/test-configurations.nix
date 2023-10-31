@@ -121,8 +121,7 @@ let
       "arm" = defaultSets;
       "darwin" = defaultSets;
     }
-    .${configName} or setsForVersion
-  ;
+    .${configName} or setsForVersion;
 
   # attribute set that has all the attributes of haskellPackages set to null
   availableHaskellPackages = builtins.listToAttrs (
@@ -146,8 +145,7 @@ let
           self
           availableHaskellPackages
       )
-    )
-  ;
+    );
 
   # list of derivations that are affected by overrides in the given configuration
   # overlays. For common, nix, darwin etc. only the derivation from the default
@@ -171,8 +169,7 @@ let
             lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
           )
           files'
-      )
-  ;
+      );
 in
 
 packages

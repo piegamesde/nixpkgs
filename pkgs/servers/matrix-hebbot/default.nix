@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       autoconf
       automake
-    ]
-  ;
+    ];
 
   buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
 

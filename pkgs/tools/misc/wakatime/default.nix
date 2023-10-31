@@ -42,8 +42,7 @@ buildGoModule rec {
     ''
       # Disable tests
       buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    ''
-  ;
+    '';
 
   passthru.tests.version = testers.testVersion {
     package = wakatime;

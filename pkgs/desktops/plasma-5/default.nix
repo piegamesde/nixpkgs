@@ -79,11 +79,9 @@ let
                       propagatedBuildInputs+=" @dev@"
                   fi
               fi
-            ''
-          ;
+            '';
         in
-        callPackage setupHook { }
-      ;
+        callPackage setupHook { };
 
       propagateBin = propagate "bin";
 
@@ -133,8 +131,7 @@ let
                 nativeBuildInputs
               ;
             }
-          )
-        ;
+          );
       };
     in
     {
@@ -204,17 +201,14 @@ let
         {
           plasma-applet-caffeine-plus =
             callPackage ./3rdparty/addons/caffeine-plus.nix
-              { }
-          ;
+              { };
           plasma-applet-virtual-desktop-bar =
             callPackage ./3rdparty/addons/virtual-desktop-bar.nix
-              { }
-          ;
+              { };
           bismuth = callPackage ./3rdparty/addons/bismuth { };
           kwin-dynamic-workspaces =
             callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix
-              { }
-          ;
+              { };
           kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
           krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
           krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };
@@ -222,15 +216,13 @@ let
           kzones = callPackage ./3rdparty/kwin/scripts/kzones.nix { };
           lightly = callPackage ./3rdparty/lightly { };
           parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
-        }
-      ;
+        };
     }
     // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
       plasma-phone-components =
         throw
-          "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'"
-      ;
+          "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'";
     }
   ;
 in

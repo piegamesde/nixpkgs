@@ -38,8 +38,7 @@ buildGoModule rec {
           $out/bin/executor completion $shell > executor.$shell
           installShellCompletion executor.$shell
         done
-      ''
-  ;
+      '';
 
   passthru.tests.version = testers.testVersion {
     package = kaniko;

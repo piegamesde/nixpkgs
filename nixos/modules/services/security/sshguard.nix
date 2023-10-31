@@ -31,8 +31,7 @@ let
     pkgs.writeText "sshguard.conf" ''
       BACKEND="${pkgs.sshguard}/libexec/${backend}"
       LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
-    ''
-  ;
+    '';
 in
 {
 
@@ -200,8 +199,7 @@ in
               ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist)
             );
           in
-          "${pkgs.sshguard}/bin/sshguard ${args}"
-        ;
+          "${pkgs.sshguard}/bin/sshguard ${args}";
         Restart = "always";
         ProtectSystem = "strict";
         ProtectHome = "tmpfs";

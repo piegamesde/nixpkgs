@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--disable-data-download" ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "--disable-sse2" ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "--disable-sse2" ];
 
   meta = with lib; {
     description = "A C library for parsing/normalizing street addresses around the world. Powered by statistical NLP and open geo data";

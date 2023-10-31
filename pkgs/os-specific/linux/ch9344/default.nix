@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
       [
         # https://github.com/torvalds/linux/commit/a8c11c1520347be74b02312d10ef686b01b525f1
         ./fix-incompatible-pointer-types.patch
-      ]
-  ;
+      ];
 
   sourceRoot = "${src.name}/driver";
   hardeningDisable = [ "pic" ];

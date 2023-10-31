@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
       [
         # test assumes linux
         "--skip=binary::completer::tests::filename_completion"
-      ]
-  ;
+      ];
 
   passthru = {
     shellPath = "/bin/ion";

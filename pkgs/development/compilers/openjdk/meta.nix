@@ -23,6 +23,5 @@ with lib; {
         "16"
         "18"
       ])
-      [ "This OpenJDK version has reached its end of life." ]
-  ;
+      [ "This OpenJDK version has reached its end of life." ];
 }

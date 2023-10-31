@@ -20,8 +20,7 @@ import ./make-test-python.nix (
               ]
             ))
           ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -36,7 +35,6 @@ import ./make-test-python.nix (
         machine.succeed("ln -s ${redis.servers."".unixSocket} /tmp/redis.sock")
 
         tests = machine.succeed("PYTHONPATH=\"${pkgs.python3Packages.txredisapi.src}\" python -m twisted.trial ${pkgs.python3Packages.txredisapi.src}/tests")
-      ''
-    ;
+      '';
   }
 )

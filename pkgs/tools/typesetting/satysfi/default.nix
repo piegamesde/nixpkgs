@@ -87,8 +87,7 @@ ocamlPackages.buildDunePackage rec {
         omd
         re
       ]
-    )
-  ;
+    );
 
   postInstall = ''
     mkdir -p $out/share/satysfi/dist/fonts

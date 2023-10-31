@@ -170,8 +170,7 @@ import ./make-test-python.nix (
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=pleroma.nixos.test' -days 36500
           mkdir -p $out
           cp key.pem cert.pem $out
-        ''
-    ;
+        '';
 
     hosts = nodes: ''
       ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
@@ -195,8 +194,7 @@ import ./make-test-python.nix (
             toot
             send-toot
           ];
-        }
-      ;
+        };
       pleroma =
         {
           nodes,
@@ -254,8 +252,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -268,7 +265,6 @@ import ./make-test-python.nix (
         pleroma.wait_for_unit("pleroma.service")
         pleroma.succeed("provision-user")
         client.succeed("send-toot")
-      ''
-    ;
+      '';
   }
 )

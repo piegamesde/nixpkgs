@@ -49,8 +49,7 @@ stdenv.mkDerivation (
     cmakeDir = "cmake";
     cmakeFlags =
       [ "-DBUILD_SHARED_LIBS=ON" ]
-      ++ lib.optional enableEGL "-DGLEW_EGL=ON"
-    ;
+      ++ lib.optional enableEGL "-DGLEW_EGL=ON";
 
     postInstall = ''
       moveToOutput lib/cmake "''${!outputDev}"
@@ -84,8 +83,7 @@ stdenv.mkDerivation (
       pkgConfigModules = [ "glew" ];
       platforms =
         with platforms;
-        if enableEGL then subtractLists darwin mesaPlatforms else mesaPlatforms
-      ;
+        if enableEGL then subtractLists darwin mesaPlatforms else mesaPlatforms;
     };
   }
 )

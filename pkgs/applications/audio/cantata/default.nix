@@ -184,8 +184,7 @@ mkDerivation rec {
     ]
     ++ lib.flatten (
       builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options)
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     cmake

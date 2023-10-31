@@ -70,8 +70,7 @@ buildPythonPackage rec {
         gdal = gdal;
         extension = stdenv.hostPlatform.extensions.sharedLibrary;
       })
-    ]
-  ;
+    ];
 
   postPatch = ''
     substituteInPlace tests/utils_tests/test_autoreload.py \

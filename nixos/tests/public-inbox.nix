@@ -10,8 +10,7 @@ import ./make-test-python.nix (
           openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 36500 \
             -subj '/CN=machine.${domain}'
           install -D -t $out key.pem cert.pem
-        ''
-    ;
+        '';
   in
   {
     name = "public-inbox";
@@ -105,8 +104,7 @@ import ./make-test-python.nix (
                     "www"
                   ];
                 };
-              }
-          ;
+              };
           settings.coderepo = lib.listToAttrs (
             map
               (
@@ -191,8 +189,7 @@ import ./make-test-python.nix (
           pkgs.mailutils
           pkgs.openssl
         ];
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

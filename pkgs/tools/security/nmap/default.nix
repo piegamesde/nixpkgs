@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
           sha256 = "0xcph9mycy57yryjg253frxyz87c4135rrbndlqw1400c8jxq70c";
         }
       )
-    ]
-  ;
+    ];
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace libz/configure \

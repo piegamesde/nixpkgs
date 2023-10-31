@@ -128,8 +128,7 @@ in
               };
             }
           )
-        )
-      ;
+        );
     };
   };
 
@@ -160,8 +159,7 @@ in
               {
                 BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
                 PYTHONPATH = "${penv}/${python.sitePackages}/";
-              }
-            ;
+              };
 
             serviceConfig = {
               Type = "simple";
@@ -180,8 +178,7 @@ in
                   DEFAULT_PERMISSIONS="${server.defaultPermissions}"
                   ${server.extraConfig}
                   EOF
-                ''
-              ;
+                '';
               ExecStart = ''
                 ${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
                               -u ${user} \
@@ -194,8 +191,7 @@ in
             };
           })
         )
-        cfg.servers
-    ;
+        cfg.servers;
 
     users.users.${user} = {
       uid = config.ids.uids.bepasty;

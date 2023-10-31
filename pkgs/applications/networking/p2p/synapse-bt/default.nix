@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
-    ]
-  ;
+    ];
 
   cargoBuildFlags = [ "--all" ];
 

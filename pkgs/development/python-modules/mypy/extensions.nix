@@ -31,8 +31,7 @@ buildPythonPackage rec {
       [
         # https://github.com/python/mypy_extensions/issues/24
         "test_typeddict_errors"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "mypy_extensions" ];
 

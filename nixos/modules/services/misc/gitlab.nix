@@ -147,8 +147,7 @@ let
         }
         // (optionalAttrs (cfg.backup.uploadOptions != { }) {
           upload = cfg.backup.uploadOptions;
-        })
-      ;
+        });
       gitlab_shell = {
         path = "${cfg.packages.gitlab-shell}";
         hooks_path = "${cfg.statePath}/shell/hooks";
@@ -456,8 +455,7 @@ in
               "tar"
             ];
           in
-          either value (listOf value)
-        ;
+          either value (listOf value);
         default = [ ];
         example = [
           "artifacts"
@@ -680,8 +678,7 @@ in
           defaultText = literalExpression "config.${opt.registry.enable}";
           description =
             lib.mdDoc
-              "If GitLab container registry should be enabled by default for projects."
-          ;
+              "If GitLab container registry should be enabled by default for projects.";
         };
         issuer = mkOption {
           type = types.str;
@@ -698,15 +695,13 @@ in
           default = "";
           description =
             lib.mdDoc
-              "External address used to access registry from the internet"
-          ;
+              "External address used to access registry from the internet";
         };
         externalPort = mkOption {
           type = types.int;
           description =
             lib.mdDoc
-              "External port used to access registry from the internet"
-          ;
+              "External port used to access registry from the internet";
         };
       };
 
@@ -757,8 +752,7 @@ in
           default = null;
           description =
             lib.mdDoc
-              "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
-          ;
+              "Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
 
         enableStartTLSAuto = mkOption {
@@ -778,8 +772,7 @@ in
           default = "peer";
           description =
             lib.mdDoc
-              "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html"
-          ;
+              "How OpenSSL checks the certificate, see http://api.rubyonrails.org/classes/ActionMailer/Base.html";
         };
       };
 
@@ -823,8 +816,7 @@ in
                   attrs
                 ]
               )
-            )
-          ;
+            );
 
           options = {
             listen-http = mkOption {
@@ -911,8 +903,7 @@ in
               default = "${gitlabConfig.production.shared.path}/pages";
               defaultText =
                 literalExpression
-                  ''config.${opt.extraConfig}.production.shared.path + "/pages"''
-              ;
+                  ''config.${opt.extraConfig}.production.shared.path + "/pages"'';
               description = lib.mdDoc ''
                 The directory where pages are stored.
               '';
@@ -1321,8 +1312,7 @@ in
           Type = "oneshot";
           RemainAfterExit = true;
         };
-      }
-    ;
+      };
 
     systemd.services.gitlab-registry-cert = optionalAttrs cfg.registry.enable {
       path = with pkgs; [ openssl ];
@@ -1446,8 +1436,7 @@ in
           in
           "+${
             pkgs.writeShellScript "gitlab-pre-start-full-privileges" preStartFullPrivileges
-          }"
-        ;
+          }";
 
         ExecStart = pkgs.writeShellScript "gitlab-config" ''
           set -o errexit -o pipefail -o nounset
@@ -1733,8 +1722,7 @@ in
           RuntimeDirectory = "gitlab-pages";
           RuntimeDirectoryMode = "0700";
         };
-      }
-    ;
+      };
 
     systemd.services.gitlab-workhorse = {
       after = [ "network.target" ];
@@ -1802,8 +1790,7 @@ in
             ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
             WorkingDirectory = gitlabEnv.HOME;
           };
-        }
-    ;
+        };
 
     systemd.services.gitlab = {
       after = [
@@ -1855,8 +1842,7 @@ in
           RAILS_ENV = "production";
           CRON = "1";
         }
-        // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; }
-      ;
+        // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; };
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

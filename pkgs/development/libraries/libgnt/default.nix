@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildDocs [
       gtk-doc
       docbook-xsl-nons
-    ]
-  ;
+    ];
 
   buildInputs = [
     glib

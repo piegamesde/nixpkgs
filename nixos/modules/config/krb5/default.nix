@@ -30,8 +30,7 @@ let
             kdc = cfg.kdc;
             admin_server = cfg.kerberosAdminServer;
           };
-        }
-    ;
+        };
 
     domain_realm =
       optionalAttrs
@@ -42,8 +41,7 @@ let
         {
           ".${cfg.domainRealm}" = cfg.defaultRealm;
           ${cfg.domainRealm} = cfg.defaultRealm;
-        }
-    ;
+        };
   };
 
   mergedConfig =
@@ -119,8 +117,7 @@ let
           else
             value
         )
-      )
-  ;
+      );
 in
 {
 
@@ -418,8 +415,7 @@ in
                 cfg.extraConfig
               ])
             )
-          )
-        ;
+          );
         message = ''
           Configuration of krb5.conf by deprecated options is mutually exclusive
           with configuration by section.  Please migrate your config using the
@@ -447,8 +443,7 @@ in
                 cfg.kerberosAdminServer
               ])
             )
-          )
-        ;
+          );
         message = ''
           Configuration of krb5.conf using krb.config is mutually exclusive with
           configuration by section.  If you want to mix the two, you can pass

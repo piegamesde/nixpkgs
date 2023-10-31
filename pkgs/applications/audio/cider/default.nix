@@ -24,8 +24,7 @@ appimageTools.wrapType2 rec {
       substituteInPlace $out/share/applications/${pname}.desktop \
         --replace 'Exec=AppRun' 'Exec=${pname}'
       cp -r ${contents}/usr/share/icons $out/share
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A new look into listening and enjoying Apple Music in style and performance.";

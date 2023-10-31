@@ -44,8 +44,7 @@ import ./make-test-python.nix (
             }
           '';
         };
-      }
-    ;
+      };
   in
   {
     name = "drbd";
@@ -92,7 +91,6 @@ import ./make-test-python.nix (
             "mount /dev/drbd0 /mnt/drbd",
             "ls /mnt/drbd/hello",
         )
-      ''
-    ;
+      '';
   }
 )

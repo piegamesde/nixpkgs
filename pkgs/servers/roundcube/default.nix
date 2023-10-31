@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     buildEnv {
       name = "${roundcube.name}-with-plugins";
       paths = (f roundcubePlugins) ++ [ roundcube ];
-    }
-  ;
+    };
 
   meta = {
     description = "Open Source Webmail Software";

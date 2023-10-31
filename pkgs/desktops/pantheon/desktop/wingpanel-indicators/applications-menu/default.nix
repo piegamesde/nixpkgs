@@ -72,8 +72,7 @@ stdenv.mkDerivation rec {
     # wingpanel's wrapper will need to pick up the fact that
     # applications-menu needs a version of switchboard with all
     # its plugins for search.
-    switchboard-with-plugs.buildInputs
-  ;
+    switchboard-with-plugs.buildInputs;
 
   mesonFlags = [ "--sysconfdir=${placeholder "out"}/etc" ];
 

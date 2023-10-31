@@ -218,8 +218,7 @@ in
               ]
               cfg.settings
             )
-            cfg.settings.storage.filesystem_folder
-        ;
+            cfg.settings.storage.filesystem_folder;
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"

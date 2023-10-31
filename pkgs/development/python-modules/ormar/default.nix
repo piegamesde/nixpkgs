@@ -62,8 +62,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [
       typing-extensions
       importlib-metadata
-    ]
-  ;
+    ];
 
   passthru.optional-dependencies = {
     postgresql = [ asyncpg ];

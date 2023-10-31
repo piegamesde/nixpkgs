@@ -84,7 +84,6 @@ in
     systemd.services.freeradius = freeradiusService cfg;
     warnings =
       optional cfg.debug
-        "Freeradius debug logging is enabled. This will log passwords in plaintext to the journal!"
-    ;
+        "Freeradius debug logging is enabled. This will log passwords in plaintext to the journal!";
   };
 }

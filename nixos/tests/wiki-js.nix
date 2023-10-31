@@ -27,8 +27,7 @@ import ./make-test-python.nix (
           after = [ "postgresql.service" ];
         };
         environment.systemPackages = with pkgs; [ jq ];
-      }
-    ;
+      };
 
     testScript =
       let
@@ -161,7 +160,6 @@ import ./make-test-python.nix (
             assert create.strip() == "true", f"Expected true, got {create}"
 
         machine.shutdown()
-      ''
-    ;
+      '';
   }
 )

@@ -44,8 +44,7 @@ import ./make-test-python.nix (
             dhcpcd.enable = false;
             defaultGateway = "192.168.0.3";
           };
-        }
-      ;
+        };
 
       moon =
         { config, ... }:
@@ -106,8 +105,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       carol =
         { config, ... }:
@@ -156,8 +154,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
     };
     testScript = ''
       start_all()

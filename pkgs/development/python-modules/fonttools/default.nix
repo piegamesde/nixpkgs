@@ -57,8 +57,7 @@ buildPythonPackage rec {
         repacker = [ uharfbuzz ];
       };
     in
-    extras // { all = lib.concatLists (lib.attrValues extras); }
-  ;
+    extras // { all = lib.concatLists (lib.attrValues extras); };
 
   nativeCheckInputs =
     [ pytestCheckHook ]
@@ -75,8 +74,7 @@ buildPythonPackage rec {
           ++ [ "repacker" ]
         )
         passthru.optional-dependencies
-    )
-  ;
+    );
 
   pythonImportsCheck = [ "fontTools" ];
 

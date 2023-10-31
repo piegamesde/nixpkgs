@@ -18,8 +18,7 @@ let
       sectionType = lazyAttrsOf multipleType;
       supersectionType = lazyAttrsOf (either multipleType sectionType);
     in
-    lazyAttrsOf supersectionType
-  ;
+    lazyAttrsOf supersectionType;
 
   gerritConfig = pkgs.writeText "gerrit.conf" (
     lib.generators.toGitINI cfg.settings
@@ -59,8 +58,7 @@ let
           echo "Installing plugin $name"
           ln -sf "$file" $out/$name
         done
-      ''
-  ;
+      '';
 in
 {
   options = {

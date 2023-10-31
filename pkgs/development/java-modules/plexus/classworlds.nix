@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "12kxa236gg61gs6cshgwnsj0yfpywcb606j10l9hflp951vxvlcwpcdh1nlpir0zyqj7rnk5g8609grwahq2m62fs1ymqp8db2rqi56";
         }
-      ]
-  ;
+      ];
 
   plexusClassworlds_2_4 =
     map
@@ -46,6 +45,5 @@
           type = "pom";
           sha512 = "1g2xisql030wjb8kvrfp0qcip2b4jbf4islmxa0k1fvjyrzms5babgdpx7m75g29dl8s649z8fb90wrrqc7g14y9g74lydc9i6rd2q5";
         }
-      ]
-  ;
+      ];
 }

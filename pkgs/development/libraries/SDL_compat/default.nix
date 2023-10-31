@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     [ SDL2 ]

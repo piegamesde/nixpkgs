@@ -88,8 +88,7 @@ rustPlatform.buildRustPackage {
       libiconv
       coreutils
       CoreServices
-    ]
-  ;
+    ];
 
   # needed for internal protobuf c wrapper library
   PROTOC = "${protobuf}/bin/protoc";

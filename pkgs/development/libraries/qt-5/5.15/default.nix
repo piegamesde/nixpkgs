@@ -62,8 +62,7 @@ let
         ./qtbase.patch.d/0009-qtbase-qtpluginpath.patch
         ./qtbase.patch.d/0010-qtbase-assert.patch
         ./qtbase.patch.d/0011-fix-header_module.patch
-      ]
-    ;
+      ];
     qtdeclarative = [
       ./qtdeclarative.patch
       # prevent headaches from stale qmlcache data
@@ -102,8 +101,7 @@ let
         ./qtwebengine-darwin-no-platform-check.patch
         ./qtwebengine-mac-dont-set-dsymutil-path.patch
         ./qtwebengine-darwin-checks.patch
-      ]
-    ;
+      ];
     qtwebkit =
       [
         (fetchpatch {
@@ -127,8 +125,7 @@ let
       ++ lib.optionals stdenv.isDarwin [
         ./qtwebkit-darwin-no-readline.patch
         ./qtwebkit-darwin-no-qos-classes.patch
-      ]
-    ;
+      ];
     qttools = [ ./qttools.patch ];
   };
 
@@ -150,11 +147,9 @@ let
                   inherit debug;
                   wrapQtAppsHook = null;
                 }
-                stdenv.mkDerivation
-            ;
+                stdenv.mkDerivation;
           }
-          { inherit self srcs patches; }
-      ;
+          { inherit self srcs patches; };
 
       callPackage = self.newScope {
         inherit
@@ -340,8 +335,7 @@ let
               fix_qmake_libtool = ../hooks/fix-qmake-libtool.sh;
             };
           }
-          ../hooks/qmake-hook.sh
-      ;
+          ../hooks/qmake-hook.sh;
 
       wrapQtAppsHook =
         makeSetupHook
@@ -352,8 +346,7 @@ let
               buildPackages.makeBinaryWrapper
             ] ++ lib.optional stdenv.isLinux self.qtwayland.dev;
           }
-          ../hooks/wrap-qt-apps-hook.sh
-      ;
+          ../hooks/wrap-qt-apps-hook.sh;
     }
     // lib.optionalAttrs config.allowAliases {
       # remove before 23.11
@@ -361,8 +354,7 @@ let
         lib.warn
           ''
             qt5 now uses makeScopeWithSplicing which does not have "overrideScope'", use "overrideScope".''
-          self.overrideScope
-      ;
+          self.overrideScope;
     }
   ;
 in

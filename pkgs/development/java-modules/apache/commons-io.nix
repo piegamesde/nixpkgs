@@ -22,6 +22,5 @@
           type = "jar";
           sha512 = "14b2kcjsn12cnrl1qc7v7r48m9vmpw5h9jljhsx58ac8xrlb8g6l71j9lnhp8cf8vc3jwz4drrwn4l9p3r5sk02cparl3h2r0y4cp2c";
         }
-      ]
-  ;
+      ];
 }

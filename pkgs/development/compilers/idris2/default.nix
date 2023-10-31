@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
         --suffix IDRIS2_PACKAGE_PATH ':' "${globalLibrariesPath}" \
         --suffix DYLD_LIBRARY_PATH ':' "$out/${name}/lib" \
         --suffix LD_LIBRARY_PATH ':' "$out/${name}/lib"
-    ''
-  ;
+    '';
 
   # Run package tests
   passthru.tests = callPackage ./tests.nix { inherit pname; };

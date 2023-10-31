@@ -21,8 +21,7 @@ import ./make-test-python.nix (
             user = "alice";
           };
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -42,7 +41,6 @@ import ./make-test-python.nix (
         status, result = machine.systemctl('--no-pager show plasma-plasmashell.service', user='alice')
         assert status == 0, 'Service not found'
         assert 'ActiveState=active' in result.split('\n'), 'Systemd service not active'
-      ''
-    ;
+      '';
   }
 )

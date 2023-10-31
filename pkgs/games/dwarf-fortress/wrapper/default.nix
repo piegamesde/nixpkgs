@@ -77,8 +77,7 @@ let
           SOUND = enableSound;
         };
       }
-      settings
-  ;
+      settings;
 
   forEach = attrs: f: lib.concatStrings (lib.mapAttrsToList f attrs);
 

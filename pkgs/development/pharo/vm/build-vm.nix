@@ -190,8 +190,7 @@ stdenv.mkDerivation rec {
       EOF
       chmod +x "$out/bin/${cmd}"
       ln -s ${libgit2}/lib/libgit2.so* "$out/"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Clean and innovative Smalltalk-inspired environment";

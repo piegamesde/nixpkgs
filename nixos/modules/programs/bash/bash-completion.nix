@@ -16,8 +16,7 @@ in
       mkEnableOption (lib.mdDoc "Bash completion for all interactive bash shells")
       // {
         default = true;
-      }
-    ;
+      };
   };
 
   config = mkIf enable {

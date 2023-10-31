@@ -141,8 +141,7 @@ buildPythonPackage rec {
       "test_auth_header_no_match"
       "test_follows_redirects_on_GET"
       "test_connect_to_selfsigned_fails"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Python documentation generator";

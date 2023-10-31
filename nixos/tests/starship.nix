@@ -38,8 +38,7 @@ import ./make-test-python.nix (
             "bash"
             "fish"
             "zsh"
-          ]
-      ;
+          ];
     };
 
     testScript = ''

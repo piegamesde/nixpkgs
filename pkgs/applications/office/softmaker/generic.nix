@@ -146,8 +146,7 @@ stdenv.mkDerivation {
       install -D -t $out/share/mime/packages ${pname}/mime/softmaker-*office*${shortEdition}.xml
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   desktopItems = builtins.attrValues desktopItems;
 

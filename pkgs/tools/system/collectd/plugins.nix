@@ -89,8 +89,7 @@ let
       ++ lib.optionals stdenv.isLinux [
         iptables
         libmnl
-      ]
-    ;
+      ];
     java.buildInputs = [
       jdk
       libgcrypt
@@ -154,8 +153,7 @@ let
       ++ lib.optionals stdenv.isLinux [
         lvm2
         udev
-      ]
-    ;
+      ];
     write_http.buildInputs = [
       curl
       yajl
@@ -186,8 +184,7 @@ let
   pluginBuildInputs =
     plugin:
     lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
-      plugins.${plugin}.buildInputs
-  ;
+      plugins.${plugin}.buildInputs;
 
   buildInputs =
     if enabledPlugins == null then

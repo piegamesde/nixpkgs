@@ -55,8 +55,7 @@ let
           --replace 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
         install -m 444 -D ${appimageContents}/octant.png \
           $out/share/icons/hicolor/512x512/apps/octant.png
-      ''
-    ;
+      '';
   };
 
   darwin = stdenv.mkDerivation {

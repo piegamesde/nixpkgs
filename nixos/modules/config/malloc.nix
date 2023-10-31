@@ -46,8 +46,7 @@ let
           which aims at providing additional mitigations against heap based
           vulnerabilities, while maintaining good performance.
         '';
-      }
-    ;
+      };
 
     mimalloc = {
       libPath = "${pkgs.mimalloc}/lib/libmimalloc.so";
@@ -74,8 +73,7 @@ let
       ''
         mkdir -p $out/lib
         cp -L $origLibPath $out/lib/$libName
-      ''
-  ;
+      '';
 
   # The full path to the selected provider shlib.
   providerLibPath = "${mallocLib}/lib/${mallocLib.libName}";
@@ -116,8 +114,7 @@ in
   config = mkIf (cfg.provider != "libc") {
     boot.kernel.sysctl."vm.max_map_count" =
       mkIf (cfg.provider == "graphene-hardened")
-        (mkDefault 1048576)
-    ;
+        (mkDefault 1048576);
     environment.etc."ld-nix.so.preload".text = ''
       ${providerLibPath}
     '';

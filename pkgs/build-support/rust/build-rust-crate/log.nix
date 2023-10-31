@@ -35,8 +35,7 @@ let
     '';
   echo_conditional_colored_body =
     colors: start_escape:
-    if colors == "always" then (echo_colored_body start_escape) else ''echo "$@"''
-  ;
+    if colors == "always" then (echo_colored_body start_escape) else ''echo "$@"'';
 in
 {
   echo_colored = colors: ''

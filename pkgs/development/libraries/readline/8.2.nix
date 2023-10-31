@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
           fetchurl {
             url = "mirror://gnu/readline/readline-${meta.branch}-patches/readline82-${nr}";
             inherit sha256;
-          }
-        ;
+          };
       in
       import ./readline-8.2-patches.nix patch
     );

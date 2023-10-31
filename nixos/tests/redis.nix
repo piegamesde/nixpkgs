@@ -29,8 +29,7 @@ import ./make-test-python.nix (
                 "-test"
               ]
           );
-        }
-      ;
+        };
     };
 
     testScript =
@@ -58,7 +57,6 @@ import ./make-test-python.nix (
         machine.succeed("redis-cli -s ${
           redis.servers."test".unixSocket
         } ping | grep PONG")
-      ''
-    ;
+      '';
   }
 )

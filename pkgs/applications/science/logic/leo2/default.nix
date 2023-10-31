@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-reserved-user-defined-literal"
-  ;
+      "-Wno-reserved-user-defined-literal";
 
   preInstall = "mkdir -p $out/bin";
 

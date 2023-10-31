@@ -48,8 +48,7 @@ buildGoModule rec {
         $out/bin/velero completion bash > velero.bash
         $out/bin/velero completion zsh > velero.zsh
         installShellCompletion velero.{bash,zsh}
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A utility for managing disaster recovery, specifically for your Kubernetes cluster resources and persistent volumes";

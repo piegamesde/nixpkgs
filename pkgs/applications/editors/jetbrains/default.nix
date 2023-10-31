@@ -121,8 +121,7 @@ let
             ''
           ;
         }
-      )
-  ;
+      );
 
   buildDataGrip =
     {
@@ -153,8 +152,7 @@ let
         '';
         maintainers = with maintainers; [ ];
       };
-    })
-  ;
+    });
 
   buildGateway =
     {
@@ -187,8 +185,7 @@ let
         '';
         maintainers = with maintainers; [ kouyk ];
       };
-    })
-  ;
+    });
 
   buildGoland =
     {
@@ -237,8 +234,7 @@ let
             ''
           ;
         }
-      )
-  ;
+      );
 
   buildIdea =
     {
@@ -283,8 +279,7 @@ let
         ];
         platforms = ideaPlatforms;
       };
-    })
-  ;
+    });
 
   buildMps =
     {
@@ -319,8 +314,7 @@ let
         '';
         maintainers = with maintainers; [ rasendubi ];
       };
-    })
-  ;
+    });
 
   buildPhpStorm =
     {
@@ -351,8 +345,7 @@ let
         '';
         maintainers = with maintainers; [ dritter ];
       };
-    })
-  ;
+    });
 
   buildPycharm =
     {
@@ -413,8 +406,7 @@ let
           '';
           # See https://www.jetbrains.com/help/pycharm/2022.1/cython-speedups.html
         }
-      )
-  ;
+      );
 
   buildRider =
     {
@@ -466,8 +458,7 @@ let
             ''
           );
         }
-      )
-  ;
+      );
 
   buildRubyMine =
     {
@@ -494,8 +485,7 @@ let
         longDescription = description;
         maintainers = with maintainers; [ edwtjo ];
       };
-    })
-  ;
+    });
 
   buildWebStorm =
     {
@@ -526,8 +516,7 @@ let
         '';
         maintainers = with maintainers; [ abaldeau ];
       };
-    })
-  ;
+    });
 in
 
 {

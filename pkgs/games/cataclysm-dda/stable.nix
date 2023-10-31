@@ -54,8 +54,7 @@ let
           [
             # Needed with GCC 12
             "-Wno-error=array-bounds"
-          ]
-      ;
+          ];
 
       meta = common.meta // {
         maintainers = with lib.maintainers; common.meta.maintainers ++ [ skeidel ];

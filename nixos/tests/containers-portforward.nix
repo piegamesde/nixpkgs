@@ -42,8 +42,7 @@ import ./make-test-python.nix (
         };
 
         virtualisation.additionalPaths = [ pkgs.stdenv ];
-      }
-    ;
+      };
 
     testScript = ''
       container_list = machine.succeed("nixos-container list")

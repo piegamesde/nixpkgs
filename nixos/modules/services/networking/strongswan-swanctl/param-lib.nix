@@ -41,8 +41,7 @@ rec {
             "${name} = ${value}"
         )
       )
-      (attrNames ps)
-  ;
+      (attrNames ps);
 
   replicate = n: c: concatStrings (builtins.genList (_x: c) n);
 
@@ -64,8 +63,7 @@ rec {
         )
         ps
       )
-    )
-  ;
+    );
 
   filterEmptySets =
     set:
@@ -82,8 +80,7 @@ rec {
             value
         )
         set
-    )
-  ;
+    );
 
   # Recursively map over every parameter in the given attribute set.
   mapParamsRecursive = mapAttrsRecursiveCond' (
@@ -104,16 +101,13 @@ rec {
               f (path ++ [ name ]) name value
           ;
         in
-        mapAttrs'' g set
-      ;
+        mapAttrs'' g set;
     in
-    recurse [ ] set
-  ;
+    recurse [ ] set;
 
   mapAttrs'' =
     f: set:
-    foldl' (a: b: a // b) { } (map (attr: f attr set.${attr}) (attrNames set))
-  ;
+    foldl' (a: b: a // b) { } (map (attr: f attr set.${attr}) (attrNames set));
 
   # Extract the options from the given set of parameters.
   paramsToOptions =

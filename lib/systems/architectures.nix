@@ -312,6 +312,5 @@ rec {
       aesSupport = featureSupport "aes";
       fmaSupport = featureSupport "fma";
       fma4Support = featureSupport "fma4";
-    }
-  ;
+    };
 }

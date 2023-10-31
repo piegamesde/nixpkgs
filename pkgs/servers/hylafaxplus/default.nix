@@ -44,8 +44,7 @@ let
     src = ./config.site;
     config_maxgid =
       lib.optionalString (maxgid != null)
-        "CONFIG_MAXGID=${builtins.toString maxgid}"
-    ;
+        "CONFIG_MAXGID=${builtins.toString maxgid}";
     ghostscript_version = ghostscript.version;
     out_ = "@out@"; # "out" will be resolved in post-install.sh
     inherit coreutils ghostscript libtiff;

@@ -67,8 +67,7 @@ let
       config = {
         name = mkDefault name;
       };
-    }
-  ;
+    };
 in
 
 {

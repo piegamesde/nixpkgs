@@ -120,7 +120,6 @@ let
         ;
         mainProgram = "mpv";
       };
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper

@@ -40,8 +40,7 @@ mkCoqDerivation {
           out = "1.11";
         }
       ]
-      null
-  ;
+      null;
 
   propagatedBuildInputs = [
     mathcomp.ssreflect

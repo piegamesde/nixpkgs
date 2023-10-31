@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       libnfnetlink
       libnetfilter_conntrack
       libnetfilter_queue
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

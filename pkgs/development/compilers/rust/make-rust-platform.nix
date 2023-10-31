@@ -24,8 +24,7 @@ rec {
       {
         git = buildPackages.gitMinimal;
         inherit cargo;
-      }
-  ;
+      };
 
   buildRustPackage = callPackage ../../../build-support/rust/build-rust-package {
     inherit
@@ -45,8 +44,7 @@ rec {
 
   importCargoLock =
     buildPackages.callPackage ../../../build-support/rust/import-cargo-lock.nix
-      { inherit cargo; }
-  ;
+      { inherit cargo; };
 
   rustcSrc = callPackage ./rust-src.nix { inherit runCommand rustc; };
 

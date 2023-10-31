@@ -90,8 +90,7 @@ in
           type = types.str;
           description =
             lib.mdDoc
-              "The IP address or hostname of the Zabbix server to connect to."
-          ;
+              "The IP address or hostname of the Zabbix server to connect to.";
           default = "localhost";
         };
       };
@@ -160,8 +159,7 @@ in
           example = "/run/postgresql";
           description =
             lib.mdDoc
-              "Path to the unix socket file to use for authentication."
-          ;
+              "Path to the unix socket file to use for authentication.";
         };
       };
 
@@ -190,8 +188,7 @@ in
               int
               bool
             ]
-          )
-        ;
+          );
         default = {
           "pm" = "dynamic";
           "pm.max_children" = 32;
@@ -227,8 +224,7 @@ in
         )
         ''
           $DB['DOUBLE_IEEE754'] = 'true';
-        ''
-    ;
+        '';
 
     systemd.tmpfiles.rules = [
       "d '${stateDir}' 0750 ${user} ${group} - -"

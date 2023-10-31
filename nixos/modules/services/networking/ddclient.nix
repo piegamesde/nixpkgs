@@ -83,8 +83,7 @@ with lib;
                 "ddclient"
                 "domain"
               ]
-              config
-          ;
+              config;
         in
         if value != "" then [ value ] else [ ]
       )
@@ -142,8 +141,7 @@ with lib;
         # For `nsupdate` username contains the path to the nsupdate executable
         default =
           lib.optionalString (config.services.ddclient.protocol == "nsupdate")
-            "${pkgs.bind.dnsutils}/bin/nsupdate"
-        ;
+            "${pkgs.bind.dnsutils}/bin/nsupdate";
         defaultText = "";
         type = str;
         description = lib.mdDoc ''

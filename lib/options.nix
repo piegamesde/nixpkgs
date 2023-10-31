@@ -76,8 +76,7 @@ rec {
       # Whether the option can be set only once
       readOnly ? null,
     }@attrs:
-    attrs // { _type = "option"; }
-  ;
+    attrs // { _type = "option"; };
 
   /* Creates an Option attribute set for a boolean value option i.e an
      option to be toggled on or off:
@@ -99,8 +98,7 @@ rec {
           "Whether to enable ${name}."
       ;
       type = lib.types.bool;
-    }
-  ;
+    };
 
   /* Creates an Option attribute set for an option that specifies the
      package a module should use for some purpose.
@@ -162,8 +160,7 @@ rec {
       defaultPath = concatStringsSep "." default';
       defaultValue =
         attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
-          pkgs
-      ;
+          pkgs;
     in
     mkOption {
       defaultText = literalExpression ("pkgs." + defaultPath);
@@ -177,8 +174,7 @@ rec {
       ${if example != null then "example" else null} = literalExpression (
         if isList example then "pkgs." + concatStringsSep "." example else example
       );
-    }
-  ;
+    };
 
   # Like mkPackageOption, but emit an mdDoc description instead of DocBook.
   mkPackageOptionMD =
@@ -186,8 +182,7 @@ rec {
     let
       option = mkPackageOption pkgs name extra;
     in
-    option // { description = lib.mdDoc option.description; }
-  ;
+    option // { description = lib.mdDoc option.description; };
 
   /* This option accepts anything, but it does not produce any result.
 
@@ -212,8 +207,7 @@ rec {
           x: throw "Option value is not readable because the option is not declared.";
       }
       // attrs
-    )
-  ;
+    );
 
   mergeDefaultOption =
     loc: defs:
@@ -340,15 +334,13 @@ rec {
             // optionalAttrs (opt ? example) {
               example =
                 builtins.addErrorContext "while evaluating the example of option `${name}`"
-                  (renderOptionValue opt.example)
-              ;
+                  (renderOptionValue opt.example);
             }
             // optionalAttrs (opt ? default) {
               default =
                 builtins.addErrorContext
                   "while evaluating the default value of option `${name}`"
-                  (renderOptionValue (opt.defaultText or opt.default))
-              ;
+                  (renderOptionValue (opt.defaultText or opt.default));
             }
             // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
               inherit (opt) relatedPackages;
@@ -359,16 +351,14 @@ rec {
             let
               ss = opt.type.getSubOptions opt.loc;
             in
-            if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ]
-          ;
+            if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
           subOptionsVisible = docOption.visible && opt.visible or null != "shallow";
         in
         # To find infinite recursion in NixOS option docs:
         # builtins.trace opt.loc
         [ docOption ] ++ optionals subOptionsVisible subOptions
       )
-      (collect isOption options)
-  ;
+      (collect isOption options);
 
   /* This function recursively removes all derivation attributes from
      `x` except for the `name` attribute.
@@ -435,8 +425,7 @@ rec {
   literalExample =
     lib.warn
       "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
-      literalExpression
-  ;
+      literalExpression;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given DocBook text to be inserted verbatim in the documentation, for when
@@ -518,8 +507,7 @@ rec {
           lib.strings.escapeNixIdentifier part
       ;
     in
-    (concatStringsSep ".") (map escapeOptionPart parts)
-  ;
+    (concatStringsSep ".") (map escapeOptionPart parts);
   showFiles = files: concatStringsSep " and " (map (f: "`${f}'") files);
 
   showDefs =
@@ -560,8 +548,7 @@ rec {
 
           - In `${def.file}'${result}''
       )
-      defs
-  ;
+      defs;
 
   showOptionWithDefLocs = opt: ''
     ${showOption opt.loc}, with values defined in:

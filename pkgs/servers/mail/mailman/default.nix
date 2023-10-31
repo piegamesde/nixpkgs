@@ -57,8 +57,7 @@ let
               ps.django-auth-ldap
             ]
           );
-        }
-      ;
+        };
     }
   );
 in

@@ -201,8 +201,7 @@ in
         }
         // optionalAttrs (cfg.environmentFile != null) {
           EnvironmentFile = builtins.toPath cfg.environmentFile;
-        }
-      ;
+        };
       script = generateConfig;
     };
 
@@ -222,8 +221,7 @@ in
         }
         // optionalAttrs (cfg.environmentFile != null) {
           EnvironmentFile = builtins.toPath cfg.environmentFile;
-        }
-      ;
+        };
       environment = {
         SEARX_SETTINGS_PATH = cfg.settingsFile;
         SEARXNG_SETTINGS_PATH = cfg.settingsFile;

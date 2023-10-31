@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       "taipedit"
       "taipei"
       "thornq"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "http://www.delorie.com/store/ace/";

@@ -118,8 +118,7 @@ rec {
 
   mkAttrsOfParams =
     params:
-    mkAttrsOf params (types.submodule { options = paramsToOptions params; })
-  ;
+    mkAttrsOf params (types.submodule { options = paramsToOptions params; });
 
   mkAttrsOfParam = param: mkAttrsOf param param.option.type;
 
@@ -137,8 +136,9 @@ rec {
 
   mkPrefixedAttrsOfParams =
     params:
-    mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; })
-  ;
+    mkPrefixedAttrsOf params (
+      types.submodule { options = paramsToOptions params; }
+    );
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 
@@ -154,8 +154,7 @@ rec {
       let
         prefixedAttrs = mapAttrs' (name: nameValuePair "${prefix}-${name}") attrs;
       in
-      paramsToRenderedStrings prefixedAttrs (mapAttrs (_n: _v: p) prefixedAttrs)
-    ;
+      paramsToRenderedStrings prefixedAttrs (mapAttrs (_n: _v: p) prefixedAttrs);
   };
 
   mkPostfixedAttrsOfParams = params: description: {
@@ -172,7 +171,6 @@ rec {
       in
       paramsToRenderedStrings postfixedAttrs (
         mapAttrs (_n: _v: params) postfixedAttrs
-      )
-    ;
+      );
   };
 }

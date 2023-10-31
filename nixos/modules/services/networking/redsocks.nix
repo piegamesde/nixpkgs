@@ -218,8 +218,7 @@ in
               }
             ''
           )
-          cfg.redsocks
-      ;
+          cfg.redsocks;
       configfile = pkgs.writeText "redsocks.conf" ''
         base {
           log_debug = ${if cfg.log_debug then "on" else "off"};
@@ -249,8 +248,7 @@ in
       ];
       redCond =
         block:
-        optionalString (isString block.redirectCondition) block.redirectCondition
-      ;
+        optionalString (isString block.redirectCondition) block.redirectCondition;
       iptables =
         concatImapStrings
           (
@@ -260,8 +258,7 @@ in
               doNotRedirect =
                 concatMapStringsSep "\n"
                   (f: "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true")
-                  (block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly))
-              ;
+                  (block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly));
             in
             optionalString (block.redirectCondition != false) ''
               ip46tables -t nat -F ${chain} 2>/dev/null || true
@@ -278,8 +275,7 @@ in
               } -j ${chain} 2>/dev/null || true
             ''
           )
-          cfg.redsocks
-      ;
+          cfg.redsocks;
     in
     mkIf cfg.enable {
       users.groups.redsocks = { };
@@ -310,10 +306,8 @@ in
                 redCond block
               } -j ${chain} 2>/dev/null || true"
           )
-          cfg.redsocks
-      ;
-    }
-  ;
+          cfg.redsocks;
+    };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

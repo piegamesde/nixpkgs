@@ -123,8 +123,7 @@ let
           default = config.staticSecretsDirectory + "/cluster-join-token.key";
           defaultText =
             literalExpression
-              ''staticSecretsDirectory + "/cluster-join-token.key"''
-          ;
+              ''staticSecretsDirectory + "/cluster-join-token.key"'';
         };
         binaryCachesPath = mkOption {
           description = lib.mdDoc ''
@@ -140,8 +139,7 @@ let
           default = config.staticSecretsDirectory + "/binary-caches.json";
           defaultText =
             literalExpression
-              ''staticSecretsDirectory + "/binary-caches.json"''
-          ;
+              ''staticSecretsDirectory + "/binary-caches.json"'';
         };
         secretsJsonPath = mkOption {
           description = lib.mdDoc ''
@@ -158,8 +156,7 @@ let
           defaultText = literalExpression ''staticSecretsDirectory + "/secrets.json"'';
         };
       };
-    }
-  ;
+    };
 
   # TODO (roberth, >=2022) remove
   checkNix =

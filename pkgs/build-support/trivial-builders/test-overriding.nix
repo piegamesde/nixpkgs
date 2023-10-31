@@ -33,8 +33,7 @@ let
         { writeShellScript }:
         writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
       )
-      { }
-  ;
+      { };
 
   binCase =
     case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
@@ -58,8 +57,7 @@ let
           ${stdenv.shell} -n "$target"
         '';
       }
-    )
-  ;
+    );
 
   # Run old checkPhase, but only succeed if it fails.
   # This HACK is required because we can't introspect build failures
@@ -75,8 +73,7 @@ let
           then exit 1; fi
         '';
       }
-    )
-  ;
+    );
 
   mkCase =
     case: outcome: isBin:
@@ -89,8 +86,7 @@ let
         ]
       );
     in
-    if isBin then "${drv}/bin/${drv.name}" else drv
-  ;
+    if isBin then "${drv}/bin/${drv.name}" else drv;
 
   writeTextOverrides = {
     # Make sure extglob works by default
@@ -122,8 +118,7 @@ let
         echo "Failed in ${name}"
         exit 1
       fi
-    ''
-  ;
+    '';
 in
 
 runCommand "test-writeShellScript-overriding"

@@ -50,8 +50,7 @@ stdenv.mkDerivation (
       ++ lib.optionals enableManpages [
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
-      ]
-    ;
+      ];
 
     buildInputs =
       [
@@ -68,8 +67,7 @@ stdenv.mkDerivation (
         darwin.bootstrap_cmds
         darwin.apple_sdk.frameworks.Carbon
         darwin.apple_sdk.frameworks.Cocoa
-      ]
-    ;
+      ];
 
     hardeningDisable = [ "format" ];
 

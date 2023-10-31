@@ -14,8 +14,7 @@ let
       echo '${
         builtins.toJSON conf
       }' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
-    ''
-  ;
+    '';
 
   allowSystemdJournal =
     cfg.configuration ? scrape_configs
@@ -50,8 +49,7 @@ in
   config = mkIf cfg.enable {
     services.promtail.configuration.positions.filename =
       mkDefault
-        "/var/cache/promtail/positions.yaml"
-    ;
+        "/var/cache/promtail/positions.yaml";
 
     systemd.services.promtail = {
       description = "Promtail log ingress";
@@ -100,8 +98,7 @@ in
         // (optionalAttrs (!pkgs.stdenv.isAarch64) {
           # FIXME: figure out why this breaks on aarch64
           SystemCallFilter = "@system-service";
-        })
-      ;
+        });
     };
 
     users.groups.promtail = { };

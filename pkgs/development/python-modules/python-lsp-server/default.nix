@@ -131,8 +131,7 @@ buildPythonPackage rec {
       [
         # pyqt5 is broken on aarch64-darwin
         "test_pyqt_completion"
-      ]
-  ;
+      ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

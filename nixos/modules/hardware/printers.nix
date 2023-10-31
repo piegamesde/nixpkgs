@@ -13,8 +13,7 @@ let
       concatStringsSep " " (
         mapAttrsToList (name: value: "-o '${name}'='${value}'") options
       )
-    )
-  ;
+    );
   ensurePrinter = p: ''
     ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \
       ${optionalString (p.location != null) "-L '${p.location}'"} \
@@ -33,8 +32,7 @@ let
     (types.addCheck (types.strMatching "[[:graph:]]+") noInvalidChars)
     // {
       description = "printable string without spaces, # and /";
-    }
-  ;
+    };
 in
 {
   options = {

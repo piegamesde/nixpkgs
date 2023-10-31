@@ -109,11 +109,9 @@ let
             ${attrs.interpreter} -m unittest discover --verbose tests #/test_python.py
             mkdir $out
             touch $out/success
-          ''
-      ;
+          '';
     in
-    lib.mapAttrs testfun envs
-  ;
+    lib.mapAttrs testfun envs;
 
   # Integration tests involving the package set.
   # All PyPy package builds are broken at the moment
@@ -145,12 +143,10 @@ let
                 inherit self;
               };
             in
-            self
-          ;
+            self;
         in
         assert myPython.pkgs.foobar == myPython.pkgs.numpy;
-        myPython.withPackages (ps: with ps; [ foobar ])
-      ;
+        myPython.withPackages (ps: with ps; [ foobar ]);
       # overrideScope is broken currently
       # test-overrideScope = let
       #  myPackages = python.pkgs.overrideScope extension;
@@ -168,8 +164,7 @@ let
             }
           );
         in
-        pkgs_.${python.pythonAttr}.pkgs.foo
-      ;
+        pkgs_.${python.pythonAttr}.pkgs.foo;
     }
   ;
 
@@ -198,8 +193,7 @@ let
                     condaUnpackHook
                     condaInstallHook
                   ]
-                )
-              ;
+                );
               buildInputs = [ pythonCondaPackages.condaPatchelfLibs ];
               propagatedBuildInputs = with python.pkgs; [
                 chardet
@@ -209,16 +203,14 @@ let
               ];
             }
           )
-          { }
-      ;
+          { };
       pythonWithRequests = requests.pythonModule.withPackages (ps: [ requests ]);
     in
     lib.optionalAttrs stdenv.isLinux {
       condaExamplePackage = runCommand "import-requests" { } ''
         ${pythonWithRequests.interpreter} -c "import requests" > $out
       '';
-    }
-  ;
+    };
 in
 lib.optionalAttrs (stdenv.hostPlatform == stdenv.buildPlatform) (
   environmentTests // integrationTests // overrideTests // condaTests

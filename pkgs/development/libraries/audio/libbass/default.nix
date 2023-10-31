@@ -65,8 +65,7 @@ let
           mkdir -p $out/{lib,include}
           install -m644 -t $out/lib/ ${so}
           install -m644 -t $out/include/ ${bass.h}
-        ''
-      ;
+        '';
 
       meta = with lib; {
         description = "Shareware audio library";
@@ -76,7 +75,6 @@ let
         # until upstream has stable URLs, this package is prone to always being broken
         broken = true;
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs dropBass allBass

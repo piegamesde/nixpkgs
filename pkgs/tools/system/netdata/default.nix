@@ -122,8 +122,7 @@ stdenv.mkDerivation rec {
   donStrip = withDebug;
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString withDebug
-      "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1"
-  ;
+      "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
 
   postInstall =
     ''

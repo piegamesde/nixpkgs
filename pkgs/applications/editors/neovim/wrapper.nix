@@ -101,7 +101,8 @@ let
     assert withPython2
       ->
         throw
-          "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env.";
+          "Python2 support has been removed from the neovim wrapper, please remove withPython2 and python2Env."
+    ;
 
     symlinkJoin {
       name = "neovim-${lib.getVersion neovim}${extraName}";
@@ -193,7 +194,6 @@ let
         # prefer wrapper over the package
         priority = (neovim.meta.priority or 0) - 1;
       };
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper

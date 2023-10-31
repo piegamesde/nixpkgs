@@ -45,8 +45,7 @@ in
   cocoapods-check = cocoapod-plugin "cocoapods-check";
   cocoapods-disable-podfile-validations =
     cocoapod-plugin
-      "cocoapods-disable-podfile-validations"
-  ;
+      "cocoapods-disable-podfile-validations";
   cocoapods-stats = [ "cocoapods_stats" ];
   cocoapods-testing = [ "cocoapods_testing" ];
   cocoapods-trunk = [ "cocoapods_trunk" ];

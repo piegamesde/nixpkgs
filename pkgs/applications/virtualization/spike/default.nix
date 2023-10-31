@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
 
       runHook postInstallCheck
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A RISC-V ISA Simulator";

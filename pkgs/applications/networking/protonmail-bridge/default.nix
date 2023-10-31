@@ -37,8 +37,7 @@ buildGoModule rec {
       "-X ${constants}.Revision=${src.rev}"
       "-X ${constants}.buildTime=unknown"
       "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
-    ]
-  ;
+    ];
 
   subPackages = [ "cmd/Desktop-Bridge" ];
 

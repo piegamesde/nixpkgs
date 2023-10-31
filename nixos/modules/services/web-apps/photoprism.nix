@@ -24,8 +24,7 @@ let
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
       exec ${cfg.package}/bin/photoprism "$@"
-    ''
-  ;
+    '';
 in
 {
   meta.maintainers = with lib.maintainers; [ stunkymonkey ];
@@ -114,8 +113,7 @@ in
 
           LoadCredential =
             lib.optionalString (cfg.passwordFile != null)
-              "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}"
-          ;
+              "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}";
 
           CapabilityBoundingSet = "";
           LockPersonality = true;
@@ -145,8 +143,7 @@ in
         // lib.optionalAttrs (cfg.port < 1024) {
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        }
-      ;
+        };
 
       wantedBy = [ "multi-user.target" ];
       environment = env;

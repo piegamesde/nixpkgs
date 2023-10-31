@@ -47,8 +47,7 @@ python3Packages.buildPythonApplication rec {
         prometheus-client
         pyyaml
       ]
-    )
-  ;
+    );
 
   nativeCheckInputs = with python3Packages; [
     unittestCheckHook

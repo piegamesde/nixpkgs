@@ -203,8 +203,7 @@ final: prev: {
             platforms = lib.platforms.none;
           };
         }
-      )
-  ;
+      );
 
   expo-cli = prev."expo-cli".override (
     oldAttrs: {
@@ -217,8 +216,7 @@ final: prev: {
               if stdenv.isLinux then "darwin" else "linux"
             }"
           )
-          oldAttrs.dependencies
-      ;
+          oldAttrs.dependencies;
     }
   );
 
@@ -468,8 +466,7 @@ final: prev: {
           map (patch: "patch -d $out/lib/node_modules/node2nix -p1 < ${patch}") patches
         )}
         wrapProgram "$out/bin/node2nix" --prefix PATH : ${lib.makeBinPath [ pkgs.nix ]}
-      ''
-    ;
+      '';
   };
 
   parcel = prev.parcel.override {
@@ -497,8 +494,7 @@ final: prev: {
         for prog in $out/bin/*; do
           wrapProgram "$prog" --prefix PATH : ${pnpmLibPath}
         done
-      ''
-    ;
+      '';
   };
 
   postcss-cli = prev.postcss-cli.override (
@@ -658,8 +654,7 @@ final: prev: {
           makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
             --add-flags "$out/lib/node_modules/tedicross/main.js"
         '';
-      }
-  ;
+      };
 
   thelounge = prev.thelounge.override (
     oldAttrs: {

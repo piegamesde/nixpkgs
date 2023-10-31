@@ -175,8 +175,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   # peer options
 
@@ -324,8 +323,7 @@ let
           (set -e; umask 077; wg genkey > "${values.privateKeyFile}")
         fi
       '';
-    }
-  ;
+    };
 
   peerUnitServiceName =
     interfaceName: publicKey: dynamicRefreshEnabled:
@@ -345,13 +343,11 @@ let
             "\\x20"
             "\\x2b"
             "\\x3d"
-          ]
-      ;
+          ];
       unitName = keyToUnitName publicKey;
       refreshSuffix = optionalString dynamicRefreshEnabled "-refresh";
     in
-    "wireguard-${interfaceName}-peer-${unitName}${refreshSuffix}"
-  ;
+    "wireguard-${interfaceName}-peer-${unitName}${refreshSuffix}";
 
   generatePeerUnit =
     {
@@ -376,8 +372,7 @@ let
       # with the intent to make scripting more obvious.
       serviceName =
         peerUnitServiceName interfaceName peer.publicKey
-          dynamicRefreshEnabled
-      ;
+          dynamicRefreshEnabled;
     in
     nameValuePair serviceName {
       description = "WireGuard Peer - ${interfaceName} - ${peer.publicKey}";
@@ -459,8 +454,7 @@ let
               sleep "${toString peer.dynamicEndpointRefreshSeconds}";
             done
           ''}
-        ''
-      ;
+        '';
 
       postStop =
         let
@@ -477,10 +471,8 @@ let
         ''
           ${wg} set "${interfaceName}" peer "${peer.publicKey}" remove
           ${route_destroy}
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 
   # the target is required to start new peer units when they are added
   generateInterfaceTarget =
@@ -499,8 +491,7 @@ let
       wantedBy = [ "multi-user.target" ];
       wants = [ "wireguard-${name}.service" ] ++ map mkPeerUnit values.peers;
       after = wants;
-    }
-  ;
+    };
 
   generateInterfaceUnit =
     name: values:
@@ -573,8 +564,7 @@ let
         ${ipPostMove} link del dev "${name}"
         ${values.postShutdown}
       '';
-    }
-  ;
+    };
 
   nsWrap =
     cmd: src: dst:
@@ -686,8 +676,7 @@ in
 
       boot.extraModulePackages =
         optional (versionOlder kernel.kernel.version "5.6")
-          kernel.wireguard
-      ;
+          kernel.wireguard;
       environment.systemPackages = [ pkgs.wireguard-tools ];
 
       systemd.services =

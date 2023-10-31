@@ -41,8 +41,7 @@ buildFHSEnvChroot rec {
       # qsys requirements
       xorg.libXtst
       xorg.libXi
-    ]
-  ;
+    ];
   multiPkgs =
     pkgs:
     with pkgs;
@@ -66,8 +65,7 @@ buildFHSEnvChroot rec {
       xorg.libXrender
       libudev0-shim
       libxcrypt-legacy
-    ]
-  ;
+    ];
 
   passthru = {
     inherit unwrapped;
@@ -95,8 +93,7 @@ buildFHSEnvChroot rec {
           "stp"
           "tan"
         ])
-        ++ [ "quartus/bin/quartus" ]
-      ;
+        ++ [ "quartus/bin/quartus" ];
 
       qsysExecutables = map (c: "quartus/sopc_builder/bin/qsys-${c}") [
         "generate"
@@ -131,8 +128,7 @@ buildFHSEnvChroot rec {
       chmod +x $EXECUTABLES
       # link into $out/bin so executables become available on $PATH
       ln --symbolic --relative --target-directory ./bin $EXECUTABLES
-    ''
-  ;
+    '';
 
   # LD_PRELOAD fixes issues in the licensing system that cause memory corruption and crashes when
   # starting most operations in many containerized environments, including WSL2, Docker, and LXC

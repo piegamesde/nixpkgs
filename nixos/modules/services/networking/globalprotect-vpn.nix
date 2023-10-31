@@ -44,8 +44,7 @@ in
       default = null;
       example =
         literalExpression
-          ''"''${pkgs.openconnect}/libexec/openconnect/hipreport.sh"''
-      ;
+          ''"''${pkgs.openconnect}/libexec/openconnect/hipreport.sh"'';
       type = types.nullOr types.path;
     };
   };
@@ -55,8 +54,7 @@ in
 
     environment.etc."gpservice/gp.conf".text =
       lib.generators.toINI { }
-        cfg.settings
-    ;
+        cfg.settings;
 
     systemd.services.gpservice = {
       description = "GlobalProtect openconnect DBus service";

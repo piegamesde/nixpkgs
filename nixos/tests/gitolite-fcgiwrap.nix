@@ -66,8 +66,7 @@ import ./make-test-python.nix (
           environment.etc."gitolite/htpasswd".source = pkgs.runCommand "htpasswd" { } ''
             ${pkgs.apacheHttpd}/bin/htpasswd -bc "$out" ${user} ${password}
           '';
-        }
-      ;
+        };
 
       client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
     };

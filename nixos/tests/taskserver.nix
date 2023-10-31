@@ -65,8 +65,7 @@ import ./make-test-python.nix (
                       --load-ca-privkey ca.key \
                       --load-ca-certificate "$cacert" \
                       --outfile "$out/alice.cert"
-        ''
-    ;
+        '';
   in
   {
     name = "taskserver";
@@ -103,8 +102,7 @@ import ./make-test-python.nix (
             interfaces.eth1.ipv4 = nodes.server.config.networking.interfaces.eth1.ipv4;
             inherit (nodes.server.config.networking) hostName primaryIPAddress extraHosts;
           };
-        }
-      ;
+        };
 
       client1 =
         { pkgs, ... }:
@@ -117,8 +115,7 @@ import ./make-test-python.nix (
           users.users.bob.isNormalUser = true;
           users.users.foo.isNormalUser = true;
           users.users.bar.isNormalUser = true;
-        }
-      ;
+        };
 
       client2 = client1;
     };
@@ -305,7 +302,6 @@ import ./make-test-python.nix (
             setup_clients_for("manualOrg", "alice", init_manual_config)
 
             test_sync("alice")
-      ''
-    ;
+      '';
   }
 )

@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals doCheck [
       mtools
       dosfstools
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     which

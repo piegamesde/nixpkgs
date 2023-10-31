@@ -45,8 +45,7 @@ let
             }
         touch ${escapeShellArg "${statePath}/.db-created"}
       fi
-    ''
-  ;
+    '';
 
   mattermostPluginDerivations =
     with pkgs;
@@ -66,8 +65,7 @@ let
           preferLocalBuild = true;
         }
       )
-      cfg.plugins
-  ;
+      cfg.plugins;
 
   mattermostPlugins =
     with pkgs;
@@ -114,8 +112,7 @@ let
         PluginSettings.Directory = "${cfg.statePath}/plugins/server";
         PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
       }
-      cfg.extraConfig
-  ;
+      cfg.extraConfig;
 
   mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
     if mattermostPlugins == null then

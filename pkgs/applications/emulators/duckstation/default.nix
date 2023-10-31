@@ -57,13 +57,11 @@ stdenv.mkDerivation {
     ++ lib.optionals enableWayland [
       qtwayland
       wayland
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [ "-DUSE_DRMKMS=ON" ]
-    ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ]
-  ;
+    ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
 
   desktopItems = [
     (makeDesktopItem {

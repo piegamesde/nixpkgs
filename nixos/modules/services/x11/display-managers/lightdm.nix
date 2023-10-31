@@ -178,8 +178,7 @@ in
         # Manual cannot depend on packages, we are actually setting the default in config below.
         defaultText =
           literalExpression
-            "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath"
-        ;
+            "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
         description = lib.mdDoc ''
           The background image or color to use.
         '';
@@ -233,8 +232,7 @@ in
     # Keep in sync with the defaultText value from the option definition.
     services.xserver.displayManager.lightdm.background =
       mkDefault
-        pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath
-    ;
+        pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath;
 
     # Set default session in session chooser to a specified values – basically ignore session history.
     # Auto-login is already covered by a config value.
@@ -242,8 +240,7 @@ in
       optionalString (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
         ''
           ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-        ''
-    ;
+        '';
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS = "${dmcfg.sessionData.desktops}/share/";

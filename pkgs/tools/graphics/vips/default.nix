@@ -101,8 +101,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       ApplicationServices
       Foundation
-    ]
-  ;
+    ];
 
   # Required by .pc file
   propagatedBuildInputs = [ glib ];

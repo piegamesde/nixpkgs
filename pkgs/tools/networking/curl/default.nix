@@ -253,8 +253,7 @@ stdenv.mkDerivation (
           nginx-http3 = nixosTests.nginx-http3;
           pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
         };
-      }
-    ;
+      };
 
     meta = with lib; {
       changelog = "https://curl.se/changes.html#${

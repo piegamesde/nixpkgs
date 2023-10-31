@@ -30,8 +30,7 @@ let
       hasWPA3 = !mutuallyExclusive opts.authProtocols wpa3Protocols;
       others = subtractLists wpa3Protocols opts.authProtocols;
     in
-    hasWPA3 && others != [ ]
-  ;
+    hasWPA3 && others != [ ];
 
   # Gives a WPA3 network higher priority
   increaseWPA3Priority =
@@ -45,14 +44,12 @@ let
   # Creates a WPA2 fallback network
   mkWPA2Fallback =
     opts:
-    opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; }
-  ;
+    opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
 
   # Networks attrset as a list
   networkList =
     mapAttrsToList (ssid: opts: opts // { inherit ssid; })
-      cfg.networks
-  ;
+      cfg.networks;
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
@@ -123,8 +120,7 @@ let
       network={
       ${concatMapStringsSep "\n" indent options}
       }
-    ''
-  ;
+    '';
 
   # Creates a systemd unit for wpa_supplicant bound to a given (or any) interface
   mkUnit =
@@ -132,8 +128,7 @@ let
     let
       deviceUnit =
         optional (iface != null)
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device"
-      ;
+          "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
       configStr =
         if cfg.allowAuxiliaryImperativeNetworks then
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"
@@ -209,13 +204,13 @@ let
           ''
             # add known interface to the daemon arguments
             args="-i${iface} $iface_args"
-          ''}
+          ''
+        }
 
         # finally start daemon
         exec wpa_supplicant $args
       '';
-    }
-  ;
+    };
 
   systemctl = "/run/current-system/systemd/bin/systemctl";
 in
@@ -257,8 +252,7 @@ in
 
             Please note that this adds a custom patch to `wpa_supplicant`.
           '';
-        }
-      ;
+        };
 
       scanOnLowSignal = mkOption {
         type = types.bool;
@@ -561,8 +555,7 @@ in
               psk
               pskRaw
               auth
-            ] <= 1
-          ;
+            ] <= 1;
           message = ''
             options networking.wireless."${name}".{psk,pskRaw,auth} are mutually exclusive'';
         }
@@ -591,8 +584,7 @@ in
             in this case the interfaces will be configured automatically for you.
           ''
         ;
-      } ]
-    ;
+      } ];
 
     hardware.wirelessRegulatoryDatabase = true;
 

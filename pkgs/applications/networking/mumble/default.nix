@@ -80,8 +80,7 @@ let
           platforms = platforms.linux;
         };
       }
-    )
-  ;
+    );
 
   client =
     source:
@@ -128,8 +127,7 @@ let
 
         env.NIX_CFLAGS_COMPILE =
           lib.optionalString speechdSupport
-            "-I${speechd}/include/speech-dispatcher"
-        ;
+            "-I${speechd}/include/speech-dispatcher";
 
         postFixup = ''
           wrapProgram $out/bin/mumble \
@@ -140,8 +138,7 @@ let
             }"
         '';
       }
-      source
-  ;
+      source;
 
   server =
     source:
@@ -169,8 +166,7 @@ let
           ]
         ;
       }
-      source
-  ;
+      source;
 
   source = rec {
     version = "1.4.287";

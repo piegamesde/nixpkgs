@@ -29,8 +29,7 @@ import ./make-test-python.nix (
             enable = true;
             basePath = "/git";
           };
-        }
-      ;
+        };
 
       client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
     };

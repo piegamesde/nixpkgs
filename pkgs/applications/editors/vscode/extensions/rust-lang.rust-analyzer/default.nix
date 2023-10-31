@@ -55,8 +55,7 @@ let
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
-      ]
-    ;
+      ];
 
     # Follows https://github.com/rust-lang/rust-analyzer/blob/41949748a6123fd6061eb984a47f4fe780525e63/xtask/src/dist.rs#L39-L65
     postRebuild = ''

@@ -377,8 +377,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS =
     lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin)
-      "-lglib-2.0"
-  ;
+      "-lglib-2.0";
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # resolve "extra qualification on member" error

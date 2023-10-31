@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enablePython [
       python3
       ncurses
-    ]
-  ;
+    ];
   nativeBuildInputs = [
     autoconf-archive
     pkg-config

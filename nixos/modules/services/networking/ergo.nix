@@ -79,8 +79,7 @@ in
           example = "324dcf027dd4a30a932c441f365a25e86b173defa4b8e58948253471b81b72cf";
           description =
             lib.mdDoc
-              "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string."
-          ;
+              "Hex-encoded Blake2b256 hash of an API key as a 64-chars long Base16 string.";
         };
 
         listen = {
@@ -89,8 +88,7 @@ in
             default = "0.0.0.0";
             description =
               lib.mdDoc
-                "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined."
-            ;
+                "IP address that the Ergo node API should listen on if {option}`api.keyHash` is defined.";
           };
 
           port = mkOption {
@@ -98,8 +96,7 @@ in
             default = 9052;
             description =
               lib.mdDoc
-                "Listen port for the API endpoint if {option}`api.keyHash` is defined."
-            ;
+                "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
           };
         };
       };
@@ -109,8 +106,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Connect to testnet network instead of the default mainnet."
-        ;
+            "Connect to testnet network instead of the default mainnet.";
       };
 
       user = mkOption {
@@ -131,8 +127,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the Ergo node as well as the API."
-        ;
+            "Open ports in the firewall for the Ergo node as well as the API.";
       };
     };
   };

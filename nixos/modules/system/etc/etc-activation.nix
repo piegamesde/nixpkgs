@@ -13,7 +13,6 @@ in
           "users"
           "groups"
         ]
-        config.system.build.etcActivationCommands
-    ;
+        config.system.build.etcActivationCommands;
   };
 }

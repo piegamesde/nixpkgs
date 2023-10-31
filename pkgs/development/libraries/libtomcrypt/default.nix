@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
   # upgrades to a newer SDK.
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-DTARGET_OS_IPHONE=0"
-  ;
+      "-DTARGET_OS_IPHONE=0";
 
   patches = [
     (fetchpatch {

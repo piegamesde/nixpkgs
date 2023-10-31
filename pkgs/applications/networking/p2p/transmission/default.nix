@@ -73,8 +73,7 @@ stdenv.mkDerivation {
       "-DENABLE_DAEMON=${mkFlag enableDaemon}"
       "-DENABLE_CLI=${mkFlag enableCli}"
       "-DINSTALL_LIB=${mkFlag installLib}"
-    ]
-  ;
+    ];
 
   nativeBuildInputs =
     [

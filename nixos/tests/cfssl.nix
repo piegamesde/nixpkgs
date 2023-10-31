@@ -45,8 +45,7 @@ import ./make-test-python.nix (
             } | ${cfssl}/bin/cfssljson -bare ca
           '';
         };
-      }
-    ;
+      };
 
     testScript =
       let
@@ -55,8 +54,7 @@ import ./make-test-python.nix (
           writeScript "cfsslrequest" ''
             curl -f -X POST -H "Content-Type: application/json" -d @${csr} \
               http://localhost:8888/api/v1/cfssl/newkey | ${cfssl}/bin/cfssljson /tmp/certificate
-          ''
-        ;
+          '';
         csr = pkgs.writeText "csr.json" (
           builtins.toJSON {
             CN = "www.example.com";
@@ -82,7 +80,6 @@ import ./make-test-python.nix (
         machine.wait_for_unit("cfssl.service")
         machine.wait_until_succeeds("${cfsslrequest}")
         machine.succeed("ls /tmp/certificate-key.pem")
-      ''
-    ;
+      '';
   }
 )

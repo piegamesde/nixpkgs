@@ -19,8 +19,7 @@ let
       ]*''
     // {
       description = "single-line string";
-    }
-  ;
+    };
   path = types.addCheck types.path (p: str.check "${p}");
   configKey = types.strMatching ''
     [^
@@ -54,15 +53,13 @@ let
         assertion = valid ? ${n};
         message = "Invalid config key ${prefix}.${n}.";
       })
-      config
-  ;
+      config;
 
   formatFreeform =
     {
       prefix ? "",
     }:
-    mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}")
-  ;
+    mapAttrsToList (n: v: "${prefix}${n} ${optionToString v}");
 
   userOptions =
     with types;
@@ -123,8 +120,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   userAsserts =
     prefix: users:
@@ -135,8 +131,7 @@ let
             ''
               [^:
               ]+''
-            n != null
-        ;
+            n != null;
         message = "Invalid user name ${n} in ${prefix}";
       })
       users
@@ -149,8 +144,7 @@ let
               u.passwordFile
               u.hashedPassword
               u.hashedPasswordFile
-            ] <= 1
-          ;
+            ] <= 1;
           message = "Cannot set more than one password option for user ${n} in ${prefix}";
         })
         users
@@ -201,8 +195,7 @@ let
         ''
         ++ hashedLines
       )
-    )
-  ;
+    );
 
   makeACLFile =
     idx: users: supplement:
@@ -213,8 +206,7 @@ let
           (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl) users)
         ]
       )
-    )
-  ;
+    );
 
   authPluginOptions =
     with types;
@@ -245,8 +237,7 @@ let
           default = { };
         };
       };
-    }
-  ;
+    };
 
   authAsserts =
     prefix: auth:
@@ -255,8 +246,7 @@ let
         assertion = configKey.check n;
         message = "Invalid auth plugin key ${prefix}.${n}";
       })
-      auth
-  ;
+      auth;
 
   formatAuthPlugin =
     plugin:
@@ -373,8 +363,7 @@ let
           default = { };
         };
       };
-    }
-  ;
+    };
 
   listenerAsserts =
     prefix: listener:
@@ -484,8 +473,7 @@ let
           default = { };
         };
       };
-    }
-  ;
+    };
 
   bridgeAsserts =
     prefix: bridge:
@@ -649,8 +637,7 @@ let
         cfg.listeners
       )
       (mapAttrsToList (n: b: bridgeAsserts "${prefix}.bridge.${n}" b) cfg.bridges)
-    ]
-  ;
+    ];
 
   formatGlobal =
     cfg:

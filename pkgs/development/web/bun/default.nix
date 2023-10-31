@@ -23,8 +23,7 @@ stdenvNoCC.mkDerivation rec {
   strictDeps = true;
   nativeBuildInputs =
     [ unzip ]
-    ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ]
-  ;
+    ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
   buildInputs = [ openssl ];
 
   dontConfigure = true;

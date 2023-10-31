@@ -40,8 +40,7 @@ buildPythonPackage rec {
         # buildInputs of another python package will cause cython to link against
         # pari.
         pari
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [ autoreconfHook ];
 

@@ -50,8 +50,7 @@ buildPythonPackage rec {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
 
   # Remove when https://github.com/NixOS/nixpkgs/pull/190093 lands.
   buildInputs = lib.optional stdenv.isDarwin libiconv;

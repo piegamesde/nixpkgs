@@ -28,8 +28,7 @@ let
         [[ $(./test-ruby) = $(${ruby}/bin/ruby test-ruby) ]]
         touch $out
       '';
-    }
-  ;
+    };
 
   tests =
     ruby:
@@ -58,8 +57,7 @@ let
           '';
         }
       )
-      ruby.gems
-  ;
+      ruby.gems;
 in
 stdenv.mkDerivation {
   name = "test-all-ruby-gems";
@@ -67,8 +65,7 @@ stdenv.mkDerivation {
     builtins.foldl'
       (sum: ruby: sum ++ [ (testWrapper ruby) ] ++ (builtins.attrValues (tests ruby)))
       [ ]
-      rubyVersions
-  ;
+      rubyVersions;
   buildCommand = ''
     touch $out
   '';

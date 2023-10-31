@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.apple_sdk.frameworks.DiskArbitration
-    ]
-  ;
+    ];
 
   buildInputs = [
     zlib.dev

@@ -57,8 +57,7 @@ in
         default = "${pkgs.surf-display}/share/surf-display/empty-page.html";
         defaultText =
           literalExpression
-            ''"''${pkgs.surf-display}/share/surf-display/empty-page.html"''
-        ;
+            ''"''${pkgs.surf-display}/share/surf-display/empty-page.html"'';
         example = "https://www.example.com/";
         description = lib.mdDoc "Default URI to display.";
       };

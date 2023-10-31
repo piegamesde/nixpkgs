@@ -62,8 +62,7 @@ import ./make-test-python.nix (
           password = "bar";
         };
         users.users.litestream.extraGroups = [ "grafana" ];
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

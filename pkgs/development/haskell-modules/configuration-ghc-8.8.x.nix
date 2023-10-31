@@ -62,8 +62,7 @@ self: super: {
   # Additionally depends on OneTuple for GHC < 9.0
   base-compat-batteries =
     addBuildDepend self.OneTuple
-      super.base-compat-batteries
-  ;
+      super.base-compat-batteries;
 
   # Ignore overly restrictive upper version bounds.
   aeson-diff = doJailbreak super.aeson-diff;
@@ -102,8 +101,7 @@ self: super: {
       (drv: {
         prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
       })
-      super.snap-core
-  ;
+      super.snap-core;
 
   # Upstream ships a broken Setup.hs file.
   csv = overrideCabal (drv: { prePatch = "rm Setup.hs"; }) super.csv;
@@ -138,8 +136,7 @@ self: super: {
 
   haskell-language-server =
     throw
-      "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version"
-  ;
+      "haskell-language-server dropped support for ghc 8.8 in version 1.9.0.0 please use a newer ghc version or an older nixpkgs version";
 
   hlint = self.hlint_3_2_8;
 

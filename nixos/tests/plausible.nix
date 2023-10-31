@@ -24,8 +24,7 @@ import ./make-test-python.nix (
                 "nannannannannannannannannannannannannannannannannannannan_batman!"}";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

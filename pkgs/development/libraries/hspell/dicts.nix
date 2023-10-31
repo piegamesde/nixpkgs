@@ -23,8 +23,7 @@ let
         ;
       }
       // (removeAttrs a [ "meta" ])
-    )
-  ;
+    );
 in
 {
   recurseForDerivations = true;

@@ -41,12 +41,14 @@ let
     ${if cfg.registerPassword == "" then
       ""
     else
-      "registerPassword=" + cfg.registerPassword}
+      "registerPassword=" + cfg.registerPassword
+    }
     ${if cfg.registerUrl == "" then "" else "registerUrl=" + cfg.registerUrl}
     ${if cfg.registerHostname == "" then
       ""
     else
-      "registerHostname=" + cfg.registerHostname}
+      "registerHostname=" + cfg.registerHostname
+    }
 
     certrequired=${boolToString cfg.clientCertRequired}
     ${if cfg.sslCert == "" then "" else "sslCert=" + cfg.sslCert}
@@ -129,8 +131,7 @@ in
         example = "/var/log/murmur/murmurd.log";
         description =
           lib.mdDoc
-            "Path to the log file for Murmur daemon. Empty means log to journald."
-        ;
+            "Path to the log file for Murmur daemon. Empty means log to journald.";
       };
 
       welcometext = mkOption {
@@ -326,8 +327,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "Enable D-Bus remote control. Set to the bus you want Murmur to connect to."
-        ;
+            "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
       };
     };
   };

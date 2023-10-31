@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
         rust.rustc
         bindgenHook
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     gdk-pixbuf

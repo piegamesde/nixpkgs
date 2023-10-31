@@ -20,8 +20,7 @@ let
     name: private:
     "/System/Library/${
       lib.optionalString private "Private"
-    }Frameworks/${name}.framework"
-  ;
+    }Frameworks/${name}.framework";
 
   mkDepsRewrites =
     deps:
@@ -51,18 +50,15 @@ let
             ])
             const
           )
-        )
-      ;
+        );
 
       rewrites =
         depList:
         lib.fold mergeRewrites { } (
           map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList)
-        )
-      ;
+        );
     in
-    lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)))
-  ;
+    lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
 
   mkFramework =
     {
@@ -128,23 +124,20 @@ let
         };
       };
     in
-    self
-  ;
+    self;
 
   framework =
     name: deps:
     mkFramework {
       inherit name deps;
       private = false;
-    }
-  ;
+    };
   privateFramework =
     name: deps:
     mkFramework {
       inherit name deps;
       private = true;
-    }
-  ;
+    };
 in
 rec {
   libs = {
@@ -367,8 +360,7 @@ rec {
           WebKit = {
             inherit ApplicationServices Carbon libobjc;
           };
-        }
-      ;
+        };
 
       # Overrides for framework derivations.
       overrides = super: {
@@ -434,6 +426,5 @@ rec {
       ;
     in
     # Apply derivation overrides.
-    bareFrameworks // overrides bareFrameworks
-  ;
+    bareFrameworks // overrides bareFrameworks;
 }

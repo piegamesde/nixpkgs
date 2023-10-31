@@ -18,8 +18,7 @@ import ./make-test-python.nix (
         system.activationScripts.incronTest = ''
           mkdir /test
         '';
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

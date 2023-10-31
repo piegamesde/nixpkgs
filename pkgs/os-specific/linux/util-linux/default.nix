@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
       "SYSCONFSTATICDIR=${placeholder "lib"}/lib"
     ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "scanf_cv_type_modifier=ms"
-  ;
+      "scanf_cv_type_modifier=ms";
 
   makeFlags = [
     "usrbin_execdir=${placeholder "bin"}/bin"

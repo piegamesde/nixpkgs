@@ -64,8 +64,7 @@ in
         default = null;
         example =
           literalExpression
-            ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"''
-        ;
+            ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
         type = types.nullOr types.str;
 
         description = lib.mdDoc ''
@@ -158,7 +157,6 @@ in
             message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
           }
         )
-      )
-    ;
+      );
   };
 }

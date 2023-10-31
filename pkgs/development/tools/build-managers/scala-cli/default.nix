@@ -31,8 +31,7 @@ stdenv.mkDerivation {
       coreutils
       zlib
       stdenv.cc.cc
-    ]
-  ;
+    ];
   src =
     let
       asset =
@@ -42,8 +41,7 @@ stdenv.mkDerivation {
     fetchurl {
       url = "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";
       sha256 = asset.sha256;
-    }
-  ;
+    };
   unpackPhase = ''
     runHook preUnpack
     gzip -d < $src > scala-cli

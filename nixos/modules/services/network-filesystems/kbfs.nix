@@ -68,8 +68,7 @@ in
           # Do not issue a hard dependency on keybase-redirector, because it's ok if it fails (e.g., if it is disabled).
           wants =
             [ "keybase.service" ]
-            ++ optional cfg.enableRedirector "keybase-redirector.service"
-          ;
+            ++ optional cfg.enableRedirector "keybase-redirector.service";
           path = [ "/run/wrappers" ];
           unitConfig.ConditionUser = "!@system";
 

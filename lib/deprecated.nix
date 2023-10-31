@@ -22,8 +22,7 @@ rec {
     let
       value = builtins.getEnv name;
     in
-    if value == "" then default else value
-  ;
+    if value == "" then default else value;
 
   defaultMergeArg = x: y: if builtins.isAttrs y then y else (y x);
   defaultMerge = x: y: x // (defaultMergeArg x y);
@@ -55,8 +54,7 @@ rec {
         override = base.passthru.function;
       };
     in
-    withStdOverrides
-  ;
+    withStdOverrides;
 
   # shortcut for attrByPath ["name"] default attrs
   maybeAttrNullable = maybeAttr;
@@ -64,8 +62,7 @@ rec {
   # shortcut for attrByPath ["name"] default attrs
   maybeAttr =
     name: default: attrs:
-    attrs.${name} or default
-  ;
+    attrs.${name} or default;
 
   # Return the second argument if the first one is true or the empty version
   # of the second argument.
@@ -117,8 +114,7 @@ rec {
             (getValue attrSet (tail argList) name)
       )
       attrSet
-    )
-  ;
+    );
 
   # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
   # Output : are reqs satisfied? It's asserted.
@@ -148,8 +144,7 @@ rec {
           )
         )
         condList
-    ))
-  ;
+    ));
 
   # This function has O(n^2) performance.
   uniqList =
@@ -170,8 +165,7 @@ rec {
           y ++ go (tail xs) (y ++ acc)
       ;
     in
-    go inputList acc
-  ;
+    go inputList acc;
 
   uniqListExt =
     {
@@ -223,13 +217,11 @@ rec {
             work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result)
       ;
     in
-    work startSet [ ] [ ]
-  ;
+    work startSet [ ] [ ];
 
   innerModifySumArgs =
     f: x: a: b:
-    if b == null then (f a b) // x else innerModifySumArgs f x (a // b)
-  ;
+    if b == null then (f a b) // x else innerModifySumArgs f x (a // b);
   modifySumArgs = f: x: innerModifySumArgs f x { };
 
   innerClosePropagation =
@@ -278,8 +270,7 @@ rec {
               key = x.outPath;
               val = x;
             })
-            (builtins.filter (x: x != null) list)
-        ;
+            (builtins.filter (x: x != null) list);
         operator =
           item:
           if !builtins.isAttrs item.val then
@@ -302,11 +293,13 @@ rec {
               )
         ;
       }
-    )
-  ;
+    );
 
   closePropagation =
-    if builtins ? genericClosure then closePropagationFast else closePropagationSlow
+    if builtins ? genericClosure then
+      closePropagationFast
+    else
+      closePropagationSlow
   ;
 
   # calls a function (f attr value ) for each record item. returns a list
@@ -317,16 +310,14 @@ rec {
   # adds / replaces an attribute of an attribute set
   setAttr =
     set: name: v:
-    set // (nvs name v)
-  ;
+    set // (nvs name v);
 
   # setAttrMerge (similar to mergeAttrsWithFunc but only merges the values of a particular name)
   # setAttrMerge "a" [] { a = [2];} (x: x ++ [3]) -> { a = [2 3]; }
   # setAttrMerge "a" [] {         } (x: x ++ [3]) -> { a = [  3]; }
   setAttrMerge =
     name: default: attrs: f:
-    setAttr attrs name (f (maybeAttr name default attrs))
-  ;
+    setAttr attrs name (f (maybeAttr name default attrs));
 
   # Using f = a: b = b the result is similar to //
   # merge attributes with custom function handling the case that the attribute
@@ -335,8 +326,7 @@ rec {
     f: set1: set2:
     foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set)
       (set2 // set1)
-      (attrNames set2)
-  ;
+      (attrNames set2);
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
@@ -379,8 +369,7 @@ rec {
         )
       )
       attrs1
-      (attrNames attrs2)
-  ;
+      (attrNames attrs2);
 
   # example usage:
   # mergeAttrByFunc  {
@@ -422,8 +411,7 @@ rec {
             )
         )
       )
-    ]
-  ;
+    ];
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
   mergeAttrsByFuncDefaultsClean =
     list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];

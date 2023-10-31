@@ -18,8 +18,7 @@ let
     params:
     concatMapStringsSep " "
       (name: "${name} ${conditionalBoolToString (getAttr name params)}")
-      (attrNames params)
-  ;
+      (attrNames params);
 
   interfaceConfig =
     name:
@@ -28,8 +27,7 @@ let
     in
     ''
       interface ${name} ${paramsString interface}
-    ''
-  ;
+    '';
 
   configFile =
     with cfg;
@@ -42,8 +40,7 @@ let
       '')
       + (concatMapStrings interfaceConfig (attrNames cfg.interfaces))
       + extraConfig
-    )
-  ;
+    );
 in
 
 {
@@ -114,8 +111,7 @@ in
           ifname: _:
           lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
         )
-        config.services.babeld.interfaces
-    ;
+        config.services.babeld.interfaces;
 
     systemd.services.babeld = {
       description = "Babel routing daemon";

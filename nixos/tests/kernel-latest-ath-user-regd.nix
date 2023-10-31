@@ -9,8 +9,7 @@ import ./make-test-python.nix (
       {
         boot.kernelPackages = pkgs.linuxPackages_latest;
         networking.wireless.athUserRegulatoryDomain = true;
-      }
-    ;
+      };
 
     testScript = ''
       assert "CONFIG_ATH_USER_REGD=y" in machine.succeed("zcat /proc/config.gz")

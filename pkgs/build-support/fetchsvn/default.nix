@@ -30,8 +30,7 @@ let
       trd = l: head (tail (tail l));
       path_ =
         (p: if head p == "" then tail p else p) # ~ drop final slash if any
-          (reverseList (splitString "/" url))
-      ;
+          (reverseList (splitString "/" url));
       path = [ (removeSuffix "/" (head path_)) ] ++ (tail path_);
     in
     # ../repo/trunk -> repo

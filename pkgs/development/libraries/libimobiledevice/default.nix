@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       CoreFoundation
-    ]
-  ;
+    ];
 
   configureFlags = [
     "--with-gnutls"

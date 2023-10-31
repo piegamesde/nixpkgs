@@ -52,8 +52,7 @@ import ./make-test-python.nix (
               OCSCacheFolderURL = "mysql://sogo@%2Frun%2Fmysqld%2Fmysqld.sock/sogo/sogo_cache_folder";
             '';
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

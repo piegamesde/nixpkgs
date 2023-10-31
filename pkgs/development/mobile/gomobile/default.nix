@@ -40,8 +40,7 @@ buildGoModule {
 
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ lib.optionals stdenv.isDarwin [ xcodeWrapper ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ xcodeWrapper ];
 
   # Prevent a non-deterministic temporary directory from polluting the resulting object files
   postPatch = ''

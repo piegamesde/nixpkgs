@@ -29,8 +29,7 @@ stdenv.mkDerivation (
     ;
     swiftDriver =
       lib.optionalString useSwiftDriver
-        "${swift-driver}/bin/swift-driver"
-    ;
+        "${swift-driver}/bin/swift-driver";
 
     passAsFile = [ "buildCommand" ];
     buildCommand = ''

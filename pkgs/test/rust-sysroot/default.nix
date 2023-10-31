@@ -32,8 +32,7 @@ let
         maintainers = with maintainers; [ aaronjanse ];
         platforms = lib.platforms.x86_64;
       };
-    }
-  ;
+    };
 
   # The book uses rust-lld for linking, but rust-lld is not currently packaged for NixOS.
   # The justification in the book for using rust-lld suggests that gcc can still be used for testing:
@@ -68,6 +67,5 @@ in
         };
       };
     in
-    mkBlogOsTest (rust.toRustTargetSpec plat)
-  ;
+    mkBlogOsTest (rust.toRustTargetSpec plat);
 }

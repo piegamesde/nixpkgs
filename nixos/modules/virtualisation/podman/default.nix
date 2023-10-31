@@ -41,8 +41,7 @@ let
           basename=$(basename $f | sed s/podman/docker/g)
           ln -s $f $man/share/man/man1/$basename
         done
-      ''
-  ;
+      '';
 in
 {
   imports = [
@@ -180,8 +179,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages =
       [ cfg.package ]
-      ++ lib.optional cfg.dockerCompat dockerCompat
-    ;
+      ++ lib.optional cfg.dockerCompat dockerCompat;
 
     # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
     environment.etc."containers/networks/podman.json" =
@@ -206,8 +204,7 @@ in
             }
             // cfg.defaultNetwork.settings
           );
-        }
-    ;
+        };
 
     virtualisation.containers = {
       enable = true; # Enable common /etc/containers configuration
@@ -220,8 +217,7 @@ in
             conmon_env_vars = [ "PATH=${lib.makeBinPath [ pkgs.nvidia-podman ]}" ];
             runtimes.nvidia = [ "${pkgs.nvidia-podman}/bin/nvidia-container-runtime" ];
           };
-        }
-      ;
+        };
     };
 
     systemd.packages = [ cfg.package ];

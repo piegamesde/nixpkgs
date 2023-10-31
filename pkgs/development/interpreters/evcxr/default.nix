@@ -56,8 +56,7 @@ rustPlatform.buildRustPackage rec {
       ${wrap "evcxr"}
       ${wrap "evcxr_jupyter"}
       rm $out/bin/testing_runtime
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "An evaluation context for Rust";

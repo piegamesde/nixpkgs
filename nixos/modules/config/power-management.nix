@@ -29,8 +29,7 @@ in
         default = "";
         description =
           lib.mdDoc
-            "Commands executed after the system resumes from suspend-to-RAM."
-        ;
+            "Commands executed after the system resumes from suspend-to-RAM.";
       };
 
       powerUpCommands = mkOption {

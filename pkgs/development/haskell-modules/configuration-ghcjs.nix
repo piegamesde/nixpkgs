@@ -7,8 +7,7 @@
 let
   removeLibraryHaskellDepends =
     pnames: depends:
-    builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends
-  ;
+    builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends;
 in
 
 with haskellLib;
@@ -67,8 +66,7 @@ self: super:
           "-f-webkit"
         ];
       })
-      super.ghcjs-dom
-  ;
+      super.ghcjs-dom;
 
   ghcjs-dom-jsffi =
     overrideCabal
@@ -79,8 +77,7 @@ self: super:
         ];
         broken = false;
       })
-      super.ghcjs-dom-jsffi
-  ;
+      super.ghcjs-dom-jsffi;
 
   # https://github.com/Deewiant/glob/issues/39
   Glob = dontCheck super.Glob;
@@ -98,8 +95,7 @@ self: super:
           self.ghcjs-base
         ];
       })
-      super.jsaddle
-  ;
+      super.jsaddle;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
   logict = dontCheck super.logict;
@@ -119,8 +115,7 @@ self: super:
           self.ghcjs-base
         ];
       })
-      super.reflex
-  ;
+      super.reflex;
 
   reflex-dom =
     overrideCabal
@@ -129,8 +124,7 @@ self: super:
           drv.libraryHaskellDepends or [ ]
         );
       })
-      super.reflex-dom
-  ;
+      super.reflex-dom;
 
   # https://github.com/dreixel/syb/issues/21
   syb = dontCheck super.syb;

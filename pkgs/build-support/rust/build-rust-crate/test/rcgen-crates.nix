@@ -12,7 +12,8 @@
       "crate2nix: Passing `buildRustCrate` as argument to Cargo.nix is deprecated. If you don't customize `buildRustCrate`, replace `callPackage ./Cargo.nix {}` by `import ./Cargo.nix { inherit pkgs; }`, and if you need to customize `buildRustCrate`, use `buildRustCrateForPkgs` instead."
       (_: buildRustCrate)
   else
-    pkgs: pkgs.buildRustCrate,
+    pkgs: pkgs.buildRustCrate
+  ,
   # Deprecated
   buildRustCrate ? null,
   # This is used as the `crateOverrides` argument for `buildRustCrate`.
@@ -29,7 +30,8 @@
   crateConfig ? if builtins.pathExists ./crate-config.nix then
     pkgs.callPackage ./crate-config.nix { }
   else
-    { },
+    { }
+  ,
 }:
 
 rec {
@@ -69,8 +71,7 @@ rec {
       let
         members = builtins.attrValues workspaceMembers;
       in
-      builtins.map (m: m.build) members
-    ;
+      builtins.map (m: m.build) members;
   };
 
   #
@@ -1683,8 +1684,7 @@ rec {
                 || (target."os" == "netbsd")
                 || (target."os" == "openbsd")
                 || (target."os" == "solaris")
-              )
-            ;
+              );
             features = [ "std" ];
           }
           {
@@ -1704,8 +1704,7 @@ rec {
                     || (target."os" == "linux")
                   )
                 )
-              )
-            ;
+              );
           }
           {
             name = "untrusted";
@@ -1722,8 +1721,7 @@ rec {
                 && (target."vendor" == "unknown")
                 && (target."os" == "unknown")
                 && (target."env" == "")
-              )
-            ;
+              );
             features = [
               "Crypto"
               "Window"
@@ -4150,8 +4148,7 @@ rec {
         || lib.hasSuffix ".tmp" baseName
         || lib.hasSuffix ".bak" baseName
         || baseName == "tests.nix"
-      )
-    ;
+      );
 
     /* Returns a crate which depends on successful test execution
        of crate given as the second argument.
@@ -4226,8 +4223,7 @@ rec {
                 cp $file $f
                 ${testCommand}
               done
-            ''
-        ;
+            '';
       in
       pkgs.runCommand "${crate.name}-linked"
         {
@@ -4241,8 +4237,7 @@ rec {
           ${lib.concatMapStringsSep "\n"
             (output: "ln -s ${crate.${output}} ${"$"}${output}")
             crate.outputs}
-        ''
-    ;
+        '';
 
     # A restricted overridable version of builtRustCratesWithFeatures.
     buildRustCrateWithFeatures =
@@ -4325,8 +4320,7 @@ rec {
             testPreRun
             testPostRun
           ;
-        }
-    ;
+        };
 
     /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
        for the corresponding crate.
@@ -4364,13 +4358,11 @@ rec {
             self = {
               crates =
                 lib.mapAttrs (packageId: value: buildByPackageIdForPkgsImpl self pkgs packageId)
-                  crateConfigs
-              ;
+                  crateConfigs;
               build = mkBuiltByPackageIdByPkgs pkgs.buildPackages;
             };
           in
-          self
-        ;
+          self;
         buildByPackageIdForPkgsImpl =
           self: pkgs: packageId:
           let
@@ -4402,8 +4394,7 @@ rec {
             };
             filterEnabledDependenciesForThis =
               dependencies:
-              filterEnabledDependencies { inherit dependencies features target; }
-            ;
+              filterEnabledDependencies { inherit dependencies features target; };
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
                 (crateConfig.buildDependencies or [ ])
@@ -4430,11 +4421,9 @@ rec {
                   {
                     inherit (dep) rename;
                     version = package.version;
-                  }
-                ;
+                  };
               in
-              lib.mapAttrs (name: choices: builtins.map versionAndRename choices) grouped
-            ;
+              lib.mapAttrs (name: choices: builtins.map versionAndRename choices) grouped;
           in
           buildRustCrateForPkgsFunc pkgs (
             crateConfig
@@ -4447,13 +4436,11 @@ rec {
                   url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 =
                     assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}");
-                    crateConfig.sha256
-                  ;
+                    crateConfig.sha256;
                 });
               extraRustcOpts =
                 lib.lists.optional (targetFeatures != [ ])
-                  "-C target-feature=${lib.concatMapStringsSep "," (x: "+${x}") targetFeatures}"
-              ;
+                  "-C target-feature=${lib.concatMapStringsSep "," (x: "+${x}") targetFeatures}";
               inherit
                 features
                 dependencies
@@ -4462,11 +4449,9 @@ rec {
                 release
               ;
             }
-          )
-        ;
+          );
       in
-      builtByPackageIdByPkgs
-    ;
+      builtByPackageIdByPkgs;
 
     # Returns the actual derivations for the given dependencies.
     dependencyDerivations =
@@ -4485,8 +4470,7 @@ rec {
         };
         depDerivation = dependency: buildByPackageId dependency.packageId;
       in
-      map depDerivation enabledDependencies
-    ;
+      map depDerivation enabledDependencies;
 
     /* Returns a sanitized version of val with all values substituted that cannot
        be serialized as JSON.
@@ -4539,8 +4523,7 @@ rec {
       in
       {
         internal = debug;
-      }
-    ;
+      };
 
     /* Returns differences between cargo default features and crate2nix default
        features.
@@ -4581,11 +4564,9 @@ rec {
               && (v ? "cargo")
               && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
             )
-            combined
-        ;
+            combined;
       in
-      builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; }
-    ;
+      builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; };
 
     /* Returns an attrset mapping packageId to the list of enabled features.
 
@@ -4620,8 +4601,7 @@ rec {
         expandedFeatures = expandFeatures (crateConfig.features or { }) features;
         enabledFeatures =
           enableFeatures (crateConfig.dependencies or [ ])
-            expandedFeatures
-        ;
+            expandedFeatures;
         depWithResolvedFeatures =
           dependency:
           let
@@ -4630,8 +4610,7 @@ rec {
           in
           {
             inherit packageId features;
-          }
-        ;
+          };
         resolveDependencies =
           cache: path: dependencies:
           assert (builtins.isAttrs cache);
@@ -4665,15 +4644,13 @@ rec {
                   rootPackageId
                 ;
               }
-          )
-        ;
+          );
         cacheWithSelf =
           let
             cacheFeatures = featuresByPackageId.${packageId} or [ ];
             combinedFeatures = sortedUnique (cacheFeatures ++ enabledFeatures);
           in
-          featuresByPackageId // { "${packageId}" = combinedFeatures; }
-        ;
+          featuresByPackageId // { "${packageId}" = combinedFeatures; };
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
           crateConfig.dependencies or [ ]
           ++ lib.optionals (runTests && packageId == rootPackageId) (
@@ -4684,8 +4661,7 @@ rec {
           crateConfig.buildDependencies or [ ]
         );
       in
-      cacheWithAll
-    ;
+      cacheWithAll;
 
     # Returns the enabled dependencies given the enabled features.
     filterEnabledDependencies =
@@ -4710,8 +4686,7 @@ rec {
             || builtins.any (doesFeatureEnableDependency dep) features
           )
         )
-        dependencies
-    ;
+        dependencies;
 
     # Returns whether the given feature should enable the given dependency.
     doesFeatureEnableDependency =
@@ -4722,8 +4697,7 @@ rec {
         len = builtins.stringLength prefix;
         startsWithPrefix = builtins.substring 0 len feature == prefix;
       in
-      feature == name || startsWithPrefix
-    ;
+      feature == name || startsWithPrefix;
 
     /* Returns the expanded features for the given inputFeatures by applying the
        rules in featureMap.
@@ -4739,12 +4713,10 @@ rec {
         expandFeature =
           feature:
           assert (builtins.isString feature);
-          [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]))
-        ;
+          [ feature ] ++ (expandFeatures featureMap (featureMap."${feature}" or [ ]));
         outFeatures = lib.concatMap expandFeature inputFeatures;
       in
-      sortedUnique outFeatures
-    ;
+      sortedUnique outFeatures;
 
     /* This function adds optional dependencies as features if they are enabled
        indirectly by dependency features. This function mimics Cargo's behavior
@@ -4769,11 +4741,9 @@ rec {
               else
                 [ ]
             )
-            dependencies
-        ;
+            dependencies;
       in
-      sortedUnique (features ++ additionalFeatures)
-    ;
+      sortedUnique (features ++ additionalFeatures);
 
     /* Returns the actual features for the given dependency.
 
@@ -4792,14 +4762,11 @@ rec {
             dependencyPrefix = (dependency.rename or dependency.name) + "/";
             dependencyFeatures =
               builtins.filter (f: lib.hasPrefix dependencyPrefix f)
-                features
-            ;
+                features;
           in
-          builtins.map (lib.removePrefix dependencyPrefix) dependencyFeatures
-        ;
+          builtins.map (lib.removePrefix dependencyPrefix) dependencyFeatures;
       in
-      defaultOrNil ++ explicitFeatures ++ additionalDependencyFeatures
-    ;
+      defaultOrNil ++ explicitFeatures ++ additionalDependencyFeatures;
 
     # Sorts and removes duplicates from a list of strings.
     sortedUnique =
@@ -4809,12 +4776,10 @@ rec {
       let
         outFeaturesSet =
           lib.foldl (set: feature: set // { "${feature}" = 1; }) { }
-            features
-        ;
+            features;
         outFeaturesUnique = builtins.attrNames outFeaturesSet;
       in
-      builtins.sort (a: b: a < b) outFeaturesUnique
-    ;
+      builtins.sort (a: b: a < b) outFeaturesUnique;
 
     deprecationWarning =
       message: value:

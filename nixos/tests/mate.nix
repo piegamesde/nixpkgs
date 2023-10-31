@@ -27,8 +27,7 @@ import ./make-test-python.nix (
         # Silence log spam due to no sound drivers loaded:
         # ALSA lib confmisc.c:855:(parse_card) cannot find card '0'
         hardware.pulseaudio.enable = true;
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -58,7 +57,6 @@ import ./make-test-python.nix (
             machine.wait_for_window("Terminal")
             machine.sleep(20)
             machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

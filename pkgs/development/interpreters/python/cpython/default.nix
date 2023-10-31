@@ -75,7 +75,8 @@
 # files.
 
 assert x11Support
-  -> tcl != null && tk != null && xorgproto != null && libX11 != null;
+  -> tcl != null && tk != null && xorgproto != null && libX11 != null
+;
 
 assert bluezSupport -> bluez != null;
 
@@ -109,15 +110,13 @@ let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
       inputs' =
         lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-          inputs
-      ;
+          inputs;
       override =
         attr:
         let
           python = attr.override (inputs' // { self = python; });
         in
-        python
-      ;
+        python;
     in
     passthruFun rec {
       inherit self sourceVersion packageOverrides;
@@ -137,8 +136,7 @@ let
         else
           { }
       ;
-    }
-  ;
+    };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
 
@@ -237,8 +235,7 @@ let
             }
             .${parsed.cpu.name} or parsed.cpu.name;
         in
-        "${parsed.kernel.name}-${cpu}"
-      ;
+        "${parsed.kernel.name}-${cpu}";
 
       # https://github.com/python/cpython/blob/e488e300f5c01289c10906c2e53a8e43d6de32d8/configure.ac#L724
       multiarchCpu =
@@ -291,8 +288,7 @@ let
       }
 
       addEnvHooks "$hostOffset" sysconfigdataHook
-    ''
-  ;
+    '';
 in
 with passthru;
 stdenv.mkDerivation {
@@ -305,8 +301,7 @@ stdenv.mkDerivation {
   src = fetchurl {
     url =
       with sourceVersion;
-      "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz"
-    ;
+      "https://www.python.org/ftp/python/${major}.${minor}.${patch}/Python-${version}.tar.xz";
     inherit hash;
   };
 
@@ -428,8 +423,7 @@ stdenv.mkDerivation {
             "musl" = "-lgcc_eh";
           }
           ."${stdenv.hostPlatform.libc}" or ""
-        )
-    ;
+        );
     # Determinism: We fix the hashes of str, bytes and datetime objects.
     PYTHONHASHSEED = 0;
   };
@@ -683,8 +677,7 @@ stdenv.mkDerivation {
               "-"
               "-alpha-"
             ]
-            version
-        ;
+            version;
       in
       if sourceVersion.suffix == "" then
         "https://docs.python.org/release/${version}/whatsnew/changelog.html"

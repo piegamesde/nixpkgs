@@ -40,8 +40,7 @@ let
             && matchesDoc v
           )
           versions
-      )
-  ;
+      );
 
   found-version =
     if matching-versions == [ ] then
@@ -68,14 +67,12 @@ let
       n = lib.min (lib.length as) (lib.length bs);
       sublist = l: lib.sublist 0 n l;
     in
-    lib.compareLists lib.compare (sublist as) (sublist bs) == 0
-  ;
+    lib.compareLists lib.compare (sublist as) (sublist bs) == 0;
 
   matchesDoc =
     v:
     builtins.match (if webdoc then ".*[0-9]_LINUX.sh" else ".*[0-9]_BNDL_LINUX.sh")
-      v.src.name != null
-  ;
+      v.src.name != null;
 in
 
 callPackage real-drv {

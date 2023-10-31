@@ -304,8 +304,7 @@ stdenv.mkDerivation {
   # Ensures that we use the system OpenEXR rather than the vendored copy of the source included with OpenCV.
   patches =
     [ ./cmake-don-t-use-OpenCVFindOpenEXR.patch ]
-    ++ lib.optional enableCuda ./cuda_opt_flow.patch
-  ;
+    ++ lib.optional enableCuda ./cuda_opt_flow.patch;
 
   # This prevents cmake from using libraries in impure paths (which
   # causes build failure on non NixOS)
@@ -414,8 +413,7 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString enableEXR
-      "-I${ilmbase.dev}/include/OpenEXR"
-  ;
+      "-I${ilmbase.dev}/include/OpenEXR";
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;

@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [ CoreFoundation ]
-    )
-  ;
+    );
 
   patches = [
     ./wrapper.patch
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-unused-command-line-argument"
-  ;
+      "-Wno-unused-command-line-argument";
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (
     with darwin.apple_sdk.frameworks; "-F${CoreFoundation}/Library/Frameworks"

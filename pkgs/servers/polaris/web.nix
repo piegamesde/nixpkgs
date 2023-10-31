@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
               # prevent downloading cypress, use the executable in path instead
               CYPRESS_INSTALL_BINARY = "0";
             }
-          )
-      ;
+          );
     in
     ''
       runHook preBuild
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
       npm run production
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   installPhase = ''
     runHook preInstall

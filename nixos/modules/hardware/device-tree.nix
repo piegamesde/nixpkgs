@@ -105,8 +105,7 @@ let
           '';
         }
       )
-      { }
-  ;
+      { };
 
   # Fill in `dtboFile` for each overlay if not set already.
   # Existence of one of these is guarded by assertion below
@@ -126,8 +125,7 @@ let
             o.dtboFile
         ;
       }
-    )
-  ;
+    );
 in
 {
   imports = [
@@ -233,8 +231,7 @@ in
           Offending overlay(s):
           ${toString (map (o: o.name) (builtins.filter invalidOverlay cfg.overlays))}
         '';
-      }
-    ;
+      };
 
     hardware.deviceTree.package =
       if (cfg.overlays != [ ]) then

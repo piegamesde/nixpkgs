@@ -20,8 +20,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the Prowlarr web interface."
-        ;
+            "Open ports in the firewall for the Prowlarr web interface.";
       };
     };
   };

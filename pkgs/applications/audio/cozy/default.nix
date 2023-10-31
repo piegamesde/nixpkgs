@@ -61,8 +61,7 @@ python3Packages.buildPythonApplication rec {
         gst-plugins-base
         gst-plugins-bad
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = with python3Packages; [
     apsw

@@ -78,8 +78,7 @@ let
             --set MEDIAWIKI_CONFIG ${mediawikiConfig} \
             --add-flags ${pkg}/share/mediawiki/maintenance/$i
         done
-      ''
-  ;
+      '';
 
   dbAddr =
     if cfg.database.socket == null then
@@ -300,8 +299,7 @@ in
         type = types.path;
         description =
           lib.mdDoc
-            "A file containing the initial password for the admin user."
-        ;
+            "A file containing the initial password for the admin user.";
         example = "/run/keys/mediawiki-password";
       };
 
@@ -376,8 +374,7 @@ in
           default = "mysql";
           description =
             lib.mdDoc
-              "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers."
-          ;
+              "Database engine to use. MySQL/MariaDB is the database of choice by MediaWiki developers.";
         };
 
         host = mkOption {
@@ -440,8 +437,7 @@ in
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
-              "Path to the unix socket file to use for authentication."
-          ;
+              "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -480,8 +476,7 @@ in
               int
               bool
             ]
-          )
-        ;
+          );
         default = {
           "pm" = "dynamic";
           "pm.max_children" = 32;
@@ -570,8 +565,7 @@ in
               "${cfg.database.name}.*" = "ALL PRIVILEGES";
             };
           } ];
-        }
-    ;
+        };
 
     services.postgresql =
       mkIf (cfg.database.type == "postgres" && cfg.database.createLocally)
@@ -584,8 +578,7 @@ in
               "DATABASE \"${cfg.database.name}\"" = "ALL PRIVILEGES";
             };
           } ];
-        }
-    ;
+        };
 
     services.phpfpm.pools.mediawiki = {
       inherit user group;
@@ -647,8 +640,7 @@ in
       ++ optionals (cfg.uploadsDir != null) [
         "d '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
         "Z '${cfg.uploadsDir}' 0750 ${user} ${group} - -"
-      ]
-    ;
+      ];
 
     systemd.services.mediawiki-init = {
       wantedBy = [ "multi-user.target" ];
@@ -657,8 +649,7 @@ in
         optional (cfg.database.type == "mysql" && cfg.database.createLocally)
           "mysql.service"
         ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally)
-          "postgresql.service"
-      ;
+          "postgresql.service";
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
           tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c 64 > ${stateDir}/secret.key
@@ -711,8 +702,7 @@ in
           && cfg.database.createLocally
           && cfg.database.type == "postgres"
         )
-        "postgresql.service"
-    ;
+        "postgresql.service";
 
     users.users.${user} = {
       group = group;

@@ -113,8 +113,7 @@ in
               for i in $allFiles; do
                 cat "$i" >> $out
               done
-            ''
-        ;
+            '';
         mode = "0600"; # Cron requires this.
       };
 

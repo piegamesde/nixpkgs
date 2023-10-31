@@ -30,8 +30,7 @@ rustPlatform.buildRustPackage rec {
       Security
       SystemConfiguration
       libiconv
-    ]
-  ;
+    ];
 
   cargoSha256 = "sha256-eTAEf2nRrJ7i2Dw5BBZlLLu8mK2G/wUk40ivtfxk1pI=";
 

@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
         [ "--with-hepmc3=${hepmc}" ]
       else
         [ "--with-hepmc=${hepmc}" ]
-    )
-  ;
+    );
 
   enableParallelBuilding = true;
 

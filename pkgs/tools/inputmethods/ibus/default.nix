@@ -54,8 +54,7 @@ let
       ''
         makeWrapper ${dbus}/bin/dbus-launch $out/bin/dbus-launch \
           --add-flags --config-file=${dbus}/share/dbus-1/session.conf
-      ''
-  ;
+      '';
 in
 
 stdenv.mkDerivation rec {
@@ -155,8 +154,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withWayland [
       libxkbcommon
       wayland
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

@@ -58,8 +58,7 @@ with lib;
       default = null;
       example =
         literalExpression
-          ''"''${env.sitePackages}/ipykernel/resources/logo-32x32.png"''
-      ;
+          ''"''${env.sitePackages}/ipykernel/resources/logo-32x32.png"'';
       description = lib.mdDoc ''
         Path to 32x32 logo png.
       '';
@@ -69,8 +68,7 @@ with lib;
       default = null;
       example =
         literalExpression
-          ''"''${env.sitePackages}/ipykernel/resources/logo-64x64.png"''
-      ;
+          ''"''${env.sitePackages}/ipykernel/resources/logo-64x64.png"'';
       description = lib.mdDoc ''
         Path to 64x64 logo png.
       '';
@@ -81,8 +79,7 @@ with lib;
       default = { };
       example =
         literalExpression
-          ''"{ examples = ''${env.sitePack}/IRkernel/kernelspec/kernel.js"; }''
-      ;
+          ''"{ examples = ''${env.sitePack}/IRkernel/kernelspec/kernel.js"; }'';
       description = lib.mdDoc ''
         Extra paths to link in kernel directory
       '';

@@ -55,8 +55,7 @@ mapAttrs
           # https://github.com/NixOS/hydra/issues/591#issuecomment-435125621
           # Note: optionalAttrs is used since meta.timeout is not set for Google Chrome
           inherit (chromiumPkg.meta) timeout;
-        }
-      ;
+        };
 
       enableOCR = true;
 
@@ -73,8 +72,7 @@ mapAttrs
             systemPackages = [ chromiumPkg ];
             variables."XAUTHORITY" = "/home/alice/.Xauthority";
           };
-        }
-      ;
+        };
 
       testScript =
         let
@@ -83,8 +81,7 @@ mapAttrs
             let
               xdoScript = pkgs.writeText "${name}.xdo" text;
             in
-            "${pkgs.xdotool}/bin/xdotool ${xdoScript}"
-          ;
+            "${pkgs.xdotool}/bin/xdotool ${xdoScript}";
         in
         ''
           import shlex
@@ -306,8 +303,7 @@ mapAttrs
 
 
           machine.shutdown()
-        ''
-      ;
+        '';
     }
   )
   channelMap

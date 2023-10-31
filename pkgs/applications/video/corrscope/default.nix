@@ -31,8 +31,7 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
         poetry-core
         pythonRelaxDepsHook
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     ffmpeg

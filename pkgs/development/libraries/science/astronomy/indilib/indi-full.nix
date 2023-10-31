@@ -30,6 +30,5 @@ callPackage ./indi-with-drivers.nix {
   version = indi-version;
   extraDrivers =
     [ indi-3rdparty ]
-    ++ lib.optionals stdenv.isx86_64 [ indi-firmware ]
-  ;
+    ++ lib.optionals stdenv.isx86_64 [ indi-firmware ];
 }

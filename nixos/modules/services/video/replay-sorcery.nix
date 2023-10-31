@@ -30,8 +30,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Automatically start ReplaySorcery when graphical-session.target starts."
-        ;
+            "Automatically start ReplaySorcery when graphical-session.target starts.";
       };
 
       settings = mkOption {
@@ -44,8 +43,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf)."
-        ;
+            "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
         example = literalExpression ''
           {
             videoInput = "hwaccel"; # requires `services.replay-sorcery.enableSysAdminCapability = true`

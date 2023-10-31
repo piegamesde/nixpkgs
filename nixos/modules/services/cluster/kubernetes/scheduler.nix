@@ -43,8 +43,7 @@ in
     leaderElect = mkOption {
       description =
         lib.mdDoc
-          "Whether to start leader election before executing main loop."
-      ;
+          "Whether to start leader election before executing main loop.";
       type = bool;
       default = true;
     };
@@ -111,8 +110,7 @@ in
 
     services.kubernetes.scheduler.kubeconfig.server =
       mkDefault
-        top.apiserverAddress
-    ;
+        top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

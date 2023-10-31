@@ -45,8 +45,7 @@ in
           order to use this.  This requires you accept the VirtualBox PUEL.
           :::
         '';
-      }
-    ;
+      };
 
     package = mkOption {
       type = types.package;
@@ -105,8 +104,7 @@ in
           mkIf (config.nixpkgs.config.virtualbox.enableExtensionPack or false)
             [
               "'nixpkgs.virtualbox.enableExtensionPack' has no effect, please use 'virtualisation.virtualbox.host.enableExtensionPack'"
-            ]
-        ;
+            ];
         boot.kernelModules = [
           "vboxdrv"
           "vboxnetadp"
@@ -134,8 +132,7 @@ in
               ++ (lib.optionals (!cfg.headless) [
                 "VBoxSDL"
                 "VirtualBoxVM"
-              ])
-            ;
+              ]);
           in
           mkIf cfg.enableHardening (
             builtins.listToAttrs (
@@ -146,8 +143,7 @@ in
                 })
                 executables
             )
-          )
-        ;
+          );
 
         users.groups.vboxusers.gid = config.ids.gids.vboxusers;
 

@@ -68,8 +68,7 @@ let
           default = [ ];
           description =
             lib.mdDoc
-              "Commandline arguments to pass to the image's entrypoint."
-          ;
+              "Commandline arguments to pass to the image's entrypoint.";
           example = literalExpression ''
             ["--port=9000"]
           '';
@@ -192,8 +191,7 @@ let
           default = null;
           description =
             lib.mdDoc
-              "Override the default working directory for the container."
-          ;
+              "Override the default working directory for the container.";
           example = "/var/lib/hello_world";
         };
 
@@ -233,13 +231,11 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   isValidLogin =
     login:
-    login.username != null && login.passwordFile != null && login.registry != null
-  ;
+    login.username != null && login.passwordFile != null && login.registry != null;
 
   mkService =
     name: container:
@@ -356,10 +352,8 @@ let
           Environment = "PODMAN_SYSTEMD_UNIT=podman-${name}.service";
           Type = "notify";
           NotifyAccess = "all";
-        }
-      ;
-    }
-  ;
+        };
+    };
 in
 {
   imports = [
@@ -379,8 +373,7 @@ in
                   "extraDockerOptions"
                 ]
               )
-              oldcfg.docker-containers
-          ;
+              oldcfg.docker-containers;
         }
       )
     )
@@ -394,7 +387,10 @@ in
         "docker"
       ];
       default =
-        if versionAtLeast config.system.stateVersion "22.05" then "podman" else "docker"
+        if versionAtLeast config.system.stateVersion "22.05" then
+          "podman"
+        else
+          "docker"
       ;
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
@@ -411,8 +407,7 @@ in
       {
         systemd.services =
           mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
-            cfg.containers
-        ;
+            cfg.containers;
       }
       (lib.mkIf (cfg.backend == "podman") { virtualisation.podman.enable = true; })
       (lib.mkIf (cfg.backend == "docker") { virtualisation.docker.enable = true; })

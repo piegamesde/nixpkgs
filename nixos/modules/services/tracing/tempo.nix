@@ -75,8 +75,7 @@ in
           NoNewPrivileges = true;
           WorkingDirectory = "/var/lib/tempo";
           StateDirectory = "tempo";
-        }
-      ;
+        };
     };
   };
 }

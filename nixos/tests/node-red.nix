@@ -13,8 +13,7 @@ import ./make-test-python.nix (
             enable = true;
             openFirewall = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

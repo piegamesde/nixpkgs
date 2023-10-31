@@ -61,8 +61,7 @@ buildPythonPackage rec {
         src = ./bubblewrap-path.patch;
         bwrap = "${bubblewrap}/bin/bwrap";
       })
-    ]
-  ;
+    ];
 
   postPatch = ''
     rm pyproject.toml

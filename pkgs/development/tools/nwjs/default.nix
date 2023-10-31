@@ -151,8 +151,7 @@ stdenv.mkDerivation rec {
 
       mkdir $out/lib
       ln -s $out/share/nwjs/lib/libnw.so $out/lib/libnw.so
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [ makeWrapper ];
 

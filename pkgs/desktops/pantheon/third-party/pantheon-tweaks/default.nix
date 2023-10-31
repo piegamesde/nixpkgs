@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
         granite
         switchboard
       ]
-    )
-  ;
+    );
 
   postPatch = ''
     chmod +x meson/post_install.py

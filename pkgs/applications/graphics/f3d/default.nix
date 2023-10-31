@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
-    ]
-  ;
+    ];
 
   # conflict between VTK and Nixpkgs;
   # see https://github.com/NixOS/nixpkgs/issues/89167

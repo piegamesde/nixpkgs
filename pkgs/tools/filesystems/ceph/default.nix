@@ -165,8 +165,7 @@ let
         "x86_64-linux"
         "aarch64-linux"
       ];
-    }
-  ;
+    };
 
   ceph-common =
     with python.pkgs;
@@ -187,8 +186,7 @@ let
         ];
 
       meta = getMeta "Ceph common module for code shared by manager modules";
-    }
-  ;
+    };
 
   # Watch out for python <> boost compatibility
   python = python310.override {
@@ -441,6 +439,5 @@ rec {
         # wrapPythonPrograms modifies .ceph-wrapped, so lets just update its paths
         substituteInPlace $out/bin/ceph          --replace ${ceph} $out
         substituteInPlace $out/bin/.ceph-wrapped --replace ${ceph} $out
-      ''
-  ;
+      '';
 }

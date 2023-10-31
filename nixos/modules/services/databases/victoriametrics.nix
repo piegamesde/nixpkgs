@@ -84,8 +84,7 @@ in
           }/bin/curl -s -o /dev/null http://${bindAddr}/ping; do
             sleep 1;
           done
-        ''
-      ;
+        '';
     };
   };
 }

@@ -36,8 +36,7 @@ import ./make-test-python.nix (
                 };
               })
               manImplementations
-          )
-        ;
+          );
       };
     };
 

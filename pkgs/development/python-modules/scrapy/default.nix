@@ -124,8 +124,7 @@ buildPythonPackage rec {
       # flaky on darwin-aarch64
       "test_fixed_delay"
       "test_start_requests_laziness"
-    ]
-  ;
+    ];
 
   postInstall = ''
     installManPage extras/scrapy.1

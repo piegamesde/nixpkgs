@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       repo = "grass";
       rev = version;
       sha256 = "sha256-VK9FCqIwHGmeJe5lk12lpAGcsC1aPRBiI+XjACXjDd4=";
-    }
-  ;
+    };
 
   nativeBuildInputs =
     [
@@ -63,8 +62,7 @@ stdenv.mkDerivation rec {
         numpy
         wxPython_4_2
       ]
-    )
-  ;
+    );
 
   buildInputs = [
     cairo

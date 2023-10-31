@@ -21,8 +21,7 @@ let
           };"
         )
         v
-    )
-  ;
+    );
 
   listKeys = r: concatStringsSep "," (map (n: ''"${n}"'') (attrNames r));
 
@@ -54,14 +53,12 @@ let
               }
             };
           '')
-          cfg.bars
-      ;
+          cfg.bars;
     in
     pkgs.writeText "yabar.conf" ''
       bar-list = [${listKeys cfg.bars}];
       ${concatStringsSep "\n" bars}
-    ''
-  ;
+    '';
 in
 {
   options.programs.yabar = {

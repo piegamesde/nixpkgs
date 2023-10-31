@@ -74,7 +74,8 @@ rec {
           [
             (mkOptionName k)
             (lib.generators.mkValueStringDefault { } v)
-          ],
+          ]
+      ,
     }:
     options:
     let
@@ -88,6 +89,5 @@ rec {
           mkOption k v
       ;
     in
-    builtins.concatLists (lib.mapAttrsToList render options)
-  ;
+    builtins.concatLists (lib.mapAttrsToList render options);
 }

@@ -33,8 +33,7 @@ import ./make-test-python.nix (
         services.openssh.settings.PermitRootLogin = "yes";
         users.extraUsers.root.password = "";
         users.mutableUsers = false;
-      }
-    ;
+      };
 
     testScript = ''
       def wait_until_terminated_or_succeeds(

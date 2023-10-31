@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       "-DENABLE_RPMDB=true"
       "-DENABLE_RPMDB_BYRPMHEADER=true"
       "-DENABLE_RPMMD=true"
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

@@ -17,12 +17,10 @@ import ./make-test-python.nix (
         test-support.displayManager.auto.user = "alice";
         services.xserver.displayManager.defaultSession =
           lib.mkForce
-            "none+herbstluftwm"
-        ;
+            "none+herbstluftwm";
         services.xserver.windowManager.herbstluftwm.enable = true;
         environment.systemPackages = [ pkgs.dzen2 ]; # needed for upstream provided panel
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("ensure x starts"):

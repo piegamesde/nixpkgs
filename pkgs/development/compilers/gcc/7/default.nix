@@ -125,8 +125,7 @@ let
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
   crossNameAddon =
     optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-"
-  ;
+      "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets
@@ -284,8 +283,7 @@ stdenv.mkDerivation (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString (stdenv.cc.isClang && langFortran)
-        "-Wno-unused-command-line-argument"
-    ;
+        "-Wno-unused-command-line-argument";
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
     preConfigure = callFile ../common/pre-configure.nix { };
@@ -309,8 +307,7 @@ stdenv.mkDerivation (
 
     buildFlags =
       optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap")
-    ;
+        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList

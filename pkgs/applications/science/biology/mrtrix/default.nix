@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       libXext
       qt5.qtbase
       qt5.qtsvg
-    ]
-  ;
+    ];
 
   nativeInstallCheckInputs = [ bc ];
 

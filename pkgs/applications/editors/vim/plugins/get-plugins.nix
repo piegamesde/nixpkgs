@@ -7,8 +7,7 @@ let
     callPackage <localpkgs/pkgs/applications/editors/vim/plugins/generated.nix>
       { inherit buildNeovimPluginFrom2Nix buildVimPluginFrom2Nix; }
       { }
-      { }
-  ;
+      { };
   hasChecksum =
     value:
     lib.isAttrs value

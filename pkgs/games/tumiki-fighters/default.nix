@@ -17,8 +17,7 @@ let
       name = "${patchname}.patch";
       url = "https://sources.debian.org/data/main/t/tumiki-fighters/0.2.dfsg1-9/debian/patches/${patchname}.patch";
       sha256 = hash;
-    }
-  ;
+    };
 in
 stdenv.mkDerivation rec {
   pname = "tumiki-fighters";

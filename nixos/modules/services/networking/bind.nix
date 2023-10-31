@@ -24,8 +24,7 @@ let
           value = zone;
         }
       )
-    )
-  ;
+    );
 
   bindZoneOptions =
     { name, config, ... }:
@@ -44,15 +43,13 @@ let
           type = types.either types.str types.path;
           description =
             lib.mdDoc
-              "Zone file resource records contain columns of data, separated by whitespace, that define the record."
-          ;
+              "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
         };
         masters = mkOption {
           type = types.listOf types.str;
           description =
             lib.mdDoc
-              "List of servers for inclusion in stub and secondary zones."
-          ;
+              "List of servers for inclusion in stub and secondary zones.";
         };
         slaves = mkOption {
           type = types.listOf types.str;
@@ -74,13 +71,11 @@ let
           type = types.str;
           description =
             lib.mdDoc
-              "Extra zone config to be appended at the end of the zone section."
-          ;
+              "Extra zone config to be appended at the end of the zone section.";
           default = "";
         };
       };
-    }
-  ;
+    };
 
   confFile = pkgs.writeText "named.conf" ''
     include "/etc/bind/rndc.key";
@@ -254,8 +249,7 @@ in
           with types;
           coercedTo (listOf attrs) bindZoneCoerce (
             attrsOf (types.submodule bindZoneOptions)
-          )
-        ;
+          );
         description = lib.mdDoc ''
           List of zones we claim authority over.
         '';

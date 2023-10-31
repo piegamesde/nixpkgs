@@ -28,8 +28,7 @@ import ./make-test-python.nix (
           };
         }
         extraConfig
-      ]
-    ;
+      ];
   in
   {
     name = "nebula";
@@ -60,8 +59,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
 
       allowAny =
         { ... }@args:
@@ -91,8 +89,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
 
       allowFromLighthouse =
         { ... }@args:
@@ -122,8 +119,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
 
       allowToLighthouse =
         { ... }@args:
@@ -154,8 +150,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
 
       disabled =
         { ... }@args:
@@ -186,8 +181,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -370,7 +364,6 @@ import ./make-test-python.nix (
         ${allowTrafficBetween "allowToLighthouse" "allowAny"}
         allowAny.succeed("ping -c3 10.0.100.4")
         allowToLighthouse.succeed("ping -c3 10.0.100.2")
-      ''
-    ;
+      '';
   }
 )

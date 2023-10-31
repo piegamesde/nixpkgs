@@ -27,13 +27,11 @@ let
     fetchurl {
       url = "https://releases.llvm.org/${release_version}/${name}-${version}.src.tar.xz";
       inherit sha256;
-    }
-  ;
+    };
 
   clang-tools-extra_src =
     fetch "clang-tools-extra"
-      "1w8ml7fyn4vyxmy59n2qm4r1k1kgwgwkaldp6m45fdv4g0kkfbhd"
-  ;
+      "1w8ml7fyn4vyxmy59n2qm4r1k1kgwgwkaldp6m45fdv4g0kkfbhd";
 
   llvm_meta = {
     license = lib.licenses.ncsa;

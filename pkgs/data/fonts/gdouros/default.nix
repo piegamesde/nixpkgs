@@ -98,7 +98,6 @@ let
         license = lib.licenses.unfree;
         homepage = "https://dn-works.com/ufas/";
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs mkpkg fonts

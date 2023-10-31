@@ -97,12 +97,10 @@ import ./make-test-python.nix (
               dbFile = pkgs.writeText "dbsecret" "we2quaeZ";
               jwsFile =
                 pkgs.runCommand "oidcKeyBase" { }
-                  "${pkgs.openssl}/bin/openssl genrsa 2048 > $out"
-              ;
+                  "${pkgs.openssl}/bin/openssl genrsa 2048 > $out";
             };
           };
-        }
-      ;
+        };
     };
 
     testScript =

@@ -43,8 +43,7 @@ let
       fi
 
       cp wrapper.c $out
-    ''
-  ;
+    '';
   tests =
     lib.genAttrs
       [
@@ -67,8 +66,7 @@ let
           if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"
         }.callPackage
           ./cross.nix
-          { }
-      ;
+          { };
     };
 in
 

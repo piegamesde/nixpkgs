@@ -56,12 +56,10 @@ import ./make-test-python.nix (
                   CREATE DATABASE invidious;
                   GRANT ALL PRIVILEGES ON DATABASE invidious TO kemal;
                 '';
-              }
-            ;
+              };
           };
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -92,7 +90,6 @@ import ./make-test-python.nix (
         activate_specialisation("postgres-tcp")
         machine.wait_for_open_port(port)
         curl_assert_status_code(f"{url}/search", 200)
-      ''
-    ;
+      '';
   }
 )

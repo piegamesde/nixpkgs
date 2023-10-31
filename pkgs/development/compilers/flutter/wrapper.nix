@@ -69,13 +69,11 @@ let
         pkg:
         builtins.filter lib.isDerivation (
           (pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ])
-        )
-      ;
+        );
       collect =
         pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
     in
-    builtins.concatMap collect appRuntimeDeps
-  ;
+    builtins.concatMap collect appRuntimeDeps;
 
   # Some header files and libraries are not properly located by the Flutter SDK.
   # They must be manually included.

@@ -50,8 +50,7 @@ buildPythonPackage rec {
         cargoSetupHook
         maturinBuildHook
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [ nettle ]

@@ -83,8 +83,7 @@ let
         # Improve determinism by not copying a channel.
         copyChannel = false;
       };
-    }
-  ;
+    };
 in
 {
   basic = makeTest {
@@ -104,8 +103,7 @@ in
             Type = "linux-generic";
           };
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -117,8 +115,7 @@ in
 
         systemd_repart_logs = machine.succeed("journalctl --boot --unit systemd-repart.service")
         assert "Growing existing partition 1." in systemd_repart_logs
-      ''
-    ;
+      '';
   };
 
   after-initrd = makeTest {
@@ -136,8 +133,7 @@ in
             Type = "linux-generic";
           };
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -149,7 +145,6 @@ in
 
         systemd_repart_logs = machine.succeed("journalctl --unit systemd-repart.service")
         assert "Growing existing partition 1." in systemd_repart_logs
-      ''
-    ;
+      '';
   };
 }

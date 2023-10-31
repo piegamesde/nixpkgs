@@ -85,12 +85,10 @@ let
       ''
         export CARGO_TARGET_DIR="$(pwd)/target"
         pushd "${buildAndTestSubdir}"
-      ''
-  ;
+      '';
   maybeLeaveBuildAndTestSubdir =
     lib.optionalString (buildAndTestSubdir != null)
-      "popd"
-  ;
+      "popd";
 
   pgxPostgresMajor = lib.versions.major postgresql.version;
   preBuildAndTest = ''

@@ -29,8 +29,7 @@ let
                 builtins.toJSON entry
               )
             )
-            cfg.cni.config
-        ;
+            cfg.cni.config;
       })
   ;
 
@@ -74,8 +73,7 @@ let
           ];
         };
       };
-    }
-  ;
+    };
 
   taints = concatMapStringsSep "," (v: "${v.key}=${v.value}:${v.effect}") (
     mapAttrsToList (n: v: v) cfg.taints
@@ -150,16 +148,14 @@ in
       default = config.services.kubernetes.addons.dns.clusterDomain;
       defaultText =
         literalExpression
-          "config.${options.services.kubernetes.addons.dns.clusterDomain}"
-      ;
+          "config.${options.services.kubernetes.addons.dns.clusterDomain}";
       type = str;
     };
 
     clientCaFile = mkOption {
       description =
         lib.mdDoc
-          "Kubernetes apiserver CA file for client authentication."
-      ;
+          "Kubernetes apiserver CA file for client authentication.";
       default = top.caFile;
       defaultText = literalExpression "config.${otop.caFile}";
       type = nullOr path;
@@ -208,8 +204,7 @@ in
     containerRuntimeEndpoint = mkOption {
       description =
         lib.mdDoc
-          "Endpoint at which to find the container runtime api interface/socket"
-      ;
+          "Endpoint at which to find the container runtime api interface/socket";
       type = str;
       default = "unix:///run/containerd/containerd.sock";
     };
@@ -254,8 +249,7 @@ in
     manifests = mkOption {
       description =
         lib.mdDoc
-          "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)"
-      ;
+          "List of manifests to bootstrap with kubelet (only pods can be created as manifest entry)";
       type = attrsOf attrs;
       default = { };
     };
@@ -263,8 +257,7 @@ in
     nodeIp = mkOption {
       description =
         lib.mdDoc
-          "IP address of the node. If set, kubelet will use this IP address for the node."
-      ;
+          "IP address of the node. If set, kubelet will use this IP address for the node.";
       default = null;
       type = nullOr str;
     };
@@ -290,8 +283,7 @@ in
     taints = mkOption {
       description =
         lib.mdDoc
-          "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)."
-      ;
+          "Node taints (https://kubernetes.io/docs/concepts/configuration/assign-pod-node/).";
       default = { };
       type = attrsOf (submodule [ taintOptions ]);
     };
@@ -305,8 +297,7 @@ in
     tlsKeyFile = mkOption {
       description =
         lib.mdDoc
-          "File containing x509 private key matching tlsCertFile."
-      ;
+          "File containing x509 private key matching tlsCertFile.";
       default = null;
       type = nullOr path;
     };
@@ -314,8 +305,7 @@ in
     unschedulable = mkOption {
       description =
         lib.mdDoc
-          "Whether to set node taint to unschedulable=true as it is the case of node that has only master role."
-      ;
+          "Whether to set node taint to unschedulable=true as it is the case of node that has only master role.";
       default = false;
       type = bool;
     };
@@ -376,7 +366,8 @@ in
                   ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
               else
                 ''
-                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
+                  ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
+              }
             '')
             cfg.seedDockerImages}
 
@@ -465,8 +456,7 @@ in
 
       services.kubernetes.kubelet.hostname =
         mkDefault
-          config.networking.fqdnOrHostName
-      ;
+          config.networking.fqdnOrHostName;
 
       services.kubernetes.pki.certs = with top.lib; {
         kubelet = mkCert {
@@ -497,8 +487,7 @@ in
               mode = "0755";
             }
           )
-          cfg.manifests
-      ;
+          cfg.manifests;
     })
 
     (mkIf (cfg.unschedulable && cfg.enable) {

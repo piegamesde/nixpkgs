@@ -18,8 +18,7 @@ import ../make-test-python.nix (
         };
         environment.systemPackages = with pkgs; [ xfsprogs ];
         boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed("vgcreate test_vg /dev/vdb")

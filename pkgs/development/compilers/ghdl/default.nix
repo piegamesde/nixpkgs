@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (backend == "llvm") [
       "--with-llvm-config=${llvm.dev}/bin/llvm-config"
-    ]
-  ;
+    ];
 
   hardeningDisable = [ "format" ];
 

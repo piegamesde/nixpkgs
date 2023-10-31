@@ -33,8 +33,7 @@ import ./make-test-python.nix (
           # we want to test the full-variant of the package to also get DoH support
           services.unbound.package = pkgs.unbound-full;
         };
-      }
-    ;
+      };
 
     cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=dns.example.local'
@@ -92,8 +91,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       # The resolver that knows that fowards (only) to the authoritative server
       # and listens on UDP/53, TCP/53 & TCP/853.
@@ -154,8 +152,7 @@ import ./make-test-python.nix (
               } ];
             };
           };
-        }
-      ;
+        };
 
       # machine that runs a local unbound that will be reconfigured during test execution
       local_resolver =
@@ -241,8 +238,7 @@ import ./make-test-python.nix (
                 }
             '';
           };
-        }
-      ;
+        };
 
       # plain node that only has network access and doesn't run any part of the
       # resolver software locally
@@ -264,8 +260,7 @@ import ./make-test-python.nix (
             address = "fd21::10";
             prefixLength = 64;
           } ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -394,7 +389,6 @@ import ./make-test-python.nix (
             local_resolver.succeed("unbound-control reload")
             r = [("A", "3.4.5.6")]
             test(local_resolver, ["::1", "127.0.0.1"], zone="something.local.", records=r)
-      ''
-    ;
+      '';
   }
 )

@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   buildInputs =
     [
@@ -109,15 +108,13 @@ stdenv.mkDerivation rec {
     let
       excludedTestsRegex =
         lib.optionalString (excludedTests != [ ])
-          "(${lib.concatStringsSep "|" excludedTests})"
-      ;
+          "(${lib.concatStringsSep "|" excludedTests})";
     in
     ''
       runHook preCheck
       ctest -E "${excludedTestsRegex}" --output-on-failure
       runHook postCheck
-    ''
-  ;
+    '';
 
   outputs = [
     "bin"

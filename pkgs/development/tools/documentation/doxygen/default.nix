@@ -42,13 +42,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DICONV_INCLUDE_DIR=${libiconv}/include" ]
-    ++ lib.optional (qt5 != null) "-Dbuild_wizard=YES"
-  ;
+    ++ lib.optional (qt5 != null) "-Dbuild_wizard=YES";
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-mmacosx-version-min=10.9"
-  ;
+      "-mmacosx-version-min=10.9";
 
   meta = {
     license = lib.licenses.gpl2Plus;

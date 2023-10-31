@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
         src = ./fix-paths.patch;
         pythonPaths =
           lib.concatMapStringsSep ", " (pkg: "'${pkg}/${python3.sitePackages}'")
-            [ python3.pkgs.pygobject3 ]
-        ;
+            [ python3.pkgs.pygobject3 ];
       })
     ];
 

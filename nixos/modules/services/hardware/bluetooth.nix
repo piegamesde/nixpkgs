@@ -80,8 +80,7 @@ in
         default = true;
         description =
           lib.mdDoc
-            "Whether to power up the default Bluetooth controller on boot."
-        ;
+            "Whether to power up the default Bluetooth controller on boot.";
       };
 
       package = mkOption {
@@ -109,8 +108,7 @@ in
         };
         description =
           lib.mdDoc
-            "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf)."
-        ;
+            "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf).";
       };
 
       input = mkOption {
@@ -124,8 +122,7 @@ in
         };
         description =
           lib.mdDoc
-            "Set configuration for the input service (/etc/bluetooth/input.conf)."
-        ;
+            "Set configuration for the input service (/etc/bluetooth/input.conf).";
       };
 
       network = mkOption {
@@ -138,8 +135,7 @@ in
         };
         description =
           lib.mdDoc
-            "Set configuration for the network service (/etc/bluetooth/network.conf)."
-        ;
+            "Set configuration for the network service (/etc/bluetooth/network.conf).";
       };
     };
   };
@@ -149,25 +145,21 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages =
       [ package ]
-      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd
-    ;
+      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
     environment.etc."bluetooth/input.conf".source =
       cfgFmt.generate "input.conf"
-        cfg.input
-    ;
+        cfg.input;
     environment.etc."bluetooth/network.conf".source =
       cfgFmt.generate "network.conf"
-        cfg.network
-    ;
+        cfg.network;
     environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
       recursiveUpdate defaults cfg.settings
     );
     services.udev.packages = [ package ];
     services.dbus.packages =
       [ package ]
-      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd
-    ;
+      ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
     systemd.packages = [ package ];
 
     systemd.services =
@@ -184,8 +176,7 @@ in
                 "/etc/bluetooth/main.conf"
               ]
               ++ optional hasDisabledPlugins
-                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}"
-            ;
+                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
           in
           {
             wantedBy = [ "bluetooth.target" ];
@@ -196,8 +187,7 @@ in
             ];
             # restarting can leave people without a mouse/keyboard
             unitConfig.X-RestartIfChanged = false;
-          }
-        ;
+          };
       }
       // (optionalAttrs cfg.hsphfpd.enable {
         hsphfpd = {
@@ -208,8 +198,7 @@ in
           description = "A prototype implementation used for connecting HSP/HFP Bluetooth devices";
           serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/hsphfpd.pl";
         };
-      })
-    ;
+      });
 
     systemd.user.services =
       {
@@ -222,7 +211,6 @@ in
           description = "telephony_client for hsphfpd";
           serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/telephony_client.pl";
         };
-      }
-    ;
+      };
   };
 }

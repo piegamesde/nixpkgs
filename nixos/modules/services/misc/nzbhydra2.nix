@@ -26,8 +26,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the NZBHydra2 web interface."
-        ;
+            "Open ports in the firewall for the NZBHydra2 web interface.";
       };
 
       package = mkOption {

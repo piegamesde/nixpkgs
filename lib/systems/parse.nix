@@ -30,8 +30,7 @@ let
       name: value:
       assert type.check value;
       setType type.name ({ inherit name; } // value)
-    )
-  ;
+    );
 in
 
 rec {
@@ -379,8 +378,7 @@ rec {
         significantByte = littleEndian;
         family = "javascript";
       };
-    }
-  ;
+    };
 
   # GNU build systems assume that older NetBSD architectures are using a.out.
   gnuNetBSDDefaultExecFormat =
@@ -464,8 +462,7 @@ rec {
 
       # identity
       (b == a)
-    ]
-  ;
+    ];
 
   ################################################################################
 
@@ -762,8 +759,7 @@ rec {
   mkSystem =
     components:
     assert types.parsedPlatform.check components;
-    setType "system" components
-  ;
+    setType "system" components;
 
   mkSkeletonFromList =
     l:
@@ -859,9 +855,9 @@ rec {
         abi = elemAt l 3;
       };
     }
-    .${toString (length l)}
-      or (throw "system string has invalid number of hyphen-separated components")
-  ;
+    .${toString (length l)} or (throw
+      "system string has invalid number of hyphen-separated components"
+    );
 
   # This should revert the job done by config.guess from the gcc compiler.
   mkSystemFromSkeleton =
@@ -921,8 +917,7 @@ rec {
         ;
       };
     in
-    mkSystem parsed
-  ;
+    mkSystem parsed;
 
   mkSystemFromString =
     s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
@@ -957,12 +952,10 @@ rec {
       optExecFormat =
         lib.optionalString
           (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
-          kernel.execFormat.name
-      ;
+          kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in
-    "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}"
-  ;
+    "${cpu.name}-${vendor.name}-${kernelName kernel}${optExecFormat}${optAbi}";
 
   ################################################################################
 }

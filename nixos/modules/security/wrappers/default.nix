@@ -19,8 +19,7 @@ let
       numeric = "[-+=]?[0-7]{0,4}";
       mode = "((${symbolic})(,${symbolic})*)|(${numeric})";
     in
-    lib.types.strMatching mode // { description = "file mode string"; }
-  ;
+    lib.types.strMatching mode // { description = "file mode string"; };
 
   wrapperType = lib.types.submodule (
     { name, config, ... }:
@@ -112,8 +111,7 @@ let
 
       # Set the executable bit
       chmod ${permissions} "$wrapperDir/${program}"
-    ''
-  ;
+    '';
 
   ###### Activation script for the setuid wrappers
   mkSetuidProgram =
@@ -138,8 +136,7 @@ let
       chmod "u${if setuid then "+" else "-"}s,g${
         if setgid then "+" else "-"
       }s,${permissions}" "$wrapperDir/${program}"
-    ''
-  ;
+    '';
 
   mkWrappedPrograms =
     builtins.map
@@ -147,8 +144,7 @@ let
         opts:
         if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
       )
-      (lib.attrValues wrappers)
-  ;
+      (lib.attrValues wrappers);
 in
 {
   imports = [
@@ -243,8 +239,7 @@ in
                 setuid/setgid and capabilities are mutually exclusive.
           '';
         })
-        wrappers
-    ;
+        wrappers;
 
     security.wrappers =
       let
@@ -261,8 +256,7 @@ in
         fusermount3 = mkSetuidRoot "${pkgs.fuse3}/bin/fusermount3";
         mount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/mount";
         umount = mkSetuidRoot "${lib.getBin pkgs.util-linux}/bin/umount";
-      }
-    ;
+      };
 
     boot.specialFileSystems.${parentWrapperDir} = {
       fsType = "tmpfs";
@@ -318,8 +312,7 @@ in
             # For initial setup
             ln --symbolic "$wrapperDir" "${wrapperDir}"
           fi
-        ''
-    ;
+        '';
 
     ###### wrappers consistency checks
     system.extraDependencies = lib.singleton (

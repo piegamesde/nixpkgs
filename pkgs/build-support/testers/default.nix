@@ -27,11 +27,9 @@
           ++ orig.args or [
             "-e"
             (orig.builder or ../../stdenv/generic/default-builder.sh)
-          ]
-        ;
+          ];
       }
-    )
-  ;
+    );
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
   # or doc/builders/testers.chapter.md
@@ -75,8 +73,7 @@
             touch $out
           fi
         fi
-      ''
-  ;
+      '';
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testVersion
   # or doc/builders/testers.chapter.md
@@ -108,8 +105,7 @@
           echo "$output" >&2
           exit 1
         fi
-      ''
-  ;
+      '';
 
   # See doc/builders/testers.chapter.md or
   # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
@@ -133,8 +129,7 @@
           salted
       ;
     in
-    checked
-  ;
+    checked;
 
   # See doc/builders/testers.chapter.md or
   # https://nixos.org/manual/nixpkgs/unstable/#tester-invalidateFetcherByDrvHash
@@ -156,8 +151,7 @@
       loadedTest = if builtins.typeOf test == "path" then import test else test;
       calledTest = lib.toFunction loadedTest pkgs;
     in
-    nixosTesting.simpleTest calledTest
-  ;
+    nixosTesting.simpleTest calledTest;
 
   hasPkgConfigModule = callPackage ./hasPkgConfigModule/tester.nix { };
 

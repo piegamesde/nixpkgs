@@ -34,7 +34,6 @@ in
   config = mkIf (config.environment.unixODBCDrivers != [ ]) {
     environment.etc."odbcinst.ini".text =
       concatMapStringsSep "\n" iniDescription
-        config.environment.unixODBCDrivers
-    ;
+        config.environment.unixODBCDrivers;
   };
 }

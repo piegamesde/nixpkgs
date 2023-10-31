@@ -47,8 +47,7 @@ let
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     knownVulnerabilities =
       optional (versionOlder version "22.0.0")
-        "Electron version ${version} is EOL"
-    ;
+        "Electron version ${version} is EOL";
   };
 
   fetcher =
@@ -56,16 +55,14 @@ let
     fetchurl {
       url = "https://github.com/electron/electron/releases/download/v${vers}/electron-v${vers}-${tag}.zip";
       sha256 = hash;
-    }
-  ;
+    };
 
   headersFetcher =
     vers: hash:
     fetchurl {
       url = "https://artifacts.electronjs.org/headers/dist/v${vers}/node-v${vers}-headers.tar.gz";
       sha256 = hash;
-    }
-  ;
+    };
 
   tags =
     {
@@ -84,8 +81,7 @@ let
 
   get =
     as: platform:
-    as.${platform.system} or (throw "Unsupported system: ${platform.system}")
-  ;
+    as.${platform.system} or (throw "Unsupported system: ${platform.system}");
 
   common = platform: {
     inherit pname version meta;
@@ -111,8 +107,7 @@ let
       ++ optionals (versionAtLeast version "11.0.0") [ libxkbcommon ]
       ++ optionals (versionAtLeast version "12.0.0") [ libxshmfence ]
       ++ optionals (versionAtLeast version "17.0.0") [ libglvnd ]
-    )
-  ;
+    );
 
   linux = {
     buildInputs = [

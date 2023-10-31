@@ -129,11 +129,9 @@ in
               types.strMatching "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
               // {
                 description = "Minecraft UUID";
-              }
-            ;
+              };
           in
-          types.attrsOf minecraftUUID
-        ;
+          types.attrsOf minecraftUUID;
         default = { };
         description = lib.mdDoc ''
           Whitelisted players, only has an effect when
@@ -162,8 +160,7 @@ in
               int
               str
             ]
-          )
-        ;
+          );
         default = { };
         example = literalExpression ''
           {

@@ -30,8 +30,7 @@ let
           boot.initrd.compressor = compressor;
           # zstd compression is only supported from 5.9 onwards. Remove when 5.10 becomes default.
           boot.kernelPackages = pkgs.linuxPackages_latest;
-        }
-      ;
+        };
 
       testScript = ''
         start_all()
@@ -41,8 +40,7 @@ let
             "cmp ${secretInStore} /run/keys/test",
         )
       '';
-    }
-  ;
+    };
 in
 lib.flip lib.genAttrs testWithCompressor [
   "cat"

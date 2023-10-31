@@ -59,8 +59,7 @@ let
           } does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."
         )
       )
-      modules
-  ;
+      modules;
 
   mapModules =
     attrPath:
@@ -74,8 +73,7 @@ let
       else
         throw
           "Module at ${toString mod.src} does not support nginx version ${nginxVersion}!"
-    )
-  ;
+    );
 in
 
 assert lib.assertMsg (lib.unique moduleNames == moduleNames)
@@ -247,11 +245,9 @@ stdenv.mkDerivation {
           (m: ''
             remove-references-to -t ${m.src} $out/sbin/nginx
           '')
-          modules
-      ;
+          modules;
     in
-    noSourceRefs + postInstall
-  ;
+    noSourceRefs + postInstall;
 
   passthru = {
     inherit modules;

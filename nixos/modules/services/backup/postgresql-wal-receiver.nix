@@ -178,8 +178,7 @@ in
           (name: config: ''
             d ${escapeShellArg config.directory} 0750 postgres postgres - -
           '')
-          receivers
-      ;
+          receivers;
 
       systemd.services =
         with attrsets;
@@ -223,14 +222,11 @@ in
                     ${optionalString (config.slot != "") "--slot=${escapeShellArg config.slot}"} \
                     ${optionalString config.synchronous "--synchronous"} \
                     ${concatStringsSep " " config.extraArgs}
-                ''
-              ;
+                '';
             }
           )
-          receivers
-      ;
-    }
-  ;
+          receivers;
+    };
 
   meta.maintainers = with maintainers; [ pacien ];
 }

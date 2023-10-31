@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
         stdenv.hostPlatform.isMusl
         || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
       )
-      "--disable-asm"
-  ; # for darwin see https://dev.gnupg.org/T5157
+      "--disable-asm"; # for darwin see https://dev.gnupg.org/T5157
 
   # Necessary to generate correct assembly when compiling for aarch32 on
   # aarch64

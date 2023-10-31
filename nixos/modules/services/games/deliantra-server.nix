@@ -141,8 +141,7 @@ in
             dm_file = "";
           }
           // cfg.configFiles
-        )
-    ;
+        );
 
     systemd.services.deliantra-server = {
       description = "Deliantra Server Daemon";

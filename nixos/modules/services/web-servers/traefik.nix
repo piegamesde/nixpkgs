@@ -26,11 +26,9 @@ let
         // {
           description = "JSON value";
           emptyValue.value = { };
-        }
-      ;
+        };
     in
-    valueType
-  ;
+    valueType;
   dynamicConfigFile =
     if cfg.dynamicConfigFile == null then
       pkgs.runCommand "config.toml"

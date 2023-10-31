@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ unzip ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   outputs = [
     "out"
     "doc"
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
       install -m 644 INCHI_BASE/src/*.h $out/include/inchi
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   preFixup = lib.optionalString stdenv.isDarwin ''
     fixDarwinDylibNames $(find "$out" -name "*.so.*")

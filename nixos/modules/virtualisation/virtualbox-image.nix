@@ -68,8 +68,7 @@ in
               bool
               (listOf str)
             ]
-          )
-        ;
+          );
         example = {
           audio = "alsa";
           rtcuseutc = "on";
@@ -91,8 +90,7 @@ in
               bool
               (listOf str)
             ]
-          )
-        ;
+          );
         example = [
           "--vsys"
           "0"
@@ -164,8 +162,7 @@ in
               bool
               (listOf str)
             ]
-          )
-        ;
+          );
         example = {
           name = "SCSI";
           add = "scsi";
@@ -290,8 +287,7 @@ in
           autoResize = true;
           fsType = "ext4";
         };
-      })
-    ;
+      });
 
     boot.growPartition = true;
     boot.loader.grub.device = "/dev/sda";

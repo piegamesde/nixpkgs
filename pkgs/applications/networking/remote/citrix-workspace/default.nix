@@ -31,7 +31,6 @@ let
         attr: versionInfo:
         lib.nameValuePair (toAttrName attr) (callPackage ./generic.nix versionInfo)
       )
-      supportedVersions
-  ;
+      supportedVersions;
 in
 supported // unsupported

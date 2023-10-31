@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       readline
-    ]
-  ;
+    ];
 
   patches = [ ./no-curl-ca.patch ];
   patchPhase =

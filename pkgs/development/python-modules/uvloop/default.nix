@@ -35,8 +35,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       ApplicationServices
-    ]
-  ;
+    ];
 
   dontUseSetuptoolsCheck = true;
   nativeCheckInputs = [

@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
         libSM
         libXrender
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [ makeWrapper ];
 

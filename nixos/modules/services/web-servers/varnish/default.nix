@@ -30,8 +30,7 @@ in
         mkEnableOption (lib.mdDoc "checking the config during build time")
         // {
           default = true;
-        }
-      ;
+        };
 
       package = mkOption {
         type = types.package;
@@ -62,8 +61,7 @@ in
         default = "/var/spool/varnish/${config.networking.hostName}";
         defaultText =
           literalExpression
-            ''"/var/spool/varnish/''${config.networking.hostName}"''
-        ;
+            ''"/var/spool/varnish/''${config.networking.hostName}"'';
         description = lib.mdDoc ''
           Directory holding all state for Varnish to run.
         '';

@@ -156,8 +156,7 @@ stdenv.mkDerivation {
       "--set CUDA_PATH ${cudaEnv}"
       "--set NVIDIA_DRIVER_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libnvidia-tls.so"
       "--set CUDA_LIBRARY_PATH ${addOpenGLRunpath.driverLink}/lib/libcuda.so"
-    ]
-  ;
+    ];
 
   unpackPhase = ''
     runHook preUnpack

@@ -81,8 +81,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "If enabled, protect logins with Duo Security using PAM support."
-        ;
+            "If enabled, protect logins with Duo Security using PAM support.";
       };
 
       integrationKey = mkOption {

@@ -25,8 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs =
     [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ python3 ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ python3 ];
 
   buildInputs =
     [ ]

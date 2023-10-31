@@ -91,8 +91,7 @@ let
           "settings"
         ]
         ++ config
-      )
-  ;
+      );
 
   removeOption =
     config: instruction:
@@ -104,8 +103,7 @@ let
         ]
         ++ config
       )
-      instruction
-  ;
+      instruction;
 in
 {
   meta.maintainers = with lib.maintainers; [ midchildan ];
@@ -239,8 +237,7 @@ in
             '';
             example = "http://localhost:40772";
             description = lib.mdDoc "URL to connect to Mirakurun.";
-          }
-        ;
+          };
 
         options.encodeProcessNum = lib.mkOption {
           type = lib.types.ints.positive;
@@ -346,8 +343,7 @@ in
       lib.mkMerge [
         defaultSettings
         (lib.mkIf cfg.usePreconfiguredStreaming streamingConfig)
-      ]
-    ;
+      ];
 
     systemd.tmpfiles.rules = [
       "d '/var/lib/epgstation/streamfiles' - ${username} ${groupname} - -"

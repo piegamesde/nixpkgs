@@ -99,8 +99,7 @@ let
           '')
           xs
       )
-    )
-  ;
+    );
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
     #!/bin/sh
@@ -194,8 +193,7 @@ in
                 str
               ]
             )
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           Configuration for the [connection] section of NetworkManager.conf.
@@ -255,12 +253,10 @@ in
                   ''
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.
-                  ''
-              ;
+                  '';
             };
           in
-          types.listOf networkManagerPluginPackage
-        ;
+          types.listOf networkManagerPluginPackage;
         default = [ ];
         description = lib.mdDoc ''
           List of NetworkManager plug-ins to enable.

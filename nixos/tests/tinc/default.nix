@@ -10,8 +10,7 @@ import ../make-test-python.nix (
       let
         subnets = config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
       in
-      (builtins.head subnets).address
-    ;
+      (builtins.head subnets).address;
 
     makeTincHost =
       name:
@@ -28,8 +27,7 @@ import ../make-test-python.nix (
           rsaPublicKey = snakeoil-keys.${name}.rsaPublic;
         }
         extraConfig
-      ]
-    ;
+      ];
 
     makeTincNode =
       { config, ... }:
@@ -41,8 +39,7 @@ import ../make-test-python.nix (
             rsaPrivateKeyFile = builtins.toFile "rsa.priv" snakeoil-keys.${name}.rsaPrivate;
             ed25519PrivateKeyFile =
               builtins.toFile "ed25519.priv"
-                snakeoil-keys.${name}.ed25519Private
-            ;
+                snakeoil-keys.${name}.ed25519Private;
 
             hostSettings = lib.mapAttrs makeTincHost {
               static = {
@@ -55,8 +52,7 @@ import ../make-test-python.nix (
                       address = "192.168.${toString vlan}.11";
                       port = 655;
                     })
-                    config.virtualisation.vlans
-                ;
+                    config.virtualisation.vlans;
               };
               dynamic1 = {
                 subnet = "10.0.0.21";
@@ -90,8 +86,7 @@ import ../make-test-python.nix (
           networking.firewall.allowedUDPPorts = [ 655 ];
         }
         extraConfig
-      ]
-    ;
+      ];
   in
   {
     name = "tinc";
@@ -116,8 +111,7 @@ import ../make-test-python.nix (
             address = "192.168.2.11";
             prefixLength = 24;
           } ];
-        }
-      ;
+        };
 
       dynamic1 =
         { ... }@args: makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };

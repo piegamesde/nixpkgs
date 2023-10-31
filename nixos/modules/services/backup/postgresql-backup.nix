@@ -68,8 +68,7 @@ let
       };
 
       startAt = cfg.startAt;
-    }
-  ;
+    };
 in
 {
 

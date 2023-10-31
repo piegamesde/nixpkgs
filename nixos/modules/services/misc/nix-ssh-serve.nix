@@ -20,8 +20,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable serving the Nix store as a remote store via SSH."
-        ;
+            "Whether to enable serving the Nix store as a remote store via SSH.";
       };
 
       write = mkOption {
@@ -29,8 +28,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable writing to the Nix store as a remote store via SSH. Note: the sshServe user is named nix-ssh and is not a trusted-user. nix-ssh should be added to the {option}`nix.settings.trusted-users` option in most use cases, such as allowing remote building of derivations."
-        ;
+            "Whether to enable writing to the Nix store as a remote store via SSH. Note: the sshServe user is named nix-ssh and is not a trusted-user. nix-ssh should be added to the {option}`nix.settings.trusted-users` option in most use cases, such as allowing remote building of derivations.";
       };
 
       keys = mkOption {
@@ -39,8 +37,7 @@ in
         example = [ "ssh-dss AAAAB3NzaC1k... alice@example.org" ];
         description =
           lib.mdDoc
-            "A list of SSH public keys allowed to access the binary cache via SSH."
-        ;
+            "A list of SSH public keys allowed to access the binary cache via SSH.";
       };
 
       protocol = mkOption {

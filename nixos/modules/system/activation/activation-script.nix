@@ -35,8 +35,7 @@ let
             _: v:
             if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v
           )
-          set
-      ;
+          set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
       # that do not support dry mode with a comment that does nothing. Filtering these
@@ -56,8 +55,7 @@ let
             else
               v
           )
-          withHeadlines
-      ;
+          withHeadlines;
     in
     ''
       #!${pkgs.runtimeShell}
@@ -104,8 +102,7 @@ let
       shadow
       nettools # needed for hostname
       util-linux # needed for mount and mountpoint
-    ]
-  ;
+    ];
 
   scriptType =
     withDry:
@@ -118,8 +115,7 @@ let
             default = [ ];
             description =
               lib.mdDoc
-                "List of dependencies. The script will run after these."
-            ;
+                "List of dependencies. The script will run after these.";
           };
           text = mkOption {
             type = types.lines;
@@ -139,11 +135,9 @@ let
               modify anything about the system when the variable is set.
             '';
           };
-        }
-      ;
+        };
     in
-    either str (submodule { options = scriptOptions; })
-  ;
+    either str (submodule { options = scriptOptions; });
 in
 
 {
@@ -183,15 +177,13 @@ in
     system.dryActivationScript = mkOption {
       description =
         lib.mdDoc
-          "The shell script that is to be run when dry-activating a system."
-      ;
+          "The shell script that is to be run when dry-activating a system.";
       readOnly = true;
       internal = true;
       default =
         systemActivationScript
           (removeAttrs config.system.activationScripts [ "script" ])
-          true
-      ;
+          true;
       defaultText = literalMD "generated activation script";
     };
 
@@ -233,8 +225,7 @@ in
             set' = mapAttrs (n: v: if isString v then noDepEntry v else v) set;
             withHeadlines = addAttributeName set';
           in
-          textClosureMap id (withHeadlines) (attrNames withHeadlines)
-          }
+          textClosureMap id (withHeadlines) (attrNames withHeadlines)}
 
           exit $_status
         '';

@@ -60,5 +60,4 @@ vmTools.buildRPM (
         description = "RPM package for ${diskImage.fullName}";
       };
     }
-
 )

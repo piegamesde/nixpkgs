@@ -111,14 +111,12 @@ in
           ReadOnlyPaths = if baseq3InStore then home else cfg.baseq3;
           ExecStartPre =
             optionalString (!baseq3InStore)
-              "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg"
-          ;
+              "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg";
 
           ExecStart = "${pkgs.ioquake3}/ioq3ded.x86_64 +exec nix.cfg";
         };
       };
-    }
-  ;
+    };
 
   meta.maintainers = with maintainers; [ f4814n ];
 }

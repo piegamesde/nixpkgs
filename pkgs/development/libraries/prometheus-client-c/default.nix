@@ -60,8 +60,7 @@ let
         license = lib.licenses.asl20;
         maintainers = [ lib.maintainers.cfsmp3 ];
       };
-    }
-  ;
+    };
 in
 rec {
   libprom = build {

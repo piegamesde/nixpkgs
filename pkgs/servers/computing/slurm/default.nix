@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
       libbpf
       http-parser
     ]
-    ++ lib.optionals enableX11 [ xorg.xauth ] ++ lib.optionals enableGtk2 [ gtk2 ]
-  ;
+    ++ lib.optionals enableX11 [ xorg.xauth ] ++ lib.optionals enableGtk2 [ gtk2 ];
 
   configureFlags =
     with lib;

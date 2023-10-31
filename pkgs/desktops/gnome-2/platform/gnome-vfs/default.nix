@@ -33,8 +33,7 @@ stdenv.mkDerivation (
             lib.versions.majorMinor version
           }/${pname}-${version}.tar.bz2";
         sha256 = "1ajg8jb8k3snxc7rrgczlh8daxkjidmcv3zr9w809sq4p2sn9pk2";
-      }
-    ;
+      };
 
     outputs = [
       "out"

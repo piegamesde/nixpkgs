@@ -15,8 +15,7 @@ import ./make-test-python.nix (
             subvolume = "to_backup";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

@@ -463,16 +463,14 @@ in
             wantedBy = [ "timers.target" ];
           }
         )
-        gcfg.archives
-    ;
+        gcfg.archives;
 
     environment.etc =
       mapAttrs'
         (
           name: cfg: nameValuePair "tarsnap/${name}.conf" { text = configFile name cfg; }
         )
-        gcfg.archives
-    ;
+        gcfg.archives;
 
     environment.systemPackages = [ pkgs.tarsnap ];
   };

@@ -48,8 +48,7 @@ buildPythonPackage rec {
           src = ./darwin-paths.patch;
           which = "${which}/bin/which";
         })
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [
     poetry-core

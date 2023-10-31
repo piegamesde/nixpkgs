@@ -35,8 +35,7 @@ stdenv.mkDerivation (
       ++ lib.optionals enableReadline [
         ncurses
         readline
-      ]
-    ;
+      ];
 
     makeFlags =
       [
@@ -54,8 +53,7 @@ stdenv.mkDerivation (
       ++ lib.optionals enableReadline [
         "READLINE_LIB=-lreadline"
         "USE_READLINE=-DUSE_READLINE"
-      ]
-    ;
+      ];
 
     meta = {
       homepage = "http://www.isthe.com/chongo/tech/comp/calc/";

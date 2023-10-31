@@ -38,8 +38,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildDocs [
         (python3.withPackages (ps: [ ps.pyyaml ]))
         scdoc
-      ]
-    ;
+      ];
 
     buildInputs = [
       curl
@@ -71,8 +70,7 @@ stdenv.mkDerivation (
         ${lib.optionalString buildDocs "tar xvf ${meson-docs-wrap}"}
         ${lib.optionalString embedSamurai "tar xvf ${samurai-wrap}"}
         popd
-      ''
-    ;
+      '';
 
     postPatch =
       ''
@@ -112,8 +110,7 @@ stdenv.mkDerivation (
         samu ${cmdlineForSamu} -C stage-3
 
         runHook postBuild
-      ''
-    ;
+      '';
 
     # tests are failing because they don't find Python
     doCheck = false;

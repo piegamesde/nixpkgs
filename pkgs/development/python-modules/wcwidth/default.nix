@@ -21,8 +21,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ setuptools ]
-    ++ lib.optionals (!isPy3k) [ backports_functools_lru_cache ]
-  ;
+    ++ lib.optionals (!isPy3k) [ backports_functools_lru_cache ];
 
   # To prevent infinite recursion with pytest
   doCheck = false;

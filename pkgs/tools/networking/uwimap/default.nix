@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-I${openssl.dev}/include/openssl"
-  ;
+      "-I${openssl.dev}/include/openssl";
 
   installPhase = ''
     mkdir -p $out/bin $out/lib $out/include/c-client

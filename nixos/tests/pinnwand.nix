@@ -18,8 +18,7 @@ import ./make-test-python.nix (
             enable = true;
             port = port;
           };
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -53,8 +52,7 @@ import ./make-test-python.nix (
               ''
             )
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

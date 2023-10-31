@@ -22,8 +22,7 @@
           type = "jar";
           sha512 = "0ybdbpfzadkncwcmnzkscbp2fhmcsqmpy60qppz7s8hs00hgqy64jr4qpdyz5bj0l4bc434vn0pv4gzxzi7y1lhh7b2rk4zv1mgs3ff";
         }
-      ]
-  ;
+      ];
 
   commonsCli_1_2 =
     map
@@ -46,6 +45,5 @@
           type = "jar";
           sha512 = "2mdzpng0cybpnw5dw1q4dmpn2i89zhg13m8xjv8pdbn5q28zsf8m3m7w0y8irbjyplwrfdrxipkxxvnz5f61bxi4s85hnm0sc84d3qb";
         }
-      ]
-  ;
+      ];
 }

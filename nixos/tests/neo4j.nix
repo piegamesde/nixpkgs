@@ -13,8 +13,7 @@ import ./make-test-python.nix {
         # require tls certs to be available
         services.neo4j.https.enable = false;
         services.neo4j.bolt.enable = false;
-      }
-    ;
+      };
   };
 
   testScript = ''

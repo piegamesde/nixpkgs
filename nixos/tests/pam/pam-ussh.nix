@@ -13,8 +13,7 @@ import ../make-test-python.nix (
 
           ssh-keygen -t ed25519 -N "" -f $out/bob
           ssh-keygen -s $out/ca -I "bob user key" -n "bob" -V 19700101:forever $out/bob.pub
-        ''
-    ;
+        '';
     makeTestScript =
       user:
       pkgs.writeShellScript "pam-ussh-${user}-test-script" ''
@@ -34,8 +33,7 @@ import ../make-test-python.nix (
         ${pkgs.openssh}/bin/ssh-add -l &>2
 
         exec sudo id -u -n
-      ''
-    ;
+      '';
   in
   {
     name = "pam-ussh";
@@ -65,8 +63,7 @@ import ../make-test-python.nix (
             Defaults lecture="never"
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("alice should be allowed to escalate to root"):

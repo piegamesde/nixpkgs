@@ -165,8 +165,7 @@ stdenv.mkDerivation (
             xcbutilwm
           ]
           ++ lib.optional libGLSupported libGL
-      )
-    ;
+      );
 
     buildInputs =
       [
@@ -327,8 +326,7 @@ stdenv.mkDerivation (
     # To prevent these failures, we need to override PostgreSQL detection.
     PSQL_LIBS =
       lib.optionalString (postgresql != null)
-        "-L${postgresql.lib}/lib -lpq"
-    ;
+        "-L${postgresql.lib}/lib -lpq";
 
     # TODO Remove obsolete and useless flags once the build will be totally mastered
     configureFlags =

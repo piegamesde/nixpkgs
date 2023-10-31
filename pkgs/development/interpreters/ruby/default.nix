@@ -436,11 +436,9 @@ let
               } // lib.optionalAttrs useBaseRuby { inherit baseRuby; };
             }
           )
-          args
-      ;
+          args;
     in
-    self
-  ;
+    self;
 in
 {
   mkRubyVersion = rubyVersion;

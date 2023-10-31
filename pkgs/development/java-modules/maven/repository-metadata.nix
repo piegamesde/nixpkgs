@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "29nynsxh8k1q91whs4glca3qxigid32dx70c87jvk1x1cfc8s78bvm6lzr14x7wvw5i5n61lrqvq5mc6mzsi8xmspaqjhm2m7azyx7y";
         }
-      ]
-  ;
+      ];
 
   mavenRepositoryMetadata_2_0_6 =
     map
@@ -46,8 +45,7 @@
           type = "pom";
           sha512 = "2sg2n3wxfanhf4jgmp2q9lh2hsnch54mzgh1clna2ywnnwh88cn37c9m9b6a0qgdc1m7yzlfg8r3k77ypfa3aa7hr3f9b2hi2k4pb0c";
         }
-      ]
-  ;
+      ];
 
   mavenRepositoryMetadata_2_0_9 =
     map
@@ -70,8 +68,7 @@
           type = "pom";
           sha512 = "27b9z80qdkn7p4fs6k87a5i926c3dsr6jmq4rz8dyiml1svqsvvghzz59cby6n8wkx7wn003wk28jzc08x53vbk5zsvcg9ckslxhjyw";
         }
-      ]
-  ;
+      ];
 
   mavenRepositoryMetadata_2_2_1 =
     map
@@ -94,6 +91,5 @@
           type = "pom";
           sha512 = "3xcvc4rsmxsxadsqczzknyrdvklizbd6wr1ldvkqx0vqwwm89k9brgkvb5bqv5i3g8s3izx1xn4g24ya88qmgr3h231wpjby2nihdvg";
         }
-      ]
-  ;
+      ];
 }

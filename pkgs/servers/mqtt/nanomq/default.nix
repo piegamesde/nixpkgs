@@ -58,8 +58,7 @@ stdenv.mkDerivation (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.cc.isClang
-        "-Wno-return-type"
-    ;
+        "-Wno-return-type";
 
     meta = with lib; {
       description = "An ultra-lightweight and blazing-fast MQTT broker for IoT edge";

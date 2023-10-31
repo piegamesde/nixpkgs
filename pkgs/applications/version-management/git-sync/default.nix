@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         gnused
       ]
       ++ lib.optionals stdenv.isLinux [ inotify-tools ]
-    )
-  ;
+    );
 
   postFixup = ''
     wrap_path="${wrapperPath}":$out/bin

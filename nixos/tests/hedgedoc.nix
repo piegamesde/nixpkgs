@@ -15,8 +15,7 @@ import ./make-test-python.nix (
               settings.dbURL = "sqlite:///var/lib/hedgedoc/hedgedoc.db";
             };
           };
-        }
-      ;
+        };
 
       hedgedocPostgres =
         { ... }:
@@ -41,8 +40,7 @@ import ./make-test-python.nix (
               '';
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

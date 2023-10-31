@@ -188,8 +188,7 @@ stdenv.mkDerivation rec {
               )}
 
               touch "$out"
-            ''
-        ;
+            '';
 
         # Test that we can add additional certificates to the store, and have them be trusted.
         extra-certificates =
@@ -219,8 +218,7 @@ stdenv.mkDerivation rec {
             };
             mapExtra =
               f:
-              lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint)
-            ;
+              lib.concatStringsSep "\n" (lib.mapAttrsToList f extraCertificatesToFingerprint);
           in
           runCommand "verify-the-cacert-extra-output"
             {
@@ -257,10 +255,8 @@ stdenv.mkDerivation rec {
               )}
 
               touch "$out"
-            ''
-        ;
-      }
-    ;
+            '';
+      };
   };
 
   inherit meta;

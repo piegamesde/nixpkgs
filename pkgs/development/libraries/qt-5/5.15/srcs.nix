@@ -22,8 +22,7 @@ let
         deepClone = false;
         leaveDotGit = false;
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs mk (lib.importJSON ./srcs-generated.json)
 // {
@@ -99,6 +98,5 @@ lib.mapAttrs mk (lib.importJSON ./srcs-generated.json)
           mv temp "$out"
         '';
       };
-    }
-  ;
+    };
 }

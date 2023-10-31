@@ -41,8 +41,7 @@ let
           # The order of these is correct when the attrset is on the right
           # which we're just returning
           )
-          (attrNames set)
-      ;
+          (attrNames set);
 
       # Specifies an attrset that encodes the value according to its type
       encode =
@@ -75,17 +74,14 @@ let
                   ++ [ "</${name}>" ]
                 )
               )
-              (filter (v: v != null) (attrNames value))
-          ;
+              (filter (v: v != null) (attrNames value));
         }
-        .${builtins.typeOf value}
-      ;
+        .${builtins.typeOf value};
 
       # One level "above" encode, acts upon a set and uses encode on each name,value pair
       toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
     in
-    concatStringsSep "\n" (toLines cfg.config)
-  ;
+    concatStringsSep "\n" (toLines cfg.config);
 
   semanticTypes = with types; rec {
     zncAtom = nullOr (

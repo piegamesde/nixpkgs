@@ -36,8 +36,7 @@ let
       mkdir -p "$DOCDIR"
       ${mvDoc docFiles}
       ${rmNoise noiseFiles}
-    ''
-  ;
+    '';
 
   # Shell script to check whether the build directory is empty.
   # If there are still files remaining, exit 1 with a helpful

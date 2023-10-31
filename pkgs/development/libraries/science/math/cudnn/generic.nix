@@ -100,8 +100,7 @@ backendStdenv.mkDerivation {
     strings.optionalString (strings.versionAtLeast versionTriple "8.0.5")
       ''
         patchelf $out/lib/libcudnn.so --add-needed libcudnn_cnn_infer.so
-      ''
-  ;
+      '';
 
   passthru = {
     inherit useCudatoolkitRunfile;
@@ -112,8 +111,7 @@ backendStdenv.mkDerivation {
           cudnn.cudatoolkit passthru attribute is deprecated;
           if your derivation uses cudnn directly, it should probably consume cudaPackages instead
         ''
-        cudatoolkit
-    ;
+        cudatoolkit;
 
     majorVersion = versions.major versionTriple;
   };

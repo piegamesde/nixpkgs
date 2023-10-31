@@ -17,8 +17,7 @@ let
       type = with types; listOf str;
       description =
         lib.mdDoc
-          "UUID(s) of VGPU device. You can generate one with `libossp_uuid`."
-      ;
+          "UUID(s) of VGPU device. You can generate one with `libossp_uuid`.";
     };
   };
 in
@@ -38,8 +37,7 @@ in
         default = "0000:00:02.0";
         description =
           lib.mdDoc
-            "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`."
-        ;
+            "PCI ID of graphics card. You can figure it with {command}`ls /sys/class/mdev_bus`.";
       };
       vgpus = mkOption {
         default = { };
@@ -99,8 +97,7 @@ in
                 PathExists = "/sys/bus/pci/devices/${cfg.device}/mdev_supported_types/${opt.mdev}/create";
               };
             })
-            vgpus
-        ;
+            vgpus;
 
         services =
           mapAttrs
@@ -113,10 +110,8 @@ in
                 ExecStop = "${pkgs.runtimeShell} -c 'echo 1 > /sys/bus/pci/devices/${cfg.device}/${opt.uuid}/remove'";
               };
             })
-            vgpus
-        ;
-      }
-    ;
+            vgpus;
+      };
   };
 
   meta.maintainers = with maintainers; [ patryk27 ];

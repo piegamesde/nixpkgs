@@ -89,8 +89,7 @@ rec {
         )
         (
           lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes)
-        )
-    ;
+        );
     isAarch64 = {
       cpu = {
         family = "arm";
@@ -251,8 +250,7 @@ rec {
           "n32"
           "ilp32"
           "x32"
-        ]
-    ;
+        ];
     isBigEndian = {
       cpu = {
         significantByte = significantBytes.bigEndian;
@@ -350,8 +348,7 @@ rec {
         gnueabihf
         gnuabielfv1
         gnuabielfv2
-      ]
-    ;
+      ];
     isMusl =
       with abis;
       map (a: { abi = a; }) [
@@ -360,16 +357,14 @@ rec {
         musleabihf
         muslabin32
         muslabi64
-      ]
-    ;
+      ];
     isUClibc =
       with abis;
       map (a: { abi = a; }) [
         uclibc
         uclibceabi
         uclibceabihf
-      ]
-    ;
+      ];
 
     isEfi = [
       {

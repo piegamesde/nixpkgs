@@ -118,8 +118,7 @@ let
           };
         };
       };
-    }
-  ;
+    };
 in
 {
 
@@ -195,8 +194,7 @@ in
             exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${
               concatStringsSep " ! " outputPipeline
             }"
-          ''
-        ;
+          '';
 
         preStart = ''
           mkdir -p $(dirname $V4L2_DEVICE_FILE)
@@ -220,8 +218,7 @@ in
               )
             )
             instances
-        )
-      ;
+        );
 
       enabledInstances = attrValues (filterAttrs (n: v: v.enable) cfg.instances);
     in
@@ -233,8 +230,7 @@ in
       };
 
       systemd.services = mkInstanceServices enabledInstances;
-    }
-  ;
+    };
 
   meta.maintainers = with lib.maintainers; [ betaboon ];
 }

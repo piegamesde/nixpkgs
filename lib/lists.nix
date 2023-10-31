@@ -67,8 +67,7 @@ rec {
       len = length list;
       fold' = n: if n == len then nul else op (elemAt list n) (fold' (n + 1));
     in
-    fold' 0
-  ;
+    fold' 0;
 
   # `fold` is an alias of `foldr` for historic reasons
   # FIXME(Profpatsch): deprecate?
@@ -93,8 +92,7 @@ rec {
     let
       foldl' = n: if n == -1 then nul else op (foldl' (n - 1)) (elemAt list n);
     in
-    foldl' (length list - 1)
-  ;
+    foldl' (length list - 1);
 
   /* Strict version of `foldl`.
 
@@ -158,8 +156,7 @@ rec {
   remove =
     # Element to remove from the list
     e:
-    filter (x: x != e)
-  ;
+    filter (x: x != e);
 
   /* Find the sole element in the list matching the specified
      predicate, returns `default` if no such element exists, or
@@ -217,8 +214,7 @@ rec {
     let
       found = filter pred list;
     in
-    if found == [ ] then default else head found
-  ;
+    if found == [ ] then default else head found;
 
   /* Return true if function `pred` returns true for at least one
      element of `list`.
@@ -258,8 +254,7 @@ rec {
   count =
     # Predicate
     pred:
-    foldl' (c: x: if pred x then c + 1 else c) 0
-  ;
+    foldl' (c: x: if pred x then c + 1 else c) 0;
 
   /* Return a singleton list or an empty list, depending on a boolean
      value.  Useful when building lists with optional elements
@@ -290,8 +285,7 @@ rec {
     cond:
     # List to return if condition is true
     elems:
-    if cond then elems else [ ]
-  ;
+    if cond then elems else [ ];
 
   /* If argument is a list, return it; else, wrap it in a singleton
      list.  If you're using this, you should almost certainly
@@ -320,8 +314,7 @@ rec {
     first:
     # Last integer in the range
     last:
-    if first > last then [ ] else genList (n: first + n) (last - first + 1)
-  ;
+    if first > last then [ ] else genList (n: first + n) (last - first + 1);
 
   /* Return a list with `n` copies of an element.
 
@@ -391,8 +384,7 @@ rec {
   */
   groupBy' =
     op: nul: pred: lst:
-    mapAttrs (name: foldl op nul) (groupBy pred lst)
-  ;
+    mapAttrs (name: foldl op nul) (groupBy pred lst);
 
   groupBy =
     builtins.groupBy or (
@@ -425,8 +417,7 @@ rec {
     fst:
     # Second list
     snd:
-    genList (n: f (elemAt fst n) (elemAt snd n)) (min (length fst) (length snd))
-  ;
+    genList (n: f (elemAt fst n) (elemAt snd n)) (min (length fst) (length snd));
 
   /* Merges two lists of the same size together. If the sizes aren't the same
      the merging stops at the shortest.
@@ -453,8 +444,7 @@ rec {
     let
       l = length xs;
     in
-    genList (n: elemAt xs (l - n - 1)) l
-  ;
+    genList (n: elemAt xs (l - n - 1)) l;
 
   /* Depth-First Search (DFS) for lists `list != []`.
 
@@ -500,8 +490,7 @@ rec {
           dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong)
       ;
     in
-    dfs' (head list) [ ] (tail list)
-  ;
+    dfs' (head list) [ ] (tail list);
 
   /* Sort a list based on a partial ordering using DFS. This
      implementation is O(N^2), if your ordering is linear, use `sort`
@@ -641,20 +630,17 @@ rec {
         s:
         map (x: if isList x then toInt (head x) else x) (
           builtins.split "(0|[1-9][0-9]*)" s
-        )
-      ;
+        );
       prepared =
         map
           (x: [
             (vectorise x)
             x
           ])
-          lst
-      ; # remember vectorised version for O(n) regex splits
+          lst; # remember vectorised version for O(n) regex splits
       less = a: b: (compareLists compare (head a) (head b)) < 0;
     in
-    map (x: elemAt x 1) (sort less prepared)
-  ;
+    map (x: elemAt x 1) (sort less prepared);
 
   /* Return the first (at most) N elements of a list.
 
@@ -669,8 +655,7 @@ rec {
   take =
     # Number of elements to take
     count:
-    sublist 0 count
-  ;
+    sublist 0 count;
 
   /* Remove the first (at most) N elements of a list.
 
@@ -687,8 +672,7 @@ rec {
     count:
     # Input list
     list:
-    sublist count (length list) list
-  ;
+    sublist count (length list) list;
 
   /* Return a list consisting of at most `count` elements of `list`,
      starting at index `start`.
@@ -718,8 +702,7 @@ rec {
         len - start
       else
         count
-    )
-  ;
+    );
 
   /* Return the last element of a list.
 
@@ -734,8 +717,7 @@ rec {
   last =
     list:
     assert lib.assertMsg (list != [ ]) "lists.last: list must not be empty!";
-    elemAt list (length list - 1)
-  ;
+    elemAt list (length list - 1);
 
   /* Return all elements but the last.
 
@@ -750,8 +732,7 @@ rec {
   init =
     list:
     assert lib.assertMsg (list != [ ]) "lists.init: list must not be empty!";
-    take (length list - 1) list
-  ;
+    take (length list - 1) list;
 
   /* Return the image of the cross product of some lists by a function.
 
@@ -762,8 +743,7 @@ rec {
   crossLists =
     builtins.trace
       "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
-      (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ])
-  ;
+      (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
 
   /* Remove duplicate elements from the list. O(n^2) complexity.
 

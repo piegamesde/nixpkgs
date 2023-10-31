@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
   # https://gitlab.freedesktop.org/upower/upower/-/issues/214
   patches =
     lib.optional (stdenv.hostPlatform.system == "i686-linux")
-      ./i686-test-remove-battery-check.patch
-  ;
+      ./i686-test-remove-battery-check.patch;
 
   strictDeps = true;
 

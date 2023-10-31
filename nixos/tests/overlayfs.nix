@@ -10,8 +10,7 @@ import ./make-test-python.nix (
         virtualisation.emptyDiskImages = [ 512 ];
         networking.hostId = "deadbeef";
         environment.systemPackages = with pkgs; [ parted ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed("ls /dev")

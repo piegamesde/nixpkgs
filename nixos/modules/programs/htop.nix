@@ -54,8 +54,7 @@ in
               ]
             ))
           ]
-        )
-      ;
+        );
       default = { };
       example = {
         hide_kernel_threads = true;

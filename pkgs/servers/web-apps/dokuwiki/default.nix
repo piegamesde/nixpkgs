@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
               null
               ""
             ]
-          )
-        ;
+          );
       in
       basePackage.overrideAttrs (
         prev: {
@@ -102,8 +101,7 @@ stdenv.mkDerivation rec {
             ''
           ;
         }
-      )
-    ;
+      );
     tests = {
       inherit (nixosTests) dokuwiki;
     };

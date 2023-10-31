@@ -76,8 +76,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "List of extra groups that the Buildbot Worker user should be a part of."
-        ;
+            "List of extra groups that the Buildbot Worker user should be a part of.";
       };
 
       home = mkOption {

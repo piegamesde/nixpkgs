@@ -145,8 +145,7 @@ let
           cp -a ${src'} $out
           substituteInPlace $out/filter/config \
             --replace '$ngx_addon_dir/deps/brotli/c' ${lib.getDev brotli}
-        ''
-      ;
+        '';
 
       inputs = [ brotli ];
 
@@ -311,16 +310,14 @@ let
       // {
         supports =
           with lib.versions; version: major version == "1" && minor version == "18";
-      }
-    ;
+      };
 
     http_proxy_connect_module_v19 =
       http_proxy_connect_module_generic "proxy_connect_rewrite_1018"
       // {
         supports =
           with lib.versions; version: major version == "1" && minor version == "19";
-      }
-    ;
+      };
 
     ipscrub = {
       name = "ipscrub";
@@ -412,8 +409,7 @@ let
           patch -p1 -d $lua_src -i ${nginx-1-23-patch}
           export configureFlags="''${configureFlags//"${src}"/"$lua_src"}"
           unset lua_src
-        ''
-      ;
+        '';
 
       allowMemoryWriteExecute = true;
 
@@ -573,8 +569,7 @@ let
             sha256 = "1q234s3p55xv820207dnh4fcxkqikjcq5rs02ai31ylpmfsf0kkb";
           };
         in
-        "${src'}/opentracing"
-      ;
+        "${src'}/opentracing";
 
       inputs = [ opentracing-cpp ];
 
@@ -610,8 +605,7 @@ let
             cp -r "${moduleSrc}" "$out"
             chmod -R +w "$out"
             ln -s "${psol}" "$out/psol"
-          ''
-      ;
+          '';
 
       inputs = [
         zlib

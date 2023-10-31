@@ -685,8 +685,7 @@ let
 
       contextmapper.context-mapper-vscode-extension =
         callPackage ./contextmapper.context-mapper-vscode-extension
-          { }
-      ;
+          { };
 
       coolbear.systemd-unit-file = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -961,8 +960,7 @@ let
               license = lib.licenses.gpl3;
               maintainers = [ lib.maintainers.arcticlimer ];
             };
-          }
-      ;
+          };
 
       donjayamanne.githistory = buildVscodeMarketplaceExtension {
         meta = {
@@ -1832,8 +1830,7 @@ let
             license = lib.licenses.asl20;
             maintainers = [ lib.maintainers.wolfangaukang ];
           };
-        }
-      ;
+        };
 
       kubukoz.nickel-syntax = buildVscodeMarketplaceExtension {
         mktplcRef = {
@@ -3394,8 +3391,7 @@ let
           license = lib.licenses.mit;
         };
       };
-    }
-  ;
+    };
 
   aliases = super: {
     _1Password = super."1Password";

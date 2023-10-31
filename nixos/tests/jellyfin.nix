@@ -10,8 +10,7 @@ import ./make-test-python.nix (
       {
         services.jellyfin.enable = true;
         environment.systemPackages = with pkgs; [ ffmpeg ];
-      }
-    ;
+      };
 
     # Documentation of the Jellyfin API: https://api.jellyfin.org/
     # Beware, this link can be resource intensive
@@ -151,7 +150,6 @@ import ./make-test-python.nix (
 
             if duration.strip() != "5.000000":
                 raise Exception("Downloaded video has wrong duration")
-      ''
-    ;
+      '';
   }
 )

@@ -259,6 +259,5 @@ rec {
             wrapProgram $binary --add-flags "-basedir ${xonotic-data}" --prefix LD_LIBRARY_PATH : "${xonotic-unwrapped}/lib"
           done
         ''
-      )
-  ;
+      );
 }

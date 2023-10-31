@@ -93,7 +93,8 @@ assert wxSupport
       wxGTK != null
     else
       libGL != null && libGLU != null && wxGTK != null && xorg != null
-  );
+  )
+;
 
 assert odbcSupport -> unixODBC != null;
 assert javacSupport -> openjdk11 != null;
@@ -225,8 +226,7 @@ stdenv.mkDerivation (
           else
             echo "${baseName}R${major} is already up-to-date"
           fi
-        ''
-      ;
+        '';
     };
 
     meta =
@@ -251,8 +251,7 @@ stdenv.mkDerivation (
           license = licenses.asl20;
         }
         // meta
-      )
-    ;
+      );
   }
   // optionalAttrs (preUnpack != "") { inherit preUnpack; }
   // optionalAttrs (postUnpack != "") { inherit postUnpack; }

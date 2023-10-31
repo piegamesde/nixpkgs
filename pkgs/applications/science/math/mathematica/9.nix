@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
         libXrender
         libxcb
       ]
-    )
-  ;
+    );
 
   ldpath =
     lib.makeLibraryPath buildInputs

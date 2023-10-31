@@ -34,8 +34,7 @@ stdenv.mkDerivation {
       ''
         substituteInPlace cmake_configure.cmake \
           --replace 'target_link_libraries(rw_interface INTERFACE "stdc++fs")' ""
-      ''
-  ;
+      '';
 
   nativeBuildInputs = [ cmake ];
 
@@ -55,8 +54,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [
       OpenAL
       Cocoa
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Unofficial open source recreation of the classic Grand Theft Auto III game executable";

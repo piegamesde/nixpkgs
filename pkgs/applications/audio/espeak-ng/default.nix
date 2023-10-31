@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
           src = ./mbrola.patch;
           inherit mbrola;
         })
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [
     autoconf
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
           --replace '../src/espeak-ng --compile' "${
             lib.getExe buildPackages.espeak-ng
           } --compile"
-      ''
-  ;
+      '';
 
   postInstall = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath "$(patchelf --print-rpath $out/bin/espeak-ng)" $out/bin/speak-ng

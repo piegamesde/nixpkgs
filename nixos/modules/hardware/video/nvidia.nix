@@ -306,15 +306,13 @@ in
       default = config.boot.kernelPackages.nvidiaPackages.stable;
       defaultText =
         literalExpression
-          "config.boot.kernelPackages.nvidiaPackages.stable"
-      ;
+          "config.boot.kernelPackages.nvidiaPackages.stable";
       description = lib.mdDoc ''
         The NVIDIA X11 derivation to use.
       '';
       example =
         literalExpression
-          "config.boot.kernelPackages.nvidiaPackages.legacy_340"
-      ;
+          "config.boot.kernelPackages.nvidiaPackages.legacy_340";
     };
 
     hardware.nvidia.open = lib.mkOption {
@@ -486,13 +484,11 @@ in
           # Added by nvidia configuration module for Optimus/PRIME.
           ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource ${providerCmdParams}
           ${pkgs.xorg.xrandr}/bin/xrandr --auto
-        ''
-      ;
+        '';
 
       environment.etc."nvidia/nvidia-application-profiles-rc" =
         mkIf nvidia_x11.useProfiles
-          { source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc"; }
-      ;
+          { source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc"; };
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source = "/run/opengl-driver/share/egl/egl_external_platform.d/";
@@ -562,8 +558,7 @@ in
                   "systemd-hibernate.service"
                 ];
               };
-            }
-          ;
+            };
         in
         optionalAttrs cfg.powerManagement.enable services
         // optionalAttrs nvidiaPersistencedEnabled {
@@ -586,8 +581,7 @@ in
           "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
         ++ optional
           (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
-          "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced"
-      ;
+          "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
       boot.extraModulePackages =
         if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
@@ -600,8 +594,7 @@ in
           "nvidia"
           "nvidia_modeset"
           "nvidia_drm"
-        ]
-      ;
+        ];
 
       # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
@@ -657,6 +650,5 @@ in
       ];
 
       services.acpid.enable = true;
-    }
-  ;
+    };
 }

@@ -49,8 +49,7 @@ let
           )
           as
       )
-    )
-  ;
+    );
 in
 
 # It has to be a link farm for inclusion in the hydra unstable jobset.

@@ -49,8 +49,7 @@ buildGoModule rec {
       "-w"
       "-X ${modulePath}/src/cmd.version=v${version}"
       "-X ${modulePath}/src/cmd.buildDate=nix"
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ git ];
   preCheck =
@@ -67,8 +66,7 @@ buildGoModule rec {
       HOME=$(mktemp -d)
       # Disable tests requiring local operations
       buildFlagsArray+=("-run" "[^(${builtins.concatStringsSep "|" skippedTests})]")
-    ''
-  ;
+    '';
 
   postInstall = ''
     installShellCompletion --cmd git-town \

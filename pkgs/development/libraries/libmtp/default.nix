@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     lib.optionals
       (stdenv.isLinux && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-      [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ]
-  ;
+      [ "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug" ];
 
   enableParallelBuilding = true;
 

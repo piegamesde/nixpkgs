@@ -22,8 +22,7 @@ import ./make-test-python.nix (
             };
 
             networking.firewall.allowedUDPPorts = [ 8285 ];
-          }
-        ;
+          };
       in
       {
         etcd =
@@ -41,13 +40,11 @@ import ./make-test-python.nix (
             };
 
             networking.firewall.allowedTCPPorts = [ 2379 ];
-          }
-        ;
+          };
 
         node1 = flannelConfig;
         node2 = flannelConfig;
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

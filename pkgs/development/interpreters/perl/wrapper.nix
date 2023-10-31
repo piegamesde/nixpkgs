@@ -59,7 +59,6 @@ let
         interpreter = "${env}/bin/perl";
         inherit perl;
       };
-    }
-  ;
+    };
 in
 env

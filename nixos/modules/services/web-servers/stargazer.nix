@@ -48,8 +48,7 @@ in
       default = [ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]";
       defaultText =
         lib.literalExpression
-          ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''
-      ;
+          ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
       example = lib.literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
       description = lib.mdDoc ''
         Address and port to listen on.
@@ -73,8 +72,7 @@ in
       default = false;
       description =
         lib.mdDoc
-          "Log partial client IP addresses in the connection log."
-      ;
+          "Log partial client IP addresses in the connection log.";
     };
 
     requestTimeout = lib.mkOption {
@@ -159,8 +157,7 @@ in
               // {
                 description = "INI atom (null, bool, int, float or string)";
               }
-            )
-          ;
+            );
           options.route = lib.mkOption {
             type = lib.types.str;
             description = lib.mdDoc "Route section name";
@@ -230,8 +227,7 @@ in
         ''
           mkdir -p /var/lib/gemini/certs
           chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
-        ''
-    ;
+        '';
 
     users.users = lib.optionalAttrs (cfg.user == "stargazer") {
       stargazer = {

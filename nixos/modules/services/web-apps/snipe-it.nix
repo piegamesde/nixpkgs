@@ -158,8 +158,7 @@ in
               "tls"
               "ssl"
             ]
-          )
-        ;
+          );
         default = null;
         description = lib.mdDoc "SMTP encryption mechanism to use.";
       };
@@ -225,8 +224,7 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -296,8 +294,7 @@ in
                 }
               )
           )
-        )
-      ;
+        );
       default = { };
       example = literalExpression ''
         {
@@ -413,8 +410,7 @@ in
                 || cfg.nginx.onlySSL
                 || cfg.nginx.enableACME
               )
-              "fastcgi_param HTTPS on;"
-          ;
+              "fastcgi_param HTTPS on;";
           locations = {
             "/" = {
               index = "index.php";
@@ -463,8 +459,7 @@ in
         let
           isSecret =
             v:
-            isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret)
-          ;
+            isAttrs v && v ? _secret && (isString v._secret || builtins.isPath v._secret);
           snipeITEnvVars = lib.generators.toKeyValue {
             mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
               mkValueString =
@@ -515,8 +510,7 @@ in
                   null
                 ]
               ))
-              cfg.config
-          ;
+              cfg.config;
           snipeITEnv = pkgs.writeText "snipeIT.env" (snipeITEnvVars filteredConfig);
         in
         ''
@@ -548,8 +542,7 @@ in
           if [ ! -e "$invalid_barcode_location" ]; then
               cp ${snipe-it}/share/snipe-it/invalid_barcode.gif "$invalid_barcode_location"
           fi
-        ''
-      ;
+        '';
     };
 
     systemd.tmpfiles.rules = [

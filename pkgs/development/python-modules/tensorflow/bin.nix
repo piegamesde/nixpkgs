@@ -61,14 +61,12 @@ buildPythonPackage {
     let
       pyVerNoDot =
         lib.strings.stringAsChars (x: if x == "." then "" else x)
-          python.pythonVersion
-      ;
+          python.pythonVersion;
       platform = if stdenv.isDarwin then "mac" else "linux";
       unit = if cudaSupport then "gpu" else "cpu";
       key = "${platform}_py_${pyVerNoDot}_${unit}";
     in
-    fetchurl (packages.${key} or { })
-  ;
+    fetchurl (packages.${key} or { });
 
   propagatedBuildInputs =
     [
@@ -192,8 +190,7 @@ buildPythonPackage {
           ''
         }
       done
-    ''
-  ;
+    '';
 
   # Upstream has a pip hack that results in bin/tensorboard being in both tensorflow
   # and the propagated input tensorboard, which causes environment collisions.

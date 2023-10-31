@@ -24,8 +24,7 @@ let
                   generators.mkValueStringDefault { } v
               ;
             }
-            " = "
-        ;
+            " = ";
       }
       (
         lib.recursiveUpdate
@@ -97,8 +96,7 @@ in
           default = false;
           description =
             lib.mdDoc
-              "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS."
-          ;
+              "Set secure attribute on cookies. Keep it disabled to enable cookies when not using HTTPS.";
         };
 
         httpMaxConnections = mkOption {
@@ -112,8 +110,7 @@ in
           default = "${cfg.package}/share/nitter/public";
           defaultText =
             literalExpression
-              ''"''${config.services.nitter.package}/share/nitter/public"''
-          ;
+              ''"''${config.services.nitter.package}/share/nitter/public"'';
           description = lib.mdDoc "Path to the static files directory.";
         };
 
@@ -137,8 +134,7 @@ in
           default = 240;
           description =
             lib.mdDoc
-              "How long to cache list info (not the tweets, so keep it high)."
-          ;
+              "How long to cache list info (not the tweets, so keep it high).";
         };
 
         rssMinutes = mkOption {
@@ -207,8 +203,7 @@ in
           example = "nitter.net";
           description =
             lib.mdDoc
-              "Replace Twitter links with links to this instance (blank to disable)."
-          ;
+              "Replace Twitter links with links to this instance (blank to disable).";
         };
 
         replaceYouTube = mkOption {
@@ -217,8 +212,7 @@ in
           example = "piped.kavin.rocks";
           description =
             lib.mdDoc
-              "Replace YouTube links with links to this instance (blank to disable)."
-          ;
+              "Replace YouTube links with links to this instance (blank to disable).";
         };
 
         replaceReddit = mkOption {
@@ -227,8 +221,7 @@ in
           example = "teddit.net";
           description =
             lib.mdDoc
-              "Replace Reddit links with links to this instance (blank to disable)."
-          ;
+              "Replace Reddit links with links to this instance (blank to disable).";
         };
 
         replaceInstagram = mkOption {
@@ -236,8 +229,7 @@ in
           default = "";
           description =
             lib.mdDoc
-              "Replace Instagram links with links to this instance (blank to disable)."
-          ;
+              "Replace Instagram links with links to this instance (blank to disable).";
         };
 
         mp4Playback = mkOption {
@@ -257,8 +249,7 @@ in
           default = true;
           description =
             lib.mdDoc
-              "Proxy video streaming through the server (might be slow)."
-          ;
+              "Proxy video streaming through the server (might be slow).";
         };
 
         muteVideos = mkOption {
@@ -284,8 +275,7 @@ in
           default = false;
           description =
             lib.mdDoc
-              "Infinite scrolling (requires JavaScript, experimental!)."
-          ;
+              "Infinite scrolling (requires JavaScript, experimental!).";
         };
 
         stickyProfile = mkOption {
@@ -299,8 +289,7 @@ in
           default = false;
           description =
             lib.mdDoc
-              "Support bidirectional text (makes clicking on tweets harder)."
-          ;
+              "Support bidirectional text (makes clicking on tweets harder).";
         };
 
         hideTweetStats = mkOption {

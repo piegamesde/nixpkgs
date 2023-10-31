@@ -50,8 +50,7 @@
 
   obs-websocket =
     throw
-      "obs-websocket has been removed: Functionality has been integrated into obs-studio itself."
-  ;
+      "obs-websocket has been removed: Functionality has been integrated into obs-studio itself.";
 
   wlrobs = callPackage ./wlrobs.nix { };
 }

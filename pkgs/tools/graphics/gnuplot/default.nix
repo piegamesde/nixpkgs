@@ -36,7 +36,8 @@
 }:
 
 assert libX11 != null
-  -> (fontconfig != null && gnused != null && coreutils != null);
+  -> (fontconfig != null && gnused != null && coreutils != null)
+;
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in

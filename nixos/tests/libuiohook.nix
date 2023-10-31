@@ -18,8 +18,7 @@ import ./make-test-python.nix (
         environment.systemPackages = [ pkgs.libuiohook.test ];
 
         test-support.displayManager.auto.user = user.name;
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -29,7 +28,6 @@ import ./make-test-python.nix (
       ''
         client.wait_for_x()
         client.succeed("su - alice -c ${pkgs.libuiohook.test}/share/uiohook_tests >&2 &")
-      ''
-    ;
+      '';
   }
 )

@@ -62,8 +62,7 @@ let
         meta.broken = broken;
         meta.maintainers = maintainers;
       }
-    )
-  ;
+    );
 
   # Templates for generating Bioconductor and CRAN packages
   # from the name, version, sha256, and optional per-package arguments above
@@ -71,8 +70,7 @@ let
   deriveBioc = mkDerive {
     mkHomepage =
       { name, biocVersion, ... }:
-      "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html"
-    ;
+      "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
     mkUrls =
       {
         name,
@@ -83,8 +81,7 @@ let
         "mirror://bioc/${biocVersion}/bioc/src/contrib/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}/${name}_${version}.tar.gz"
         "mirror://bioc/${biocVersion}/bioc/src/contrib/Archive/${name}_${version}.tar.gz"
-      ]
-    ;
+      ];
   };
   deriveBiocAnn = mkDerive {
     mkHomepage = { name, ... }: "http://www.bioconductor.org/packages/${name}.html";
@@ -96,8 +93,7 @@ let
       }:
       [
         "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
-      ]
-    ;
+      ];
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
@@ -110,8 +106,7 @@ let
       }:
       [
         "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
-      ]
-    ;
+      ];
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
@@ -121,8 +116,7 @@ let
       [
         "mirror://cran/${name}_${version}.tar.gz"
         "mirror://cran/Archive/${name}/${name}_${version}.tar.gz"
-      ]
-    ;
+      ];
   };
 
   # Overrides package definitions with nativeBuildInputs.
@@ -148,8 +142,7 @@ let
           attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }
         )
       )
-      overrides
-  ;
+      overrides;
 
   # Overrides package definitions with buildInputs.
   # For example,
@@ -174,8 +167,7 @@ let
           attrs: { buildInputs = attrs.buildInputs ++ value; }
         )
       )
-      overrides
-  ;
+      overrides;
 
   # Overrides package definitions with maintainers.
   # For example,
@@ -195,8 +187,7 @@ let
     overrides: old:
     lib.mapAttrs
       (name: value: (builtins.getAttr name old).override { maintainers = value; })
-      overrides
-  ;
+      overrides;
 
   # Overrides package definitions with new R dependencies.
   # For example,
@@ -226,8 +217,7 @@ let
           }
         )
       )
-      overrides
-  ;
+      overrides;
 
   # Overrides package definition requiring X running to install.
   # For example,
@@ -252,11 +242,9 @@ let
             inherit name;
             value = (builtins.getAttr name old).override { requireX = true; };
           })
-          packageNames
-      ;
+          packageNames;
     in
-    builtins.listToAttrs nameValuePairs
-  ;
+    builtins.listToAttrs nameValuePairs;
 
   # Overrides package definition requiring a home directory to install or to
   # run tests.
@@ -292,11 +280,9 @@ let
               }
             );
           })
-          packageNames
-      ;
+          packageNames;
     in
-    builtins.listToAttrs nameValuePairs
-  ;
+    builtins.listToAttrs nameValuePairs;
 
   # Overrides package definition to skip check.
   # For example,
@@ -321,11 +307,9 @@ let
             inherit name;
             value = (builtins.getAttr name old).override { doCheck = false; };
           })
-          packageNames
-      ;
+          packageNames;
     in
-    builtins.listToAttrs nameValuePairs
-  ;
+    builtins.listToAttrs nameValuePairs;
 
   # Overrides package definition to mark it broken.
   # For example,
@@ -350,11 +334,9 @@ let
             inherit name;
             value = (builtins.getAttr name old).override { broken = true; };
           })
-          packageNames
-      ;
+          packageNames;
     in
-    builtins.listToAttrs nameValuePairs
-  ;
+    builtins.listToAttrs nameValuePairs;
 
   defaultOverrides =
     old: new:
@@ -372,8 +354,7 @@ let
       old8 = old7 // (overrideMaintainers packagesWithMaintainers old7);
       old = old8;
     in
-    old // (otherOverrides old new)
-  ;
+    old // (otherOverrides old new);
 
   # Recursive override pattern.
   # `_self` is a collection of packages;
@@ -455,8 +436,7 @@ let
     curl = [ pkgs.curl.dev ];
     data_table =
       [ pkgs.zlib.dev ]
-      ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp
-    ;
+      ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp;
     devEMF = with pkgs; [ xorg.libXft.dev ];
     diversitree = with pkgs; [
       gsl
@@ -1301,8 +1281,7 @@ let
           ''
             ${attrs.postInstall or ""}
             cp ${icuSrc}/${icuName}.dat $out/library/stringi/libs
-          ''
-        ;
+          '';
       }
     );
 
@@ -1795,8 +1774,7 @@ let
           patches = [ ./patches/Rhdf5lib.patch ];
           passthru.hdf5 = hdf5;
         }
-      )
-    ;
+      );
 
     rhdf5filters = old.rhdf5filters.overrideAttrs (
       attrs: {

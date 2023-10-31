@@ -60,7 +60,6 @@
     && stdenv.buildPlatform.system != "i686-freebsd"
     && stdenv.buildPlatform.system != "x86_64-solaris"
     && stdenv.buildPlatform.system != "x86_64-kfreebsd-gnu"
-
   ,
   # The configuration attribute set
   config
@@ -100,8 +99,7 @@ let
           }
           .${parsed.abi.name} or lib.systems.parse.abis.musl;
       }
-    )
-  ;
+    );
 
   stdenvAdapters =
     self: super:
@@ -111,8 +109,7 @@ let
         pkgs = self;
       };
     in
-    res // { stdenvAdapters = res; }
-  ;
+    res // { stdenvAdapters = res; };
 
   trivialBuilders =
     self: super:
@@ -126,8 +123,7 @@ let
       ;
       inherit (self.pkgsBuildHost) shellcheck;
       inherit (self.pkgsBuildHost.xorg) lndir;
-    }
-  ;
+    };
 
   stdenvBootstappingAndPlatforms =
     self: super:
@@ -166,8 +162,7 @@ let
       targetPackages = self.pkgsTargetTarget;
 
       inherit stdenv;
-    }
-  ;
+    };
 
   splice = self: super: import ./splice.nix lib self (adjacentPackages != null);
 
@@ -186,16 +181,13 @@ let
           }
           res
           self
-          super
-      ;
+          super;
     in
-    res
-  ;
+    res;
 
   aliases =
     self: super:
-    lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super)
-  ;
+    lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
 
   # stdenvOverrides is used to avoid having multiple of versions
   # of certain dependencies that were used in bootstrapping the
@@ -214,8 +206,7 @@ let
     self: super:
     lib.optionalAttrs allowCustomOverrides (
       (config.packageOverrides or (super: { })) super
-    )
-  ;
+    );
 
   # Convenience attributes for instantitating package sets. Each of
   # these will instantiate a new version of allPackages. Currently the
@@ -232,8 +223,7 @@ let
     # Raspberry Pi.
     pkgsCross =
       lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
-        lib.systems.examples
-    ;
+        lib.systems.examples;
 
     pkgsLLVM = nixpkgsFun {
       overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
@@ -259,8 +249,8 @@ let
             else
               "crossSystem"
           } = {
-            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          };
+              parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+            };
         }
       else
         throw "Musl libc only supports 64-bit Linux systems."
@@ -278,10 +268,10 @@ let
             else
               "crossSystem"
           } = {
-            parsed = stdenv.hostPlatform.parsed // {
-              cpu = lib.systems.parse.cpuTypes.i686;
+              parsed = stdenv.hostPlatform.parsed // {
+                cpu = lib.systems.parse.cpuTypes.i686;
+              };
             };
-          };
         }
       else
         throw "i686 Linux package set can only be used with the x86 family."
@@ -336,8 +326,7 @@ let
           }
           // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
             gcc.abi = "elfv2";
-          }
-        ;
+          };
       }
     );
   };

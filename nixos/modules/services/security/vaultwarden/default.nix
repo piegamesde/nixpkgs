@@ -36,11 +36,9 @@ let
               key + toUpper x
           )
           ""
-          parts
-      ;
+          parts;
     in
-    if builtins.match "[A-Z0-9_]+" name != null then name else partsToEnvVar parts
-  ;
+    if builtins.match "[A-Z0-9_]+" name != null then name else partsToEnvVar parts;
 
   # Due to the different naming schemes allowed for config keys,
   # we can only check for values consistently after converting them to their corresponding environment variable name.
@@ -55,8 +53,7 @@ let
                 if isBool value then boolToString value else toString value;
             }
           )
-          cfg.config
-      ;
+          cfg.config;
     in
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";
@@ -257,8 +254,7 @@ in
         Group = group;
         EnvironmentFile =
           [ configFile ]
-          ++ optional (cfg.environmentFile != null) cfg.environmentFile
-        ;
+          ++ optional (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${vaultwarden}/bin/vaultwarden";
         LimitNOFILE = "1048576";
         PrivateTmp = "true";

@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
         gst-plugins-base
         gst-plugins-good
       ]
-    )
-  ;
+    );
 
   # qt5integration must be placed before qtsvg in QT_PLUGIN_PATH
   qtWrapperArgs = [

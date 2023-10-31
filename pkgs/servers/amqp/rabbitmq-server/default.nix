@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
       AppKit
       Carbon
       Cocoa
-    ]
-  ;
+    ];
 
   outputs = [
     "out"

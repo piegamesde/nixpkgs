@@ -23,8 +23,7 @@ let
 
   clientAccess =
     optional (cfg.dnsBlacklistOverrides != "")
-      "check_client_access hash:/etc/postfix/client_access"
-  ;
+      "check_client_access hash:/etc/postfix/client_access";
 
   dnsBl = optionals (cfg.dnsBlacklists != [ ]) (
     map (s: "reject_rbl_client " + s) cfg.dnsBlacklists
@@ -199,8 +198,7 @@ let
                 + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
               ;
             in
-            if wakeupDefined then finalValue else "-"
-          ;
+            if wakeupDefined then finalValue else "-";
         in
         [
           config.name
@@ -211,10 +209,8 @@ let
           wakeup
           (maybeOption toString "maxproc")
           (config.command + " " + concatMapStringsSep " " mkArg config.args)
-        ]
-      ;
-    }
-  ;
+        ];
+    };
 
   masterCfContent =
     let
@@ -252,8 +248,7 @@ let
             let
               columnLengths = map stringLength line;
             in
-            zipListsWith max acc columnLengths
-          ;
+            zipListsWith max acc columnLengths;
           # We need to handle the last column specially here, because it's
           # open-ended (command + args).
           lines = [
@@ -261,8 +256,7 @@ let
             labelDefaults
           ] ++ (map (l: init l ++ [ "" ]) masterCf);
         in
-        foldr foldLine (genList (const 0) (length labels)) lines
-      ;
+        foldr foldLine (genList (const 0) (length labels)) lines;
 
       # Pad a string with spaces from the right (opposite of fixedWidthString).
       pad =
@@ -271,8 +265,7 @@ let
           padWidth = width - stringLength str;
           padding = concatStrings (genList (const " ") padWidth);
         in
-        str + optionalString (padWidth > 0) padding
-      ;
+        str + optionalString (padWidth > 0) padding;
 
       # It's + 2 here, because that's the amount of spacing between columns.
       fullWidth = foldr (width: acc: acc + width + 2) 0 maxWidths;
@@ -289,8 +282,7 @@ let
             sep
           ];
         in
-        concatStringsSep "\n" lines
-      ;
+        concatStringsSep "\n" lines;
     in
     formattedLabels
     + "\n"
@@ -316,8 +308,7 @@ let
           description = lib.mdDoc "The action to be executed when the pattern is matched";
         };
       };
-    }
-  ;
+    };
 
   headerChecks =
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
@@ -345,8 +336,7 @@ let
   );
   checkClientAccessFile =
     pkgs.writeText "postfix-check-client-access"
-      cfg.dnsBlacklistOverrides
-  ;
+      cfg.dnsBlacklistOverrides;
   mainCfFile = pkgs.writeText "postfix-main.cf" mainCf;
   masterCfFile = pkgs.writeText "postfix-master.cf" masterCfContent;
   transportFile = pkgs.writeText "postfix-transport" cfg.transport;
@@ -442,8 +432,7 @@ in
         default = "postfix";
         description =
           lib.mdDoc
-            "What to call the Postfix user (must be used only for postfix)."
-        ;
+            "What to call the Postfix user (must be used only for postfix).";
       };
 
       group = mkOption {
@@ -451,8 +440,7 @@ in
         default = "postfix";
         description =
           lib.mdDoc
-            "What to call the Postfix group (must be used only for postfix)."
-        ;
+            "What to call the Postfix group (must be used only for postfix).";
       };
 
       setgidGroup = mkOption {
@@ -586,14 +574,12 @@ in
             "hash"
             "regexp"
             "pcre"
-          ]
-        ;
+          ];
         default = "hash";
         example = "regexp";
         description =
           lib.mdDoc
-            "The format the alias map should have. Use regexp if you want to use regular expressions."
-        ;
+            "The format the alias map should have. Use regexp if you want to use regular expressions.";
       };
 
       config = mkOption {
@@ -605,8 +591,7 @@ in
               str
               (listOf str)
             ]
-          )
-        ;
+          );
         description = lib.mdDoc ''
           The main.cf configuration file as key value set.
         '';
@@ -629,8 +614,7 @@ in
         default = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
         defaultText =
           literalExpression
-            ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"''
-        ;
+            ''"''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"'';
         description = lib.mdDoc ''
           File containing trusted certification authorities (CA) to verify certificates of mailservers contacted for mail delivery. This basically sets smtp_tls_CAfile and enables opportunistic tls. Defaults to NixOS trusted certification authorities.
         '';
@@ -711,8 +695,7 @@ in
         type = with types; listOf str;
         description =
           lib.mdDoc
-            "dns blacklist servers to use with smtpd_client_restrictions"
-        ;
+            "dns blacklist servers to use with smtpd_client_restrictions";
       };
 
       dnsBlacklistOverrides = mkOption {
@@ -720,8 +703,7 @@ in
         type = types.lines;
         description =
           lib.mdDoc
-            "contents of check_client_access for overriding dnsBlacklists"
-        ;
+            "contents of check_client_access for overriding dnsBlacklists";
       };
 
       masterConfig = mkOption {
@@ -749,8 +731,7 @@ in
         example = "submission inet n - n - - smtpd";
         description =
           lib.mdDoc
-            "Extra lines to append to the generated master.cf file."
-        ;
+            "Extra lines to append to the generated master.cf file.";
       };
 
       enableHeaderChecks = mkOption {
@@ -782,8 +763,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "Aliases' tables to be compiled and placed into /var/lib/postfix/conf."
-        ;
+            "Aliases' tables to be compiled and placed into /var/lib/postfix/conf.";
       };
 
       mapFiles = mkOption {
@@ -791,8 +771,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "Maps to be compiled and placed into /var/lib/postfix/conf."
-        ;
+            "Maps to be compiled and placed into /var/lib/postfix/conf.";
       };
 
       useSrs = mkOption {
@@ -1001,8 +980,7 @@ in
           // optionalAttrs haveLocalRecipients {
             local_recipient_maps =
               [ "hash:/etc/postfix/local_recipients" ]
-              ++ optional haveAliases "$alias_maps"
-            ;
+              ++ optional haveAliases "$alias_maps";
           }
           // optionalAttrs (cfg.dnsBlacklists != [ ]) {
             smtpd_client_restrictions = clientRestrictions;
@@ -1118,8 +1096,7 @@ in
                     (opt + "=" + val)
                   ];
                 in
-                concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
-              ;
+                concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions);
             };
           }
           // optionalAttrs cfg.enableSmtp {
@@ -1164,8 +1141,7 @@ in
                     }
                   ;
                 in
-                concatLists (mapAttrsToList mkKeyVal submissionsOptions)
-              ;
+                concatLists (mapAttrsToList mkKeyVal submissionsOptions);
             };
           }
         ;

@@ -51,8 +51,7 @@ let
         for i in 16 32 48 64 96 128 256 512 1024; do
           install -D ${contents}/osu\!.png $out/share/icons/hicolor/''${i}x$i/apps/osu\!.png
         done
-      ''
-    ;
+      '';
   };
 
   darwin = stdenv.mkDerivation rec {

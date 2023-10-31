@@ -51,9 +51,7 @@ let
           lib.forEach depLicenses (
             spdx: lib.optionals (spdx != "") (lib.getLicenseFromSpdxId spdx)
           )
-        ))
-      ;
-    }
-  ;
+        ));
+    };
 in
 nuget-source

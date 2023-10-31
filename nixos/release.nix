@@ -79,8 +79,7 @@ let
         inherit system;
         modules = makeModules module { isoImage.isoBaseName = "nixos-${type}"; };
       }).config.system.build.isoImage
-    )
-  ;
+    );
 
   makeSdImage =
     { module, system, ... }:
@@ -92,8 +91,7 @@ let
         inherit system;
         modules = makeModules module { };
       }).config.system.build.sdImage
-    )
-  ;
+    );
 
   makeSystemTarball =
     {
@@ -144,8 +142,7 @@ let
             );
           }).config
       )
-    )
-  ;
+    );
 
   makeNetboot =
     { module, system, ... }:
@@ -171,8 +168,7 @@ let
         echo "file ipxe ${build.netbootIpxeScript}/netboot.ipxe" >> $out/nix-support/hydra-build-products
       '';
       preferLocalBuild = true;
-    }
-  ;
+    };
 in
 rec {
 
@@ -264,8 +260,7 @@ rec {
           type = "minimal-new-kernel";
           inherit system;
         }
-      )
-  ;
+      );
 
   # A variant with a more recent (but possibly less stable) kernel that might support more hardware.
   # ZFS support disabled since it is unlikely to support the latest kernel.
@@ -282,8 +277,7 @@ rec {
           type = "minimal-new-kernel-no-zfs";
           inherit system;
         }
-      )
-  ;
+      );
 
   sd_image =
     forMatchingSystems
@@ -304,8 +298,7 @@ rec {
             .${system};
           inherit system;
         }
-      )
-  ;
+      );
 
   sd_image_new_kernel = forMatchingSystems [ "aarch64-linux" ] (
     system:
@@ -400,8 +393,7 @@ rec {
           }).config.system.build.amazonImage
         )
 
-      )
-  ;
+      );
   amazonImageZfs =
     forMatchingSystems
       [
@@ -424,8 +416,7 @@ rec {
           }).config.system.build.amazonImage
         )
 
-      )
-  ;
+      );
 
   # Test job for https://github.com/NixOS/nixpkgs/issues/121354 to test
   # automatic sizing without blocking the channel.
@@ -452,8 +443,7 @@ rec {
           }).config.system.build.amazonImage
         )
 
-      )
-  ;
+      );
 
   # An image that can be imported into lxd and used for container creation
   lxdImage =
@@ -478,8 +468,7 @@ rec {
           }).config.system.build.tarball
         )
 
-      )
-  ;
+      );
 
   # Metadata for the lxd image
   lxdMeta =
@@ -504,8 +493,7 @@ rec {
           }).config.system.build.metadata
         )
 
-      )
-  ;
+      );
 
   # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (

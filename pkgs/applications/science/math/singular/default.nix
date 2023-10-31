@@ -143,8 +143,7 @@ stdenv.mkDerivation rec {
       [
         # tests that require gfanlib
         "Short/ok_s.lst"
-      ]
-  ;
+      ];
 
   # simple test to make sure singular starts and finds its libraries
   doInstallCheck = true;

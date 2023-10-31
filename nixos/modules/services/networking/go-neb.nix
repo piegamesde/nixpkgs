@@ -82,8 +82,7 @@ in
           User = "go-neb";
           DynamicUser = true;
         };
-      }
-    ;
+      };
   };
 
   meta.maintainers = with maintainers; [

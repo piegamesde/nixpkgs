@@ -27,8 +27,7 @@ let
           }
         )
         grammars
-    )
-  ;
+    );
 
   libPath = withPlugins (_: tree-sitter.allGrammars);
 in

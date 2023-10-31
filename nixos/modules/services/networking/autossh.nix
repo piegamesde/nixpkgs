@@ -111,13 +111,11 @@ in
                       toString mport
                     } ${s.extraArguments}";
                 };
-              }
-            ;
+              };
           }
         )
         { }
-        cfg.sessions
-    ;
+        cfg.sessions;
 
     environment.systemPackages = [ pkgs.autossh ];
   };

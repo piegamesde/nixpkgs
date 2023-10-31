@@ -44,8 +44,7 @@ rustPlatform.buildRustPackage rec {
       curl
       CoreServices
       Security
-    ]
-  ;
+    ];
 
   checkFlags = [
     # Disabled because they accesses the network.

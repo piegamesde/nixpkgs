@@ -64,8 +64,7 @@ rustPlatform.buildRustPackage rec {
               --subst-var shell
           ''
         )
-      ]
-  ;
+      ];
 
   postInstall = ''
     pushd $out/bin

@@ -62,8 +62,7 @@ let
       passthru = package.passthru // {
         withPlugins = morePlugins: withPlugins (morePlugins ++ plugins);
       };
-    }
-  ;
+    };
 
   package = buildPythonApplication rec {
     pname = "buildbot";

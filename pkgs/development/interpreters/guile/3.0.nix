@@ -42,8 +42,7 @@ builder rec {
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      pkgsBuildBuild.guile_3_0
-  ;
+      pkgsBuildBuild.guile_3_0;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -89,8 +88,7 @@ builder rec {
   # don't have "libgcc_s.so.1" on clang
   LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
-      "-lgcc_s"
-  ;
+      "-lgcc_s";
 
   configureFlags =
     [ "--with-libreadline-prefix=${lib.getDev readline}" ]

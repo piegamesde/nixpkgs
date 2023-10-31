@@ -45,8 +45,7 @@ let
                     export PYTHONHOME="${python3Packages.python.withPackages pkgsFun}"
                   '';
                 }
-              )
-            ;
+              );
           };
           perl = (simplePlugin "perl") // {
             extraEnv = ''
@@ -62,16 +61,14 @@ let
                     export PERL5LIB=${perlPackages.makeFullPerlPath (pkgsFun perlPackages)}
                   '';
                 }
-              )
-            ;
+              );
           };
           tcl = simplePlugin "tcl";
           ruby = simplePlugin "ruby";
           guile = simplePlugin "guile";
           lua = simplePlugin "lua";
           php = simplePlugin "php";
-        }
-      ;
+        };
 
       config = configure { inherit availablePlugins; };
 
@@ -95,8 +92,7 @@ let
             lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (config.scripts or [ ])
           );
         in
-        "${scripts};${init}"
-      ;
+        "${scripts};${init}";
 
       mkWeechat =
         bin:
@@ -131,7 +127,6 @@ let
         '')
       ];
       meta = builtins.removeAttrs weechat.meta [ "outputsToInstall" ];
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper

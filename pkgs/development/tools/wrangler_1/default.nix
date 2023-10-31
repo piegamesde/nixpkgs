@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
       CoreServices
       Security
       libiconv
-    ]
-  ;
+    ];
 
   OPENSSL_NO_VENDOR = 1;
 

@@ -83,8 +83,7 @@ let
         };
       }
       // attrs'
-    )
-  ;
+    );
 
   pluggable =
     terraform:
@@ -178,8 +177,7 @@ let
           )
       ;
     in
-    withPlugins (_: [ ])
-  ;
+    withPlugins (_: [ ]);
 
   plugins = removeAttrs terraform-providers [
     "override"
@@ -223,6 +221,5 @@ rec {
         touch $out
       '';
     in
-    test
-  ;
+    test;
 }

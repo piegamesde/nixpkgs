@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optionals mpiSupport [
       "--enable-parallel-tests"
       "CC=${mpi}/bin/mpicc"
-    ])
-  ;
+    ]);
 
   enableParallelBuilding = true;
 

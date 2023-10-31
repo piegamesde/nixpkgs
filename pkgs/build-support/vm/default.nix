@@ -16,7 +16,8 @@
     "9pnet_virtio"
     "crc32c_generic"
   ]
-    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos",
+    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
+  ,
 }:
 
 let
@@ -83,8 +84,7 @@ rec {
                 patchelf --set-interpreter $out/lib/ld-*.so.? --set-rpath $out/lib $i || true
             fi
         done
-      ''
-  ; # */
+      ''; # */
 
   stage1Init = writeScript "vm-run-stage1" ''
     #! ${initrdUtils}/bin/ash -e
@@ -290,8 +290,7 @@ rec {
       fi
 
       eval "$postVM"
-    ''
-  ;
+    '';
 
   # A bash script fragment that produces a disk image at `destination`.
   createEmptyImage =
@@ -310,8 +309,7 @@ rec {
 
       mkdir ${destination}/nix-support
       echo "${fullName}" > ${destination}/nix-support/full-name
-    ''
-  ;
+    '';
 
   defaultCreateRootFS = ''
     mkdir /mnt
@@ -370,8 +368,7 @@ rec {
         QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
         passAsFile = [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
       }
-    )
-  ;
+    );
 
   extractFs =
     {
@@ -402,8 +399,7 @@ rec {
           cp -Rv tmp/* $out/ || exit 0
         '';
       }
-    )
-  ;
+    );
 
   extractMTDfs =
     {
@@ -435,8 +431,7 @@ rec {
           cp -R tmp/* $out/
         '';
       }
-    )
-  ;
+    );
 
   /* Like runInLinuxVM, but run the build not using the stdenv from
      the Nix store, but using the tools provided by /bin, /usr/bin
@@ -477,8 +472,7 @@ rec {
           fixupPhase = "true";
         }
       )
-    )
-  ;
+    );
 
   /* Create a filesystem image of the specified size and fill it with
      a set of RPM packages.
@@ -567,8 +561,7 @@ rec {
           inherit fullName;
         };
       }
-    )
-  ;
+    );
 
   /* Generate a script that can be used to run an interactive session
      in the given image.
@@ -594,8 +587,7 @@ rec {
       export > $TMPDIR/xchg/saved-env
       mountDisk=1
       ${qemuCommandLinux}
-    ''
-  ;
+    '';
 
   /* Build RPM packages from the tarball `src' in the Linux
      distribution installed in the filesystem `diskImage'.  The
@@ -667,8 +659,7 @@ rec {
         }
         // attrs
       )
-    )
-  ;
+    );
 
   /* Create a filesystem image of the specified size and fill it with
      a set of Debian packages.  `debs' must be a list of list of
@@ -783,8 +774,7 @@ rec {
           inherit fullName;
         };
       }
-    )
-  ;
+    );
 
   /* Generate a Nix expression containing fetchurl calls for the
      closure of a set of top-level RPM packages from the
@@ -821,8 +811,7 @@ rec {
             )
           } \
           ${toString packages} > $out
-      ''
-  ;
+      '';
 
   /* Helper function that combines rpmClosureGenerator and
      fillDiskWithRPMs to generate a disk image from a set of package
@@ -877,10 +866,8 @@ rec {
             ;
             packages = packages ++ extraPackages;
           })
-          { inherit fetchurl; }
-      ;
-    }
-  ;
+          { inherit fetchurl; };
+    };
 
   /* Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
      (i.e. generate a closure from a Packages.bz2 file).
@@ -922,8 +909,7 @@ rec {
 
         perl -w ${deb/deb-closure.pl} \
           ./Packages ${urlPrefix} ${toString packages} > $out
-      ''
-  ;
+      '';
 
   /* Helper function that combines debClosureGenerator and
      fillDiskWithDebs to generate a disk image from a set of package
@@ -996,8 +982,7 @@ rec {
           "util-linux"
         ];
         unifiedSystemDir = true;
-      }
-    ;
+      };
 
     fedora27x86_64 =
       let
@@ -1020,8 +1005,7 @@ rec {
           "util-linux"
         ];
         unifiedSystemDir = true;
-      }
-    ;
+      };
 
     centos6i386 =
       let
@@ -1040,8 +1024,7 @@ rec {
           "i386"
         ];
         packages = commonCentOSPackages ++ [ "procps" ];
-      }
-    ;
+      };
 
     centos6x86_64 =
       let
@@ -1060,8 +1043,7 @@ rec {
           "x86_64"
         ];
         packages = commonCentOSPackages ++ [ "procps" ];
-      }
-    ;
+      };
 
     # Note: no i386 release for 7.x
     centos7x86_64 =
@@ -1081,8 +1063,7 @@ rec {
           "x86_64"
         ];
         packages = commonCentOSPackages ++ [ "procps-ng" ];
-      }
-    ;
+      };
   };
 
   # The set of supported Dpkg-based distributions.
@@ -1497,8 +1478,7 @@ rec {
         name: f: extraPackages:
         f { inherit extraPackages; }
       )
-      diskImageFuns
-  ;
+      diskImageFuns;
 
   /* Default disk images generated from the `rpmDistros' and
      `debDistros' sets.

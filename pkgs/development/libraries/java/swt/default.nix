@@ -33,8 +33,7 @@ let
 
   metadata =
     assert platformMap ? ${stdenv.hostPlatform.system};
-    platformMap.${stdenv.hostPlatform.system}
-  ;
+    platformMap.${stdenv.hostPlatform.system};
 in
 stdenv.mkDerivation rec {
   pname = "swt";
@@ -134,8 +133,7 @@ stdenv.mkDerivation rec {
       sed -i -e 's/ = `\([^`]\+\)`/ := $(shell \1)/' \
         -e 's/`\([^`]\+\)`/$(shell \1)/' \
         "''${makefiles[@]}"
-    ''
-  ;
+    '';
 
   buildPhase = ''
     runHook preBuild

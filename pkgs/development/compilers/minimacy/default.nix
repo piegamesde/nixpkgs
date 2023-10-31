@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
       alsa-lib
       libX11
       libXext
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

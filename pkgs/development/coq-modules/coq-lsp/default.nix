@@ -31,8 +31,7 @@ mkCoqDerivation rec {
           out = "0.1.6.1+8.17";
         }
       ]
-      null
-  ;
+      null;
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -53,8 +52,7 @@ mkCoqDerivation rec {
         uri
         yojson
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "Language Server Protocol and VS Code Extension for Coq";

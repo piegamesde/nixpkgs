@@ -25,8 +25,7 @@ buildDunePackage {
     ++ lib.optionals stdenv.isDarwin [
       AudioToolbox
       VideoToolbox
-    ]
-  ;
+    ];
   propagatedBuildInputs = [ ffmpeg.dev ];
 
   doCheck = true;

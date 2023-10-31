@@ -29,8 +29,7 @@ let
               mkValueString =
                 v: if isBool v then if v then "yes" else "no" else mkValueStringDefault { } v;
             }
-            " "
-        ;
+            " ";
         listsAsDuplicateKeys = true; # Allowing duplications because we need to deal with multiple entries with the same key.
       }
       cfg.settings
@@ -55,8 +54,7 @@ in
             bool
           ];
         in
-        attrsOf (coercedTo atom toList (listOf atom))
-      ;
+        attrsOf (coercedTo atom toList (listOf atom));
       example = literalExpression ''
         {
           bind = ":5353 -no-rule -group example";

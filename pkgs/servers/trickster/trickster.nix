@@ -36,13 +36,11 @@ buildGoModule rec {
             GoVersion = "$(go env GOVERSION)";
             GoArch = "$(go env GOARCH)";
           })
-        )
-      ;
+        );
     in
     ''
       buildFlagsArray+=("-ldflags=${ldflags}")
-    ''
-  ;
+    '';
 
   # Tests are broken.
   doCheck = false;

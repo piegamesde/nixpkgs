@@ -43,8 +43,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ (with python3Packages; [ setuptools-scm ])
-  ;
+    ++ (with python3Packages; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3Packages; [
     xcffib

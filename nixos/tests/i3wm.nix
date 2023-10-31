@@ -14,8 +14,7 @@ import ./make-test-python.nix (
         test-support.displayManager.auto.user = "alice";
         services.xserver.displayManager.defaultSession = lib.mkForce "none+i3";
         services.xserver.windowManager.i3.enable = true;
-      }
-    ;
+      };
 
     testScript =
       { ... }:
@@ -50,7 +49,6 @@ import ./make-test-python.nix (
             machine.wait_for_window(r"alice.*?machine")
             machine.sleep(2)
             machine.screenshot("terminal")
-      ''
-    ;
+      '';
   }
 )

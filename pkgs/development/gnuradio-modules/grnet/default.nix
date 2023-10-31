@@ -93,8 +93,7 @@ mkDerivation {
           thrift
           python.pkgs.thrift
         ]
-    )
-  ;
+    );
   nativeBuildInputs = [
     cmake
     pkg-config

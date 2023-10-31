@@ -29,8 +29,7 @@ let
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
-    }
-  ;
+    };
 
   pkg =
     self:
@@ -108,7 +107,6 @@ let
           inherit beamDeps;
         };
       }
-    )
-  ;
+    );
 in
 lib.fix pkg

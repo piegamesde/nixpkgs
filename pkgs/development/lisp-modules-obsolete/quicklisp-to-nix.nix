@@ -524,8 +524,7 @@ let
                   "swank" = quicklisp-to-nix-packages."swank";
                 }
             )
-        )
-    ;
+        );
 
     "hu_dot_dwim_dot_common" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."hu_dot_dwim_dot_common" or (x: { })) (

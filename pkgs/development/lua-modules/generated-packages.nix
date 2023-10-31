@@ -65,8 +65,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   argparse =
     callPackage
@@ -113,8 +112,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   basexx =
     callPackage
@@ -145,8 +143,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   binaryheap =
     callPackage
@@ -177,8 +174,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   bit32 =
     callPackage
@@ -229,8 +225,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   busted =
     callPackage
@@ -300,8 +295,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   cassowary =
     callPackage
@@ -359,8 +353,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   cldr =
     callPackage
@@ -415,8 +408,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   compat53 =
     callPackage
@@ -452,8 +444,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   cosmo =
     callPackage
@@ -502,8 +493,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   coxpcall =
     callPackage
@@ -545,8 +535,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   cqueues =
     callPackage
@@ -580,8 +569,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   cyan =
     callPackage
@@ -635,8 +623,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   cyrussasl =
     callPackage
@@ -682,8 +669,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   digestif =
     callPackage
@@ -735,8 +721,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   dkjson =
     callPackage
@@ -771,8 +756,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   fennel =
     callPackage
@@ -807,8 +791,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   fifo =
     callPackage
@@ -840,8 +823,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   fluent =
     callPackage
@@ -900,8 +882,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   gitsigns-nvim =
     callPackage
@@ -946,8 +927,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   haskell-tools-nvim =
     callPackage
@@ -985,8 +965,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   http =
     callPackage
@@ -1041,8 +1020,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   inspect =
     callPackage
@@ -1076,8 +1054,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   jsregexp =
     callPackage
@@ -1127,8 +1104,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   ldbus =
     callPackage
@@ -1179,8 +1155,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   ldoc =
     callPackage
@@ -1228,8 +1203,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lgi =
     callPackage
@@ -1279,8 +1253,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   linenoise =
     callPackage
@@ -1310,8 +1283,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   ljsyscall =
     callPackage
@@ -1345,8 +1317,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lmathx =
     callPackage
@@ -1379,8 +1350,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lmpfrlib =
     callPackage
@@ -1416,8 +1386,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   loadkit =
     callPackage
@@ -1468,8 +1437,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lpeg =
     callPackage
@@ -1504,8 +1472,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lpeg_patterns =
     callPackage
@@ -1541,8 +1508,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lpeglabel =
     callPackage
@@ -1576,8 +1542,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lpty =
     callPackage
@@ -1611,8 +1576,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lrexlib-gnu =
     callPackage
@@ -1662,8 +1626,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lrexlib-pcre =
     callPackage
@@ -1714,8 +1677,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lrexlib-posix =
     callPackage
@@ -1765,8 +1727,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-cjson =
     callPackage
@@ -1816,8 +1777,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-cmsgpack =
     callPackage
@@ -1867,8 +1827,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-curl =
     callPackage
@@ -1903,8 +1862,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-iconv =
     callPackage
@@ -1938,8 +1896,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-lsp =
     callPackage
@@ -1998,8 +1955,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-messagepack =
     callPackage
@@ -2033,8 +1989,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-protobuf =
     callPackage
@@ -2085,8 +2040,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-resty-http =
     callPackage
@@ -2136,8 +2090,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-resty-jwt =
     callPackage
@@ -2191,8 +2144,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-resty-openidc =
     callPackage
@@ -2250,8 +2202,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-resty-openssl =
     callPackage
@@ -2293,8 +2244,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-resty-session =
     callPackage
@@ -2349,8 +2299,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-subprocess =
     callPackage
@@ -2397,8 +2346,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-term =
     callPackage
@@ -2424,8 +2372,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-toml =
     callPackage
@@ -2475,8 +2422,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-yajl =
     callPackage
@@ -2527,8 +2473,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-zlib =
     callPackage
@@ -2579,8 +2524,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua_cliargs =
     callPackage
@@ -2610,8 +2554,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luabitop =
     callPackage
@@ -2658,8 +2601,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luacheck =
     callPackage
@@ -2715,8 +2657,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luacov =
     callPackage
@@ -2767,8 +2708,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luadbi =
     callPackage
@@ -2819,8 +2759,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luadbi-mysql =
     callPackage
@@ -2875,8 +2814,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luadbi-postgresql =
     callPackage
@@ -2931,8 +2869,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luadbi-sqlite3 =
     callPackage
@@ -2987,8 +2924,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaepnf =
     callPackage
@@ -3043,8 +2979,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaevent =
     callPackage
@@ -3078,8 +3013,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaexpat =
     callPackage
@@ -3133,8 +3067,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaffi =
     callPackage
@@ -3184,8 +3117,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luafilesystem =
     callPackage
@@ -3236,8 +3168,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lualdap =
     callPackage
@@ -3288,8 +3219,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lualogging =
     callPackage
@@ -3337,8 +3267,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaossl =
     callPackage
@@ -3370,8 +3299,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaposix =
     callPackage
@@ -3414,8 +3342,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luarepl =
     callPackage
@@ -3449,8 +3376,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luasec =
     callPackage
@@ -3505,8 +3431,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luasocket =
     callPackage
@@ -3556,8 +3481,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luasql-sqlite3 =
     callPackage
@@ -3608,8 +3532,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luassert =
     callPackage
@@ -3663,8 +3586,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luasystem =
     callPackage
@@ -3698,8 +3620,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaunbound =
     callPackage
@@ -3734,8 +3655,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luaunit =
     callPackage
@@ -3771,8 +3691,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luautf8 =
     callPackage
@@ -3807,8 +3726,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luazip =
     callPackage
@@ -3859,8 +3777,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lush-nvim =
     callPackage
@@ -3908,8 +3825,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luuid =
     callPackage
@@ -3944,8 +3860,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luv =
     callPackage
@@ -3979,8 +3894,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lyaml =
     callPackage
@@ -4016,8 +3930,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   markdown =
     callPackage
@@ -4068,8 +3981,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   mediator_lua =
     callPackage
@@ -4103,8 +4015,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   moonscript =
     callPackage
@@ -4159,8 +4070,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   mpack =
     callPackage
@@ -4186,8 +4096,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   nvim-client =
     callPackage
@@ -4225,8 +4134,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   nvim-cmp =
     callPackage
@@ -4273,8 +4181,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   penlight =
     callPackage
@@ -4325,8 +4232,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   plenary-nvim =
     callPackage
@@ -4377,8 +4283,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   rapidjson =
     callPackage
@@ -4424,8 +4329,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   readline =
     callPackage
@@ -4464,8 +4368,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   rest-nvim =
     callPackage
@@ -4505,8 +4408,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   say =
     callPackage
@@ -4552,8 +4454,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   serpent =
     callPackage
@@ -4605,8 +4506,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   sqlite =
     callPackage
@@ -4654,8 +4554,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   std-_debug =
     callPackage
@@ -4702,8 +4601,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   std-normalize =
     callPackage
@@ -4754,8 +4652,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   stdlib =
     callPackage
@@ -4791,8 +4688,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   teal-language-server =
     callPackage
@@ -4846,8 +4742,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   telescope-manix =
     callPackage
@@ -4885,8 +4780,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   telescope-nvim =
     callPackage
@@ -4939,8 +4833,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   tl =
     callPackage
@@ -4995,8 +4888,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   vstruct =
     callPackage
@@ -5041,8 +4933,7 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 
   vusted =
     callPackage
@@ -5091,7 +4982,6 @@ final: prev: {
           };
         }
       )
-      { }
-  ;
+      { };
 }
 # GENERATED - do not edit this file

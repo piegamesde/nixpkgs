@@ -90,8 +90,7 @@ in
         example = "wheel";
         description =
           lib.mdDoc
-            "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket."
-        ;
+            "Group to grant access to the Yggdrasil control socket. If `null`, only root can access the socket.";
       };
 
       openMulticastPort = mkOption {
@@ -197,7 +196,8 @@ in
             else
               "${binYggdrasil} -genconf"
           )
-          + " > /run/yggdrasil/yggdrasil.conf"}
+          + " > /run/yggdrasil/yggdrasil.conf"
+          }
 
           # start yggdrasil
           ${binYggdrasil} -useconffile /run/yggdrasil/yggdrasil.conf

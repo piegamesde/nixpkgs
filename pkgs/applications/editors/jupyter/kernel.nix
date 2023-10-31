@@ -23,8 +23,7 @@ let
         language = "python";
         logo32 = "${env}/${env.sitePackages}/ipykernel/resources/logo-32x32.png";
         logo64 = "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
-      }
-    ;
+      };
   };
 in
 {
@@ -66,8 +65,7 @@ in
                 ];
                 kernel =
                   filterAttrs (n: v: (any (x: x == n) allowedKernelKeys))
-                    unfilteredKernel
-                ;
+                    unfilteredKernel;
                 config = builtins.toJSON (
                   kernel
                   // {
@@ -90,8 +88,7 @@ in
                 linkExtraPaths =
                   lib.mapAttrsToList
                     (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
-                    extraPaths
-                ;
+                    extraPaths;
               in
               ''
                 mkdir 'kernels/${kernelName}';
@@ -111,6 +108,5 @@ in
         homepage = "https://jupyter.org/";
         maintainers = with maintainers; [ aborsu ];
       };
-    }
-  ;
+    };
 }

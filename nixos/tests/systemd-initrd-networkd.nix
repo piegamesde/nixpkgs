@@ -30,8 +30,7 @@ import ./make-test-python.nix (
               ];
               inherit script;
             };
-          }
-        ;
+          };
       in
       {
         basic =
@@ -68,8 +67,7 @@ import ./make-test-python.nix (
                 '';
               };
             };
-          }
-        ;
+          };
 
         doFlush = mkFlushTest true ''
           if ip addr | grep 10.0.2.15; then
@@ -84,8 +82,7 @@ import ./make-test-python.nix (
             exit 1
           fi
         '';
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

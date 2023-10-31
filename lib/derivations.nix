@@ -76,8 +76,7 @@ in
           "The derivation ${
             derivation.name or "<unknown>"
           } has multiple outputs. This is not supported by lazySimpleDerivation yet. Support could be added, and be useful as long as the set of outputs is known in advance, without evaluating the actual derivation."
-          derivation
-      ;
+          derivation;
     in
     {
       # Hardcoded `type`

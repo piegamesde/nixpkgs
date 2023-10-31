@@ -55,8 +55,7 @@ let
         maintainers = with maintainers; [ peterhoeg ];
         hydraPlatforms = [ ];
       };
-    }
-  ;
+    };
 in
 {
   descent1-assets = generic 1 "descent";

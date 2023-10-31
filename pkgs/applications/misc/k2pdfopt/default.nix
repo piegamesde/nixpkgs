@@ -70,8 +70,7 @@ let
       popd >/dev/null
 
       diff -Naur $orig $new > $out || true
-    ''
-  ;
+    '';
 
   pname = "k2pdfopt";
   version = "2.53";

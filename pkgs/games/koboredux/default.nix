@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
           proprietary assets with a placeholder theme.
         '';
       }
-    ))
-  ;
+    ));
 
   sourceRoot = "source"; # needed when we have the assets source
 

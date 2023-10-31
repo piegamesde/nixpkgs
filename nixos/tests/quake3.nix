@@ -34,8 +34,7 @@ import ./make-test-python.nix (
         environment.systemPackages = [ pkgs.quake3demo ];
         nixpkgs.config.packageOverrides = overrides;
         nixpkgs.config.allowUnfreePredicate = unfreePredicate;
-      }
-    ;
+      };
   in
 
   rec {
@@ -65,8 +64,7 @@ import ./make-test-python.nix (
           nixpkgs.config.packageOverrides = overrides;
           nixpkgs.config.allowUnfreePredicate = unfreePredicate;
           networking.firewall.allowedUDPPorts = [ 27960 ];
-        }
-      ;
+        };
 
       client1 = client;
       client2 = client;

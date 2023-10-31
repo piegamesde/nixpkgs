@@ -16,8 +16,7 @@ let
       bool
       int
       str
-    ]
-  ;
+    ];
 
   genAttrs' = names: f: listToAttrs (map f names);
 
@@ -51,8 +50,7 @@ let
         "f"
       ];
     in
-    replaceStrings special (map (c: "\\${c}") special)
-  ;
+    replaceStrings special (map (c: "\\${c}") special);
 
   stripLocation = cfg: removeSuffix "/" cfg.nginx.location;
 
@@ -81,8 +79,7 @@ let
         "0"
       else
         toString value
-    }"
-  ;
+    }";
 
   mkCgitrc =
     cfg:
@@ -109,8 +106,7 @@ let
 
       # extra config
       ${cfg.extraConfig}
-    ''
-  ;
+    '';
 
   mkCgitReposDir =
     cfg:
@@ -151,8 +147,7 @@ in
               nginx.virtualHost = mkOption {
                 description =
                   mdDoc
-                    "VirtualHost to serve cgit on, defaults to the attribute name."
-                ;
+                    "VirtualHost to serve cgit on, defaults to the attribute name.";
                 type = types.str;
                 default = config._module.args.name;
                 example = "git.example.com";
@@ -215,8 +210,7 @@ in
           assertion = !cfg.enable || (cfg.scanPath == null) != (cfg.repos == { });
           message = "Exactly one of services.cgit.${vhost}.scanPath or services.cgit.${vhost}.repos must be set.";
         })
-        cfgs
-    ;
+        cfgs;
 
     services.fcgiwrap.enable = true;
 
@@ -262,8 +256,7 @@ in
                   };
                   extraConfig = mkFastcgiPass cfg;
                 };
-              }
-            ;
+              };
           };
         })
         cfgs

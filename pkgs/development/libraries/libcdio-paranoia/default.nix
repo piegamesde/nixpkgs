@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
       libiconv
       IOKit
       DiskArbitration
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin DiskArbitration;
 

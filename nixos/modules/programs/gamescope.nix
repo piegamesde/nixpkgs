@@ -21,8 +21,7 @@ let
         mkdir -p $out/bin
         makeWrapper ${cfg.package}/bin/gamescope $out/bin/gamescope --inherit-argv0 \
           ${toString wrapperArgs}
-      ''
-  ;
+      '';
 in
 {
   options.programs.gamescope = {

@@ -21,8 +21,7 @@ let
           type = types.str;
           description =
             lib.mdDoc
-              "The name of the zope2 instance. If undefined, the name of the attribute set will be used."
-          ;
+              "The name of the zope2 instance. If undefined, the name of the attribute set will be used.";
         };
 
         threads = mkOption {
@@ -30,8 +29,7 @@ let
           type = types.int;
           description =
             lib.mdDoc
-              "Specify the number of threads that Zope's ZServer web server will use to service requests. "
-          ;
+              "Specify the number of threads that Zope's ZServer web server will use to service requests. ";
         };
 
         http_address = mkOption {
@@ -72,12 +70,10 @@ let
           type = types.listOf types.package;
           description =
             lib.mdDoc
-              "The list of packages you want to make available to the zope2 instance."
-          ;
+              "The list of packages you want to make available to the zope2 instance.";
         };
       };
-    }
-  ;
+    };
 in
 
 {
@@ -111,8 +107,7 @@ in
       '';
       description =
         lib.mdDoc
-          "zope2 instances to be created automatically by the system."
-      ;
+          "zope2 instances to be created automatically by the system.";
     };
   };
 
@@ -265,8 +260,7 @@ in
             serviceConfig.ExecStart = "${ctl} start";
             serviceConfig.ExecStop = "${ctl} stop";
             serviceConfig.ExecReload = "${ctl} restart";
-          }
-        ;
+          };
       in
       listToAttrs (
         map
@@ -275,7 +269,6 @@ in
             value = createZope2Instance (builtins.getAttr name cfg.instances) name;
           })
           (builtins.attrNames cfg.instances)
-      )
-    ;
+      );
   };
 }

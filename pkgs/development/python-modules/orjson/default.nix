@@ -42,8 +42,7 @@ buildPythonPackage rec {
         cargoSetupHook
         maturinBuildHook
       ]
-    )
-  ;
+    );
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

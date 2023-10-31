@@ -45,8 +45,7 @@ rec {
       runLocal = false;
       inherit name;
       derivationArgs = env;
-    }
-  ;
+    };
   runCommandLocal =
     name: env:
     runCommandWith {
@@ -54,8 +53,7 @@ rec {
       runLocal = true;
       inherit name;
       derivationArgs = env;
-    }
-  ;
+    };
 
   runCommandCC =
     name: env:
@@ -64,8 +62,7 @@ rec {
       runLocal = false;
       inherit name;
       derivationArgs = env;
-    }
-  ;
+    };
   # `runCommandCCLocal` left out on purpose.
   # We shouldn’t force the user to have a cc in scope.
 
@@ -106,8 +103,7 @@ rec {
         allowSubstitutes = false;
       })
       // builtins.removeAttrs derivationArgs [ "passAsFile" ]
-    )
-  ;
+    );
 
   /* Writes a text file to the nix store.
      The contents of text is added to the file in the store.
@@ -175,8 +171,7 @@ rec {
         fi
 
         eval "$checkPhase"
-      ''
-  ;
+      '';
 
   /* Writes a text file to nix store with no optional parameters available.
 
@@ -207,8 +202,7 @@ rec {
       inherit text;
       name = builtins.baseNameOf path;
       destination = "/${path}";
-    }
-  ;
+    };
 
   /* Writes a text file to /nix/store/<store path> and marks the file as
      executable.
@@ -230,8 +224,7 @@ rec {
     writeTextFile {
       inherit name text;
       executable = true;
-    }
-  ;
+    };
 
   /* Writes a text file to /nix/store/<store path>/bin/<name> and
      marks the file as executable.
@@ -250,8 +243,7 @@ rec {
       inherit name text;
       executable = true;
       destination = "/bin/${name}";
-    }
-  ;
+    };
 
   /* Similar to writeScript. Writes a Shell script and checks its syntax.
      Automatically includes interpreter above the contents passed.
@@ -276,8 +268,7 @@ rec {
       checkPhase = ''
         ${stdenv.shellDryRun} "$target"
       '';
-    }
-  ;
+    };
 
   /* Similar to writeShellScript and writeScriptBin.
      Writes an executable Shell script to /nix/store/<store path>/bin/<name> and checks its syntax.
@@ -304,8 +295,7 @@ rec {
       checkPhase = ''
         ${stdenv.shellDryRun} "$target"
       '';
-    }
-  ;
+    };
 
   /* Similar to writeShellScriptBin and writeScriptBin.
      Writes an executable Shell script to /nix/store/<store path>/bin/<name> and
@@ -376,8 +366,7 @@ rec {
       ;
 
       meta.mainProgram = name;
-    }
-  ;
+    };
 
   # Create a C binary
   writeCBin =
@@ -396,8 +385,7 @@ rec {
         mkdir -p "$(dirname "$n")"
         mv "$codePath" code.c
         $CC -x c code.c -o "$n"
-      ''
-  ;
+      '';
 
   /* concat a list of files to the nix store.
      The contents of files are added to the file in the store.
@@ -452,8 +440,7 @@ rec {
         fi
 
         eval "$checkPhase"
-      ''
-  ;
+      '';
 
   /* Writes a text file to nix store with no optional parameters available.
 
@@ -475,8 +462,7 @@ rec {
     concatTextFile {
       inherit name files;
       executable = true;
-    }
-  ;
+    };
 
   /* Create a forest of symlinks to the files in `paths'.
 
@@ -541,8 +527,7 @@ rec {
         // {
           inherit preferLocalBuild allowSubstitutes;
           passAsFile = [ "paths" ];
-        }
-      ; # pass the defaults
+        }; # pass the defaults
     in
     runCommand name args ''
       mkdir -p $out
@@ -550,8 +535,7 @@ rec {
         ${lndir}/bin/lndir -silent $i $out
       done
       ${postBuild}
-    ''
-  ;
+    '';
 
   /* Quickly create a set of symlinks to derivations.
 
@@ -598,8 +582,7 @@ rec {
             mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
             ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
           '')
-          entries'
-      ;
+          entries';
     in
     runCommand name
       {
@@ -611,8 +594,7 @@ rec {
         mkdir -p $out
         cd $out
         ${lib.concatStrings linkCommands}
-      ''
-  ;
+      '';
 
   /* Easily create a linkFarm from a set of derivations.
 
@@ -640,8 +622,7 @@ rec {
         path = drv;
       };
     in
-    linkFarm name (map mkEntryFromDrv drvs)
-  ;
+    linkFarm name (map mkEntryFromDrv drvs);
 
   # docs in doc/builders/special/makesetuphook.section.md
   makeSetupHook =
@@ -677,8 +658,7 @@ rec {
                   }"
                   propagatedBuildInputs
                 ++ (if lib.isList deps then deps else [ deps ])
-              )
-          ;
+              );
           strictDeps = true;
           # TODO 2023-01, no backport: simplify to inherit passthru;
           passthru =
@@ -701,8 +681,7 @@ rec {
         + lib.optionalString (substitutions != { }) ''
           substituteAll ${script} $out/nix-support/setup-hook
         ''
-      )
-  ;
+      );
 
   # Write the references (i.e. the runtime dependencies in the Nix store) of `path' to a file.
 
@@ -723,8 +702,7 @@ rec {
           read nrRefs
           for ((i = 0; i < nrRefs; i++)); do read ref; done
         done < graph
-      ''
-  ;
+      '';
 
   /* Write the set of references to a file, that is, their immediate dependencies.
 
@@ -757,8 +735,7 @@ rec {
           fi
         done < graph
         sort ./references >$out
-      ''
-  ;
+      '';
 
   /* Extract a string's references to derivations and paths (its
      context) and write them to a text file, removing the input string
@@ -798,8 +775,7 @@ rec {
               builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name
             );
           })
-          derivations
-      ;
+          derivations;
       # The syntax of output paths differs between outputs named `out`
       # and other, explicitly named ones. For explicitly named ones,
       # the output name is suffixed as `-name`, but `out` outputs
@@ -934,8 +910,7 @@ rec {
         _EOF_
         exit 1
       '';
-    }
-  ;
+    };
 
   /* Copy a path to the Nix store.
      Nix automatically copies files to the store before stringifying paths.
@@ -975,7 +950,8 @@ rec {
           throw
             "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute."
       )
-        + "-patched",
+        + "-patched"
+      ,
       patches ? [ ],
       postPatch ? "",
     }:
@@ -990,8 +966,7 @@ rec {
       allowSubstitutes = false;
       phases = "unpackPhase patchPhase installPhase";
       installPhase = "cp -R ./ $out";
-    }
-  ;
+    };
 
   # An immutable file in the store with a length of 0 bytes.
   emptyFile =
@@ -1002,8 +977,7 @@ rec {
         outputHash = "0ip26j2h11n1kgkz36rl4akv694yz65hr72q4kv4b3lxcbi65b3p";
         preferLocalBuild = true;
       }
-      "touch $out"
-  ;
+      "touch $out";
 
   # An immutable empty directory in the store.
   emptyDirectory =
@@ -1014,6 +988,5 @@ rec {
         outputHash = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
         preferLocalBuild = true;
       }
-      "mkdir $out"
-  ;
+      "mkdir $out";
 }

@@ -84,8 +84,7 @@ in
         example = literalExpression "plugins: with plugins; [ themeify stlviewer ]";
         description =
           lib.mdDoc
-            "Additional plugins to be used. Available plugins are passed through the plugins input."
-        ;
+            "Additional plugins to be used. Available plugins are passed through the plugins input.";
       };
 
       extraConfig = mkOption {
@@ -93,8 +92,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "Extra options which are added to OctoPrint's YAML configuration file."
-        ;
+            "Extra options which are added to OctoPrint's YAML configuration file.";
       };
     };
   };

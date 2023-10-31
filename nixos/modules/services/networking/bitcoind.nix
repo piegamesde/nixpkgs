@@ -37,8 +37,7 @@ let
       config = {
         name = mkDefault name;
       };
-    }
-  ;
+    };
 
   bitcoindOpts =
     {
@@ -76,8 +75,7 @@ let
           '';
           description =
             lib.mdDoc
-              "Additional configurations to be appended to {file}`bitcoin.conf`."
-          ;
+              "Additional configurations to be appended to {file}`bitcoin.conf`.";
         };
 
         dataDir = mkOption {
@@ -104,8 +102,7 @@ let
             default = null;
             description =
               lib.mdDoc
-                "Override the default port on which to listen for JSON-RPC connections."
-            ;
+                "Override the default port on which to listen for JSON-RPC connections.";
           };
           users = mkOption {
             default = { };
@@ -137,8 +134,7 @@ let
           default = null;
           description =
             lib.mdDoc
-              "Override the default port on which to listen for connections."
-          ;
+              "Override the default port on which to listen for connections.";
         };
 
         dbCache = mkOption {
@@ -181,8 +177,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 in
 {
 
@@ -285,8 +280,7 @@ in
             }
           ))
         )
-        eachBitcoind
-    ;
+        eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
@@ -308,13 +302,11 @@ in
             isSystemUser = true;
           })
         )
-        eachBitcoind
-    ;
+        eachBitcoind;
 
     users.groups =
       mapAttrs' (bitcoindName: cfg: (nameValuePair "${cfg.group}" { }))
-        eachBitcoind
-    ;
+        eachBitcoind;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

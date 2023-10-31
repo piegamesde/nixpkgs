@@ -29,8 +29,7 @@ let
             package = pkgs.mariadb;
           };
           services.nginx.enable = true;
-        }
-      ;
+        };
 
       testScript = ''
         start_all()
@@ -44,8 +43,7 @@ let
                 "curl -sSfL http://localhost/ | grep '<title>Matomo[^<]*Installation'"
             )
       '';
-    }
-  ;
+    };
 in
 {
   matomo = matomoTest pkgs.matomo // {

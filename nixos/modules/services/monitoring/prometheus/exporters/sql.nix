@@ -29,16 +29,14 @@ let
         type = listOf str;
         description =
           lib.mdDoc
-            "A list of connection strings of the SQL servers to scrape metrics from"
-        ;
+            "A list of connection strings of the SQL servers to scrape metrics from";
       };
       startupSql = mkOption {
         type = listOf str;
         default = [ ];
         description =
           lib.mdDoc
-            "A list of SQL statements to execute once after making a connection."
-        ;
+            "A list of SQL statements to execute once after making a connection.";
       };
       queries = mkOption {
         type = attrsOf (submodule queryOptions);
@@ -58,8 +56,7 @@ let
         default = [ ];
         description =
           lib.mdDoc
-            "A set of columns that will be used as Prometheus labels."
-        ;
+            "A set of columns that will be used as Prometheus labels.";
       };
       query = mkOption {
         type = str;
@@ -69,8 +66,7 @@ let
         type = listOf str;
         description =
           lib.mdDoc
-            "A set of columns that will be used as values of this metric."
-        ;
+            "A set of columns that will be used as values of this metric.";
       };
     };
   };

@@ -63,8 +63,7 @@ in
           # nixos-enter --help | grep -F 'NixOS Reference Pages'
 
           touch $out
-        ''
-    ;
+        '';
   };
 }).overrideAttrs
   (

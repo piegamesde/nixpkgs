@@ -134,8 +134,7 @@ with lib;
       default = config.services.nginx.recommendedProxySettings;
       defaultText =
         literalExpression
-          "config.services.nginx.recommendedProxySettings"
-      ;
+          "config.services.nginx.recommendedProxySettings";
       description = lib.mdDoc ''
         Enable recommended proxy settings.
       '';

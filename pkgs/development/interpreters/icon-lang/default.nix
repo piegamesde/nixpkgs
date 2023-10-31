@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
           throw "unsupported system"
       ;
     in
-    "make ${target} name=${platform}"
-  ;
+    "make ${target} name=${platform}";
 
   installPhase = ''
     make Install dest=$out
@@ -58,8 +57,7 @@ stdenv.mkDerivation rec {
     ];
     platforms =
       with platforms;
-      linux ++ darwin ++ freebsd ++ netbsd ++ openbsd ++ cygwin ++ illumos
-    ;
+      linux ++ darwin ++ freebsd ++ netbsd ++ openbsd ++ cygwin ++ illumos;
     license = licenses.publicDomain;
     homepage = "https://www.cs.arizona.edu/icon/";
   };

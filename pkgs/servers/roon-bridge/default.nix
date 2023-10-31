@@ -22,8 +22,7 @@ let
         "00"
         "0"
       ]
-      version
-  ;
+      version;
   host = stdenv.hostPlatform.system;
   system =
     if host == "x86_64-linux" then
@@ -104,8 +103,7 @@ stdenv.mkDerivation {
       makeWrapper "$out/Bridge/RoonBridge" "$out/bin/RoonBridge" --chdir "$out"
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "The music player for music lovers";

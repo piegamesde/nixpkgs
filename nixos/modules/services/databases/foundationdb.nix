@@ -19,8 +19,7 @@ let
     n:
     concatStringsSep "\n" (
       map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1))
-    )
-  ;
+    );
 
   backupAgents =
     n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
@@ -91,8 +90,7 @@ in
       default = "auto";
       description =
         lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID"
-      ;
+          "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenAddress = mkOption {
@@ -100,8 +98,7 @@ in
       default = "public";
       description =
         lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID"
-      ;
+          "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenPortStart = mkOption {
@@ -128,8 +125,7 @@ in
       default = "/var/lib/foundationdb";
       description =
         lib.mdDoc
-          "Data directory. All cluster data will be put under here."
-      ;
+          "Data directory. All cluster data will be put under here.";
     };
 
     logDir = mkOption {
@@ -198,8 +194,7 @@ in
       default = 1;
       description =
         lib.mdDoc
-          "Number of backup_agent processes to run for snapshots."
-      ;
+          "Number of backup_agent processes to run for snapshots.";
     };
 
     memory = mkOption {
@@ -445,8 +440,7 @@ in
           PrivateTmp = true;
           PrivateDevices = true;
           ReadWritePaths = lib.concatStringsSep " " (map (x: "-" + x) rwpaths);
-        }
-      ;
+        };
 
       path = [
         pkg

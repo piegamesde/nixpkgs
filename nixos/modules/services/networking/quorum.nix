@@ -48,8 +48,7 @@ in
         default = 21000;
         description =
           lib.mdDoc
-            "Override the default port on which to listen for connections."
-        ;
+            "Override the default port on which to listen for connections.";
       };
 
       nodekeyFile = mkOption {
@@ -88,8 +87,7 @@ in
         default = 5;
         description =
           lib.mdDoc
-            "Default minimum difference between two consecutive block's timestamps in seconds."
-        ;
+            "Default minimum difference between two consecutive block's timestamps in seconds.";
       };
 
       permissioned = mkOption {
@@ -116,8 +114,7 @@ in
           default = 22004;
           description =
             lib.mdDoc
-              "Override the default port on which to listen for RPC connections."
-          ;
+              "Override the default port on which to listen for RPC connections.";
         };
 
         api = mkOption {
@@ -145,8 +142,7 @@ in
           default = 8546;
           description =
             lib.mdDoc
-              "Override the default port on which to listen for WS-RPC connections."
-          ;
+              "Override the default port on which to listen for WS-RPC connections.";
         };
 
         api = mkOption {

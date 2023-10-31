@@ -87,8 +87,7 @@ let
             exit 1
           fi
           touch $out
-        ''
-    ;
+        '';
   };
 
   tesseract =

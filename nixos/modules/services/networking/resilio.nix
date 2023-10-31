@@ -25,8 +25,7 @@ let
         use_sync_trash = entry.useSyncTrash;
         known_hosts = entry.knownHosts;
       })
-      cfg.sharedFolders
-  ;
+      cfg.sharedFolders;
 
   configFile = pkgs.writeText "config.json" (
     builtins.toJSON (
@@ -76,8 +75,7 @@ let
             entry.secretFile
         ;
       })
-      cfg.sharedFolders
-  ;
+      cfg.sharedFolders;
 
   runConfigPath = "/run/rslsync/config.json";
 

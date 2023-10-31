@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       [
         # Workaround for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=51433
         ./disable-seek-hole.patch
-      ]
-  ;
+      ];
 
   postPatch =
     ''
@@ -126,8 +125,7 @@ stdenv.mkDerivation rec {
       [
         # due to patch
         texinfo
-      ]
-  ;
+      ];
 
   buildInputs =
     [ ]

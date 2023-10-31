@@ -29,8 +29,7 @@ let
                 libgeos_c = GEOS_LIBRARY_PATH;
                 libc =
                   lib.optionalString (!stdenv.isDarwin)
-                    "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6"
-                ;
+                    "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
               })
             ];
         }

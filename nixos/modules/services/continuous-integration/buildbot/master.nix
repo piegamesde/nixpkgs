@@ -90,8 +90,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable the Buildbot continuous integration server."
-        ;
+            "Whether to enable the Buildbot continuous integration server.";
       };
 
       extraConfig = mkOption {
@@ -104,8 +103,7 @@ in
         type = types.path;
         description =
           lib.mdDoc
-            "Optionally pass master.cfg path. Other options in this configuration will be ignored."
-        ;
+            "Optionally pass master.cfg path. Other options in this configuration will be ignored.";
         default = defaultMasterCfg;
         defaultText = literalMD "generated configuration file";
         example = "/etc/nixos/buildbot/master.cfg";
@@ -139,8 +137,7 @@ in
         type = types.listOf types.str;
         description =
           lib.mdDoc
-            "List of reporter objects used to present build status to various users."
-        ;
+            "List of reporter objects used to present build status to various users.";
       };
 
       user = mkOption {
@@ -160,8 +157,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "List of extra groups that the buildbot user should be a part of."
-        ;
+            "List of extra groups that the buildbot user should be a part of.";
       };
 
       home = mkOption {
@@ -198,8 +194,7 @@ in
         type = types.str;
         description =
           lib.mdDoc
-            "Specifies the bind address on which the buildbot HTTP interface listens."
-        ;
+            "Specifies the bind address on which the buildbot HTTP interface listens.";
       };
 
       buildbotUrl = mkOption {
@@ -231,8 +226,7 @@ in
         type = types.port;
         description =
           lib.mdDoc
-            "Specifies port number on which the buildbot HTTP interface listens."
-        ;
+            "Specifies port number on which the buildbot HTTP interface listens.";
       };
 
       package = mkOption {
@@ -256,8 +250,7 @@ in
         defaultText = literalExpression "pythonPackages: with pythonPackages; [ ]";
         description =
           lib.mdDoc
-            "Packages to add the to the PYTHONPATH of the buildbot process."
-        ;
+            "Packages to add the to the PYTHONPATH of the buildbot process.";
         example = literalExpression "pythonPackages: with pythonPackages; [ requests ]";
       };
     };

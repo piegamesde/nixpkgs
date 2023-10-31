@@ -121,10 +121,8 @@ stdenv.mkDerivation rec {
               echo "OK"
             done
             touch "$out"
-          ''
-      ;
-    }
-  ;
+          '';
+    };
 
   meta = with lib; {
     description = "Authoritative-only DNS server from .cz domain registry";

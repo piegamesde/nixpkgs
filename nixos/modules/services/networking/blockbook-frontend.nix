@@ -85,8 +85,7 @@ let
           default = "/var/lib/blockbook-frontend-${name}";
           description =
             lib.mdDoc
-              "Location of blockbook-frontend-${name} data directory."
-          ;
+              "Location of blockbook-frontend-${name} data directory.";
         };
 
         debug = mkOption {
@@ -94,8 +93,7 @@ let
           default = false;
           description =
             lib.mdDoc
-              "Debug mode, return more verbose errors, reload templates on each request."
-          ;
+              "Debug mode, return more verbose errors, reload templates on each request.";
         };
 
         internal = mkOption {
@@ -160,8 +158,7 @@ let
           default = true;
           description =
             lib.mdDoc
-              "Synchronizes until tip, if together with zeromq, keeps index synchronized."
-          ;
+              "Synchronizes until tip, if together with zeromq, keeps index synchronized.";
         };
 
         templateDir = mkOption {
@@ -171,8 +168,7 @@ let
           example = literalExpression ''"''${dataDir}/templates/static/"'';
           description =
             lib.mdDoc
-              "Location of the HTML templates. By default, ones shipped with the package are used."
-          ;
+              "Location of the HTML templates. By default, ones shipped with the package are used.";
         };
 
         extraConfig = mkOption {
@@ -218,8 +214,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 in
 {
   # interface
@@ -230,8 +225,7 @@ in
       default = { };
       description =
         lib.mdDoc
-          "Specification of one or more blockbook-frontend instances."
-      ;
+          "Specification of one or more blockbook-frontend instances.";
     };
   };
 
@@ -302,8 +296,7 @@ in
             }
           ))
         )
-        eachBlockbook
-    ;
+        eachBlockbook;
 
     systemd.tmpfiles.rules = flatten (
       mapAttrsToList
@@ -325,13 +318,11 @@ in
             isSystemUser = true;
           })
         )
-        eachBlockbook
-    ;
+        eachBlockbook;
 
     users.groups =
       mapAttrs' (instanceName: cfg: (nameValuePair "${cfg.group}" { }))
-        eachBlockbook
-    ;
+        eachBlockbook;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

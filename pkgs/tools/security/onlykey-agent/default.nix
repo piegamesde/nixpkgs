@@ -15,8 +15,7 @@ let
         inherit pname version;
         sha256 = "sha256-fW24IUYDvXhx/PpsCCbvaLhbCr2Q+iHChanF4h0r2Jk=";
       };
-    }
-  ;
+    };
 
   # onlykey requires a patched version of libagent
   lib-agent =
@@ -48,8 +47,7 @@ let
           maintainers = with lib.maintainers; [ kalbasit ];
         };
       }
-    )
-  ;
+    );
 in
 python3Packages.buildPythonApplication rec {
   pname = "onlykey-agent";

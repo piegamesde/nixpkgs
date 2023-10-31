@@ -35,8 +35,7 @@ in
                 "calibre-server"
                 "libraryDir"
               ]
-              config
-          ;
+              config;
         in
         [ libraryDir ]
       )

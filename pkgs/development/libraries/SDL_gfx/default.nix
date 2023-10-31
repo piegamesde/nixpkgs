@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--disable-mmx" ]
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   meta = with lib; {
     description = "SDL graphics drawing primitives and support functions";

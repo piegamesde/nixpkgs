@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       libobjc
-    ]
-  ;
+    ];
 
   configureFlags =
     [
@@ -78,8 +77,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withLLVM [
       "--enable-llvm"
       "--with-llvm=${llvm}"
-    ]
-  ;
+    ];
 
   configurePhase = ''
     patchShebangs autogen.sh mcs/build/start-compiler-server.sh

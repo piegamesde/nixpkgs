@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
         perl
         SysCPU
       ]
-    )
-  ;
+    );
 
   postInstall = ''
     substituteInPlace $out/bin/compiler_test.pl \

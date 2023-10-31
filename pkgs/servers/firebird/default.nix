@@ -40,8 +40,7 @@ let
 
     configureFlags =
       [ "--with-system-editline" ]
-      ++ (lib.optional superServer "--enable-superserver")
-    ;
+      ++ (lib.optional superServer "--enable-superserver");
 
     installPhase = ''
       runHook preInstall

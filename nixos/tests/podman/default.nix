@@ -15,8 +15,7 @@ import ../make-test-python.nix (
           # hack to ensure that podman built with and without zfs in extraPackages is cached
           boot.supportedFilesystems = [ "zfs" ];
           networking.hostId = "00000000";
-        }
-      ;
+        };
       rootless =
         { pkgs, ... }:
         {
@@ -25,8 +24,7 @@ import ../make-test-python.nix (
           users.users.alice = {
             isNormalUser = true;
           };
-        }
-      ;
+        };
       dns =
         { pkgs, ... }:
         {
@@ -35,8 +33,7 @@ import ../make-test-python.nix (
           virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
 
           networking.firewall.allowedUDPPorts = [ 53 ];
-        }
-      ;
+        };
       docker =
         { pkgs, ... }:
         {
@@ -54,8 +51,7 @@ import ../make-test-python.nix (
           users.users.mallory = {
             isNormalUser = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

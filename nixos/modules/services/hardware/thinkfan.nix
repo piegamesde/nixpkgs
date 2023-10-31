@@ -25,8 +25,7 @@ let
           merge = mergeOneOption;
           check = xs: all id (zipListsWith (t: x: t.check x) ts xs);
           description = "tuple of" + concatMapStrings (t: " (${t.description})") ts;
-        }
-      ;
+        };
       level = ints.unsigned;
       special = enum [
         "level auto"
@@ -38,8 +37,7 @@ let
       (either level special)
       level
       level
-    ]
-  ;
+    ];
 
   # sensor or fan config
   sensorType =
@@ -101,10 +99,8 @@ let
               can be used to equalize small discrepancies in temperature ratings.
             '';
           };
-        }
-      ;
-    }
-  ;
+        };
+    };
 
   # removes NixOS special and unused attributes
   sensorToConf =

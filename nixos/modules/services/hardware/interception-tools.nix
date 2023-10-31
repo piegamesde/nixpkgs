@@ -62,7 +62,8 @@ in
           ${if builtins.typeOf cfg.udevmonConfig == "path" then
             cfg.udevmonConfig
           else
-            pkgs.writeText "udevmon.yaml" cfg.udevmonConfig}
+            pkgs.writeText "udevmon.yaml" cfg.udevmonConfig
+          }
         '';
         Nice = -20;
       };

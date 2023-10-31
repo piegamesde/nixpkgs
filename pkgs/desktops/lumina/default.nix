@@ -22,7 +22,6 @@ let
         lumina-calculator
         lumina-pdf
       ];
-    }
-  ;
+    };
 in
 pkgs.lib.makeScope libsForQt5.newScope packages

@@ -40,8 +40,7 @@ buildPythonPackage rec {
       libSM
       libICE
       libX11
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${qtbase.dev}/include/QtCore"

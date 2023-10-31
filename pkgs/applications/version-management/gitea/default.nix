@@ -95,8 +95,7 @@ buildGoModule rec {
           find -L $out -type f -regextype posix-extended -iregex '.*\.(css|html|js|svg|ttf|txt)' \
             -exec gzip --best --keep --force {} ';' \
             -exec brotli --best --keep --no-copy-stat {} ';'
-        ''
-    ;
+        '';
 
     tests = nixosTests.gitea;
   };

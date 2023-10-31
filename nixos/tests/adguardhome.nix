@@ -8,8 +8,7 @@
         services.adguardhome = {
           enable = true;
         };
-      }
-    ;
+      };
 
     emptyConf =
       { lib, ... }:
@@ -18,8 +17,7 @@
           enable = true;
           settings = { };
         };
-      }
-    ;
+      };
 
     declarativeConf =
       { ... }:
@@ -36,8 +34,7 @@
             };
           };
         };
-      }
-    ;
+      };
 
     mixedConf =
       { ... }:
@@ -54,8 +51,7 @@
             };
           };
         };
-      }
-    ;
+      };
   };
 
   testScript = ''

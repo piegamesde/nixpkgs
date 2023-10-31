@@ -9,8 +9,7 @@ let
       version = if args.stable then stableVersion else previewVersion;
       branch = if args.stable then "stable" else "preview";
     in
-    args // { inherit version branch; }
-  ;
+    args // { inherit version branch; };
   extraArgs = rec {
     mkOverride = attrname: version: sha256: self: super: {
       "${attrname}" = super."${attrname}".overridePythonAttrs (
@@ -23,8 +22,7 @@ let
   };
   mkGui =
     args:
-    libsForQt5.callPackage (import ./gui.nix (addVersion args // extraArgs)) { }
-  ;
+    libsForQt5.callPackage (import ./gui.nix (addVersion args // extraArgs)) { };
   mkServer =
     args: callPackage (import ./server.nix (addVersion args // extraArgs)) { };
   guiSrcHash = "sha256-iVvADwIp01HeZoDayvH1dilYRHRkRBTBR3Fh395JBq0=";

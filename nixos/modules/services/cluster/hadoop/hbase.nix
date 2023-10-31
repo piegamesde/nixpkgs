@@ -106,8 +106,7 @@ let
           "::1" = mkForce [ ];
         };
       };
-    })
-  ;
+    });
 in
 {
   options.services.hadoop = {
@@ -216,8 +215,7 @@ in
           thrift = ports 9090 9095;
           rest = ports 8080 8085;
         }
-      )
-    ;
+      );
   };
 
   config = mkMerge (

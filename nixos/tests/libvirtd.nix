@@ -19,8 +19,7 @@ import ./make-test-python.nix (
           networking.nameservers = [ "192.168.122.1" ];
           security.polkit.enable = true;
           environment.systemPackages = with pkgs; [ virt-manager ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -63,7 +62,6 @@ import ./make-test-python.nix (
           virthost.shutdown()
           virthost.wait_for_unit("multi-user.target")
           virthost.wait_until_succeeds("ping -c 1 nixos")
-      ''
-    ;
+      '';
   }
 )

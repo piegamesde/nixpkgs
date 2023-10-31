@@ -21,8 +21,7 @@ import ./make-test-python.nix (
           '';
         };
         imports = [ ./common/user-account.nix ];
-      }
-    ;
+      };
 
     testScript = ''
       # create a blank disk image for our fake USB stick

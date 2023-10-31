@@ -42,8 +42,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`."
-        ;
+            "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`.";
         internal = true;
       };
 
@@ -52,8 +51,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`."
-        ;
+            "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`.";
       };
     };
   };

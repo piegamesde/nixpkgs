@@ -19,8 +19,7 @@ let
     let
       z = cfg.zeroconf;
     in
-    z.publish.enable || z.discovery.enable
-  ;
+    z.publish.enable || z.discovery.enable;
 
   overriddenPackage = cfg.package.override (
     optionalAttrs hasZeroconf { zeroconfSupport = true; }
@@ -46,8 +45,7 @@ let
         let
           a = cfg.tcp.anonymousClients.allowedIpRanges;
         in
-        optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}"
-      ;
+        optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}";
     in
     writeTextFile {
       name = "default.pa";
@@ -62,8 +60,7 @@ let
         ${addModuleIf config.services.jack.jackd.enable "module-jack-source"}
         ${cfg.extraConfig}
       '';
-    }
-  ;
+    };
 
   ids = config.ids;
 
@@ -215,8 +212,7 @@ in
           default = { };
           description =
             lib.mdDoc
-              "Config of the pulse daemon. See `man pulse-daemon.conf`."
-          ;
+              "Config of the pulse daemon. See `man pulse-daemon.conf`.";
           example = literalExpression ''{ realtime-scheduling = "yes"; }'';
         };
       };
@@ -259,8 +255,7 @@ in
 
       hardware.pulseaudio.configFile =
         mkDefault
-          "${getBin overriddenPackage}/etc/pulse/default.pa"
-      ;
+          "${getBin overriddenPackage}/etc/pulse/default.pa";
     }
 
     (mkIf cfg.enable {
@@ -300,18 +295,15 @@ in
         let
           overriddenModules =
             builtins.map (drv: drv.override { pulseaudio = overriddenPackage; })
-              cfg.extraModules
-          ;
+              cfg.extraModules;
           modulePaths =
             builtins.map (drv: "${drv}/lib/pulseaudio/modules")
               # User-provided extra modules take precedence
               (
                 overriddenModules ++ [ overriddenPackage ]
-              )
-          ;
+              );
         in
-        lib.concatStringsSep ":" modulePaths
-      ;
+        lib.concatStringsSep ":" modulePaths;
     })
 
     (mkIf hasZeroconf { services.avahi.enable = true; })
@@ -335,8 +327,7 @@ in
           }
           // optionalAttrs config.services.jack.jackd.enable {
             environment.JACK_PROMISCUOUS_SERVER = "jackaudio";
-          }
-        ;
+          };
         sockets.pulseaudio = {
           wantedBy = [ "sockets.target" ];
         };

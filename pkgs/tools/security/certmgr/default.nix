@@ -35,8 +35,7 @@ let
           srhb
         ];
       };
-    }
-  ;
+    };
 in
 {
   certmgr = generic { };

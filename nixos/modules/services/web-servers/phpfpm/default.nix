@@ -39,8 +39,7 @@ let
         mapAttrsToList (n: v: "env[${n}] = ${toStr v}") poolOpts.phpEnv
       )}
       ${optionalString (poolOpts.extraConfig != null) poolOpts.extraConfig}
-    ''
-  ;
+    '';
 
   phpIni =
     poolOpts:
@@ -52,8 +51,7 @@ let
       }
       ''
         cat ${poolOpts.phpPackage}/etc/php.ini $phpOptionsPath > $out
-      ''
-  ;
+      '';
 
   poolOpts =
     { name, ... }:
@@ -135,8 +133,7 @@ let
                 int
                 bool
               ]
-            )
-          ;
+            );
           default = { };
           description = lib.mdDoc ''
             PHP-FPM pool directives. Refer to the "List of pool directives" section of
@@ -179,8 +176,7 @@ let
           group = poolOpts.group;
         };
       };
-    }
-  ;
+    };
 in
 {
   imports = [
@@ -213,8 +209,7 @@ in
               int
               bool
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           PHP-FPM global directives. Refer to the "List of global php-fpm.conf directives" section of
@@ -346,11 +341,9 @@ in
                 RuntimeDirectory = "phpfpm";
                 RuntimeDirectoryPreserve = true; # Relevant when multiple processes are running
                 Restart = "always";
-              }
-            ;
+              };
           }
         )
-        cfg.pools
-    ;
+        cfg.pools;
   };
 }

@@ -44,8 +44,7 @@ buildPythonPackage rec {
       [
         # https://github.com/ramonhagenaars/jsons/issues/187
         "test_dump_load_parameterized_collections"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "jsons" ];
 

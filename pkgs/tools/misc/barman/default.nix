@@ -43,8 +43,7 @@ python3Packages.buildPythonApplication rec {
       [
         # FsOperationFailed
         "test_get_file_mode"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     homepage = "https://www.pgbarman.org/";

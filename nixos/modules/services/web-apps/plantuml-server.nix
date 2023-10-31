@@ -87,8 +87,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Set it to on to enable statistics report (https://plantuml.com/statistics-report)."
-        ;
+            "Set it to on to enable statistics report (https://plantuml.com/statistics-report).";
       };
 
       httpAuthorization = mkOption {
@@ -96,8 +95,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header."
-        ;
+            "When calling the proxy endpoint, the value of HTTP_AUTHORIZATION will be used to set the HTTP Authorization header.";
       };
 
       allowPlantumlInclude = mkOption {
@@ -105,8 +103,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory."
-        ;
+            "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
       };
     };
   };

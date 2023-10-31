@@ -31,8 +31,7 @@ let
 
   getPath =
     drv: pathListForVersion:
-    lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion
-  ;
+    lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
 in
 rec {
 
@@ -75,8 +74,7 @@ rec {
   # a fork of luarocks used to generate nix lua derivations from rockspecs
   luarocks-nix =
     callPackage ../development/tools/misc/luarocks/luarocks-nix.nix
-      { }
-  ;
+      { };
 
   lua-resty-core =
     callPackage
@@ -103,8 +101,7 @@ rec {
           };
         }
       )
-      { }
-  ;
+      { };
 
   lua-resty-lrucache =
     callPackage
@@ -129,8 +126,7 @@ rec {
           };
         }
       )
-      { }
-  ;
+      { };
 
   luxio =
     callPackage
@@ -177,8 +173,7 @@ rec {
           };
         }
       )
-      { }
-  ;
+      { };
 
   nfd = callPackage ../development/lua-modules/nfd {
     inherit (pkgs.gnome) zenity;
@@ -222,6 +217,5 @@ rec {
           };
         }
       )
-      { }
-  ;
+      { };
 }

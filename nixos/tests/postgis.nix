@@ -17,10 +17,8 @@ import ./make-test-python.nix (
               enable = true;
               package = mypg;
               extraPlugins = with mypg.pkgs; [ postgis ];
-            }
-          ;
-        }
-      ;
+            };
+        };
     };
 
     testScript = ''

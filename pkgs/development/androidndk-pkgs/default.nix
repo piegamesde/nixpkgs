@@ -16,8 +16,7 @@
           {
             includeNDK = true;
             inherit ndkVersion;
-          }
-      ;
+          };
 
       androidComposition = androidenv.composeAndroidPackages {
         includeNDK = true;
@@ -40,8 +39,7 @@
       buildAndroidndk = buildAndroidComposition.ndk-bundle;
       androidndk = androidComposition.ndk-bundle;
       targetAndroidndkPkgs = targetPackages.androidndkPkgs_21;
-    }
-  ;
+    };
 
   "23b" =
     let
@@ -52,8 +50,7 @@
           {
             includeNDK = true;
             inherit ndkVersion;
-          }
-      ;
+          };
 
       androidComposition = androidenv.composeAndroidPackages {
         includeNDK = true;
@@ -76,8 +73,7 @@
       buildAndroidndk = buildAndroidComposition.ndk-bundle;
       androidndk = androidComposition.ndk-bundle;
       targetAndroidndkPkgs = targetPackages.androidndkPkgs_23b;
-    }
-  ;
+    };
 
   "24" =
     let
@@ -88,8 +84,7 @@
           {
             includeNDK = true;
             inherit ndkVersion;
-          }
-      ;
+          };
 
       androidComposition = androidenv.composeAndroidPackages {
         includeNDK = true;
@@ -112,6 +107,5 @@
       buildAndroidndk = buildAndroidComposition.ndk-bundle;
       androidndk = androidComposition.ndk-bundle;
       targetAndroidndkPkgs = targetPackages.androidndkPkgs_24;
-    }
-  ;
+    };
 }

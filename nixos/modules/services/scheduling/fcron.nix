@@ -66,8 +66,7 @@ in
         default = 1;
         description =
           lib.mdDoc
-            "Maximum number of serial jobs which can run simultaneously."
-        ;
+            "Maximum number of serial jobs which can run simultaneously.";
       };
 
       queuelen = mkOption {
@@ -75,8 +74,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "Number of jobs the serial queue and the lavg queue can contain."
-        ;
+            "Number of jobs the serial queue and the lavg queue can contain.";
       };
 
       systab = mkOption {
@@ -123,8 +121,7 @@ in
                 shell       =       /bin/sh
                 sendmail    =       ${sendmailPath}
                 editor      =       ${pkgs.vim}/bin/vim
-              ''
-            ;
+              '';
             target = "fcron.conf";
             gid = config.ids.gids.fcron;
             mode = "0644";

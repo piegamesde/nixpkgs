@@ -26,8 +26,7 @@ import ./make-test-python.nix (
           (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; })
         ];
         virtualisation.memorySize = 2000; # Agda uses a lot of memory
-      }
-    ;
+      };
 
     testScript = ''
       assert (

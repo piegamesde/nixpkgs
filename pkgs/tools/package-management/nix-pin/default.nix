@@ -53,8 +53,7 @@ let
           in
           {
             inherit (impl) augmentedPkgs pins callPackage;
-          }
-        ;
+          };
         updateScript = ''
           #!${runtimeShell}
           set -e
@@ -70,8 +69,7 @@ let
             --substitute rev 'version-''${{version}}' \
             --modify-nix default.nix
         '';
-      }
-    ;
+      };
     meta = with lib; {
       homepage = "https://github.com/timbertson/nix-pin";
       description = "nixpkgs development utility";

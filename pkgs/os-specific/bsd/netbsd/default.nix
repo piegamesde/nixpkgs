@@ -29,8 +29,7 @@ let
       module = "src/${path}";
       inherit sha256;
       tag = "netbsd-${lib.replaceStrings [ "." ] [ "-" ] version}-RELEASE";
-    }
-  ;
+    };
 
   netbsdSetupHook = makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
@@ -244,8 +243,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
               # know about sys/cdefs.h breaks packages like glib when built
               # statically).
               "ac_cv_header_sys_cdefs_h=no"
-            ]
-        ;
+            ];
 
         nativeBuildInputs =
           with buildPackages.netbsd;
@@ -406,8 +404,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           runHook postInstall
         '';
         setupHook = ./install-setup-hook.sh;
-      }
-    ;
+      };
 
     fts = mkDerivation {
       pname = "fts";
@@ -749,8 +746,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
 
     common =
       fetchNetBSD "common" "9.2"
-        "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9"
-    ;
+        "1pfylz9r3ap5wnwwbwczbfjb1m5qdyspzbnmxmcdkpzz2zgj64b9";
 
     sys-headers = mkDerivation {
       pname = "sys-headers";

@@ -26,8 +26,7 @@ import ./make-test-python.nix (
           enable = true;
           inherit listenAddress listenPort;
         };
-      }
-    ;
+      };
 
     testScript = ''
       import json

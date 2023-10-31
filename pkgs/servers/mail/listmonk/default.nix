@@ -48,8 +48,7 @@ buildGoModule rec {
     ''
       stuffbin -a stuff -in $out/bin/listmonk -out $out/bin/listmonk \
         ${lib.concatStringsSep " " vfsMappings}
-    ''
-  ;
+    '';
 
   passthru = {
     frontend = callPackage ./frontend.nix { inherit meta; };

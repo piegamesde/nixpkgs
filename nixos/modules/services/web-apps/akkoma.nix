@@ -23,8 +23,7 @@ let
       ]
       null
       ex
-    ) == "Swoosh.Adapters.SMTP"
-  ;
+    ) == "Swoosh.Adapters.SMTP";
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
@@ -37,8 +36,7 @@ let
       descriptionClass = "noun";
       check = isAbsolutePath;
       inherit (str) merge;
-    }
-  ;
+    };
 
   secret = mkOptionType {
     name = "secret";
@@ -58,8 +56,7 @@ let
       descriptionClass = "conjunction";
       check = x: str.check x && builtins.match "[.0-9:A-Fa-f]+" x != null;
       inherit (str) merge;
-    }
-  ;
+    };
 
   elixirValue =
     let
@@ -80,8 +77,7 @@ let
         }
       ;
     in
-    elixirValue'
-  ;
+    elixirValue';
 
   frontend = {
     options = {
@@ -126,8 +122,7 @@ let
           v
       ;
     in
-    replaceSec' { }
-  ;
+    replaceSec' { };
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
   erlAddr =
@@ -145,8 +140,7 @@ let
           passAsFile = [ "code" ];
         }
         ''elixir "$codePath" >"$out"''
-    )
-  ;
+    );
 
   format = pkgs.formats.elixirConf { };
   configFile = format.generate "config.exs" (
@@ -180,7 +174,8 @@ let
       text,
       runtimeInputs ? [ ],
     }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}"
+    pkgs.writeShellApplication { inherit name text runtimeInputs; }
+    + "/bin/${name}"
   ;
 
   genScript = writeShell {
@@ -260,8 +255,7 @@ let
                 ]
               }
         ''}
-      ''
-    ;
+      '';
   };
 
   configScript = writeShell {
@@ -427,8 +421,7 @@ let
 
       ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
       ln -r -s ${escapeShellArg script} "$out/bin/pleroma_ctl"
-    ''
-  ;
+    '';
 
   userWrapper = pkgs.writeShellApplication {
     name = "pleroma_ctl";
@@ -613,8 +606,7 @@ in
         ];
         defaultText =
           literalExpression
-            "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]"
-        ;
+            "with pkgs; [ exiftool graphicsmagick-imagemagick-compat ffmpeg_5-headless ]";
         example = literalExpression "with pkgs; [ exiftool imagemagick ffmpeg_5-full ]";
         description = mdDoc ''
           List of extra packages to include in the executable search path of the service unit.
@@ -937,8 +929,7 @@ in
                         ref = val.ref;
                       }
                     )
-                    cfg.frontends
-                ;
+                    cfg.frontends;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -1076,8 +1067,7 @@ in
             submodule (
               import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
             )
-          )
-        ;
+          );
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1223,8 +1213,7 @@ in
           ExecStop = "${envWrapper}/bin/pleroma stop";
           ExecStopPost =
             mkIf (isAbsolutePath web.http.ip)
-              "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'"
-          ;
+              "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
 
           ProtectProc = "noaccess";
           ProcSubset = "pid";
@@ -1258,8 +1247,7 @@ in
                 cfg.dist.epmdPort
                 cfg.dist.portMin
               ])
-              [ "CAP_NET_BIND_SERVICE" ]
-          ;
+              [ "CAP_NET_BIND_SERVICE" ];
 
           NoNewPrivileges = true;
           SystemCallFilter = [
@@ -1284,8 +1272,7 @@ in
           );
           SocketBindDeny = mkIf (!hasSmtp) "any";
         };
-      }
-    ;
+      };
 
     systemd.tmpfiles.rules = [
       "d ${uploadDir}  0700 ${cfg.user} ${cfg.group} - -"

@@ -89,16 +89,14 @@ buildPythonPackage rec {
         rust.cargo
         rust.rustc
       ]
-    )
-  ;
+    );
 
   buildInputs =
     [ openssl ]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ numpy ];
 

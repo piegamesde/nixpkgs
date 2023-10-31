@@ -39,8 +39,7 @@ let
                 "testdb"
               ];
             };
-          }
-        ;
+          };
       };
 
       testScript = ''
@@ -75,7 +74,6 @@ let
             "journalctl -u mysql-backup.service | grep 'fail.*doesnotexist' > /dev/null"
         )
       '';
-    }
-  ;
+    };
 in
 lib.mapAttrs (_: package: makeBackupTest { inherit package; }) mariadbPackages

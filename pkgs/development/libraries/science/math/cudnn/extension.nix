@@ -32,8 +32,7 @@ let
   # computeName :: String -> String
   computeName =
     version:
-    "cudnn_${strings.replaceStrings [ "." ] [ "_" ] (majorMinorPatch version)}"
-  ;
+    "cudnn_${strings.replaceStrings [ "." ] [ "_" ] (majorMinorPatch version)}";
 
   # Check whether a CUDNN release supports our CUDA version
   # Thankfully we're able to do lexicographic comparison on the version strings
@@ -78,8 +77,7 @@ let
         # latestReleaseName :: String
         latestReleaseName = computeName (builtins.head supportedReleases).version;
       in
-      allBuilds.${latestReleaseName}
-    ;
+      allBuilds.${latestReleaseName};
   };
 
   # builds :: AttrSet String Derivation

@@ -14,8 +14,7 @@ let
   children =
     lib.mapAttrs
       (childName: childConfig: childConfig.configuration.system.build.toplevel)
-      config.specialisation
-  ;
+      config.specialisation;
   schemas = {
     v1 = rec {
       filename = "boot.json";
@@ -35,8 +34,7 @@ let
                 // lib.optionalAttrs config.boot.initrd.enable {
                   initrd = "${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}";
                   initrdSecrets = "${config.system.build.initialRamdiskSecretAppender}/bin/append-initrd-secrets";
-                }
-              ;
+                };
             }
           )
       );
@@ -93,8 +91,7 @@ let
             + " ${lib.concatStringsSep " " specialisationLoader}"
           ;
         in
-        "${toplevelInjector} | ${specialisationInjector} > $out/${filename}"
-      ;
+        "${toplevelInjector} | ${specialisationInjector} > $out/${filename}";
 
       validator = pkgs.writeCueValidator ./bootspec.cue {
         document = "Document"; # Universal validator for any version as long the schema is correctly set.
@@ -112,8 +109,7 @@ in
       // {
         default = true;
         internal = true;
-      }
-    ;
+      };
     enableValidation = lib.mkEnableOption (
       lib.mdDoc ''
         the validation of bootspec documents for each build.

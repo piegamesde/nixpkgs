@@ -41,8 +41,7 @@ let
           mingwGccsSuffixSalts = map (gcc: gcc.suffixSalt) mingwGccs;
         };
       }
-      ./setup-hook-darwin.sh
-  ;
+      ./setup-hook-darwin.sh;
 in
 stdenv.mkDerivation (
   (lib.optionalAttrs (buildScript != null) { builder = buildScript; })
@@ -80,8 +79,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals supportFlags.mingwSupport (
         mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin
-      )
-    ;
+      );
 
     buildInputs = toBuildInputs pkgArches (
       with supportFlags;

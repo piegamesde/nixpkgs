@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ variants.scons ]
-    ++ lib.optionals (versionAtLeast version "4.4") [ xz ]
-  ;
+    ++ lib.optionals (versionAtLeast version "4.4") [ xz ];
 
   buildInputs =
     [
@@ -118,8 +117,7 @@ stdenv.mkDerivation rec {
       Security
       CoreFoundation
       cctools
-    ]
-  ;
+    ];
 
   # MongoDB keeps track of its build parameters, which tricks nix into
   # keeping dependencies to build inputs in the final output.
@@ -164,8 +162,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-unused-command-line-argument"
-  ;
+      "-Wno-unused-command-line-argument";
 
   sconsFlags =
     [

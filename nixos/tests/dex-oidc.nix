@@ -53,8 +53,7 @@ import ./make-test-python.nix (
             };
           } ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("Web server gets ready"):

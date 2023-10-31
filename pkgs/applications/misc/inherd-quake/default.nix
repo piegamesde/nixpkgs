@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A knowledge management meta-framework for geeks";

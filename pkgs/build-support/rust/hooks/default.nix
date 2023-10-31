@@ -55,8 +55,7 @@ in
           }
           ./cargo-build-hook.sh
       )
-      { }
-  ;
+      { };
 
   cargoCheckHook =
     callPackage
@@ -72,8 +71,7 @@ in
           }
           ./cargo-check-hook.sh
       )
-      { }
-  ;
+      { };
 
   cargoInstallHook =
     callPackage
@@ -89,8 +87,7 @@ in
           }
           ./cargo-install-hook.sh
       )
-      { }
-  ;
+      { };
 
   cargoNextestHook =
     callPackage
@@ -109,8 +106,7 @@ in
           }
           ./cargo-nextest-hook.sh
       )
-      { }
-  ;
+      { };
 
   cargoSetupHook =
     callPackage
@@ -143,8 +139,7 @@ in
           }
           ./cargo-setup-hook.sh
       )
-      { }
-  ;
+      { };
 
   maturinBuildHook =
     callPackage
@@ -172,8 +167,7 @@ in
           }
           ./maturin-build-hook.sh
       )
-      { }
-  ;
+      { };
 
   bindgenHook =
     callPackage
@@ -189,6 +183,5 @@ in
           }
           ./rust-bindgen-hook.sh
       )
-      { }
-  ;
+      { };
 }

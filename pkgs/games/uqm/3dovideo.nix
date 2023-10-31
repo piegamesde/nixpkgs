@@ -53,8 +53,7 @@ let
 
       description = "Extract video files from a Star Control II 3DO image";
       license = lib.licenses.bsd3;
-    }
-  ;
+    };
 in
 stdenv.mkDerivation {
   name = "uqm-3dovideo";

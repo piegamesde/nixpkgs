@@ -22,8 +22,7 @@ buildFHSEnv {
         zlib
         (python3.withPackages (p: with p; [ pyserial ]))
       ]
-    )
-  ;
+    );
   multiPkgs = null;
 
   extraInstallCommands = ''

@@ -168,8 +168,7 @@ stdenv.mkDerivation rec {
         sha256 = "1jlcda4q20w30cm9ikm6bjq01p547nigik1dz7m4v0aps4rws13b";
       };
     }
-    .${stdenv.system} or null
-  ;
+    .${stdenv.system} or null;
 
   meta = with lib; {
     homepage = "https://anbox.io";

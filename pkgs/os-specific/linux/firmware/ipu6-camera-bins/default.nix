@@ -76,6 +76,5 @@ stdenv.mkDerivation {
       sourceProvenance = with sourceTypes; [ binaryFirmware ];
       maintainers = with maintainers; [ hexa ];
       platforms = [ "x86_64-linux" ];
-    }
-  ;
+    };
 }

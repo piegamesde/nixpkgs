@@ -60,8 +60,7 @@ let
               # Fixes https://github.com/NixOS/nixpkgs/issues/166304
               # https://github.com/docbook/xslt10-stylesheets/pull/241
               ./fix-man-options-duplication.patch
-            ]
-        ;
+            ];
 
         propagatedBuildInputs = [ findXMLCatalogs ];
 
@@ -95,8 +94,7 @@ let
         };
       };
     in
-    self
-  ;
+    self;
 in
 {
 

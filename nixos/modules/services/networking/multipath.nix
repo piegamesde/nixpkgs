@@ -18,8 +18,7 @@ let
       map (line: "${fixedWidthString n " " " "}${line}") (
         filter (x: x != "") (splitString "\n" str)
       )
-    )
-  ;
+    );
 
   addCheckDesc =
     desc: elemType: check:
@@ -91,8 +90,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "Products with the given vendor matching this string are blacklisted"
-              ;
+                  "Products with the given vendor matching this string are blacklisted";
             };
 
             alias_prefix = mkOption {
@@ -100,8 +98,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "The user_friendly_names prefix to use for this device type, instead of the default mpath"
-              ;
+                  "The user_friendly_names prefix to use for this device type, instead of the default mpath";
             };
 
             vpd_vendor = mkOption {
@@ -109,8 +106,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "The vendor specific vpd page information, using the vpd page abbreviation"
-              ;
+                  "The vendor specific vpd page information, using the vpd page abbreviation";
             };
 
             hardware_handler = mkOption {
@@ -141,8 +137,7 @@ in
               default = null; # real default: "failover"
               description =
                 lib.mdDoc
-                  "The default path grouping policy to apply to unspecified multipaths"
-              ;
+                  "The default path grouping policy to apply to unspecified multipaths";
             };
 
             uid_attribute = mkOption {
@@ -150,8 +145,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "The udev attribute providing a unique path identifier (WWID)"
-              ;
+                  "The udev attribute providing a unique path identifier (WWID)";
             };
 
             getuid_callout = mkOption {
@@ -175,8 +169,7 @@ in
               default = null; # real default: "service-time 0"
               description =
                 lib.mdDoc
-                  "The default path selector algorithm to use; they are offered by the kernel multipath target"
-              ;
+                  "The default path selector algorithm to use; they are offered by the kernel multipath target";
             };
 
             path_checker = mkOption {
@@ -235,8 +228,7 @@ in
               default = null; # real default: "manual"
               description =
                 lib.mdDoc
-                  "Tell multipathd how to manage path group failback. Quote integers as strings"
-              ;
+                  "Tell multipathd how to manage path group failback. Quote integers as strings";
             };
 
             rr_weight = mkOption {
@@ -258,8 +250,7 @@ in
               default = null; # real default: "fail"
               description =
                 lib.mdDoc
-                  "Specify what to do when all paths are down. Quote integers as strings"
-              ;
+                  "Specify what to do when all paths are down. Quote integers as strings";
             };
 
             rr_min_io = mkOption {
@@ -431,8 +422,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error"
-              ;
+                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             marginal_path_err_rate_threshold = mkOption {
@@ -446,8 +436,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error"
-              ;
+                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             marginal_path_double_failed_time = mkOption {
@@ -455,8 +444,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error"
-              ;
+                  "One of the four parameters of supporting path check based on accounting IO error such as intermittent error";
             };
 
             delay_watch_checks = mkOption {
@@ -464,8 +452,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "This option is deprecated, and mapped to san_path_err_forget_rate"
-              ;
+                  "This option is deprecated, and mapped to san_path_err_forget_rate";
             };
 
             delay_wait_checks = mkOption {
@@ -473,8 +460,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "This option is deprecated, and mapped to san_path_err_recovery_time"
-              ;
+                  "This option is deprecated, and mapped to san_path_err_recovery_time";
             };
 
             skip_kpartx = mkOption {
@@ -487,8 +473,7 @@ in
               default = null; # real default: "no"
               description =
                 lib.mdDoc
-                  "If set to yes, kpartx will not automatically create partitions on the device"
-              ;
+                  "If set to yes, kpartx will not automatically create partitions on the device";
             };
 
             max_sectors_kb = mkOption {
@@ -496,8 +481,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value"
-              ;
+                  "Sets the max_sectors_kb device parameter on all path devices and the multipath device to the specified value";
             };
 
             ghost_delay = mkOption {
@@ -505,8 +489,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd"
-              ;
+                  "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd";
             };
 
             all_tg_pt = mkOption {
@@ -514,8 +497,7 @@ in
               default = null;
               description =
                 lib.mdDoc
-                  "Set the 'all targets ports' flag when registering keys with mpathpersist"
-              ;
+                  "Set the 'all targets ports' flag when registering keys with mpathpersist";
             };
           };
         }
@@ -571,8 +553,7 @@ in
       default = null;
       description =
         lib.mdDoc
-          "Append an additional file's contents to /etc/multipath.conf"
-      ;
+          "Append an additional file's contents to /etc/multipath.conf";
     };
 
     pathGroups = mkOption {
@@ -649,15 +630,13 @@ in
             nonNullCfg = lib.filterAttrs (k: v: v != null) cfg;
             attrs =
               lib.mapAttrsToList (name: value: "  ${name} ${toString value}")
-                nonNullCfg
-            ;
+                nonNullCfg;
           in
           ''
             device {
             ${lib.concatStringsSep "\n" attrs}
             }
-          ''
-        ;
+          '';
         devices = lib.concatMapStringsSep "\n" mkDeviceBlock cfg.devices;
 
         mkMultipathBlock = m: ''
@@ -696,8 +675,7 @@ in
         multipaths {
         ${indentLines 2 multipaths}
         }
-      ''
-    ;
+      '';
 
     systemd.packages = [ cfg.package ];
 

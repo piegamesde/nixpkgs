@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
       rm -rf dependencies/imgui
       ln -s ${imgui}/include/imgui dependencies/imgui
       sed 's/\(EMULATOR_VERSION_SUFFIX\).*experimental.*/\1 "-${tag} (experimental)"/' -i src/Common/version.h
-    ''
-  ;
+    '';
 
   installPhase = ''
     runHook preInstall
@@ -126,8 +125,7 @@ stdenv.mkDerivation rec {
       gappsWrapperArgs+=(
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libs}"
       )
-    ''
-  ;
+    '';
 
   passthru.updateScript = nix-update-script { };
 

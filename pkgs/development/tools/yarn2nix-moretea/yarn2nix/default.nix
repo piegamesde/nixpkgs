@@ -17,8 +17,7 @@ let
 
   compose =
     f: g: x:
-    f (g x)
-  ;
+    f (g x);
   id = x: x;
   composeAll = builtins.foldl' compose id;
 
@@ -52,8 +51,7 @@ rec {
       # if there is no organisation we need to filter out null values.
       non-null = builtins.filter (x: x != null) parts;
     in
-    builtins.concatStringsSep "-" non-null
-  ;
+    builtins.concatStringsSep "-" non-null;
 
   inherit getLicenseFromSpdxId;
 
@@ -66,8 +64,7 @@ rec {
     pkgs.runCommand "yarn.nix" { }
       "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${
         lib.escapeShellArgs flags
-      } > $out"
-  ;
+      } > $out";
 
   # Loads the generated offline cache. This will be used by yarn as
   # the package source.
@@ -76,8 +73,7 @@ rec {
     let
       pkg = callPackage yarnNix { };
     in
-    pkg.offline_cache
-  ;
+    pkg.offline_cache;
 
   defaultYarnFlags = [
     "--offline"
@@ -107,8 +103,7 @@ rec {
     let
       extraNativeBuildInputs =
         lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
-          (builtins.attrNames pkgConfig)
-      ;
+          (builtins.attrNames pkgConfig);
       extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
         builtins.attrNames pkgConfig
       );
@@ -145,8 +140,7 @@ rec {
           }
           ''
             jq --slurpfile packageJSON "$packageJSON" '.resolutions = $packageJSON[0].resolutions + .resolutions' <"$baseJSONPath" >$out
-          ''
-      ;
+          '';
 
       workspaceDependencyLinks =
         lib.concatMapStringsSep "\n"
@@ -154,8 +148,7 @@ rec {
             mkdir -p "deps/${dep.pname}"
             ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
           '')
-          workspaceDependencies
-      ;
+          workspaceDependencies;
     in
     stdenv.mkDerivation {
       inherit preBuild postBuild name;
@@ -212,8 +205,7 @@ rec {
 
         runHook postBuild
       '';
-    }
-  ;
+    };
 
   # This can be used as a shellHook in mkYarnPackage. It brings the built node_modules into
   # the shell-hook environment.
@@ -265,8 +257,7 @@ rec {
           );
           matchingChildren =
             lib.filter (child: builtins.match elemRegex child != null)
-              children
-          ;
+              children;
         in
         if globElems == [ ] then
           [ base ]
@@ -310,8 +301,7 @@ rec {
                       lib.findFirst (package: package.pname == pname) null packageList
                     ))
                   ]
-                  allDependencies
-              ;
+                  allDependencies;
 
               workspaceDependencies = getWorkspaceDependencies packages allDependencies;
 
@@ -339,8 +329,7 @@ rec {
           packagePaths
       );
     in
-    packages
-  ;
+    packages;
 
   mkYarnPackage =
     {
@@ -425,8 +414,7 @@ rec {
               ln -s "${deps}/deps/${dep.pname}/node_modules" "deps/${dep.pname}/node_modules"
             fi
           '')
-          workspaceDependenciesTransitive
-      ;
+          workspaceDependenciesTransitive;
     in
     stdenv.mkDerivation (
       builtins.removeAttrs attrs [
@@ -533,8 +521,7 @@ rec {
           // (attrs.meta or { })
         ;
       }
-    )
-  ;
+    );
 
   yarn2nix = mkYarnPackage {
     src =
@@ -562,8 +549,7 @@ rec {
             subpath = elemAt (splitString "${toString root}/" path) 1;
             spdir = elemAt (splitString "/" subpath) 0;
           in
-          elem spdir dirsToInclude || (type == "regular" && elem subpath filesToInclude)
-        ;
+          elem spdir dirsToInclude || (type == "regular" && elem subpath filesToInclude);
       in
       builtins.filterSource
         (mkFilter {
@@ -577,8 +563,7 @@ rec {
           ];
           root = src;
         })
-        src
-    ;
+        src;
 
     # yarn2nix is the only package that requires the yarnNix option.
     # All the other projects can auto-generate that file.
@@ -624,8 +609,7 @@ rec {
         cp ${./internal/fixup_yarn_lock.js} $out/bin/fixup_yarn_lock
 
         patchShebangs $out
-      ''
-  ;
+      '';
 }
 // lib.optionalAttrs allowAliases {
   # Aliases

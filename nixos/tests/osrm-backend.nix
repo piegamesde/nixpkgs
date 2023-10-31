@@ -42,13 +42,11 @@ import ./make-test-python.nix (
                 '';
               };
             in
-            "${osrm-data}/${filename}.osrm"
-          ;
+            "${osrm-data}/${filename}.osrm";
         };
 
         environment.systemPackages = [ pkgs.jq ];
-      }
-    ;
+      };
 
     testScript =
       let
@@ -65,7 +63,6 @@ import ./make-test-python.nix (
         assert "Avenue de la Costa" in machine.succeed(
             "curl --fail --silent '${query}' | jq .waypoints[1].name"
         )
-      ''
-    ;
+      '';
   }
 )

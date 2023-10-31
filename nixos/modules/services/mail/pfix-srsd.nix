@@ -19,8 +19,7 @@ with lib;
         type = types.bool;
         description =
           lib.mdDoc
-            "Whether to run the postfix sender rewriting scheme daemon."
-        ;
+            "Whether to run the postfix sender rewriting scheme daemon.";
       };
 
       domain = mkOption {

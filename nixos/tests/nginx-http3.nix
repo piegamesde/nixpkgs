@@ -55,8 +55,7 @@ import ./make-test-python.nix (
               );
             };
           };
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -75,8 +74,7 @@ import ./make-test-python.nix (
           security.pki.certificates = [
             (builtins.readFile ./common/acme/server/ca.cert.pem)
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

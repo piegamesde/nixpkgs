@@ -13,8 +13,7 @@ let
   # FIXME: add support for overrideScope
   callPackageWithScope =
     scope: drv: args:
-    lib.callPackageWith scope drv args
-  ;
+    lib.callPackageWith scope drv args;
   mkScope = scope: pkgs // scope;
 
   packages =
@@ -95,7 +94,6 @@ let
       # without helper functions buildRebar3 and buildMix.
       hex = callPackage ./hex { };
       webdriver = callPackage ./webdriver { };
-    }
-  ;
+    };
 in
 makeExtensible packages

@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       "-D_CL_HAVE_PTHREAD_MUTEX_RECURSIVE=0"
       "-DLUCENE_STATIC_CONSTANT_SYNTAX_EXITCODE=0"
       "-DLUCENE_STATIC_CONSTANT_SYNTAX_EXITCODE__TRYRUN_OUTPUT="
-    ]
-  ;
+    ];
 
   patches = [
     # From debian
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang
-      "-Wno-error=c++11-narrowing"
-  ;
+      "-Wno-error=c++11-narrowing";
 
   meta = with lib; {
     description = "Core library for full-featured text search engine";

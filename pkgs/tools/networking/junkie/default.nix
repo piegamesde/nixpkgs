@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       ''
         sed -i '10i#undef IP_DONTFRAG' include/junkie/proto/ip.h
-      ''
-  ;
+      '';
 
   buildInputs = [
     libpcap

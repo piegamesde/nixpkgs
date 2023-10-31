@@ -36,8 +36,7 @@ import ./make-test-python.nix (
             ${pkgs.iproute2}/bin/ip addr del "$2"/24 dev "$1"
           '';
         };
-      }
-    ;
+      };
   in
   {
     name = "ucarp";

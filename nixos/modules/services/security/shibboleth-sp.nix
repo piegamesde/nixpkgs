@@ -22,8 +22,7 @@ in
         type = types.path;
         example =
           literalExpression
-            ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"''
-        ;
+            ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
         description = lib.mdDoc "Path to shibboleth config file";
       };
 
@@ -32,8 +31,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to include the shibauthorizer and shibresponder FastCGI processes"
-        ;
+            "Whether to include the shibauthorizer and shibresponder FastCGI processes";
       };
 
       fastcgi.shibAuthorizerPort = mkOption {

@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       {
         name = "${pname}-${version}";
         sha256 = "sha256-OYQi4rQjc+FOTg+W2j2Vy1dEJHuj9z6pmBX7aTwnFKs=";
-      }
-  ;
+      };
 
   FONTCONFIG_FILE = fontsConf;
   LD_LIBRARY_PATH = libPath;
@@ -102,8 +101,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreFoundation
-    ]
-  ;
+    ];
 
   patches = [
     # Hardcode variant detection because we wrap the Racket binary making it

@@ -24,8 +24,7 @@
     ;
   in
   # Choose the maximum available optimization level
-  builtins.head optLevels
-  ,
+  builtins.head optLevels,
   faiss, # To run demos in the tests
   runCommand,
 }@inputs:
@@ -114,8 +113,7 @@ stdenv.mkDerivation {
         builtins.concatStringsSep ";" (map dropDot cudaCapabilities)
       }"
       "-DCUDAToolkit_INCLUDE_DIR=${cudaJoined}/include"
-    ]
-  ;
+    ];
 
   # pip wheel->pip install commands copied over from opencv4
 
@@ -163,13 +161,11 @@ stdenv.mkDerivation {
             # There are more demos, we run just the one that documentation mentions
             ''
               demo_ivfpq_indexing && touch $out
-            ''
-        ;
+            '';
       }
       // lib.optionalAttrs pythonSupport {
         pytest = pythonPackages.callPackage ./tests.nix { };
-      }
-    ;
+      };
   };
 
   meta = with lib; {

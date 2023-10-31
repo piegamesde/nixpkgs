@@ -52,8 +52,7 @@ buildPythonPackage rec {
         markdown_py -x plantuml_markdown ${exampleDoc} > $out
 
         ! grep -q "Error" $out
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "PlantUML plugin for Python-Markdown";

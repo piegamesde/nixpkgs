@@ -29,8 +29,7 @@ let
 
   envInteractiveShellInit =
     pkgs.writeText "interactiveShellInit"
-      cfge.interactiveShellInit
-  ;
+      cfge.interactiveShellInit;
 
   sourceEnv =
     file:
@@ -47,8 +46,7 @@ let
   babelfishTranslate =
     path: name:
     pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; }
-      "${pkgs.babelfish}/bin/babelfish < ${path} > $out;"
-  ;
+      "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
 in
 
 {
@@ -164,17 +162,14 @@ in
       (mkIf cfg.useBabelfish {
         etc."fish/setEnvironment.fish".source =
           babelfishTranslate config.system.build.setEnvironment
-            "setEnvironment"
-        ;
+            "setEnvironment";
         etc."fish/shellInit.fish".source = babelfishTranslate envShellInit "shellInit";
         etc."fish/loginShellInit.fish".source =
           babelfishTranslate envLoginShellInit
-            "loginShellInit"
-        ;
+            "loginShellInit";
         etc."fish/interactiveShellInit.fish".source =
           babelfishTranslate envInteractiveShellInit
-            "interactiveShellInit"
-        ;
+            "interactiveShellInit";
       })
 
       (mkIf (!cfg.useBabelfish) {
@@ -293,15 +288,13 @@ in
                   if [ -d $package/share/man ]; then
                     find $package/share/man -type f | xargs ${pkgs.python3.interpreter} ${patchedGenerator}/create_manpage_completions.py --directory $out >/dev/null
                   fi
-                ''
-            ;
+                '';
           in
           pkgs.buildEnv {
             name = "system_fish-completions";
             ignoreCollisions = true;
             paths = map generateCompletions config.environment.systemPackages;
-          }
-        ;
+          };
       }
 
       # include programs that bring their own completions

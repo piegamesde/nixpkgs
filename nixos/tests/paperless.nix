@@ -18,8 +18,7 @@ import ./make-test-python.nix (
           enable = true;
           passwordFile = builtins.toFile "password" "admin";
         };
-      }
-    ;
+      };
 
     testScript = ''
       import json

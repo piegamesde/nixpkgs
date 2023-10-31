@@ -46,8 +46,7 @@ let
         json = builtins.toJSON cfg.settings;
         passAsFile = [ "json" ];
       }
-      "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out"
-  ;
+      "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out";
 
   defaultFiles = {
     public = "${dataDir}/bit.key";
@@ -264,8 +263,7 @@ in
           privatekey = "../.." + cfg.dnssec.keys.private;
           zonepublickey = "../.." + cfg.dnssec.keys.zonePublic;
           zoneprivatekey = "../.." + cfg.dnssec.keys.zonePrivate;
-        }
-      ;
+        };
 
       # Daemon
       service.daemon = true;

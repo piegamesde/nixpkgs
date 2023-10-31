@@ -71,8 +71,7 @@ python3.pkgs.buildPythonApplication rec {
         gst-libav
         gst-devtools
       ]
-    )
-  ;
+    );
 
   pythonPath = with python3.pkgs; [
     pygobject3

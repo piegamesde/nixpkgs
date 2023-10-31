@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
         libpthreadstubs
         libxcb
       ]
-    )
-  ;
+    );
 
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
       placeholder "out"

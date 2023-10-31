@@ -142,8 +142,7 @@ let
             fi
           '')
           cfg.displayManager.sessionPackages}
-      ''
-  ;
+      '';
 
   dmDefault = cfg.desktopManager.default;
   # fallback default for cases when only default wm is set
@@ -167,8 +166,7 @@ in
         defaultText = literalExpression ''"''${pkgs.xorg.xauth}/bin/xauth"'';
         description =
           lib.mdDoc
-            "Path to the {command}`xauth` program used by display managers."
-        ;
+            "Path to the {command}`xauth` program used by display managers.";
       };
 
       xserverBin = mkOption {
@@ -242,11 +240,9 @@ in
                     The session names can be looked up in:
                       ${p}/share/xsessions
                       ${p}/share/wayland-sessions
-                  ''
-              ;
+                  '';
             }
-          )
-        ;
+          );
         default = [ ];
         description = lib.mdDoc ''
           A list of packages containing x11 or wayland session files to be passed to the display manager.
@@ -291,8 +287,7 @@ in
           desktops = installedSessions;
           sessionNames =
             concatMap (p: p.providedSessions)
-              cfg.displayManager.sessionPackages
-          ;
+              cfg.displayManager.sessionPackages;
           # We do not want to force users to set defaultSession when they have only single DE.
           autologinSession =
             if cfg.displayManager.defaultSession != null then
@@ -321,8 +316,7 @@ in
                   Default graphical session, '${d}', not found.
                   Valid names for 'services.xserver.displayManager.defaultSession' are:
                     ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
-                ''
-            ;
+                '';
           }
         ;
         default =
@@ -358,8 +352,7 @@ in
           example = "rm -f /var/log/my-display-manager.log";
           description =
             lib.mdDoc
-              "Script executed before the display manager is started."
-          ;
+              "Script executed before the display manager is started.";
         };
 
         execCmd = mkOption {
@@ -373,8 +366,7 @@ in
           default = { };
           description =
             lib.mdDoc
-              "Additional environment variables needed by the display manager."
-          ;
+              "Additional environment variables needed by the display manager.";
         };
 
         logToFile = mkOption {
@@ -434,7 +426,8 @@ in
     assertions = [
       {
         assertion =
-          cfg.displayManager.autoLogin.enable -> cfg.displayManager.autoLogin.user != null
+          cfg.displayManager.autoLogin.enable
+          -> cfg.displayManager.autoLogin.user != null
         ;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
@@ -523,8 +516,7 @@ in
             /run/current-system/systemd/bin/systemctl --user stop graphical-session.target
 
             exit 0
-          ''
-        ;
+          '';
       in
       # We will generate every possible pair of WM and DM.
       concatLists (
@@ -565,8 +557,7 @@ in
               wm = wms;
             }
           )
-      )
-    ;
+      );
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS
     # as some programs have behavior that depends on them being present

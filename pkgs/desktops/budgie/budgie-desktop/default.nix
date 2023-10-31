@@ -93,8 +93,7 @@ stdenv.mkDerivation rec {
         gstreamer
         gst-plugins-base
       ]
-    )
-  ;
+    );
 
   passthru.providedSessions = [ "budgie-desktop" ];
 

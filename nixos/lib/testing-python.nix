@@ -33,8 +33,7 @@ pkgs.lib.throwIf (args ? specialArgs)
           extraTestModule
           module
         ];
-      }
-    ;
+      };
     runTest =
       module:
       nixos-lib.runTest {
@@ -42,8 +41,7 @@ pkgs.lib.throwIf (args ? specialArgs)
           extraTestModule
           module
         ];
-      }
-    ;
+      };
 
     extraTestModule = {
       config = {

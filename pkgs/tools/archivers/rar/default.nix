@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   installPhase = ''
     runHook preInstall

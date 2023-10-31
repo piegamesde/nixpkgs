@@ -138,8 +138,7 @@ let
       ];
       ptx = lists.map (x: "${x}+PTX") real;
     in
-    real ++ ptx
-  ;
+    real ++ ptx;
 
   # NOTE: The lists.subtractLists function is perhaps a bit unintuitive. It subtracts the elements
   #   of the first list *from* the second list. That means:
@@ -148,12 +147,10 @@ let
   # For CUDA
   supportedCudaCapabilities =
     lists.intersectLists cudaFlags.cudaCapabilities
-      supportedTorchCudaCapabilities
-  ;
+      supportedTorchCudaCapabilities;
   unsupportedCudaCapabilities =
     lists.subtractLists supportedCudaCapabilities
-      cudaFlags.cudaCapabilities
-  ;
+      cudaFlags.cudaCapabilities;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
@@ -163,8 +160,7 @@ let
         "No supported GPU targets specified. Requested GPU targets: "
         + strings.concatStringsSep ", " unsupported
       )
-      supported
-  ;
+      supported;
 
   # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (
@@ -200,8 +196,7 @@ let
   } ];
   cudaStubEnv =
     lib.optionalString cudaSupport
-      "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH "
-  ;
+      "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";
 
   rocmtoolkit_joined = symlinkJoin {
     name = "rocm-merged";
@@ -267,8 +262,7 @@ buildPythonPackage rec {
         # base is 10.12. Until we upgrade, we can fall back on the older
         # pthread support.
         ./pthreadpool-disable-gcd.diff
-      ]
-  ;
+      ];
 
   postPatch =
     lib.optionalString rocmSupport ''
@@ -499,8 +493,7 @@ buildPythonPackage rec {
         (optionalString (majorMinor version == "1.3") "tensorboard")
       ])
       "runHook postCheck"
-    ]
-  ;
+    ];
 
   pythonRemoveDeps =
     [
@@ -567,8 +560,7 @@ buildPythonPackage rec {
       #   it in the passthru set above because a downstream package might try to access it even
       #   when cudaSupport is false. Better to have it missing than null or an empty list by default.
       cudaCapabilities = supportedCudaCapabilities;
-    }
-  ;
+    };
 
   meta = with lib; {
     changelog = "https://github.com/pytorch/pytorch/releases/tag/v${version}";

@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
         # We cannot include UserNotifications because of a build failure in the Apple SDK.
         # The functions used from it are already implicitly included anyways.
         ./darwin-no-UserNotifications-includes.patch
-      ]
-  ;
+      ];
 
   postPatch =
     ''
@@ -117,8 +116,7 @@ stdenv.mkDerivation rec {
   # Silences many warnings
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
-      "-Wno-inconsistent-missing-override"
-  ;
+      "-Wno-inconsistent-missing-override";
 
   cmakeFlags =
     lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"

@@ -41,8 +41,7 @@ let
           inherit (spec) owner rev hash;
         }
       )
-      (lib.importJSON ./deps.json)
-  ;
+      (lib.importJSON ./deps.json);
 in
 stdenv.mkDerivation rec {
   pname = "cudatext";

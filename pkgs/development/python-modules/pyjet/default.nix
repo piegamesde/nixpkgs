@@ -24,8 +24,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ cython ];
   propagatedBuildInputs =
     [ numpy ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-  ;
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [ pytest ];
   checkPhase = ''

@@ -32,8 +32,7 @@ let
               };
             };
           };
-        }
-      ;
+        };
 
       testScript = ''
         start_all()

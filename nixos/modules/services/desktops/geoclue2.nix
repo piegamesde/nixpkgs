@@ -75,8 +75,7 @@ let
         system = isSystem;
         users = concatStringsSep ";" users;
       };
-    }
-  ;
+    };
 in
 {
 

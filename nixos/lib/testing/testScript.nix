@@ -58,8 +58,7 @@ in
                   # reuse memoized config
                   v
               )
-              config.nodesCompat
-          ;
+              config.nodesCompat;
         }
       else
         config.testScript
@@ -92,9 +91,7 @@ in
               && builtins.hasContext testModuleArgs.config.testScriptString
               && testModuleArgs.config.includeTestScriptReferences
             )
-            (hostPkgs.writeStringReferencesToFile testModuleArgs.config.testScriptString)
-        ;
-      }
-    ;
+            (hostPkgs.writeStringReferencesToFile testModuleArgs.config.testScriptString);
+      };
   };
 }

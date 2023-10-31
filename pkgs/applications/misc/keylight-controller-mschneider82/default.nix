@@ -40,8 +40,7 @@ buildGoModule rec {
         libXxf86vm
         xinput
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A desktop application to control Elgato Keylights";

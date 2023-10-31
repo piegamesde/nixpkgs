@@ -48,8 +48,7 @@ let
       [reflector]
       enable-reflector=${yesNo reflector}
       ${extraConfig}
-    ''
-  ;
+    '';
 in
 {
   imports = [
@@ -173,8 +172,7 @@ in
       default = false;
       description =
         lib.mdDoc
-          "Reflect incoming mDNS requests to all allowed network interfaces."
-      ;
+          "Reflect incoming mDNS requests to all allowed network interfaces.";
     };
 
     extraServiceFiles = mkOption {
@@ -214,8 +212,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to publish user services. Will set `addresses=true`."
-        ;
+            "Whether to publish user services. Will set `addresses=true`.";
       };
 
       addresses = mkOption {
@@ -223,8 +220,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to register mDNS address records for all local IP addresses."
-        ;
+            "Whether to register mDNS address records for all local IP addresses.";
       };
 
       hinfo = mkOption {
@@ -249,8 +245,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to announce the locally used domain name for browsing by other hosts."
-        ;
+            "Whether to announce the locally used domain name for browsing by other hosts.";
       };
     };
 

@@ -29,8 +29,7 @@ buildGoModule rec {
       "-X ${PKG}/pkg.Version=${version}"
       "-X ${PKG}/pkg.BuildDate=1970-01-01T01:01:01Z"
       "-X ${PKG}/pkg.CommitID=${version}"
-    ]
-  ;
+    ];
 
   subPackages = [ "cmd/aws-iam-authenticator" ];
 

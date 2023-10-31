@@ -13,8 +13,7 @@
     (
       x ? passthru && x.passthru ? sourceWithTags
       || x ? meta && x.meta ? sourceWithTags
-    )
-  ;
+    );
   # hack because passthru doesn't work the way I'd expect. Don't have time to spend on this right now
   # that's why I'm abusing meta for the same purpose in ghcsAndLibs
   sourceWithTagsFromDerivation =
@@ -67,10 +66,8 @@
 
           mkdir -p $out/nix-support
           echo "TAG_FILES=\"\$TAG_FILES\''${TAG_FILES:+:}$TAG_FILES\"" >> $out/nix-support/setup-hook
-        ''
-      ;
-    }
-  ;
+        '';
+    };
   # example usage
   #testSourceWithTags = sourceWithTagsDerivation (ghc68extraLibs ghcsAndLibs.ghc68).happs_server_darcs.passthru.sourceWithTags;
 

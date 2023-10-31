@@ -123,8 +123,7 @@ in
         create = mkOption {
           description =
             lib.mdDoc
-              "Whether to create couchdb database needed by ripple data api."
-          ;
+              "Whether to create couchdb database needed by ripple data api.";
           type = types.bool;
           default = true;
         };
@@ -158,8 +157,7 @@ in
         NODE_ENV = "production";
         DEPLOYMENT_ENVS_CONFIG =
           pkgs.writeText "deployment.environment.json"
-            deployment_env_config
-        ;
+            deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
       };
 
@@ -179,8 +177,7 @@ in
         NODE_ENV = "production";
         DEPLOYMENT_ENVS_CONFIG =
           pkgs.writeText "deployment.environment.json"
-            deployment_env_config
-        ;
+            deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
         LOG_FILE = "/dev/null";
       };
@@ -198,8 +195,7 @@ in
           ExecStart = "${pkgs.ripple-data-api}/bin/importer ${importMode} debug";
           Restart = "always";
           User = "ripple-data-api";
-        }
-      ;
+        };
 
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''

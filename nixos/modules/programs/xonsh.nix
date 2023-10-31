@@ -34,8 +34,7 @@ in
         defaultText = literalExpression "pkgs.xonsh";
         example =
           literalExpression
-            ''pkgs.xonsh.override { configFile = "/path/to/xonshrc"; }''
-        ;
+            ''pkgs.xonsh.override { configFile = "/path/to/xonshrc"; }'';
         description = lib.mdDoc ''
           xonsh package to use.
         '';

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     [ "LDFLAGS=-L${wxsqlite3}/lib" ]
-    ++ lib.optionals stdenv.isDarwin [ "SETFILE=${setfile}/bin/SetFile" ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "SETFILE=${setfile}/bin/SetFile" ];
 
   preBuild = ''
     sed -ie 's|all: $(LIBPREFIX)wxsqlite$(LIBEXT)|all: |g' Makefile

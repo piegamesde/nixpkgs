@@ -71,8 +71,7 @@ buildPythonPackage rec {
     in
     ''
       export PYTHONPATH=${pythonEnv}/${python.sitePackages}
-    ''
-  ;
+    '';
 
   pytestFlagsArray =
     [

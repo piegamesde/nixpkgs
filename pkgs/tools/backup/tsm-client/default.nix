@@ -101,8 +101,7 @@ let
     in
     "https://public.dhe.ibm.com/storage/tivoli-storage-management/${
       if fixup == "0" then "maintenance" else "patches"
-    }/client/v${major}r${minor}/Linux/LinuxX86/BA/v${major}${minor}${patch}/${version}-TIV-TSMBAC-LinuxX86.tar"
-  ;
+    }/client/v${major}r${minor}/Linux/LinuxX86/BA/v${major}${minor}${patch}/${version}-TIV-TSMBAC-LinuxX86.tar";
 
   unwrapped = stdenv.mkDerivation rec {
     name = "tsm-client-${version}-unwrapped";

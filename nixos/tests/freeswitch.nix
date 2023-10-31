@@ -19,8 +19,7 @@ import ./make-test-python.nix (
             enableReload = true;
             configTemplate = "${config.services.freeswitch.package}/share/freeswitch/conf/minimal";
           };
-        }
-      ;
+        };
     };
     testScript = ''
       node0.wait_for_unit("freeswitch.service")

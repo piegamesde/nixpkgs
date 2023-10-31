@@ -78,8 +78,7 @@ let
         expressvpnBase
         inotify-tools
         iproute2
-      ]
-    ;
+      ];
   };
 in
 stdenvNoCC.mkDerivation {

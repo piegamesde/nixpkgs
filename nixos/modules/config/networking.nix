@@ -55,12 +55,10 @@ in
       type = types.listOf types.path;
       defaultText =
         literalMD
-          "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`"
-      ;
+          "Hosts from {option}`networking.hosts` and {option}`networking.extraHosts`";
       example =
         literalExpression
-          ''[ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]''
-      ;
+          ''[ "''${pkgs.my-blocklist-package}/share/my-blocklist/hosts" ]'';
       description = lib.mdDoc ''
         Files that should be concatenated together to form {file}`/etc/hosts`.
       '';
@@ -215,16 +213,14 @@ in
           in
           pkgs.writeText "string-hosts" (
             allToString (filterAttrs (_: v: v != [ ]) cfg.hosts)
-          )
-        ;
+          );
         extraHosts = pkgs.writeText "extra-hosts" cfg.extraHosts;
       in
       mkBefore [
         localhostHosts
         stringHosts
         extraHosts
-      ]
-    ;
+      ];
 
     environment.etc =
       {
@@ -248,8 +244,7 @@ in
       // optionalAttrs (pkgs.stdenv.hostPlatform.libc == "glibc") {
         # /etc/rpc: RPC program numbers.
         rpc.source = pkgs.stdenv.cc.libc.out + "/etc/rpc";
-      }
-    ;
+      };
 
     networking.proxy.envVars =
       optionalAttrs (cfg.proxy.default != null) {

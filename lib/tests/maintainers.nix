@@ -65,8 +65,7 @@ let
             ''
       ;
     in
-    lib.deepSeq checkedAttrs checks
-  ;
+    lib.deepSeq checkedAttrs checks;
 
   missingGithubIds = lib.concatLists (
     lib.mapAttrsToList checkMaintainer lib.maintainers
@@ -89,7 +88,6 @@ let
       ''
         ${lib.concatStringsSep "\n" missingGithubIds}
         exit 1
-      ''
-  ;
+      '';
 in
 if missingGithubIds == [ ] then success else failure

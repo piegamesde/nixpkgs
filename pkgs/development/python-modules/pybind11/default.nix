@@ -26,8 +26,7 @@ let
           pythonSitePackages = "${python}/${python.sitePackages}";
         };
       }
-      ./setup-hook.sh
-  ;
+      ./setup-hook.sh;
 in
 buildPythonPackage rec {
   pname = "pybind11";
@@ -64,8 +63,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (python.isPy3k && !stdenv.cc.isClang) [
       "-DPYBIND11_CXX_STANDARD=-std=c++17"
-    ]
-  ;
+    ];
 
   postBuild = ''
     # build tests
@@ -103,8 +101,7 @@ buildPythonPackage rec {
         # expects KeyError, gets RuntimeError
         # https://github.com/pybind/pybind11/issues/4243
         "test_cross_module_exception_translator"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     homepage = "https://github.com/pybind/pybind11";

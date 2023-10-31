@@ -28,8 +28,7 @@ let
       exec = name + " %u";
       type = "Application";
       categories = [ "Network" ];
-    }
-  ;
+    };
 in
 python3.pkgs.buildPythonApplication rec {
   pname = "trackma";
@@ -70,8 +69,7 @@ python3.pkgs.buildPythonApplication rec {
         pyinotify
       ]
       ++ lib.optionals (withGTK || withQT) [ pillow ]
-    )
-  ;
+    );
 
   dontWrapQtApps = true;
   dontWrapGApps = true;

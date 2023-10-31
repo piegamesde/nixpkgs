@@ -48,8 +48,7 @@ let
         homepage = "https://github.com/varnish/varnish-modules";
         inherit (varnish.meta) license platforms maintainers;
       };
-    }
-  ;
+    };
 in
 {
   modules15 = common {

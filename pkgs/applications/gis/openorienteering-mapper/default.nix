@@ -80,8 +80,7 @@ mkDerivation rec {
       "-DMapper_PACKAGE_QT=0"
       "-DMapper_PACKAGE_ASSISTANT=0"
       "-DMapper_PACKAGE_GDAL=0"
-    ]
-  ;
+    ];
 
   postInstall =
     with stdenv;
@@ -90,8 +89,7 @@ mkDerivation rec {
       mv $out/Mapper.app $out/Applications
       mkdir -p $out/bin
       ln -s $out/Applications/Mapper.app/Contents/MacOS/Mapper $out/bin/mapper
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://www.openorienteering.org/apps/mapper/";

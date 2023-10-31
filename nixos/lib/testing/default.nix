@@ -10,8 +10,7 @@ let
         imports = [ module ];
         result = config.test;
       }
-    )).config.result
-  ;
+    )).config.result;
 
   testModules = [
     ./call-test.nix

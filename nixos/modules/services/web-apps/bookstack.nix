@@ -213,8 +213,7 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -279,8 +278,7 @@ in
                 }
               )
           )
-        )
-      ;
+        );
       default = { };
       example = literalExpression ''
         {
@@ -464,8 +462,7 @@ in
                   null
                 ]
               ))
-              cfg.config
-          ;
+              cfg.config;
           bookstackEnv = pkgs.writeText "bookstack.env" (bookstackEnvVars filteredConfig);
         in
         ''
@@ -484,8 +481,7 @@ in
 
           # migrate db
           ${pkgs.php}/bin/php artisan migrate --force
-        ''
-      ;
+        '';
     };
 
     systemd.tmpfiles.rules = [

@@ -9,8 +9,7 @@ import ./make-test-python.nix (
       {
         imports = [ ./common/x11.nix ];
         services.xserver.desktopManager.xterm.enable = false;
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_x()

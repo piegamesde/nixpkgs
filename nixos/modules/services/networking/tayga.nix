@@ -42,8 +42,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 
   versionOpts = v: {
     options = {
@@ -59,16 +58,14 @@ let
         default = null;
         description =
           lib.mdDoc
-            "The source IPv${toString v} address of the TAYGA server."
-        ;
+            "The source IPv${toString v} address of the TAYGA server.";
       };
 
       pool = mkOption {
         type = with types; nullOr (submodule (addrOpts v));
         description =
           lib.mdDoc
-            "The pool of IPv${toString v} addresses which are used for translation."
-        ;
+            "The pool of IPv${toString v} addresses which are used for translation.";
       };
     };
   };

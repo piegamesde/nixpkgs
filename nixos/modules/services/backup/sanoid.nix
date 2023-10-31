@@ -91,8 +91,7 @@ let
         oneOf [
           bool
           (enum [ "zfs" ])
-        ]
-      ;
+        ];
       default = false;
     };
 
@@ -118,8 +117,7 @@ let
       "sanoid"
       (concatStringsSep "," permissions)
       dataset
-    ]
-  ;
+    ];
 
   configFile =
     let
@@ -143,8 +141,7 @@ let
           generators.mkKeyValueDefault { inherit mkValueString; } "=" k v
       ;
     in
-    generators.toINI { inherit mkKeyValue; } cfg.settings
-  ;
+    generators.toINI { inherit mkKeyValue; } cfg.settings;
 in
 {
 

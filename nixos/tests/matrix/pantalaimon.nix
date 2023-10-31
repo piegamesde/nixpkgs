@@ -70,8 +70,7 @@ import ../make-test-python.nix (
             tls_private_key_path = "${key}";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

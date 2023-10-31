@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=maybe-uninitialized"
-      ]
-  ;
+      ];
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 

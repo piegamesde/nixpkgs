@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
-      libunwind
-  ;
+      libunwind;
 
   cmakeFlags =
     [

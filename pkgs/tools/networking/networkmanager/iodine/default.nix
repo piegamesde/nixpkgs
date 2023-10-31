@@ -54,8 +54,7 @@ stdenv.mkDerivation {
       gtk3
       libsecret
       libnma
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     intltool

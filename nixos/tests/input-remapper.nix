@@ -43,8 +43,7 @@ import ./make-test-python.nix (
           group = "root";
           source = "${pkgs.sudo}/bin/sudo";
         };
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -60,7 +59,6 @@ import ./make-test-python.nix (
         machine.wait_for_text("Input Remapper")
         machine.wait_for_text("Preset")
         machine.wait_for_text("Change Key")
-      ''
-    ;
+      '';
   }
 )

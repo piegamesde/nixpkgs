@@ -35,8 +35,7 @@ stdenv.mkDerivation (
     configFile = lib.optionalString (conf != null) (builtins.toFile "nnn.h" conf);
     preBuild =
       lib.optionalString (conf != null)
-        "cp ${finalAttrs.configFile} src/nnn.h"
-    ;
+        "cp ${finalAttrs.configFile} src/nnn.h";
 
     nativeBuildInputs = [
       installShellFiles
@@ -50,8 +49,7 @@ stdenv.mkDerivation (
 
     env.NIX_CFLAGS_COMPILE =
       lib.optionalString stdenv.hostPlatform.isMusl
-        "-I${musl-fts}/include"
-    ;
+        "-I${musl-fts}/include";
     NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isMusl "-lfts";
 
     makeFlags =

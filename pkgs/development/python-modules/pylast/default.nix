@@ -34,8 +34,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ httpx ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook

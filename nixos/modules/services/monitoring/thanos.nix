@@ -16,8 +16,7 @@ let
       type = types.nullOr type;
       default = null;
       description = lib.mdDoc description;
-    }
-  ;
+    };
 
   optionToArgs = opt: v: optional (v != null) ''--${opt}="${toString v}"'';
   flagToArgs = opt: v: optional v "--${opt}";
@@ -33,8 +32,7 @@ let
         Defaults to `${toString default}` in Thanos
         when set to `null`.
       ''
-    )
-  ;
+    );
 
   mkParam = type: description: {
     toArgs = optionToArgs;
@@ -85,8 +83,7 @@ let
         json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
         nativeBuildInputs = [ pkgs.remarshal ];
       }
-      "json2yaml -i $json -o $out"
-  ;
+      "json2yaml -i $json -o $out";
 
   thanos =
     cmd:
@@ -112,8 +109,7 @@ let
           param.toArgs opt v
         )
       )
-    )
-  ;
+    );
 
   mkArgumentsOption =
     cmd:
@@ -132,15 +128,13 @@ let
         Overriding this option will cause none of the structured options to have
         any effect. So only set this if you know what you're doing!
       '';
-    }
-  ;
+    };
 
   mapParamsRecursive =
     let
       noParam = attr: !(attr ? toArgs && attr ? option);
     in
-    mapAttrsRecursiveCond noParam
-  ;
+    mapAttrsRecursiveCond noParam;
 
   paramsToOptions = mapParamsRecursive (_path: param: param.option);
 
@@ -160,8 +154,7 @@ let
           "info"
           ''
             Log filtering level.
-          ''
-      ;
+          '';
 
       log.format = mkParam types.str ''
         Log format to use.
@@ -298,8 +291,7 @@ let
             default = "/var/lib/${config.services.prometheus.stateDir}/data";
             defaultText =
               literalExpression
-                ''"/var/lib/''${config.services.prometheus.stateDir}/data"''
-            ;
+                ''"/var/lib/''${config.services.prometheus.stateDir}/data"'';
             description = lib.mdDoc ''
               Data directory of TSDB.
             '';
@@ -825,8 +817,7 @@ in
             !(
               config.services.prometheus.globalConfig.external_labels == null
               || config.services.prometheus.globalConfig.external_labels == { }
-            )
-          ;
+            );
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
             + "to be configured in the Prometheus server. "

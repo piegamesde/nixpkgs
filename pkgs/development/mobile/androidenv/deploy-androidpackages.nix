@@ -28,8 +28,7 @@ let
     attrs:
     lib.concatStrings (
       lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs
-    )
-  ;
+    );
   mkXmlValues =
     attrs:
     lib.concatStrings (
@@ -45,8 +44,7 @@ let
             mkXmlDoc name value
         )
         attrs
-    )
-  ;
+    );
   mkXmlDoc =
     name: doc:
     let
@@ -108,8 +106,7 @@ stdenv.mkDerivation (
     pname = lib.concatMapStringsSep "-" (package: package.name) sortedPackages;
     version =
       lib.concatMapStringsSep "-" (package: package.revision)
-        sortedPackages
-    ;
+        sortedPackages;
     src =
       map
         (
@@ -119,8 +116,7 @@ stdenv.mkDerivation (
           else
             package.archives.all
         )
-        packages
-    ;
+        packages;
     nativeBuildInputs = [ unzip ] ++ nativeBuildInputs;
     preferLocalBuild = true;
 
@@ -173,8 +169,7 @@ stdenv.mkDerivation (
     meta = {
       description =
         lib.concatMapStringsSep "\n" (package: package.displayName)
-          packages
-      ;
+          packages;
     } // meta;
   }
   // extraParams

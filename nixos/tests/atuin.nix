@@ -22,8 +22,7 @@ import ./make-test-python.nix (
             openFirewall = true;
             openRegistration = true;
           };
-        }
-      ;
+        };
 
       client = { ... }: { };
     };

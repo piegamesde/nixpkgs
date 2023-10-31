@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       pps-tools
       libcap
-    ]
-  ;
+    ];
 
   hardeningEnable = [ "pie" ];
 

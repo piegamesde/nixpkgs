@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
           rm "$ttx_file"
         done
       '';
-    }
-  ;
+    };
 
   dontConfigure = true;
   dontBuild = true;

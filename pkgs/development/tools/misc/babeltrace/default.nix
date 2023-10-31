@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
   # while cross compiling.
   configureFlags =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "--disable-debug-info"
-  ;
+      "--disable-debug-info";
 
   meta = with lib; {
     description = "Command-line tool and library to read and convert LTTng tracefiles";

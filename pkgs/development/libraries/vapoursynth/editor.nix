@@ -75,7 +75,6 @@ let
                 --prefix PYTHONPATH : ${vapoursynthWithPlugins}/${python3.sitePackages} \
                 --prefix LD_LIBRARY_PATH : ${vapoursynthWithPlugins}/lib
         done
-      ''
-  ;
+      '';
 in
 withPlugins [ ]

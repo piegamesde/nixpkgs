@@ -27,8 +27,7 @@ buildGoModule rec {
   # https://github.com/kubernetes/node-problem-detector/blob/master/Makefile
   subPackages =
     [ "cmd/nodeproblemdetector" ]
-    ++ lib.optionals stdenv.isLinux [ "cmd/logcounter" ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ "cmd/logcounter" ];
 
   preBuild = ''
     export CGO_ENABLED=${if stdenv.isLinux then "1" else "0"}

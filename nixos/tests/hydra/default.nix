@@ -34,8 +34,7 @@ let
           services.hydra = {
             inherit package;
           };
-        }
-      ;
+        };
 
       testScript = ''
         # let the system boot up
@@ -64,8 +63,7 @@ let
             'journalctl -eu hydra-notify.service -o cat | grep -q "sending mail notification to hydra@localhost"'
         )
       '';
-    }
-  ;
+    };
 in
 
 mapAttrs makeHydraTest hydraPkgs

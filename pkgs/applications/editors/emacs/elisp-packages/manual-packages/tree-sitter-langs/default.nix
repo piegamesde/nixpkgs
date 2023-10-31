@@ -37,8 +37,7 @@ let
         + lib.concatStringsSep "\n" (
           map (g: "ln -s ${g}/parser $out/langs/bin/${soName g}") plugins
         )
-      )
-  ;
+      );
   siteDir = "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
 in
 melpaStablePackages.tree-sitter-langs.overrideAttrs (

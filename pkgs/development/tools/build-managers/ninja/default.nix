@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
       docbook_xml_dtd_45
       docbook_xsl
       libxslt.bin
-    ]
-  ;
+    ];
 
   patches =
     lib.optionals stdenv.is32bit
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
           url = "https://github.com/ninja-build/ninja/commit/7bba11ae704efc84cac5fde5e9be53f653f237d1.diff";
           hash = "sha256-tINS57xLh1lwnYFWCQs5OudfgtIShaOh5zbmv7w5BnQ=";
         })
-      ]
-  ;
+      ];
 
   postPatch = ''
     # write rebuild args to file after bootstrap

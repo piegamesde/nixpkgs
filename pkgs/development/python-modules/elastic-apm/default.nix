@@ -83,8 +83,7 @@ buildPythonPackage rec {
       [
         # Flaky tests on Darwin
         "tests/utils/threading_tests.py"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "elasticapm" ];
 

@@ -124,7 +124,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     knownVulnerabilities =
       lib.optional (withClient || withRelay)
-        "The client and relay component of the dhcp package have reached their end of life"
-    ;
+        "The client and relay component of the dhcp package have reached their end of life";
   };
 }

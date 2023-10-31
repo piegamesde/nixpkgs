@@ -257,8 +257,7 @@ in
           name:
           optionalAttrs (cfg.modules.${name}.enable) {
             "icingaweb2/enabledModules/${name}".source = "${pkgs.icingaweb2}/modules/${name}";
-          }
-        ;
+          };
       in
       { }
       # Module packages

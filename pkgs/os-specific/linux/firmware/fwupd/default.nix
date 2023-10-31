@@ -92,8 +92,7 @@ let
       }
       ''
         exec python3 -c "$buildCommandPython"
-      ''
-  ;
+      '';
 
   test-firmware =
     let
@@ -120,8 +119,7 @@ let
           let
             pos = builtins.unsafeGetAttrPos "updateScript" test-firmware;
           in
-          pos.file + ":" + toString pos.line
-        ;
+          pos.file + ":" + toString pos.line;
       };
     }
   ;
@@ -262,8 +260,7 @@ stdenv.mkDerivation (
       let
         fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
       in
-      fontsConf
-    ;
+      fontsConf;
 
     # error: “PolicyKit files are missing”
     # https://github.com/NixOS/nixpkgs/pull/67625#issuecomment-525788428
@@ -329,8 +326,7 @@ stdenv.mkDerivation (
           # See programs reached with fu_common_find_program_in_path in source
           --prefix PATH : "${lib.makeBinPath binPath}"
         )
-      ''
-    ;
+      '';
 
     postFixup = ''
       # Since we had to disable wrapGAppsHook, we need to wrap the executables manually.
@@ -413,8 +409,7 @@ stdenv.mkDerivation (
 
             pathlib.Path(os.getenv('out')).touch()
           '';
-        }
-      ;
+        };
     };
 
     meta = with lib; {

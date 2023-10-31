@@ -19,8 +19,7 @@ makeTest {
           imagemagickBig # for display with working label: support
         ];
         networking.firewall.allowedTCPPorts = [ 5901 ];
-      }
-    ;
+      };
 
     client =
       { pkgs, ... }:
@@ -28,8 +27,7 @@ makeTest {
         imports = [ ./common/x11.nix ];
         # for vncviewer
         environment.systemPackages = [ pkgs.tigervnc ];
-      }
-    ;
+      };
   };
 
   enableOCR = true;

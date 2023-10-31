@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withIntrospection [
       gi-docgen
       gobject-introspection
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
         CoreGraphics
         CoreText
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = [
     cairo

@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
         stripLen = 2;
         extraPrefix = "1.0.0.rc16/";
       })
-    ]
-  ;
+    ];
 
   postPatch =
     ''

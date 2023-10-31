@@ -26,8 +26,7 @@ rec {
         fetchurl {
           url = "https://github.com/tesseract-ocr/tessdata/raw/${tessdataRev}/${lang}.traineddata";
           inherit hash;
-        }
-      ;
+        };
     in
     {
       # Use a simple fixed-output derivation for all languages to increase nix eval performance

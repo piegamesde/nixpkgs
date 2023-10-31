@@ -48,8 +48,7 @@ buildPythonPackage rec {
       [
         # https://github.com/jupyter-widgets/traittypes/blob/master/setup.py#L86-L87
         "traittypes/tests/test_traittypes.py"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "traittypes" ];
 

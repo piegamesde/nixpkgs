@@ -93,8 +93,7 @@ buildPythonPackage rec {
         # Optional test dependency. Depends indirectly on pyopenssl, which is
         # broken on aarch64-darwin.
         trustme
-      ]
-  ;
+      ];
 
   disabledTests =
     [

@@ -69,8 +69,7 @@ let
   replaceSecret =
     secretFile: placeholder: targetFile:
     optionalString (secretFile != null)
-      "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' "
-  ;
+      "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' ";
 
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
     cp -f "${cfgTemplate}" "${cfgFile}"
@@ -188,12 +187,10 @@ in
                     type = types.nullOr types.str;
                     description =
                       lib.mdDoc
-                        "File containing the password, either as MD5SUM or cleartext."
-                    ;
+                        "File containing the password, either as MD5SUM or cleartext.";
                   };
                 };
-              }
-            ;
+              };
           in
           types.attrsOf (types.submodule endpoint)
         );

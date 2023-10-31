@@ -46,8 +46,7 @@ rec {
             echo "================= /testing json_c using node ================="
           '';
         }
-      )
-  ;
+      );
 
   libxml2 =
     (pkgs.libxml2.override {
@@ -89,8 +88,7 @@ rec {
             echo "================= /testing libxml2 using node ================="
           '';
         }
-      )
-  ;
+      );
 
   xmlmirror = pkgs.buildEmscriptenPackage rec {
     pname = "xmlmirror";

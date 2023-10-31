@@ -48,8 +48,7 @@ stdenv.mkDerivation (
         [
           # missing header file
           "-DMZ_LIBCOMP=OFF"
-        ]
-    ;
+        ];
 
     postInstall = ''
       # make lib findable as libminizip-ng even if compat is enabled

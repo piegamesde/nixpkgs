@@ -33,8 +33,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     in
     {
       rtl433Flags = lib.mkOption {
@@ -70,8 +69,7 @@ in
           List of ID matchers to export.
         '';
       };
-    }
-  ;
+    };
 
   serviceOpts = {
     serviceConfig = {
@@ -97,8 +95,7 @@ in
             -subprocess "${pkgs.rtl_433}/bin/rtl_433 -F json ${cfg.rtl433Flags}" \
             ${lib.concatStringsSep " \\\n  " matchers} \
             ${lib.concatStringsSep " \\\n  " cfg.extraFlags}
-        ''
-      ;
+        '';
     };
   };
 }

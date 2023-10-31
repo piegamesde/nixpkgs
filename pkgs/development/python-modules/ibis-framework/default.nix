@@ -174,8 +174,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck =
     [ "ibis" ]
-    ++ map (backend: "ibis.backends.${backend}") testBackends
-  ;
+    ++ map (backend: "ibis.backends.${backend}") testBackends;
 
   passthru = {
     optional-dependencies = {

@@ -65,8 +65,7 @@ let
         ++ optionals withGUI [
           gobject-introspection
           wrapGAppsHook
-        ]
-      ;
+        ];
 
       nativeCheckInputs = with pypkgs; [
         pytestCheckHook
@@ -115,8 +114,7 @@ let
         ];
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 in
 rec {
   deluge-gtk = generic {

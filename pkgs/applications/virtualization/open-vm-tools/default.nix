@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
       libXrender
       libXrandr
       libXtst
-    ]
-  ;
+    ];
 
   postPatch = ''
     sed -i Makefile.am \

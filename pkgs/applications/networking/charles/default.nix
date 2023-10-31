@@ -78,8 +78,7 @@ let
         license = licenses.unfree;
         platforms = platforms.unix;
       };
-    }
-  ;
+    };
 in
 {
   charles4 =

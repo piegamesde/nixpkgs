@@ -14,8 +14,7 @@ let
 
   getManualUrl =
     name:
-    "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html"
-  ;
+    "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
 
   yaml = pkgs.formats.yaml { };
 
@@ -150,8 +149,7 @@ in
               description = lib.mdDoc "arguments to pass to the plugin";
             };
           }
-        )
-      ;
+        );
     };
 
     records = mkOption {
@@ -169,11 +167,9 @@ in
             ))
             // {
               description = "Traffic Server records value";
-            }
-          ;
+            };
         in
-        valueType
-      ;
+        valueType;
       default = { };
       example = {
         proxy.config.proxy_name = "my_server";

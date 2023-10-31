@@ -136,8 +136,7 @@ let
     }
     // {
       extraLibs = pythonRuntimeDeps;
-    }
-  ; # make the libs accessible
+    }; # make the libs accessible
 
   arb = pkgs.arb.override { inherit flint; };
 

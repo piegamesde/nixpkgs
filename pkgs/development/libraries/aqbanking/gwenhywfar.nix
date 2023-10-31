@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
       # "lib/gwenhywfar/plugins/60" becomes just "lib/gwenhywfar/plugins".
       sed -i -e '/^gwenhywfar_plugindir=/s,/\''${GWENHYWFAR_SO_EFFECTIVE},,' \
         configure
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     pkg-config

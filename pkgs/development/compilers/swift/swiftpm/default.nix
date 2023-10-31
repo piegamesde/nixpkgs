@@ -76,8 +76,7 @@ let
         mkdir -p $out/bin
         ln -s ${cctools}/bin/vtool $out/bin/vtool
       '')
-    ]
-  ;
+    ];
 
   # Common attributes for the bootstrap derivations.
   mkBootstrapDerivation =
@@ -145,8 +144,7 @@ let
           ]
         ;
       }
-    )
-  ;
+    );
 
   # On Darwin, we only want ncurses in the linker search path, because headers
   # are part of libsystem. Adding its headers to the search path causes strange
@@ -394,8 +392,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         CryptoKit
         LocalAuthentication
-      ]
-    ;
+      ];
 
     configurePhase =
       generated.configure

@@ -115,8 +115,7 @@ import ./make-test-python.nix (
             curl
           ];
         }
-      )
-    ;
+      );
 
     testScript = ''
       machine.start()

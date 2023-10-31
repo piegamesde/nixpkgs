@@ -120,8 +120,7 @@ buildPythonPackage rec {
       [
         # test crashes on aarch64
         "tests/test_transport.py"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "sentry_sdk" ];
 

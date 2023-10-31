@@ -8,8 +8,7 @@
         "aarch64-linux"
       ]
       ./hadoop.nix
-      { inherit package; }
-  ;
+      { inherit package; };
   hdfs =
     handleTestOn
       [
@@ -17,8 +16,7 @@
         "aarch64-linux"
       ]
       ./hdfs.nix
-      { inherit package; }
-  ;
+      { inherit package; };
   yarn =
     handleTestOn
       [
@@ -26,8 +24,7 @@
         "aarch64-linux"
       ]
       ./yarn.nix
-      { inherit package; }
-  ;
+      { inherit package; };
   hbase =
     handleTestOn
       [
@@ -35,6 +32,5 @@
         "aarch64-linux"
       ]
       ./hbase.nix
-      { inherit package; }
-  ;
+      { inherit package; };
 }

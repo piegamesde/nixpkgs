@@ -69,10 +69,8 @@ let
               maintainers = [ maintainers.DamienCassou ];
             };
           }
-        )
-      ;
-    })
-  ;
+        );
+    });
 in
 builtins.listToAttrs (
   builtins.map

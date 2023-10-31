@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
       [
         #  meson.build:88:2: ERROR: Can not run test applications in this cross environment.
         mesonEmulatorHook
-      ]
-  ;
+      ];
 
   buildInputs = [
     dbus

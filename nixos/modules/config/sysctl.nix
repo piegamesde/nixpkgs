@@ -11,8 +11,7 @@ let
       let
         checkType = x: isBool x || isString x || isInt x || x == null;
       in
-      checkType val || (val._type or "" == "override" && checkType val.content)
-    ;
+      checkType val || (val._type or "" == "override" && checkType val.content);
     merge = loc: defs: mergeOneOption loc (filterOverrides defs);
   };
 in
@@ -30,14 +29,12 @@ in
               loc: defs:
               foldl (a: b: if b.value == null then null else lib.max a b.value) 0 (
                 filterOverrides defs
-              )
-            ;
+              );
           };
           default = null;
           description =
             lib.mdDoc
-              "The maximum socket receive buffer size. In case of conflicting values, the highest will be used."
-          ;
+              "The maximum socket receive buffer size. In case of conflicting values, the highest will be used.";
         };
       };
       default = { };

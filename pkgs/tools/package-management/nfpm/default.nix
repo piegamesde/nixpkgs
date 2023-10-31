@@ -39,8 +39,7 @@ buildGoModule rec {
         --bash <(${emulator} $out/bin/nfpm completion bash) \
         --fish <(${emulator} $out/bin/nfpm completion fish) \
         --zsh  <(${emulator} $out/bin/nfpm completion zsh)
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A simple deb and rpm packager written in Go";

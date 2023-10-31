@@ -19,8 +19,7 @@ with lib;
       description = lib.mdDoc ''
         Whether to install all terminfo outputs
       '';
-    }
-  ;
+    };
 
   config = {
 

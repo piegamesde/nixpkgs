@@ -35,8 +35,7 @@ import ./make-test-python.nix (
             };
           '';
         };
-      }
-    ;
+      };
 
     # Client running connman, connected to VLAN 1
     nodes.client =
@@ -56,8 +55,7 @@ import ./make-test-python.nix (
         services.connman.networkInterfaceBlacklist = [ "eth0" ];
         networking.wireless.enable = lib.mkOverride 0 true;
         networking.wireless.interfaces = [ "wlan0" ];
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

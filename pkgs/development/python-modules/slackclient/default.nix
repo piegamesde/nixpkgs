@@ -77,8 +77,7 @@ buildPythonPackage rec {
       "test_send_attachments"
       "test_send_blocks"
       "test_send_dict"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "slack" ];
 

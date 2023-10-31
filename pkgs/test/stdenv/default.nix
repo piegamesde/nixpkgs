@@ -59,8 +59,7 @@ let
         }
         // extraAttrs
       )
-    )
-  ;
+    );
 
   testEnvAttrset =
     {
@@ -85,8 +84,7 @@ let
         '';
       }
       // extraAttrs
-    )
-  ;
+    );
 
   testPrependAndAppendToVar =
     {
@@ -103,8 +101,7 @@ let
 
         passAsFile =
           [ "buildCommand" ]
-          ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ]
-        ;
+          ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
         buildCommand = ''
           declare -p string
           appendToVar string hello
@@ -135,8 +132,7 @@ let
         '';
       }
       // extraAttrs
-    )
-  ;
+    );
 in
 
 {
@@ -174,8 +170,7 @@ in
       ''
         grep -F "$expectedMsg" $result/testBuildFailure.log >/dev/null
         touch $out
-      ''
-  ;
+      '';
 
   test-env-attrset = testEnvAttrset {
     name = "test-env-attrset";
@@ -358,7 +353,6 @@ in
           diff $out/sh $goldenSh
           diff $out/json $goldenJson
         '';
-      }
-    ;
+      };
   };
 }

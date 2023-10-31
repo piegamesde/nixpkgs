@@ -38,8 +38,7 @@ import ./make-test-python.nix (
             };
           };
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -95,7 +94,6 @@ import ./make-test-python.nix (
             )
             machine.sleep(20)
             machine.screenshot("screen")
-      ''
-    ;
+      '';
   }
 )

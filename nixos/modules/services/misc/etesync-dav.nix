@@ -90,8 +90,7 @@ in
                   cp ${toString cfg.sslCertificateKey} $STATE_DIRECTORY/etesync.key
                 ''}
               ''
-            )
-        ;
+            );
         Restart = "on-failure";
         RestartSec = "30min 1s";
       };

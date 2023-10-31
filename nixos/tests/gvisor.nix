@@ -23,8 +23,7 @@ import ./make-test-python.nix (
               prefixLength = 24;
             } ];
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

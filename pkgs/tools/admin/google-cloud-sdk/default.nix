@@ -37,8 +37,7 @@ let
   data = import ./data.nix { };
   sources =
     system:
-    data.googleCloudSdkPkgs.${system} or (throw "Unsupported system: ${system}")
-  ;
+    data.googleCloudSdkPkgs.${system} or (throw "Unsupported system: ${system}");
 
   components = callPackage ./components.nix { snapshotPath = ./components.json; };
 

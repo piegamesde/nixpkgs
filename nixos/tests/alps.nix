@@ -92,8 +92,7 @@ import ./make-test-python.nix (
                   assert all(cookie.name != "alps_session" for cookie in cookiejar)
             '')
           ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -109,7 +108,6 @@ import ./make-test-python.nix (
         client.wait_for_unit("alps.service")
         client.wait_for_open_port(${toString nodes.client.config.services.alps.port})
         client.succeed("test-alps-login")
-      ''
-    ;
+      '';
   }
 )

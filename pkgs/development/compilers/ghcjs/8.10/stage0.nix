@@ -194,8 +194,7 @@
           license = lib.licenses.mit;
         }
       )
-      { }
-  ;
+      { };
 
   ghcjs-th =
     callPackage
@@ -228,8 +227,7 @@
           license = lib.licenses.mit;
         }
       )
-      { }
-  ;
+      { };
 
   ghcjs-prim =
     callPackage
@@ -252,6 +250,5 @@
           license = lib.licenses.mit;
         }
       )
-      { }
-  ;
+      { };
 }

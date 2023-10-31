@@ -9,8 +9,7 @@ import ./make-test-python.nix (
         console = {
           packages = options.console.packages.default ++ [ pkgs.terminus_font ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       command = "${pkgs.kbd}/bin/setfont ter-112n 2>&1"

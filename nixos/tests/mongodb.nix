@@ -46,8 +46,7 @@ import ./make-test-python.nix (
             mongodb-4_4
             mongodb-5_0
           ];
-        }
-      ;
+        };
     };
 
     testScript =

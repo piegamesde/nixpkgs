@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS =
     lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
-      "-lgcc_s"
-  ;
+      "-lgcc_s";
 
   configureFlags =
     [

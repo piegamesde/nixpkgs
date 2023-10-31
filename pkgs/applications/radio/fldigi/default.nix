@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
       libpulseaudio
       alsa-lib
       udev
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

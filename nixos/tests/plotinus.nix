@@ -16,8 +16,7 @@ import ./make-test-python.nix (
           pkgs.gnome.gnome-calculator
           pkgs.xdotool
         ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_x()

@@ -68,8 +68,7 @@ let
         ;
       }
       // args
-    )
-  ;
+    );
 in
 {
   inherit mkLibretroCore;
@@ -273,8 +272,7 @@ in
         "bsnes"
         "target=libretro"
         "platform=${platform}"
-      ]
-    ;
+      ];
     extraBuildInputs = [
       xorg.libX11
       xorg.libXext
@@ -403,8 +401,7 @@ in
           libXinerama
           libXxf86vm
         ]
-      )
-    ;
+      );
     makefile = "Makefile";
     cmakeFlags = [
       "-DLIBRETRO=ON"

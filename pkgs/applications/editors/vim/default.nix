@@ -48,8 +48,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       Carbon
       Cocoa
-    ]
-  ;
+    ];
 
   strictDeps = true;
 
@@ -69,8 +68,7 @@ stdenv.mkDerivation {
       "vim_cv_getcwd_broken=no"
       "vim_cv_stat_ignores_slash=yes"
       "vim_cv_memmove_handles_overlap=yes"
-    ]
-  ;
+    ];
 
   # which.sh is used to for vim's own shebang patching, so make it find
   # binaries for the host platform.

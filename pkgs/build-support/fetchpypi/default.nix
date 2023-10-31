@@ -21,8 +21,7 @@ let
         # See https://www.python.org/dev/peps/pep-0427/#file-name-convention for details regarding the optional arguments.
         "https://files.pythonhosted.org/packages/${dist}/${
           builtins.substring 0 1 pname
-        }/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl"
-      ;
+        }/${pname}/${pname}-${version}-${python}-${abi}-${platform}.whl";
 
       computeSourceUrl =
         {
@@ -33,8 +32,7 @@ let
         # Fetch a source tarball.
         "mirror://pypi/${
           builtins.substring 0 1 pname
-        }/${pname}/${pname}-${version}.${extension}"
-      ;
+        }/${pname}/${pname}-${version}.${extension}";
 
       compute =
         (
@@ -46,8 +44,7 @@ let
             throw "Unsupported format ${format}"
         );
     in
-    compute (builtins.removeAttrs attrs [ "format" ])
-  ;
+    compute (builtins.removeAttrs attrs [ "format" ]);
 in
 makeOverridable (
   {

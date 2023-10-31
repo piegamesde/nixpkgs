@@ -27,8 +27,7 @@ import ./make-test-python.nix (
             passwdDir = "/tmp";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed("which dsmj")  # fail early if this is missing

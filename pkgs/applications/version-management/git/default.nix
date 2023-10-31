@@ -142,8 +142,7 @@ stdenv.mkDerivation (
         docbook_xsl
         docbook_xml_dtd_45
         libxslt
-      ]
-    ;
+      ];
     buildInputs =
       [
         curl
@@ -183,8 +182,7 @@ stdenv.mkDerivation (
         "ac_cv_fread_reads_directories=yes"
         "ac_cv_snprintf_returns_bogus=no"
         "ac_cv_iconv_omits_bom=no"
-      ]
-    ;
+      ];
 
     preBuild = ''
       makeFlagsArray+=( perllibdir=$out/$(perl -MConfig -wle 'print substr $Config{installsitelib}, 1 + length $Config{siteprefixexp}') )
@@ -238,8 +236,7 @@ stdenv.mkDerivation (
 
     disallowedReferences =
       lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform)
-        [ stdenv.shellPackage ]
-    ;
+        [ stdenv.shellPackage ];
 
     postBuild =
       ''

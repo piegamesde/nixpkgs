@@ -72,8 +72,7 @@ import ./make-test-python.nix (
 
           virtualisation.memorySize = 2048;
           virtualisation.emptyDiskImages = [ 2048 ];
-        }
-      ;
+        };
 
       initiatorAuto =
         {
@@ -101,8 +100,7 @@ import ./make-test-python.nix (
             hashed-mirrors = null;
             connect-timeout = 1;
           };
-        }
-      ;
+        };
 
       initiatorRootDisk =
         {
@@ -136,8 +134,7 @@ import ./make-test-python.nix (
             name = initiatorName;
             target = targetName;
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -167,7 +164,6 @@ import ./make-test-python.nix (
         initiatorRootDisk.wait_for_unit("iscsid")
         initiatorRootDisk.succeed("touch test")
         initiatorRootDisk.shutdown()
-      ''
-    ;
+      '';
   }
 )

@@ -13,8 +13,7 @@ import ./make-test-python.nix (
           services.cadvisor.enable = true;
           services.cadvisor.storageDriver = "influxdb";
           services.influxdb.enable = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

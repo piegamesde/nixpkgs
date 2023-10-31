@@ -270,8 +270,7 @@ in
       requires = if cfg.database.host == null then [ ] else [ "postgresql.service" ];
       after =
         [ "network.target" ]
-        ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ])
-      ;
+        ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ]);
 
       script = ''
         rm -rf "${runDir}"
@@ -298,7 +297,8 @@ in
               else
                 "'$(cat ${cfg.database.passwordFile})');/g"
             }" "${runDir}/server/php/config.inc.php"
-          ''}
+          ''
+        }
         sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${
           toString cfg.database.port
         }');/g" "${runDir}/server/php/config.inc.php"
@@ -389,7 +389,6 @@ in
       optionalString (cfg.database.host == null)
         ''
           local restya_board all ident map=restya-board-users
-        ''
-    ;
+        '';
   };
 }

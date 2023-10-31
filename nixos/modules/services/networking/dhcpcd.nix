@@ -292,8 +292,7 @@ in
 
         wantedBy =
           [ "multi-user.target" ]
-          ++ optional (!hasDefaultGatewaySet) "network-online.target"
-        ;
+          ++ optional (!hasDefaultGatewaySet) "network-online.target";
         wants = [ "network.target" ];
         before = [ "network-online.target" ];
 
@@ -322,8 +321,7 @@ in
           ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
           Restart = "always";
         };
-      }
-    ;
+      };
 
     users.users.dhcpcd = {
       isSystemUser = true;

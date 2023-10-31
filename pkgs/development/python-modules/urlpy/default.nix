@@ -28,8 +28,7 @@ buildPythonPackage rec {
       [
         # Fails with "AssertionError: assert 'unknown' == ''"
         "test_unknown_protocol"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "urlpy" ];
 

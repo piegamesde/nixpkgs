@@ -79,8 +79,7 @@ let
           willibutz
         ];
       };
-    }
-  ;
+    };
 in
 {
   wt3 = generic {

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
       gi-docgen
       gobject-introspection
       vala
-    ]
-  ;
+    ];
 
   buildInputs = [
     sqlite

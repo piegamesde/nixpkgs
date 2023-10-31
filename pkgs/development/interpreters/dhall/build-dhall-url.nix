@@ -71,8 +71,7 @@ let
       ''
         echo "${url} ${dhallHash}" > in-dhall-file
         ${dhall}/bin/dhall --alpha --plain --file in-dhall-file | ${dhallNoHTTP}/bin/dhall encode > $out
-      ''
-  ;
+      '';
 
   cache = ".cache";
 

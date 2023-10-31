@@ -49,8 +49,7 @@ mkDerivation {
     ]
     ++ lib.optionals stdenv.isLinux [
       ''-DNIXPKGS_KF5_PLASMA=\"${getLib plasma-framework}/lib/libKF5Plasma.so.5\"''
-    ]
-  ;
+    ];
   setupHook = writeScript "setup-hook.sh" ''
     kinitFixupOutputHook() {
         if [ $prefix != ''${!outputBin} ] && [ -d $prefix/lib ]; then

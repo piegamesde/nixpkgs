@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
         ocaml
         findlib
       ]
-    )
-  ;
+    );
   buildInputs =
     [ libxml2 ]
     ++ (

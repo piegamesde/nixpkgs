@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ lua ]
-    ++ lib.optional withSystemd systemd ++ lib.optionals tlsSupport [ openssl ]
-  ;
+    ++ lib.optional withSystemd systemd ++ lib.optionals tlsSupport [ openssl ];
   # More cross-compiling fixes.
   # Note: this enables libc malloc as a temporary fix for cross-compiling.
   # Due to hardcoded configure flags in jemalloc, we can't cross-compile vendored jemalloc properly, and so we're forced to use libc allocator.

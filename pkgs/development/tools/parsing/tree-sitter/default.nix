@@ -83,8 +83,7 @@ let
           inherit version;
           src = grammar.src or (fetchGrammar grammar);
           location = grammar.location or null;
-        }
-      ;
+        };
       grammars' = import ./grammars { inherit lib; } // extraGrammars;
       grammars =
         grammars'
@@ -126,8 +125,7 @@ let
         }
       ;
     in
-    lib.mapAttrs build (grammars)
-  ;
+    lib.mapAttrs build (grammars);
 
   # Usage:
   # pkgs.tree-sitter.withPlugins (p: [ p.tree-sitter-c p.tree-sitter-java ... ])
@@ -161,8 +159,7 @@ let
           }
         )
         grammars
-    )
-  ;
+    );
 
   allGrammars = builtins.attrValues builtGrammars;
 in

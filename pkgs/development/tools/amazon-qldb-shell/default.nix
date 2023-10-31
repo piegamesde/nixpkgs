@@ -29,8 +29,7 @@ let
     ];
     buildInputs =
       [ llvmPackages.libclang ]
-      ++ lib.optional stdenv.isDarwin Security
-    ;
+      ++ lib.optional stdenv.isDarwin Security;
 
     cargoLock = {
       lockFile = ./Cargo.lock;

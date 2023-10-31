@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       let
         release = lib.replaceStrings [ "." ] [ "-" ] version;
       in
-      "https://taskflow.github.io/taskflow/release-${release}.html"
-    ;
+      "https://taskflow.github.io/taskflow/release-${release}.html";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ dotlambda ];

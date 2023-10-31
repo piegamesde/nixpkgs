@@ -25,8 +25,7 @@ import ./make-test-python.nix (
           networking.firewall.allowedTCPPorts = [ 8383 ];
 
           # virtualisation.diskSize = 2 * 1024;
-        }
-      ;
+        };
     };
     testScript = ''
       start_all()

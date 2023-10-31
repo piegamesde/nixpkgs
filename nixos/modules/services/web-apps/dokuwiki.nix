@@ -36,8 +36,7 @@ let
       # Access Control Lists
       #
       ${if isString acl then acl else acl_gen acl}
-    ''
-  ;
+    '';
 
   mergeConfig =
     cfg:
@@ -56,8 +55,7 @@ let
         <?php
         ${text}'';
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
-    }
-  ;
+    };
 
   mkPhpValue =
     v:
@@ -95,8 +93,7 @@ let
           mkPhpAttrVals v
       ;
     in
-    map (e: "[${escapeShellArg k}]${e}") (flatten values)
-  ;
+    map (e: "[${escapeShellArg k}]${e}") (flatten values);
 
   dokuwikiLocalConfig =
     hostName: cfg:
@@ -105,8 +102,7 @@ let
     in
     writePhpFile "local-${hostName}.php" ''
       ${concatStringsSep "\n" (conf_gen cfg.mergedConfig)}
-    ''
-  ;
+    '';
 
   dokuwikiPluginsLocalConfig =
     hostName: cfg:
@@ -116,13 +112,11 @@ let
         pc:
         concatStringsSep "\n" (
           mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc
-        )
-      ;
+        );
     in
     writePhpFile "plugins.local-${hostName}.php" ''
       ${if isString pc then pc else pc_gen pc}
-    ''
-  ;
+    '';
 
   pkg =
     hostName: cfg:
@@ -140,8 +134,7 @@ let
         else
           null
       ;
-    }
-  ;
+    };
 
   aclOpts =
     { ... }:
@@ -179,11 +172,9 @@ let
               See <https://www.dokuwiki.org/acl#background_info> for explanation
             '';
             example = "read";
-          }
-        ;
+          };
       };
-    }
-  ;
+    };
 
   # The current implementations of `doRename`,  `mkRenamedOptionModule` do not provide the full options path when used with submodules.
   # They would only show `settings.useacl' instead of `services.dokuwiki.sites."site1.local".settings.useacl'
@@ -219,8 +210,7 @@ let
               "Obsolete option `${showOption fromPath}' is used. It was renamed to ${
                 showOption toPath
               }"
-              toOp
-          ;
+              toOp;
         }
       );
       config = mkMerge [
@@ -229,13 +219,11 @@ let
             optional fromOpt.isDefined
               "The option `${showOption fromPath}' defined in ${
                 showFiles fromOpt.files
-              } has been renamed to `${showOption toPath}'."
-          ;
+              } has been renamed to `${showOption toPath}'.";
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
-    }
-  ;
+    };
 
   siteOpts =
     {
@@ -272,8 +260,7 @@ let
                   name
                 ]
                 ++ suffix
-              )
-            ;
+              );
             replaceExtraConfig = "Please use `${
                 showPath [ "settings" ]
               }' to pass structured settings instead.";
@@ -287,8 +274,7 @@ let
                 x:
                 throw ''
                   The option ${ecPath} can no longer be used since it's been removed.
-                  ${replaceExtraConfig}''
-              ;
+                  ${replaceExtraConfig}'';
             };
             config.assertions = [
               {
@@ -488,8 +474,7 @@ let
                 int
                 bool
               ]
-            )
-          ;
+            );
           default = {
             "pm" = "dynamic";
             "pm.max_children" = 32;
@@ -590,8 +575,7 @@ let
           internal = true;
         };
       };
-    }
-  ;
+    };
 in
 {
   options = {
@@ -659,8 +643,7 @@ in
                 } // cfg.poolConfig;
               })
             )
-            eachSite
-        ;
+            eachSite;
       }
 
       {
@@ -751,8 +734,7 @@ in
                   };
                 };
               })
-              eachSite
-          ;
+              eachSite;
         };
       })
 
@@ -797,8 +779,7 @@ in
                   '';
                 })
               )
-              eachSite
-          ;
+              eachSite;
         };
       })
     ]

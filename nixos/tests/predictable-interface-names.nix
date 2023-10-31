@@ -78,8 +78,7 @@ pkgs.lib.listToAttrs (
                   inherit script;
                 };
               };
-            }
-          ;
+            };
 
           testScript = ''
             print(machine.succeed("ip link"))

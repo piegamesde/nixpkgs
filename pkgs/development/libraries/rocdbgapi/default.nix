@@ -63,8 +63,7 @@ stdenv.mkDerivation (
         latex
         doxygen
         graphviz
-      ]
-    ;
+      ];
 
     buildInputs = [
       rocm-comgr

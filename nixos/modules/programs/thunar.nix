@@ -25,8 +25,7 @@ in
         description = lib.mdDoc "List of thunar plugins to install.";
         example =
           literalExpression
-            "with pkgs.xfce; [ thunar-archive-plugin thunar-volman ]"
-        ;
+            "with pkgs.xfce; [ thunar-archive-plugin thunar-volman ]";
       };
     };
   };

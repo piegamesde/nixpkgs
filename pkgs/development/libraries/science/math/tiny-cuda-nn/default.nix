@@ -66,8 +66,7 @@ stdenv.mkDerivation (
           setuptools
           wheel
         ]
-      )
-    ;
+      );
 
     buildInputs =
       [ cuda-redist ]
@@ -76,8 +75,7 @@ stdenv.mkDerivation (
           pybind11
           python
         ]
-      )
-    ;
+      );
 
     propagatedBuildInputs = lib.optionals pythonSupport (
       with python3Packages; [ torch ]

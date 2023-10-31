@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
       ''
         export ac_cv_func_malloc_0_nonnull=yes
         export ac_cv_func_realloc_0_nonnull=yes
-      ''
-  ;
+      '';
 
   postConfigure = lib.optionalString (stdenv.isDarwin || stdenv.isCygwin) ''
     sed -i Makefile -e 's/-no-undefined//;'

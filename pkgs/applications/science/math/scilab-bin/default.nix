@@ -99,8 +99,7 @@ let
           libXtst
           libXxf86vm
         ]
-      )
-    ;
+      );
 
     installPhase = ''
       runHook preInstall

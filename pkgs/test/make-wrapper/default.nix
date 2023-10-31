@@ -40,8 +40,7 @@ let
     runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
       mkdir -p $out/bin
       makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}
-    ''
-  ;
+    '';
 
   mkTest = cmd: toExpect: ''
     output="$(${cmd})"

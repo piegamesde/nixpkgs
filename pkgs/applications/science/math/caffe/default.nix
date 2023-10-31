@@ -169,8 +169,7 @@ stdenv.mkDerivation rec {
         src = ./python.patch;
         inherit (python.sourceVersion) major minor; # Should be changed in case of PyPy
       }
-    )
-  ;
+    );
 
   postPatch =
     ''

@@ -57,8 +57,7 @@ in
           defaultText = "config.services.nextcloud.config.${opt}";
         }
       )
-    )
-  ;
+    );
 
   config = lib.mkIf cfg.enable {
     systemd.services.nextcloud-notify_push =
@@ -118,8 +117,7 @@ in
           Restart = "on-failure";
           RestartSec = "5s";
         };
-      }
-    ;
+      };
 
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.locations."^~ /push/" = {
       proxyPass = "http://unix:${cfg.socketPath}";

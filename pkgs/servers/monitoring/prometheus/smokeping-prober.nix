@@ -27,8 +27,7 @@ buildGoModule rec {
       "${varFlags}"
       "-s"
       "-w"
-    ]
-  ;
+    ];
 
   src = fetchFromGitHub {
     owner = "SuperQ";

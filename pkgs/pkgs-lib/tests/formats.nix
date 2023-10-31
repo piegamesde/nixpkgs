@@ -19,15 +19,13 @@ let
             value =
               lib.throwIfNot (formatSet.type.check def)
                 (builtins.trace def "definition does not pass the type's check function")
-                def
-            ;
+                def;
             file = "def${toString n}";
           })
           [ def ]
       );
     in
-    formatSet.generate "test-format-file" config
-  ;
+    formatSet.generate "test-format-file" config;
 
   runBuildTest =
     name:
@@ -45,8 +43,7 @@ let
           echo "Got different values than expected; diff above."
           exit 1
         fi
-      ''
-  ;
+      '';
 
   runBuildTests =
     tests:
@@ -57,8 +54,7 @@ let
           path = runBuildTest name value;
         })
         (filterAttrs (name: value: value != null) tests)
-    )
-  ;
+    );
 in
 runBuildTests {
 
@@ -188,8 +184,7 @@ runBuildTests {
             baz = false;
             qux = "qux";
           };
-        }
-    ;
+        };
     expected = ''
       [foo]
       bar=null, true, test, 1.200000, 10
@@ -252,8 +247,7 @@ runBuildTests {
           ];
           baz = false;
           qux = "qux";
-        }
-    ;
+        };
     expected = ''
       bar=null, true, test, 1.200000, 10
       baz=false

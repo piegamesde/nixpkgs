@@ -57,8 +57,7 @@ let
       categories = [ "Network" ];
       comment = description;
       keywords = [ "Mastodon" ];
-    }
-  ;
+    };
 
   mkInfoPlist =
     { version }:
@@ -74,8 +73,7 @@ let
         CFBundleVersion = version;
         CFBundleShortVersionString = version;
       }
-    )
-  ;
+    );
 
   inherit (gems) wrappedRuby;
 in
@@ -146,8 +144,7 @@ stdenv.mkDerivation rec {
       install -Dm644 ${infoPlist} ${appPrefixDir}/Info.plist
       ln -s $out/bin/mikutter ${appBinDir}/mikutter
       png2icns ${appResourceDir}/mikutter.icns ${iconPath}
-    ''
-  ;
+    '';
 
   installCheckPhase = ''
     runHook preInstallCheck

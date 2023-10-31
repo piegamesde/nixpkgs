@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   # error: no member named 'finite' in the global namespace; did you mean simply 'finite'?
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
-      "-Dfinite=isfinite"
-  ;
+      "-Dfinite=isfinite";
 
   meta = {
     homepage = "http://www.desy.de/~znagy/Site/NLOJet++.html";

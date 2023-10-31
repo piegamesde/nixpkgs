@@ -55,8 +55,7 @@ stdenv.mkDerivation (
 
     outputs =
       [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ]
-    ;
+      ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -82,8 +81,7 @@ stdenv.mkDerivation (
         ghostscript
         python3Packages.sphinx-rtd-theme
         python3Packages.breathe
-      ]
-    ;
+      ];
 
     buildInputs = [
       openmp

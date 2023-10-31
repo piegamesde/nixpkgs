@@ -99,8 +99,7 @@ in
       mkIf (cfg.settings ? last_login && cfg.settings.last_login != { })
         ''
           PrintLastLog no
-        ''
-    ;
+        '';
   };
   meta.maintainers = with maintainers; [ ma27 ];
 }

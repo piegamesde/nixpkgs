@@ -23,8 +23,7 @@ import ./make-test-python.nix (
             createLocally = true;
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

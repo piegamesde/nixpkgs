@@ -126,8 +126,7 @@ stdenv.mkDerivation rec {
       "-Dbattery_detection=none"
       "-Dnetwork_manager=disabled"
       "-Dsystemd_user_services=false"
-    ]
-  ;
+    ];
 
   postInstall = ''
     glib-compile-schemas "$out/share/glib-2.0/schemas"

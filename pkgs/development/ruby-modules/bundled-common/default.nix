@@ -95,8 +95,7 @@ let
     (lib.optionalString bundledByPath (
       assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/"
     ) # */
-    )
-  ;
+    );
 
   maybeCopyAll =
     pkgname:
@@ -131,8 +130,7 @@ let
         pathDerivation (gemAttrs.source // gemAttrs)
       else
         buildRubyGem gemAttrs
-    )
-  ;
+    );
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;
 
@@ -224,8 +222,7 @@ let
             echo >&2 ""
             exit 1
           '';
-        }
-      ;
+        };
     };
   };
 

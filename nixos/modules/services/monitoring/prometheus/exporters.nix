@@ -116,8 +116,7 @@ let
             options
           ;
         }
-      )
-  ;
+      );
 
   mkExporterOpts =
     (
@@ -205,8 +204,7 @@ let
         internal = true;
         default = { };
       };
-    }
-  ;
+    };
 
   mkSubModules =
     (foldl' (a: b: a // b) { } (
@@ -288,8 +286,7 @@ let
         }
         serviceOpts
       ]);
-    }
-  ;
+    };
 in
 {
 
@@ -428,16 +425,13 @@ in
       (mkIf config.services.minio.enable {
         services.prometheus.exporters.minio.minioAddress =
           mkDefault
-            "http://localhost:9000"
-        ;
+            "http://localhost:9000";
         services.prometheus.exporters.minio.minioAccessKey =
           mkDefault
-            config.services.minio.accessKey
-        ;
+            config.services.minio.accessKey;
         services.prometheus.exporters.minio.minioAccessSecret =
           mkDefault
-            config.services.minio.secretKey
-        ;
+            config.services.minio.secretKey;
       })
     ]
     ++ [
@@ -449,8 +443,7 @@ in
       (mkIf config.services.postfix.enable {
         services.prometheus.exporters.postfix.group =
           mkDefault
-            config.services.postfix.setgidGroup
-        ;
+            config.services.postfix.setgidGroup;
       })
     ]
     ++ (mapAttrsToList

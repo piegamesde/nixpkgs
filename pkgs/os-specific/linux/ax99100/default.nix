@@ -40,8 +40,7 @@ stdenv.mkDerivation {
     ]
     ++ (lib.optional (lib.versionAtLeast kernel.version "6.2") [
       ./kernel-6.2-fix-pointer-type.patch
-    ])
-  ;
+    ]);
 
   patchFlags = [ "-p0" ];
 

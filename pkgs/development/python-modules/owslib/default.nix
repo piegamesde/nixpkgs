@@ -63,8 +63,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_ogcapi_records_pygeoapi"
       "test_wms_getfeatureinfo_130"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Client for Open Geospatial Consortium web service interface standards";

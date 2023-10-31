@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
         sha256 = "12afkqnlkl3n1hywwgx8sqnhp3bz0c5qrwcv8j9hifw1lmfhv67r";
         extraPrefix = "./";
       }
-    )
-  ;
+    );
 
   postPatch =
     ''

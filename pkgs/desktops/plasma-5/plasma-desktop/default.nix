@@ -133,14 +133,12 @@ mkDerivation {
         runCommandLocal "gsettings-wrapper" { nativeBuildInputs = [ makeWrapper ]; }
           ''
             makeWrapper ${glib}/bin/gsettings $out --prefix XDG_DATA_DIRS : ${gsettings-desktop-schemas.out}/share/gsettings-schemas/${gsettings-desktop-schemas.name}
-          ''
-      ;
+          '';
     in
     [
       ''-DNIXPKGS_HWCLOCK=\"${lib.getBin util-linux}/bin/hwclock\"''
       ''-DNIXPKGS_GSETTINGS=\"${gsettings-wrapper}\"''
-    ]
-  ;
+    ];
   postInstall = ''
     # Display ~/Desktop contents on the desktop by default.
     sed -i "''${!outputBin}/share/plasma/shells/org.kde.plasma.desktop/contents/defaults" \

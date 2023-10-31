@@ -63,8 +63,7 @@ in
       sessionPath = mkOption {
         description =
           mdDoc
-            "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart."
-        ;
+            "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
         default = [ ];
@@ -92,8 +91,7 @@ in
     environment.budgie.excludePackages = mkOption {
       description =
         mdDoc
-          "Which packages Budgie should exclude from the default environment."
-      ;
+          "Which packages Budgie should exclude from the default environment.";
       type = with types; listOf package;
       default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";

@@ -59,8 +59,7 @@ rec {
         in
         generateExprs name src { }
       )
-      overrides
-  ;
+      overrides;
 
   /* doCoverage modifies a haskell package to enable the generation
      and installation of a coverage report.
@@ -154,8 +153,7 @@ rec {
   appendConfigureFlag = x: appendConfigureFlags [ x ];
   appendConfigureFlags =
     xs:
-    overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; })
-  ;
+    overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
 
   appendBuildFlag =
     x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
@@ -171,8 +169,7 @@ rec {
     x:
     overrideCabal (
       drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); }
-    )
-  ;
+    );
 
   addBuildTool = x: addBuildTools [ x ];
   addBuildTools =
@@ -181,8 +178,7 @@ rec {
   addExtraLibrary = x: addExtraLibraries [ x ];
   addExtraLibraries =
     xs:
-    overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; })
-  ;
+    overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
 
   addBuildDepend = x: addBuildDepends [ x ];
   addBuildDepends =
@@ -191,24 +187,21 @@ rec {
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
     xs:
-    overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; })
-  ;
+    overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =
     xs:
     overrideCabal (
       drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; }
-    )
-  ;
+    );
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
     xs:
     overrideCabal (
       drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; }
-    )
-  ;
+    );
 
   enableCabalFlag =
     x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
@@ -303,8 +296,7 @@ rec {
     # dontStrip: see above
     appendConfigureFlag
       "--ghc-options=-g --disable-executable-stripping --disable-library-stripping"
-      (dontStrip drv)
-  ;
+      (dontStrip drv);
 
   /* Create a source distribution tarball like those found on hackage,
      instead of building the package.
@@ -323,8 +315,7 @@ rec {
         installPhase = "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
         fixupPhase = ":";
       }
-    )
-  ;
+    );
 
   /* Create a documentation tarball suitable for uploading to Hackage instead
      of building the package.
@@ -352,16 +343,14 @@ rec {
           runHook postInstall
         '';
       }
-    )
-  ;
+    );
 
   /* Use the gold linker. It is a linker for ELF that is designed
      "to run as fast as possible on modern systems"
   */
   linkWithGold =
     appendConfigureFlag
-      "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold"
-  ;
+      "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold";
 
   /* link executables statically against haskell libs to reduce
      closure size
@@ -402,8 +391,7 @@ rec {
         editedCabalFile = null;
         jailbreak = false;
       })
-      pkg
-  ;
+      pkg;
 
   /* Build the package in a strict way to uncover potential problems.
      This includes buildFromSdist and failOnAllWarnings.
@@ -418,8 +406,7 @@ rec {
   */
   failOnAllWarnings =
     appendConfigureFlag
-      "--ghc-option=-Wall --ghc-option=-Werror"
-  ;
+      "--ghc-option=-Wall --ghc-option=-Werror";
 
   /* Add a post-build check to verify that dependencies declared in
      the cabal file are actually used.
@@ -450,8 +437,7 @@ rec {
           + optionalString (args != "") " ${args}"
         ;
       })
-      (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv)
-  ;
+      (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
 
@@ -476,8 +462,7 @@ rec {
         version = if version == null then drv.version else version;
         editedCabalFile = null;
       })
-      drv
-  ;
+      drv;
 
   # Get all of the build inputs of a haskell package, divided by category.
   getBuildInputs = p: p.getBuildInputs;
@@ -519,8 +504,7 @@ rec {
     }:
     {
       inherit doCheck doBenchmark;
-    }
-  ;
+    };
 
   # Utility to convert a directory full of `cabal2nix`-generated files into a
   # package override set
@@ -539,8 +523,7 @@ rec {
         value = self.callPackage (directory + "/${file}") { };
       };
     in
-    builtins.listToAttrs (map toKeyVal haskellPaths)
-  ;
+    builtins.listToAttrs (map toKeyVal haskellPaths);
 
   /* INTERNAL function retained for backwards compatibility, use
      haskell.packages.*.generateOptparseApplicativeCompletions instead!
@@ -568,8 +551,7 @@ rec {
           ''
         ;
       }
-    )
-  ;
+    );
 
   /* Retained for backwards compatibility.
      Use haskell.packages.*.generateOptparseApplicativeCompletions
@@ -579,8 +561,7 @@ rec {
     commands: pkg:
     lib.warnIf (lib.isInOldestRelease 2211)
       "haskellLib.generateOptparseApplicativeCompletions is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions. Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
-      (pkgs.lib.foldr __generateOptparseApplicativeCompletion pkg commands)
-  ;
+      (pkgs.lib.foldr __generateOptparseApplicativeCompletion pkg commands);
 
   /* Retained for backwards compatibility.
      Use haskell.packages.*.generateOptparseApplicativeCompletions
@@ -590,8 +571,7 @@ rec {
     command: pkg:
     lib.warnIf (lib.isInOldestRelease 2211)
       "haskellLib.generateOptparseApplicativeCompletion is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions (plural!). Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
-      (__generateOptparseApplicativeCompletion command pkg)
-  ;
+      (__generateOptparseApplicativeCompletion command pkg);
 
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being
@@ -625,8 +605,7 @@ rec {
                   key = drv.outPath;
                   val = drv;
                 })
-                drvs
-            ;
+                drvs;
             operator =
               { val, ... }:
               if !lib.isDerivation val then
@@ -646,28 +625,22 @@ rec {
                   (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
             ;
           }
-        )
-      ;
+        );
     in
     overrideCabal (
       old: {
         benchmarkPkgconfigDepends =
           propagatedPlainBuildInputs
-            old.benchmarkPkgconfigDepends or [ ]
-        ;
+            old.benchmarkPkgconfigDepends or [ ];
         executablePkgconfigDepends =
           propagatedPlainBuildInputs
-            old.executablePkgconfigDepends or [ ]
-        ;
+            old.executablePkgconfigDepends or [ ];
         libraryPkgconfigDepends =
           propagatedPlainBuildInputs
-            old.libraryPkgconfigDepends or [ ]
-        ;
+            old.libraryPkgconfigDepends or [ ];
         testPkgconfigDepends =
           propagatedPlainBuildInputs
-            old.testPkgconfigDepends or [ ]
-        ;
+            old.testPkgconfigDepends or [ ];
       }
-    )
-  ;
+    );
 }

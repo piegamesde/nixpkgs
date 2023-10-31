@@ -136,13 +136,11 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages =
       [ mirakurun ]
-      ++ optional cfg.allowSmartCardAccess polkitRule
-    ;
+      ++ optional cfg.allowSmartCardAccess polkitRule;
     environment.etc = {
       "mirakurun/server.yml".source =
         settingsFmt.generate "server.yml"
-          cfg.serverSettings
-      ;
+          cfg.serverSettings;
       "mirakurun/tuners.yml" = mkIf (cfg.tunerSettings != null) {
         source = settingsFmt.generate "tuners.yml" cfg.tunerSettings;
         mode = "0644";
@@ -211,8 +209,7 @@ in
             ++ optional (cfg.channelSettings != null) "channels"
           ;
         in
-        (map getconf targets)
-      ;
+        (map getconf targets);
     };
   };
 }

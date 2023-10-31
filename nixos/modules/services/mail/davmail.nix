@@ -39,8 +39,7 @@ let
         else
           [ "${name}=${toStr value}" ]
       )
-      (attrNames attrs)
-  ;
+      (attrNames attrs);
 
   configFile = pkgs.writeText "davmail.properties" (
     concatStringsSep "\n" (linesForAttrs cfg.config)
@@ -55,8 +54,7 @@ in
       type = types.str;
       description =
         lib.mdDoc
-          "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL."
-      ;
+          "Outlook Web Access URL to access the exchange server, i.e. the base webmail URL.";
       example = "https://outlook.office365.com/EWS/Exchange.asmx";
     };
 

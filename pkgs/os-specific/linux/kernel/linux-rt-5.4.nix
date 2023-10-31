@@ -34,8 +34,7 @@ buildLinux (
           };
         };
       in
-      [ rt-patch ] ++ kernelPatches
-    ;
+      [ rt-patch ] ++ kernelPatches;
 
     structuredExtraConfig =
       with lib.kernel;

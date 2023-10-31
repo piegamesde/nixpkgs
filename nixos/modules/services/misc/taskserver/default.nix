@@ -24,8 +24,7 @@ let
         Setting this option will prevent automatic CA creation and handling.
         :::
       '';
-    }
-  ;
+    };
 
   manualPkiOptions = {
     ca.cert = mkManualPkiOption ''
@@ -54,8 +53,7 @@ let
       This option is for the automatically handled CA and will be ignored if any
       of the {option}`services.taskserver.pki.manual.*` options are set.
       :::
-    ''
-  ;
+    '';
 
   mkExpireOption =
     desc:
@@ -68,8 +66,7 @@ let
         The expiration time of ${desc} in days or `null` for no
         expiration time.
       '';
-    }
-  ;
+    };
 
   autoPkiOptions = {
     bits = mkOption {
@@ -94,8 +91,7 @@ let
         let
           dotted = concatStringsSep "." path;
         in
-        throw "Can't find option definitions for path `${dotted}'."
-      ;
+        throw "Can't find option definitions for path `${dotted}'.";
       findPkiDefinitions =
         path: attrs:
         let
@@ -110,11 +106,9 @@ let
               findPkiDefinitions newPath val
           ;
         in
-        flatten (mapAttrsToList mkSublist attrs)
-      ;
+        flatten (mapAttrsToList mkSublist attrs);
     in
-    all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions)
-  ;
+    all (x: x == null) (findPkiDefinitions [ ] manualPkiOptions);
 
   orgOptions =
     { ... }:
@@ -142,8 +136,7 @@ let
           A list of group names that belong to the organization.
         '';
       };
-    }
-  ;
+    };
 
   certtool = "${pkgs.gnutls.bin}/bin/certtool";
 
@@ -180,8 +173,7 @@ let
       '';
 
       propagatedBuildInputs = [ click ];
-    }
-  ;
+    };
 in
 {
   options = {
@@ -198,8 +190,7 @@ in
 
             More instructions about NixOS in conjunction with Taskserver can be
             found [in the NixOS manual](${url}).
-          ''
-        ;
+          '';
       };
 
       user = mkOption {
@@ -231,8 +222,7 @@ in
           lib.mdDoc ''
             List of GnuTLS ciphers to use. See the GnuTLS documentation about
             priority strings at <${url}> for full details.
-          ''
-        ;
+          '';
       };
 
       organisations = mkOption {
@@ -435,14 +425,11 @@ in
                         toString val
                     ;
                   in
-                  if isAttrs val then recurse newPath val else [ "${mkKey newPath}=${scalar}" ]
-                ;
+                  if isAttrs val then recurse newPath val else [ "${mkKey newPath}=${scalar}" ];
               in
-              concatLists (mapAttrsToList mapper attrs)
-            ;
+              concatLists (mapAttrsToList mapper attrs);
           in
-          recurse [ ]
-        ;
+          recurse [ ];
       };
     };
   };
@@ -522,8 +509,7 @@ in
                   mapNullable (_: "crl") cfg.pki.manual.server.crl
                 } = "${cfg.pki.manual.server.crl}";
               }
-          )
-        ;
+          );
 
         ca.cert =
           if needToCreateCA then
@@ -575,8 +561,7 @@ in
             jsonFile = pkgs.writeText "orgs.json" jsonOrgs;
             helperTool = "${nixos-taskserver}/bin/nixos-taskserver";
           in
-          "${helperTool} process-json '${jsonFile}'"
-        ;
+          "${helperTool} process-json '${jsonFile}'";
 
         serviceConfig = {
           ExecStart =
@@ -584,8 +569,7 @@ in
               mkCfgFlag = flag: escapeShellArg "--${flag}";
               cfgFlags = concatMapStringsSep " " mkCfgFlag cfg.config;
             in
-            "@${taskd} taskd server ${cfgFlags}"
-          ;
+            "@${taskd} taskd server ${cfgFlags}";
           ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
           Restart = "on-failure";
           PermissionsStartOnly = true;

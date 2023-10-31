@@ -52,11 +52,9 @@ in
                       ordered = [ ];
                       unordered = [ ];
                     }
-                    defs
-                ;
+                    defs;
               in
-              [ (gitini.merge loc config.unordered) ] ++ config.ordered
-            ;
+              [ (gitini.merge loc config.unordered) ] ++ config.ordered;
           }
         ;
         default = [ ];

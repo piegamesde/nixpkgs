@@ -38,8 +38,7 @@ buildDunePackage {
       ForceFeedback
       OpenGL
       VideoToolbox
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     ffmpeg-av

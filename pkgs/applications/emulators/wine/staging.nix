@@ -27,8 +27,7 @@ assert lib.getVersion wineUnstable == patch.version;
           "autoconf"
           "gitMinimal"
         ]
-        self.buildInputs
-    ;
+        self.buildInputs;
     nativeBuildInputs = [
       autoconf
       hexdump

@@ -122,8 +122,7 @@ let
     fetchpatch {
       url = "https://github.com/chromium/chromium/commit/${commit}.patch";
       inherit sha256 revert;
-    }
-  ;
+    };
 
   mkGnFlags =
     let
@@ -140,8 +139,7 @@ let
                 "\\"
               ]
               value
-          }"''
-      ;
+          }"'';
       sanitize =
         value:
         if value == true then
@@ -160,8 +158,7 @@ let
       toFlag = key: value: "${key}=${sanitize value}";
     in
     attrs:
-    lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs))
-  ;
+    lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs));
 
   # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
   gnSystemLibraries = [
@@ -474,8 +471,7 @@ let
         runHook preBuild
         ${lib.concatStringsSep "\n" commands}
         runHook postBuild
-      ''
-    ;
+      '';
 
     postFixup = ''
       # Make sure that libGLESv2 and libvulkan are found by dlopen.

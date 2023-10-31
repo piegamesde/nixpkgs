@@ -171,8 +171,7 @@ buildPythonApplication rec {
         pycuda
         pynvml
       ]
-    )
-  ;
+    );
 
   # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";

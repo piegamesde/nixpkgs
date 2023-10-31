@@ -56,8 +56,7 @@ let
                 extraHosts =
                   lib.concatMapStringsSep "\n"
                     (i: "192.168.1.${toString i} galera_0${toString i}")
-                    (lib.range 1 6)
-                ;
+                    (lib.range 1 6);
                 firewall.allowedTCPPorts = [
                   3306
                   4444
@@ -124,8 +123,7 @@ let
                   };
                 };
               };
-            }
-          ;
+            };
         in
         {
           galera_01 = mkGaleraNode {
@@ -157,8 +155,7 @@ let
             id = 6;
             method = "rsync";
           };
-        }
-      ;
+        };
 
       testScript = ''
         galera_01.start()
@@ -268,8 +265,7 @@ let
         galera_05.succeed("sudo -u testuser mysql -u testuser -e 'use testdb; drop table db2;'")
         galera_06.succeed("sudo -u testuser mysql -u testuser -e 'use testdb; drop table db1;'")
       '';
-    }
-  ;
+    };
 in
 lib.mapAttrs (_: mariadbPackage: makeGaleraTest { inherit mariadbPackage; })
   mariadbPackages

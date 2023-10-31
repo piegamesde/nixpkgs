@@ -39,8 +39,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.8") [
       cached-property
       importlib-metadata
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     azure-servicebus

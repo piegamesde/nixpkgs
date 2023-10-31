@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       smpeg
       libvorbis
-    ]
-  ;
+    ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: build/linux.release/alan3/Location.o:(.bss+0x0): multiple definition of

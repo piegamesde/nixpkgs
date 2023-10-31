@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
           patchelf --set-interpreter "$interpreter" $pgm;
         fi
       done
-    ''
-  ;
+    '';
 
   passthru = {
     libArch = "x86-64_linux";

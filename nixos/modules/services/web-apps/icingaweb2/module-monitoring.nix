@@ -26,8 +26,7 @@ let
           disabled = "${formatBool config.disabled}"
         '')
         cfg.backends
-    )
-  ;
+    );
 
   transportsIni = concatStringsSep "\n" (
     mapAttrsToList
@@ -62,8 +61,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Make config.ini of the monitoring module mutable (e.g. via the web interface)."
-        ;
+            "Make config.ini of the monitoring module mutable (e.g. via the web interface).";
       };
 
       protectedVars = mkOption {
@@ -75,8 +73,7 @@ in
         ];
         description =
           lib.mdDoc
-            "List of string patterns for custom variables which should be excluded from user’s view."
-        ;
+            "List of string patterns for custom variables which should be excluded from user’s view.";
       };
     };
 
@@ -85,8 +82,7 @@ in
       default = false;
       description =
         lib.mdDoc
-          "Make backends.ini of the monitoring module mutable (e.g. via the web interface)."
-      ;
+          "Make backends.ini of the monitoring module mutable (e.g. via the web interface).";
     };
 
     backends = mkOption {
@@ -129,8 +125,7 @@ in
       default = true;
       description =
         lib.mdDoc
-          "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface)."
-      ;
+          "Make commandtransports.ini of the monitoring module mutable (e.g. via the web interface).";
     };
 
     transports = mkOption {

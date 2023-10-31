@@ -38,8 +38,7 @@ import ../make-test-python.nix (
                 tryFiles = "$uri $uri/ index.php";
                 index = "index.php index.html index.htm";
               };
-            }
-          ;
+            };
         };
 
         services.phpfpm.pools."foobar" = {
@@ -57,8 +56,7 @@ import ../make-test-python.nix (
             "pm.start_servers" = 2;
           };
         };
-      }
-    ;
+      };
     testScript =
       { ... }:
       ''
@@ -73,7 +71,6 @@ import ../make-test-python.nix (
         for ext in ["json", "opcache", "pdo_mysql", "pdo_pgsql", "pdo_sqlite", "apcu"]:
             assert ext in response, f"Missing {ext} extension"
             machine.succeed(f'test -n "$(php -m | grep -i {ext})"')
-      ''
-    ;
+      '';
   }
 )

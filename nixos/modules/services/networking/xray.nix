@@ -96,6 +96,5 @@ with lib;
           ExecStart = "${cfg.package}/bin/xray -config ${settingsFile}";
         };
       };
-    }
-  ;
+    };
 }

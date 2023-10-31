@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
-      libunwind
-  ;
+      libunwind;
 
   cmakeFlags =
     [ "-DLIBCXXABI_LIBCXX_INCLUDES=${cxx-headers}/include/c++/v1" ]

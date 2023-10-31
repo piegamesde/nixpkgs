@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       "ac_cv_func__set_invalid_parameter_handler=no"
       "ac_cv_func_posix_fadvise=no"
       "ac_cv_func_mempcpy=no"
-    ]
-  ;
+    ];
 
   preConfigure = ''
     configureFlagsArray+=("--with-sections=1 n l 8 3 0 2 5 4 9 6 7")
@@ -100,8 +99,7 @@ stdenv.mkDerivation rec {
 
   disallowedReferences =
     lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [ buildPackages.groff ]
-  ;
+      [ buildPackages.groff ];
 
   enableParallelBuilding = true;
 

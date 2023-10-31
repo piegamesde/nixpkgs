@@ -103,16 +103,14 @@ let
                 exit [lindex $result 3]
               EOF
               touch $out
-            ''
-        ;
+            '';
       in
       {
         # Make sure we can run OmniSharp with any supported SDK version, as well as without
         with-net6-sdk = with-sdk sdk_6_0;
         with-net7-sdk = with-sdk dotnetCorePackages.sdk_7_0;
         no-sdk = with-sdk null;
-      }
-    ;
+      };
 
     meta = with lib; {
       description = "OmniSharp based on roslyn workspaces";

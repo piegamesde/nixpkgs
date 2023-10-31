@@ -238,8 +238,7 @@ with pkgs; rec {
       # that we can safely copy them out of the store and to other
       # locations in the store.
       allowedReferences = [ ];
-    }
-  ;
+    };
 
   dist = stdenv.mkDerivation {
     name = "stdenv-bootstrap-tools";
@@ -262,8 +261,7 @@ with pkgs; rec {
     busybox = runCommand "busybox" { } "cp ${build}/on-server/busybox $out";
     bootstrapTools =
       runCommand "bootstrap-tools.tar.xz" { }
-        "cp ${build}/on-server/bootstrap-tools.tar.xz $out"
-    ;
+        "cp ${build}/on-server/bootstrap-tools.tar.xz $out";
   };
 
   bootstrapTools =

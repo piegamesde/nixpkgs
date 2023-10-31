@@ -3,8 +3,7 @@ let
   minimalModulesWarning =
     warn
       "lib.nixos.evalModules is experimental and subject to change. See nixos/lib/default.nix"
-      null
-  ;
+      null;
   inherit (nonExtendedLib) warn;
   nonExtendedLib = import ../../lib;
 in

@@ -39,8 +39,7 @@ mkDerivation rec {
         python
         msgpack
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     cmake

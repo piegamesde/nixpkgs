@@ -93,8 +93,7 @@ let
     # not in the programs in $out/bin.
     nativeBuildInputs =
       lib.optional stdenv.hostPlatform.isDarwin
-        fixDarwinDylibNames
-    ;
+        fixDarwinDylibNames;
 
     # remove dependency on bootstrap-tools in early stdenv build
     postInstall =

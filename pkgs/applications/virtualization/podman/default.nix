@@ -61,8 +61,7 @@ let
         aardvark-dns
         catatonit # added here for the pause image and also set in `containersConf` for `init_path`
         netavark
-      ]
-    ;
+      ];
   };
 in
 buildGoModule rec {
@@ -123,7 +122,8 @@ buildGoModule rec {
     else
       ''
         make bin/podman bin/rootlessport bin/quadlet
-      ''}
+      ''
+    }
     make docs
     runHook postBuild
   '';
@@ -137,7 +137,8 @@ buildGoModule rec {
     else
       ''
         make install.bin install.systemd
-      ''}
+      ''
+    }
     make install.completions install.man
     mkdir -p ${HELPER_BINARIES_DIR}
     ln -s ${helpersBin}/bin/* ${HELPER_BINARIES_DIR}
@@ -165,8 +166,7 @@ buildGoModule rec {
       # related modules
       inherit (nixosTests) podman-tls-ghostunnel;
       oci-containers-podman = nixosTests.oci-containers.podman;
-    }
-  ;
+    };
 
   meta = with lib; {
     homepage = "https://podman.io/";

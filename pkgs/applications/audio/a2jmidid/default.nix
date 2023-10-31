@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
         python
         dbus-python
       ]
-    )
-  ;
+    );
 
   postInstall = ''
     wrapProgram $out/bin/a2j_control --set PYTHONPATH $PYTHONPATH

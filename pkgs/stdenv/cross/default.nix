@@ -39,8 +39,7 @@ lib.init bootStages
       assert vanillaPackages.stdenv.buildPlatform == localSystem;
       assert vanillaPackages.stdenv.hostPlatform == localSystem;
       assert vanillaPackages.stdenv.targetPlatform == localSystem;
-      vanillaPackages.stdenv.override { targetPlatform = crossSystem; }
-    ;
+      vanillaPackages.stdenv.override { targetPlatform = crossSystem; };
     # It's OK to change the built-time dependencies
     allowCustomOverrides = true;
   })
@@ -50,7 +49,10 @@ lib.init bootStages
     buildPackages:
     let
       adaptStdenv =
-        if crossSystem.isStatic then buildPackages.stdenvAdapters.makeStatic else lib.id
+        if crossSystem.isStatic then
+          buildPackages.stdenvAdapters.makeStatic
+        else
+          lib.id
       ;
     in
     {

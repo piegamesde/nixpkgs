@@ -125,8 +125,7 @@ qtModule {
       bootstrap_cmds
       cctools
       xcbuild
-    ]
-  ;
+    ];
   doCheck = true;
   outputs = [
     "out"
@@ -321,8 +320,7 @@ qtModule {
     ++ lib.optionals stdenv.isDarwin [
       libpm
       sandbox
-    ]
-  ;
+    ];
 
   requiredSystemFeatures = [ "big-parallel" ];
 

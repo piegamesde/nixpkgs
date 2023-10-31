@@ -74,8 +74,7 @@ in
         type = types.path;
         description =
           lib.mdDoc
-            "Password file for the postgresql connection. Must be readable by user `nginx`."
-        ;
+            "Password file for the postgresql connection. Must be readable by user `nginx`.";
       };
       dbname = mkOption {
         type = types.str;
@@ -89,8 +88,7 @@ in
       default = "";
       description =
         lib.mdDoc
-          "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options."
-      ;
+          "Extra configuration for the postfixadmin instance, see postfixadmin's config.inc.php for available options.";
     };
   };
 
@@ -188,8 +186,7 @@ in
           Type = "oneshot";
           RemainAfterExit = true;
         };
-      }
-    ;
+      };
 
     users.users.${user} = mkIf localDB {
       group = user;

@@ -85,8 +85,7 @@ stdenv.mkDerivation (
       broken =
         !(builtins.any (p: (p.product or "") == "native-image-installable-svm")
           graalvmDrv.products
-        )
-      ;
+        );
     } // meta;
   }
   // extraArgs

@@ -54,8 +54,7 @@ let
   inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
   llvmTargetsToBuild' =
     [ "AMDGPU" ]
-    ++ builtins.map inferNativeTarget llvmTargetsToBuild
-  ;
+    ++ builtins.map inferNativeTarget llvmTargetsToBuild;
 in
 stdenv.mkDerivation (
   finalAttrs: {

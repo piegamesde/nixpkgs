@@ -33,8 +33,7 @@ import ./make-test-python.nix (
             verbosity = "debug";
           };
         };
-      }
-    ;
+      };
 
     testScript =
       let
@@ -44,8 +43,7 @@ import ./make-test-python.nix (
             [[ $(btrfs fi du -s --raw ${
               lib.escapeShellArg loc
             }/dedup-me-{1,2} | awk 'BEGIN { count=0; } NR>1 && $3 == 0 { count++ } END { print count }') -eq 0 ]]
-          ''
-        ;
+          '';
       in
       ''
         # shut down the instance started by systemd at boot, so we can test our test procedure
@@ -73,7 +71,6 @@ import ./make-test-python.nix (
         machine.succeed(
             "[[ $(stat -c %s /aux1/.beeshome/beeshash.dat) = $(( 16 * 1024 * 1024)) ]]"
         )
-      ''
-    ;
+      '';
   }
 )

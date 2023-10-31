@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       IOKit
-    ]
-  ;
+    ];
 
   installPhase = ''
     runHook preInstall

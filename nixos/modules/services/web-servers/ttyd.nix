@@ -143,8 +143,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to allow a websocket connection from a different origin."
-        ;
+            "Whether to allow a websocket connection from a different origin.";
       };
 
       maxClients = mkOption {

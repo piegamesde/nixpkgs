@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-DMOLTENVK_REPO_ROOT=${moltenvk}/share/vulkan/icd.d"
       "-DIBTOOL=/usr/bin/ibtool"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Khronos official Vulkan Tools and Utilities";

@@ -53,8 +53,7 @@ let
         mkdir -p $out/nix-support
         echo "file source-dist $out/tarballs/$tgzFile" >> $out/nix-support/hydra-build-products
       '';
-    }
-  ;
+    };
 
   # Common shell logic
   installPackage = writeShellScript "install-package" ''
@@ -124,8 +123,7 @@ let
       + ''
         cd ..
       ''
-    )
-  ;
+    );
 
   # Recursively composes the dependencies of a package
   composePackage =
@@ -141,8 +139,7 @@ let
       ${includeDependencies { inherit dependencies; }}
       cd ..
       ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
-    ''
-  ;
+    '';
 
   pinpointDependencies =
     { dependencies, production }:
@@ -216,8 +213,7 @@ let
             cd ..
         fi
       ''}
-    ''
-  ;
+    '';
 
   # Recursively traverses all dependencies of a package and pinpoints all
   # dependencies in the package.json file to the versions that are actually
@@ -238,8 +234,7 @@ let
           cd ..
           ${lib.optionalString (builtins.substring 0 1 packageName == "@") "cd .."}
       fi
-    ''
-  ;
+    '';
 
   # Extract the Node.js source code which is used to compile packages with
   # native bindings
@@ -436,8 +431,7 @@ let
             lib.optionalString production "--production"
           } install
       fi
-    ''
-  ;
+    '';
 
   # Builds and composes an NPM package including all its dependencies
   buildNodePackage =
@@ -555,8 +549,7 @@ let
         } // meta;
       }
       // extraArgs
-    )
-  ;
+    );
 
   # Builds a node environment (a node_modules folder and a set of binaries)
   buildNodeDependencies =
@@ -652,8 +645,7 @@ let
         '';
       }
       // extraArgs
-    )
-  ;
+    );
 
   # Builds a development shell
   buildNodeShell =
@@ -701,8 +693,7 @@ let
         export NODE_PATH=${nodeDependencies}/lib/node_modules
         export PATH="${nodeDependencies}/bin:$PATH"
       '';
-    }
-  ;
+    };
 in
 {
   buildNodeSourceDist = lib.makeOverridable buildNodeSourceDist;

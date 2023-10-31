@@ -28,8 +28,7 @@ let
         addBuildTools [ makeWrapper ] (
           justStaticExecutables haskellPackages.hercules-ci-cli
         )
-      )
-  ;
+      );
 in
 pkg
 // {

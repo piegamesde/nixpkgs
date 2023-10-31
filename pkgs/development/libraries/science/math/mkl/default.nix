@@ -88,8 +88,7 @@ stdenvNoCC.mkDerivation (
           ]
         else
           [ rpmextract ]
-      )
-    ;
+      );
 
     buildPhase =
       if stdenvNoCC.isDarwin then

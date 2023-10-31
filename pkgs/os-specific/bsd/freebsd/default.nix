@@ -43,8 +43,7 @@ let
 
   freebsdSetupHook =
     makeSetupHook { name = "freebsd-setup-hook"; }
-      ./setup-hook.sh
-  ;
+      ./setup-hook.sh;
 
   mkBsdArch =
     stdenv':
@@ -55,8 +54,8 @@ let
       i586 = "i386";
       i686 = "i386";
     }
-    .${stdenv'.hostPlatform.parsed.cpu.name} or stdenv'.hostPlatform.parsed.cpu.name
-  ;
+    .${stdenv'.hostPlatform.parsed.cpu.name}
+      or stdenv'.hostPlatform.parsed.cpu.name;
 
   install-wrapper = ''
     set -eu
@@ -421,8 +420,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "MK_WERROR=no"
         ]
         ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-          "INSTALL=boot-install"
-      ;
+          "INSTALL=boot-install";
       buildInputs = with self; compatIfNeeded;
     };
 
@@ -465,8 +463,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             "TESTSDIR=${builtins.placeholder "test"}"
           ]
           ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform)
-            "INSTALL=boot-install"
-        ;
+            "INSTALL=boot-install";
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
           substituteInPlace $out/bin/binstall --subst-var out
@@ -478,8 +475,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           "man"
           "test"
         ];
-      }
-    ;
+      };
 
     sed = mkDerivation {
       path = "usr.bin/sed";
@@ -571,8 +567,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       '';
       extraPaths =
         [ "share/mk" ]
-        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk"
-      ;
+        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
     };
     mtree = mkDerivation {
       path = "contrib/mtree";
@@ -601,8 +596,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             # This hacks around this by manually including `WUNTRACED` until
             # the problem is fixed properly in glibc.
             ./rpcgen-glibc-hack.patch
-          ]
-      ;
+          ];
     };
 
     gencat = mkDerivation { path = "usr.bin/gencat"; };

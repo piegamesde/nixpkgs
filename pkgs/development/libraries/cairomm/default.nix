@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [ ApplicationServices ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = [
     cairo

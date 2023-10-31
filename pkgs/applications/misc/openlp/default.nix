@@ -70,8 +70,7 @@ mkDerivation {
         gst_all_1.gstreamer
       ]
       ++ gstPlugins gst_all_1
-    )
-  ;
+    );
   propagatedBuildInputs =
     optional pdfSupport mupdf
     ++ optional presentationSupport libreoffice-unwrapped;
@@ -106,8 +105,7 @@ mkDerivation {
         "URE_BOOTSTRAP"
         "UNO_PATH"
       ]
-    )
-  ;
+    );
 
   installPhase = ''
     install -D openlp.py $out/bin/openlp

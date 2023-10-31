@@ -14,8 +14,7 @@ let
 
       # CJDNS output is incompatible with the XML log.
       systemd.services.cjdns.serviceConfig.StandardOutput = "null";
-    }
-  ;
+    };
 in
 
 import ./make-test-python.nix (
@@ -36,8 +35,7 @@ import ./make-test-python.nix (
           services.httpd.enable = true;
           services.httpd.adminAddr = "foo@example.org";
           networking.firewall.allowedTCPPorts = [ 80 ];
-        }
-      ;
+        };
 
       # Bob explicitly connects to Carol over UDPInterface.
       bob =
@@ -60,8 +58,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       # Carol listens on ETHInterface and UDPInterface,
       # but knows neither Alice or Bob.
@@ -86,8 +83,7 @@ import ./make-test-python.nix (
             UDPInterface.bind = "192.168.0.1:1024";
           };
           networking.firewall.allowedUDPPorts = [ 1024 ];
-        }
-      ;
+        };
     };
 
     testScript = ''

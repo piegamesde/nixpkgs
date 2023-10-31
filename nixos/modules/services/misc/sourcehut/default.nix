@@ -82,14 +82,12 @@ let
               }
             )
         )
-      )
-  ;
+      );
   commonServiceSettings = srv: {
     origin = mkOption {
       description =
         lib.mdDoc
-          "URL ${srv}.sr.ht is being served at (protocol://domain)"
-      ;
+          "URL ${srv}.sr.ht is being served at (protocol://domain)";
       type = types.str;
       default = "https://${srv}.${domain}";
       defaultText = "https://${srv}.example.com";
@@ -113,8 +111,7 @@ let
       mkEnableOption (lib.mdDoc "automatic migrations on package upgrade")
       // {
         default = true;
-      }
-    ;
+      };
     oauth-client-id = mkOption {
       description = lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
       type = types.str;
@@ -155,8 +152,7 @@ let
       description = lib.mdDoc description;
       type = with types; nullOr str;
       default = null;
-    }
-  ;
+    };
 in
 {
   options.services.sourcehut = {
@@ -183,8 +179,7 @@ in
             "paste"
             "todo"
           ]
-        )
-      ;
+        );
       defaultText = "locally enabled services";
       description = lib.mdDoc ''
         Services that may be displayed as links in the title bar of the Web interface.
@@ -218,8 +213,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "Virtual-host configuration merged with all Sourcehut's virtual-hosts."
-        ;
+            "Virtual-host configuration merged with all Sourcehut's virtual-hosts.";
       };
     };
 
@@ -249,8 +243,7 @@ in
           environment = mkOption {
             description =
               lib.mdDoc
-                ''Values other than "production" adds a banner to each page.''
-            ;
+                ''Values other than "production" adds a banner to each page.'';
             type = types.enum [
               "development"
               "production"
@@ -354,8 +347,7 @@ in
           s3-access-key = mkOption {
             description =
               lib.mdDoc
-                "Access key to the S3-compatible object storage service"
-            ;
+                "Access key to the S3-compatible object storage service";
             type = with types; nullOr str;
             default = null;
           };
@@ -509,8 +501,7 @@ in
           clone_bundle_threshold = mkOption {
             description =
               lib.mdDoc
-                ".hg/store size (in MB) past which the nightly job generates clone bundles."
-            ;
+                ".hg/store size (in MB) past which the nightly job generates clone bundles.";
             type = types.ints.unsigned;
             default = 50;
           };
@@ -602,8 +593,7 @@ in
               defaultText =
                 lib.literalMD
                   ''
-                    `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`''
-              ;
+                    `"http://''${`[](#opt-services.sourcehut.listenAddress)`}:''${toString (`[](#opt-services.sourcehut.meta.port)` + 100)}"`'';
             };
             webhooks = mkOption {
               description = lib.mdDoc "The Redis connection used for the webhooks worker.";
@@ -613,8 +603,7 @@ in
             welcome-emails = mkEnableOption (
               lib.mdDoc "sending stock sourcehut welcome emails after signup"
             );
-          }
-        ;
+          };
         options."meta.sr.ht::api" = {
           internal-ipnet = mkOption {
             description = lib.mdDoc ''
@@ -633,8 +622,7 @@ in
         options."meta.sr.ht::aliases" = mkOption {
           description =
             lib.mdDoc
-              "Aliases for the client IDs of commonly used OAuth clients."
-          ;
+              "Aliases for the client IDs of commonly used OAuth clients.";
           type = with types; attrsOf int;
           default = { };
           example = {
@@ -645,8 +633,7 @@ in
           enabled = mkEnableOption (lib.mdDoc "the billing system");
           stripe-public-key =
             mkOptionNullOrStr
-              "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys"
-          ;
+              "Public key for Stripe. Get your keys at https://dashboard.stripe.com/account/apikeys";
           stripe-secret-key =
             mkOptionNullOrStr ''
               An absolute file path (which should be outside the Nix-store)
@@ -654,8 +641,7 @@ in
             ''
             // {
               apply = mapNullable (s: "<" + toString s);
-            }
-          ;
+            };
         };
         options."meta.sr.ht::settings" = {
           registration = mkEnableOption (lib.mdDoc "public registration");
@@ -843,16 +829,14 @@ in
           ];
           description =
             lib.mdDoc
-              "Extra arguments passed to the Celery responsible for processing mails."
-          ;
+              "Extra arguments passed to the Celery responsible for processing mails.";
         };
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
           description =
             lib.mdDoc
-              "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`."
-          ;
+              "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`.";
         };
       };
     };
@@ -914,8 +898,7 @@ in
         };
         environment.etc."ssh/sourcehut/config.ini".source =
           settingsFormat.generate "sourcehut-dispatch-config.ini"
-            (filterAttrs (k: v: k == "git.sr.ht::dispatch") cfg.settings)
-        ;
+            (filterAttrs (k: v: k == "git.sr.ht::dispatch") cfg.settings);
         environment.etc."ssh/sourcehut/subdir/srht-dispatch" = {
           # sshd_config(5): The program must be owned by root, not writable by group or others
           mode = "0755";
@@ -1079,8 +1062,7 @@ in
             # buildsrht-worker looks up ../config.ini
             WorkingDirectory = "-" + "/run/sourcehut/${serviceName}/subdir";
           };
-        }
-      ;
+        };
       extraConfig =
         let
           image_dirs = flatten (
@@ -1127,8 +1109,7 @@ in
                 # gitsrht-dispatch always use this section
                 "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
                   mkDefault
-                    "${cfg.builds.user}:${cfg.builds.group}"
-                ;
+                    "${cfg.builds.user}:${cfg.builds.group}";
               }
               (mkIf cfg.builds.enableWorker {
                 "builds.sr.ht::worker".shell = "/usr/bin/runner-shell";
@@ -1163,8 +1144,7 @@ in
               cfg.nginx.virtualHost
             ];
           })
-        ]
-      ;
+        ];
     })
 
     (import ./service.nix "git" (
@@ -1212,8 +1192,7 @@ in
             services.sourcehut.settings = {
               "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" =
                 mkDefault
-                  "${cfg.git.user}:${cfg.git.group}"
-              ;
+                  "${cfg.git.user}:${cfg.git.group}";
             };
             systemd.services.sshd = baseService;
           }
@@ -1344,8 +1323,7 @@ in
               # gitsrht-dispatch always uses this section.
               "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" =
                 mkDefault
-                  "${cfg.hg.user}:${cfg.hg.group}"
-              ;
+                  "${cfg.hg.user}:${cfg.hg.group}";
             };
             systemd.services.sshd = baseService;
           }
@@ -1602,11 +1580,9 @@ in
               mkForce
                 "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${
                   toString cfg.pages.port
-                }"
-            ;
+                }";
           };
-        }
-      ;
+        };
     })
 
     (import ./service.nix "paste" {

@@ -125,8 +125,7 @@ appleDerivation' (if headersOnly then stdenvNoCC else stdenv) (
 
         export BUILT_PRODUCTS_DIR=.
         export DSTROOT=$out
-      ''
-    ;
+      '';
 
     buildFlags = lib.optional headersOnly "exporthdrs";
     installTargets = lib.optional headersOnly "installhdrs";

@@ -61,16 +61,14 @@ let
         ;
       }
     )).override
-      { inherit (cfg) plugins; }
-  ;
+      { inherit (cfg) plugins; };
   peeringManagerManageScript =
     with pkgs;
     (writeScriptBin "peering-manager-manage" ''
       #!${stdenv.shell}
       export PYTHONPATH=${pkg.pythonPath}
       sudo -u peering-manager ${pkg}/bin/peering-manager "$@"
-    '')
-  ;
+    '');
 in
 {
   options.services.peering-manager = {
@@ -267,8 +265,7 @@ in
             '';
           };
         };
-      }
-    ;
+      };
 
     systemd.timers.peering-manager-housekeeping = {
       description = "Run Peering Manager housekeeping job";

@@ -91,6 +91,5 @@ in
           SuccessExitStatus = "0 237";
         };
       };
-    }
-  ;
+    };
 }

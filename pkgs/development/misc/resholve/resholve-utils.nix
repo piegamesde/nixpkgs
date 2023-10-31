@@ -50,8 +50,7 @@ rec {
   # Build fake/fix/keep directives from Nix types
   phraseDirectives =
     solution: env: val:
-    lib.mapAttrsToList (phraseDirective solution env) val
-  ;
+    lib.mapAttrsToList (phraseDirective solution env) val;
 
   # Custom ~search-path routine to handle relative path strings
   relSafeBinPath =
@@ -87,14 +86,12 @@ rec {
   # Shell-format each env value
   shellEnv =
     solution: env: value:
-    lib.escapeShellArg (phraseEnvVal solution env value)
-  ;
+    lib.escapeShellArg (phraseEnvVal solution env value);
 
   # Build a single ENV=val pair
   phraseEnv =
     solution: env: value:
-    "RESHOLVE_${lib.toUpper env}=${shellEnv solution env value}"
-  ;
+    "RESHOLVE_${lib.toUpper env}=${shellEnv solution env value}";
 
   /* Discard attrs:
      - claimed by phraseArgs
@@ -106,8 +103,7 @@ rec {
       "scripts"
       "flags"
       "unresholved"
-    ]
-  ;
+    ];
 
   # Verify required arguments are present
   validateSolution =
@@ -117,14 +113,12 @@ rec {
       interpreter,
       ...
     }:
-    true
-  ;
+    true;
 
   # Pull out specific solution keys to build ENV=val pairs
   phraseEnvs =
     solution: value:
-    spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value))
-  ;
+    spaces (lib.mapAttrsToList (phraseEnv solution) (removeUnneededArgs value));
 
   # Pull out specific solution keys to build CLI argstring
   phraseArgs =
@@ -133,8 +127,7 @@ rec {
       scripts,
       ...
     }:
-    spaces (flags ++ scripts)
-  ;
+    spaces (flags ++ scripts);
 
   phraseBinloreArgs =
     value:
@@ -144,8 +137,7 @@ rec {
     {
       drvs = value.inputs ++ lib.optionals hasUnresholved [ value.unresholved ];
       strip = if hasUnresholved then [ value.unresholved ] else [ ];
-    }
-  ;
+    };
 
   # Build a single resholve invocation
   phraseInvocation =
@@ -161,16 +153,14 @@ rec {
 
   injectUnresholved =
     solutions: unresholved:
-    (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions)
-  ;
+    (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
 
   # Build resholve invocation for each solution.
   phraseCommands =
     solutions: unresholved:
     builtins.concatStringsSep "\n" (
       lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved)
-    )
-  ;
+    );
 
   /* subshell/PS4/set -x and : command to output resholve envs
      and invocation. Extra context makes it clearer what the
@@ -189,23 +179,20 @@ rec {
         : invoking resholve with PWD=$PWD
         ${invokable}
       )
-    ''
-  ;
+    '';
   phraseContextForPWD =
     invokable:
     phraseContext {
       inherit invokable;
       prep = "";
-    }
-  ;
+    };
   phraseContextForOut = invokable: phraseContext { inherit invokable; };
 
   phraseSolution =
     name: solution: (phraseContextForOut (phraseInvocation name solution));
   phraseSolutions =
     solutions: unresholved:
-    phraseContextForOut (phraseCommands solutions unresholved)
-  ;
+    phraseContextForOut (phraseCommands solutions unresholved);
 
   writeScript =
     name: partialSolution: text:
@@ -224,8 +211,7 @@ rec {
           ${partialSolution.interpreter} -n $out
         ''
       ;
-    }
-  ;
+    };
   writeScriptBin =
     name: partialSolution: text:
     writeTextFile rec {
@@ -242,8 +228,7 @@ rec {
           ${partialSolution.interpreter} -n $out/bin/${name}
         ''
       ;
-    }
-  ;
+    };
   mkDerivation =
     {
       pname,
@@ -305,6 +290,5 @@ rec {
         # don't break the metadata...
         meta = unresholved.meta;
       }
-    )
-  ;
+    );
 }

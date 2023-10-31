@@ -21,8 +21,7 @@ let
         authors = [ "Test <test@example.com>" ];
       } // args;
     in
-    buildRustCrate p
-  ;
+    buildRustCrate p;
   mkHostCrate = mkCrate buildRustCrate;
 
   mkCargoToml =
@@ -35,8 +34,7 @@ let
       [package]
       name = ${builtins.toJSON name}
       version = ${builtins.toJSON crateVersion}
-    ''
-  ;
+    '';
 
   mkFile =
     destination: text:
@@ -44,8 +42,7 @@ let
       name = "src";
       destination = "/${destination}";
       inherit text;
-    }
-  ;
+    };
 
   mkBin =
     name:
@@ -55,8 +52,7 @@ let
         let name: String = env::args().nth(0).unwrap();
         println!("executed {}", name);
       }
-    ''
-  ;
+    '';
 
   mkBinExtern =
     name: extern:
@@ -65,8 +61,7 @@ let
       fn main() {
         assert_eq!(${extern}::test(), 23);
       }
-    ''
-  ;
+    '';
 
   mkTestFile =
     name: functionName:
@@ -76,8 +71,7 @@ let
       fn ${functionName}() {
         assert!(true);
       }
-    ''
-  ;
+    '';
   mkTestFileWithMain =
     name: functionName:
     mkFile name ''
@@ -88,8 +82,7 @@ let
       }
 
       fn main() {}
-    ''
-  ;
+    '';
 
   mkLib = name: mkFile name "pub fn test() -> i32 { return 23; }";
 
@@ -159,8 +152,7 @@ let
             done
             touch "$out"
           ''
-      )
-  ;
+      );
 
   /* Returns a derivation that asserts that the crate specified by `crateArgs`
      has the specified files as output.
@@ -199,8 +191,7 @@ let
           in
           ''
             ${concatenated}
-          ''
-        ;
+          '';
       };
     in
     runCommand "assert-outputs-${name}" { } (
@@ -229,8 +220,7 @@ let
         }
         touch $out
       ''
-    )
-  ;
+    );
 in
 rec {
 
@@ -329,8 +319,7 @@ rec {
                 src = mkFile "src/lib.rs" ''
                   pub const version: &str = "${version}";
                 '';
-              }
-            ;
+              };
             depCrate01 = crateWithVersion "0.1.2";
             depCrate02 = crateWithVersion "0.2.1";
           in
@@ -371,8 +360,7 @@ rec {
               "test my_lib_01 ... ok"
               "test my_lib_02 ... ok"
             ];
-          }
-        ;
+          };
         rustLibTestsDefault = {
           src = mkTestFile "src/lib.rs" "baz";
           buildTests = true;
@@ -454,8 +442,7 @@ rec {
                 src = mkFile "src/lib.rs" ''
                   pub const baz: bool = ${boolVal};
                 '';
-              }
-            ;
+              };
           in
           {
             crateName = "foo";
@@ -479,8 +466,7 @@ rec {
             dependencies = [ (depCrate buildRustCrate "false") ];
             buildTests = true;
             expectedTestOutputs = [ "test baz_false ... ok" ];
-          }
-        ;
+          };
         buildScriptFeatureEnv = {
           crateName = "build-script-feature-env";
           features = [
@@ -545,8 +531,7 @@ rec {
             };
             buildDependencies = [ depCrate ];
             dependencies = [ depCrate ];
-          }
-        ;
+          };
         # Regression test for https://github.com/NixOS/nixpkgs/issues/74071
         # Whenevever a build.rs file is generating files those should not be overlayed onto the actual source dir
         buildRsOutDirOverlay = {
@@ -610,8 +595,7 @@ rec {
                   $CC -shared \
                     ${lib.optionalString stdenv.isDarwin "-undefined dynamic_lookup"} \
                     -o $out/lib/${name}${stdenv.hostPlatform.extensions.sharedLibrary} ${src}
-                ''
-              ;
+                '';
               b = compile "libb" ''
                 #include <stdio.h>
 
@@ -633,8 +617,7 @@ rec {
             [
               a
               b
-            ]
-          ;
+            ];
         };
         rustCargoTomlInSubDir = {
           # The "workspace_member" can be set to the sub directory with the crate to build.
@@ -699,8 +682,7 @@ rec {
             key: value:
             mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; })
           )
-          cases
-      ;
+          cases;
     in
     tests
     // rec {
@@ -733,8 +715,7 @@ rec {
             # On Darwin, the debug symbols are in a separate directory.
             "./bin/test_binary1.dSYM/Contents/Info.plist"
             "./bin/test_binary1.dSYM/Contents/Resources/DWARF/test_binary1"
-          ]
-        ;
+          ];
       };
 
       crateBinNoPath1Outputs = assertOutputs {
@@ -792,16 +773,14 @@ rec {
             ''
               test -x '${pkg}/bin/brotli' && touch $out
             ''
-        )
-      ;
+        );
       allocNoStdLibTest =
         let
           pkg = brotliCrates.alloc_no_stdlib_1_3_0 { };
         in
         runCommand "run-alloc-no-stdlib-test-cmd" { nativeBuildInputs = [ pkg ]; } ''
           test -e ${pkg}/bin/example && touch $out
-        ''
-      ;
+        '';
       brotliDecompressorTest =
         let
           pkg = brotliCrates.brotli_decompressor_1_3_1 { };
@@ -809,8 +788,7 @@ rec {
         runCommand "run-brotli-decompressor-test-cmd" { nativeBuildInputs = [ pkg ]; }
           ''
             test -e ${pkg}/bin/brotli-decompressor && touch $out
-          ''
-      ;
+          '';
 
       rcgenTest =
         let
@@ -825,8 +803,7 @@ rec {
             ''
               test -x '${pkg}/bin/rcgen' && touch $out
             ''
-        )
-      ;
+        );
     }
   ;
   test = releaseTools.aggregate {

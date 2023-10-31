@@ -31,8 +31,7 @@ let
         echo ";"
         echo ${escapeShellArg appendExtra}
       ) > $out
-    '')
-  ;
+    '');
 
   # Essential config - it's probably not good to have these as option default because
   # types.attrs doesn't do merging. Let's merge explicitly, can still be overridden if
@@ -284,8 +283,7 @@ in
           ${config.services.prosody.package}/bin/prosodyctl mod_roster_command subscribe focus.${cfg.hostName} focus@auth.${cfg.hostName}
           ${config.services.prosody.package}/bin/prosodyctl register jibri auth.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-auth-secret)"
           ${config.services.prosody.package}/bin/prosodyctl register recorder recorder.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jibri-recorder-secret)"
-        ''
-      ;
+        '';
       serviceConfig = {
         EnvironmentFile = [ "/var/lib/jitsi-meet/secrets-env" ];
         SupplementaryGroups = [ "jitsi-meet" ];
@@ -382,15 +380,13 @@ in
           alias =
             overrideJs "${pkgs.jitsi-meet}/config.js" "config"
               (recursiveUpdate defaultCfg cfg.config)
-              cfg.extraConfig
-          ;
+              cfg.extraConfig;
         };
         locations."=/interface_config.js" = mkDefault {
           alias =
             overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig"
               cfg.interfaceConfig
-              ""
-          ;
+              "";
         };
       };
     };
@@ -436,8 +432,7 @@ in
               try_files {path} /index.html
               file_server
             }
-          ''
-        ;
+          '';
       };
     };
 

@@ -49,8 +49,7 @@ buildGoModule rec {
     ++ lib.optionals (glibc != null) [
       glibc
       glibc.static
-    ]
-  ;
+    ];
 
   BUILDTAGS = "apparmor seccomp selinux containers_image_openpgp containers_image_ostree_stub";
   buildPhase = ''

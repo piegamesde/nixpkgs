@@ -380,12 +380,10 @@ in
                     || cfg.alt-tls-listening-port < 1024
                     || cfg.min-port < 1024
                   )
-                  "cap_net_bind_service"
-              ;
+                  "cap_net_bind_service";
               Restart = "on-abort";
             };
-          }
-        ;
+          };
         systemd.tmpfiles.rules = [ "d  /run/coturn 0700 turnserver turnserver - -" ];
       }
     ])

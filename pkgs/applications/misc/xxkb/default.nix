@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       librsvg
       glib
       gdk-pixbuf
-    ]
-  ;
+    ];
 
   outputs = [
     "out"

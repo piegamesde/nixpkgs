@@ -136,8 +136,7 @@ let
             ""
             "socks"
           ]
-        )
-      ;
+        );
       default = null;
       example = "";
       description = lib.mdDoc ''
@@ -252,8 +251,7 @@ in
                         }
                       )
                     )
-                  )
-                ;
+                  );
                 default = { };
                 description = lib.mdDoc ''
                   Ingress rules.
@@ -297,8 +295,7 @@ in
             unitConfig.StopWhenUnneeded = true;
           }
         )
-        config.services.cloudflared.tunnels
-    ;
+        config.services.cloudflared.tunnels;
 
     systemd.services =
       mapAttrs'
@@ -361,8 +358,7 @@ in
             };
           })
         )
-        config.services.cloudflared.tunnels
-    ;
+        config.services.cloudflared.tunnels;
 
     users.users = mkIf (cfg.user == "cloudflared") {
       cloudflared = {

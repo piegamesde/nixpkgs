@@ -33,8 +33,7 @@ let
       "--incognito"
       "-no-default-browser-check"
       "http://cache.nixos.org/"
-    ]
-  ;
+    ];
 
   desktopItem = pkgs.makeDesktopItem {
     name = "captive-browser";
@@ -62,8 +61,7 @@ in
         type = types.str;
         description =
           lib.mdDoc
-            "your public network interface (wlp3s0, wlan0, eth0, ...)"
-        ;
+            "your public network interface (wlp3s0, wlan0, eth0, ...)";
       };
 
       # the options below are the same as in "captive-browser.toml"
@@ -127,8 +125,7 @@ in
           prefixes:
           optionalString cfg.bindInterface (
             escapeShellArgs (prefixes ++ [ cfg.interface ])
-          )
-        ;
+          );
       in
       mkOptionDefault (
         if config.networking.networkmanager.enable then
@@ -151,8 +148,7 @@ in
               fi
             ''
           }"
-      )
-    ;
+      );
 
     security.wrappers.udhcpc = {
       owner = "root";

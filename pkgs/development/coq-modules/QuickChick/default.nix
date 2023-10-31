@@ -96,8 +96,7 @@ in
           out = "20170512";
         }
       ]
-      null
-  ;
+      null;
   release."1.6.4".sha256 = "sha256-C1060wPSU33yZAFLxGmZlAMXASnx98qz3oSLO8DO+mM=";
   release."1.6.2".sha256 = "0g5q9zw3xd4zndihq96nxkq4w3dh05418wzlwdk1nnn3b6vbx6z0";
   release."1.5.0".sha256 = "1lq8x86vd3vqqh2yq6hvyagpnhfq5wmk5pg2z0xq7b7dcw7hyfkw";
@@ -116,8 +115,7 @@ in
 
   preConfigure =
     lib.optionalString recent
-      "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native"
-  ;
+      "substituteInPlace Makefile --replace quickChickTool.byte quickChickTool.native";
 
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;
@@ -126,8 +124,7 @@ in
     ++ lib.optionals recent [
       coq-ext-lib
       simple-io
-    ]
-  ;
+    ];
   extraInstallFlags = [ "-f Makefile.coq" ];
 
   enableParallelBuilding = false;

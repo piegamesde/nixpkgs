@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isUnix bash;
 
   patches =
@@ -73,8 +72,7 @@ stdenv.mkDerivation rec {
         PROGRAMS_LINK_SHARED = !static;
         LEGACY_SUPPORT = legacySupport;
         BUILD_TESTS = doCheck;
-      }
-  ;
+      };
 
   cmakeDir = "../build/cmake";
   dontUseCmakeBuildDir = true;

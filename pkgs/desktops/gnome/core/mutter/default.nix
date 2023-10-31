@@ -168,8 +168,7 @@ stdenv.mkDerivation (
         libXrandr
         libXinerama
         libXau
-      ]
-    ;
+      ];
 
     postPatch = ''
       patchShebangs src/backends/native/gen-default-modes.py

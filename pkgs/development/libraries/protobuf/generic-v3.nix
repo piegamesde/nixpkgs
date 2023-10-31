@@ -74,8 +74,7 @@ let
         mainProgram = "protoc";
         platforms = lib.platforms.unix;
       };
-    }
-  ;
+    };
 in
 mkProtobufDerivation
   (

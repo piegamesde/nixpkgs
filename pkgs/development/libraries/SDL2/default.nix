@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals waylandSupport [
       wayland
       wayland-scanner
-    ]
-  ;
+    ];
 
   dlopenPropagatedBuildInputs =
     [ ]
@@ -206,8 +205,7 @@ stdenv.mkDerivation rec {
           patchelf --set-rpath "$(patchelf --print-rpath $lib):${rpath}" "$lib"
         fi
       done
-    ''
-  ;
+    '';
 
   setupHook = ./setup-hook.sh;
 

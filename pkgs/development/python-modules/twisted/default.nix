@@ -82,8 +82,7 @@ buildPythonPackage rec {
         url = "https://github.com/twisted/twisted/commit/00bf5be704bee022ba4d9b24eb6c2c768b4a1921.patch";
         hash = "sha256-fnBzczm3OlhbjRcePIQ7dSX6uldlCZ9DJTS+UFO2nAQ=";
       })
-    ]
-  ;
+    ];
 
   __darwinAllowLocalNetworking = true;
 
@@ -154,8 +153,7 @@ buildPythonPackage rec {
     lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
       ''
         $out/bin/twistd --help > /dev/null
-      ''
-  ;
+      '';
 
   nativeCheckInputs =
     [

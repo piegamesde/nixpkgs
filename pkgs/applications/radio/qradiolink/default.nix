@@ -73,8 +73,7 @@ gnuradio3_8.pkgs.mkDerivation rec {
     ++ lib.optionals (gnuradio3_8.hasFeature "gr-ctrlport") [
       thrift
       gnuradio3_8.unwrapped.python.pkgs.thrift
-    ]
-  ;
+    ];
   nativeBuildInputs = [
     protobuf
     gnuradio3_8.qt.qmake

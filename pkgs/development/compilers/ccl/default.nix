@@ -62,8 +62,7 @@ let
         tar xf $outer
         tar xf $inner -C ccl
         tar czf $out ccl
-      ''
-  ;
+      '';
 in
 
 stdenv.mkDerivation rec {

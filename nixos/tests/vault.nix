@@ -9,8 +9,7 @@ import ./make-test-python.nix (
         environment.systemPackages = [ pkgs.vault ];
         environment.variables.VAULT_ADDR = "http://127.0.0.1:8200";
         services.vault.enable = true;
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

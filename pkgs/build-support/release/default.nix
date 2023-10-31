@@ -16,8 +16,7 @@ rec {
         ;
       }
       // args
-    )
-  ;
+    );
 
   makeSourceTarball = sourceTarball; # compatibility
 
@@ -36,8 +35,7 @@ rec {
         doCoverageAnalysis = true;
       }
       // args
-    )
-  ;
+    );
 
   clangAnalysis =
     args:
@@ -47,8 +45,7 @@ rec {
         doClangAnalysis = true;
       }
       // args
-    )
-  ;
+    );
 
   coverityAnalysis =
     args:
@@ -58,8 +55,7 @@ rec {
         doCoverityAnalysis = true;
       }
       // args
-    )
-  ;
+    );
 
   rpmBuild = args: import ./rpm-build.nix ({ inherit lib vmTools; } // args);
 
@@ -75,8 +71,7 @@ rec {
         ;
       }
       // args
-    )
-  ;
+    );
 
   aggregate =
     {
@@ -101,8 +96,7 @@ rec {
             touch $out/nix-support/failed
           fi
         done
-      ''
-  ;
+      '';
 
   /* Create a channel job which success depends on the success of all of
      its contituents. Channel jobs are a special type of jobs that are
@@ -167,6 +161,5 @@ rec {
         };
       }
       // removeAttrs args [ "meta" ]
-    )
-  ;
+    );
 }

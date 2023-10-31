@@ -31,8 +31,7 @@ in
           "greetd"
           "regreet"
         ]
-        { }
-    ;
+        { };
 
     settings = lib.mkOption {
       type = lib.types.either lib.types.path settingsFormat.type;
@@ -62,8 +61,7 @@ in
         lib.mkDefault
           "${pkgs.dbus}/bin/dbus-run-session ${lib.getExe pkgs.cage} -s -- ${
             lib.getExe cfg.package
-          }"
-      ;
+          }";
     };
 
     environment.etc = {
@@ -89,7 +87,6 @@ in
       [
         "d /var/log/regreet 0755 greeter ${user} - -"
         "d /var/cache/regreet 0755 greeter ${user} - -"
-      ]
-    ;
+      ];
   };
 }

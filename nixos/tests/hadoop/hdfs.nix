@@ -32,8 +32,7 @@ import ../make-test-python.nix (
               };
               inherit coreSite;
             };
-          }
-        ;
+          };
         datanode =
           { pkgs, ... }:
           {
@@ -49,10 +48,8 @@ import ../make-test-python.nix (
               };
               inherit coreSite;
             };
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript =
       ''

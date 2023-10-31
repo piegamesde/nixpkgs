@@ -50,8 +50,7 @@ in
             "--"
             cfg.lockerCommand
           ]
-        )
-      ;
+        );
     };
   };
 }

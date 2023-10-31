@@ -103,8 +103,7 @@ in
           default = true;
           description =
             lib.mdDoc
-              "Whether the connections to the proxy should be considered secure."
-          ;
+              "Whether the connections to the proxy should be considered secure.";
         };
       };
 
@@ -127,8 +126,7 @@ in
           type = types.str;
           description =
             lib.mdDoc
-              "Path to the file containing the application password of this JIRA instance in Crowd"
-          ;
+              "Path to the file containing the application password of this JIRA instance in Crowd";
         };
 
         validationInterval = mkOption {
@@ -158,8 +156,7 @@ in
         defaultText = literalExpression "pkgs.oraclejre8";
         description =
           lib.mdDoc
-            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
-        ;
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -203,8 +200,7 @@ in
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         JAVA_OPTS =
           mkIf cfg.sso.enable
-            "-Dcrowd.properties=${cfg.home}/crowd.properties"
-        ;
+            "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =

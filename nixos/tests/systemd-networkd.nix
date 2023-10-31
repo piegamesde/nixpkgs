@@ -44,8 +44,7 @@ let
                 PublicKey = pubk;
                 PresharedKeyFile =
                   pkgs.writeText "psk.key"
-                    "yTL3sCOL33Wzi6yCnf9uZQl/Z8laSE+zwpqOHC4HhFU="
-                ;
+                    "yTL3sCOL33Wzi6yCnf9uZQl/Z8laSE+zwpqOHC4HhFU=";
                 AllowedIPs = [ "10.0.0.${peerId}/32" ];
                 PersistentKeepalive = 15;
               };
@@ -127,8 +126,7 @@ let
           };
         };
       };
-    }
-  ;
+    };
 in
 import ./make-test-python.nix (
   { pkgs, ... }:
@@ -146,8 +144,7 @@ import ./make-test-python.nix (
             peerId = "2";
           };
         in
-        generateNodeConf (attrs // localConf)
-      ;
+        generateNodeConf (attrs // localConf);
 
       node2 =
         { pkgs, ... }@attrs:
@@ -159,8 +156,7 @@ import ./make-test-python.nix (
             peerId = "1";
           };
         in
-        generateNodeConf (attrs // localConf)
-      ;
+        generateNodeConf (attrs // localConf);
     };
     testScript = ''
       start_all()

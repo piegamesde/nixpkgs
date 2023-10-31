@@ -40,16 +40,14 @@ let
           sed "s@^\s*include:\s*\"${stateDir}/private/${keyName}\"\$@secret: $fakeKey@" -i $out/nsd.conf
         '')
         keys
-    )
-  ;
+    );
 
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
     paths =
       [ configFile ]
-      ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs
-    ;
+      ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
 
     postBuild = ''
       echo "checking zone files"
@@ -86,8 +84,7 @@ let
       name = "nsd-zone-${mkZoneFileName name}";
       inherit text;
       destination = "/zones/${mkZoneFileName name}";
-    }
-  ;
+    };
 
   # options are ordered alphanumerically by the nixos option name
   configFile = pkgs.writeTextDir "nsd.conf" ''
@@ -451,8 +448,7 @@ let
               "positive"
               "all"
             ]
-          )
-        ;
+          );
         default = [ ];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.
@@ -532,8 +528,7 @@ let
         roll-period ksk ${policy.ksk.rollPeriod};
         coverage ${policy.coverage};
       };
-    ''
-  ;
+    '';
 in
 {
   # options are ordered alphanumerically

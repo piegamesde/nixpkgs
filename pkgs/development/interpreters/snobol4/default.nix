@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
   ;
   configureFlags =
     lib.optional (tcl != null)
-      "--with-tcl=${tcl}/lib/tclConfig.sh"
-  ;
+      "--with-tcl=${tcl}/lib/tclConfig.sh";
 
   # INSTALL says "parallel make will fail"
   enableParallelBuilding = false;

@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withDocumentation [
       "doc"
       "man"
-    ]
-  ;
+    ];
   separateDebugInfo = true;
 
   mesonFlags = [

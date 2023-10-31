@@ -120,8 +120,7 @@ stdenv.mkDerivation {
       [
         # Needed with GCC 12
         "-Wno-error=maybe-uninitialized"
-      ]
-  ;
+      ];
 
   postUnpack = ''
     mkdir -p $sourceRoot/data/assetpack

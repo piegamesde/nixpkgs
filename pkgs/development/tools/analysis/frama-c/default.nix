@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
         findlib
         dune_3
       ]
-    )
-  ;
+    );
 
   buildInputs = with ocamlPackages; [
     dune-site

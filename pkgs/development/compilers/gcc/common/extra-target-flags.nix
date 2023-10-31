@@ -24,8 +24,7 @@ in
           ++ lib.optionals (!crossStageStatic) [
             "-B${lib.getLib dep}${dep.libdir or "/lib"}"
           ]
-        )
-      ;
+        );
     in
     mkFlags libcCross langD
     ++ lib.optionals (!crossStageStatic) (
@@ -48,8 +47,7 @@ in
                 "-Wl,-rpath-link,${lib.getLib dep}${dep.libdir or "/lib"}"
               ]
           )
-        )
-      ;
+        );
     in
     mkFlags libcCross
     ++ lib.optionals (!crossStageStatic) (mkFlags (threadsCross.package or null))

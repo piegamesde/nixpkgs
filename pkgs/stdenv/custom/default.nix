@@ -30,7 +30,6 @@ bootStages
     stdenv =
       assert vanillaPackages.hostPlatform == localSystem;
       assert vanillaPackages.targetPlatform == localSystem;
-      config.replaceStdenv { pkgs = vanillaPackages; }
-    ;
+      config.replaceStdenv { pkgs = vanillaPackages; };
   })
 ]

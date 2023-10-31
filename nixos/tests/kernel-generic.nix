@@ -30,8 +30,7 @@ let
         }
       )
       args
-    )
-  ;
+    );
   kernels = pkgs.linuxKernel.vanillaPackages // {
     inherit (pkgs.linuxKernel.packages)
       linux_4_14_hardened

@@ -26,8 +26,7 @@ let
     let
       deps = p.perlPackages or [ ];
     in
-    map (x: if x == "self" then p else x) deps
-  ;
+    map (x: if x == "self" then p else x) deps;
 
   # The wrapper is called with a `configure` function
   # that takes the urxvt plugins as input and produce
@@ -65,7 +64,6 @@ let
         plugins = plugins;
         tests.test = nixosTests.terminal-emulators.urxvt;
       };
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper { inherit configure; }

@@ -37,11 +37,9 @@ rustPlatform.buildRustPackage rec {
               --subst-var patchelf \
               --subst-var dynamicLinker \
               --subst-var libPath
-          ''
-      ;
+          '';
     in
-    lib.optionals stdenv.isLinux [ patchelfPatch ]
-  ;
+    lib.optionals stdenv.isLinux [ patchelfPatch ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];

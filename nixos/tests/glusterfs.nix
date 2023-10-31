@@ -12,8 +12,7 @@ import ./make-test-python.nix (
             fsType = "glusterfs";
           };
         };
-      }
-    ;
+      };
 
     server =
       { pkgs, ... }:
@@ -34,8 +33,7 @@ import ./make-test-python.nix (
             fsType = "ext4";
           };
         };
-      }
-    ;
+      };
   in
   {
     name = "glusterfs";

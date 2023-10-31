@@ -161,8 +161,7 @@ stdenv.mkDerivation (
         "-Dmangoapp=true"
         "-Dmangoapp_layer=true"
         "-Dmangohudctl=true"
-      ]
-    ;
+      ];
 
     nativeBuildInputs = [
       addOpenGLRunpath
@@ -190,8 +189,7 @@ stdenv.mkDerivation (
         glew
         glfw
         xorg.libXrandr
-      ]
-    ;
+      ];
 
     doCheck = true;
 
@@ -209,8 +207,7 @@ stdenv.mkDerivation (
             ln -s ${mangohud32}/share/vulkan/implicit_layer.d/libMangoApp.x86.json \
               "$out/share/vulkan/implicit_layer.d"
           ''}
-        ''
-    ;
+        '';
 
     postFixup = ''
       # Add OpenGL driver path to RUNPATH to support NVIDIA cards

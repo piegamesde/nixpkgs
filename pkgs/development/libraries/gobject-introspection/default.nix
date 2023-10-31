@@ -75,8 +75,7 @@ stdenv.mkDerivation (
             src = ./absolute_gir_path.patch;
             cairoLib = "${lib.getLib cairo}/lib";
           })
-        ]
-    ;
+        ];
 
     strictDeps = true;
 
@@ -97,8 +96,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         gobject-introspection-unwrapped
-      ]
-    ;
+      ];
 
     buildInputs = [ (python3.withPackages pythonModules) ];
 
@@ -151,8 +149,7 @@ stdenv.mkDerivation (
           # code that installs them is in tests/meson.build which is only run when not cross-compiling
           # pygobject3 needs them
           cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests
-        ''
-    ;
+        '';
 
     preCheck = ''
       # Our gobject-introspection patches make the shared library paths absolute

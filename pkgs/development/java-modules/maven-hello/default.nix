@@ -49,8 +49,7 @@ rec {
         platforms = lib.platforms.all;
         maintainers = with lib.maintainers; [ nequissimus ];
       };
-    }
-  ;
+    };
 
   mavenHello_1_0 = mavenHelloRec {
     mavenDeps = [ ];

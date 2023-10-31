@@ -14,8 +14,7 @@ import ./make-test-python.nix (
               type = "token_file";
               config.token_file_path =
                 pkgs.writeText "vault-token"
-                  config.environment.variables.VAULT_TOKEN
-              ;
+                  config.environment.variables.VAULT_TOKEN;
             } ];
           } ];
 
@@ -43,8 +42,7 @@ import ./make-test-python.nix (
             VAULT_TOKEN = "root";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("vault.service")

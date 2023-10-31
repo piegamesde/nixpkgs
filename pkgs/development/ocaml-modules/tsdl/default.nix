@@ -57,8 +57,7 @@ else
         CoreAudio
         CoreVideo
         ForceFeedback
-      ]
-    ;
+      ];
 
     preConfigure = ''
       # The following is done to avoid an additional dependency (ncurses)

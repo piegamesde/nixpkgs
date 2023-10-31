@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString
       (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-      "-fno-ipa-modref"
-  ;
+      "-fno-ipa-modref";
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=OFF"

@@ -42,8 +42,7 @@ let
       result = f args;
       overrideWith =
         newArgs:
-        args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs)
-      ;
+        args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs);
     in
     if builtins.isAttrs result then
       result
@@ -91,8 +90,7 @@ let
       [ python ]
       ++ modules
       ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
-    )
-  ;
+    );
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
   # providing Python modules.
@@ -113,8 +111,7 @@ let
           requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
         };
       }
-    )
-  ;
+    );
 
   # Convert a Python library to an application.
   toPythonApplication =
@@ -129,16 +126,14 @@ let
           pythonModule = false;
         };
       }
-    )
-  ;
+    );
 
   disabled =
     drv:
     throw
       "${
         removePythonPrefix (drv.pname or drv.name)
-      } not supported for interpreter ${python.executable}"
-  ;
+      } not supported for interpreter ${python.executable}";
 
   disabledIf = x: drv: if x then disabled drv else drv;
 in

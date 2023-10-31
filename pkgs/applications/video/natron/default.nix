@@ -76,8 +76,7 @@ let
         makeFlagsArray+=("PLUGINPATH=$out/Plugins/OFX/Natron")
         ${preConfigure}
       '';
-    }
-  ;
+    };
   lodepngcpp = fetchurl {
     url = "https://raw.githubusercontent.com/lvandeve/lodepng/a70c086077c0eaecbae3845e4da4424de5f43361/lodepng.cpp";
     sha256 = "1dxkkr4jbmvlwfr7m16i1mgcj1pqxg9s1a7y3aavs9rrk0ki8ys2";

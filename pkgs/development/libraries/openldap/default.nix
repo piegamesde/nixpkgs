@@ -50,16 +50,14 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isLinux) [
       libxcrypt # causes linking issues on *-darwin
       systemdMinimal
-    ]
-  ;
+    ];
 
   preConfigure =
     lib.optionalString
       (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
-      ''
-  ;
+      '';
 
   configureFlags =
     [

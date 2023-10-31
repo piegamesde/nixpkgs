@@ -36,8 +36,7 @@ import ../make-test-python.nix (
           // lib.optionalAttrs (plugin != null) {
             inherit plugin;
             pluginOpts = "server;${pluginOpts}";
-          }
-        ;
+          };
         services.nginx = {
           enable = true;
           virtualHosts.server = {

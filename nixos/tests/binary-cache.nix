@@ -16,8 +16,7 @@ import ./make-test-python.nix (
         nix.extraOptions = ''
           experimental-features = nix-command
         '';
-      }
-    ;
+      };
 
     testScript = ''
       # Build the cache, then remove it from the store

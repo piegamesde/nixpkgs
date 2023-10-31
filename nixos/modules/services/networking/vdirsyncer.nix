@@ -15,8 +15,7 @@ let
     with generators;
     toINI {
       mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "=";
-    }
-  ;
+    };
 
   toConfigFile =
     name: cfg':
@@ -218,14 +217,12 @@ in
                       yes | ${cfg.package}/bin/vdirsyncer discover
                     ''
                   ))
-                  ++ [ "${cfg.package}/bin/vdirsyncer sync" ]
-                ;
+                  ++ [ "${cfg.package}/bin/vdirsyncer sync" ];
               }
             ]
           )
         )
-        (filterAttrs (name: cfg': cfg'.enable) cfg.jobs)
-    ;
+        (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
 
     systemd.timers =
       mapAttrs'
@@ -237,7 +234,6 @@ in
             inherit (cfg') timerConfig;
           }
         )
-        cfg.jobs
-    ;
+        cfg.jobs;
   };
 }

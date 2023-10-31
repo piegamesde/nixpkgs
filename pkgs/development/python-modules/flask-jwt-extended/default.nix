@@ -35,8 +35,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs =
     [ pytestCheckHook ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "flask_jwt_extended" ];
 

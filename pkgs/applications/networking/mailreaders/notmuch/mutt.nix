@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
         StringShellQuote
         TermReadLineGnu
       ]
-    )
-  ;
+    );
 
   src = notmuch.src;
 

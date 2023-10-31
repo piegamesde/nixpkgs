@@ -12,8 +12,7 @@ let
   settingsFormat = pkgs.formats.json { };
   settingsFile =
     settingsFormat.generate "mautrix-facebook-config.json"
-      cfg.settings
-  ;
+      cfg.settings;
 
   puppetRegex = concatStringsSep ".*" (
     map escapeRegex (splitString "{userid}" cfg.settings.bridge.username_template)
@@ -187,8 +186,7 @@ in
               exclusive = true;
               regex =
                 escapeRegex
-                  "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}"
-              ;
+                  "@${cfg.settings.appservice.bot_username}:${cfg.settings.homeserver.domain}";
             }
             {
               exclusive = true;

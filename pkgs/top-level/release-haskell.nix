@@ -48,8 +48,7 @@ let
         else
           lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
       )
-      jobList
-  ;
+      jobList;
 
   # names of all subsets of `pkgs.haskell.packages`
   #
@@ -99,8 +98,7 @@ let
   # ```
   compilerPlatforms =
     lib.mapAttrs (_: v: packagePlatforms v)
-      pkgs.haskell.packages
-  ;
+      pkgs.haskell.packages;
 
   # This function lets you specify specific packages
   # which are to be tested on a list of specific GHC
@@ -174,24 +172,19 @@ let
             let
               configFilteredJobset =
                 lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
-                  jobs
-              ;
+                  jobs;
 
               # Remove platforms from each job that are not supported by GHC.
               # This is important so that we don't build jobs for platforms
               # where GHC can't be compiled.
               jobsetWithGHCPlatforms =
                 lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms)
-                  configFilteredJobset
-              ;
+                  configFilteredJobset;
             in
-            jobsetWithGHCPlatforms
-          ;
+            jobsetWithGHCPlatforms;
         in
-        lib.mapAttrs onlyConfigJobs compilerPlatforms
-      ;
-    }
-  ;
+        lib.mapAttrs onlyConfigJobs compilerPlatforms;
+    };
 
   # hydra jobs for `pkgs` of which we import a subset of
   pkgsPlatforms = packagePlatforms pkgs;
@@ -201,8 +194,7 @@ let
     set:
     builtins.attrNames (
       lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set
-    )
-  ;
+    );
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 
@@ -241,8 +233,7 @@ let
     platformsToRemove: packageSet:
     lib.mapAttrsRecursive
       (_: val: if lib.isList val then removeMany platformsToRemove val else val)
-      packageSet
-  ;
+      packageSet;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {
@@ -410,8 +401,7 @@ let
             # Can't be built with musl, see meta.broken comment in the drv
             integer-simple.ghc884 = { };
             integer-simple.ghc88 = { };
-          }
-      ;
+          };
 
       # Get some cache going for MUSL-enabled GHC.
       pkgsMusl.haskellPackages =
@@ -427,8 +417,7 @@ let
             "x86_64-darwin"
             "aarch64-darwin"
           ]
-          { inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random; }
-      ;
+          { inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random; };
 
       # Test some statically linked packages to catch regressions
       # and get some cache going for static compilation with GHC.
@@ -466,8 +455,7 @@ let
                 xhtml # isn't bundled for cross
               ;
             };
-          }
-      ;
+          };
 
       pkgsCross.ghcjs =
         removePlatforms
@@ -486,8 +474,7 @@ let
                 hello
               ;
             };
-          }
-      ;
+          };
     })
     (versionedCompilerJobs {
       # Packages which should be checked on more than the
@@ -511,8 +498,7 @@ let
             # Support ceased as of 1.9.0.0
             compilerNames.ghc884
           ]
-          released
-      ;
+          released;
       hoogle = lib.subtractLists [ compilerNames.ghc961 ] released;
       hlint = lib.subtractLists [ compilerNames.ghc961 ] released;
       hpack = lib.subtractLists [ compilerNames.ghc961 ] released;
@@ -600,8 +586,7 @@ let
               jobs.haskellPackages.hsemail
               jobs.haskellPackages.hsyslog
             ]
-          )
-        ;
+          );
       };
       maintained = pkgs.releaseTools.aggregate {
         name = "maintained-haskell-packages";

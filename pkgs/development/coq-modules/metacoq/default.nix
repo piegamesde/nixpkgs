@@ -40,8 +40,7 @@ let
           out = "1.1-8.16";
         }
       ]
-      null
-  ;
+      null;
   release = {
     "1.0-beta2-8.11".sha256 = "sha256-I9YNk5Di6Udvq5/xpLSNflfjRyRH8fMnRzbo3uhpXNs=";
     "1.0-beta2-8.12".sha256 = "sha256-I8gpmU9rUQJh0qfp5KOgDNscVvCybm5zX4TINxO1TVA=";
@@ -161,10 +160,8 @@ let
                 o.propagatedBuildInputs
                 ++ optional requiresOcamlStdlibShims coq.ocamlPackages.stdlib-shims;
             }
-          )
-      ;
+          );
     in
-    derivation
-  ;
+    derivation;
 in
 metacoq_ (if single then "single" else "all")

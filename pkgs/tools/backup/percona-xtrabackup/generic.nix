@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
         DBI
         DBDmysql
       ]
-    )
-  ;
+    );
 
   patches = extraPatches;
 

@@ -156,8 +156,7 @@ in
     assert assertMsg (isValid subpath) ''
       lib.path.append: Second argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
-    path + ("/" + subpath)
-  ;
+    path + ("/" + subpath);
 
   /* Whether a value is a valid subpath string.
 
@@ -200,8 +199,7 @@ in
   subpath.isValid =
     # The value to check
     value:
-    subpathInvalidReason value == null
-  ;
+    subpathInvalidReason value == null;
 
   /* Join subpath strings together using `/`, returning a normalised subpath string.
 
@@ -364,6 +362,5 @@ in
     assert assertMsg (isValid subpath) ''
       lib.path.subpath.normalise: Argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';
-    joinRelPath (splitRelPath subpath)
-  ;
+    joinRelPath (splitRelPath subpath);
 }

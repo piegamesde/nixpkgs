@@ -9,8 +9,7 @@ import ./make-test-python.nix (
         imports = [ ./common/x11.nix ];
         hardware.opengl.driSupport = true;
         environment.systemPackages = [ pkgs.openarena ];
-      }
-    ;
+      };
   in
   {
     name = "openarena";

@@ -26,8 +26,7 @@ in
         example = "127.0.0.1";
         description =
           lib.mdDoc
-            "Hostname or IP-address to listen to. By default it will listen on all interfaces."
-        ;
+            "Hostname or IP-address to listen to. By default it will listen on all interfaces.";
       };
       path = mkOption {
         default = "/";

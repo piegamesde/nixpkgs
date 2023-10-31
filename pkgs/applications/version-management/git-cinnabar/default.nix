@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       CoreServices
-    ]
-  ;
+    ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

@@ -16,7 +16,8 @@ assert withBlas
   ->
     openblas != null
     && blas.implementation == "openblas"
-    && lapack.implementation == "openblas";
+    && lapack.implementation == "openblas"
+;
 
 stdenv.mkDerivation rec {
   pname = "flint";

@@ -80,8 +80,7 @@ let
   mkDevices =
     devices:
     optionalString ((length devices) > 0)
-      "linux-dev ${concatStringsSep ":" devices}"
-  ;
+      "linux-dev ${concatStringsSep ":" devices}";
 
   mkConfig =
     name: keyboard:
@@ -92,8 +91,7 @@ let
         linux-continue-if-no-devs-found yes)
 
       ${keyboard.config}
-    ''
-  ;
+    '';
 
   mkService =
     name: keyboard:
@@ -140,8 +138,7 @@ let
         ProtectProc = "invisible";
         RestrictAddressFamilies =
           [ "AF_UNIX" ]
-          ++ optional (keyboard.port != null) "AF_INET"
-        ;
+          ++ optional (keyboard.port != null) "AF_INET";
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = [ "native" ];
@@ -152,8 +149,7 @@ let
         ];
         UMask = "0077";
       };
-    }
-  ;
+    };
 in
 {
   options.services.kanata = {

@@ -114,12 +114,10 @@ in
             config =
               lib.warnIf (lib.isInOldestRelease 2211)
                 "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-                config
-            ;
+                config;
           }
         )
-        config.nodes
-    ;
+        config.nodes;
 
     passthru.nodes = config.nodesCompat;
   };

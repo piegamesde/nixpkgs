@@ -86,8 +86,7 @@ python3.pkgs.buildPythonApplication rec {
       OpenGL
       AppKit
       Cocoa
-    ]
-  ;
+    ];
   checkPhase = ''
     runHook preCheck
 

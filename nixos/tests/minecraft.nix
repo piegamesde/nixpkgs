@@ -20,8 +20,7 @@ import ./make-test-python.nix (
         nixpkgs.config.allowUnfree = true;
 
         test-support.displayManager.auto.user = user.name;
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -36,7 +35,6 @@ import ./make-test-python.nix (
         client.wait_for_text("Create a new Microsoft account")
         client.sleep(10)
         client.screenshot("launcher")
-      ''
-    ;
+      '';
   }
 )

@@ -245,8 +245,7 @@ python3Packages.buildPythonApplication rec {
       "test_non_unicode_filename"
       "test_listing"
       "test_symlink_root"
-    ]
-  ;
+    ];
 
   # flaky tests on Darwin
   disabledTestPaths = lib.optionals stdenv.isDarwin [

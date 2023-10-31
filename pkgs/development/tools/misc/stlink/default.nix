@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGUI [
       pkg-config
       wrapGAppsHook
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DSTLINK_MODPROBED_DIR=${placeholder "out"}/etc/modprobe.d"

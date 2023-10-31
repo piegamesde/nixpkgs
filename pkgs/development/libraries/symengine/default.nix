@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       [
         # error: unrecognized instruction mnemonic, did you mean: bit, cnt, hint, ins, not?
         "-DBUILD_TESTS=OFF"
-      ]
-  ;
+      ];
 
   doCheck = true;
 

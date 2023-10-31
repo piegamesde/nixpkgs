@@ -28,8 +28,7 @@
     [
       # Graphical text editor
       kate
-    ]
-  ;
+    ];
 
   system.activationScripts.installerDesktop =
     let
@@ -54,6 +53,5 @@
       ln -sfT ${pkgs.calamares-nixos}/share/applications/io.calamares.calamares.desktop ${
         desktopDir + "io.calamares.calamares.desktop"
       }
-    ''
-  ;
+    '';
 }

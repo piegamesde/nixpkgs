@@ -16,8 +16,7 @@ import ../make-test-python.nix (
               connectTo = nodes.server.config.networking.primaryIPAddress;
             })
           ];
-        }
-      ;
+        };
       server =
         { config, pkgs, ... }:
         {
@@ -261,8 +260,7 @@ import ../make-test-python.nix (
           };
 
           networking.firewall.enable = false;
-        }
-      ;
+        };
     };
 
     testScript =
@@ -284,7 +282,6 @@ import ../make-test-python.nix (
             ejabberd_prefix + "unregister cthon98 example.com",
             ejabberd_prefix + "unregister azurediamond example.com",
         )
-      ''
-    ;
+      '';
   }
 )

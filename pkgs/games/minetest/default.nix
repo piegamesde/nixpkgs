@@ -178,8 +178,7 @@ let
           fgaz
         ];
       };
-    }
-  ;
+    };
 
   v5 = {
     version = "5.7.0";
@@ -195,8 +194,7 @@ let
         buildClient = true;
         buildServer = false;
       }
-    )
-  ;
+    );
   mkServer =
     version:
     generic (
@@ -205,8 +203,7 @@ let
         buildClient = false;
         buildServer = true;
       }
-    )
-  ;
+    );
 in
 {
   minetestclient_5 = mkClient v5;

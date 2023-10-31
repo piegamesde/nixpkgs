@@ -43,8 +43,7 @@ let
         maintainers = with maintainers; [ ];
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs mkVariant {
   adventor = {

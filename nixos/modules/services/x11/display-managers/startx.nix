@@ -54,8 +54,7 @@ in
           exec ${pkgs.xorg.xorgserver}/bin/X ${
             toString config.services.xserver.displayManager.xserverArgs
           } "$@"
-        ''
-    ;
+        '';
     environment.systemPackages = with pkgs; [ xorg.xinit ];
   };
 }

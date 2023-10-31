@@ -26,8 +26,7 @@ import ./make-test-python.nix {
             logLevel = "info";
           };
         };
-      }
-    ;
+      };
   };
 
   testScript = ''

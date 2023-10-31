@@ -20,7 +20,8 @@
       || stdenv.hostPlatform.isCygwin
       || stdenv.hostPlatform.isLinux
       || stdenv.hostPlatform.isWasi
-    ),
+    )
+  ,
   icuSupport ? false,
   icu,
   enableShared ?
@@ -141,8 +142,7 @@ let
         (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
-        ''
-    ;
+        '';
 
     preInstall = lib.optionalString pythonSupport ''
       substituteInPlace python/libxml2mod.la --replace "$dev/${python.sitePackages}" "$py/${python.sitePackages}"

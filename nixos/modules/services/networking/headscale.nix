@@ -883,8 +883,7 @@ in
         let
           capabilityBoundingSet =
             [ "CAP_CHOWN" ]
-            ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE"
-          ;
+            ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
         in
         {
           Restart = "always";
@@ -930,8 +929,7 @@ in
           ];
           SystemCallArchitectures = "native";
           RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX";
-        }
-      ;
+        };
     };
   };
 

@@ -74,8 +74,7 @@ in
         default = { };
         description =
           lib.mdDoc
-            "Extra options merged into the mxisd/ma1sd configuration"
-        ;
+            "Extra options merged into the mxisd/ma1sd configuration";
       };
 
       matrix = {
@@ -144,8 +143,7 @@ in
           ''}";
           WorkingDirectory = cfg.dataDir;
           Restart = "on-failure";
-        }
-      ;
+        };
     };
   };
 }

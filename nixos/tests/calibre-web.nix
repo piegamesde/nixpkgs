@@ -25,8 +25,7 @@ import ./make-test-python.nix (
             };
           };
           environment.systemPackages = [ pkgs.calibre ];
-        }
-      ;
+        };
     };
     testScript = ''
       start_all()

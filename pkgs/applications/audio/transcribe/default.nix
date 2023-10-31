@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
       gstreamer
       gst-plugins-base
       zlib
-    ]
-  ;
+    ];
 
   installPhase = ''
     mkdir -p $out/bin $out/libexec $out/share/doc

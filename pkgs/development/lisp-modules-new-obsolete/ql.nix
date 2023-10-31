@@ -82,8 +82,7 @@ let
             }
           );
         in
-        [ ode' ]
-      ;
+        [ ode' ];
     };
     cl-opengl = pkg: { nativeLibs = [ libGL ]; };
     cl-pango = pkg: { nativeLibs = [ pango ]; };
@@ -175,11 +174,11 @@ let
     let
       builtPkg = build-asdf-system pkg;
       withExtras =
-        pkg // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg))
+        pkg
+        // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg))
       ;
       fixedUp = fixup withExtras;
     in
-    build-asdf-system fixedUp
-  ;
+    build-asdf-system fixedUp;
 in
 builtQlpkgs

@@ -27,8 +27,7 @@ let
       Port=${toString cfg.port}
       Allow-IP=${concatStringsSep " " cfg.allowedIPRanges}
       Deny-IP=${concatStringsSep " " cfg.deniedIPRanges}
-    ''
-  ;
+    '';
 
   nylonOpts =
     { name, ... }:
@@ -125,8 +124,7 @@ let
       config = {
         name = mkDefault name;
       };
-    }
-  ;
+    };
 
   mkNamedNylon = cfg: {
     "nylon-${cfg.name}" = {

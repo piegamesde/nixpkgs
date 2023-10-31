@@ -30,14 +30,12 @@ rec {
         "-"
         ""
         ""
-      ]
-  ;
+      ];
 
   # a type for options that take a unit name
   unitNameType =
     types.strMatching
-      "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)"
-  ;
+      "[a-zA-Z0-9@%:_.\\-]+[.](service|socket|device|mount|automount|swap|target|path|timer|scope|slice)";
 
   makeUnit =
     name: unit:
@@ -97,8 +95,7 @@ rec {
   assertByteFormat =
     name: group: attr:
     optional (attr ? ${name} && !isByteFormat attr.${name})
-      "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT]."
-  ;
+      "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
@@ -113,43 +110,39 @@ rec {
   assertMacAddress =
     name: group: attr:
     optional (attr ? ${name} && !isMacAddress attr.${name})
-      "Systemd ${group} field `${name}' must be a valid mac address."
-  ;
+      "Systemd ${group} field `${name}' must be a valid mac address.";
 
   isPort = i: i >= 0 && i <= 65535;
 
   assertPort =
     name: group: attr:
     optional (attr ? ${name} && !isPort attr.${name})
-      "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number."
-  ;
+      "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
 
   assertValueOneOf =
     name: values: group: attr:
     optional (attr ? ${name} && !elem attr.${name} values)
-      "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'."
-  ;
+      "Systemd ${group} field `${name}' cannot have value `${
+        toString attr.${name}
+      }'.";
 
   assertHasField =
     name: group: attr:
-    optional (!(attr ? ${name})) "Systemd ${group} field `${name}' must exist."
-  ;
+    optional (!(attr ? ${name})) "Systemd ${group} field `${name}' must exist.";
 
   assertRange =
     name: min: max: group: attr:
     optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
       "Systemd ${group} field `${name}' is outside the range [${toString min},${
         toString max
-      }]"
-  ;
+      }]";
 
   assertMinimum =
     name: min: group: attr:
     optional (attr ? ${name} && attr.${name} < min)
       "Systemd ${group} field `${name}' must be greater than or equal to ${
         toString min
-      }"
-  ;
+      }";
 
   assertOnlyFields =
     fields: group: attr:
@@ -157,14 +150,12 @@ rec {
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
     optional (badFields != [ ])
-      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}]."
-  ;
+      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
 
   assertInt =
     name: group: attr:
     optional (attr ? ${name} && !isInt attr.${name})
-      "Systemd ${group} field `${name}' is not an integer"
-  ;
+      "Systemd ${group} field `${name}' is not an integer";
 
   checkUnitConfig =
     group: checks: attrs:
@@ -183,8 +174,7 @@ rec {
             else
               v
           ))
-          attrs
-      ;
+          attrs;
       errors = concatMap (c: c group defs) checks;
     in
     if errors == [ ] then
@@ -218,8 +208,7 @@ rec {
           )
           as
       )
-    )
-  ;
+    );
 
   generateUnits =
     {
@@ -409,8 +398,7 @@ rec {
 
           ln -s ../remote-fs.target $out/multi-user.target.wants/
         ''}
-      ''
-  ; # */
+      ''; # */
 
   makeJobScript =
     name: text:
@@ -425,8 +413,7 @@ rec {
             "-"
             "_"
           ]
-          (shellEscape name)
-      ;
+          (shellEscape name);
       out =
         (pkgs.writeShellScriptBin scriptName ''
           set -e
@@ -438,11 +425,9 @@ rec {
               # to keep the script file name short to avoid cluttering logs.
               name = "unit-script-${scriptName}";
             }
-          )
-      ;
+          );
     in
-    "${out}/bin/${scriptName}"
-  ;
+    "${out}/bin/${scriptName}";
 
   unitConfig =
     { config, options, ... }:
@@ -487,18 +472,15 @@ rec {
           }
         ;
       };
-    }
-  ;
+    };
 
   serviceConfig =
     { config, ... }:
     {
       config.environment.PATH =
         mkIf (config.path != [ ])
-          "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}"
-      ;
-    }
-  ;
+          "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}";
+    };
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];
@@ -527,8 +509,7 @@ rec {
           // optionalAttrs (config.options != "") { Options = config.options; }
         ;
       };
-    }
-  ;
+    };
 
   automountConfig =
     { config, ... }:
@@ -538,8 +519,7 @@ rec {
           Where = config.where;
         };
       };
-    }
-  ;
+    };
 
   commonUnitText = def: ''
     [Unit]
@@ -591,8 +571,7 @@ rec {
             else
               s
           )
-          (attrNames env)
-        }
+          (attrNames env)}
         ${if def ? reloadIfChanged && def.reloadIfChanged then
           ''
             X-ReloadIfChanged=true
@@ -602,7 +581,8 @@ rec {
             X-RestartIfChanged=false
           ''
         else
-          ""}
+          ""
+        }
         ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
           "X-StopIfChanged=false"}
         ${attrsToSection def.serviceConfig}

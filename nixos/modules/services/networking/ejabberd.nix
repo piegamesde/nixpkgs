@@ -85,8 +85,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "Configuration dumps that should be loaded on the first startup"
-        ;
+            "Configuration dumps that should be loaded on the first startup";
         example = literalExpression "[ ./myejabberd.dump ]";
       };
 
@@ -95,8 +94,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Add ImageMagick to server's path; allows for image thumbnailing"
-        ;
+            "Add ImageMagick to server's path; allows for image thumbnailing";
       };
     };
   };

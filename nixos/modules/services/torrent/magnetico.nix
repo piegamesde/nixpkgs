@@ -46,8 +46,7 @@ let
         "--leech-max-n=${toString maxLeeches}"
       ]
       ++ extraOptions
-    )
-  ;
+    );
 
   webArgs =
     with cfg.web;
@@ -63,8 +62,7 @@ let
         "--addr=${address}:${toString port}"
       ]
       ++ extraOptions
-    )
-  ;
+    );
 in
 {
 

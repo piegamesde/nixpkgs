@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--cross-prefix=${stdenv.cc.targetPrefix}" ]
-    ++ lib.optionals (!enableX11) [ "--disable-x11" ]
-  ;
+    ++ lib.optionals (!enableX11) [ "--disable-x11" ];
 
   makeFlags = [
     # is actually used as BUILD_CC

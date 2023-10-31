@@ -271,20 +271,17 @@ in
                   mkDefault
                     "${net.server} ${optionalString net.useSSL "+"}${
                       toString net.port
-                    } ${net.password}"
-                ;
+                    } ${net.password}";
                 Chan =
                   optionalAttrs net.hasBitlbeeControlChannel { "&bitlbee" = mkDefault { }; }
                   // listToAttrs (map (n: nameValuePair "#${n}" (mkDefault { })) net.channels);
                 extraConfig = if net.extraConf == "" then mkDefault null else net.extraConf;
               })
-              c.networks
-          ;
+              c.networks;
           extraConfig = [ c.passBlock ];
         };
         extraConfig = optional (c.extraZncConf != "") c.extraZncConf;
-      }
-    ;
+      };
   };
 
   imports = [

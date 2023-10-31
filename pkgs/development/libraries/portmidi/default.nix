@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     in
     ''
       ln -s libportmidi${ext} "$out/lib/libporttime${ext}"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     unzip

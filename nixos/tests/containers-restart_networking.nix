@@ -134,7 +134,6 @@ import ./make-test-python.nix (
 
             client.fail("ip l show eth1 |grep 'master br0' >&2")
             client.fail("grep eth1 /run/br0.interfaces >&2")
-      ''
-    ;
+      '';
   }
 )

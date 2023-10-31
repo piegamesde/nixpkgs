@@ -71,8 +71,7 @@ let
       # https://github.com/varnishcache/varnish-cache/issues/1875
       env.NIX_CFLAGS_COMPILE =
         lib.optionalString stdenv.isi686
-          "-fexcess-precision=standard"
-      ;
+          "-fexcess-precision=standard";
 
       outputs = [
         "out"
@@ -95,8 +94,7 @@ let
         maintainers = with maintainers; [ ajs124 ];
         platforms = platforms.unix;
       };
-    }
-  ;
+    };
 in
 {
   # EOL TBA

@@ -184,8 +184,7 @@ in
             defaultText = literalExpression ''"''${config.${opt.home}}/${watchDir}"'';
             description =
               lib.mdDoc
-                "Watch a directory for torrent files and add them to transmission."
-            ;
+                "Watch a directory for torrent files and add them to transmission.";
           };
           options.watch-dir-enabled = mkOption {
             type = types.bool;

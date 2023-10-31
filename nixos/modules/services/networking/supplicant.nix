@@ -15,8 +15,7 @@ let
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
     interface:
-    "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device"
-  ;
+    "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
 
   serviceName =
     iface:
@@ -30,8 +29,7 @@ let
           else
             (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface))
         )
-    }"
-  ;
+    }";
 
   # TODO: Use proper privilege separation for wpa_supplicant
   supplicantService =
@@ -56,8 +54,7 @@ let
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
       confFileArg =
         optionalString (suppl.configFile.path != null)
-          "-c${suppl.configFile.path}"
-      ;
+          "-c${suppl.configFile.path}";
       extraConfFile =
         pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
           ''
@@ -65,8 +62,7 @@ let
               "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
             ${optionalString suppl.configFile.writable "update_config=1"}
             ${suppl.extraConf}
-          ''
-      ;
+          '';
     in
     {
       description = "Supplicant ${iface}${
@@ -95,8 +91,7 @@ let
           else
             (if (iface == "DBUS") then "-u" else ifaceArg)
         }";
-    }
-  ;
+    };
 in
 
 {
@@ -167,8 +162,7 @@ in
                 example = "-e/run/wpa_supplicant/entropy.bin";
                 description =
                   lib.mdDoc
-                    "Command line arguments to add when executing `wpa_supplicant`."
-                ;
+                    "Command line arguments to add when executing `wpa_supplicant`.";
               };
 
               driver = mkOption {
@@ -182,8 +176,7 @@ in
                 default = "";
                 description =
                   lib.mdDoc
-                    "Name of the bridge interface that wpa_supplicant should listen at."
-                ;
+                    "Name of the bridge interface that wpa_supplicant should listen at.";
               };
 
               userControlled = {
@@ -214,8 +207,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
 
       default = { };
 
@@ -262,8 +254,7 @@ in
 
     systemd.services =
       mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v))
-        cfg
-    ;
+        cfg;
 
     services.udev.packages = [
       (pkgs.writeTextFile {

@@ -61,8 +61,7 @@ let
           + extraPort
           + "; "
         )
-        cfg.extraIPs
-    ;
+        cfg.extraIPs;
 
     builder = ./builder.sh;
   };

@@ -79,8 +79,7 @@ buildPythonPackage rec {
       "test_user_disconnect_and_reconnect"
       "test_ws_message"
       "test_ws_no_pong"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "homematicip" ];
 

@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
           url = "https://git.alpinelinux.org/aports/plain/community/connman/libresolv.patch?id=e393ea84386878cbde3cccadd36a30396e357d1e";
           sha256 = "1kg2nml7pdxc82h5hgsa3npvzdxy4d2jpz2f93pa97if868i8d43";
         })
-      ]
-  ;
+      ];
 
   buildInputs =
     [

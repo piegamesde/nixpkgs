@@ -12,12 +12,10 @@ let
   inherit (config.security.acme) certs;
   vhostsConfigs =
     mapAttrsToList (vhostName: vhostConfig: vhostConfig)
-      virtualHosts
-  ;
+      virtualHosts;
   acmeEnabledVhosts =
     filter (vhostConfig: vhostConfig.enableACME || vhostConfig.useACMEHost != null)
-      vhostsConfigs
-  ;
+      vhostsConfigs;
   dependentCertNames = unique (
     map (hostOpts: hostOpts.certName) acmeEnabledVhosts
   );
@@ -46,8 +44,7 @@ let
           ;
         })
       )
-      cfg.virtualHosts
-  ;
+      cfg.virtualHosts;
   inherit (config.networking) enableIPv6;
 
   # Mime.types values are taken from brotli sample configuration - https://github.com/google/ngx_brotli
@@ -123,8 +120,7 @@ let
         proxy_set_header        X-Forwarded-Proto $scheme;
         proxy_set_header        X-Forwarded-Host $host;
         proxy_set_header        X-Forwarded-Server $host;
-      ''
-  ;
+      '';
 
   proxyCachePathConfig = concatStringsSep "\n" (
     mapAttrsToList
@@ -585,8 +581,7 @@ let
           }
         '')
         (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
-    )
-  ;
+    );
 
   mkBasicAuth =
     name: zone:
@@ -603,8 +598,7 @@ let
         auth_basic secured;
         auth_basic_user_file ${auth_file};
       ''
-    )
-  ;
+    );
   mkHtpasswd =
     name: authDef:
     pkgs.writeText "${name}.htpasswd" (
@@ -615,13 +609,11 @@ let
           '')
           authDef
       )
-    )
-  ;
+    );
 
   mkCertOwnershipAssertion =
     import
-      ../../../security/acme/mk-cert-ownership-assertion.nix
-  ;
+      ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 
 {
@@ -706,8 +698,7 @@ in
         default = [ "0.0.0.0" ] ++ optional enableIPv6 "[::0]";
         defaultText =
           literalExpression
-            ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"''
-        ;
+            ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
         example = literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
         description = lib.mdDoc ''
           If vhosts do not specify listenAddresses, use these addresses by default.
@@ -923,8 +914,7 @@ in
         default = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384";
         description =
           lib.mdDoc
-            "Ciphers to choose from when negotiating TLS handshakes."
-        ;
+            "Ciphers to choose from when negotiating TLS handshakes.";
       };
 
       sslProtocols = mkOption {
@@ -1286,11 +1276,9 @@ in
           optional config.enableSSL ''
             config.services.nginx.virtualHosts.<name>.enableSSL is deprecated,
             use config.services.nginx.virtualHosts.<name>.onlySSL instead.
-          ''
-        ;
+          '';
       in
-      flatten (mapAttrsToList deprecatedSSL virtualHosts)
-    ;
+      flatten (mapAttrsToList deprecatedSSL virtualHosts);
 
     assertions =
       let
@@ -1317,8 +1305,7 @@ in
                   rejectSSL
                 ] <= 1
               )
-              (attrValues virtualHosts)
-          ;
+              (attrValues virtualHosts);
           message = ''
             Options services.nginx.service.virtualHosts.<name>.addSSL,
             services.nginx.virtualHosts.<name>.onlySSL,
@@ -1395,8 +1382,7 @@ in
       );
       after =
         [ "network.target" ]
-        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames
-      ;
+        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       # Nginx needs to be started in order to be able to request certificates
       # (it's hosting the acme challenge after all)
       # This fixes https://github.com/NixOS/nixpkgs/issues/81842
@@ -1466,8 +1452,7 @@ in
           !(
             (builtins.any (mod: (mod.allowMemoryWriteExecute or false)) cfg.package.modules)
             || (cfg.package == pkgs.openresty)
-          )
-        ;
+          );
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         RemoveIPC = true;
@@ -1482,8 +1467,7 @@ in
               && (cfg.package != pkgs.openresty)
               && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
             )
-            [ "~@ipc" ]
-        ;
+            [ "~@ipc" ];
       };
     };
 
@@ -1501,8 +1485,7 @@ in
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
         sslTargets =
           map (certName: "acme-finished-${certName}.target")
-            dependentCertNames
-        ;
+            dependentCertNames;
       in
       mkIf (cfg.enableReload || sslServices != [ ]) {
         wants = optionals cfg.enableReload [ "nginx.service" ];
@@ -1525,8 +1508,7 @@ in
           ExecCondition = "/run/current-system/systemd/bin/systemctl -q is-active nginx.service";
           ExecStart = "/run/current-system/systemd/bin/systemctl reload nginx.service";
         };
-      }
-    ;
+      };
 
     security.acme.certs =
       let
@@ -1549,11 +1531,9 @@ in
                 # Filter for enableACME-only vhosts. Don't want to create dud certs
               }
             )
-            (filter (vhostConfig: vhostConfig.useACMEHost == null) acmeEnabledVhosts)
-        ;
+            (filter (vhostConfig: vhostConfig.useACMEHost == null) acmeEnabledVhosts);
       in
-      listToAttrs acmePairs
-    ;
+      listToAttrs acmePairs;
 
     users.users = optionalAttrs (cfg.user == "nginx") {
       nginx = {

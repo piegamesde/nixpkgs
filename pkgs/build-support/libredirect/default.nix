@@ -69,7 +69,8 @@ else
         ''
           $CC -Wall -std=c99 -O3 -fPIC libredirect.c \
             -shared -o "$libName"
-        ''}
+        ''
+      }
 
       if [ -n "$doInstallCheck" ]; then
         $CC -Wall -std=c99 \
@@ -109,7 +110,8 @@ else
         else
           ''
             export LD_PRELOAD="$out/lib/$libName"
-          ''}
+          ''
+        }
         SETUP_HOOK
 
         runHook postInstall

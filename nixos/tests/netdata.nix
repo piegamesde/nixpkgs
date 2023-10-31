@@ -20,8 +20,7 @@ import ./make-test-python.nix (
             jq
           ];
           services.netdata.enable = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

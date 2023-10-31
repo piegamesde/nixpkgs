@@ -78,8 +78,7 @@ buildPythonPackage rec {
       [
         # segfaults
         "test_cdist"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [
     "rapidfuzz.distance"

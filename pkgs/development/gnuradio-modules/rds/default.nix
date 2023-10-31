@@ -52,8 +52,7 @@ mkDerivation {
     ++ lib.optionals (gnuradio.hasFeature "gr-ctrlport") [
       thrift
       python.pkgs.thrift
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

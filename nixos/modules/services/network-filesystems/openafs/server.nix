@@ -147,8 +147,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "List of IP addresses this server is advertised under. See NetInfo(5)"
-        ;
+            "List of IP addresses this server is advertised under. See NetInfo(5)";
       };
 
       cellName = mkOption {
@@ -163,8 +162,7 @@ in
         type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
         description =
           lib.mdDoc
-            "Definition of all cell-local database server machines."
-        ;
+            "Definition of all cell-local database server machines.";
       };
 
       package = mkOption {
@@ -181,8 +179,7 @@ in
             type = types.bool;
             description =
               lib.mdDoc
-                "Fileserver role, serves files and volumes from its local storage."
-            ;
+                "Fileserver role, serves files and volumes from its local storage.";
           };
 
           fileserverArgs = mkOption {
@@ -190,8 +187,7 @@ in
             type = types.str;
             description =
               lib.mdDoc
-                "Arguments to the dafileserver process. See its man page."
-            ;
+                "Arguments to the dafileserver process. See its man page.";
           };
 
           volserverArgs = mkOption {
@@ -199,8 +195,7 @@ in
             type = types.str;
             description =
               lib.mdDoc
-                "Arguments to the davolserver process. See its man page."
-            ;
+                "Arguments to the davolserver process. See its man page.";
             example = "-sync never";
           };
 
@@ -209,8 +204,7 @@ in
             type = types.str;
             description =
               lib.mdDoc
-                "Arguments to the salvageserver process. See its man page."
-            ;
+                "Arguments to the salvageserver process. See its man page.";
             example = "-showlog";
           };
 
@@ -219,8 +213,7 @@ in
             type = types.str;
             description =
               lib.mdDoc
-                "Arguments to the dasalvager process. See its man page."
-            ;
+                "Arguments to the dasalvager process. See its man page.";
             example = "-showlog -showmounts";
           };
         };

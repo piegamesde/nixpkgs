@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   # no-pma fix
   nativeBuildInputs =
     [ autoreconfHook ]
-    ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales
-  ;
+    ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
   buildInputs =
     lib.optional withSigsegv libsigsegv

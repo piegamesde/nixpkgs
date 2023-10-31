@@ -84,8 +84,7 @@ in
         driver = "postgres-jsonb";
         dsn =
           lib.mkDefault
-            "database=hockeypuck host=/var/run/postgresql sslmode=disable"
-        ;
+            "database=hockeypuck host=/var/run/postgresql sslmode=disable";
       };
     };
 

@@ -52,8 +52,7 @@ mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
-  ;
+    ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
 
   meta = with lib; {
     description = "COLMAP - Structure-From-Motion and Multi-View Stereo pipeline";

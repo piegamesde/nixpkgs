@@ -44,8 +44,7 @@ let
           + optionalString fixBinary "F"
       ;
     in
-    ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}"
-  ;
+    ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
   activationSnippet =
     name:
@@ -215,8 +214,7 @@ in
                   default = "magic";
                   description =
                     lib.mdDoc
-                      "Whether to recognize executables by magic number or extension."
-                  ;
+                      "Whether to recognize executables by magic number or extension.";
                   type = types.enum [
                     "magic"
                     "extension"
@@ -227,8 +225,7 @@ in
                   default = null;
                   description =
                     lib.mdDoc
-                      "The byte offset of the magic number used for recognition."
-                  ;
+                      "The byte offset of the magic number used for recognition.";
                   type = types.nullOr types.int;
                 };
 
@@ -241,8 +238,7 @@ in
                   default = null;
                   description =
                     lib.mdDoc
-                      "A mask to be ANDed with the byte sequence of the file before matching"
-                  ;
+                      "A mask to be ANDed with the byte sequence of the file before matching";
                   type = types.nullOr types.str;
                 };
 
@@ -363,8 +359,7 @@ in
                   wrapperName = "qemu-${qemuArch}-binfmt-P";
                   wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
                 in
-                if preserveArgvZero then "${wrapper}/bin/${wrapperName}" else interpreter
-              ;
+                if preserveArgvZero then "${wrapper}/bin/${wrapperName}" else interpreter;
             in
             (
               {
@@ -378,8 +373,7 @@ in
                 "Cannot create binfmt registration for system ${system}"
               )
               )
-            )
-          ;
+            );
         })
         cfg.emulatedSystems
     );
@@ -392,8 +386,7 @@ in
           ruleFor = system: cfg.registrations.${system};
           hasWrappedRule =
             lib.any (system: (ruleFor system).wrapInterpreterInShell)
-              cfg.emulatedSystems
-          ;
+              cfg.emulatedSystems;
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
@@ -407,8 +400,7 @@ in
           lib.concatStringsSep "\n" (
             lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations
           )
-        )
-    ;
+        );
     system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
       mkdir -p -m 0755 /run/binfmt
       ${lib.concatStringsSep "\n" (

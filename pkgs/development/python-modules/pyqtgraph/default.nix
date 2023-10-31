@@ -64,8 +64,7 @@ buildPythonPackage rec {
       [
         # https://github.com/pyqtgraph/pyqtgraph/issues/2645
         "test_rescaleData"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Scientific Graphics and GUI Library for Python";

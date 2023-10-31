@@ -5,8 +5,7 @@ let
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=uploads.example.com/CN=conference.example.com' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
-    ''
-  ;
+    '';
   createUsers =
     pkgs:
     pkgs.writeScriptBin "create-prosody-users" ''
@@ -21,8 +20,7 @@ let
 
       prosodyctl register cthon98 example.com nothunter2
       prosodyctl register azurediamond example.com hunter2
-    ''
-  ;
+    '';
   delUsers =
     pkgs:
     pkgs.writeScriptBin "delete-prosody-users" ''
@@ -37,8 +35,7 @@ let
 
       prosodyctl deluser cthon98@example.com
       prosodyctl deluser azurediamond@example.com
-    ''
-  ;
+    '';
 in
 import ../make-test-python.nix {
   name = "prosody-mysql";
@@ -63,8 +60,7 @@ import ../make-test-python.nix {
             connectTo = nodes.server.config.networking.primaryIPAddress;
           })
         ];
-      }
-    ;
+      };
     server =
       { config, pkgs, ... }:
       {
@@ -113,8 +109,7 @@ import ../make-test-python.nix {
             };
           '';
         };
-      }
-    ;
+      };
     mysql =
       { config, pkgs, ... }:
       {
@@ -129,8 +124,7 @@ import ../make-test-python.nix {
           '';
           package = pkgs.mariadb;
         };
-      }
-    ;
+      };
   };
 
   testScript =
@@ -144,6 +138,5 @@ import ../make-test-python.nix {
       server.succeed("create-prosody-users")
       client.succeed("send-message")
       server.succeed("delete-prosody-users")
-    ''
-  ;
+    '';
 }

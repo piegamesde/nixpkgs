@@ -20,8 +20,7 @@ import ../make-test-python.nix (
               "postmaster@server".passwordFile = "${pkgs.writeText "postmaster" "test"}";
             };
           };
-        }
-      ;
+        };
 
       client =
         { ... }:
@@ -53,8 +52,7 @@ import ../make-test-python.nix (
                   assert msg[0][1].strip() == b"Hello World"
             '')
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

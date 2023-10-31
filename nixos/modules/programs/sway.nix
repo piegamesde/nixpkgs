@@ -20,8 +20,7 @@ let
             inherit default;
             example = !default;
             description = lib.mdDoc "Whether to make use of the ${description}";
-          }
-        ;
+          };
       in
       {
         base = mkWrapperFeature true ''
@@ -32,8 +31,7 @@ let
           wrapGAppsHook wrapper to execute sway with required environment
           variables for GTK applications.
         '';
-      }
-    ;
+      };
   };
 
   defaultSwayPackage = pkgs.sway.override {
@@ -163,8 +161,7 @@ in
         }
         // optionalAttrs (cfg.package != null) {
           "sway/config".source = mkOptionDefault "${cfg.package}/etc/sway/config";
-        }
-      ;
+        };
     };
     security.polkit.enable = true;
     security.pam.services.swaylock = { };
@@ -174,8 +171,7 @@ in
     # To make a Sway session available if a display manager like SDDM is enabled:
     services.xserver.displayManager.sessionPackages =
       optionals (cfg.package != null)
-        [ cfg.package ]
-    ;
+        [ cfg.package ];
     programs.xwayland.enable = mkDefault true;
     # For screen sharing (this option only has an effect with xdg.portal.enable):
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];

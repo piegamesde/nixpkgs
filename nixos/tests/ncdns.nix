@@ -62,8 +62,7 @@ import ./make-test-python.nix (
         services.pdns-recursor.resolveNamecoin = true;
 
         environment.systemPackages = [ pkgs.dnsutils ];
-      }
-    ;
+      };
 
     testScript =
       (lib.optionalString dnssec ''

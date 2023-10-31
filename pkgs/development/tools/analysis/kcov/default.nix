@@ -69,8 +69,7 @@ let
             test -e /tmp/kcov/index.html
             touch $out
             set +x
-          ''
-      ;
+          '';
     };
 
     meta = with lib; {

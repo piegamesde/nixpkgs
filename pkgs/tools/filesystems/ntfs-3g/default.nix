@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [
       "--with-modprobe-helper=${kmod}/bin/modprobe"
-    ]
-  ;
+    ];
 
   postInstall = ''
     # Prefer ntfs-3g over the ntfs driver in the kernel.

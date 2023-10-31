@@ -54,8 +54,7 @@ stdenv.mkDerivation (
         fftw
         fftwFloat
         openmp
-      ]
-    ;
+      ];
 
     cmakeFlags =
       [

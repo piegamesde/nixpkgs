@@ -48,8 +48,7 @@ rustPlatform.buildRustPackage rec {
     ]
     ++
     # for flock
-    lib.optional stdenv.isLinux util-linux
-  ;
+    lib.optional stdenv.isLinux util-linux;
 
   buildInputs = [
     libuv

@@ -67,8 +67,7 @@ with pkgs;
   fetchgit = callPackages ../build-support/fetchgit/tests.nix { };
   fetchFirefoxAddon =
     callPackages ../build-support/fetchfirefoxaddon/tests.nix
-      { }
-  ;
+      { };
 
   install-shell-files = callPackage ./install-shell-files { };
 
@@ -104,24 +103,19 @@ with pkgs;
     writeStringReferencesToFile =
       callPackage
         ../build-support/trivial-builders/test/writeStringReferencesToFile.nix
-        { }
-    ;
+        { };
     writeTextFile =
       callPackage ../build-support/trivial-builders/test/write-text-file.nix
-        { }
-    ;
+        { };
     writeShellScript =
       callPackage ../build-support/trivial-builders/test/write-shell-script.nix
-        { }
-    ;
+        { };
     references =
       callPackage ../build-support/trivial-builders/test/references.nix
-        { }
-    ;
+        { };
     overriding =
       callPackage ../build-support/trivial-builders/test-overriding.nix
-        { }
-    ;
+        { };
     concat = callPackage ../build-support/trivial-builders/test/concat-test.nix { };
     linkFarm = callPackage ../build-support/trivial-builders/test/link-farm.nix { };
   };
@@ -148,8 +142,7 @@ with pkgs;
           [
             "undefined"
             "address"
-          ]
-      ;
+          ];
     };
   };
 

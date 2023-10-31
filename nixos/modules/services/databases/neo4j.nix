@@ -29,18 +29,19 @@ let
         ${if length (splitString "/" conf.privateKey) > 1 then
           "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
         else
-          "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
+          "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"
+        }
         ${if length (splitString "/" conf.privateKey) > 1 then
           "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
         else
-          "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
+          "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"
+        }
         dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
         dbms.ssl.policy.${name}.tls_versions=${concatStringsSep "," conf.tlsVersions}
         dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}
         dbms.ssl.policy.${name}.trusted_dir=${conf.trustedDir}
       '')
-      cfg.ssl.policies
-  ;
+      cfg.ssl.policies;
 
   serverConfig = pkgs.writeText "neo4j.conf" ''
     # General
@@ -374,8 +375,7 @@ in
         default = "${cfg.directories.home}/certificates";
         defaultText =
           literalExpression
-            ''"''${config.${opt.directories.home}}/certificates"''
-        ;
+            ''"''${config.${opt.directories.home}}/certificates"'';
         description = lib.mdDoc ''
           Directory for storing certificates to be used by Neo4j for
           TLS connections.
@@ -425,8 +425,7 @@ in
         default = "${cfg.directories.home}/import";
         defaultText =
           literalExpression
-            ''"''${config.${opt.directories.home}}/import"''
-        ;
+            ''"''${config.${opt.directories.home}}/import"'';
         description = lib.mdDoc ''
           The root directory for file URLs used with the Cypher
           `LOAD CSV` clause. Only meaningful when
@@ -444,8 +443,7 @@ in
         default = "${cfg.directories.home}/plugins";
         defaultText =
           literalExpression
-            ''"''${config.${opt.directories.home}}/plugins"''
-        ;
+            ''"''${config.${opt.directories.home}}/plugins"'';
         description = lib.mdDoc ''
           Path of the database plugin directory. Compiled Java JAR files that
           contain database procedures will be loaded if they are placed in
@@ -562,8 +560,7 @@ in
                   default = "${cfg.directories.certificates}/${name}";
                   defaultText =
                     literalExpression
-                      ''"''${config.${opt.directories.certificates}}/''${name}"''
-                  ;
+                      ''"''${config.${opt.directories.certificates}}/''${name}"'';
                   description = lib.mdDoc ''
                     The mandatory base directory for cryptographic objects of this
                     policy. This path is only automatically generated when this
@@ -629,8 +626,7 @@ in
                   default = "${config.baseDirectory}/revoked";
                   defaultText =
                     literalExpression
-                      ''"''${config.${options.baseDirectory}}/revoked"''
-                  ;
+                      ''"''${config.${options.baseDirectory}}/revoked"'';
                   description = lib.mdDoc ''
                     Path to directory of CRLs (Certificate Revocation Lists) in
                     PEM format. Must be an absolute path. The existence of this
@@ -668,8 +664,7 @@ in
                   default = "${config.baseDirectory}/trusted";
                   defaultText =
                     literalExpression
-                      ''"''${config.${options.baseDirectory}}/trusted"''
-                  ;
+                      ''"''${config.${options.baseDirectory}}/trusted"'';
                   description = lib.mdDoc ''
                     Path to directory of X.509 certificates in PEM format for
                     trusted parties. Must be an absolute path. The existence of this
@@ -702,12 +697,10 @@ in
               config.directoriesToCreate =
                 optionals
                   (certDirOpt.highestPrio >= 1500 && options.baseDirectory.highestPrio >= 1500)
-                  (map (opt: opt.value) (filter isDefaultPathOption (attrValues options)))
-              ;
+                  (map (opt: opt.value) (filter isDefaultPathOption (attrValues options)));
             }
           )
-        )
-      ;
+        );
       default = { };
       description = lib.mdDoc ''
         Defines the SSL policies for use with Neo4j connectors. Each attribute
@@ -800,8 +793,7 @@ in
         home = cfg.directories.home;
       };
       users.groups.neo4j = { };
-    }
-  ;
+    };
 
   meta = {
     maintainers = with lib.maintainers; [

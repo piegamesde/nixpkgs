@@ -72,6 +72,5 @@ in
             ${concatStringsSep " \\\n  " cfg.extraFlags}
         '';
       };
-    }
-  ;
+    };
 }

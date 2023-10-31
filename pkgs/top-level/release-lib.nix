@@ -119,16 +119,14 @@ rec {
     let
       supportedPlatforms =
         map (system: lib.systems.elaborate { inherit system; })
-          supportedSystems
-      ;
+          supportedSystems;
     in
     metaPatterns:
     let
       anyMatch = platform: lib.any (lib.meta.platformMatch platform) metaPatterns;
       matchingPlatforms = lib.filter anyMatch supportedPlatforms;
     in
-    map ({ system, ... }: system) matchingPlatforms
-  ;
+    map ({ system, ... }: system) matchingPlatforms;
 
   assertTrue =
     bool:
@@ -167,8 +165,7 @@ rec {
     crossSystem: metaPatterns: f:
     forMatchingSystems metaPatterns (
       system: hydraJob' (f (pkgsForCross crossSystem system))
-    )
-  ;
+    );
 
   /* Given a nested set where the leaf nodes are lists of platforms,
      map each leaf node to `testOn [platforms...] (pkgs:
@@ -181,8 +178,7 @@ rec {
     mapAttrsRecursive (
       path: metaPatterns:
       testOnCross crossSystem metaPatterns (pkgs: f (getAttrFromPath path pkgs))
-    )
-  ;
+    );
 
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,

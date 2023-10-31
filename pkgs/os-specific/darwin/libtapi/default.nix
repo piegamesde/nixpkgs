@@ -30,8 +30,7 @@ stdenv.mkDerivation {
         # TODO: make unconditional and rebuild the world
         # TODO: send upstream
         ./native-clang-tblgen.patch
-      ]
-  ;
+      ];
 
   nativeBuildInputs = [
     cmake
@@ -69,8 +68,7 @@ stdenv.mkDerivation {
           lib.concatStringsSep ";" nativeToolchainFlags
         }"
       )
-    ]
-  ;
+    ];
 
   # fixes: fatal error: 'clang/Basic/Diagnostic.h' file not found
   # adapted from upstream

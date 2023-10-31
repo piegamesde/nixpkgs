@@ -32,8 +32,7 @@ buildGoModule rec {
       "-X ${t}.gitMajor=${lib.versions.major version}"
       "-X ${t}.gitMinor=${lib.versions.minor version}"
       "-X ${t}.gitVersion=v${version}"
-    ]
-  ;
+    ];
 
   postInstall = ''
     # errors attempting to write config to read-only $HOME

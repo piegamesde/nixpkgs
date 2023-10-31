@@ -28,8 +28,7 @@ let
 
   gettyCmd =
     args:
-    "@${pkgs.util-linux}/sbin/agetty agetty ${escapeShellArgs baseArgs} ${args}"
-  ;
+    "@${pkgs.util-linux}/sbin/agetty agetty ${escapeShellArgs baseArgs} ${args}";
 in
 
 {
@@ -131,14 +130,12 @@ in
     # nixos.label would not rebuild manual pages
     services.getty.greetingLine =
       mkDefault
-        "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>"
-    ;
+        "<<< Welcome to NixOS ${config.system.nixos.label} (\\m) - \\l >>>";
     services.getty.helpLine =
       mkIf (config.documentation.nixos.enable && config.documentation.doc.enable)
         ''
 
-          Run 'nixos-help' for the NixOS manual.''
-    ;
+          Run 'nixos-help' for the NixOS manual.'';
 
     systemd.services."getty@" = {
       serviceConfig.ExecStart = [

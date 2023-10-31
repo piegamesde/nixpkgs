@@ -47,8 +47,7 @@ buildPythonPackage rec {
       [
         # TypeError: UserId is not a dataclass and cannot be turned into one.
         "test_newtype"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "marshmallow_dataclass" ];
 

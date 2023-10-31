@@ -89,8 +89,7 @@ let
         ];
         platforms = platforms.unix;
       };
-    }
-  ;
+    };
 in
 {
   openvpn = generic {

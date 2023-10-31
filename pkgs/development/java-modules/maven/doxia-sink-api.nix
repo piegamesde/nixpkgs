@@ -22,8 +22,7 @@
           type = "jar";
           sha512 = "12yqdygds5w4dx8zxq4ss65a28pqrhavzzmgi3n7473r1k5r3kiw5h5bm71zdhccv5lgb4lb9p9lswa2pjkwriykfm3fj0l3924x6dk";
         }
-      ]
-  ;
+      ];
 
   mavenDoxiaSinkApi_1_0_alpha7 =
     map
@@ -46,8 +45,7 @@
           type = "jar";
           sha512 = "0q2vn7yyl8qvsifb629jh3hmaa5pkj5y22zy7qbji1xmn28qp0n1skfvlmpn0m8djwzmayw6xjbxhxvspzc9a14n3nkmjzmr5yz053a";
         }
-      ]
-  ;
+      ];
 
   mavenDoxiaSinkApi_1_0_alpha10 =
     map
@@ -70,6 +68,5 @@
           type = "jar";
           sha512 = "1bgp929njkqvzv1q07drfncqagpkfw1ksi0cvwqq69ww2lbg3rmq2if11j7ldwn2rdvmfrr9qyhg34vwz13gfh7yylkw0il0q9h9hlj";
         }
-      ]
-  ;
+      ];
 }

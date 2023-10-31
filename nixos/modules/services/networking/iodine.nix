@@ -120,8 +120,7 @@ in
                 default = "";
                 description =
                   lib.mdDoc
-                    "DNS server to use as an intermediate relay to the iodined server"
-                ;
+                    "DNS server to use as an intermediate relay to the iodined server";
                 example = "8.8.8.8";
               };
 

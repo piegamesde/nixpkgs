@@ -64,8 +64,7 @@ import ../make-test-python.nix (
             description = "Alice Foobar";
             extraGroups = [ "podman" ];
           };
-        }
-      ;
+        };
 
       client =
         { ... }:
@@ -78,8 +77,7 @@ import ../make-test-python.nix (
             ];
           environment.variables.DOCKER_HOST = "podman:2376";
           environment.variables.DOCKER_TLS_VERIFY = "1";
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -29,10 +29,8 @@ import ./make-test-python.nix (
                 SupportSettings.AboutLink = "https://nixos.org";
               };
             }
-            mattermostConfig
-        ;
-      }
-    ;
+            mattermostConfig;
+      };
   in
   {
     name = "mattermost";
@@ -52,8 +50,7 @@ import ./make-test-python.nix (
               sha256 = "1h4qi34gcxcx63z8wiqcf2aaywmvv8lys5g8gvsk13kkqhlmag25";
             };
           in
-          [ mattermostDemoPlugin ]
-        ;
+          [ mattermostDemoPlugin ];
       };
       immutable = makeMattermost {
         mutableConfig = false;
@@ -84,8 +81,7 @@ import ./make-test-python.nix (
             } --arg siteName ${lib.escapeShellArg siteName} --arg mattermostName ${
               lib.escapeShellArg pkgs.mattermost.name
             } --arg sep '-')" = "true" ]]
-          ''
-        ;
+          '';
 
         setConfig =
           jqExpression:
@@ -97,8 +93,7 @@ import ./make-test-python.nix (
             } $mattermostConfig)"
             rm -f $mattermostConfig
             echo "$newConfig" > "$mattermostConfig"
-          ''
-        ;
+          '';
       in
       ''
         start_all()
@@ -190,7 +185,6 @@ import ./make-test-python.nix (
 
         # Settings in the environment file should override settings set otherwise
         environmentFile.succeed("${expectConfig ''.AboutLink == "https://nixos.org"''}")
-      ''
-    ;
+      '';
   }
 )

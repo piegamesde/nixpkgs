@@ -55,8 +55,7 @@ toKodiAddon (
           ${extraInstallPhase}
 
           runHook postInstall
-        ''
-      ;
+        '';
     }
     // attrs
   )

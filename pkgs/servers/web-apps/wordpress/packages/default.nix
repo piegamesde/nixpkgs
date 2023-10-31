@@ -87,8 +87,7 @@ let
               ]
             )
           )
-          { }
-      ;
+          { };
 
       # Create a derivation from the official wordpress.org packages.
       # This takes the type, the pname and the data generated from the go tool.
@@ -108,8 +107,7 @@ let
               src = fetchWordpress type data;
             }
           )
-          { }
-      ;
+          { };
 
       # Filter out all characters that might occur in a version string but that that are not allowed
       # in store paths.
@@ -154,8 +152,7 @@ let
             "-"
             ""
             ""
-          ]
-      ;
+          ];
 
       # Fetch a package from the official wordpress.org SVN.
       # The data supplied is the data straight from the go tool.
@@ -180,8 +177,7 @@ let
               ;
             }
           )
-          { }
-      ;
+          { };
     }
     //
       lib.mapAttrs

@@ -56,8 +56,7 @@ let
       artifactId
       version
       filename
-    ]
-  ;
+    ];
   urls_ =
     if url != "" then
       [ url ]

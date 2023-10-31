@@ -92,8 +92,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "Path to the file containing the application password for OpenID server."
-        ;
+            "Path to the file containing the application password for OpenID server.";
       };
 
       catalinaOptions = mkOption {
@@ -134,8 +133,7 @@ in
           default = true;
           description =
             lib.mdDoc
-              "Whether the connections to the proxy should be considered secure."
-          ;
+              "Whether the connections to the proxy should be considered secure.";
         };
       };
 
@@ -152,8 +150,7 @@ in
         defaultText = literalExpression "pkgs.oraclejre8";
         description =
           lib.mdDoc
-            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
-        ;
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -191,8 +188,7 @@ in
         CATALINA_TMPDIR = "/tmp";
         JAVA_OPTS =
           mkIf (cfg.openidPasswordFile != null)
-            "-Dcrowd.properties=${cfg.home}/crowd.properties"
-        ;
+            "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =

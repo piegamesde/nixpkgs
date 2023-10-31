@@ -35,8 +35,7 @@ let
         sep = if (top && isAttrs v) then ":" else "=";
       in
       "${escape [ sep ] k}${sep}${mkValueString v};"
-    )
-  ;
+    );
 
   # This serializes a Nix expression to the libconfig format.
   mkValueString =
@@ -288,8 +287,7 @@ in
             "opengl-swc"
             "opengl-mswc"
           ]
-        )
-      ;
+        );
       default = false;
       apply =
         x:
@@ -300,8 +298,7 @@ in
             + " interpreting ${x} as ${boolToString res}"
           ;
         in
-        if isBool x then x else warn msg res
-      ;
+        if isBool x then x else warn msg res;
 
       description = lib.mdDoc ''
         Enable vertical synchronization. Chooses the best method
@@ -322,8 +319,7 @@ in
           ]
           // {
             description = "scalar types";
-          }
-        ;
+          };
 
         libConfig =
           oneOf [
@@ -333,8 +329,7 @@ in
           ]
           // {
             description = "libconfig type";
-          }
-        ;
+          };
 
         topLevel = attrsOf libConfig // {
           description = ''
@@ -360,8 +355,7 @@ in
           in a NixOS option or to bypass one.  For the available options see the
           CONFIGURATION FILES section at `picom(1)`.
         '';
-      }
-    ;
+      };
   };
 
   config = mkIf cfg.enable {

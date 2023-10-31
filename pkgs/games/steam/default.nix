@@ -41,8 +41,7 @@ let
         withGameSpecificLibraries = false;
       };
       steamcmd = callPackage ./steamcmd.nix { };
-    }
-  ;
+    };
   keep = self: { };
   extra = spliced0: { };
 in

@@ -57,8 +57,7 @@ buildPythonPackage rec {
     ++ lib.optionals isPyPy [
       "test_run"
       "test_run_integration"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A goodie-bag of unix shell and environment tools for py.test";

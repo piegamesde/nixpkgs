@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
     ${if stdenv.isDarwin then
       "export DYLD_LIBRARY_PATH=$(pwd)/src/"
     else
-      "export LD_LIBRARY_PATH=$(pwd)/src/"}
+      "export LD_LIBRARY_PATH=$(pwd)/src/"
+    }
     ${lib.optionalString enablePython
       "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
   '';
@@ -71,8 +72,7 @@ stdenv.mkDerivation rec {
       [
         # RPATH of binary /nix/store/.../lib/python3.10/site-packages/galario/double/libcommon.so contains a forbidden reference to /build/
         "-DCMAKE_SKIP_BUILD_RPATH=ON"
-      ]
-  ;
+      ];
 
   doCheck = true;
 

@@ -62,8 +62,7 @@
           out = "1.0+coq8.6";
         }
       ]
-      null
-  ;
+      null;
 
   release."1.0+coq8.6".version = "1.0";
   release."1.0+coq8.6".rev = "v1.0";

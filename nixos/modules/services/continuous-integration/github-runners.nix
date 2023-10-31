@@ -26,8 +26,7 @@ in
             }
           );
         }
-      )
-    ;
+      );
     example = {
       runner1 = {
         enable = true;

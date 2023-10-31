@@ -60,8 +60,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ packaging ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     pytest-mock

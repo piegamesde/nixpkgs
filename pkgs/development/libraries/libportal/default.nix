@@ -19,7 +19,8 @@
 assert variant == null
   || variant == "gtk3"
   || variant == "gtk4"
-  || variant == "qt5";
+  || variant == "qt5"
+;
 
 stdenv.mkDerivation rec {
   pname = "libportal" + lib.optionalString (variant != null) "-${variant}";
@@ -61,8 +62,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (variant != "qt5") [
       gobject-introspection
       vala
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     [ glib ]

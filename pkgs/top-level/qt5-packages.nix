@@ -25,8 +25,7 @@
           inherit (pkgs) lib fetchurl;
         };
       in
-      (lib.makeOverridable mkFrameworks attrs)
-    ;
+      (lib.makeOverridable mkFrameworks attrs);
 
     plasma5 =
       let
@@ -38,8 +37,7 @@
           inherit (pkgs) gsettings-desktop-schemas;
         };
       in
-      (lib.makeOverridable mkPlasma5 attrs)
-    ;
+      (lib.makeOverridable mkPlasma5 attrs);
 
     kdeGear =
       let
@@ -49,8 +47,7 @@
           inherit (pkgs) lib fetchurl;
         };
       in
-      (lib.makeOverridable mkGear attrs)
-    ;
+      (lib.makeOverridable mkGear attrs);
 
     plasmaMobileGear =
       let
@@ -60,8 +57,7 @@
           inherit (pkgs) lib fetchurl;
         };
       in
-      (lib.makeOverridable mkPlamoGear attrs)
-    ;
+      (lib.makeOverridable mkPlamoGear attrs);
 
     mauiPackages =
       let
@@ -71,8 +67,7 @@
           inherit (pkgs) lib fetchurl;
         };
       in
-      (lib.makeOverridable mkMaui attrs)
-    ;
+      (lib.makeOverridable mkMaui attrs);
   in
   (
     kdeFrameworks
@@ -104,8 +99,7 @@
 
       applet-window-buttons =
         callPackage ../development/libraries/applet-window-buttons
-          { }
-      ;
+          { };
 
       appstream-qt = callPackage ../development/libraries/appstream/qt.nix { };
 
@@ -137,8 +131,7 @@
 
       kirigami-addons =
         libsForQt5.callPackage ../development/libraries/kirigami-addons
-          { }
-      ;
+          { };
 
       kimageannotator = callPackage ../development/libraries/kimageannotator { };
 
@@ -160,8 +153,7 @@
 
       libdbusmenu =
         callPackage ../development/libraries/libdbusmenu-qt/qt-5.5.nix
-          { }
-      ;
+          { };
 
       liblastfm = callPackage ../development/libraries/liblastfm { };
 
@@ -178,8 +170,7 @@
               Cocoa
               Foundation
             ;
-          }
-      ;
+          };
 
       libqglviewer = callPackage ../development/libraries/libqglviewer {
         inherit (pkgs.darwin.apple_sdk.frameworks) AGL;
@@ -191,25 +182,21 @@
 
       libqaccessibilityclient =
         callPackage ../development/libraries/libqaccessibilityclient
-          { }
-      ;
+          { };
 
       kpmcore = callPackage ../development/libraries/kpmcore { };
 
       mapbox-gl-native =
         libsForQt5.callPackage ../development/libraries/mapbox-gl-native
-          { }
-      ;
+          { };
 
       mapbox-gl-qml =
         libsForQt5.callPackage ../development/libraries/mapbox-gl-qml
-          { }
-      ;
+          { };
 
       maplibre-gl-native =
         callPackage ../development/libraries/maplibre-gl-native
-          { }
-      ;
+          { };
 
       maui-core = libsForQt5.callPackage ../development/libraries/maui-core { };
 
@@ -219,18 +206,15 @@
 
       phonon-backend-gstreamer =
         callPackage ../development/libraries/phonon/backends/gstreamer.nix
-          { }
-      ;
+          { };
 
       phonon-backend-vlc =
         callPackage ../development/libraries/phonon/backends/vlc.nix
-          { }
-      ;
+          { };
 
       plasma-wayland-protocols =
         callPackage ../development/libraries/plasma-wayland-protocols
-          { }
-      ;
+          { };
 
       polkit-qt = callPackage ../development/libraries/polkit-qt-1 { };
 
@@ -244,8 +228,7 @@
 
       qca-qt5 =
         pkgs.darwin.apple_sdk_11_0.callPackage ../development/libraries/qca-qt5
-          { inherit (libsForQt5) qtbase; }
-      ;
+          { inherit (libsForQt5) qtbase; };
 
       qcoro = callPackage ../development/libraries/qcoro { };
 
@@ -285,8 +268,7 @@
 
       qtstyleplugin-kvantum =
         callPackage ../development/libraries/qtstyleplugin-kvantum
-          { }
-      ;
+          { };
 
       quazip = callPackage ../development/libraries/quazip { };
 
@@ -312,8 +294,7 @@
 
       xp-pen-deco-01-v2-driver =
         callPackage ../os-specific/linux/xp-pen-drivers/deco-01-v2
-          { }
-      ;
+          { };
 
       xp-pen-g430-driver = callPackage ../os-specific/linux/xp-pen-drivers/g430 { };
 

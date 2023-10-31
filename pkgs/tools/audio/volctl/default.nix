@@ -50,8 +50,7 @@ python3Packages.buildPythonApplication rec {
         pygobject3
         pyyaml
       ]
-    )
-  ;
+    );
 
   # with strictDeps importing "gi.repository.Gtk" fails with "gi.RepositoryError: Typelib file for namespace 'Pango', version '1.0' not found"
   strictDeps = false;

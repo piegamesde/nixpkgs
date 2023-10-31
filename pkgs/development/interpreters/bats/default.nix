@@ -128,8 +128,7 @@ resholve.mkDerivation rec {
         wrapProgram "$out/bin/bats" \
           --suffix BATS_LIB_PATH : "$out/share/bats"
       '';
-    }
-  ;
+    };
 
   passthru.tests.libraries =
     runCommand "${bats.name}-with-libraries-test"
@@ -180,8 +179,7 @@ resholve.mkDerivation rec {
           )
         }/bin/bats "$testScriptPath"
         touch "$out"
-      ''
-  ;
+      '';
 
   passthru.tests.upstream = bats.unresholved.overrideAttrs (
     old: {

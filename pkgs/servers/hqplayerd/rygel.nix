@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
         gst-plugins-ugly
       ]
-    )
-  ;
+    );
 
   mesonFlags = [
     "-Dsystemd-user-units-dir=${placeholder "out"}/lib/systemd/user"

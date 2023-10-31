@@ -127,8 +127,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString doCheck ''
       sed '/${tdRegexp}/d' -i test/test-list.h
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     automake

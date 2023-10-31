@@ -17,8 +17,7 @@ import ./make-test-python.nix (
             enable = true;
             listenPort = port;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

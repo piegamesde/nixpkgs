@@ -63,8 +63,7 @@ buildPythonPackage rec {
       [
         # AssertionError: <class 'urllib3.poolmanager.ProxyManager'> != <class 'urllib3.poolmanager.Poolmanager'>
         "test_rest_proxycare"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Kubernetes Python client";

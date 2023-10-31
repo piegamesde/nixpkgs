@@ -160,8 +160,7 @@ let
     mkNugetSource {
       name = "dotnet-sdk-${version}-source";
       deps = sdkDeps;
-    }
-  ;
+    };
 
   nuget-source = symlinkJoin {
     name = "${name}-nuget-source";
@@ -331,8 +330,7 @@ stdenvNoCC.mkDerivation (
           done
           nuget-to-nix "$tmp/nuget_pkgs" "$tmp/excluded_list" >> "$depsFile"
           echo "Succesfully wrote lockfile to $depsFile"
-        ''
-      ;
+        '';
     } // args.passthru or { };
 
     meta = (args.meta or { }) // {

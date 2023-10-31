@@ -80,8 +80,7 @@ let
           "All crossOverlays passed to nixpkgs must be functions."
       )
       (r: r)
-      crossOverlays
-  ;
+      crossOverlays;
 
   localSystem = lib.systems.elaborate args.localSystem;
 

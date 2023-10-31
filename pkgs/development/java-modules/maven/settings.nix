@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "2r0256akp6gkcg7mjpaf27s985x2hblqk2dqcjq4cl415j4hx1xvarvvkh9py8sk8sjp66nzabph2kyk7v01cy29ryay6b6hn1wzi62";
         }
-      ]
-  ;
+      ];
 
   mavenSettings_2_0_6 =
     map
@@ -46,8 +45,7 @@
           type = "pom";
           sha512 = "03cz2z90h9c3lssl53glbpz9hflsgb3a14i4xr5p7lpm993c07zn7xp2f6sjcdq7b774spbiww0alll9cz2vs8m7pvvwnbxk0s09d7l";
         }
-      ]
-  ;
+      ];
 
   mavenSettings_2_0_9 =
     map
@@ -70,8 +68,7 @@
           type = "pom";
           sha512 = "3i2nq3r6piwhv265jhsj9hqriw6113vkqllx5s4kd4y2dspjxh6l9xprrw347nkw68904dyq9hdx76fx2nzjd16ldh41pim5lw8r15n";
         }
-      ]
-  ;
+      ];
 
   mavenSettings_2_2_1 =
     map
@@ -94,6 +91,5 @@
           type = "pom";
           sha512 = "1vmbcxbrklhsyqhhz5x0skkckghi3lwgpksxi3aw0j57f86h7rk464ww1zppym451pqgqnpyvl83zzkizad5n8y8hrw41hgh1cdn3ij";
         }
-      ]
-  ;
+      ];
 }

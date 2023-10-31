@@ -13,8 +13,7 @@ let
     with types;
     attrsOf (
       coercedTo (either (listOf str) str) (x: concatStringsSep ";" (toList x)) str
-    )
-  ;
+    );
 in
 
 {
@@ -99,8 +98,7 @@ in
             "Default Applications" = cfg.defaultApplications;
             "Removed Associations" = cfg.removedAssociations;
           };
-        }
-    ;
+        };
 
     environment.pathsToLink = [ "/share/mime" ];
 

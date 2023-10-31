@@ -20,8 +20,7 @@ buildPythonPackage rec {
   # segfaults in the testsuite that end up failing the tests in a background thread (in myapp)
   nativeCheckInputs =
     [ pytestCheckHook ]
-    ++ lib.optionals (!stdenv.isDarwin) [ watchdog ]
-  ;
+    ++ lib.optionals (!stdenv.isDarwin) [ watchdog ];
 
   disabledTestPaths =
     [

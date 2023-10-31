@@ -29,8 +29,7 @@ buildGoModule rec {
       "-w"
       "-X ${basename}.Version=${src.rev}"
       "-X ${basename}.GitHash=${rev}"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Graph database designed for ease of use and storing complex data";

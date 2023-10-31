@@ -28,8 +28,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ asn1crypto ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-mock

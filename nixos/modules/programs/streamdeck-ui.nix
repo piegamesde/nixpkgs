@@ -19,8 +19,7 @@ in
       type = types.bool;
       description =
         lib.mdDoc
-          "Whether streamdeck-ui should be started automatically."
-      ;
+          "Whether streamdeck-ui should be started automatically.";
     };
 
     package = mkPackageOptionMD pkgs "streamdeck-ui" {

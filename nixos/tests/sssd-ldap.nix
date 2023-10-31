@@ -92,8 +92,7 @@ import ./make-test-python.nix (
             ldap_default_authtok = $LDAP_BIND_PW
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

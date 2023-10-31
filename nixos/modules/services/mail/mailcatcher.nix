@@ -78,8 +78,7 @@ in
         ;
         AmbientCapabilities =
           optionalString (cfg.http.port < 1024 || cfg.smtp.port < 1024)
-            "cap_net_bind_service"
-        ;
+            "cap_net_bind_service";
       };
     };
   };

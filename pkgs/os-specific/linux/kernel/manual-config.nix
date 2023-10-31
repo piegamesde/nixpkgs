@@ -38,8 +38,7 @@ let
           echo '  "'"$key"'" = "'"''${no_firstquote%\"}"'";' >> "$out"
         done < "${configfile}"
         echo "}" >> $out
-      '').outPath
-  ;
+      '').outPath;
 in
 lib.makeOverridable (
   {
@@ -382,8 +381,7 @@ lib.makeOverridable (
         ''
           installFlagsArray+=("-j$NIX_BUILD_CORES")
           export HOME=${installkernel}
-        ''
-      ;
+        '';
 
       # Some image types need special install targets (e.g. uImage is installed with make uinstall)
       installTargets = [
@@ -491,8 +489,7 @@ lib.makeOverridable (
         isXen =
           lib.warn
             "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
-            true
-        ;
+            true;
         baseVersion = lib.head (lib.splitString "-rc" version);
         kernelOlder = lib.versionOlder baseVersion;
         kernelAtLeast = lib.versionAtLeast baseVersion;

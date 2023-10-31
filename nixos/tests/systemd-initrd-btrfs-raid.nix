@@ -28,8 +28,7 @@ import ./make-test-python.nix (
           fileSystems = lib.mkVMOverride { "/".fsType = lib.mkForce "btrfs"; };
           virtualisation.rootDevice = "/dev/vdb";
         };
-      }
-    ;
+      };
 
     testScript = ''
       # Create RAID

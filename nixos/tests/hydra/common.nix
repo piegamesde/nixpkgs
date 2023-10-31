@@ -54,6 +54,5 @@
         } ];
         settings.substituters = [ ];
       };
-    }
-  ;
+    };
 }

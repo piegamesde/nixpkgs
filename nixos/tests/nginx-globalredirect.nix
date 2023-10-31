@@ -15,8 +15,7 @@ import ./make-test-python.nix (
               locations."/noredirect".return = "200 'foo'";
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -22,8 +22,7 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = true;
   buildFeatures =
     [ "default-optimizations" ]
-    ++ lib.optionals withSimd [ "simd" ]
-  ;
+    ++ lib.optionals withSimd [ "simd" ];
 
   meta = with lib; {
     description = "Blazing fast Rust JSONPath query engine";

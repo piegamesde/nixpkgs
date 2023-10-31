@@ -49,24 +49,21 @@ import ./make-test-python.nix (
             (pkgs.lib.head nodes.router.config.networking.interfaces.eth2.ipv4.addresses)
             .address;
           networking.nftables.enable = nftables;
-        } ]
-      ;
+        } ];
 
       router =
         { ... }:
         lib.mkMerge [
           routerBase
           { networking.nat.enable = true; }
-        ]
-      ;
+        ];
 
       routerDummyNoNat =
         { ... }:
         lib.mkMerge [
           routerBase
           { networking.nat.enable = false; }
-        ]
-      ;
+        ];
 
       server =
         { ... }:
@@ -77,8 +74,7 @@ import ./make-test-python.nix (
           services.httpd.adminAddr = "foo@example.org";
           services.vsftpd.enable = true;
           services.vsftpd.anonymousUser = true;
-        }
-      ;
+        };
     };
 
     testScript =
@@ -135,7 +131,6 @@ import ./make-test-python.nix (
         ''}
         client.succeed("curl --fail http://server/ >&2")
         client.succeed("ping -c 1 server >&2")
-      ''
-    ;
+      '';
   }
 )

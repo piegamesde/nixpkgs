@@ -23,8 +23,7 @@ let
       genericName = description;
       icon = "scummvm";
       name = name;
-    }
-  ;
+    };
 
   run =
     name: short: code:
@@ -35,8 +34,7 @@ let
         --path=@out@/share/${name} \
         --fullscreen \
         ${code}
-    ''
-  ;
+    '';
 
   generic =
     {
@@ -69,8 +67,7 @@ let
             "-"
             ""
           ]
-          (lib.toLower plong)
-      ;
+          (lib.toLower plong);
     in
     stdenv.mkDerivation (
       {
@@ -110,8 +107,7 @@ let
         };
       }
       // attrs'
-    )
-  ;
+    );
 in
 {
   beneath-a-steel-sky = generic rec {

@@ -50,8 +50,7 @@ import ./make-test-python.nix (
             }
           )
           clients
-      )
-    ;
+      );
 
     testScript =
       let

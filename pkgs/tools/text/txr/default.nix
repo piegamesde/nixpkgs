@@ -43,8 +43,7 @@ stdenv.mkDerivation (
       in
       ''
         rm ${disabledTests}
-      ''
-    ;
+      '';
 
     postInstall = ''
       mkdir -p $out/share/vim-plugins/txr/{syntax,ftdetect}

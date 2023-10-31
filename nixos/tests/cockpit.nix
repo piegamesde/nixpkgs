@@ -28,8 +28,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
       client =
         { config, ... }:
         {
@@ -120,17 +119,14 @@ import ./make-test-python.nix (
                     assert "Web console is running in limited access mode" in driver.page_source
 
                     driver.close()
-                  ''
-              ;
+                  '';
             in
             with pkgs; [
               firefox-unwrapped
               geckodriver
               seleniumScript
-            ]
-          ;
-        }
-      ;
+            ];
+        };
     };
 
     testScript = ''

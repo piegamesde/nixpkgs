@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
       darwin.apple_sdk.frameworks.Carbon
       darwin.apple_sdk.frameworks.Cocoa
       darwin.apple_sdk.frameworks.DebugSymbols
-    ]
-  ;
+    ];
 
   CXXFLAGS = "-fno-rtti";
   hardeningDisable = [ "format" ];

@@ -28,8 +28,7 @@
 let
   debugInfoFlag =
     lib.optionalString (enableDebugInfo || erlang.debugInfo)
-      "debug-info"
-  ;
+      "debug-info";
 
   rebar3 = rebar3WithPlugins { plugins = buildPlugins; };
 
@@ -38,8 +37,7 @@ let
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
-    }
-  ;
+    };
 
   customPhases = lib.filterAttrs (_: v: v != null) {
     inherit
@@ -113,7 +111,6 @@ let
         };
       }
       // customPhases
-    )
-  ;
+    );
 in
 lib.fix pkg

@@ -43,8 +43,7 @@ import ./make-test-python.nix (
             fi
           '';
         };
-      }
-    ;
+      };
 
     testScript = # python
       ''

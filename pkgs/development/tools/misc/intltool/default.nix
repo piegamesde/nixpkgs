@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
         perl
         XMLParser
       ]
-    )
-  ;
+    );
 
   postInstall =
     lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
         for f in $out/bin/*; do
           substituteInPlace $f --replace "${buildPackages.perl}" "${perlPackages.perl}"
         done
-      ''
-  ;
+      '';
   meta = with lib; {
     description = "Translation helper tool";
     homepage = "https://launchpad.net/intltool/";

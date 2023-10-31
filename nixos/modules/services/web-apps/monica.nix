@@ -200,8 +200,7 @@ in
             int
             bool
           ]
-        )
-      ;
+        );
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -266,8 +265,7 @@ in
                 }
               )
           )
-        )
-      ;
+        );
       default = { };
       example = ''
         {
@@ -453,8 +451,7 @@ in
                   null
                 ]
               ))
-              cfg.config
-          ;
+              cfg.config;
           monicaEnv = pkgs.writeText "monica.env" (monicaEnvVars filteredConfig);
         in
         ''
@@ -471,8 +468,7 @@ in
           # migrate & seed db
           ${pkgs.php}/bin/php artisan key:generate --force
           ${pkgs.php}/bin/php artisan setup:production -v --force
-        ''
-      ;
+        '';
     };
 
     systemd.services.monica-scheduler = {

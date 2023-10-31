@@ -54,8 +54,7 @@ let
           }
         ;
       }
-    )
-  ;
+    );
 
   packages =
     self:
@@ -83,7 +82,6 @@ let
       shelf = callPackage ./shelf.nix { };
       station = callPackage ./station.nix { };
       vvave = callPackage ./vvave.nix { };
-    }
-  ;
+    };
 in
 lib.makeScope libsForQt5.newScope packages

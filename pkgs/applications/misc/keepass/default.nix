@@ -86,8 +86,7 @@ buildDotnetPackage rec {
         outputLc
         loads
       ]
-      patchTemplate
-  ;
+      patchTemplate;
 
   passAsFile = [ "pluginLoadPathsPatch" ];
   postPatch = ''
@@ -153,8 +152,7 @@ buildDotnetPackage rec {
         'keepass' \
         "$out" \
         "./tmp"
-    ''
-  ;
+    '';
 
   meta = {
     description = "GUI password manager with strong cryptography";

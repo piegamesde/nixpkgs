@@ -107,8 +107,7 @@ let
   # TODO(@Ericson2314) Make unconditional
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-"
-  ;
+      "${targetPlatform.config}-";
 
   buildMK =
     ''
@@ -173,8 +172,7 @@ let
   # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget =
     [ pkgsBuildTarget.targetPackages.stdenv.cc ]
-    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm
-  ;
+    ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
 
@@ -225,7 +223,8 @@ in
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang
+;
 
 stdenv.mkDerivation (
   rec {
@@ -279,8 +278,7 @@ stdenv.mkDerivation (
           # elimination on aarch64-darwin. (see
           # https://github.com/NixOS/nixpkgs/issues/140774 for details).
           ./Cabal-3.6-paths-fix-cycle-aarch64-darwin.patch
-        ]
-    ;
+        ];
 
     postPatch = "patchShebangs .";
 
@@ -441,8 +439,7 @@ stdenv.mkDerivation (
     # that in turn causes GHCi to abort
     stripDebugFlags =
       [ "-S" ]
-      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols"
-    ;
+      ++ lib.optional (!targetPlatform.isDarwin) "--keep-file-symbols";
 
     checkTarget = "test";
 

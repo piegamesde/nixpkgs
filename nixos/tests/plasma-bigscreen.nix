@@ -25,8 +25,7 @@ import ./make-test-python.nix (
         };
 
         users.users.alice.extraGroups = [ "uinput" ];
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -43,7 +42,6 @@ import ./make-test-python.nix (
         with subtest("Check plasmashell started"):
             machine.wait_until_succeeds("pgrep plasmashell")
             machine.wait_for_window("Plasma Big Screen")
-      ''
-    ;
+      '';
   }
 )

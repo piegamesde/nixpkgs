@@ -16,8 +16,7 @@ import ./make-test-python.nix (
           enable = true;
           accessUrl = "http://localhost:3000";
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

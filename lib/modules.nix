@@ -53,16 +53,14 @@ let
     loc: decl: prefix:
     " - option(s) with prefix `${
        showOption (loc ++ [ prefix ])
-     }' in module `${decl._file}'"
-  ;
+     }' in module `${decl._file}'";
   showRawDecls =
     loc: decls:
     concatStringsSep "\n" (
       sort (a: b: a < b) (
         concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls
       )
-    )
-  ;
+    );
 in
 
 rec {
@@ -124,8 +122,7 @@ rec {
           lib.warnIf
           (evalModulesArgs ? check)
           "The check argument to evalModules is deprecated. Please set config._module.check instead."
-          x
-      ;
+          x;
 
       legacyModules =
         optional (evalModulesArgs ? args) {
@@ -231,8 +228,7 @@ rec {
             default = true;
             description =
               lib.mdDoc
-                "Whether to check whether all option definitions have matching declarations."
-            ;
+                "Whether to check whether all option definitions have matching declarations.";
           };
 
           _module.freeformType = mkOption {
@@ -285,11 +281,9 @@ rec {
                   ;
                 }
                 // specialArgs
-              )
-          ;
+              );
         in
-        mergeModules prefix (reverseList collected)
-      ;
+        mergeModules prefix (reverseList collected);
 
       options = merged.matchedOptions;
 
@@ -308,8 +302,7 @@ rec {
                     file = def.file;
                     value = setAttrByPath def.prefix def.value;
                   })
-                  merged.unmatchedDefns
-              ;
+                  merged.unmatchedDefns;
             in
             if defs == [ ] then
               { }
@@ -343,11 +336,9 @@ rec {
                     (
                       builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'"
                         (showDefs [ firstDef ])
-                    )
-                ;
+                    );
               in
-              "The option `${optText}' does not exist. Definition values:${defText}"
-            ;
+              "The option `${optText}' does not exist. Definition values:${defText}";
           in
           if attrNames options == [ "_module" ] then
             let
@@ -390,8 +381,7 @@ rec {
             specialArgs = evalModulesArgs.specialArgs or { } // specialArgs;
             prefix = extendArgs.prefix or evalModulesArgs.prefix or [ ];
           }
-        )
-      ;
+        );
 
       type = lib.types.submoduleWith { inherit modules specialArgs; };
 
@@ -402,8 +392,7 @@ rec {
         inherit extendModules type;
       };
     in
-    result
-  ;
+    result;
 
   # collectModules :: (modulesPath: String) -> (modules: [ Module ]) -> (args: Attrs) -> [ Module ]
   #
@@ -476,8 +465,7 @@ rec {
                 module = loadModule args parentFile "${parentKey}:anon-${toString n}" x;
                 collectedImports =
                   collectStructuredModules module._file module.key module.imports
-                    args
-                ;
+                    args;
               in
               {
                 key = module.key;
@@ -498,8 +486,7 @@ rec {
               }
             )
             initialModules
-        )
-      ;
+        );
 
       # filterModules :: String -> { disabled, modules } -> [ Module ]
       #
@@ -522,7 +509,6 @@ rec {
                   }) but also has a `.key` attribute (${m.key}) with a different value. This makes it ambiguous which module should be disabled."
               else
                 toString m
-
             else if m ? key then
               m.key
 
@@ -538,8 +524,7 @@ rec {
 
           disabledKeys =
             concatMap ({ file, disabled }: map (moduleKey file) disabled)
-              disabled
-          ;
+              disabled;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
         in
         map (attrs: attrs.module) (
@@ -547,14 +532,12 @@ rec {
             startSet = keyFilter modules;
             operator = attrs: keyFilter attrs.modules;
           }
-        )
-      ;
+        );
     in
     modulesPath: initialModules: args:
     filterModules modulesPath (
       collectStructuredModules unknownModule "" initialModules args
-    )
-  ;
+    );
 
   # Wrap a module with a default location for reporting errors.
   setDefaultModuleLocation = file: m: {
@@ -672,8 +655,7 @@ rec {
                 args.${name} or config._module.args.${name}
               )
             )
-            (lib.functionArgs f)
-        ;
+            (lib.functionArgs f);
       in
       # Note: we append in the opposite order such that we can add an error
       # context on the explicit arguments of "args" too. This update
@@ -719,8 +701,7 @@ rec {
             (pushDownProperties m.config)
         )
         modules
-    )
-  ;
+    );
 
   mergeModules' =
     prefix: options: configs:
@@ -778,8 +759,7 @@ rec {
                 mapAttrs (n: f module) subtree
             )
             modules
-        )
-      ;
+        );
       # an attrset 'name' => list of submodules that declare ‘name’.
       declsByName =
         byName "options"
@@ -787,8 +767,7 @@ rec {
             inherit (module) _file;
             options = option;
           } ])
-          options
-      ;
+          options;
       # an attrset 'name' => list of submodules that define ‘name’.
       defnsByName =
         byName "config"
@@ -801,8 +780,7 @@ rec {
               })
               (pushDownProperties value)
           )
-          configs
-      ;
+          configs;
       # extract the definitions for each loc
       defnsByName' =
         byName "config"
@@ -810,8 +788,7 @@ rec {
             inherit (module) file;
             inherit value;
           } ])
-          configs
-      ;
+          configs;
 
       # Convert an option tree decl to a submodule option decl
       optionTreeToOption =
@@ -886,8 +863,7 @@ rec {
             else
               mergeModules' loc decls defns
           )
-          declsByName
-      ;
+          declsByName;
 
       matchedOptions = mapAttrs (n: v: v.matchedOptions) resultsByName;
 
@@ -927,8 +903,7 @@ rec {
               unmatchedDefnsByName
           )
       ;
-    }
-  ;
+    };
 
   /* Merge multiple option declarations into a single declaration.  In
      general, there should be only one declaration of each option.
@@ -990,8 +965,7 @@ rec {
         declarations = [ ];
         options = [ ];
       }
-      opts
-  ;
+      opts;
 
   /* Merge all the definitions of an option to produce the final
      config value.
@@ -1017,8 +991,7 @@ rec {
             separateDefs =
               map
                 (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; })
-                defs'
-            ;
+                defs';
           in
           throw
             "The option `${
@@ -1038,15 +1011,13 @@ rec {
         warnIf (opt.type.deprecationMessage != null)
           "The type `types.${opt.type.name}' of option `${showOption loc}' defined in ${
             showFiles opt.declarations
-          } is deprecated. ${opt.type.deprecationMessage}"
-      ;
+          } is deprecated. ${opt.type.deprecationMessage}";
     in
     warnDeprecation opt
     // {
       value =
         builtins.addErrorContext "while evaluating the option `${showOption loc}':"
-          value
-      ;
+          value;
       inherit (res.defsFinal') highestPrio;
       definitions = map (def: def.value) res.defsFinal;
       files = map (def: def.file) res.defsFinal;
@@ -1077,8 +1048,7 @@ rec {
                   )
                 )
             )
-            defs
-        ;
+            defs;
 
         # Process mkOverride properties.
         defs'' = filterOverrides' defs';
@@ -1095,8 +1065,7 @@ rec {
       {
         values = defs''';
         inherit (defs'') highestPrio;
-      }
-    ;
+      };
     defsFinal = defsFinal'.values;
 
     # Type-check the remaining definitions, and merge them. Or throw if no definitions.
@@ -1220,11 +1189,9 @@ rec {
     {
       values =
         concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ])
-          defs
-      ;
+          defs;
       inherit highestPrio;
-    }
-  ;
+    };
 
   /* Sort a list of properties.  The sort priority of a property is
      defaultOrderPriority by default, but can be overridden by wrapping the property
@@ -1247,11 +1214,9 @@ rec {
       defs' = map strip defs;
       compare =
         a: b:
-        (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority)
-      ;
+        (a.priority or defaultOrderPriority) < (b.priority or defaultOrderPriority);
     in
-    sort compare defs'
-  ;
+    sort compare defs';
 
   # This calls substSubModules, whose entire purpose is only to ensure that
   # option declarations in submodules have accurate position information.
@@ -1286,8 +1251,7 @@ rec {
 
             Failed assertion: ${message}''
       )
-      content
-  ;
+      content;
 
   mkMerge = contents: {
     _type = "merge";
@@ -1309,14 +1273,12 @@ rec {
   defaultPriority =
     lib.warnIf (lib.isInOldestRelease 2305)
       "lib.modules.defaultPriority is deprecated, please use lib.modules.defaultOverridePriority instead."
-      defaultOverridePriority
-  ;
+      defaultOverridePriority;
 
   mkFixStrictness =
     lib.warn
       "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls."
-      id
-  ;
+      id;
 
   mkOrder = priority: content: {
     _type = "order";
@@ -1360,8 +1322,7 @@ rec {
       prio = option.highestPrio or defaultOverridePriority;
       defsWithPrio = map (mkOverride prio) option.definitions;
     in
-    mkAliasIfDef option (wrap (mkMerge defsWithPrio))
-  ;
+    mkAliasIfDef option (wrap (mkMerge defsWithPrio));
 
   mkAliasIfDef = option: mkIf (isOption option && option.isDefined);
 
@@ -1371,8 +1332,7 @@ rec {
     evalModules {
       inherit modules args;
       check = false;
-    }
-  ;
+    };
 
   /* Return a module that causes a warning to be shown if the
      specified option is defined. For example,
@@ -1398,8 +1358,7 @@ rec {
             throw
               "The option `${
                 showOption optionName
-              }' can no longer be used since it's been removed. ${replacementInstructions}"
-          ;
+              }' can no longer be used since it's been removed. ${replacementInstructions}";
         }
       );
       config.assertions =
@@ -1414,10 +1373,8 @@ rec {
             } no longer has any effect; please remove it.
             ${replacementInstructions}
           '';
-        } ]
-      ;
-    }
-  ;
+        } ];
+    };
 
   /* Return a module that causes a warning to be shown if the
      specified "from" option is defined; the defined value is however
@@ -1442,10 +1399,8 @@ rec {
         builtins.trace
           "Obsolete option `${showOption from}' is used. It was renamed to `${
             showOption to
-          }'."
-      ;
-    }
-  ;
+          }'.";
+    };
 
   mkRenamedOptionModuleWith =
     {
@@ -1468,10 +1423,8 @@ rec {
         lib.warnIf (lib.isInOldestRelease sinceRelease)
           "Obsolete option `${showOption from}' is used. It was renamed to `${
             showOption to
-          }'."
-      ;
-    }
-  ;
+          }'.";
+    };
 
   /* Return a module that causes a warning to be shown if any of the "from"
      option is defined; the defined values can be used in the "mergeFn" to set
@@ -1548,10 +1501,8 @@ rec {
               mergeFn config
             )
           )
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   /* Single "from" version of mkMergedOptionModule.
      Return a module that causes a warning to be shown if the "from" option is
@@ -1578,8 +1529,7 @@ rec {
   */
   mkChangedOptionModule =
     from: to: changeFn:
-    mkMergedOptionModule [ from ] to changeFn
-  ;
+    mkMergedOptionModule [ from ] to changeFn;
 
   # Like ‘mkRenamedOptionModule’, but doesn't show a warning.
   mkAliasOptionModule =
@@ -1589,8 +1539,7 @@ rec {
       visible = true;
       warn = false;
       use = id;
-    }
-  ;
+    };
 
   # Transitional version of mkAliasOptionModule that uses MD docs.
   mkAliasOptionModuleMD =
@@ -1601,8 +1550,7 @@ rec {
       warn = false;
       use = id;
       markdown = true;
-    }
-  ;
+    };
 
   /* mkDerivedConfig : Option a -> (a -> Definition b) -> Definition b
 
@@ -1642,8 +1590,7 @@ rec {
         let
           opt = attrByPath to { } options;
         in
-        opt.type or (types.submodule { })
-      ;
+        opt.type or (types.submodule { });
     in
     {
       options = setAttrByPath from (
@@ -1665,8 +1612,7 @@ rec {
             optional (warn && fromOpt.isDefined)
               "The option `${showOption from}' defined in ${
                 showFiles fromOpt.files
-              } has been renamed to `${showOption to}'."
-          ;
+              } has been renamed to `${showOption to}'.";
         })
         (
           if withPriority then
@@ -1675,8 +1621,7 @@ rec {
             mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt
         )
       ];
-    }
-  ;
+    };
 
   /* Use this function to import a JSON file as NixOS configuration.
 

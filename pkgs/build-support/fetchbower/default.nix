@@ -12,8 +12,7 @@ let
       hash = lib.last components;
       ver = if builtins.length components == 1 then (cleanName version) else hash;
     in
-    ver
-  ;
+    ver;
 
   cleanName =
     name:
@@ -26,8 +25,7 @@ let
         "-"
         "-"
       ]
-      name
-  ;
+      name;
 
   fetchbower =
     name: version: target: outputHash:
@@ -48,7 +46,6 @@ let
         bower2nix
         cacert
       ];
-    }
-  ;
+    };
 in
 fetchbower

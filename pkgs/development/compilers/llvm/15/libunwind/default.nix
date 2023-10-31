@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DLLVM_ENABLE_RUNTIMES=libunwind" ]
-    ++ lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF"
-  ;
+    ++ lib.optional (!enableShared) "-DLIBUNWIND_ENABLE_SHARED=OFF";
 
   meta = llvm_meta // {
     # Details: https://github.com/llvm/llvm-project/blob/main/libunwind/docs/index.rst

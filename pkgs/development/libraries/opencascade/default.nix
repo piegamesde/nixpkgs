@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       OpenCL
       Cocoa
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-DOCE_OSX_USE_COCOA=ON"
       "-DOCE_WITH_OPENCL=ON"
-    ]
-  ;
+    ];
 
   patches = [
     # Use fontconfig instead of hardcoded directory list

@@ -45,8 +45,7 @@ buildPythonPackage rec {
       [
         # Missing socket.AF_NETLINK
         "test_other_socket"
-      ]
-  ;
+      ];
 
   pytestFlagsArray = [ "tests" ];
 

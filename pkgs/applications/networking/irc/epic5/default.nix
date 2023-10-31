@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       tcl
-    ]
-  ;
+    ];
 
   patches = [
     (fetchpatch {

@@ -95,7 +95,8 @@ let
     else
       ''
         and test -f /etc/fish/nixos-env-preinit.fish
-        and source /etc/fish/nixos-env-preinit.fish''}
+        and source /etc/fish/nixos-env-preinit.fish''
+    }
     and set -gx __fish_nixos_env_preinit_sourced 1
 
     test -n "$NIX_PROFILES"
@@ -359,8 +360,7 @@ let
           runCommand "test-web-config" { } ''
             HOME=$(mktemp -d)
             ${fish}/bin/fish ${fishScript} && touch $out
-          ''
-        ;
+          '';
       };
       updateScript = nix-update-script { };
     };

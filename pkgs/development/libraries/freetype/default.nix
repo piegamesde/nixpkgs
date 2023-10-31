@@ -49,8 +49,7 @@ stdenv.mkDerivation (
       fetchurl {
         url = "mirror://savannah/${pname}/${pname}-${version}.tar.xz";
         sha256 = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
-      }
-    ;
+      };
 
     propagatedBuildInputs = [
       zlib
@@ -72,8 +71,7 @@ stdenv.mkDerivation (
 
     patches =
       [ ./enable-table-validation.patch ]
-      ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch
-    ;
+      ++ lib.optional useEncumberedCode ./enable-subpixel-rendering.patch;
 
     outputs = [
       "out"

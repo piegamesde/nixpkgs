@@ -64,7 +64,8 @@ stdenv.mkDerivation {
     ${if bootstrapFromC then
       "./etc/make-liarc.sh --prefix=$out"
     else
-      "make compile-microcode"}
+      "make compile-microcode"
+    }
 
      cd ../doc
 

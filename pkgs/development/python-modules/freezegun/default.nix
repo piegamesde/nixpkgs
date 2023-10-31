@@ -29,8 +29,7 @@ buildPythonPackage rec {
           url = "https://github.com/spulec/freezegun/pull/397/commits/e63874ce75a74a1159390914045fe8e7955b24c4.patch";
           hash = "sha256-FNABqVN5DFqVUR88lYzwbfsZj3xcB9/MvQtm+I2VjnI=";
         })
-      ]
-  ;
+      ];
 
   propagatedBuildInputs = [ python-dateutil ];
 

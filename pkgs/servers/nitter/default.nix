@@ -32,8 +32,7 @@ nimPackages.buildNimPackage rec {
             "commit"
             ""
           ]
-          src.url
-      ;
+          src.url;
     })
   ];
 

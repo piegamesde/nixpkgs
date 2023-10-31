@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals pythonSupport [
       python
       swig
-    ]
-  ;
+    ];
 
   buildInputs = [ libyaml ];
 

@@ -42,8 +42,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Whether or not to enable libstroke for gesture support"
-        ;
+            "Whether or not to enable libstroke for gesture support";
       };
     };
   };

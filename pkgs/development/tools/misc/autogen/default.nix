@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
             + "/debian/patches/${pname}.diff?inline=false"
           ;
           inherit name sha256;
-        }
-      ;
+        };
     in
     [
       (dp {
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
         url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-devel/autogen/files/autogen-5.18.16-guile-3.patch?id=43bcc61c56a5a7de0eaf806efec7d8c0e4c01ae7";
         sha256 = "18d7y1f6164dm1wlh7rzbacfygiwrmbc35a7qqsbdawpkhydm5lr";
       })
-    ]
-  ;
+    ];
 
   outputs = [
     "bin"
@@ -82,8 +80,7 @@ stdenv.mkDerivation rec {
       # autogen needs a build autogen when cross-compiling
       buildPackages.buildPackages.autogen
       buildPackages.texinfo
-    ]
-  ;
+    ];
   buildInputs = [
     guile
     libxml2

@@ -16,8 +16,7 @@ let
       name = "${patchname}.patch";
       url = "https://sources.debian.org/data/main/b/bulletml/${version}-${debianRevision}/debian/patches/${patchname}.patch";
       sha256 = hash;
-    }
-  ;
+    };
 in
 stdenv.mkDerivation {
   pname = "bulletml";

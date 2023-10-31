@@ -34,8 +34,7 @@ let
         runCommand "wrap-kubectl" { nativeBuildInputs = [ makeWrapper ]; } ''
           mkdir -p $out/bin
           makeWrapper ${pkgs.kubernetes}/bin/kubectl $out/bin/kubectl --set KUBECONFIG "/etc/kubernetes/cluster-admin.kubeconfig"
-        ''
-      ;
+        '';
     in
     makeTest {
       inherit name;
@@ -71,8 +70,7 @@ let
                         (node: ''
                           iptables -A INPUT -s ${node.networking.primaryIPAddress} -j ACCEPT
                         '')
-                        (attrValues nodes)
-                    ;
+                        (attrValues nodes);
                   };
                 };
                 programs.bash.enableCompletion = true;
@@ -117,8 +115,7 @@ let
               ))
             ]
           )
-          machines
-      ;
+          machines;
 
       testScript =
         ''
@@ -126,8 +123,7 @@ let
         ''
         + test
       ;
-    }
-  ;
+    };
 
   mkKubernetesMultiNodeTest =
     attrs:
@@ -148,8 +144,7 @@ let
       // {
         name = "kubernetes-${attrs.name}-multinode";
       }
-    )
-  ;
+    );
 
   mkKubernetesSingleNodeTest =
     attrs:
@@ -169,8 +164,7 @@ let
       // {
         name = "kubernetes-${attrs.name}-singlenode";
       }
-    )
-  ;
+    );
 in
 {
   inherit

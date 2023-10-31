@@ -14,8 +14,7 @@ import ./make-test-python.nix (
         {
           services.trezord.enable = true;
           services.trezord.emulator.enable = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

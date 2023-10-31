@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       "vdr"
       "i18n"
     ]
-    ++ lib.optional enableSystemd "SDNOTIFY=1" ++ lib.optional enableBidi "BIDI=1"
-  ;
+    ++ lib.optional enableSystemd "SDNOTIFY=1" ++ lib.optional enableBidi "BIDI=1";
 
   nativeBuildInputs = [ perl ];
 

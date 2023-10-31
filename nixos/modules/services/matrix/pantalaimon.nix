@@ -33,8 +33,7 @@ let
           }
           instanceConfig.extraSettings
         );
-    }
-  ;
+    };
 
   mkPantalaimonService =
     name: instanceConfig:
@@ -57,8 +56,7 @@ let
         ProtectSystem = "strict";
         StateDirectory = "pantalaimon-${name}";
       };
-    }
-  ;
+    };
 in
 {
   options.services.pantalaimon-headless.instances = mkOption {
@@ -75,8 +73,7 @@ in
   config = mkIf (config.services.pantalaimon-headless.instances != { }) {
     systemd.services =
       mapAttrs' mkPantalaimonService
-        config.services.pantalaimon-headless.instances
-    ;
+        config.services.pantalaimon-headless.instances;
   };
 
   meta = {

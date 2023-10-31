@@ -360,8 +360,7 @@ stdenv.mkDerivation {
     ++ lib.optionals waylandSupport [
       wayland-protocols
       waylandpp.bin
-    ]
-  ;
+    ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -389,8 +388,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals waylandSupport [
       "-DWAYLANDPP_SCANNER=${buildPackages.waylandpp}/bin/wayland-scanner++"
-    ]
-  ;
+    ];
 
   # 14 tests fail but the biggest issue is that every test takes 30 seconds -
   # I'm guessing there is a thing waiting to time out

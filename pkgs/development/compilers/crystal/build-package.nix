@@ -49,7 +49,10 @@ let
       (name: value: {
         inherit name;
         path =
-          if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value
+          if (builtins.hasAttr "url" value) then
+            fetchgit value
+          else
+            fetchFromGitHub value
         ;
       })
       (import shardsFile)
@@ -81,8 +84,7 @@ let
         (attrs.src or (throw "No source file for crystal binary ${bin} provided"))
         (lib.concatStringsSep " " (attrs.options or defaultOptions))
       ]
-    )
-  ;
+    );
 in
 stdenv.mkDerivation (
   mkDerivationArgs

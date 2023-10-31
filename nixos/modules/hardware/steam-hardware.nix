@@ -19,8 +19,7 @@ in
       default = false;
       description =
         lib.mdDoc
-          "Enable udev rules for Steam hardware such as the Steam Controller, other supported controllers and the HTC Vive"
-      ;
+          "Enable udev rules for Steam hardware such as the Steam Controller, other supported controllers and the HTC Vive";
     };
   };
 

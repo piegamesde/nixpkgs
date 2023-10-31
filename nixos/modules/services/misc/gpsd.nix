@@ -138,8 +138,7 @@ in
               ${optionalString cfg.nowait "-n"}                     \
               ${optionalString cfg.listenany "-G"}                  \
               ${devices}
-          ''
-        ;
+          '';
       };
     };
   };

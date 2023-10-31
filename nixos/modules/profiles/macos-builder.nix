@@ -183,8 +183,7 @@ in
             platforms = lib.platforms.darwin;
           };
         }
-      )
-    ;
+      );
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs

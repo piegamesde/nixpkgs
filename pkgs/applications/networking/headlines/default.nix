@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
         (gst-plugins-good.override { gtkSupport = true; })
         gst-plugins-bad
       ]
-    )
-  ;
+    );
 
   postFixup = ''
     wrapProgram "$out/bin/headlines" \

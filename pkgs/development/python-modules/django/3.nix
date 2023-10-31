@@ -40,8 +40,7 @@ buildPythonPackage rec {
         inherit gdal;
         extension = stdenv.hostPlatform.extensions.sharedLibrary;
       }
-    )
-  ;
+    );
 
   propagatedBuildInputs = [
     asgiref

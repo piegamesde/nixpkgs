@@ -28,8 +28,7 @@ import ./make-test-python.nix (
           security.acme.acceptTerms = true;
           security.acme.defaults.email = "me@example.org";
           security.acme.defaults.server = "https://example.com"; # self-signed only
-        }
-      ;
+        };
     };
 
     testScript = ''

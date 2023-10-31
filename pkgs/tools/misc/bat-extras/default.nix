@@ -160,8 +160,7 @@ let
       dontPatchShebangs = true;
 
       inherit (core) meta;
-    }
-  ;
+    };
   optionalDep = cond: dep: assert cond -> dep != null; lib.optional cond dep;
 in
 {

@@ -167,7 +167,6 @@ in
       ]
       ++ (flip mapAttrsToList cfg.plugins (
         name: dest: "L+ '${cfg.stateDir}/plugins/${name}' - - - - ${dest}"
-      ))
-    ;
+      ));
   };
 }

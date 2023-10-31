@@ -24,8 +24,7 @@ with lib; {
           cp ${modsDatFile} $out/mod-settings.dat
         '')
       ;
-    }
-  ;
+    };
 
   modDrv =
     { allRecommendedMods, allOptionalMods }:
@@ -62,6 +61,5 @@ with lib; {
         srcBase=''${srcBase%\?*} # strip querystring leftover from fetchurl
         cp $src $out/$srcBase
       '';
-    }
-  ;
+    };
 }

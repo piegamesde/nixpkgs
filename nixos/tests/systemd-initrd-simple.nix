@@ -11,8 +11,7 @@ import ./make-test-python.nix (
           emergencyAccess = true;
         };
         virtualisation.fileSystems."/".autoResize = true;
-      }
-    ;
+      };
 
     testScript = ''
       import subprocess

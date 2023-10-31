@@ -58,8 +58,7 @@
       ++ lib.optionals stdenv.isLinux [
         webkitgtk_4_1
         glib-networking
-      ]
-    ;
+      ];
 
     desktopItems = [
       (makeDesktopItem {

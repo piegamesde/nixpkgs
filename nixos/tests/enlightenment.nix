@@ -23,8 +23,7 @@ import ./make-test-python.nix (
         services.acpid.enable = true;
         services.connman.enable = true;
         services.connman.package = pkgs.connmanMinimal;
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -96,7 +95,6 @@ import ./make-test-python.nix (
             machine.send_chars("ls --color -alF\n")
             machine.sleep(2)
             machine.screenshot("terminology")
-      ''
-    ;
+      '';
   }
 )

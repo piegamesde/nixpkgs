@@ -44,8 +44,7 @@ python3Packages.buildPythonApplication rec {
         toml
         zodb
       ]
-    )
-  ;
+    );
 
   postBuild = "make -C doc";
 

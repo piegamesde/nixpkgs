@@ -26,8 +26,7 @@ stdenvNoCC.mkDerivation rec {
   LANG = "en_US.UTF-8";
   LOCALE_ARCHIVE =
     lib.optionalString (stdenvNoCC.buildPlatform.libc == "glibc")
-      "${buildPackages.glibcLocales}/lib/locale/locale-archive"
-  ;
+      "${buildPackages.glibcLocales}/lib/locale/locale-archive";
 
   buildPhase = ''
     make all

@@ -34,8 +34,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       Security
       libiconv
-    ]
-  ;
+    ];
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 

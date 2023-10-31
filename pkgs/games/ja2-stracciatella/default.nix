@@ -56,8 +56,7 @@ stdenv.mkDerivation {
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       Cocoa
-    ]
-  ;
+    ];
 
   patches = [ ./remove-rust-buildstep.patch ];
 

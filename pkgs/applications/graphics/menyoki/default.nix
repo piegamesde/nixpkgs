@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs =
     [ installShellFiles ]
-    ++ lib.optional stdenv.isLinux pkg-config
-  ;
+    ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
     lib.optional withSixel libsixel

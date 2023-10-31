@@ -20,8 +20,7 @@ let
       matches = builtins.elemAt splits 1;
       elem = builtins.head matches;
     in
-    elem
-  ;
+    elem;
 
   # this must be updated anytime this package is updated.
   onlykeyPkg = "onlykey-git+https://github.com/trustcrypto/OnlyKey-App.git#v${version}";

@@ -31,8 +31,7 @@ import ./make-test-python.nix (
           keepassxc
           xdotool
         ];
-      }
-    ;
+      };
 
     enableOCR = true;
 
@@ -74,7 +73,6 @@ import ./make-test-python.nix (
             machine.send_key("ret")
             # Database is unlocked (doesn't have "[Locked]" in the title anymore)
             machine.wait_for_text("foo.kdbx - KeePassXC")
-      ''
-    ;
+      '';
   }
 )

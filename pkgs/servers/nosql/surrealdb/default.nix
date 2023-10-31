@@ -42,8 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   passthru.tests.version = testers.testVersion {
     package = surrealdb;

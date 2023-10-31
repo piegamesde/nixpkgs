@@ -38,8 +38,7 @@ nixt.mkSuite "LibreOffice Updater" {
 
       actual = extractLatestVersionFromHtml latestVersionHtmlMock;
     in
-    "7.3.3" == actual
-  ;
+    "7.3.3" == actual;
 
   "should extract latest stable version from website" =
     (builtins.compareVersions getLatestStableVersion "7.3.3") >= 0;
@@ -51,6 +50,5 @@ nixt.mkSuite "LibreOffice Updater" {
       '';
       actual = extractSha256FromHtml sha256Html;
     in
-    "50ed3deb8d9c987516e2687ebb865bca15486c69da79f1b6d74381e43f2ec863" == actual
-  ;
+    "50ed3deb8d9c987516e2687ebb865bca15486c69da79f1b6d74381e43f2ec863" == actual;
 }

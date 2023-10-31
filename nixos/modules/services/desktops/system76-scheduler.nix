@@ -45,8 +45,7 @@ let
           default = optionSpecs.${name}.default or defaults.${name} or null;
         }
       )
-    )
-  ;
+    );
 
   latencyProfile = withDefaults {
     latency = {
@@ -136,13 +135,11 @@ let
         toString p.nr-latency
       } wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${
         toString p.bandwidth-size
-      } preempt="${p.preempt}"''
-  ;
+      } preempt="${p.preempt}"'';
 
   prioToString =
     class: prio:
-    if prio == null then ''"${class}"'' else "(${class})${toString prio}"
-  ;
+    if prio == null then ''"${class}"'' else "(${class})${toString prio}";
 
   schedulerProfileToString =
     name: a: indent:
@@ -155,8 +152,7 @@ let
         {
         ${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}
         ${indent}}''))
-    )
-  ;
+    );
 in
 {
   options = {
@@ -217,8 +213,7 @@ in
             default = true;
             description =
               mdDoc
-                "Use execsnoop (otherwise poll the precess list periodically)."
-            ;
+                "Use execsnoop (otherwise poll the precess list periodically).";
           };
 
           refreshInterval = mkOption {

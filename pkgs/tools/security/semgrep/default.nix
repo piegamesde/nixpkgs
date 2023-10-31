@@ -81,8 +81,7 @@ buildPythonApplication rec {
         pytest-freezegun
         types-freezegun
       ]
-    )
-  ;
+    );
   disabledTests = [
     # requires networking
     "test_send"

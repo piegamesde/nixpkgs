@@ -201,8 +201,7 @@ stdenv.mkDerivation rec {
         CryptEksblowfish
         DataEntropy # zmupdate.pl
       ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     cmake

@@ -13,8 +13,7 @@ import ./make-test-python.nix (
             nix = throw "don't want to use pkgs.nix";
             nixVersions =
               lib.mapAttrs (k: throw "don't want to use pkgs.nixVersions.${k}")
-                super.nixVersions
-            ;
+                super.nixVersions;
             # aliases, some deprecated
             nix_2_3 = throw "don't want to use pkgs.nix_2_3";
             nix_2_4 = throw "don't want to use pkgs.nix_2_4";
@@ -26,8 +25,7 @@ import ./make-test-python.nix (
             nixStatic = throw "don't want to use pkgs.nixStatic";
           })
         ];
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

@@ -15,8 +15,7 @@ import ./make-test-python.nix (
         {
           virtualisation.memorySize = 2046;
           services.gocd-server.enable = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

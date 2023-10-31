@@ -55,8 +55,7 @@ let
             [
               # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
               ./remove-hdcp-blob.patch
-            ]
-        ;
+            ];
 
         postPatch = lib.optionalString deleteHDCPBlobBeforeBuild ''
           rm plat/rockchip/rk3399/drivers/dp/hdcp.bin
@@ -99,16 +98,16 @@ let
             description = "A reference implementation of secure world software for ARMv8-A";
             license =
               [ licenses.bsd3 ]
-              ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [ licenses.unfreeRedistributable ]
-            ;
+              ++ lib.optionals (!deleteHDCPBlobBeforeBuild) [
+                licenses.unfreeRedistributable
+              ];
             maintainers = with maintainers; [ lopsided98 ];
           }
           // extraMeta
         ;
       }
       // builtins.removeAttrs args [ "extraMeta" ]
-    )
-  ;
+    );
 in
 {
   inherit buildArmTrustedFirmware;

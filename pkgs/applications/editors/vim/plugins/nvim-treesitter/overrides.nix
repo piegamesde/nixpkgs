@@ -36,8 +36,7 @@ let
           "tree-sitter-${replaced}" = v;
         }
       )
-      generatedDerivations
-  ;
+      generatedDerivations;
 
   grammarToPlugin =
     grammar:
@@ -57,8 +56,7 @@ let
     runCommand "nvim-treesitter-grammar-${name}" { } ''
       mkdir -p $out/parser
       ln -s ${grammar}/parser $out/parser/${name}.so
-    ''
-  ;
+    '';
 
   allGrammars = lib.attrValues generatedDerivations;
 
@@ -74,8 +72,7 @@ let
           f (tree-sitter.builtGrammars // builtGrammars)
         );
       }
-    )
-  ;
+    );
 
   withAllGrammars = withPlugins (_: allGrammars);
 in
@@ -118,8 +115,7 @@ in
             echo "Error: warnings were emitted by the check"
             exit 1
           fi
-        ''
-    ;
+        '';
   };
 
   meta =

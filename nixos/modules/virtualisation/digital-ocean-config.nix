@@ -17,8 +17,7 @@ with lib; {
       example = true;
       description =
         lib.mdDoc
-          "Whether to set the root password from the Digital Ocean metadata"
-      ;
+          "Whether to set the root password from the Digital Ocean metadata";
     };
     setSshKeys = mkOption {
       type = bool;
@@ -32,8 +31,7 @@ with lib; {
       example = true;
       description =
         lib.mdDoc
-          "Whether to run the kernel RNG entropy seeding script from the Digital Ocean vendor data"
-      ;
+          "Whether to run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
     };
   };
   config =
@@ -218,8 +216,7 @@ with lib; {
           Type = "oneshot";
         };
       };
-    } ]
-  ;
+    } ];
   meta.maintainers = with maintainers; [
     arianvp
     eamsden

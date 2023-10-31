@@ -40,8 +40,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable."
-        ;
+            "Whether to enable touchpad support. Deprecated: Consider services.xserver.libinput.enable.";
       };
 
       dev = mkOption {
@@ -59,8 +58,7 @@ in
         default = "0.001";
         description =
           lib.mdDoc
-            "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed)."
-        ;
+            "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
       };
 
       minSpeed = mkOption {
@@ -87,8 +85,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll."
-        ;
+            "Whether to enable two-finger drag-scrolling. Overridden by horizTwoFingerScroll and vertTwoFingerScroll.";
       };
 
       horizTwoFingerScroll = mkOption {
@@ -97,8 +94,7 @@ in
         defaultText = literalExpression "config.${opt.twoFingerScroll}";
         description =
           lib.mdDoc
-            "Whether to enable horizontal two-finger drag-scrolling."
-        ;
+            "Whether to enable horizontal two-finger drag-scrolling.";
       };
 
       vertTwoFingerScroll = mkOption {
@@ -165,8 +161,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable palm detection (hardware support required)"
-        ;
+            "Whether to enable palm detection (hardware support required)";
       };
 
       palmMinWidth = mkOption {
@@ -175,8 +170,7 @@ in
         example = 5;
         description =
           lib.mdDoc
-            "Minimum finger width at which touch is considered a palm"
-        ;
+            "Minimum finger width at which touch is considered a palm";
       };
 
       palmMinZ = mkOption {
@@ -185,8 +179,7 @@ in
         example = 20;
         description =
           lib.mdDoc
-            "Minimum finger pressure at which touch is considered a palm"
-        ;
+            "Minimum finger pressure at which touch is considered a palm";
       };
 
       horizontalScroll = mkOption {

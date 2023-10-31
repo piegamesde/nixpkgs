@@ -21,8 +21,7 @@ mkCoqDerivation {
           out = "1.1.2+coq${coq.coq-version}";
         }
       ]
-      null
-  ;
+      null;
   displayVersion = {
     paramcoq = "...";
   };

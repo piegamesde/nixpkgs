@@ -14,8 +14,7 @@ import ./make-test-python.nix (
           pkgs.imagemagick
           pkgs.libresprite
         ];
-      }
-    ;
+      };
 
     enableOCR = true;
 

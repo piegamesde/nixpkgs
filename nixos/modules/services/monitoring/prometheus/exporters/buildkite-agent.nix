@@ -62,8 +62,7 @@ in
           -prometheus-addr "${cfg.listenAddress}:${toString cfg.port}" ${
             concatStringsSep " " cfg.extraFlags
           }
-      ''
-    ;
+      '';
     serviceConfig = {
       DynamicUser = false;
       RuntimeDirectory = "buildkite-agent-metrics";

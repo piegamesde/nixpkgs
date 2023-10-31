@@ -90,8 +90,7 @@ stdenv.mkDerivation rec {
         --set-rpath "${libpath}:$app" \
         $app/rocketchat-desktop
       sed -i -e "s|Exec=.*$|Exec=$out/bin/rocketchat-desktop|" $out/share/applications/rocketchat-desktop.desktop
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Official Desktop client for Rocket.Chat";

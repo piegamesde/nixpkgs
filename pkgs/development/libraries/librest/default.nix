@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
       gtk-doc
       docbook-xsl-nons
       docbook_xml_dtd_412
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     glib

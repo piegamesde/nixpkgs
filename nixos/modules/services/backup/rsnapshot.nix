@@ -31,8 +31,7 @@ in
       enableManualRsnapshot = mkOption {
         description =
           lib.mdDoc
-            "Whether to enable manual usage of the rsnapshot command with this module."
-        ;
+            "Whether to enable manual usage of the rsnapshot command with this module.";
         default = true;
         type = types.bool;
       };
@@ -82,8 +81,7 @@ in
               interval: time:
               "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}"
             )
-            cfg.cronIntervals
-        ;
+            cfg.cronIntervals;
       }
       (mkIf cfg.enableManualRsnapshot {
         environment.systemPackages = [ pkgs.rsnapshot ];

@@ -28,8 +28,7 @@ in
       default = [ ];
       example =
         literalExpression
-          ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]''
-      ;
+          ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]'';
       description = lib.mdDoc ''
         A list of files containing trusted root certificates in PEM
         format. These are concatenated to form

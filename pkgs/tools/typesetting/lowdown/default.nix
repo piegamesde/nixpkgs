@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ which ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   preConfigure = lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
     echo 'HAVE_SANDBOX_INIT=0' > configure.local
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
       # Make sure we are re-creating a symbolic link here
       test -L "$lib/lib/liblowdown.so"
       ln -s "$darwinDylib" "$lib/lib/liblowdown.dylib"
-    ''
-  ;
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''

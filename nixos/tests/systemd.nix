@@ -83,8 +83,7 @@ import ./make-test-python.nix (
           rebootTime = "10min";
           kexecTime = "5min";
         };
-      }
-    ;
+      };
 
     testScript = ''
       import re

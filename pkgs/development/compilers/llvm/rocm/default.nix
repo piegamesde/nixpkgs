@@ -160,8 +160,7 @@ let
         ln -s ${llvm}/bin/llvm-size $out/bin/size
         ln -s ${llvm}/bin/llvm-strip $out/bin/strip
         ln -s ${lld}/bin/lld $out/bin/ld
-      ''
-  ;
+      '';
 in
 rec {
   inherit
@@ -460,8 +459,7 @@ rec {
       '';
 
       checkTargets = [ ];
-    }
-  ;
+    };
 
   lldb = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;

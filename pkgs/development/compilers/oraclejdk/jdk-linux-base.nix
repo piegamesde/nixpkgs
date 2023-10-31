@@ -96,8 +96,7 @@ let
         name = "jdk-${productVersion}u${patchVersion}-${platformName}.tar.gz";
         url = "http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html";
         sha256 = sha256.${stdenv.hostPlatform.system};
-      }
-    ;
+      };
 
     nativeBuildInputs = [
       file
@@ -213,8 +212,7 @@ let
         xorg.libXt
         xorg.libXrender
         stdenv.cc.cc
-      ]
-    ;
+      ];
 
     rpath = lib.strings.makeLibraryPath libraries;
 

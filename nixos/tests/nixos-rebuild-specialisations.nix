@@ -40,8 +40,7 @@ import ./make-test-python.nix (
             cores = 2;
             memorySize = 2048;
           };
-        }
-      ;
+        };
     };
 
     testScript =
@@ -131,7 +130,6 @@ import ./make-test-python.nix (
         with subtest("Make sure nonsense command combinations are forbidden"):
             machine.fail("nixos-rebuild boot --specialisation foo")
             machine.fail("nixos-rebuild boot -c foo")
-      ''
-    ;
+      '';
   }
 )

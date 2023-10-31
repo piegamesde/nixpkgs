@@ -74,8 +74,7 @@ let
         "squashed"
         "excludes"
       ]
-    ))
-  ;
+    ));
 in
 stdenv.mkDerivation rec {
   version = "9.8";

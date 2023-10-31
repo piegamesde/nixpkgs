@@ -19,8 +19,7 @@ import ./make-test-python.nix (
               offset = 0%
             '';
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

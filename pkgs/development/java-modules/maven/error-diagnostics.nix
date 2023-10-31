@@ -22,8 +22,7 @@
           type = "pom";
           sha512 = "250x4ajr37nlch6n502ggfmr558hvhdxfgwjr28svvbxlyhk73h2nz9r95gvkfymv32dml8j1d4cgy3zs3qy2wzb679pnyckjwpdq9z";
         }
-      ]
-  ;
+      ];
 
   mavenErrorDiagnostics_2_0_6 =
     map
@@ -46,8 +45,7 @@
           type = "pom";
           sha512 = "3r8r5sw3zbyms1yk1811cxh2a6p86lhg8aa9b6whn97mx3gmy9zy2nhsadgnxw1hbc2y6l1pk3xs2q73hmvag1bapks5bm7higmgdpg";
         }
-      ]
-  ;
+      ];
 
   mavenErrorDiagnostics_2_0_9 =
     map
@@ -70,8 +68,7 @@
           type = "pom";
           sha512 = "3l0cpg0ssivfnadffc68cnac65vpfpl0qa9a4ik82jxcwhfa00337jxz37vyqaqs1vjrvd2cqhmjayddwkpwc8aqnz3nr0rlqnqzm7g";
         }
-      ]
-  ;
+      ];
 
   mavenErrorDiagnostics_2_2_1 =
     map
@@ -94,6 +91,5 @@
           type = "pom";
           sha512 = "39hx14ad5g3jyxbvsmx22l2g8asnax5ym3r0n5dqiqh8pk9zwy2icgsji64kcvrdx48m2dr5blhpp7r2mw4n7si0rgvmmkkpdvzm44m";
         }
-      ]
-  ;
+      ];
 }

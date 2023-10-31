@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
           more-itertools
         ]
       ))
-    ]
-  ;
+    ];
 
   configureFlags = [
     "--bencode-tools-prefix=${bencodetools}"

@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ lib.optional withPython python.pkgs.pythonImportsCheckHook
-  ;
+    ++ lib.optional withPython python.pkgs.pythonImportsCheckHook;
 
   buildInputs = [ root_py ] ++ lib.optional withPython python;
 
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
       )
       ''
         MACOSX_DEPLOYMENT_TARGET=10.16
-      ''
-  ;
+      '';
 
   cmakeFlags =
     [ "-DHEPMC3_ENABLE_PYTHON=${if withPython then "ON" else "OFF"}" ]
@@ -50,8 +48,7 @@ stdenv.mkDerivation rec {
       "-DHEPMC3_Python_SITEARCH${pythonVersion}=${
         placeholder "out"
       }/${python.sitePackages}"
-    ]
-  ;
+    ];
 
   postInstall = ''
     substituteInPlace "$out"/bin/HepMC3-config \

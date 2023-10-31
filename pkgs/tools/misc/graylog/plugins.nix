@@ -32,8 +32,7 @@ let
           sourceProvenance = with sourceTypes; [ binaryBytecode ];
         };
       }
-    )
-  ;
+    );
 in
 {
   aggregates = glPlugin rec {

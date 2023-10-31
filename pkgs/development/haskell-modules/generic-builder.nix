@@ -723,7 +723,8 @@ lib.fix (
 
             # delete confdir if there are no libraries
             find $packageConfDir -maxdepth 0 -empty -delete;
-          ''}
+          ''
+        }
         ${optionalString isGhcjs ''
           for exeDir in "${binDir}/"*.jsexe; do
             exe="''${exeDir%.jsexe}"
@@ -876,16 +877,14 @@ lib.fix (
             depsBuildBuild = lib.optional isCross ghcEnvForBuild;
             nativeBuildInputs =
               [ ghcEnv ]
-              ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends
-            ;
+              ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ collectedToolDepends;
             buildInputs = otherBuildInputsSystem;
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";
             LANG = "en_US.UTF-8";
             LOCALE_ARCHIVE =
               lib.optionalString (stdenv.hostPlatform.libc == "glibc")
-                "${buildPackages.glibcLocales}/lib/locale/locale-archive"
-            ;
+                "${buildPackages.glibcLocales}/lib/locale/locale-archive";
             "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
             # TODO: is this still valid?
@@ -896,8 +895,7 @@ lib.fix (
               else
                 "${ghcEnv}/${ghcLibdir}"
             ;
-          })
-        ;
+          });
 
         env = envFunc { };
       };

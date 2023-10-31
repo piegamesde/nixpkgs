@@ -32,8 +32,7 @@ let
         echo "Error: not all desired libraries were found"
         exit 1
       fi
-    ''
-  ;
+    '';
 
   getLibOutputs = lib.mapAttrs (k: v: lib.getLib v);
 

@@ -164,8 +164,7 @@ buildBazelPackage rec {
         #       |         ^
         "--define=tcmalloc=disabled"
       ]
-    )
-  ;
+    );
   bazelFetchFlags = [ "--define=wasm=${wasmRuntime}" ];
 
   passthru.tests = {

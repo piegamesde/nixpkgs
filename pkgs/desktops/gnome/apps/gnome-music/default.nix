@@ -82,8 +82,7 @@ python3.pkgs.buildPythonApplication rec {
         gst-plugins-ugly
         gst-libav
       ]
-    )
-  ;
+    );
 
   pythonPath = with python3.pkgs; [
     pycairo

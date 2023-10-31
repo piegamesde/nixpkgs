@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       gtk-doc
       docbook_xsl
       docbook_xml_dtd_412
-    ]
-  ;
+    ];
 
   buildInputs = [
     sqlite

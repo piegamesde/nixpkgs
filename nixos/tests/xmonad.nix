@@ -79,8 +79,7 @@ import ./make-test-python.nix (
           extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
           config = mkConfig "oldXMonad" oldKeys;
         };
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -127,7 +126,6 @@ import ./make-test-python.nix (
         machine.wait_for_file("/tmp/oldXMonad")
         machine.send_key("alt-ctrl-t")
         machine.wait_for_file("/tmp/somefile")
-      ''
-    ;
+      '';
   }
 )

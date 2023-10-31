@@ -56,8 +56,7 @@ in
         ];
         defaultText =
           literalExpression
-            "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]"
-        ;
+            "[ pkgs.stdenv pkgs.jre pkgs.git config.programs.ssh.package pkgs.nix ]";
         type = types.listOf types.package;
         description = lib.mdDoc ''
           Packages to add to PATH for the Go.CD agent process.
@@ -191,8 +190,7 @@ in
         let
           selectedSessionVars =
             lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
-              config.environment.sessionVariables
-          ;
+              config.environment.sessionVariables;
         in
         selectedSessionVars
         // {

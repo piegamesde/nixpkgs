@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       [
         # GNOME Builder Plugin
         gnome-builder
-      ]
-  ;
+      ];
 
   buildInputs = [
     glib

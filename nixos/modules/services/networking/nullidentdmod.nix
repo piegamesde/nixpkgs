@@ -16,8 +16,7 @@ in
       type = nullOr str;
       description =
         lib.mdDoc
-          "User ID to return. Set to null to return a random string each time."
-      ;
+          "User ID to return. Set to null to return a random string each time.";
       default = null;
       example = "alice";
     };

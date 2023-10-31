@@ -82,8 +82,7 @@ symlinkJoin {
           ]
         }:$PATH
         exec python3 ${builtins.toString ./update.py} ${builtins.toString ./.}
-      ''
-    ;
+      '';
   };
 
   meta = {

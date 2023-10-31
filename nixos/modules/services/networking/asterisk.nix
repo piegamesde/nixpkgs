@@ -20,8 +20,7 @@ let
   # Add filecontents from files of useTheseDefaultConfFiles to confFiles, do not override
   defaultConfFiles =
     subtractLists (attrNames cfg.confFiles)
-      cfg.useTheseDefaultConfFiles
-  ;
+      cfg.useTheseDefaultConfFiles;
   allConfFiles =
     {
       # Default asterisk.conf file
@@ -222,8 +221,7 @@ in
 
     environment.etc =
       mapAttrs' (name: value: nameValuePair "asterisk/${name}" value)
-        allConfFiles
-    ;
+        allConfFiles;
 
     users.users.asterisk = {
       name = asteriskUser;
@@ -267,8 +265,7 @@ in
             # FIXME: This doesn't account for arguments with spaces
             argString = concatStringsSep " " cfg.extraArguments;
           in
-          "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F"
-        ;
+          "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
         ExecReload = ''
           ${cfg.package}/bin/asterisk -x "core reload"
         '';

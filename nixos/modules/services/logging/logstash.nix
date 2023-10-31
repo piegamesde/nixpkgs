@@ -41,8 +41,7 @@ let
         mkdir -p $out
         ln -s $logstashSettingsYml $out/logstash.yml
         ln -s $logstashJvmOptionsFile $out/jvm.options
-      ''
-  ;
+      '';
 in
 
 {

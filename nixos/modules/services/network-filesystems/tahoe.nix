@@ -50,8 +50,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
       description = lib.mdDoc ''
         The Tahoe introducers.
       '';
@@ -199,8 +198,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
       description = lib.mdDoc ''
         The Tahoe nodes.
       '';

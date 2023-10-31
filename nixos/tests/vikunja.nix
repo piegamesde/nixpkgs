@@ -18,8 +18,7 @@ import ./make-test-python.nix (
             frontendHostname = "localhost";
           };
           services.nginx.enable = true;
-        }
-      ;
+        };
       vikunjaPostgresql =
         { pkgs, ... }:
         {
@@ -45,8 +44,7 @@ import ./make-test-python.nix (
             } ];
           };
           services.nginx.enable = true;
-        }
-      ;
+        };
     };
 
     testScript = ''

@@ -65,16 +65,14 @@ in
       mkIf (!config.boot.initrd.systemd.enable)
         ''
           cp -v ${package}/etc/udev/rules.d/*.rules $out/
-        ''
-    ;
+        '';
     boot.initrd.services.udev.packages = [ package ];
 
     environment.systemPackages =
       [ package.vulkan ]
       ++
       # this isn't really DRI, but we'll reuse this option for now
-      optional config.hardware.opengl.driSupport32Bit package32.vulkan
-    ;
+      optional config.hardware.opengl.driSupport32Bit package32.vulkan;
 
     environment.etc = {
       "modprobe.d/blacklist-radeon.conf".source =

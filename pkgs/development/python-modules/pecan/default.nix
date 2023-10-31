@@ -57,8 +57,7 @@ buildPythonPackage rec {
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_result_proxy"
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_row_proxy"
       "--deselect=pecan/tests/test_jsonify.py::TestJsonifySQLAlchemyGenericEncoder::test_sa_object"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "pecan" ];
 

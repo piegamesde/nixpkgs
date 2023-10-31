@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableStatic [
       glibc.static
       zlib.static
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A small footprint implementation of the SSH 2 protocol";

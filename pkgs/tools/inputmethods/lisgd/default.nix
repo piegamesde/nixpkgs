@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString (conf != null) ''
       cp ${configFile} config.def.h
-    ''
-  ;
+    '';
 
   buildInputs = [
     libinput

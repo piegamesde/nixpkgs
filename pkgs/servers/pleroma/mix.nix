@@ -1875,7 +1875,6 @@ let
 
         beamDeps = [ ];
       };
-    }
-  ;
+    };
 in
 self

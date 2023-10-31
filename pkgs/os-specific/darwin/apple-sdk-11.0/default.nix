@@ -36,8 +36,7 @@ let
           inherit (args) version;
         };
       }
-    )
-  ;
+    );
 
   MacOSX-SDK = mkSusDerivation {
     pname = "MacOSX-SDK";
@@ -104,8 +103,7 @@ let
           "14"
           "15"
         ]
-    )
-  ;
+    );
 
   callPackage = newScope (packages // pkgs.darwin // { inherit MacOSX-SDK; });
 

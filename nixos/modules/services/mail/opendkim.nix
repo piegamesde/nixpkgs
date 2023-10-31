@@ -31,8 +31,7 @@ let
     ++ optionals (cfg.configFile != null) [
       "-x"
       cfg.configFile
-    ]
-  ;
+    ];
 in
 {
   imports = [
@@ -61,8 +60,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable the OpenDKIM sender authentication system."
-        ;
+            "Whether to enable the OpenDKIM sender authentication system.";
       };
 
       socket = mkOption {

@@ -11,13 +11,11 @@ let
         in
         platform.isLinux || platform.isWindows
       )
-      lib.systems.examples
-  ;
+      lib.systems.examples;
 
   getExecutable =
     pkgs: pkgFun: exec:
-    "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}"
-  ;
+    "${pkgFun pkgs}${exec}${pkgs.stdenv.hostPlatform.extensions.executable}";
 
   compareTest =
     {
@@ -70,8 +68,7 @@ let
           echo "both produced output:"
           cat $out/actual
         fi
-      ''
-  ;
+      '';
 
   mapMultiPlatformTest =
     crossSystemFun: test:
@@ -103,8 +100,7 @@ let
           ;
         }
       )
-      testedSystems
-  ;
+      testedSystems;
 
   tests = {
 
@@ -123,8 +119,7 @@ let
           "${pkgs.dejavu_fonts}/share/fonts/truetype/DejaVuMathTeXGyre.ttf"
         ];
         pkgFun = pkgs: platformFun pkgs.file;
-      }
-    ;
+      };
 
     hello =
       {
@@ -137,8 +132,7 @@ let
         hostPkgs = pkgs;
         exec = "/bin/hello";
         pkgFun = pkgs: pkgs.hello;
-      }
-    ;
+      };
 
     pkg-config =
       {
@@ -162,8 +156,7 @@ let
           ${crossPkgs.pkgsBuildBuild.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-build"
           ${crossPkgs.pkgsBuildHost.pkg-config.targetPrefix}pkg-config --cflags zlib > "$out/for-host"
           ! diff "$out/for-build" "$out/for-host"
-        ''
-    ;
+        '';
   };
 in
 {

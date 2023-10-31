@@ -26,8 +26,7 @@ python3Packages.buildPythonApplication rec {
         pytest-runner
         pycurl
       ]
-    )
-  ;
+    );
 
   patches = [
     (fetchpatch {

@@ -78,8 +78,7 @@ let
       serviceConfig.ExecStart = "@${openvpn}/sbin/openvpn openvpn --suppress-timestamps --config ${configFile}";
       serviceConfig.Restart = "always";
       serviceConfig.Type = "notify";
-    }
-  ;
+    };
 
   restartService = optionalAttrs cfg.restartAfterSleep {
     openvpn-restart = {
@@ -191,8 +190,7 @@ in
                 type = types.bool;
                 description =
                   lib.mdDoc
-                    "Whether this OpenVPN instance should be started automatically."
-                ;
+                    "Whether this OpenVPN instance should be started automatically.";
               };
 
               updateResolvConf = mkOption {
@@ -232,8 +230,7 @@ in
               };
             };
           }
-        )
-      ;
+        );
     };
 
     services.openvpn.restartAfterSleep = mkOption {
@@ -241,8 +238,7 @@ in
       type = types.bool;
       description =
         lib.mdDoc
-          "Whether OpenVPN client should be restarted after sleep."
-      ;
+          "Whether OpenVPN client should be restarted after sleep.";
     };
   };
 

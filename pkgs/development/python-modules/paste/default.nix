@@ -45,8 +45,7 @@ buildPythonPackage rec {
       [
         # https://github.com/cdent/paste/issues/72
         "test_form"
-      ]
-  ;
+      ];
 
   pythonNamespaces = [ "paste" ];
 

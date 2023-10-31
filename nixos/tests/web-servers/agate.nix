@@ -14,8 +14,7 @@
             # Hello NixOS!
           '';
         };
-      }
-    ;
+      };
   };
 
   testScript =
@@ -28,6 +27,5 @@
         response = geminiserver.succeed("${pkgs.gmni}/bin/gmni -j once -i -N gemini://localhost:1965")
         print(response)
         assert "Hello NixOS!" in response
-    ''
-  ;
+    '';
 }

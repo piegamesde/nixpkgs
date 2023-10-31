@@ -96,11 +96,9 @@ let
           - [${lib.optionalString (title != null) "${title} aka "}`pkgs.${name}`](
               https://search.nixos.org/packages?show=${name}&sort=relevance&query=${name}
             )${lib.optionalString (args ? comment) "\n\n  ${args.comment}"}
-        ''
-      ;
+        '';
     in
-    lib.concatMapStrings (p: describe (unpack p)) packages
-  ;
+    lib.concatMapStrings (p: describe (unpack p)) packages;
 
   optionsNix = builtins.listToAttrs (
     map
@@ -127,8 +125,7 @@ rec {
           --revision ${lib.escapeShellArg revision} \
           ${optionsJSON}/share/doc/nixos/options.json \
           $out
-      ''
-  ;
+      '';
 
   optionsCommonMark =
     pkgs.runCommand "options.md" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
@@ -138,8 +135,7 @@ rec {
           --revision ${lib.escapeShellArg revision} \
           ${optionsJSON}/share/doc/nixos/options.json \
           $out
-      ''
-  ;
+      '';
 
   optionsJSON =
     pkgs.runCommand "options.json"
@@ -178,8 +174,7 @@ rec {
         mkdir -p $out/nix-support
         echo "file json $dst/options.json" >> $out/nix-support/hydra-build-products
         echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
-      ''
-  ;
+      '';
 
   optionsUsedDocbook = pkgs.runCommand "options-used-docbook" { } ''
     if [ -e ${optionsJSON}/share/doc/nixos/.used-docbook ]; then
@@ -213,6 +208,5 @@ rec {
 
         ${pkgs.libxslt.bin}/bin/xsltproc \
           -o "$out" ${./postprocess-option-descriptions.xsl} options.xml
-      ''
-  ;
+      '';
 }

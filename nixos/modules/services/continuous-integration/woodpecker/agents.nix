@@ -29,8 +29,7 @@ let
         '';
         description =
           lib.mdDoc
-            "woodpecker-agent config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/agent-config)"
-        ;
+            "woodpecker-agent config envrionment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/agent-config)";
       };
 
       extraGroups = lib.mkOption {
@@ -149,7 +148,6 @@ in
         mkServices = lib.mapAttrs' mkAgentService;
         enabledAgents = lib.filterAttrs (_: agent: agent.enable) cfg.agents;
       in
-      mkServices enabledAgents
-    ;
+      mkServices enabledAgents;
   };
 }

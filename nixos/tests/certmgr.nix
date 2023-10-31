@@ -53,8 +53,7 @@ let
         } ];
       };
       inherit service;
-    }
-  ;
+    };
 
   mkCertmgrTest =
     {
@@ -148,12 +147,10 @@ let
               inherit svcManager;
               inherit specs;
             };
-          }
-        ;
+          };
       };
       inherit testScript;
-    }
-  ;
+    };
 in
 {
   systemd = mkCertmgrTest {

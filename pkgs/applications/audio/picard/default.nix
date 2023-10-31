@@ -43,8 +43,7 @@ pythonPackages.buildPythonApplication rec {
       gst_all_1.gst-plugins-good
       gst_all_1.gst-vaapi
       gst_all_1.gstreamer
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = with pythonPackages; [
     chromaprint

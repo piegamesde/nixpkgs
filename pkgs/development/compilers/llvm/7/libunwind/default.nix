@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
           "src/UnwindCursor.hpp"
         ];
       })
-    ]
-  ;
+    ];
 
   outputs = [
     "out"

@@ -16,8 +16,7 @@ let
     pkgs.callPackage ./uvcdynctrl-udev-rules.nix {
       drivers = packages;
       udevDebug = false;
-    }
-  ;
+    };
 in
 
 {

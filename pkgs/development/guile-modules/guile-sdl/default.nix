@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     [
       "GUILE_AUTO_COMPILE=0"
       "SDLMINUSI=-I${sdl-env}/include/SDL"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/guile-sdl/";

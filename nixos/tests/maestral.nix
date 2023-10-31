@@ -16,8 +16,7 @@ import ./make-test-python.nix (
                 serviceConfig.Type = "exec";
               };
             }
-            attrs
-        ;
+            attrs;
       in
       {
         cli =
@@ -27,8 +26,7 @@ import ./make-test-python.nix (
               wantedBy = [ "default.target" ];
               serviceConfig.ExecStart = "${pkgs.maestral}/bin/maestral start --foreground";
             };
-          }
-        ;
+          };
 
         gui =
           { ... }:
@@ -53,10 +51,8 @@ import ./make-test-python.nix (
               # PowerDevil doesn't like our VM
               plasma-powerdevil.enable = false;
             };
-          }
-        ;
-      }
-    ;
+          };
+      };
 
     testScript =
       { nodes, ... }:
@@ -77,7 +73,6 @@ import ./make-test-python.nix (
           gui.succeed("xauth merge ${user.home}/.Xauthority")
           gui.wait_for_window("^Desktop ")
           gui.wait_for_unit("maestral.service", "${user.name}")
-      ''
-    ;
+      '';
   }
 )

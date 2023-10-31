@@ -65,8 +65,7 @@ stdenv.mkDerivation (
     # Some of these dependencies are `dlopen()`ed.
     nativeBuildInputs =
       [ makeWrapper ]
-      ++ lib.optional stdenv.isLinux autoPatchelfHook
-    ;
+      ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
     buildInputs = [
       stdenv.cc.cc
@@ -166,8 +165,7 @@ stdenv.mkDerivation (
               output="$(dotnet run)"
               # yes, older SDKs omit the comma
               [[ "$output" =~ Hello,?\ World! ]] && touch "$out"
-            ''
-        ;
+            '';
       };
     };
 

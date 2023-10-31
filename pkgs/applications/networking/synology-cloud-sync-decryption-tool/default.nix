@@ -38,8 +38,7 @@ qt5.mkDerivation rec {
                  | grep -oP '(?<=data-version=")\d+' \
                  | head -1)"
         update-source-version synology-cloud-sync-decryption-tool "$version"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A desktop tool to decrypt data encrypted by Cloud Sync.";

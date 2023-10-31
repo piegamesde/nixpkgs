@@ -17,8 +17,7 @@ let
           useBoost = self;
         };
       }
-    )
-  ;
+    );
 in
 {
   boost165 = makeBoost ./1.65.nix;

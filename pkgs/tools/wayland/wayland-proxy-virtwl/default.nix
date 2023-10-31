@@ -39,8 +39,7 @@ ocamlPackages.buildDunePackage rec {
         cstruct-lwt
         ppx_cstruct
       ]
-    )
-  ;
+    );
 
   doCheck = true;
 

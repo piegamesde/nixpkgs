@@ -66,8 +66,7 @@ in
             int
             string
           ]
-        )
-      ;
+        );
       default = { };
       description = mdDoc ''
         Preferences to set from `about:config`.
@@ -265,8 +264,7 @@ in
       in
       mkIf (cfg.policies != { }) {
         "firefox/policies/policies.json".source = "${policiesJSON}";
-      }
-    ;
+      };
 
     # Preferences are converted into a policy
     programs.firefox.policies = {

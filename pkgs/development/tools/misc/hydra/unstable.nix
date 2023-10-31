@@ -123,8 +123,7 @@ let
         YAML
         nix.perl-bindings
         git
-      ]
-    ;
+      ];
   };
 in
 stdenv.mkDerivation rec {

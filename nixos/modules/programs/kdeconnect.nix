@@ -40,6 +40,5 @@ with lib; {
         } ];
         allowedUDPPortRanges = allowedTCPPortRanges;
       };
-    }
-  ;
+    };
 }

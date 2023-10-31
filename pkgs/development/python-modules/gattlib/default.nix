@@ -39,8 +39,7 @@ buildPythonPackage {
           pythonVersion =
             with lib.versions; "${major python.version}${minor python.version}";
         in
-        "boost_python${pythonVersion}"
-      ;
+        "boost_python${pythonVersion}";
     })
   ];
 

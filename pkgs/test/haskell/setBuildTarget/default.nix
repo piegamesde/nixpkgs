@@ -16,8 +16,7 @@ let
       isExecutable = true;
       executableHaskellDepends = [ base ];
       license = lib.licenses.bsd3;
-    }
-  ;
+    };
 
   drv = haskellPackages.callPackage pkgDef { };
 
@@ -36,8 +35,7 @@ let
         echo "${excluded} was built, when it should not have been"
         exit 1
       fi
-    ''
-  ;
+    '';
 in
 pkgs.runCommand "test haskell.lib.compose.setBuildTarget"
   {

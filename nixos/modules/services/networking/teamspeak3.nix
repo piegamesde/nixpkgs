@@ -107,8 +107,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall."
-        ;
+            "Open ports in the firewall for the TeamSpeak3 serverquery (administration) system. Requires openFirewall.";
       };
     };
   };
@@ -136,8 +135,7 @@ in
         ++ optionals (cfg.openFirewallServerQuery) [
           cfg.queryPort
           (cfg.queryPort + 11)
-        ]
-      ;
+        ];
       # subsequent vServers will use the incremented voice port, let's just open the next 10
       allowedUDPPortRanges = [ {
         from = cfg.defaultVoicePort;

@@ -20,8 +20,7 @@ let
             ${sox}/bin/play ${testFile}
             ${sox}/bin/sox ${testFile} -t wav - | ${alsa-utils}/bin/aplay
             touch /tmp/${key}_success
-          ''
-        ;
+          '';
 
         testers = builtins.mapAttrs makeTestPlay {
           testPlay = {
@@ -88,11 +87,9 @@ let
             machine.send_chars("pavucontrol\n")
             machine.wait_for_text("Dummy Output")
             machine.screenshot("Pavucontrol")
-          ''
-        ;
+          '';
       }
-    )
-  ;
+    );
 in
 builtins.mapAttrs (key: val: mkTest val) {
   user = {

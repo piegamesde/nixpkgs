@@ -21,8 +21,7 @@ let
     fetchurl {
       url = "mirror://sourceforge/g15tools/${pname}/${version}/${pname}-${version}.tar.bz2";
       inherit sha256;
-    }
-  ;
+    };
 
   libg15 = stdenv.mkDerivation rec {
     pname = "libg15";
@@ -79,16 +78,14 @@ stdenv.mkDerivation rec {
           url = "https://raw.githubusercontent.com/archlinux/svntogit-community/c0b0b6d4d6d7b79eca68123b20e0c9fb82e1c6e1/g15daemon/trunk/${pname}-${version}-${fname}.patch";
           name = "${fname}.patch";
           inherit sha256;
-        }
-      ;
+        };
     in
     [
       (patch "uinput" "1misfff7a1vg0qgfk3n25y7drnm86a4gq96iflpcwr5x3lw7q0h7")
       (patch "config-write" "0jkrbqvzqrvxr14h5qi17cb4d32caq7vw9kzlz3qwpxdgxjrjvy2")
       (patch "recv-oob-answer" "1f67iqpj5hcgpakagi7gbw1xviwhy5vizs546l9bfjimx8r2d29g")
       ./pid_location.patch
-    ]
-  ;
+    ];
 
   buildInputs = [
     libg15

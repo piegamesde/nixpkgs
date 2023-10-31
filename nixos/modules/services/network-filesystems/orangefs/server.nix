@@ -70,8 +70,7 @@ let
 
         </FileSystem>
       '')
-      cfg.fileSystems
-  ;
+      cfg.fileSystems;
 
   configFile = ''
     <Defaults>
@@ -107,8 +106,7 @@ in
           enum [
             "file"
             "syslog"
-          ]
-        ;
+          ];
         default = "syslog";
         description = lib.mdDoc "Destination for log messages.";
       };
@@ -158,8 +156,7 @@ in
         };
         description =
           lib.mdDoc
-            "URLs for storage server including port. The attribute names define the server alias."
-        ;
+            "URLs for storage server including port. The attribute names define the server alias.";
       };
 
       fileSystems = mkOption {
@@ -225,8 +222,7 @@ in
                 };
               }
             )
-          )
-        ;
+          );
       };
     };
   };

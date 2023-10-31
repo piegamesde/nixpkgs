@@ -30,8 +30,7 @@ stdenv.mkDerivation {
   configureFlags =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
       # This test requires running host code
-      "bash_cv_wcwidth_broken=no"
-  ;
+      "bash_cv_wcwidth_broken=no";
 
   patches =
     [
@@ -46,8 +45,7 @@ stdenv.mkDerivation {
           fetchurl {
             url = "mirror://gnu/readline/readline-6.3-patches/readline63-${nr}";
             inherit sha256;
-          }
-        ;
+          };
       in
       import ./readline-6.3-patches.nix patch
     )

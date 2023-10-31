@@ -49,8 +49,7 @@ testers.nixosTest {
         REFERENCES = invokeSamples ./invoke-writeReferencesToFile.nix;
         DIRECT_REFS = invokeSamples ./invoke-writeDirectReferencesToFile.nix;
       };
-    }
-  ;
+    };
   testScript = ''
     machine.succeed("""
       ${./references-test.sh} 2>/dev/console

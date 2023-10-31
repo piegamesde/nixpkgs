@@ -92,8 +92,7 @@ let
           symlinks
         )
       ;
-    }
-  ;
+    };
 in
 
 assert lib.assertMsg (lib.all (u: lib.hasPrefix pname u.name) units)

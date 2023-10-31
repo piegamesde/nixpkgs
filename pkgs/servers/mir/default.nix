@@ -145,8 +145,7 @@ stdenv.mkDerivation rec {
       gtest
       umockdev
       wlcs
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ dbus ];
 

@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
     ''
       mkdir -p $out/bin
       ln -s ${env}/bin/watson $out/bin/watson
-    ''
-  ;
+    '';
 
   passthru.updateScript = bundlerUpdateScript "watson-ruby";
 

@@ -75,7 +75,6 @@ let
         maintainers = with maintainers; [ siddharthist ];
         platforms = platforms.all;
       };
-    }
-  ;
+    };
 in
 lib.mapAttrs mkVariant variants

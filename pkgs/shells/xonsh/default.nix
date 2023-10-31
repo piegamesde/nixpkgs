@@ -90,8 +90,7 @@ python3Packages.buildPythonApplication rec {
         pytest-mock
         pytest-subprocess
       ]
-    )
-  ;
+    );
 
   propagatedBuildInputs = with python3Packages; [
     ply

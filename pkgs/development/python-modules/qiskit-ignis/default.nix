@@ -66,8 +66,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals stdenv.isAarch64 [
       "test_fitters" # Fails check that arrays are close. Might be due to aarch64 math issues.
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Qiskit tools for quantum hardware verification, noise characterization, and error correction";

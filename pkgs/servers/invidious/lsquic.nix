@@ -26,8 +26,7 @@ let
       postFetch = ''
         base64 -d < $downloadedFile > $out
       '';
-    }
-  ;
+    };
 
   # lsquic requires a specific boringssl version (noted in its README)
   boringssl' = boringssl.overrideAttrs (

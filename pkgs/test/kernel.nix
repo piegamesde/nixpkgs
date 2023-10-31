@@ -15,8 +15,7 @@ let
   getConfig =
     structuredConfig:
     (lts_kernel.override { structuredExtraConfig = structuredConfig; })
-    .configfile.structuredConfig
-  ;
+    .configfile.structuredConfig;
 
   mandatoryVsOptionalConfig = mkMerge [
     { NIXOS_FAKE_USB_DEBUG = yes; }
@@ -76,6 +75,5 @@ runTests {
     {
       expr = res.success;
       expected = false;
-    }
-  ;
+    };
 }

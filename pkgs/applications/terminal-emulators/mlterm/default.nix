@@ -95,8 +95,7 @@ let
         builtins.attrNames (lib.filterAttrs (n: v: v) attrset)
       );
     in
-    lib.withFeatureAs (commaSepList != "") featureName commaSepList
-  ;
+    lib.withFeatureAs (commaSepList != "") featureName commaSepList;
 in
 stdenv.mkDerivation rec {
   pname = "mlterm";

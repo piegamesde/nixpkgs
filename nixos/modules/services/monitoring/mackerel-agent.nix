@@ -89,8 +89,7 @@ in
     environment.etc = {
       "mackerel-agent/mackerel-agent.conf".source =
         settingsFmt.generate "mackerel-agent.conf"
-          cfg.settings
-      ;
+          cfg.settings;
       "mackerel-agent/conf.d/api-key.conf".source = cfg.apiKeyFile;
     };
 
@@ -123,8 +122,7 @@ in
         ExecStart = "${pkgs.mackerel-agent}/bin/mackerel-agent supervise";
         ExecStopPost =
           mkIf cfg.autoRetirement
-            "${pkg.mackerel-agent}/bin/mackerel-agent retire -force"
-        ;
+            "${pkg.mackerel-agent}/bin/mackerel-agent retire -force";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LimitNOFILE = mkDefault 65536;
         LimitNPROC = mkDefault 65536;

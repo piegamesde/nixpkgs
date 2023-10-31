@@ -49,7 +49,6 @@ let
         # prefer wrapper over the package
         priority = (helm.meta.priority or 0) - 1;
       };
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper

@@ -53,8 +53,7 @@ buildKodiBinaryAddon rec {
     in
     ''
       ln -s $out/lib/addons/${n}/libssd_wv.so $out/${addonDir}/${n}/libssd_wv.so
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/xbmc/inputstream.adaptive";

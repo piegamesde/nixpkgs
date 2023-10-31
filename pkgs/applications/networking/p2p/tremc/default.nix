@@ -13,8 +13,7 @@
 let
   wrapperPath =
     with lib;
-    makeBinPath (optional x11Support xclip ++ optional stdenv.isDarwin pbcopy)
-  ;
+    makeBinPath (optional x11Support xclip ++ optional stdenv.isDarwin pbcopy);
 in
 python3Packages.buildPythonApplication rec {
   pname = "tremc";

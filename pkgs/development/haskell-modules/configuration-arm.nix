@@ -51,8 +51,7 @@ self: super:
           librarySystemDepends = librarySystemDepends ++ [ pkgs.wiringpi ];
         }
       )
-      super.wiringPi
-  ;
+      super.wiringPi;
 }
 // lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 {
   # AARCH64-SPECIFIC OVERRIDES
@@ -113,8 +112,7 @@ self: super:
   hls-brittany-plugin = dontCheck super.hls-brittany-plugin;
   hls-qualify-imported-names-plugin =
     dontCheck
-      super.hls-qualify-imported-names-plugin
-  ;
+      super.hls-qualify-imported-names-plugin;
   hls-class-plugin = dontCheck super.hls-class-plugin;
   hls-selection-range-plugin = dontCheck super.hls-selection-range-plugin;
 

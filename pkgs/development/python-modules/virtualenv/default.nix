@@ -85,8 +85,7 @@ buildPythonPackage rec {
       "test_can_build_c_extensions"
       # fails to detect pypy version
       "test_discover_ok"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "virtualenv" ];
 

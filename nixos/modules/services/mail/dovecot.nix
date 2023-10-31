@@ -167,8 +167,7 @@ let
           example = "subscribe";
           description =
             lib.mdDoc
-              "Whether to automatically create or create and subscribe to the mailbox or not."
-          ;
+              "Whether to automatically create or create and subscribe to the mailbox or not.";
         };
         specialUse = mkOption {
           type = types.nullOr (
@@ -186,8 +185,7 @@ let
           example = "Junk";
           description =
             lib.mdDoc
-              "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid."
-          ;
+              "Null if no special use flag is set. Other than that every use flag mentioned in the RFC is valid.";
         };
         autoexpunge = mkOption {
           type = types.nullOr types.str;
@@ -199,8 +197,7 @@ let
           '';
         };
       };
-    }
-  ;
+    };
 in
 {
   imports = [
@@ -227,8 +224,7 @@ in
       )
       // {
         default = true;
-      }
-    ;
+      };
 
     enableLmtp = mkEnableOption (
       lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)"
@@ -239,8 +235,7 @@ in
       default = [ ];
       description =
         lib.mdDoc
-          "Additional listeners to start when Dovecot is enabled."
-      ;
+          "Additional listeners to start when Dovecot is enabled.";
     };
 
     user = mkOption {
@@ -261,8 +256,7 @@ in
       example = "mail_debug = yes";
       description =
         lib.mdDoc
-          "Additional entries to put verbatim into Dovecot's config file."
-      ;
+          "Additional entries to put verbatim into Dovecot's config file.";
     };
 
     mailPlugins =
@@ -276,12 +270,10 @@ in
                 default = [ ];
                 description =
                   lib.mdDoc
-                    "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable"
-                ;
+                    "mail plugins to enable as a list of strings to append to the ${hint} `$mail_plugins` configuration variable";
               };
             };
-          }
-        ;
+          };
       in
       mkOption {
         type =
@@ -291,8 +283,7 @@ in
               globally = mkOption {
                 description =
                   lib.mdDoc
-                    "Additional entries to add to the mail_plugins variable for all protocols"
-                ;
+                    "Additional entries to add to the mail_plugins variable for all protocols";
                 type = plugins "top-level";
                 example = {
                   enable = [ "virtual" ];
@@ -304,8 +295,7 @@ in
               perProtocol = mkOption {
                 description =
                   lib.mdDoc
-                    "Additional entries to add to the mail_plugins variable, per protocol"
-                ;
+                    "Additional entries to add to the mail_plugins variable, per protocol";
                 type = attrsOf (plugins "corresponding per-protocol");
                 default = { };
                 example = {
@@ -313,12 +303,10 @@ in
                 };
               };
             };
-          }
-        ;
+          };
         description =
           lib.mdDoc
-            "Additional entries to add to the mail_plugins variable, globally and per protocol"
-        ;
+            "Additional entries to add to the mail_plugins variable, globally and per protocol";
         example = {
           globally.enable = [ "acl" ];
           perProtocol.imap.enable = [ "imap_acl" ];
@@ -327,8 +315,7 @@ in
           globally.enable = [ ];
           perProtocol = { };
         };
-      }
-    ;
+      };
 
     configFile = mkOption {
       type = types.nullOr types.path;
@@ -367,8 +354,7 @@ in
       )
       // {
         default = true;
-      }
-    ;
+      };
 
     modules = mkOption {
       type = types.listOf types.package;
@@ -405,8 +391,7 @@ in
       )
       // {
         default = true;
-      }
-    ;
+      };
 
     enableDHE =
       mkEnableOption (
@@ -414,16 +399,14 @@ in
       )
       // {
         default = true;
-      }
-    ;
+      };
 
     sieveScripts = mkOption {
       type = types.attrsOf types.path;
       default = { };
       description =
         lib.mdDoc
-          "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc."
-      ;
+          "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
     };
 
     showPAMFailure = mkEnableOption (
@@ -446,8 +429,7 @@ in
                 list
             )
           )
-          (attrsOf (submodule mailboxes))
-      ;
+          (attrsOf (submodule mailboxes));
       default = { };
       example = literalExpression ''
         {
@@ -456,8 +438,7 @@ in
       '';
       description =
         lib.mdDoc
-          "Configure mailboxes and auto create or subscribe them."
-      ;
+          "Configure mailboxes and auto create or subscribe them.";
     };
 
     enableQuota = mkEnableOption (lib.mdDoc "the dovecot quota service");
@@ -476,8 +457,7 @@ in
       example = "10G";
       description =
         lib.mdDoc
-          "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %."
-      ;
+          "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %.";
     };
   };
 

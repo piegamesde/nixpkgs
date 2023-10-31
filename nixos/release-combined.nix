@@ -51,8 +51,7 @@ rec {
           nixpkgs = nixpkgsSrc;
         }
       ))
-      [ "unstable" ]
-  ;
+      [ "unstable" ];
 
   tested =
     let
@@ -63,8 +62,7 @@ rec {
         systems: x:
         map (system: "${x}.${system}") (
           pkgs.lib.intersectLists systems (supportedSystems ++ limitedSupportedSystems)
-        )
-      ;
+        );
     in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";
@@ -194,6 +192,5 @@ rec {
         (onFullSupported "nixpkgs.jdk")
         [ "nixpkgs.tarball" ]
       ];
-    }
-  ;
+    };
 }

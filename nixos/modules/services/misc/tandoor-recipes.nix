@@ -32,8 +32,7 @@ let
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
       exec ${pkg}/bin/tandoor-recipes "$@"
-    ''
-  ;
+    '';
 in
 {
   meta.maintainers = with maintainers; [ ambroisie ];
@@ -149,8 +148,7 @@ in
         // lib.optionalAttrs (cfg.port < 1024) {
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        }
-      ;
+        };
 
       wantedBy = [ "multi-user.target" ];
 

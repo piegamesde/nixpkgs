@@ -46,7 +46,6 @@ import ./make-test-python.nix (
             assert (
                 date_result == "1970-01-01 09:00:00\n"
             ), "Timezone adjustment was not persisted"
-      ''
-    ;
+      '';
   }
 )

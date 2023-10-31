@@ -24,7 +24,8 @@ assert release
     keyStore != null
     && keyAlias != null
     && keyStorePassword != null
-    && keyAliasPassword != null;
+    && keyAliasPassword != null
+;
 
 let
   androidSdkFormalArgs = builtins.functionArgs composeAndroidPackages;

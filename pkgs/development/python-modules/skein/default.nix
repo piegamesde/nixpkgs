@@ -67,7 +67,6 @@ buildPythonPackage rec {
     # replace with https://github.com/NixOS/nixpkgs/pull/140325 once it is merged
     broken =
       lib.traceIf isPy27 "${pname} not supported on ${python.executable}"
-        isPy27
-    ;
+        isPy27;
   };
 }

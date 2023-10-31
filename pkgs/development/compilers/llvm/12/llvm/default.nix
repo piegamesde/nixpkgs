@@ -21,7 +21,8 @@
   doCheck ? stdenv.isLinux
     && (!stdenv.isx86_32)
     && (!stdenv.hostPlatform.isMusl)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+    && (stdenv.hostPlatform == stdenv.buildPlatform)
+  ,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -72,8 +73,7 @@ stdenv.mkDerivation (
     src = fetch pname "1pzx9zrmd7r3481sbhwvkms68fwhffpp4mmz45dgrkjpyl2q96kx";
     polly_src =
       fetch "polly"
-        "1yfm9ixda4a2sx7ak5vswijx4ydk5lv1c1xh39xmd2kh299y4m12"
-    ;
+        "1yfm9ixda4a2sx7ak5vswijx4ydk5lv1c1xh39xmd2kh299y4m12";
 
     unpackPhase =
       ''
@@ -102,8 +102,7 @@ stdenv.mkDerivation (
       ++ optionals enableManpages [
         python3.pkgs.sphinx
         python3.pkgs.recommonmark
-      ]
-    ;
+      ];
 
     buildInputs = [
       libxml2
@@ -112,8 +111,7 @@ stdenv.mkDerivation (
 
     propagatedBuildInputs =
       optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ]
-      ++ [ zlib ]
-    ;
+      ++ [ zlib ];
 
     patches = [
       # When cross-compiling we configure llvm-config-native with an approximation
@@ -222,8 +220,7 @@ stdenv.mkDerivation (
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
     LDFLAGS =
       optionalString (enableSharedLibraries && !stdenv.isDarwin)
-        "-Wl,--build-id=sha1"
-    ;
+        "-Wl,--build-id=sha1";
 
     cmakeFlags =
       with stdenv;

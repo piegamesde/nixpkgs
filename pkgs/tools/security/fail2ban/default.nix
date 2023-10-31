@@ -29,8 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     lib.optionals stdenv.isLinux [
       systemd
       pyinotify
-    ]
-  ;
+    ];
 
   preConfigure = ''
     patchShebangs fail2ban-2to3

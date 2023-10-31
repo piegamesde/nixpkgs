@@ -75,8 +75,7 @@ stdenv.mkDerivation {
           inherit sha256;
         }
       )
-      fonts
-  ;
+      fonts;
 
   nativeBuildInputs = [ cabextract ];
 

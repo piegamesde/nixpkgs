@@ -77,8 +77,7 @@ let
                           mdDoc ''
                             Template section of ${flavour}.
                             Refer to <${upstreamDocs}> for supported values.
-                          ''
-                        ;
+                          '';
                       };
                     };
                   };
@@ -102,16 +101,13 @@ let
                       Resulting format is JSON not HCL.
                       Refer to <https://www.hcl2json.com/> if you are unsure how to convert HCL options to JSON.
                       :::
-                    ''
-                  ;
+                    '';
                 };
               };
             }
           )
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   createAgentInstance =
     {
@@ -141,8 +137,7 @@ let
         TimeoutStopSec = "30s";
         Restart = "on-failure";
       };
-    }
-  ;
+    };
 in
 {
   options = {
@@ -171,8 +166,7 @@ in
                   createAgentInstance { inherit name instance flavour; }
                 )
               )
-              cfg.instances
-          ;
+              cfg.instances;
         }
       )
       [

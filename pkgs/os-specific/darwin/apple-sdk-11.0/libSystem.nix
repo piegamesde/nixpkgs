@@ -65,8 +65,7 @@ stdenvNoCC.mkDerivation {
       "arm"
       "xpc"
       "arm64"
-    ]
-  ;
+    ];
 
   csu = [
     "bundle1.o"

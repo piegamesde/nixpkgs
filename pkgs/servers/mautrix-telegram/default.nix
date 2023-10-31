@@ -72,8 +72,7 @@ python.pkgs.buildPythonPackage rec {
         pycryptodome
         unpaddedbase64
       ]
-    )
-  ;
+    );
 
   # has no tests
   doCheck = false;

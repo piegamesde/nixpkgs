@@ -10,8 +10,7 @@ import ./make-test-python.nix (
         {
           services.prometheus.enable = true;
           networking.firewall.allowedTCPPorts = [ 9090 ];
-        }
-      ;
+        };
       trickster = { ... }: { services.trickster.enable = true; };
     };
 

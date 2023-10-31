@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=ON" ]
-    ++ lib.optional blas64 "-DBUILD_INDEX64=ON"
-  ;
+    ++ lib.optional blas64 "-DBUILD_INDEX64=ON";
 
   postInstall =
     let
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString blas64 ''
       ln -s $out/lib/libblas64${canonicalExtension} $out/lib/libblas${canonicalExtension}
-    ''
-  ;
+    '';
 
   preFixup = lib.optionalString stdenv.isDarwin ''
     for fn in $(find $out/lib -name "*.so*"); do

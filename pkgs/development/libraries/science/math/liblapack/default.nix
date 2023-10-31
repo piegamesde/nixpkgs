@@ -67,8 +67,7 @@ stdenv.mkDerivation (
       lib.optionalString blas64 ''
         ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}
         ln -s $out/lib/liblapacke64${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-      ''
-    ;
+      '';
 
     doCheck = true;
 
@@ -86,8 +85,7 @@ stdenv.mkDerivation (
     # * https://github.com/Reference-LAPACK/lapack/issues/440
     ctestArgs =
       lib.optionalString stdenv.isDarwin
-        "-E '^(CBLAS-(x[sdcz]cblat[23]))$'"
-    ;
+        "-E '^(CBLAS-(x[sdcz]cblat[23]))$'";
 
     checkPhase = ''
       runHook preCheck

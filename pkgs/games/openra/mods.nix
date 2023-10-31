@@ -7,8 +7,7 @@
 let
   unsafeBuildOpenRAMod =
     attrs: name:
-    (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; })
-  ;
+    (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; });
 in
 {
   ca = buildOpenRAMod {
@@ -155,8 +154,7 @@ in
             sed -i 's/{DEV_VERSION}/${version}/' mods/*/mod.yaml
           '';
         }
-      )
-  ;
+      );
 
   mw = buildOpenRAMod rec {
     version = "257.git.c9be8f2";

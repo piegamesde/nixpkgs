@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
         "https://dl.ganttproject.biz/ganttproject-${version}/"
         + "ganttproject-${version}-${build}.zip"
       ;
-    }
-  ;
+    };
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ jre ];
@@ -54,8 +53,7 @@ stdenv.mkDerivation rec {
       mv -v "$out/share/ganttproject/ganttproject" "$out/bin"
 
       cp -rv "${desktopItem}/share/applications" "$out/share"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Project scheduling and management";

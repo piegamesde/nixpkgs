@@ -32,8 +32,7 @@ with lib; {
           type = types.attrsOf types.str;
           description =
             lib.mdDoc
-              "Extra environment variables to pass to spark master. See spark-standalone documentation."
-          ;
+              "Extra environment variables to pass to spark master. See spark-standalone documentation.";
           default = { };
           example = {
             SPARK_MASTER_WEBUI_PORT = 8181;
@@ -77,13 +76,11 @@ with lib; {
         type = types.path;
         description =
           lib.mdDoc
-            "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory."
-        ;
+            "Spark configuration directory. Spark will use the configuration files (spark-defaults.conf, spark-env.sh, log4j.properties, etc) from this directory.";
         default = "${cfg.package}/lib/${cfg.package.untarDir}/conf";
         defaultText =
           literalExpression
-            ''"''${package}/lib/''${package.untarDir}/conf"''
-        ;
+            ''"''${package}/lib/''${package.untarDir}/conf"'';
       };
       logDir = mkOption {
         type = types.path;

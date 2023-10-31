@@ -38,8 +38,7 @@ import ./make-test-python.nix {
             );
           };
         };
-      }
-    ;
+      };
 
     client =
       { pkgs, lib, ... }:
@@ -71,17 +70,14 @@ import ./make-test-python.nix {
                   driver.get('http://server/')
                   driver.find_element('xpath', '//div[@foo="yay"]')
                   open('/tmp/passed', 'w')
-                ''
-            ;
+                '';
           in
           [
             pkgs.firefox-unwrapped
             pkgs.geckodriver
             testRunner
-          ]
-        ;
-      }
-    ;
+          ];
+      };
   };
 
   testScript =
@@ -104,6 +100,5 @@ import ./make-test-python.nix {
       client.succeed("touch /tmp/proceed")
 
       client.wait_for_file("/tmp/passed")
-    ''
-  ;
+    '';
 }

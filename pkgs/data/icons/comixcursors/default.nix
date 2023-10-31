@@ -38,8 +38,7 @@ let
       thickness,
       handedness,
     }:
-    "${handedness}${opacity}${thickness}${color}"
-  ;
+    "${handedness}${opacity}${thickness}${color}";
   variants =
     # (The order of this list is already good looking enough to show in the
     # meta.longDescription.)

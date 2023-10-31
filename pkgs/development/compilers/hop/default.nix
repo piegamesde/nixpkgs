@@ -11,8 +11,7 @@ let
     let
       inherit (lib) head splitString;
     in
-    head (splitString "-" (builtins.parseDrvName bigloo.name).version)
-  ;
+    head (splitString "-" (builtins.parseDrvName bigloo.name).version);
 in
 
 stdenv.mkDerivation rec {

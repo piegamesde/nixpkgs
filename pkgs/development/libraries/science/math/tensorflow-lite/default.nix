@@ -123,8 +123,7 @@ stdenv.mkDerivation rec {
             "cpuinfo/include"
             "cpuinfo/deps/clog/include"
             "eigen"
-          ]
-      ;
+          ];
     in
     ''
       # enter the vendoring lair of doom
@@ -157,8 +156,7 @@ stdenv.mkDerivation rec {
         TARGET_TOOLCHAIN_PREFIX=""
         -j$NIX_BUILD_CORES
         all)
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir "$out"

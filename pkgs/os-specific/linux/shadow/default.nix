@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ libxcrypt ]
-    ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb
-  ;
+    ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb;
 
   patches = [
     ./keep-path.patch
@@ -118,8 +117,7 @@ stdenv.mkDerivation rec {
 
   disallowedReferences =
     lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      stdenv.shellPackage
-  ;
+      stdenv.shellPackage;
 
   meta = with lib; {
     homepage = "https://github.com/shadow-maint";

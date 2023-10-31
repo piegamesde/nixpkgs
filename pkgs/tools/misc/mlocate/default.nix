@@ -13,8 +13,7 @@ let
         "dbfile"
       ]
       "/var/cache/locatedb"
-      config
-  ;
+      config;
 in
 stdenv.mkDerivation rec {
   pname = "mlocate";

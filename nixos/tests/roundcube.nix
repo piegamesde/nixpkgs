@@ -24,8 +24,7 @@ import ./make-test-python.nix (
             forceSSL = false;
             enableACME = false;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

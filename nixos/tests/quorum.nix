@@ -81,8 +81,7 @@ import ./make-test-python.nix (
               timestamp = "0x5cffc201";
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

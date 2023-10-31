@@ -112,8 +112,7 @@ let
               else
                 decl
             )
-            opt.declarations
-        ;
+            opt.declarations;
       }
     ;
   };

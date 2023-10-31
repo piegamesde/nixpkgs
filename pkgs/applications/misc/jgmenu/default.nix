@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       gtk3
       xfce.libxfce4util
       xfce.xfce4-panel
-    ]
-  ;
+    ];
 
   configureFlags =
     [ ]

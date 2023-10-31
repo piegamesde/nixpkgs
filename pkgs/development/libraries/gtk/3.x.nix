@@ -87,8 +87,7 @@ stdenv.mkDerivation (
             lib.versions.majorMinor version
           }/gtk+-${version}.tar.xz";
         sha256 = "sha256-Z0XwtMBTeUFR/Q8OJHSwd8zP9fg+ndG/PTn+n+X7f1c=";
-      }
-    ;
+      };
 
     patches =
       [
@@ -102,8 +101,7 @@ stdenv.mkDerivation (
           # e.g. https://gitlab.gnome.org/GNOME/gtk/blob/3.24.4/gtk/gtk-launch.c#L31-33
           # https://gitlab.gnome.org/GNOME/gtk/merge_requests/536
           ./patches/3.0-darwin-x11.patch
-        ]
-    ;
+        ];
 
     depsBuildBuild = [ pkg-config ];
     nativeBuildInputs =
@@ -285,8 +283,7 @@ stdenv.mkDerivation (
         ++ lib.optionals x11Support [
           "gdk-x11-3.0"
           "gtk+-x11-3.0"
-        ]
-      ;
+        ];
       platforms = platforms.all;
       changelog = "https://gitlab.gnome.org/GNOME/gtk/-/raw/${version}/NEWS";
     };

@@ -47,8 +47,7 @@ rec {
           isCompatible =
             _:
             throw
-              "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details"
-          ;
+              "2022-05-23: isCompatible has been removed in favor of canExecute, refer to the 22.11 changelog for details";
           # Derived meta-data
           libc =
             if final.isDarwin then
@@ -310,6 +309,5 @@ rec {
         (pass: { assertion, message }: if assertion final then pass else throw message)
         true
         (final.parsed.abi.assertions or [ ]);
-    final
-  ;
+    final;
 }

@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreFoundation
       Security
-    ]
-  ;
+    ];
 
   NIX_LDFLAGS =
     [
@@ -43,8 +42,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-framework CoreFoundation"
       "-framework Security"
-    ]
-  ;
+    ];
 
   buildPhase = ''
     runHook preBuild

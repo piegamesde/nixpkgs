@@ -136,8 +136,7 @@ let
               busybox
               os-prober
             ]
-          )
-        ;
+          );
         font =
           if cfg.font == null then
             ""
@@ -150,13 +149,11 @@ let
             )
         ;
       }
-    )
-  ;
+    );
 
   bootDeviceCounters =
     foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
-      (concatMap (args: args.devices) cfg.mirroredBoots)
-  ;
+      (concatMap (args: args.devices) cfg.mirroredBoots);
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (
@@ -291,8 +288,7 @@ in
                 };
               };
             }
-          )
-        ;
+          );
       };
 
       mirroredBoots = mkOption {
@@ -362,8 +358,7 @@ in
                 };
               };
             }
-          )
-        ;
+          );
       };
 
       configurationName = mkOption {
@@ -901,8 +896,7 @@ in
             ''
           )
           + cfg.extraInstallCommands
-        )
-      ;
+        );
 
       system.build.grub = grub;
 
@@ -998,8 +992,7 @@ in
               message = "GRUB devices must be absolute paths, not ${device} in ${args.path}";
             }
           )
-        )
-      ;
+        );
     })
   ];
 

@@ -56,8 +56,7 @@ rec {
     msg:
     # Value to return
     x:
-    if pred then trace msg x else x
-  ;
+    if pred then trace msg x else x;
 
   /* Trace the supplied value after applying a function to it, and
      return the original value.
@@ -74,8 +73,7 @@ rec {
     f:
     # Value to trace and return
     x:
-    trace (f x) x
-  ;
+    trace (f x) x;
 
   /* Trace the supplied value and return it.
 
@@ -105,8 +103,7 @@ rec {
     x:
     # The value to return
     y:
-    trace (builtins.deepSeq x x) y
-  ;
+    trace (builtins.deepSeq x x) y;
 
   /* Like `traceSeq`, but only evaluate down to depth n.
      This is very useful because lots of `traceSeq` usages
@@ -148,8 +145,7 @@ rec {
       ;
     in
     trace (generators.toPretty { allowPrettyValues = true; } (modify depth snip x))
-      y
-  ;
+      y;
 
   /* A combination of `traceVal` and `traceSeq` that applies a
      provided function to the value to be traced after `deepSeq`ing
@@ -160,8 +156,7 @@ rec {
     f:
     # Value to trace
     v:
-    traceValFn f (builtins.deepSeq v v)
-  ;
+    traceValFn f (builtins.deepSeq v v);
 
   # A combination of `traceVal` and `traceSeq`.
   traceValSeq = traceValSeqFn id;
@@ -174,8 +169,7 @@ rec {
     f: depth:
     # Value to trace
     v:
-    traceSeqN depth (f v) v
-  ;
+    traceSeqN depth (f v) v;
 
   # A combination of `traceVal` and `traceSeqN`.
   traceValSeqN = traceValSeqNFn id;
@@ -202,8 +196,7 @@ rec {
         from = v;
         to = res;
       }
-      res
-  ;
+      res;
 
   # -- TESTING --
 
@@ -280,7 +273,6 @@ rec {
               (substring 0 4 name == "test" || elem name testsToRun)
               && ((testsToRun == [ ]) || elem name tests.tests)
               && (test.expr != test.expected)
-
             then
               [ {
                 inherit name;
@@ -292,8 +284,7 @@ rec {
           )
           tests
       )
-    )
-  ;
+    );
 
   /* Create a test assuming that list elements are `true`.
 

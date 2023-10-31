@@ -18,8 +18,7 @@ let
     concatStringsSep ", " (
       map (x: toString x) ports
       ++ map (x: "${toString x.from}-${toString x.to}") portRanges
-    )
-  ;
+    );
 in
 
 {

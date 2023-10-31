@@ -186,8 +186,7 @@ buildPythonPackage rec {
       // lib.optionalAttrs stdenv.isDarwin {
         # LTO not working in darwin stdenv, see #19312
         enable_lto = false;
-      }
-    ;
+      };
   };
 
   env.MPLSETUPCFG = writeText "mplsetup.cfg" (

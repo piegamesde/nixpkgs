@@ -17,8 +17,7 @@ import ./make-test-python.nix (
             "* . rw"
           ];
         };
-      }
-    ;
+      };
 
     chunkserver =
       { pkgs, ... }:
@@ -43,8 +42,7 @@ import ./make-test-python.nix (
             hdds = [ "~/data" ];
           };
         };
-      }
-    ;
+      };
 
     metalogger =
       { pkgs, ... }:
@@ -53,8 +51,7 @@ import ./make-test-python.nix (
           masterHost = "master";
           metalogger.enable = true;
         };
-      }
-    ;
+      };
 
     client = { pkgs, ... }: { services.moosefs.client.enable = true; };
   in

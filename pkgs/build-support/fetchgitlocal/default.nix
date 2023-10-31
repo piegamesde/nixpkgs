@@ -26,8 +26,7 @@ let
           | tr -d '\n' > $out
 
         mv $DOT_GIT/index-user $DOT_GIT/index # restore index
-      ''
-  ;
+      '';
 
   gitHash = builtins.readFile gitHashFile; # cache against git hash
 
@@ -43,7 +42,6 @@ let
         # dump tar of *current directory* at given revision
         git -C ${srcStr} archive --format=tar ${gitHash} \
           | tar xf - -C $out
-      ''
-  ;
+      '';
 in
 nixPath

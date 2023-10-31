@@ -22,8 +22,7 @@ let
         let
           listOfSize = l: xs: isList xs && length xs == l;
         in
-        listOfSize n xss && all (xs: listOfSize m xs && all elemType.check xs) xss
-      ;
+        listOfSize n xss && all (xs: listOfSize m xs && all elemType.check xs) xss;
       merge = mergeOneOption;
       getSubOptions =
         prefix:
@@ -33,15 +32,13 @@ let
             "*"
             "*"
           ]
-        )
-      ;
+        );
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
       functor = (defaultFunctor name) // {
         wrapped = elemType;
       };
-    }
-  ;
+    };
 
   profileModule = types.submodule {
     options = {
@@ -234,8 +231,7 @@ let
     folder: name: hook:
     nameValuePair "xdg/autorandr/${folder}/${name}" {
       source = "${pkgs.writeShellScriptBin "hook" hook}/bin/hook";
-    }
-  ;
+    };
   profileToFiles =
     name: profile:
     with profile;
@@ -251,8 +247,7 @@ let
       (mapAttrs' (hookToFile "${name}/postswitch.d") hooks.postswitch)
       (mapAttrs' (hookToFile "${name}/preswitch.d") hooks.preswitch)
       (mapAttrs' (hookToFile "${name}/predetect.d") hooks.predetect)
-    ])
-  ;
+    ]);
   fingerprintToString = name: edid: "${name} ${edid}";
   configToString =
     name: config:
@@ -306,8 +301,7 @@ in
         type = types.bool;
         description =
           lib.mdDoc
-            "Treat outputs as connected even if their lids are closed"
-        ;
+            "Treat outputs as connected even if their lids are closed";
       };
 
       hooks = mkOption {

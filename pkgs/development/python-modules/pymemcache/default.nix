@@ -49,8 +49,7 @@ buildPythonPackage rec {
         # this can be removed on the next version bump
         # see also https://github.com/pinterest/pymemcache/pull/480
         "test_compressed_complex"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "pymemcache" ];
 

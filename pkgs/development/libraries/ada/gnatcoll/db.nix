@@ -100,8 +100,7 @@ stdenv.mkDerivation rec {
       [
         # link against packaged, not vendored libsqlite3
         "GNATCOLL_SQLITE=external"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "GNAT Components Collection - Database packages";

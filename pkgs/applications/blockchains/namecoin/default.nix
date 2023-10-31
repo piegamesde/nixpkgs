@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       qt4
       protobuf
       qrencode
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

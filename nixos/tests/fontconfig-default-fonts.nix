@@ -22,8 +22,7 @@ import ./make-test-python.nix (
           monospace = [ "Source Code Pro" ];
           emoji = [ "Twitter Color Emoji" ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.succeed("fc-match serif | grep '\"Gentium Plus\"'")

@@ -33,8 +33,7 @@ import ./make-test-python.nix (
           # test mounting device unlocked in initrd after switching root
           virtualisation.fileSystems."/cryptroot2".device = "/dev/mapper/cryptroot2";
         };
-      }
-    ;
+      };
 
     testScript = ''
       # Create encrypted volume

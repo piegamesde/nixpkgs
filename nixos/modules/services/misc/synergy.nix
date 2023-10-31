@@ -49,8 +49,7 @@ in
           type = types.bool;
           description =
             lib.mdDoc
-              "Whether the Synergy client should be started automatically."
-          ;
+              "Whether the Synergy client should be started automatically.";
         };
       };
 
@@ -82,8 +81,7 @@ in
           type = types.bool;
           description =
             lib.mdDoc
-              "Whether the Synergy server should be started automatically."
-          ;
+              "Whether the Synergy server should be started automatically.";
         };
         tls = {
           enable = mkOption {

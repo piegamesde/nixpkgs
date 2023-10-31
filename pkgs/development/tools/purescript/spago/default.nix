@@ -57,8 +57,7 @@ spago.overrideAttrs (
             spago --verbose test
 
             touch $out
-          ''
-      ;
+          '';
     };
   }
 )

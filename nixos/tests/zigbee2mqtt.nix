@@ -10,8 +10,7 @@ import ./make-test-python.nix (
         };
 
         systemd.services.zigbee2mqtt.serviceConfig.DevicePolicy = lib.mkForce "auto";
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("zigbee2mqtt.service")

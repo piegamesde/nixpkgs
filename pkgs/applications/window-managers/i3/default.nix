@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
       ''
         (cd testcases && xvfb-run ./complete-run.pl -p 1 --keep-xserver-output)
         ! grep -q '^not ok' testcases/latest/complete-run.log
-      ''
-  ;
+      '';
 
   postInstall = ''
     wrapProgram "$out/bin/i3-save-tree" --prefix PERL5LIB ":" "$PERL5LIB"

@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=array-bounds"
-      ]
-  ;
+      ];
 
   installPhase = ''
     runHook preInstall

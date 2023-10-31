@@ -33,8 +33,7 @@ import ./make-test-python.nix (
 
           # increase the systemd timer interval so it fires more often
           systemd.timers.munin-cron.timerConfig.OnCalendar = pkgs.lib.mkForce "*:*:0/10";
-        }
-      ;
+        };
     };
 
     testScript = ''

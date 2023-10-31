@@ -72,8 +72,7 @@ in
       ++ lib.optionals stdenv.isDarwin [
         CoreFoundation
         Security
-      ]
-    ;
+      ];
   };
 
   libz-sys = attrs: {
@@ -108,8 +107,7 @@ in
         autoconf
         automake
         libtool
-      ]
-    ;
+      ];
     buildInputs = [ libevdev ];
 
     # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET

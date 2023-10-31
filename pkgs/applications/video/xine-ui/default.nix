@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
         libXxf86vm
         xorgproto
       ]
-    )
-  ;
+    );
 
   configureFlags = [ "--with-readline=${readline.dev}" ];
 

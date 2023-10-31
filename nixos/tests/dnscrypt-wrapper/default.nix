@@ -31,8 +31,7 @@ import ../make-test-python.nix (
             address = "192.168.1.1";
             prefixLength = 24;
           } ];
-        }
-      ;
+        };
 
       client =
         { lib, ... }:
@@ -48,8 +47,7 @@ import ../make-test-python.nix (
             address = "192.168.1.2";
             prefixLength = 24;
           } ];
-        }
-      ;
+        };
     };
 
     testScript = ''

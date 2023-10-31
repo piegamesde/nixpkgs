@@ -154,8 +154,7 @@ in
               config.target = mkDefault name;
             }
           )
-        )
-      ;
+        );
     };
   };
 

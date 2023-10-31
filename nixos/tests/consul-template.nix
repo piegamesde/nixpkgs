@@ -24,8 +24,7 @@ import ./make-test-python.nix (
             bind_addr = "127.0.0.1";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("consul.service")

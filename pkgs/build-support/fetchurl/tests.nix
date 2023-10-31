@@ -21,6 +21,5 @@
       postFetch = ''
         ${jq}/bin/jq -r '.headers.Hello' $out | ${moreutils}/bin/sponge $out
       '';
-    }
-  ;
+    };
 }

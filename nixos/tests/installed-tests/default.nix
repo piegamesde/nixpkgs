@@ -59,8 +59,7 @@ let
               # and `nix-store --query` commands run as part of the tests
               # (for example when building Flatpak runtimes) will fail.
               environment.variables.TESTED_PACKAGE_INSTALLED_TESTS = "${tested.installedTests}/share";
-            }
-          ;
+            };
 
           testScript =
             optionalString withX11 ''
@@ -88,8 +87,7 @@ let
             "testRunnerFlags"
           ]
         )
-    )
-  ;
+    );
 in
 
 {

@@ -72,8 +72,7 @@ let
         mkdir $out
         mv * $out
       '';
-    }
-  ;
+    };
 
   patchApplicationPath = file: path: ''
     sed -e "s|QCore.*applicationDirPath()|QString(\"${path}\")|" -i "${file}"
@@ -100,8 +99,7 @@ let
       preConfigure = ''
         cd src/plugins/${name}
       '';
-    }
-  ;
+    };
 
   builtPlugins = symlinkJoin {
     name = "ultrastar-manager-plugins-${version}";

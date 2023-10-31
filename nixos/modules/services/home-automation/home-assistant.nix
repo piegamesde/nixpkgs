@@ -18,15 +18,13 @@ let
   # https://www.home-assistant.io/docs/configuration/secrets/
   filteredConfig =
     lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
-      cfg.config or { }
-  ;
+      cfg.config or { };
   configFile =
     pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; }
       ''
         cp ${format.generate "configuration.yaml" filteredConfig} $out
         sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
-      ''
-  ;
+      '';
   lovelaceConfig = cfg.lovelaceConfig or { };
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
@@ -138,8 +136,7 @@ in
       type = types.path;
       description =
         lib.mdDoc
-          "The config directory, where your {file}`configuration.yaml` is located."
-      ;
+          "The config directory, where your {file}`configuration.yaml` is located.";
     };
 
     extraComponents = mkOption {
@@ -156,8 +153,7 @@ in
             # Use the platform as an indicator that we might be running on a RaspberryPi and include
             # relevant components
             "rpi_power"
-          ]
-      ;
+          ];
       example = literalExpression ''
         [
           "analytics"
@@ -663,8 +659,7 @@ in
               value = attrByPath cfgPath [ ] cfg;
               allowPaths = if isList value then value else singleton value;
             in
-            [ "${cfg.configDir}" ] ++ allowPaths
-          ;
+            [ "${cfg.configDir}" ] ++ allowPaths;
           RestrictAddressFamilies = [
             "AF_INET"
             "AF_INET6"
@@ -676,16 +671,14 @@ in
           RestrictSUIDSGID = true;
           SupplementaryGroups =
             optionals (any useComponent componentsUsingSerialDevices)
-              [ "dialout" ]
-          ;
+              [ "dialout" ];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service"
             "~@privileged"
           ] ++ optionals (any useComponent componentsUsingPing) [ "capset" ];
           UMask = "0077";
-        }
-      ;
+        };
       path = [
         "/run/wrappers" # needed for ping
       ];

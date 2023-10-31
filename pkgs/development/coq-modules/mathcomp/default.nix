@@ -78,8 +78,7 @@ let
           out = "1.6.4";
         }
       ]
-      null
-  ;
+      null;
   release = {
     "1.16.0".sha256 = "sha256-gXTKhRgSGeRBUnwdDezMsMKbOvxdffT+kViZ9e1gEz0=";
     "1.15.0".sha256 = "1bp0jxl35ms54s0mdqky15w9af03f3i0n06qk12k4gw1xzvwqv21";
@@ -190,8 +189,7 @@ let
               mkdir -p ${tgt}
               cp -r htmldoc ${tgt}
               cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-            ''
-          ;
+            '';
           buildTargets = "doc";
           extraInstallFlags = [ "-f Makefile.coq" ];
         }
@@ -222,7 +220,6 @@ let
           { installFlags = o.installFlags ++ [ "-f Makefile.coq" ]; }
       );
     in
-    patched-derivation
-  ;
+    patched-derivation;
 in
 mathcomp_ (if single then "single" else "all")

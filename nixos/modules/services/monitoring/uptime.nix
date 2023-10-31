@@ -65,8 +65,7 @@ in
     usesRemoteMongo = mkOption {
       description =
         lib.mdDoc
-          "Whether the configuration file specifies a remote mongo instance"
-      ;
+          "Whether the configuration file specifies a remote mongo instance";
 
       default = false;
 
@@ -82,14 +81,12 @@ in
       // {
         default = cfg.enableWebService;
         defaultText = literalExpression "config.${opt.enableWebService}";
-      }
-    ;
+      };
 
     nodeEnv = mkOption {
       description =
         lib.mdDoc
-          "The node environment to run in (development, production, etc.)"
-      ;
+          "The node environment to run in (development, production, etc.)";
 
       type = types.str;
 

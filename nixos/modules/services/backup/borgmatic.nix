@@ -46,8 +46,7 @@ let
           ];
         };
       };
-    }
-  ;
+    };
 
   cfgfile = settingsFormat.generate "config.yaml" cfg.settings;
 in
@@ -87,8 +86,7 @@ in
             source = settingsFormat.generate "${name}.yaml" value;
           }
         )
-        cfg.configurations
-    ;
+        cfg.configurations;
 
     systemd.packages = [ pkgs.borgmatic ];
 

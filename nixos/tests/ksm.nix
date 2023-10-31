@@ -12,8 +12,7 @@ import ./make-test-python.nix (
 
         hardware.ksm.enable = true;
         hardware.ksm.sleep = 300;
-      }
-    ;
+      };
 
     testScript = ''
       machine.start()

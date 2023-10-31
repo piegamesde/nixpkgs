@@ -56,8 +56,7 @@ let
           attrs
       )
       { }
-      buildDrvInheritArgNames
-  ;
+      buildDrvInheritArgNames;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
   name =
@@ -210,7 +209,6 @@ let
         depsListFile = depsListDrv.outPath;
       };
     })
-      ./setup-hook.sh
-  ;
+      ./setup-hook.sh;
 in
 hook

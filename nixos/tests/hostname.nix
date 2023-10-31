@@ -17,8 +17,7 @@ let
         let
           res = builtins.tryEval str;
         in
-        if (res.success && res.value != null) then res.value else "null"
-      ;
+        if (res.success && res.value != null) then res.value else "null";
     in
     makeTest {
       name = "hostname-${fqdn}";
@@ -36,8 +35,7 @@ let
           networking.domain = domain;
 
           environment.systemPackages = with pkgs; [ inetutils ];
-        }
-      ;
+        };
 
       testScript =
         { nodes, ... }:
@@ -77,10 +75,8 @@ let
               fqdn_and_host_name
               == machine.succeed("getent hosts 127.0.0.2 | awk '{print $2,$3}'").strip()
           )
-        ''
-      ;
-    }
-  ;
+        '';
+    };
 in
 {
   noExplicitDomain = makeHostNameTest "ahost" null null;

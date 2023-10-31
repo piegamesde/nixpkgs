@@ -181,8 +181,7 @@ stdenv.mkDerivation rec {
           url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sci-libs/openblas/files/openblas-0.3.21-fix-loong.patch?id=37ee4c70278eb41181f69e175575b0152b941655";
           hash = "sha256-iWy11l3wEvzNV08LbhOjnSPj1SjPH8RMnb3ORz7V+gc";
         })
-      ]
-  ;
+      ];
 
   postPatch = ''
     # cc1: error: invalid feature modifier 'sve2' in '-march=armv8.5-a+sve+sve2+bf16'

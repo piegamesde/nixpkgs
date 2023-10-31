@@ -52,8 +52,7 @@ rec {
     platform.rustc.platform.vendor or {
       "w64" = "pc";
     }
-      .${vendor.name} or vendor.name
-  ;
+      .${vendor.name} or vendor.name;
 
   # Returns the name of the rust target, even if it is custom. Adjustments are
   # because rust has slightly different naming conventions than we do.
@@ -74,8 +73,7 @@ rec {
     in
     platform.rustc.config or "${cpu_}-${vendor_}-${kernel.name}${
         lib.optionalString (abi.name != "unknown") "-${abi.name}"
-      }"
-  ;
+      }";
 
   # Returns the name of the rust target if it is standard, or the json file
   # containing the custom target spec.
@@ -101,6 +99,5 @@ rec {
       "nvptx"
       "switch"
       "-uefi"
-    ]
-  ;
+    ];
 }

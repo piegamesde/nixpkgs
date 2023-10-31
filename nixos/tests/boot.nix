@@ -35,8 +35,7 @@ let
               concatStringsSep ",\n        " (
                 mapAttrsToList (name: param: ''"${name}": "${param}"'') params
               )
-            },\n    }\n"
-  ;
+            },\n    }\n";
 
   makeBootTest =
     name: extraConfig:
@@ -64,8 +63,7 @@ let
 
         machine.shutdown()
       '';
-    }
-  ;
+    };
 
   makeNetbootTest =
     name: extraConfig:
@@ -105,8 +103,7 @@ let
         machine.wait_for_unit("multi-user.target")
         machine.shutdown()
       '';
-    }
-  ;
+    };
   uefiBinary =
     {
       x86_64-linux = "${pkgs.OVMF.fd}/FV/OVMF.fd";
@@ -164,6 +161,5 @@ in
         machine.succeed("nix store verify -r --no-trust --option experimental-features nix-command /run/current-system")
         machine.shutdown()
       '';
-    }
-  ;
+    };
 }

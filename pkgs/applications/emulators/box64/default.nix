@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isx86_64 [
       "-DLD80BITS=ON"
       "-DNOALIGN=ON"
-    ]
-  ;
+    ];
 
   installPhase = ''
     runHook preInstall
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
           # There is no actual "Hello, world!" with any of the logging enabled, and with all logging disabled it's hard to
           # tell what problems the emulator has run into.
           BOX64_NOBANNER=0 BOX64_LOG=1 box64 ${hello-x86_64}/bin/hello --version | tee $out
-        ''
-    ;
+        '';
   };
 
   meta = with lib; {

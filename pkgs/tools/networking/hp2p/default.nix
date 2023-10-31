@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
         plotly
         mpldatacursor
       ]
-    )
-  ;
+    );
   pythonPath =
     (
       with python3Packages; [

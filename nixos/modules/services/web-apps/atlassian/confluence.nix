@@ -125,8 +125,7 @@ in
           default = null;
           description =
             lib.mdDoc
-              "Application password of this Confluence instance in Crowd"
-          ;
+              "Application password of this Confluence instance in Crowd";
         };
 
         applicationPasswordFile = mkOption {
@@ -134,8 +133,7 @@ in
           default = null;
           description =
             lib.mdDoc
-              "Path to the application password for Crowd of Confluence."
-          ;
+              "Path to the application password for Crowd of Confluence.";
         };
 
         validationInterval = mkOption {
@@ -165,8 +163,7 @@ in
         defaultText = literalExpression "pkgs.oraclejre8";
         description =
           lib.mdDoc
-            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152)."
-        ;
+            "Note that Atlassian only support the Oracle JRE (JRASERVER-46152).";
       };
     };
   };
@@ -220,8 +217,7 @@ in
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         JAVA_OPTS =
           mkIf cfg.sso.enable
-            "-Dcrowd.properties=${cfg.home}/crowd.properties"
-        ;
+            "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =

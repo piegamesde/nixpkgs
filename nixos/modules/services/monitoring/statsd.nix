@@ -17,18 +17,15 @@ let
       "graphite"
       "console"
       "repeater"
-    ]
-  ;
+    ];
 
   backendsToPackages =
     let
       mkMap =
         list: name:
-        if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ]
-      ;
+        if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
     in
-    foldl mkMap [ ]
-  ;
+    foldl mkMap [ ];
 
   configFile = pkgs.writeText "statsd.conf" ''
     {
@@ -148,8 +145,7 @@ in
             !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages;
           message = "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
         })
-        cfg.backends
-    ;
+        cfg.backends;
 
     users.users.statsd = {
       uid = config.ids.uids.statsd;

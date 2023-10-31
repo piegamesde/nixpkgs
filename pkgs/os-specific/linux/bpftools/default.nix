@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       elfutils
       zlib
       readline
-    ]
-  ;
+    ];
 
   preConfigure = ''
     patchShebangs scripts/bpf_doc.py

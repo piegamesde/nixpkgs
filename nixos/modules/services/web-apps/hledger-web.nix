@@ -114,8 +114,7 @@ in
           with cfg.capabilities;
           concatStringsSep "," (
             (optional view "view") ++ (optional add "add") ++ (optional manage "manage")
-          )
-        ;
+          );
         serverArgs =
           with cfg;
           escapeShellArgs (
@@ -129,8 +128,7 @@ in
             ]
             ++ (map (f: "--file=${stateDir}/${f}") cfg.journalFiles)
             ++ extraOptions
-          )
-        ;
+          );
       in
       {
         description = "hledger-web - web-app for the hledger accounting tool.";
@@ -150,8 +148,7 @@ in
             StateDirectory = "hledger-web";
           })
         ];
-      }
-    ;
+      };
   };
 
   meta.maintainers = with lib.maintainers; [

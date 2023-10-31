@@ -33,9 +33,11 @@ assert release
     && certificatePassword != null
     && provisioningProfile != null
     && signMethod != null
-    && codeSignIdentity != null;
+    && codeSignIdentity != null
+;
 assert enableWirelessDistribution
-  -> installURL != null && bundleId != null && appVersion != null;
+  -> installURL != null && bundleId != null && appVersion != null
+;
 
 let
   # Set some default values here

@@ -60,14 +60,12 @@ in
             Restart = "on-failure";
             Type = "forking";
           };
-        }
-      ;
+        };
     in
     mkIf cfg.enable {
 
       environment.systemPackages = [ cfg.package ];
 
       systemd.services = builtins.listToAttrs (map mkService cfg.devices);
-    }
-  ;
+    };
 }

@@ -160,8 +160,7 @@ in
           User: clamav
           ${optionalString (conf.virusAction != null) "VirusAction: ${conf.virusAction}"}
           XClient: ${if conf.xClient then "on" else "off"}
-        ''
-      ;
+        '';
     in
     mkIf cfg.enable {
       assertions = [ {
@@ -186,8 +185,7 @@ in
           )
           cfg.instances
       );
-    }
-  ;
+    };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];
 }

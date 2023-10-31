@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       Security
       curl
-    ]
-  ;
+    ];
   nativeBuildInputs = [
     installShellFiles
     pkg-config

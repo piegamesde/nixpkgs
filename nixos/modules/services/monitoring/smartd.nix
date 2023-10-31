@@ -90,12 +90,10 @@ let
           type = types.separatedString " ";
           description =
             lib.mdDoc
-              "Options that determine how smartd monitors the device."
-          ;
+              "Options that determine how smartd monitors the device.";
         };
       };
-    }
-  ;
+    };
 in
 
 {
@@ -143,8 +141,7 @@ in
             default = config.services.mail.sendmailSetuidWrapper != null;
             defaultText =
               literalExpression
-                "config.services.mail.sendmailSetuidWrapper != null"
-            ;
+                "config.services.mail.sendmailSetuidWrapper != null";
             type = types.bool;
             description = lib.mdDoc "Whenever to send e-mail notifications.";
           };
@@ -198,8 +195,7 @@ in
             default = ":${toString config.services.xserver.display}";
             defaultText =
               literalExpression
-                ''":''${toString config.services.xserver.display}"''
-            ;
+                ''":''${toString config.services.xserver.display}"'';
             type = types.str;
             description = lib.mdDoc "DISPLAY to send X11 notifications to.";
           };

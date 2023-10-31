@@ -36,8 +36,7 @@ in
         default = 1234;
         description =
           lib.mdDoc
-            "Port where lemmy-ui should listen for incoming requests."
-        ;
+            "Port where lemmy-ui should listen for incoming requests.";
       };
     };
 
@@ -196,8 +195,7 @@ in
 
       after =
         [ "pict-rs.service" ]
-        ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ]
-      ;
+        ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
       requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 

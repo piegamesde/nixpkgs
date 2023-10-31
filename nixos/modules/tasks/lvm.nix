@@ -37,8 +37,7 @@ in
     (mkEnableOption (lib.mdDoc "enable booting from LVM2 in the initrd"))
     // {
       visible = false;
-    }
-  ;
+    };
 
   config = mkMerge [
     ({
@@ -55,17 +54,14 @@ in
       # We need lvm2 for the device-mapper rules
       boot.initrd.services.udev.packages =
         lib.mkIf config.boot.initrd.services.lvm.enable
-          [ cfg.package ]
-      ;
+          [ cfg.package ];
       # The device-mapper rules want to call tools from lvm2
       boot.initrd.systemd.initrdBin =
         lib.mkIf config.boot.initrd.services.lvm.enable
-          [ cfg.package ]
-      ;
+          [ cfg.package ];
       boot.initrd.services.udev.binPackages =
         lib.mkIf config.boot.initrd.services.lvm.enable
-          [ cfg.package ]
-      ;
+          [ cfg.package ];
     })
     (mkIf cfg.dmeventd.enable {
       systemd.sockets."dm-event".wantedBy = [ "sockets.target" ];
@@ -110,8 +106,7 @@ in
             "cache_check"
             "cache_dump"
             "cache_repair"
-          ]
-      ;
+          ];
 
       environment.systemPackages = [ pkgs.thin-provisioning-tools ];
     })

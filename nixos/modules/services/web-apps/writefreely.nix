@@ -33,8 +33,7 @@ let
             toString value
         );
       in
-      "${key} = ${value'}"
-    ;
+      "${key} = ${value'}";
   };
 
   cfg = config.services.writefreely;
@@ -138,8 +137,7 @@ let
       }
 
       ${text}
-    ''
-  ;
+    '';
 
   withSqlite =
     text:
@@ -154,8 +152,7 @@ let
       }
 
       ${text}
-    ''
-  ;
+    '';
 in
 {
   options.services.writefreely = {
@@ -273,8 +270,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether or not TLS should be used for the database connection."
-        ;
+            "Whether or not TLS should be used for the database connection.";
       };
 
       migrate = mkOption {
@@ -282,8 +278,7 @@ in
         default = true;
         description =
           lib.mdDoc
-            "Whether or not to automatically run migrations on startup."
-        ;
+            "Whether or not to automatically run migrations on startup.";
       };
 
       createLocally = mkOption {
@@ -320,8 +315,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether or not to enable and configure nginx as a proxy for WriteFreely."
-        ;
+            "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
       };
 
       forceSSL = mkOption {
@@ -337,8 +331,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether or not to automatically fetch and configure SSL certs."
-        ;
+            "Whether or not to automatically fetch and configure SSL certs.";
       };
     };
   };
@@ -394,8 +387,7 @@ in
         ExecStart = "${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' serve";
         AmbientCapabilities =
           optionalString (settings.server.port < 1024)
-            "cap_net_bind_service"
-        ;
+            "cap_net_bind_service";
       };
 
       preStart = ''
@@ -421,8 +413,7 @@ in
         WorkingDirectory = cfg.stateDir;
         ReadOnlyPaths =
           optional (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile
-        ;
+            cfg.admin.initialPasswordFile;
       };
 
       script =
@@ -447,8 +438,7 @@ in
           ${migrateDatabase}
 
           ${createAdmin}
-        ''
-      ;
+        '';
     };
 
     systemd.services.writefreely-mysql-init = mkIf isMysql {
@@ -463,8 +453,7 @@ in
         ReadOnlyPaths =
           optional isMysqlLocal cfg.database.passwordFile
           ++ optional (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile
-        ;
+            cfg.admin.initialPasswordFile;
       };
 
       script =
@@ -498,8 +487,7 @@ in
           ${migrateDatabase}
 
           ${createAdmin}
-        ''
-      ;
+        '';
     };
 
     services.mysql = mkIf isMysqlLocal {

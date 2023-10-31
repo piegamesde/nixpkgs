@@ -161,8 +161,7 @@ let
         '';
       } // def;
     in
-    base // { unit = makeUnit name base; }
-  ;
+    base // { unit = makeUnit name base; };
 in
 {
 
@@ -186,8 +185,7 @@ in
             in
             nameValuePair nspawnFile (instanceToUnit nspawnFile v)
           )
-          cfg
-      ;
+          cfg;
     in
     mkMerge [
       (mkIf (cfg != { }) {
@@ -202,6 +200,5 @@ in
         );
       })
       { systemd.targets.multi-user.wants = [ "machines.target" ]; }
-    ]
-  ;
+    ];
 }

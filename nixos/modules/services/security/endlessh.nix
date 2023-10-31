@@ -69,8 +69,7 @@ in
                 "-p ${toString port}"
               ]
               ++ extraOptions
-            )
-          ;
+            );
           DynamicUser = true;
           RootDirectory = rootDirectory;
           BindReadOnlyPaths = [ builtins.storeDir ];
@@ -110,8 +109,7 @@ in
             "~@resources"
             "~@privileged"
           ];
-        }
-      ;
+        };
     };
 
     networking.firewall.allowedTCPPorts = with cfg; optionals openFirewall [ port ];

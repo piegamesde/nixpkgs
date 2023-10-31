@@ -73,8 +73,7 @@ let
       (
         b: if builtins.elem b withBackends then "-D${b}=enabled" else "-D${b}=disabled"
       )
-      (builtins.attrNames backends)
-  ;
+      (builtins.attrNames backends);
 in
 
 # check that given window system is valid

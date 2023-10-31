@@ -148,8 +148,7 @@ let
           SystemCallArchitectures = "native";
         };
       }
-    ]
-  ;
+    ];
 in
 {
   options.services.sourcehut.${srv} =
@@ -230,20 +229,17 @@ in
           ];
           description =
             lib.mdDoc
-              "Extra arguments passed to the Celery responsible for webhooks."
-          ;
+              "Extra arguments passed to the Celery responsible for webhooks.";
         };
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
           description =
             lib.mdDoc
-              "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
-          ;
+              "Content of the `celeryconfig.py` used by the Celery responsible for webhooks.";
         };
       };
-    }
-  ;
+    };
 
   config = lib.mkIf (cfg.enable && srvCfg.enable) (
     mkMerge [
@@ -305,8 +301,7 @@ in
                   "DATABASE \"${srvCfg.postgresql.database}\"" = "ALL PRIVILEGES";
                 };
               })
-              [ srvCfg.user ]
-          ;
+              [ srvCfg.user ];
         };
 
         services.sourcehut.services = mkDefault (
@@ -329,15 +324,13 @@ in
           {
             "${srv}.sr.ht".origin =
               mkDefault
-                "https://${srv}.${cfg.settings."sr.ht".global-domain}"
-            ;
+                "https://${srv}.${cfg.settings."sr.ht".global-domain}";
           }
 
           (mkIf cfg.postgresql.enable {
             "${srv}.sr.ht".connection-string =
               mkDefault
-                "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql"
-            ;
+                "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
           })
         ];
 
@@ -421,8 +414,7 @@ in
                         ${cfg.python}/bin/srht-update-profiles ${iniKey}
                         touch ${stateDir}/webhook
                       fi
-                    ''
-                  ;
+                    '';
                 }
                 mainService
               ]
@@ -509,8 +501,7 @@ in
               wantedBy = [ "timers.target" ];
               inherit (timer) timerConfig;
             })
-            extraTimers
-        ;
+            extraTimers;
       }
     ]
   );

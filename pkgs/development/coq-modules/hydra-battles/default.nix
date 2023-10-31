@@ -30,8 +30,7 @@
           out = "0.4";
         }
       ]
-      null
-  ;
+      null;
 
   useDune = true;
 
@@ -60,7 +59,6 @@
     {
       propagatedBuildInputs =
         [ equations ]
-        ++ lib.optional (lib.versions.isGe "0.6" version || version == "dev") LibHyps
-      ;
+        ++ lib.optional (lib.versions.isGe "0.6" version || version == "dev") LibHyps;
     }
   )

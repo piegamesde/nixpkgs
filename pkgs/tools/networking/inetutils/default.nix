@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     in
     lib.optionalString isCross ''
       export HELP2MAN=true
-    ''
-  ;
+    '';
 
   configureFlags =
     [ "--with-ncurses-include-dir=${ncurses.dev}/include" ]

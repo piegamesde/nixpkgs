@@ -31,8 +31,7 @@ let
       };
     in
     # We don't coerce to lists of single values, as some values must be unique
-    types.either singleLdapValueType (types.listOf singleLdapValueType)
-  ;
+    types.either singleLdapValueType (types.listOf singleLdapValueType);
 
   ldapAttrsType =
     let
@@ -49,13 +48,11 @@ let
             let
               hiddenOptions = lib.mapAttrs (name: attr: attr // { visible = false; }) options;
             in
-            types.attrsOf (types.submodule { options = hiddenOptions; })
-          ;
+            types.attrsOf (types.submodule { options = hiddenOptions; });
           default = { };
           description =
             lib.mdDoc
-              "Child entries of the current entry, with recursively the same structure."
-          ;
+              "Child entries of the current entry, with recursively the same structure.";
           example = lib.literalExpression ''
             {
                 "cn=schema" = {
@@ -80,8 +77,7 @@ let
         };
       };
     in
-    types.submodule { inherit options; }
-  ;
+    types.submodule { inherit options; };
 
   valueToLdif =
     attr: values:
@@ -99,8 +95,7 @@ let
         else
           "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
       )
-      listValues
-  ;
+      listValues;
 
   attrsToLdif =
     dn:
@@ -282,8 +277,7 @@ in
             filterAttrs
               (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
               cfg.settings.children
-          )
-      ;
+          );
       settingsFile = pkgs.writeText "config.ldif" (
         lib.concatStringsSep "\n" (attrsToLdif "cn=config" cfg.settings)
       );
@@ -302,8 +296,7 @@ in
 
       contentsFiles =
         mapAttrs (dn: ldif: pkgs.writeText "${dn}.ldif" ldif)
-          cfg.declarativeContents
-      ;
+          cfg.declarativeContents;
       writeContents = pkgs.writeShellScript "openldap-load" ''
         set -euo pipefail
 
@@ -422,8 +415,7 @@ in
             [ "openldap" ]
             ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (
               attrValues dbSettings
-            ))
-          ;
+            ));
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
@@ -438,6 +430,5 @@ in
       };
 
       users.groups = lib.optionalAttrs (cfg.group == "openldap") { openldap = { }; };
-    }
-  ;
+    };
 }

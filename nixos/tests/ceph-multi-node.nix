@@ -66,8 +66,7 @@ import ./make-test-python.nix (
         boot.kernelModules = [ "xfs" ];
 
         services.ceph = cephConfig;
-      }
-    ;
+      };
 
     networkMonA = {
       dhcpcd.enable = false;
@@ -122,8 +121,7 @@ import ./make-test-python.nix (
             daemons = [ osd.name ];
           };
         };
-      }
-    ;
+      };
 
     # Following deployment is based on the manual deployment described here:
     # https://docs.ceph.com/docs/master/install/manual-deployment/
@@ -248,8 +246,7 @@ import ./make-test-python.nix (
         monA.wait_until_succeeds("ceph osd stat | grep -e '3 osds: 3 up[^,]*, 3 in'")
         monA.wait_until_succeeds("ceph -s | grep 'mgr: ${cfg.monA.name}(active,'")
         monA.wait_until_succeeds("ceph -s | grep 'HEALTH_OK'")
-      ''
-    ;
+      '';
   in
   {
     name = "basic-multi-node-ceph-cluster";

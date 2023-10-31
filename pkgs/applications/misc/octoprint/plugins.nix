@@ -22,8 +22,7 @@ let
         # none of the following have tests
         doCheck = false;
       }
-    )
-  ;
+    );
 in
 {
   inherit buildPlugin;

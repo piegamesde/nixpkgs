@@ -34,8 +34,7 @@ buildGoModule rec {
     ++ lib.optionals stdenv.isLinux [
       libnfnetlink
       libnetfilter_queue
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "A man in the middle tool";

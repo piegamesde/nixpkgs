@@ -22,8 +22,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ ruamel-base ]
-    ++ lib.optional (!isPyPy) ruamel-yaml-clib
-  ;
+    ++ lib.optional (!isPyPy) ruamel-yaml-clib;
 
   pythonImportsCheck = [ "ruamel.yaml" ];
 

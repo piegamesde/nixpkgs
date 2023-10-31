@@ -18,8 +18,7 @@ let
       {
         extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
         extraGSettingsOverrides = cfg.extraGSettingsOverrides;
-      }
-  ;
+      };
 
   notExcluded =
     pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
@@ -65,8 +64,7 @@ in
       type = types.listOf types.package;
       description =
         lib.mdDoc
-          "Which packages cinnamon should exclude from the default environment"
-      ;
+          "Which packages cinnamon should exclude from the default environment";
     };
   };
 
@@ -209,8 +207,7 @@ in
                 xapp # provides some xapp-* icons
               ]
               config.environment.cinnamon.excludePackages
-        )
-      ;
+        );
 
       xdg.mime.enable = true;
       xdg.icons.enable = true;
@@ -267,8 +264,7 @@ in
             gnome-calendar
             gnome-screenshot
           ]
-          config.environment.cinnamon.excludePackages
-      ;
+          config.environment.cinnamon.excludePackages;
     })
   ];
 }

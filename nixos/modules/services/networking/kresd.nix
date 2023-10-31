@@ -26,8 +26,7 @@ let
             al_v4
             al_v6
             al_portOnly
-          ]
-      ;
+          ];
       port = elemAt al 1;
       addrSpec =
         if al_portOnly == null then
@@ -40,8 +39,7 @@ let
     # it could be configurable, for example.
     ''
       net.listen(${addrSpec}, ${port}, { kind = '${kind}', freebind = true })
-    ''
-  ;
+    '';
 
   configFile = pkgs.writeText "kresd.conf" (
     ""
@@ -78,8 +76,7 @@ in
                 "kresd"
                 "interfaces"
               ]
-              config
-          ;
+              config;
         in
         map
           (
@@ -120,8 +117,7 @@ in
       defaultText = literalExpression "pkgs.knot-resolver";
       example =
         literalExpression
-          "pkgs.knot-resolver.override { extraFeatures = true; }"
-      ;
+          "pkgs.knot-resolver.override { extraFeatures = true; }";
     };
     extraConfig = mkOption {
       type = types.lines;
@@ -200,8 +196,7 @@ in
       wantedBy = [ "multi-user.target" ];
       wants =
         [ "kres-cache-gc.service" ]
-        ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances)
-      ;
+        ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
     };
     systemd.services."kresd@".serviceConfig = {
       ExecStart =

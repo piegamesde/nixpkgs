@@ -47,8 +47,7 @@ buildPythonPackage rec {
       CoreFoundation
       CoreGraphics
       CoreVideo
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [
     blis

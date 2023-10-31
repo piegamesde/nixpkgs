@@ -49,8 +49,7 @@ import ./make-test-python.nix (
             TasksMax=100
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

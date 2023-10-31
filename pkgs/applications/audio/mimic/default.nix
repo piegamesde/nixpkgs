@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       [
         # Needed with GCC 12
         "-Wno-error=free-nonheap-object"
-      ]
-  ;
+      ];
 
   postInstall = ''
     wrapProgram $out/bin/mimic \

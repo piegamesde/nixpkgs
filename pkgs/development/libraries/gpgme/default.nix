@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
       ncurses
       swig2
       which
-    ]
-  ;
+    ];
 
   buildInputs = lib.optionals pythonSupport [ python3 ];
 

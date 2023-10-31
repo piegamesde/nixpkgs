@@ -56,8 +56,7 @@ stdenv.mkDerivation (
         libX11
         xcbutilwm
         xwayland
-      ]
-    ;
+      ];
 
     outputs = [
       "out"
@@ -74,8 +73,7 @@ stdenv.mkDerivation (
             writeText "config.def.h" conf
         ;
       in
-      lib.optionalString (conf != null) "cp ${configFile} config.def.h"
-    ;
+      lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 
     makeFlags = [
       "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"

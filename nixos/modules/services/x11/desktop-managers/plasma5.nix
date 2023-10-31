@@ -25,8 +25,7 @@ let
         // {
           description = "KDE Configuration value";
           emptyValue.value = "";
-        }
-      ;
+        };
       set = (nullOr (lazyAttrsOf valueTypes)) // {
         description = "KDE Configuration set";
         emptyValue.value = { };
@@ -181,8 +180,7 @@ in
     environment.plasma5.excludePackages = mkOption {
       description =
         lib.mdDoc
-          "List of default packages to exclude from the configuration"
-      ;
+          "List of default packages to exclude from the configuration";
       type = types.listOf types.package;
       default = [ ];
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
@@ -436,8 +434,7 @@ in
 
       programs.ssh.askPassword =
         mkDefault
-          "${plasma5.ksshaskpass.out}/bin/ksshaskpass"
-      ;
+          "${plasma5.ksshaskpass.out}/bin/ksshaskpass";
 
       # Enable helpful DBus services.
       services.accounts-daemon.enable = true;

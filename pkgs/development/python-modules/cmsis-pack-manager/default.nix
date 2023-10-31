@@ -36,8 +36,7 @@ buildPythonPackage rec {
   propagatedNativeBuildInputs = [ cffi ];
   buildInputs =
     [ libiconv ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security
-  ;
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
   propagatedBuildInputs = [
     appdirs
     pyyaml

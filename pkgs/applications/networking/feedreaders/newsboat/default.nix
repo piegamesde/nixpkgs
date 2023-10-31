@@ -48,8 +48,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       makeWrapper
       ncurses
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -65,8 +64,7 @@ rustPlatform.buildRustPackage rec {
       Foundation
       libiconv
       gettext
-    ]
-  ;
+    ];
 
   postBuild = ''
     make -j $NIX_BUILD_CORES prefix="$out"

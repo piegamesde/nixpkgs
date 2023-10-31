@@ -8,8 +8,7 @@
     lib.deepSeq f (
       lib.foldl' (features: fun: fun features) (lib.attrsets.recursiveUpdate f up)
         functions
-    )
-  ;
+    );
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures =
     feat:
@@ -19,8 +18,7 @@
         if feat.${featureName} or false then [ featureName ] ++ features else features
       )
       [ ]
-      (lib.attrNames feat)
-  ;
+      (lib.attrNames feat);
   include =
     includedFiles: src:
     builtins.filterSource
@@ -36,8 +34,7 @@
           )
           includedFiles
       )
-      src
-  ;
+      src;
   exclude =
     excludedFiles: src:
     builtins.filterSource
@@ -46,6 +43,5 @@
         lib.all (f: !lib.strings.hasPrefix (toString (src + ("/" + f))) path)
           excludedFiles
       )
-      src
-  ;
+      src;
 }

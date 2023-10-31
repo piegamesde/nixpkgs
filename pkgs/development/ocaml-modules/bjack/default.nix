@@ -26,8 +26,7 @@ buildDunePackage rec {
     ++ lib.optionals stdenv.isDarwin [
       Accelerate
       CoreAudio
-    ]
-  ;
+    ];
   propagatedBuildInputs = [
     libsamplerate
     libjack2

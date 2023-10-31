@@ -6,8 +6,7 @@ let
       url = "http://tarballs.nixos.org/stdenv-linux/loongson2f/r22849/${file}";
       inherit sha256;
       executable = true;
-    }
-  ;
+    };
 in
 {
   sh = fetch {

@@ -80,8 +80,7 @@ buildPythonPackage rec {
                   return ctypes.cdll.LoadLibrary(path)
           raise Exception("Could not load library {}".format(names))
       EOF
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [ unzip ];
 

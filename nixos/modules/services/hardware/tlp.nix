@@ -20,11 +20,9 @@ let
               mkValueString =
                 val: if isList val then ''"'' + (toString val) + ''"'' else toString val;
             }
-            "="
-        ;
+            "=";
       }
-      tlpConfig
-  ;
+      tlpConfig;
 in
 {
   ###### interface
@@ -47,8 +45,7 @@ in
               str
               (listOf str)
             ]
-          )
-        ;
+          );
         default = { };
         example = {
           SATA_LINKPWR_ON_BAT = "med_power_with_dipm";
@@ -92,8 +89,7 @@ in
       }
       // optionalAttrs enableRDW {
         "NetworkManager/dispatcher.d/99tlp-rdw-nm".source = "${tlp}/etc/NetworkManager/dispatcher.d/99tlp-rdw-nm";
-      }
-    ;
+      };
 
     environment.systemPackages = [ tlp ];
 
@@ -109,8 +105,7 @@ in
         CPU_SCALING_MAX_FREQ_ON_AC = maybeDefault cfg.cpufreq.max;
         CPU_SCALING_MIN_FREQ_ON_BAT = maybeDefault cfg.cpufreq.min;
         CPU_SCALING_MAX_FREQ_ON_BAT = maybeDefault cfg.cpufreq.max;
-      }
-    ;
+      };
 
     services.udev.packages = [ tlp ];
 

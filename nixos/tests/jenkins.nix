@@ -69,8 +69,7 @@ import ./make-test-python.nix (
           users.users.jenkins.extraGroups = [ "users" ];
 
           systemd.services.jenkins.serviceConfig.TimeoutStartSec = "6min";
-        }
-      ;
+        };
 
       slave =
         { ... }:
@@ -78,8 +77,7 @@ import ./make-test-python.nix (
           services.jenkinsSlave.enable = true;
 
           users.users.jenkins.extraGroups = [ "users" ];
-        }
-      ;
+        };
     };
 
     testScript =
@@ -132,7 +130,6 @@ import ./make-test-python.nix (
             out = master.succeed("${pkgs.jenkins}/bin/jenkins-cli -s ${jenkinsUrl} -auth admin:$(cat /var/lib/jenkins/secrets/initialAdminPassword) list-jobs")
             jobs = [x.strip() for x in out.splitlines()]
             assert jobs == [], f"jobs != []: {jobs}"
-      ''
-    ;
+      '';
   }
 )

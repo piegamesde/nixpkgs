@@ -16,8 +16,7 @@ let
   # default.
   targetPrefix =
     lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      (stdenv.targetPlatform.config + "-")
-  ;
+      (stdenv.targetPlatform.config + "-");
 in
 
 makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
@@ -32,8 +31,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       # Open source packages that are built from source
       appleSourcePackages =
         pkgs.callPackage ../os-specific/darwin/apple-source-releases { }
-          self
-      ;
+          self;
 
       impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
 
@@ -60,8 +58,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           lib.concatMap
             (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
             names
-        )
-      ;
+        );
 
       chooseLibs =
         (
@@ -81,8 +78,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages)
             Security
           ;
-        }
-      ;
+        };
     in
 
     impure-cmds
@@ -155,8 +151,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             name = "darwin-check-reexports-hook";
             propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
           }
-          ../os-specific/darwin/print-reexports/setup-hook.sh
-      ;
+          ../os-specific/darwin/print-reexports/setup-hook.sh;
 
       sigtool = callPackage ../os-specific/darwin/sigtool { };
 
@@ -180,8 +175,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             name = "auto-sign-darwin-binaries-hook";
             propagatedBuildInputs = [ self.signingUtils ];
           }
-          ../os-specific/darwin/signing-utils/auto-sign-hook.sh
-      ;
+          ../os-specific/darwin/signing-utils/auto-sign-hook.sh;
 
       maloader = callPackage ../os-specific/darwin/maloader { };
 
@@ -210,8 +204,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             ;
             inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
             inherit (pkgs.darwin) cctools sigtool;
-          }
-      ;
+          };
 
       opencflite = callPackage ../os-specific/darwin/opencflite { };
 
@@ -219,8 +212,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith
           {
             inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
-          }
-      ;
+          };
 
       stubs = pkgs.callPackages ../os-specific/darwin/stubs { };
 
@@ -319,7 +311,6 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             system = toGuest stdenv.hostPlatform.system;
           };
         in
-        nixos.config.system.build.macos-builder-installer
-      ;
+        nixos.config.system.build.macos-builder-installer;
     }
   )

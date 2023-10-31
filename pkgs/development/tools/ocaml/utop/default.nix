@@ -95,8 +95,7 @@ buildDunePackage rec {
          --prefix OCAMLPATH ":" $(unset OCAMLPATH; addOCamlPath "$out"; printf %s "$OCAMLPATH") \
          --add-flags "-I ${findlib}/lib/ocaml/${lib.getVersion ocaml}/site-lib"
       done
-    ''
-  ;
+    '';
 
   meta = {
     description = "Universal toplevel for OCaml";

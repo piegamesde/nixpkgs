@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
         yojson
         zarith
       ]
-    )
-  ;
+    );
 
   installPhase = ''
     runHook preInstall

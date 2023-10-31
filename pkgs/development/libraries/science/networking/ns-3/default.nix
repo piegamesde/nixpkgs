@@ -130,8 +130,7 @@ stdenv.mkDerivation rec {
         optional enableDoxygen "./waf doxygen" ++ optional withManual "./waf sphinx"
       );
     in
-    "${flags}"
-  ;
+    "${flags}";
 
   postInstall = ''
     moveToOutput "${pythonEnv.libPrefix}" "$py"

@@ -41,8 +41,7 @@ let
         }/bin/${name}.sh '%e'" >> $fn
       '';
     in
-    concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))
-    }
+    concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))}
   '';
 in
 
@@ -71,8 +70,7 @@ in
                 example =
                   literalExpression
                     ''
-                      "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"''
-                ;
+                      "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"'';
                 description = lib.mdDoc "Event type.";
               };
 
@@ -80,8 +78,7 @@ in
                 type = types.lines;
                 description =
                   lib.mdDoc
-                    "Shell commands to execute when the event is triggered."
-                ;
+                    "Shell commands to execute when the event is triggered.";
               };
             };
           }

@@ -49,8 +49,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether the listening port should be opened automatically."
-        ;
+            "Whether the listening port should be opened automatically.";
       };
 
       memoryLimit = mkOption {

@@ -74,22 +74,19 @@ in
             copy_bin_and_libs ${pkgs.btrfs-progs}/bin/btrfs
             ln -sv btrfs $out/bin/btrfsck
             ln -sv btrfsck $out/bin/fsck.btrfs
-          ''
-      ;
+          '';
 
       boot.initrd.extraUtilsCommandsTest =
         mkIf (inInitrd && !config.boot.initrd.systemd.enable)
           ''
             $out/bin/btrfs --version
-          ''
-      ;
+          '';
 
       boot.initrd.postDeviceCommands =
         mkIf (inInitrd && !config.boot.initrd.systemd.enable)
           ''
             btrfs device scan
-          ''
-      ;
+          '';
     })
 
     (mkIf enableAutoScrub {
@@ -132,11 +129,9 @@ in
                 AccuracySec = "1d";
                 Persistent = true;
               };
-            }
-          ;
+            };
         in
-        listToAttrs (map scrubTimer cfgScrub.fileSystems)
-      ;
+        listToAttrs (map scrubTimer cfgScrub.fileSystems);
 
       systemd.services =
         let
@@ -168,11 +163,9 @@ in
                   (${pkgs.btrfs-progs}/bin/btrfs scrub status ${fs} | ${pkgs.gnugrep}/bin/grep finished) || ${pkgs.btrfs-progs}/bin/btrfs scrub cancel ${fs}
                 '';
               };
-            }
-          ;
+            };
         in
-        listToAttrs (map scrubService cfgScrub.fileSystems)
-      ;
+        listToAttrs (map scrubService cfgScrub.fileSystems);
     })
   ];
 }

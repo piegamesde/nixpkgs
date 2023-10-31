@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
       cp zrok $out/bin/
       chmod +x $out/bin/zrok
       patchelf --set-interpreter "${interpreter}" "$out/bin/zrok"
-    ''
-  ;
+    '';
 
   meta = {
     description = "Geo-scale, next-generation sharing platform built on top of OpenZiti";

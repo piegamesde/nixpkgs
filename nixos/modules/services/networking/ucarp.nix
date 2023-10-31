@@ -72,8 +72,7 @@ in
       type = types.bool;
       description =
         lib.mdDoc
-          "Do not run downscript at start if the host is the backup."
-      ;
+          "Do not run downscript at start if the host is the backup.";
       default = false;
     };
 

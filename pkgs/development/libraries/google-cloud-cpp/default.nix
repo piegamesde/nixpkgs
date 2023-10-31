@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       # when doInstallCheck is true, these deps are added to nativeInstallCheckInputs
       gbenchmark
       gtest
-    ]
-  ;
+    ];
 
   buildInputs = [
     c-ares
@@ -100,8 +99,7 @@ stdenv.mkDerivation rec {
       + ''
         export GTEST_FILTER="-${lib.concatStringsSep ":" excludedTests.cases}"
       ''
-    )
-  ;
+    );
 
   installCheckPhase = lib.optionalString doInstallCheck ''
     runHook preInstallCheck
@@ -128,8 +126,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (apis != [ "*" ]) [
       "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     license = with licenses; [ asl20 ];

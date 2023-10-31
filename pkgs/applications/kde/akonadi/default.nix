@@ -104,8 +104,7 @@ mkDerivation {
 
   cmakeFlags =
     lib.optional (defaultDriver != "MYSQL")
-      "-DDATABASE_BACKEND=${defaultDriver}"
-  ;
+      "-DDATABASE_BACKEND=${defaultDriver}";
 
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

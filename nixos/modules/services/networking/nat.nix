@@ -114,8 +114,7 @@ in
                 description =
                   lib.mdDoc
                     ''
-                      Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")''
-                ;
+                      Source port of the external interface; to specify a port range, use a string with a colon (e.g. "60000:61000")'';
               };
 
               destination = mkOption {
@@ -123,8 +122,7 @@ in
                 example = "10.0.0.1:80";
                 description =
                   lib.mdDoc
-                    "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end"
-                ;
+                    "Forward connection to destination ip:port (or [ipv6]:port); to specify a port range, use ip:start-end";
               };
 
               proto = mkOption {
@@ -140,13 +138,11 @@ in
                 example = literalExpression ''[ "55.1.2.3" ]'';
                 description =
                   lib.mdDoc
-                    "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT"
-                ;
+                    "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
               };
             };
           }
-        )
-      ;
+        );
       default = [ ];
       example = [
         {
@@ -216,8 +212,7 @@ in
           # Forward IPv6 packets.
           "net.ipv6.conf.all.forwarding" = mkOverride 99 true;
           "net.ipv6.conf.default.forwarding" = mkOverride 99 true;
-        }
-      ;
+        };
     };
   };
 }

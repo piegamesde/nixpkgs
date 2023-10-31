@@ -18,8 +18,7 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "-DMSGPACK_BUILD_EXAMPLES=OFF"
-  ;
+      "-DMSGPACK_BUILD_EXAMPLES=OFF";
 
   meta = with lib; {
     description = "MessagePack implementation for C and C++";

@@ -23,8 +23,7 @@ let
       }
       ''
         loadkeys -b ${optionalString isUnicode "-u"} "${cfg.keyMap}" > $out
-      ''
-  ;
+      '';
 
   # Sadly, systemd-vconsole-setup doesn't support binary keymaps.
   vconsoleConf = pkgs.writeText "vconsole.conf" ''
@@ -43,8 +42,7 @@ let
         "/share/keymaps"
         "/share/unimaps"
       ];
-    }
-  ;
+    };
 in
 
 {
@@ -153,8 +151,7 @@ in
               -model '${xkbModel}' -layout '${layout}' \
               -option '${xkbOptions}' -variant '${xkbVariant}' > "$out"
           ''
-        )
-      ;
+        );
     }
 
     (mkIf (!cfg.enable) {
@@ -249,7 +246,8 @@ in
               else
                 ''
                   font="$(echo ${consoleEnv pkgs.kbd}/share/consolefonts/${cfg.font}.*)"
-                ''}
+                ''
+              }
               if [[ $font == *.gz ]]; then
                 gzip -cd $font > $out/share/consolefonts/font.psf
               else

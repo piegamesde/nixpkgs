@@ -252,8 +252,7 @@ runCommand drvName
           canary = [ alapshin ];
           dev = canary;
         }
-        ."${channel}"
-      ;
+        ."${channel}";
       mainProgram = pname;
     };
   }

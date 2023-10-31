@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       "--${if stdenv.hostPlatform.avx2Support then "enable" else "disable"}-avx2"
       "--${if stdenv.hostPlatform.fmaSupport then "enable" else "disable"}-fma"
       "--${if stdenv.hostPlatform.fma4Support then "enable" else "disable"}-fma4"
-    ]
-  ;
+    ];
 
   # On darwin, tests are linked to dylib in the nix store, so we need to make
   # sure tests run after installPhase.

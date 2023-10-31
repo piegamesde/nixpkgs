@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         lld
         llvm
       ]
-    )
-  ;
+    );
 
   patches =
     [

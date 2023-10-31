@@ -33,7 +33,6 @@ let
           mkdir -p $out/share/man/man1
           ln -s $manpage $out/share/man/man1
         fi
-      ''
-  ;
+      '';
 in
 lib.mapAttrs mkImpureDrv commands

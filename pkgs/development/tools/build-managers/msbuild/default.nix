@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
   # bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
   LOCALE_ARCHIVE =
     lib.optionalString stdenv.isLinux
-      "${glibcLocales}/lib/locale/locale-archive"
-  ;
+      "${glibcLocales}/lib/locale/locale-archive";
 
   postPatch = ''
     # not patchShebangs, there is /bin/bash in the body of the script as well

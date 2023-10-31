@@ -135,8 +135,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-DUSE_COLORD=OFF"
       "-DUSE_KWALLET=OFF"
-    ]
-  ;
+    ];
 
   # darktable changed its rpath handling in commit
   # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
@@ -157,8 +156,7 @@ stdenv.mkDerivation rec {
       gappsWrapperArgs+=(
         --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
       )
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Virtual lighttable and darkroom for photographers";

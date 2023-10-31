@@ -193,8 +193,7 @@ in
           example = "/run/postgresql";
           description =
             lib.mdDoc
-              "Path to the unix socket file to use for authentication."
-          ;
+              "Path to the unix socket file to use for authentication.";
         };
 
         createLocally = mkOption {
@@ -240,8 +239,7 @@ in
               str
               (listOf str)
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           Zabbix Server configuration. Refer to
@@ -404,7 +402,6 @@ in
     systemd.services.httpd.after =
       optional (config.services.zabbixWeb.enable && mysqlLocal) "mysql.service"
       ++ optional (config.services.zabbixWeb.enable && pgsqlLocal)
-        "postgresql.service"
-    ;
+        "postgresql.service";
   };
 }

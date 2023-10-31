@@ -126,8 +126,7 @@ let
           ++ lib.optionals javahlBindings [
             "--enable-javahl"
             "--with-jdk=${jdk}"
-          ]
-        ;
+          ];
 
         preBuild = ''
           makeFlagsArray=(APACHE_LIBEXECDIR=$out/modules)
@@ -188,8 +187,7 @@ let
         CPP = "clang -E";
         CXXCPP = "clang++ -E";
       }
-    )
-  ;
+    );
 in
 {
   subversion = common {

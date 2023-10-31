@@ -84,8 +84,7 @@ in
                 enable = mkDisableOption "loading of the profile into the kernel";
                 enforce =
                   mkDisableOption
-                    "enforcing of the policy or only complain in the logs"
-                ;
+                    "enforcing of the policy or only complain in the logs";
                 profile = mkOption {
                   description = lib.mdDoc "The policy of the profile.";
                   type = types.lines;
@@ -111,8 +110,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "List of packages to be added to AppArmor's include path"
-        ;
+            "List of packages to be added to AppArmor's include path";
       };
       enableCache = mkEnableOption (
         lib.mdDoc ''
@@ -148,8 +146,7 @@ in
           # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
           # which does not recurse into sub-directories.
         })
-        (attrNames cfg.policies)
-    ;
+        (attrNames cfg.policies);
 
     environment.systemPackages = [
       pkgs.apparmor-utils
@@ -222,8 +219,7 @@ in
         ''
           cp $headerPath $out
           sed '1,/\[qualifiers\]/d' $footer >> $out
-        ''
-    ;
+        '';
 
     boot.kernelParams = [
       "apparmor=1"
@@ -262,8 +258,7 @@ in
             p:
             "--verbose --show-cache ${
               optionalString (!p.enforce) "--complain "
-            }${p.profile}"
-          ;
+            }${p.profile}";
         in
         {
           Type = "oneshot";
@@ -272,12 +267,10 @@ in
           ExecStart =
             mapAttrsToList
               (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
-              enabledPolicies
-          ;
+              enabledPolicies;
           ExecStartPost =
             optional cfg.killUnconfinedConfinables
-              killUnconfinedConfinables
-          ;
+              killUnconfinedConfinables;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
@@ -301,8 +294,7 @@ in
             "apparmor/logprof"
           ];
           CacheDirectoryMode = "0700";
-        }
-      ;
+        };
     };
   };
 

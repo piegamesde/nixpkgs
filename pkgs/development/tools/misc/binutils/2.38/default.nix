@@ -53,8 +53,7 @@ let
   # on the PATH to both be usable.
   targetPrefix =
     lib.optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-"
-  ;
+      "${targetPlatform.config}-";
 in
 
 stdenv.mkDerivation {

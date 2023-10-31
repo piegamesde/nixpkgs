@@ -35,8 +35,7 @@ rec {
           runHook postInstall
         '';
       }
-    )
-  ;
+    );
 
   buildKakounePluginFrom2Nix =
     attrs:
@@ -46,6 +45,5 @@ rec {
         dontConfigure = true;
       }
       // attrs
-    )
-  ;
+    );
 }

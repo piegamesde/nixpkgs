@@ -57,6 +57,5 @@ in
         Restart = "always";
         ProtectSystem = "full";
       };
-    }
-  ;
+    };
 }

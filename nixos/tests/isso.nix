@@ -16,8 +16,7 @@ import ./make-test-python.nix (
             };
           };
         };
-      }
-    ;
+      };
 
     testScript =
       let
@@ -30,7 +29,6 @@ import ./make-test-python.nix (
 
         machine.succeed("curl --fail http://localhost:${toString port}/?uri")
         machine.succeed("curl --fail http://localhost:${toString port}/js/embed.min.js")
-      ''
-    ;
+      '';
   }
 )

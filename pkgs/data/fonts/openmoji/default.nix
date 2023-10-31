@@ -24,8 +24,7 @@ let
         "OpenMoji-Color.ttf"
         "OpenMoji-Black.ttf"
       ]
-      variant
-  ;
+      variant;
 
   # With newer fontforge the build hangs, see
   # https://github.com/NixOS/nixpkgs/issues/167869

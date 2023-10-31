@@ -27,8 +27,7 @@ makeInstalledTest {
             runHook postInstall
           '';
         })
-      ]
-    ;
+      ];
     services.dbus.packages = with pkgs; [ gnome-photos ];
   };
 

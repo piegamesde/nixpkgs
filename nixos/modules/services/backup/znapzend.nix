@@ -79,8 +79,7 @@ let
             type = str;
             description =
               lib.mdDoc
-                "Label for this destination. Defaults to the attribute name."
-            ;
+                "Label for this destination. Defaults to the attribute name.";
           };
 
           plan = mkOption {
@@ -135,8 +134,7 @@ let
           plan = mkDefault srcConfig.plan;
         };
       }
-    )
-  ;
+    );
 
   srcType = submodule (
     { name, config, ... }:
@@ -287,8 +285,7 @@ let
     config:
     concatStringsSep "\n" (
       builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config)
-    )
-  ;
+    );
 
   mkDestAttrs =
     dst:
@@ -300,8 +297,7 @@ let
       }
       // optionalAttrs (presend != null) { _precmd = presend; }
       // optionalAttrs (postsend != null) { _pstcmd = postsend; }
-    )
-  ;
+    );
 
   mkSrcAttrs =
     srcCfg:
@@ -340,8 +336,7 @@ let
           value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
         }
       )
-      cfg.zetup
-  ;
+      cfg.zetup;
 in
 {
   options = {
@@ -384,8 +379,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Automatically create the destination dataset if it does not exist."
-        ;
+            "Automatically create the destination dataset if it does not exist.";
       };
 
       zetup = mkOption {
@@ -548,8 +542,7 @@ in
                 )
               ];
             in
-            "${pkgs.znapzend}/bin/znapzend ${args}"
-          ;
+            "${pkgs.znapzend}/bin/znapzend ${args}";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
           Restart = "on-failure";
         };

@@ -658,8 +658,7 @@ in
             DEBUG = cfg.debugOutput;
             GOOGLE_ANALYTICS_ID =
               lib.optionalString (cfg.googleAnalyticsId != null)
-                cfg.googleAnalyticsId
-            ;
+                cfg.googleAnalyticsId;
             SENTRY_DSN = lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
             SENTRY_TUNNEL = lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
             TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
@@ -754,7 +753,8 @@ in
               }
               EOF
               export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-            ''}
+            ''
+          }
 
           cd $RUNTIME_DIRECTORY
           ${sequelize}/bin/outline-sequelize db:migrate
@@ -809,7 +809,8 @@ in
           else
             ''
               export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-            ''}
+            ''
+          }
 
           ${cfg.package}/bin/outline-server
         '';
@@ -831,7 +832,6 @@ in
           # onboarding files:
           WorkingDirectory = "${cfg.package}/share/outline/build";
         };
-      }
-    ;
+      };
   };
 }

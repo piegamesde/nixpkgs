@@ -69,8 +69,7 @@ in
         example = literalExpression "pkgs.fail2ban_0_11";
         description =
           lib.mdDoc
-            "The fail2ban package to use for running the fail2ban service."
-        ;
+            "The fail2ban package to use for running the fail2ban service.";
       };
 
       packageFirewall = mkOption {
@@ -79,8 +78,7 @@ in
         type = types.package;
         description =
           lib.mdDoc
-            "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables)."
-        ;
+            "The firewall package used by fail2ban service. Defaults to the package for your firewall (iptables or nftables).";
       };
 
       extraPackages = mkOption {
@@ -116,8 +114,7 @@ in
         defaultText =
           literalExpression
             ''
-              if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"''
-        ;
+              if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -137,8 +134,7 @@ in
         defaultText =
           literalExpression
             ''
-              if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"''
-        ;
+              if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,
@@ -254,8 +250,7 @@ in
               ints.positive
               str
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           Extra default configuration for all jails (i.e. `[DEFAULT]`). See
@@ -332,8 +327,7 @@ in
 
     warnings =
       mkIf (!config.networking.firewall.enable && !config.networking.nftables.enable)
-        [ "fail2ban can not be used without a firewall" ]
-    ;
+        [ "fail2ban can not be used without a firewall" ];
 
     environment.systemPackages = [ cfg.package ];
 

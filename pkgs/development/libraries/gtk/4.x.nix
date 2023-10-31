@@ -190,8 +190,7 @@ stdenv.mkDerivation rec {
     {
       NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
     }
-    // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; }
-  ;
+    // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; };
 
   postPatch = ''
     files=(

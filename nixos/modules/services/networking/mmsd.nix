@@ -17,8 +17,7 @@ let
         # Exec= is still required despite SystemdService= being used:
         # https://github.com/freedesktop/dbus/blob/ef55a3db0d8f17848f8a579092fb05900cc076f5/test/data/systemd-activation/com.example.SystemdActivatable1.service
         Exec=${pkgs.coreutils}/bin/false mmsd
-      ''
-  ;
+      '';
 in
 {
   options.services.mmsd = {

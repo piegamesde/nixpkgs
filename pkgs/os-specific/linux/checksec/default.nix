@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $out/bin/checksec --replace "/usr/bin/id -" "${coreutils}/bin/id -"
       wrapProgram $out/bin/checksec \
         --prefix PATH : ${path}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Tool for checking security bits on executables";

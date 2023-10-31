@@ -20,8 +20,7 @@ in
         default = [ ];
         description =
           lib.mdDoc
-            "Extra flags passed to the {command}`robustirc-bridge` command. See [RobustIRC Documentation](https://robustirc.net/docs/adminguide.html#_bridge) or robustirc-bridge(1) for details."
-        ;
+            "Extra flags passed to the {command}`robustirc-bridge` command. See [RobustIRC Documentation](https://robustirc.net/docs/adminguide.html#_bridge) or robustirc-bridge(1) for details.";
         example = [ "-network robustirc.net" ];
       };
     };

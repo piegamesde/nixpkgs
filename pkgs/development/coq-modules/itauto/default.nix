@@ -36,8 +36,7 @@ mkCoqDerivation rec {
           out = "8.13+no";
         }
       ]
-      null
-  ;
+      null;
 
   mlPlugin = true;
   nativeBuildInputs = (with coq.ocamlPackages; [ ocamlbuild ]);

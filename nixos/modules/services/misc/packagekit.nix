@@ -73,8 +73,7 @@ in
       default = { };
       description =
         lib.mdDoc
-          "Additional settings passed straight through to PackageKit.conf"
-      ;
+          "Additional settings passed straight through to PackageKit.conf";
     };
 
     vendorSettings = mkOption {
@@ -82,8 +81,7 @@ in
       default = { };
       description =
         lib.mdDoc
-          "Additional settings passed straight through to Vendor.conf"
-      ;
+          "Additional settings passed straight through to Vendor.conf";
     };
   };
 

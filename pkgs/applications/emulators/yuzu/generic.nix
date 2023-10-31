@@ -139,8 +139,7 @@ stdenv.mkDerivation rec {
           inherit branch;
         };
       }
-      "install -Dm755 $script $out"
-  ;
+      "install -Dm755 $script $out";
 
   meta = with lib; {
     homepage = "https://yuzu-emu.org";

@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
         gst-plugins-ugly
         gstreamer
       ]
-    )
-  ;
+    );
 
   mesonFlags = [ "-Dplugins=false" ];
 

@@ -101,8 +101,7 @@ stdenv.mkDerivation rec {
       gappsWrapperArgs+=(
         --prefix PATH : "${binPath}"
       )
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://www.dvdstyler.org/";

@@ -62,8 +62,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Security
-    ]
-  ;
+    ];
 
   preCheck = ''
     export HOME=$TMPDIR

@@ -36,8 +36,7 @@ buildPythonPackage rec {
         cargoSetupHook
         maturinBuildHook
       ]
-    )
-  ;
+    );
 
   preBuild = ''
     cd synapse

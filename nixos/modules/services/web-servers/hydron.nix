@@ -82,8 +82,7 @@ with lib; {
       default = true;
       description =
         lib.mdDoc
-          "Fetch tags for imported images and webm from gelbooru."
-      ;
+          "Fetch tags for imported images and webm from gelbooru.";
     };
   };
 

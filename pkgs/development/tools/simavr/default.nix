@@ -24,8 +24,7 @@ let
           avrSuffixSalt = avrgcc.suffixSalt;
         };
       }
-      ./setup-hook-darwin.sh
-  ;
+      ./setup-hook-darwin.sh;
 in
 stdenv.mkDerivation rec {
   pname = "simavr";

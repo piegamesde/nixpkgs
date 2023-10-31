@@ -47,8 +47,7 @@ let
       let
         traceXIfNot = c: if c x then true else lib.traceSeqN 1 x false;
       in
-      traceXIfNot isConfig
-    ;
+      traceXIfNot isConfig;
     merge = args: foldr (def: mergeConfig def.value) { };
   };
 
@@ -78,12 +77,10 @@ let
   # Context for messages
   hostPlatformLine =
     optionalString hasHostPlatform
-      "${showOptionWithDefLocs opt.hostPlatform}"
-  ;
+      "${showOptionWithDefLocs opt.hostPlatform}";
   buildPlatformLine =
     optionalString hasBuildPlatform
-      "${showOptionWithDefLocs opt.buildPlatform}"
-  ;
+      "${showOptionWithDefLocs opt.buildPlatform}";
 
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
@@ -122,7 +119,10 @@ let
   ;
 
   finalPkgs =
-    if opt.pkgs.isDefined then cfg.pkgs.appendOverlays cfg.overlays else defaultPkgs
+    if opt.pkgs.isDefined then
+      cfg.pkgs.appendOverlays cfg.overlays
+    else
+      defaultPkgs
   ;
 in
 
@@ -235,8 +235,7 @@ in
       apply = lib.systems.elaborate;
       defaultText =
         literalExpression
-          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
-      ;
+          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
       description = lib.mdDoc ''
         Specifies the platform where the NixOS configuration will run.
 
@@ -285,8 +284,7 @@ in
       apply = lib.systems.elaborate;
       defaultText =
         literalExpression
-          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform''
-      ;
+          ''(import "''${nixos}/../lib").lib.systems.examples.aarch64-multiplatform'';
       description = lib.mdDoc ''
         Systems with a recently generated `hardware-configuration.nix`
         do not need to specify this option, unless cross-compiling, in which case

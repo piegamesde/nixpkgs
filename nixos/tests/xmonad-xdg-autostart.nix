@@ -29,8 +29,7 @@ import ./make-test-python.nix (
             '';
           })
         ];
-      }
-    ;
+      };
 
     testScript =
       { nodes, ... }:
@@ -40,7 +39,6 @@ import ./make-test-python.nix (
       ''
         machine.wait_for_x()
         machine.wait_for_file("${user.home}/xdg-autostart-executed")
-      ''
-    ;
+      '';
   }
 )

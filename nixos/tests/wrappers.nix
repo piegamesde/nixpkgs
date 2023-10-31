@@ -9,8 +9,7 @@ import ./make-test-python.nix (
         # Without this, the busybox binary drops euid to ruid for most applets, including id.
         # See https://bugs.busybox.net/show_bug.cgi?id=15101
         extraConfig = "CONFIG_FEATURE_SUID n";
-      }
-    ;
+      };
   in
   {
     name = "wrappers";
@@ -50,8 +49,7 @@ import ./make-test-python.nix (
             capabilities = "cap_chown+ep";
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       def cmd_as_regular(cmd):

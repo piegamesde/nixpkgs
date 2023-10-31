@@ -152,8 +152,7 @@ let
         }');
 
         ${cfg.extraConfig}
-    ''
-  ;
+    '';
 
   # tt-rss and plugins and themes and config.php
   servedRoot = pkgs.runCommand "tt-rss-served-root" { } ''

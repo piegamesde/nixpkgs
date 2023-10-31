@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
           name = "CVE-2021-38185-${suffix}.patch";
           url = "https://git.savannah.gnu.org/cgit/cpio.git/patch/?id=${rev}";
           inherit sha256;
-        }
-      ;
+        };
     in
     [
       (fp "1" "dd96882877721703e19272fe25034560b794061b"
@@ -41,8 +40,7 @@ stdenv.mkDerivation rec {
         url = "https://git.savannah.gnu.org/cgit/cpio.git/patch/?id=641d3f489cf6238bb916368d4ba0d9325a235afb";
         sha256 = "1ffawzxjw72kzpdwffi2y7pvibrmwf4jzrxdq9f4a75q6crl66iq";
       })
-    ]
-  ;
+    ];
 
   separateDebugInfo = true;
 

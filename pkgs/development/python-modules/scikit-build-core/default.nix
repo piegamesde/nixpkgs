@@ -44,8 +44,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonOlder "3.11") [
       exceptiongroup
       tomli
-    ]
-  ;
+    ];
 
   passthru.optional-dependencies = {
     pyproject = [

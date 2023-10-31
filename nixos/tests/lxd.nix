@@ -36,8 +36,7 @@ import ./make-test-python.nix (
           lxc.lxcfs.enable = true;
           lxd.enable = true;
         };
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("sockets.target")

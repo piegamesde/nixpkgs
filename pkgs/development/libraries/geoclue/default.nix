@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
       mesonEmulatorHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -101,8 +100,7 @@ stdenv.mkDerivation rec {
       "-Dcdma-source=false"
       "-Dmodem-gps-source=false"
       "-Dnmea-source=false"
-    ]
-  ;
+    ];
 
   postPatch = ''
     chmod +x demo/install-file.py

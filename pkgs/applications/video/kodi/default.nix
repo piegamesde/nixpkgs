@@ -14,8 +14,7 @@ unwrapped.overrideAttrs (
         callPackage ./wrapper.nix {
           kodi = unwrapped;
           addons = kodiPackages.requiredKodiAddons (func kodiPackages);
-        }
-      ;
+        };
     };
   }
 )

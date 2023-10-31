@@ -77,8 +77,7 @@ let
           '';
           description =
             lib.mdDoc
-              "Extra configuration to be appended to awstats.\${name}.conf."
-          ;
+              "Extra configuration to be appended to awstats.\${name}.conf.";
         };
 
         webService = {
@@ -97,8 +96,7 @@ let
           };
         };
       };
-    }
-  ;
+    };
   webServices = filterAttrs (name: value: value.webService.enable) cfg.configs;
 in
 {
@@ -241,8 +239,7 @@ in
             );
           }
         )
-        cfg.configs
-    ;
+        cfg.configs;
 
     # create data directory with the correct permissions
     systemd.tmpfiles.rules =
@@ -274,8 +271,7 @@ in
             };
           };
         })
-        webServices
-    ;
+        webServices;
 
     # update awstats
     systemd.services = mkIf (cfg.updateAt != null) (

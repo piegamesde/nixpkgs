@@ -54,8 +54,7 @@ in
       vm = lib.mkDefault config.virtualisation.vmVariant.system.build.vm;
       vmWithBootLoader =
         lib.mkDefault
-          config.virtualisation.vmVariantWithBootLoader.system.build.vm
-      ;
+          config.virtualisation.vmVariantWithBootLoader.system.build.vm;
     };
   };
 

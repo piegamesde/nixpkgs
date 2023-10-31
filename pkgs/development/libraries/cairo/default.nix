@@ -123,8 +123,7 @@ stdenv.mkDerivation (
           ApplicationServices
           Carbon
         ]
-      )
-    ;
+      );
 
     propagatedBuildInputs =
       [

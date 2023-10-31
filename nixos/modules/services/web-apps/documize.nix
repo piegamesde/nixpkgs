@@ -19,8 +19,7 @@ let
         template = " -${name} '${toString cfg.${name}}'";
       in
       optionalString predicate template
-    )
-  ;
+    );
 in
 {
   options.services.documize = {

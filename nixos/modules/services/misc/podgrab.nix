@@ -27,8 +27,7 @@ in
       example = 4242;
       description =
         lib.mdDoc
-          "The port on which Podgrab will listen for incoming HTTP traffic."
-      ;
+          "The port on which Podgrab will listen for incoming HTTP traffic.";
     };
   };
 

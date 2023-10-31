@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     ''
       sed -i -e "/AC_INIT/,+3d" configure.ac
       sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
-    ''
-  ;
+    '';
 
   postInstall = ''
     installManPage man/trietool.1

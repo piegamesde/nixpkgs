@@ -110,6 +110,5 @@ vmTools.runInLinuxImage (
           description = "Deb package for ${diskImage.fullName}";
         };
       }
-
   )
 )

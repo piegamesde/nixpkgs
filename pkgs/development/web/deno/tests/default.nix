@@ -48,8 +48,7 @@ let
           echo "$output" >&2
           exit 1
         fi
-      ''
-  ;
+      '';
 in
 (lib.mapAttrs testDenoRun {
   basic = {

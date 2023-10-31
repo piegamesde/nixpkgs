@@ -74,8 +74,7 @@ buildGoModule rec {
       libffi
       libxml2
       xar
-    ]
-  ;
+    ];
 
   doCheck = (stdenv.buildPlatform.canExecute stdenv.hostPlatform);
   inherit tinygoTests;
@@ -169,8 +168,7 @@ buildGoModule rec {
           ${tinygoForBuild} build-library -target=''${target#*eabi-} -o $finalRoot/pkg/$target/$lib $lib
         done
       done
-    ''
-  ;
+    '';
 
   checkPhase = lib.optionalString (tinygoTests != [ ] && tinygoTests != null) ''
     make ''${tinygoTests[@]} XTENSA=0 ${lib.optionalString stdenv.isDarwin "AVR=0"}

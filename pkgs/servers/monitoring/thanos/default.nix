@@ -30,8 +30,7 @@ buildGoModule rec {
       "-X ${t}.Branch=unknown"
       "-X ${t}.BuildUser=nix@nixpkgs"
       "-X ${t}.BuildDate=unknown"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Highly available Prometheus setup with long term storage capabilities";

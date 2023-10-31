@@ -177,13 +177,11 @@ in
       // optionalAttrs cfg.managementPlugin.enable {
         "management.tcp.port" = toString cfg.managementPlugin.port;
         "management.tcp.ip" = cfg.listenAddress;
-      }
-    ;
+      };
 
     services.rabbitmq.plugins =
       optional cfg.managementPlugin.enable
-        "rabbitmq_management"
-    ;
+        "rabbitmq_management";
 
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";
@@ -216,8 +214,7 @@ in
         }
         // optionalAttrs (cfg.config != "") {
           RABBITMQ_ADVANCED_CONFIG_FILE = advanced_config_file;
-        }
-      ;
+        };
 
       serviceConfig = {
         ExecStart = "${cfg.package}/sbin/rabbitmq-server";

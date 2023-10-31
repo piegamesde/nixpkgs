@@ -55,8 +55,7 @@ python.pkgs.buildPythonApplication rec {
       requirements.txt
       # only used for notebooks and visualization
       sed -r -i -e '/umap-learn/d' requirements.txt
-    ''
-  ;
+    '';
 
   nativeBuildInputs = with python.pkgs; [
     cython

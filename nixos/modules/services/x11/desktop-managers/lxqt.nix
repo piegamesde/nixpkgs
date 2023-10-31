@@ -32,8 +32,7 @@ in
       type = types.listOf types.package;
       description =
         lib.mdDoc
-          "Which LXQt packages to exclude from the default environment"
-      ;
+          "Which LXQt packages to exclude from the default environment";
     };
   };
 

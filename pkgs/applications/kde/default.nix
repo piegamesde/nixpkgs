@@ -57,8 +57,7 @@ let
           }
         ;
       }
-    )
-  ;
+    );
 
   packages =
     self:
@@ -270,7 +269,6 @@ let
       qmlkonsole = callPackage ./qmlkonsole.nix { };
       telly-skout = callPackage ./telly-skout.nix { };
       tokodon = callPackage ./tokodon.nix { };
-    }
-  ;
+    };
 in
 lib.makeScope libsForQt5.newScope packages

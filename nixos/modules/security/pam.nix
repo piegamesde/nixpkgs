@@ -367,8 +367,7 @@ let
           type = types.bool;
           description =
             lib.mdDoc
-              "Whether to log authentication failures in {file}`/var/log/faillog`."
-          ;
+              "Whether to log authentication failures in {file}`/var/log/faillog`.";
         };
 
         enableAppArmor = mkOption {
@@ -832,8 +831,7 @@ let
           ''
         );
       };
-    }
-  ;
+    };
 
   inherit (pkgs) pam_krb5 pam_ccreds;
 
@@ -858,8 +856,7 @@ let
           ''
         )
         limits
-    )
-  ;
+    );
 
   limitsType =
     with lib.types;
@@ -871,8 +868,7 @@ let
             domain = mkOption {
               description =
                 lib.mdDoc
-                  "Username, groupname, or wildcard this limit applies to"
-              ;
+                  "Username, groupname, or wildcard this limit applies to";
               example = "@wheel";
               type = str;
             };
@@ -921,8 +917,7 @@ let
           };
         }
       )
-    )
-  ;
+    );
 
   motd =
     if config.users.motdFile == null then
@@ -1399,8 +1394,7 @@ in
       type = types.nullOr types.path;
       description =
         lib.mdDoc
-          "A file containing the message of the day shown to users when they log in."
-      ;
+          "A file containing the message of the day shown to users when they log in.";
     };
   };
 
@@ -1483,8 +1477,7 @@ in
       // optionalAttrs (config.security.pam.enableFscrypt) {
         # Allow fscrypt to verify login passphrase
         fscrypt = { };
-      }
-    ;
+      };
 
     security.apparmor.includes."abstractions/pam" =
       let

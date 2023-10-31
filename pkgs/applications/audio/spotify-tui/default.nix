@@ -76,8 +76,7 @@ rustPlatform.buildRustPackage rec {
     in
     ''
       ln -s ${rspotify} ./rspotify-${rspotify.version}
-    ''
-  ;
+    '';
 
   cargoHash = "sha256-aZJ6Q/rvqrv+wvQw2eKFPnSROhI5vXPvr5pu1hwtZKA=";
 
@@ -86,8 +85,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isLinux [
       pkg-config
       python3
-    ]
-  ;
+    ];
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isLinux [

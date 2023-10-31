@@ -136,8 +136,7 @@ in
               str
               (listOf str)
             ]
-          )
-        ;
+          );
         default = { };
         description = lib.mdDoc ''
           Zabbix Agent configuration. Refer to

@@ -81,8 +81,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-DHAVE_C99_VSNPRINTF_EXITCODE=0"
       "-DHAVE_C99_VSNPRINTF_EXITCODE__TRYRUN_OUTPUT="
-    ]
-  ;
+    ];
 
   # Avoid referencing -dev paths because of debug assertions.
   env.NIX_CFLAGS_COMPILE = toString [ "-DQT_NO_DEBUG" ];
@@ -102,8 +101,7 @@ stdenv.mkDerivation {
     ++ lib.optionals withQt [
       qt5.wrapQtAppsHook
       wrapGAppsHook
-    ]
-  ;
+    ];
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

@@ -170,8 +170,7 @@ stdenv.mkDerivation rec {
       xcbuild
       llvmPackages.llvm
       python3.pkgs.setuptools
-    ]
-  ;
+    ];
   buildInputs = [
     glib
     icu

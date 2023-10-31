@@ -135,8 +135,7 @@ stdenv.mkDerivation rec {
       # Needs xcode so compilation fails with it enabled. We would want the version to be fixed anyways.
       # Note: The updater isn't available on linux, so we dont need to disable it there.
       "-DENABLE_AUTOUPDATE=OFF"
-    ]
-  ;
+    ];
 
   qtWrapperArgs = lib.optionals stdenv.isLinux [
     "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}"

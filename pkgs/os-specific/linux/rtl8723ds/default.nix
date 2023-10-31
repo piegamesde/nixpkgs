@@ -25,8 +25,7 @@ stdenv.mkDerivation {
     [ "ARCH=${stdenv.hostPlatform.linuxArch}" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-    ]
-  ;
+    ];
 
   postPatch = ''
     substituteInPlace ./Makefile \

@@ -117,8 +117,7 @@ rec {
           # user's *real* homedir via /etc/passwd, making it more painful
           # to fake
           "test_receive_mode_webhook"
-        ]
-    ;
+        ];
   };
 
   onionshare-gui = buildPythonApplication {

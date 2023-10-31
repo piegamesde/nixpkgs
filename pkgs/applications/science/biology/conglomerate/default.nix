@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
         GetoptTabular
         MNI-Perllib
       ]
-    )
-  ;
+    );
 
   cmakeFlags = [
     "-DLIBMINC_DIR=${libminc}/lib/cmake"

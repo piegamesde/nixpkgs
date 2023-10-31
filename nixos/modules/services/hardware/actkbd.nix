@@ -63,8 +63,7 @@ let
           description = lib.mdDoc "What to run.";
         };
       };
-    }
-  ;
+    };
 in
 
 {

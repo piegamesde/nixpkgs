@@ -39,8 +39,7 @@ let
             description = "Flat key-value file";
           };
         in
-        attrsOf valueType
-      ;
+        attrsOf valueType;
 
       generate =
         name: value:
@@ -48,10 +47,8 @@ let
           lib.concatStringsSep "\n" (
             lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value
           )
-        )
-      ;
-    }
-  ;
+        );
+    };
 
   initTool = pkgs.writeShellScriptBin "mfsmaster-init" ''
     if [ ! -e ${cfg.master.settings.DATA_PATH}/metadata.mfs ]; then
@@ -69,14 +66,12 @@ let
   # metalogger config file
   metaloggerCfg =
     settingsFormat.generate "mfsmetalogger.cfg"
-      cfg.metalogger.settings
-  ;
+      cfg.metalogger.settings;
 
   # chunkserver config file
   chunkserverCfg =
     settingsFormat.generate "mfschunkserver.cfg"
-      cfg.chunkserver.settings
-  ;
+      cfg.chunkserver.settings;
 
   # generic template for all daemons
   systemdService = name: extraConfig: configFile: {
@@ -142,8 +137,7 @@ in
           type = types.bool;
           description =
             lib.mdDoc
-              "Whether to automatically open the necessary ports in the firewall."
-          ;
+              "Whether to automatically open the necessary ports in the firewall.";
           default = false;
         };
 
@@ -178,8 +172,7 @@ in
 
           description =
             lib.mdDoc
-              "Contents of metalogger config file (mfsmetalogger.cfg)."
-          ;
+              "Contents of metalogger config file (mfsmetalogger.cfg).";
         };
       };
 
@@ -190,8 +183,7 @@ in
           type = types.bool;
           description =
             lib.mdDoc
-              "Whether to automatically open the necessary ports in the firewall."
-          ;
+              "Whether to automatically open the necessary ports in the firewall.";
           default = false;
         };
 
@@ -200,8 +192,7 @@ in
           default = null;
           description =
             lib.mdDoc
-              "Mount points to be used by chunkserver for storage (see mfshdd.cfg)."
-          ;
+              "Mount points to be used by chunkserver for storage (see mfshdd.cfg).";
           example = [ "/mnt/hdd1" ];
         };
 
@@ -218,8 +209,7 @@ in
 
           description =
             lib.mdDoc
-              "Contents of chunkserver config file (mfschunkserver.cfg)."
-          ;
+              "Contents of chunkserver config file (mfschunkserver.cfg).";
         };
       };
     };
@@ -278,8 +268,7 @@ in
                 group = "moosefs";
               };
               groups.moosefs = { };
-            }
-        ;
+            };
 
         environment.systemPackages =
           (lib.optional cfg.client.enable pkgs.moosefs)
@@ -325,6 +314,5 @@ in
         systemd.services.mfs-chunkserver = mkIf cfg.chunkserver.enable (
           systemdService "chunkserver" { Restart = "on-abnormal"; } chunkserverCfg
         );
-      }
-  ;
+      };
 }

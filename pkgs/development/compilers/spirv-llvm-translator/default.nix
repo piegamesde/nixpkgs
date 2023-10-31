@@ -69,8 +69,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals (llvmMajor != "11") [
       "-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR=${spirv-headers.src}"
-    ]
-  ;
+    ];
 
   # FIXME: CMake tries to run "/llvm-lit" which of course doesn't exist
   doCheck = false;

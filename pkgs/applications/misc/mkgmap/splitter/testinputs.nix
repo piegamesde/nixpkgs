@@ -6,8 +6,7 @@ let
       inherit sha256;
       url = "https://www.mkgmap.org.uk/testinput/${res}";
       name = builtins.replaceStrings [ "/" ] [ "__" ] res;
-    }
-  ;
+    };
 in
 [
   (fetchTestInput {

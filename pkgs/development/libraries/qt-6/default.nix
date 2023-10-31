@@ -191,8 +191,7 @@ let
             name = "wrap-qt6-apps-hook";
             propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
           }
-          ./hooks/wrap-qt-apps-hook.sh
-      ;
+          ./hooks/wrap-qt-apps-hook.sh;
 
       qmake =
         makeSetupHook
@@ -204,10 +203,8 @@ let
               fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
             };
           }
-          ./hooks/qmake-hook.sh
-      ;
-    }
-  ;
+          ./hooks/qmake-hook.sh;
+    };
 
   # TODO(@Artturin): convert to makeScopeWithSplicing
   # simple example of how to do that in 5568a4d25ca406809530420996d57e0876ca1a01

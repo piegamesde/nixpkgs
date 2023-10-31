@@ -39,11 +39,9 @@ import ./make-test-python.nix (
         };
         boot.extraModulePackages =
           optional (versionOlder config.boot.kernelPackages.kernel.version "5.6")
-            config.boot.kernelPackages.wireguard
-        ;
+            config.boot.kernelPackages.wireguard;
         boot.kernelModules = [ "wireguard" ];
-      }
-    ;
+      };
 
     testScript =
       let
@@ -113,7 +111,6 @@ import ./make-test-python.nix (
 
         with subtest("The hardened memory allocator works"):
             machine.succeed("${hardened-malloc-tests}/bin/run-tests")
-      ''
-    ;
+      '';
   }
 )

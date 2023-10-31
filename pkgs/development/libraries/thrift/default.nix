@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ boost ]
-    ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ]
-  ;
+    ++ lib.optionals (!static) [ (python3.withPackages (ps: [ ps.twisted ])) ];
 
   propagatedBuildInputs = [
     libevent
@@ -93,8 +92,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals static [
       "-DWITH_STATIC_LIB:BOOL=ON"
       "-DOPENSSL_USE_STATIC_LIBS=ON"
-    ]
-  ;
+    ];
 
   disabledTests =
     [
@@ -117,8 +115,7 @@ stdenv.mkDerivation rec {
       "StressTest"
       "StressTestConcurrent"
       "StressTestNonBlocking"
-    ]
-  ;
+    ];
 
   doCheck = !static;
 

@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ libressl ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ memstreamHook ]
-  ;
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ memstreamHook ];
 
   meta = {
     description = "Mirror notes to IMAP";

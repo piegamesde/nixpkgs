@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
 
   preFixup =
     lib.optionalString (aria2 != null)
-      ''gappsWrapperArgs+=(--suffix PATH : "${aria2}/bin")''
-  ;
+      ''gappsWrapperArgs+=(--suffix PATH : "${aria2}/bin")'';
 
   meta = with lib; {
     description = "Download manager using GTK and libcurl";

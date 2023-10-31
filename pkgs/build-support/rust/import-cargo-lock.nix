@@ -90,8 +90,7 @@ let
     {
       name = "${pkg.name}-${pkg.version}";
       value = gitParts.sha;
-    }
-  ;
+    };
 
   # Convert the attrset provided through the `outputHashes` argument to a
   # a mapping from git commit SHA -> output hash.
@@ -108,8 +107,7 @@ let
         let
           unusedHash =
             throw
-              "A hash was specified for ${nameVer}, but there is no corresponding git dependency."
-          ;
+              "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
           rev = namesGitShas.${nameVer} or unusedHash;
         in
         {
@@ -117,8 +115,7 @@ let
           value = hash;
         }
       )
-      outputHashes
-  ;
+      outputHashes;
 
   # We can't use the existing fetchCrate function, since it uses a
   # recursive hash of the unpacked crate.
@@ -136,8 +133,7 @@ let
       name = "crate-${pkg.name}-${pkg.version}.tar.gz";
       url = "${downloadUrl}/${pkg.name}/${pkg.version}/download";
       sha256 = checksum;
-    }
-  ;
+    };
 
   registries = {
     "https://github.com/rust-lang/crates.io-index" = "https://crates.io/api/v1/crates";
@@ -153,8 +149,7 @@ let
         ];
         flakeIgnore = [ "E501" ];
       }
-      (builtins.readFile ./replace-workspace-values.py)
-  ;
+      (builtins.readFile ./replace-workspace-values.py);
 
   # Fetch and unpack a crate.
   mkCrate =
@@ -320,7 +315,6 @@ let
                 fi
               fi
             done
-      ''
-  ;
+      '';
 in
 vendorDir

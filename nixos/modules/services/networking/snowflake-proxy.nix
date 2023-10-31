@@ -18,8 +18,7 @@ in
       broker = mkOption {
         description =
           lib.mdDoc
-            ''Broker URL (default "https://snowflake-broker.torproject.net/")''
-        ;
+            ''Broker URL (default "https://snowflake-broker.torproject.net/")'';
         type = with types; nullOr str;
         default = null;
       };
@@ -27,8 +26,7 @@ in
       capacity = mkOption {
         description =
           lib.mdDoc
-            "Limits the amount of maximum concurrent clients allowed."
-        ;
+            "Limits the amount of maximum concurrent clients allowed.";
         type = with types; nullOr int;
         default = null;
       };
@@ -36,8 +34,7 @@ in
       relay = mkOption {
         description =
           lib.mdDoc
-            ''websocket relay URL (default "wss://snowflake.bamsoftware.com/")''
-        ;
+            ''websocket relay URL (default "wss://snowflake.bamsoftware.com/")'';
         type = with types; nullOr str;
         default = null;
       };
@@ -45,8 +42,7 @@ in
       stun = mkOption {
         description =
           lib.mdDoc
-            ''STUN broker URL (default "stun:stun.stunprotocol.org:3478")''
-        ;
+            ''STUN broker URL (default "stun:stun.stunprotocol.org:3478")'';
         type = with types; nullOr str;
         default = null;
       };

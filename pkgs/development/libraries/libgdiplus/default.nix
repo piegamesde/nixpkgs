@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional stdenv.cc.isClang
-      "--host=${stdenv.hostPlatform.system}"
-  ;
+      "--host=${stdenv.hostPlatform.system}";
 
   enableParallelBuilding = true;
 

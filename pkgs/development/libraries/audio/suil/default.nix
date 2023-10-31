@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         qtbase
         qttools
       ]
-    )
-  ;
+    );
 
   dontWrapQtApps = true;
 

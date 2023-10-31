@@ -24,8 +24,7 @@ import ./make-test-python.nix (
               networking.firewall.enable = false;
             };
           };
-        }
-      ;
+        };
       bridged =
         { ... }:
         {
@@ -44,8 +43,7 @@ import ./make-test-python.nix (
               networking.firewall.enable = false;
             };
           };
-        }
-      ;
+        };
 
       bonded =
         { ... }:
@@ -68,8 +66,7 @@ import ./make-test-python.nix (
               networking.firewall.enable = false;
             };
           };
-        }
-      ;
+        };
 
       bridgedbond =
         { ... }:
@@ -93,8 +90,7 @@ import ./make-test-python.nix (
               networking.firewall.enable = false;
             };
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

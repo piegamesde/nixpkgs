@@ -59,11 +59,9 @@ in
             ])
             // {
               description = "string, package, bool, int or float";
-            }
-          ;
+            };
         in
-        attrsOf elemType
-      ;
+        attrsOf elemType;
 
       generate =
         name: value:
@@ -135,8 +133,7 @@ in
                   | gsub("\r"; "\\r")
                 '';
               in
-              main
-            ;
+              main;
 
             inputEncoding = "UTF-8";
 
@@ -149,8 +146,6 @@ in
               jq -r --arg hash '#' "$jqCode" "$valuePath" \
                 | iconv --from-code "$inputEncoding" --to-code JAVA \
             ) > "$out"
-          ''
-      ;
-    }
-  ;
+          '';
+    };
 }

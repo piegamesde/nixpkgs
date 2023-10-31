@@ -33,8 +33,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isLinux [
       xclip
       xvfb-run
-    ]
-  ;
+    ];
 
   checkPhase = ''
     runHook preCheck

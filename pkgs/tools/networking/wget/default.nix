@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       [
         # https://lists.gnu.org/archive/html/bug-wget/2021-01/msg00076.html
         "--without-included-regex"
-      ]
-  ;
+      ];
 
   doCheck = false;
 

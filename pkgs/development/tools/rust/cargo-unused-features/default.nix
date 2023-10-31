@@ -35,8 +35,7 @@ rustPlatform.buildRustPackage rec {
         CoreFoundation
         Security
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A tool to find potential unused enabled feature flags and prune them";

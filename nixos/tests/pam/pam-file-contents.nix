@@ -21,8 +21,7 @@ import ../make-test-python.nix (
             };
           };
         };
-      }
-    ;
+      };
 
     testScript =
       builtins.replaceStrings
@@ -34,7 +33,6 @@ import ../make-test-python.nix (
           pkgs.pam_ccreds.outPath
           pkgs.pam_krb5.outPath
         ]
-        (builtins.readFile ./test_chfn.py)
-    ;
+        (builtins.readFile ./test_chfn.py);
   }
 )

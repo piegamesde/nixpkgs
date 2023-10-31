@@ -16,8 +16,7 @@ let
           optionalString stdenv.is64bit "-x86-64"
         }.so.2 \
         ${file}
-    ''
-  ;
+    '';
 
   udevRules = callPackage ./udev_rules_type1.nix { };
 in

@@ -36,8 +36,7 @@ rustPlatform.buildRustPackage rec {
         ]
       else
         [ openssl ]
-    )
-  ;
+    );
 
   meta = with lib; {
     homepage = "https://codeberg.org/elomatreb/listenbrainz-mpd";

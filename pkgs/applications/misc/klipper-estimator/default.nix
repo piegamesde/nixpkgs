@@ -27,8 +27,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       libgit2
       Security
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ pkg-config ];
 

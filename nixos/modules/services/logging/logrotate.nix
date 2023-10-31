@@ -61,8 +61,7 @@ let
     indent: settings:
     concatStringsSep (fixedWidthString indent " " "") (
       filter (x: x != null) (mapAttrsToList generateLine settings)
-    )
-  ;
+    );
 
   # generateSection includes a final newline hence weird closing brace
   mkConf =
@@ -142,8 +141,7 @@ let
   mailOption =
     optionalString
       (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
-      "--mail=${pkgs.mailutils}/bin/mail"
-  ;
+      "--mail=${pkgs.mailutils}/bin/mail";
 in
 {
   imports = [
@@ -221,8 +219,7 @@ in
                       str
                     ]
                   )
-                )
-              ;
+                );
 
               options = {
                 enable = mkEnableOption (lib.mdDoc "setting individual kill switch") // {

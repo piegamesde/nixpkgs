@@ -29,8 +29,7 @@ let
 
   hashedServices =
     mapAttrs' (name: service: nameValuePair (genRunnerName name service) service)
-      cfg.services
-  ;
+      cfg.services;
   configPath = ''"$HOME"/.gitlab-runner/config.toml'';
   configureScript = pkgs.writeShellApplication {
     name = "gitlab-runner-configure";
@@ -584,8 +583,7 @@ in
           n: v:
           "services.gitlab-runner.services.${n}.`registrationConfigFile` points to a file in Nix Store. You should use quoted absolute path to prevent this."
         )
-        (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services)
-    ;
+        (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services);
 
     environment.systemPackages = [ cfg.package ];
     systemd.services.gitlab-runner = {
@@ -628,8 +626,7 @@ in
           TimeoutStopSec = "${cfg.gracefulTimeout}";
           KillSignal = "SIGQUIT";
           KillMode = "process";
-        }
-      ;
+        };
     };
     # Enable periodic clear-docker-cache script
     systemd.services.gitlab-runner-clear-docker-cache =
@@ -657,13 +654,11 @@ in
           '';
 
           startAt = cfg.clear-docker-cache.dates;
-        }
-    ;
+        };
     # Enable docker if `docker` executor is used in any service
     virtualisation.docker.enable =
       mkIf (any (s: s.executor == "docker") (attrValues cfg.services))
-        (mkDefault true)
-    ;
+        (mkDefault true);
   };
   imports = [
     (mkRenamedOptionModule

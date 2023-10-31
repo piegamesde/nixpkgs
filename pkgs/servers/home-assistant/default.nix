@@ -359,8 +359,7 @@ let
 
   componentBuildInputs =
     lib.concatMap (component: getPackages component python.pkgs)
-      extraComponents
-  ;
+      extraComponents;
 
   # Ensure that we are using a consistent package set
   extraBuildInputs = extraPackages python.pkgs;
@@ -440,8 +439,7 @@ python.pkgs.buildPythonApplication rec {
         }
         pyproject.toml
       substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
-    ''
-  ;
+    '';
 
   propagatedBuildInputs = with python.pkgs; [
     # Only packages required in pyproject.toml

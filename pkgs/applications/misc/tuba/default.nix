@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
         (gst-plugins-good.override { gtkSupport = true; })
         gst-plugins-bad
       ]
-    )
-  ;
+    );
 
   passthru = {
     updateScript = nix-update-script { attrPath = "tuba"; };

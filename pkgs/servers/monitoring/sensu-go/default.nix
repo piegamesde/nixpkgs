@@ -37,8 +37,7 @@ let
         [
           "-X ${versionPkg}.Version=${version}"
           "-X ${versionPkg}.BuildSHA=${shortRev}"
-        ]
-      ;
+        ];
 
       meta = {
         inherit mainProgram;
@@ -47,8 +46,7 @@ let
         license = lib.licenses.mit;
         maintainers = with lib.maintainers; [ thefloweringash ];
       };
-    }
-  ;
+    };
 in
 {
   sensu-go-cli = generic {

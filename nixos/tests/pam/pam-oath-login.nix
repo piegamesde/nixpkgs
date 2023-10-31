@@ -52,8 +52,7 @@ import ../make-test-python.nix (
             echo "HOTP/E/6 alice - ${oathSnakeoilSecret}" > /etc/users.oath
           '';
         };
-      }
-    ;
+      };
 
     testScript = ''
       def switch_to_tty(tty_number):

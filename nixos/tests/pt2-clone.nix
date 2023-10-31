@@ -12,8 +12,7 @@ import ./make-test-python.nix (
         services.xserver.enable = true;
         sound.enable = true;
         environment.systemPackages = [ pkgs.pt2-clone ];
-      }
-    ;
+      };
 
     enableOCR = true;
 

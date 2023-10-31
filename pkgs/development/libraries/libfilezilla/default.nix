@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       ApplicationServices
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

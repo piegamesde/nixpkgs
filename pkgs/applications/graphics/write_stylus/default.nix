@@ -65,8 +65,7 @@ mkDerivation rec {
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${libPath}" \
         $out/Write/Write
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "http://www.styluslabs.com/";

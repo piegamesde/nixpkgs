@@ -18,15 +18,13 @@ import ./make-test-python.nix (
               c = memcache.Client(['localhost:11211'])
               c.set('key', 'value')
               assert 'value' == c.get('key')
-            ''
-        ;
+            '';
       in
       ''
         machine.start()
         machine.wait_for_unit("memcached.service")
         machine.wait_for_open_port(11211)
         machine.succeed("${testScript}")
-      ''
-    ;
+      '';
   }
 )

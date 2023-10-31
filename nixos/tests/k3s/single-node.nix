@@ -80,8 +80,7 @@ import ../make-test-python.nix (
             password = "*";
           };
         };
-      }
-    ;
+      };
 
     testScript =
       ''

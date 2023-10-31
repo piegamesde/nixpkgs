@@ -41,8 +41,7 @@ with lib;
   # This is required by podman to run containers in rootless mode.
   security.unprivilegedUsernsClone =
     mkDefault
-      config.virtualisation.containers.enable
-  ;
+      config.virtualisation.containers.enable;
 
   security.virtualisation.flushL1DataCache = mkDefault "always";
 

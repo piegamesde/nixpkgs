@@ -101,8 +101,7 @@ let
         gnome_vfs
         GConf
         glib
-      ]
-    ;
+      ];
 
     patches = [
       ./fix-java-home-jdk10.patch

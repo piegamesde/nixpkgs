@@ -61,8 +61,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options."
-        ;
+            "Defines the path to a custom configuration file that is copied to the user's directory. Overrides any config options.";
       };
 
       network = mkOption {
@@ -113,8 +112,7 @@ in
           default = "password";
           description =
             lib.mdDoc
-              "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed."
-          ;
+              "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed.";
         };
 
         passwordFile = mkOption {
@@ -167,7 +165,8 @@ in
               cat ${cfg.dataDir}/.walletwasabi/backend/Config.json | ${pkgs.jq}/bin/jq --arg rpconnection "${cfg.rpc.user}:$(cat "${cfg.rpc.passwordFile}")" '. + { BitcoinRpcConnectionString: $rpconnection }' > $CONFIGTMP
               mv $CONFIGTMP ${cfg.dataDir}/.walletwasabi/backend/Config.json
             ''}
-          ''}
+          ''
+        }
         chmod ug+w ${cfg.dataDir}/.walletwasabi/backend/Config.json
       '';
       serviceConfig = {

@@ -25,8 +25,7 @@ let
           autoAcceptFolders
         ;
       })
-      cfg.devices
-  ;
+      cfg.devices;
 
   folders =
     mapAttrsToList
@@ -45,8 +44,7 @@ let
         ignoreDelete = folder.ignoreDelete;
         versioning = folder.versioning;
       })
-      (filterAttrs (_: folder: folder.enable) cfg.folders)
-  ;
+      (filterAttrs (_: folder: folder.enable) cfg.folders);
 
   updateConfig = pkgs.writers.writeDash "merge-syncthing-config" ''
     set -efu
@@ -366,8 +364,7 @@ in
                           };
                         };
                       }
-                    )
-                  ;
+                    );
                 };
 
                 rescanInterval = mkOption {
@@ -543,8 +540,7 @@ in
 
                   config.${opt.dataDir}
           '';
-        }
-      ;
+        };
 
       extraFlags = mkOption {
         type = types.listOf types.str;
@@ -619,8 +615,7 @@ in
         "overrideDevices"
         "overrideFolders"
         "extraOptions"
-      ]
-  ;
+      ];
 
   ###### implementation
 
@@ -684,8 +679,7 @@ in
                     } ${cfg.configDir}/key.pem
                   ''}
                 ''
-              }"
-          ;
+              }";
           ExecStart = ''
             ${cfg.package}/bin/syncthing \
               -no-browser \
@@ -731,8 +725,7 @@ in
               Type = "oneshot";
               ExecStart = updateConfig;
             };
-          }
-      ;
+          };
 
       syncthing-resume = {
         wantedBy = [ "suspend.target" ];

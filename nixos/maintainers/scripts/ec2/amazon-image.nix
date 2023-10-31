@@ -27,8 +27,7 @@ in
           "255"
       ;
     in
-    [ "nvme_core.io_timeout=${timeout}" ]
-  ;
+    [ "nvme_core.io_timeout=${timeout}" ];
 
   options.amazonImage = {
     name = mkOption {
@@ -175,6 +174,5 @@ in
         '';
       };
     in
-    if config.ec2.zfs.enable then zfsBuilder else extBuilder
-  ;
+    if config.ec2.zfs.enable then zfsBuilder else extBuilder;
 }

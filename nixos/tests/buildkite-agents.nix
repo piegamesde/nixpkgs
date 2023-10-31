@@ -17,8 +17,7 @@ import ./make-test-python.nix (
             tokenPath = (pkgs.writeText "my-token" "1234");
           };
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

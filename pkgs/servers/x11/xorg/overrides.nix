@@ -56,8 +56,7 @@ let
 
   malloc0ReturnsNullCrossFlag =
     lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "--enable-malloc0returnsnull"
-  ;
+      "--enable-malloc0returnsnull";
 
   brokenOnDarwin =
     pkg:
@@ -67,8 +66,7 @@ let
           broken = isDarwin;
         };
       }
-    )
-  ;
+    );
 in
 self: super:
 {
@@ -102,8 +100,7 @@ self: super:
             ''
           )
       )
-      { }
-  ;
+      { };
 
   bdftopcf = super.bdftopcf.overrideAttrs (
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; }
@@ -181,8 +178,7 @@ self: super:
         [ buildPackages.stdenv.cc ]
         ++ lib.optionals stdenv.hostPlatform.isStatic [
           (xorg.buildPackages.stdenv.cc.libc.static or null)
-        ]
-      ;
+        ];
       preConfigure = ''
         sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
       '';
@@ -1096,16 +1092,14 @@ self: super:
           .
           w
           EOF
-        ''
-      ;
+        '';
     in
     xorg.xkeyboardconfig.overrideAttrs (
       old: {
         buildInputs = old.buildInputs ++ [ automake ];
         postPatch = with lib; concatStrings (mapAttrsToList patchIn layouts);
       }
-    )
-  ;
+    );
 
   xlsfonts = super.xlsfonts.overrideAttrs (
     attrs: {
@@ -1198,8 +1192,7 @@ self: super:
                 inherit sha256;
               }
               // lib.optionalAttrs (name != null) { name = name + ".patch"; }
-            )
-          ;
+            );
         in
         if (!isDarwin) then
           {
@@ -1248,8 +1241,7 @@ self: super:
                 [
                   # Needed with GCC 12
                   "-Wno-error=array-bounds"
-                ]
-            ;
+                ];
 
             postInstall = ''
               rm -fr $out/share/X11/xkb/compiled # otherwise X will try to write in it
@@ -1347,8 +1339,7 @@ self: super:
             passthru.version = version;
           }
       )
-    )
-  ;
+    );
 
   lndir = super.lndir.overrideAttrs (
     attrs: {
@@ -1412,8 +1403,7 @@ self: super:
               "--with-bundle-id-prefix=org.nixos.xquartz"
               "--with-launchdaemons-dir=\${out}/LaunchDaemons"
               "--with-launchagents-dir=\${out}/LaunchAgents"
-            ]
-          ;
+            ];
           patches =
             [
               # don't unset DBUS_SESSION_BUS_ADDRESS in startx
@@ -1441,8 +1431,7 @@ self: super:
               --replace $out/etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc
           '';
         }
-      )
-  ;
+      );
 
   xf86videointel = super.xf86videointel.overrideAttrs (
     attrs: {
@@ -1615,13 +1604,11 @@ self: super:
             inherit license;
           };
         }
-      )
-    ;
+      );
     mapNamesToAttrs =
       f: names:
       with lib;
-      listToAttrs (zipListsWith nameValuePair names (map f names))
-    ;
+      listToAttrs (zipListsWith nameValuePair names (map f names));
   in
   mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
   // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree

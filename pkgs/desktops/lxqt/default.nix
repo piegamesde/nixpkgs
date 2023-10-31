@@ -108,7 +108,6 @@ let
         ### Screen saver
         pkgs.xscreensaver
       ];
-    }
-  ;
+    };
 in
 makeScope libsForQt5.newScope packages

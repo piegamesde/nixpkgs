@@ -183,8 +183,7 @@ let
           yorickvp
         ];
       };
-    }
-  ;
+    };
 
   pjproject_2_13 =
     fetchurl {
@@ -193,8 +192,7 @@ let
     }
     // {
       pjsip_patches = pjsip_2_13_patches;
-    }
-  ;
+    };
 
   mp3-202 = fetchsvn {
     url = "http://svn.digium.com/svn/thirdparty/mp3/trunk";
@@ -228,8 +226,7 @@ let
           };
         }
       )
-      (lib.importJSON ./versions.json)
-  ;
+      (lib.importJSON ./versions.json);
 
   updateScript_python = python39.withPackages (
     p:

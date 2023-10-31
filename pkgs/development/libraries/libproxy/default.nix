@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
           url = "https://github.com/libproxy/libproxy/commit/4331b9db427ce2c25ff5eeb597bec4bc35ed1a0b.patch";
           sha256 = "sha256-uTh3rYVvEke1iWVHsT3Zj2H1F+gyLrffcmyt0JEKaCA=";
         })
-      ]
-  ;
+      ];
 
   outputs = [
     "out"
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
       "-DPYTHON3_SITEPKG_DIR=${placeholder "py3"}/${python3.sitePackages}"
     ]
     ++ lib.optional (enableJavaScript && !stdenv.hostPlatform.isDarwin)
-      "-DWITH_MOZJS=ON"
-  ;
+      "-DWITH_MOZJS=ON";
 
   postFixup = lib.optionalString stdenv.isLinux ''
     # config_gnome3 uses the helper to find GNOME proxy settings

@@ -74,8 +74,7 @@ let
           hyperlinkSource = false; # Avoid depending on hscolour for this build.
           postFixup = "rm -rf $out/lib $out/share $out/nix-support";
         })
-        self.buildHaskellPackages.hscolour
-    ;
+        self.buildHaskellPackages.hscolour;
     cpphs =
       overrideCabal
         (drv: {
@@ -95,12 +94,10 @@ let
                     doHaddock = false;
                     useCpphs = false;
                   }
-                )
-              ;
+                );
             }
           )
-        )
-    ;
+        );
   };
 
   mkDerivation = makeOverridable mkDerivationImpl;
@@ -142,13 +139,11 @@ let
             # then we wouldn't look up any packages in the scope in the next interation, because it
             # appears as if all arguments were already manually passed, so the scope change would do
             # nothing.
-            callPackageWithScope newScope drv manualArgs
-          ;
+            callPackageWithScope newScope drv manualArgs;
         }
       ;
     in
-    lib.makeOverridable drvScope (auto // manualArgs)
-  ;
+    lib.makeOverridable drvScope (auto // manualArgs);
 
   mkScope =
     scope:
@@ -166,11 +161,9 @@ let
         // {
           # Don't splice these
           inherit (scope) ghc buildHaskellPackages;
-        }
-      ;
+        };
     in
-    ps // ps.xorg // ps.gnome2 // { inherit stdenv; } // scopeSpliced
-  ;
+    ps // ps.xorg // ps.gnome2 // { inherit stdenv; } // scopeSpliced;
   defaultScope = mkScope self;
   callPackage = drv: args: callPackageWithScope defaultScope drv args;
 
@@ -193,15 +186,13 @@ let
         LANG = "en_US.UTF-8";
         LOCALE_ARCHIVE =
           pkgs.lib.optionalString (buildPlatform.libc == "glibc")
-            "${buildPackages.glibcLocales}/lib/locale/locale-archive"
-        ;
+            "${buildPackages.glibcLocales}/lib/locale/locale-archive";
       }
       ''
         export HOME="$TMP"
         mkdir -p "$out"
         cabal2nix --compiler=${self.ghc.haskellCompilerName} --system=${hostPlatform.config} ${sha256Arg} "${src}" ${extraCabal2nixOptions} > "$out/default.nix"
-      ''
-  ;
+      '';
 
   # Given a package name and version, e.g. name = "async", version = "2.2.4",
   # gives its cabal file and hashes (JSON file) as discovered from the
@@ -219,8 +210,7 @@ let
         tar --wildcards -xzvf ${all-cabal-hashes} \*/${name}/${version}/${name}.{json,cabal}
         mv */${name}/${version}/${name}.{json,cabal} $out
       fi
-    ''
-  ;
+    '';
 
   hackage2nix =
     name: version:
@@ -232,8 +222,7 @@ let
       sha256 = ''
         $(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")'';
       src = "${component}/${name}.cabal";
-    }
-  ;
+    };
 
   # Adds a nix file derived from cabal2nix in the passthru of the derivation it
   # produces. This is useful to debug callHackage / callCabal2nix by looking at
@@ -252,8 +241,7 @@ let
           cabal2nixDeriver = src;
         };
       })
-      (self.callPackage src args)
-  ;
+      (self.callPackage src args);
 in
 package-set { inherit pkgs lib callPackage; } self
 // {
@@ -298,8 +286,7 @@ package-set { inherit pkgs lib callPackage; } self
         url = "mirror://hackage/${pkgver}/${pkgver}.tar.gz";
         inherit sha256;
       }
-    )
-  ;
+    );
 
   # Creates a Haskell package from a source package by calling cabal2nix on the source.
   callCabal2nixWithOptions =
@@ -307,8 +294,7 @@ package-set { inherit pkgs lib callPackage; } self
     let
       filter =
         path: type:
-        pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml"
-      ;
+        pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
       expr = self.haskellSrc2nix {
         inherit name extraCabal2nixOptions;
         src =
@@ -319,13 +305,11 @@ package-set { inherit pkgs lib callPackage; } self
         ;
       };
     in
-    overrideCabal (orig: { inherit src; }) (callPackageKeepDeriver expr args)
-  ;
+    overrideCabal (orig: { inherit src; }) (callPackageKeepDeriver expr args);
 
   callCabal2nix =
     name: src: args:
-    self.callCabal2nixWithOptions name src "" args
-  ;
+    self.callCabal2nixWithOptions name src "" args;
 
   # : { root : Path
   #   , name : Defaulted String
@@ -377,8 +361,7 @@ package-set { inherit pkgs lib callPackage; } self
           name
           root
           cabal2nixOptions
-          { }
-      ;
+          { };
     in
     if returnShellEnv then
       (modifier drv).envFunc { inherit withHoogle; }
@@ -420,8 +403,7 @@ package-set { inherit pkgs lib callPackage; } self
     }:
     lib.warn "hoogleLocal is deprecated, use hoogleWithPackages instead" (
       self.hoogleWithPackages (_: packages)
-    )
-  ;
+    );
   # This is like a combination of ghcWithPackages and hoogleWithPackages.
   # It provides a derivation containing both GHC and Hoogle with an index of
   # the given Haskell package database.
@@ -673,8 +655,7 @@ package-set { inherit pkgs lib callPackage; } self
           old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
         buildInputs = old.buildInputs ++ mkDerivationArgs.buildInputs or [ ];
       }
-    )
-  ;
+    );
 
   ghc = ghc // {
     withPackages = self.ghcWithPackages;
@@ -711,8 +692,7 @@ package-set { inherit pkgs lib callPackage; } self
         mkdir out
         HOME=$PWD cabal sdist --output-directory out
         mv out/*.tar.gz $out
-      ''
-  ;
+      '';
 
   /* Like `haskell.lib.buildFromSdist`, but using `cabal sdist` instead of
      building `./Setup`.
@@ -727,8 +707,7 @@ package-set { inherit pkgs lib callPackage; } self
         src = self.cabalSdist { inherit (pkg) src; };
         version = pkg.version;
       }
-      pkg
-  ;
+      pkg;
 
   /* Modify a Haskell package to add shell completion scripts for the
      given executables produced by it. These completion scripts will be
@@ -759,6 +738,5 @@ package-set { inherit pkgs lib callPackage; } self
         else
           pkg
       )
-      { }
-  ;
+      { };
 }

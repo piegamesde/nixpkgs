@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     in
     ''
       cd ${srcdir}
-    ''
-  ;
+    '';
 
   preInstall =
     let
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
     in
     ''
       mkdir -p $out/${bindir} $out/${mandir}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description =

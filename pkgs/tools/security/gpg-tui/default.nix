@@ -49,8 +49,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       libobjc
       libresolv
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Terminal user interface for GnuPG";

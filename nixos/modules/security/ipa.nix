@@ -23,8 +23,7 @@ let
         mkdir -p $out
         certutil -d $out -N --empty-password
         certutil -d $out -A --empty-password -n "${cfg.realm} IPA CA" -t CT,C,C -i ${cfg.certificate}
-      ''
-  ;
+      '';
 in
 {
   options = {
@@ -76,8 +75,7 @@ in
         default = true;
         description =
           lib.mdDoc
-            "Whether to store offline passwords when the server is down."
-        ;
+            "Whether to store offline passwords when the server is down.";
       };
 
       cacheCredentials = mkOption {
@@ -91,8 +89,7 @@ in
         default = [ "root" ];
         description =
           lib.mdDoc
-            "A list of users allowed to access the ifp dbus interface."
-        ;
+            "A list of users allowed to access the ifp dbus interface.";
       };
 
       dyndns = {
@@ -108,8 +105,7 @@ in
           default = "*";
           description =
             lib.mdDoc
-              "Network interface to perform hostname updates through."
-          ;
+              "Network interface to perform hostname updates through.";
         };
       };
 
@@ -191,8 +187,7 @@ in
           text = ''
             { "AuthServerWhitelist": "*.${cfg.domain}" }
           '';
-        }
-    ;
+        };
 
     system.activationScripts.ipa = stringAfter [ "etc" ] ''
       # libcurl requires a hard copy of the certificate

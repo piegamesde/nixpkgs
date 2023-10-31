@@ -24,8 +24,7 @@ let
       { nativeBuildInputs = [ appimageTools.appimage-exec ]; }
       ''
         appimage-exec.sh -x $out ${src}/${pname}-${version}/${pname}
-      ''
-  ;
+      '';
 
   appimage = appimageTools.wrapAppImage {
     inherit pname version;

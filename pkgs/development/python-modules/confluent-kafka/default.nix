@@ -34,8 +34,7 @@ buildPythonPackage rec {
           avro
           futures
         ]
-    )
-  ;
+    );
 
   # No tests in PyPi Tarball
   doCheck = false;

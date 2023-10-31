@@ -56,8 +56,7 @@ let
               replication.masterUser = replicateUser;
               replication.masterPassword = replicatePassword;
             };
-          }
-        ;
+          };
 
         secondary2 =
           { nodes, ... }:
@@ -71,8 +70,7 @@ let
               replication.masterUser = replicateUser;
               replication.masterPassword = replicatePassword;
             };
-          }
-        ;
+          };
       };
 
       testScript = ''
@@ -110,8 +108,7 @@ let
             "echo 'select * from testdb.tests where Id = 123;' | sudo -u mysql mysql -u mysql -N | grep 456"
         )
       '';
-    }
-  ;
+    };
 in
 lib.mapAttrs (_: package: makeReplicationTest { inherit package; })
   mariadbPackages

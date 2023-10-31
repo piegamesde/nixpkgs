@@ -89,8 +89,7 @@ import ./make-test-python.nix (
               };
             };
           };
-        }
-      ;
+        };
 
       nameserver =
         { config, pkgs, ... }:
@@ -162,10 +161,8 @@ import ./make-test-python.nix (
                     file: lan.nixos.test.zone
                     acl: [dhcp_ddns]
               '';
-            }
-          ;
-        }
-      ;
+            };
+        };
 
       client =
         { config, pkgs, ... }:
@@ -178,8 +175,7 @@ import ./make-test-python.nix (
             firewall.enable = false;
             interfaces.eth1.useDHCP = true;
           };
-        }
-      ;
+        };
     };
     testScript =
       { ... }:
@@ -190,7 +186,6 @@ import ./make-test-python.nix (
         client.wait_until_succeeds("ping -c 5 10.0.0.1")
         router.wait_until_succeeds("ping -c 5 10.0.0.3")
         nameserver.wait_until_succeeds("kdig +short client.lan.nixos.test @10.0.0.2 | grep -q 10.0.0.3")
-      ''
-    ;
+      '';
   }
 )

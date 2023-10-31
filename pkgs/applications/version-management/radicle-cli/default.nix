@@ -54,8 +54,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libusb1
       AppKit
-    ]
-  ;
+    ];
 
   postInstall = ''
     for f in $(find . -name '*.adoc'); do

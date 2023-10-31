@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         # Enable C++17 support
         # https://github.com/google/googletest/issues/3081
         "-DCMAKE_CXX_STANDARD=17"
-      ]
-  ;
+      ];
 
   meta = with lib; {
     description = "Google's framework for writing C++ tests";

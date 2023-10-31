@@ -43,8 +43,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to enable the Hologram server for AWS instance credentials"
-        ;
+            "Whether to enable the Hologram server for AWS instance credentials";
       };
 
       listenAddress = mkOption {
@@ -90,8 +89,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to assign user roles based on the user's LDAP group memberships"
-        ;
+            "Whether to assign user roles based on the user's LDAP group memberships";
       };
 
       groupClassAttr = mkOption {
@@ -99,8 +97,7 @@ in
         default = "groupOfNames";
         description =
           lib.mdDoc
-            "The objectclass attribute to search for groups when enableLdapRoles is true"
-        ;
+            "The objectclass attribute to search for groups when enableLdapRoles is true";
       };
 
       roleAttr = mkOption {
@@ -108,8 +105,7 @@ in
         default = "businessCategory";
         description =
           lib.mdDoc
-            "Which LDAP group attribute to search for authorized role ARNs"
-        ;
+            "Which LDAP group attribute to search for authorized role ARNs";
       };
 
       awsAccount = mkOption {

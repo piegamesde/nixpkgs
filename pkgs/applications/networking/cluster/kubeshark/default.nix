@@ -34,8 +34,7 @@ buildGoModule rec {
       "-X ${t}/misc.BuildTimestamp=0"
       "-X ${t}/misc.Platform=unknown"
       "-X ${t}/misc.Ver=${version}"
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -51,8 +50,7 @@ buildGoModule rec {
           --bash <($out/bin/kubeshark completion bash) \
           --fish <($out/bin/kubeshark completion fish) \
           --zsh <($out/bin/kubeshark completion zsh)
-      ''
-  ;
+      '';
 
   passthru = {
     tests.version = testers.testVersion {

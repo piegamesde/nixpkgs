@@ -38,8 +38,7 @@ let
             };
           };
           environment.systemPackages = with pkgs; [ promscale ];
-        }
-      ;
+        };
 
       testScript = ''
         machine.start()
@@ -53,8 +52,7 @@ let
         machine.succeed("sudo -u postgres psql promscale -c 'SELECT ps_trace.get_trace_retention_period();' | grep '(1 row)'")
         machine.shutdown()
       '';
-    }
-  ;
+    };
   #version 15 is not supported yet
   applicablePostgresqlVersions =
     filterAttrs
@@ -62,8 +60,7 @@ let
         _: value:
         versionAtLeast value.version "12" && !(versionAtLeast value.version "15")
       )
-      postgresql-versions
-  ;
+      postgresql-versions;
 in
 mapAttrs'
   (name: package: {

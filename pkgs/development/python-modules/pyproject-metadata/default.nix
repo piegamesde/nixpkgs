@@ -31,8 +31,7 @@ buildPythonPackage rec {
 
   nativeCheckInputs =
     [ pytestCheckHook ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   # Many broken tests, and missing test files
   doCheck = false;

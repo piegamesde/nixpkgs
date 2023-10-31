@@ -40,8 +40,7 @@ import ../make-test-python.nix (
             gid = 1080;
           };
         };
-      }
-    ;
+      };
     testScript = ''
       machine.start()
 

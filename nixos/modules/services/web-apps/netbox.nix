@@ -37,16 +37,14 @@ let
         ;
       }
     )).override
-      { inherit (cfg) plugins; }
-  ;
+      { inherit (cfg) plugins; };
   netboxManageScript =
     with pkgs;
     (writeScriptBin "netbox-manage" ''
       #!${stdenv.shell}
       export PYTHONPATH=${pkg.pythonPath}
       sudo -u netbox ${pkg}/bin/netbox "$@"
-    '')
-  ;
+    '');
 in
 {
   options.services.netbox = {
@@ -230,8 +228,7 @@ in
 
         REMOTE_AUTH_BACKEND =
           lib.mkIf cfg.enableLdap
-            "netbox.authentication.LDAPBackend"
-        ;
+            "netbox.authentication.LDAPBackend";
 
         LOGGING = lib.mkDefault {
           version = 1;
@@ -364,8 +361,7 @@ in
             '';
           };
         };
-      }
-    ;
+      };
 
     systemd.timers.netbox-housekeeping = {
       description = "Run NetBox housekeeping job";

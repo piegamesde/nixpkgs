@@ -49,8 +49,7 @@ let
           ''machine.log(machine.succeed("curl http://[::1]:11334/auth"))''}
         # would not reformat
       '';
-    }
-  ;
+    };
 in
 {
   simple = simple "simple" true;

@@ -63,8 +63,7 @@ let
       addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
       unfilteredResult = map multiaddrToListenStream addrs;
     in
-    builtins.filter (addr: addr != null) unfilteredResult
-  ;
+    builtins.filter (addr: addr != null) unfilteredResult;
 
   multiaddrsToListenDatagrams =
     addrIn:
@@ -72,8 +71,7 @@ let
       addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
-    builtins.filter (addr: addr != null) unfilteredResult
-  ;
+    builtins.filter (addr: addr != null) unfilteredResult;
 
   multiaddrToListenStream =
     addrRaw:
@@ -168,8 +166,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether Kubo should try to mount /ipfs and /ipns at startup."
-        ;
+            "Whether Kubo should try to mount /ipfs and /ipns at startup.";
       };
 
       autoMigrate = mkOption {
@@ -177,8 +174,7 @@ in
         default = true;
         description =
           lib.mdDoc
-            "Whether Kubo should try to run the fs-repo-migration at startup."
-        ;
+            "Whether Kubo should try to run the fs-repo-migration at startup.";
       };
 
       ipfsMountDir = mkOption {
@@ -204,8 +200,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "If set to true, the repo won't be initialized with help files"
-        ;
+            "If set to true, the repo won't be initialized with help files";
       };
 
       settings = mkOption {
@@ -289,8 +284,7 @@ in
         default = null;
         description =
           lib.mdDoc
-            "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it"
-        ;
+            "The fdlimit for the Kubo systemd unit or `null` to have the daemon attempt to manage it";
         example = 64 * 1024;
       };
 
@@ -299,8 +293,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Whether to use socket activation to start Kubo when needed."
-        ;
+            "Whether to use socket activation to start Kubo when needed.";
       };
     };
   };
@@ -320,8 +313,7 @@ in
           !(
             (builtins.hasAttr "Pinning" cfg.settings)
             && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning)
-          )
-        ;
+          );
         message = ''
           You can't set services.kubo.settings.Pinning.RemoteServices because the ``config replace`` subcommand used at startup does not work with it.
         '';
@@ -354,8 +346,7 @@ in
       ++ optionals cfg.autoMount [
         "d '${cfg.ipfsMountDir}' - ${cfg.user} ${cfg.group} - -"
         "d '${cfg.ipnsMountDir}' - ${cfg.user} ${cfg.group} - -"
-      ]
-    ;
+      ];
 
     # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
     systemd.packages =
@@ -425,8 +416,7 @@ in
         }
         // optionalAttrs (cfg.serviceFdlimit != null) {
           LimitNOFILE = cfg.serviceFdlimit;
-        }
-      ;
+        };
     } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
 
     systemd.sockets.ipfs-gateway = {
@@ -434,12 +424,10 @@ in
       socketConfig = {
         ListenStream =
           [ "" ]
-          ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway)
-        ;
+          ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
         ListenDatagram =
           [ "" ]
-          ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway)
-        ;
+          ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };
     };
 

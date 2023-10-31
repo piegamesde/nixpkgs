@@ -56,8 +56,7 @@ in
         type = types.nullOr types.str;
         description =
           lib.mdDoc
-            "DNS name or IP address that will be used for the stream directory lookups or possibly the playlist generation if a Host header is not provided."
-        ;
+            "DNS name or IP address that will be used for the stream directory lookups or possibly the playlist generation if a Host header is not provided.";
         default = config.networking.domain;
         defaultText = literalExpression "config.networking.domain";
       };
@@ -86,8 +85,7 @@ in
           type = types.port;
           description =
             lib.mdDoc
-              "TCP port that will be used to accept client connections."
-          ;
+              "TCP port that will be used to accept client connections.";
           default = 8000;
         };
 

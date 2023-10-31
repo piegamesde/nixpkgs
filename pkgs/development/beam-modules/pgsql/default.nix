@@ -11,8 +11,7 @@ let
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
       buildInputs = [ drv ];
-    }
-  ;
+    };
 
   pkg =
     self:
@@ -39,7 +38,6 @@ let
       passthru = {
         env = shell self;
       };
-    }
-  ;
+    };
 in
 lib.fix pkg

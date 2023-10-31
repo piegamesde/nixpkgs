@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     [ "VERSION=${region}" ]
-    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags;
 
   preBuild = ''
     patchShebangs extract_assets.py

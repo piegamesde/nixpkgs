@@ -30,8 +30,7 @@ import ./make-test-python.nix (
             "-rpcauth=rpc2:1495e4a3ad108187576c68f7f9b5ddc5$accce0881c74aa01bb8960ff3bdbd39f607fd33178147679e055a4ac35f53225"
           ];
         };
-      }
-    ;
+      };
 
     testScript = ''
       start_all()

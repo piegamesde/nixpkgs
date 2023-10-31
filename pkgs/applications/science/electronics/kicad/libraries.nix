@@ -23,8 +23,7 @@ let
         # this would exceed the hydra output limit
         hydraPlatforms = if (name == "packages3d") then [ ] else platforms;
       };
-    }
-  ;
+    };
 in
 {
   symbols = mkLib "symbols";

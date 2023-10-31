@@ -72,8 +72,7 @@ in
   lazy-ffi =
     old:
     # fatal error: 'ffi/ffi.h' file not found
-    (brokenOnDarwin old) // (addToBuildInputs pkgs.libffi old)
-  ;
+    (brokenOnDarwin old) // (addToBuildInputs pkgs.libffi old);
   leveldb = addToBuildInputs pkgs.leveldb;
   magic = addToBuildInputs pkgs.file;
   mdh = addToBuildInputs pkgs.pcre;
@@ -112,8 +111,7 @@ in
   stemmer =
     old:
     # Undefined symbols for architecture arm64: "_sb_stemmer_delete"
-    (brokenOnDarwin old) // (addToBuildInputs pkgs.libstemmer old)
-  ;
+    (brokenOnDarwin old) // (addToBuildInputs pkgs.libstemmer old);
   stfl =
     old:
     # Undefined symbols for architecture arm64: "_clearok"

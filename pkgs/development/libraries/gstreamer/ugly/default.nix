@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
           "-Dsidplay=disabled"
           "-Dx264=disabled"
         ]
-    )
-  ;
+    );
 
   postPatch = ''
     patchShebangs \

@@ -28,8 +28,7 @@ import ./make-test-python.nix (
         };
 
         virtualisation.additionalPaths = [ pkgs.stdenv ];
-      }
-    ;
+      };
 
     testScript = ''
       machine.wait_for_unit("default.target")

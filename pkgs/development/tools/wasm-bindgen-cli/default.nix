@@ -29,8 +29,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       curl
       Security
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ nodejs ];
 

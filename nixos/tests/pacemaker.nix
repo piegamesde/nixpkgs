@@ -24,15 +24,13 @@ import ./make-test-python.nix (
                     (builtins.head nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address
                   ];
                 })
-                (builtins.attrNames nodes)
-            ;
+                (builtins.attrNames nodes);
           };
           environment.etc."corosync/authkey" = {
             source =
               builtins.toFile "authkey"
                 # minimum length: 128 bytes
-                "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
-            ;
+                "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest";
             mode = "0400";
           };
 
@@ -49,8 +47,7 @@ import ./make-test-python.nix (
         node1 = node 1;
         node2 = node 2;
         node3 = node 3;
-      }
-    ;
+      };
 
     # sets up pacemaker with resources configuration, then crashes a
     # node and waits for service restart on another node
@@ -117,7 +114,6 @@ import ./make-test-python.nix (
           time.sleep(1)
 
         next_node.log("Service migrated here!")
-      ''
-    ;
+      '';
   }
 )

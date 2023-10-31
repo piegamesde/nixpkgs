@@ -19,8 +19,7 @@ import ./make-test-python.nix (
           };
           networking.firewall.allowedTCPPorts = [ 5357 ];
           networking.firewall.allowedUDPPorts = [ 3702 ];
-        }
-      ;
+        };
 
       server_wsdd =
         { ... }:
@@ -33,8 +32,7 @@ import ./make-test-python.nix (
           };
           networking.firewall.allowedTCPPorts = [ 5357 ];
           networking.firewall.allowedUDPPorts = [ 3702 ];
-        }
-      ;
+        };
     };
 
     testScript = ''

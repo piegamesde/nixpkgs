@@ -21,8 +21,7 @@ symlinkJoin {
       # Some plugins needs extra environment, see obs-gstreamer for an example.
       pluginArguments =
         lists.concatMap (plugin: plugin.obsWrapperArguments or [ ])
-          plugins
-      ;
+          plugins;
 
       pluginsJoined = symlinkJoin {
         name = "obs-studio-plugins";
@@ -43,8 +42,7 @@ symlinkJoin {
       rm -r $out/share/obs/obs-plugins
       # Leave some breadcrumbs
       echo 'Plugins are at ${pluginsJoined}/share/obs/obs-plugins' > $out/share/obs/obs-plugins-README
-    ''
-  ;
+    '';
 
   inherit (obs-studio) meta;
   passthru = obs-studio.passthru // {

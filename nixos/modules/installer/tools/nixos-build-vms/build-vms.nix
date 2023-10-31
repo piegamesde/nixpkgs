@@ -11,8 +11,7 @@ let
         _file = "${networkExpr}@node-${vm}";
         imports = [ module ];
       })
-      (import networkExpr)
-  ;
+      (import networkExpr);
 
   pkgs = import ../../../../.. { inherit system config; };
 

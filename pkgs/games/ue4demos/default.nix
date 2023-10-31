@@ -70,8 +70,7 @@ let
         platforms = [ "x86_64-linux" ];
         license = lib.licenses.unfree;
       };
-    }
-  ;
+    };
 in
 {
   tappy_chicken = buildDemo {

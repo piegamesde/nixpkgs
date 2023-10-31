@@ -32,8 +32,7 @@ import ./make-test-python.nix (
         };
 
         virtualisation.memorySize = 2047;
-      }
-    ;
+      };
 
     testScript = ''
       server.wait_for_unit("minecraft-server")

@@ -18,8 +18,7 @@ in
         type = lib.types.bool;
         description =
           lib.mdDoc
-            "Whether rog-control-center should be started automatically."
-        ;
+            "Whether rog-control-center should be started automatically.";
       };
     };
   };

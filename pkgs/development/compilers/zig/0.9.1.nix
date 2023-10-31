@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
         lld
         llvm
       ]
-    )
-  ;
+    );
 
   preBuild = ''
     export HOME=$TMPDIR;

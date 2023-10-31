@@ -68,14 +68,12 @@ import ./make-test-python.nix (
                         openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=auth.example.com/CN=static.example.com' -days 36500
                         mkdir -p $out
                         cp key.pem cert.pem $out
-                      ''
-                  ;
+                      '';
                 in
                 [ {
                   certFile = "${certDir}/cert.pem";
                   keyFile = "${certDir}/key.pem";
-                } ]
-              ;
+                } ];
               http.middlewares.authelia.forwardAuth = {
                 address = "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
                 trustForwardHeader = true;
@@ -145,10 +143,8 @@ import ./make-test-python.nix (
               script = "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
               serviceConfig.Type = "simple";
               wantedBy = [ "multi-user.target" ];
-            }
-          ;
-        }
-      ;
+            };
+        };
     };
 
     testScript = ''

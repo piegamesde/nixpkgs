@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "-D_gRPC_PROTOBUF_PROTOC_EXECUTABLE=${buildPackages.protobuf}/bin/protoc"
-    ]
-  ;
+    ];
 
   # CMake creates a build directory by default, this conflicts with the
   # basel BUILD file on case-insensitive filesystems.
@@ -118,8 +117,7 @@ stdenv.mkDerivation rec {
         "14"
       else
         "17"
-    )
-  ;
+    );
 
   passthru.tests = {
     inherit (python3.pkgs) grpcio-status grpcio-tools;

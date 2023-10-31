@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         stdenv.isDarwin
         && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
       )
-      [ ./0001-remove-unifiedtypeidentifiers-framework ]
-  ;
+      [ ./0001-remove-unifiedtypeidentifiers-framework ];
 
   nativeBuildInputs = [ pkg-config ];
 

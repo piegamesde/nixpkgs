@@ -85,8 +85,7 @@ let
           # for some reason some of the required libs are in the targets/x86_64-linux
           # directory; not sure why but this works around it
           "${cudatoolkit}/targets/${stdenv.system}"
-        ]
-    ;
+        ];
   };
 
   cudatoolkit_cc_joined = symlinkJoin {
@@ -198,12 +197,10 @@ let
 
     GCC_HOST_COMPILER_PREFIX =
       lib.optionalString cudaSupport
-        "${cudatoolkit_cc_joined}/bin"
-    ;
+        "${cudatoolkit_cc_joined}/bin";
     GCC_HOST_COMPILER_PATH =
       lib.optionalString cudaSupport
-        "${cudatoolkit_cc_joined}/bin/gcc"
-    ;
+        "${cudatoolkit_cc_joined}/bin/gcc";
 
     preConfigure =
       ''
@@ -249,8 +246,7 @@ let
         "--cxxopt=c++"
         "--host_cxxopt=-x"
         "--host_cxxopt=c++"
-      ]
-    ;
+      ];
 
     # We intentionally overfetch so we can share the fetch derivation across all the different configurations
     fetchAttrs = {
@@ -364,8 +360,7 @@ buildPythonPackage {
     let
       cp = "cp${builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion}";
     in
-    "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl"
-  ;
+    "${bazel-build}/jaxlib-${version}-${cp}-${cp}-${platformTag}.whl";
 
   # Note that cudatoolkit is necessary since jaxlib looks for "ptxas" in $PATH.
   # See https://github.com/NixOS/nixpkgs/pull/164176#discussion_r828801621 for

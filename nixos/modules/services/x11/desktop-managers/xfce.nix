@@ -143,8 +143,7 @@ in
         default = false;
         description =
           lib.mdDoc
-            "Don't install XFCE desktop components (xfdesktop and panel)."
-        ;
+            "Don't install XFCE desktop components (xfdesktop and panel).";
       };
 
       enableXfwm = mkOption {

@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DBUILD_YDER_TESTING=on" ]
-    ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off"
-  ;
+    ++ lib.optional (!withSystemd) "-DWITH_JOURNALD=off";
 
   doCheck = true;
 

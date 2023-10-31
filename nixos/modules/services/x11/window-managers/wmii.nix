@@ -39,8 +39,7 @@ in
               ${wmii}/bin/wmii && break
             done
           '';
-        }
-    ;
+        };
 
     environment.systemPackages = [ wmii ];
   };

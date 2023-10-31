@@ -25,8 +25,7 @@ import ./make-test-python.nix (
       lib.recursiveUpdate commonConfig {
         systemd.coredump.enable = false;
         systemd.package = pkgs.systemd.override { withCoredump = false; };
-      }
-    ;
+      };
 
     testScript = ''
       with subtest("systemd-coredump enabled"):

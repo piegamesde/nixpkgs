@@ -48,8 +48,7 @@ import ../make-test-python.nix (
 
             networking.firewall.allowedTCPPorts = [ 8008 ];
           };
-        }
-      ;
+        };
 
       ircd =
         { pkgs, ... }:
@@ -71,8 +70,7 @@ import ../make-test-python.nix (
             '';
           };
           networking.firewall.allowedTCPPorts = [ 6667 ];
-        }
-      ;
+        };
 
       appservice =
         { pkgs, ... }:
@@ -97,8 +95,7 @@ import ../make-test-python.nix (
           };
 
           networking.firewall.allowedTCPPorts = [ 8009 ];
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -203,8 +200,7 @@ import ../make-test-python.nix (
               ''
             )
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

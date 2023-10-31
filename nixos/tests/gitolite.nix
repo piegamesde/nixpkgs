@@ -64,8 +64,7 @@ import ./make-test-python.nix (
             adminPubkey = adminPublicKey;
           };
           services.openssh.enable = true;
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -84,8 +83,7 @@ import ./make-test-python.nix (
           users.users.bob = {
             isNormalUser = true;
           };
-        }
-      ;
+        };
     };
 
     testScript = ''

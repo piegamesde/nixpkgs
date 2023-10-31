@@ -34,8 +34,7 @@ buildFHSEnv (
 
     targetPkgs =
       pkgs:
-      [ appimageTools.appimage-exec ] ++ fhsArgs.targetPkgs pkgs ++ extraPkgs pkgs
-    ;
+      [ appimageTools.appimage-exec ] ++ fhsArgs.targetPkgs pkgs ++ extraPkgs pkgs;
     runScript = "appimage-exec.sh";
 
     extraInstallCommands = ''

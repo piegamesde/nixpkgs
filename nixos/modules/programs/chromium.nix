@@ -103,29 +103,23 @@ in
     # for chromium
     environment.etc."chromium/policies/managed/default.json".text =
       builtins.toJSON
-        defaultProfile
-    ;
+        defaultProfile;
     environment.etc."chromium/policies/managed/extra.json".text =
       builtins.toJSON
-        cfg.extraOpts
-    ;
+        cfg.extraOpts;
     # for google-chrome https://www.chromium.org/administrators/linux-quick-start
     environment.etc."opt/chrome/policies/managed/default.json".text =
       builtins.toJSON
-        defaultProfile
-    ;
+        defaultProfile;
     environment.etc."opt/chrome/policies/managed/extra.json".text =
       builtins.toJSON
-        cfg.extraOpts
-    ;
+        cfg.extraOpts;
     # for brave
     environment.etc."brave/policies/managed/default.json".text =
       builtins.toJSON
-        defaultProfile
-    ;
+        defaultProfile;
     environment.etc."brave/policies/managed/extra.json".text =
       builtins.toJSON
-        cfg.extraOpts
-    ;
+        cfg.extraOpts;
   };
 }

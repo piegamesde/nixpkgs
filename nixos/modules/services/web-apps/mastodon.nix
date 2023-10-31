@@ -133,8 +133,7 @@ let
           (p: ''
             source ${p}
           '')
-          cfg.extraEnvFiles
-      ;
+          cfg.extraEnvFiles;
     in
     pkgs.writeShellScriptBin "mastodon-tootctl" ''
       set -a
@@ -148,8 +147,7 @@ let
         sudo='exec /run/wrappers/bin/sudo -u ${cfg.user} --preserve-env'
       fi
       $sudo ${cfg.package}/bin/tootctl "$@"
-    ''
-  ;
+    '';
 
   sidekiqUnits =
     lib.attrsets.mapAttrs'
@@ -205,8 +203,7 @@ let
           }
         )
       )
-      cfg.sidekiqProcesses
-  ;
+      cfg.sidekiqProcesses;
 in
 {
 
@@ -299,8 +296,7 @@ in
       sidekiqThreads = lib.mkOption {
         description =
           lib.mdDoc
-            "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used."
-        ;
+            "Worker threads used by the mastodon-sidekiq-all service. If `sidekiqProcesses` is configured and any processes specify null `threads`, this value is used.";
         type = lib.types.int;
         default = 25;
       };
@@ -308,8 +304,7 @@ in
       sidekiqProcesses = lib.mkOption {
         description =
           lib.mdDoc
-            "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*"
-        ;
+            "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
         type =
           with lib.types;
           attrsOf (
@@ -328,20 +323,17 @@ in
                   );
                   description =
                     lib.mdDoc
-                      "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*"
-                  ;
+                      "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
                 };
                 threads = lib.mkOption {
                   type = nullOr int;
                   description =
                     lib.mdDoc
-                      "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used."
-                  ;
+                      "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
                 };
               };
             }
-          )
-        ;
+          );
         default = {
           all = {
             jobClasses = [ ];
@@ -477,8 +469,7 @@ in
         createLocally = lib.mkOption {
           description =
             lib.mdDoc
-              "Configure local PostgreSQL database server for Mastodon."
-          ;
+              "Configure local PostgreSQL database server for Mastodon.";
           type = lib.types.bool;
           default = true;
         };
@@ -534,8 +525,7 @@ in
         authenticate = lib.mkOption {
           description =
             lib.mdDoc
-              "Authenticate with the SMTP server using username and password."
-          ;
+              "Authenticate with the SMTP server using username and password.";
           type = lib.types.bool;
           default = false;
         };
@@ -698,8 +688,7 @@ in
                 lib.mapAttrsToList
                   (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
                   cfg.sidekiqProcesses
-              )
-            ;
+              );
             message = ''
               There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
           }
@@ -824,8 +813,7 @@ in
           ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
           requires =
             [ "mastodon-init-dirs.service" ]
-            ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-          ;
+            ++ lib.optional databaseActuallyCreateLocally "postgresql.service";
         };
 
         systemd.services.mastodon-streaming = {
@@ -945,11 +933,9 @@ in
                 ''
                   ${cfg.package}/bin/tootctl media remove --days=${olderThanDays}
                   ${cfg.package}/bin/tootctl preview_cards remove --days=${olderThanDays}
-                ''
-              ;
+                '';
               startAt = cfg.mediaAutoRemove.startAt;
-            }
-        ;
+            };
 
         services.nginx = lib.mkIf cfg.configureNginx {
           enable = true;
@@ -995,16 +981,14 @@ in
             {
               enable = true;
               hostname = lib.mkDefault "${cfg.localDomain}";
-            }
-        ;
+            };
         services.redis.servers.mastodon =
           lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1")
             {
               enable = true;
               port = cfg.redis.port;
               bind = "127.0.0.1";
-            }
-        ;
+            };
         services.postgresql = lib.mkIf databaseActuallyCreateLocally {
           enable = true;
           ensureUsers = [ {
@@ -1036,8 +1020,7 @@ in
 
         users.groups.${cfg.group}.members =
           lib.optional cfg.configureNginx
-            config.services.nginx.user
-        ;
+            config.services.nginx.user;
       }
       { systemd.services = sidekiqUnits; }
     ]

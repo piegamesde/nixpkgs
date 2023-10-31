@@ -83,8 +83,7 @@ stdenv.mkDerivation rec {
       "-DWITH_ARMADILLO=off"
       "-DWITH_FISHCAMP=off"
       "-DWITH_SBIG=off"
-    ]
-  ;
+    ];
 
   meta = with lib; {
     homepage = "https://www.indilib.org/";

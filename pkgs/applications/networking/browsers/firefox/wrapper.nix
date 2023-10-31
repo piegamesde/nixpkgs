@@ -201,14 +201,12 @@ let
                   }
                 )
                 { }
-                extensions
-            ;
+                extensions;
 
             Extensions = {
               Install =
                 lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
-                  extensions
-              ;
+                  extensions;
             };
           }
           // lib.optionalAttrs smartcardSupport {
@@ -508,7 +506,6 @@ let
         hydraPlatforms = [ ];
         priority = (browser.meta.priority or 0) - 1; # prefer wrapper over the package
       };
-    }
-  ;
+    };
 in
 lib.makeOverridable wrapper

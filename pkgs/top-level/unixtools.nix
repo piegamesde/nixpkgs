@@ -55,8 +55,7 @@ let
           mkdir -p $out/share/man/man1
           ln -s ${manpage} $out/share/man/man1/${cmd}.1.gz
         fi
-      ''
-  ;
+      '';
 
   # more is unavailable in darwin
   # so we just use less
@@ -208,8 +207,7 @@ let
     buildEnv {
       name = "${pname}-${version}";
       inherit paths;
-    }
-  ;
+    };
 
   # Compatibility derivations
   # Provided for old usage of these commands.
@@ -242,7 +240,6 @@ let
         netstat
         route
       ];
-    }
-  ;
+    };
 in
 bins // compat

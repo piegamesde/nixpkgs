@@ -50,8 +50,7 @@ buildGoModule rec {
           setVars
       );
     in
-    [ "${varFlags}" ]
-  ;
+    [ "${varFlags}" ];
 
   installPhase = ''
     runHook preInstall

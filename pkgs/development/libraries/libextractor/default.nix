@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
                 lib.getLib plugin
               }/lib/gstreamer-1.0");''
           )
-          (gstPlugins gst_all_1)
-      ;
+          (gstPlugins gst_all_1);
     })
   ];
 

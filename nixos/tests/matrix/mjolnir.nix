@@ -87,8 +87,7 @@ import ../make-test-python.nix (
                 http://localhost:8448
             '')
           ];
-        }
-      ;
+        };
 
       mjolnir =
         { pkgs, ... }:
@@ -103,8 +102,7 @@ import ../make-test-python.nix (
             };
             managementRoom = "#moderators:homeserver";
           };
-        }
-      ;
+        };
 
       client =
         { pkgs, ... }:
@@ -114,8 +112,7 @@ import ../make-test-python.nix (
               {
                 libraries =
                   with pkgs.python3Packages;
-                  [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e
-                ;
+                  [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e;
               }
               ''
                 import asyncio
@@ -144,8 +141,7 @@ import ../make-test-python.nix (
               ''
             )
           ];
-        }
-      ;
+        };
     };
 
     testScript = ''

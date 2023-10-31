@@ -26,8 +26,7 @@ stdenv.mkDerivation {
       sha256 = config.oilrush.sha256 or null;
     in
     assert url != null && sha256 != null;
-    fetchurl { inherit url sha256; }
-  ;
+    fetchurl { inherit url sha256; };
   shell = stdenv.shell;
   arch =
     if stdenv.hostPlatform.system == "x86_64-linux" then

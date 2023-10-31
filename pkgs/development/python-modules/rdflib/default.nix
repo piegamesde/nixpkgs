@@ -77,8 +77,7 @@ buildPythonPackage rec {
       [
         # Require loopback network access
         "TestGraphHTTP"
-      ]
-  ;
+      ];
 
   pythonImportsCheck = [ "rdflib" ];
 

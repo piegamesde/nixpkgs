@@ -295,8 +295,7 @@ in
               ./cli/create-user.php --user ${cfg.defaultUser} --password "$(cat ${cfg.passwordFile})"
             fi
           '';
-        }
-      ;
+        };
 
       systemd.services.freshrss-updater = {
         description = "FreshRSS feed updater";
@@ -310,6 +309,5 @@ in
           ExecStart = "${cfg.package}/app/actualize_script.php";
         };
       };
-    }
-  ;
+    };
 }

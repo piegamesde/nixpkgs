@@ -15,8 +15,7 @@ rec {
       { }
       ''
         cp ${filePath} $out
-      ''
-  ;
+      '';
 
   # Check whenever fileSystem is needed for boot.  NOTE: Make sure
   # pathsNeededForBoot is closed under the parent relationship, i.e. if /a/b/c
@@ -76,8 +75,7 @@ rec {
     let
       replacePrefix =
         p: r: s:
-        (if (hasPrefix p s) then r + (removePrefix p s) else s)
-      ;
+        (if (hasPrefix p s) then r + (removePrefix p s) else s);
       trim = s: removeSuffix "/" (removePrefix "/" s);
       normalizedPath = strings.normalizePath s;
     in
@@ -87,8 +85,7 @@ rec {
           if normalizedPath == "/" then normalizedPath else trim normalizedPath
         )
       )
-    )
-  ;
+    );
 
   # Quotes an argument for use in Exec* service lines.
   # systemd accepts "-quoted strings with escape sequences, toJSON produces
@@ -120,8 +117,7 @@ rec {
         "%%"
         "$$"
       ]
-      (builtins.toJSON s)
-  ;
+      (builtins.toJSON s);
 
   # Quotes a list of arguments into a single string for use in a Exec*
   # line.
@@ -195,8 +191,7 @@ rec {
           [ ]
       ;
     in
-    listToAttrs (flatten (recurse "" item))
-  ;
+    listToAttrs (flatten (recurse "" item));
 
   /* Takes an attrset and a file path and generates a bash snippet that
      outputs a JSON file at the file path with all instances of
@@ -305,8 +300,7 @@ rec {
     let
       namesToRemove = map lib.getName packagesToRemove;
     in
-    lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages
-  ;
+    lib.filter (x: !(builtins.elem (lib.getName x) namesToRemove)) packages;
 
   systemdUtils = {
     lib = import ./systemd-lib.nix { inherit lib config pkgs; };
