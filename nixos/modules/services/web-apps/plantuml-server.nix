@@ -97,9 +97,7 @@ in
       allowPlantumlInclude = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
+        description = lib.mdDoc "Enables !include processing which can read files from the server into diagrams. Files are read relative to the current working directory.";
       };
     };
   };

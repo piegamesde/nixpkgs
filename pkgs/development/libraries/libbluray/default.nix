@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     export JDK_HOME="${jdk.home}"
   '';
 
-  configureFlags =
-    lib.optional (!withJava) "--disable-bdjava-jar" ++ lib.optional (!withMetadata) "--without-libxml2" ++ lib.optional (!withFonts) "--without-freetype";
+  configureFlags = lib.optional (!withJava) "--disable-bdjava-jar" ++ lib.optional (!withMetadata) "--without-libxml2" ++ lib.optional (!withFonts) "--without-freetype";
 
   meta = with lib; {
     homepage = "http://www.videolan.org/developers/libbluray.html";

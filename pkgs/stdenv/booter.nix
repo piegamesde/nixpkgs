@@ -121,8 +121,7 @@ let
                     pkgsBuildHost = prevStage;
                     pkgsBuildTarget =
                       if args.stdenv.targetPlatform == args.stdenv.hostPlatform then pkgsBuildHost else assert args.stdenv.hostPlatform == args.stdenv.buildPlatform; thisStage;
-                    pkgsHostHost =
-                      if args.stdenv.hostPlatform == args.stdenv.targetPlatform then thisStage else assert args.stdenv.buildPlatform == args.stdenv.hostPlatform; pkgsBuildHost;
+                    pkgsHostHost = if args.stdenv.hostPlatform == args.stdenv.targetPlatform then thisStage else assert args.stdenv.buildPlatform == args.stdenv.hostPlatform; pkgsBuildHost;
                     pkgsTargetTarget = nextStage;
                   };
             }

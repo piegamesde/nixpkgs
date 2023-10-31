@@ -286,8 +286,7 @@ in
 
     environment.systemPackages = [ pkgs.avahi ];
 
-    environment.etc =
-      (mapAttrs' (n: v: nameValuePair "avahi/services/${n}.service" { ${if types.path.check v then "source" else "text"} = v; }) cfg.extraServiceFiles);
+    environment.etc = (mapAttrs' (n: v: nameValuePair "avahi/services/${n}.service" { ${if types.path.check v then "source" else "text"} = v; }) cfg.extraServiceFiles);
 
     systemd.sockets.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack Activation Socket";

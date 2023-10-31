@@ -57,10 +57,7 @@ let
   # configured in the module.
   useComponent =
     component:
-    hasAttrByPath (splitString "." component) cfg.config
-    || useComponentPlatform component
-    || useExplicitComponent component
-    || builtins.elem component cfg.extraComponents;
+    hasAttrByPath (splitString "." component) cfg.config || useComponentPlatform component || useExplicitComponent component || builtins.elem component cfg.extraComponents;
 
   # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;

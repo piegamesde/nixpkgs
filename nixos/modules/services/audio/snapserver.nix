@@ -350,9 +350,7 @@ in
     };
 
     networking.firewall.allowedTCPPorts =
-      optionals cfg.openFirewall [ cfg.port ]
-      ++ optional (cfg.openFirewall && cfg.tcp.enable) cfg.tcp.port
-      ++ optional (cfg.openFirewall && cfg.http.enable) cfg.http.port;
+      optionals cfg.openFirewall [ cfg.port ] ++ optional (cfg.openFirewall && cfg.tcp.enable) cfg.tcp.port ++ optional (cfg.openFirewall && cfg.http.enable) cfg.http.port;
   };
 
   meta = {

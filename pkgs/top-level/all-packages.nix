@@ -1940,9 +1940,7 @@ with pkgs;
 
   git-credential-1password = callPackage ../applications/version-management/git-credential-1password { };
 
-  git-credential-keepassxc = callPackage ../applications/version-management/git-credential-keepassxc {
-    inherit (darwin.apple_sdk.frameworks) DiskArbitration Foundation;
-  };
+  git-credential-keepassxc = callPackage ../applications/version-management/git-credential-keepassxc { inherit (darwin.apple_sdk.frameworks) DiskArbitration Foundation; };
 
   git-crypt = callPackage ../applications/version-management/git-crypt { };
 
@@ -2039,9 +2037,7 @@ with pkgs;
 
   git-town = callPackage ../applications/version-management/git-town { };
 
-  git-trim = darwin.apple_sdk_11_0.callPackage ../applications/version-management/git-trim {
-    inherit (darwin.apple_sdk_11_0.frameworks) IOKit CoreFoundation Security;
-  };
+  git-trim = darwin.apple_sdk_11_0.callPackage ../applications/version-management/git-trim { inherit (darwin.apple_sdk_11_0.frameworks) IOKit CoreFoundation Security; };
 
   git-up = callPackage ../applications/version-management/git-up { pythonPackages = python3Packages; };
 
@@ -3943,9 +3939,7 @@ with pkgs;
 
   cue2pops = callPackage ../tools/cd-dvd/cue2pops { };
 
-  cabal2nix-unwrapped = haskell.lib.compose.justStaticExecutables (
-    haskellPackages.generateOptparseApplicativeCompletions [ "cabal2nix" ] haskellPackages.cabal2nix
-  );
+  cabal2nix-unwrapped = haskell.lib.compose.justStaticExecutables (haskellPackages.generateOptparseApplicativeCompletions [ "cabal2nix" ] haskellPackages.cabal2nix);
 
   cabal2nix = symlinkJoin {
     inherit (cabal2nix-unwrapped) name meta;
@@ -4848,8 +4842,7 @@ with pkgs;
 
   ghdorker = callPackage ../tools/security/ghdorker { };
 
-  ghidra =
-    if stdenv.isDarwin then darwin.apple_sdk_11_0.callPackage ../tools/security/ghidra/build.nix { } else callPackage ../tools/security/ghidra/build.nix { };
+  ghidra = if stdenv.isDarwin then darwin.apple_sdk_11_0.callPackage ../tools/security/ghidra/build.nix { } else callPackage ../tools/security/ghidra/build.nix { };
 
   ghidra-bin = callPackage ../tools/security/ghidra { };
 
@@ -5241,8 +5234,7 @@ with pkgs;
         }
         ../development/tools/build-managers/meson/emulator-hook.sh
     else
-      throw
-        "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
+      throw "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
 
   meson-tools = callPackage ../misc/meson-tools { };
 
@@ -6196,9 +6188,7 @@ with pkgs;
 
   agebox = callPackage ../tools/security/agebox { };
 
-  age-plugin-yubikey = darwin.apple_sdk_11_0.callPackage ../tools/security/age-plugin-yubikey {
-    inherit (darwin.apple_sdk_11_0.frameworks) Foundation PCSC IOKit;
-  };
+  age-plugin-yubikey = darwin.apple_sdk_11_0.callPackage ../tools/security/age-plugin-yubikey { inherit (darwin.apple_sdk_11_0.frameworks) Foundation PCSC IOKit; };
 
   artim-dark = callPackage ../data/themes/artim-dark { };
 
@@ -6863,8 +6853,7 @@ with pkgs;
 
   volctl = callPackage ../tools/audio/volctl { };
 
-  volk =
-    if (stdenv.isDarwin && stdenv.isAarch64) then (callPackage ../development/libraries/volk/2.5.0.nix { }) else (callPackage ../development/libraries/volk { });
+  volk = if (stdenv.isDarwin && stdenv.isAarch64) then (callPackage ../development/libraries/volk/2.5.0.nix { }) else (callPackage ../development/libraries/volk { });
 
   vorta = libsForQt5.callPackage ../applications/backup/vorta { };
 
@@ -9310,13 +9299,9 @@ with pkgs;
 
   libnids = callPackage ../tools/networking/libnids { };
 
-  rtorrent = callPackage ../applications/networking/p2p/rakshasa-rtorrent {
-    libtorrent = callPackage ../applications/networking/p2p/rakshasa-rtorrent/libtorrent.nix { };
-  };
+  rtorrent = callPackage ../applications/networking/p2p/rakshasa-rtorrent { libtorrent = callPackage ../applications/networking/p2p/rakshasa-rtorrent/libtorrent.nix { }; };
 
-  jesec-rtorrent = callPackage ../applications/networking/p2p/jesec-rtorrent {
-    libtorrent = callPackage ../applications/networking/p2p/jesec-rtorrent/libtorrent.nix { };
-  };
+  jesec-rtorrent = callPackage ../applications/networking/p2p/jesec-rtorrent { libtorrent = callPackage ../applications/networking/p2p/jesec-rtorrent/libtorrent.nix { }; };
 
   libmpack = callPackage ../development/libraries/libmpack { };
 
@@ -12270,9 +12255,7 @@ with pkgs;
       pkgs = filterAttrs (name: _: hasPrefix "thelounge-" name) nodePackages;
       getPackagesWithPrefix =
         prefix:
-        mapAttrs' (name: pkg: nameValuePair (removePrefix ("thelounge-" + prefix + "-") name) pkg) (
-          filterAttrs (name: _: hasPrefix ("thelounge-" + prefix + "-") name) pkgs
-        );
+        mapAttrs' (name: pkg: nameValuePair (removePrefix ("thelounge-" + prefix + "-") name) pkg) (filterAttrs (name: _: hasPrefix ("thelounge-" + prefix + "-") name) pkgs);
     in
     recurseIntoAttrs {
       plugins = recurseIntoAttrs (getPackagesWithPrefix "plugin");
@@ -14519,9 +14502,7 @@ with pkgs;
       gnat-bootstrap =
         if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then buildPackages.gnat-bootstrap12 else buildPackages.gnat12;
       stdenv =
-        if
-          stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform && stdenv.buildPlatform.isDarwin && stdenv.buildPlatform.isx86_64
-        then
+        if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform && stdenv.buildPlatform.isDarwin && stdenv.buildPlatform.isx86_64 then
           overrideCC stdenv gnat-bootstrap12
         else
           stdenv;
@@ -14531,10 +14512,7 @@ with pkgs;
   gnat-bootstrap = gnat-bootstrap12;
   gnat-bootstrap11 = wrapCC (callPackage ../development/compilers/gnat-bootstrap { majorVersion = "11"; });
   gnat-bootstrap12 = wrapCCWith (
-    {
-      cc = callPackage ../development/compilers/gnat-bootstrap { majorVersion = "12"; };
-    }
-    // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) { bintools = bintoolsDualAs; }
+    { cc = callPackage ../development/compilers/gnat-bootstrap { majorVersion = "12"; }; } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) { bintools = bintoolsDualAs; }
   );
 
   gnu-smalltalk = callPackage ../development/compilers/gnu-smalltalk { };
@@ -15576,9 +15554,7 @@ with pkgs;
   cargo-valgrind = callPackage ../development/tools/rust/cargo-valgrind { };
   cargo-vet = callPackage ../development/tools/rust/cargo-vet { inherit (darwin.apple_sdk.frameworks) Security; };
   cargo-wasi = callPackage ../development/tools/rust/cargo-wasi { inherit (darwin.apple_sdk.frameworks) Security; };
-  cargo-watch = darwin.apple_sdk_11_0.callPackage ../development/tools/rust/cargo-watch {
-    inherit (darwin.apple_sdk_11_0.frameworks) Cocoa CoreServices Foundation;
-  };
+  cargo-watch = darwin.apple_sdk_11_0.callPackage ../development/tools/rust/cargo-watch { inherit (darwin.apple_sdk_11_0.frameworks) Cocoa CoreServices Foundation; };
   cargo-wipe = callPackage ../development/tools/rust/cargo-wipe { };
   cargo-workspaces = callPackage ../development/tools/rust/cargo-workspaces {
     inherit (darwin.apple_sdk.frameworks)
@@ -16494,9 +16470,7 @@ with pkgs;
 
   supercollider_scel = supercollider.override { useSCEL = true; };
 
-  supercolliderPlugins = recurseIntoAttrs {
-    sc3-plugins = callPackage ../development/interpreters/supercollider/plugins/sc3-plugins.nix { fftw = fftwSinglePrec; };
-  };
+  supercolliderPlugins = recurseIntoAttrs { sc3-plugins = callPackage ../development/interpreters/supercollider/plugins/sc3-plugins.nix { fftw = fftwSinglePrec; }; };
 
   supercollider-with-plugins = callPackage ../development/interpreters/supercollider/wrapper.nix { plugins = [ ]; };
 
@@ -17058,9 +17032,7 @@ with pkgs;
 
   buildkite-cli = callPackage ../development/tools/continuous-integration/buildkite-cli { };
 
-  buildkite-test-collector-rust = callPackage ../development/tools/continuous-integration/buildkite-test-collector-rust {
-    inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  buildkite-test-collector-rust = callPackage ../development/tools/continuous-integration/buildkite-test-collector-rust { inherit (darwin.apple_sdk.frameworks) Security; };
 
   bump = callPackage ../development/tools/github/bump { };
 
@@ -17131,9 +17103,7 @@ with pkgs;
       (
         { stdenv, ... }@extraArgs:
         overrideCC stdenv (
-          buildPackages.ccacheWrapper.override (
-            { inherit (stdenv) cc; } // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) { extraConfig = extraArgs.extraConfig; }
-          )
+          buildPackages.ccacheWrapper.override ({ inherit (stdenv) cc; } // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) { extraConfig = extraArgs.extraConfig; })
         )
       )
       { inherit stdenv; }
@@ -18724,10 +18694,7 @@ with pkgs;
 
   # TODO(@Ericson2314): Build bionic libc from source
   bionic =
-    if stdenv.hostPlatform.useAndroidPrebuilt then
-      pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries
-    else
-      callPackage ../os-specific/linux/bionic-prebuilt { };
+    if stdenv.hostPlatform.useAndroidPrebuilt then pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries else callPackage ../os-specific/linux/bionic-prebuilt { };
 
   bobcat = callPackage ../development/libraries/bobcat { };
 
@@ -21752,11 +21719,7 @@ with pkgs;
   # Default libGL implementation, should provide headers and
   # libGL.so/libEGL.so/... to link agains them. Android NDK provides
   # an OpenGL implementation, we can just use that.
-  libGL =
-    if stdenv.hostPlatform.useAndroidPrebuilt then
-      stdenv
-    else
-      callPackage ../development/libraries/mesa/stubs.nix { inherit (darwin.apple_sdk.frameworks) OpenGL; };
+  libGL = if stdenv.hostPlatform.useAndroidPrebuilt then stdenv else callPackage ../development/libraries/mesa/stubs.nix { inherit (darwin.apple_sdk.frameworks) OpenGL; };
 
   # Default libGLU
   libGLU = mesa_glu;
@@ -21990,9 +21953,7 @@ with pkgs;
       additionalPaths ? [ ],
     }:
     let
-      nvidia-container-toolkit = callPackage ../applications/virtualization/nvidia-container-toolkit {
-        inherit containerRuntimePath configTemplate libnvidia-container;
-      };
+      nvidia-container-toolkit = callPackage ../applications/virtualization/nvidia-container-toolkit { inherit containerRuntimePath configTemplate libnvidia-container; };
       libnvidia-container = (callPackage ../applications/virtualization/libnvidia-container { });
     in
     symlinkJoin {
@@ -28061,9 +28022,7 @@ with pkgs;
 
   azpainter = callPackage ../applications/graphics/azpainter { };
 
-  bambootracker = libsForQt5.callPackage ../applications/audio/bambootracker {
-    stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
-  };
+  bambootracker = libsForQt5.callPackage ../applications/audio/bambootracker { stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv; };
   bambootracker-qt6 = qt6Packages.callPackage ../applications/audio/bambootracker {
     stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
   };
@@ -30726,9 +30685,7 @@ with pkgs;
 
   ladspa-sdk = callPackage ../applications/audio/ladspa-sdk { };
 
-  ladybird = qt6Packages.callPackage ../applications/networking/browsers/ladybird {
-    stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.clang14Stdenv else stdenv;
-  };
+  ladybird = qt6Packages.callPackage ../applications/networking/browsers/ladybird { stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.clang14Stdenv else stdenv; };
 
   lazpaint = callPackage ../applications/graphics/lazpaint { };
 
@@ -30802,16 +30759,12 @@ with pkgs;
   );
 
   libreoffice-fresh = lowPrio (
-    callPackage ../applications/office/libreoffice/wrapper.nix {
-      unwrapped = callPackage ../applications/office/libreoffice (libreoffice-args // { variant = "fresh"; });
-    }
+    callPackage ../applications/office/libreoffice/wrapper.nix { unwrapped = callPackage ../applications/office/libreoffice (libreoffice-args // { variant = "fresh"; }); }
   );
   libreoffice-fresh-unwrapped = libreoffice-fresh.unwrapped;
 
   libreoffice-still = lowPrio (
-    callPackage ../applications/office/libreoffice/wrapper.nix {
-      unwrapped = callPackage ../applications/office/libreoffice (libreoffice-args // { variant = "still"; });
-    }
+    callPackage ../applications/office/libreoffice/wrapper.nix { unwrapped = callPackage ../applications/office/libreoffice (libreoffice-args // { variant = "still"; }); }
   );
   libreoffice-still-unwrapped = libreoffice-still.unwrapped;
 
@@ -32980,11 +32933,7 @@ with pkgs;
 
   tessen = callPackage ../tools/security/tessen { };
 
-  inherit (callPackage ../applications/graphics/tesseract { inherit (darwin.apple_sdk.frameworks) Accelerate CoreGraphics CoreVideo; })
-    tesseract3
-    tesseract4
-    tesseract5
-  ;
+  inherit (callPackage ../applications/graphics/tesseract { inherit (darwin.apple_sdk.frameworks) Accelerate CoreGraphics CoreVideo; }) tesseract3 tesseract4 tesseract5;
   tesseract = tesseract5;
 
   tetraproc = callPackage ../applications/audio/tetraproc { };
@@ -33401,9 +33350,7 @@ with pkgs;
 
   virtualglLib = callPackage ../tools/X11/virtualgl/lib.nix { fltk = fltk13; };
 
-  virtualgl = callPackage ../tools/X11/virtualgl {
-    virtualglLib_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then pkgsi686Linux.virtualglLib else null;
-  };
+  virtualgl = callPackage ../tools/X11/virtualgl { virtualglLib_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then pkgsi686Linux.virtualglLib else null; };
 
   vpcs = callPackage ../applications/virtualization/vpcs { };
 
@@ -33557,9 +33504,7 @@ with pkgs;
 
   wayfireApplications = wayfireApplications-unwrapped.withPlugins (plugins: [ plugins.wf-shell ]);
   inherit (wayfireApplications) wayfire wcm;
-  wayfireApplications-unwrapped = recurseIntoAttrs (
-    (callPackage ../applications/window-managers/wayfire/applications.nix { }).extend (_: _: { wlroots = wlroots_0_16; })
-  );
+  wayfireApplications-unwrapped = recurseIntoAttrs ((callPackage ../applications/window-managers/wayfire/applications.nix { }).extend (_: _: { wlroots = wlroots_0_16; }));
   wayfirePlugins = recurseIntoAttrs (callPackage ../applications/window-managers/wayfire/plugins.nix { inherit (wayfireApplications-unwrapped) wayfire; });
   wf-config = callPackage ../applications/window-managers/wayfire/wf-config.nix { };
 
@@ -37517,9 +37462,7 @@ with pkgs;
 
   nix-universal-prefetch = callPackage ../tools/package-management/nix-universal-prefetch { };
 
-  nix-repl = throw (
-    "nix-repl has been removed because it's not maintained anymore, " + "use `nix repl` instead. Also see https://github.com/NixOS/nixpkgs/pull/44903"
-  );
+  nix-repl = throw ("nix-repl has been removed because it's not maintained anymore, " + "use `nix repl` instead. Also see https://github.com/NixOS/nixpkgs/pull/44903");
 
   nixpkgs-review = callPackage ../tools/package-management/nixpkgs-review { };
 

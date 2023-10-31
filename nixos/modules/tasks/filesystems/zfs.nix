@@ -904,9 +904,7 @@ in
           Type = "simple";
         };
         script = ''
-          ${cfgZfs.package}/bin/zpool scrub -w ${
-            if cfgScrub.pools != [ ] then (concatStringsSep " " cfgScrub.pools) else "$(${cfgZfs.package}/bin/zpool list -H -o name)"
-          }
+          ${cfgZfs.package}/bin/zpool scrub -w ${if cfgScrub.pools != [ ] then (concatStringsSep " " cfgScrub.pools) else "$(${cfgZfs.package}/bin/zpool list -H -o name)"}
         '';
       };
 

@@ -1211,10 +1211,7 @@ with self; {
   bcdoc = callPackage ../development/python-modules/bcdoc { };
 
   bcrypt =
-    if stdenv.hostPlatform.system == "i686-linux" then
-      callPackage ../development/python-modules/bcrypt/3.nix { }
-    else
-      callPackage ../development/python-modules/bcrypt { };
+    if stdenv.hostPlatform.system == "i686-linux" then callPackage ../development/python-modules/bcrypt/3.nix { } else callPackage ../development/python-modules/bcrypt { };
 
   beaker = callPackage ../development/python-modules/beaker { };
 

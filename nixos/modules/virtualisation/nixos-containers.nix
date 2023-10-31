@@ -172,9 +172,7 @@ let
       --setenv HOST_PORT="$HOST_PORT" \
       --setenv PATH="$PATH" \
       ${optionalString cfg.ephemeral "--ephemeral"} \
-      ${
-        optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ]) ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
-      } \
+      ${optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ]) ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''} \
       ${optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ]) "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"} \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
   '';

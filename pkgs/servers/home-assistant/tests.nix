@@ -128,8 +128,7 @@ lib.listToAttrs (
             # components are more often racy than the core
             dontUsePytestXdist = true;
 
-            pytestFlagsArray =
-              lib.remove "tests" old.pytestFlagsArray ++ [ "--numprocesses=2" ] ++ extraPytestFlagsArray.${component} or [ ] ++ [ "tests/components/${component}" ];
+            pytestFlagsArray = lib.remove "tests" old.pytestFlagsArray ++ [ "--numprocesses=2" ] ++ extraPytestFlagsArray.${component} or [ ] ++ [ "tests/components/${component}" ];
 
             preCheck =
               old.preCheck

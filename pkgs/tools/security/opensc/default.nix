@@ -60,10 +60,7 @@ stdenv.mkDerivation rec {
     "--sysconfdir=/etc"
     "--with-xsl-stylesheetsdir=${docbook_xsl}/xml/xsl/docbook"
     "--with-pcsc-provider=${
-      if withApplePCSC then
-        "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"
-      else
-        "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
+      if withApplePCSC then "${PCSC}/Library/Frameworks/PCSC.framework/PCSC" else "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
     }"
     (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "XSLTPROC=${buildPackages.libxslt}/bin/xsltproc")
   ];

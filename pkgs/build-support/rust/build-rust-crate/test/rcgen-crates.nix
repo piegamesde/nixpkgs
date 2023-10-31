@@ -4155,10 +4155,7 @@ rec {
         || (type == "directory" && baseName == ".git")
 
         # Filter out build results
-        || (
-          type == "directory"
-          && (baseName == "target" || baseName == "_site" || baseName == ".sass-cache" || baseName == ".jekyll-metadata" || baseName == "build-artifacts")
-        )
+        || (type == "directory" && (baseName == "target" || baseName == "_site" || baseName == ".sass-cache" || baseName == ".jekyll-metadata" || baseName == "build-artifacts"))
 
         # Filter out nix-build result symlinks
         || (type == "symlink" && lib.hasPrefix "result" baseName)
@@ -4297,12 +4294,7 @@ rec {
               if buildRustCrateForPkgsFunc != null then
                 buildRustCrateForPkgsFunc
               else
-                (
-                  if crateOverrides == pkgs.defaultCrateOverrides then
-                    buildRustCrateForPkgs
-                  else
-                    pkgs: (buildRustCrateForPkgs pkgs).override { defaultCrateOverrides = crateOverrides; }
-                );
+                (if crateOverrides == pkgs.defaultCrateOverrides then buildRustCrateForPkgs else pkgs: (buildRustCrateForPkgs pkgs).override { defaultCrateOverrides = crateOverrides; });
             builtRustCrates = builtRustCratesWithFeatures {
               inherit packageId features;
               buildRustCrateForPkgsFunc = buildRustCrateForPkgsFuncOverriden;
@@ -4551,9 +4543,7 @@ rec {
         ];
         onlyInCargo = builtins.attrNames (lib.filterAttrs (n: v: !(v ? "crate2nix") && (v ? "cargo")) combined);
         onlyInCrate2Nix = builtins.attrNames (lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined);
-        differentFeatures =
-          lib.filterAttrs (n: v: (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ]))
-            combined;
+        differentFeatures = lib.filterAttrs (n: v: (v ? "crate2nix") && (v ? "cargo") && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])) combined;
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; };
 
@@ -4746,8 +4736,7 @@ rec {
       in
       builtins.sort (a: b: a < b) outFeaturesUnique;
 
-    deprecationWarning =
-      message: value: if strictDeprecation then builtins.throw "strictDeprecation enabled, aborting: ${message}" else builtins.trace message value;
+    deprecationWarning = message: value: if strictDeprecation then builtins.throw "strictDeprecation enabled, aborting: ${message}" else builtins.trace message value;
 
     #
     # crate2nix/default.nix (excerpt end)

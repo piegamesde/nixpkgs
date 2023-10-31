@@ -136,8 +136,7 @@ let
           ""
           component;
       dependencies = builtins.map (dep: builtins.getAttr dep components) component.dependencies;
-      platforms =
-        if component.platform == { } then lib.platforms.all else builtins.concatMap (arch: builtins.map (os: toNixPlatform arch os) operating_systems) architectures;
+      platforms = if component.platform == { } then lib.platforms.all else builtins.concatMap (arch: builtins.map (os: toNixPlatform arch os) operating_systems) architectures;
       snapshot = snapshotFromComponent attrs;
     };
 

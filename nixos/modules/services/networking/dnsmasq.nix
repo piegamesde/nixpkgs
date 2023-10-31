@@ -141,9 +141,7 @@ in
 
   config = mkIf cfg.enable {
 
-    warnings =
-      lib.optional (cfg.extraConfig != "")
-        "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config";
+    warnings = lib.optional (cfg.extraConfig != "") "Text based config is deprecated, dnsmasq now supports `services.dnsmasq.settings` for an attribute-set based config";
 
     services.dnsmasq.settings = {
       dhcp-leasefile = mkDefault "${stateDir}/dnsmasq.leases";

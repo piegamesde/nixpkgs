@@ -184,9 +184,7 @@ let
         }
       );
       config = mkMerge [
-        {
-          warnings = optional fromOpt.isDefined "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
-        }
+        { warnings = optional fromOpt.isDefined "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'."; }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
     };

@@ -448,9 +448,7 @@ in
         }
       ];
 
-      warnings = mkIf (cfg.ldap-proxy.configFile != null) [
-        "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!"
-      ];
+      warnings = mkIf (cfg.ldap-proxy.configFile != null) [ "Using services.privacyidea.ldap-proxy.configFile is deprecated! Use the RFC42-style settings option instead!" ];
 
       systemd.services.privacyidea-ldap-proxy =
         let

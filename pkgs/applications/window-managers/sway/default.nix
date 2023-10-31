@@ -115,9 +115,7 @@ stdenv.mkDerivation rec {
     (wlroots_0_16.override { inherit enableXWayland; })
   ] ++ lib.optionals dbusSupport [ dbus ] ++ lib.optionals enableXWayland [ xorg.xcbutilwm ];
 
-  mesonFlags = [
-    "-Dsd-bus-provider=${sd-bus-provider}"
-  ] ++ lib.optional (!enableXWayland) "-Dxwayland=disabled" ++ lib.optional (!trayEnabled) "-Dtray=disabled";
+  mesonFlags = [ "-Dsd-bus-provider=${sd-bus-provider}" ] ++ lib.optional (!enableXWayland) "-Dxwayland=disabled" ++ lib.optional (!trayEnabled) "-Dtray=disabled";
 
   passthru.tests.basic = nixosTests.sway;
 

@@ -160,10 +160,7 @@ let
           map
             (
               subnet:
-              if subnet.prefixLength == null then
-                "${subnet.address}#${toString subnet.weight}"
-              else
-                "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}"
+              if subnet.prefixLength == null then "${subnet.address}#${toString subnet.weight}" else "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}"
             )
             config.subnets
         );

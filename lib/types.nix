@@ -234,8 +234,7 @@ let
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
             commonType =
-              foldl'
-                (type: def: if getType def.value == type then type else throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}")
+              foldl' (type: def: if getType def.value == type then type else throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}")
                 (getType (head defs).value)
                 defs;
 
@@ -245,8 +244,7 @@ let
                 set = (attrsOf anything).merge;
                 # Safe and deterministic behavior for lists is to only accept one definition
                 # listOf only used to apply mkIf and co.
-                list =
-                  if length defs > 1 then throw "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}." else (listOf anything).merge;
+                list = if length defs > 1 then throw "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}." else (listOf anything).merge;
                 # This is the type of packages, only accept a single definition
                 stringCoercibleSet = mergeOneOption;
                 lambda =
@@ -1042,9 +1040,7 @@ let
         assert lib.assertMsg (coercedType.getSubModules == null) "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
-          description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${
-              optionDescriptionPhrase (class: class == "noun") coercedType
-            } convertible to it";
+          description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${optionDescriptionPhrase (class: class == "noun") coercedType} convertible to it";
           check = x: (coercedType.check x && finalType.check (coerceFunc x)) || finalType.check x;
           merge =
             loc: defs:

@@ -306,9 +306,9 @@ in
   };
 
   config = {
-    warnings =
-      mapAttrsToList (n: v: "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead.")
-        (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups);
+    warnings = mapAttrsToList (n: v: "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead.") (
+      filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups
+    );
     assertions =
       mapAttrsToList
         (n: v: {
@@ -325,8 +325,7 @@ in
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags = if (backup.exclude != [ ]) then [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ] else [ ];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
-            backupPaths =
-              if (backup.dynamicFilesFrom == null) then optionalString (backup.paths != null) (concatStringsSep " " backup.paths) else "--files-from ${filesFromTmpFile}";
+            backupPaths = if (backup.dynamicFilesFrom == null) then optionalString (backup.paths != null) (concatStringsSep " " backup.paths) else "--files-from ${filesFromTmpFile}";
             pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
               (resticCmd + " forget --prune " + (concatStringsSep " " backup.pruneOpts))
               (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
@@ -353,8 +352,7 @@ in
               restartIfChanged = false;
               serviceConfig = {
                 Type = "oneshot";
-                ExecStart =
-                  (optionals (backupPaths != "") [ "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}" ]) ++ pruneCmd;
+                ExecStart = (optionals (backupPaths != "") [ "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}" ]) ++ pruneCmd;
                 User = backup.user;
                 RuntimeDirectory = "restic-backups-${name}";
                 CacheDirectory = "restic-backups-${name}";

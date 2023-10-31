@@ -164,9 +164,7 @@ in
       }
     ];
 
-    environment.etc = mkIf (!cfg.mutableConfig) {
-      "klipper.cfg".source = if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile;
-    };
+    environment.etc = mkIf (!cfg.mutableConfig) { "klipper.cfg".source = if cfg.settings != null then format.generate "klipper.cfg" cfg.settings else cfg.configFile; };
 
     services.klipper = mkIf cfg.octoprintIntegration {
       user = config.services.octoprint.user;

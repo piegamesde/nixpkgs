@@ -197,9 +197,7 @@ in
         ln $out/lib/rstudio/rstudio.png $out/share/icons/hicolor/48x48/apps
       ''}
 
-      for f in {${
-        if server then "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server" else "diagnostics,rpostback,rstudio"
-      }}; do
+      for f in {${if server then "crash-handler-proxy,postback,r-ldpath,rpostback,rserver,rserver-pam,rsession,rstudio-server" else "diagnostics,rpostback,rstudio"}}; do
         ln -s $out/lib/rstudio/bin/$f $out/bin
       done
 

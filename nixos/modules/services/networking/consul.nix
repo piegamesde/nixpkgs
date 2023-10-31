@@ -203,9 +203,7 @@ in
           wantedBy = [ "multi-user.target" ];
           after = [ "network.target" ] ++ systemdDevices;
           bindsTo = systemdDevices;
-          restartTriggers = [
-            config.environment.etc."consul.json".source
-          ] ++ mapAttrsToList (_: d: d.source) (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc);
+          restartTriggers = [ config.environment.etc."consul.json".source ] ++ mapAttrsToList (_: d: d.source) (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc);
 
           serviceConfig = {
             ExecStart = "@${lib.getExe cfg.package} consul agent -config-dir /etc/consul.d" + concatMapStrings (n: " -config-file ${n}") configFiles;

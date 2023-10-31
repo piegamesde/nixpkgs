@@ -1170,9 +1170,7 @@ in
                   "/etc/hosts"
                   "/etc/resolv.conf"
                 ]
-                (mkIf (isStorePath staticDir) (
-                  map (dir: "${dir}:${dir}:norbind") (splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths")))
-                ))
+                (mkIf (isStorePath staticDir) (map (dir: "${dir}:${dir}:norbind") (splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths")))))
                 (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
                 (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
               ]

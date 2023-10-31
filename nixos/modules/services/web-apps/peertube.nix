@@ -67,9 +67,7 @@ let
   };
 
   envFile = pkgs.writeText "peertube.env" (
-    lib.concatMapStrings (s: s + "\n") (
-      (lib.concatLists (lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env))
-    )
+    lib.concatMapStrings (s: s + "\n") ((lib.concatLists (lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env)))
   );
 
   peertubeEnv = pkgs.writeShellScriptBin "peertube-env" ''

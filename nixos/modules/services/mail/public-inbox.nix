@@ -447,9 +447,7 @@ in
       virtual = concatStringsSep "\n" (mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address) cfg.inboxes);
 
       # Deliver the addresses with the public-inbox transport
-      transport = concatStringsSep "\n" (
-        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address) cfg.inboxes
-      );
+      transport = concatStringsSep "\n" (mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address) cfg.inboxes);
 
       # The public-inbox transport
       masterConfig.public-inbox = {

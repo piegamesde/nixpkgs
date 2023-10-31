@@ -1204,9 +1204,7 @@ in
     boot.initrd.services.lvm.enable = true;
 
     boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) postCommands;
-    boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand preLVM) + postCommands
-    );
+    boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand preLVM) + postCommands);
     boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) (
       commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands
     );

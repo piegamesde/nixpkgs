@@ -38,19 +38,13 @@ stdenv.mkDerivation rec {
           '';
           name = commercialName;
           sha256 =
-            if stdenv.hostPlatform.system == "i686-linux" then
-              "15wvzmmidvykwjrbnq70h5jrvnjx1hcrm0357qj85q4aqbzavh01"
-            else
-              "1v8z16qa9ka8sf7qq45knsxj87s6sipvv3a7xq11pb5xk08fb2ql";
+            if stdenv.hostPlatform.system == "i686-linux" then "15wvzmmidvykwjrbnq70h5jrvnjx1hcrm0357qj85q4aqbzavh01" else "1v8z16qa9ka8sf7qq45knsxj87s6sipvv3a7xq11pb5xk08fb2ql";
         }
       else
         fetchurl {
           url = demoUrl;
           sha256 =
-            if stdenv.hostPlatform.system == "i686-linux" then
-              "0f14vrrbq05hsbdajrb5y9za65fpng1lc8f0adb4aaz27x7sh525"
-            else
-              "0mg41ya0b27blq3b5498kwl4rj46dj21rcd7qd0rw1kyvr7sx4v4";
+            if stdenv.hostPlatform.system == "i686-linux" then "0f14vrrbq05hsbdajrb5y9za65fpng1lc8f0adb4aaz27x7sh525" else "0mg41ya0b27blq3b5498kwl4rj46dj21rcd7qd0rw1kyvr7sx4v4";
         }
     else
       throw "And Yet It Moves nix package only supports linux and intel cpu's.";

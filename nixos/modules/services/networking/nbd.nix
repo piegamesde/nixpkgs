@@ -44,11 +44,7 @@ let
           allowAddresses,
           extraOptions,
         }:
-        extraOptions
-        // {
-          exportname = path;
-        }
-        // (optionalAttrs (allowAddresses != null) { authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses); })
+        extraOptions // { exportname = path; } // (optionalAttrs (allowAddresses != null) { authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses); })
       )
       cfg.server.exports;
   serverConfig = pkgs.writeText "nbd-server-config" ''

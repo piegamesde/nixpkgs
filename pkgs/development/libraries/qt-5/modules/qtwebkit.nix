@@ -114,8 +114,6 @@ qtModule {
       abbradar
       periklis
     ];
-    knownVulnerabilities = [
-      "QtWebkit upstream is unmaintained and receives no security updates, see https://blogs.gnome.org/mcatanzaro/2022/11/04/stop-using-qtwebkit/"
-    ];
+    knownVulnerabilities = [ "QtWebkit upstream is unmaintained and receives no security updates, see https://blogs.gnome.org/mcatanzaro/2022/11/04/stop-using-qtwebkit/" ];
   };
 }

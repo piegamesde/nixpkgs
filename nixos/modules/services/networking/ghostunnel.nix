@@ -168,8 +168,7 @@ let
                 - services.ghostunnel.servers.${name}.allowDNS
                 - services.ghostunnel.servers.${name}.allowURI
             '';
-            assertion =
-              config.disableAuthentication || config.allowAll || config.allowCN != [ ] || config.allowOU != [ ] || config.allowDNS != [ ] || config.allowURI != [ ];
+            assertion = config.disableAuthentication || config.allowAll || config.allowCN != [ ] || config.allowOU != [ ] || config.allowDNS != [ ] || config.allowURI != [ ];
           }
         ];
 

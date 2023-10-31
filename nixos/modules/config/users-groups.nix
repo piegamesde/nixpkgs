@@ -142,9 +142,7 @@ let
         homeMode = mkOption {
           type = types.strMatching "[0-7]{1,5}";
           default = "700";
-          description =
-            lib.mdDoc
-              "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true.";
+          description = lib.mdDoc "The user's home directory mode in numeric format. See chmod(1). The mode is only applied if {option}`users.users.<name>.createHome` is true.";
         };
 
         cryptHomeLuks = mkOption {
@@ -877,11 +875,7 @@ in
                     name: cfg:
                     (name == "root" || cfg.group == "wheel" || elem "wheel" cfg.extraGroups)
                     && (
-                      allowsLogin cfg.hashedPassword
-                      || cfg.password != null
-                      || cfg.passwordFile != null
-                      || cfg.openssh.authorizedKeys.keys != [ ]
-                      || cfg.openssh.authorizedKeys.keyFiles != [ ]
+                      allowsLogin cfg.hashedPassword || cfg.password != null || cfg.passwordFile != null || cfg.openssh.authorizedKeys.keys != [ ] || cfg.openssh.authorizedKeys.keyFiles != [ ]
                     )
                   )
                   cfg.users

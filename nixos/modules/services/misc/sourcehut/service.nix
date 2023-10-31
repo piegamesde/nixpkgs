@@ -298,9 +298,7 @@ in
         services.sourcehut.settings = mkMerge [
           { "${srv}.sr.ht".origin = mkDefault "https://${srv}.${cfg.settings."sr.ht".global-domain}"; }
 
-          (mkIf cfg.postgresql.enable {
-            "${srv}.sr.ht".connection-string = mkDefault "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql";
-          })
+          (mkIf cfg.postgresql.enable { "${srv}.sr.ht".connection-string = mkDefault "postgresql:///${srvCfg.postgresql.database}?user=${srvCfg.user}&host=/run/postgresql"; })
         ];
 
         services.redis.servers."sourcehut-${srvsrht}" = mkIf cfg.redis.enable {
@@ -344,8 +342,7 @@ in
                     StateDirectory = [ "sourcehut/${srvsrht}" ];
                     StateDirectoryMode = "2750";
                     ExecStart =
-                      "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${toString srvCfg.port} "
-                      + concatStringsSep " " srvCfg.gunicorn.extraArgs;
+                      "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${toString srvCfg.port} " + concatStringsSep " " srvCfg.gunicorn.extraArgs;
                   };
                   preStart =
                     let

@@ -237,9 +237,7 @@ let
       preUpFile = if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
       postUp =
         optional (values.privateKeyFile != null) "wg set ${name} private-key <(cat ${values.privateKeyFile})"
-        ++ (concatMap (peer: optional (peer.presharedKeyFile != null) "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})")
-          values.peers
-        )
+        ++ (concatMap (peer: optional (peer.presharedKeyFile != null) "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})") values.peers)
         ++ optional (values.postUp != "") values.postUp;
       postUpFile = if postUp != [ ] then writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp) else null;
       preDownFile = if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;

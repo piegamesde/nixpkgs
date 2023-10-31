@@ -83,9 +83,7 @@ in
 
   config = mkIf (cfg.projects != { }) {
 
-    environment.etc.projects.source = pkgs.writeText "etc-project" (
-      concatStringsSep "\n" (mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}") cfg.projects)
-    );
+    environment.etc.projects.source = pkgs.writeText "etc-project" (concatStringsSep "\n" (mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}") cfg.projects));
 
     environment.etc.projid.source = pkgs.writeText "etc-projid" (concatStringsSep "\n" (mapAttrsToList (name: opts: "${name}:${toString opts.id}") cfg.projects));
 

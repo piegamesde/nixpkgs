@@ -70,9 +70,7 @@ in
       };
       password = mkOption {
         type = types.str;
-        description =
-          lib.mdDoc
-            "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead.";
+        description = lib.mdDoc "Password for the postgresql connection. Do not use: the password will be stored world readable in the store; use `passwordFile` instead.";
         default = "";
       };
       passwordFile = mkOption {
@@ -129,9 +127,7 @@ in
 
   config = mkIf cfg.enable {
     # backward compatibility: if password is set but not passwordFile, make one.
-    services.roundcube.database.passwordFile = mkIf (!localDB && cfg.database.password != "") (
-      mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}")
-    );
+    services.roundcube.database.passwordFile = mkIf (!localDB && cfg.database.password != "") (mkDefault ("${pkgs.writeText "roundcube-password" cfg.database.password}"));
     warnings =
       lib.optional (!localDB && cfg.database.password != "")
         "services.roundcube.database.password is deprecated and insecure; use services.roundcube.database.passwordFile instead";

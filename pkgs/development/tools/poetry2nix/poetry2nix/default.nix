@@ -326,8 +326,7 @@ lib.makeScope pkgs.newScope (
             # Fix infinite recursion in a lot of packages because of checkInputs
             (
               self: super:
-              lib.mapAttrs
-                (name: value: (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value))
+              lib.mapAttrs (name: value: (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value))
                 super
             )
 
@@ -418,10 +417,7 @@ lib.makeScope pkgs.newScope (
             // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { }))
             // (
               # Poetry>=1.2.0
-              if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { } groups
-              else
-                { }
+              if pyProject.tool.poetry.group or { } != { } then builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { } groups else { }
             )
             // editablePackageSources
           );

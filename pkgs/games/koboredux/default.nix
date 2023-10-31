@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description =
-      "A frantic 80's style 2D shooter, similar to XKobo and Kobo Deluxe" + optionalString (!useProprietaryAssets) " (built without proprietary assets)";
+    description = "A frantic 80's style 2D shooter, similar to XKobo and Kobo Deluxe" + optionalString (!useProprietaryAssets) " (built without proprietary assets)";
     longDescription =
       ''
         Kobo Redux is a frantic 80's style 2D shooter, inspired by the look and

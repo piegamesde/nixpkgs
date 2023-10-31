@@ -2186,8 +2186,7 @@ let
       visible = false;
       apply =
         _:
-        throw
-          "The option `systemd.network.networks.*.dhcpConfig` can no longer be used since it's been removed. Please use `systemd.network.networks.*.dhcpV4Config` instead.";
+        throw "The option `systemd.network.networks.*.dhcpConfig` can no longer be used since it's been removed. Please use `systemd.network.networks.*.dhcpV4Config` instead.";
     };
 
     dhcpV4Config = mkOption {
@@ -2220,9 +2219,7 @@ let
     dhcpV6PrefixDelegationConfig = mkOption {
       visible = false;
       apply =
-        _:
-        throw
-          "The option `systemd.network.networks.<name>.dhcpV6PrefixDelegationConfig` has been renamed to `systemd.network.networks.<name>.dhcpPrefixDelegationConfig`.";
+        _: throw "The option `systemd.network.networks.<name>.dhcpV6PrefixDelegationConfig` has been renamed to `systemd.network.networks.<name>.dhcpPrefixDelegationConfig`.";
     };
 
     dhcpPrefixDelegationConfig = mkOption {
@@ -2967,9 +2964,7 @@ let
     {
       config = {
         matchConfig = optionalAttrs (config.name != null) { Name = config.name; };
-        networkConfig =
-          optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
-          // optionalAttrs (config.domains != null) { Domains = concatStringsSep " " config.domains; };
+        networkConfig = optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; } // optionalAttrs (config.domains != null) { Domains = concatStringsSep " " config.domains; };
       };
     };
 

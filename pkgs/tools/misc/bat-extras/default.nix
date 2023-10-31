@@ -186,10 +186,6 @@ in
     ++ optionalDep withEntr entr
   );
   prettybat = script "prettybat" (
-    [ ]
-    ++ optionalDep withShFmt shfmt
-    ++ optionalDep withPrettier nodePackages.prettier
-    ++ optionalDep withClangTools clang-tools
-    ++ optionalDep withRustFmt rustfmt
+    [ ] ++ optionalDep withShFmt shfmt ++ optionalDep withPrettier nodePackages.prettier ++ optionalDep withClangTools clang-tools ++ optionalDep withRustFmt rustfmt
   );
 }

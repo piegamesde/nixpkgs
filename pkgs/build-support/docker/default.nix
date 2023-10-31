@@ -954,9 +954,7 @@ rec {
       # Passthru arguments for the underlying derivation.
       passthru ? { },
     }:
-    assert (lib.assertMsg (maxLayers > 1)
-      "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${toString maxLayers})"
-    );
+    assert (lib.assertMsg (maxLayers > 1) "the maxLayers argument of dockerTools.buildLayeredImage function must be greather than 1 (current value: ${toString maxLayers})");
     let
       baseName = baseNameOf name;
 
@@ -1161,8 +1159,7 @@ rec {
       # Same as `command`, but runs the command in a non-interactive shell instead. See `--run` in `man nix-shell`
       run ? null,
     }:
-    assert lib.assertMsg (!(drv.drvAttrs.__structuredAttrs or false))
-        "streamNixShellImage: Does not work with the derivation ${drv.name} because it uses __structuredAttrs";
+    assert lib.assertMsg (!(drv.drvAttrs.__structuredAttrs or false)) "streamNixShellImage: Does not work with the derivation ${drv.name} because it uses __structuredAttrs";
     assert lib.assertMsg (command == null || run == null) "streamNixShellImage: Can't specify both command and run";
     let
 

@@ -64,21 +64,19 @@ stdenv.mkDerivation rec {
     xmlto
     zip
   ];
-  buildInputs =
-    [
-      cdrtools
-      dvdauthor
-      dvdplusrwtools
-      ffmpeg_4
-      fontconfig
-      glib
-      libexif
-      libjpeg
-      wxSVG
-      wxGTK32
-      xine-ui
-    ]
-    ++ optionals dvdisasterSupport [ dvdisaster ] ++ optionals udevSupport [ udev ] ++ optionals dbusSupport [ dbus ] ++ optionals thumbnailSupport [ libgnomeui ];
+  buildInputs = [
+    cdrtools
+    dvdauthor
+    dvdplusrwtools
+    ffmpeg_4
+    fontconfig
+    glib
+    libexif
+    libjpeg
+    wxSVG
+    wxGTK32
+    xine-ui
+  ] ++ optionals dvdisasterSupport [ dvdisaster ] ++ optionals udevSupport [ udev ] ++ optionals dbusSupport [ dbus ] ++ optionals thumbnailSupport [ libgnomeui ];
 
   enableParallelBuilding = true;
 

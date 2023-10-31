@@ -280,9 +280,7 @@ let
       (optionalString (enableSharedExecutables && stdenv.isDarwin) "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
       (optionalString enableParallelBuilding "--ghc-options=${parallelBuildingFlags}")
       (optionalString useCpphs "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp")
-      (enableFeature (enableDeadCodeElimination && !stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64 && (versionAtLeast "8.0.1" ghc.version))
-        "split-objs"
-      )
+      (enableFeature (enableDeadCodeElimination && !stdenv.hostPlatform.isAarch32 && !stdenv.hostPlatform.isAarch64 && (versionAtLeast "8.0.1" ghc.version)) "split-objs")
       (enableFeature enableLibraryProfiling "library-profiling")
       (optionalString ((enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version) "--profiling-detail=${profilingDetail}")
       (enableFeature enableExecutableProfiling (if versionOlder ghc.version "8" then "executable-profiling" else "profiling"))
@@ -315,19 +313,14 @@ let
   isHaskellPkg = x: x ? isHaskellLibrary;
 
   allPkgconfigDepends =
-    pkg-configDepends
-    ++ libraryPkgconfigDepends
-    ++ executablePkgconfigDepends
-    ++ optionals doCheck testPkgconfigDepends
-    ++ optionals doBenchmark benchmarkPkgconfigDepends;
+    pkg-configDepends ++ libraryPkgconfigDepends ++ executablePkgconfigDepends ++ optionals doCheck testPkgconfigDepends ++ optionals doBenchmark benchmarkPkgconfigDepends;
 
   depsBuildBuild =
     [ nativeGhc ]
     # CC_FOR_BUILD may be necessary if we have no C preprocessor for the host
     # platform. See crossCabalFlags above for more details.
     ++ lib.optionals (!stdenv.hasCC) [ buildPackages.stdenv.cc ];
-  collectedToolDepends =
-    buildTools ++ libraryToolDepends ++ executableToolDepends ++ optionals doCheck testToolDepends ++ optionals doBenchmark benchmarkToolDepends;
+  collectedToolDepends = buildTools ++ libraryToolDepends ++ executableToolDepends ++ optionals doCheck testToolDepends ++ optionals doBenchmark benchmarkToolDepends;
   nativeBuildInputs = [
     ghc
     removeReferencesTo

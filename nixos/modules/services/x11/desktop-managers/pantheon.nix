@@ -93,9 +93,7 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.desktopManager.pantheon.sessionPath =
-        utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ]
-          config.environment.pantheon.excludePackages;
+      services.xserver.desktopManager.pantheon.sessionPath = utils.removePackagesByName [ pkgs.pantheon.pantheon-agent-geoclue2 ] config.environment.pantheon.excludePackages;
 
       services.xserver.displayManager.sessionPackages = [ pkgs.pantheon.elementary-session-settings ];
 

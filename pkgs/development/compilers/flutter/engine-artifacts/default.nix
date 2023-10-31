@@ -122,9 +122,7 @@ let
         version = engineVersion;
 
         src = fetchzip {
-          url = "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${
-              lib.optionalString (platform != null) "/${artifactDirectory}"
-            }/${archive}";
+          url = "https://storage.googleapis.com/flutter_infra_release/flutter/${engineVersion}${lib.optionalString (platform != null) "/${artifactDirectory}"}/${archive}";
           stripRoot = false;
           hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
         };

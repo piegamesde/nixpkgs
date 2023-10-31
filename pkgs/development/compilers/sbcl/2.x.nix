@@ -98,10 +98,7 @@ stdenv.mkDerivation rec {
 
   enableFeatures =
     with lib;
-    optional threadSupport "sb-thread"
-    ++ optional linkableRuntime "sb-linkable-runtime"
-    ++ optional coreCompression "sb-core-compression"
-    ++ optional stdenv.isAarch32 "arm";
+    optional threadSupport "sb-thread" ++ optional linkableRuntime "sb-linkable-runtime" ++ optional coreCompression "sb-core-compression" ++ optional stdenv.isAarch32 "arm";
 
   disableFeatures =
     with lib;

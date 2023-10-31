@@ -116,8 +116,7 @@ rec {
 
   assertRange =
     name: min: max: group: attr:
-    optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
-      "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
+    optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name})) "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
 
   assertMinimum =
     name: min: group: attr:
@@ -265,9 +264,7 @@ rec {
         # systemd or systemd.packages, then add them as
         # <unit-name>.d/overrides.conf, which makes them extend the
         # upstream unit.
-        for i in ${
-          toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units))
-        }; do
+        for i in ${toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units))}; do
           fn=$(basename $i/*)
           if [ -e $out/$fn ]; then
             if [ "$(readlink -f $i/$fn)" = /dev/null ]; then
@@ -409,8 +406,7 @@ rec {
       };
     };
 
-  serviceConfig =
-    { config, ... }: { config.environment.PATH = mkIf (config.path != [ ]) "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}"; };
+  serviceConfig = { config, ... }: { config.environment.PATH = mkIf (config.path != [ ]) "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}"; };
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];

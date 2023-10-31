@@ -22,11 +22,7 @@
 
 let
   drivers = lib.concatStringsSep "," (
-    [ "hash_drv" ]
-    ++ lib.optional withMySQL "mysql_drv"
-    ++ lib.optional withPgSQL "pgsql_drv"
-    ++ lib.optional withSQLite "sqlite3_drv"
-    ++ lib.optional withDB "libdb4_drv"
+    [ "hash_drv" ] ++ lib.optional withMySQL "mysql_drv" ++ lib.optional withPgSQL "pgsql_drv" ++ lib.optional withSQLite "sqlite3_drv" ++ lib.optional withDB "libdb4_drv"
   );
   maintenancePath = lib.makeBinPath [
     gawk

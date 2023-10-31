@@ -10,8 +10,7 @@
 let
 
   version = "3";
-  canonicalExtension =
-    if stdenv.hostPlatform.isLinux then "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}" else stdenv.hostPlatform.extensions.sharedLibrary;
+  canonicalExtension = if stdenv.hostPlatform.isLinux then "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}" else stdenv.hostPlatform.extensions.sharedLibrary;
 
   lapackImplementation = lib.getName lapackProvider;
   lapackProvider' = if lapackImplementation == "mkl" then lapackProvider else lapackProvider.override { blas64 = isILP64; };
@@ -96,9 +95,7 @@ stdenv.mkDerivation {
       ''
       + (lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") ''
         patchelf --set-soname liblapacke${canonicalExtension} $out/lib/liblapacke${canonicalExtension}
-        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${
-          lib.getLib lapackProvider'
-        }/lib" $out/lib/liblapacke${canonicalExtension}
+        patchelf --set-rpath "$(patchelf --print-rpath $out/lib/liblapacke${canonicalExtension}):${lib.getLib lapackProvider'}/lib" $out/lib/liblapacke${canonicalExtension}
       '')
       + ''
 

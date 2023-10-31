@@ -1473,9 +1473,7 @@ in
         "gitlab-postgresql.service"
         "postgresql.service"
       ];
-      bindsTo = [
-        "gitlab-config.service"
-      ] ++ optional (cfg.databaseHost == "") "postgresql.service" ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service";
+      bindsTo = [ "gitlab-config.service" ] ++ optional (cfg.databaseHost == "") "postgresql.service" ++ optional databaseActuallyCreateLocally "gitlab-postgresql.service";
       wantedBy = [ "gitlab.target" ];
       partOf = [ "gitlab.target" ];
       serviceConfig = {

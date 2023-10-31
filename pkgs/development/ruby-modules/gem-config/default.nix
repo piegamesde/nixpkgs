@@ -443,10 +443,9 @@ in
   };
 
   grpc = attrs: {
-    nativeBuildInputs =
-      [ pkg-config ]
-      ++ lib.optional stdenv.isDarwin cctools
-      ++ lib.optional (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64) autoSignDarwinBinariesHook;
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ lib.optional stdenv.isDarwin cctools ++ lib.optional (lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64) autoSignDarwinBinariesHook;
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
     env.NIX_CFLAGS_COMPILE = toString [

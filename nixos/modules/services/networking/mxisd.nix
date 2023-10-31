@@ -29,10 +29,7 @@ let
   fullConfig = recursiveUpdate baseConfig cfg.extraConfig;
 
   configFile =
-    if isMa1sd cfg.package then
-      pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig)
-    else
-      pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig);
+    if isMa1sd cfg.package then pkgs.writeText "ma1sd-config.yaml" (builtins.toJSON fullConfig) else pkgs.writeText "mxisd-config.yaml" (builtins.toJSON fullConfig);
 in
 {
   options = {

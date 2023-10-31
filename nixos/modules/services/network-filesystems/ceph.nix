@@ -15,10 +15,7 @@ let
   expandCamelCaseAttrs = mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
 
   makeServices =
-    (
-      daemonType: daemonIds:
-      mkMerge (map (daemonId: { "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph; }) daemonIds)
-    );
+    (daemonType: daemonIds: mkMerge (map (daemonId: { "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph; }) daemonIds));
 
   makeService =
     (

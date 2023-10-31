@@ -109,8 +109,7 @@ rec {
     let
       withWarnings =
         x:
-        lib.warnIf (evalModulesArgs ? args) "The args argument to evalModules is deprecated. Please set config._module.args instead." lib.warnIf
-          (evalModulesArgs ? check)
+        lib.warnIf (evalModulesArgs ? args) "The args argument to evalModules is deprecated. Please set config._module.args instead." lib.warnIf (evalModulesArgs ? check)
           "The check argument to evalModules is deprecated. Please set config._module.check instead."
           x;
 

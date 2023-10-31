@@ -11,10 +11,7 @@ let
   cfg = config.services.globalprotect;
 
   execStart =
-    if cfg.csdWrapper == null then
-      "${pkgs.globalprotect-openconnect}/bin/gpservice"
-    else
-      "${pkgs.globalprotect-openconnect}/bin/gpservice --csd-wrapper=${cfg.csdWrapper}";
+    if cfg.csdWrapper == null then "${pkgs.globalprotect-openconnect}/bin/gpservice" else "${pkgs.globalprotect-openconnect}/bin/gpservice --csd-wrapper=${cfg.csdWrapper}";
 in
 
 {

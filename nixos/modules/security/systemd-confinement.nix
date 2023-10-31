@@ -192,8 +192,7 @@ in
           }
           {
             assertion = !cfg.serviceConfig.DynamicUser or false;
-            message =
-              "${whatOpt "DynamicUser"}. Please create a dedicated user via" + " the 'users.users' option instead as this combination is" + " currently not supported.";
+            message = "${whatOpt "DynamicUser"}. Please create a dedicated user via" + " the 'users.users' option instead as this combination is" + " currently not supported.";
           }
           {
             assertion = cfg.serviceConfig ? ProtectSystem -> cfg.serviceConfig.ProtectSystem == false;

@@ -264,12 +264,7 @@ in
                 Group = cfg.group;
                 ExecStart = ''
                   ${cfg.package}/bin/blockbook \
-                  ${
-                    if (cfg.rpc.passwordFile != null && cfg.configFile == null) then
-                      "-blockchaincfg=${cfg.dataDir}/${blockbookName}-config.json"
-                    else
-                      "-blockchaincfg=${configFile}"
-                  } \
+                  ${if (cfg.rpc.passwordFile != null && cfg.configFile == null) then "-blockchaincfg=${cfg.dataDir}/${blockbookName}-config.json" else "-blockchaincfg=${configFile}"} \
                   -datadir=${cfg.dataDir} \
                   ${optionalString (cfg.sync != false) "-sync"} \
                   ${optionalString (cfg.certFile != null) "-certfile=${toString cfg.certFile}"} \

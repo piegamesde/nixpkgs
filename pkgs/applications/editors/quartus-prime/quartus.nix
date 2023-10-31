@@ -24,8 +24,7 @@ let
   };
 
   supportedDeviceIds =
-    assert lib.assertMsg (lib.all (name: lib.hasAttr name deviceIds) supportedDevices)
-        "Supported devices are: ${lib.concatStringsSep ", " (lib.attrNames deviceIds)}";
+    assert lib.assertMsg (lib.all (name: lib.hasAttr name deviceIds) supportedDevices) "Supported devices are: ${lib.concatStringsSep ", " (lib.attrNames deviceIds)}";
     lib.listToAttrs (
       map
         (name: {

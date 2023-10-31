@@ -154,8 +154,9 @@ let
         else if requiresSigning && !lib.hasSuffix "esr" browser.name then
           throw "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
-          builtins.map (a: if !(builtins.hasAttr "extid" a) then throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon" else a)
-            (lib.optionals usesNixExtensions nixExtensions);
+          builtins.map (a: if !(builtins.hasAttr "extid" a) then throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon" else a) (
+            lib.optionals usesNixExtensions nixExtensions
+          );
 
       enterprisePolicies = {
         policies =

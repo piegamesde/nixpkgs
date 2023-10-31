@@ -287,9 +287,7 @@ let
         inherit llvm_meta;
         stdenv =
           if
-            (stdenv.hostPlatform.useLLVM or false)
-            || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-            || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit)
+            (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit)
           then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else

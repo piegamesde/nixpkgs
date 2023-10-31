@@ -429,9 +429,9 @@ self: super:
   # https://github.com/techtangents/ablist/issues/1
   ABList = dontCheck super.ABList;
 
-  pandoc-cli =
-    throwIfNot (versionOlder super.pandoc.version "3.0.0") "pandoc-cli contains the pandoc executable starting with 3.0, this needs to be considered now."
-      (markBroken (dontDistribute super.pandoc-cli));
+  pandoc-cli = throwIfNot (versionOlder super.pandoc.version "3.0.0") "pandoc-cli contains the pandoc executable starting with 3.0, this needs to be considered now." (
+    markBroken (dontDistribute super.pandoc-cli)
+  );
 
   inline-c-cpp =
     overrideCabal

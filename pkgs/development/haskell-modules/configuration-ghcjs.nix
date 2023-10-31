@@ -101,9 +101,7 @@ self: super:
 
   reflex = overrideCabal (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; }) super.reflex;
 
-  reflex-dom =
-    overrideCabal (drv: { libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]); })
-      super.reflex-dom;
+  reflex-dom = overrideCabal (drv: { libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (drv.libraryHaskellDepends or [ ]); }) super.reflex-dom;
 
   # https://github.com/dreixel/syb/issues/21
   syb = dontCheck super.syb;

@@ -40,9 +40,7 @@ rustPlatform.buildRustPackage (
 
     cargoHash = "sha256-FqhN1t3n6j5czZ40JUFtsz4ZxTl7vpMTBhrR66M1DNw=";
 
-    nativeBuildInputs = [
-      pkg-config
-    ] ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [ pkg-config ] ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
     buildInputs =
       [

@@ -80,9 +80,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ glib ];
 
-  mesonFlags = [
-    "-Dinstalled_test_prefix=${placeholder "installedTests"}"
-  ] ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [ "-Dprofiler=disabled" ];
+  mesonFlags = [ "-Dinstalled_test_prefix=${placeholder "installedTests"}" ] ++ lib.optionals (!stdenv.isLinux || stdenv.hostPlatform.isMusl) [ "-Dprofiler=disabled" ];
 
   doCheck = !stdenv.isDarwin;
 

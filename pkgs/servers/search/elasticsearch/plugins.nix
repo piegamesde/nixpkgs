@@ -47,10 +47,7 @@ in
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
-        if version == "7.17.4" then
-          "a4e881d86694ae70ab6b18f72ea700415971200145d33d438e57c0374d9fc16f"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+        if version == "7.17.4" then "a4e881d86694ae70ab6b18f72ea700415971200145d33d438e57c0374d9fc16f" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-icu";
@@ -93,10 +90,7 @@ in
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
-        if version == "7.17.4" then
-          "1c8175b2dac54277c1f41981fb4a784829e74e6e74268381fe0c27bc6652704b"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+        if version == "7.17.4" then "1c8175b2dac54277c1f41981fb4a784829e74e6e74268381fe0c27bc6652704b" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-phonetic";
@@ -111,10 +105,7 @@ in
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
-        if version == "7.17.4" then
-          "702e446997bde5cb38af120a1cb4271d976fdd23444be49e53b6be3801d845a9"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+        if version == "7.17.4" then "702e446997bde5cb38af120a1cb4271d976fdd23444be49e53b6be3801d845a9" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/discovery-ec2";
@@ -129,10 +120,7 @@ in
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
       sha256 =
-        if version == "7.17.4" then
-          "7d1574a585a9db0988ee248159d51f62cce5578a8c082096ef3e26efdb24aee7"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+        if version == "7.17.4" then "7d1574a585a9db0988ee248159d51f62cce5578a8c082096ef3e26efdb24aee7" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/ingest-attachment";
@@ -147,10 +135,7 @@ in
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip";
       sha256 =
-        if version == "7.17.4" then
-          "cad923a662db705d40ca29698aa118e9e4cc50ae564c426a76d5acb777a4f57c"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+        if version == "7.17.4" then "cad923a662db705d40ca29698aa118e9e4cc50ae564c426a76d5acb777a4f57c" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/repository-s3";
@@ -165,10 +150,7 @@ in
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${esVersion}.zip";
       sha256 =
-        if version == "7.17.4" then
-          "a50be4cea5c68ad7615f87d672ba160d027fdfde2be0578bb2dabd6384cc8108"
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+        if version == "7.17.4" then "a50be4cea5c68ad7615f87d672ba160d027fdfde2be0578bb2dabd6384cc8108" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/repository-gcs";

@@ -437,9 +437,7 @@ in
 
     # Configure Chromium to not show the "Chrome is being controlled by automatic test software" message.
     environment.etc."chromium/policies/managed/managed_policies.json".text = builtins.toJSON { CommandLineFlagSecurityWarningsEnabled = false; };
-    warnings = [
-      "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system."
-    ];
+    warnings = [ "All security warnings for Chromium have been disabled. This is necessary for Jibri, but it also impacts all other uses of Chromium on this system." ];
 
     boot = {
       extraModprobeConfig = ''

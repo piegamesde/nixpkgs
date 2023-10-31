@@ -1552,8 +1552,7 @@ in
         }
       ];
 
-    boot.kernelModules =
-      [ ] ++ optional hasVirtuals "tun" ++ optional hasSits "sit" ++ optional hasGres "gre" ++ optional hasBonds "bonding" ++ optional hasFous "fou";
+    boot.kernelModules = [ ] ++ optional hasVirtuals "tun" ++ optional hasSits "sit" ++ optional hasGres "gre" ++ optional hasBonds "bonding" ++ optional hasFous "fou";
 
     boot.extraModprobeConfig =
       # This setting is intentional as it prevents default bond devices
@@ -1750,8 +1749,7 @@ in
                   ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
                   ${optionalString (current.type == "mesh" && current.meshID != null) "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
                   ${optionalString (current.type == "monitor" && current.flags != null) "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
-                  ${optionalString (current.type == "managed" && current.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
+                  ${optionalString (current.type == "managed" && current.fourAddr != null) "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
                   ${optionalString (current.mac != null) "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
                 '';
 
@@ -1783,10 +1781,7 @@ in
                 # next rules from matching.
                 ${flip (concatMapStringsSep "\n") (wlanListDeviceFirst device wlanDeviceInterfaces.${device}) (
                   interface:
-                  ''
-                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${systemdAttrs interface._iName}, RUN+="${
-                      newInterfaceScript interface
-                    }"''
+                  ''ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${systemdAttrs interface._iName}, RUN+="${newInterfaceScript interface}"''
                 )}
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the

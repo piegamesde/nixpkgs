@@ -91,19 +91,17 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [
-      argon2-cffi
-      flask-mongoengine
-      mongoengine
-      mongomock
-      peewee
-      pony
-      pytestCheckHook
-      python-dateutil
-      zxcvbn
-    ]
-    ++ passthru.optional-dependencies.babel ++ passthru.optional-dependencies.common ++ passthru.optional-dependencies.fsqla ++ passthru.optional-dependencies.mfa;
+  nativeCheckInputs = [
+    argon2-cffi
+    flask-mongoengine
+    mongoengine
+    mongomock
+    peewee
+    pony
+    pytestCheckHook
+    python-dateutil
+    zxcvbn
+  ] ++ passthru.optional-dependencies.babel ++ passthru.optional-dependencies.common ++ passthru.optional-dependencies.fsqla ++ passthru.optional-dependencies.mfa;
 
   pythonImportsCheck = [ "flask_security" ];
 

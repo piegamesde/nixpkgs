@@ -296,8 +296,7 @@ in
       tomlFile = format.generate "hercules-ci-agent.toml" cfg.settings;
 
       settings.labels = {
-        agent.source =
-          if options.services.hercules-ci-agent.package.highestPrio == (lib.modules.mkOptionDefault { }).priority then "nixpkgs" else lib.mkOptionDefault "override";
+        agent.source = if options.services.hercules-ci-agent.package.highestPrio == (lib.modules.mkOptionDefault { }).priority then "nixpkgs" else lib.mkOptionDefault "override";
         pkgs.version = pkgs.lib.version;
         lib.version = lib.version;
       };

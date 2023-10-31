@@ -56,9 +56,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-IBqtyz40VVHdncibnZQAe5oDsjb5isWBYQ6pGx/zt38=";
   };
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ] ++ lib.optionals rLibrary [ R ];
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ] ++ lib.optionals rLibrary [ R ];
 
   buildInputs = [ gtest ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit ++ lib.optional ncclSupport cudaPackages.nccl;
 

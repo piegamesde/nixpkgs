@@ -34,8 +34,7 @@ let
         set -e fish_function_path[1]
       '';
 
-  babelfishTranslate =
-    path: name: pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
+  babelfishTranslate = path: name: pkgs.runCommandLocal "${name}.fish" { nativeBuildInputs = [ pkgs.babelfish ]; } "${pkgs.babelfish}/bin/babelfish < ${path} > $out;";
 in
 
 {

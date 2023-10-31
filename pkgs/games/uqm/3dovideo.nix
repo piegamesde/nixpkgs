@@ -13,10 +13,7 @@ let
     let
       padded = (lib.optionalString (lib.lessThan num 10) "0") + toString num;
     in
-    "slides.spins.${padded} = 3DOVID:"
-    + "addons/3dovideo/spins/ship${padded}.duk:"
-    + "addons/3dovideo/spins/spin.aif:"
-    + "addons/3dovideo/spins/ship${padded}.aif:89";
+    "slides.spins.${padded} = 3DOVID:" + "addons/3dovideo/spins/ship${padded}.duk:" + "addons/3dovideo/spins/spin.aif:" + "addons/3dovideo/spins/ship${padded}.aif:89";
 
   videoRMP = writeText "3dovideo.rmp" (
     ''

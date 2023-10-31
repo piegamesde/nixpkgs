@@ -28,16 +28,13 @@ let
   allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
   blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
 
-  areLicenseListsValid =
-    if lib.mutuallyExclusive allowlist blocklist then true else throw "allowlistedLicenses and blocklistedLicenses are not mutually exclusive.";
+  areLicenseListsValid = if lib.mutuallyExclusive allowlist blocklist then true else throw "allowlistedLicenses and blocklistedLicenses are not mutually exclusive.";
 
   hasLicense = attrs: attrs ? meta.license;
 
-  hasAllowlistedLicense =
-    assert areLicenseListsValid; attrs: hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
+  hasAllowlistedLicense = assert areLicenseListsValid; attrs: hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
 
-  hasBlocklistedLicense =
-    assert areLicenseListsValid; attrs: hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
+  hasBlocklistedLicense = assert areLicenseListsValid; attrs: hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
 
   allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 

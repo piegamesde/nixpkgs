@@ -274,15 +274,13 @@ lib.makeOverridable (
       ];
 
       # Absolute paths for compilers avoid any PATH-clobbering issues.
-      makeFlags =
-        [
-          "O=$(buildRoot)"
-          "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
-          "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
-          "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
-          "ARCH=${stdenv.hostPlatform.linuxArch}"
-        ]
-        ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ] ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags;
+      makeFlags = [
+        "O=$(buildRoot)"
+        "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
+        "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
+        "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
+        "ARCH=${stdenv.hostPlatform.linuxArch}"
+      ] ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ] ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags;
 
       karch = stdenv.hostPlatform.linuxArch;
 

@@ -78,9 +78,7 @@ stdenv.mkDerivation rec {
     openimageio_1.out
   ] ++ lib.optionals withOpenCL [ ocl-icd ] ++ lib.optionals withCuda [ cudatoolkit ];
 
-  cmakeFlags = [
-    "-DPYTHON_V=${pythonVersion}"
-  ] ++ lib.optional (!withOpenCL) "-DLUXRAYS_DISABLE_OPENCL=1" ++ lib.optional (!withCuda) "-DLUXRAYS_DISABLE_CUDA=1";
+  cmakeFlags = [ "-DPYTHON_V=${pythonVersion}" ] ++ lib.optional (!withOpenCL) "-DLUXRAYS_DISABLE_OPENCL=1" ++ lib.optional (!withCuda) "-DLUXRAYS_DISABLE_CUDA=1";
 
   preConfigure = ''
     NIX_LDFLAGS+=" -lpython3"

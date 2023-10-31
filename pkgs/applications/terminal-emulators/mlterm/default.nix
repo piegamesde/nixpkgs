@@ -155,14 +155,12 @@ stdenv.mkDerivation rec {
       --replace "-m 4755 -o root" " "
   '';
 
-  configureFlags =
-    [
-      (withFeaturesList "type-engines" enableTypeEngines)
-      (withFeaturesList "tools" enableTools)
-      (withFeaturesList "gui" enableGuis)
-      (lib.withFeature enableX11 "x")
-    ]
-    ++ lib.optionals (gtk != null) [ "--with-gtk=${lib.versions.major gtk.version}.0" ] ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures) ++ [ ];
+  configureFlags = [
+    (withFeaturesList "type-engines" enableTypeEngines)
+    (withFeaturesList "tools" enableTools)
+    (withFeaturesList "gui" enableGuis)
+    (lib.withFeature enableX11 "x")
+  ] ++ lib.optionals (gtk != null) [ "--with-gtk=${lib.versions.major gtk.version}.0" ] ++ (lib.mapAttrsToList (n: v: lib.enableFeature v n) enableFeatures) ++ [ ];
 
   enableParallelBuilding = true;
 

@@ -93,9 +93,7 @@ let
     {
       options = commonOptions // {
         listen = mkOption {
-          description =
-            mdDoc
-              "Address and port to listen on. Setting the port to a value below 1024 will also give the process the required `CAP_NET_BIND_SERVICE` capability.";
+          description = mdDoc "Address and port to listen on. Setting the port to a value below 1024 will also give the process the required `CAP_NET_BIND_SERVICE` capability.";
           type = types.submodule hostPortSubmodule;
           default = {
             address = "0.0.0.0";
@@ -444,8 +442,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services =
-      (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers)) // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
+    systemd.services = (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers)) // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
 
     assertions =
       (mapAttrsToList

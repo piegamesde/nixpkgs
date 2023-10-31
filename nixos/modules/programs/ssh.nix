@@ -28,10 +28,7 @@ let
     (flip (concatMapStringsSep "\n") knownHosts (
       h:
       assert h.hostNames != [ ];
-      optionalString h.certAuthority "@cert-authority "
-      + concatStringsSep "," h.hostNames
-      + " "
-      + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)
+      optionalString h.certAuthority "@cert-authority " + concatStringsSep "," h.hostNames + " " + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)
     ))
     + "\n";
 

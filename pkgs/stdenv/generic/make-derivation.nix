@@ -271,8 +271,7 @@ let
           else if lib.isList dep then
             checkDependencyList' ([ index ] ++ positions) name dep
           else
-            throw
-              "Dependency is not of a valid type: ${lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)}${name} for ${attrs.name or attrs.pname}"
+            throw "Dependency is not of a valid type: ${lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)}${name} for ${attrs.name or attrs.pname}"
         );
     in
     if builtins.length erroneousHardeningFlags != 0 then
@@ -383,8 +382,7 @@ let
                   attrs.name + hostSuffix
                 else
                   # we cannot coerce null to a string below
-                  assert lib.assertMsg (attrs ? version && attrs.version != null) "The ‘version’ attribute cannot be null.";
-                  "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
+                  assert lib.assertMsg (attrs ? version && attrs.version != null) "The ‘version’ attribute cannot be null."; "${attrs.pname}${staticMarker}${hostSuffix}-${attrs.version}"
               );
           })
           // lib.optionalAttrs __structuredAttrs { env = checkedEnv; }
@@ -616,9 +614,7 @@ let
           in
           assert lib.assertMsg envIsExportable "When using structured attributes, `env` must be an attribute set of environment variables.";
           assert lib.assertMsg (overlappingNames == [ ])
-              "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${
-                lib.concatStringsSep ", " overlappingNames
-              }";
+              "The ‘env’ attribute set cannot contain any attributes passed to derivation. The following attributes are overlapping: ${lib.concatStringsSep ", " overlappingNames}";
           lib.mapAttrs
             (
               n: v:

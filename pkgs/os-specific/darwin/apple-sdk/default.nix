@@ -317,9 +317,7 @@ rec {
   overrides =
     super:
     {
-      AppKit = lib.overrideDerivation super.AppKit (
-        drv: { __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ]; }
-      );
+      AppKit = lib.overrideDerivation super.AppKit (drv: { __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ]; });
 
       Carbon = lib.overrideDerivation super.Carbon (drv: { extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ]; });
 

@@ -114,9 +114,7 @@ mkDerivation rec {
     "-DBUILD_QT5=ON"
     "-DSHIBOKEN_INCLUDE_DIR=${shiboken2}/include"
     "-DSHIBOKEN_LIBRARY=Shiboken2::libshiboken"
-    (
-      "-DPYSIDE_INCLUDE_DIR=${pyside2}/include" + ";${pyside2}/include/PySide2/QtCore" + ";${pyside2}/include/PySide2/QtWidgets" + ";${pyside2}/include/PySide2/QtGui"
-    )
+    ("-DPYSIDE_INCLUDE_DIR=${pyside2}/include" + ";${pyside2}/include/PySide2/QtCore" + ";${pyside2}/include/PySide2/QtWidgets" + ";${pyside2}/include/PySide2/QtGui")
     "-DPYSIDE_LIBRARY=PySide2::pyside2"
   ];
 

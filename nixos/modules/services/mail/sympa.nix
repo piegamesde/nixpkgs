@@ -178,9 +178,7 @@ in
               };
             };
 
-            config.settings = mkIf (cfg.web.enable && config.webHost != null) {
-              wwsympa_url = mkDefault "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}";
-            };
+            config.settings = mkIf (cfg.web.enable && config.webHost != null) { wwsympa_url = mkDefault "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}"; };
           }
         )
       );

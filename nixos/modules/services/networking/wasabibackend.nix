@@ -107,9 +107,7 @@ in
         password = mkOption {
           type = types.str;
           default = "password";
-          description =
-            lib.mdDoc
-              "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed.";
+          description = lib.mdDoc "RPC password for the bitcoin endpoint. Warning: this is stored in cleartext in the Nix store! Use `configFile` or `passwordFile` if needed.";
         };
 
         passwordFile = mkOption {

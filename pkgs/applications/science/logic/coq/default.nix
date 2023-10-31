@@ -132,10 +132,7 @@ let
     ]
     ++ optional (coqAtLeast "8.14") dune_2;
   ocamlPropagatedBuildInputs =
-    [ ]
-    ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
-    ++ optional (!coqAtLeast "8.13") ocamlPackages.num
-    ++ optional (coqAtLeast "8.13") ocamlPackages.zarith;
+    [ ] ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5 ++ optional (!coqAtLeast "8.13") ocamlPackages.num ++ optional (coqAtLeast "8.13") ocamlPackages.zarith;
   self = stdenv.mkDerivation {
     pname = "coq";
     inherit (fetched) version src;
@@ -197,12 +194,9 @@ let
       '';
     };
 
-    nativeBuildInputs =
-      [ pkg-config ]
-      ++ ocamlNativeBuildInputs
-      ++ optional buildIde copyDesktopItems
-      ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook
-      ++ optional (!coqAtLeast "8.6") gnumake42;
+    nativeBuildInputs = [
+      pkg-config
+    ] ++ ocamlNativeBuildInputs ++ optional buildIde copyDesktopItems ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook ++ optional (!coqAtLeast "8.6") gnumake42;
     buildInputs =
       [ ncurses ]
       ++ optionals buildIde (

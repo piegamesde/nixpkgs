@@ -41,8 +41,7 @@ let
             else
               extern;
           opts = lib.optionalString (dep.stdlib or false) "noprelude:";
-          filename =
-            if lib.any (x: x == "lib" || x == "rlib") dep.crateType then "${dep.metadata}.rlib" else "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
+          filename = if lib.any (x: x == "lib" || x == "rlib") dep.crateType then "${dep.metadata}.rlib" else "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
         in
         " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
       )
@@ -339,9 +338,7 @@ lib.makeOverridable
         codegenUnits = if crate ? codegenUnits then crate.codegenUnits else 1;
         extraRustcOpts = lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts ++ extraRustcOpts_ ++ (lib.optional (edition != null) "--edition ${edition}");
         extraRustcOptsForBuildRs =
-          lib.optionals (crate ? extraRustcOptsForBuildRs) crate.extraRustcOptsForBuildRs
-          ++ extraRustcOptsForBuildRs_
-          ++ (lib.optional (edition != null) "--edition ${edition}");
+          lib.optionals (crate ? extraRustcOptsForBuildRs) crate.extraRustcOptsForBuildRs ++ extraRustcOptsForBuildRs_ ++ (lib.optional (edition != null) "--edition ${edition}");
 
         configurePhase = configureCrate {
           inherit

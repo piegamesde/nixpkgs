@@ -185,14 +185,11 @@ let
         }
       );
       patched-derivation2 = patched-derivation1.overrideAttrs (
-        o:
-        optionalAttrs (o.pname != null && o.pname == "mathcomp-analysis" && o.version != null && o.version != "dev" && versions.isLt "0.6" o.version) { preBuild = ""; }
+        o: optionalAttrs (o.pname != null && o.pname == "mathcomp-analysis" && o.version != null && o.version != "dev" && versions.isLt "0.6" o.version) { preBuild = ""; }
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:
-        optionalAttrs (o.version != null && (o.version == "dev" || versions.isGe "0.3.4" o.version)) {
-          propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ];
-        }
+        optionalAttrs (o.version != null && (o.version == "dev" || versions.isGe "0.3.4" o.version)) { propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ]; }
       );
     in
     patched-derivation;

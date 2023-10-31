@@ -257,9 +257,7 @@ in
           install -m 600 ${mpdConf} /run/mpd/mpd.conf
         ''
         + optionalString (cfg.credentials != [ ]) (
-          concatStringsSep "\n" (
-            imap0 (i: c: "${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf") cfg.credentials
-          )
+          concatStringsSep "\n" (imap0 (i: c: "${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf") cfg.credentials)
         );
 
       serviceConfig = {

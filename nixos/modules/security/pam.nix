@@ -542,9 +542,7 @@ let
               u2f = config.security.pam.u2f;
             in
             optionalString cfg.u2fAuth (
-              "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${optionalString u2f.debug "debug"} ${
-                optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"
-              } "
+              "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${optionalString u2f.debug "debug"} ${optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"} "
               + ''
                 ${optionalString u2f.interactive "interactive"} ${optionalString u2f.cue "cue"} ${optionalString (u2f.appId != null) "appid=${u2f.appId}"} ${
                   optionalString (u2f.origin != null) "origin=${u2f.origin}"

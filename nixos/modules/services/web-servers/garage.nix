@@ -84,9 +84,7 @@ in
       default = if versionAtLeast config.system.stateVersion "23.05" then pkgs.garage_0_8 else pkgs.garage_0_7;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
-      description =
-        lib.mdDoc
-          "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions.";
+      description = lib.mdDoc "Garage package to use, if you are upgrading from a major version, please read NixOS and Garage release notes for upgrade instructions.";
     };
   };
 

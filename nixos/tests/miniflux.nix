@@ -61,18 +61,14 @@ import ./make-test-python.nix (
       default.wait_for_open_port(${toString defaultPort})
       default.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
       default.succeed(
-          "curl 'http://localhost:${
-            toString defaultPort
-          }/v1/me' -u '${defaultUsername}:${defaultPassword}' -H Content-Type:application/json | grep '\"is_admin\":true'"
+          "curl 'http://localhost:${toString defaultPort}/v1/me' -u '${defaultUsername}:${defaultPassword}' -H Content-Type:application/json | grep '\"is_admin\":true'"
       )
 
       withoutSudo.wait_for_unit("miniflux.service")
       withoutSudo.wait_for_open_port(${toString defaultPort})
       withoutSudo.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
       withoutSudo.succeed(
-          "curl 'http://localhost:${
-            toString defaultPort
-          }/v1/me' -u '${defaultUsername}:${defaultPassword}' -H Content-Type:application/json | grep '\"is_admin\":true'"
+          "curl 'http://localhost:${toString defaultPort}/v1/me' -u '${defaultUsername}:${defaultPassword}' -H Content-Type:application/json | grep '\"is_admin\":true'"
       )
 
       customized.wait_for_unit("miniflux.service")

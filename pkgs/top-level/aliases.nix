@@ -181,9 +181,7 @@ mapAliases ({
   ### C ###
 
   c14 = throw "c14 is deprecated and archived by upstream"; # Added 2022-04-10
-  caddy1 =
-    throw
-      "caddy 1.x has been removed from nixpkgs, as it's unmaintained: https://github.com/caddyserver/caddy/blob/master/.github/SECURITY.md#supported-versions"; # Added 2020-10-02
+  caddy1 = throw "caddy 1.x has been removed from nixpkgs, as it's unmaintained: https://github.com/caddyserver/caddy/blob/master/.github/SECURITY.md#supported-versions"; # Added 2020-10-02
   caffe2 = throw "caffe2 has been removed: subsumed under the PyTorch project"; # Added 2022-04-25
   calibre-py2 = throw "calibre-py2 has been removed from nixpkgs, as calibre has upgraded to python 3. Please use calibre as replacement"; # Added 2021-01-13
   calibre-py3 = throw "calibre-py3 has been removed from nixpkgs, as calibre's default python version is now 3. Please use calibre as replacement"; # Added 2021-01-13
@@ -410,9 +408,7 @@ mapAliases ({
   ec2_api_tools = ec2-api-tools; # Added 2021-10-08
   ec2-utils = amazon-ec2-utils; # Added 2022-02-01
   elasticmq = throw "elasticmq has been removed in favour of elasticmq-server-bin"; # Added 2021-01-17
-  elasticsearch7-oss =
-    throw
-      "elasticsearch7-oss has been removed, as the distribution is no longer provided by upstream. https://github.com/NixOS/nixpkgs/pull/114456"; # Added 2021-06-09
+  elasticsearch7-oss = throw "elasticsearch7-oss has been removed, as the distribution is no longer provided by upstream. https://github.com/NixOS/nixpkgs/pull/114456"; # Added 2021-06-09
 
   elasticsearch-oss = throw "elasticsearch-oss has been removed because there is no oss version of elasticsearch anymore. Use opensearch instead."; # Added 2022-10-04
   elasticsearch6 = throw "elasticsearch6 has been removed because it reached end of life"; # Added 2022-10-04
@@ -498,9 +494,7 @@ mapAliases ({
   flatbuffers_1_12 = throw "FlatBuffers version 1.12 has been removed, because upstream no longer maintains it"; # Added 2022-05-12
   flatbuffers_2_0 = flatbuffers; # Added 2022-05-12
   flink_1_5 = throw "flink_1_5 was removed, use flink instead"; # Added 2021-01-25
-  flutter-beta =
-    throw
-      "Non-stable versions of Flutter have been removed. You can use flutterPackages.mkFlutter to generate a package for other Flutter versions"; # Added 2020-01-15
+  flutter-beta = throw "Non-stable versions of Flutter have been removed. You can use flutterPackages.mkFlutter to generate a package for other Flutter versions"; # Added 2020-01-15
   flutter-dev = throw "Non-stable versions of Flutter have been removed. You can use flutterPackages.mkFlutter to generate a package for other Flutter versions"; # Added 2020-01-15
   flvtool2 = throw "flvtool2 has been removed"; # Added 2020-11-03
   fme = throw "fme was removed, because it is old and uses Glade, a discontinued library"; # Added 2022-01-26
@@ -1004,9 +998,7 @@ mapAliases ({
   ### M ###
 
   m3d-linux = throw "'m3d-linux' has been renamed to/replaced by 'm33-linux'"; # Converted to throw 2022-02-22
-  mail-notification =
-    throw
-      "mail-notification has been removed from nixpkgs, as it's unmaintained and has dependencies on old gnome libraries we want to remove"; # Added 2021-08-21
+  mail-notification = throw "mail-notification has been removed from nixpkgs, as it's unmaintained and has dependencies on old gnome libraries we want to remove"; # Added 2021-08-21
   mailpile = throw "mailpile was removed from nixpkgs, as it is stuck on python2"; # Added 2022-01-12
   man_db = throw "'man_db' has been renamed to/replaced by 'man-db'"; # Converted to throw 2022-02-22
   manul = throw "manul has been dropped due to the lack of maintenance from upstream since 2018"; # Added 2022-06-01
@@ -1305,9 +1297,7 @@ mapAliases ({
   pidginsipe = throw "'pidginsipe' has been renamed to/replaced by 'pidgin-sipe'"; # Converted to throw 2022-02-22
   pidginwindowmerge = throw "'pidginwindowmerge' has been renamed to/replaced by 'pidgin-window-merge'"; # Converted to throw 2022-02-22
   pifi = throw "pifi has been removed from nixpkgs, as it is no longer developed"; # Added 2022-01-19
-  ping =
-    throw
-      "'ping' does not build with recent valac and has been removed. If you are just looking for the 'ping' command use either 'iputils' or 'inetutils'"; # Added 2022-04-18
+  ping = throw "'ping' does not build with recent valac and has been removed. If you are just looking for the 'ping' command use either 'iputils' or 'inetutils'"; # Added 2022-04-18
   pipewire-media-session = throw "pipewire-media-session is no longer maintained and has been removed. Please use Wireplumber instead.";
   piwik = throw "'piwik' has been renamed to/replaced by 'matomo'"; # Converted to throw 2022-02-22
   pixie = throw "pixie has been removed: abandoned by upstream"; # Added 2022-04-21
@@ -1683,9 +1673,7 @@ mapAliases ({
   ubootBeagleboneBlack = ubootAmx335xEVM; # Added 2020-01-21
   uchiwa = throw "uchiwa is deprecated and archived by upstream"; # Added 2022-05-02
   ucsFonts = throw "'ucsFonts' has been renamed to/replaced by 'ucs-fonts'"; # Converted to throw 2022-02-22
-  ufraw =
-    throw
-      "ufraw is unmaintained and has been removed from nixpkgs. Its successor, nufraw, doesn't seem to be stable enough. Consider using Darktable for now"; # Added 2020-01-11
+  ufraw = throw "ufraw is unmaintained and has been removed from nixpkgs. Its successor, nufraw, doesn't seem to be stable enough. Consider using Darktable for now"; # Added 2020-01-11
   ultrastardx-beta = throw "'ultrastardx-beta' has been renamed to/replaced by 'ultrastardx'"; # Converted to throw 2022-02-22
   unicorn-emu = unicorn; # Added 2020-10-29
   unifi-poller = unpoller; # Added 2022-11-24
@@ -1823,9 +1811,7 @@ mapAliases ({
 
   ### Z ###
 
-  zabbix30 =
-    throw
-      "Zabbix 3.0.x is end of life, see https://www.zabbix.com/documentation/5.0/manual/installation/upgrade/sources for a direct upgrade path to 5.0.x"; # Added 2021-04-07
+  zabbix30 = throw "Zabbix 3.0.x is end of life, see https://www.zabbix.com/documentation/5.0/manual/installation/upgrade/sources for a direct upgrade path to 5.0.x"; # Added 2021-04-07
   zdfmediathk = throw "'zdfmediathk' has been renamed to/replaced by 'mediathekview'"; # Converted to throw 2022-02-22
   zimreader = throw "zimreader has been removed from nixpkgs as it has been replaced by kiwix-serve and stopped working with modern zimlib versions"; # Added 2021-03-28
   zimwriterfs = throw "zimwriterfs is now part of zim-tools"; # Added 2022-06-10.
@@ -1904,9 +1890,7 @@ mapAliases ({
   sqldeveloper_18 = throw "sqldeveloper_18 is not maintained anymore!"; # Added 2020-02-04
   todolist = throw "todolist is now ultralist"; # Added 2020-12-27
   tor-browser-bundle = throw "tor-browser-bundle was removed because it was out of date and inadequately maintained. Please use tor-browser-bundle-bin instead"; # Added 2020-01-10
-  tor-browser-unwrapped =
-    throw
-      "tor-browser-unwrapped was removed because it was out of date and inadequately maintained. Please use tor-browser-bundle-bin instead"; # Added 2020-01-10
+  tor-browser-unwrapped = throw "tor-browser-unwrapped was removed because it was out of date and inadequately maintained. Please use tor-browser-bundle-bin instead"; # Added 2020-01-10
   torchat = throw "torchat was removed because it was broken and requires Python 2"; # added 2022-06-05
   ttyrec = ovh-ttyrec; # Added 2021-01-02
   zplugin = zinit; # Added 2021-01-30

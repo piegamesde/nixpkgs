@@ -192,9 +192,7 @@ let
 
       azure-mgmt-managementgroups = overrideAzureMgmtPackage super.azure-mgmt-managementgroups "1.0.0" "zip" "sha256-urm9UyocNFV/Wwq5lQ5DHj8Au5boo85m3w9s4q4ZzXM=";
 
-      azure-mgmt-marketplaceordering =
-        overrideAzureMgmtPackage super.azure-mgmt-marketplaceordering "1.1.0" "zip"
-          "sha256-aLOB9SpN9ENdrK1al+HFmsTJgfZn3MqPnQRFNBfWCtg=";
+      azure-mgmt-marketplaceordering = overrideAzureMgmtPackage super.azure-mgmt-marketplaceordering "1.1.0" "zip" "sha256-aLOB9SpN9ENdrK1al+HFmsTJgfZn3MqPnQRFNBfWCtg=";
 
       azure-mgmt-media = overrideAzureMgmtPackage super.azure-mgmt-media "9.0.0" "zip" "sha256-TI7l8sSQ2QUgPqiE3Cu/F67Wna+KHbQS3fuIjOb95ZM=";
 
@@ -226,9 +224,7 @@ let
 
       azure-mgmt-sql = overrideAzureMgmtPackage super.azure-mgmt-sql "4.0.0b6" "zip" "sha256-1/0VGMW9yZsilJ0yNjhFzVO7WbJlB4yJmDL/RxpQLKc=";
 
-      azure-mgmt-sqlvirtualmachine =
-        overrideAzureMgmtPackage super.azure-mgmt-sqlvirtualmachine "1.0.0b4" "zip"
-          "sha256-IB/ihVFm8WrJ2ZZfALp167Sq4u0cvIq1hllNriJxaz0=";
+      azure-mgmt-sqlvirtualmachine = overrideAzureMgmtPackage super.azure-mgmt-sqlvirtualmachine "1.0.0b4" "zip" "sha256-IB/ihVFm8WrJ2ZZfALp167Sq4u0cvIq1hllNriJxaz0=";
 
       azure-mgmt-synapse = overrideAzureMgmtPackage super.azure-mgmt-synapse "2.1.0b5" "zip" "sha256-5E6Yf1GgNyNVjd+SeFDbhDxnOA6fOAG6oojxtCP4m+k=";
 
@@ -248,9 +244,7 @@ let
 
       azure-mgmt-advisor = overrideAzureMgmtPackage super.azure-mgmt-advisor "9.0.0" "zip" "sha256-/ECLNzFf6EeBtRkST4yxuKwQsvQkHkOdDT4l/WyhjXs=";
 
-      azure-mgmt-applicationinsights =
-        overrideAzureMgmtPackage super.azure-mgmt-applicationinsights "1.0.0" "zip"
-          "sha256-woeix9703hn5LAwxugKGf6xvW433G129qxkoi7RV/Fs=";
+      azure-mgmt-applicationinsights = overrideAzureMgmtPackage super.azure-mgmt-applicationinsights "1.0.0" "zip" "sha256-woeix9703hn5LAwxugKGf6xvW433G129qxkoi7RV/Fs=";
 
       azure-mgmt-authorization = overrideAzureMgmtPackage super.azure-mgmt-authorization "0.61.0" "zip" "sha256-9czuo63QTpRF6ohJLxXuz2wSbwQG2WfJX25It5vo23U=";
 

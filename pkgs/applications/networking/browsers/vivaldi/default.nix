@@ -153,9 +153,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional proprietaryCodecs vivaldi-ffmpeg-codecs ++ lib.optional pulseSupport libpulseaudio;
 
   libPath =
-    lib.makeLibraryPath buildInputs
-    + lib.optionalString (stdenv.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs)
-    + ":$out/opt/${vivaldiName}/lib";
+    lib.makeLibraryPath buildInputs + lib.optionalString (stdenv.is64bit) (":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs) + ":$out/opt/${vivaldiName}/lib";
 
   buildPhase =
     ''

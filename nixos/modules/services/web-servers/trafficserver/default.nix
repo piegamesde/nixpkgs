@@ -16,8 +16,7 @@ let
 
   yaml = pkgs.formats.yaml { };
 
-  mkYamlConf =
-    name: cfg: if cfg != null then { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; } else { "trafficserver/${name}.yaml".text = ""; };
+  mkYamlConf = name: cfg: if cfg != null then { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; } else { "trafficserver/${name}.yaml".text = ""; };
 
   mkRecordLines =
     path: value:

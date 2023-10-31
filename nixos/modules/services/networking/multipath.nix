@@ -445,9 +445,7 @@ in
             ghost_delay = mkOption {
               type = nullOr int;
               default = null;
-              description =
-                lib.mdDoc
-                  "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd";
+              description = lib.mdDoc "Sets the number of seconds that multipath will wait after creating a device with only ghost paths before marking it ready for use in systemd";
             };
 
             all_tg_pt = mkOption {

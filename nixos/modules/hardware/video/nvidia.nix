@@ -464,9 +464,7 @@ in
           ${pkgs.xorg.xrandr}/bin/xrandr --auto
         '';
 
-      environment.etc."nvidia/nvidia-application-profiles-rc" = mkIf nvidia_x11.useProfiles {
-        source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
-      };
+      environment.etc."nvidia/nvidia-application-profiles-rc" = mkIf nvidia_x11.useProfiles { source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc"; };
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source = "/run/opengl-driver/share/egl/egl_external_platform.d/";

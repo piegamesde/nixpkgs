@@ -31,10 +31,7 @@ stdenv.mkDerivation rec {
   postInstall =
     let
       canonicalExtension =
-        if stdenv.hostPlatform.isLinux then
-          "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major version}"
-        else
-          stdenv.hostPlatform.extensions.sharedLibrary;
+        if stdenv.hostPlatform.isLinux then "${stdenv.hostPlatform.extensions.sharedLibrary}.${lib.versions.major version}" else stdenv.hostPlatform.extensions.sharedLibrary;
     in
     lib.optionalString blas64 ''
       ln -s $out/lib/libblas64${canonicalExtension} $out/lib/libblas${canonicalExtension}

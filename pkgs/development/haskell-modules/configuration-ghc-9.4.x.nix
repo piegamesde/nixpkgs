@@ -4,10 +4,7 @@ let
   inherit (pkgs) fetchpatch lib;
   checkAgainAfter =
     pkg: ver: msg: act:
-    if builtins.compareVersions pkg.version ver <= 0 then
-      act
-    else
-      builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+    if builtins.compareVersions pkg.version ver <= 0 then act else builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
 in
 
 with haskellLib;
@@ -221,9 +218,7 @@ in
 
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
-  fourmolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
-    disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0
-  );
+  fourmolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455
   # by making `pkg-config --static` happy. Note: Cabal 3.9 is also affected, so

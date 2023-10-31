@@ -339,8 +339,7 @@ lib.pipe
         assert profiledCompiler -> !disableBootstrap;
         let
           target =
-            lib.optionalString (profiledCompiler) "profiled"
-            + lib.optionalString (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap) "bootstrap";
+            lib.optionalString (profiledCompiler) "profiled" + lib.optionalString (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap) "bootstrap";
         in
         lib.optional (target != "") target;
 

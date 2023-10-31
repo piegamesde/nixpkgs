@@ -61,9 +61,7 @@ stdenv.mkDerivation rec {
 
   # klee-uclibc configure does not support --prefix, so we override configurePhase entirely
   configurePhase = ''
-    ./configure ${
-      lib.escapeShellArgs ([ "--make-llvm-lib" ] ++ lib.optional (!debugRuntime) "--enable-release" ++ lib.optional runtimeAsserts "--enable-assertions")
-    }
+    ./configure ${lib.escapeShellArgs ([ "--make-llvm-lib" ] ++ lib.optional (!debugRuntime) "--enable-release" ++ lib.optional runtimeAsserts "--enable-assertions")}
 
     # Set all the configs we care about.
     configs=(

@@ -390,9 +390,7 @@ in
       [
         {
           assertion = !(fileSystems' ? cycle);
-          message = "The ‘fileSystems’ option can't be topologically sorted: mountpoint dependency path ${ls " -> " fileSystems'.cycle} loops to ${
-              ls ", " fileSystems'.loops
-            }";
+          message = "The ‘fileSystems’ option can't be topologically sorted: mountpoint dependency path ${ls " -> " fileSystems'.cycle} loops to ${ls ", " fileSystems'.loops}";
         }
         {
           assertion = !(any notAutoResizable fileSystems);

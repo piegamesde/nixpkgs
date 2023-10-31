@@ -163,8 +163,7 @@ let
   ];
 
   version = "3";
-  canonicalExtension =
-    if stdenv.hostPlatform.isLinux then "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}" else stdenv.hostPlatform.extensions.sharedLibrary;
+  canonicalExtension = if stdenv.hostPlatform.isLinux then "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}" else stdenv.hostPlatform.extensions.sharedLibrary;
 
   blasImplementation = lib.getName blasProvider;
   blasProvider' = if blasImplementation == "mkl" then blasProvider else blasProvider.override { blas64 = isILP64; };

@@ -320,10 +320,7 @@ developerToolsPackages_11_3_1
   developer_cmds = applePackage "developer_cmds" "osx-10.11.6" "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo=" { };
   diskdev_cmds = applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" { macosPackages_11_0_1 = macosPackages_11_0_1; };
   network_cmds =
-    if stdenv.isx86_64 then
-      applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
-    else
-      macosPackages_11_0_1.network_cmds;
+    if stdenv.isx86_64 then applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { } else macosPackages_11_0_1.network_cmds;
   file_cmds = applePackage "file_cmds" "osx-10.11.6" "sha256-JYy6HwmultKeZtLfaysbsyLoWg+OaTh7eJu54JkJC0Q=" { };
   shell_cmds = applePackage "shell_cmds" "osx-10.11.6" "sha256-kmEOprkiJGMVcl7yHkGX8ymk/5KjE99gWuF8j2hK5hY=" { };
   system_cmds = applePackage "system_cmds" "osx-10.11.6" "sha256-KBdGlHeXo2PwgRQOOeElJ1RBqCY1Tdhn5KD42CMhdzI=" { };

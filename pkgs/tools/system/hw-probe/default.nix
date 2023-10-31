@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
         sane-backends # (sane-find-scanner)
         # pnputils # (lspnp)
       ];
-      programs =
-        requiredPrograms ++ conditionallyRecommendedPrograms ++ lib.optionals withRecommended recommendedPrograms ++ lib.optionals withSuggested suggestedPrograms;
+      programs = requiredPrograms ++ conditionallyRecommendedPrograms ++ lib.optionals withRecommended recommendedPrograms ++ lib.optionals withSuggested suggestedPrograms;
     in
     [
       "--set"

@@ -112,9 +112,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false; # requires root
 
-  makeFlags =
-    lib.optionals udevSupport [ "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators" ]
-    ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
+  makeFlags = lib.optionals udevSupport [ "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators" ] ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
 
   # To prevent make install from failing.
   installFlags = [

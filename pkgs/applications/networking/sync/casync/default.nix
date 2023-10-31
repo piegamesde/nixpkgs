@@ -58,8 +58,7 @@ stdenv.mkDerivation {
   '';
 
   PKG_CONFIG_UDEV_UDEVDIR = "lib/udev";
-  mesonFlags =
-    lib.optionals (!fuseSupport) [ "-Dfuse=false" ] ++ lib.optionals (!udevSupport) [ "-Dudev=false" ] ++ lib.optionals (!selinuxSupport) [ "-Dselinux=false" ];
+  mesonFlags = lib.optionals (!fuseSupport) [ "-Dfuse=false" ] ++ lib.optionals (!udevSupport) [ "-Dudev=false" ] ++ lib.optionals (!selinuxSupport) [ "-Dselinux=false" ];
 
   doCheck = true;
   preCheck = ''

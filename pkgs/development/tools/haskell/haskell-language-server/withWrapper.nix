@@ -67,9 +67,7 @@ stdenv.mkDerivation {
   meta = haskellPackages.haskell-language-server.meta // {
     maintainers = [ lib.maintainers.maralorn ];
     longDescription = ''
-      This package provides the executables ${
-        concatMapStringsSep ", " (x: concatStringsSep ", " (targets x)) supportedGhcVersions
-      } and haskell-language-server-wrapper.
+      This package provides the executables ${concatMapStringsSep ", " (x: concatStringsSep ", " (targets x)) supportedGhcVersions} and haskell-language-server-wrapper.
       You can choose for which ghc versions to install hls with pkgs.haskell-language-server.override { supportedGhcVersions = [ "90" "92" ]; }.
     '';
   };

@@ -144,9 +144,7 @@ rec {
             libtool
             installShellFiles
           ];
-          buildInputs = [
-            sqlite
-          ] ++ lib.optional withLvm lvm2 ++ lib.optional withBtrfs btrfs-progs ++ lib.optional withSystemd systemd ++ lib.optional withSeccomp libseccomp;
+          buildInputs = [ sqlite ] ++ lib.optional withLvm lvm2 ++ lib.optional withBtrfs btrfs-progs ++ lib.optional withSystemd systemd ++ lib.optional withSeccomp libseccomp;
 
           extraPath = lib.optionals stdenv.isLinux (
             lib.makeBinPath [

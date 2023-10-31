@@ -96,9 +96,7 @@ let
             ${concatMapStrings (f: readFile f + "\n") u.openssh.authorizedKeys.keyFiles}
           '';
         };
-      usersWithKeys = attrValues (
-        flip filterAttrs config.users.users (n: u: length u.openssh.authorizedKeys.keys != 0 || length u.openssh.authorizedKeys.keyFiles != 0)
-      );
+      usersWithKeys = attrValues (flip filterAttrs config.users.users (n: u: length u.openssh.authorizedKeys.keys != 0 || length u.openssh.authorizedKeys.keyFiles != 0));
     in
     listToAttrs (map mkAuthKeyFile usersWithKeys);
 in

@@ -809,10 +809,7 @@ in
   config = mkIf (with config.services.borgbackup; jobs != { } || repos != { }) (
     with config.services.borgbackup; {
       assertions =
-        mapAttrsToList mkPassAssertion jobs
-        ++ mapAttrsToList mkKeysAssertion repos
-        ++ mapAttrsToList mkSourceAssertions jobs
-        ++ mapAttrsToList mkRemovableDeviceAssertions jobs;
+        mapAttrsToList mkPassAssertion jobs ++ mapAttrsToList mkKeysAssertion repos ++ mapAttrsToList mkSourceAssertions jobs ++ mapAttrsToList mkRemovableDeviceAssertions jobs;
 
       system.activationScripts = mapAttrs' mkActivationScript jobs;
 

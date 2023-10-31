@@ -101,8 +101,7 @@ let
   ];
 
   mktplcExtRefToExtDrv =
-    ext:
-    buildVscodeMarketplaceExtension (removeAttrs ext mktplcRefAttrList // { mktplcRef = builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext; });
+    ext: buildVscodeMarketplaceExtension (removeAttrs ext mktplcRefAttrList // { mktplcRef = builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null)) ext; });
 
   extensionFromVscodeMarketplace = mktplcExtRefToExtDrv;
   extensionsFromVscodeMarketplace = mktplcExtRefList: builtins.map extensionFromVscodeMarketplace mktplcExtRefList;

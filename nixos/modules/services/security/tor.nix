@@ -1504,9 +1504,7 @@ in
           ];
           AutomapHostsOnResolve = true;
         }
-        // optionalAttrs (flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [ ]) {
-          ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";
-        }
+        // optionalAttrs (flatten (mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [ ]) { ClientOnionAuthDir = runDir + "/ClientOnionAuthDir"; }
       ))
     ];
 

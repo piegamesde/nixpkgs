@@ -176,9 +176,7 @@ let
 
         ${
           optionalString (cfg.resolver.addresses != [ ]) ''
-            resolver ${toString cfg.resolver.addresses} ${optionalString (cfg.resolver.valid != "") "valid=${cfg.resolver.valid}"} ${
-              optionalString (!cfg.resolver.ipv6) "ipv6=off"
-            };
+            resolver ${toString cfg.resolver.addresses} ${optionalString (cfg.resolver.valid != "") "valid=${cfg.resolver.valid}"} ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
           ''
         }
         ${upstreamConfig}
@@ -527,9 +525,7 @@ let
               ''
             }
             ${
-              concatStringsSep "\n" (
-                mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams))
-              )
+              concatStringsSep "\n" (mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams)))
             }
             ${optionalString (config.index != null) "index ${config.index};"}
             ${optionalString (config.tryFiles != null) "try_files ${config.tryFiles};"}
@@ -1303,9 +1299,7 @@ in
           )
           dependentCertNames;
 
-    services.nginx.additionalModules =
-      optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli
-      ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd;
+    services.nginx.additionalModules = optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd;
 
     systemd.services.nginx = {
       description = "Nginx Web Server";
@@ -1384,9 +1378,9 @@ in
         PrivateMounts = true;
         # System Call Filtering
         SystemCallArchitectures = "native";
-        SystemCallFilter =
-          [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
-          ++ optionals ((cfg.package != pkgs.tengine) && (cfg.package != pkgs.openresty) && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)) [ "~@ipc" ];
+        SystemCallFilter = [
+          "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid"
+        ] ++ optionals ((cfg.package != pkgs.tengine) && (cfg.package != pkgs.openresty) && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)) [ "~@ipc" ];
       };
     };
 

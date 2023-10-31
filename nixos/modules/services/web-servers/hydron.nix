@@ -138,8 +138,7 @@ with lib; {
         Type = "oneshot";
         User = "hydron";
         Group = "hydron";
-        ExecStart =
-          "${pkgs.hydron}/bin/hydron import " + optionalString cfg.fetchTags "-f " + (escapeShellArg cfg.dataDir) + "/images " + (escapeShellArgs cfg.importPaths);
+        ExecStart = "${pkgs.hydron}/bin/hydron import " + optionalString cfg.fetchTags "-f " + (escapeShellArg cfg.dataDir) + "/images " + (escapeShellArgs cfg.importPaths);
       };
     };
 

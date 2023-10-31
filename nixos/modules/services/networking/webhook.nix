@@ -184,9 +184,7 @@ in
         }
         {
           assertion = overlappingHooks == { };
-          message = "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${
-              concatStringsSep ", " (builtins.attrNames overlappingHooks)
-            }";
+          message = "`services.webhook.hooks` and `services.webhook.hooksTemplated` have overlapping attribute(s): ${concatStringsSep ", " (builtins.attrNames overlappingHooks)}";
         }
       ];
 

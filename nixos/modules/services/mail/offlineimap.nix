@@ -45,9 +45,7 @@ in
     onCalendar = mkOption {
       type = types.str;
       default = "*:0/3"; # every 3 minutes
-      description =
-        lib.mdDoc
-          "How often is offlineimap started. Default is '*:0/3' meaning every 3 minutes. See systemd.time(7) for more information about the format.";
+      description = lib.mdDoc "How often is offlineimap started. Default is '*:0/3' meaning every 3 minutes. See systemd.time(7) for more information about the format.";
     };
 
     timeoutStartSec = mkOption {

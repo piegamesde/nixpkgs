@@ -248,9 +248,7 @@ in
         type = types.str;
         default =
           if cfg.webserver == "apache" then
-            "${
-              if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then "https" else "http"
-            }://${cfg.httpd.virtualHost.hostName}"
+            "${if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then "https" else "http"}://${cfg.httpd.virtualHost.hostName}"
           else
             "http://localhost";
         defaultText = literalExpression ''

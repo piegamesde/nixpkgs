@@ -62,16 +62,12 @@ gnustep.stdenv.mkDerivation rec {
     EOF
   '';
 
-  configureFlags =
-    [
-      "--prefix="
-      "--disable-debug"
-      "--enable-xml"
-      "--with-ssl=ssl"
-    ]
-    ++ lib.optional (openldap != null) "--enable-openldap"
-    ++ lib.optional (mariadb != null) "--enable-mysql"
-    ++ lib.optional (postgresql != null) "--enable-postgresql";
+  configureFlags = [
+    "--prefix="
+    "--disable-debug"
+    "--enable-xml"
+    "--with-ssl=ssl"
+  ] ++ lib.optional (openldap != null) "--enable-openldap" ++ lib.optional (mariadb != null) "--enable-mysql" ++ lib.optional (postgresql != null) "--enable-postgresql";
 
   env.GNUSTEP_CONFIG_FILE = "/build/GNUstep.conf";
 

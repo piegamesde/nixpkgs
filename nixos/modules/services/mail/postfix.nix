@@ -1058,8 +1058,7 @@ in
                     !(cfg.submissionsOptions ? smtpd_tls_security_level)
                     || cfg.submissionsOptions.smtpd_tls_security_level == "none"
                     || cfg.submissionsOptions.smtpd_tls_security_level == "may";
-                  submissionsOptions =
-                    cfg.submissionsOptions // { smtpd_tls_wrappermode = "yes"; } // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
+                  submissionsOptions = cfg.submissionsOptions // { smtpd_tls_wrappermode = "yes"; } // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
                 in
                 concatLists (mapAttrsToList mkKeyVal submissionsOptions);
             };

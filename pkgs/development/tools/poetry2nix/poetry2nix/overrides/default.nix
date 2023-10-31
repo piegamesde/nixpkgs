@@ -1127,9 +1127,7 @@ lib.composeManyExtensions [
         }
       );
 
-      markupsafe = super.markupsafe.overridePythonAttrs (
-        old: { src = old.src.override { pname = builtins.replaceStrings [ "markupsafe" ] [ "MarkupSafe" ] old.pname; }; }
-      );
+      markupsafe = super.markupsafe.overridePythonAttrs (old: { src = old.src.override { pname = builtins.replaceStrings [ "markupsafe" ] [ "MarkupSafe" ] old.pname; }; });
 
       matplotlib = super.matplotlib.overridePythonAttrs (
         old:
@@ -2298,10 +2296,7 @@ lib.composeManyExtensions [
       scikit-learn = super.scikit-learn.overridePythonAttrs (
         old: {
           buildInputs =
-            (old.buildInputs or [ ])
-            ++ [ pkgs.gfortran ]
-            ++ lib.optionals stdenv.cc.isClang [ pkgs.llvmPackages.openmp ]
-            ++ lib.optionals stdenv.isLinux [ pkgs.glibcLocales ];
+            (old.buildInputs or [ ]) ++ [ pkgs.gfortran ] ++ lib.optionals stdenv.cc.isClang [ pkgs.llvmPackages.openmp ] ++ lib.optionals stdenv.isLinux [ pkgs.glibcLocales ];
 
           enableParallelBuilding = true;
         }
@@ -2646,21 +2641,18 @@ lib.composeManyExtensions [
 
       weblate-language-data = super.weblate-language-data.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.translate-toolkit ]; });
 
-      wheel =
-        ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override { inherit (self) buildPythonPackage bootstrapped-pip setuptools; }).overrideAttrs
-          (
-            old: {
-              inherit (super.wheel)
-                pname
-                name
-                version
-                src
-              ;
-            }
-          );
+      wheel = ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override { inherit (self) buildPythonPackage bootstrapped-pip setuptools; }).overrideAttrs (
+        old: {
+          inherit (super.wheel)
+            pname
+            name
+            version
+            src
+          ;
+        }
+      );
 
-      zipp =
-        if super.zipp == null then null else super.zipp.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toml ]; });
+      zipp = if super.zipp == null then null else super.zipp.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toml ]; });
 
       packaging =
         let
@@ -2677,9 +2669,7 @@ lib.composeManyExtensions [
         else
           old;
 
-      psutil = super.psutil.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit; }
-      );
+      psutil = super.psutil.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit; });
 
       sentencepiece = super.sentencepiece.overridePythonAttrs (
         old: {
@@ -2731,9 +2721,7 @@ lib.composeManyExtensions [
         }
       );
 
-      minimal-snowplow-tracker = super.minimal-snowplow-tracker.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ super.setuptools ]; }
-      );
+      minimal-snowplow-tracker = super.minimal-snowplow-tracker.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ super.setuptools ]; });
 
       # nixpkgs has setuptools_scm 4.1.2
       # but newrelic has a seemingly unnecessary version constraint for <4
@@ -2856,9 +2844,7 @@ lib.composeManyExtensions [
 
       wcwidth = super.wcwidth.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ lib.optional self.isPy27 (self.backports-functools-lru-cache or self.backports_functools_lru_cache);
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional self.isPy27 (self.backports-functools-lru-cache or self.backports_functools_lru_cache);
         }
       );
 

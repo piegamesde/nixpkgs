@@ -128,8 +128,7 @@ let
   #   });
   # }
   overrideNativeBuildInputs =
-    overrides: old:
-    lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; })) overrides;
+    overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; })) overrides;
 
   # Overrides package definitions with buildInputs.
   # For example,

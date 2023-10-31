@@ -8,10 +8,7 @@ let
   jailbreakWhileRevision = rev: overrideCabal (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
   checkAgainAfter =
     pkg: ver: msg: act:
-    if builtins.compareVersions pkg.version ver <= 0 then
-      act
-    else
-      builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+    if builtins.compareVersions pkg.version ver <= 0 then act else builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
   jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 

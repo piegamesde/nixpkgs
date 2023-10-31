@@ -619,9 +619,7 @@ in
       {
         description = "Outline wiki and knowledge base";
         wantedBy = [ "multi-user.target" ];
-        after = [
-          "networking.target"
-        ] ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service" ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
+        after = [ "networking.target" ] ++ lib.optional (cfg.databaseUrl == "local") "postgresql.service" ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
         requires = lib.optional (cfg.databaseUrl == "local") "postgresql.service" ++ lib.optional (cfg.redisUrl == "local") "redis-outline.service";
         path = [
           pkgs.openssl # Required by the preStart script

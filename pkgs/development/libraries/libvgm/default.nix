@@ -96,9 +96,7 @@ stdenv.mkDerivation rec {
       "-DAUDIODRV_APPLE=${onOff withCoreAudio}"
       "-DAUDIODRV_LIBAO=${onOff withLibao}"
     ]
-    ++ optionals enableEmulation (
-      [ "-DSNDEMU__ALL=${onOff withAllEmulators}" ] ++ optionals (!withAllEmulators) (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON"))
-    )
+    ++ optionals enableEmulation ([ "-DSNDEMU__ALL=${onOff withAllEmulators}" ] ++ optionals (!withAllEmulators) (lib.lists.forEach emulators (x: "-DSNDEMU_${x}=ON")))
     ++ optionals enableTools [
       "-DUTIL_CHARCNV_ICONV=ON"
       "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"

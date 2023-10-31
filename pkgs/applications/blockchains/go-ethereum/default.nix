@@ -33,9 +33,7 @@ buildGoModule rec {
   outputs = [ "out" ] ++ bins;
 
   # Move binaries to separate outputs and symlink them back to $out
-  postInstall = lib.concatStringsSep "\n" (
-    builtins.map (bin: "mkdir -p \$${bin}/bin && mv $out/bin/${bin} \$${bin}/bin/ && ln -s \$${bin}/bin/${bin} $out/bin/") bins
-  );
+  postInstall = lib.concatStringsSep "\n" (builtins.map (bin: "mkdir -p \$${bin}/bin && mv $out/bin/${bin} \$${bin}/bin/ && ln -s \$${bin}/bin/${bin} $out/bin/") bins);
 
   subPackages = [
     "cmd/abidump"

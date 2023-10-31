@@ -312,8 +312,7 @@ let
         overridableKernel = finalKernel // {
           override =
             args:
-            lib.warn
-              ("override is stubbed for NixOS kernel tests, not applying changes these arguments: " + toString (lib.attrNames (if lib.isAttrs args then args else args { })))
+            lib.warn ("override is stubbed for NixOS kernel tests, not applying changes these arguments: " + toString (lib.attrNames (if lib.isAttrs args then args else args { })))
               overridableKernel;
         };
       in

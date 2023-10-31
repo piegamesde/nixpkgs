@@ -171,12 +171,9 @@ stdenv.mkDerivation rec {
     ++ lib.optional netbeansSupport "--enable-netbeans"
     ++ lib.optional ximSupport "--enable-xim";
 
-  nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optional wrapPythonDrv makeWrapper
-    ++ lib.optional nlsSupport gettext
-    ++ lib.optional perlSupport perl
-    ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook;
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optional wrapPythonDrv makeWrapper ++ lib.optional nlsSupport gettext ++ lib.optional perlSupport perl ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook;
 
   buildInputs =
     [

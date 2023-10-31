@@ -30,11 +30,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildFeatures =
-    [ ]
-    ++ lib.optional withNotification "notification"
-    ++ lib.optional withYubikey "yubikey"
-    ++ lib.optional withStrictCaller "strict-caller"
-    ++ lib.optional withAll "all";
+    [ ] ++ lib.optional withNotification "notification" ++ lib.optional withYubikey "yubikey" ++ lib.optional withStrictCaller "strict-caller" ++ lib.optional withAll "all";
 
   meta = with lib; {
     description = "Helper that allows Git (and shell scripts) to use KeePassXC as credential store";

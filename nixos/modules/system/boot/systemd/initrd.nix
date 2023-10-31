@@ -409,45 +409,41 @@ in
 
       managerEnvironment.PATH = "/bin:/sbin";
 
-      contents =
-        {
-          "/tmp/.keep".text = "systemd requires the /tmp mount point in the initrd cpio archive";
-          "/init".source = "${cfg.package}/lib/systemd/systemd";
-          "/etc/systemd/system".source = stage1Units;
+      contents = {
+        "/tmp/.keep".text = "systemd requires the /tmp mount point in the initrd cpio archive";
+        "/init".source = "${cfg.package}/lib/systemd/systemd";
+        "/etc/systemd/system".source = stage1Units;
 
-          "/etc/systemd/system.conf".text = ''
-            [Manager]
-            DefaultEnvironment=PATH=/bin:/sbin
-            ${cfg.extraConfig}
-            ManagerEnvironment=${lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment)}
-          '';
+        "/etc/systemd/system.conf".text = ''
+          [Manager]
+          DefaultEnvironment=PATH=/bin:/sbin
+          ${cfg.extraConfig}
+          ManagerEnvironment=${lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${lib.escapeShellArg v}") cfg.managerEnvironment)}
+        '';
 
-          "/lib/modules".source = "${modulesClosure}/lib/modules";
-          "/lib/firmware".source = "${modulesClosure}/lib/firmware";
+        "/lib/modules".source = "${modulesClosure}/lib/modules";
+        "/lib/firmware".source = "${modulesClosure}/lib/firmware";
 
-          "/etc/modules-load.d/nixos.conf".text = concatStringsSep "\n" config.boot.initrd.kernelModules;
+        "/etc/modules-load.d/nixos.conf".text = concatStringsSep "\n" config.boot.initrd.kernelModules;
 
-          # We can use either ! or * to lock the root account in the
-          # console, but some software like OpenSSH won't even allow you
-          # to log in with an SSH key if you use ! so we use * instead
-          "/etc/shadow".text = "root:${if isBool cfg.emergencyAccess then optionalString (!cfg.emergencyAccess) "*" else cfg.emergencyAccess}:::::::";
+        # We can use either ! or * to lock the root account in the
+        # console, but some software like OpenSSH won't even allow you
+        # to log in with an SSH key if you use ! so we use * instead
+        "/etc/shadow".text = "root:${if isBool cfg.emergencyAccess then optionalString (!cfg.emergencyAccess) "*" else cfg.emergencyAccess}:::::::";
 
-          "/bin".source = "${initrdBinEnv}/bin";
-          "/sbin".source = "${initrdBinEnv}/sbin";
+        "/bin".source = "${initrdBinEnv}/bin";
+        "/sbin".source = "${initrdBinEnv}/sbin";
 
-          "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
-          "/etc/modprobe.d/systemd.conf".source = "${cfg.package}/lib/modprobe.d/systemd.conf";
-          "/etc/modprobe.d/ubuntu.conf".source = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
-            ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
-          '';
-          "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
+        "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
+        "/etc/modprobe.d/systemd.conf".source = "${cfg.package}/lib/modprobe.d/systemd.conf";
+        "/etc/modprobe.d/ubuntu.conf".source = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
+          ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
+        '';
+        "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
-          "/etc/os-release".source = config.boot.initrd.osRelease;
-          "/etc/initrd-release".source = config.boot.initrd.osRelease;
-        }
-        // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
-          "/etc/modprobe.d/nixos.conf".source = config.environment.etc."modprobe.d/nixos.conf".source;
-        };
+        "/etc/os-release".source = config.boot.initrd.osRelease;
+        "/etc/initrd-release".source = config.boot.initrd.osRelease;
+      } // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") { "/etc/modprobe.d/nixos.conf".source = config.environment.etc."modprobe.d/nixos.conf".source; };
 
       storePaths =
         [

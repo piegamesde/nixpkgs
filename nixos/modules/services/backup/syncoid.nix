@@ -375,10 +375,8 @@ in
                 # syncoid may need zpool to get feature@extensible_dataset
                 path = [ "/run/booted-system/sw/bin/" ];
                 serviceConfig = {
-                  ExecStartPre =
-                    (map (buildAllowCommand c.localSourceAllow) (localDatasetName c.source)) ++ (map (buildAllowCommand c.localTargetAllow) (localDatasetName c.target));
-                  ExecStopPost =
-                    (map (buildUnallowCommand c.localSourceAllow) (localDatasetName c.source)) ++ (map (buildUnallowCommand c.localTargetAllow) (localDatasetName c.target));
+                  ExecStartPre = (map (buildAllowCommand c.localSourceAllow) (localDatasetName c.source)) ++ (map (buildAllowCommand c.localTargetAllow) (localDatasetName c.target));
+                  ExecStopPost = (map (buildUnallowCommand c.localSourceAllow) (localDatasetName c.source)) ++ (map (buildUnallowCommand c.localTargetAllow) (localDatasetName c.target));
                   ExecStart = lib.escapeShellArgs (
                     [ "${cfg.package}/bin/syncoid" ]
                     ++ optionals c.useCommonArgs cfg.commonArgs

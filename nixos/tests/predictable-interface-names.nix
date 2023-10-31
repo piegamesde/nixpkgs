@@ -31,10 +31,7 @@ pkgs.lib.listToAttrs (
       }:
       {
         name =
-          pkgs.lib.optionalString (!predictable) "un"
-          + "predictable"
-          + pkgs.lib.optionalString withNetworkd "Networkd"
-          + pkgs.lib.optionalString systemdStage1 "SystemdStage1";
+          pkgs.lib.optionalString (!predictable) "un" + "predictable" + pkgs.lib.optionalString withNetworkd "Networkd" + pkgs.lib.optionalString systemdStage1 "SystemdStage1";
         value = makeTest {
           name =
             pkgs.lib.optionalString (!predictable) "un"
