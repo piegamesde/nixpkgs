@@ -169,9 +169,7 @@ let
     else
       false;
 
-  darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (
-    if (targetPlatform.darwinPlatform == "macos" && isGNU) then "macosx" else targetPlatform.darwinPlatform
-  );
+  darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (if (targetPlatform.darwinPlatform == "macos" && isGNU) then "macosx" else targetPlatform.darwinPlatform);
 
   darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin (stdenv.targetPlatform.darwinMinVersion);
 
@@ -394,24 +392,21 @@ stdenv.mkDerivation {
     # vs libstdc++, etc.) since Darwin isn't `useLLVM` on all counts. (See
     # https://clang.llvm.org/docs/Toolchain.html for all the axes one might
     # break `useLLVM` into.)
-    +
-      optionalString
-        (isClang && targetPlatform.isLinux && !(stdenv.targetPlatform.useAndroidPrebuilt or false) && !(stdenv.targetPlatform.useLLVM or false) && gccForLibs != null)
-        (
-          ''
-            echo "--gcc-toolchain=${gccForLibs}" >> $out/nix-support/cc-cflags
+    + optionalString (isClang && targetPlatform.isLinux && !(stdenv.targetPlatform.useAndroidPrebuilt or false) && !(stdenv.targetPlatform.useLLVM or false) && gccForLibs != null) (
+      ''
+        echo "--gcc-toolchain=${gccForLibs}" >> $out/nix-support/cc-cflags
 
-            # Pull in 'cc.out' target to get 'libstdc++fs.a'. It should be in
-            # 'cc.lib'. But it's a gcc package bug.
-            # TODO(trofi): remove once gcc is fixed to move libraries to .lib output.
-            echo "-L${gccForLibs}/${optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"}/lib" >> $out/nix-support/cc-ldflags
-          ''
-          # this ensures that when clang passes -lgcc_s to lld (as it does
-          # when building e.g. firefox), lld is able to find libgcc_s.so
-          + lib.optionalString (gccForLibs ? libgcc) ''
-            echo "-L${gccForLibs.libgcc}/lib" >> $out/nix-support/cc-ldflags
-          ''
-        )
+        # Pull in 'cc.out' target to get 'libstdc++fs.a'. It should be in
+        # 'cc.lib'. But it's a gcc package bug.
+        # TODO(trofi): remove once gcc is fixed to move libraries to .lib output.
+        echo "-L${gccForLibs}/${optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}"}/lib" >> $out/nix-support/cc-ldflags
+      ''
+      # this ensures that when clang passes -lgcc_s to lld (as it does
+      # when building e.g. firefox), lld is able to find libgcc_s.so
+      + lib.optionalString (gccForLibs ? libgcc) ''
+        echo "-L${gccForLibs.libgcc}/lib" >> $out/nix-support/cc-ldflags
+      ''
+    )
 
     ##
     ## General libc support

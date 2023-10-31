@@ -41,23 +41,18 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      gtk3
-      glib
-      itstool
-      libsecret
-      libxml2
-      poppler
-      mate.caja
-      mate.mate-desktop
-      hicolor-icon-theme
-      texlive.bin.core # for synctex, used by the pdf back-end
-    ]
-    ++ lib.optionals enableDjvu [ djvulibre ]
-    ++ lib.optionals enableEpub [ webkitgtk ]
-    ++ lib.optionals enablePostScript [ libspectre ]
-    ++ lib.optionals enableXps [ libgxps ];
+  buildInputs = [
+    gtk3
+    glib
+    itstool
+    libsecret
+    libxml2
+    poppler
+    mate.caja
+    mate.mate-desktop
+    hicolor-icon-theme
+    texlive.bin.core # for synctex, used by the pdf back-end
+  ] ++ lib.optionals enableDjvu [ djvulibre ] ++ lib.optionals enableEpub [ webkitgtk ] ++ lib.optionals enablePostScript [ libspectre ] ++ lib.optionals enableXps [ libgxps ];
 
   configureFlags =
     [ ]

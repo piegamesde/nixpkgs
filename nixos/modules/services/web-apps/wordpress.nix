@@ -172,8 +172,9 @@ let
         plugins = mkOption {
           type =
             with types;
-            coercedTo (listOf path) (l: warn "setting this option with a list is deprecated" listToAttrs (map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l))
-              (attrsOf path);
+            coercedTo (listOf path) (l: warn "setting this option with a list is deprecated" listToAttrs (map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l)) (
+              attrsOf path
+            );
           default = { };
           description = lib.mdDoc ''
             Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
@@ -192,8 +193,9 @@ let
         themes = mkOption {
           type =
             with types;
-            coercedTo (listOf path) (l: warn "setting this option with a list is deprecated" listToAttrs (map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l))
-              (attrsOf path);
+            coercedTo (listOf path) (l: warn "setting this option with a list is deprecated" listToAttrs (map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l)) (
+              attrsOf path
+            );
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
@@ -442,8 +444,7 @@ in
           ++ (mapAttrsToList
             (hostName: cfg: {
               assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-              message = ''
-                services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+              message = ''services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
             })
             eachSite
           );

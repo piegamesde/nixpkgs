@@ -46,8 +46,7 @@ let
     (rec {
       doRunTest = arg: ((import ../lib/testing-python.nix { inherit system pkgs; }).evalTest { imports = [ arg ]; }).config.result;
       findTests =
-        tree:
-        if tree ? recurseForDerivations && tree.recurseForDerivations then mapAttrs (k: findTests) (builtins.removeAttrs tree [ "recurseForDerivations" ]) else callTest tree;
+        tree: if tree ? recurseForDerivations && tree.recurseForDerivations then mapAttrs (k: findTests) (builtins.removeAttrs tree [ "recurseForDerivations" ]) else callTest tree;
 
       runTest =
         arg:

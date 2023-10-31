@@ -182,9 +182,7 @@ in
         default = "-Xmx2048M -Xms2048M";
         # Example options from https://minecraft.gamepedia.com/Tutorials/Server_startup_script
         example =
-          "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing "
-          + "-XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 "
-          + "-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
+          "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing " + "-XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 " + "-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
         description = lib.mdDoc "JVM options for the Minecraft server.";
       };
     };

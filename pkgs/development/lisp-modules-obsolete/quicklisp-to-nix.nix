@@ -126,9 +126,7 @@ let
       )
     );
 
-    "clack-socket" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."clack-socket" or (x: { })) (import ./quicklisp-to-nix-output/clack-socket.nix { inherit fetchurl; })
-    );
+    "clack-socket" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."clack-socket" or (x: { })) (import ./quicklisp-to-nix-output/clack-socket.nix { inherit fetchurl; }));
 
     "vas-string-metrics" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."vas-string-metrics" or (x: { })) (import ./quicklisp-to-nix-output/vas-string-metrics.nix { inherit fetchurl; })
@@ -144,9 +142,7 @@ let
       )
     );
 
-    "glsl-symbols" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."glsl-symbols" or (x: { })) (import ./quicklisp-to-nix-output/glsl-symbols.nix { inherit fetchurl; })
-    );
+    "glsl-symbols" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."glsl-symbols" or (x: { })) (import ./quicklisp-to-nix-output/glsl-symbols.nix { inherit fetchurl; }));
 
     "glsl-spec" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."glsl-spec" or (x: { })) (import ./quicklisp-to-nix-output/glsl-spec.nix { inherit fetchurl; }));
 
@@ -357,9 +353,7 @@ let
       )
     );
 
-    "lambda-fiddle" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."lambda-fiddle" or (x: { })) (import ./quicklisp-to-nix-output/lambda-fiddle.nix { inherit fetchurl; })
-    );
+    "lambda-fiddle" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."lambda-fiddle" or (x: { })) (import ./quicklisp-to-nix-output/lambda-fiddle.nix { inherit fetchurl; }));
 
     "iolib_dot_grovel" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."iolib_dot_grovel" or (x: { })) (
@@ -504,9 +498,7 @@ let
       )
     );
 
-    "trivial-cltl2" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trivial-cltl2" or (x: { })) (import ./quicklisp-to-nix-output/trivial-cltl2.nix { inherit fetchurl; })
-    );
+    "trivial-cltl2" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."trivial-cltl2" or (x: { })) (import ./quicklisp-to-nix-output/trivial-cltl2.nix { inherit fetchurl; }));
 
     "trivia_dot_trivial" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."trivia_dot_trivial" or (x: { })) (
@@ -1090,9 +1082,7 @@ let
     );
 
     "net_dot_didierverna_dot_asdf-flv" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."net_dot_didierverna_dot_asdf-flv" or (x: { })) (
-        import ./quicklisp-to-nix-output/net_dot_didierverna_dot_asdf-flv.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."net_dot_didierverna_dot_asdf-flv" or (x: { })) (import ./quicklisp-to-nix-output/net_dot_didierverna_dot_asdf-flv.nix { inherit fetchurl; })
     );
 
     "iolib_dot_conf" = buildLispPackage (
@@ -1325,9 +1315,7 @@ let
       )
     );
 
-    "lack-component" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."lack-component" or (x: { })) (import ./quicklisp-to-nix-output/lack-component.nix { inherit fetchurl; })
-    );
+    "lack-component" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."lack-component" or (x: { })) (import ./quicklisp-to-nix-output/lack-component.nix { inherit fetchurl; }));
 
     "cl-aa" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."cl-aa" or (x: { })) (import ./quicklisp-to-nix-output/cl-aa.nix { inherit fetchurl; }));
 
@@ -1395,9 +1383,7 @@ let
       )
     );
 
-    "cl-l10n-cldr" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-l10n-cldr" or (x: { })) (import ./quicklisp-to-nix-output/cl-l10n-cldr.nix { inherit fetchurl; })
-    );
+    "cl-l10n-cldr" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."cl-l10n-cldr" or (x: { })) (import ./quicklisp-to-nix-output/cl-l10n-cldr.nix { inherit fetchurl; }));
 
     "string-case" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."string-case" or (x: { })) (import ./quicklisp-to-nix-output/string-case.nix { inherit fetchurl; }));
 
@@ -1877,9 +1863,7 @@ let
 
     "unix-opts" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."unix-opts" or (x: { })) (import ./quicklisp-to-nix-output/unix-opts.nix { inherit fetchurl; }));
 
-    "unix-options" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."unix-options" or (x: { })) (import ./quicklisp-to-nix-output/unix-options.nix { inherit fetchurl; })
-    );
+    "unix-options" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."unix-options" or (x: { })) (import ./quicklisp-to-nix-output/unix-options.nix { inherit fetchurl; }));
 
     "uiop" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."uiop" or (x: { })) (import ./quicklisp-to-nix-output/uiop.nix { inherit fetchurl; }));
 
@@ -1894,23 +1878,15 @@ let
       )
     );
 
-    "trivial-types" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trivial-types" or (x: { })) (import ./quicklisp-to-nix-output/trivial-types.nix { inherit fetchurl; })
-    );
+    "trivial-types" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."trivial-types" or (x: { })) (import ./quicklisp-to-nix-output/trivial-types.nix { inherit fetchurl; }));
 
-    "trivial-shell" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trivial-shell" or (x: { })) (import ./quicklisp-to-nix-output/trivial-shell.nix { inherit fetchurl; })
-    );
+    "trivial-shell" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."trivial-shell" or (x: { })) (import ./quicklisp-to-nix-output/trivial-shell.nix { inherit fetchurl; }));
 
     "trivial-package-local-nicknames" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trivial-package-local-nicknames" or (x: { })) (
-        import ./quicklisp-to-nix-output/trivial-package-local-nicknames.nix { inherit fetchurl; }
-      )
+      (f: x: (x // (f x))) (qlOverrides."trivial-package-local-nicknames" or (x: { })) (import ./quicklisp-to-nix-output/trivial-package-local-nicknames.nix { inherit fetchurl; })
     );
 
-    "trivial-mimes" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trivial-mimes" or (x: { })) (import ./quicklisp-to-nix-output/trivial-mimes.nix { inherit fetchurl; })
-    );
+    "trivial-mimes" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."trivial-mimes" or (x: { })) (import ./quicklisp-to-nix-output/trivial-mimes.nix { inherit fetchurl; }));
 
     "trivial-main-thread" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."trivial-main-thread" or (x: { })) (
@@ -1926,9 +1902,7 @@ let
       )
     );
 
-    "trivial-indent" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."trivial-indent" or (x: { })) (import ./quicklisp-to-nix-output/trivial-indent.nix { inherit fetchurl; })
-    );
+    "trivial-indent" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."trivial-indent" or (x: { })) (import ./quicklisp-to-nix-output/trivial-indent.nix { inherit fetchurl; }));
 
     "trivial-gray-streams" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."trivial-gray-streams" or (x: { })) (import ./quicklisp-to-nix-output/trivial-gray-streams.nix { inherit fetchurl; })
@@ -2391,9 +2365,7 @@ let
       )
     );
 
-    "parse-number" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."parse-number" or (x: { })) (import ./quicklisp-to-nix-output/parse-number.nix { inherit fetchurl; })
-    );
+    "parse-number" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."parse-number" or (x: { })) (import ./quicklisp-to-nix-output/parse-number.nix { inherit fetchurl; }));
 
     "parenscript" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."parenscript" or (x: { })) (
@@ -2538,9 +2510,7 @@ let
       (f: x: (x // (f x))) (qlOverrides."metatilities-base" or (x: { })) (import ./quicklisp-to-nix-output/metatilities-base.nix { inherit fetchurl; })
     );
 
-    "metabang-bind" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."metabang-bind" or (x: { })) (import ./quicklisp-to-nix-output/metabang-bind.nix { inherit fetchurl; })
-    );
+    "metabang-bind" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."metabang-bind" or (x: { })) (import ./quicklisp-to-nix-output/metabang-bind.nix { inherit fetchurl; }));
 
     "md5" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."md5" or (x: { })) (import ./quicklisp-to-nix-output/md5.nix { inherit fetchurl; }));
 
@@ -3777,13 +3747,9 @@ let
       )
     );
 
-    "cl-utilities" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-utilities" or (x: { })) (import ./quicklisp-to-nix-output/cl-utilities.nix { inherit fetchurl; })
-    );
+    "cl-utilities" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."cl-utilities" or (x: { })) (import ./quicklisp-to-nix-output/cl-utilities.nix { inherit fetchurl; }));
 
-    "cl-unification" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-unification" or (x: { })) (import ./quicklisp-to-nix-output/cl-unification.nix { inherit fetchurl; })
-    );
+    "cl-unification" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."cl-unification" or (x: { })) (import ./quicklisp-to-nix-output/cl-unification.nix { inherit fetchurl; }));
 
     "cl-unicode" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."cl-unicode" or (x: { })) (
@@ -4195,9 +4161,7 @@ let
       )
     );
 
-    "cl-html-parse" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."cl-html-parse" or (x: { })) (import ./quicklisp-to-nix-output/cl-html-parse.nix { inherit fetchurl; })
-    );
+    "cl-html-parse" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."cl-html-parse" or (x: { })) (import ./quicklisp-to-nix-output/cl-html-parse.nix { inherit fetchurl; }));
 
     "cl-html-diff" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."cl-html-diff" or (x: { })) (
@@ -4705,9 +4669,7 @@ let
       )
     );
 
-    "binomial-heap" = buildLispPackage (
-      (f: x: (x // (f x))) (qlOverrides."binomial-heap" or (x: { })) (import ./quicklisp-to-nix-output/binomial-heap.nix { inherit fetchurl; })
-    );
+    "binomial-heap" = buildLispPackage ((f: x: (x // (f x))) (qlOverrides."binomial-heap" or (x: { })) (import ./quicklisp-to-nix-output/binomial-heap.nix { inherit fetchurl; }));
 
     "babel" = buildLispPackage (
       (f: x: (x // (f x))) (qlOverrides."babel" or (x: { })) (

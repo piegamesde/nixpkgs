@@ -56,8 +56,7 @@ let
   # Returns whether component is used in config, explicitly passed into package or
   # configured in the module.
   useComponent =
-    component:
-    hasAttrByPath (splitString "." component) cfg.config || useComponentPlatform component || useExplicitComponent component || builtins.elem component cfg.extraComponents;
+    component: hasAttrByPath (splitString "." component) cfg.config || useComponentPlatform component || useExplicitComponent component || builtins.elem component cfg.extraComponents;
 
   # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;

@@ -59,8 +59,7 @@ tcl.mkTclDerivation {
   propagatedBuildInputs =
     [ libXft ]
     ++ lib.optionals enableAqua (
-      [ darwin.apple_sdk.frameworks.Cocoa ]
-      ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]
+      [ darwin.apple_sdk.frameworks.Cocoa ] ++ lib.optionals (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]
     );
 
   enableParallelBuilding = true;

@@ -423,9 +423,7 @@ rec {
         # Tar up the layer and throw it into 'layer.tar'.
         echo "Packing layer..."
         mkdir $out
-        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=${toString uid} --group=${
-          toString gid
-        } -cf - . | tee -p $out/layer.tar | tarsum)
+        tarhash=$(tar -C layer --hard-dereference --sort=name --mtime="@$SOURCE_DATE_EPOCH" --owner=${toString uid} --group=${toString gid} -cf - . | tee -p $out/layer.tar | tarsum)
 
         # Add a 'checksum' field to the JSON, with the value set to the
         # checksum of the tarball.

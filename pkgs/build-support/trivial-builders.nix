@@ -767,9 +767,7 @@ rec {
       # for `out` outputs (see the definition of `outputPaths`).
       namedOutputPaths = lib.flatten (
         lib.mapAttrsToList
-          (
-            name: value: (map (output: lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string)) (lib.remove "out" value.outputs))
-          )
+          (name: value: (map (output: lib.filter lib.isList (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string)) (lib.remove "out" value.outputs)))
           packages
       );
       # Only `out` outputs

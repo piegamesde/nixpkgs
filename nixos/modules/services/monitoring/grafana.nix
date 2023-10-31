@@ -53,10 +53,7 @@ let
 
   generateAlertingProvisioningYaml =
     x:
-    if (cfg.provision.alerting."${x}".path == null) then
-      provisioningSettingsFormat.generate "${x}.yaml" cfg.provision.alerting."${x}".settings
-    else
-      cfg.provision.alerting."${x}".path;
+    if (cfg.provision.alerting."${x}".path == null) then provisioningSettingsFormat.generate "${x}.yaml" cfg.provision.alerting."${x}".settings else cfg.provision.alerting."${x}".path;
   rulesFileOrDir = generateAlertingProvisioningYaml "rules";
   contactPointsFileOrDir = generateAlertingProvisioningYaml "contactPoints";
   policiesFileOrDir = generateAlertingProvisioningYaml "policies";
@@ -173,9 +170,7 @@ let
       uid = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
+        description = lib.mdDoc "Custom UID which can be used to reference this datasource in other parts of the configuration, if not specified will be generated automatically.";
       };
       url = mkOption {
         type = types.str;
@@ -1146,9 +1141,7 @@ in
             };
 
             socket = mkOption {
-              description =
-                lib.mdDoc
-                  "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
+              description = lib.mdDoc "Path where the socket should be created when protocol=socket. Make sure that Grafana has appropriate permissions before you change this setting.";
               default = "/run/grafana/grafana.sock";
               type = types.str;
             };
@@ -1971,9 +1964,7 @@ in
           Nix store unless a file-provider or an env-var is used!
         ''
       )
-      ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers)
-        "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead."
-      );
+      ++ (optional (any (x: x.secure_settings != null) cfg.provision.notifiers) "Notifier secure settings will be stored as plaintext in the Nix store! Use file provider instead.");
 
     environment.systemPackages = [ cfg.package ];
 

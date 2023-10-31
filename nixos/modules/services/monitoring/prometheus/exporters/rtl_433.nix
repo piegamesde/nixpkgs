@@ -87,8 +87,7 @@ in
       ExecStart =
         let
           matchers =
-            (map (m: "--channel_matcher '${m.name},${toString m.channel},${m.location}'") cfg.channels)
-            ++ (map (m: "--id_matcher '${m.name},${toString m.id},${m.location}'") cfg.ids);
+            (map (m: "--channel_matcher '${m.name},${toString m.channel},${m.location}'") cfg.channels) ++ (map (m: "--id_matcher '${m.name},${toString m.id},${m.location}'") cfg.ids);
         in
         ''
           ${pkgs.prometheus-rtl_433-exporter}/bin/rtl_433_prometheus \

@@ -197,9 +197,7 @@ in
           {
             assertion = cfg.serviceConfig ? ProtectSystem -> cfg.serviceConfig.ProtectSystem == false;
             message =
-              "${whatOpt "ProtectSystem"}. ProtectSystem is not compatible"
-              + " with service confinement as it fails to remount /usr within"
-              + " our chroot. Please disable the option.";
+              "${whatOpt "ProtectSystem"}. ProtectSystem is not compatible" + " with service confinement as it fails to remount /usr within" + " our chroot. Please disable the option.";
           }
         ]
       )

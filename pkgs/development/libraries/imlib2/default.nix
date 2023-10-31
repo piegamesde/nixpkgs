@@ -76,10 +76,7 @@ stdenv.mkDerivation (
     # Do not build amd64 assembly code on Darwin, because it fails to compile
     # with unknow directive errors
     configureFlags =
-      optional stdenv.isDarwin "--enable-amd64=no"
-      ++ optional (!svgSupport) "--without-svg"
-      ++ optional (!heifSupport) "--without-heif"
-      ++ optional (!x11Support) "--without-x";
+      optional stdenv.isDarwin "--enable-amd64=no" ++ optional (!svgSupport) "--without-svg" ++ optional (!heifSupport) "--without-heif" ++ optional (!x11Support) "--without-x";
 
     outputs = [
       "bin"

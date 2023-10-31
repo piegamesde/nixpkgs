@@ -31,11 +31,7 @@ in
 stdenv.mkDerivation rec {
   version = "1.14.0";
   pname =
-    "hdf5"
-    + lib.optionalString cppSupport "-cpp"
-    + lib.optionalString fortranSupport "-fortran"
-    + lib.optionalString mpiSupport "-mpi"
-    + lib.optionalString threadsafe "-threadsafe";
+    "hdf5" + lib.optionalString cppSupport "-cpp" + lib.optionalString fortranSupport "-fortran" + lib.optionalString mpiSupport "-mpi" + lib.optionalString threadsafe "-threadsafe";
 
   src = fetchurl {
     url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${lib.versions.majorMinor version}/hdf5-${version}/src/hdf5-${version}.tar.bz2";

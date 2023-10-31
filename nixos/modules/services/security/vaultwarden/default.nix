@@ -41,9 +41,7 @@ let
   # we can only check for values consistently after converting them to their corresponding environment variable name.
   configEnv =
     let
-      configEnv =
-        concatMapAttrs (name: value: optionalAttrs (value != null) { ${nameToEnvVar name} = if isBool value then boolToString value else toString value; })
-          cfg.config;
+      configEnv = concatMapAttrs (name: value: optionalAttrs (value != null) { ${nameToEnvVar name} = if isBool value then boolToString value else toString value; }) cfg.config;
     in
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";

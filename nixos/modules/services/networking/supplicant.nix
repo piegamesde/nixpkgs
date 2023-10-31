@@ -16,10 +16,7 @@ let
   subsystemDevice = interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
 
   serviceName =
-    iface:
-    "supplicant-${
-      if (iface == "WLAN") then "wlan@" else (if (iface == "LAN") then "lan@" else (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface)))
-    }";
+    iface: "supplicant-${if (iface == "WLAN") then "wlan@" else (if (iface == "LAN") then "lan@" else (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface)))}";
 
   # TODO: Use proper privilege separation for wpa_supplicant
   supplicantService =

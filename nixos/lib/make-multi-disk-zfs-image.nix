@@ -153,8 +153,7 @@ let
   hasDefinedMount = disk: ((disk.mount or null) != null);
 
   stringifyProperties =
-    prefix: properties:
-    lib.concatStringsSep " \\\n" (lib.mapAttrsToList (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}") properties);
+    prefix: properties: lib.concatStringsSep " \\\n" (lib.mapAttrsToList (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}") properties);
 
   createDatasets =
     let

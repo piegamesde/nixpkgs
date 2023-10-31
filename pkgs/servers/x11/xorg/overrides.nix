@@ -401,9 +401,7 @@ self: super:
         xorg.libXfixes
         xorg.libXext
       ];
-      configureFlags =
-        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "xorg_cv_malloc0_returns_null=no" ]
-        ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared";
+      configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "xorg_cv_malloc0_returns_null=no" ] ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared";
     }
   );
 

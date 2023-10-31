@@ -26,8 +26,7 @@ stdenv.mkDerivation {
   pname = "p4d";
   version = "2022.1.2305383";
 
-  src =
-    assert lib.assertMsg (builtins.hasAttr stdenv.hostPlatform.system srcs) "p4d is not available for ${stdenv.hostPlatform.system}"; srcs.${stdenv.hostPlatform.system};
+  src = assert lib.assertMsg (builtins.hasAttr stdenv.hostPlatform.system srcs) "p4d is not available for ${stdenv.hostPlatform.system}"; srcs.${stdenv.hostPlatform.system};
 
   sourceRoot = ".";
 

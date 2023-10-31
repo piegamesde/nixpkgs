@@ -267,9 +267,7 @@ in
               mysqlSocket = "/run/mysqld/mysqld.sock";
             } // lib.optionalAttrs cfg.enableAuthentication { mysqlUsername = "root"; };
           }
-          // lib.optionalAttrs (config.services.postgresql.enable) {
-            postgresql-database = { } // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; };
-          }
+          // lib.optionalAttrs (config.services.postgresql.enable) { postgresql-database = { } // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; }; }
           // lib.optionalAttrs (config.services.tomcat.enable) {
             tomcat-webapplication = {
               tomcatPort = 8080;

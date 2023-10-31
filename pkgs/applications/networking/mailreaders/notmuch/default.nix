@@ -76,9 +76,7 @@ stdenv.mkDerivation rec {
       "--bashcompletiondir=${placeholder "out"}/share/bash-completion/completions"
       "--infodir=${placeholder "info"}/share/info"
     ]
-    ++ lib.optional (!withEmacs) "--without-emacs"
-    ++ lib.optional withEmacs "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
-    ++ lib.optional (!withRuby) "--without-ruby";
+    ++ lib.optional (!withEmacs) "--without-emacs" ++ lib.optional withEmacs "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp" ++ lib.optional (!withRuby) "--without-ruby";
 
   # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
   # friends

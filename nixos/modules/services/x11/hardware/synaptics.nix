@@ -218,12 +218,7 @@ in
         ${optionalString (cfg.palmMinWidth != null) ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''}
         ${optionalString (cfg.palmMinZ != null) ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''}
         ${optionalString (cfg.scrollDelta != null) ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''}
-        ${
-          if !cfg.horizontalScroll then
-            ''Option "HorizScrollDelta" "0"''
-          else
-            (optionalString (cfg.scrollDelta != null) ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
-        }
+        ${if !cfg.horizontalScroll then ''Option "HorizScrollDelta" "0"'' else (optionalString (cfg.scrollDelta != null) ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')}
         ${cfg.additionalOptions}
       EndSection
     '';

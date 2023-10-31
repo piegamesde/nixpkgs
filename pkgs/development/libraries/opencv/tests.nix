@@ -53,9 +53,7 @@ let
     export GTEST_FILTER="-AsyncAPICancelation/cancel*"
   '';
   accuracyTests = lib.optionalString runAccuracyTests ''
-    ${builtins.concatStringsSep "\n" (
-      map (test: "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER") testNames
-    )}
+    ${builtins.concatStringsSep "\n" (map (test: "${testRunner}${opencv4.package_tests}/opencv_test_${test} --test_threads=$NIX_BUILD_CORES --gtest_filter=$GTEST_FILTER") testNames)}
   '';
   perfomanceTests = lib.optionalString runPerformanceTests ''
     ${builtins.concatStringsSep "\n" (

@@ -87,9 +87,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         GuessMainPID = "false";
-        ExecStart = "${cfg.package}/bin/tautulli --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${
-            toString cfg.port
-          } --pidfile ${cfg.dataDir}/tautulli.pid --nolaunch";
+        ExecStart = "${cfg.package}/bin/tautulli --datadir ${cfg.dataDir} --config ${cfg.configFile} --port ${toString cfg.port} --pidfile ${cfg.dataDir}/tautulli.pid --nolaunch";
         Restart = "on-failure";
       };
     };

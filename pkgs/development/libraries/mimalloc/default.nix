@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags =
     [ "-DMI_INSTALL_TOPLEVEL=ON" ]
-    ++ lib.optionals secureBuild [ "-DMI_SECURE=ON" ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DMI_BUILD_SHARED=OFF" ]
-    ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ];
+    ++ lib.optionals secureBuild [ "-DMI_SECURE=ON" ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DMI_BUILD_SHARED=OFF" ] ++ lib.optionals (!doCheck) [ "-DMI_BUILD_TESTS=OFF" ];
 
   postInstall =
     let

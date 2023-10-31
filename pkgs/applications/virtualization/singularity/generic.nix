@@ -143,9 +143,7 @@ in
       "--localstatedir=/var/lib"
       "--runstatedir=/var/run"
     ]
-    ++ lib.optional (!enableSeccomp) "--without-seccomp"
-    ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then "--with-suid" else "--without-suid")
-    ++ extraConfigureFlags;
+    ++ lib.optional (!enableSeccomp) "--without-seccomp" ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then "--with-suid" else "--without-suid") ++ extraConfigureFlags;
 
   # Packages to prefix to the Apptainer/Singularity container runtime default PATH
   # Use overrideAttrs to override

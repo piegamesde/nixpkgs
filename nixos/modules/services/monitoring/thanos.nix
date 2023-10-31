@@ -758,9 +758,7 @@ in
 
     receive = paramsToOptions params.receive // {
       enable = mkEnableOption (
-        lib.mdDoc (
-          "the Thanos receiver which accept Prometheus remote write API requests " + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"
-        )
+        lib.mdDoc ("the Thanos receiver which accept Prometheus remote write API requests " + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)")
       );
       arguments = mkArgumentsOption "receive";
     };

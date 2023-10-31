@@ -252,8 +252,7 @@ pkgs.recurseIntoAttrs (rec {
   # nixpkgs should install optional packages in the opt folder
   nvim_with_opt_plugin = neovim.override {
     extraName = "-with-opt-plugin";
-    configure.packages.opt-plugins =
-      with pkgs.vimPlugins; { opt = [ (dashboard-nvim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use-opt"; })) ]; };
+    configure.packages.opt-plugins = with pkgs.vimPlugins; { opt = [ (dashboard-nvim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use-opt"; })) ]; };
     configure.customRC = ''
       " Load all autoloaded plugins
       packloadall

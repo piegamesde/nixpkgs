@@ -35,12 +35,8 @@ let
     '')
     + (optionalString cfg.roles.fileserver.enable ''
       bnode dafs dafs 1
-      parm ${openafsSrv}/libexec/openafs/dafileserver ${
-        optionalString cfg.dottedPrincipals "-allow-dotted-principals"
-      } -udpsize ${udpSizeStr} ${cfg.roles.fileserver.fileserverArgs}
-      parm ${openafsSrv}/libexec/openafs/davolserver ${
-        optionalString cfg.dottedPrincipals "-allow-dotted-principals"
-      } -udpsize ${udpSizeStr} ${cfg.roles.fileserver.volserverArgs}
+      parm ${openafsSrv}/libexec/openafs/dafileserver ${optionalString cfg.dottedPrincipals "-allow-dotted-principals"} -udpsize ${udpSizeStr} ${cfg.roles.fileserver.fileserverArgs}
+      parm ${openafsSrv}/libexec/openafs/davolserver ${optionalString cfg.dottedPrincipals "-allow-dotted-principals"} -udpsize ${udpSizeStr} ${cfg.roles.fileserver.volserverArgs}
       parm ${openafsSrv}/libexec/openafs/salvageserver ${cfg.roles.fileserver.salvageserverArgs}
       parm ${openafsSrv}/libexec/openafs/dasalvager ${cfg.roles.fileserver.salvagerArgs}
       end

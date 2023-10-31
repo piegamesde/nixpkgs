@@ -147,10 +147,7 @@ let
   # Splicer will pull out correct variations
   libDeps =
     platform:
-    lib.optional enableTerminfo ncurses
-    ++ [ libffi ]
-    ++ lib.optional (!enableIntegerSimple) gmp
-    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
+    lib.optional enableTerminfo ncurses ++ [ libffi ] ++ lib.optional (!enableIntegerSimple) gmp ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST

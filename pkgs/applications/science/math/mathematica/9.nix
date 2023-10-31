@@ -27,8 +27,7 @@
 }:
 
 let
-  platform =
-    if stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux" then "Linux" else throw "Mathematica requires i686-linux or x86_64 linux";
+  platform = if stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux" then "Linux" else throw "Mathematica requires i686-linux or x86_64 linux";
 in
 stdenv.mkDerivation rec {
   inherit meta src version;

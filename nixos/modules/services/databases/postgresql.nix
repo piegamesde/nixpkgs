@@ -582,9 +582,7 @@ in
             (
               user:
               let
-                userPermissions = concatStringsSep "\n" (
-                  mapAttrsToList (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '') user.ensurePermissions
-                );
+                userPermissions = concatStringsSep "\n" (mapAttrsToList (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '') user.ensurePermissions);
 
                 filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;
 

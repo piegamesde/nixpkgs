@@ -73,9 +73,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/share/{applications,teams-for-linux}
-    cp dist/${if stdenv.isDarwin then "darwin-" else "linux-"}${
-      lib.optionalString stdenv.hostPlatform.isAarch64 "arm64-"
-    }unpacked/resources/app.asar $out/share/teams-for-linux/
+    cp dist/${if stdenv.isDarwin then "darwin-" else "linux-"}${lib.optionalString stdenv.hostPlatform.isAarch64 "arm64-"}unpacked/resources/app.asar $out/share/teams-for-linux/
 
     pushd build/icons
     for image in *png; do

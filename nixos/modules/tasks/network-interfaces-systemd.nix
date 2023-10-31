@@ -71,9 +71,7 @@ let
           "eth*"
         ];
         DHCP = "yes";
-        linkConfig.RequiredForOnline = lib.mkDefault (
-          if initrd then config.boot.initrd.systemd.network.wait-online.anyInterface else config.systemd.network.wait-online.anyInterface
-        );
+        linkConfig.RequiredForOnline = lib.mkDefault (if initrd then config.boot.initrd.systemd.network.wait-online.anyInterface else config.systemd.network.wait-online.anyInterface);
         networkConfig.IPv6PrivacyExtensions = "kernel";
       };
       networks."99-wireless-client-dhcp" = {
@@ -403,9 +401,7 @@ in
                   Kind = gre.type;
                 };
                 tunnelConfig =
-                  (optionalAttrs (gre.remote != null) { Remote = gre.remote; })
-                  // (optionalAttrs (gre.local != null) { Local = gre.local; })
-                  // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
+                  (optionalAttrs (gre.remote != null) { Remote = gre.remote; }) // (optionalAttrs (gre.local != null) { Local = gre.local; }) // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
               };
               networks = mkIf (gre.dev != null) {
                 "40-${gre.dev}" =
@@ -484,9 +480,7 @@ in
                 '';
                 script = ''
                   echo "Configuring Open vSwitch ${n}..."
-                  ovs-vsctl ${
-                    concatStrings (mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}") v.interfaces)
-                  } \
+                  ovs-vsctl ${concatStrings (mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}") v.interfaces)} \
                     ${concatStrings (mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces)} \
                     ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
                     ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}

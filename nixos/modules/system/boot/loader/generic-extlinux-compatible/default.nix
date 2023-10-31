@@ -75,9 +75,7 @@ in
   config =
     let
       builderArgs =
-        "-g ${toString cfg.configurationLimit} -t ${timeoutStr}"
-        + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}"
-        + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
+        "-g ${toString cfg.configurationLimit} -t ${timeoutStr}" + lib.optionalString (dtCfg.name != null) " -n ${dtCfg.name}" + lib.optionalString (!cfg.useGenerationDeviceTree) " -r";
     in
     mkIf cfg.enable {
       system.build.installBootLoader = "${builder} ${builderArgs} -c";

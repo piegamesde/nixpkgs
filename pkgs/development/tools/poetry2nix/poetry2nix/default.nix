@@ -227,8 +227,7 @@ lib.makeScope pkgs.newScope (
         # Filter packages by their PEP508 markers & pyproject interpreter version
         partitions =
           let
-            supportsPythonVersion =
-              pkgMeta: if pkgMeta ? marker then (evalPep508 pkgMeta.marker) else true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
+            supportsPythonVersion = pkgMeta: if pkgMeta ? marker then (evalPep508 pkgMeta.marker) else true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
           in
           lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
@@ -261,8 +260,8 @@ lib.makeScope pkgs.newScope (
                         pythonPackages = self;
 
                         sourceSpec =
-                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName} or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { })
-                            .${normalizedName} or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
+                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName} or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
+                            or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
                               or { }
                           );
                       }
@@ -294,10 +293,7 @@ lib.makeScope pkgs.newScope (
               async-generator = super.async-generator or super.async_generator or null;
             })
 
-            (
-              self: super:
-              lib.attrsets.mapAttrs (name: value: if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value) super
-            )
+            (self: super: lib.attrsets.mapAttrs (name: value: if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value) super)
 
             (
               self: super:
@@ -326,8 +322,7 @@ lib.makeScope pkgs.newScope (
             # Fix infinite recursion in a lot of packages because of checkInputs
             (
               self: super:
-              lib.mapAttrs (name: value: (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value))
-                super
+              lib.mapAttrs (name: value: (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value)) super
             )
 
             # Null out any filtered packages, we don't want python.pkgs from nixpkgs

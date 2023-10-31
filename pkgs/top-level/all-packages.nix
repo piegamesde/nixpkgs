@@ -7303,9 +7303,7 @@ with pkgs;
 
   fprintd-tod = callPackage ../tools/security/fprintd/tod.nix { };
 
-  ferdi = callPackage ../applications/networking/instant-messengers/ferdi {
-    mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
-  };
+  ferdi = callPackage ../applications/networking/instant-messengers/ferdi { mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { }; };
 
   ferdium = callPackage ../applications/networking/instant-messengers/ferdium {
     mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
@@ -7313,9 +7311,7 @@ with pkgs;
 
   fq = callPackage ../development/tools/fq { };
 
-  franz = callPackage ../applications/networking/instant-messengers/franz {
-    mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { };
-  };
+  franz = callPackage ../applications/networking/instant-messengers/franz { mkFranzDerivation = callPackage ../applications/networking/instant-messengers/franz/generic.nix { }; };
 
   freac = callPackage ../applications/audio/freac { };
 
@@ -12254,8 +12250,7 @@ with pkgs;
     let
       pkgs = filterAttrs (name: _: hasPrefix "thelounge-" name) nodePackages;
       getPackagesWithPrefix =
-        prefix:
-        mapAttrs' (name: pkg: nameValuePair (removePrefix ("thelounge-" + prefix + "-") name) pkg) (filterAttrs (name: _: hasPrefix ("thelounge-" + prefix + "-") name) pkgs);
+        prefix: mapAttrs' (name: pkg: nameValuePair (removePrefix ("thelounge-" + prefix + "-") name) pkg) (filterAttrs (name: _: hasPrefix ("thelounge-" + prefix + "-") name) pkgs);
     in
     recurseIntoAttrs {
       plugins = recurseIntoAttrs (getPackagesWithPrefix "plugin");
@@ -14139,8 +14134,7 @@ with pkgs;
 
   gccCrossLibcStdenv = overrideCC stdenv buildPackages.gccCrossStageStatic;
 
-  crossLibcStdenv =
-    if stdenv.hostPlatform.useLLVM or false || stdenv.hostPlatform.isDarwin then overrideCC stdenv buildPackages.llvmPackages.clangNoLibc else gccCrossLibcStdenv;
+  crossLibcStdenv = if stdenv.hostPlatform.useLLVM or false || stdenv.hostPlatform.isDarwin then overrideCC stdenv buildPackages.llvmPackages.clangNoLibc else gccCrossLibcStdenv;
 
   # The GCC used to build libc for the target platform. Normal gccs will be
   # built with, and use, that cross-compiled libc.
@@ -14484,8 +14478,7 @@ with pkgs;
       # As per upstream instructions building a cross compiler
       # should be done with a (native) compiler of the same version.
       # If we are cross-compiling GNAT, we may as well do the same.
-      gnat-bootstrap =
-        if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then buildPackages.gnat-bootstrap11 else buildPackages.gnat11;
+      gnat-bootstrap = if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then buildPackages.gnat-bootstrap11 else buildPackages.gnat11;
     }
   );
 
@@ -14499,8 +14492,7 @@ with pkgs;
       # As per upstream instructions building a cross compiler
       # should be done with a (native) compiler of the same version.
       # If we are cross-compiling GNAT, we may as well do the same.
-      gnat-bootstrap =
-        if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then buildPackages.gnat-bootstrap12 else buildPackages.gnat12;
+      gnat-bootstrap = if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform then buildPackages.gnat-bootstrap12 else buildPackages.gnat12;
       stdenv =
         if stdenv.hostPlatform == stdenv.targetPlatform && stdenv.buildPlatform == stdenv.hostPlatform && stdenv.buildPlatform.isDarwin && stdenv.buildPlatform.isx86_64 then
           overrideCC stdenv gnat-bootstrap12
@@ -18693,8 +18685,7 @@ with pkgs;
   bicgl = callPackage ../development/libraries/science/biology/bicgl { inherit (darwin.apple_sdk.frameworks) GLUT; };
 
   # TODO(@Ericson2314): Build bionic libc from source
-  bionic =
-    if stdenv.hostPlatform.useAndroidPrebuilt then pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries else callPackage ../os-specific/linux/bionic-prebuilt { };
+  bionic = if stdenv.hostPlatform.useAndroidPrebuilt then pkgs."androidndkPkgs_${stdenv.hostPlatform.ndkVer}".libraries else callPackage ../os-specific/linux/bionic-prebuilt { };
 
   bobcat = callPackage ../development/libraries/bobcat { };
 
@@ -19628,8 +19619,7 @@ with pkgs;
 
   # Only supported on Linux and only on glibc
   glibcLocales = if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu then callPackage ../development/libraries/glibc/locales.nix { } else null;
-  glibcLocalesUtf8 =
-    if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu then callPackage ../development/libraries/glibc/locales.nix { allLocales = false; } else null;
+  glibcLocalesUtf8 = if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu then callPackage ../development/libraries/glibc/locales.nix { allLocales = false; } else null;
 
   glibcInfo = callPackage ../development/libraries/glibc/info.nix { };
 
@@ -28023,9 +28013,7 @@ with pkgs;
   azpainter = callPackage ../applications/graphics/azpainter { };
 
   bambootracker = libsForQt5.callPackage ../applications/audio/bambootracker { stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv; };
-  bambootracker-qt6 = qt6Packages.callPackage ../applications/audio/bambootracker {
-    stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
-  };
+  bambootracker-qt6 = qt6Packages.callPackage ../applications/audio/bambootracker { stdenv = if stdenv.hostPlatform.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv; };
 
   blocky = callPackage ../applications/networking/blocky { };
 
@@ -31298,9 +31286,7 @@ with pkgs;
       qt5 = qt5_openssl_1_1;
     }).mumble;
 
-  mumble_overlay = callPackage ../applications/networking/mumble/overlay.nix {
-    mumble_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then pkgsi686Linux.mumble else null;
-  };
+  mumble_overlay = callPackage ../applications/networking/mumble/overlay.nix { mumble_i686 = if stdenv.hostPlatform.system == "x86_64-linux" then pkgsi686Linux.mumble else null; };
 
   mup = callPackage ../applications/audio/mup { autoreconfHook = buildPackages.autoreconfHook269; };
 
@@ -33557,9 +33543,7 @@ with pkgs;
     buildRemoting = false;
   };
 
-  chatterino2 = libsForQt5.callPackage ../applications/networking/instant-messengers/chatterino2 {
-    stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv;
-  };
+  chatterino2 = libsForQt5.callPackage ../applications/networking/instant-messengers/chatterino2 { stdenv = if stdenv.isDarwin then darwin.apple_sdk_11_0.stdenv else stdenv; };
 
   weston = callPackage ../applications/window-managers/weston { };
 
@@ -37234,9 +37218,7 @@ with pkgs;
 
   lguf-brightness = callPackage ../misc/lguf-brightness { };
 
-  lighthouse = darwin.apple_sdk_11_0.callPackage ../applications/blockchains/lighthouse {
-    inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation Security SystemConfiguration;
-  };
+  lighthouse = darwin.apple_sdk_11_0.callPackage ../applications/blockchains/lighthouse { inherit (darwin.apple_sdk_11_0.frameworks) CoreFoundation Security SystemConfiguration; };
 
   lilypond = callPackage ../misc/lilypond { };
 

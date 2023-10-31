@@ -368,12 +368,7 @@ rec {
   # GNU build systems assume that older NetBSD architectures are using a.out.
   gnuNetBSDDefaultExecFormat =
     cpu:
-    if
-      (cpu.family == "arm" && cpu.bits == 32)
-      || (cpu.family == "sparc" && cpu.bits == 32)
-      || (cpu.family == "m68k" && cpu.bits == 32)
-      || (cpu.family == "x86" && cpu.bits == 32)
-    then
+    if (cpu.family == "arm" && cpu.bits == 32) || (cpu.family == "sparc" && cpu.bits == 32) || (cpu.family == "m68k" && cpu.bits == 32) || (cpu.family == "x86" && cpu.bits == 32) then
       execFormats.aout
     else
       execFormats.elf;

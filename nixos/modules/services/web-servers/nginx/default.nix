@@ -524,9 +524,7 @@ let
                 proxy_set_header Connection $connection_upgrade;
               ''
             }
-            ${
-              concatStringsSep "\n" (mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams)))
-            }
+            ${concatStringsSep "\n" (mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams)))}
             ${optionalString (config.index != null) "index ${config.index};"}
             ${optionalString (config.tryFiles != null) "try_files ${config.tryFiles};"}
             ${optionalString (config.root != null) "root ${config.root};"}

@@ -12,8 +12,7 @@ let
   opt = options.services.moonraker;
   format = pkgs.formats.ini {
     # https://github.com/NixOS/nixpkgs/pull/121613#issuecomment-885241996
-    listToValue =
-      l: if builtins.length l == 1 then generators.mkValueStringDefault { } (head l) else lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
+    listToValue = l: if builtins.length l == 1 then generators.mkValueStringDefault { } (head l) else lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 
@@ -155,9 +154,7 @@ in
       in
       format.generate "moonraker.cfg" fullConfig;
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"
-    ] ++ lib.optional (cfg.configDir != null) "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -";
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ] ++ lib.optional (cfg.configDir != null) "d '${cfg.configDir}' - ${cfg.user} ${cfg.group} - -";
 
     systemd.services.moonraker = {
       description = "Moonraker, an API web server for Klipper";

@@ -62,8 +62,7 @@ let
     extraArgs = mkOption {
       description =
         mdDoc
-          ''
-            Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = "value"` to `--argName=value`.'';
+          ''Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = "value"` to `--argName=value`.'';
       type = with types; attrsOf (either str bool);
       default = { };
       example = {
@@ -230,9 +229,7 @@ let
         };
 
         upgradePathPrefix = mkOption {
-          description =
-            mdDoc
-              "Use a specific HTTP path prefix that will show up in the upgrade request to the `wstunnel` server. Useful when running `wstunnel` behind a reverse proxy.";
+          description = mdDoc "Use a specific HTTP path prefix that will show up in the upgrade request to the `wstunnel` server. Useful when running `wstunnel` behind a reverse proxy.";
           type = types.nullOr types.str;
           default = null;
           example = "wstunnel";

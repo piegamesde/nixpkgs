@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString [ "-I${toString elfutils.dev}/include" ];
 
-  makeFlags =
-    lib.optional (vendorCertFile != null) "VENDOR_CERT_FILE=${vendorCertFile}" ++ lib.optional (defaultLoader != null) "DEFAULT_LOADER=${defaultLoader}" ++ [ target ];
+  makeFlags = lib.optional (vendorCertFile != null) "VENDOR_CERT_FILE=${vendorCertFile}" ++ lib.optional (defaultLoader != null) "DEFAULT_LOADER=${defaultLoader}" ++ [ target ];
 
   installPhase = ''
     mkdir -p $out/share/shim

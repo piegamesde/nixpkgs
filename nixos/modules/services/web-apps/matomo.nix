@@ -185,9 +185,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = mkIf (cfg.nginx != null && cfg.webServerUser != null) [
-      "If services.matomo.nginx is set, services.matomo.nginx.webServerUser is ignored and should be removed."
-    ];
+    warnings = mkIf (cfg.nginx != null && cfg.webServerUser != null) [ "If services.matomo.nginx is set, services.matomo.nginx.webServerUser is ignored and should be removed." ];
 
     assertions = [
       {

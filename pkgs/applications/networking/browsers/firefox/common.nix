@@ -174,9 +174,7 @@ let
   };
 
   # LTO requires LLVM bintools including ld.lld and llvm-ar.
-  buildStdenv = overrideCC llvmPackages.stdenv (
-    llvmPackages.stdenv.cc.override { bintools = if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools; }
-  );
+  buildStdenv = overrideCC llvmPackages.stdenv (llvmPackages.stdenv.cc.override { bintools = if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools; });
 
   # Compile the wasm32 sysroot to build the RLBox Sandbox
   # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/

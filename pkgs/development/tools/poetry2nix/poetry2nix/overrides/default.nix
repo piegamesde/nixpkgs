@@ -2295,8 +2295,7 @@ lib.composeManyExtensions [
 
       scikit-learn = super.scikit-learn.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ]) ++ [ pkgs.gfortran ] ++ lib.optionals stdenv.cc.isClang [ pkgs.llvmPackages.openmp ] ++ lib.optionals stdenv.isLinux [ pkgs.glibcLocales ];
+          buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.gfortran ] ++ lib.optionals stdenv.cc.isClang [ pkgs.llvmPackages.openmp ] ++ lib.optionals stdenv.isLinux [ pkgs.glibcLocales ];
 
           enableParallelBuilding = true;
         }
@@ -2569,9 +2568,7 @@ lib.composeManyExtensions [
       );
 
       # Stop infinite recursion by using bootstrapped pkg from nixpkgs
-      bootstrapped-pip = super.bootstrapped-pip.override {
-        wheel = ((if self.python.isPy2 then pkgs.python2 else pkgs.python3).pkgs.override { python = self.python; }).wheel;
-      };
+      bootstrapped-pip = super.bootstrapped-pip.override { wheel = ((if self.python.isPy2 then pkgs.python2 else pkgs.python3).pkgs.override { python = self.python; }).wheel; };
 
       watchfiles =
         let
@@ -2701,9 +2698,7 @@ lib.composeManyExtensions [
       # is not translated correctly to a nix dependency.
       tqdm = super.tqdm.overridePythonAttrs (old: { buildInputs = [ super.toml ] ++ (old.buildInputs or [ ]); });
 
-      watchdog = super.watchdog.overrideAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ lib.optional pkgs.stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.CoreServices; }
-      );
+      watchdog = super.watchdog.overrideAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ lib.optional pkgs.stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.CoreServices; });
 
       # pyee cannot find `vcversioner` and other "setup requirements", so it tries to
       # download them from the internet, which only works when nix sandboxing is disabled.
@@ -2843,9 +2838,7 @@ lib.composeManyExtensions [
       );
 
       wcwidth = super.wcwidth.overridePythonAttrs (
-        old: {
-          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional self.isPy27 (self.backports-functools-lru-cache or self.backports_functools_lru_cache);
-        }
+        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.optional self.isPy27 (self.backports-functools-lru-cache or self.backports_functools_lru_cache); }
       );
 
       wtforms = super.wtforms.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.Babel ]; });

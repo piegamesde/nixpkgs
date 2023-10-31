@@ -150,8 +150,7 @@ let
 
         camlzip = callPackage ../development/ocaml-modules/camlzip { };
 
-        camomile =
-          if lib.versionOlder "4.02" ocaml.version then callPackage ../development/ocaml-modules/camomile { } else callPackage ../development/ocaml-modules/camomile/0.8.5.nix { };
+        camomile = if lib.versionOlder "4.02" ocaml.version then callPackage ../development/ocaml-modules/camomile { } else callPackage ../development/ocaml-modules/camomile/0.8.5.nix { };
         camomile_0_8_2 = callPackage ../development/ocaml-modules/camomile/0.8.2.nix { };
 
         caqti = callPackage ../development/ocaml-modules/caqti { };
@@ -800,10 +799,7 @@ let
         lablgtk = callPackage ../development/ocaml-modules/lablgtk { inherit (pkgs.gnome2) libgnomecanvas gtksourceview; };
 
         lablgtk-extras =
-          if lib.versionOlder "4.02" ocaml.version then
-            callPackage ../development/ocaml-modules/lablgtk-extras { }
-          else
-            callPackage ../development/ocaml-modules/lablgtk-extras/1.4.nix { };
+          if lib.versionOlder "4.02" ocaml.version then callPackage ../development/ocaml-modules/lablgtk-extras { } else callPackage ../development/ocaml-modules/lablgtk-extras/1.4.nix { };
 
         lablgtk3 = callPackage ../development/ocaml-modules/lablgtk3 { };
 
@@ -1083,8 +1079,7 @@ let
 
         ocaml_cryptgps = callPackage ../development/ocaml-modules/cryptgps { };
 
-        ocaml_expat =
-          if lib.versionAtLeast ocaml.version "4.02" then callPackage ../development/ocaml-modules/expat { } else callPackage ../development/ocaml-modules/expat/0.9.nix { };
+        ocaml_expat = if lib.versionAtLeast ocaml.version "4.02" then callPackage ../development/ocaml-modules/expat { } else callPackage ../development/ocaml-modules/expat/0.9.nix { };
 
         ocaml-freestanding = callPackage ../development/ocaml-modules/ocaml-freestanding { };
 

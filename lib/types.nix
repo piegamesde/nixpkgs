@@ -660,9 +660,7 @@ let
         // {
           name = "loaOf";
           deprecationMessage =
-            "Mixing lists with attribute values is no longer"
-            + " possible; please use `types.attrsOf` instead. See"
-            + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation.";
+            "Mixing lists with attribute values is no longer" + " possible; please use `types.attrsOf` instead. See" + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation.";
           nestedTypes.elemType = elemType;
         };
 

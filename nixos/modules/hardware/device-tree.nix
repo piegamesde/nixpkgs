@@ -97,9 +97,7 @@ let
           nativeBuildInputs = [ dtc ];
 
           buildCommand = ''
-            $CC -E -nostdinc -I${
-              getDev cfg.kernelPackage
-            }/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
+            $CC -E -nostdinc -I${getDev cfg.kernelPackage}/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
               dtc -I dts -O dtb -@ -o $out
           '';
         }
@@ -111,11 +109,7 @@ let
   withDTBOs =
     xs:
     flip map xs (
-      o:
-      o
-      // {
-        dtboFile = if o.dtboFile == null then if o.dtsFile != null then compileDTS o.name o.dtsFile else compileDTS o.name (pkgs.writeText "dts" o.dtsText) else o.dtboFile;
-      }
+      o: o // { dtboFile = if o.dtboFile == null then if o.dtsFile != null then compileDTS o.name o.dtsFile else compileDTS o.name (pkgs.writeText "dts" o.dtsText) else o.dtboFile; }
     );
 in
 {

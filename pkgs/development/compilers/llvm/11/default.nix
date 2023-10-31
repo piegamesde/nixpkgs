@@ -46,14 +46,7 @@ let
 
     # See llvm/cmake/config-ix.cmake.
     platforms =
-      lib.platforms.aarch64
-      ++ lib.platforms.arm
-      ++ lib.platforms.mips
-      ++ lib.platforms.power
-      ++ lib.platforms.riscv
-      ++ lib.platforms.s390x
-      ++ lib.platforms.wasi
-      ++ lib.platforms.x86;
+      lib.platforms.aarch64 ++ lib.platforms.arm ++ lib.platforms.mips ++ lib.platforms.power ++ lib.platforms.riscv ++ lib.platforms.s390x ++ lib.platforms.wasi ++ lib.platforms.x86;
   };
 
   tools = lib.makeExtensible (
@@ -286,9 +279,7 @@ let
       compiler-rt-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
         stdenv =
-          if
-            (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit)
-          then
+          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) || (stdenv.hostPlatform.isRiscV && stdenv.hostPlatform.is32bit) then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
             stdenv;
@@ -297,10 +288,7 @@ let
       compiler-rt-no-libc = callPackage ./compiler-rt {
         inherit llvm_meta;
         stdenv =
-          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then
-            overrideCC stdenv buildLlvmTools.clangNoCompilerRt
-          else
-            stdenv;
+          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then overrideCC stdenv buildLlvmTools.clangNoCompilerRt else stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
@@ -317,28 +305,19 @@ let
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
         stdenv =
-          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libcxxabi = callPackage ./libcxxabi {
         inherit llvm_meta;
         stdenv =
-          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
         stdenv =
-          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if (stdenv.hostPlatform.useLLVM or false) || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };

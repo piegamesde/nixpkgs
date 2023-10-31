@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
     ./gentoos-zlib.patch
     (fetchpatch {
       name = "openssl-1.1.patch";
-      url =
-        "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-block/partimage/files/"
-        + "partimage-0.6.9-openssl-1.1-compatibility.patch?id=3fe8e9910002b6523d995512a646b063565d0447";
+      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/sys-block/partimage/files/" + "partimage-0.6.9-openssl-1.1-compatibility.patch?id=3fe8e9910002b6523d995512a646b063565d0447";
       sha256 = "1hs0krxrncxq1w36bhad02yk8yx71zcfs35cw87c82sl2sfwasjg";
     })
     (fetchpatch {

@@ -9,8 +9,7 @@ let
   cfg = config.services.klipper;
   format = pkgs.formats.ini {
     # https://github.com/NixOS/nixpkgs/pull/121613#issuecomment-885241996
-    listToValue =
-      l: if builtins.length l == 1 then generators.mkValueStringDefault { } (head l) else lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
+    listToValue = l: if builtins.length l == 1 then generators.mkValueStringDefault { } (head l) else lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 in

@@ -19,10 +19,7 @@ let
     let
       toArg =
         key: value:
-        if builtins.isString value then
-          " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
-        else
-          " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
+        if builtins.isString value then " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}" else " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
     in
     lib.concatStrings (lib.mapAttrsToList toArg args);
 

@@ -284,9 +284,7 @@ stdenv.mkDerivation (
     ];
 
     configureFlags =
-      (callFile ../common/configure-flags.nix { })
-      ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
-      ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
+      (callFile ../common/configure-flags.nix { }) ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419" ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
 
     targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 

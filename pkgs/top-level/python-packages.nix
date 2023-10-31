@@ -1210,8 +1210,7 @@ with self; {
 
   bcdoc = callPackage ../development/python-modules/bcdoc { };
 
-  bcrypt =
-    if stdenv.hostPlatform.system == "i686-linux" then callPackage ../development/python-modules/bcrypt/3.nix { } else callPackage ../development/python-modules/bcrypt { };
+  bcrypt = if stdenv.hostPlatform.system == "i686-linux" then callPackage ../development/python-modules/bcrypt/3.nix { } else callPackage ../development/python-modules/bcrypt { };
 
   beaker = callPackage ../development/python-modules/beaker { };
 
@@ -6819,9 +6818,7 @@ with self; {
 
   openapi-spec-validator = callPackage ../development/python-modules/openapi-spec-validator { };
 
-  openbabel-bindings = callPackage ../development/python-modules/openbabel-bindings {
-    openbabel = callPackage ../development/libraries/openbabel { inherit (self) python; };
-  };
+  openbabel-bindings = callPackage ../development/python-modules/openbabel-bindings { openbabel = callPackage ../development/libraries/openbabel { inherit (self) python; }; };
 
   opencensus = callPackage ../development/python-modules/opencensus { };
 
@@ -11118,9 +11115,7 @@ with self; {
 
   sphinxcontrib-spelling = callPackage ../development/python-modules/sphinxcontrib-spelling { };
 
-  sphinxcontrib-tikz = callPackage ../development/python-modules/sphinxcontrib-tikz {
-    texLive = pkgs.texlive.combine { inherit (pkgs.texlive) scheme-small standalone pgfplots; };
-  };
+  sphinxcontrib-tikz = callPackage ../development/python-modules/sphinxcontrib-tikz { texLive = pkgs.texlive.combine { inherit (pkgs.texlive) scheme-small standalone pgfplots; }; };
 
   sphinxcontrib-websupport = callPackage ../development/python-modules/sphinxcontrib-websupport { };
 

@@ -219,14 +219,10 @@ in
         ""
       ];
 
-      nativeBuildInputs =
-        [
-          pkg-config
-          makeWrapper
-        ]
-        ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
-        ++ lib.optionals srcRepo [ autoreconfHook ]
-        ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
+      nativeBuildInputs = [
+        pkg-config
+        makeWrapper
+      ] ++ lib.optionals (srcRepo || withMacport) [ texinfo ] ++ lib.optionals srcRepo [ autoreconfHook ] ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
       buildInputs =
         [

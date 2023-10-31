@@ -225,9 +225,7 @@ assert (lib.assertMsg (fsType == "ext4" && deterministic -> rootFSUID != null)
   "In deterministic mode with a ext4 partition, rootFSUID must be non-null, by default, it is equal to rootGPUID."
 );
 # We use -E offset=X below, which is only supported by e2fsprogs
-assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
-  "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4"
-);
+assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4") "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4");
 assert (lib.assertMsg (touchEFIVars -> partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt")
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
@@ -596,8 +594,7 @@ let
         ];
         postVM = moveOrConvertImage + postVM;
         QEMU_OPTS = concatStringsSep " " (
-          lib.optional useEFIBoot "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}"
-          ++ lib.optionals touchEFIVars [ "-drive if=pflash,format=raw,unit=1,file=$efiVars" ]
+          lib.optional useEFIBoot "-drive if=pflash,format=raw,unit=0,readonly=on,file=${efiFirmware}" ++ lib.optionals touchEFIVars [ "-drive if=pflash,format=raw,unit=1,file=$efiVars" ]
         );
         inherit memSize;
       }

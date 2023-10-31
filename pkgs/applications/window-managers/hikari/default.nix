@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   makeFlags =
-    with lib;
-    [ "PREFIX=$(out)" ] ++ optional stdenv.isLinux "WITH_POSIX_C_SOURCE=YES" ++ mapAttrsToList (feat: enabled: optionalString enabled "WITH_${toUpper feat}=YES") features;
+    with lib; [ "PREFIX=$(out)" ] ++ optional stdenv.isLinux "WITH_POSIX_C_SOURCE=YES" ++ mapAttrsToList (feat: enabled: optionalString enabled "WITH_${toUpper feat}=YES") features;
 
   postPatch = ''
     # Can't suid in nix store

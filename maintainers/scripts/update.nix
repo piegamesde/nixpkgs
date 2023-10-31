@@ -124,10 +124,7 @@ let
       prefix = lib.splitString "." path;
       pathContent = lib.attrByPath prefix null pkgs;
     in
-    if pathContent == null then
-      builtins.throw "Attribute path `${path}` does not exist."
-    else
-      packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg) pathContent;
+    if pathContent == null then builtins.throw "Attribute path `${path}` does not exist." else packagesWithPath prefix (path: pkg: builtins.hasAttr "updateScript" pkg) pathContent;
 
   # Find a package under `path` in `pkgs` and require that it has an updateScript.
   packageByName =

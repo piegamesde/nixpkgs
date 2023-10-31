@@ -279,10 +279,7 @@ in
       passwordSender = mkOption {
         type = types.str;
         default =
-          if cfg.webserver == "apache" then
-            if cfg.httpd.virtualHost.adminAddr != null then cfg.httpd.virtualHost.adminAddr else config.services.httpd.adminAddr
-          else
-            "root@localhost";
+          if cfg.webserver == "apache" then if cfg.httpd.virtualHost.adminAddr != null then cfg.httpd.virtualHost.adminAddr else config.services.httpd.adminAddr else "root@localhost";
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             if cfg.httpd.virtualHost.adminAddr != null then

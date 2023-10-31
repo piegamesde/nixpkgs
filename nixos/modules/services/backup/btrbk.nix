@@ -105,9 +105,7 @@ in
         default = 10;
       };
       ioSchedulingClass = mkOption {
-        description =
-          lib.mdDoc
-            "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle.";
+        description = lib.mdDoc "IO scheduling class for btrbk (see ionice(1) for a quick description). Applies to local instances, and remote ones connecting by ssh if set to idle.";
         type = types.enum [
           "idle"
           "best-effort"

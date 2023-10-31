@@ -138,9 +138,7 @@ let
 
       azure-mgmt-recoveryservices = overrideAzureMgmtPackage super.azure-mgmt-recoveryservices "2.1.0" "zip" "sha256-2DeOemVpkjeI/hUdG04IuHU2h3cmk3oG4kr1wIDvdbM=";
 
-      azure-mgmt-recoveryservicesbackup =
-        overrideAzureMgmtPackage super.azure-mgmt-recoveryservicesbackup "5.1.0b1" "zip"
-          "sha256-4djPfDzj9ql5WFn5fafLZWRKbofvb1Y7j05S77ly75s=";
+      azure-mgmt-recoveryservicesbackup = overrideAzureMgmtPackage super.azure-mgmt-recoveryservicesbackup "5.1.0b1" "zip" "sha256-4djPfDzj9ql5WFn5fafLZWRKbofvb1Y7j05S77ly75s=";
 
       azure-mgmt-resource = overrideAzureMgmtPackage super.azure-mgmt-resource "21.1.0b1" "zip" "sha256-oiC5k+Mg9KJn940jMxG4AB9Pom+t/DWRA5KRv8HO0HI=";
 
@@ -168,9 +166,7 @@ let
 
       azure-mgmt-iothub = overrideAzureMgmtPackage super.azure-mgmt-iothub "2.3.0" "zip" "sha256-ml+koj52l5o0toAcnsGtsw0tGnO5F/LKq56ovzdmx/A=";
 
-      azure-mgmt-iothubprovisioningservices =
-        overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0" "zip"
-          "sha256-04OoJuff93L62G6IozpmHpEaUbHHHD6nKlkMHVoJvJ4=";
+      azure-mgmt-iothubprovisioningservices = overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0" "zip" "sha256-04OoJuff93L62G6IozpmHpEaUbHHHD6nKlkMHVoJvJ4=";
 
       azure-mgmt-iotcentral = overrideAzureMgmtPackage super.azure-mgmt-iotcentral "10.0.0b1" "zip" "sha256-1CiZuTXYhIb74eGQZUJHHzovYNnnVd3Ydu1UCy2Bu00=";
 

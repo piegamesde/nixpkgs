@@ -2184,9 +2184,7 @@ let
     # Produce a nice warning message so users know it is gone.
     dhcpConfig = mkOption {
       visible = false;
-      apply =
-        _:
-        throw "The option `systemd.network.networks.*.dhcpConfig` can no longer be used since it's been removed. Please use `systemd.network.networks.*.dhcpV4Config` instead.";
+      apply = _: throw "The option `systemd.network.networks.*.dhcpConfig` can no longer be used since it's been removed. Please use `systemd.network.networks.*.dhcpV4Config` instead.";
     };
 
     dhcpV4Config = mkOption {
@@ -2218,8 +2216,7 @@ let
 
     dhcpV6PrefixDelegationConfig = mkOption {
       visible = false;
-      apply =
-        _: throw "The option `systemd.network.networks.<name>.dhcpV6PrefixDelegationConfig` has been renamed to `systemd.network.networks.<name>.dhcpPrefixDelegationConfig`.";
+      apply = _: throw "The option `systemd.network.networks.<name>.dhcpV6PrefixDelegationConfig` has been renamed to `systemd.network.networks.<name>.dhcpPrefixDelegationConfig`.";
     };
 
     dhcpPrefixDelegationConfig = mkOption {

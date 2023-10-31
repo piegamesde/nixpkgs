@@ -125,9 +125,7 @@ in
       after = [ "network.target" ];
 
       serviceConfig = {
-        ExecStart = "${dragonflydb}/bin/dragonfly --alsologtostderr ${
-            builtins.concatStringsSep " " (attrsets.mapAttrsToList (n: v: "--${n} ${strings.escapeShellArg v}") settings)
-          }";
+        ExecStart = "${dragonflydb}/bin/dragonfly --alsologtostderr ${builtins.concatStringsSep " " (attrsets.mapAttrsToList (n: v: "--${n} ${strings.escapeShellArg v}") settings)}";
 
         User = cfg.user;
 

@@ -108,10 +108,7 @@ let
         { }@args:
         v:
         if isAttrs v then
-          if v ? _secret then
-            if isAbsolutePath v._secret then sha256 v._secret else abort "Invalid secret path (_secret = ${v._secret})"
-          else
-            mapAttrs (_: val: replaceSec' args val) v
+          if v ? _secret then if isAbsolutePath v._secret then sha256 v._secret else abort "Invalid secret path (_secret = ${v._secret})" else mapAttrs (_: val: replaceSec' args val) v
         else if isList v then
           map (replaceSec' args) v
         else

@@ -347,9 +347,7 @@ in
     systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.writefreely = {
-      after = [
-        "network.target"
-      ] ++ optional isSqlite "writefreely-sqlite-init.service" ++ optional isMysql "writefreely-mysql-init.service" ++ optional isMysqlLocal "mysql.service";
+      after = [ "network.target" ] ++ optional isSqlite "writefreely-sqlite-init.service" ++ optional isMysql "writefreely-mysql-init.service" ++ optional isMysqlLocal "mysql.service";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

@@ -899,9 +899,7 @@ in
             mail_spool_directory = "/var/spool/mail/";
             setgid_group = cfg.setgidGroup;
           })
-          // optionalAttrs (cfg.relayHost != "") {
-            relayhost = if cfg.lookupMX then "${cfg.relayHost}:${toString cfg.relayPort}" else "[${cfg.relayHost}]:${toString cfg.relayPort}";
-          }
+          // optionalAttrs (cfg.relayHost != "") { relayhost = if cfg.lookupMX then "${cfg.relayHost}:${toString cfg.relayPort}" else "[${cfg.relayHost}]:${toString cfg.relayPort}"; }
           // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
           // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
           // optionalAttrs (cfg.networksStyle != "") { mynetworks_style = cfg.networksStyle; }
@@ -1055,9 +1053,7 @@ in
                     (opt + "=" + val)
                   ];
                   adjustSmtpTlsSecurityLevel =
-                    !(cfg.submissionsOptions ? smtpd_tls_security_level)
-                    || cfg.submissionsOptions.smtpd_tls_security_level == "none"
-                    || cfg.submissionsOptions.smtpd_tls_security_level == "may";
+                    !(cfg.submissionsOptions ? smtpd_tls_security_level) || cfg.submissionsOptions.smtpd_tls_security_level == "none" || cfg.submissionsOptions.smtpd_tls_security_level == "may";
                   submissionsOptions = cfg.submissionsOptions // { smtpd_tls_wrappermode = "yes"; } // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
                 in
                 concatLists (mapAttrsToList mkKeyVal submissionsOptions);

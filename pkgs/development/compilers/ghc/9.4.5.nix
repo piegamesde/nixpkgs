@@ -30,8 +30,7 @@
   # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
-  useLLVM ?
-    !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower || stdenv.targetPlatform.isSparc || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)),
+  useLLVM ? !(stdenv.targetPlatform.isx86 || stdenv.targetPlatform.isPower || stdenv.targetPlatform.isSparc || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)),
   # LLVM is conceptually a run-time-only depedendency, but for
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
@@ -149,10 +148,7 @@ let
   # Splicer will pull out correct variations
   libDeps =
     platform:
-    lib.optional enableTerminfo ncurses
-    ++ [ libffi ]
-    ++ lib.optional (!enableNativeBignum) gmp
-    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
+    lib.optional enableTerminfo ncurses ++ [ libffi ] ++ lib.optional (!enableNativeBignum) gmp ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST

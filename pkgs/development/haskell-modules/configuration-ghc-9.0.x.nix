@@ -68,9 +68,7 @@ self: super: {
   ];
   hashable-time = doJailbreak super.hashable-time;
   HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (doJailbreak super.HTTP);
-  integer-logarithms = overrideCabal (drv: { postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal"; }) (
-    doJailbreak super.integer-logarithms
-  );
+  integer-logarithms = overrideCabal (drv: { postPatch = "sed -i -e 's,integer-gmp <1.1,integer-gmp < 2,' integer-logarithms.cabal"; }) (doJailbreak super.integer-logarithms);
   lukko = doJailbreak super.lukko;
   parallel = doJailbreak super.parallel;
   primitive = doJailbreak (dontCheck super.primitive);

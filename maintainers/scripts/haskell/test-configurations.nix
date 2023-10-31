@@ -97,9 +97,7 @@ let
       configVersion = lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
       # return all package sets under haskell.packages matching the version components
       setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name}) (
-        builtins.filter (setName: lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))) (
-          builtins.attrNames packageSetsWithVersionedHead
-        )
+        builtins.filter (setName: lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))) (builtins.attrNames packageSetsWithVersionedHead)
       );
 
       defaultSets = [ pkgs.haskellPackages ];

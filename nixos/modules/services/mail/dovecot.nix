@@ -448,8 +448,7 @@ in
       {
         dovenull.gid = config.ids.gids.dovenull2;
       }
-      // optionalAttrs (cfg.group == "dovecot2") { dovecot2.gid = config.ids.gids.dovecot2; }
-      // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) { ${cfg.mailGroup} = { }; };
+      // optionalAttrs (cfg.group == "dovecot2") { dovecot2.gid = config.ids.gids.dovecot2; } // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) { ${cfg.mailGroup} = { }; };
 
     environment.etc."dovecot/modules".source = modulesDir;
     environment.etc."dovecot/dovecot.conf".source = cfg.configFile;

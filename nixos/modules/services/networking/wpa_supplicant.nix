@@ -538,8 +538,7 @@ in
     environment.systemPackages = [ package ];
     services.dbus.packages = optional cfg.dbusControlled package;
 
-    systemd.services =
-      if cfg.interfaces == [ ] then { wpa_supplicant = mkUnit null; } else listToAttrs (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces);
+    systemd.services = if cfg.interfaces == [ ] then { wpa_supplicant = mkUnit null; } else listToAttrs (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces);
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (

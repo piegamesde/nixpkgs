@@ -291,10 +291,7 @@ rec {
       transform =
         depth:
         if depthLimit != null && depth > depthLimit then
-          if throwOnDepthLimit then
-            throw "Exceeded maximum eval-depth limit of ${toString depthLimit} while trying to evaluate with `generators.withRecursion'!"
-          else
-            const "<unevaluated>"
+          if throwOnDepthLimit then throw "Exceeded maximum eval-depth limit of ${toString depthLimit} while trying to evaluate with `generators.withRecursion'!" else const "<unevaluated>"
         else
           id;
       mapAny =
@@ -414,9 +411,7 @@ rec {
             "{"
             + introSpace
             + libStr.concatStringsSep introSpace (
-              libAttr.mapAttrsToList
-                (name: value: "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};")
-                v
+              libAttr.mapAttrsToList (name: value: "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};") v
             )
             + outroSpace
             + "}"

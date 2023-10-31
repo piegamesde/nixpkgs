@@ -1727,14 +1727,7 @@ rec {
             usesDefaultFeatures = false;
             target =
               { target, features }:
-              (
-                (target."os" == "dragonfly")
-                || (target."os" == "freebsd")
-                || (target."os" == "illumos")
-                || (target."os" == "netbsd")
-                || (target."os" == "openbsd")
-                || (target."os" == "solaris")
-              );
+              ((target."os" == "dragonfly") || (target."os" == "freebsd") || (target."os" == "illumos") || (target."os" == "netbsd") || (target."os" == "openbsd") || (target."os" == "solaris"));
             features = [ "std" ];
           }
           {

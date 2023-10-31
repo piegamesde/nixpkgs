@@ -372,9 +372,7 @@ in
         [ "/run/binfmt" ] ++ lib.optional hasWrappedRule "${pkgs.bash}" ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems);
     };
 
-    environment.etc."binfmt.d/nixos.conf".source = builtins.toFile "binfmt_nixos.conf" (
-      lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations)
-    );
+    environment.etc."binfmt.d/nixos.conf".source = builtins.toFile "binfmt_nixos.conf" (lib.concatStringsSep "\n" (lib.mapAttrsToList makeBinfmtLine config.boot.binfmt.registrations));
     system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
       mkdir -p -m 0755 /run/binfmt
       ${lib.concatStringsSep "\n" (lib.mapAttrsToList activationSnippet config.boot.binfmt.registrations)}

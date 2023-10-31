@@ -19,9 +19,7 @@ let
     version = "7.3.3";
 
     src = fetchurl {
-      url = "https://github.com/ONLYOFFICE/DocumentServer/releases/download/v${
-          lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version))
-        }/onlyoffice-documentserver_amd64.deb";
+      url = "https://github.com/ONLYOFFICE/DocumentServer/releases/download/v${lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version))}/onlyoffice-documentserver_amd64.deb";
       sha256 = "sha256-WeDXIDrjICGDVnpkdGLyA9plW50Kz3bHXU48DdHReHM=";
     };
 

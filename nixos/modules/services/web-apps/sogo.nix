@@ -18,9 +18,7 @@ let
         # Insert secrets
         ${concatStringsSep "\n" (mapAttrsToList (k: v: ''export ${k}="$(cat "${v}" | tr -d '\n')"'') cfg.configReplaces)}
 
-        ${pkgs.perl}/bin/perl -p ${
-          concatStringsSep " " (mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces)
-        } /etc/sogo/sogo.conf.raw > /etc/sogo/sogo.conf
+        ${pkgs.perl}/bin/perl -p ${concatStringsSep " " (mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces)} /etc/sogo/sogo.conf.raw > /etc/sogo/sogo.conf
       ''
     else
       ''

@@ -54,8 +54,7 @@ let
     "org.gnome.SettingsDaemon.Wacom"
     "org.gnome.SettingsDaemon.XSettings"
   ];
-  requiredComponents =
-    wmName: enableGnomePanel: "RequiredComponents=${lib.concatStringsSep ";" ([ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd)};";
+  requiredComponents = wmName: enableGnomePanel: "RequiredComponents=${lib.concatStringsSep ";" ([ wmName ] ++ requiredComponentsCommon enableGnomePanel ++ requiredComponentsGsd)};";
 
   gnome-flashback = stdenv.mkDerivation rec {
     name = "${pname}-${version}";

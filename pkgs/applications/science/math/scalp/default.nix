@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
       --replace "\$ORIGIN" "\''${CMAKE_INSTALL_PREFIX}/lib"
   '';
 
-  cmakeFlags = [
-    "-DBUILD_TESTS=${lib.boolToString doCheck}"
-  ] ++ lib.optionals withGurobi [ "-DGUROBI_DIR=${gurobi}" ] ++ lib.optionals withCplex [ "-DCPLEX_DIR=${cplex}" ];
+  cmakeFlags = [ "-DBUILD_TESTS=${lib.boolToString doCheck}" ] ++ lib.optionals withGurobi [ "-DGUROBI_DIR=${gurobi}" ] ++ lib.optionals withCplex [ "-DCPLEX_DIR=${cplex}" ];
 
   doCheck = true;
 

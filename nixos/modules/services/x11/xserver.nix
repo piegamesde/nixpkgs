@@ -830,8 +830,7 @@ in
       restartIfChanged = false;
 
       environment =
-        optionalAttrs config.hardware.opengl.setLdLibraryPath { LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ]; }
-        // cfg.displayManager.job.environment;
+        optionalAttrs config.hardware.opengl.setLdLibraryPath { LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ]; } // cfg.displayManager.job.environment;
 
       preStart = ''
         ${cfg.displayManager.job.preStart}

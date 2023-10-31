@@ -264,16 +264,11 @@ let
       # look at ./make/configure.py search "enable_nvenc"
       ++ optional stdenv.isLinux nv-codec-headers;
 
-    configureFlags =
-      [
-        "--disable-df-fetch"
-        "--disable-df-verify"
-        "--disable-gtk-update-checks"
-      ]
-      ++ optional (!useGtk) "--disable-gtk"
-      ++ optional useFdk "--enable-fdk-aac"
-      ++ optional stdenv.isDarwin "--disable-xcode"
-      ++ optional stdenv.hostPlatform.isx86 "--harden";
+    configureFlags = [
+      "--disable-df-fetch"
+      "--disable-df-verify"
+      "--disable-gtk-update-checks"
+    ] ++ optional (!useGtk) "--disable-gtk" ++ optional useFdk "--enable-fdk-aac" ++ optional stdenv.isDarwin "--disable-xcode" ++ optional stdenv.hostPlatform.isx86 "--harden";
 
     # NOTE: 2018-12-27: Check NixOS HandBrake test if changing
     NIX_LDFLAGS = [ "-lx265" ];

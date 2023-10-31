@@ -208,14 +208,7 @@ let
 
       noNonNativeDeps =
         builtins.length (
-          depsBuildTarget
-          ++ depsBuildTargetPropagated
-          ++ depsHostHost
-          ++ depsHostHostPropagated
-          ++ buildInputs
-          ++ propagatedBuildInputs
-          ++ depsTargetTarget
-          ++ depsTargetTargetPropagated
+          depsBuildTarget ++ depsBuildTargetPropagated ++ depsHostHost ++ depsHostHostPropagated ++ buildInputs ++ propagatedBuildInputs ++ depsTargetTarget ++ depsTargetTargetPropagated
         ) == 0;
       dontAddHostSuffix = attrs ? outputHash && !noNonNativeDeps || !stdenv.hasCC;
 
@@ -327,9 +320,7 @@ let
           [ (map (drv: drv.__spliced.targetTarget or drv) (checkDependencyList "depsTargetTargetPropagated" depsTargetTargetPropagated)) ]
         ];
 
-        computedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (
-          stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ lib.concatLists dependencies
-        );
+        computedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ lib.concatLists dependencies);
 
         computedPropagatedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (lib.concatLists propagatedDependencies);
 
@@ -451,9 +442,7 @@ let
                 explicitFlags =
                   if lib.isString cmakeFlags then
                     lib.warn
-                      "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                        pos.file or "unknown file"
-                      }"
+                      "String 'cmakeFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                       [ cmakeFlags ]
                   else if cmakeFlags == null then
                     lib.warn
@@ -480,9 +469,7 @@ let
                 explicitFlags =
                   if lib.isString mesonFlags then
                     lib.warn
-                      "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${
-                        pos.file or "unknown file"
-                      }"
+                      "String 'mesonFlags' is deprecated and will be removed in release 23.05. Please use a list of strings. Derivation name: ${derivationArg.name}, file: ${pos.file or "unknown file"}"
                       [ mesonFlags ]
                   else if mesonFlags == null then
                     lib.warn

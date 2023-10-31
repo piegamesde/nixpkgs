@@ -238,9 +238,7 @@ rec {
                   updatePath = (head split.right).path;
                 in
                 throw (
-                  "updateManyAttrsByPath: Path '${showAttrPath updatePath}' does "
-                  + "not exist in the given value, but the first update to this "
-                  + "path tries to access the existing value."
+                  "updateManyAttrsByPath: Path '${showAttrPath updatePath}' does " + "not exist in the given value, but the first update to this " + "path tries to access the existing value."
                 )
             else
             # If there are nested modifications, try to apply them to the value
@@ -503,9 +501,7 @@ rec {
   cartesianProductOfSets =
     # Attribute set with attributes that are lists of values
     attrsOfLists:
-    foldl' (listOfAttrs: attrName: concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs) [ { } ] (
-      attrNames attrsOfLists
-    );
+    foldl' (listOfAttrs: attrName: concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}) listOfAttrs) [ { } ] (attrNames attrsOfLists);
 
   /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
 

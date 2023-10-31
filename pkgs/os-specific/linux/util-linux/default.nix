@@ -80,15 +80,10 @@ stdenv.mkDerivation rec {
     installShellFiles
   ] ++ lib.optionals translateManpages [ po4a ];
 
-  buildInputs =
-    [
-      zlib
-      libxcrypt
-    ]
-    ++ lib.optionals pamSupport [ pam ]
-    ++ lib.optionals capabilitiesSupport [ libcap_ng ]
-    ++ lib.optionals ncursesSupport [ ncurses ]
-    ++ lib.optionals systemdSupport [ systemd ];
+  buildInputs = [
+    zlib
+    libxcrypt
+  ] ++ lib.optionals pamSupport [ pam ] ++ lib.optionals capabilitiesSupport [ libcap_ng ] ++ lib.optionals ncursesSupport [ ncurses ] ++ lib.optionals systemdSupport [ systemd ];
 
   doCheck = false; # "For development purpose only. Don't execute on production system!"
 

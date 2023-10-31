@@ -68,9 +68,7 @@ in
     '';
   };
 
-  config = mkIf (config.services.pantalaimon-headless.instances != { }) {
-    systemd.services = mapAttrs' mkPantalaimonService config.services.pantalaimon-headless.instances;
-  };
+  config = mkIf (config.services.pantalaimon-headless.instances != { }) { systemd.services = mapAttrs' mkPantalaimonService config.services.pantalaimon-headless.instances; };
 
   meta = {
     maintainers = with maintainers; [ jojosch ];

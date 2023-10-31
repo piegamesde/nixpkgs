@@ -40,9 +40,7 @@ let
 
   # If dhcp is disabled but explicit interfaces are enabled,
   # we need to provide dhcp just for those interfaces.
-  allowInterfaces = arrayAppendOrNull cfg.allowInterfaces (
-    if !config.networking.useDHCP && enableDHCP then map (i: i.name) (filter (i: i.useDHCP == true) interfaces) else null
-  );
+  allowInterfaces = arrayAppendOrNull cfg.allowInterfaces (if !config.networking.useDHCP && enableDHCP then map (i: i.name) (filter (i: i.useDHCP == true) interfaces) else null);
 
   staticIPv6Addresses = map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);
 

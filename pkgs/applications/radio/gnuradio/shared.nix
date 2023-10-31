@@ -42,9 +42,7 @@ rec {
     lib.mapAttrsToList
       (
         feat: info:
-        (lib.optionals (hasFeature feat) (
-          (lib.optionals (builtins.hasAttr "native" info) info.native) ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)
-        ))
+        (lib.optionals (hasFeature feat) ((lib.optionals (builtins.hasAttr "native" info) info.native) ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)))
       )
       featuresInfo
   );
@@ -52,9 +50,7 @@ rec {
     lib.mapAttrsToList
       (
         feat: info:
-        (lib.optionals (hasFeature feat) (
-          (lib.optionals (builtins.hasAttr "runtime" info) info.runtime) ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)
-        ))
+        (lib.optionals (hasFeature feat) ((lib.optionals (builtins.hasAttr "runtime" info) info.runtime) ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)))
       )
       featuresInfo
   );

@@ -56,13 +56,11 @@ let
       pname = "haxe";
       inherit version;
 
-      buildInputs =
-        [
-          zlib
-          pcre
-          neko
-        ]
-        ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2 ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin) Security ++ ocamlDependencies version;
+      buildInputs = [
+        zlib
+        pcre
+        neko
+      ] ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2 ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin) Security ++ ocamlDependencies version;
 
       src = fetchFromGitHub {
         owner = "HaxeFoundation";

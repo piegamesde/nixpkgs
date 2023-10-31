@@ -109,34 +109,31 @@ import ../make-test-python.nix (
         { pkgs, ... }:
         {
           environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "create_management_room_and_invite_mjolnir"
-              { libraries = with pkgs.python3Packages; [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e; }
-              ''
-                import asyncio
+            (pkgs.writers.writePython3Bin "create_management_room_and_invite_mjolnir" { libraries = with pkgs.python3Packages; [ matrix-nio ] ++ matrix-nio.optional-dependencies.e2e; } ''
+              import asyncio
 
-                from nio import (
-                    AsyncClient,
-                    EnableEncryptionBuilder
-                )
+              from nio import (
+                  AsyncClient,
+                  EnableEncryptionBuilder
+              )
 
 
-                async def main() -> None:
-                    client = AsyncClient("http://homeserver:8448", "moderator")
+              async def main() -> None:
+                  client = AsyncClient("http://homeserver:8448", "moderator")
 
-                    await client.login("moderator-password")
+                  await client.login("moderator-password")
 
-                    room = await client.room_create(
-                        name="Moderators",
-                        alias="moderators",
-                        initial_state=[EnableEncryptionBuilder().as_dict()],
-                    )
+                  room = await client.room_create(
+                      name="Moderators",
+                      alias="moderators",
+                      initial_state=[EnableEncryptionBuilder().as_dict()],
+                  )
 
-                    await client.join(room.room_id)
-                    await client.room_invite(room.room_id, "@mjolnir:homeserver")
+                  await client.join(room.room_id)
+                  await client.room_invite(room.room_id, "@mjolnir:homeserver")
 
-                asyncio.run(main())
-              ''
-            )
+              asyncio.run(main())
+            '')
           ];
         };
     };

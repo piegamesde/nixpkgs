@@ -36,8 +36,7 @@ let
   ;
 
   withDefaults =
-    optionSpecs: defaults:
-    lib.genAttrs (attrNames optionSpecs) (name: mkOption (optionSpecs.${name} // { default = optionSpecs.${name}.default or defaults.${name} or null; }));
+    optionSpecs: defaults: lib.genAttrs (attrNames optionSpecs) (name: mkOption (optionSpecs.${name} // { default = optionSpecs.${name}.default or defaults.${name} or null; }));
 
   latencyProfile = withDefaults {
     latency = {

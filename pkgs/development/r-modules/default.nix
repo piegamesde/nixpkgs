@@ -144,8 +144,7 @@ let
   #     buildInputs = attrs.buildInputs ++ [ pkgs.bar ];
   #   });
   # }
-  overrideBuildInputs =
-    overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
+  overrideBuildInputs = overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
 
   # Overrides package definitions with maintainers.
   # For example,
@@ -1541,9 +1540,7 @@ let
           patchShebangs configure
         '';
         PKGCONFIG_CFLAGS = "-I${pkgs.openssl.dev}/include -I${pkgs.cyrus_sasl.dev}/include -I${pkgs.zlib.dev}/include";
-        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${
-            lib.getLib pkgs.openssl
-          }/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
+        PKGCONFIG_LIBS = "-Wl,-rpath,${lib.getLib pkgs.openssl}/lib -L${lib.getLib pkgs.openssl}/lib -L${pkgs.cyrus_sasl.out}/lib -L${pkgs.zlib.out}/lib -lssl -lcrypto -lsasl2 -lz";
       }
     );
 

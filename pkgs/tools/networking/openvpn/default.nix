@@ -43,9 +43,7 @@ let
 
       nativeBuildInputs = [ pkg-config ];
 
-      buildInputs = [
-        lzo
-      ] ++ optional stdenv.isLinux pam ++ optional withIpRoute iproute2 ++ optional useSystemd systemd ++ optional pkcs11Support pkcs11helper ++ extraBuildInputs;
+      buildInputs = [ lzo ] ++ optional stdenv.isLinux pam ++ optional withIpRoute iproute2 ++ optional useSystemd systemd ++ optional pkcs11Support pkcs11helper ++ extraBuildInputs;
 
       configureFlags =
         optionals withIpRoute [

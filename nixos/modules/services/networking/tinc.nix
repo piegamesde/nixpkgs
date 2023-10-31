@@ -157,11 +157,7 @@ let
         Address = mkDefault (map (address: "${address.address} ${toString address.port}") config.addresses);
 
         Subnet = mkDefault (
-          map
-            (
-              subnet:
-              if subnet.prefixLength == null then "${subnet.address}#${toString subnet.weight}" else "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}"
-            )
+          map (subnet: if subnet.prefixLength == null then "${subnet.address}#${toString subnet.weight}" else "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}")
             config.subnets
         );
       };
@@ -419,9 +415,7 @@ in
               Restart = "always";
               RestartSec = "3";
               ExecReload = mkIf (versionAtLeast version "1.1pre") "${data.package}/bin/tinc -n ${network} reload";
-              ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${optionalString (data.chroot) "-R"} --pidfile /run/tinc.${network}.pid -d ${
-                  toString data.debugLevel
-                }";
+              ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${optionalString (data.chroot) "-R"} --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}";
             };
             preStart = ''
               mkdir -p /etc/tinc/${network}/hosts

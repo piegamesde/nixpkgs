@@ -20,9 +20,7 @@ let
 
   baseAttrs = {
     src = fetchurl {
-      url = "https://github.com/unicode-org/icu/releases/download/release-${lib.replaceStrings [ "." ] [ "-" ] version}/icu4c-${
-          lib.replaceStrings [ "." ] [ "_" ] version
-        }-src.tgz";
+      url = "https://github.com/unicode-org/icu/releases/download/release-${lib.replaceStrings [ "." ] [ "-" ] version}/icu4c-${lib.replaceStrings [ "." ] [ "_" ] version}-src.tgz";
       inherit sha256;
     };
 
@@ -52,10 +50,9 @@ let
         sed -e 's/LDFLAGSICUDT=-nodefaultlibs -nostdlib/LDFLAGSICUDT=/' -i config/mh-linux
       '';
 
-    configureFlags =
-      [ "--disable-debug" ]
-      ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
-      ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--with-cross-build=${nativeBuildRoot}";
+    configureFlags = [
+      "--disable-debug"
+    ] ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath" ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--with-cross-build=${nativeBuildRoot}";
 
     enableParallelBuilding = true;
 

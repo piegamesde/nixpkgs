@@ -49,17 +49,11 @@ stdenv.mkDerivation rec {
     }
   );
 
-  buildInputs =
-    [
-      ncurses
-      which
-      perl
-    ]
-    ++ lib.optional headerCache gdbm
-    ++ lib.optional sslSupport openssl
-    ++ lib.optional gssSupport libkrb5
-    ++ lib.optional saslSupport cyrus_sasl
-    ++ lib.optional gpgmeSupport gpgme;
+  buildInputs = [
+    ncurses
+    which
+    perl
+  ] ++ lib.optional headerCache gdbm ++ lib.optional sslSupport openssl ++ lib.optional gssSupport libkrb5 ++ lib.optional saslSupport cyrus_sasl ++ lib.optional gpgmeSupport gpgme;
 
   configureFlags = [
     (lib.enableFeature headerCache "hcache")

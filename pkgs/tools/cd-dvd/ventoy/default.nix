@@ -101,12 +101,7 @@ stdenv.mkDerivation (
         which
         xz
       ]
-      ++ optional withCryptsetup cryptsetup
-      ++ optional withExt4 e2fsprogs
-      ++ optional withGtk3 gtk3
-      ++ optional withNtfs ntfs3g
-      ++ optional withXfs xfsprogs
-      ++ optional withQt5 qtbase;
+      ++ optional withCryptsetup cryptsetup ++ optional withExt4 e2fsprogs ++ optional withGtk3 gtk3 ++ optional withNtfs ntfs3g ++ optional withXfs xfsprogs ++ optional withQt5 qtbase;
 
     desktopItems = [
       (makeDesktopItem {

@@ -523,9 +523,9 @@ let
               ''
             }
               echo "Waiting for your FIDO2 device..."
-              fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} "${
-                builtins.concatStringsSep "," fido2luksCredentials
-              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
+              fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${
+                toString dev.fido2.gracePeriod
+              } --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally
@@ -1205,9 +1205,7 @@ in
 
     boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) postCommands;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand preLVM) + postCommands);
-    boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands
-    );
+    boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) (commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands);
 
     environment.systemPackages = [ pkgs.cryptsetup ];
   };

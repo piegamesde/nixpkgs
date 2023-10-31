@@ -851,9 +851,7 @@ mapAliases ({
   liblapackWithoutAtlas = throw "'liblapackWithoutAtlas' has been renamed to/replaced by 'lapack-reference'"; # Converted to throw 2022-02-22
   liblastfm = libsForQt5.liblastfm; # Added 2020-06-14
   liblrdf = throw "'liblrdf' has been renamed to/replaced by 'lrdf'"; # Converted to throw 2022-02-22
-  libmicrohttpd_0_9_70 =
-    throw
-      "'libmicrohttpd_0_9_70' has been removed because it is insecure, and has been replaced by 'libmicrohttpd_0_9_69' and 'libmicrohttpd_0_9_71'"; # Added 2022-10-10
+  libmicrohttpd_0_9_70 = throw "'libmicrohttpd_0_9_70' has been removed because it is insecure, and has been replaced by 'libmicrohttpd_0_9_69' and 'libmicrohttpd_0_9_71'"; # Added 2022-10-10
   libmsgpack = throw "'libmsgpack' has been renamed to/replaced by 'msgpack'"; # Converted to throw 2022-02-22
   libnih = throw "'libnih' has been removed"; # Converted to throw 2022-05-17
   libosmpbf = throw "libosmpbf was removed because it is no longer required by osrm-backend";
@@ -1071,9 +1069,7 @@ mapAliases ({
   mesa_drivers = mesa.drivers;
   mesa_noglu = throw "'mesa_noglu' has been renamed to/replaced by 'mesa'"; # Converted to throw 2022-02-22
 
-  mpv-with-scripts =
-    throw
-      "'mpv-with-scripts' has been renamed to/replaced by 'mpv' or with 'mpv.override { scripts = [ mpvScripts.plugin-name ]; }' if you where using plugins."; # Converted to throw 2022-09-24
+  mpv-with-scripts = throw "'mpv-with-scripts' has been renamed to/replaced by 'mpv' or with 'mpv.override { scripts = [ mpvScripts.plugin-name ]; }' if you where using plugins."; # Converted to throw 2022-09-24
   mssys = throw "'mssys' has been renamed to/replaced by 'ms-sys'"; # Converted to throw 2022-02-22
   multipath_tools = throw "'multipath_tools' has been renamed to/replaced by 'multipath-tools'"; # Converted to throw 2022-02-22
   mumsi = throw "mumsi has been removed from nixpkgs, as it's unmaintained and does not build anymore"; # Added 2021-11-18
@@ -1362,9 +1358,7 @@ mapAliases ({
   protobuf3_7 = throw "protobuf3_7 does not receive updates anymore and has been removed"; # Added 2022-10-03
   protobuf3_11 = throw "protobuf3_11 does not receive updates anymore and has been removed"; # Added 2022-09-28
   protonup = protonup-ng; # Added 2022-11-06
-  proxytunnel =
-    throw
-      "proxytunnel has been removed from nixpkgs, because it has not been update upstream since it was added to nixpkgs in 2008 and has therefore bitrotted."; # added 2021-12-15
+  proxytunnel = throw "proxytunnel has been removed from nixpkgs, because it has not been update upstream since it was added to nixpkgs in 2008 and has therefore bitrotted."; # added 2021-12-15
   pulseaudio-hsphfpd = throw "pulseaudio-hsphfpd upstream has been abandoned"; # Added 2022-03-23
   pulseaudio-modules-bt = throw "pulseaudio-modules-bt has been abandoned, and is superseded by pulseaudio's native bt functionality"; # Added 2022-04-01
   pulseaudioLight = throw "'pulseaudioLight' has been renamed to/replaced by 'pulseaudio'"; # Converted to throw 2022-02-22

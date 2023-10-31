@@ -41,14 +41,10 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  cmakeFlags =
-    [
-      "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d"
-      "-DCMAKE_INSTALL_LIBDIR=lib"
-    ]
-    ++ lib.optionals stdenv.isDarwin [ "-DUSE_HIDAPI=1" ]
-    ++ lib.optionals stdenv.isLinux [ "-DNFC_LINUX=1" ]
-    ++ lib.optionals (stdenv.isLinux && withPcsclite) [ "-DUSE_PCSC=1" ];
+  cmakeFlags = [
+    "-DUDEV_RULES_DIR=${placeholder "out"}/etc/udev/rules.d"
+    "-DCMAKE_INSTALL_LIBDIR=lib"
+  ] ++ lib.optionals stdenv.isDarwin [ "-DUSE_HIDAPI=1" ] ++ lib.optionals stdenv.isLinux [ "-DNFC_LINUX=1" ] ++ lib.optionals (stdenv.isLinux && withPcsclite) [ "-DUSE_PCSC=1" ];
 
   meta = with lib; {
     description = ''

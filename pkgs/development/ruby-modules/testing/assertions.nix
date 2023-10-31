@@ -16,6 +16,5 @@
     else
       (test.failed "keys differ: expected: [${lib.concatStringsSep ";" expected}] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]");
 
-  havePrefix =
-    expected: actual: if lib.hasPrefix expected actual then (test.passed "has prefix '${expected}'") else (test.failed "prefix '${expected}' not found in '${actual}'");
+  havePrefix = expected: actual: if lib.hasPrefix expected actual then (test.passed "has prefix '${expected}'") else (test.failed "prefix '${expected}' not found in '${actual}'");
 }

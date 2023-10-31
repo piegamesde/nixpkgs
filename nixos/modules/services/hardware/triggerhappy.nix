@@ -124,9 +124,7 @@ in
       wantedBy = [ "multi-user.target" ];
       description = "Global hotkey daemon";
       serviceConfig = {
-        ExecStart = "${pkgs.triggerhappy}/bin/thd ${
-            optionalString (cfg.user != "root") "--user ${cfg.user}"
-          } --socket ${socket} --triggers ${configFile} --deviceglob /dev/input/event*";
+        ExecStart = "${pkgs.triggerhappy}/bin/thd ${optionalString (cfg.user != "root") "--user ${cfg.user}"} --socket ${socket} --triggers ${configFile} --deviceglob /dev/input/event*";
       };
     };
 

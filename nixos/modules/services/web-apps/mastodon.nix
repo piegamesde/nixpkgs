@@ -152,9 +152,7 @@ let
               "network.target"
               "mastodon-init-dirs.service"
             ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-            requires = [
-              "mastodon-init-dirs.service"
-            ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+            requires = [ "mastodon-init-dirs.service" ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
             description = "Mastodon sidekiq${jobClassLabel}";
             wantedBy = [ "mastodon.target" ];
             environment = env // {
@@ -780,9 +778,7 @@ in
             "network.target"
             "mastodon-init-dirs.service"
           ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-          requires = [
-            "mastodon-init-dirs.service"
-          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          requires = [ "mastodon-init-dirs.service" ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
           environment = env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-streaming/streaming.socket"; } else { PORT = toString (cfg.streamingPort); });
@@ -818,9 +814,7 @@ in
             "network.target"
             "mastodon-init-dirs.service"
           ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-          requires = [
-            "mastodon-init-dirs.service"
-          ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+          requires = [ "mastodon-init-dirs.service" ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon web";
           environment = env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-web/web.socket"; } else { PORT = toString (cfg.webPort); });

@@ -487,9 +487,7 @@ in
       {
         "NetworkManager/NetworkManager.conf".source = configFile;
       }
-      // builtins.listToAttrs (
-        map (pkg: nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" { source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}"; }) cfg.plugins
-      )
+      // builtins.listToAttrs (map (pkg: nameValuePair "NetworkManager/${pkg.networkManagerPlugin}" { source = "${pkg}/lib/NetworkManager/${pkg.networkManagerPlugin}"; }) cfg.plugins)
       // optionalAttrs cfg.enableFccUnlock { "ModemManager/fcc-unlock.d".source = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*"; }
       // optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ]) { "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript; }
       // listToAttrs (

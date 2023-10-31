@@ -35,8 +35,7 @@ rec {
          "https://github.com/bos/aeson#readme"
   */
   overrideCabal =
-    f: drv:
-    (drv.override (args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; })) // { overrideScope = scope: overrideCabal f (drv.overrideScope scope); };
+    f: drv: (drv.override (args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; })) // { overrideScope = scope: overrideCabal f (drv.overrideScope scope); };
 
   # : Map Name (Either Path VersionNumber) -> HaskellPackageOverrideSet
   # Given a set whose values are either paths or version strings, produces
