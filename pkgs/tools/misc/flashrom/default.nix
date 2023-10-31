@@ -25,27 +25,21 @@ stdenv.mkDerivation rec {
     pkg-config
     installShellFiles
   ];
-  buildInputs =
-    [
-      libftdi1
-      libusb1
-      pciutils
-    ]
-    ++ lib.optional jlinkSupport libjaylink
-  ;
+  buildInputs = [
+    libftdi1
+    libusb1
+    pciutils
+  ] ++ lib.optional jlinkSupport libjaylink;
 
   postPatch = ''
     substituteInPlace util/flashrom_udev.rules \
       --replace 'GROUP="plugdev"' 'TAG+="uaccess", TAG+="udev-acl"'
   '';
 
-  makeFlags =
-    [
-      "PREFIX=$(out)"
-      "libinstall"
-    ]
-    ++ lib.optional jlinkSupport "CONFIG_JLINK_SPI=yes"
-  ;
+  makeFlags = [
+    "PREFIX=$(out)"
+    "libinstall"
+  ] ++ lib.optional jlinkSupport "CONFIG_JLINK_SPI=yes";
 
   postInstall = ''
     install -Dm644 util/flashrom_udev.rules $out/lib/udev/rules.d/flashrom.rules

@@ -29,18 +29,15 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  configureFlags =
-    [
-      "--enable-memmanager"
-      "--enable-automakedefaults"
-      "--disable-useradd"
-      "--disable-initscripts"
-      "--disable-etc"
-      "--disable-uninstall"
-      "--disable-sysinstall"
-    ]
-    ++ lib.optional dedicatedServer "--enable-dedicated"
-  ;
+  configureFlags = [
+    "--enable-memmanager"
+    "--enable-automakedefaults"
+    "--disable-useradd"
+    "--disable-initscripts"
+    "--disable-etc"
+    "--disable-uninstall"
+    "--disable-sysinstall"
+  ] ++ lib.optional dedicatedServer "--enable-dedicated";
 
   nativeBuildInputs = [ pkg-config ];
 

@@ -18,13 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-25NaMQq9H6mqVynNQJXpqISAslxfEVSt3ELzG7s4mV4=";
   };
 
-  nativeBuildInputs =
-    [
-      bc
-      nukeReferences
-    ]
-    ++ kernel.moduleBuildDependencies
-  ;
+  nativeBuildInputs = [
+    bc
+    nukeReferences
+  ] ++ kernel.moduleBuildDependencies;
   hardeningDisable = [
     "pic"
     "format"

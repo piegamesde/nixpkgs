@@ -29,16 +29,13 @@ buildPythonPackage rec {
     hash = "sha256-epwnExmyCWmwaOz+mJnAl1peEeHLBdQGC62BlLfSTQQ=";
   };
 
-  propagatedBuildInputs =
-    [
-      filelock
-      numpy
-      protobuf
-      six
-      typing-extensions
-    ]
-    ++ lib.optionals cudaSupport [ cupy ]
-  ;
+  propagatedBuildInputs = [
+    filelock
+    numpy
+    protobuf
+    six
+    typing-extensions
+  ] ++ lib.optionals cudaSupport [ cupy ];
 
   nativeCheckInputs = [
     mock

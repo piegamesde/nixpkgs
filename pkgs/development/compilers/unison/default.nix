@@ -34,7 +34,9 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
+    [ makeWrapper ]
+    ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook)
+  ;
   buildInputs = lib.optionals (!stdenv.isDarwin) [
     ncurses5
     zlib

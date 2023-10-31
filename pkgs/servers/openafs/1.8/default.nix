@@ -53,23 +53,17 @@ stdenv.mkDerivation {
 
   buildInputs = [ libkrb5 ] ++ optional withNcurses ncurses;
 
-  patches =
-    [
-      ./bosserver.patch
-      ./cross-build.patch
-    ]
-    ++ optional withTsm ./tsmbac.patch
-  ;
+  patches = [
+    ./bosserver.patch
+    ./cross-build.patch
+  ] ++ optional withTsm ./tsmbac.patch;
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "man"
-      "doc"
-    ]
-    ++ optional withDevdoc "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ] ++ optional withDevdoc "devdoc";
 
   enableParallelBuilding = false;
 

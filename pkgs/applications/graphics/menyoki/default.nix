@@ -26,7 +26,9 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-NtXjlGkX8AzSw98xHPymzdnTipMIunyDbpSr4eVowa0=";
 
   nativeBuildInputs =
-    [ installShellFiles ] ++ lib.optional stdenv.isLinux pkg-config;
+    [ installShellFiles ]
+    ++ lib.optional stdenv.isLinux pkg-config
+  ;
 
   buildInputs =
     lib.optional withSixel libsixel

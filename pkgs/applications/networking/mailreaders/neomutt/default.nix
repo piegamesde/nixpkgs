@@ -51,24 +51,20 @@ stdenv.mkDerivation rec {
       ./fix-open-very-large-mailbox.patch
     ];
 
-  buildInputs =
-    [
-      cyrus_sasl
-      gss
-      gpgme
-      libkrb5
-      libidn
-      ncurses
-      notmuch
-      openssl
-      perl
-      lmdb
-      mailcap
-      sqlite
-    ]
-    ++ lib.optional enableZstd zstd
-    ++ lib.optional enableLua lua
-  ;
+  buildInputs = [
+    cyrus_sasl
+    gss
+    gpgme
+    libkrb5
+    libidn
+    ncurses
+    notmuch
+    openssl
+    perl
+    lmdb
+    mailcap
+    sqlite
+  ] ++ lib.optional enableZstd zstd ++ lib.optional enableLua lua;
 
   nativeBuildInputs = [
     docbook_xsl

@@ -20,16 +20,13 @@ stdenv.mkDerivation rec {
   pname = "libxslt";
   version = "1.1.37";
 
-  outputs =
-    [
-      "bin"
-      "dev"
-      "out"
-      "doc"
-      "devdoc"
-    ]
-    ++ lib.optional pythonSupport "py"
-  ;
+  outputs = [
+    "bin"
+    "dev"
+    "out"
+    "doc"
+    "devdoc"
+  ] ++ lib.optional pythonSupport "py";
   outputMan = "bin";
 
   src = fetchurl {
@@ -62,16 +59,13 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ findXMLCatalogs ];
 
-  configureFlags =
-    [
-      "--without-debug"
-      "--without-mem-debug"
-      "--without-debugger"
-      (lib.withFeature pythonSupport "python")
-      (lib.optionalString pythonSupport "PYTHON=${python.pythonForBuild.interpreter}")
-    ]
-    ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ]
-  ;
+  configureFlags = [
+    "--without-debug"
+    "--without-mem-debug"
+    "--without-debugger"
+    (lib.withFeature pythonSupport "python")
+    (lib.optionalString pythonSupport "PYTHON=${python.pythonForBuild.interpreter}")
+  ] ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ];
 
   postFixup =
     ''

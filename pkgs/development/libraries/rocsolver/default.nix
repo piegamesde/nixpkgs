@@ -35,14 +35,11 @@ stdenv.mkDerivation (
       hash = "sha256-UHUcA9CVPuYFpE2DTvRrRMMj51yNPo5wMTKnByL2RTg=";
     };
 
-    nativeBuildInputs =
-      [
-        cmake
-        rocm-cmake
-        hip
-      ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ]
-    ;
+    nativeBuildInputs = [
+      cmake
+      rocm-cmake
+      hip
+    ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ];
 
     buildInputs =
       [

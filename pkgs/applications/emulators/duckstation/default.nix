@@ -34,17 +34,14 @@ stdenv.mkDerivation {
     sha256 = "sha256-sRs/b4GVXhF3zrOef8DSBKJJGYECUER/nNWZAqv7suA=";
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      copyDesktopItems
-      ninja
-      pkg-config
-      qttools
-      wrapQtAppsHook
-    ]
-    ++ lib.optionals enableWayland [ extra-cmake-modules ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    copyDesktopItems
+    ninja
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ] ++ lib.optionals enableWayland [ extra-cmake-modules ];
 
   buildInputs =
     [
@@ -64,7 +61,9 @@ stdenv.mkDerivation {
   ;
 
   cmakeFlags =
-    [ "-DUSE_DRMKMS=ON" ] ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ];
+    [ "-DUSE_DRMKMS=ON" ]
+    ++ lib.optionals enableWayland [ "-DUSE_WAYLAND=ON" ]
+  ;
 
   desktopItems = [
     (makeDesktopItem {

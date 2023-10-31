@@ -39,15 +39,12 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [
-      bcrypt
-      cryptography
-      pyasn1
-      six
-    ]
-    ++ passthru.optional-dependencies.ed25519
-  ; # remove on 3.0 update
+  propagatedBuildInputs = [
+    bcrypt
+    cryptography
+    pyasn1
+    six
+  ] ++ passthru.optional-dependencies.ed25519; # remove on 3.0 update
 
   passthru.optional-dependencies = {
     gssapi = [
@@ -61,13 +58,10 @@ buildPythonPackage rec {
     invoke = [ invoke ];
   };
 
-  nativeCheckInputs =
-    [
-      mock
-      pytestCheckHook
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   disabledTestPaths = [
     # disable tests that require pytest-relaxed, which is broken

@@ -22,13 +22,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/foma";
 
-  nativeBuildInputs =
-    [
-      flex
-      bison
-    ]
-    ++ lib.optional stdenv.isDarwin darwin.cctools
-  ;
+  nativeBuildInputs = [
+    flex
+    bison
+  ] ++ lib.optional stdenv.isDarwin darwin.cctools;
   buildInputs = [
     zlib
     readline

@@ -42,16 +42,13 @@ stdenv.mkDerivation rec {
     paths = [ zlib ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
   };
 
-  sconsFlags =
-    [
-      "SKIPSTUBS=all"
-      "SKIPPLUGINS=all"
-      "SKIPUTILS=all"
-      "SKIPMISC=all"
-      "NSIS_CONFIG_CONST_DATA=no"
-    ]
-    ++ lib.optional stdenv.isDarwin "APPEND_LINKFLAGS=-liconv"
-  ;
+  sconsFlags = [
+    "SKIPSTUBS=all"
+    "SKIPPLUGINS=all"
+    "SKIPUTILS=all"
+    "SKIPMISC=all"
+    "NSIS_CONFIG_CONST_DATA=no"
+  ] ++ lib.optional stdenv.isDarwin "APPEND_LINKFLAGS=-liconv";
 
   preBuild = ''
     sconsFlagsArray+=(

@@ -46,32 +46,29 @@ buildPythonPackage rec {
     hash = "sha256-O0bTmJqRymrQuHW19Y7/Kp+2XlbmDzcjl/jDACDlCSk=";
   };
 
-  propagatedBuildInputs =
-    [
-      babel
-      click
-      deprecated
-      exifread
-      filetype
-      flask
-      inifile
-      jinja2
-      markupsafe
-      marshmallow
-      marshmallow-dataclass
-      mistune
-      pip
-      pyopenssl
-      python-slugify
-      pytz
-      requests
-      setuptools
-      typing-inspect
-      watchdog
-      werkzeug
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    babel
+    click
+    deprecated
+    exifread
+    filetype
+    flask
+    inifile
+    jinja2
+    markupsafe
+    marshmallow
+    marshmallow-dataclass
+    mistune
+    pip
+    pyopenssl
+    python-slugify
+    pytz
+    requests
+    setuptools
+    typing-inspect
+    watchdog
+    werkzeug
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-click

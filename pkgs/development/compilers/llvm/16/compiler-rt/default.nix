@@ -38,15 +38,12 @@ stdenv.mkDerivation {
   inherit src;
   sourceRoot = "${src.name}/${baseName}";
 
-  nativeBuildInputs =
-    [
-      cmake
-      ninja
-      python3
-      libllvm.dev
-    ]
-    ++ lib.optional stdenv.isDarwin xcbuild.xcrun
-  ;
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3
+    libllvm.dev
+  ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [

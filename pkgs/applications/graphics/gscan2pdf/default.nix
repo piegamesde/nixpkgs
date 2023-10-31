@@ -114,22 +114,19 @@ perlPackages.buildPerlPackage rec {
     "man"
   ];
 
-  nativeCheckInputs =
-    [
-      imagemagick
-      libtiff
-      djvulibre
-      poppler_utils
-      ghostscript
-      unpaper
-      pdftk
+  nativeCheckInputs = [
+    imagemagick
+    libtiff
+    djvulibre
+    poppler_utils
+    ghostscript
+    unpaper
+    pdftk
 
-      xvfb-run
-      file
-      tesseract # tests are expecting tesseract 3.x precisely
-    ]
-    ++ (with perlPackages; [ TestPod ])
-  ;
+    xvfb-run
+    file
+    tesseract # tests are expecting tesseract 3.x precisely
+  ] ++ (with perlPackages; [ TestPod ]);
 
   checkPhase = ''
     # Temporarily disable a test failing after a patch imagemagick update.

@@ -135,7 +135,9 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages =
-      [ mirakurun ] ++ optional cfg.allowSmartCardAccess polkitRule;
+      [ mirakurun ]
+      ++ optional cfg.allowSmartCardAccess polkitRule
+    ;
     environment.etc = {
       "mirakurun/server.yml".source =
         settingsFmt.generate "server.yml"

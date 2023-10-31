@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
       "--with-tcl=${tcl}/lib"
       "--with-tk=${tk}/lib"
       "--with-tkinclude=${tk.dev}/include"
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

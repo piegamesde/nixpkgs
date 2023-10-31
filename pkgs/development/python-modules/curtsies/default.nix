@@ -23,13 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-YtEPNJxVOEUwZVan8mY86WsJjYxbvEDa7Hpu7d4WIrA=";
   };
 
-  propagatedBuildInputs =
-    [
-      blessed
-      cwcwidth
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ]
-  ;
+  propagatedBuildInputs = [
+    blessed
+    cwcwidth
+  ] ++ lib.optionals (pythonOlder "3.8") [ backports-cached-property ];
 
   nativeCheckInputs = [
     pyte

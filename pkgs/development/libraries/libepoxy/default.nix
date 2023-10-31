@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       OpenGL
-    ]
-  ;
+    ];
 
   mesonFlags = [
     "-Degl=${if (x11Support && !stdenv.isDarwin) then "yes" else "no"}"

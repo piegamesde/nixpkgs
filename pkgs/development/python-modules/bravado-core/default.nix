@@ -34,21 +34,18 @@ buildPythonPackage rec {
     hash = "sha256-7LnKNR1/YIzw2iIPYXAuoC6G7fdm4D3frkSl/wJhYG4=";
   };
 
-  propagatedBuildInputs =
-    [
-      jsonref
-      jsonschema # with optional dependencies for format
-      python-dateutil
-      pyyaml
-      requests
-      simplejson
-      six
-      swagger-spec-validator
-      pytz
-      msgpack
-    ]
-    ++ jsonschema.optional-dependencies.format
-  ;
+  propagatedBuildInputs = [
+    jsonref
+    jsonschema # with optional dependencies for format
+    python-dateutil
+    pyyaml
+    requests
+    simplejson
+    six
+    swagger-spec-validator
+    pytz
+    msgpack
+  ] ++ jsonschema.optional-dependencies.format;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

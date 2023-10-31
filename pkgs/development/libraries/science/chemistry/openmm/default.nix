@@ -36,16 +36,13 @@ stdenv.mkDerivation rec {
       serialization/tests/TestSerializeIntegrator.cpp
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      gfortran
-      swig
-      doxygen
-      python3Packages.python
-    ]
-    ++ lib.optional enableCuda addOpenGLRunpath
-  ;
+  nativeBuildInputs = [
+    cmake
+    gfortran
+    swig
+    doxygen
+    python3Packages.python
+  ] ++ lib.optional enableCuda addOpenGLRunpath;
 
   buildInputs =
     [ fftwSinglePrec ]

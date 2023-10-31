@@ -32,33 +32,27 @@ stdenv.mkDerivation rec {
     hash = "sha256-8EL3ej4bNb8wZmMw427Dj6uNJIw2k8N7fjXUAcO/q8s=";
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      qttools
-      wrapQtAppsHook
-    ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    qttools
+    wrapQtAppsHook
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
-  buildInputs =
-    [
-      glib
-      boost
-      libsigrok
-      libsigrokdecode
-      libserialport
-      libzip
-      libusb1
-      libftdi1
-      glibmm
-      pcre
-      python3
-      qtsvg
-    ]
-    ++ lib.optional stdenv.isLinux udev
-  ;
+  buildInputs = [
+    glib
+    boost
+    libsigrok
+    libsigrokdecode
+    libserialport
+    libzip
+    libusb1
+    libftdi1
+    glibmm
+    pcre
+    python3
+    qtsvg
+  ] ++ lib.optional stdenv.isLinux udev;
 
   patches = [
     # Allow building with glib 2.68

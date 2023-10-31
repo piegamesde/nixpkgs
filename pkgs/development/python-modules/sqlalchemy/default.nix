@@ -85,13 +85,10 @@ buildPythonPackage rec {
       pymysql = [ pymysql ];
       aiomysql = [ aiomysql ] ++ self.asyncio;
       asyncmy = [ asyncmy ] ++ self.asyncio;
-      aiosqlite =
-        [
-          aiosqlite
-          typing-extensions
-        ]
-        ++ self.asyncio
-      ;
+      aiosqlite = [
+        aiosqlite
+        typing-extensions
+      ] ++ self.asyncio;
       sqlcipher =
         [
           # TODO: sqlcipher3

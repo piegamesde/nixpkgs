@@ -57,16 +57,13 @@ stdenv.mkDerivation rec {
     openssh
   ];
 
-  buildInputs =
-    [
-      libgcrypt
-      libtasn1
-      pango
-      libsecret
-      openssh
-    ]
-    ++ lib.optionals stdenv.isLinux [ systemd ]
-  ;
+  buildInputs = [
+    libgcrypt
+    libtasn1
+    pango
+    libsecret
+    openssh
+  ] ++ lib.optionals stdenv.isLinux [ systemd ];
 
   propagatedBuildInputs = [
     glib
@@ -82,8 +79,7 @@ stdenv.mkDerivation rec {
       # https://github.com/NixOS/nixpkgs/issues/140824
       "-Dssh_agent=false"
     ]
-    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ]
-  ;
+    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ];
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 

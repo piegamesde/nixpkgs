@@ -184,13 +184,10 @@ let
     in
     stdenv.mkDerivation (
       {
-        buildInputs =
-          [
-            php
-            composer
-          ]
-          ++ buildInputs
-        ;
+        buildInputs = [
+          php
+          composer
+        ] ++ buildInputs;
 
         inherit unpackPhase buildPhase;
 

@@ -116,7 +116,9 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ./cflags-prune.diff ] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
+    [ ./cflags-prune.diff ]
+    ++ lib.optional ftNixSupport ./ft-nix-support.patch
+  ;
 
   configureFlags =
     [

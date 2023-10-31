@@ -24,8 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   # Checks need to be disabled here because the current test suite makes assumptions
   # about the surrounding environment that aren't Nix friendly. See these lines for specifics:

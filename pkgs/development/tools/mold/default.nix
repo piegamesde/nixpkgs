@@ -27,13 +27,10 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs =
-    [
-      openssl
-      zlib
-    ]
-    ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ]
-  ;
+  buildInputs = [
+    openssl
+    zlib
+  ] ++ lib.optionals (!stdenv.isDarwin) [ mimalloc ];
 
   postPatch = ''
     sed -i CMakeLists.txt -e '/.*set(DEST\ .*/d'

@@ -40,17 +40,14 @@ stdenv.mkDerivation {
     meson
     ninja
   ];
-  buildInputs =
-    [
-      lv2
-      sord
-      libX11
-      libXext
-      glew
-      lv2lint
-    ]
-    ++ additionalBuildInputs
-  ;
+  buildInputs = [
+    lv2
+    sord
+    libX11
+    libXext
+    glew
+    lv2lint
+  ] ++ additionalBuildInputs;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

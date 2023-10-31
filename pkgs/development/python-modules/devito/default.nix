@@ -53,24 +53,21 @@ buildPythonPackage rec {
         -i requirements.txt
   '';
 
-  propagatedBuildInputs =
-    [
-      anytree
-      cached-property
-      cgen
-      click
-      codepy
-      distributed
-      nbval
-      multidict
-      psutil
-      py-cpuinfo
-      pyrevolve
-      scipy
-      sympy
-    ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-  ;
+  propagatedBuildInputs = [
+    anytree
+    cached-property
+    cgen
+    click
+    codepy
+    distributed
+    nbval
+    multidict
+    psutil
+    py-cpuinfo
+    pyrevolve
+    scipy
+    sympy
+  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   nativeCheckInputs = [
     pytestCheckHook

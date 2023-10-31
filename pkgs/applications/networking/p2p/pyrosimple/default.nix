@@ -33,24 +33,21 @@ let
     hash = "sha256-SMqzvTbWFHwnbMQ+6K0m1v+PybceQK5EHEuN8FB6SaU=";
   };
 
-  propagatedBuildInputs =
-    [
-      bencode-py
-      apscheduler
-      jinja2
-      python-daemon
-      importlib-resources
-      parsimonious
-      prometheus-client
-      prompt-toolkit
-      requests
-      shtab
-      python-box
-      tomli
-      tomli-w
-    ]
-    ++ lib.optional withInotify inotify
-  ;
+  propagatedBuildInputs = [
+    bencode-py
+    apscheduler
+    jinja2
+    python-daemon
+    importlib-resources
+    parsimonious
+    prometheus-client
+    prompt-toolkit
+    requests
+    shtab
+    python-box
+    tomli
+    tomli-w
+  ] ++ lib.optional withInotify inotify;
 in
 buildPythonPackage {
   inherit

@@ -77,23 +77,20 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      gcr
-      glib
-      glib-networking
-      gtk3
-      gvfs # OwnCloud, Google Drive
-      icu
-      json-glib
-      libkrb5
-      librest_1_0
-      libxml2
-      libsecret
-      libsoup_3
-    ]
-    ++ lib.optionals enableBackend [ webkitgtk_4_1 ]
-  ;
+  buildInputs = [
+    gcr
+    glib
+    glib-networking
+    gtk3
+    gvfs # OwnCloud, Google Drive
+    icu
+    json-glib
+    libkrb5
+    librest_1_0
+    libxml2
+    libsecret
+    libsoup_3
+  ] ++ lib.optionals enableBackend [ webkitgtk_4_1 ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

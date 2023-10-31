@@ -31,19 +31,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      aspell
-      boost
-      expat
-      libxml2
-      libxslt
-      pcre2
-      wxGTK32
-      xercesc
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    aspell
+    boost
+    expat
+    libxml2
+    libxslt
+    pcre2
+    wxGTK32
+    xercesc
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   enableParallelBuilding = true;
 

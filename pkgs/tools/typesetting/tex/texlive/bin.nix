@@ -318,17 +318,14 @@ rec {
     hardeningDisable = [ "format" ];
 
     inherit (core) nativeBuildInputs depsBuildBuild;
-    buildInputs =
-      core.buildInputs
-      ++ [
-        core
-        cairo
-        harfbuzz
-        icu
-        graphite2
-        libX11
-      ]
-    ;
+    buildInputs = core.buildInputs ++ [
+      core
+      cairo
+      harfbuzz
+      icu
+      graphite2
+      libX11
+    ];
 
     configureFlags =
       common.configureFlags
@@ -515,14 +512,11 @@ rec {
       patchShebangs doc/texi2pod.pl
     '';
 
-    configureFlags =
-      common.configureFlags
-      ++ [
-        "--with-system-kpathsea"
-        "--with-gs=yes"
-        "--disable-debug"
-      ]
-    ;
+    configureFlags = common.configureFlags ++ [
+      "--with-system-kpathsea"
+      "--with-gs=yes"
+      "--disable-debug"
+    ];
 
     GS = "${ghostscript}/bin/gs";
 
@@ -648,13 +642,10 @@ rec {
 
     preConfigure = "cd texk/bibtex-x";
 
-    configureFlags =
-      common.configureFlags
-      ++ [
-        "--with-system-kpathsea"
-        "--with-system-icu"
-      ]
-    ;
+    configureFlags = common.configureFlags ++ [
+      "--with-system-kpathsea"
+      "--with-system-icu"
+    ];
 
     enableParallelBuilding = true;
   };
@@ -688,13 +679,10 @@ rec {
 
     preConfigure = "cd texk/xdvik";
 
-    configureFlags =
-      common.configureFlags
-      ++ [
-        "--with-system-kpathsea"
-        "--with-system-libgs"
-      ]
-    ;
+    configureFlags = common.configureFlags ++ [
+      "--with-system-kpathsea"
+      "--with-system-libgs"
+    ];
 
     enableParallelBuilding = true;
 

@@ -59,12 +59,9 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages =
-      [
-        pkgs.wmderland
-        pkgs.wmderlandc
-      ]
-      ++ cfg.extraPackages
-    ;
+    environment.systemPackages = [
+      pkgs.wmderland
+      pkgs.wmderlandc
+    ] ++ cfg.extraPackages;
   };
 }

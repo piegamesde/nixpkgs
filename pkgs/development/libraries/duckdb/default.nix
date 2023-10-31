@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ openssl ]
-    ++ lib.optionals withJdbc [ openjdk11 ]
-    ++ lib.optionals withOdbc [ unixODBC ]
+    ++ lib.optionals withJdbc [ openjdk11 ] ++ lib.optionals withOdbc [ unixODBC ]
   ;
 
   cmakeFlags =
@@ -64,12 +63,11 @@ stdenv.mkDerivation rec {
       "-DBUILD_ODBC_DRIVER=${enableFeature withOdbc}"
       "-DJDBC_DRIVER=${enableFeature withJdbc}"
     ]
-    ++
-      lib.optionals doInstallCheck
-        [
-          # development settings
-          "-DBUILD_UNITTESTS=ON"
-        ]
+    ++ lib.optionals doInstallCheck
+      [
+        # development settings
+        "-DBUILD_UNITTESTS=ON"
+      ]
   ;
 
   doInstallCheck = true;
@@ -114,8 +112,7 @@ stdenv.mkDerivation rec {
           "test/sql/aggregate/aggregates/test_kurtosis.test"
           "test/sql/aggregate/aggregates/test_skewness.test"
           "test/sql/function/list/aggregates/skewness.test"
-        ]
-      ;
+        ];
     in
     ''
       runHook preInstallCheck

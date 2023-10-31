@@ -27,13 +27,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python3.pkgs.wrapPython ];
 
-  propagatedBuildInputs =
-    [
-      unbound
-      libreswan
-    ]
-    ++ pythonPath
-  ;
+  propagatedBuildInputs = [
+    unbound
+    libreswan
+  ] ++ pythonPath;
 
   propagatedUserEnvPkgs = [
     unbound

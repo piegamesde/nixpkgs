@@ -60,13 +60,10 @@ let
 
   # Must use attrs.nativeBuildInputs before they are removed by the removeAttrs
   # below, or everything fails.
-  nativeBuildInputs' =
-    [
-      octave
-      writeRequiredOctavePackagesHook
-    ]
-    ++ nativeBuildInputs
-  ;
+  nativeBuildInputs' = [
+    octave
+    writeRequiredOctavePackagesHook
+  ] ++ nativeBuildInputs;
 
   passthru' = {
     updateScript = [

@@ -76,15 +76,12 @@ let
 
       buildInputs = oldAttrs.buildInputs ++ [ luajit ];
 
-      cmakeFlags =
-        oldAttrs.cmakeFlags
-        ++ [
-          "-DBUILD_OPENCS=OFF"
-          "-DRakNet_INCLUDES=${raknet.src}/include"
-          "-DRakNet_LIBRARY_RELEASE=${raknet}/lib/libRakNetLibStatic.a"
-          "-DRakNet_LIBRARY_DEBUG=${raknet}/lib/libRakNetLibStatic.a"
-        ]
-      ;
+      cmakeFlags = oldAttrs.cmakeFlags ++ [
+        "-DBUILD_OPENCS=OFF"
+        "-DRakNet_INCLUDES=${raknet.src}/include"
+        "-DRakNet_LIBRARY_RELEASE=${raknet}/lib/libRakNetLibStatic.a"
+        "-DRakNet_LIBRARY_DEBUG=${raknet}/lib/libRakNetLibStatic.a"
+      ];
 
       prePatch = ''
         substituteInPlace components/process/processinvoker.cpp \

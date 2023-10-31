@@ -36,13 +36,10 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs =
-    [
-      defcon
-      fonttools
-    ]
-    ++ fonttools.optional-dependencies.ufo
-  ;
+  propagatedBuildInputs = [
+    defcon
+    fonttools
+  ] ++ fonttools.optional-dependencies.ufo;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

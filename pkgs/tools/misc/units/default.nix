@@ -22,7 +22,9 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ readline ] ++ lib.optionals enableCurrenciesUpdater [ pythonEnv ];
+    [ readline ]
+    ++ lib.optionals enableCurrenciesUpdater [ pythonEnv ]
+  ;
   prePatch = lib.optionalString enableCurrenciesUpdater ''
     substituteInPlace units_cur \
       --replace "#!/usr/bin/env python" ${pythonEnv}/bin/python

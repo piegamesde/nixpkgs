@@ -58,22 +58,19 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  buildInputs =
-    [
-      brotli
-      bzip2
-      gpgme
-      libhsts
-      libidn2
-      libpsl
-      nghttp2
-      pcre2
-      xz
-      zlib
-      zstd
-    ]
-    ++ lib.optional sslSupport openssl
-  ;
+  buildInputs = [
+    brotli
+    bzip2
+    gpgme
+    libhsts
+    libidn2
+    libpsl
+    nghttp2
+    pcre2
+    xz
+    zlib
+    zstd
+  ] ++ lib.optional sslSupport openssl;
 
   # TODO: include translation files
   autoreconfPhase = ''

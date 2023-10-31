@@ -40,21 +40,18 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs =
-    [
-      backcall
-      decorator
-      jedi
-      matplotlib-inline
-      pexpect
-      pickleshare
-      prompt-toolkit
-      pygments
-      stack-data
-      traitlets
-    ]
-    ++ lib.optionals stdenv.isDarwin [ appnope ]
-  ;
+  propagatedBuildInputs = [
+    backcall
+    decorator
+    jedi
+    matplotlib-inline
+    pexpect
+    pickleshare
+    prompt-toolkit
+    pygments
+    stack-data
+    traitlets
+  ] ++ lib.optionals stdenv.isDarwin [ appnope ];
 
   pythonImportsCheck = [ "IPython" ];
 
@@ -76,12 +73,11 @@ buildPythonPackage rec {
       # UnboundLocalError: local variable 'child' referenced before assignment
       "test_system_interrupt"
     ]
-    ++
-      lib.optionals (stdenv.isDarwin)
-        [
-          # FileNotFoundError: [Errno 2] No such file or directory: 'pbpaste'
-          "test_clipboard_get"
-        ]
+    ++ lib.optionals (stdenv.isDarwin)
+      [
+        # FileNotFoundError: [Errno 2] No such file or directory: 'pbpaste'
+        "test_clipboard_get"
+      ]
   ;
 
   meta = with lib; {

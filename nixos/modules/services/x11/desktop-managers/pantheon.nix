@@ -217,44 +217,43 @@ in
             })
           ]
         )
-        ++
-          utils.removePackagesByName
+        ++ utils.removePackagesByName
+          (
             (
-              (
-                with pkgs; [
-                  desktop-file-utils
-                  glib # for gsettings program
-                  gnome-menus
-                  gnome.adwaita-icon-theme
-                  gtk3.out # for gtk-launch program
-                  onboard
-                  qgnomeplatform
-                  sound-theme-freedesktop
-                  xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
-                ]
-              )
-              ++ (
-                with pkgs.pantheon; [
-                  # Artwork
-                  elementary-gtk-theme
-                  elementary-icon-theme
-                  elementary-sound-theme
-                  elementary-wallpapers
-
-                  # Desktop
-                  elementary-default-settings
-                  elementary-dock
-                  elementary-shortcut-overlay
-
-                  # Services
-                  elementary-capnet-assist
-                  elementary-notifications
-                  pantheon-agent-geoclue2
-                  pantheon-agent-polkit
-                ]
-              )
+              with pkgs; [
+                desktop-file-utils
+                glib # for gsettings program
+                gnome-menus
+                gnome.adwaita-icon-theme
+                gtk3.out # for gtk-launch program
+                onboard
+                qgnomeplatform
+                sound-theme-freedesktop
+                xdg-user-dirs # Update user dirs as described in http://freedesktop.org/wiki/Software/xdg-user-dirs/
+              ]
             )
-            config.environment.pantheon.excludePackages
+            ++ (
+              with pkgs.pantheon; [
+                # Artwork
+                elementary-gtk-theme
+                elementary-icon-theme
+                elementary-sound-theme
+                elementary-wallpapers
+
+                # Desktop
+                elementary-default-settings
+                elementary-dock
+                elementary-shortcut-overlay
+
+                # Services
+                elementary-capnet-assist
+                elementary-notifications
+                pantheon-agent-geoclue2
+                pantheon-agent-polkit
+              ]
+            )
+          )
+          config.environment.pantheon.excludePackages
       ;
 
       # Settings from elementary-default-settings

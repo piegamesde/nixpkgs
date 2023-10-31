@@ -29,18 +29,15 @@ stdenv.mkDerivation rec {
     substituteInPlace include/defaults.h --replace 'ETCPATH "' '"/etc/solanum'
   '';
 
-  configureFlags =
-    [
-      "--enable-epoll"
-      "--enable-ipv6"
-      "--enable-openssl=${openssl.dev}"
-      "--with-program-prefix=solanum-"
-      "--localstatedir=/var/lib"
-      "--with-rundir=/run"
-      "--with-logdir=/var/log"
-    ]
-    ++ lib.optionals (stdenv.isLinux) [ "--enable-sctp=${lksctp-tools.out}/lib" ]
-  ;
+  configureFlags = [
+    "--enable-epoll"
+    "--enable-ipv6"
+    "--enable-openssl=${openssl.dev}"
+    "--with-program-prefix=solanum-"
+    "--localstatedir=/var/lib"
+    "--with-rundir=/run"
+    "--with-logdir=/var/log"
+  ] ++ lib.optionals (stdenv.isLinux) [ "--enable-sctp=${lksctp-tools.out}/lib" ];
 
   nativeBuildInputs = [
     autoreconfHook

@@ -36,15 +36,12 @@ buildGoModule rec {
   nativeBuildInputs = [ installShellFiles ];
 
   # Bundle release metadata
-  ldflags =
-    [
-      # Omit the symbol table and debug information.
-      "-s"
-      # Omit the DWARF symbol table.
-      "-w"
-    ]
-    ++ importpathFlags
-  ;
+  ldflags = [
+    # Omit the symbol table and debug information.
+    "-s"
+    # Omit the DWARF symbol table.
+    "-w"
+  ] ++ importpathFlags;
 
   importpathFlags = [
     "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"

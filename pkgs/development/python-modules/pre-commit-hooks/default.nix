@@ -25,7 +25,9 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ ruamel-yaml ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    [ ruamel-yaml ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+  ;
 
   nativeCheckInputs = [
     git

@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ sqlite ]
-    ++ lib.optional httpSupport curl
-    ++ lib.optional linenoiseSupport linenoise
+    ++ lib.optional httpSupport curl ++ lib.optional linenoiseSupport linenoise
   ;
 
   patches = [ ./0001-force-sqlite-to-be-found.patch ];

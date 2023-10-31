@@ -36,15 +36,12 @@ buildPythonPackage rec {
     cd py
   '';
 
-  propagatedBuildInputs =
-    [
-      certifi
-      trio
-      trio-websocket
-      urllib3
-    ]
-    ++ urllib3.optional-dependencies.socks
-  ;
+  propagatedBuildInputs = [
+    certifi
+    trio
+    trio-websocket
+    urllib3
+  ] ++ urllib3.optional-dependencies.socks;
 
   nativeCheckInputs = [ pytestCheckHook ];
 

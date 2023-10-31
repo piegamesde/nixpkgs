@@ -62,8 +62,7 @@ buildPythonPackage rec {
       sqlalchemy
       trio
     ]
-    ++ passlib.optional-dependencies.bcrypt
-    ++ pydantic.optional-dependencies.email
+    ++ passlib.optional-dependencies.bcrypt ++ pydantic.optional-dependencies.email
   ;
 
   pytestFlagsArray =

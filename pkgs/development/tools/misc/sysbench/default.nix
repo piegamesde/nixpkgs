@@ -20,13 +20,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs =
-    [
-      libmysqlclient
-      luajit
-    ]
-    ++ lib.optionals stdenv.isLinux [ libaio ]
-  ;
+  buildInputs = [
+    libmysqlclient
+    luajit
+  ] ++ lib.optionals stdenv.isLinux [ libaio ];
 
   src = fetchFromGitHub {
     owner = "akopytov";

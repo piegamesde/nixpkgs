@@ -11,13 +11,10 @@ stdenv.mkDerivation {
   pname = "ax99100";
   version = "1.8.0";
 
-  nativeBuildInputs =
-    [
-      dos2unix
-      kmod
-    ]
-    ++ kernel.moduleBuildDependencies
-  ;
+  nativeBuildInputs = [
+    dos2unix
+    kmod
+  ] ++ kernel.moduleBuildDependencies;
 
   src = fetchzip {
     url = "https://www.asix.com.tw/en/support/download/file/1229";

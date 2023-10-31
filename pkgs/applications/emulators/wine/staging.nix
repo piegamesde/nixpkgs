@@ -29,15 +29,12 @@ assert lib.getVersion wineUnstable == patch.version;
         ]
         self.buildInputs
     ;
-    nativeBuildInputs =
-      [
-        autoconf
-        hexdump
-        perl
-        python3
-      ]
-      ++ self.nativeBuildInputs
-    ;
+    nativeBuildInputs = [
+      autoconf
+      hexdump
+      perl
+      python3
+    ] ++ self.nativeBuildInputs;
 
     name = "${self.name}-staging";
 

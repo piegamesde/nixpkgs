@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
       libuuid
       numactl
     ]
-    ++ lib.optionals enablePsm2 [ libpsm2 ]
-  ;
+    ++ lib.optionals enablePsm2 [ libpsm2 ];
 
   configureFlags = [
     (if enablePsm2 then "--enable-psm2=${libpsm2}" else "--disable-psm2")

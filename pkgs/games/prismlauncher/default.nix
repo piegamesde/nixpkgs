@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
     lib.optionals (msaClientID != "") [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ]
     ++ lib.optionals (lib.versionAtLeast qtbase.version "6") [
       "-DLauncher_QT_VERSION_MAJOR=6"
-    ]
-  ;
+    ];
 
   postUnpack = ''
     rm -rf source/libraries/libnbtplusplus

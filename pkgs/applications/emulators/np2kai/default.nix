@@ -153,8 +153,7 @@ stdenv.mkDerivation rec {
       pkg-config
       unzip
       nasm
-    ]
-  ;
+    ];
 
   buildInputs =
     sdlDepsTarget
@@ -164,8 +163,7 @@ stdenv.mkDerivation rec {
       libSM
       libusb1
       libXxf86vm
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

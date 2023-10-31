@@ -25,13 +25,10 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      qtbase
-      qtsvg
-    ]
-    ++ lib.optionals stdenv.isLinux [ qtwayland ]
-  ;
+  buildInputs = [
+    qtbase
+    qtsvg
+  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
 
   installPhase =
     if stdenv.isDarwin then

@@ -390,7 +390,9 @@ let
   groups = map (x: x.group or "''") contents;
 
   basePaths =
-    [ config.system.build.toplevel ] ++ lib.optional copyChannel channelSources;
+    [ config.system.build.toplevel ]
+    ++ lib.optional copyChannel channelSources
+  ;
 
   additionalPaths' = subtractLists basePaths additionalPaths;
 

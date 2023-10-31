@@ -30,13 +30,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      libX11
-      imlib2
-    ]
-    ++ lib.optionals enableXinerama [ libXinerama ]
-  ;
+  buildInputs = [
+    libX11
+    imlib2
+  ] ++ lib.optionals enableXinerama [ libXinerama ];
 
   buildFlags = [ (if enableXinerama then "xinerama=1" else "xinerama=0") ];
 

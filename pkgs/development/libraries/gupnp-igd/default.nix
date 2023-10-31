@@ -19,13 +19,10 @@ stdenv.mkDerivation rec {
   pname = "gupnp-igd";
   version = "1.2.0";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

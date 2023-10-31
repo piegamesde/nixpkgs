@@ -32,13 +32,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ poetry-core ];
 
-  propagatedBuildInputs =
-    [
-      markdown-it-py
-      pygments
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    markdown-it-py
+    pygments
+  ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

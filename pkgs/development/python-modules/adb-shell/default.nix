@@ -39,15 +39,11 @@ buildPythonPackage rec {
     usb = [ libusb1 ];
   };
 
-  nativeCheckInputs =
-    [
-      mock
-      pycryptodome
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.async
-    ++ passthru.optional-dependencies.usb
-  ;
+  nativeCheckInputs = [
+    mock
+    pycryptodome
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.async ++ passthru.optional-dependencies.usb;
 
   pythonImportsCheck = [ "adb_shell" ];
 

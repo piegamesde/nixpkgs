@@ -45,15 +45,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [
-      coverage # execs coverage in tests
-      pytest-sugar
-      pytest-xdist
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.all
-  ;
+  nativeCheckInputs = [
+    coverage # execs coverage in tests
+    pytest-sugar
+    pytest-xdist
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.all;
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -66,8 +63,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
       "test_install_completion"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "typer" ];
 

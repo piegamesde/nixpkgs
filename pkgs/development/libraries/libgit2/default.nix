@@ -42,16 +42,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      zlib
-      libssh2
-      openssl
-      pcre
-      http-parser
-    ]
-    ++ lib.optional stdenv.isDarwin Security
-  ;
+  buildInputs = [
+    zlib
+    libssh2
+    openssl
+    pcre
+    http-parser
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   propagatedBuildInputs = lib.optional (!stdenv.isLinux) libiconv;
 

@@ -27,14 +27,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      "test_conflicting"
-      "test_noconflict"
-      "test_symlink_localtime"
-    ]
-    ++ lib.optional stdenv.isDarwin "test_assert_tz_offset"
-  ;
+  disabledTests = [
+    "test_conflicting"
+    "test_noconflict"
+    "test_symlink_localtime"
+  ] ++ lib.optional stdenv.isDarwin "test_assert_tz_offset";
 
   pythonImportsCheck = [ "tzlocal" ];
 

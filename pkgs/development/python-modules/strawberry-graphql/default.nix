@@ -133,20 +133,17 @@ buildPythonPackage rec {
     pyinstrument = [ pyinstrument ];
   };
 
-  nativeCheckInputs =
-    [
-      daphne
-      email-validator
-      freezegun
-      mypy
-      pytest-asyncio
-      pytest-emoji
-      pytest-snapshot
-      pytestCheckHook
-      sanic-testing
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    daphne
+    email-validator
+    freezegun
+    mypy
+    pytest-asyncio
+    pytest-emoji
+    pytest-snapshot
+    pytestCheckHook
+    sanic-testing
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "strawberry" ];
 

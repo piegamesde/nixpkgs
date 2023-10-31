@@ -41,14 +41,11 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      which
-      yosys
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    which
+    yosys
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "edalize" ];
 

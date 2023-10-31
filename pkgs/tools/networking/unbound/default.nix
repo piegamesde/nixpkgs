@@ -62,13 +62,10 @@ stdenv.mkDerivation rec {
     "man"
   ]; # "dev" would only split ~20 kB
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      pkg-config
-    ]
-    ++ lib.optionals withPythonModule [ swig ]
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+  ] ++ lib.optionals withPythonModule [ swig ];
 
   buildInputs =
     [

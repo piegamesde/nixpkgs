@@ -29,16 +29,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libmediainfo
-      wxGTK32
-      desktop-file-utils
-      libSM
-      imagemagick
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    libmediainfo
+    wxGTK32
+    desktop-file-utils
+    libSM
+    imagemagick
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   sourceRoot = "./MediaInfo/Project/GNU/GUI/";
 

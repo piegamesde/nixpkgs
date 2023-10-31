@@ -273,13 +273,10 @@ let
 
           erlang = super.erlang.overrideAttrs (
             attrs: {
-              buildInputs =
-                attrs.buildInputs
-                ++ [
-                  pkgs.perl
-                  pkgs.ncurses
-                ]
-              ;
+              buildInputs = attrs.buildInputs ++ [
+                pkgs.perl
+                pkgs.ncurses
+              ];
             }
           );
 
@@ -314,14 +311,11 @@ let
                 pkgs.pkg-config
                 pkgs.removeReferencesTo
               ];
-              buildInputs =
-                old.buildInputs
-                ++ [
-                  pkgs.libpng
-                  pkgs.zlib
-                  pkgs.poppler
-                ]
-              ;
+              buildInputs = old.buildInputs ++ [
+                pkgs.libpng
+                pkgs.zlib
+                pkgs.poppler
+              ];
               preBuild = ''
                 make server/epdfinfo
                 remove-references-to ${
@@ -759,13 +753,10 @@ let
           vterm = super.vterm.overrideAttrs (
             old: {
               nativeBuildInputs = [ pkgs.cmake ];
-              buildInputs =
-                old.buildInputs
-                ++ [
-                  self.emacs
-                  pkgs.libvterm-neovim
-                ]
-              ;
+              buildInputs = old.buildInputs ++ [
+                self.emacs
+                pkgs.libvterm-neovim
+              ];
               cmakeFlags = [
                 "-DEMACS_SOURCE=${self.emacs.src}"
                 "-DUSE_SYSTEM_LIBVTERM=ON"

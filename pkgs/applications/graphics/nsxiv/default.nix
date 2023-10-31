@@ -33,16 +33,13 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs =
-    [
-      giflib
-      imlib2
-      libXft
-      libexif
-      libwebp
-    ]
-    ++ lib.optional stdenv.isDarwin libinotify-kqueue
-  ;
+  buildInputs = [
+    giflib
+    imlib2
+    libXft
+    libexif
+    libwebp
+  ] ++ lib.optional stdenv.isDarwin libinotify-kqueue;
 
   preBuild = lib.optionalString (conf != null) ''
     cp ${(builtins.toFile "config.def.h" conf)} config.def.h

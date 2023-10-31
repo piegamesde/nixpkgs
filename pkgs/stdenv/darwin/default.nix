@@ -248,8 +248,7 @@ rec {
           ++ lib.optionals doUpdateAutoTools [
             last.pkgs.updateAutotoolsGnuConfigScriptsHook
             last.pkgs.gnu-config
-          ]
-        ;
+          ];
 
         allowedRequisites =
           if allowedRequisites == null then

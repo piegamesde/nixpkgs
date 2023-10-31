@@ -56,13 +56,10 @@ buildPythonPackage rec {
     s3 = [ boto3 ];
   };
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      pytz
-    ]
-    ++ passthru.optional-dependencies.s3
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    pytz
+  ] ++ passthru.optional-dependencies.s3;
 
   preCheck = ''
     rm -r fiona # prevent importing local fiona

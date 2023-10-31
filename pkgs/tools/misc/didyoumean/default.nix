@@ -25,15 +25,16 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-QERnohWpkJ0LWkdxHrY6gKxdGqxDkLla7jlG44laojk=";
 
   nativeBuildInputs =
-    [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
+    [ installShellFiles ]
+    ++ lib.optionals stdenv.isLinux [ pkg-config ]
+  ;
 
   buildInputs =
     lib.optionals stdenv.isLinux [
       libxcb
       openssl
     ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   postInstall = ''
     installManPage man/dym.1

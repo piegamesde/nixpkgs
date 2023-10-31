@@ -29,18 +29,15 @@ mkDerivation rec {
     sha256 = "sha256-yR1myagAqavAR/7lPdufcrJpPmXW7r4N4pxTMF6NbuE=";
   };
 
-  buildInputs =
-    [
-      udev
-      qtbase
-      zlib
-      libXdmcp
-      qttools
-      qtx11extras
-      libdbusmenu
-    ]
-    ++ lib.optional withPulseaudio libpulseaudio
-  ;
+  buildInputs = [
+    udev
+    qtbase
+    zlib
+    libXdmcp
+    qttools
+    qtx11extras
+    libdbusmenu
+  ] ++ lib.optional withPulseaudio libpulseaudio;
 
   nativeBuildInputs = [
     pkg-config

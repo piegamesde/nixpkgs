@@ -40,10 +40,9 @@ let
     splitBin = builtins.partition (p: p.tlType == "bin") all;
     bin =
       splitBin.right
-      ++
-        lib.optional
-          (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong)
-          (lib.getBin ghostscript)
+      ++ lib.optional
+        (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong)
+        (lib.getBin ghostscript)
     ;
     nonbin = splitBin.wrong;
 
@@ -62,8 +61,7 @@ let
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
     extraInputs =
       lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
-      ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby
-    ;
+      ++ lib.optional (lib.any pkgNeedsRuby splitBin.wrong) ruby;
   };
 
   name = "texlive-${extraName}-${bin.texliveYear}${extraVersion}";

@@ -134,8 +134,7 @@ stdenv.mkDerivation {
         url = "https://github.com/DFHack/dfhack/commit/7bdf958518d2892ee89a7173224a069c4a2190d8.patch";
         hash = "sha256-p+mKhmYbnhWKNiGPMjbYO505Gcg634n0nudqH0NX3KY=";
       }
-    )
-  ;
+    );
 
   # gcc 11 fix
   CXXFLAGS =

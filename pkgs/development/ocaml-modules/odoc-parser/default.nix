@@ -47,13 +47,10 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-  propagatedBuildInputs =
-    [
-      astring
-      result
-    ]
-    ++ param.extraBuildInputs
-  ;
+  propagatedBuildInputs = [
+    astring
+    result
+  ] ++ param.extraBuildInputs;
 
   meta = {
     description = "Parser for Ocaml documentation comments";

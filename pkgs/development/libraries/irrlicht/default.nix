@@ -45,16 +45,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out/lib
   '';
 
-  buildInputs =
-    [
-      libGLU
-      libGL
-      libXrandr
-      libX11
-      libXxf86vm
-    ]
-    ++ lib.optional stdenv.isAarch64 zlib
-  ;
+  buildInputs = [
+    libGLU
+    libGL
+    libXrandr
+    libX11
+    libXxf86vm
+  ] ++ lib.optional stdenv.isAarch64 zlib;
 
   meta = {
     homepage = "http://irrlicht.sourceforge.net/";

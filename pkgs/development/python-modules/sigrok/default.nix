@@ -43,20 +43,14 @@ toPythonModule (
         ]
       ;
 
-      buildInputs =
-        orig.buildInputs or [ ]
-        ++ [
-          pygobject3 # makes headers available the configure script checks for
-        ]
-      ;
+      buildInputs = orig.buildInputs or [ ] ++ [
+        pygobject3 # makes headers available the configure script checks for
+      ];
 
-      propagatedBuildInputs =
-        orig.propagatedBuildInputs or [ ]
-        ++ [
-          pygobject3
-          numpy
-        ]
-      ;
+      propagatedBuildInputs = orig.propagatedBuildInputs or [ ] ++ [
+        pygobject3
+        numpy
+      ];
 
       postInstall = ''
         ${orig.postInstall or ""}

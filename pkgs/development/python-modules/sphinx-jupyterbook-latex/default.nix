@@ -26,7 +26,9 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs =
-    [ sphinx ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+    [ sphinx ]
+    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
+  ;
 
   pythonImportsCheck = [ "sphinx_jupyterbook_latex" ];
 

@@ -179,8 +179,7 @@ stdenv.mkDerivation (
       ++ optionals useX11 [
         libX11
         xorgproto
-      ]
-    ;
+      ];
     propagatedBuildInputs = optional spaceTimeSupport libunwind;
     installTargets = [ "install" ] ++ optional useNativeCompilers "installopt";
     preConfigure =

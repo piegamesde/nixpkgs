@@ -58,15 +58,12 @@ stdenv.mkDerivation {
 
   hardeningDisable = [ "all" ];
 
-  nativeBuildInputs =
-    [
-      patchutils
-      kmod
-      perl
-      perlPackages.ProcProcessTable
-    ]
-    ++ kernel.moduleBuildDependencies
-  ;
+  nativeBuildInputs = [
+    patchutils
+    kmod
+    perl
+    perlPackages.ProcProcessTable
+  ] ++ kernel.moduleBuildDependencies;
 
   postInstall = ''
     find $out/lib/modules/${kernel.modDirVersion} -name "*.ko" -exec xz {} \;

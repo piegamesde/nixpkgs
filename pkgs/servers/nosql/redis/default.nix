@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ lua ]
-    ++ lib.optional withSystemd systemd
-    ++ lib.optionals tlsSupport [ openssl ]
+    ++ lib.optional withSystemd systemd ++ lib.optionals tlsSupport [ openssl ]
   ;
   # More cross-compiling fixes.
   # Note: this enables libc malloc as a temporary fix for cross-compiling.
@@ -67,14 +66,11 @@ stdenv.mkDerivation rec {
 
   # darwin currently lacks a pure `pgrep` which is extensively used here
   doCheck = !stdenv.isDarwin;
-  nativeCheckInputs =
-    [
-      which
-      tcl
-      ps
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ getconf ]
-  ;
+  nativeCheckInputs = [
+    which
+    tcl
+    ps
+  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ getconf ];
   checkPhase = ''
     runHook preCheck
 

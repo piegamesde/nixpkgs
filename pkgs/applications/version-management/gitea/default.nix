@@ -47,8 +47,7 @@ buildGoModule rec {
     ++ lib.optionals sqliteSupport [
       "sqlite"
       "sqlite_unlock_notify"
-    ]
-  ;
+    ];
 
   ldflags = [
     "-s"

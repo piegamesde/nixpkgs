@@ -26,7 +26,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optional withPython python.pkgs.pythonImportsCheckHook;
+    [ cmake ]
+    ++ lib.optional withPython python.pkgs.pythonImportsCheckHook
+  ;
 
   buildInputs = [ root_py ] ++ lib.optional withPython python;
 

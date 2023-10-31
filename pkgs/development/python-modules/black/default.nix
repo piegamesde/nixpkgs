@@ -69,13 +69,10 @@ buildPythonPackage rec {
   # Black starts a local server and needs to bind a local address.
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      parameterized
-    ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    parameterized
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   preCheck =
     ''
@@ -102,8 +99,7 @@ buildPythonPackage rec {
       # Fail on Hydra, see https://github.com/NixOS/nixpkgs/pull/130785
       "test_bpo_2142_workaround"
       "test_skip_magic_trailing_comma"
-    ]
-  ;
+    ];
   # multiple tests exceed max open files on hydra builders
   doCheck = !(stdenv.isLinux && stdenv.isAarch64);
 

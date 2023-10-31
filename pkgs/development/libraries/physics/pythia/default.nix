@@ -23,7 +23,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ rsync ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    [ rsync ]
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+  ;
   buildInputs = [
     boost
     fastjet

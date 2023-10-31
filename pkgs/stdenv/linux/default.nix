@@ -454,13 +454,10 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                 # the value between the two variables differently: `--native-system-header-dir=/include`,
                 # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
                 #
-                configureFlags =
-                  (a.configureFlags or [ ])
-                  ++ [
-                    "--with-native-system-header-dir=/include"
-                    "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
-                  ]
-                ;
+                configureFlags = (a.configureFlags or [ ]) ++ [
+                  "--with-native-system-header-dir=/include"
+                  "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
+                ];
 
                 # This is a separate phase because gcc assembles its phase scripts
                 # in bash instead of nix (we should fix that).
@@ -671,9 +668,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       extraNativeBuildInputs =
         [ prevStage.patchelf ]
         ++
-          # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-          lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-            prevStage.updateAutotoolsGnuConfigScriptsHook
+        # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
+        lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
+          prevStage.updateAutotoolsGnuConfigScriptsHook
       ;
     }
   )
@@ -744,9 +741,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           prevStage.xz
         ]
         ++
-          # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-          lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-            prevStage.updateAutotoolsGnuConfigScriptsHook
+        # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
+        lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
+          prevStage.updateAutotoolsGnuConfigScriptsHook
       ;
     }
   )
@@ -785,9 +782,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         extraNativeBuildInputs =
           [ prevStage.patchelf ]
           ++
-            # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-            lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-              prevStage.updateAutotoolsGnuConfigScriptsHook
+          # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
+          lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
+            prevStage.updateAutotoolsGnuConfigScriptsHook
         ;
 
         cc = prevStage.gcc;

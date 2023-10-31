@@ -55,14 +55,11 @@ let
       clang
       gcc
     ];
-    buildInputs =
-      [
-        llvm
-        python
-        gmp
-      ]
-      ++ lib.optional (wine != null) python.pkgs.wrapPython
-    ;
+    buildInputs = [
+      llvm
+      python
+      gmp
+    ] ++ lib.optional (wine != null) python.pkgs.wrapPython;
 
     postPatch = ''
       # Replace the CLANG_BIN variables with the correct path

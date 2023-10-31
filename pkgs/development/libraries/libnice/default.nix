@@ -22,14 +22,11 @@ stdenv.mkDerivation rec {
   pname = "libnice";
   version = "0.1.21";
 
-  outputs =
-    [
-      "bin"
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-  ;
+  outputs = [
+    "bin"
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "https://libnice.freedesktop.org/releases/${pname}-${version}.tar.gz";

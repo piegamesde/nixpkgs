@@ -39,13 +39,10 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ optional buildDevDoc "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ optional buildDevDoc "devdoc";
   outputBin = "dev"; # compilation tools
 
   mesonFlags = optionals (!buildDevDoc) [ "-Dgtk_doc=disabled" ];

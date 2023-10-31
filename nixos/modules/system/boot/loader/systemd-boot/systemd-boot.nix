@@ -304,23 +304,22 @@ in
         ;
         message = "This kernel does not support the EFI boot stub";
       } ]
-      ++
-        concatMap
-          (filename: [
-            {
-              assertion = !(hasInfix "/" filename);
-              message = "boot.loader.systemd-boot.extraEntries.${
-                  lib.strings.escapeNixIdentifier filename
-                } is invalid: entries within folders are not supported";
-            }
-            {
-              assertion = hasSuffix ".conf" filename;
-              message = "boot.loader.systemd-boot.extraEntries.${
-                  lib.strings.escapeNixIdentifier filename
-                } is invalid: entries must have a .conf file extension";
-            }
-          ])
-          (builtins.attrNames cfg.extraEntries)
+      ++ concatMap
+        (filename: [
+          {
+            assertion = !(hasInfix "/" filename);
+            message = "boot.loader.systemd-boot.extraEntries.${
+                lib.strings.escapeNixIdentifier filename
+              } is invalid: entries within folders are not supported";
+          }
+          {
+            assertion = hasSuffix ".conf" filename;
+            message = "boot.loader.systemd-boot.extraEntries.${
+                lib.strings.escapeNixIdentifier filename
+              } is invalid: entries must have a .conf file extension";
+          }
+        ])
+        (builtins.attrNames cfg.extraEntries)
       ++
         concatMap
           (filename: [

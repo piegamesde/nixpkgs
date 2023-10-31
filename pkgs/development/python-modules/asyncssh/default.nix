@@ -47,14 +47,11 @@ buildPythonPackage rec {
     pyOpenSSL = [ pyopenssl ];
   };
 
-  nativeCheckInputs =
-    [
-      openssh
-      openssl
-      pytestCheckHook
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    openssh
+    openssl
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   patches =
     [

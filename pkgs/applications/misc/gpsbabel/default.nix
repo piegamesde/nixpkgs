@@ -118,8 +118,7 @@ stdenv.mkDerivation rec {
       "gpsbabel.pdf"
       "gpsbabel.html"
       "gpsbabel.org"
-    ]
-  ;
+    ];
 
   # Floating point behavior on i686 causes nmea.test failures. Preventing
   # extended precision fixes this problem.

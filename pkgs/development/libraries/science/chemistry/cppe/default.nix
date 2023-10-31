@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+    [ cmake ]
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+  ;
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 

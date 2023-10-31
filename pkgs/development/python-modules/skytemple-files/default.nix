@@ -46,42 +46,33 @@ buildPythonPackage rec {
 
   buildInputs = [ armips ];
 
-  propagatedBuildInputs =
-    [
-      appdirs
-      dungeon-eos
-      explorerscript
-      ndspy
-      pillow
-      setuptools
-      skytemple-rust
-      tilequant
-      pyyaml
-      pmdsky-debug-py
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    appdirs
+    dungeon-eos
+    explorerscript
+    ndspy
+    pillow
+    setuptools
+    skytemple-rust
+    tilequant
+    pyyaml
+    pmdsky-debug-py
+  ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
 
   passthru.optional-dependencies = {
-    spritecollab =
-      [
-        aiohttp
-        gql
-        graphql-core
-        lru-dict
-      ]
-      ++ gql.optional-dependencies.aiohttp
-    ;
+    spritecollab = [
+      aiohttp
+      gql
+      graphql-core
+      lru-dict
+    ] ++ gql.optional-dependencies.aiohttp;
   };
 
-  checkInputs =
-    [
-      pytestCheckHook
-      parameterized
-      xmldiff
-    ]
-    ++ passthru.optional-dependencies.spritecollab
-  ;
+  checkInputs = [
+    pytestCheckHook
+    parameterized
+    xmldiff
+  ] ++ passthru.optional-dependencies.spritecollab;
   pytestFlagsArray = "test/";
   disabledTestPaths = [
     "test/skytemple_files_test/common/spritecollab/sc_online_test.py"

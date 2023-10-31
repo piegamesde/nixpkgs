@@ -37,19 +37,16 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs =
-    [
-      cachecontrol
-      cyclonedx-python-lib
-      html5lib
-      packaging
-      pip-api
-      pip-requirements-parser
-      rich
-      toml
-    ]
-    ++ cachecontrol.optional-dependencies.filecache
-  ;
+  propagatedBuildInputs = [
+    cachecontrol
+    cyclonedx-python-lib
+    html5lib
+    packaging
+    pip-api
+    pip-requirements-parser
+    rich
+    toml
+  ] ++ cachecontrol.optional-dependencies.filecache;
 
   nativeCheckInputs = [
     pretend

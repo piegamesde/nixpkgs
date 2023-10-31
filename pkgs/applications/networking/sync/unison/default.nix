@@ -27,22 +27,16 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    [
-      glib
-      wrapGAppsHook
-      ocamlPackages.ocaml
-    ]
-    ++ lib.optional enableX11 copyDesktopItems
-  ;
-  buildInputs =
-    [
-      gsettings-desktop-schemas
-      ncurses
-      zlib
-    ]
-    ++ lib.optional stdenv.isDarwin Cocoa
-  ;
+  nativeBuildInputs = [
+    glib
+    wrapGAppsHook
+    ocamlPackages.ocaml
+  ] ++ lib.optional enableX11 copyDesktopItems;
+  buildInputs = [
+    gsettings-desktop-schemas
+    ncurses
+    zlib
+  ] ++ lib.optional stdenv.isDarwin Cocoa;
 
   preBuild =
     lib.optionalString enableX11 ''
@@ -54,13 +48,10 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  makeFlags =
-    [
-      "INSTALLDIR=$(out)/bin/"
-      "UISTYLE=${if enableX11 then "gtk3" else "text"}"
-    ]
-    ++ lib.optional (!ocamlPackages.ocaml.nativeCompilers) "NATIVE=false"
-  ;
+  makeFlags = [
+    "INSTALLDIR=$(out)/bin/"
+    "UISTYLE=${if enableX11 then "gtk3" else "text"}"
+  ] ++ lib.optional (!ocamlPackages.ocaml.nativeCompilers) "NATIVE=false";
 
   preInstall = ''
     mkdir -p $out/bin

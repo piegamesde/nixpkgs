@@ -67,13 +67,10 @@ stdenv.mkDerivation (
     pname = "gtk+3";
     version = "3.24.37";
 
-    outputs =
-      [
-        "out"
-        "dev"
-      ]
-      ++ lib.optional withIntrospection "devdoc"
-    ;
+    outputs = [
+      "out"
+      "dev"
+    ] ++ lib.optional withIntrospection "devdoc";
     outputBin = "dev";
 
     setupHooks = [
@@ -98,15 +95,14 @@ stdenv.mkDerivation (
         ./patches/3.0-immodules.cache.patch
         ./patches/3.0-Xft-setting-fallback-compute-DPI-properly.patch
       ]
-      ++
-        lib.optionals stdenv.isDarwin
-          [
-            # X11 module requires <gio/gdesktopappinfo.h> which is not installed on Darwin
-            # let’s drop that dependency in similar way to how other parts of the library do it
-            # e.g. https://gitlab.gnome.org/GNOME/gtk/blob/3.24.4/gtk/gtk-launch.c#L31-33
-            # https://gitlab.gnome.org/GNOME/gtk/merge_requests/536
-            ./patches/3.0-darwin-x11.patch
-          ]
+      ++ lib.optionals stdenv.isDarwin
+        [
+          # X11 module requires <gio/gdesktopappinfo.h> which is not installed on Darwin
+          # let’s drop that dependency in similar way to how other parts of the library do it
+          # e.g. https://gitlab.gnome.org/GNOME/gtk/blob/3.24.4/gtk/gtk-launch.c#L31-33
+          # https://gitlab.gnome.org/GNOME/gtk/merge_requests/536
+          ./patches/3.0-darwin-x11.patch
+        ]
     ;
 
     depsBuildBuild = [ pkg-config ];

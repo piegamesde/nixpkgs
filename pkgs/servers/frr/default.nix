@@ -52,23 +52,20 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  buildInputs =
-    [
-      c-ares
-      json_c
-      libelf
-      libunwind
-      libyang
-      net-snmp
-      openssl
-      pam
-      pcre2
-      python3
-      readline
-      rtrlib
-    ]
-    ++ lib.optionals stdenv.isLinux [ libcap ]
-  ;
+  buildInputs = [
+    c-ares
+    json_c
+    libelf
+    libunwind
+    libyang
+    net-snmp
+    openssl
+    pam
+    pcre2
+    python3
+    readline
+    rtrlib
+  ] ++ lib.optionals stdenv.isLinux [ libcap ];
 
   configureFlags = [
     "--disable-exampledir"

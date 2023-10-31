@@ -59,39 +59,32 @@ let
       strictDeps = true;
       depsBuildBuild = [ pkg-config ];
 
-      nativeBuildInputs =
-        [
-          meson
-          ninja
-          pkg-config
-          wayland-scanner
-        ]
-        ++ extraNativeBuildInputs
-      ;
+      nativeBuildInputs = [
+        meson
+        ninja
+        pkg-config
+        wayland-scanner
+      ] ++ extraNativeBuildInputs;
 
-      buildInputs =
-        [
-          ffmpeg_4
-          libGL
-          libcap
-          libinput
-          libpng
-          libxkbcommon
-          mesa
-          pixman
-          seatd
-          vulkan-loader
-          wayland
-          wayland-protocols
-          xorg.libX11
-          xorg.xcbutilerrors
-          xorg.xcbutilimage
-          xorg.xcbutilrenderutil
-          xorg.xcbutilwm
-        ]
-        ++ lib.optional enableXWayland xwayland
-        ++ extraBuildInputs
-      ;
+      buildInputs = [
+        ffmpeg_4
+        libGL
+        libcap
+        libinput
+        libpng
+        libxkbcommon
+        mesa
+        pixman
+        seatd
+        vulkan-loader
+        wayland
+        wayland-protocols
+        xorg.libX11
+        xorg.xcbutilerrors
+        xorg.xcbutilimage
+        xorg.xcbutilrenderutil
+        xorg.xcbutilwm
+      ] ++ lib.optional enableXWayland xwayland ++ extraBuildInputs;
 
       mesonFlags = lib.optional (!enableXWayland) "-Dxwayland=disabled";
 

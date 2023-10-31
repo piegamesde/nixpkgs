@@ -90,15 +90,12 @@ buildPythonApplication rec {
 
   INCLUDE_DIRS = "${pam}/include";
 
-  nativeBuildInputs =
-    [
-      gobject-introspection
-      pkg-config
-      wrapGAppsHook
-      pandoc
-    ]
-    ++ lib.optional withNvenc cudatoolkit
-  ;
+  nativeBuildInputs = [
+    gobject-introspection
+    pkg-config
+    wrapGAppsHook
+    pandoc
+  ] ++ lib.optional withNvenc cudatoolkit;
 
   buildInputs =
     with xorg;
@@ -180,18 +177,15 @@ buildPythonApplication rec {
   # error: 'import_cairo' defined but not used
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-function";
 
-  setupPyBuildFlags =
-    [
-      "--with-Xdummy"
-      "--without-Xdummy_wrapper"
-      "--without-strict"
-      "--with-gtk3"
-      # Override these, setup.py checks for headers in /usr/* paths
-      "--with-pam"
-      "--with-vsock"
-    ]
-    ++ lib.optional withNvenc "--with-nvenc"
-  ;
+  setupPyBuildFlags = [
+    "--with-Xdummy"
+    "--without-Xdummy_wrapper"
+    "--without-strict"
+    "--with-gtk3"
+    # Override these, setup.py checks for headers in /usr/* paths
+    "--with-pam"
+    "--with-vsock"
+  ] ++ lib.optional withNvenc "--with-nvenc";
 
   dontWrapGApps = true;
 

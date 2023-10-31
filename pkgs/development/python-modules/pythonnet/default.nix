@@ -56,18 +56,15 @@ buildPythonPackage rec {
     [ -z "''${dontPlacatePaket-}" ] && placate-paket.sh
   '';
 
-  nativeBuildInputs =
-    [
-      pycparser
+  nativeBuildInputs = [
+    pycparser
 
-      pkg-config
-      dotnetbuildhelpers
-      clang
+    pkg-config
+    dotnetbuildhelpers
+    clang
 
-      mono
-    ]
-    ++ dotnetPkgs
-  ;
+    mono
+  ] ++ dotnetPkgs;
 
   buildInputs = [
     glib

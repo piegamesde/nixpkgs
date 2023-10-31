@@ -418,15 +418,12 @@ in
 
       serviceConfig =
         let
-          rwpaths =
-            [
-              cfg.dataDir
-              cfg.logDir
-              cfg.pidfile
-              "/etc/foundationdb"
-            ]
-            ++ cfg.extraReadWritePaths
-          ;
+          rwpaths = [
+            cfg.dataDir
+            cfg.logDir
+            cfg.pidfile
+            "/etc/foundationdb"
+          ] ++ cfg.extraReadWritePaths;
         in
         {
           Type = "simple";

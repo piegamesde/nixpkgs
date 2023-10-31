@@ -95,20 +95,16 @@ stdenv.mkDerivation rec {
 
   fontsPath = lib.optionalString tileMode dejavu_fonts;
 
-  makeFlags =
-    [
-      "prefix=${placeholder "out"}"
-      "FORCE_CC=${stdenv.cc.targetPrefix}cc"
-      "FORCE_CXX=${stdenv.cc.targetPrefix}c++"
-      "HOSTCXX=${buildPackages.stdenv.cc.targetPrefix}c++"
-      "FORCE_PKGCONFIG=y"
-      "SAVEDIR=~/.crawl"
-      "sqlite=${sqlite.dev}"
-      "DATADIR=${placeholder "out"}"
-    ]
-    ++ lib.optional tileMode "TILES=y"
-    ++ lib.optional enableSound "SOUND=y"
-  ;
+  makeFlags = [
+    "prefix=${placeholder "out"}"
+    "FORCE_CC=${stdenv.cc.targetPrefix}cc"
+    "FORCE_CXX=${stdenv.cc.targetPrefix}c++"
+    "HOSTCXX=${buildPackages.stdenv.cc.targetPrefix}c++"
+    "FORCE_PKGCONFIG=y"
+    "SAVEDIR=~/.crawl"
+    "sqlite=${sqlite.dev}"
+    "DATADIR=${placeholder "out"}"
+  ] ++ lib.optional tileMode "TILES=y" ++ lib.optional enableSound "SOUND=y";
 
   postInstall = ''
     ${lib.optionalString tileMode "mv $out/bin/crawl $out/bin/crawl-tiles"}

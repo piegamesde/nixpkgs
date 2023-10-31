@@ -75,20 +75,17 @@ buildPythonPackage rec {
     SDL2
   ];
 
-  buildInputs =
-    [
-      SDL2
-      SDL2_image
-      SDL2_mixer
-      SDL2_ttf
-      libpng
-      libjpeg
-      portmidi
-      libX11
-      freetype
-    ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
-  ;
+  buildInputs = [
+    SDL2
+    SDL2_image
+    SDL2_mixer
+    SDL2_ttf
+    libpng
+    libjpeg
+    portmidi
+    libX11
+    freetype
+  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   preConfigure = ''
     ${python.pythonForBuild.interpreter} buildconfig/config.py

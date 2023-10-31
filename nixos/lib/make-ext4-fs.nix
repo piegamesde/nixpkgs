@@ -28,15 +28,12 @@ in
 pkgs.stdenv.mkDerivation {
   name = "ext4-fs.img${lib.optionalString compressImage ".zst"}";
 
-  nativeBuildInputs =
-    [
-      e2fsprogs.bin
-      libfaketime
-      perl
-      fakeroot
-    ]
-    ++ lib.optional compressImage zstd
-  ;
+  nativeBuildInputs = [
+    e2fsprogs.bin
+    libfaketime
+    perl
+    fakeroot
+  ] ++ lib.optional compressImage zstd;
 
   buildCommand = ''
     ${if compressImage then "img=temp.img" else "img=$out"}

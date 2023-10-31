@@ -34,13 +34,10 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      ninja
-    ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    cmake
+    ninja
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs =
     with python.pkgs;
     with llvmPackages;

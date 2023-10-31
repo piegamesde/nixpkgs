@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       makeWrapper
       undmg
-    ]
-  ;
+    ];
 
   buildInputs =
     [

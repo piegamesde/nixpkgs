@@ -30,12 +30,11 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ markupsafe ]
-    ++
-      lib.optionals (!stdenv.isDarwin)
-        [
-          # watchdog requires macos-sdk 10.13+
-          watchdog
-        ]
+    ++ lib.optionals (!stdenv.isDarwin)
+      [
+        # watchdog requires macos-sdk 10.13+
+        watchdog
+      ]
   ;
 
   nativeCheckInputs = [

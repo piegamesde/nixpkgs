@@ -161,14 +161,11 @@ rec {
       inherit preBuild postBuild name;
       dontUnpack = true;
       dontInstall = true;
-      nativeBuildInputs =
-        [
-          yarn
-          nodejs
-          git
-        ]
-        ++ extraNativeBuildInputs
-      ;
+      nativeBuildInputs = [
+        yarn
+        nodejs
+        git
+      ] ++ extraNativeBuildInputs;
       buildInputs = extraBuildInputs;
 
       configurePhase =
@@ -443,14 +440,11 @@ rec {
 
         name = baseName;
 
-        buildInputs =
-          [
-            yarn
-            nodejs
-            rsync
-          ]
-          ++ extraBuildInputs
-        ;
+        buildInputs = [
+          yarn
+          nodejs
+          rsync
+        ] ++ extraBuildInputs;
 
         node_modules = deps + "/node_modules";
 
@@ -595,13 +589,10 @@ rec {
     # we import package.json from the unfiltered source
     packageJSON = ./package.json;
 
-    yarnFlags =
-      defaultYarnFlags
-      ++ [
-        "--ignore-scripts"
-        "--production=true"
-      ]
-    ;
+    yarnFlags = defaultYarnFlags ++ [
+      "--ignore-scripts"
+      "--production=true"
+    ];
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
 

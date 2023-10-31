@@ -841,8 +841,7 @@ in
                   "AF_INET"
                   "AF_INET6"
                 ]
-                ++ optional (conf.unixSocket != null) "AF_UNIX"
-              ;
+                ++ optional (conf.unixSocket != null) "AF_UNIX";
               RestrictNamespaces = true;
               LockPersonality = true;
               MemoryDenyWriteExecute = true;

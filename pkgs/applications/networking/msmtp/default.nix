@@ -46,13 +46,10 @@ let
     pname = "msmtp-binaries";
     inherit version src meta;
 
-    configureFlags =
-      [
-        "--sysconfdir=/etc"
-        "--with-libgsasl"
-      ]
-      ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ]
-    ;
+    configureFlags = [
+      "--sysconfdir=/etc"
+      "--with-libgsasl"
+    ] ++ optionals stdenv.isDarwin [ "--with-macosx-keyring" ];
 
     buildInputs =
       [
@@ -60,8 +57,7 @@ let
         gsasl
         libidn2
       ]
-      ++ optionals stdenv.isDarwin [ Security ]
-      ++ optionals withKeyring [ libsecret ]
+      ++ optionals stdenv.isDarwin [ Security ] ++ optionals withKeyring [ libsecret ]
     ;
 
     nativeBuildInputs = [
@@ -112,23 +108,17 @@ let
       msmtpq = {
         scripts = [ "bin/msmtpq" ];
         interpreter = getExe bash;
-        inputs =
-          [
-            binaries
-            coreutils
-            gnugrep
-            netcat-gnu
-            which
-          ]
-          ++ optionals withSystemd [ systemd ]
-        ;
-        execer =
-          [
-            "cannot:${getBin binaries}/bin/msmtp"
-            "cannot:${getBin netcat-gnu}/bin/nc"
-          ]
-          ++ optionals withSystemd [ "cannot:${getBin systemd}/bin/systemd-cat" ]
-        ;
+        inputs = [
+          binaries
+          coreutils
+          gnugrep
+          netcat-gnu
+          which
+        ] ++ optionals withSystemd [ systemd ];
+        execer = [
+          "cannot:${getBin binaries}/bin/msmtp"
+          "cannot:${getBin netcat-gnu}/bin/nc"
+        ] ++ optionals withSystemd [ "cannot:${getBin systemd}/bin/systemd-cat" ];
         fix."$MSMTP" = [ "msmtp" ];
         fake.external = [ "ping" ] ++ optionals (!withSystemd) [ "systemd-cat" ];
       };

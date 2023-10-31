@@ -62,16 +62,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NkhEKeGTYUaFwv8kb1W9Cm3d8xoBi+5F4NH3wohRmV4=";
   };
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      perl
-      perlPackages.HTMLParser
-      pkg-config
-      xxd
-    ]
-    ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    perl
+    perlPackages.HTMLParser
+    pkg-config
+    xxd
+  ] ++ optional (uilib == "gtk2" || uilib == "gtk3") wrapGAppsHook;
 
   buildInputs =
     [

@@ -22,7 +22,9 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ setuptools ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    [ setuptools ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+  ;
 
   passthru.optional-dependencies = {
     toml = lib.optionals (pythonOlder "3.11") [ tomli ];

@@ -26,13 +26,10 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-Q2GjinNBWLL+HXUtslzDJ7CJSTflckbjweiSMCnIVwg=";
     });
 
-  nativeBuildInputs =
-    [
-      cmake
-      libxslt # manpage
-    ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy
-  ;
+  nativeBuildInputs = [
+    cmake
+    libxslt # manpage
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy;
 
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "-DHOST_TIDY=tidy"

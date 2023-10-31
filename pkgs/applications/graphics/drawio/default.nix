@@ -30,16 +30,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-YlJ84psoEgeDnCX+O8TvwqhTthm5voJ6dfTvTiZlkuk=";
   };
 
-  nativeBuildInputs =
-    [
-      copyDesktopItems
-      fixup_yarn_lock
-      makeWrapper
-      nodejs
-      yarn
-    ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle
-  ;
+  nativeBuildInputs = [
+    copyDesktopItems
+    fixup_yarn_lock
+    makeWrapper
+    nodejs
+    yarn
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = true;
 

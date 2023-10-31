@@ -133,13 +133,10 @@ stdenv.mkDerivation rec {
   # https://files.ettus.com/manual_archive/v3.15.0.0/html/page_build_guide.html#build_instructions_unix_arm
   patches = if stdenv.isAarch32 then ./neon.patch else null;
 
-  postPhases =
-    [
-      "installFirmware"
-      "removeInstalledTests"
-    ]
-    ++ optionals (enableUtils) [ "moveUdevRules" ]
-  ;
+  postPhases = [
+    "installFirmware"
+    "removeInstalledTests"
+  ] ++ optionals (enableUtils) [ "moveUdevRules" ];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''

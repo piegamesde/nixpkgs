@@ -104,27 +104,24 @@ stdenv.mkDerivation rec {
     sed -i 's|^#define LVM_CONFIGURE_LINE.*$|#define LVM_CONFIGURE_LINE "<removed>"|g' ./include/configure.h
   '';
 
-  patches =
-    [
-      # fixes paths to and checks for tools
-      (substituteAll (
-        let
-          optionalTool = cond: pkg: if cond then pkg else "/run/current-system/sw";
-        in
-        {
-          src = ./fix-blkdeactivate.patch;
-          inherit coreutils;
-          util_linux = optionalTool enableUtilLinux util-linux;
-          mdadm = optionalTool enableMdadm mdadm;
-          multipath_tools = optionalTool enableMultipath multipath-tools;
-          vdo = optionalTool enableVDO vdo;
-        }
-      ))
-      # Musl fix from Alpine
-      ./fix-stdio-usage.patch
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ]
-  ;
+  patches = [
+    # fixes paths to and checks for tools
+    (substituteAll (
+      let
+        optionalTool = cond: pkg: if cond then pkg else "/run/current-system/sw";
+      in
+      {
+        src = ./fix-blkdeactivate.patch;
+        inherit coreutils;
+        util_linux = optionalTool enableUtilLinux util-linux;
+        mdadm = optionalTool enableMdadm mdadm;
+        multipath_tools = optionalTool enableMultipath multipath-tools;
+        vdo = optionalTool enableVDO vdo;
+      }
+    ))
+    # Musl fix from Alpine
+    ./fix-stdio-usage.patch
+  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ ./no-shared.patch ];
 
   doCheck = false; # requires root
 
@@ -132,8 +129,7 @@ stdenv.mkDerivation rec {
     lib.optionals udevSupport [
       "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
     ]
-    ++ lib.optionals onlyLib [ "libdm.device-mapper" ]
-  ;
+    ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
 
   # To prevent make install from failing.
   installFlags = [

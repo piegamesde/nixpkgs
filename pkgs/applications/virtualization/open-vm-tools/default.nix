@@ -124,14 +124,11 @@ stdenv.mkDerivation rec {
      --replace "/bin/mount" "${util-linux}/bin/mount"
   '';
 
-  configureFlags =
-    [
-      "--without-kernel-modules"
-      "--with-udev-rules-dir=${placeholder "out"}/lib/udev/rules.d"
-      "--with-fuse=fuse3"
-    ]
-    ++ lib.optional (!withX) "--without-x"
-  ;
+  configureFlags = [
+    "--without-kernel-modules"
+    "--with-udev-rules-dir=${placeholder "out"}/lib/udev/rules.d"
+    "--with-fuse=fuse3"
+  ] ++ lib.optional (!withX) "--without-x";
 
   enableParallelBuilding = true;
 

@@ -31,14 +31,11 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs =
-    [
-      openssl
-      dbus
-      sqlite
-    ]
-    ++ lib.optional withNotmuch notmuch
-  ;
+  buildInputs = [
+    openssl
+    dbus
+    sqlite
+  ] ++ lib.optional withNotmuch notmuch;
 
   nativeCheckInputs = [ file ];
 

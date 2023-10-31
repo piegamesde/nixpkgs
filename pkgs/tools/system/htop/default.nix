@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ autoreconfHook ] ++ lib.optional stdenv.isLinux pkg-config;
+    [ autoreconfHook ]
+    ++ lib.optional stdenv.isLinux pkg-config
+  ;
 
   buildInputs =
     [ ncurses ]

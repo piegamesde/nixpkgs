@@ -19,13 +19,10 @@ let
     };
   } // cfg.extraConfig;
 
-  configFiles =
-    [
-      "/etc/consul.json"
-      "/etc/consul-addrs.json"
-    ]
-    ++ cfg.extraConfigFiles
-  ;
+  configFiles = [
+    "/etc/consul.json"
+    "/etc/consul-addrs.json"
+  ] ++ cfg.extraConfigFiles;
 
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
   systemdDevices = forEach devices (

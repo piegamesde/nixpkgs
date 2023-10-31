@@ -39,24 +39,21 @@ buildPythonPackage rec {
       --replace "responses<0.19" "responses"
   '';
 
-  propagatedBuildInputs =
-    [
-      aiohttp
-      dill
-      fsspec
-      huggingface-hub
-      multiprocess
-      numpy
-      packaging
-      pandas
-      pyarrow
-      requests
-      responses
-      tqdm
-      xxhash
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    aiohttp
+    dill
+    fsspec
+    huggingface-hub
+    multiprocess
+    numpy
+    packaging
+    pandas
+    pyarrow
+    requests
+    responses
+    tqdm
+    xxhash
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # Tests require pervasive internet access.
   doCheck = false;

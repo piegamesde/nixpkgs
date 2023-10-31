@@ -112,13 +112,10 @@ let
             inherit (edk2) src;
 
             depsBuildBuild = [ buildPackages.stdenv.cc ] ++ attrs.depsBuildBuild or [ ];
-            nativeBuildInputs =
-              [
-                bc
-                pythonEnv
-              ]
-              ++ attrs.nativeBuildInputs or [ ]
-            ;
+            nativeBuildInputs = [
+              bc
+              pythonEnv
+            ] ++ attrs.nativeBuildInputs or [ ];
             strictDeps = true;
 
             ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;

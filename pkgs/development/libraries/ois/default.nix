@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
       Cocoa
       IOKit
       Kernel
-    ]
-  ;
+    ];
 
   cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
 

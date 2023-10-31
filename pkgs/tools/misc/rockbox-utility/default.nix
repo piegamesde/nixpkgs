@@ -27,15 +27,12 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      cryptopp
-      libusb1
-      qt5.qtbase
-      qt5.qttools
-    ]
-    ++ lib.optional withEspeak espeak
-  ;
+  buildInputs = [
+    cryptopp
+    libusb1
+    qt5.qtbase
+    qt5.qttools
+  ] ++ lib.optional withEspeak espeak;
 
   postPatch = ''
     sed -i rbutil/rbutilqt/rbutilqt.pro \

@@ -246,18 +246,15 @@ let
       sha256 = "0a20kns4irdpzzx2dvdjbi0m3s754gp737q08z5nlcnffxqvykrk";
     };
 
-    nativeBuildInputs =
-      runtimeDeps
-      ++ [
-        postgresql
-        redis
-        nodePackages.uglify-js
-        nodePackages.terser
-        nodePackages.patch-package
-        yarn
-        nodejs_16
-      ]
-    ;
+    nativeBuildInputs = runtimeDeps ++ [
+      postgresql
+      redis
+      nodePackages.uglify-js
+      nodePackages.terser
+      nodePackages.patch-package
+      yarn
+      nodejs_16
+    ];
 
     outputs = [
       "out"

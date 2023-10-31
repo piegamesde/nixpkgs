@@ -19,13 +19,10 @@ buildPythonPackage rec {
     hash = "sha256-+L5Rre6LHpSlc+yzdQpMLSvURLHd412apDes5zwzdgc=";
   };
 
-  propagatedBuildInputs =
-    [
-      google-api-core
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    google-api-core
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   # No tests in repo
   doCheck = false;

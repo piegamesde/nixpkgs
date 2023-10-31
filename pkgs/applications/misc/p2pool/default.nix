@@ -34,18 +34,15 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs =
-    [
-      libuv
-      zeromq
-      libsodium
-      gss
-      hwloc
-      openssl
-      curl
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ]
-  ;
+  buildInputs = [
+    libuv
+    zeromq
+    libsodium
+    gss
+    hwloc
+    openssl
+    curl
+  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   cmakeFlags = [ "-DWITH_LTO=OFF" ];
 

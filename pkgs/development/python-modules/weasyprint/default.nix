@@ -50,19 +50,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs =
-    [
-      cffi
-      cssselect2
-      fonttools
-      html5lib
-      pillow
-      pydyf
-      pyphen
-      tinycss2
-    ]
-    ++ fonttools.optional-dependencies.woff
-  ;
+  propagatedBuildInputs = [
+    cffi
+    cssselect2
+    fonttools
+    html5lib
+    pillow
+    pydyf
+    pyphen
+    tinycss2
+  ] ++ fonttools.optional-dependencies.woff;
 
   nativeCheckInputs = [
     pytestCheckHook

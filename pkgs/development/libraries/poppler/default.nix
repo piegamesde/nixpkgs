@@ -73,15 +73,12 @@ stdenv.mkDerivation (
       python3
     ];
 
-    buildInputs =
-      [
-        boost
-        pcre
-        libiconv
-        libintl
-      ]
-      ++ lib.optionals withData [ poppler_data ]
-    ;
+    buildInputs = [
+      boost
+      pcre
+      libiconv
+      libintl
+    ] ++ lib.optionals withData [ poppler_data ];
 
     # TODO: reduce propagation to necessary libs
     propagatedBuildInputs =
@@ -102,18 +99,15 @@ stdenv.mkDerivation (
       ++ lib.optionals introspectionSupport [ gobject-introspection ]
     ;
 
-    cmakeFlags =
-      [
-        (mkFlag true "UNSTABLE_API_ABI_HEADERS") # previously "XPDF_HEADERS"
-        (mkFlag (!minimal) "GLIB")
-        (mkFlag (!minimal) "CPP")
-        (mkFlag (!minimal) "LIBCURL")
-        (mkFlag utils "UTILS")
-        (mkFlag qt5Support "QT5")
-        (mkFlag qt6Support "QT6")
-      ]
-      ++ lib.optionals finalAttrs.doCheck [ "-DTESTDATADIR=${testData}" ]
-    ;
+    cmakeFlags = [
+      (mkFlag true "UNSTABLE_API_ABI_HEADERS") # previously "XPDF_HEADERS"
+      (mkFlag (!minimal) "GLIB")
+      (mkFlag (!minimal) "CPP")
+      (mkFlag (!minimal) "LIBCURL")
+      (mkFlag utils "UTILS")
+      (mkFlag qt5Support "QT5")
+      (mkFlag qt6Support "QT6")
+    ] ++ lib.optionals finalAttrs.doCheck [ "-DTESTDATADIR=${testData}" ];
     disallowedReferences = lib.optional finalAttrs.doCheck testData;
 
     dontWrapQtApps = true;

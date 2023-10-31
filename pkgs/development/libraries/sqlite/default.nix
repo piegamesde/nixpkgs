@@ -56,7 +56,9 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags =
-    [ "--enable-threadsafe" ] ++ lib.optional interactive "--enable-readline";
+    [ "--enable-threadsafe" ]
+    ++ lib.optional interactive "--enable-readline"
+  ;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [

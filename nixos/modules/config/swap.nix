@@ -266,13 +266,10 @@ in
             description = "Initialisation of swap device ${sw.device}";
             wantedBy = [ "${realDevice'}.swap" ];
             before = [ "${realDevice'}.swap" ];
-            path =
-              [
-                pkgs.util-linux
-                pkgs.e2fsprogs
-              ]
-              ++ optional sw.randomEncryption.enable pkgs.cryptsetup
-            ;
+            path = [
+              pkgs.util-linux
+              pkgs.e2fsprogs
+            ] ++ optional sw.randomEncryption.enable pkgs.cryptsetup;
 
             environment.DEVICE = sw.device;
 

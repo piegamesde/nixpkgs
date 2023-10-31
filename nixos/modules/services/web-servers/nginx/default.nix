@@ -1387,8 +1387,7 @@ in
 
     services.nginx.additionalModules =
       optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli
-      ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd
-    ;
+      ++ lib.optional cfg.recommendedZstdSettings pkgs.nginxModules.zstd;
 
     systemd.services.nginx = {
       description = "Nginx Web Server";
@@ -1479,14 +1478,13 @@ in
         SystemCallArchitectures = "native";
         SystemCallFilter =
           [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
-          ++
-            optionals
-              (
-                (cfg.package != pkgs.tengine)
-                && (cfg.package != pkgs.openresty)
-                && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
-              )
-              [ "~@ipc" ]
+          ++ optionals
+            (
+              (cfg.package != pkgs.tengine)
+              && (cfg.package != pkgs.openresty)
+              && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)
+            )
+            [ "~@ipc" ]
         ;
       };
     };

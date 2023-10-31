@@ -79,15 +79,12 @@ rustPlatform.buildRustPackage rec {
     perl
     rustPlatform.bindgenHook
   ];
-  buildInputs =
-    [
-      openssl
-      zlib
-      libclang
-      hidapi
-    ]
-    ++ (lib.optionals stdenv.isLinux [ udev ])
-  ;
+  buildInputs = [
+    openssl
+    zlib
+    libclang
+    hidapi
+  ] ++ (lib.optionals stdenv.isLinux [ udev ]);
   strictDeps = true;
 
   doCheck = false;

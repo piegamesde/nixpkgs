@@ -34,14 +34,11 @@ stdenv.mkDerivation rec {
     python3
     wrapGAppsHook
   ];
-  buildInputs =
-    [
-      SDL2
-      fontconfig
-      gtk3
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    SDL2
+    fontconfig
+    gtk3
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   postPatch = ''
     substituteInPlace src/openboardview/CMakeLists.txt \

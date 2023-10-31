@@ -37,19 +37,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qj1wbEUnhtE0XglNriAc022B8Dz4HWNtXPwQ02WQfxc=";
   };
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      docbook_xsl
-      docbook_xml_dtd_43
-      gtk-doc
-      lzip
-      pkg-config
-      python3
-      libxslt
-    ]
-    ++ lib.optionals enableValgrindTests [ valgrind ]
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    docbook_xsl
+    docbook_xml_dtd_43
+    gtk-doc
+    lzip
+    pkg-config
+    python3
+    libxslt
+  ] ++ lib.optionals enableValgrindTests [ valgrind ];
 
   buildInputs = [
     libidn2
@@ -67,16 +64,13 @@ stdenv.mkDerivation rec {
     gtkdocize
   '';
 
-  configureFlags =
-    [
-      # "--enable-gtk-doc"
-      "--enable-man"
-      "--with-psl-distfile=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
-      "--with-psl-file=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
-      "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
-    ]
-    ++ lib.optionals enableValgrindTests [ "--enable-valgrind-tests" ]
-  ;
+  configureFlags = [
+    # "--enable-gtk-doc"
+    "--enable-man"
+    "--with-psl-distfile=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+    "--with-psl-file=${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+    "--with-psl-testfile=${publicsuffix-list}/share/publicsuffix/test_psl.txt"
+  ] ++ lib.optionals enableValgrindTests [ "--enable-valgrind-tests" ];
 
   enableParallelBuilding = true;
 

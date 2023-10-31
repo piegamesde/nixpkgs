@@ -32,18 +32,14 @@ buildPythonPackage rec {
     hash = "sha256-OdjTlVUjlw+5K/kvL1Yx+7c/lIE52udUo6Ux18M9xmE=";
   };
 
-  propagatedBuildInputs =
-    [
-      aiolimiter
-      apscheduler
-      cachetools
-      cryptography
-      httpx
-      pytz
-    ]
-    ++ httpx.optional-dependencies.socks
-    ++ httpx.optional-dependencies.http2
-  ;
+  propagatedBuildInputs = [
+    aiolimiter
+    apscheduler
+    cachetools
+    cryptography
+    httpx
+    pytz
+  ] ++ httpx.optional-dependencies.socks ++ httpx.optional-dependencies.http2;
 
   nativeCheckInputs = [
     beautifulsoup4

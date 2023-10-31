@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional withPython python;
 
   configureFlags =
-    [ "--enable-allcxxplugins" ] ++ lib.optional withPython "--enable-pyext";
+    [ "--enable-allcxxplugins" ]
+    ++ lib.optional withPython "--enable-pyext"
+  ;
 
   enableParallelBuilding = true;
 

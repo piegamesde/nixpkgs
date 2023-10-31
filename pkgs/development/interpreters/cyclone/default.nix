@@ -42,7 +42,9 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   nativeBuildInputs =
-    [ bootstrap ] ++ lib.optionals stdenv.isDarwin [ darwin.cctools ];
+    [ bootstrap ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.cctools ]
+  ;
 
   buildInputs = [ libck ];
 

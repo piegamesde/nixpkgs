@@ -101,10 +101,9 @@ in
     in
     base.overrideAttrs (
       oldAttrs: {
-        makeFlags =
-          (oldAttrs.makeFlags or [ ])
-          ++ [ "CC=${buildPackages.stdenv.cc.targetPrefix}cc" ]
-        ;
+        makeFlags = (oldAttrs.makeFlags or [ ]) ++ [
+          "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
+        ];
       }
     )
   ;
@@ -147,13 +146,10 @@ in
           "build"
           "target"
         ];
-        configureFlags =
-          (oldAttrs.configureFlags or [ ])
-          ++ [
-            "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
-            "--host=${stdenv.buildPlatform.config}"
-          ]
-        ;
+        configureFlags = (oldAttrs.configureFlags or [ ]) ++ [
+          "CC=${buildPackages.stdenv.cc.targetPrefix}cc"
+          "--host=${stdenv.buildPlatform.config}"
+        ];
       }
     )
   ;

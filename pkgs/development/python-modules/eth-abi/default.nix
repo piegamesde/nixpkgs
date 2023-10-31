@@ -37,13 +37,10 @@ buildPythonPackage rec {
   # lots of: TypeError: isinstance() arg 2 must be a type or tuple of types
   doCheck = false;
 
-  nativeCheckInputs =
-    [
-      hypothesis
-      pytestCheckHook
-    ]
-    ++ eth-hash.optional-dependencies.pycryptodome
-  ;
+  nativeCheckInputs = [
+    hypothesis
+    pytestCheckHook
+  ] ++ eth-hash.optional-dependencies.pycryptodome;
 
   disabledTests = [
     # boolean list representation changed

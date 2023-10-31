@@ -634,14 +634,10 @@ let
     stdenv.mkDerivation {
       name = "node-shell-${name}-${version}";
 
-      buildInputs =
-        [
-          python
-          nodejs
-        ]
-        ++ lib.optional (stdenv.isLinux) util-linux
-        ++ buildInputs
-      ;
+      buildInputs = [
+        python
+        nodejs
+      ] ++ lib.optional (stdenv.isLinux) util-linux ++ buildInputs;
       buildCommand = ''
         mkdir -p $out/bin
         cat > $out/bin/shell <<EOF

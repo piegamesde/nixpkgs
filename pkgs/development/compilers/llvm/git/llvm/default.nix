@@ -110,13 +110,10 @@ stdenv.mkDerivation (
       ]
     ;
 
-    buildInputs =
-      [
-        libxml2
-        libffi
-      ]
-      ++ optional enablePFM libpfm
-    ; # exegesis
+    buildInputs = [
+      libxml2
+      libffi
+    ] ++ optional enablePFM libpfm; # exegesis
 
     propagatedBuildInputs = [
       ncurses
@@ -339,13 +336,10 @@ stdenv.mkDerivation (
         #
         # Some flags don't need to be repassed because LLVM already does so (like
         # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-        flagsForLlvmConfig =
-          [
-            "-DLLVM_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/llvm"
-            "-DLLVM_ENABLE_RTTI=ON"
-          ]
-          ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-        ;
+        flagsForLlvmConfig = [
+          "-DLLVM_INSTALL_PACKAGE_DIR=${placeholder "dev"}/lib/cmake/llvm"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
       in
       flagsForLlvmConfig
       ++ [

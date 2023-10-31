@@ -38,8 +38,7 @@ rustPlatform.buildRustPackage rec {
       xorg.libXi
       xorg.libXrandr
     ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ AppKit ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/epick --add-rpath ${lib.makeLibraryPath [ libGL ]}

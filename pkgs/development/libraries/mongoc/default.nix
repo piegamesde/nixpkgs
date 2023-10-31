@@ -42,14 +42,11 @@ stdenv.mkDerivation rec {
     pkg-config
     perl
   ];
-  buildInputs =
-    [
-      openssl
-      zlib
-      cyrus_sasl
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+  buildInputs = [
+    openssl
+    zlib
+    cyrus_sasl
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
   propagatedBuildInputs = [
     libbson
     snappy

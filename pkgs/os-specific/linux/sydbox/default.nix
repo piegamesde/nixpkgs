@@ -21,15 +21,12 @@ stdenv.mkDerivation rec {
   pname = "sydbox-1";
   version = "2.2.0";
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "man"
-      "doc"
-    ]
-    ++ lib.optional installTests "installedTests"
-  ;
+  outputs = [
+    "out"
+    "dev"
+    "man"
+    "doc"
+  ] ++ lib.optional installTests "installedTests";
 
   src = fetchurl {
     url = "https://git.exherbo.org/${pname}.git/snapshot/${pname}-${version}.tar.xz";

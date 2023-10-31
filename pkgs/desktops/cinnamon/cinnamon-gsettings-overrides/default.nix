@@ -24,25 +24,22 @@ let
 
   inherit (lib) concatMapStringsSep;
 
-  gsettingsOverridePackages =
-    [
-      # from
-      mint-artwork
+  gsettingsOverridePackages = [
+    # from
+    mint-artwork
 
-      # on
-      bulky
-      muffin
-      nemo
-      xapp
-      cinnamon-desktop
-      cinnamon-session
-      cinnamon-settings-daemon
-      cinnamon-common
-      gnome.gnome-terminal
-      gtk3
-    ]
-    ++ extraGSettingsOverridePackages
-  ;
+    # on
+    bulky
+    muffin
+    nemo
+    xapp
+    cinnamon-desktop
+    cinnamon-session
+    cinnamon-settings-daemon
+    cinnamon-common
+    gnome.gnome-terminal
+    gtk3
+  ] ++ extraGSettingsOverridePackages;
 
   gsettingsOverrides = ''
     # Use Fedora's default to make text readable and

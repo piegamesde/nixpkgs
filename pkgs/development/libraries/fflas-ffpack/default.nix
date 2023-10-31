@@ -27,13 +27,10 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs =
-    [
-      autoreconfHook
-      pkg-config
-    ]
-    ++ lib.optionals doCheck nativeCheckInputs
-  ;
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ] ++ lib.optionals doCheck nativeCheckInputs;
 
   buildInputs = [
     givaro

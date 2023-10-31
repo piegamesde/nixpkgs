@@ -83,34 +83,31 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      kerberos
-      openldap
-      popt
-      sasl
-      curl
-      xmlrpc_c
-      ding-libs
-      p11-kit
-      python3
-      nspr
-      nss
-      _389-ds-base
-      svrcore
-      libuuid
-      talloc
-      tevent
-      samba
-      libunistring
-      libverto
-      systemd
-      bind
-      libpwquality
-      jansson
-    ]
-    ++ pythonInputs
-  ;
+  buildInputs = [
+    kerberos
+    openldap
+    popt
+    sasl
+    curl
+    xmlrpc_c
+    ding-libs
+    p11-kit
+    python3
+    nspr
+    nss
+    _389-ds-base
+    svrcore
+    libuuid
+    talloc
+    tevent
+    samba
+    libunistring
+    libverto
+    systemd
+    bind
+    libpwquality
+    jansson
+  ] ++ pythonInputs;
 
   postPatch = ''
     patchShebangs makeapi makeaci install/ui/util

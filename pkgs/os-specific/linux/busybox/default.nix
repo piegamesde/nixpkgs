@@ -66,13 +66,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VCdQyK98smMOIBeAtPmfPczusG9QW0eexoJBweavYaU=";
   };
 
-  hardeningDisable =
-    [
-      "format"
-      "pie"
-    ]
-    ++ lib.optionals enableStatic [ "fortify" ]
-  ;
+  hardeningDisable = [
+    "format"
+    "pie"
+  ] ++ lib.optionals enableStatic [ "fortify" ];
 
   patches =
     [
@@ -88,9 +85,8 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-vl1wPbsHtXY9naajjnTicQ7Uj3N+EQ8pRNnrdsiow+w=";
       })
     ]
-    ++
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        ./clang-cross.patch
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      ./clang-cross.patch
   ;
 
   separateDebugInfo = true;

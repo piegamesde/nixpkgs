@@ -31,17 +31,14 @@ buildPythonPackage rec {
     hash = "sha256-zmjxxUAKR7E3xaTecsfJAb1OeiT73r/ptB3oxsBOqs8=";
   };
 
-  propagatedBuildInputs =
-    [
-      attrs
-      sortedcontainers
-      async_generator
-      idna
-      outcome
-      sniffio
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-  ;
+  propagatedBuildInputs = [
+    attrs
+    sortedcontainers
+    async_generator
+    idna
+    outcome
+    sniffio
+  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
 
   # tests are failing on Darwin
   doCheck = !stdenv.isDarwin;

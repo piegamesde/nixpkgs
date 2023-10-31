@@ -210,58 +210,55 @@ stdenv.mkDerivation rec {
 
   inherit src;
   inherit sourceRoot;
-  patches =
-    [
-      # Force usage of the _non_ prebuilt java toolchain.
-      # the prebuilt one does not work in nix world.
-      ./java_toolchain.patch
+  patches = [
+    # Force usage of the _non_ prebuilt java toolchain.
+    # the prebuilt one does not work in nix world.
+    ./java_toolchain.patch
 
-      # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
-      # This is breaking the build of any C target. This patch removes the last
-      # argument if it's found to be an empty string.
-      ../trim-last-argument-to-gcc-if-empty.patch
+    # On Darwin, the last argument to gcc is coming up as an empty string. i.e: ''
+    # This is breaking the build of any C target. This patch removes the last
+    # argument if it's found to be an empty string.
+    ../trim-last-argument-to-gcc-if-empty.patch
 
-      # `java_proto_library` ignores `strict_proto_deps`
-      # https://github.com/bazelbuild/bazel/pull/16146
-      ./strict_proto_deps.patch
+    # `java_proto_library` ignores `strict_proto_deps`
+    # https://github.com/bazelbuild/bazel/pull/16146
+    ./strict_proto_deps.patch
 
-      # On Darwin, using clang 6 to build fails because of a linker error (see #105573),
-      # but using clang 7 fails because libarclite_macosx.a cannot be found when linking
-      # the xcode_locator tool.
-      # This patch removes using the -fobjc-arc compiler option and makes the code
-      # compile without automatic reference counting. Caveat: this leaks memory, but
-      # we accept this fact because xcode_locator is only a short-lived process used during the build.
-      (substituteAll {
-        src = ./no-arc.patch;
-        multiBinPatch =
-          if stdenv.hostPlatform.system == "aarch64-darwin" then "arm64" else "x86_64";
-      })
+    # On Darwin, using clang 6 to build fails because of a linker error (see #105573),
+    # but using clang 7 fails because libarclite_macosx.a cannot be found when linking
+    # the xcode_locator tool.
+    # This patch removes using the -fobjc-arc compiler option and makes the code
+    # compile without automatic reference counting. Caveat: this leaks memory, but
+    # we accept this fact because xcode_locator is only a short-lived process used during the build.
+    (substituteAll {
+      src = ./no-arc.patch;
+      multiBinPatch =
+        if stdenv.hostPlatform.system == "aarch64-darwin" then "arm64" else "x86_64";
+    })
 
-      # --experimental_strict_action_env (which may one day become the default
-      # see bazelbuild/bazel#2574) hardcodes the default
-      # action environment to a non hermetic value (e.g. "/usr/local/bin").
-      # This is non hermetic on non-nixos systems. On NixOS, bazel cannot find the required binaries.
-      # So we are replacing this bazel paths by defaultShellPath,
-      # improving hermeticity and making it work in nixos.
-      (substituteAll {
-        src = ../strict_action_env.patch;
-        strictActionEnvPatch = defaultShellPath;
-      })
+    # --experimental_strict_action_env (which may one day become the default
+    # see bazelbuild/bazel#2574) hardcodes the default
+    # action environment to a non hermetic value (e.g. "/usr/local/bin").
+    # This is non hermetic on non-nixos systems. On NixOS, bazel cannot find the required binaries.
+    # So we are replacing this bazel paths by defaultShellPath,
+    # improving hermeticity and making it work in nixos.
+    (substituteAll {
+      src = ../strict_action_env.patch;
+      strictActionEnvPatch = defaultShellPath;
+    })
 
-      (substituteAll {
-        src = ./actions_path.patch;
-        actionsPathPatch = defaultShellPath;
-      })
+    (substituteAll {
+      src = ./actions_path.patch;
+      actionsPathPatch = defaultShellPath;
+    })
 
-      # bazel reads its system bazelrc in /etc
-      # override this path to a builtin one
-      (substituteAll {
-        src = ../bazel_rc.patch;
-        bazelSystemBazelRCPath = bazelRC;
-      })
-    ]
-    ++ lib.optional enableNixHacks ./nix-hacks.patch
-  ;
+    # bazel reads its system bazelrc in /etc
+    # override this path to a builtin one
+    (substituteAll {
+      src = ../bazel_rc.patch;
+      bazelSystemBazelRCPath = bazelRC;
+    })
+  ] ++ lib.optional enableNixHacks ./nix-hacks.patch;
 
   # Additional tests that check bazel’s functionality. Execute
   #

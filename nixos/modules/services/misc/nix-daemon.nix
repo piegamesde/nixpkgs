@@ -197,24 +197,23 @@ in
         "Consider nix.daemonCPUSchedPolicy instead."
       )
     ]
-    ++
-      mapAttrsToList
-        (
-          oldConf: newConf:
-          mkRenamedOptionModuleWith {
-            sinceRelease = 2205;
-            from = [
-              "nix"
-              oldConf
-            ];
-            to = [
-              "nix"
-              "settings"
-              newConf
-            ];
-          }
-        )
-        legacyConfMappings
+    ++ mapAttrsToList
+      (
+        oldConf: newConf:
+        mkRenamedOptionModuleWith {
+          sinceRelease = 2205;
+          from = [
+            "nix"
+            oldConf
+          ];
+          to = [
+            "nix"
+            "settings"
+            newConf
+          ];
+        }
+      )
+      legacyConfMappings
   ;
 
   ###### interface
@@ -817,13 +816,10 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages =
-      [
-        nixPackage
-        pkgs.nix-info
-      ]
-      ++ optional (config.programs.bash.enableCompletion) pkgs.nix-bash-completions
-    ;
+    environment.systemPackages = [
+      nixPackage
+      pkgs.nix-info
+    ] ++ optional (config.programs.bash.enableCompletion) pkgs.nix-bash-completions;
 
     environment.etc."nix/nix.conf".source = nixConf;
 
@@ -909,14 +905,11 @@ in
     systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
 
     systemd.services.nix-daemon = {
-      path =
-        [
-          nixPackage
-          pkgs.util-linux
-          config.programs.ssh.package
-        ]
-        ++ optionals cfg.distributedBuilds [ pkgs.gzip ]
-      ;
+      path = [
+        nixPackage
+        pkgs.util-linux
+        config.programs.ssh.package
+      ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ];
 
       environment =
         cfg.envVars

@@ -52,35 +52,29 @@ buildPythonPackage rec {
     hash = "sha256-BFiGMPiO9Xcl8EiTZYiwHCpo7z+tRaBkIb8GTo01rBA=";
   };
 
-  propagatedBuildInputs =
-    [
-      arrow
-      nest-asyncio
-      qiskit-terra
-      requests
-      requests_ntlm
-      websocket-client
-      websockets
-    ]
-    ++ lib.optionals withVisualization visualizationPackages
-  ;
+  propagatedBuildInputs = [
+    arrow
+    nest-asyncio
+    qiskit-terra
+    requests
+    requests_ntlm
+    websocket-client
+    websockets
+  ] ++ lib.optionals withVisualization visualizationPackages;
 
   postPatch = ''
     substituteInPlace setup.py --replace "websocket-client>=1.0.1" "websocket-client"
   '';
 
   # Most tests require credentials to run on IBMQ
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      nbconvert
-      nbformat
-      pproxy
-      qiskit-aer
-      vcrpy
-    ]
-    ++ lib.optionals (!withVisualization) visualizationPackages
-  ;
+  nativeCheckInputs = [
+    pytestCheckHook
+    nbconvert
+    nbformat
+    pproxy
+    qiskit-aer
+    vcrpy
+  ] ++ lib.optionals (!withVisualization) visualizationPackages;
 
   pythonImportsCheck = [ "qiskit.providers.ibmq" ];
   disabledTests = [

@@ -26,26 +26,20 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs =
-    [
-      djvulibre
-      qtbase
-      xorg.libXt
-      libtiff
-    ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL
-  ;
+  buildInputs = [
+    djvulibre
+    qtbase
+    xorg.libXt
+    libtiff
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.AGL;
 
-  configureFlags =
-    [
-      "--disable-silent-rules"
-      "--disable-dependency-tracking"
-      "--with-x"
-      "--with-tiff"
-      # NOTE: 2019-09-19: experimental "--enable-npdjvu" fails
-    ]
-    ++ lib.optional stdenv.isDarwin "--enable-mac"
-  ;
+  configureFlags = [
+    "--disable-silent-rules"
+    "--disable-dependency-tracking"
+    "--with-x"
+    "--with-tiff"
+    # NOTE: 2019-09-19: experimental "--enable-npdjvu" fails
+  ] ++ lib.optional stdenv.isDarwin "--enable-mac";
 
   passthru = {
     mozillaPlugin = "/lib/mozilla/plugins";

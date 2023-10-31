@@ -76,13 +76,10 @@ stdenv.mkDerivation {
     version
   ;
 
-  nativeBuildInputs =
-    [
-      autoPatchelfHook
-      makeWrapper
-    ]
-    ++ lib.optional cudaSupport addOpenGLRunpath
-  ;
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
   buildInputs =
     [

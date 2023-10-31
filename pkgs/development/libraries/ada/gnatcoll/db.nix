@@ -83,8 +83,9 @@ stdenv.mkDerivation rec {
   # and other libraries to link against when static linking is used.
   # For executables this is of course not relevant and we can reduce
   # the closure size dramatically
-  ${if onlyExecutable then "buildInputs" else "propagatedBuildInputs"} =
-    [ gnatcoll-core ] ++ libsFor."${component}" or [ ];
+  ${if onlyExecutable then "buildInputs" else "propagatedBuildInputs"} = [
+    gnatcoll-core
+  ] ++ libsFor."${component}" or [ ];
 
   makeFlags =
     [
@@ -95,12 +96,11 @@ stdenv.mkDerivation rec {
       "TARGET=${stdenv.hostPlatform.config}"
       "prefix=${placeholder "out"}"
     ]
-    ++
-      lib.optionals (component == "sqlite")
-        [
-          # link against packaged, not vendored libsqlite3
-          "GNATCOLL_SQLITE=external"
-        ]
+    ++ lib.optionals (component == "sqlite")
+      [
+        # link against packaged, not vendored libsqlite3
+        "GNATCOLL_SQLITE=external"
+      ]
   ;
 
   meta = with lib; {

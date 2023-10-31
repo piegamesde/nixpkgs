@@ -48,17 +48,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      fftw
-      perl
-      hwloc
-      blas
-      lapack
-    ]
-    ++ lib.optional enableMpi mpi
-    ++ lib.optional enableCuda cudatoolkit
-  ;
+  buildInputs = [
+    fftw
+    perl
+    hwloc
+    blas
+    lapack
+  ] ++ lib.optional enableMpi mpi ++ lib.optional enableCuda cudatoolkit;
 
   propagatedBuildInputs = lib.optional enableMpi mpi;
   propagatedUserEnvPkgs = lib.optional enableMpi mpi;

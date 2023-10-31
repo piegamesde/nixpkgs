@@ -122,12 +122,11 @@ stdenv.mkDerivation rec {
       perl
       xz.bin
     ]
-    ++
-      optionals stdenv.hostPlatform.isCygwin
-        [
-          # due to patch
-          texinfo
-        ]
+    ++ optionals stdenv.hostPlatform.isCygwin
+      [
+        # due to patch
+        texinfo
+      ]
   ;
 
   buildInputs =

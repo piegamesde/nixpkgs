@@ -28,19 +28,16 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
   ];
-  buildInputs =
-    [
-      bzip2
-      glib
-      gperf
-      gtk3
-      judy
-      tcl
-      tk
-      xz
-    ]
-    ++ lib.optional stdenv.isDarwin gtk-mac-integration
-  ;
+  buildInputs = [
+    bzip2
+    glib
+    gperf
+    gtk3
+    judy
+    tcl
+    tk
+    xz
+  ] ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
   # fix compilation under Darwin
   # remove these patches upon next release

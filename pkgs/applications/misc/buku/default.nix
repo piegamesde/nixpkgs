@@ -46,16 +46,13 @@ buildPythonApplication rec {
     pyyaml
   ];
 
-  propagatedBuildInputs =
-    [
-      cryptography
-      beautifulsoup4
-      certifi
-      urllib3
-      html5lib
-    ]
-    ++ lib.optionals withServer serverRequire
-  ;
+  propagatedBuildInputs = [
+    cryptography
+    beautifulsoup4
+    certifi
+    urllib3
+    html5lib
+  ] ++ lib.optionals withServer serverRequire;
 
   preCheck =
     ''

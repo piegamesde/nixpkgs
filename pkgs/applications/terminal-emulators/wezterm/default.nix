@@ -57,15 +57,12 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs =
-    [
-      installShellFiles
-      ncurses # tic for terminfo
-      pkg-config
-      python3
-    ]
-    ++ lib.optional stdenv.isDarwin perl
-  ;
+  nativeBuildInputs = [
+    installShellFiles
+    ncurses # tic for terminfo
+    pkg-config
+    python3
+  ] ++ lib.optional stdenv.isDarwin perl;
 
   buildInputs =
     [

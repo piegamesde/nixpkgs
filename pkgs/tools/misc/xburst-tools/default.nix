@@ -51,14 +51,11 @@ stdenv.mkDerivation {
     automake
     pkg-config
   ];
-  buildInputs =
-    [
-      libusb-compat-0_1
-      libusb1
-      libconfuse
-    ]
-    ++ lib.optional (gccCross != null) gccCross
-  ;
+  buildInputs = [
+    libusb-compat-0_1
+    libusb1
+    libconfuse
+  ] ++ lib.optional (gccCross != null) gccCross;
 
   meta = {
     broken = stdenv.isDarwin;

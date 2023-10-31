@@ -42,14 +42,11 @@ buildPythonApplication rec {
     psutil
   ];
 
-  buildInputs =
-    [
-      librsvg
-      pango
-      webkitgtk
-    ]
-    ++ lib.optionals withIndicator [ libappindicator-gtk3 ]
-  ;
+  buildInputs = [
+    librsvg
+    pango
+    webkitgtk
+  ] ++ lib.optionals withIndicator [ libappindicator-gtk3 ];
 
   postInstall = ''
     # Setting icons

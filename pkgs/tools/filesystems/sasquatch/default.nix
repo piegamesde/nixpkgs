@@ -34,15 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "qYGz8/IFS1ouZYhRo8BqJGCtBKmopkXgr+Bjpj/bsH4=";
   };
 
-  buildInputs =
-    [
-      xz
-      lzo
-      zlib
-      zstd
-    ]
-    ++ lib.optionals lz4Support [ lz4 ]
-  ;
+  buildInputs = [
+    xz
+    lzo
+    zlib
+    zstd
+  ] ++ lib.optionals lz4Support [ lz4 ];
 
   patches = [ patch ];
   patchFlags = [ "-p0" ];
@@ -62,15 +59,12 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "INSTALL_DIR=\${out}/bin" ];
 
-  makeFlags =
-    [
-      "XZ_SUPPORT=1"
-      "CC=${stdenv.cc.targetPrefix}cc"
-      "CXX=${stdenv.cc.targetPrefix}c++"
-      "AR=${stdenv.cc.targetPrefix}ar"
-    ]
-    ++ lib.optional lz4Support "LZ4_SUPPORT=1"
-  ;
+  makeFlags = [
+    "XZ_SUPPORT=1"
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
+    "AR=${stdenv.cc.targetPrefix}ar"
+  ] ++ lib.optional lz4Support "LZ4_SUPPORT=1";
 
   meta = with lib; {
     homepage = "https://github.com/devttys0/sasquatch";

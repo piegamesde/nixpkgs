@@ -24,13 +24,10 @@ buildPythonPackage rec {
     hash = "sha256-DyFRCQGjyv75YVBPN+1xWjKQtPUv29xblYu2TehkkVo=";
   };
 
-  propagatedBuildInputs =
-    [
-      requests
-      pyjwt
-    ]
-    ++ pyjwt.optional-dependencies.crypto
-  ;
+  propagatedBuildInputs = [
+    requests
+    pyjwt
+  ] ++ pyjwt.optional-dependencies.crypto;
 
   nativeCheckInputs = [
     aiohttp

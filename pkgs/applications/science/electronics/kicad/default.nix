@@ -151,7 +151,9 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+    [ makeWrapper ]
+    ++ optionals (withScripting) [ python.pkgs.wrapPython ]
+  ;
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs =

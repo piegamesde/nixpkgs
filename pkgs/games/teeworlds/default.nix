@@ -50,13 +50,10 @@ stdenv.mkDerivation rec {
       --replace ${"'"}''${PROJECT_VERSION}' '${version}'
   '';
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals stdenv.isLinux [ icoutils ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals stdenv.isLinux [ icoutils ];
 
   buildInputs =
     [

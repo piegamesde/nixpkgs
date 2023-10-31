@@ -92,16 +92,13 @@ stdenv.mkDerivation rec {
     "-lswscale"
   ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      gettext
-      makeWrapper
-      pkg-config
-      python3
-    ]
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    gettext
+    makeWrapper
+    pkg-config
+    python3
+  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs =
     [

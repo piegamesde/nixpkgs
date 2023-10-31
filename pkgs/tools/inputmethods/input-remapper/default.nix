@@ -108,17 +108,14 @@ in
     )
   '';
 
-  nativeBuildInputs =
-    [
-      wrapGAppsHook
-      gettext # needed to build translations
-      gtk3
-      glib
-      gobject-introspection
-      pygobject3
-    ]
-    ++ maybeXmodmap
-  ;
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gettext # needed to build translations
+    gtk3
+    glib
+    gobject-introspection
+    pygobject3
+  ] ++ maybeXmodmap;
 
   propagatedBuildInputs = [
     setuptools # needs pkg_resources

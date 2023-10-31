@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
   ];
 
   CPPFLAGS =
-    [ "-Dunix" ] ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";
+    [ "-Dunix" ]
+    ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT"
+  ;
   CXXFLAGS = [
     "-O3"
     "-DNDEBUG"

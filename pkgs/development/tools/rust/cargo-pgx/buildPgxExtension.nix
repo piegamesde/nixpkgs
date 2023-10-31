@@ -115,7 +115,8 @@ let
   # we forgot parentheses
   finalArgs = argsForBuildRustPackage // {
     buildInputs =
-      (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
+      (args.buildInputs or [ ])
+      ++ lib.optionals stdenv.isDarwin [ Security ];
 
     nativeBuildInputs =
       (args.nativeBuildInputs or [ ])
@@ -174,8 +175,9 @@ let
     RUST_BACKTRACE = "full";
 
     checkNoDefaultFeatures = true;
-    checkFeatures =
-      (args.checkFeatures or [ ]) ++ [ "pg_test pg${pgxPostgresMajor}" ];
+    checkFeatures = (args.checkFeatures or [ ]) ++ [
+      "pg_test pg${pgxPostgresMajor}"
+    ];
   };
 in
 rustPlatform.buildRustPackage finalArgs

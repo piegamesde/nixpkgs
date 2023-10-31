@@ -77,35 +77,32 @@ stdenv.mkDerivation rec {
     echo 'int main() { return 77; }' > unit/test-mesh-crypto.c
   '';
 
-  configureFlags =
-    [
-      "--localstatedir=/var"
-      "--enable-library"
-      "--enable-cups"
-      "--enable-pie"
-      "--enable-external-ell"
-      "--with-dbusconfdir=${placeholder "out"}/share"
-      "--with-dbussystembusdir=${placeholder "out"}/share/dbus-1/system-services"
-      "--with-dbussessionbusdir=${placeholder "out"}/share/dbus-1/services"
-      "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
-      "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
-      "--with-udevdir=${placeholder "out"}/lib/udev"
-      "--enable-health"
-      "--enable-mesh"
-      "--enable-midi"
-      "--enable-nfc"
-      "--enable-sap"
-      "--enable-sixaxis"
-      "--enable-btpclient"
-      "--enable-hid2hci"
-      "--enable-logger"
+  configureFlags = [
+    "--localstatedir=/var"
+    "--enable-library"
+    "--enable-cups"
+    "--enable-pie"
+    "--enable-external-ell"
+    "--with-dbusconfdir=${placeholder "out"}/share"
+    "--with-dbussystembusdir=${placeholder "out"}/share/dbus-1/system-services"
+    "--with-dbussessionbusdir=${placeholder "out"}/share/dbus-1/services"
+    "--with-systemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
+    "--with-systemduserunitdir=${placeholder "out"}/etc/systemd/user"
+    "--with-udevdir=${placeholder "out"}/lib/udev"
+    "--enable-health"
+    "--enable-mesh"
+    "--enable-midi"
+    "--enable-nfc"
+    "--enable-sap"
+    "--enable-sixaxis"
+    "--enable-btpclient"
+    "--enable-hid2hci"
+    "--enable-logger"
 
-      # To provide ciptool, sdptool, and rfcomm (unmaintained)
-      # superseded by new D-Bus APIs
-      "--enable-deprecated"
-    ]
-    ++ lib.optional withExperimental "--enable-experimental"
-  ;
+    # To provide ciptool, sdptool, and rfcomm (unmaintained)
+    # superseded by new D-Bus APIs
+    "--enable-deprecated"
+  ] ++ lib.optional withExperimental "--enable-experimental";
 
   # Work around `make install' trying to create /var/lib/bluetooth.
   installFlags = [ "statedir=$(TMPDIR)/var/lib/bluetooth" ];

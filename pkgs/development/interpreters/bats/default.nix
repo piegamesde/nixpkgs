@@ -187,15 +187,12 @@ resholve.mkDerivation rec {
     old: {
       name = "${bats.name}-tests";
       dontInstall = true; # just need the build directory
-      nativeInstallCheckInputs =
-        [
-          ncurses
-          parallel # skips some tests if it can't detect
-          flock # skips some tests if it can't detect
-          procps
-        ]
-        ++ lib.optionals stdenv.isDarwin [ lsof ]
-      ;
+      nativeInstallCheckInputs = [
+        ncurses
+        parallel # skips some tests if it can't detect
+        flock # skips some tests if it can't detect
+        procps
+      ] ++ lib.optionals stdenv.isDarwin [ lsof ];
       inherit doInstallCheck;
       installCheckPhase =
         ''

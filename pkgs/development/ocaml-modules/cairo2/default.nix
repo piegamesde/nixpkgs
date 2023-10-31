@@ -23,13 +23,10 @@ buildDunePackage rec {
   useDune2 = true;
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      cairo
-      dune-configurator
-    ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-  ;
+  buildInputs = [
+    cairo
+    dune-configurator
+  ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
   doCheck =
     !(

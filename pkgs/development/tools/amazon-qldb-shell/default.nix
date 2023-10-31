@@ -28,7 +28,9 @@ let
       cmake
     ];
     buildInputs =
-      [ llvmPackages.libclang ] ++ lib.optional stdenv.isDarwin Security;
+      [ llvmPackages.libclang ]
+      ++ lib.optional stdenv.isDarwin Security
+    ;
 
     cargoLock = {
       lockFile = ./Cargo.lock;

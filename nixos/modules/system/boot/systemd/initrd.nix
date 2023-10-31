@@ -26,63 +26,60 @@ let
   cfg = config.boot.initrd.systemd;
 
   # Copied from fedora
-  upstreamUnits =
-    [
-      "basic.target"
-      "ctrl-alt-del.target"
-      "emergency.service"
-      "emergency.target"
-      "final.target"
-      "halt.target"
-      "initrd-cleanup.service"
-      "initrd-fs.target"
-      "initrd-parse-etc.service"
-      "initrd-root-device.target"
-      "initrd-root-fs.target"
-      "initrd-switch-root.service"
-      "initrd-switch-root.target"
-      "initrd.target"
-      "kexec.target"
-      "kmod-static-nodes.service"
-      "local-fs-pre.target"
-      "local-fs.target"
-      "multi-user.target"
-      "paths.target"
-      "poweroff.target"
-      "reboot.target"
-      "rescue.service"
-      "rescue.target"
-      "rpcbind.target"
-      "shutdown.target"
-      "sigpwr.target"
-      "slices.target"
-      "sockets.target"
-      "swap.target"
-      "sysinit.target"
-      "sys-kernel-config.mount"
-      "syslog.socket"
-      "systemd-ask-password-console.path"
-      "systemd-ask-password-console.service"
-      "systemd-fsck@.service"
-      "systemd-growfs@.service"
-      "systemd-halt.service"
-      "systemd-hibernate-resume@.service"
-      "systemd-journald-audit.socket"
-      "systemd-journald-dev-log.socket"
-      "systemd-journald.service"
-      "systemd-journald.socket"
-      "systemd-kexec.service"
-      "systemd-modules-load.service"
-      "systemd-poweroff.service"
-      "systemd-reboot.service"
-      "systemd-sysctl.service"
-      "systemd-tmpfiles-setup-dev.service"
-      "systemd-tmpfiles-setup.service"
-      "timers.target"
-      "umount.target"
-    ]
-    ++ cfg.additionalUpstreamUnits
-  ;
+  upstreamUnits = [
+    "basic.target"
+    "ctrl-alt-del.target"
+    "emergency.service"
+    "emergency.target"
+    "final.target"
+    "halt.target"
+    "initrd-cleanup.service"
+    "initrd-fs.target"
+    "initrd-parse-etc.service"
+    "initrd-root-device.target"
+    "initrd-root-fs.target"
+    "initrd-switch-root.service"
+    "initrd-switch-root.target"
+    "initrd.target"
+    "kexec.target"
+    "kmod-static-nodes.service"
+    "local-fs-pre.target"
+    "local-fs.target"
+    "multi-user.target"
+    "paths.target"
+    "poweroff.target"
+    "reboot.target"
+    "rescue.service"
+    "rescue.target"
+    "rpcbind.target"
+    "shutdown.target"
+    "sigpwr.target"
+    "slices.target"
+    "sockets.target"
+    "swap.target"
+    "sysinit.target"
+    "sys-kernel-config.mount"
+    "syslog.socket"
+    "systemd-ask-password-console.path"
+    "systemd-ask-password-console.service"
+    "systemd-fsck@.service"
+    "systemd-growfs@.service"
+    "systemd-halt.service"
+    "systemd-hibernate-resume@.service"
+    "systemd-journald-audit.socket"
+    "systemd-journald-dev-log.socket"
+    "systemd-journald.service"
+    "systemd-journald.socket"
+    "systemd-kexec.service"
+    "systemd-modules-load.service"
+    "systemd-poweroff.service"
+    "systemd-reboot.service"
+    "systemd-sysctl.service"
+    "systemd-tmpfiles-setup-dev.service"
+    "systemd-tmpfiles-setup.service"
+    "timers.target"
+    "umount.target"
+  ] ++ cfg.additionalUpstreamUnits;
 
   upstreamWants = [ "sysinit.target.wants" ];
 
@@ -145,13 +142,12 @@ let
           symlink = "";
         })
         (subtractLists cfg.suppressedStorePaths cfg.storePaths)
-      ++
-        mapAttrsToList
-          (_: v: {
-            object = v.source;
-            symlink = v.target;
-          })
-          (filterAttrs (_: v: v.enable) cfg.contents)
+      ++ mapAttrsToList
+        (_: v: {
+          object = v.source;
+          symlink = v.target;
+        })
+        (filterAttrs (_: v: v.enable) cfg.contents)
     ;
   };
 in
@@ -414,15 +410,12 @@ in
     ;
 
     boot.initrd.systemd = {
-      initrdBin =
-        [
-          pkgs.bash
-          pkgs.coreutils
-          cfg.package.kmod
-          cfg.package
-        ]
-        ++ config.system.fsPackages
-      ;
+      initrdBin = [
+        pkgs.bash
+        pkgs.coreutils
+        cfg.package.kmod
+        cfg.package
+      ] ++ config.system.fsPackages;
       extraBin = {
         less = "${pkgs.less}/bin/less";
         mount = "${cfg.package.util-linux}/bin/mount";

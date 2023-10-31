@@ -74,14 +74,11 @@ stdenv.mkDerivation rec {
 
   preConfigure = "./boot.sh";
 
-  configureFlags =
-    [
-      "--localstatedir=/var"
-      "--sharedstatedir=/var"
-      "--sbindir=$(out)/bin"
-    ]
-    ++ (lib.optionals (_kernel != null) [ "--with-linux" ])
-  ;
+  configureFlags = [
+    "--localstatedir=/var"
+    "--sharedstatedir=/var"
+    "--sbindir=$(out)/bin"
+  ] ++ (lib.optionals (_kernel != null) [ "--with-linux" ]);
 
   # Leave /var out of this!
   installFlags = [

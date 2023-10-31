@@ -761,14 +761,11 @@ in
           "discourse-postgresql.service"
         ]
       ;
-      path =
-        cfg.package.runtimeDeps
-        ++ [
-          postgresqlPackage
-          pkgs.replace-secret
-          cfg.package.rake
-        ]
-      ;
+      path = cfg.package.runtimeDeps ++ [
+        postgresqlPackage
+        pkgs.replace-secret
+        cfg.package.rake
+      ];
       environment = cfg.package.runtimeEnv // {
         UNICORN_TIMEOUT = builtins.toString cfg.unicornTimeout;
         UNICORN_SIDEKIQS = builtins.toString cfg.sidekiqProcesses;

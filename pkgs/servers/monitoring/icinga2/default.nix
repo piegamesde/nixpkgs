@@ -82,14 +82,11 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  buildInputs =
-    [
-      boost
-      openssl
-      systemd
-    ]
-    ++ lib.optional withPostgresql postgresql
-  ;
+  buildInputs = [
+    boost
+    openssl
+    systemd
+  ] ++ lib.optional withPostgresql postgresql;
 
   nativeBuildInputs = [
     cmake

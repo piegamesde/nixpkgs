@@ -660,8 +660,7 @@ stdenv.mkDerivation {
       # These typically end up in shebangs.
       pythonForBuild
       buildPackages.bash
-    ]
-  ;
+    ];
 
   separateDebugInfo = true;
 

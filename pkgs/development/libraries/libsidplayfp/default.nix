@@ -59,14 +59,11 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" ] ++ lib.optionals docSupport [ "doc" ];
 
-  configureFlags =
-    [
-      "--enable-hardsid"
-      "--with-gcrypt"
-      "--with-exsid"
-    ]
-    ++ lib.optional doCheck "--enable-tests"
-  ;
+  configureFlags = [
+    "--enable-hardsid"
+    "--with-gcrypt"
+    "--with-exsid"
+  ] ++ lib.optional doCheck "--enable-tests";
 
   postInstall = lib.optionalString docSupport ''
     mkdir -p $doc/share/doc/libsidplayfp

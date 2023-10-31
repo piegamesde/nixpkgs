@@ -25,13 +25,10 @@ stdenv.mkDerivation rec {
   pname = "libsoup";
   version = "3.4.1";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional withIntrospection "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -57,16 +54,13 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      sqlite
-      libpsl
-      glib.out
-      brotli
-      libnghttp2
-    ]
-    ++ lib.optionals stdenv.isLinux [ libsysprof-capture ]
-  ;
+  buildInputs = [
+    sqlite
+    libpsl
+    glib.out
+    brotli
+    libnghttp2
+  ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
 
   propagatedBuildInputs = [ glib ];
 

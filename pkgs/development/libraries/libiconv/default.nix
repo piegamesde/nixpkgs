@@ -41,13 +41,10 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  configureFlags =
-    [
-      (lib.enableFeature enableStatic "static")
-      (lib.enableFeature enableShared "shared")
-    ]
-    ++ lib.optional stdenv.isFreeBSD "--with-pic"
-  ;
+  configureFlags = [
+    (lib.enableFeature enableStatic "static")
+    (lib.enableFeature enableShared "shared")
+  ] ++ lib.optional stdenv.isFreeBSD "--with-pic";
 
   meta = {
     description = "An iconv(3) implementation";

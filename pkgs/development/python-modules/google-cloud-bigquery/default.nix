@@ -39,20 +39,17 @@ buildPythonPackage rec {
     hash = "sha256-SwLe8Hbi24zsZvZftifROQSp/Dz0/uMV7eQ9y3A4qN8=";
   };
 
-  propagatedBuildInputs =
-    [
-      grpcio
-      google-api-core
-      google-cloud-core
-      google-cloud-bigquery-storage
-      google-resumable-media
-      proto-plus
-      protobuf
-      requests
-      python-dateutil
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    grpcio
+    google-api-core
+    google-cloud-core
+    google-cloud-bigquery-storage
+    google-resumable-media
+    proto-plus
+    protobuf
+    requests
+    python-dateutil
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
     bqstorage = [

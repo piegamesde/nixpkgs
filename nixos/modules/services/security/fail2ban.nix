@@ -359,14 +359,11 @@ in
         pathsConf
       ];
 
-      path =
-        [
-          cfg.package
-          cfg.packageFirewall
-          pkgs.iproute2
-        ]
-        ++ cfg.extraPackages
-      ;
+      path = [
+        cfg.package
+        cfg.packageFirewall
+        pkgs.iproute2
+      ] ++ cfg.extraPackages;
 
       serviceConfig = {
         # Capabilities

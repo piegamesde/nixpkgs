@@ -92,7 +92,9 @@ rec {
     };
 
     nativeBuildInputs =
-      [ makeWrapper ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+      [ makeWrapper ]
+      ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook
+    ;
     buildInputs =
       [ bash ]
       ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib

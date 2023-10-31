@@ -242,18 +242,15 @@ let
 
           enableParallelBuilding = true;
 
-          nativeBuildInputs =
-            [
-              autoconf
-              automake
-              bison
-              flex
-              libtool
-              pkg-config
-              re2c
-            ]
-            ++ lib.optional stdenv.isDarwin xcbuild
-          ;
+          nativeBuildInputs = [
+            autoconf
+            automake
+            bison
+            flex
+            libtool
+            pkg-config
+            re2c
+          ] ++ lib.optional stdenv.isDarwin xcbuild;
 
           buildInputs =
             # PCRE extension

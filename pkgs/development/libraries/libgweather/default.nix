@@ -24,13 +24,10 @@ stdenv.mkDerivation rec {
   pname = "libgweather";
   version = "4.2.0";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional withIntrospection "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

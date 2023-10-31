@@ -64,19 +64,16 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     ./autogen.sh --prefix="$out"
   '';
-  configureFlags =
-    [
-      "--exec-prefix=${placeholder "out"}"
-      "--sysconfdir=/etc"
-      "--localstatedir=/var"
-      "--with-initdir=/etc/systemd/system"
-      "--with-systemdsystemunitdir=/etc/systemd/system"
-      "--with-corosync"
-      # allows Type=notify in the systemd service
-      "--enable-systemd"
-    ]
-    ++ lib.optional (!forOCF) "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf"
-  ;
+  configureFlags = [
+    "--exec-prefix=${placeholder "out"}"
+    "--sysconfdir=/etc"
+    "--localstatedir=/var"
+    "--with-initdir=/etc/systemd/system"
+    "--with-systemdsystemunitdir=/etc/systemd/system"
+    "--with-corosync"
+    # allows Type=notify in the systemd service
+    "--enable-systemd"
+  ] ++ lib.optional (!forOCF) "--with-ocfdir=${ocf-resource-agents}/usr/lib/ocf";
 
   installFlags = [ "DESTDIR=${placeholder "out"}" ];
 

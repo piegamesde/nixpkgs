@@ -68,15 +68,12 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  cmakeFlags =
-    [
-      "-DHAS_TERRA_VERSION=0"
-      "-DTERRA_VERSION=${version}"
-      "-DTERRA_LUA=luajit"
-      "-DCLANG_RESOURCE_DIR=${llvmMerged}/lib/clang/${clangVersion}"
-    ]
-    ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON"
-  ;
+  cmakeFlags = [
+    "-DHAS_TERRA_VERSION=0"
+    "-DTERRA_VERSION=${version}"
+    "-DTERRA_LUA=luajit"
+    "-DCLANG_RESOURCE_DIR=${llvmMerged}/lib/clang/${clangVersion}"
+  ] ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON";
 
   doCheck = true;
   hardeningDisable = [ "fortify" ];

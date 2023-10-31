@@ -40,7 +40,8 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optional enableNLS libnatspec ++ lib.optional stdenv.isCygwin libiconv;
+    lib.optional enableNLS libnatspec
+    ++ lib.optional stdenv.isCygwin libiconv;
 
   meta = with lib; {
     description = "Compressor/archiver for creating and modifying zipfiles";

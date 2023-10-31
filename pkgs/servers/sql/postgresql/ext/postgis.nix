@@ -29,25 +29,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-miohnaAFoXMKOdGVmhx87GGbHvsAm2W+gP/CW60pkGg=";
   };
 
-  buildInputs =
-    [
-      libxml2
-      postgresql
-      geos
-      proj
-      gdal
-      json_c
-      protobufc
-    ]
-    ++ lib.optional stdenv.isDarwin libiconv
-  ;
-  nativeBuildInputs =
-    [
-      perl
-      pkg-config
-    ]
-    ++ lib.optional postgresql.jitSupport postgresql.llvm
-  ;
+  buildInputs = [
+    libxml2
+    postgresql
+    geos
+    proj
+    gdal
+    json_c
+    protobufc
+  ] ++ lib.optional stdenv.isDarwin libiconv;
+  nativeBuildInputs = [
+    perl
+    pkg-config
+  ] ++ lib.optional postgresql.jitSupport postgresql.llvm;
   dontDisableStatic = true;
 
   # postgis config directory assumes /include /lib from the same root for json-c library

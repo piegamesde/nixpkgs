@@ -41,17 +41,14 @@ let
     ${cfg.extraConfig}
   '';
 
-  chronyFlags =
-    [
-      "-n"
-      "-m"
-      "-u"
-      "chrony"
-      "-f"
-      "${configFile}"
-    ]
-    ++ cfg.extraFlags
-  ;
+  chronyFlags = [
+    "-n"
+    "-m"
+    "-u"
+    "chrony"
+    "-f"
+    "${configFile}"
+  ] ++ cfg.extraFlags;
 in
 {
   options = {

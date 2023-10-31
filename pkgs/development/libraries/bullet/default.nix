@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       OpenGL
-    ]
-  ;
+    ];
 
   postPatch =
     ''

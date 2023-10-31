@@ -26,16 +26,13 @@ stdenv.mkDerivation rec {
     pkg-config
     scons
   ];
-  buildInputs =
-    [
-      apr
-      openssl
-      aprutil
-      zlib
-      libiconv
-    ]
-    ++ lib.optional (!stdenv.isCygwin) libkrb5
-  ;
+  buildInputs = [
+    apr
+    openssl
+    aprutil
+    zlib
+    libiconv
+  ] ++ lib.optional (!stdenv.isCygwin) libkrb5;
 
   patches = [
     ./scons.patch

@@ -69,37 +69,34 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      spidermonkey_78_6
-      boost
-      icu
-      libxml2
-      libpng
-      libjpeg
-      zlib
-      curl
-      libogg
-      libvorbis
-      enet
-      miniupnpc
-      openal
-      libidn
-      libGLU
-      libGL
-      xorgproto
-      libX11
-      libXcursor
-      nspr
-      SDL2
-      gloox
-      nvidia-texture-tools
-      libsodium
-      fmt
-      freetype
-    ]
-    ++ lib.optional withEditor wxGTK
-  ;
+  buildInputs = [
+    spidermonkey_78_6
+    boost
+    icu
+    libxml2
+    libpng
+    libjpeg
+    zlib
+    curl
+    libogg
+    libvorbis
+    enet
+    miniupnpc
+    openal
+    libidn
+    libGLU
+    libGL
+    xorgproto
+    libX11
+    libXcursor
+    nspr
+    SDL2
+    gloox
+    nvidia-texture-tools
+    libsodium
+    fmt
+    freetype
+  ] ++ lib.optional withEditor wxGTK;
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${xorgproto}/include"

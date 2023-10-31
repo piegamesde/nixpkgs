@@ -39,24 +39,18 @@ in
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
         from = cfgPath ++ [ "host" ];
-        to =
-          cfgPath
-          ++ [
-            "settings"
-            "bind_host"
-          ]
-        ;
+        to = cfgPath ++ [
+          "settings"
+          "bind_host"
+        ];
       })
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
         from = cfgPath ++ [ "port" ];
-        to =
-          cfgPath
-          ++ [
-            "settings"
-            "bind_port"
-          ]
-        ;
+        to = cfgPath ++ [
+          "settings"
+          "bind_port"
+        ];
       })
     ]
   ;

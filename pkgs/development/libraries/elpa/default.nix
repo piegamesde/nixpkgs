@@ -59,15 +59,12 @@ stdenv.mkDerivation rec {
     openssh
   ];
 
-  buildInputs =
-    [
-      mpi
-      blas
-      lapack
-      scalapack
-    ]
-    ++ lib.optional enableCuda cudatoolkit
-  ;
+  buildInputs = [
+    mpi
+    blas
+    lapack
+    scalapack
+  ] ++ lib.optional enableCuda cudatoolkit;
 
   preConfigure = ''
     export FC="mpifort"

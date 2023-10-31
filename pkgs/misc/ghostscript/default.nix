@@ -85,14 +85,11 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      autoconf
-      zlib
-    ]
-    ++ lib.optional cupsSupport cups
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    autoconf
+    zlib
+  ] ++ lib.optional cupsSupport cups;
 
   buildInputs =
     [

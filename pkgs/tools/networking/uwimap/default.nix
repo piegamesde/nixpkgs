@@ -17,14 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0a2a00hbakh0640r2wdpnwr8789z59wnk7rfsihh3j0vbhmmmqak";
   };
 
-  makeFlags =
-    [
-      "CC=${stdenv.cc.targetPrefix}cc"
-      "RANLIB=${stdenv.cc.targetPrefix}ranlib"
-      (if stdenv.isDarwin then "osx" else "lnp") # Linux with PAM modules;
-    ]
-    ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"
-  ; # -fPIC is required to compile php with imap on x86_64 systems
+  makeFlags = [
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "RANLIB=${stdenv.cc.targetPrefix}ranlib"
+    (if stdenv.isDarwin then "osx" else "lnp") # Linux with PAM modules;
+  ] ++ lib.optional stdenv.isx86_64 "EXTRACFLAGS=-fPIC"; # -fPIC is required to compile php with imap on x86_64 systems
 
   hardeningDisable = [ "format" ];
 

@@ -206,16 +206,13 @@ stdenv.mkDerivation rec {
 
       mkWrappers = lib.concatMapStringsSep "\n";
 
-      toWrap =
-        [
-          "wfica"
-          "selfservice"
-          "util/configmgr"
-          "util/conncenter"
-          "util/ctx_rehash"
-        ]
-        ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old"
-      ;
+      toWrap = [
+        "wfica"
+        "selfservice"
+        "util/configmgr"
+        "util/conncenter"
+        "util/ctx_rehash"
+      ] ++ lib.optional (lib.versionOlder version "20.06") "selfservice_old";
     in
     ''
       runHook preInstall

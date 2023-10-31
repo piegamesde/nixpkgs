@@ -80,51 +80,47 @@ let
     escapeShellArg
   ;
 
-  deps =
-    [
-      alsa-lib
-      at-spi2-atk
-      at-spi2-core
-      atk
-      cairo
-      cups
-      dbus
-      expat
-      fontconfig
-      freetype
-      gdk-pixbuf
-      glib
-      gtk3
-      libdrm
-      libX11
-      libGL
-      libxkbcommon
-      libXScrnSaver
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libxshmfence
-      libXtst
-      libuuid
-      mesa
-      nspr
-      nss
-      pango
-      pipewire
-      udev
-      wayland
-      xorg.libxcb
-      zlib
-      snappy
-    ]
-    ++ optional pulseSupport libpulseaudio
-    ++ optional libvaSupport libva
-  ;
+  deps = [
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    atk
+    cairo
+    cups
+    dbus
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    libdrm
+    libX11
+    libGL
+    libxkbcommon
+    libXScrnSaver
+    libXcomposite
+    libXcursor
+    libXdamage
+    libXext
+    libXfixes
+    libXi
+    libXrandr
+    libXrender
+    libxshmfence
+    libXtst
+    libuuid
+    mesa
+    nspr
+    nss
+    pango
+    pipewire
+    udev
+    wayland
+    xorg.libxcb
+    zlib
+    snappy
+  ] ++ optional pulseSupport libpulseaudio ++ optional libvaSupport libva;
 
   rpath = makeLibraryPath deps + ":" + makeSearchPathOutput "lib" "lib64" deps;
   binpath = makeBinPath deps;
@@ -134,8 +130,7 @@ let
       "VaapiVideoDecoder"
       "VaapiVideoEncoder"
     ]
-    ++ optional enableVulkan "Vulkan"
-  ;
+    ++ optional enableVulkan "Vulkan";
 
   # The feature disable is needed for VAAPI to work correctly: https://github.com/brave/brave-browser/issues/20935
   disableFeatures =

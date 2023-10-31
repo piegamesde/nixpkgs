@@ -29,24 +29,21 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MEaj0mp7BRr3690lel8jv+sWDK1u2VIynN/x6fHtSWs=";
   };
 
-  buildInputs =
-    [
-      freeglut
-      glew
-      libX11
-      libXext
-      libGL
-      libGLU
-      mesa
-      wayland
-      wayland-protocols
-      vulkan-loader
-      libxkbcommon
-      libdecor
-      glslang
-    ]
-    ++ lib.optional (mesa ? osmesa) mesa.osmesa
-  ;
+  buildInputs = [
+    freeglut
+    glew
+    libX11
+    libXext
+    libGL
+    libGLU
+    mesa
+    wayland
+    wayland-protocols
+    vulkan-loader
+    libxkbcommon
+    libdecor
+    glslang
+  ] ++ lib.optional (mesa ? osmesa) mesa.osmesa;
   nativeBuildInputs = [
     meson
     ninja

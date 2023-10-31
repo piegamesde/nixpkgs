@@ -155,14 +155,11 @@ let
   staticUsrProfileTarget = buildEnv {
     name = "${name}-usr-target";
     paths = [ etcPkg ] ++ basePkgs ++ targetPaths;
-    extraOutputsToInstall =
-      [
-        "out"
-        "lib"
-        "bin"
-      ]
-      ++ extraOutputsToInstall
-    ;
+    extraOutputsToInstall = [
+      "out"
+      "lib"
+      "bin"
+    ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
     postBuild = ''
       if [[ -d  $out/share/gsettings-schemas/ ]]; then
@@ -198,13 +195,10 @@ let
   staticUsrProfileMulti = buildEnv {
     name = "${name}-usr-multi";
     paths = baseMultiPkgs ++ multiPaths;
-    extraOutputsToInstall =
-      [
-        "out"
-        "lib"
-      ]
-      ++ extraOutputsToInstall
-    ;
+    extraOutputsToInstall = [
+      "out"
+      "lib"
+    ] ++ extraOutputsToInstall;
     ignoreCollisions = true;
   };
 

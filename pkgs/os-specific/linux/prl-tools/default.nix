@@ -56,17 +56,14 @@ stdenv.mkDerivation rec {
     "format"
   ];
 
-  nativeBuildInputs =
-    [
-      autoPatchelfHook
-      bbe
-      makeWrapper
-      p7zip
-      perl
-      undmg
-    ]
-    ++ kernel.moduleBuildDependencies
-  ;
+  nativeBuildInputs = [
+    autoPatchelfHook
+    bbe
+    makeWrapper
+    p7zip
+    perl
+    undmg
+  ] ++ kernel.moduleBuildDependencies;
 
   buildInputs = [
     dbus-glib

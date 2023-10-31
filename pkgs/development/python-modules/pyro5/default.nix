@@ -25,17 +25,14 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Ignore network related tests, which fail in sandbox
-      "StartNSfunc"
-      "Broadcast"
-      "GetIP"
-      "TestNameServer"
-      "TestBCSetup"
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "Socket" ]
-  ;
+  disabledTests = [
+    # Ignore network related tests, which fail in sandbox
+    "StartNSfunc"
+    "Broadcast"
+    "GetIP"
+    "TestNameServer"
+    "TestBCSetup"
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "Socket" ];
 
   pythonImportsCheck = [ "Pyro5" ];
 

@@ -172,9 +172,8 @@ stdenv.mkDerivation rec {
       "-Dxml=ON"
       "-Dxrootd=OFF"
     ]
-    ++
-      lib.optional stdenv.isDarwin
-        "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
+    ++ lib.optional stdenv.isDarwin
+      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
   ;
 
   setupHook = ./setup-hook.sh;

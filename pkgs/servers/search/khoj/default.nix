@@ -49,8 +49,7 @@ python3.pkgs.buildPythonApplication rec {
 
   buildInputs =
     lib.optionals stdenv.isLinux [ qt6.qtwayland ]
-    ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ qt6.qtbase ];
 
   propagatedBuildInputs = with python3.pkgs; [
     dateparser

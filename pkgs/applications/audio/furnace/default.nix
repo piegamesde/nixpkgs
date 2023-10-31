@@ -32,13 +32,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lJtV/0GnWN5mSjv2LaPEMnkuThaNeijBMjLGFPOJX4k=";
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ];
 
   buildInputs =
     [

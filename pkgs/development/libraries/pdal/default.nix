@@ -38,24 +38,21 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      openscenegraph
-      curl
-      gdal
-      hdf5-cpp
-      LASzip
-      libgeotiff
-      libtiff
-      libxml2
-      postgresql
-      tiledb
-      xercesc
-      zlib
-      zstd
-    ]
-    ++ lib.optionals enableE57 [ libe57format ]
-  ;
+  buildInputs = [
+    openscenegraph
+    curl
+    gdal
+    hdf5-cpp
+    LASzip
+    libgeotiff
+    libtiff
+    libxml2
+    postgresql
+    tiledb
+    xercesc
+    zlib
+    zstd
+  ] ++ lib.optionals enableE57 [ libe57format ];
 
   cmakeFlags = [
     "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"

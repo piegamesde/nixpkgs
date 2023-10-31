@@ -49,14 +49,11 @@ in
     sha256 = "sha256-AvwnkYIA7WTY8MO4T+gblbWc1HrZnycJOa5JfBnydBk=";
   };
 
-  nativeBuildInputs =
-    [
-      makeWrapper
-      pkg-config
-      texinfo
-    ]
-    ++ lib.optional withQt qttools
-  ;
+  nativeBuildInputs = [
+    makeWrapper
+    pkg-config
+    texinfo
+  ] ++ lib.optional withQt qttools;
 
   buildInputs =
     [
@@ -91,14 +88,11 @@ in
     sed -i configure -e 's|''${QT5LOC}/lrelease|lrelease|'
   '';
 
-  configureFlags =
-    [
-      (if withX then "--with-x" else "--without-x")
-      (if withQt then "--with-qt=qt5" else "--without-qt")
-      (if aquaterm then "--with-aquaterm" else "--without-aquaterm")
-    ]
-    ++ lib.optional withCaca "--with-caca"
-  ;
+  configureFlags = [
+    (if withX then "--with-x" else "--without-x")
+    (if withQt then "--with-qt=qt5" else "--without-qt")
+    (if aquaterm then "--with-aquaterm" else "--without-aquaterm")
+  ] ++ lib.optional withCaca "--with-caca";
 
   CXXFLAGS = lib.optionalString (stdenv.isDarwin && withQt) "-std=c++11";
 

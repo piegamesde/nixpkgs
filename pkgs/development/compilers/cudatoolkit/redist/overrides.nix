@@ -10,14 +10,11 @@ in
 
   libcufile = prev.libcufile.overrideAttrs (
     oldAttrs: {
-      buildInputs =
-        oldAttrs.buildInputs
-        ++ [
-          prev.libcublas
-          pkgs.numactl
-          pkgs.rdma-core
-        ]
-      ;
+      buildInputs = oldAttrs.buildInputs ++ [
+        prev.libcublas
+        pkgs.numactl
+        pkgs.rdma-core
+      ];
       # libcuda needs to be resolved during runtime
       autoPatchelfIgnoreMissingDeps = true;
     }
@@ -109,28 +106,22 @@ in
 
   nsight_systems = prev.nsight_systems.overrideAttrs (
     oldAttrs: {
-      nativeBuildInputs =
-        oldAttrs.nativeBuildInputs
-        ++ [
-          pkgs.addOpenGLRunpath
-          pkgs.qt5.wrapQtAppsHook
-        ]
-      ;
-      buildInputs =
-        oldAttrs.buildInputs
-        ++ [
-          pkgs.alsa-lib
-          pkgs.e2fsprogs
-          pkgs.nss
-          pkgs.numactl
-          pkgs.pulseaudio
-          pkgs.wayland
-          pkgs.xorg.libXcursor
-          pkgs.xorg.libXdamage
-          pkgs.xorg.libXrandr
-          pkgs.xorg.libXtst
-        ]
-      ;
+      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+        pkgs.addOpenGLRunpath
+        pkgs.qt5.wrapQtAppsHook
+      ];
+      buildInputs = oldAttrs.buildInputs ++ [
+        pkgs.alsa-lib
+        pkgs.e2fsprogs
+        pkgs.nss
+        pkgs.numactl
+        pkgs.pulseaudio
+        pkgs.wayland
+        pkgs.xorg.libXcursor
+        pkgs.xorg.libXdamage
+        pkgs.xorg.libXrandr
+        pkgs.xorg.libXtst
+      ];
       # libcuda needs to be resolved during runtime
       autoPatchelfIgnoreMissingDeps = true;
     }

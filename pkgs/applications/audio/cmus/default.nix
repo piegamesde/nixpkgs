@@ -166,13 +166,10 @@ stdenv.mkDerivation rec {
 
   prefixKey = "prefix=";
 
-  configureFlags =
-    [
-      "CONFIG_WAV=y"
-      "HOSTCC=${stdenv.cc.targetPrefix}cc"
-    ]
-    ++ lib.concatMap (a: a.flags) opts
-  ;
+  configureFlags = [
+    "CONFIG_WAV=y"
+    "HOSTCC=${stdenv.cc.targetPrefix}cc"
+  ] ++ lib.concatMap (a: a.flags) opts;
 
   makeFlags = [ "LD=$(CC)" ];
 

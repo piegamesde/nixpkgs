@@ -140,14 +140,11 @@ let
       GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
       SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-      impureEnvVars =
-        lib.fetchers.proxyImpureEnvVars
-        ++ [
-          "GIT_PROXY_COMMAND"
-          "NIX_GIT_SSL_CAINFO"
-          "SOCKS_SERVER"
-        ]
-      ;
+      impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+        "GIT_PROXY_COMMAND"
+        "NIX_GIT_SSL_CAINFO"
+        "SOCKS_SERVER"
+      ];
 
       # Patching shebangs introduces input references to this fixed-output derivation.
       # This triggers a bug in Nix, causing the output path to change unexpectedly.

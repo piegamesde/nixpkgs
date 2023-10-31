@@ -37,13 +37,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  propagatedBuildInputs =
-    [
-      click
-      h11
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
-  ;
+  propagatedBuildInputs = [
+    click
+    h11
+  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   passthru.optional-dependencies.standard = [
     httptools

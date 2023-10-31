@@ -52,21 +52,18 @@ stdenv.mkDerivation {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      ffmpeg_4
-      frei0r
-      opencolorio
-      openimageio
-      imath
-      openexr_3
-      portaudio
-      qtwayland
-      qtmultimedia
-      qttools
-    ]
-    ++ lib.optional stdenv.isDarwin CoreFoundation
-  ;
+  buildInputs = [
+    ffmpeg_4
+    frei0r
+    opencolorio
+    openimageio
+    imath
+    openexr_3
+    portaudio
+    qtwayland
+    qtmultimedia
+    qttools
+  ] ++ lib.optional stdenv.isDarwin CoreFoundation;
 
   meta = with lib; {
     description = "Professional open-source NLE video editor";

@@ -24,16 +24,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      libbladeRF
-      libusb1
-      ncurses
-      rtl-sdr
-      hackrf
-    ]
-    ++ lib.optional stdenv.isLinux limesuite
-  ;
+  buildInputs = [
+    libbladeRF
+    libusb1
+    ncurses
+    rtl-sdr
+    hackrf
+  ] ++ lib.optional stdenv.isLinux limesuite;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.cc.isClang

@@ -159,8 +159,7 @@ stdenv.mkDerivation {
           "sys"
           "curses"
         ]
-        ++ lib.optionals (!isPy3k) [ "Tkinter" ]
-        ++ lib.optionals isPy3k [ "tkinter" ]
+        ++ lib.optionals (!isPy3k) [ "Tkinter" ] ++ lib.optionals isPy3k [ "tkinter" ]
       ;
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in

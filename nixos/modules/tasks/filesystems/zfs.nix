@@ -760,7 +760,9 @@ in
 
       system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
       environment.systemPackages =
-        [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
+        [ cfgZfs.package ]
+        ++ optional cfgSnapshots.enable autosnapPkg
+      ; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];

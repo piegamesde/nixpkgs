@@ -29,13 +29,10 @@ stdenv.mkDerivation rec {
   pname = "wireplumber";
   version = "0.4.14";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional enableDocs "doc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional enableDocs "doc";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";

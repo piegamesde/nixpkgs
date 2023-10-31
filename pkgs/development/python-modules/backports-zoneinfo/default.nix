@@ -53,7 +53,9 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs =
-    [ tzdata ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+    [ tzdata ]
+    ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ]
+  ;
 
   pythonImportsCheck = [ "backports.zoneinfo" ];
 

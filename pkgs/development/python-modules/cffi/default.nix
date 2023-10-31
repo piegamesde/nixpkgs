@@ -56,17 +56,16 @@ else
           hash = "sha256-+2daRTvxtyrCPimOEAmVbiVm1Bso9hxGbaAbd03E+ws=";
         })
       ]
-      ++
-        lib.optionals (pythonAtLeast "3.11")
-          [
-            # Fix test that failed because python seems to have changed the exception format in the
-            # final release. This patch should be included in the next version and can be removed when
-            # it is released.
-            (fetchpatch {
-              url = "https://foss.heptapod.net/pypy/cffi/-/commit/8a3c2c816d789639b49d3ae867213393ed7abdff.diff";
-              hash = "sha256-3wpZeBqN4D8IP+47QDGK7qh/9Z0Ag4lAe+H0R5xCb1E=";
-            })
-          ]
+      ++ lib.optionals (pythonAtLeast "3.11")
+        [
+          # Fix test that failed because python seems to have changed the exception format in the
+          # final release. This patch should be included in the next version and can be removed when
+          # it is released.
+          (fetchpatch {
+            url = "https://foss.heptapod.net/pypy/cffi/-/commit/8a3c2c816d789639b49d3ae867213393ed7abdff.diff";
+            hash = "sha256-3wpZeBqN4D8IP+47QDGK7qh/9Z0Ag4lAe+H0R5xCb1E=";
+          })
+        ]
     ;
 
     postPatch = lib.optionalString stdenv.isDarwin ''

@@ -28,13 +28,10 @@
 }:
 
 let
-  extraTools =
-    [
-      p7zip
-      lrzip
-    ]
-    ++ lib.optional unfreeEnableUnrar unrar
-  ;
+  extraTools = [
+    p7zip
+    lrzip
+  ] ++ lib.optional unfreeEnableUnrar unrar;
 in
 
 mkDerivation {
@@ -50,13 +47,10 @@ mkDerivation {
     kdoctools
   ];
 
-  buildInputs =
-    [
-      libarchive
-      libzip
-    ]
-    ++ extraTools
-  ;
+  buildInputs = [
+    libarchive
+    libzip
+  ] ++ extraTools;
 
   propagatedBuildInputs = [
     breeze-icons

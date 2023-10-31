@@ -19,13 +19,10 @@ stdenv.mkDerivation rec {
   pname = "gssdp";
   version = "1.4.1";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/gssdp/${

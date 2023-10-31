@@ -40,8 +40,7 @@ let
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       (configurationDarwin { inherit pkgs haskellLib; })
-    ]
-  ;
+    ];
 
   extensions = lib.composeManyExtensions (
     [

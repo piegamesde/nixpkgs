@@ -77,15 +77,12 @@ stdenv.mkDerivation rec {
     swig
   ];
 
-  buildInputs =
-    [
-      blas
-      boost
-      lapack
-      suitesparse
-    ]
-    ++ lib.optionals withMPI [ mpi ]
-  ;
+  buildInputs = [
+    blas
+    boost
+    lapack
+    suitesparse
+  ] ++ lib.optionals withMPI [ mpi ];
 
   preConfigure =
     if withMPI then

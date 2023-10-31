@@ -66,15 +66,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals pythonSupport [ python3 ];
 
-  propagatedBuildInputs =
-    [
-      glib
-      libassuan
-      libgpg-error
-      pth
-    ]
-    ++ lib.optionals (qtbase != null) [ qtbase ]
-  ;
+  propagatedBuildInputs = [
+    glib
+    libassuan
+    libgpg-error
+    pth
+  ] ++ lib.optionals (qtbase != null) [ qtbase ];
 
   nativeCheckInputs = [ which ];
 

@@ -20,7 +20,9 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ pycares ] ++ lib.optionals (pythonOlder "3.7") [ typing ];
+    [ pycares ]
+    ++ lib.optionals (pythonOlder "3.7") [ typing ]
+  ;
 
   # Could not contact DNS servers
   doCheck = false;

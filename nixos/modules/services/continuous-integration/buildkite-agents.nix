@@ -288,13 +288,10 @@ in
         description = "Buildkite Agent";
         wantedBy = [ "multi-user.target" ];
         after = [ "network.target" ];
-        path =
-          cfg.runtimePackages
-          ++ [
-            cfg.package
-            pkgs.coreutils
-          ]
-        ;
+        path = cfg.runtimePackages ++ [
+          cfg.package
+          pkgs.coreutils
+        ];
         environment = config.networking.proxy.envVars // {
           HOME = cfg.dataDir;
           NIX_REMOTE = "daemon";

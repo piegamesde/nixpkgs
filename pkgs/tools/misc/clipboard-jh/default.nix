@@ -31,15 +31,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libffi
-      wayland-protocols
-      wayland
-      xorg.libX11
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ]
-  ;
+  buildInputs = [
+    libffi
+    wayland-protocols
+    wayland
+    xorg.libX11
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE='MinSizeRel'"

@@ -101,12 +101,9 @@ rec {
                 NIX_CFLAGS_LINK = toString (finalAttrs.NIX_CFLAGS_LINK or "") + " -static";
               }
               // lib.optionalAttrs (!(finalAttrs.dontAddStaticConfigureFlags or false)) {
-                configureFlags =
-                  (finalAttrs.configureFlags or [ ])
-                  ++ [
-                    "--disable-shared" # brrr...
-                  ]
-                ;
+                configureFlags = (finalAttrs.configureFlags or [ ]) ++ [
+                  "--disable-shared" # brrr...
+                ];
               }
             )
         );
@@ -129,13 +126,10 @@ rec {
             dontDisableStatic = true;
           }
           // lib.optionalAttrs (!(args.dontAddStaticConfigureFlags or false)) {
-            configureFlags =
-              (args.configureFlags or [ ])
-              ++ [
-                "--enable-static"
-                "--disable-shared"
-              ]
-            ;
+            configureFlags = (args.configureFlags or [ ]) ++ [
+              "--enable-static"
+              "--disable-shared"
+            ];
             cmakeFlags = (args.cmakeFlags or [ ]) ++ [ "-DBUILD_SHARED_LIBS:BOOL=OFF" ];
             mesonFlags = (args.mesonFlags or [ ]) ++ [ "-Ddefault_library=static" ];
           }
@@ -158,20 +152,17 @@ rec {
               toString (args.NIX_CFLAGS_LINK or "")
               + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
             ;
-            nativeBuildInputs =
-              (args.nativeBuildInputs or [ ])
-              ++ [
-                (pkgs.buildPackages.makeSetupHook
-                  {
-                    name = "darwin-portable-libSystem-hook";
-                    substitutions = {
-                      libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
-                    };
-                  }
-                  ./darwin/portable-libsystem.sh
-                )
-              ]
-            ;
+            nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+              (pkgs.buildPackages.makeSetupHook
+                {
+                  name = "darwin-portable-libSystem-hook";
+                  substitutions = {
+                    libsystem = "${stdenv.cc.libc}/lib/libSystem.B.dylib";
+                  };
+                }
+                ./darwin/portable-libsystem.sh
+              )
+            ];
           }
         );
       }

@@ -29,15 +29,12 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [
-      arrow
-      logfury
-      requests
-      tqdm
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    arrow
+    logfury
+    requests
+    tqdm
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook

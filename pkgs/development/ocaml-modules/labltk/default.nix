@@ -87,13 +87,10 @@ stdenv.mkDerivation rec {
     findlib
     makeWrapper
   ];
-  buildInputs =
-    [
-      tcl
-      tk
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    tcl
+    tk
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   configureFlags = [
     "--use-findlib"

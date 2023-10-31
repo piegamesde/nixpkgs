@@ -27,18 +27,15 @@ buildPythonPackage rec {
     hash = "sha256-WH2n1TXKhYzu7XA2IFNV5abdPkTqSryW9OUNGr/YhDs=";
   };
 
-  propagatedBuildInputs =
-    [
-      google-api-core
-      grpc-google-iam-v1
-      grpcio
-      grpcio-status
-      libcst
-      proto-plus
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    google-api-core
+    grpc-google-iam-v1
+    grpcio
+    grpcio-status
+    libcst
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   passthru.optional-dependencies = {
     libcst = [ libcst ];

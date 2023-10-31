@@ -44,13 +44,10 @@ let
         description = "Ceph ${
             builtins.replaceStrings lowerChars upperChars daemonType
           } daemon ${daemonId}";
-        after =
-          [
-            "network-online.target"
-            "time-sync.target"
-          ]
-          ++ optional (daemonType == "osd") "ceph-mon.target"
-        ;
+        after = [
+          "network-online.target"
+          "time-sync.target"
+        ] ++ optional (daemonType == "osd") "ceph-mon.target";
         wants = [
           "network-online.target"
           "time-sync.target"

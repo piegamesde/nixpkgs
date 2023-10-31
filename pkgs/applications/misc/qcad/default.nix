@@ -51,18 +51,15 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs =
-    [
-      boost
-      libGLU
-      muparser
-      qtbase
-      qtscript
-      qtsvg
-      qtxmlpatterns
-    ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
-  ;
+  buildInputs = [
+    boost
+    libGLU
+    muparser
+    qtbase
+    qtscript
+    qtsvg
+    qtxmlpatterns
+  ] ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   qmakeFlags = [
     "MUPARSER_DIR=${muparser}"
@@ -76,8 +73,7 @@ mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isDarwin [
       "--prefix DYLD_LIBRARY_PATH : ${placeholder "out"}/lib"
-    ]
-  ;
+    ];
 
   installPhase =
     ''

@@ -24,13 +24,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      wxGTK32
-      SDL2
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+  buildInputs = [
+    wxGTK32
+    SDL2
+  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   meta = with lib; {
     description = "Audibilization and Visualization of Sorting Algorithms";

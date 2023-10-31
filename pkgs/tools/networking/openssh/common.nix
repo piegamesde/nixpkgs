@@ -36,20 +36,17 @@
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  patches =
-    [
-      ./locale_archive.patch
+  patches = [
+    ./locale_archive.patch
 
-      (fetchurl {
-        url = "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
-        sha256 = "sha256-eFFOd4B2nccRZAQWwdBPBoKWjfEdKEVGJvKZAzLu3HU=";
-      })
+    (fetchurl {
+      url = "https://git.alpinelinux.org/aports/plain/main/openssh/gss-serv.c.patch?id=a7509603971ce2f3282486a43bb773b1b522af83";
+      sha256 = "sha256-eFFOd4B2nccRZAQWwdBPBoKWjfEdKEVGJvKZAzLu3HU=";
+    })
 
-      # See discussion in https://github.com/NixOS/nixpkgs/pull/16966
-      ./dont_create_privsep_path.patch
-    ]
-    ++ extraPatches
-  ;
+    # See discussion in https://github.com/NixOS/nixpkgs/pull/16966
+    ./dont_create_privsep_path.patch
+  ] ++ extraPatches;
 
   postPatch =
     # On Hydra this makes installation fail (sometimes?),
@@ -106,8 +103,9 @@ stdenv.mkDerivation rec {
     ++ extraConfigureFlags
   ;
 
-  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} =
-    [ "-laudit" ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
+  ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} = [
+    "-laudit"
+  ] ++ lib.optionals withKerberos [ "-lkeyutils" ];
 
   buildFlags = [ "SSH_KEYSIGN=ssh-keysign" ];
 

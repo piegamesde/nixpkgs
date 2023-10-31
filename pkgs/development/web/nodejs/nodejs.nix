@@ -100,14 +100,11 @@ let
       ]
     ;
 
-    nativeBuildInputs =
-      [
-        which
-        pkg-config
-        python
-      ]
-      ++ lib.optionals stdenv.isDarwin [ xcbuild ]
-    ;
+    nativeBuildInputs = [
+      which
+      pkg-config
+      python
+    ] ++ lib.optionals stdenv.isDarwin [ xcbuild ];
 
     outputs = [
       "out"

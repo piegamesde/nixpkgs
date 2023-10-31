@@ -201,15 +201,13 @@ in
             ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
-            ]
-          ;
+            ];
           requires =
             optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
               "postgresql.service"
               "plausible-postgres.service"
-            ]
-          ;
+            ];
 
           environment =
             {

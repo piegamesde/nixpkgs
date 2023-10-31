@@ -41,14 +41,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      ncurses
-      jansson
-    ]
-    ++ lib.optional withGtk gtk3
-    ++ lib.optional stdenv.isLinux libcap
-  ;
+  buildInputs = [
+    ncurses
+    jansson
+  ] ++ lib.optional withGtk gtk3 ++ lib.optional stdenv.isLinux libcap;
 
   enableParallelBuilding = true;
 

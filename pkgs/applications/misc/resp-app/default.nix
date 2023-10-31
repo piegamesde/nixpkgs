@@ -51,20 +51,17 @@ mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs =
-    [
-      brotli
-      lz4
-      pyotherside
-      python3
-      qtbase
-      qtcharts
-      qttools
-      snappy
-      zstd
-    ]
-    ++ pythonPath
-  ;
+  buildInputs = [
+    brotli
+    lz4
+    pyotherside
+    python3
+    qtbase
+    qtcharts
+    qttools
+    snappy
+    zstd
+  ] ++ pythonPath;
 
   pythonPath = with python3Packages; [
     bitstring

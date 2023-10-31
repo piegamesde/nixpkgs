@@ -34,7 +34,9 @@ rustPlatform.buildRustPackage rec {
   checkFeatures = [ "std" ];
 
   nativeBuildInputs =
-    [ installShellFiles ] ++ lib.optional stdenv.isDarwin llvmPackages.libclang;
+    [ installShellFiles ]
+    ++ lib.optional stdenv.isDarwin llvmPackages.libclang
+  ;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     Libsystem

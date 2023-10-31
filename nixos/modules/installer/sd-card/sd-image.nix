@@ -217,16 +217,13 @@ in
           stdenv.mkDerivation {
             name = config.sdImage.imageName;
 
-            nativeBuildInputs =
-              [
-                dosfstools
-                e2fsprogs
-                libfaketime
-                mtools
-                util-linux
-              ]
-              ++ lib.optional config.sdImage.compressImage zstd
-            ;
+            nativeBuildInputs = [
+              dosfstools
+              e2fsprogs
+              libfaketime
+              mtools
+              util-linux
+            ] ++ lib.optional config.sdImage.compressImage zstd;
 
             inherit (config.sdImage) imageName compressImage;
 

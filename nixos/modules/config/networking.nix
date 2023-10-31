@@ -190,8 +190,7 @@ in
         hostnames = # Note: The FQDN (canonical hostname) has to come first:
           optional (cfg.hostName != "" && cfg.domain != null)
             "${cfg.hostName}.${cfg.domain}"
-          ++ optional (cfg.hostName != "") cfg.hostName
-        ; # Then the hostname (without the domain)
+          ++ optional (cfg.hostName != "") cfg.hostName; # Then the hostname (without the domain)
       in
       {
         "127.0.0.2" = hostnames;

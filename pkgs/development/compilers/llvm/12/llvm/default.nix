@@ -105,39 +105,35 @@ stdenv.mkDerivation (
       ]
     ;
 
-    buildInputs =
-      [
-        libxml2
-        libffi
-      ]
-      ++ optional enablePFM libpfm
-    ; # exegesis
+    buildInputs = [
+      libxml2
+      libffi
+    ] ++ optional enablePFM libpfm; # exegesis
 
     propagatedBuildInputs =
-      optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ] ++ [ zlib ];
-
-    patches =
-      [
-        # When cross-compiling we configure llvm-config-native with an approximation
-        # of the flags used for the normal LLVM build. To avoid the need for building
-        # a native libLLVM.so (which would fail) we force llvm-config to be linked
-        # statically against the necessary LLVM components always.
-        ../../llvm-config-link-static.patch
-        # Fix llvm being miscompiled by some gccs. See llvm/llvm-project#49955
-        # Fix llvm being miscompiled by some gccs. See https://github.com/llvm/llvm-project/issues/49955
-        ./fix-llvm-issue-49955.patch
-
-        ./gnu-install-dirs.patch
-        # On older CPUs (e.g. Hydra/wendy) we'd be getting an error in this test.
-        (fetchpatch {
-          name = "uops-CMOV16rm-noreg.diff";
-          url = "https://github.com/llvm/llvm-project/commit/9e9f991ac033.diff";
-          sha256 = "sha256:12s8vr6ibri8b48h2z38f3afhwam10arfiqfy4yg37bmc054p5hi";
-          stripLen = 1;
-        })
-      ]
-      ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch
+      optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ]
+      ++ [ zlib ]
     ;
+
+    patches = [
+      # When cross-compiling we configure llvm-config-native with an approximation
+      # of the flags used for the normal LLVM build. To avoid the need for building
+      # a native libLLVM.so (which would fail) we force llvm-config to be linked
+      # statically against the necessary LLVM components always.
+      ../../llvm-config-link-static.patch
+      # Fix llvm being miscompiled by some gccs. See llvm/llvm-project#49955
+      # Fix llvm being miscompiled by some gccs. See https://github.com/llvm/llvm-project/issues/49955
+      ./fix-llvm-issue-49955.patch
+
+      ./gnu-install-dirs.patch
+      # On older CPUs (e.g. Hydra/wendy) we'd be getting an error in this test.
+      (fetchpatch {
+        name = "uops-CMOV16rm-noreg.diff";
+        url = "https://github.com/llvm/llvm-project/commit/9e9f991ac033.diff";
+        sha256 = "sha256:12s8vr6ibri8b48h2z38f3afhwam10arfiqfy4yg37bmc054p5hi";
+        stripLen = 1;
+      })
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
 
     postPatch =
       optionalString stdenv.isDarwin ''
@@ -239,13 +235,10 @@ stdenv.mkDerivation (
         #
         # Some flags don't need to be repassed because LLVM already does so (like
         # CMAKE_BUILD_TYPE), others are irrelevant to the result.
-        flagsForLlvmConfig =
-          [
-            "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
-            "-DLLVM_ENABLE_RTTI=ON"
-          ]
-          ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ]
-        ;
+        flagsForLlvmConfig = [
+          "-DLLVM_INSTALL_CMAKE_DIR=${placeholder "dev"}/lib/cmake/llvm/"
+          "-DLLVM_ENABLE_RTTI=ON"
+        ] ++ optionals enableSharedLibraries [ "-DLLVM_LINK_LLVM_DYLIB=ON" ];
       in
       flagsForLlvmConfig
       ++ [

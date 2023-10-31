@@ -44,21 +44,18 @@ buildPythonPackage rec {
     pook = [ pook ];
   };
 
-  nativeCheckInputs =
-    [
-      aiohttp
-      asgiref
-      fastapi
-      gevent
-      httpx
-      pytest-mock
-      pytestCheckHook
-      redis
-      requests
-      sure
-    ]
-    ++ passthru.optional-dependencies.pook
-  ;
+  nativeCheckInputs = [
+    aiohttp
+    asgiref
+    fastapi
+    gevent
+    httpx
+    pytest-mock
+    pytestCheckHook
+    redis
+    requests
+    sure
+  ] ++ passthru.optional-dependencies.pook;
 
   # Skip http tests
   SKIP_TRUE_HTTP = true;

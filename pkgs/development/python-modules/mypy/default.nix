@@ -60,25 +60,19 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs =
-    [
-      mypy-extensions
-      setuptools
-      types-psutil
-      types-setuptools
-      types-typed-ast
-      typing-extensions
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+  nativeBuildInputs = [
+    mypy-extensions
+    setuptools
+    types-psutil
+    types-setuptools
+    types-typed-ast
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
-  propagatedBuildInputs =
-    [
-      mypy-extensions
-      typing-extensions
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+  propagatedBuildInputs = [
+    mypy-extensions
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies = {
     dmypy = [ psutil ];
@@ -102,28 +96,24 @@ buildPythonPackage rec {
       "mypyc"
       "mypyc.analysis"
     ]
-    ++
-      lib.optionals (!stdenv.hostPlatform.isi686)
-        [
-          # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
-          "mypy.report"
-        ]
+    ++ lib.optionals (!stdenv.hostPlatform.isi686)
+      [
+        # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
+        "mypy.report"
+      ]
   ;
 
-  checkInputs =
-    [
-      attrs
-      filelock
-      pytest-xdist
-      pytest-forked
-      pytestCheckHook
-      py
-      setuptools
-      six
-      tomli
-    ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+  checkInputs = [
+    attrs
+    filelock
+    pytest-xdist
+    pytest-forked
+    pytestCheckHook
+    py
+    setuptools
+    six
+    tomli
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   disabledTestPaths = [
     # fails to find tyoing_extensions

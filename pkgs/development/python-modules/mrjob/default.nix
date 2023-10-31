@@ -53,14 +53,11 @@ buildPythonPackage rec {
 
   doCheck = false; # failing tests
 
-  nativeCheckInputs =
-    [
-      pyspark
-      unittestCheckHook
-      warcio
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    pyspark
+    unittestCheckHook
+    warcio
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   unittestFlagsArray = [ "-v" ];
 

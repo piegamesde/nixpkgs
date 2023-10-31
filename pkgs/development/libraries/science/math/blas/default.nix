@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags =
-    [ "-DBUILD_SHARED_LIBS=ON" ] ++ lib.optional blas64 "-DBUILD_INDEX64=ON";
+    [ "-DBUILD_SHARED_LIBS=ON" ]
+    ++ lib.optional blas64 "-DBUILD_INDEX64=ON"
+  ;
 
   postInstall =
     let

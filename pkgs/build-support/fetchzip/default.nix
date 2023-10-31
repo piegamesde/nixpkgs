@@ -61,13 +61,10 @@ lib.warnIf (extraPostFetch != "")
         # Have to pull in glibcLocalesUtf8 for unzip in setup-hook.sh to handle
         # UTF-8 aware locale:
         #   https://github.com/NixOS/nixpkgs/issues/176225#issuecomment-1146617263
-        nativeBuildInputs =
-          [
-            unzip
-            glibcLocalesUtf8
-          ]
-          ++ nativeBuildInputs
-        ;
+        nativeBuildInputs = [
+          unzip
+          glibcLocalesUtf8
+        ] ++ nativeBuildInputs;
 
         postFetch =
           ''

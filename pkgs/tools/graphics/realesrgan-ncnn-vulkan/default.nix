@@ -45,16 +45,13 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs = [ cmake ];
-  buildInputs =
-    [
-      vulkan-headers
-      vulkan-loader
-      glslang
-      libwebp
-      ncnn
-    ]
-    ++ lib.optional (!stdenv.isDarwin) libgcc
-  ;
+  buildInputs = [
+    vulkan-headers
+    vulkan-loader
+    glslang
+    libwebp
+    ncnn
+  ] ++ lib.optional (!stdenv.isDarwin) libgcc;
 
   postPatch = ''
     substituteInPlace main.cpp --replace REPLACE_MODELS $out/share/models

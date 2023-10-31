@@ -30,8 +30,7 @@ buildGoModule rec {
 
   buildInputs =
     lib.optionals (hsmSupport && stdenv.isLinux) [ pcsclite ]
-    ++ lib.optionals (hsmSupport && stdenv.isDarwin) [ PCSC ]
-  ;
+    ++ lib.optionals (hsmSupport && stdenv.isDarwin) [ PCSC ];
 
   postPatch = ''
     substituteInPlace systemd/step-ca.service --replace "/bin/kill" "${coreutils}/bin/kill"

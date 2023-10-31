@@ -60,13 +60,10 @@ mkDerivation rec {
     "-DBUILD_PSIMEDIA=${if enablePsiMedia then "ON" else "OFF"}"
   ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      qttools
-    ]
-    ++ lib.optionals enablePsiMedia [ pkg-config ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    qttools
+  ] ++ lib.optionals enablePsiMedia [ pkg-config ];
 
   buildInputs =
     [

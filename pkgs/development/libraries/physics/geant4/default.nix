@@ -119,17 +119,13 @@ lib.warnIf (enableQT != false)
       ]
     ;
 
-    propagatedBuildInputs =
-      [
-        clhep
-        expat
-        xercesc
-        zlib
-        libGL
-      ]
-      ++ lib.optionals enableXM [ motif ]
-      ++ lib.optionals enableQt [ qtbase ]
-    ;
+    propagatedBuildInputs = [
+      clhep
+      expat
+      xercesc
+      zlib
+      libGL
+    ] ++ lib.optionals enableXM [ motif ] ++ lib.optionals enableQt [ qtbase ];
 
     postFixup =
       ''

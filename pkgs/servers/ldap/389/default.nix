@@ -53,18 +53,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-C7HFv6tTBXoi0a1yEQeGjcKjruvBrm/kiu5zgUUTse0=";
   };
 
-  nativeBuildInputs =
-    [
-      autoconf
-      automake
-      libtool
-      pkg-config
-      python3
-      rustPlatform.rust.cargo
-      rustPlatform.rust.rustc
-    ]
-    ++ lib.optional withCockpit rsync
-  ;
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+    pkg-config
+    python3
+    rustPlatform.rust.cargo
+    rustPlatform.rust.rustc
+  ] ++ lib.optional withCockpit rsync;
 
   buildInputs =
     [

@@ -28,8 +28,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description = "HTTP load testing application inspired by Ansible syntax";

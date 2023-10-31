@@ -37,7 +37,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    [ cmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+  ;
   buildInputs = lib.optional stdenv.hostPlatform.isUnix bash;
 
   patches =
@@ -110,14 +112,10 @@ stdenv.mkDerivation rec {
     )
   ;
 
-  outputs =
-    [
-      "bin"
-      "dev"
-    ]
-    ++ lib.optional stdenv.hostPlatform.isUnix "man"
-    ++ [ "out" ]
-  ;
+  outputs = [
+    "bin"
+    "dev"
+  ] ++ lib.optional stdenv.hostPlatform.isUnix "man" ++ [ "out" ];
 
   passthru = {
     updateScript = nix-update-script { };

@@ -256,7 +256,9 @@ in
         User = user;
         Group = group;
         EnvironmentFile =
-          [ configFile ] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
+          [ configFile ]
+          ++ optional (cfg.environmentFile != null) cfg.environmentFile
+        ;
         ExecStart = "${vaultwarden}/bin/vaultwarden";
         LimitNOFILE = "1048576";
         PrivateTmp = "true";

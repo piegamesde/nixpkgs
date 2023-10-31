@@ -35,15 +35,12 @@ stdenv.mkDerivation rec {
   # unaccelerated routines.
   cmakeFlags = [ "-DTILEDB_WERROR=0" ];
 
-  nativeBuildInputs =
-    [
-      clang-tools
-      cmake
-      python3
-      doxygen
-    ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+  nativeBuildInputs = [
+    clang-tools
+    cmake
+    python3
+    doxygen
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   nativeCheckInputs = [ gtest ];
 

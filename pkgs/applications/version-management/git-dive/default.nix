@@ -27,14 +27,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      libgit2_1_5
-      oniguruma
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-  ;
+  buildInputs = [
+    libgit2_1_5
+    oniguruma
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   nativeCheckInputs = [ git ];
 

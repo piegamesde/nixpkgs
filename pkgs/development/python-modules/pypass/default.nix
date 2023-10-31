@@ -49,14 +49,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ pbr ];
 
-  propagatedBuildInputs =
-    [
-      click
-      colorama
-      pexpect
-    ]
-    ++ lib.optional (pythonOlder "3.4") enum34
-  ;
+  propagatedBuildInputs = [
+    click
+    colorama
+    pexpect
+  ] ++ lib.optional (pythonOlder "3.4") enum34;
 
   nativeCheckInputs = [ nose ];
 

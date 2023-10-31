@@ -34,13 +34,10 @@ stdenv.mkDerivation rec {
     git
   ];
 
-  buildInputs =
-    [
-      lcms2
-      tinyxml
-    ]
-    ++ lib.optional stdenv.isDarwin boost
-  ;
+  buildInputs = [
+    lcms2
+    tinyxml
+  ] ++ lib.optional stdenv.isDarwin boost;
 
   postPatch = ''
     substituteInPlace src/core/CMakeLists.txt --replace "-Werror" ""

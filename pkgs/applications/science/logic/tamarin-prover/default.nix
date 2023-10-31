@@ -101,8 +101,9 @@ let
     // {
       postPatch = "cp --remove-destination ${src}/LICENSE .";
       doHaddock = false; # broken
-      libraryHaskellDepends =
-        (with haskellPackages; [ raw-strings-qq ]) ++ [ tamarin-prover-theory ];
+      libraryHaskellDepends = (with haskellPackages; [ raw-strings-qq ]) ++ [
+        tamarin-prover-theory
+      ];
     }
   );
 in

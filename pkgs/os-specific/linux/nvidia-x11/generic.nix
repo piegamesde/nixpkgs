@@ -165,15 +165,12 @@ let
     libPath = libPathFor pkgs;
     libPath32 = optionalString i686bundled (libPathFor pkgsi686Linux);
 
-    nativeBuildInputs =
-      [
-        perl
-        nukeReferences
-        which
-        libarchive
-      ]
-      ++ optionals (!libsOnly) kernel.moduleBuildDependencies
-    ;
+    nativeBuildInputs = [
+      perl
+      nukeReferences
+      which
+      libarchive
+    ] ++ optionals (!libsOnly) kernel.moduleBuildDependencies;
 
     disallowedReferences = optionals (!libsOnly) [ kernel.dev ];
 

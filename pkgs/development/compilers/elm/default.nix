@@ -314,13 +314,10 @@ lib.makeScope pkgs.newScope (
 
       elm-spa = nodePkgs."elm-spa".overrideAttrs (
         old: {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              makeWrapper
-              old.nodejs.pkgs.node-gyp-build
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            makeWrapper
+            old.nodejs.pkgs.node-gyp-build
+          ];
 
           meta =
             with lib;
@@ -350,13 +347,10 @@ lib.makeScope pkgs.newScope (
 
       elm-pages = nodePkgs."elm-pages".overrideAttrs (
         old: {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              makeWrapper
-              old.nodejs.pkgs.node-gyp-build
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            makeWrapper
+            old.nodejs.pkgs.node-gyp-build
+          ];
 
           # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
           # need to patch in one of the build phases instead.
@@ -398,8 +392,9 @@ lib.makeScope pkgs.newScope (
 
       elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (
         old: {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ];
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            old.nodejs.pkgs.node-gyp-build
+          ];
         }
       );
 

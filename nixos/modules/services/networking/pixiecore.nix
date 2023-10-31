@@ -161,7 +161,9 @@ in
         User = "pixiecore";
         Restart = "always";
         AmbientCapabilities =
-          [ "cap_net_bind_service" ] ++ optional cfg.dhcpNoBind "cap_net_raw";
+          [ "cap_net_bind_service" ]
+          ++ optional cfg.dhcpNoBind "cap_net_raw"
+        ;
         ExecStart =
           let
             argString =

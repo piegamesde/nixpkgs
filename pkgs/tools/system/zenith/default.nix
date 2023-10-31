@@ -36,9 +36,13 @@ rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs =
-    [ llvmPackages.clang ] ++ lib.optional nvidiaSupport makeWrapper;
+    [ llvmPackages.clang ]
+    ++ lib.optional nvidiaSupport makeWrapper
+  ;
   buildInputs =
-    [ llvmPackages.libclang ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
+    [ llvmPackages.libclang ]
+    ++ lib.optionals stdenv.isDarwin [ IOKit ]
+  ;
 
   buildFeatures = lib.optional nvidiaSupport "nvidia";
 

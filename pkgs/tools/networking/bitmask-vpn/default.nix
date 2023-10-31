@@ -97,20 +97,17 @@ buildGoModule rec {
     ''
   ;
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      python3Packages.wrapPython
-      qmake
-      qtquickcontrols
-      qtquickcontrols2
-      qttools
-      which
-      wrapQtAppsHook
-    ]
-    ++ lib.optional (!stdenv.isLinux) qtinstaller
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.wrapPython
+    qmake
+    qtquickcontrols
+    qtquickcontrols2
+    qttools
+    which
+    wrapQtAppsHook
+  ] ++ lib.optional (!stdenv.isLinux) qtinstaller;
 
   buildInputs =
     [

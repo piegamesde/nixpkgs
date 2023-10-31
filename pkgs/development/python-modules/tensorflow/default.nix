@@ -130,13 +130,12 @@ let
         cudatoolkit.lib
         cudatoolkit.out
       ]
-      ++
-        lib.optionals (lib.versionOlder cudatoolkit.version "11")
-          [
-            # for some reason some of the required libs are in the targets/x86_64-linux
-            # directory; not sure why but this works around it
-            "${cudatoolkit}/targets/${stdenv.system}"
-          ]
+      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11")
+        [
+          # for some reason some of the required libs are in the targets/x86_64-linux
+          # directory; not sure why but this works around it
+          "${cudatoolkit}/targets/${stdenv.system}"
+        ]
     ;
   };
 
@@ -257,13 +256,10 @@ let
     if stdenv.isDarwin then
       _bazel-build.overrideAttrs (
         prev: {
-          bazelFlags =
-            prev.bazelFlags
-            ++ [
-              "--override_repository=rules_cc=${rules_cc_darwin_patched}"
-              "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
-            ]
-          ;
+          bazelFlags = prev.bazelFlags ++ [
+            "--override_repository=rules_cc=${rules_cc_darwin_patched}"
+            "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
+          ];
           preBuild = ''
             export AR="${cctools}/bin/libtool"
           '';
@@ -287,16 +283,13 @@ let
     # On update, it can be useful to steal the changes from gentoo
     # https://gitweb.gentoo.org/repo/gentoo.git/tree/sci-libs/tensorflow
 
-    nativeBuildInputs =
-      [
-        which
-        pythonEnv
-        cython
-        perl
-        protobuf-core
-      ]
-      ++ lib.optional cudaSupport addOpenGLRunpath
-    ;
+    nativeBuildInputs = [
+      which
+      pythonEnv
+      cython
+      perl
+      protobuf-core
+    ] ++ lib.optional cudaSupport addOpenGLRunpath;
 
     buildInputs =
       [
@@ -610,28 +603,25 @@ buildPythonPackage {
   setupPyGlobalFlags = [ "--project_name ${pname}" ];
 
   # tensorflow/tools/pip_package/setup.py
-  propagatedBuildInputs =
-    [
-      absl-py
-      astunparse
-      flatbuffers-python
-      gast
-      google-pasta
-      grpcio
-      h5py
-      keras-preprocessing
-      numpy
-      opt-einsum
-      packaging
-      protobuf-python
-      six
-      tensorflow-estimator-bin
-      termcolor
-      typing-extensions
-      wrapt
-    ]
-    ++ lib.optionals withTensorboard [ tensorboard ]
-  ;
+  propagatedBuildInputs = [
+    absl-py
+    astunparse
+    flatbuffers-python
+    gast
+    google-pasta
+    grpcio
+    h5py
+    keras-preprocessing
+    numpy
+    opt-einsum
+    packaging
+    protobuf-python
+    six
+    tensorflow-estimator-bin
+    termcolor
+    typing-extensions
+    wrapt
+  ] ++ lib.optionals withTensorboard [ tensorboard ];
 
   nativeBuildInputs = lib.optionals cudaSupport [ addOpenGLRunpath ];
 

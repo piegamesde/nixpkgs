@@ -55,19 +55,16 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [
-      asdf-standard
-      asdf-transform-schemas
-      jmespath
-      jsonschema
-      numpy
-      packaging
-      pyyaml
-      semantic-version
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ]
-  ;
+  propagatedBuildInputs = [
+    asdf-standard
+    asdf-transform-schemas
+    jmespath
+    jsonschema
+    numpy
+    packaging
+    pyyaml
+    semantic-version
+  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
 
   nativeCheckInputs = [
     astropy

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       AudioUnit
-    ]
-  ;
+    ];
 
   src = fetchurl {
     url = "https://audiofile.68k.org/audiofile-${version}.tar.gz";

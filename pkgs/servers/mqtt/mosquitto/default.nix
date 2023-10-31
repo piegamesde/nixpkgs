@@ -58,25 +58,19 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  buildInputs =
-    [
-      c-ares
-      cjson
-      libuuid
-      libuv
-      libwebsockets'
-      openssl
-    ]
-    ++ lib.optional withSystemd systemd
-  ;
+  buildInputs = [
+    c-ares
+    cjson
+    libuuid
+    libuv
+    libwebsockets'
+    openssl
+  ] ++ lib.optional withSystemd systemd;
 
-  cmakeFlags =
-    [
-      "-DWITH_THREADING=ON"
-      "-DWITH_WEBSOCKETS=ON"
-    ]
-    ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON"
-  ;
+  cmakeFlags = [
+    "-DWITH_THREADING=ON"
+    "-DWITH_WEBSOCKETS=ON"
+  ] ++ lib.optional withSystemd "-DWITH_SYSTEMD=ON";
 
   meta = with lib; {
     description = "An open source MQTT v3.1/3.1.1/5.0 broker";

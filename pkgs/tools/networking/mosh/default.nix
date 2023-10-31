@@ -34,17 +34,14 @@ stdenv.mkDerivation rec {
     protobuf
     perl
   ];
-  buildInputs =
-    [
-      protobuf
-      ncurses
-      zlib
-      openssl
-      bash-completion
-      perl
-    ]
-    ++ lib.optional withUtempter libutempter
-  ;
+  buildInputs = [
+    protobuf
+    ncurses
+    zlib
+    openssl
+    bash-completion
+    perl
+  ] ++ lib.optional withUtempter libutempter;
 
   strictDeps = true;
 
@@ -64,7 +61,9 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags =
-    [ "--enable-completion" ] ++ lib.optional withUtempter "--with-utempter";
+    [ "--enable-completion" ]
+    ++ lib.optional withUtempter "--with-utempter"
+  ;
 
   postInstall = ''
     wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB

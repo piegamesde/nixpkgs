@@ -50,16 +50,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs =
-    [
-      gtk2
-      SDL
-      jack2
-      audiofile
-      goocanvas
-    ]
-    ++ lib.optional stdenv.isLinux alsa-lib
-  ;
+  buildInputs = [
+    gtk2
+    SDL
+    jack2
+    audiofile
+    goocanvas
+  ] ++ lib.optional stdenv.isLinux alsa-lib;
 
   meta = with lib; {
     description = "A music tracking tool similar in design to the DOS program FastTracker and the Amiga legend ProTracker";

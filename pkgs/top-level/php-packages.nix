@@ -435,15 +435,12 @@ lib.makeScope pkgs.newScope (
                 openldap
                 cyrus_sasl
               ];
-              configureFlags =
-                [
-                  "--with-ldap"
-                  "LDAP_DIR=${openldap.dev}"
-                  "LDAP_INCDIR=${openldap.dev}/include"
-                  "LDAP_LIBDIR=${openldap.out}/lib"
-                ]
-                ++ lib.optionals stdenv.isLinux [ "--with-ldap-sasl=${cyrus_sasl.dev}" ]
-              ;
+              configureFlags = [
+                "--with-ldap"
+                "LDAP_DIR=${openldap.dev}"
+                "LDAP_INCDIR=${openldap.dev}/include"
+                "LDAP_LIBDIR=${openldap.out}/lib"
+              ] ++ lib.optionals stdenv.isLinux [ "--with-ldap-sasl=${cyrus_sasl.dev}" ];
               doCheck = false;
             }
             {

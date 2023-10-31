@@ -14,7 +14,8 @@ bundlerApp {
   exes = [ "ledger_web" ];
 
   buildInputs =
-    lib.optional withPostgresql postgresql ++ lib.optional withSqlite sqlite;
+    lib.optional withPostgresql postgresql
+    ++ lib.optional withSqlite sqlite;
 
   passthru.updateScript = bundlerUpdateScript "ledger-web";
 

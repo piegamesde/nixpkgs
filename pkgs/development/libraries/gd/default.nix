@@ -50,19 +50,16 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      zlib
-      fontconfig
-      freetype
-      libpng
-      libjpeg
-      libwebp
-      libtiff
-      libavif
-    ]
-    ++ lib.optional withXorg libXpm
-  ;
+  buildInputs = [
+    zlib
+    fontconfig
+    freetype
+    libpng
+    libjpeg
+    libwebp
+    libtiff
+    libavif
+  ] ++ lib.optional withXorg libXpm;
 
   outputs = [
     "bin"

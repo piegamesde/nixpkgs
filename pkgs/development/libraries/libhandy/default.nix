@@ -29,14 +29,11 @@ stdenv.mkDerivation rec {
   pname = "libhandy";
   version = "1.8.2";
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "devdoc"
-    ]
-    ++ lib.optionals enableGlade [ "glade" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ] ++ lib.optionals enableGlade [ "glade" ];
   outputBin = "dev";
 
   src = fetchurl {
@@ -62,13 +59,10 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      gdk-pixbuf
-      gtk3
-    ]
-    ++ lib.optionals enableGlade [ glade ]
-  ;
+  buildInputs = [
+    gdk-pixbuf
+    gtk3
+  ] ++ lib.optionals enableGlade [ glade ];
 
   nativeCheckInputs = [
     xvfb-run

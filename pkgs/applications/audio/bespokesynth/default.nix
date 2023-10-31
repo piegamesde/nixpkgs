@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
       WebKit
       CoreServices
       CoreAudioKit
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (
     toString

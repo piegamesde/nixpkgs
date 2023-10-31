@@ -41,8 +41,7 @@ let
       ++ lib.optionals stdenv.isLinux [
         aardvark-dns
         netavark
-      ]
-    ;
+      ];
   };
 in
 runCommand buildah-unwrapped.name

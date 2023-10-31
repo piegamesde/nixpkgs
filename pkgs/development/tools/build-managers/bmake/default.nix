@@ -89,7 +89,9 @@ stdenv.mkDerivation (
     doCheck = true;
 
     nativeCheckInputs =
-      [ tzdata ] ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ ksh ];
+      [ tzdata ]
+      ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ ksh ]
+    ;
 
     checkPhase = ''
       runHook preCheck

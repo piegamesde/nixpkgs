@@ -64,13 +64,10 @@ stdenv.mkDerivation rec {
     ''
   ;
 
-  nativeBuildInputs =
-    [
-      autoPatchelfHook
-      python3Packages.wrapPython
-    ]
-    ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ]
-  ;
+  nativeBuildInputs = [
+    autoPatchelfHook
+    python3Packages.wrapPython
+  ] ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ];
 
   buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
 

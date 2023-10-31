@@ -50,16 +50,13 @@ stdenv.mkDerivation rec {
     wrapGAppsHook4
   ];
 
-  buildInputs =
-    [
-      appstream-glib
-      desktop-file-utils
-      glib
-      gtk4
-      libadwaita
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ]
-  ;
+  buildInputs = [
+    appstream-glib
+    desktop-file-utils
+    glib
+    gtk4
+    libadwaita
+  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   postPatch = ''
     patchShebangs build-aux/meson_post_install.py

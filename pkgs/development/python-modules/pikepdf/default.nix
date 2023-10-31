@@ -79,15 +79,12 @@ buildPythonPackage rec {
     python-xmp-toolkit
   ];
 
-  propagatedBuildInputs =
-    [
-      deprecation
-      lxml
-      packaging
-      pillow
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    deprecation
+    lxml
+    packaging
+    pillow
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   pythonImportsCheck = [ "pikepdf" ];
 

@@ -33,13 +33,10 @@ stdenv.mkDerivation rec {
     sha512 = "275b8fab3cf2e6c59721682cae952db95da5bd3b1f20680240c6cf1029463693f6feca047fbef5e3a3e7528b40b7b2e87b2a56fd800b612e679a16f24890e5b6";
   };
 
-  buildInputs =
-    [
-      openssl
-      libxcrypt
-    ]
-    ++ optional (luaSupport) lua
-  ;
+  buildInputs = [
+    openssl
+    libxcrypt
+  ] ++ optional (luaSupport) lua;
   nativeBuildInputs = [
     bmake
     groff

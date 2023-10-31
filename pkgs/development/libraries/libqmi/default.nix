@@ -27,13 +27,10 @@ stdenv.mkDerivation rec {
   pname = "libqmi";
   version = "1.32.2";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional withIntrospection "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -73,16 +70,15 @@ stdenv.mkDerivation rec {
         [ mesonEmulatorHook ]
   ;
 
-  buildInputs =
-    [
-      bash-completion
-      libmbim
-    ]
-    ++ lib.optionals withIntrospection [ libgudev ]
-  ;
+  buildInputs = [
+    bash-completion
+    libmbim
+  ] ++ lib.optionals withIntrospection [ libgudev ];
 
   propagatedBuildInputs =
-    [ glib ] ++ lib.optionals withIntrospection [ libqrtr-glib ];
+    [ glib ]
+    ++ lib.optionals withIntrospection [ libqrtr-glib ]
+  ;
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

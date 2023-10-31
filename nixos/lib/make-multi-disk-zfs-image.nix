@@ -133,7 +133,8 @@ let
 
   closureInfo = pkgs.closureInfo {
     rootPaths =
-      [ config.system.build.toplevel ] ++ (lib.optional includeChannel channelSources)
+      [ config.system.build.toplevel ]
+      ++ (lib.optional includeChannel channelSources)
     ;
   };
 
@@ -321,16 +322,13 @@ let
 
   image =
     (pkgs.vmTools.override {
-      rootModules =
-        [
-          "zfs"
-          "9p"
-          "9pnet_virtio"
-          "virtio_pci"
-          "virtio_blk"
-        ]
-        ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos")
-      ;
+      rootModules = [
+        "zfs"
+        "9p"
+        "9pnet_virtio"
+        "virtio_pci"
+        "virtio_blk"
+      ] ++ (pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos");
       kernel = modulesTree;
     }).runInLinuxVM
       (

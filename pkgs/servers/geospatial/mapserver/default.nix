@@ -48,43 +48,37 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      cairo
-      curl
-      fcgi
-      freetype
-      fribidi
-      gdal
-      geos
-      giflib
-      harfbuzz
-      libjpeg
-      libpng
-      librsvg
-      libxml2
-      postgresql
-      proj
-      protobufc
-      zlib
-    ]
-    ++ lib.optional withPython python3
-  ;
+  buildInputs = [
+    cairo
+    curl
+    fcgi
+    freetype
+    fribidi
+    gdal
+    geos
+    giflib
+    harfbuzz
+    libjpeg
+    libpng
+    librsvg
+    libxml2
+    postgresql
+    proj
+    protobufc
+    zlib
+  ] ++ lib.optional withPython python3;
 
-  cmakeFlags =
-    [
-      "-DWITH_KML=ON"
-      "-DWITH_SOS=ON"
-      "-DWITH_RSVG=ON"
-      "-DWITH_CURL=ON"
-      "-DWITH_CLIENT_WMS=ON"
-      "-DWITH_CLIENT_WFS=ON"
+  cmakeFlags = [
+    "-DWITH_KML=ON"
+    "-DWITH_SOS=ON"
+    "-DWITH_RSVG=ON"
+    "-DWITH_CURL=ON"
+    "-DWITH_CLIENT_WMS=ON"
+    "-DWITH_CLIENT_WFS=ON"
 
-      # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
-      "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ]
-    ++ lib.optional withPython "-DWITH_PYTHON=ON"
-  ;
+    # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ] ++ lib.optional withPython "-DWITH_PYTHON=ON";
 
   meta = with lib; {
     description = "Platform for publishing spatial data and interactive mapping applications to the web";

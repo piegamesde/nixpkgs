@@ -136,21 +136,18 @@ python3.pkgs.buildPythonApplication {
 
   inherit cargoDeps;
 
-  nativeBuildInputs =
-    [
-      fakeGit
-      fixup_yarn_lock
-      offlineYarn
+  nativeBuildInputs = [
+    fakeGit
+    fixup_yarn_lock
+    offlineYarn
 
-      installShellFiles
-      rustPlatform.rust.cargo
-      rustPlatform.cargoSetupHook
-      ninja
-      qt6.wrapQtAppsHook
-      rsync
-    ]
-    ++ lib.optional stdenv.isDarwin swift
-  ;
+    installShellFiles
+    rustPlatform.rust.cargo
+    rustPlatform.cargoSetupHook
+    ninja
+    qt6.wrapQtAppsHook
+    rsync
+  ] ++ lib.optional stdenv.isDarwin swift;
   nativeCheckInputs = with python3.pkgs; [
     pytest
     mock

@@ -216,9 +216,8 @@ in
 
         CapabilityBoundingSet =
           [ "CAP_CHOWN" ]
-          ++
-            optional (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
-              "CAP_NET_BIND_SERVICE"
+          ++ optional (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
+            "CAP_NET_BIND_SERVICE"
         ;
         AmbientCapabilities = CapabilityBoundingSet;
         NoNewPrivileges = true;

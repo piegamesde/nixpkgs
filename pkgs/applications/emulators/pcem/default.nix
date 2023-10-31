@@ -30,16 +30,13 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapGAppsHook
   ];
-  buildInputs =
-    [
-      wxGTK32
-      coreutils
-      SDL2
-      openal
-      gtk3
-    ]
-    ++ lib.optional withALSA alsa-lib
-  ;
+  buildInputs = [
+    wxGTK32
+    coreutils
+    SDL2
+    openal
+    gtk3
+  ] ++ lib.optional withALSA alsa-lib;
 
   configureFlags =
     [ "--enable-release-build" ]

@@ -111,13 +111,10 @@ stdenvNoCC.mkDerivation rec {
 
   builder = ./make-initrd.sh;
 
-  nativeBuildInputs =
-    [
-      perl
-      libarchive
-    ]
-    ++ lib.optional makeUInitrd ubootTools
-  ;
+  nativeBuildInputs = [
+    perl
+    libarchive
+  ] ++ lib.optional makeUInitrd ubootTools;
 
   compress = "${_compressorExecutable} ${
       lib.escapeShellArgs _compressorArgsReal

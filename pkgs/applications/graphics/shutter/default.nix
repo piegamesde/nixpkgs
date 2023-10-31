@@ -76,18 +76,15 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ wrapGAppsHook ];
-  buildInputs =
-    [
-      perlPackages.perl
-      procps
-      gdk-pixbuf
-      librsvg
-      libwnck
-      libappindicator-gtk3
-      hicolor-icon-theme
-    ]
-    ++ perlModules
-  ;
+  buildInputs = [
+    perlPackages.perl
+    procps
+    gdk-pixbuf
+    librsvg
+    libwnck
+    libappindicator-gtk3
+    hicolor-icon-theme
+  ] ++ perlModules;
 
   makeFlags = [ "prefix=${placeholder "out"}" ];
 

@@ -48,7 +48,9 @@ stdenv.mkDerivation rec {
   ];
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    [ cmake ]
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+  ;
 
   buildInputs =
     [

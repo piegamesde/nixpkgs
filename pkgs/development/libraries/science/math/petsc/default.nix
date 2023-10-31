@@ -38,13 +38,10 @@ stdenv.mkDerivation rec {
     ++ lib.optional mpiSupport mpi
     ++ lib.optional (mpiSupport && mpi.pname == "openmpi") openssh
   ;
-  buildInputs =
-    [
-      blas
-      lapack
-    ]
-    ++ lib.optional withp4est p4est
-  ;
+  buildInputs = [
+    blas
+    lapack
+  ] ++ lib.optional withp4est p4est;
 
   prePatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace config/install.py \

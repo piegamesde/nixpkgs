@@ -363,7 +363,8 @@ in
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-moodle.service" ];
       after =
-        optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+        optional mysqlLocal "mysql.service"
+        ++ optional pgsqlLocal "postgresql.service";
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
         ${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/check_database_schema.php && rc=$? || rc=$?
@@ -405,7 +406,8 @@ in
     };
 
     systemd.services.httpd.after =
-      optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
+      optional mysqlLocal "mysql.service"
+      ++ optional pgsqlLocal "postgresql.service";
 
     users.users.${user} = {
       group = group;

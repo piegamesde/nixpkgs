@@ -96,18 +96,15 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  buildInputs =
-    [
-      bison
-      blas
-      flex
-      fftw
-      lapack
-      suitesparse
-      trilinos
-    ]
-    ++ lib.optionals withMPI [ mpi ]
-  ;
+  buildInputs = [
+    bison
+    blas
+    flex
+    fftw
+    lapack
+    suitesparse
+    trilinos
+  ] ++ lib.optionals withMPI [ mpi ];
 
   doCheck = enableTests;
 

@@ -45,26 +45,23 @@ stdenv.mkDerivation rec {
     intltool
     libxmlxx
   ];
-  buildInputs =
-    [
-      (if withGtk3 then keybinder3 else keybinder)
-      (if withGtk3 then gtk3 else gtk2)
-      libX11
-      (libfm.override { inherit withGtk3; })
-      (if withGtk3 then libwnck else libwnck2)
-      libXmu
-      libXpm
-      cairo
-      gdk-pixbuf
-      gdk-pixbuf-xlib.dev
-      menu-cache
-      lxmenu-data
-      m4
-      wirelesstools
-      curl
-    ]
-    ++ lib.optional supportAlsa alsa-lib
-  ;
+  buildInputs = [
+    (if withGtk3 then keybinder3 else keybinder)
+    (if withGtk3 then gtk3 else gtk2)
+    libX11
+    (libfm.override { inherit withGtk3; })
+    (if withGtk3 then libwnck else libwnck2)
+    libXmu
+    libXpm
+    cairo
+    gdk-pixbuf
+    gdk-pixbuf-xlib.dev
+    menu-cache
+    lxmenu-data
+    m4
+    wirelesstools
+    curl
+  ] ++ lib.optional supportAlsa alsa-lib;
 
   postPatch = ''
     substituteInPlace src/Makefile.in \

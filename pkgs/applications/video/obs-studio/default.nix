@@ -66,16 +66,13 @@ stdenv.mkDerivation rec {
     ./Provide-runtime-plugin-destination-as-relative-path.patch
   ];
 
-  nativeBuildInputs =
-    [
-      addOpenGLRunpath
-      cmake
-      pkg-config
-      wrapGAppsHook
-      wrapQtAppsHook
-    ]
-    ++ optional scriptingSupport swig
-  ;
+  nativeBuildInputs = [
+    addOpenGLRunpath
+    cmake
+    pkg-config
+    wrapGAppsHook
+    wrapQtAppsHook
+  ] ++ optional scriptingSupport swig;
 
   buildInputs =
     [

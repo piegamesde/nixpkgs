@@ -56,14 +56,11 @@ let
     miniupnpc # automatic port forwarding
   ];
 
-  serverDeps =
-    [
-      # optional:
-      libmicrohttpd # HTTP admin api
-      libsodium # ext-auth support
-    ]
-    ++ optional withSystemd systemd
-  ;
+  serverDeps = [
+    # optional:
+    libmicrohttpd # HTTP admin api
+    libsodium # ext-auth support
+  ] ++ optional withSystemd systemd;
 
   kisDeps = [ qtx11extras ];
 

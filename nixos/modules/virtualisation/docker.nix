@@ -185,7 +185,9 @@ in
         "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
       };
       environment.systemPackages =
-        [ cfg.package ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+        [ cfg.package ]
+        ++ optional cfg.enableNvidia pkgs.nvidia-docker
+      ;
       users.groups.docker.gid = config.ids.gids.docker;
       systemd.packages = [ cfg.package ];
 

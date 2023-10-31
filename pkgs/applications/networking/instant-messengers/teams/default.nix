@@ -71,13 +71,10 @@ let
 
     unpackCmd = "dpkg -x $curSrc .";
 
-    buildInputs =
-      atomEnv.packages
-      ++ [
-        libuuid
-        at-spi2-atk
-      ]
-    ;
+    buildInputs = atomEnv.packages ++ [
+      libuuid
+      at-spi2-atk
+    ];
 
     runtimeDependencies = [
       (lib.getLib systemd)

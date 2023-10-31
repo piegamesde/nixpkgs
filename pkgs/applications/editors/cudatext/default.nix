@@ -62,13 +62,10 @@ stdenv.mkDerivation rec {
       --replace "AllowProgramUpdates:= true;" "AllowProgramUpdates:= false;"
   '';
 
-  nativeBuildInputs =
-    [
-      lazarus
-      fpc
-    ]
-    ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    lazarus
+    fpc
+  ] ++ lib.optional (widgetset == "qt5") qt5.wrapQtAppsHook;
 
   buildInputs =
     [ libX11 ]

@@ -47,25 +47,22 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs =
-    [
-      android-backup
-      appdirs
-      attrs
-      click
-      construct
-      croniter
-      cryptography
-      defusedxml
-      micloud
-      netifaces
-      pytz
-      pyyaml
-      tqdm
-      zeroconf
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    android-backup
+    appdirs
+    attrs
+    click
+    construct
+    croniter
+    cryptography
+    defusedxml
+    micloud
+    netifaces
+    pytz
+    pyyaml
+    tqdm
+    zeroconf
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytest-asyncio

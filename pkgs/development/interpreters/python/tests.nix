@@ -162,10 +162,9 @@ let
         let
           pkgs_ = pkgs.extend (
             final: prev: {
-              pythonPackagesExtensions =
-                prev.pythonPackagesExtensions
-                ++ [ (python-final: python-prev: { foo = python-prev.setuptools; }) ]
-              ;
+              pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+                (python-final: python-prev: { foo = python-prev.setuptools; })
+              ];
             }
           );
         in

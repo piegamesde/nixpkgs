@@ -12,14 +12,11 @@ stdenv.mkDerivation rec {
   pname = "fsverity-utils";
   version = "1.5";
 
-  outputs =
-    [
-      "out"
-      "lib"
-      "dev"
-    ]
-    ++ lib.optional enableManpages "man"
-  ;
+  outputs = [
+    "out"
+    "lib"
+    "dev"
+  ] ++ lib.optional enableManpages "man";
 
   src = fetchgit {
     url = "https://git.kernel.org/pub/scm/linux/kernel/git/ebiggers/fsverity-utils.git";
@@ -35,13 +32,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optional enableManpages pandoc;
   buildInputs = [ openssl ];
 
-  makeFlags =
-    [
-      "DESTDIR=$(out)"
-      "PREFIX="
-    ]
-    ++ lib.optional enableShared "USE_SHARED_LIB=1"
-  ;
+  makeFlags = [
+    "DESTDIR=$(out)"
+    "PREFIX="
+  ] ++ lib.optional enableShared "USE_SHARED_LIB=1";
 
   doCheck = true;
 

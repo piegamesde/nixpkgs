@@ -35,15 +35,12 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.watchmedo = [ pyyaml ];
 
-  nativeCheckInputs =
-    [
-      eventlet
-      flaky
-      pytest-timeout
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.watchmedo
-  ;
+  nativeCheckInputs = [
+    eventlet
+    flaky
+    pytest-timeout
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.watchmedo;
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -101,8 +98,7 @@ buildPythonPackage rec {
       "tests/test_emitter.py"
       # unsupported on x86_64-darwin
       "tests/test_fsevents.py"
-    ]
-  ;
+    ];
 
   pythonImportsCheck = [ "watchdog" ];
 

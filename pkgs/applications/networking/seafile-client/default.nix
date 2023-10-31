@@ -30,16 +30,13 @@ mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs =
-    [
-      qtbase
-      qttools
-      seafile-shared
-      jansson
-      libsearpc
-    ]
-    ++ lib.optional withShibboleth qtwebengine
-  ;
+  buildInputs = [
+    qtbase
+    qttools
+    seafile-shared
+    jansson
+    libsearpc
+  ] ++ lib.optional withShibboleth qtwebengine;
 
   cmakeFlags =
     [ "-DCMAKE_BUILD_TYPE=Release" ]

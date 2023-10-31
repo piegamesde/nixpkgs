@@ -42,30 +42,27 @@ stdenv.mkDerivation rec {
     sha256 = "FPXROiX7A6oB1VMipw3slyhk7q4fO6m9amohnC67lnA=";
   };
 
-  buildInputs =
-    [
-      SDL
-      ffmpeg_4
-      frei0r
-      libjack2
-      libdv
-      libsamplerate
-      libvorbis
-      libxml2.dev
-      movit
-      sox
-      libexif
-      gtk2
-      fftw
-      libebur128
-      opencv4
-      SDL2
-      jack2
-      ladspa-sdk
-      rubberband
-    ]
-    ++ lib.optional enablePython ncurses
-  ;
+  buildInputs = [
+    SDL
+    ffmpeg_4
+    frei0r
+    libjack2
+    libdv
+    libsamplerate
+    libvorbis
+    libxml2.dev
+    movit
+    sox
+    libexif
+    gtk2
+    fftw
+    libebur128
+    opencv4
+    SDL2
+    jack2
+    ladspa-sdk
+    rubberband
+  ] ++ lib.optional enablePython ncurses;
 
   nativeBuildInputs =
     [
@@ -83,15 +80,12 @@ stdenv.mkDerivation rec {
 
   # Mostly taken from:
   # http://www.kdenlive.org/user-manual/downloading-and-installing-kdenlive/installing-source/installing-mlt-rendering-engine
-  configureFlags =
-    [
-      "--avformat-swscale"
-      "--enable-gpl"
-      "--enable-gpl3"
-      "--enable-opengl"
-    ]
-    ++ lib.optional enablePython "--swig-languages=python"
-  ;
+  configureFlags = [
+    "--avformat-swscale"
+    "--enable-gpl"
+    "--enable-gpl3"
+    "--enable-opengl"
+  ] ++ lib.optional enablePython "--swig-languages=python";
 
   enableParallelBuilding = true;
   outPythonPath = lib.optionalString enablePython "$(toPythonPath $out)";

@@ -32,14 +32,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-zSAtQPgniI4hwhqiknP4zQAH6dhEmoAC1iF577ahnFU=";
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      help2man
-    ]
-    ++ lib.optional enableGui wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    help2man
+  ] ++ lib.optional enableGui wrapQtAppsHook;
 
   buildInputs =
     [

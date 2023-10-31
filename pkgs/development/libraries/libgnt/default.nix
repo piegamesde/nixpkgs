@@ -16,13 +16,10 @@ stdenv.mkDerivation rec {
   pname = "libgnt";
   version = "2.14.1";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional buildDocs "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional buildDocs "devdoc";
 
   src = fetchurl {
     url = "mirror://sourceforge/pidgin/${pname}-${version}.tar.xz";

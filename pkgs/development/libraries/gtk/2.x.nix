@@ -58,15 +58,12 @@ stdenv.mkDerivation (
       gtkCleanImmodulesCache
     ];
 
-    nativeBuildInputs =
-      finalAttrs.setupHooks
-      ++ [
-        perl
-        pkg-config
-        gettext
-        gobject-introspection
-      ]
-    ;
+    nativeBuildInputs = finalAttrs.setupHooks ++ [
+      perl
+      pkg-config
+      gettext
+      gobject-introspection
+    ];
 
     patches =
       [

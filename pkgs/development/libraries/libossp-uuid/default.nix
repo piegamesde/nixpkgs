@@ -14,7 +14,9 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags =
-    [ "ac_cv_va_copy=yes" ] ++ lib.optional stdenv.isFreeBSD "--with-pic";
+    [ "ac_cv_va_copy=yes" ]
+    ++ lib.optional stdenv.isFreeBSD "--with-pic"
+  ;
 
   patches = [ ./shtool.patch ];
 

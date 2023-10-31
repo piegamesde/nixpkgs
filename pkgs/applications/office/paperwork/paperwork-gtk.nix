@@ -91,16 +91,13 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = [ dbus ];
 
-  nativeBuildInputs =
-    [
-      wrapGAppsHook
-      gobject-introspection
-      (lib.getBin gettext)
-      which
-      gdk-pixbuf # for the setup hook
-    ]
-    ++ documentation_deps
-  ;
+  nativeBuildInputs = [
+    wrapGAppsHook
+    gobject-introspection
+    (lib.getBin gettext)
+    which
+    gdk-pixbuf # for the setup hook
+  ] ++ documentation_deps;
 
   buildInputs = [
     gnome.adwaita-icon-theme

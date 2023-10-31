@@ -29,17 +29,14 @@ buildPythonPackage rec {
     hash = "sha256-YiYzbVtu4YhfBXtl2+3oTEqcXk5K51oOjn84PBY+xIA=";
   };
 
-  propagatedBuildInputs =
-    [
-      oslo-config
-      oslo-context
-      oslo-serialization
-      oslo-utils
-      pbr
-      python-dateutil
-    ]
-    ++ lib.optionals stdenv.isLinux [ pyinotify ]
-  ;
+  propagatedBuildInputs = [
+    oslo-config
+    oslo-context
+    oslo-serialization
+    oslo-utils
+    pbr
+    python-dateutil
+  ] ++ lib.optionals stdenv.isLinux [ pyinotify ];
 
   nativeCheckInputs = [
     eventlet

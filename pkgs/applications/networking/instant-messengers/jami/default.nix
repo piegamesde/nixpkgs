@@ -100,8 +100,7 @@ stdenv.mkDerivation rec {
 
       configureFlags =
         (readLinesToList ./config/pjsip_args_common)
-        ++ lib.optionals stdenv.isLinux (readLinesToList ./config/pjsip_args_linux)
-      ;
+        ++ lib.optionals stdenv.isLinux (readLinesToList ./config/pjsip_args_linux);
     }
   );
 
@@ -168,32 +167,26 @@ stdenv.mkDerivation rec {
     qttools
   ];
 
-  buildInputs =
-    [
-      daemon
-      ffmpeg_5
-      libnotify
-      networkmanager
-      qtbase
-      qt5compat
-      qrencode
-      qtnetworkauth
-      qtdeclarative
-      qtmultimedia
-      qtpositioning
-      qtsvg
-      qtwebchannel
-    ]
-    ++ lib.optionals withWebengine [ qtwebengine ]
-  ;
+  buildInputs = [
+    daemon
+    ffmpeg_5
+    libnotify
+    networkmanager
+    qtbase
+    qt5compat
+    qrencode
+    qtnetworkauth
+    qtdeclarative
+    qtmultimedia
+    qtpositioning
+    qtsvg
+    qtwebchannel
+  ] ++ lib.optionals withWebengine [ qtwebengine ];
 
-  cmakeFlags =
-    [
-      "-DLIBJAMI_INCLUDE_DIR=${daemon}/include/jami"
-      "-DLIBJAMI_XML_INTERFACES_DIR=${daemon}/share/dbus-1/interfaces"
-    ]
-    ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ]
-  ;
+  cmakeFlags = [
+    "-DLIBJAMI_INCLUDE_DIR=${daemon}/include/jami"
+    "-DLIBJAMI_XML_INTERFACES_DIR=${daemon}/share/dbus-1/interfaces"
+  ] ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ];
 
   qtWrapperArgs =
     [

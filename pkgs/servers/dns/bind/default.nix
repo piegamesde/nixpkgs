@@ -104,7 +104,9 @@ stdenv.mkDerivation rec {
   doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux);
   checkTarget = "unit";
   checkInputs =
-    [ cmocka ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
+    [ cmocka ]
+    ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ]
+  ;
   preCheck = lib.optionalString stdenv.hostPlatform.isMusl ''
     # musl doesn't respect TZDIR, skip timezone-related tests
     sed -i '/^ISC_TEST_ENTRY(isc_time_formatISO8601L/d' tests/isc/time_test.c

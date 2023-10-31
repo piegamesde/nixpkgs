@@ -19,13 +19,10 @@ buildPythonPackage rec {
     sha256 = "sha256-tYbaJGH59qyvjp4kwo3ZFVs0EaE0Lsd2CQ6iraFkAdI=";
   };
 
-  propagatedBuildInputs =
-    [
-      requests
-      distro
-    ]
-    ++ extraHandlers
-  ;
+  propagatedBuildInputs = [
+    requests
+    distro
+  ] ++ extraHandlers;
 
   nativeBuildInputs = [
     makeWrapper

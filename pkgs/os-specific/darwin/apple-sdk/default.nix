@@ -325,10 +325,9 @@ rec {
     {
       AppKit = lib.overrideDerivation super.AppKit (
         drv: {
-          __propagatedImpureHostDeps =
-            drv.__propagatedImpureHostDeps or [ ]
-            ++ [ "/System/Library/PrivateFrameworks/" ]
-          ;
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
+            "/System/Library/PrivateFrameworks/"
+          ];
         }
       );
 
@@ -346,19 +345,17 @@ rec {
 
       CoreMedia = lib.overrideDerivation super.CoreMedia (
         drv: {
-          __propagatedImpureHostDeps =
-            drv.__propagatedImpureHostDeps or [ ]
-            ++ [ "/System/Library/Frameworks/CoreImage.framework" ]
-          ;
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
+            "/System/Library/Frameworks/CoreImage.framework"
+          ];
         }
       );
 
       CoreMIDI = lib.overrideDerivation super.CoreMIDI (
         drv: {
-          __propagatedImpureHostDeps =
-            drv.__propagatedImpureHostDeps or [ ]
-            ++ [ "/System/Library/PrivateFrameworks/" ]
-          ;
+          __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [
+            "/System/Library/PrivateFrameworks/"
+          ];
           setupHook = ./private-frameworks-setup-hook.sh;
         }
       );

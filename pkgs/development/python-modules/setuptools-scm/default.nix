@@ -27,14 +27,11 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  propagatedBuildInputs =
-    [
-      packaging
-      setuptools
-      typing-extensions
-    ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ;
+  propagatedBuildInputs = [
+    packaging
+    setuptools
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   pythonImportsCheck = [ "setuptools_scm" ];
 

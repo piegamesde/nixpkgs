@@ -43,26 +43,20 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) grpc;
   propagatedBuildInputs = [
     c-ares
     re2
     zlib
     abseil-cpp
   ];
-  buildInputs =
-    [
-      openssl
-      protobuf
-    ]
-    ++ lib.optionals stdenv.isLinux [ libnsl ]
-  ;
+  buildInputs = [
+    openssl
+    protobuf
+  ] ++ lib.optionals stdenv.isLinux [ libnsl ];
 
   cmakeFlags =
     [

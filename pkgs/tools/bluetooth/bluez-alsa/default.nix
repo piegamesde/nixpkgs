@@ -37,29 +37,23 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs =
-    [
-      alsa-lib
-      bluez
-      glib
-      sbc
-      dbus
-      readline
-      libbsd
-      ncurses
-    ]
-    ++ lib.optional aacSupport fdk_aac
-  ;
+  buildInputs = [
+    alsa-lib
+    bluez
+    glib
+    sbc
+    dbus
+    readline
+    libbsd
+    ncurses
+  ] ++ lib.optional aacSupport fdk_aac;
 
-  configureFlags =
-    [
-      "--with-alsaplugindir=${placeholder "out"}/lib/alsa-lib"
-      "--with-dbusconfdir=${placeholder "out"}/share/dbus-1/system.d"
-      "--enable-rfcomm"
-      "--enable-hcitop"
-    ]
-    ++ lib.optional aacSupport "--enable-aac"
-  ;
+  configureFlags = [
+    "--with-alsaplugindir=${placeholder "out"}/lib/alsa-lib"
+    "--with-dbusconfdir=${placeholder "out"}/share/dbus-1/system.d"
+    "--enable-rfcomm"
+    "--enable-hcitop"
+  ] ++ lib.optional aacSupport "--enable-aac";
 
   meta = with lib; {
     description = "Bluez 5 Bluetooth Audio ALSA Backend";

@@ -42,15 +42,12 @@ stdenv.mkDerivation rec {
                 'if make -v | grep "GNU Make" > /dev/null 2>&1 ;'
   '';
 
-  configureFlags =
-    [
-      # Explicit --docdir= is required for on-line help to work:
-      "--docdir=share/doc"
-      "--with-nls=yes"
-      "--with-embedded-src-path=no"
-    ]
-    ++ lib.optional (stdenv.hostPlatform.isx86_64) "--with-sse2=yes"
-  ;
+  configureFlags = [
+    # Explicit --docdir= is required for on-line help to work:
+    "--docdir=share/doc"
+    "--with-nls=yes"
+    "--with-embedded-src-path=no"
+  ] ++ lib.optional (stdenv.hostPlatform.isx86_64) "--with-sse2=yes";
 
   # fatal error: inlined-icons.h: No such file or directory
   enableParallelBuilding = false;

@@ -36,13 +36,10 @@ stdenv.mkDerivation rec {
 
   HOST_CC = "cc";
   depsBuildBuild = [ buildPackages.stdenv.cc ];
-  configureFlags =
-    [
-      "--enable-optimize"
-      "--disable-debug"
-    ]
-    ++ lib.optional stdenv.is64bit "--enable-64bit"
-  ;
+  configureFlags = [
+    "--enable-optimize"
+    "--disable-debug"
+  ] ++ lib.optional stdenv.is64bit "--enable-64bit";
 
   postInstall = ''
     find $out -name "*.a" -delete

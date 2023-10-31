@@ -87,19 +87,16 @@ buildPythonPackage rec {
 
   disabledTestPaths = [ "tests/downloaders" ];
 
-  disabledTests =
-    [
-      "get_document_url"
-      "match"
-      "test_doi_to_data"
-      "test_downloader_getter"
-      "test_general"
-      "test_get_data"
-      "test_validate_arxivid"
-      "test_yaml"
-    ]
-    ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ]
-  ;
+  disabledTests = [
+    "get_document_url"
+    "match"
+    "test_doi_to_data"
+    "test_downloader_getter"
+    "test_general"
+    "test_get_data"
+    "test_validate_arxivid"
+    "test_yaml"
+  ] ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ];
 
   pythonImportsCheck = [ "papis" ];
 

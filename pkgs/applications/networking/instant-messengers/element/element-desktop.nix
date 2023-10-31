@@ -44,15 +44,12 @@ stdenv.mkDerivation (
       sha256 = desktopYarnHash;
     };
 
-    nativeBuildInputs =
-      [
-        yarn
-        fixup_yarn_lock
-        nodejs
-        makeWrapper
-      ]
-      ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ]
-    ;
+    nativeBuildInputs = [
+      yarn
+      fixup_yarn_lock
+      nodejs
+      makeWrapper
+    ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
 
     inherit seshat;
 

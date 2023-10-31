@@ -150,16 +150,13 @@ rec {
         ''
       ;
 
-      cmakeFlags =
-        common.cmakeFlags
-        ++ [
-          "-DCMAKE_INSTALL_PREFIX=${stdenv.out}"
-          "-DIRODS_DIR=${irods}/lib/irods/cmake"
-          "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
-          "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
-          "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
-        ]
-      ;
+      cmakeFlags = common.cmakeFlags ++ [
+        "-DCMAKE_INSTALL_PREFIX=${stdenv.out}"
+        "-DIRODS_DIR=${irods}/lib/irods/cmake"
+        "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
+        "-DCMAKE_MODULE_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
+        "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath,${irods}/lib"
+      ];
 
       meta = common.meta // {
         description = common.meta.description + " CLI clients";

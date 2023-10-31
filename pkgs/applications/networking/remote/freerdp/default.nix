@@ -70,8 +70,7 @@ let
     ++ lib.optionals stdenv.isDarwin [ {
       dir = "winpr/libwinpr/sysinfo/test";
       file = "TestGetComputerName.c";
-    } ]
-  ;
+    } ];
 
   inherit (lib) optionals;
 in

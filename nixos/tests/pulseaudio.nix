@@ -60,13 +60,10 @@ let
               inherit systemWide;
             } // lib.optionalAttrs fullVersion { package = pkgs.pulseaudioFull; };
 
-            environment.systemPackages =
-              [
-                testers.testPlay
-                pkgs.pavucontrol
-              ]
-              ++ lib.optional pkgs.stdenv.isx86_64 testers.testPlay32
-            ;
+            environment.systemPackages = [
+              testers.testPlay
+              pkgs.pavucontrol
+            ] ++ lib.optional pkgs.stdenv.isx86_64 testers.testPlay32;
           }
           // lib.optionalAttrs systemWide {
             users.users.alice.extraGroups = [ "pulse-access" ];

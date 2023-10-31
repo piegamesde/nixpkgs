@@ -46,8 +46,7 @@ let
         ;
         requires =
           optional cfg.postgresql.enable "postgresql.service"
-          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service"
-        ;
+          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
         path = [ pkgs.gawk ];
         environment.HOME = runDir;
         serviceConfig = {

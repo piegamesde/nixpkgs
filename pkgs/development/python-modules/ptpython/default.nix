@@ -24,16 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-n8m+wsxRvEAAwSJNjFYkHOikBrPUnsjcJm94zTzQS6Q=";
   };
 
-  propagatedBuildInputs =
-    [
-      appdirs
-      black # yes, this is in install_requires
-      jedi
-      prompt-toolkit
-      pygments
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    appdirs
+    black # yes, this is in install_requires
+    jedi
+    prompt-toolkit
+    pygments
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # no tests to run
   doCheck = false;

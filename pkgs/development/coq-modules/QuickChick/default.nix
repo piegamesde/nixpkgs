@@ -144,7 +144,8 @@ in
     in
     {
       nativeBuildInputs =
-        o.nativeBuildInputs ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
+        o.nativeBuildInputs
+        ++ lib.optional after_1_6 coq.ocamlPackages.cppo;
       propagatedBuildInputs =
         o.propagatedBuildInputs
         ++ lib.optionals after_1_6 (
@@ -152,7 +153,6 @@ in
             findlib
             zarith
           ]
-        )
-      ;
+        );
     }
   )

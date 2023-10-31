@@ -91,8 +91,7 @@ stdenv.mkDerivation rec {
       gst_all_1.gst-plugins-bad
       gst_all_1.gst-plugins-ugly
     ]
-    ++ lib.optionals withAravis [ aravis ]
-    ++ lib.optionals withGui [ qt5.qtbase ]
+    ++ lib.optionals withAravis [ aravis ] ++ lib.optionals withGui [ qt5.qtbase ]
   ;
 
   hardeningDisable = [ "format" ];

@@ -94,22 +94,19 @@ stdenv.mkDerivation rec {
                       --replace "which %s" "${which}/bin/which %s"
   '';
 
-  cmakeFlags =
-    [
-      "-DWZ_DISTRIBUTOR=NixOS"
-      # The cmake builder automatically sets CMAKE_INSTALL_BINDIR to an absolute
-      # path, but this results in an error:
-      #
-      # > An absolute CMAKE_INSTALL_BINDIR path cannot be used if the following
-      # > are not also absolute paths: WZ_DATADIR
-      #
-      # WZ_DATADIR is based on CMAKE_INSTALL_DATAROOTDIR, so we set that.
-      #
-      # Alternatively, we could have set CMAKE_INSTALL_BINDIR to "bin".
-      "-DCMAKE_INSTALL_DATAROOTDIR=${placeholder "out"}/share"
-    ]
-    ++ lib.optional stdenv.isDarwin "-P../configure_mac.cmake"
-  ;
+  cmakeFlags = [
+    "-DWZ_DISTRIBUTOR=NixOS"
+    # The cmake builder automatically sets CMAKE_INSTALL_BINDIR to an absolute
+    # path, but this results in an error:
+    #
+    # > An absolute CMAKE_INSTALL_BINDIR path cannot be used if the following
+    # > are not also absolute paths: WZ_DATADIR
+    #
+    # WZ_DATADIR is based on CMAKE_INSTALL_DATAROOTDIR, so we set that.
+    #
+    # Alternatively, we could have set CMAKE_INSTALL_BINDIR to "bin".
+    "-DCMAKE_INSTALL_DATAROOTDIR=${placeholder "out"}/share"
+  ] ++ lib.optional stdenv.isDarwin "-P../configure_mac.cmake";
 
   postInstall = lib.optionalString withVideos ''
     cp ${sequences_src} $out/share/warzone2100/sequences.wz

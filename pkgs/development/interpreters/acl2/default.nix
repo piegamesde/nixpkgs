@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
       libipasir
       z3
       (python3.withPackages (ps: [ ps.z3 ]))
-    ]
-  ;
+    ];
 
   # NOTE: Parallel building can be memory-intensive depending on the number of
   # concurrent jobs.  For example, this build has been seen to use >120GB of

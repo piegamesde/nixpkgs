@@ -179,18 +179,15 @@ let
       done
     '';
 
-    nativeBuildInputs =
-      [
-        autoconf
-        automake
-        libtool
-        mpfr
-        python3
-        perl
-        gmpxx
-      ]
-      ++ lib.optional enableFortran gfortran
-    ;
+    nativeBuildInputs = [
+      autoconf
+      automake
+      libtool
+      mpfr
+      python3
+      perl
+      gmpxx
+    ] ++ lib.optional enableFortran gfortran;
 
     buildInputs = [
       boost
@@ -261,13 +258,10 @@ let
 
     src = "${codeGen}/${pname}-${version}.tgz";
 
-    nativeBuildInputs =
-      [
-        python3
-        cmake
-      ]
-      ++ lib.optional enableFortran gfortran
-    ;
+    nativeBuildInputs = [
+      python3
+      cmake
+    ] ++ lib.optional enableFortran gfortran;
 
     buildInputs = [
       boost

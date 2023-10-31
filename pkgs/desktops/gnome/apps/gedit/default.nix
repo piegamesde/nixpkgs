@@ -65,20 +65,17 @@ stdenv.mkDerivation rec {
     docbook-xsl-nons
   ];
 
-  buildInputs =
-    [
-      amtk
-      tepl
-      glib
-      gsettings-desktop-schemas
-      gspell
-      gtk3
-      gtksourceview4
-      libpeas
-      libsoup
-    ]
-    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ]
-  ;
+  buildInputs = [
+    amtk
+    tepl
+    glib
+    gsettings-desktop-schemas
+    gspell
+    gtk3
+    gtksourceview4
+    libpeas
+    libsoup
+  ] ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py

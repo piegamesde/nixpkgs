@@ -59,35 +59,31 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      binutils
-      boost
-      cereal
-      cgal_5
-      curl
-      dbus
-      eigen
-      expat
-      glew
-      glib
-      gmp
-      gtk3
-      hicolor-icon-theme
-      ilmbase
-      libpng
-      mpfr
-      nlopt
-      opencascade-occt
-      openvdb
-      pcre
-      tbb
-      wxGTK-prusa
-      xorg.libX11
-    ]
-    ++ lib.optionals withSystemd [ systemd ]
-    ++ nativeCheckInputs
-  ;
+  buildInputs = [
+    binutils
+    boost
+    cereal
+    cgal_5
+    curl
+    dbus
+    eigen
+    expat
+    glew
+    glib
+    gmp
+    gtk3
+    hicolor-icon-theme
+    ilmbase
+    libpng
+    mpfr
+    nlopt
+    opencascade-occt
+    openvdb
+    pcre
+    tbb
+    wxGTK-prusa
+    xorg.libX11
+  ] ++ lib.optionals withSystemd [ systemd ] ++ nativeCheckInputs;
 
   patches = [
     # Fix detection of TBB, see https://github.com/prusa3d/PrusaSlicer/issues/6355

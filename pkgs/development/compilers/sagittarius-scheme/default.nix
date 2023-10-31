@@ -40,15 +40,12 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs =
-    [
-      libffi
-      boehmgc
-      openssl
-      zlib
-    ]
-    ++ lib.optional odbcSupport libiodbc
-  ;
+  buildInputs = [
+    libffi
+    boehmgc
+    openssl
+    zlib
+  ] ++ lib.optional odbcSupport libiodbc;
 
   meta = with lib; {
     broken = stdenv.isDarwin;

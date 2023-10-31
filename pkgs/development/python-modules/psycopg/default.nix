@@ -146,13 +146,10 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  propagatedBuildInputs =
-    [
-      psycopg-c
-      typing-extensions
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-  ;
+  propagatedBuildInputs = [
+    psycopg-c
+    typing-extensions
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   pythonImportsCheck = [
     "psycopg"

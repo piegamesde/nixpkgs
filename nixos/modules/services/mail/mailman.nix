@@ -27,13 +27,10 @@ let
   webSettings = {
     DEFAULT_FROM_EMAIL = cfg.siteOwner;
     SERVER_EMAIL = cfg.siteOwner;
-    ALLOWED_HOSTS =
-      [
-        "localhost"
-        "127.0.0.1"
-      ]
-      ++ cfg.webHosts
-    ;
+    ALLOWED_HOSTS = [
+      "localhost"
+      "127.0.0.1"
+    ] ++ cfg.webHosts;
     COMPRESS_OFFLINE = true;
     STATIC_ROOT = "/var/lib/mailman-web-static";
     MEDIA_ROOT = "/var/lib/mailman-web/media";
@@ -722,13 +719,10 @@ in
           {
             wantedBy = [ "multi-user.target" ];
             after = optional withPostgresql "postgresql.service";
-            requires =
-              [
-                "mailman-uwsgi.socket"
-                "mailman-web-setup.service"
-              ]
-              ++ optional withPostgresql "postgresql.service"
-            ;
+            requires = [
+              "mailman-uwsgi.socket"
+              "mailman-web-setup.service"
+            ] ++ optional withPostgresql "postgresql.service";
             restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
             serviceConfig = {
               # Since the mailman-web settings.py obstinately creates a logs

@@ -33,13 +33,10 @@ stdenv.mkDerivation rec {
     cmake
     gengetopt
   ];
-  buildInputs =
-    [
-      openssl
-      check
-    ]
-    ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ])
-  ;
+  buildInputs = [
+    openssl
+    check
+  ] ++ (if withApplePCSC then [ PCSC ] else [ pcsclite ]);
 
   cmakeFlags = [
     "-DGENERATE_MAN_PAGES=OFF" # Use the man page generated at release time

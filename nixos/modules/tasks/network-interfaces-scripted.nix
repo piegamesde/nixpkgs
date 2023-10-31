@@ -155,7 +155,8 @@ let
           );
           conflicts = [ "shutdown.target" ];
           wantedBy =
-            [ "multi-user.target" ] ++ optional hasDefaultGatewaySet "network-online.target"
+            [ "multi-user.target" ]
+            ++ optional hasDefaultGatewaySet "network-online.target"
           ;
 
           unitConfig.ConditionCapability = "CAP_NET_ADMIN";
@@ -336,10 +337,9 @@ let
           nameValuePair "${i.name}-netdev" {
             description = "Virtual Network Interface ${i.name}";
             bindsTo = optional (!config.boot.isContainer) "dev-net-tun.device";
-            after =
-              optional (!config.boot.isContainer) "dev-net-tun.device"
-              ++ [ "network-pre.target" ]
-            ;
+            after = optional (!config.boot.isContainer) "dev-net-tun.device" ++ [
+              "network-pre.target"
+            ];
             wantedBy = [
               "network-setup.service"
               (subsystemDevice i.name)
@@ -483,26 +483,20 @@ let
             in
             {
               description = "Open vSwitch Interface ${n}";
-              wantedBy =
-                [
-                  "network-setup.service"
-                  (subsystemDevice n)
-                ]
-                ++ internalConfigs
-              ;
+              wantedBy = [
+                "network-setup.service"
+                (subsystemDevice n)
+              ] ++ internalConfigs;
               # before = [ "network-setup.service" ];
               # should work without internalConfigs dependencies because address/link configuration depends
               # on the device, which is created by ovs-vswitchd with type=internal, but it does not...
               before = [ "network-setup.service" ] ++ internalConfigs;
               partOf = [ "network-setup.service" ]; # shutdown the bridge when network is shutdown
               bindsTo = [ "ovs-vswitchd.service" ]; # requires ovs-vswitchd to be alive at all times
-              after =
-                [
-                  "network-pre.target"
-                  "ovs-vswitchd.service"
-                ]
-                ++ deps
-              ; # start switch after physical interfaces and vswitch daemon
+              after = [
+                "network-pre.target"
+                "ovs-vswitchd.service"
+              ] ++ deps; # start switch after physical interfaces and vswitch daemon
               wants = deps; # if one or more interface fails, the switch should continue to run
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -577,8 +571,7 @@ let
               partOf = [ "network-setup.service" ];
               after =
                 [ "network-pre.target" ]
-                ++ deps
-                ++ map (i: "network-addresses-${i}.service") v.interfaces
+                ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces
               ;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";

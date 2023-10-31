@@ -35,13 +35,10 @@ stdenv.mkDerivation rec {
     ln -s ${vaapi-intel-hybrid}/lib/dri/* $out/lib/dri/
   '';
 
-  configureFlags =
-    [
-      "--enable-x11"
-      "--enable-wayland"
-    ]
-    ++ lib.optional enableHybridCodec "--enable-hybrid-codec"
-  ;
+  configureFlags = [
+    "--enable-x11"
+    "--enable-wayland"
+  ] ++ lib.optional enableHybridCodec "--enable-hybrid-codec";
 
   nativeBuildInputs = [
     autoreconfHook
@@ -50,18 +47,15 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs =
-    [
-      intel-gpu-tools
-      libdrm
-      libva
-      libX11
-      libXext
-      libGL
-      wayland
-    ]
-    ++ lib.optional enableHybridCodec vaapi-intel-hybrid
-  ;
+  buildInputs = [
+    intel-gpu-tools
+    libdrm
+    libva
+    libX11
+    libXext
+    libGL
+    wayland
+  ] ++ lib.optional enableHybridCodec vaapi-intel-hybrid;
 
   enableParallelBuilding = true;
 

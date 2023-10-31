@@ -45,14 +45,11 @@ buildPythonPackage rec {
     use_chardet_on_py3 = [ chardet ];
   };
 
-  nativeCheckInputs =
-    [
-      pytest-mock
-      pytest-xdist
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.socks
-  ;
+  nativeCheckInputs = [
+    pytest-mock
+    pytest-xdist
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.socks;
 
   disabledTests =
     [

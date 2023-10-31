@@ -42,18 +42,15 @@ stdenv.mkDerivation rec {
   ];
   sourceRoot = ".";
 
-  buildInputs =
-    [
-      coreutils
-      iproute2
-      iptables
-      util-linux
-      gnugrep
-      gnused
-      perl
-    ]
-    ++ (with perlPackages; [ DigestSHA1 ])
-  ;
+  buildInputs = [
+    coreutils
+    iproute2
+    iptables
+    util-linux
+    gnugrep
+    gnused
+    perl
+  ] ++ (with perlPackages; [ DigestSHA1 ]);
   prePatch = ''
     # Patch configure and install.sh files
     patchShebangs .

@@ -656,9 +656,8 @@ in
       after =
         optional (cfg.database.type == "mysql" && cfg.database.createLocally)
           "mysql.service"
-        ++
-          optional (cfg.database.type == "postgres" && cfg.database.createLocally)
-            "postgresql.service"
+        ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally)
+          "postgresql.service"
       ;
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
@@ -706,14 +705,13 @@ in
           && cfg.database.type == "mysql"
         )
         "mysql.service"
-      ++
-        optional
-          (
-            cfg.webserver == "apache"
-            && cfg.database.createLocally
-            && cfg.database.type == "postgres"
-          )
-          "postgresql.service"
+      ++ optional
+        (
+          cfg.webserver == "apache"
+          && cfg.database.createLocally
+          && cfg.database.type == "postgres"
+        )
+        "postgresql.service"
     ;
 
     users.users.${user} = {

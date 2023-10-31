@@ -25,13 +25,10 @@ stdenv.mkDerivation rec {
   pname = "libchamplain";
   version = "0.12.21";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ]
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${

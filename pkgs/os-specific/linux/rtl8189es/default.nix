@@ -18,13 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l/xUxs63Y5LVT6ZafuRc+iaCXCSt2HwysYJLJ5hg3RM=";
   };
 
-  nativeBuildInputs =
-    [
-      bc
-      nukeReferences
-    ]
-    ++ kernel.moduleBuildDependencies
-  ;
+  nativeBuildInputs = [
+    bc
+    nukeReferences
+  ] ++ kernel.moduleBuildDependencies;
 
   hardeningDisable = [
     "pic"
@@ -37,24 +34,21 @@ stdenv.mkDerivation rec {
     substituteInPlace ./Makefile --replace '$(MODDESTDIR)' "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
   '';
 
-  makeFlags =
-    kernel.makeFlags
-    ++ [
-      "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      (
-        "CONFIG_PLATFORM_I386_PC="
-        + (
-          if (stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64) then
-            "y"
-          else
-            "n"
-        )
+  makeFlags = kernel.makeFlags ++ [
+    "KSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    (
+      "CONFIG_PLATFORM_I386_PC="
+      + (
+        if (stdenv.hostPlatform.isi686 || stdenv.hostPlatform.isx86_64) then
+          "y"
+        else
+          "n"
       )
-      (
-        "CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n")
-      )
-    ]
-  ;
+    )
+    (
+      "CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n")
+    )
+  ];
 
   preInstall = ''
     mkdir -p "$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"

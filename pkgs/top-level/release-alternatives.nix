@@ -8,124 +8,118 @@
 let
 
   # called BLAS here, but also tests LAPACK
-  blasUsers =
+  blasUsers = [
+    # "julia_07" "julia_10" "julia_11" "julia_13" "octave" "octaveFull"
+    "fflas-ffpack"
+    "linbox"
+    "R"
+    "ipopt"
+    "hpl"
+    "rspamd"
+    "octopus"
+    "superlu"
+    "suitesparse_5_3"
+    "suitesparse_4_4"
+    "suitesparse_4_2"
+    "scs"
+    "scalapack"
+    "petsc"
+    "cholmod-extra"
+    "arpack"
+    "qrupdate"
+    "libcint"
+    "iml"
+    "globalarrays"
+    "arrayfire"
+    "armadillo"
+    "xfitter"
+    "lammps"
+    "plink-ng"
+    "quantum-espresso"
+    "siesta"
+    "siesta-mpi"
+    "shogun"
+    "calculix"
+    "csdp"
+    "getdp"
+    "giac"
+    "gmsh"
+    "jags"
+    "lammps"
+    "lammps-mpi"
+
+    # requires openblas
+    # "caffe" "mxnet" "flint" "sage" "sageWithDoc"
+
+    # broken
+    # "gnss-sdr" "octave-jit" "openmodelica" "torch"
+
+    # subpackages
     [
-      # "julia_07" "julia_10" "julia_11" "julia_13" "octave" "octaveFull"
-      "fflas-ffpack"
-      "linbox"
-      "R"
-      "ipopt"
-      "hpl"
-      "rspamd"
-      "octopus"
-      "superlu"
-      "suitesparse_5_3"
-      "suitesparse_4_4"
-      "suitesparse_4_2"
+      "pythonPackages"
+      "numpy"
+    ]
+    [
+      "pythonPackages"
+      "prox-tv"
+    ]
+    [
+      "pythonPackages"
       "scs"
-      "scalapack"
-      "petsc"
-      "cholmod-extra"
-      "arpack"
-      "qrupdate"
-      "libcint"
-      "iml"
-      "globalarrays"
-      "arrayfire"
-      "armadillo"
-      "xfitter"
-      "lammps"
-      "plink-ng"
-      "quantum-espresso"
-      "siesta"
-      "siesta-mpi"
-      "shogun"
-      "calculix"
-      "csdp"
-      "getdp"
-      "giac"
-      "gmsh"
-      "jags"
-      "lammps"
-      "lammps-mpi"
-
-      # requires openblas
-      # "caffe" "mxnet" "flint" "sage" "sageWithDoc"
-
-      # broken
-      # "gnss-sdr" "octave-jit" "openmodelica" "torch"
-
-      # subpackages
-      [
-        "pythonPackages"
-        "numpy"
-      ]
-      [
-        "pythonPackages"
-        "prox-tv"
-      ]
-      [
-        "pythonPackages"
-        "scs"
-      ]
-      [
-        "pythonPackages"
-        "pysparse"
-      ]
-      [
-        "pythonPackages"
-        "cvxopt"
-      ]
-      # ["pythonPackages" "fenics"]
-      [
-        "rPackages"
-        "slfm"
-      ]
-      [
-        "rPackages"
-        "SamplerCompare"
-      ]
-      # ["rPackages" "EMCluster"]
-      # ["ocamlPackages" "lacaml"]
-      # ["ocamlPackages" "owl"]
-      [
-        "haskellPackages"
-        "bindings-levmar"
-      ]
     ]
-    ++ lib.optionals allowUnfree [ "magma" ]
-  ;
-  blas64Users =
     [
-      "rspamd"
-      "sundials"
-      "suitesparse_5_3"
-      "suitesparse_4_4"
-      "suitesparse_4_2"
-      "petsc"
-      "cholmod-extra"
-      "arpack"
-      "qrupdate"
-      "iml"
-      "globalarrays"
-      "arrayfire"
-      "lammps"
-      "plink-ng"
-      "quantum-espresso"
-      "calculix"
-      "csdp"
-      "getdp"
-      "jags"
-      "lammps"
-      "lammps-mpi"
-      # ["ocamlPackages" "lacaml"]
-      [
-        "haskellPackages"
-        "bindings-levmar"
-      ]
+      "pythonPackages"
+      "pysparse"
     ]
-    ++ lib.optionals allowUnfree [ "magma" ]
-  ;
+    [
+      "pythonPackages"
+      "cvxopt"
+    ]
+    # ["pythonPackages" "fenics"]
+    [
+      "rPackages"
+      "slfm"
+    ]
+    [
+      "rPackages"
+      "SamplerCompare"
+    ]
+    # ["rPackages" "EMCluster"]
+    # ["ocamlPackages" "lacaml"]
+    # ["ocamlPackages" "owl"]
+    [
+      "haskellPackages"
+      "bindings-levmar"
+    ]
+  ] ++ lib.optionals allowUnfree [ "magma" ];
+  blas64Users = [
+    "rspamd"
+    "sundials"
+    "suitesparse_5_3"
+    "suitesparse_4_4"
+    "suitesparse_4_2"
+    "petsc"
+    "cholmod-extra"
+    "arpack"
+    "qrupdate"
+    "iml"
+    "globalarrays"
+    "arrayfire"
+    "lammps"
+    "plink-ng"
+    "quantum-espresso"
+    "calculix"
+    "csdp"
+    "getdp"
+    "jags"
+    "lammps"
+    "lammps-mpi"
+    # ["ocamlPackages" "lacaml"]
+    [
+      "haskellPackages"
+      "bindings-levmar"
+    ]
+  ] ++ lib.optionals allowUnfree [ "magma" ];
   blasProviders =
     system:
     [

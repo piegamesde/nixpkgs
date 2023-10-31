@@ -39,13 +39,10 @@ assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
 stdenv.mkDerivation rec {
   inherit pname version src;
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-    ]
-    ++ lib.optionals enableQt [ wrapQtAppsHook ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
 
   buildInputs =
     [

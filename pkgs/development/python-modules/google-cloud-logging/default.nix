@@ -32,18 +32,15 @@ buildPythonPackage rec {
     hash = "sha256-8RVEoh6jVW9w66x7wzj/qKGXkTg07N2IU9F2uHCCOqo=";
   };
 
-  propagatedBuildInputs =
-    [
-      google-api-core
-      google-cloud-appengine-logging
-      google-cloud-audit-log
-      google-cloud-core
-      grpc-google-iam-v1
-      proto-plus
-      protobuf
-    ]
-    ++ google-api-core.optional-dependencies.grpc
-  ;
+  propagatedBuildInputs = [
+    google-api-core
+    google-cloud-appengine-logging
+    google-cloud-audit-log
+    google-cloud-core
+    grpc-google-iam-v1
+    proto-plus
+    protobuf
+  ] ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     django

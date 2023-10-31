@@ -35,13 +35,10 @@ makeOverridable (
     outputHash = hash;
     outputHashAlgo = null;
     outputHashMode = "recursive";
-    impureEnvVars =
-      lib.fetchers.proxyImpureEnvVars
-      ++ [
-        "GIT_PROXY_COMMAND"
-        "SOCKS_SERVER"
-      ]
-    ;
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+      "GIT_PROXY_COMMAND"
+      "SOCKS_SERVER"
+    ];
     GIT_SSL_CAINFO = "${cacert}/etc/ssl/certs/ca-bundle.crt";
   }
 )

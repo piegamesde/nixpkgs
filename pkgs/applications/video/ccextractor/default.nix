@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableOcr [
       "-DWITH_OCR=on"
       "-DWITH_HARDSUBX=on"
-    ]
-  ;
+    ];
 
   postInstall = lib.optionalString enableOcr ''
     wrapProgram "$out/bin/ccextractor" \

@@ -24,27 +24,21 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    [
-      hidapi
-      libftdi1
-      libusb1
-    ]
-    ++ lib.optional stdenv.isLinux libgpiod
-  ;
+  buildInputs = [
+    hidapi
+    libftdi1
+    libusb1
+  ] ++ lib.optional stdenv.isLinux libgpiod;
 
-  configureFlags =
-    [
-      "--disable-werror"
-      "--enable-jtag_vpi"
-      "--enable-buspirate"
-      "--enable-remote-bitbang"
-      (lib.enableFeature enableFtdi "ftdi")
-      (lib.enableFeature stdenv.isLinux "linuxgpiod")
-      (lib.enableFeature stdenv.isLinux "sysfsgpio")
-    ]
-    ++ map (hardware: "--enable-${hardware}") extraHardwareSupport
-  ;
+  configureFlags = [
+    "--disable-werror"
+    "--enable-jtag_vpi"
+    "--enable-buspirate"
+    "--enable-remote-bitbang"
+    (lib.enableFeature enableFtdi "ftdi")
+    (lib.enableFeature stdenv.isLinux "linuxgpiod")
+    (lib.enableFeature stdenv.isLinux "sysfsgpio")
+  ] ++ map (hardware: "--enable-${hardware}") extraHardwareSupport;
 
   enableParallelBuilding = true;
 

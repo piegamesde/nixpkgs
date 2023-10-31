@@ -46,16 +46,13 @@ let
 in
 qtModule {
   pname = "qtwebkit";
-  qtInputs =
-    [
-      qtbase
-      qtdeclarative
-      qtlocation
-      qtsensors
-      qtwebchannel
-    ]
-    ++ lib.optional stdenv.isDarwin qtmultimedia
-  ;
+  qtInputs = [
+    qtbase
+    qtdeclarative
+    qtlocation
+    qtsensors
+    qtwebchannel
+  ] ++ lib.optional stdenv.isDarwin qtmultimedia;
   buildInputs =
     [
       fontconfig

@@ -46,13 +46,10 @@ stdenv.mkDerivation (
       fontconfig
       freetype
     ];
-    buildInputs =
-      [
-        libX11
-        libXft
-      ]
-      ++ extraLibs
-    ;
+    buildInputs = [
+      libX11
+      libXft
+    ] ++ extraLibs;
 
     preInstall = ''
       export TERMINFO=$out/share/terminfo

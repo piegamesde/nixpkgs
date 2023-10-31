@@ -24,14 +24,11 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   nativeBuildInputs = [ txt2tags ];
-  buildInputs =
-    [
-      zsh
-      coreutils
-      procps
-    ]
-    ++ optional stdenv.isLinux inetutils
-  ;
+  buildInputs = [
+    zsh
+    coreutils
+    procps
+  ] ++ optional stdenv.isLinux inetutils;
 
   buildPhase = ''
     cd doc

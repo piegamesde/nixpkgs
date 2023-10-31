@@ -70,20 +70,17 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!stdenv.isDarwin) opencl-headers
   ;
 
-  cmakeFlags =
-    [
-      # Disable tests due to a problem in linking gtest:
-      # ld: /build/vengi-tests-core.LDHlV1.ltrans0.ltrans.o: in function `main':
-      # <artificial>:(.text.startup+0x3f): undefined reference to `testing::InitGoogleMock(int*, char**)'
-      "-DUNITTESTS=OFF"
-      "-DVISUALTESTS=OFF"
-      # We're only interested in the generic tools
-      "-DGAMES=OFF"
-      "-DMAPVIEW=OFF"
-      "-DAIDEBUG=OFF"
-    ]
-    ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}"
-  ;
+  cmakeFlags = [
+    # Disable tests due to a problem in linking gtest:
+    # ld: /build/vengi-tests-core.LDHlV1.ltrans0.ltrans.o: in function `main':
+    # <artificial>:(.text.startup+0x3f): undefined reference to `testing::InitGoogleMock(int*, char**)'
+    "-DUNITTESTS=OFF"
+    "-DVISUALTESTS=OFF"
+    # We're only interested in the generic tools
+    "-DGAMES=OFF"
+    "-DMAPVIEW=OFF"
+    "-DAIDEBUG=OFF"
+  ] ++ lib.optional stdenv.isDarwin "-DCORESERVICES_LIB=${CoreServices}";
 
   # Set the data directory for each executable. We cannot set it at build time
   # with the PKGDATADIR cmake variable because each executable needs a specific

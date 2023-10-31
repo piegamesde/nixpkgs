@@ -80,8 +80,8 @@ let
     ];
     dbi.buildInputs = [ libdbi ];
     disk.buildInputs =
-      lib.optionals stdenv.isLinux [ udev ] ++ lib.optionals stdenv.isDarwin [ IOKit ]
-    ;
+      lib.optionals stdenv.isLinux [ udev ]
+      ++ lib.optionals stdenv.isDarwin [ IOKit ];
     dns.buildInputs = [ libpcap ];
     ipmi.buildInputs = [ openipmi ];
     iptables.buildInputs =

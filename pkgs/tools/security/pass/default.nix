@@ -91,13 +91,10 @@ stdenv.mkDerivation rec {
     sha256 = "1h4k6w7g8pr169p5w9n6mkdhxl3pw51zphx7www6pvgjb7vgmafg";
   };
 
-  patches =
-    [
-      ./set-correct-program-name-for-sleep.patch
-      ./extension-dir.patch
-    ]
-    ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch
-  ;
+  patches = [
+    ./set-correct-program-name-for-sleep.patch
+    ./extension-dir.patch
+  ] ++ lib.optional stdenv.isDarwin ./no-darwin-getopt.patch;
 
   nativeBuildInputs = [ makeWrapper ];
 

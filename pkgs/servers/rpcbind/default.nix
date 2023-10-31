@@ -22,13 +22,10 @@ stdenv.mkDerivation {
 
   patches = [ ./sunrpc.patch ];
 
-  buildInputs =
-    [
-      libnsl
-      libtirpc
-    ]
-    ++ lib.optional useSystemd systemd
-  ;
+  buildInputs = [
+    libnsl
+    libtirpc
+  ] ++ lib.optional useSystemd systemd;
 
   configureFlags = [
     "--with-systemdsystemunitdir=${

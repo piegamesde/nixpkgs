@@ -38,7 +38,9 @@ stdenv.mkDerivation rec {
   ;
 
   nativeBuildInputs =
-    [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    [ pkg-config ]
+    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]
+  ;
 
   enableParallelBuilding = true;
 

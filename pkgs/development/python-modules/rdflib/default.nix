@@ -37,14 +37,11 @@ buildPythonPackage rec {
     hash = "sha256-GkqfSyApOFKPIiIYXhgaRZuMawk7PRYmxGDhnRI+Rz0=";
   };
 
-  propagatedBuildInputs =
-    [
-      isodate
-      html5lib
-      pyparsing
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    isodate
+    html5lib
+    pyparsing
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
     html = [ html5lib ];
@@ -76,12 +73,11 @@ buildPythonPackage rec {
       "test_guess_format_for_parse"
       "rdflib.extras.infixowl"
     ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # Require loopback network access
-          "TestGraphHTTP"
-        ]
+    ++ lib.optionals stdenv.isDarwin
+      [
+        # Require loopback network access
+        "TestGraphHTTP"
+      ]
   ;
 
   pythonImportsCheck = [ "rdflib" ];

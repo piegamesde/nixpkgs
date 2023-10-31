@@ -178,8 +178,7 @@ in
                 )
               ));
           })
-        ]
-      ;
+        ];
 
       src =
         if macportVersion != null then

@@ -41,13 +41,10 @@ stdenv.mkDerivation rec {
       import ./readline-8.2-patches.nix patch
     );
 
-  patches =
-    [
-      ./link-against-ncurses.patch
-      ./no-arch_only-8.2.patch
-    ]
-    ++ upstreamPatches
-  ;
+  patches = [
+    ./link-against-ncurses.patch
+    ./no-arch_only-8.2.patch
+  ] ++ upstreamPatches;
 
   meta = with lib; {
     description = "Library for interactive line editing";

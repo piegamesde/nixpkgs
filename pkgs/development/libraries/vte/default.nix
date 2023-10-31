@@ -71,16 +71,13 @@ stdenv.mkDerivation rec {
     gi-docgen
   ];
 
-  buildInputs =
-    [
-      fribidi
-      gnutls
-      pcre2
-      zlib
-      icu
-    ]
-    ++ lib.optionals systemdSupport [ systemd ]
-  ;
+  buildInputs = [
+    fribidi
+    gnutls
+    pcre2
+    zlib
+    icu
+  ] ++ lib.optionals systemdSupport [ systemd ];
 
   propagatedBuildInputs =
     assert (gtkVersion == "3" || gtkVersion == "4"); [

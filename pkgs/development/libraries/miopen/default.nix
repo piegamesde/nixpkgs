@@ -62,8 +62,7 @@ stdenv.mkDerivation (
 
     outputs =
       [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ]
-      ++ lib.optionals buildTests [ "test" ]
+      ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ]
     ;
 
     src = fetchFromGitHub {

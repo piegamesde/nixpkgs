@@ -30,14 +30,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-HKd9Omml/4RbegU294P+5VThBBE5prl49q/hT1gUrRo=";
   };
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "man"
-    ]
-    ++ lib.optional withConplay "conplay"
-  ;
+  outputs = [
+    "out"
+    "dev"
+    "man"
+  ] ++ lib.optional withConplay "conplay";
 
   nativeBuildInputs = lib.optionals (!libOnly) (
     lib.optionals withConplay [ makeWrapper ]
@@ -67,9 +64,8 @@ stdenv.mkDerivation rec {
         )
       }"
     ]
-    ++
-      lib.optional (stdenv.hostPlatform ? mpg123)
-        "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}"
+    ++ lib.optional (stdenv.hostPlatform ? mpg123)
+      "--with-cpu=${stdenv.hostPlatform.mpg123.cpu}"
   ;
 
   enableParallelBuilding = true;

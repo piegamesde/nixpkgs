@@ -70,15 +70,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [
-      mock
-      pytestCheckHook
-      responses
-      webob
-    ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    mock
+    pytestCheckHook
+    responses
+    webob
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   disabledTestPaths =
     [

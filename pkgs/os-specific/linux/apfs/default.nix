@@ -23,14 +23,11 @@ stdenv.mkDerivation {
   hardeningDisable = [ "pic" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags =
-    kernel.makeFlags
-    ++ [
-      "KERNELRELEASE=${kernel.modDirVersion}"
-      "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      "INSTALL_MOD_PATH=$(out)"
-    ]
-  ;
+  makeFlags = kernel.makeFlags ++ [
+    "KERNELRELEASE=${kernel.modDirVersion}"
+    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "INSTALL_MOD_PATH=$(out)"
+  ];
 
   passthru.tests.test = nixosTests.apfs;
 

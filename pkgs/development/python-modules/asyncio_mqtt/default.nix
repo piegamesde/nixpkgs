@@ -33,7 +33,9 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs =
-    [ paho-mqtt ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+    [ paho-mqtt ]
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
+  ;
 
   nativeCheckInputs = [
     anyio

@@ -30,7 +30,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ unzip ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    [ unzip ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+  ;
   outputs = [
     "out"
     "doc"

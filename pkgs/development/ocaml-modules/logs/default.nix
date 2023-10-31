@@ -38,15 +38,11 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs =
-      [
-        cmdliner
-        lwt
-        topkg
-      ]
-      ++ lib.optional fmtSupport fmt
-      ++ lib.optional jsooSupport js_of_ocaml
-    ;
+    buildInputs = [
+      cmdliner
+      lwt
+      topkg
+    ] ++ lib.optional fmtSupport fmt ++ lib.optional jsooSupport js_of_ocaml;
     propagatedBuildInputs = [ result ];
 
     strictDeps = true;

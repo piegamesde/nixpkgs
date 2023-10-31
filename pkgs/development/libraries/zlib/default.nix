@@ -52,13 +52,10 @@ stdenv.mkDerivation (
     '';
 
     strictDeps = true;
-    outputs =
-      [
-        "out"
-        "dev"
-      ]
-      ++ lib.optional splitStaticOutput "static"
-    ;
+    outputs = [
+      "out"
+      "dev"
+    ] ++ lib.optional splitStaticOutput "static";
     setOutputFlags = false;
     outputDoc = "dev"; # single tiny man3 page
 
@@ -84,7 +81,8 @@ stdenv.mkDerivation (
     # Of these, we choose `--static --shared`, for clarity and simpler
     # conditions.
     configureFlags =
-      lib.optional static "--static" ++ lib.optional shared "--shared";
+      lib.optional static "--static"
+      ++ lib.optional shared "--shared";
     # We do the right thing manually, above, so don't need these.
     dontDisableStatic = true;
     dontAddStaticConfigureFlags = true;

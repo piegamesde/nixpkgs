@@ -28,23 +28,19 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs =
-    [ makeWrapper ] ++ lib.optional (!opensslSupport) pkg-config;
-  buildInputs =
-    [
-      libgcrypt
-      perl
-    ]
-    ++ (if opensslSupport then [ openssl ] else [ gnutls ])
+    [ makeWrapper ]
+    ++ lib.optional (!opensslSupport) pkg-config
   ;
+  buildInputs = [
+    libgcrypt
+    perl
+  ] ++ (if opensslSupport then [ openssl ] else [ gnutls ]);
 
-  makeFlags =
-    [
-      "PREFIX=$(out)"
-      "ETCDIR=$(out)/etc/vpnc"
-      "SCRIPT_PATH=${vpnc-scripts}/bin/vpnc-script"
-    ]
-    ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes"
-  ;
+  makeFlags = [
+    "PREFIX=$(out)"
+    "ETCDIR=$(out)/etc/vpnc"
+    "SCRIPT_PATH=${vpnc-scripts}/bin/vpnc-script"
+  ] ++ lib.optional opensslSupport "OPENSSL_GPL_VIOLATION=yes";
 
   postPatch = ''
     patchShebangs src/makeman.pl

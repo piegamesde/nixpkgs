@@ -59,13 +59,10 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs =
-    [
-      fpc
-      libpng
-    ]
-    ++ sharedLibs
-  ;
+  buildInputs = [
+    fpc
+    libpng
+  ] ++ sharedLibs;
 
   postPatch = ''
     substituteInPlace src/config.inc.in \

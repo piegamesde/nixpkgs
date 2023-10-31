@@ -36,22 +36,19 @@ stdenv.mkDerivation rec {
     gst-plugins-bad
     gst-plugins-ugly
   ];
-  buildInputs =
-    [
-      glib
-      gdk-pixbuf
-      cairo
-      mailcap
-      pango
-      gtk3
-      glib-networking
-      gsettings-desktop-schemas
-      xclip
-      notify-osd
-      enchant
-    ]
-    ++ gstBuildInputs
-  ;
+  buildInputs = [
+    glib
+    gdk-pixbuf
+    cairo
+    mailcap
+    pango
+    gtk3
+    glib-networking
+    gsettings-desktop-schemas
+    xclip
+    notify-osd
+    enchant
+  ] ++ gstBuildInputs;
 
   GST_PLUGIN_SYSTEM_PATH_1_0 =
     lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0"

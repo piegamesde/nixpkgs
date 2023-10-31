@@ -26,15 +26,12 @@ stdenv.mkDerivation (
     nativeBuildInputs = kernel.moduleBuildDependencies;
     buildInputs = [ bluez ];
 
-    makeFlags =
-      kernel.makeFlags
-      ++ [
-        "-C"
-        "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-        "M=$(sourceRoot)"
-        "VERSION=${finalAttrs.version}"
-      ]
-    ;
+    makeFlags = kernel.makeFlags ++ [
+      "-C"
+      "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "M=$(sourceRoot)"
+      "VERSION=${finalAttrs.version}"
+    ];
 
     buildFlags = [ "modules" ];
     installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];

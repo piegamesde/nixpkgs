@@ -26,15 +26,12 @@ stdenv.mkDerivation rec {
     CONFIG_RTC_HCTOSYS yes
   '';
 
-  makeFlags =
-    kernel.makeFlags
-    ++ [
-      "DEPMOD=echo"
-      "INSTALL_MOD_PATH=$(out)"
-      "KERNELRELEASE=${kernel.modDirVersion}"
-      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ]
-  ;
+  makeFlags = kernel.makeFlags ++ [
+    "DEPMOD=echo"
+    "INSTALL_MOD_PATH=$(out)"
+    "KERNELRELEASE=${kernel.modDirVersion}"
+    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   meta = with lib; {
     description = "Experimental implementation of a kvmclock-derived clocksource for Linux guests under OpenBSD's hypervisor";

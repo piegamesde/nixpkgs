@@ -26,13 +26,10 @@ stdenv.mkDerivation rec {
     libdrm
   ];
 
-  makeFlags =
-    kernel.makeFlags
-    ++ [
-      "KVER=${kernel.modDirVersion}"
-      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ]
-  ;
+  makeFlags = kernel.makeFlags ++ [
+    "KVER=${kernel.modDirVersion}"
+    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+  ];
 
   hardeningDisable = [
     "format"

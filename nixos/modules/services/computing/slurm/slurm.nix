@@ -64,14 +64,11 @@ let
   # in the same directory as slurm.conf
   etcSlurm = pkgs.symlinkJoin {
     name = "etc-slurm";
-    paths =
-      [
-        configFile
-        cgroupConfig
-        plugStackConfig
-      ]
-      ++ cfg.extraConfigPaths
-    ;
+    paths = [
+      configFile
+      cgroupConfig
+      plugStackConfig
+    ] ++ cfg.extraConfigPaths;
   };
 in
 

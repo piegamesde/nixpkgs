@@ -65,8 +65,9 @@ let
           ;
         };
       };
-      kernelPatches =
-        kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
+      kernelPatches = kernel.kernelPatches ++ [
+        kernelPatches.hardened.${kernel.meta.branch}
+      ];
       isHardened = true;
     }
   ;

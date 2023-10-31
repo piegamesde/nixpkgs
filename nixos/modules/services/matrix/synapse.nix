@@ -1203,7 +1203,9 @@ in
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";
       after =
-        [ "network.target" ] ++ optional hasLocalPostgresDB "postgresql.service";
+        [ "network.target" ]
+        ++ optional hasLocalPostgresDB "postgresql.service"
+      ;
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \

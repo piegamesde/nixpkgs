@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
       simd
       DiscRecording
       CoreAudioKit
-    ]
-  ;
+    ];
 
   # JUCE insists on only dlopen'ing these
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux (

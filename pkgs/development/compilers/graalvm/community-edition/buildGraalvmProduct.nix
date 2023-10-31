@@ -42,24 +42,17 @@ stdenv.mkDerivation (
   {
     pname = "${product}-java${javaVersion}";
 
-    nativeBuildInputs =
-      [
-        perl
-        unzip
-        makeWrapper
-      ]
-      ++ lib.optional stdenv.isLinux autoPatchelfHook
-      ++ extraNativeBuildInputs
-    ;
+    nativeBuildInputs = [
+      perl
+      unzip
+      makeWrapper
+    ] ++ lib.optional stdenv.isLinux autoPatchelfHook ++ extraNativeBuildInputs;
 
-    buildInputs =
-      [
-        stdenv.cc.cc.lib # libstdc++.so.6
-        zlib
-        libxcrypt-legacy # libcrypt.so.1 (default is .2 now)
-      ]
-      ++ extraBuildInputs
-    ;
+    buildInputs = [
+      stdenv.cc.cc.lib # libstdc++.so.6
+      zlib
+      libxcrypt-legacy # libcrypt.so.1 (default is .2 now)
+    ] ++ extraBuildInputs;
 
     unpackPhase = ''
       runHook preUnpack

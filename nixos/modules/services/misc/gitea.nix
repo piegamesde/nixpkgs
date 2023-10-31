@@ -897,8 +897,7 @@ in
         "config.services.gitea.database.password will be stored as plaintext in the Nix store. Use database.passwordFile instead."
       ++ optional (cfg.extraConfig != null) ''
         services.gitea.`extraConfig` is deprecated, please use services.gitea.`settings`.
-      ''
-    ;
+      '';
 
     # Create database passwordFile default when password is configured.
     services.gitea.database.passwordFile = mkDefault (

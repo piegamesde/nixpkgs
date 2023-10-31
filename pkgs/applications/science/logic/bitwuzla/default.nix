@@ -34,31 +34,25 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs =
-    [
-      cadical
-      cryptominisat
-      picosat
-      minisat
-      btor2tools
-      symfpu
-      gmp
-      zlib
-    ]
-    ++ lib.optional withLingeling lingeling
-  ;
+  buildInputs = [
+    cadical
+    cryptominisat
+    picosat
+    minisat
+    btor2tools
+    symfpu
+    gmp
+    zlib
+  ] ++ lib.optional withLingeling lingeling;
 
-  cmakeFlags =
-    [
-      "-DBUILD_SHARED_LIBS=ON"
-      "-DPicoSAT_INCLUDE_DIR=${lib.getDev picosat}/include/picosat"
-      "-DBtor2Tools_INCLUDE_DIR=${lib.getDev btor2tools}/include/btor2parser"
-      "-DBtor2Tools_LIBRARIES=${
-        lib.getLib btor2tools
-      }/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
-    ]
-    ++ lib.optional doCheck "-DTESTING=YES"
-  ;
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DPicoSAT_INCLUDE_DIR=${lib.getDev picosat}/include/picosat"
+    "-DBtor2Tools_INCLUDE_DIR=${lib.getDev btor2tools}/include/btor2parser"
+    "-DBtor2Tools_LIBRARIES=${
+      lib.getLib btor2tools
+    }/lib/libbtor2parser${stdenv.hostPlatform.extensions.sharedLibrary}"
+  ] ++ lib.optional doCheck "-DTESTING=YES";
 
   nativeCheckInputs = [
     python3

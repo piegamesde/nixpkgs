@@ -25,8 +25,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-1JW9zPg67BgNsdIjK/jp9j7QMg50eRMz5FsDsbbzBlI=";
       })
     ]
-    ++ lib.optional stdenv.isAarch64 ./narrowing.patch
-  ;
+    ++ lib.optional stdenv.isAarch64 ./narrowing.patch;
 
   meta = with lib; {
     description = "MIME handling library";

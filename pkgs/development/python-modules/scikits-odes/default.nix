@@ -30,14 +30,11 @@ buildPythonPackage rec {
     cython
   ];
 
-  propagatedBuildInputs =
-    [
-      numpy
-      sundials
-      scipy
-    ]
-    ++ lib.optionals (!isPy3k) [ enum34 ]
-  ;
+  propagatedBuildInputs = [
+    numpy
+    sundials
+    scipy
+  ] ++ lib.optionals (!isPy3k) [ enum34 ];
 
   doCheck = true;
   nativeCheckInputs = [ pytest ];

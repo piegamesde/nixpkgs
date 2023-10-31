@@ -30,14 +30,11 @@ rustPlatform.buildRustPackage rec {
     llvmPackages.libclang
     clang
   ];
-  buildInputs =
-    [
-      openssl
-      libsodium
-      xz
-    ]
-    ++ (lib.optional stdenv.isDarwin Security)
-  ;
+  buildInputs = [
+    openssl
+    libsodium
+    xz
+  ] ++ (lib.optional stdenv.isDarwin Security);
 
   configurePhase = ''
     export LIBCLANG_PATH="${llvmPackages.libclang.lib}/lib"

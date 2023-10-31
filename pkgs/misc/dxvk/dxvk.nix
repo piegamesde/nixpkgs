@@ -78,8 +78,7 @@ stdenv.mkDerivation {
       ]
       ++ lib.optional (!isWindows && sdl2Support) SDL2
       ++ lib.optional (!isWindows && glfwSupport) glfw
-    )
-  ;
+    );
 
   postPatch = lib.optionalString isDxvk2 ''
     substituteInPlace "subprojects/libdisplay-info/tool/gen-search-table.py" \

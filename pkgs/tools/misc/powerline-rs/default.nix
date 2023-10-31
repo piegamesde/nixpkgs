@@ -36,15 +36,12 @@ rustPlatform.buildRustPackage rec {
     cmake
     curl
   ];
-  buildInputs =
-    [
-      openssl
-      libssh2
-      libgit2
-      libzip
-    ]
-    ++ lib.optional stdenv.isDarwin Security
-  ;
+  buildInputs = [
+    openssl
+    libssh2
+    libgit2
+    libzip
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   COMPLETION_OUT = "out";
   postInstall = ''

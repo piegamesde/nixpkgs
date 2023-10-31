@@ -31,7 +31,9 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs =
-    [ snowballstemmer ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    [ snowballstemmer ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+  ;
 
   passthru.optional-dependencies.toml = [ tomli ];
 

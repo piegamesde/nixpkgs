@@ -73,20 +73,17 @@ let
       }
   ;
 
-  system-libraries =
-    [
-      "boost"
-      "pcre"
-      "snappy"
-      "yaml"
-      "zlib"
-      #"asio" -- XXX use package?
-      #"stemmer"  -- not nice to package yet (no versioning, no makefile, no shared libs).
-      #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
-      #"wiredtiger"
-    ]
-    ++ optionals stdenv.isLinux [ "tcmalloc" ]
-  ;
+  system-libraries = [
+    "boost"
+    "pcre"
+    "snappy"
+    "yaml"
+    "zlib"
+    #"asio" -- XXX use package?
+    #"stemmer"  -- not nice to package yet (no versioning, no makefile, no shared libs).
+    #"valgrind" -- mongodb only requires valgrind.h, which is vendored in the source.
+    #"wiredtiger"
+  ] ++ optionals stdenv.isLinux [ "tcmalloc" ];
   inherit (lib) systems subtractLists;
 in
 stdenv.mkDerivation rec {
@@ -99,7 +96,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ variants.scons ] ++ lib.optionals (versionAtLeast version "4.4") [ xz ];
+    [ variants.scons ]
+    ++ lib.optionals (versionAtLeast version "4.4") [ xz ]
+  ;
 
   buildInputs =
     [

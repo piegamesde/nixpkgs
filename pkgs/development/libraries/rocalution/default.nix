@@ -47,17 +47,14 @@ stdenv.mkDerivation (
       git
     ];
 
-    buildInputs =
-      [
-        rocblas
-        rocsparse
-        rocprim
-        rocrand
-        openmp
-        openmpi
-      ]
-      ++ lib.optionals buildTests [ gtest ]
-    ;
+    buildInputs = [
+      rocblas
+      rocsparse
+      rocprim
+      rocrand
+      openmp
+      openmpi
+    ] ++ lib.optionals buildTests [ gtest ];
 
     cmakeFlags =
       [

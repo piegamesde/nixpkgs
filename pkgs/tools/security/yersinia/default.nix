@@ -47,14 +47,11 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs =
-    [
-      libpcap
-      libnet
-      ncurses
-    ]
-    ++ lib.optional withGtk gtk2
-  ;
+  buildInputs = [
+    libpcap
+    libnet
+    ncurses
+  ] ++ lib.optional withGtk gtk2;
 
   autoreconfPhase = "./autogen.sh";
 

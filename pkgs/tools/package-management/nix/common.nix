@@ -136,7 +136,9 @@ let
     ;
 
     propagatedBuildInputs =
-      [ boehmgc ] ++ lib.optionals (atLeast27) [ nlohmann_json ];
+      [ boehmgc ]
+      ++ lib.optionals (atLeast27) [ nlohmann_json ]
+    ;
 
     NIX_LDFLAGS = lib.optionals (!atLeast24) [
       # https://github.com/NixOS/nix/commit/3e85c57a6cbf46d5f0fe8a89b368a43abd26daba
@@ -235,9 +237,8 @@ let
         "--jobserver-style=pipe"
         "profiledir=$(out)/etc/profile.d"
       ]
-      ++
-        lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-          "PRECOMPILE_HEADERS=0"
+      ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+        "PRECOMPILE_HEADERS=0"
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1"
     ;
 

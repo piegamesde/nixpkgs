@@ -50,13 +50,10 @@ stdenv.mkDerivation {
   ];
   nativeBuildInputs = [ pkg-config ];
 
-  buildFlags =
-    [
-      "static"
-      "CC=${stdenv.cc.targetPrefix}cc"
-    ]
-    ++ lib.optional stdenv.isDarwin "CFLAGS=-D_BSD_SOURCE"
-  ;
+  buildFlags = [
+    "static"
+    "CC=${stdenv.cc.targetPrefix}cc"
+  ] ++ lib.optional stdenv.isDarwin "CFLAGS=-D_BSD_SOURCE";
 
   installPhase = ''
     mkdir -p $out/bin

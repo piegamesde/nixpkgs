@@ -36,13 +36,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      ncurses
-      libconfuse
-    ]
-    ++ lib.optional stdenv.isLinux libnl
-  ;
+  buildInputs = [
+    ncurses
+    libconfuse
+  ] ++ lib.optional stdenv.isLinux libnl;
 
   preConfigure = ''
     # Must be an absolute path

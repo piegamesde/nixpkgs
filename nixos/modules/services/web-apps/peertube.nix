@@ -511,8 +511,7 @@ in
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
           "peertube-init-db.service"
-        ]
-      ;
+        ];
       wantedBy = [ "multi-user.target" ];
 
       environment = env;

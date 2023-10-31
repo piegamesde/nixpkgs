@@ -55,18 +55,15 @@ rustPlatform.buildRustPackage.override { inherit stdenv; } rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      boost180
-      db62
-      libevent
-      libsodium
-      tl-expected
-      utf8cpp
-      zeromq
-    ]
-    ++ lib.optionals stdenv.isDarwin [ Security ]
-  ;
+  buildInputs = [
+    boost180
+    db62
+    libevent
+    libsodium
+    tl-expected
+    utf8cpp
+    zeromq
+  ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   # Use the stdenv default phases (./configure; make) instead of the
   # ones from buildRustPackage.

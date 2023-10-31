@@ -32,20 +32,17 @@ let
     modesetting = { };
   };
 
-  fontsForXServer =
-    config.fonts.fonts
-    ++
-      # We don't want these fonts in fonts.conf, because then modern,
-      # fontconfig-based applications will get horrible bitmapped
-      # Helvetica fonts.  It's better to get a substitution (like Nimbus
-      # Sans) than that horror.  But we do need the Adobe fonts for some
-      # old non-fontconfig applications.  (Possibly this could be done
-      # better using a fontconfig rule.)
-      [
-        pkgs.xorg.fontadobe100dpi
-        pkgs.xorg.fontadobe75dpi
-      ]
-  ;
+  fontsForXServer = config.fonts.fonts ++
+    # We don't want these fonts in fonts.conf, because then modern,
+    # fontconfig-based applications will get horrible bitmapped
+    # Helvetica fonts.  It's better to get a substitution (like Nimbus
+    # Sans) than that horror.  But we do need the Adobe fonts for some
+    # old non-fontconfig applications.  (Possibly this could be done
+    # better using a fontconfig rule.)
+    [
+      pkgs.xorg.fontadobe100dpi
+      pkgs.xorg.fontadobe75dpi
+    ];
 
   xrandrOptions = {
     output = mkOption {
@@ -885,8 +882,7 @@ in
           pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
         ]
         config.services.xserver.excludePackages
-      ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh
-    ;
+      ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh;
 
     environment.pathsToLink = [ "/share/X11" ];
 
@@ -967,13 +963,10 @@ in
       ++ optional cfg.terminateOnReset "-terminate"
     ;
 
-    services.xserver.modules =
-      concatLists (catAttrs "modules" cfg.drivers)
-      ++ [
-        xorg.xorgserver.out
-        xorg.xf86inputevdev.out
-      ]
-    ;
+    services.xserver.modules = concatLists (catAttrs "modules" cfg.drivers) ++ [
+      xorg.xorgserver.out
+      xorg.xf86inputevdev.out
+    ];
 
     system.extraDependencies = singleton (
       pkgs.runCommand "xkb-validated"

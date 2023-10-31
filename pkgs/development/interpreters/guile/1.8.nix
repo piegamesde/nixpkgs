@@ -40,9 +40,8 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
-    ++
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        pkgsBuildBuild.guile_1_8
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
+      pkgsBuildBuild.guile_1_8
   ;
   nativeBuildInputs = [
     makeWrapper

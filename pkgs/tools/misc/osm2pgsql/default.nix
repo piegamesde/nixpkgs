@@ -38,30 +38,23 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = [ cmake ];
 
-    buildInputs =
-      [
-        expat
-        fmt
-        proj
-        bzip2
-        zlib
-        boost
-        postgresql
-        libosmium
-        protozero
-      ]
-      ++ lib.optional withLuaJIT luajit
-      ++ lib.optional (!withLuaJIT) lua
-    ;
+    buildInputs = [
+      expat
+      fmt
+      proj
+      bzip2
+      zlib
+      boost
+      postgresql
+      libosmium
+      protozero
+    ] ++ lib.optional withLuaJIT luajit ++ lib.optional (!withLuaJIT) lua;
 
-    cmakeFlags =
-      [
-        "-DEXTERNAL_LIBOSMIUM=ON"
-        "-DEXTERNAL_PROTOZERO=ON"
-        "-DEXTERNAL_FMT=ON"
-      ]
-      ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON"
-    ;
+    cmakeFlags = [
+      "-DEXTERNAL_LIBOSMIUM=ON"
+      "-DEXTERNAL_PROTOZERO=ON"
+      "-DEXTERNAL_FMT=ON"
+    ] ++ lib.optional withLuaJIT "-DWITH_LUAJIT:BOOL=ON";
 
     passthru.tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;

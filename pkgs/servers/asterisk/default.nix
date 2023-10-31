@@ -104,8 +104,7 @@ let
           # directories in /var rather than ${out}/var.
           ./runtime-vardirs.patch
         ]
-        ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch"
-      ;
+        ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch";
 
       postPatch = ''
         echo "PJPROJECT_CONFIG_OPTS += --prefix=$out" >> third-party/pjproject/Makefile.rules

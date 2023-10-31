@@ -37,7 +37,8 @@ stdenv.mkDerivation rec {
   hardeningEnable = [ "stackprotector" ];
 
   buildFlags =
-    lib.optional enableStatic "static" ++ lib.optional enableShared "dynamic";
+    lib.optional enableStatic "static"
+    ++ lib.optional enableShared "dynamic";
 
   patchFlags = [ "-p0" ];
 

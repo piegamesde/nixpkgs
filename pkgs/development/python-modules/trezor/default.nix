@@ -36,25 +36,22 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs =
-    [
-      attrs
-      click
-      construct
-      construct-classes
-      ecdsa
-      hidapi
-      libusb1
-      mnemonic
-      pillow
-      protobuf
-      requests
-      shamir-mnemonic
-      simple-rlp
-      typing-extensions
-    ]
-    ++ lib.optionals stdenv.isLinux [ trezor-udev-rules ]
-  ;
+  propagatedBuildInputs = [
+    attrs
+    click
+    construct
+    construct-classes
+    ecdsa
+    hidapi
+    libusb1
+    mnemonic
+    pillow
+    protobuf
+    requests
+    shamir-mnemonic
+    simple-rlp
+    typing-extensions
+  ] ++ lib.optionals stdenv.isLinux [ trezor-udev-rules ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

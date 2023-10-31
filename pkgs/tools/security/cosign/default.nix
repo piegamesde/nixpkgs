@@ -25,8 +25,7 @@ buildGoModule rec {
 
   buildInputs =
     lib.optional (stdenv.isLinux && pivKeySupport) (lib.getDev pcsclite)
-    ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ]
-  ;
+    ++ lib.optionals (stdenv.isDarwin && pivKeySupport) [ PCSC ];
 
   nativeBuildInputs = [
     pkg-config

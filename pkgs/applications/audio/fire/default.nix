@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
       CoreAudioKit
       MetalKit
       simd
-    ]
-  ;
+    ];
 
   installPhase =
     let

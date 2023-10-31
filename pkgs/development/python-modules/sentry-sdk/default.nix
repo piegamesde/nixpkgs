@@ -116,12 +116,11 @@ buildPythonPackage rec {
       # upgrade depencies, so don't bother testing them.
       "tests/integrations/"
     ]
-    ++
-      lib.optionals (stdenv.buildPlatform != "x86_64-linux")
-        [
-          # test crashes on aarch64
-          "tests/test_transport.py"
-        ]
+    ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux")
+      [
+        # test crashes on aarch64
+        "tests/test_transport.py"
+      ]
   ;
 
   pythonImportsCheck = [ "sentry_sdk" ];

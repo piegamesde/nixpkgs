@@ -43,14 +43,11 @@ stdenv.mkDerivation (
       ./003-fix-darwin-install.patch
     ];
 
-    nativeBuildInputs =
-      [
-        pkg-config
-        which
-        wrapGAppsHook
-      ]
-      ++ lib.optionals stdenv.isDarwin [ libicns ]
-    ;
+    nativeBuildInputs = [
+      pkg-config
+      which
+      wrapGAppsHook
+    ] ++ lib.optionals stdenv.isDarwin [ libicns ];
 
     buildInputs =
       [

@@ -64,8 +64,7 @@ stdenv.mkDerivation (
         # bashInteractive, but not bash.
         bashInteractive
       ]
-      ++ lib.optional stdenv.isDarwin xcodebuild
-    ;
+      ++ lib.optional stdenv.isDarwin xcodebuild;
 
     checkPhase =
       let

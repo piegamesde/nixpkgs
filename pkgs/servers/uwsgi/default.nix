@@ -63,15 +63,12 @@ let
     (lib.nameValuePair "php" {
       # usage: https://uwsgi-docs.readthedocs.io/en/latest/PHP.html#running-php-apps-with-nginx
       path = "plugins/php";
-      inputs =
-        [
-          php-embed
-          php-embed.extensions.session
-          php-embed.extensions.session.dev
-          php-embed.unwrapped.dev
-        ]
-        ++ php-embed.unwrapped.buildInputs
-      ;
+      inputs = [
+        php-embed
+        php-embed.extensions.session
+        php-embed.extensions.session.dev
+        php-embed.unwrapped.dev
+      ] ++ php-embed.unwrapped.buildInputs;
     })
   ];
 

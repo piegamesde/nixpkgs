@@ -81,16 +81,13 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = [ java ];
 
-    buildInputs =
-      [
-        polyml
-        veriT
-        vampire
-        eprover-ho
-        nettools
-      ]
-      ++ lib.optionals (!stdenv.isDarwin) [ java ]
-    ;
+    buildInputs = [
+      polyml
+      veriT
+      vampire
+      eprover-ho
+      nettools
+    ] ++ lib.optionals (!stdenv.isDarwin) [ java ];
 
     sourceRoot = "${dirname}${lib.optionalString stdenv.isDarwin ".app"}";
 
@@ -276,7 +273,9 @@ stdenv.mkDerivation (
       symlinkJoin {
         name = "isabelle-with-components-${isabelle.version}";
         paths =
-          [ isabelle ] ++ (builtins.map (c: c.override { inherit isabelle; }) components);
+          [ isabelle ]
+          ++ (builtins.map (c: c.override { inherit isabelle; }) components)
+        ;
 
         postBuild =
           ''

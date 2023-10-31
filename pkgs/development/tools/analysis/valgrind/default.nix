@@ -119,8 +119,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     lib.optional stdenv.hostPlatform.isx86_64 "--enable-only64bit"
-    ++ lib.optional stdenv.hostPlatform.isDarwin "--with-xcodedir=${xnu}/include"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isDarwin "--with-xcodedir=${xnu}/include";
 
   doCheck = true;
 

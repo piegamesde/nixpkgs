@@ -350,14 +350,11 @@ let
     pkgs: f:
     buildEnv {
       name = "postgresql-and-plugins-${postgresql.version}";
-      paths =
-        f pkgs
-        ++ [
-          postgresql
-          postgresql.lib
-          postgresql.man # in case user installs this into environment
-        ]
-      ;
+      paths = f pkgs ++ [
+        postgresql
+        postgresql.lib
+        postgresql.man # in case user installs this into environment
+      ];
       nativeBuildInputs = [ makeWrapper ];
 
       # We include /bin to ensure the $out/bin directory is created, which is

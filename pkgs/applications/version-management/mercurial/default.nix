@@ -83,7 +83,9 @@ let
       )
     ;
     buildInputs =
-      [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+      [ docutils ]
+      ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
+    ;
 
     makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
 

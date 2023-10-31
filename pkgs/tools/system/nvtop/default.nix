@@ -63,13 +63,10 @@ stdenv.mkDerivation rec {
     ++ optional (!nvidia) "-DNVIDIA_SUPPORT=OFF"
     ++ optional amd "-DLibdrm_INCLUDE_DIRS=${libdrm}/lib/stubs/libdrm.so.2"
   ;
-  nativeBuildInputs =
-    [
-      cmake
-      gtest
-    ]
-    ++ lib.optional nvidia addOpenGLRunpath
-  ;
+  nativeBuildInputs = [
+    cmake
+    gtest
+  ] ++ lib.optional nvidia addOpenGLRunpath;
   buildInputs =
     with lib;
     [

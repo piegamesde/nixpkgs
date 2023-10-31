@@ -45,17 +45,14 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      boostPython
-      openssl
-      zlib
-      python
-      libiconv
-      ncurses
-    ]
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ]
-  ;
+  buildInputs = [
+    boostPython
+    openssl
+    zlib
+    python
+    libiconv
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
 
   preConfigure = "./autotool.sh";
 

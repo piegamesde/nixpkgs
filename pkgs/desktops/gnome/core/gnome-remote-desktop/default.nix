@@ -50,26 +50,23 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  buildInputs =
-    [
-      cairo
-      freerdp
-      fdk_aac
-      tpm2-tss
-      fuse3
-      gdk-pixbuf # For libnotify
-      glib
-      libepoxy
-      libdrm
-      nv-codec-headers-11
-      libnotify
-      libsecret
-      libxkbcommon
-      pipewire
-      systemd
-    ]
-    ++ nativeCheckInputs
-  ;
+  buildInputs = [
+    cairo
+    freerdp
+    fdk_aac
+    tpm2-tss
+    fuse3
+    gdk-pixbuf # For libnotify
+    glib
+    libepoxy
+    libdrm
+    nv-codec-headers-11
+    libnotify
+    libsecret
+    libxkbcommon
+    pipewire
+    systemd
+  ] ++ nativeCheckInputs;
 
   nativeCheckInputs = [
     mesa # for gbm

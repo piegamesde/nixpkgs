@@ -255,13 +255,10 @@ let
           url = "https://github.com/facts-db/cl-lessp/archive/632217602b85b679e8d420654a0aa39e798ca3b5.tar.gz";
           sha256 = "09z1vwzjm7hlb529jl3hcjnfd11gh128lmdg51im7ar4jv4746iw";
         };
-        lispLibs =
-          [
-            self.lessp
-            self.rollback
-          ]
-          ++ [ super.local-time ]
-        ;
+        lispLibs = [
+          self.lessp
+          self.rollback
+        ] ++ [ super.local-time ];
       };
 
       cl-fuse = build-with-compile-into-pwd {
@@ -530,8 +527,7 @@ let
         ;
         lispLibs =
           [ self.qt ]
-          ++ remove super.qt_plus_libs super.qtools.lispLibs
-          ++ [ self.qt-libs ]
+          ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ]
         ;
         patches = [ ./patches/qtools-use-nix-libs.patch ];
       };

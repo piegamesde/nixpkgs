@@ -39,25 +39,22 @@ buildPythonPackage rec {
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   pythonRelaxDeps = [ "responses" ];
 
-  propagatedBuildInputs =
-    [
-      cookiecutter
-      datasets
-      numpy
-      dill
-      pandas
-      requests
-      tqdm
-      xxhash
-      multiprocess
-      fsspec
-      huggingface-hub
-      packaging
-      pyarrow
-      responses
-    ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ]
-  ;
+  propagatedBuildInputs = [
+    cookiecutter
+    datasets
+    numpy
+    dill
+    pandas
+    requests
+    tqdm
+    xxhash
+    multiprocess
+    fsspec
+    huggingface-hub
+    packaging
+    pyarrow
+    responses
+  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   # most tests require internet access.
   doCheck = false;

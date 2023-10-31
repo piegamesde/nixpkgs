@@ -28,15 +28,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      boost
-      protobuf
-      icu
-      gtest
-    ]
-    ++ lib.optional stdenv.isDarwin Foundation
-  ;
+  buildInputs = [
+    boost
+    protobuf
+    icu
+    gtest
+  ] ++ lib.optional stdenv.isDarwin Foundation;
 
   cmakeDir = "../cpp";
   cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [

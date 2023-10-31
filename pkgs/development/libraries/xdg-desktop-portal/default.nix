@@ -61,29 +61,26 @@ stdenv.mkDerivation (
       wrapGAppsHook
     ];
 
-    buildInputs =
-      [
-        acl
-        dbus
-        flatpak
-        fuse3
-        bubblewrap
-        systemdMinimal # libsystemd
-        glib
-        gsettings-desktop-schemas
-        json-glib
-        libportal
-        pipewire
+    buildInputs = [
+      acl
+      dbus
+      flatpak
+      fuse3
+      bubblewrap
+      systemdMinimal # libsystemd
+      glib
+      gsettings-desktop-schemas
+      json-glib
+      libportal
+      pipewire
 
-        # For icon validator
-        gdk-pixbuf
-        librsvg
+      # For icon validator
+      gdk-pixbuf
+      librsvg
 
-        # For document-fuse installed test.
-        (python3.withPackages (pp: with pp; [ pygobject3 ]))
-      ]
-      ++ lib.optionals enableGeoLocation [ geoclue2 ]
-    ;
+      # For document-fuse installed test.
+      (python3.withPackages (pp: with pp; [ pygobject3 ]))
+    ] ++ lib.optionals enableGeoLocation [ geoclue2 ];
 
     configureFlags =
       [ "--enable-installed-tests" ]

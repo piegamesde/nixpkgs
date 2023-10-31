@@ -27,14 +27,11 @@ buildPythonPackage rec {
     hash = "sha256-vPMrmC2B0Pcvk8Y1FsJ4PXnzIMtPod7lL2u0IYNVUxc=";
   };
 
-  propagatedBuildInputs =
-    [
-      asgiref
-      autobahn
-      twisted
-    ]
-    ++ twisted.optional-dependencies.tls
-  ;
+  propagatedBuildInputs = [
+    asgiref
+    autobahn
+    twisted
+  ] ++ twisted.optional-dependencies.tls;
 
   nativeCheckInputs = [
     django

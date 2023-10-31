@@ -321,9 +321,13 @@ in
     systemd.services.firefox-syncserver-setup = lib.mkIf cfg.singleNode.enable {
       wantedBy = [ "firefox-syncserver.service" ];
       requires =
-        [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
+        [ "firefox-syncserver.service" ]
+        ++ lib.optional dbIsLocal "mysql.service"
+      ;
       after =
-        [ "firefox-syncserver.service" ] ++ lib.optional dbIsLocal "mysql.service";
+        [ "firefox-syncserver.service" ]
+        ++ lib.optional dbIsLocal "mysql.service"
+      ;
       path = [ config.services.mysql.package ];
       serviceConfig.ExecStart = [ "${setupScript}" ];
     };

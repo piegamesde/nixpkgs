@@ -18,13 +18,10 @@ mkDerivation {
     "installedTests"
   ];
 
-  buildInputs =
-    appstream.buildInputs
-    ++ [
-      appstream
-      qtbase
-    ]
-  ;
+  buildInputs = appstream.buildInputs ++ [
+    appstream
+    qtbase
+  ];
 
   nativeBuildInputs = appstream.nativeBuildInputs ++ [ qttools ];
 

@@ -30,21 +30,17 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs =
-    [
-      dask-glm
-      distributed
-      multipledispatch
-      numba
-      numpy
-      packaging
-      pandas
-      scikit-learn
-      scipy
-    ]
-    ++ dask.optional-dependencies.array
-    ++ dask.optional-dependencies.dataframe
-  ;
+  propagatedBuildInputs = [
+    dask-glm
+    distributed
+    multipledispatch
+    numba
+    numpy
+    packaging
+    pandas
+    scikit-learn
+    scipy
+  ] ++ dask.optional-dependencies.array ++ dask.optional-dependencies.dataframe;
 
   # has non-standard build from source, and pypi doesn't include tests
   doCheck = false;

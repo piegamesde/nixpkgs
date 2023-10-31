@@ -30,13 +30,10 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs =
-    [
-      alsa-lib
-      openssl
-    ]
-    ++ lib.optionals withTTS [ speechd ]
-  ;
+  buildInputs = [
+    alsa-lib
+    openssl
+  ] ++ lib.optionals withTTS [ speechd ];
 
   checkFlags =
     let

@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     [ libxcrypt ]
-    ++ lib.optional (pam != null && stdenv.isLinux) pam
-    ++ lib.optional withTcb tcb
+    ++ lib.optional (pam != null && stdenv.isLinux) pam ++ lib.optional withTcb tcb
   ;
 
   patches = [

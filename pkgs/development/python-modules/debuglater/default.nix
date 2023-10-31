@@ -30,14 +30,11 @@ buildPythonPackage rec {
     all = [ dill ];
   };
 
-  nativeCheckInputs =
-    [
-      numpy
-      pandas
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.all
-  ;
+  nativeCheckInputs = [
+    numpy
+    pandas
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.all;
 
   pythonImportsCheck = [ "debuglater" ];
 

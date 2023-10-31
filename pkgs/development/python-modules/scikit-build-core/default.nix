@@ -57,15 +57,12 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeCheckInputs =
-    [
-      cattrs
-      cmake
-      pytest-subprocess
-      pytestCheckHook
-    ]
-    ++ passthru.optional-dependencies.pyproject
-  ;
+  nativeCheckInputs = [
+    cattrs
+    cmake
+    pytest-subprocess
+    pytestCheckHook
+  ] ++ passthru.optional-dependencies.pyproject;
 
   disabledTestPaths = [
     # runs pip, requires network access

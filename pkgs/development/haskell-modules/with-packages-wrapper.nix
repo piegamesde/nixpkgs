@@ -50,8 +50,7 @@ let
 
   packages =
     selectPackages haskellPackages
-    ++ lib.optional withHoogle (hoogleWithPackages selectPackages)
-  ;
+    ++ lib.optional withHoogle (hoogleWithPackages selectPackages);
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;

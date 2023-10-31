@@ -29,14 +29,11 @@ stdenv.mkDerivation {
       "1950rg294izdwkaasi7yjrmadc9mzdd5paf0q63jjcq2m3rdbj5l"
   ;
 
-  nativeBuildInputs =
-    [
-      cmake
-      python3
-      libllvm.dev
-    ]
-    ++ lib.optional stdenv.isDarwin xcbuild.xcrun
-  ;
+  nativeBuildInputs = [
+    cmake
+    python3
+    libllvm.dev
+  ] ++ lib.optional stdenv.isDarwin xcbuild.xcrun;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libcxxabi;
 
   env.NIX_CFLAGS_COMPILE = toString [

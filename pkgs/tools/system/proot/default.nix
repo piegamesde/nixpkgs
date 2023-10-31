@@ -31,20 +31,14 @@ stdenv.mkDerivation rec {
     sed -i /CROSS_COMPILE/d src/GNUmakefile
   '';
 
-  buildInputs =
-    [
-      ncurses
-      talloc
-    ]
-    ++ lib.optional enablePython python3
-  ;
-  nativeBuildInputs =
-    [
-      pkg-config
-      docutils
-    ]
-    ++ lib.optional enablePython swig
-  ;
+  buildInputs = [
+    ncurses
+    talloc
+  ] ++ lib.optional enablePython python3;
+  nativeBuildInputs = [
+    pkg-config
+    docutils
+  ] ++ lib.optional enablePython swig;
 
   enableParallelBuilding = true;
 

@@ -49,22 +49,18 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs =
-    [
-      gcc
-      libjack2
-      libsndfile
-      fftw
-      curl
-      libXt
-      qtbase
-      qtwebengine
-      qtwebsockets
-      readline
-    ]
-    ++ lib.optional (!stdenv.isDarwin) alsa-lib
-    ++ lib.optional useSCEL emacs
-  ;
+  buildInputs = [
+    gcc
+    libjack2
+    libsndfile
+    fftw
+    curl
+    libXt
+    qtbase
+    qtwebengine
+    qtwebsockets
+    readline
+  ] ++ lib.optional (!stdenv.isDarwin) alsa-lib ++ lib.optional useSCEL emacs;
 
   hardeningDisable = [ "stackprotector" ];
 

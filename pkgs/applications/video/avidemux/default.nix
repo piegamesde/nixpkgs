@@ -65,15 +65,12 @@ stdenv.mkDerivation rec {
     ./bootstrap_logging.patch
   ];
 
-  nativeBuildInputs =
-    [
-      yasm
-      cmake
-      pkg-config
-      makeWrapper
-    ]
-    ++ lib.optional withQT wrapQtAppsHook
-  ;
+  nativeBuildInputs = [
+    yasm
+    cmake
+    pkg-config
+    makeWrapper
+  ] ++ lib.optional withQT wrapQtAppsHook;
   buildInputs =
     [
       zlib

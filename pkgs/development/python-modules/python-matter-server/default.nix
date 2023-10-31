@@ -58,13 +58,10 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs =
-    [
-      pytest-aiohttp
-      pytestCheckHook
-    ]
-    ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-  ;
+  nativeCheckInputs = [
+    pytest-aiohttp
+    pytestCheckHook
+  ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
   preCheck =
     let

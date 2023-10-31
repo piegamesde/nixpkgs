@@ -92,17 +92,14 @@ stdenv.mkDerivation rec {
         ''
   ;
 
-  nativeBuildInputs =
-    [
-      cmake
-      gettext
-      pkg-config
-      python3
-      makeWrapper
-      wrapGAppsHook
-    ]
-    ++ lib.optionals stdenv.isLinux [ linuxHeaders ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    gettext
+    pkg-config
+    python3
+    makeWrapper
+    wrapGAppsHook
+  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs =
     [

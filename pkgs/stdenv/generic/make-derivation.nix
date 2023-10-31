@@ -696,10 +696,9 @@ let
             lib.optionalAttrs
               (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch)
               {
-                requiredSystemFeatures =
-                  attrs.requiredSystemFeatures or [ ]
-                  ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ]
-                ;
+                requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [
+                  "gccarch-${stdenv.hostPlatform.gcc.arch}"
+                ];
               }
           // lib.optionalAttrs (stdenv.buildPlatform.isDarwin) {
             inherit __darwinAllowLocalNetworking;

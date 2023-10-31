@@ -36,13 +36,10 @@ stdenv.mkDerivation rec {
     sha256 = "03ndk46h6093v8s18d5iffz48zhlshq7jrk6vgpjfs6z2iqgd2sy";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      autoreconfHook
-    ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    autoreconfHook
+  ] ++ lib.optionals withGui [ wrapQtAppsHook ];
 
   buildInputs =
     [

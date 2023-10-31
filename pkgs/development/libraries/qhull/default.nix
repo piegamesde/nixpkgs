@@ -18,7 +18,9 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs =
-    [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+    [ cmake ]
+    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
+  ;
 
   meta = with lib; {
     homepage = "http://www.qhull.org/";

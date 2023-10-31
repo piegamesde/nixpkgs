@@ -29,14 +29,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-UgwCfy2ssaPuSWeN2SXHBDXv/uLdrDoGr/Q9wXiuCnc=";
   };
 
-  nativeBuildInputs =
-    [
-      pkg-config
-      which
-      zip
-    ]
-    ++ lib.optionals stdenv.isDarwin [ libicns ]
-  ;
+  nativeBuildInputs = [
+    pkg-config
+    which
+    zip
+  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
 
   buildInputs =
     [

@@ -78,8 +78,7 @@ python3.pkgs.buildPythonApplication rec {
 
   preFixup =
     lib.optional withQT "wrapQtApp $out/bin/trackma-qt"
-    ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk"
-  ;
+    ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
 
   desktopItems =
     lib.optional withQT (

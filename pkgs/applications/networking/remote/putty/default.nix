@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       gtk2
       ncurses
     ]
-    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp
-  ;
+    ++ lib.optional stdenv.isDarwin darwin.apple_sdk.libs.utmp;
   enableParallelBuilding = true;
 
   meta = with lib; {

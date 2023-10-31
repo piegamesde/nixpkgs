@@ -76,12 +76,11 @@ buildPythonPackage rec {
       # AssertionError: assert 'crypto' in ['curl']
       "test_ssl_in_static_libs"
     ]
-    ++
-      lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-        [
-          # Fatal Python error: Segmentation fault
-          "cadata_test"
-        ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
+      [
+        # Fatal Python error: Segmentation fault
+        "cadata_test"
+      ]
   ;
 
   meta = with lib; {

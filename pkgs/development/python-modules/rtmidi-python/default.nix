@@ -30,8 +30,7 @@ buildPythonPackage rec {
       CoreAudio
       CoreMIDI
       CoreServices
-    ]
-  ;
+    ];
 
   setupPyBuildFlags = [ "--from-cython" ];
 

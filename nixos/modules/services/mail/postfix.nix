@@ -256,13 +256,10 @@ let
           ;
           # We need to handle the last column specially here, because it's
           # open-ended (command + args).
-          lines =
-            [
-              labels
-              labelDefaults
-            ]
-            ++ (map (l: init l ++ [ "" ]) masterCf)
-          ;
+          lines = [
+            labels
+            labelDefaults
+          ] ++ (map (l: init l ++ [ "" ]) masterCf);
         in
         foldr foldLine (genList (const 0) (length labels)) lines
       ;
@@ -1005,7 +1002,9 @@ in
           }
           // optionalAttrs haveLocalRecipients {
             local_recipient_maps =
-              [ "hash:/etc/postfix/local_recipients" ] ++ optional haveAliases "$alias_maps";
+              [ "hash:/etc/postfix/local_recipients" ]
+              ++ optional haveAliases "$alias_maps"
+            ;
           }
           // optionalAttrs (cfg.dnsBlacklists != [ ]) {
             smtpd_client_restrictions = clientRestrictions;

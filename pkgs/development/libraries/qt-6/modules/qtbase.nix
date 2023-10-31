@@ -196,21 +196,18 @@ stdenv.mkDerivation rec {
     ++ lib.optional (postgresql != null) postgresql
   ;
 
-  nativeBuildInputs =
-    [
-      bison
-      flex
-      gperf
-      lndir
-      perl
-      pkg-config
-      which
-      cmake
-      xmlstarlet
-      ninja
-    ]
-    ++ lib.optionals stdenv.isDarwin [ moveBuildTree ]
-  ;
+  nativeBuildInputs = [
+    bison
+    flex
+    gperf
+    lndir
+    perl
+    pkg-config
+    which
+    cmake
+    xmlstarlet
+    ninja
+  ] ++ lib.optionals stdenv.isDarwin [ moveBuildTree ];
 
   propagatedNativeBuildInputs = [ lndir ];
 

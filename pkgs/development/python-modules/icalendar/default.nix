@@ -22,13 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-Ch0i6hxEnHV/Xu4PqpRVt30KLOHHgtCAI2W9UyXo15E=";
   };
 
-  propagatedBuildInputs =
-    [
-      python-dateutil
-      pytz
-    ]
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-  ;
+  propagatedBuildInputs = [
+    python-dateutil
+    pytz
+  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   nativeCheckInputs = [
     hypothesis

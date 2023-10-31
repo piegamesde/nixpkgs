@@ -64,18 +64,17 @@ stdenv.mkDerivation (
 
     # Some of these dependencies are `dlopen()`ed.
     nativeBuildInputs =
-      [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
-
-    buildInputs =
-      [
-        stdenv.cc.cc
-        zlib
-        icu
-        libkrb5
-        curl
-      ]
-      ++ lib.optional stdenv.isLinux lttng-ust_2_12
+      [ makeWrapper ]
+      ++ lib.optional stdenv.isLinux autoPatchelfHook
     ;
+
+    buildInputs = [
+      stdenv.cc.cc
+      zlib
+      icu
+      libkrb5
+      curl
+    ] ++ lib.optional stdenv.isLinux lttng-ust_2_12;
 
     src = fetchurl (
       srcs."${stdenv.hostPlatform.system}" or (throw

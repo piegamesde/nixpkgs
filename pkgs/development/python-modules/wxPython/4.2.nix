@@ -60,18 +60,15 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs =
-    [
-      attrdict
-      pkg-config
-      setuptools
-      SDL
-      sip
-      which
-      wxGTK
-    ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-  ;
+  nativeBuildInputs = [
+    attrdict
+    pkg-config
+    setuptools
+    SDL
+    sip
+    which
+    wxGTK
+  ] ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ];
 
   buildInputs =
     [

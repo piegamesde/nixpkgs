@@ -939,17 +939,16 @@ in
           '';
         }
       ]
-      ++
-        map
-          (
-            name:
-            mkCertOwnershipAssertion {
-              inherit (cfg) group user;
-              cert = config.security.acme.certs.${name};
-              groups = config.users.groups;
-            }
-          )
-          dependentCertNames
+      ++ map
+        (
+          name:
+          mkCertOwnershipAssertion {
+            inherit (cfg) group user;
+            cert = config.security.acme.certs.${name};
+            groups = config.users.groups;
+          }
+        )
+        dependentCertNames
     ;
 
     warnings =

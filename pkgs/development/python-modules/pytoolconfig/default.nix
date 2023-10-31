@@ -48,18 +48,15 @@ buildPythonPackage rec {
 
   PDM_PEP517_SCM_VERSION = version;
 
-  nativeBuildInputs =
-    [
-      pdm-pep517
+  nativeBuildInputs = [
+    pdm-pep517
 
-      # docs
-      docutils
-      sphinx-autodoc-typehints
-      sphinx-rtd-theme
-      sphinxHook
-    ]
-    ++ passthru.optional-dependencies.doc
-  ;
+    # docs
+    docutils
+    sphinx-autodoc-typehints
+    sphinx-rtd-theme
+    sphinxHook
+  ] ++ passthru.optional-dependencies.doc;
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -67,7 +64,9 @@ buildPythonPackage rec {
   '';
 
   propagatedBuildInputs =
-    [ packaging ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    [ packaging ]
+    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
+  ;
 
   passthru.optional-dependencies = {
     validation = [ pydantic ];

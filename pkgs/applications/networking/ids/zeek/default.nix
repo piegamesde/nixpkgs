@@ -50,22 +50,19 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs =
-    [
-      broker
-      spicy-parser-generator
-      curl
-      gperftools
-      libkqueue
-      libmaxminddb
-      libpcap
-      ncurses
-      openssl
-      swig
-      zlib
-    ]
-    ++ lib.optionals stdenv.isDarwin [ gettext ]
-  ;
+  buildInputs = [
+    broker
+    spicy-parser-generator
+    curl
+    gperftools
+    libkqueue
+    libmaxminddb
+    libpcap
+    ncurses
+    openssl
+    swig
+    zlib
+  ] ++ lib.optionals stdenv.isDarwin [ gettext ];
 
   postPatch = ''
     patchShebangs ./auxil/spicy/spicy/scripts

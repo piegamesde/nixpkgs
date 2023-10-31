@@ -23,13 +23,10 @@ stdenv.mkDerivation rec {
   pname = "libmanette";
   version = "0.2.6";
 
-  outputs =
-    [
-      "out"
-      "dev"
-    ]
-    ++ lib.optional withIntrospection "devdoc"
-  ;
+  outputs = [
+    "out"
+    "dev"
+  ] ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${
@@ -58,13 +55,10 @@ stdenv.mkDerivation rec {
         [ mesonEmulatorHook ]
   ;
 
-  buildInputs =
-    [
-      glib
-      libevdev
-    ]
-    ++ lib.optionals withIntrospection [ libgudev ]
-  ;
+  buildInputs = [
+    glib
+    libevdev
+  ] ++ lib.optionals withIntrospection [ libgudev ];
 
   mesonFlags = [
     (lib.mesonBool "doc" withIntrospection)

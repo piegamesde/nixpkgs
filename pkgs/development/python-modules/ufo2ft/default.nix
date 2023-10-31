@@ -43,8 +43,7 @@ buildPythonPackage rec {
       ufoLib2
       skia-pathops
     ]
-    ++ fonttools.optional-dependencies.lxml
-    ++ fonttools.optional-dependencies.ufo
+    ++ fonttools.optional-dependencies.lxml ++ fonttools.optional-dependencies.ufo
   ;
 
   nativeCheckInputs = [ pytestCheckHook ];

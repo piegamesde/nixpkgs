@@ -34,22 +34,19 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      cairo
-      girara
-      gumbo
-      jbig2dec
-      libjpeg
-      mupdf
-      openjpeg
-      zathura_core
-      tesseract
-      leptonica
-      mujs
-    ]
-    ++ lib.optional stdenv.isDarwin gtk-mac-integration
-  ;
+  buildInputs = [
+    cairo
+    girara
+    gumbo
+    jbig2dec
+    libjpeg
+    mupdf
+    openjpeg
+    zathura_core
+    tesseract
+    leptonica
+    mujs
+  ] ++ lib.optional stdenv.isDarwin gtk-mac-integration;
 
   PKG_CONFIG_ZATHURA_PLUGINDIR = "lib/zathura";
 

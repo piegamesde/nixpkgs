@@ -29,14 +29,11 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  buildInputs =
-    [
-      libevent
-      libressl
-      ncurses
-    ]
-    ++ lib.optional stdenv.isDarwin memstreamHook
-  ;
+  buildInputs = [
+    libevent
+    libressl
+    ncurses
+  ] ++ lib.optional stdenv.isDarwin memstreamHook;
 
   configureFlags = [
     "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"

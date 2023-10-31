@@ -719,13 +719,10 @@ in
         ProtectProc = "invisible";
         ProcSubset = "pid";
         ProtectSystem = "strict";
-        ReadWritePaths =
-          [
-            cfg.dataDir
-            "/tmp" # mosquitto_passwd creates files in /tmp before moving them
-          ]
-          ++ filter path.check cfg.logDest
-        ;
+        ReadWritePaths = [
+          cfg.dataDir
+          "/tmp" # mosquitto_passwd creates files in /tmp before moving them
+        ] ++ filter path.check cfg.logDest;
         ReadOnlyPaths = map (p: "${p}") (
           cfg.includeDirs
           ++ filter (v: v != null) (

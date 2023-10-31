@@ -107,15 +107,12 @@ stdenv.mkDerivation rec {
       '';
       copyComponent = component: "cp ${component} $TEMP/${component.name}";
       # leaves enabled: quartus, modelsim_ase, devinfo
-      disabledComponents =
-        [
-          "quartus_help"
-          "quartus_update"
-          # not modelsim_ase
-          "modelsim_ae"
-        ]
-        ++ (lib.attrValues unsupportedDeviceIds)
-      ;
+      disabledComponents = [
+        "quartus_help"
+        "quartus_update"
+        # not modelsim_ase
+        "modelsim_ae"
+      ] ++ (lib.attrValues unsupportedDeviceIds);
     in
     ''
       ${lib.concatMapStringsSep "\n" copyInstaller installers}

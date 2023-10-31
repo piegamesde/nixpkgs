@@ -39,24 +39,21 @@ stdenv.mkDerivation rec {
     pkg-config
     makeWrapper
   ];
-  buildInputs =
-    [
-      glibmm
-      libconfig
-      gtkmm2
-      glibmm
-      libxml2
-      libsecret
-      curl
-      libzip
-      librsvg
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-libav
-      gst_all_1.gst-plugins-base
-    ]
-    ++ lib.optional useUnrar unrar
-  ;
+  buildInputs = [
+    glibmm
+    libconfig
+    gtkmm2
+    glibmm
+    libxml2
+    libsecret
+    curl
+    libzip
+    librsvg
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-libav
+    gst_all_1.gst-plugins-base
+  ] ++ lib.optional useUnrar unrar;
 
   NIX_LDFLAGS = "-lpthread";
 

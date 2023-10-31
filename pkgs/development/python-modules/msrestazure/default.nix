@@ -30,14 +30,11 @@ buildPythonPackage rec {
     msrest
   ];
 
-  nativeCheckInputs =
-    [
-      httpretty
-      mock
-      pytest
-    ]
-    ++ lib.optionals isPy3k [ pytest-asyncio ]
-  ;
+  nativeCheckInputs = [
+    httpretty
+    mock
+    pytest
+  ] ++ lib.optionals isPy3k [ pytest-asyncio ];
 
   checkPhase = ''
     pytest tests/

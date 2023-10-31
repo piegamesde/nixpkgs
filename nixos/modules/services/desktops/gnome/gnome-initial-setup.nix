@@ -89,9 +89,8 @@ in
 
     environment.systemPackages =
       [ pkgs.gnome.gnome-initial-setup ]
-      ++
-        optional (versionOlder config.system.stateVersion "20.03")
-          createGisStampFilesAutostart
+      ++ optional (versionOlder config.system.stateVersion "20.03")
+        createGisStampFilesAutostart
     ;
 
     systemd.packages = [ pkgs.gnome.gnome-initial-setup ];

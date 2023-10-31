@@ -37,20 +37,17 @@ python3Packages.buildPythonApplication rec {
       --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
   '';
 
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      glib
-      desktop-file-utils
-      appstream-glib
-      pkg-config
-      gettext
-      gobject-introspection
-      wrapGAppsHook4
-    ]
-    ++ lib.optional stdenv.isDarwin gtk4
-  ; # for gtk4-update-icon-cache
+  nativeBuildInputs = [
+    meson
+    ninja
+    glib
+    desktop-file-utils
+    appstream-glib
+    pkg-config
+    gettext
+    gobject-introspection
+    wrapGAppsHook4
+  ] ++ lib.optional stdenv.isDarwin gtk4; # for gtk4-update-icon-cache
 
   buildInputs = [
     librsvg

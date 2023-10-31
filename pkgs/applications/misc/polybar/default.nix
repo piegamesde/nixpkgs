@@ -53,15 +53,12 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      python3Packages.sphinx
-      removeReferencesTo
-    ]
-    ++ lib.optional i3Support makeWrapper
-  ;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    python3Packages.sphinx
+    removeReferencesTo
+  ] ++ lib.optional i3Support makeWrapper;
 
   buildInputs =
     [

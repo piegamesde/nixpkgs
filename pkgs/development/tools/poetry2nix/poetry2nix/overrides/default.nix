@@ -146,22 +146,19 @@ lib.composeManyExtensions [
         old: {
           # Inputs copied from nixpkgs as ansible doesn't specify it's dependencies
           # in a correct manner.
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              self.pycrypto
-              self.paramiko
-              self.jinja2
-              self.pyyaml
-              self.httplib2
-              self.six
-              self.netaddr
-              self.dnspython
-              self.jmespath
-              self.dopy
-              self.ncclient
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.pycrypto
+            self.paramiko
+            self.jinja2
+            self.pyyaml
+            self.httplib2
+            self.six
+            self.netaddr
+            self.dnspython
+            self.jmespath
+            self.dopy
+            self.ncclient
+          ];
         }
       );
 
@@ -284,13 +281,10 @@ lib.composeManyExtensions [
         old: {
           BORG_OPENSSL_PREFIX = pkgs.openssl.dev;
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.openssl
-              pkgs.acl
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.openssl
+            pkgs.acl
+          ];
         }
       );
 
@@ -336,15 +330,17 @@ lib.composeManyExtensions [
 
       celery = super.celery.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
       cerberus = super.cerberus.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
@@ -511,8 +507,9 @@ lib.composeManyExtensions [
 
       cyclonedx-python-lib = super.cyclonedx-python-lib.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
           postPatch = ''
             substituteInPlace setup.py --replace 'setuptools>=50.3.2,<51.0.0' 'setuptools'
           '';
@@ -544,14 +541,11 @@ lib.composeManyExtensions [
 
       dbt-extractor = super.dbt-extractor.overridePythonAttrs (
         old: {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              pkgs.cargo
-              pkgs.rustc
-              pkgs.maturin
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            pkgs.cargo
+            pkgs.rustc
+            pkgs.maturin
+          ];
         }
       );
 
@@ -570,10 +564,9 @@ lib.composeManyExtensions [
             ''
           ;
 
-          configureFlags =
-            (old.configureFlags or [ ])
-            ++ [ "PYTHON_VERSION=${lib.versions.major self.python.version}" ]
-          ;
+          configureFlags = (old.configureFlags or [ ]) ++ [
+            "PYTHON_VERSION=${lib.versions.major self.python.version}"
+          ];
 
           preConfigure = lib.concatStringsSep "\n" [
             (old.preConfigure or "")
@@ -614,8 +607,9 @@ lib.composeManyExtensions [
 
       dcli = super.dcli.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
@@ -631,21 +625,19 @@ lib.composeManyExtensions [
       dictdiffer = super.dictdiffer.overridePythonAttrs (
         old: {
           buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ];
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
       django =
         (super.django.overridePythonAttrs (
           old: {
-            propagatedNativeBuildInputs =
-              (old.propagatedNativeBuildInputs or [ ])
-              ++ [
-                pkgs.gettext
-                self.pytest-runner
-              ]
-            ;
+            propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or [ ]) ++ [
+              pkgs.gettext
+              self.pytest-runner
+            ];
           }
         ));
 
@@ -883,13 +875,10 @@ lib.composeManyExtensions [
             cargoDeps = pkgs.rustPlatform.importCargoLock {
               lockFile = "${src.out}/Cargo.lock";
             };
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ])
-              ++ [
-                pkgs.rustPlatform.cargoSetupHook
-                pkgs.rustPlatform.maturinBuildHook
-              ]
-            ;
+            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+              pkgs.rustPlatform.cargoSetupHook
+              pkgs.rustPlatform.maturinBuildHook
+            ];
           }
         )
       ;
@@ -901,14 +890,11 @@ lib.composeManyExtensions [
       grpcio = super.grpcio.overridePythonAttrs (
         old: {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.c-ares
-              pkgs.openssl
-              pkgs.zlib
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.c-ares
+            pkgs.openssl
+            pkgs.zlib
+          ];
 
           outputs = [
             "out"
@@ -974,8 +960,7 @@ lib.composeManyExtensions [
                 ++ lib.optionals mpiSupport [
                   self.mpi4py
                   pkgs.openssh
-                ]
-              ;
+                ];
               preBuild = if mpiSupport then "export CC=${mpi}/bin/mpicc" else "";
               HDF5_DIR = "${pkgs.hdf5}";
               HDF5_MPI = if mpiSupport then "ON" else "OFF";
@@ -1023,8 +1008,9 @@ lib.composeManyExtensions [
 
       httplib2 = super.httplib2.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.pyparsing ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.pyparsing
+          ];
         }
       );
 
@@ -1070,37 +1056,34 @@ lib.composeManyExtensions [
 
           '';
 
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              # Commented out packages are declared required, but not actually
-              # needed to build. They are not yet packaged for nixpkgs.
-              # bitshuffle
-              pkgs.brotli
-              # brunsli
-              pkgs.bzip2
-              pkgs.c-blosc
-              # charls
-              pkgs.giflib
-              pkgs.jxrlib
-              pkgs.lcms
-              pkgs.libaec
-              pkgs.libaec
-              pkgs.libjpeg_turbo
-              # liblzf
-              # liblzma
-              pkgs.libpng
-              pkgs.libtiff
-              pkgs.libwebp
-              pkgs.lz4
-              pkgs.openjpeg
-              pkgs.snappy
-              # zfp
-              pkgs.zopfli
-              pkgs.zstd
-              pkgs.zlib
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            # Commented out packages are declared required, but not actually
+            # needed to build. They are not yet packaged for nixpkgs.
+            # bitshuffle
+            pkgs.brotli
+            # brunsli
+            pkgs.bzip2
+            pkgs.c-blosc
+            # charls
+            pkgs.giflib
+            pkgs.jxrlib
+            pkgs.lcms
+            pkgs.libaec
+            pkgs.libaec
+            pkgs.libjpeg_turbo
+            # liblzf
+            # liblzma
+            pkgs.libpng
+            pkgs.libtiff
+            pkgs.libwebp
+            pkgs.lz4
+            pkgs.openjpeg
+            pkgs.snappy
+            # zfp
+            pkgs.zopfli
+            pkgs.zstd
+            pkgs.zlib
+          ];
         }
       );
 
@@ -1109,8 +1092,7 @@ lib.composeManyExtensions [
         old: {
           propagatedBuildInputs =
             (old.propagatedBuildInputs or [ ])
-            ++ lib.optional self.python.isPy2 self.pathlib2
-          ;
+            ++ lib.optional self.python.isPy2 self.pathlib2;
         }
       );
 
@@ -1118,15 +1100,17 @@ lib.composeManyExtensions [
 
       ipython = super.ipython.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
       isort = super.isort.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
@@ -1139,25 +1123,19 @@ lib.composeManyExtensions [
 
       trio = super.trio.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              self.async-generator
-              self.idna
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.async-generator
+            self.idna
+          ];
         }
       );
 
       jeepney = super.jeepney.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              self.outcome
-              self.trio
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            self.outcome
+            self.trio
+          ];
         }
       );
 
@@ -1175,15 +1153,12 @@ lib.composeManyExtensions [
       jira = super.jira.overridePythonAttrs (
         old: {
           inherit (pkgs.python3Packages.jira) patches;
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              self.pytestrunner
-              self.cryptography
-              self.pyjwt
-              self.setuptools-scm-git-archive
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            self.pytestrunner
+            self.cryptography
+            self.pyjwt
+            self.setuptools-scm-git-archive
+          ];
         }
       );
 
@@ -1222,8 +1197,9 @@ lib.composeManyExtensions [
         if lib.versionAtLeast super.jsonschema.version "4.0.0" then
           super.jsonschema.overridePythonAttrs (
             old: {
-              propagatedBuildInputs =
-                (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-resources ];
+              propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+                self.importlib-resources
+              ];
             }
           )
         else
@@ -1241,13 +1217,10 @@ lib.composeManyExtensions [
 
       jupyter-packaging = super.jupyter-packaging.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              self.setuptools
-              self.wheel
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+            self.wheel
+          ];
         }
       );
 
@@ -1567,13 +1540,10 @@ lib.composeManyExtensions [
         old: {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.autoPatchelfHook ];
 
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.zlib
-              self.cppy
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.zlib
+            self.cppy
+          ];
         }
       );
 
@@ -1596,27 +1566,21 @@ lib.composeManyExtensions [
                   })
                 ]
               ;
-              buildInputs =
-                (old.buildInputs or [ ])
-                ++ [
-                  self.setuptools
-                  self.setuptools-scm
-                  self.setuptools-scm-git-archive
-                ]
-              ;
+              buildInputs = (old.buildInputs or [ ]) ++ [
+                self.setuptools
+                self.setuptools-scm
+                self.setuptools-scm-git-archive
+              ];
             }
           ))
         else
           super.molecule.overridePythonAttrs (
             old: {
-              buildInputs =
-                (old.buildInputs or [ ])
-                ++ [
-                  self.setuptools
-                  self.setuptools-scm
-                  self.setuptools-scm-git-archive
-                ]
-              ;
+              buildInputs = (old.buildInputs or [ ]) ++ [
+                self.setuptools
+                self.setuptools-scm
+                self.setuptools-scm-git-archive
+              ];
             }
           )
       ;
@@ -1723,16 +1687,13 @@ lib.composeManyExtensions [
 
       netcdf4 = super.netcdf4.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              pkgs.zlib
-              pkgs.netcdf
-              pkgs.hdf5
-              pkgs.curl
-              pkgs.libjpeg
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            pkgs.zlib
+            pkgs.netcdf
+            pkgs.hdf5
+            pkgs.curl
+            pkgs.libjpeg
+          ];
 
           # Variables used to configure the build process
           USE_NCCONFIG = "0";
@@ -1790,8 +1751,9 @@ lib.composeManyExtensions [
 
       open3d = super.open3d.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.ipywidgets ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.ipywidgets
+          ];
           buildInputs =
             (old.buildInputs or [ ])
             ++ [ pkgs.libusb1 ]
@@ -1868,13 +1830,10 @@ lib.composeManyExtensions [
 
       openexr = super.openexr.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.openexr
-              pkgs.ilmbase
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.openexr
+            pkgs.ilmbase
+          ];
           NIX_CFLAGS_COMPILE = [
             "-I${pkgs.openexr.dev}/include/OpenEXR"
             "-I${pkgs.ilmbase.dev}/include/OpenEXR"
@@ -1884,16 +1843,13 @@ lib.composeManyExtensions [
 
       openvino = super.openvino.overridePythonAttrs (
         old: {
-          buildInputs =
-            [
-              pkgs.ocl-icd
-              pkgs.hwloc
-              pkgs.tbb
-              pkgs.numactl
-              pkgs.libxml2
-            ]
-            ++ (old.buildInputs or [ ])
-          ;
+          buildInputs = [
+            pkgs.ocl-icd
+            pkgs.hwloc
+            pkgs.tbb
+            pkgs.numactl
+            pkgs.libxml2
+          ] ++ (old.buildInputs or [ ]);
         }
       );
 
@@ -1928,15 +1884,13 @@ lib.composeManyExtensions [
               name = "${old.pname}-${old.version}";
               hash = getCargoHash old.version;
             };
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ])
-              ++ [
-                pkgs.rustPlatform.cargoSetupHook
-                pkgs.rustPlatform.maturinBuildHook
-              ]
-            ;
+            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+              pkgs.rustPlatform.cargoSetupHook
+              pkgs.rustPlatform.maturinBuildHook
+            ];
             buildInputs =
-              (old.buildInputs or [ ]) ++ lib.optional pkgs.stdenv.isDarwin pkgs.libiconv;
+              (old.buildInputs or [ ])
+              ++ lib.optional pkgs.stdenv.isDarwin pkgs.libiconv;
           }
         )
       ;
@@ -1952,7 +1906,8 @@ lib.composeManyExtensions [
         old: {
 
           buildInputs =
-            old.buildInputs or [ ] ++ lib.optional stdenv.isDarwin pkgs.libcxx;
+            old.buildInputs or [ ]
+            ++ lib.optional stdenv.isDarwin pkgs.libcxx;
 
           # Doesn't work with -Werror,-Wunused-command-line-argument
           # https://github.com/NixOS/nixpkgs/issues/39687
@@ -2021,13 +1976,10 @@ lib.composeManyExtensions [
 
       pikepdf = super.pikepdf.overridePythonAttrs (
         old: {
-          buildInputs =
-            old.buildInputs or [ ]
-            ++ [
-              pkgs.qpdf
-              self.pybind11
-            ]
-          ;
+          buildInputs = old.buildInputs or [ ] ++ [
+            pkgs.qpdf
+            self.pybind11
+          ];
           pythonImportsCheck = old.pythonImportsCheck or [ ] ++ [ "pikepdf" ];
         }
       );
@@ -2038,13 +1990,10 @@ lib.composeManyExtensions [
           preConfigure = (old.preConfigure or "") + pkgs.python3.pkgs.pillow.preConfigure;
         in
         {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              pkg-config
-              self.pytest-runner
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            pkg-config
+            self.pytest-runner
+          ];
           buildInputs =
             with pkgs;
             (old.buildInputs or [ ])
@@ -2128,20 +2077,18 @@ lib.composeManyExtensions [
 
       prettytable = super.prettytable.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
       prophet = super.prophet.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              pkgs.cmdstan
-              self.cmdstanpy
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            pkgs.cmdstan
+            self.cmdstanpy
+          ];
           PROPHET_REPACKAGE_CMDSTAN = "false";
           CMDSTAN = "${pkgs.cmdstan}";
         }
@@ -2150,7 +2097,8 @@ lib.composeManyExtensions [
       psycopg2 = super.psycopg2.overridePythonAttrs (
         old: {
           buildInputs =
-            (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.openssl;
+            (old.buildInputs or [ ])
+            ++ lib.optional stdenv.isDarwin pkgs.openssl;
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.postgresql ];
         }
       );
@@ -2158,7 +2106,8 @@ lib.composeManyExtensions [
       psycopg2-binary = super.psycopg2-binary.overridePythonAttrs (
         old: {
           buildInputs =
-            (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.openssl;
+            (old.buildInputs or [ ])
+            ++ lib.optional stdenv.isDarwin pkgs.openssl;
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.postgresql ];
         }
       );
@@ -2166,7 +2115,8 @@ lib.composeManyExtensions [
       psycopg2cffi = super.psycopg2cffi.overridePythonAttrs (
         old: {
           buildInputs =
-            (old.buildInputs or [ ]) ++ lib.optional stdenv.isDarwin pkgs.openssl;
+            (old.buildInputs or [ ])
+            ++ lib.optional stdenv.isDarwin pkgs.openssl;
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.postgresql ];
         }
       );
@@ -2176,13 +2126,10 @@ lib.composeManyExtensions [
           preConfigure = ''
             substituteInPlace setup.py --replace \'setuptools-markdown\' ""
           '';
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              self.requests
-              self.semantic-version
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.requests
+            self.semantic-version
+          ];
         }
       );
 
@@ -2216,13 +2163,10 @@ lib.composeManyExtensions [
             else
               {
 
-                nativeBuildInputs =
-                  (old.nativeBuildInputs or [ ])
-                  ++ [
-                    pkg-config
-                    pkgs.cmake
-                  ]
-                ;
+                nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+                  pkg-config
+                  pkgs.cmake
+                ];
 
                 preBuild = ''
                   export PYARROW_PARALLEL=$NIX_BUILD_CORES
@@ -2256,14 +2200,11 @@ lib.composeManyExtensions [
           (drv.overridePythonAttrs (_: { format = "other"; })).overridePythonAttrs (
             old: {
 
-              nativeBuildInputs =
-                (old.nativeBuildInputs or [ ])
-                ++ [
-                  self.meson
-                  pkgs.ninja
-                  pkg-config
-                ]
-              ;
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+                self.meson
+                pkgs.ninja
+                pkg-config
+              ];
 
               propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ pkgs.cairo ];
 
@@ -2280,14 +2221,11 @@ lib.composeManyExtensions [
 
       pyfftw = super.pyfftw.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.fftw
-              pkgs.fftwFloat
-              pkgs.fftwLongDouble
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.fftw
+            pkgs.fftwFloat
+            pkgs.fftwLongDouble
+          ];
         }
       );
 
@@ -2349,13 +2287,10 @@ lib.composeManyExtensions [
       pygobject = super.pygobject.overridePythonAttrs (
         old: {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.glib
-              pkgs.gobject-introspection
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.glib
+            pkgs.gobject-introspection
+          ];
         }
       );
 
@@ -2384,20 +2319,18 @@ lib.composeManyExtensions [
         old: {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.sphinx ];
 
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools-lint ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools-lint
+          ];
         }
       );
 
       pymssql = super.pymssql.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.openssl
-              pkgs.libkrb5
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.openssl
+            pkgs.libkrb5
+          ];
           propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ pkgs.freetds ];
         }
       );
@@ -2405,13 +2338,10 @@ lib.composeManyExtensions [
       pyopencl = super.pyopencl.overridePythonAttrs (
         old: {
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.numpy ];
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              pkgs.ocl-icd
-              pkgs.opencl-headers
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            pkgs.ocl-icd
+            pkgs.opencl-headers
+          ];
         }
       );
 
@@ -2487,13 +2417,10 @@ lib.composeManyExtensions [
 
       python-ldap = super.python-ldap.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              pkgs.openldap
-              pkgs.cyrus_sasl
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            pkgs.openldap
+            pkgs.cyrus_sasl
+          ];
         }
       );
 
@@ -2537,14 +2464,11 @@ lib.composeManyExtensions [
 
             dontConfigure = true;
             dontWrapQtApps = true;
-            nativeBuildInputs =
-              old.nativeBuildInputs or [ ]
-              ++ [
-                self.pyqt-builder
-                self.sip
-                qt5.full
-              ]
-            ;
+            nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
+              self.pyqt-builder
+              self.sip
+              qt5.full
+            ];
           }
         )
       ;
@@ -2556,17 +2480,14 @@ lib.composeManyExtensions [
         super.pyqt5-qt5.overridePythonAttrs (
           old: {
             dontWrapQtApps = true;
-            propagatedBuildInputs =
-              old.propagatedBuildInputs or [ ]
-              ++ [
-                qt5.full
-                qt5.qtgamepad # As of 2022-05-13 not a port of qt5.full
-                pkgs.gtk3
-                pkgs.speechd
-                pkgs.postgresql
-                pkgs.unixODBC
-              ]
-            ;
+            propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [
+              qt5.full
+              qt5.qtgamepad # As of 2022-05-13 not a port of qt5.full
+              pkgs.gtk3
+              pkgs.speechd
+              pkgs.postgresql
+              pkgs.unixODBC
+            ];
           }
         )
       ;
@@ -2605,8 +2526,9 @@ lib.composeManyExtensions [
 
       pytest-randomly = super.pytest-randomly.overrideAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-metadata ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.importlib-metadata
+          ];
         }
       );
 
@@ -2773,15 +2695,17 @@ lib.composeManyExtensions [
 
       rmfuse = super.rmfuse.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.setuptools
+          ];
         }
       );
 
       rtree = super.rtree.overridePythonAttrs (
         old: {
-          propagatedNativeBuildInputs =
-            (old.propagatedNativeBuildInputs or [ ]) ++ [ pkgs.libspatialindex ];
+          propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or [ ]) ++ [
+            pkgs.libspatialindex
+          ];
           postPatch = ''
             substituteInPlace rtree/finder.py --replace \
               "find_library('spatialindex_c')" \
@@ -2792,8 +2716,9 @@ lib.composeManyExtensions [
 
       ruamel-yaml = super.ruamel-yaml.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ]) ++ [ self.ruamel-yaml-clib ];
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.ruamel-yaml-clib
+          ];
         }
       );
 
@@ -2831,15 +2756,12 @@ lib.composeManyExtensions [
 
       scikit-image = super.scikit-image.overridePythonAttrs (
         old: {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              self.pythran
-              self.packaging
-              self.wheel
-              self.numpy
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            self.pythran
+            self.packaging
+            self.wheel
+            self.numpy
+          ];
         }
       );
 
@@ -2858,15 +2780,12 @@ lib.composeManyExtensions [
 
       secp256k1 = super.secp256k1.overridePythonAttrs (
         old: {
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              pkgs.pkgconfig
-              pkgs.autoconf
-              pkgs.automake
-              pkgs.libtool
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            pkgs.pkgconfig
+            pkgs.autoconf
+            pkgs.automake
+            pkgs.libtool
+          ];
           buildInputs = (old.buildInputs or [ ]) ++ [ self.pytest-runner ];
           doCheck = false;
           # Local setuptools versions like "x.y.post0" confuse an internal check
@@ -2933,8 +2852,9 @@ lib.composeManyExtensions [
             ''
           ;
 
-          propagatedUserEnvPkgs =
-            (old.propagatedUserEnvPkgs or [ ]) ++ [ pkgs.shellcheck ];
+          propagatedUserEnvPkgs = (old.propagatedUserEnvPkgs or [ ]) ++ [
+            pkgs.shellcheck
+          ];
         }
       );
 
@@ -2966,14 +2886,11 @@ lib.composeManyExtensions [
           buildInputs = (old.buildInputs or [ ]) ++ [ self.pywavelets ];
           HDF5_DIR = lib.getDev pkgs.hdf5;
           nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
-          propagatedBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              pkgs.hdf5
-              self.numpy
-              self.numexpr
-            ]
-          ;
+          propagatedBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            pkgs.hdf5
+            self.numpy
+            self.numexpr
+          ];
         }
       );
 
@@ -2986,29 +2903,23 @@ lib.composeManyExtensions [
 
       tensorboard = super.tensorboard.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ])
-            ++ [
-              self.wheel
-              self.absl-py
-            ]
-          ;
+          buildInputs = (old.buildInputs or [ ]) ++ [
+            self.wheel
+            self.absl-py
+          ];
           HDF5_DIR = "${pkgs.hdf5}";
-          propagatedBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              pkgs.hdf5
-              self.google-auth-oauthlib
-              self.tensorboard-plugin-wit
-              self.numpy
-              self.markdown
-              self.tensorboard-data-server
-              self.grpcio
-              self.protobuf
-              self.werkzeug
-              self.absl-py
-            ]
-          ;
+          propagatedBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            pkgs.hdf5
+            self.google-auth-oauthlib
+            self.tensorboard-plugin-wit
+            self.numpy
+            self.markdown
+            self.tensorboard-data-server
+            self.grpcio
+            self.protobuf
+            self.werkzeug
+            self.absl-py
+          ];
         }
       );
 
@@ -3149,8 +3060,9 @@ lib.composeManyExtensions [
       vispy = super.vispy.overrideAttrs (
         old: {
           inherit (pkgs.python3.pkgs.vispy) patches;
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ]) ++ [ self.setuptools-scm-git-archive ];
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            self.setuptools-scm-git-archive
+          ];
         }
       );
 
@@ -3161,8 +3073,7 @@ lib.composeManyExtensions [
             ++ lib.optionals stdenv.isDarwin [
               pkgs.darwin.apple_sdk.frameworks.ApplicationServices
               pkgs.darwin.apple_sdk.frameworks.CoreServices
-            ]
-          ;
+            ];
         }
       );
 
@@ -3221,15 +3132,11 @@ lib.composeManyExtensions [
                 pkgs.darwin.apple_sdk.frameworks.Security
                 pkgs.darwin.apple_sdk.frameworks.CoreServices
                 pkgs.libiconv
-              ]
-            ;
-            nativeBuildInputs =
-              (old.nativeBuildInputs or [ ])
-              ++ [
-                pkgs.rustPlatform.cargoSetupHook
-                pkgs.rustPlatform.maturinBuildHook
-              ]
-            ;
+              ];
+            nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+              pkgs.rustPlatform.cargoSetupHook
+              pkgs.rustPlatform.maturinBuildHook
+            ];
           }
         )
       ;
@@ -3301,22 +3208,18 @@ lib.composeManyExtensions [
         old: {
           buildInputs =
             (old.buildInputs or [ ])
-            ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit
-          ;
+            ++ lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.IOKit;
         }
       );
 
       sentencepiece = super.sentencepiece.overridePythonAttrs (
         old: {
           dontUseCmakeConfigure = true;
-          nativeBuildInputs =
-            (old.nativeBuildInputs or [ ])
-            ++ [
-              pkg-config
-              pkgs.cmake
-              pkgs.gperftools
-            ]
-          ;
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+            pkg-config
+            pkgs.cmake
+            pkgs.gperftools
+          ];
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sentencepiece ];
         }
       );
@@ -3327,13 +3230,10 @@ lib.composeManyExtensions [
 
       supervisor = super.supervisor.overridePythonAttrs (
         old: {
-          propagatedBuildInputs =
-            (old.propagatedBuildInputs or [ ])
-            ++ [
-              self.meld3
-              self.setuptools
-            ]
-          ;
+          propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [
+            self.meld3
+            self.setuptools
+          ];
         }
       );
 
@@ -3354,9 +3254,8 @@ lib.composeManyExtensions [
         old: {
           buildInputs =
             (old.buildInputs or [ ])
-            ++
-              lib.optional pkgs.stdenv.isDarwin
-                pkgs.darwin.apple_sdk.frameworks.CoreServices
+            ++ lib.optional pkgs.stdenv.isDarwin
+              pkgs.darwin.apple_sdk.frameworks.CoreServices
           ;
         }
       );
@@ -3528,8 +3427,7 @@ lib.composeManyExtensions [
             (old.propagatedBuildInputs or [ ])
             ++ lib.optional self.isPy27 (
               self.backports-functools-lru-cache or self.backports_functools_lru_cache
-            )
-          ;
+            );
         }
       );
 
@@ -3598,8 +3496,7 @@ lib.composeManyExtensions [
             {
               patches =
                 old.patches or [ ]
-                ++ lib.optionals (!(old.src.isWheel or false)) [ patchJinja2Imports ]
-              ;
+                ++ lib.optionals (!(old.src.isWheel or false)) [ patchJinja2Imports ];
               # strip the first two levels ("a/src/") when patching since we're in site-packages
               # just above mkdocstrings
               postInstall = lib.optionalString (old.src.isWheel or false) ''

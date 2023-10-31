@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       libXrandr
       libXinerama
     ]
-    ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional pulseSupport libpulseaudio
+    ++ lib.optional alsaSupport alsa-lib ++ lib.optional pulseSupport libpulseaudio
   ;
   propagatedBuildInputs = [
     libGLU

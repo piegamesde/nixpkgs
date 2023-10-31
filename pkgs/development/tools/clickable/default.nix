@@ -70,12 +70,12 @@ buildPythonPackage rec {
       "test_skip_container_mode"
     ]
     ++
-      # There are no docker images available for the aarch64 architecutre
-      # which are required for tests.
-      lib.optionals stdenv.isAarch64 [
-        "test_arch"
-        "test_restricted_arch"
-      ]
+    # There are no docker images available for the aarch64 architecutre
+    # which are required for tests.
+    lib.optionals stdenv.isAarch64 [
+      "test_arch"
+      "test_restricted_arch"
+    ]
   ;
 
   meta = {

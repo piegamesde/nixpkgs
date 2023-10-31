@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     lib.optionals stdenv.cc.isClang [ openmp ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   preConfigure = "patchShebangs .";
 

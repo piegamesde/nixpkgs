@@ -87,15 +87,12 @@ stdenv.mkDerivation rec {
 
   patches = lib.optional stdenv.isDarwin ./darwin.patch;
 
-  nativeBuildInputs =
-    [
-      cmake
-      makeWrapper
-      python310Packages.wrapPython
-      llvmPackages.llvm.dev
-    ]
-    ++ lib.optionals cudaSupport [ addOpenGLRunpath ]
-  ;
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    python310Packages.wrapPython
+    llvmPackages.llvm.dev
+  ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
   buildInputs =
     [
       boost

@@ -42,13 +42,10 @@
 let
   libupnp' = libupnp.overrideAttrs (
     super: rec {
-      cmakeFlags =
-        super.cmakeFlags or [ ]
-        ++ [
-          "-Dblocking_tcp_connections=OFF"
-          "-Dreuseaddr=ON"
-        ]
-      ;
+      cmakeFlags = super.cmakeFlags or [ ] ++ [
+        "-Dblocking_tcp_connections=OFF"
+        "-Dreuseaddr=ON"
+      ];
     }
   );
 
@@ -137,8 +134,7 @@ stdenv.mkDerivation rec {
       # systemd service will be generated alongside the service
       "-DWITH_SYSTEMD=OFF"
     ]
-    ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options
-  ;
+    ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
 
   nativeBuildInputs = [
     cmake
