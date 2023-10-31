@@ -301,25 +301,15 @@ stdenv.mkDerivation (
       + lib.optionalString perlSupport ''
         # wrap perl commands
         makeWrapper "$out/share/git/contrib/credential/netrc/git-credential-netrc.perl" $out/bin/git-credential-netrc \
-                    --set PERL5LIB   "$out/${perlPackages.perl.libPrefix}:${
-                      perlPackages.makePerlPath perlLibs
-                    }"
+                    --set PERL5LIB   "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
         wrapProgram $out/libexec/git-core/git-cvsimport \
-                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                      perlPackages.makePerlPath perlLibs
-                    }"
+                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
         wrapProgram $out/libexec/git-core/git-archimport \
-                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                      perlPackages.makePerlPath perlLibs
-                    }"
+                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
         wrapProgram $out/libexec/git-core/git-instaweb \
-                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                      perlPackages.makePerlPath perlLibs
-                    }"
+                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
         wrapProgram $out/libexec/git-core/git-cvsexportcommit \
-                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                      perlPackages.makePerlPath perlLibs
-                    }"
+                    --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${perlPackages.makePerlPath perlLibs}"
 
         # gzip (and optionally bzip2, xz, zip) are runtime dependencies for
         # gitweb.cgi, need to patch so that it's found

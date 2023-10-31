@@ -10,9 +10,7 @@ with lib;
 
 let
 
-  bootFs =
-    filterAttrs (n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs))
-      config.fileSystems;
+  bootFs = filterAttrs (n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs)) config.fileSystems;
 
   commonFunctions = ''
     prompt() {
@@ -84,8 +82,7 @@ in
           $out/bin/bcachefs version
         '';
 
-        boot.initrd.postDeviceCommands =
-          commonFunctions + concatStrings (mapAttrsToList openCommand bootFs);
+        boot.initrd.postDeviceCommands = commonFunctions + concatStrings (mapAttrsToList openCommand bootFs);
       })
     ]
   );

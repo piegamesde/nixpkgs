@@ -69,9 +69,7 @@ import ./make-test-python.nix (
     testScript =
       { nodes, ... }:
       let
-        ldapBaseDN = builtins.concatStringsSep "," (
-          map (s: "dc=" + s) (pkgs.lib.splitString "." serverDomain)
-        );
+        ldapBaseDN = builtins.concatStringsSep "," (map (s: "dc=" + s) (pkgs.lib.splitString "." serverDomain));
 
         # We need access to the config file in the test script.
         filteredConfig =

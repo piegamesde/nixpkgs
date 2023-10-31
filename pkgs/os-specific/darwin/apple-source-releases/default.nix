@@ -232,9 +232,7 @@ let
     # There should be an IOVideo here, but they haven't released it :(
   };
 
-  IOKitSrcs =
-    lib.mapAttrs (name: value: if lib.isFunction value then value name else value)
-      IOKitSpecs;
+  IOKitSrcs = lib.mapAttrs (name: value: if lib.isFunction value then value name else value) IOKitSpecs;
 in
 
 # darwin package set
@@ -286,31 +284,23 @@ developerToolsPackages_11_3_1
   CommonCrypto =
     applePackage "CommonCrypto" "osx-10.12.6" "sha256-FLgODBrfv+XsGaAjddncYAm/BIJJYw6LcwX/z7ncKFM="
       { };
-  configd =
-    applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
-      {
-        Security =
-          applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
-            { };
-      };
+  configd = applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI=" {
+    Security =
+      applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
+        { };
+  };
   copyfile =
     applePackage "copyfile" "osx-10.12.6" "sha256-uHqLFOIpXK+n0RHyOZzVsP2DDZcFDivKCnqHBaXvHns="
       { };
   Csu = applePackage "Csu" "osx-10.11.6" "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY=" { };
-  dtrace =
-    applePackage "dtrace" "osx-10.12.6" "sha256-Icr22ozixHquI0kRB2XZ+LlxD6V46sJHsHy4L/tDXZg="
-      { };
+  dtrace = applePackage "dtrace" "osx-10.12.6" "sha256-Icr22ozixHquI0kRB2XZ+LlxD6V46sJHsHy4L/tDXZg=" { };
   dyld = applePackage "dyld" "osx-10.12.6" "sha256-JmKnOZtBPf96zEx7vhYHLBSTOPyKN71IdYE3R0IeJww=" { };
   eap8021x =
     applePackage "eap8021x" "osx-10.11.6" "sha256-54P3+YhVhOanoZQoqswDnr/GbR/AdEERse135nyuIQo="
       { };
   IOKit = applePackage "IOKit" "osx-10.11.6" "" { inherit IOKitSrcs; };
-  launchd =
-    applePackage "launchd" "osx-10.9.5" "sha256-dmV0UK7hG9wvTr+F4Z47nCFXcVZCV+cQ46WbE0DBtJs="
-      { };
-  libauto =
-    applePackage "libauto" "osx-10.9.5" "sha256-GnRcKq8jRbEsI/PSDphwUjWtpEIEcnLlQL9yxYLgSsU="
-      { };
+  launchd = applePackage "launchd" "osx-10.9.5" "sha256-dmV0UK7hG9wvTr+F4Z47nCFXcVZCV+cQ46WbE0DBtJs=" { };
+  libauto = applePackage "libauto" "osx-10.9.5" "sha256-GnRcKq8jRbEsI/PSDphwUjWtpEIEcnLlQL9yxYLgSsU=" { };
   Libc = applePackage "Libc" "osx-10.12.6" "sha256-LSsL7S3KFgGU9qjK4atu/4wBh8ftgfsk6JOvg+ZTZOY=" {
     Libc_10-9 = fetchFromGitHub {
       owner = "apple-oss-distributions";
@@ -331,9 +321,7 @@ developerToolsPackages_11_3_1
   libiconv =
     applePackage "libiconv" "osx-10.12.6" "sha256-ZzPFkchK3EU95UQUVVrR0t8iilhi/VnIkjjtP6KT2oI="
       { };
-  Libinfo =
-    applePackage "Libinfo" "osx-10.11.6" "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ="
-      { };
+  Libinfo = applePackage "Libinfo" "osx-10.11.6" "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ=" { };
   Libm = applePackage "Libm" "osx-10.7.4" "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es=" { };
   Libnotify =
     applePackage "Libnotify" "osx-10.12.6" "sha256-6wvMBxAUfiYcQtmlfYCj1d3kFmFM/jdboTd7hRvi3e4="
@@ -350,18 +338,14 @@ developerToolsPackages_11_3_1
   Libsystem =
     applePackage "Libsystem" "osx-10.12.6" "sha256-zvRdCP//TjKCGAqm/5nJXPppshU1cv2fg/L/yK/olGQ="
       { };
-  libutil =
-    applePackage "libutil" "osx-10.12.6" "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs="
-      { };
+  libutil = applePackage "libutil" "osx-10.12.6" "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs=" { };
   libunwind =
     applePackage "libunwind" "osx-10.12.6" "sha256-CC0sndP/mKYe3dZu3v7fjuDASV4V4w7dAcnWMvpoquE="
       { };
   mDNSResponder =
     applePackage "mDNSResponder" "osx-10.12.6" "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY="
       { };
-  objc4 =
-    applePackage "objc4" "osx-10.12.6" "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM="
-      { };
+  objc4 = applePackage "objc4" "osx-10.12.6" "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM=" { };
   ppp = applePackage "ppp" "osx-10.12.6" "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
   removefile =
     applePackage "removefile" "osx-10.12.6" "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M="

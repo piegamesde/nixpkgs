@@ -223,8 +223,7 @@ rec {
     let
       package = lib.importJSON packageJSON;
 
-      packageGlobs =
-        if lib.isList package.workspaces then package.workspaces else package.workspaces.packages;
+      packageGlobs = if lib.isList package.workspaces then package.workspaces else package.workspaces.packages;
 
       packageResolutions = package.resolutions or { };
 
@@ -240,9 +239,7 @@ rec {
         let
           elemRegex = globElemToRegex (lib.head globElems);
           rest = lib.tail globElems;
-          children = lib.attrNames (
-            lib.filterAttrs (name: type: type == "directory") (builtins.readDir base)
-          );
+          children = lib.attrNames (lib.filterAttrs (name: type: type == "directory") (builtins.readDir base));
           matchingChildren = lib.filter (child: builtins.match elemRegex child != null) children;
         in
         if globElems == [ ] then
@@ -280,9 +277,7 @@ rec {
                 composeAll
                   [
                     (lib.filter (x: x != null))
-                    (lib.mapAttrsToList (
-                      pname: _version: lib.findFirst (package: package.pname == pname) null packageList
-                    ))
+                    (lib.mapAttrsToList (pname: _version: lib.findFirst (package: package.pname == pname) null packageList))
                   ]
                   allDependencies;
 

@@ -125,9 +125,7 @@ in
           "no"
         ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
+        description = lib.mdDoc "Set this to yes to allow symlinks that point outside user-defined `media_dir`.";
       };
     };
   };

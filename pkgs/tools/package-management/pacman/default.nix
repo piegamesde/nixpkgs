@@ -91,9 +91,7 @@ stdenv.mkDerivation rec {
       ];
     in
     ''
-      echo 'export PATH=${
-        lib.makeBinPath compressionTools
-      }:$PATH' >> scripts/libmakepkg/util/compress.sh.in
+      echo 'export PATH=${lib.makeBinPath compressionTools}:$PATH' >> scripts/libmakepkg/util/compress.sh.in
       substituteInPlace meson.build \
         --replace "install_dir : SYSCONFDIR" "install_dir : '$out/etc'" \
         --replace "join_paths(DATAROOTDIR, 'libalpm/hooks/')" "'${sysHookDir}'" \

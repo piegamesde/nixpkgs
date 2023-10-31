@@ -113,8 +113,7 @@ in
     };
 
     host = mkOption {
-      default =
-        (if mpdCfg.network.listenAddress != "any" then mpdCfg.network.listenAddress else "localhost");
+      default = (if mpdCfg.network.listenAddress != "any" then mpdCfg.network.listenAddress else "localhost");
       defaultText = literalExpression ''
         if config.${mpdOpt.network.listenAddress} != "any"
         then config.${mpdOpt.network.listenAddress}

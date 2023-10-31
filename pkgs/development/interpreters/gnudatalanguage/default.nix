@@ -86,8 +86,7 @@ let
         szipSupport = enableSzip;
         inherit szip;
       };
-  netcdf-custom =
-    if netcdf-forced != null then netcdf-forced else netcdf.override { hdf5 = hdf5-custom; };
+  netcdf-custom = if netcdf-forced != null then netcdf-forced else netcdf.override { hdf5 = hdf5-custom; };
   enablePlplotDrivers = enableWX || enableXWin;
   plplot-with-drivers =
     if plplot-forced != null then plplot-forced else plplot.override { inherit enableWX enableXWin; };

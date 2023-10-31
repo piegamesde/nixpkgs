@@ -320,16 +320,10 @@ let
         ''
         + shellHook;
 
-      disallowedReferences =
-        lib.optional (!allowGoReference) go
-        ++ lib.optional (!dontRenameImports) govers;
+      disallowedReferences = lib.optional (!allowGoReference) go ++ lib.optional (!dontRenameImports) govers;
 
       passthru =
-        passthru
-        // {
-          inherit go;
-        }
-        // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; };
+        passthru // { inherit go; } // lib.optionalAttrs (goPackageAliases != [ ]) { inherit goPackageAliases; };
 
       meta = {
         # Add default meta information

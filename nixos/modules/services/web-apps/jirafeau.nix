@@ -138,8 +138,7 @@ in
           {
             extraConfig =
               let
-                clientMaxBodySize =
-                  if cfg.maxUploadSizeMegabytes == 0 then "0" else "${cfg.maxUploadSizeMegabytes}m";
+                clientMaxBodySize = if cfg.maxUploadSizeMegabytes == 0 then "0" else "${cfg.maxUploadSizeMegabytes}m";
               in
               ''
                 index index.php;

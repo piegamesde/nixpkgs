@@ -57,9 +57,7 @@ let
       # A user is required by nix
       # https://github.com/NixOS/nix/blob/9348f9291e5d9e4ba3c4347ea1b235640f54fd79/src/libutil/util.cc#L478
       export USER=nobody
-      ${buildPackages.nix}/bin/nix-store --load-db < ${
-        closureInfo { rootPaths = contentsList; }
-      }/registration
+      ${buildPackages.nix}/bin/nix-store --load-db < ${closureInfo { rootPaths = contentsList; }}/registration
 
       mkdir -p nix/var/nix/gcroots/docker/
       for i in ${lib.concatStringsSep " " contentsList}; do
@@ -1297,9 +1295,7 @@ rec {
           # https://github.com/NixOS/nix/blob/ffe155abd36366a870482625543f9bf924a58281/src/libstore/build/local-derivation-goal.cc#L906-L910
           # Slightly differs however: We use the passed-in homeDirectory instead of sandboxBuildDir.
           # We're doing this because it's arguably a bug in Nix that sandboxBuildDir is used here: https://github.com/NixOS/nix/issues/6379
-          extraPasswdLines = [
-            "nixbld:x:${toString uid}:${toString gid}:Build user:${homeDirectory}:/noshell"
-          ];
+          extraPasswdLines = [ "nixbld:x:${toString uid}:${toString gid}:Build user:${homeDirectory}:/noshell" ];
           extraGroupLines = [ "nixbld:!:${toString gid}:" ];
         })
       ];

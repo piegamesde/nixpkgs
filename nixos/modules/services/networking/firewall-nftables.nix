@@ -97,9 +97,7 @@ in
         chain input {
           type filter hook input priority filter; policy drop;
 
-          ${
-            optionalString (ifaceSet != "") ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''
-          }
+          ${optionalString (ifaceSet != "") ''iifname { ${ifaceSet} } accept comment "trusted interfaces"''}
 
           # Some ICMPv6 types like NDP is untracked
           ct state vmap {

@@ -146,8 +146,7 @@ rec {
          > haskell.lib.compose.appendConfigureFlag "--profiling-detail=all-functions" haskellPackages.servant
   */
   appendConfigureFlag = x: appendConfigureFlags [ x ];
-  appendConfigureFlags =
-    xs: overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
+  appendConfigureFlags = xs: overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
 
   appendBuildFlag = x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
   appendBuildFlags = xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
@@ -164,15 +163,13 @@ rec {
   addBuildTools = xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
 
   addExtraLibrary = x: addExtraLibraries [ x ];
-  addExtraLibraries =
-    xs: overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
+  addExtraLibraries = xs: overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
 
   addBuildDepend = x: addBuildDepends [ x ];
   addBuildDepends = xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
 
   addTestToolDepend = x: addTestToolDepends [ x ];
-  addTestToolDepends =
-    xs: overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
+  addTestToolDepends = xs: overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =

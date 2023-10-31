@@ -15,10 +15,7 @@ let
 
   createRedis = cfg.redis.createInstance != null;
   redisService =
-    if cfg.redis.createInstance == "" then
-      "redis.service"
-    else
-      "redis-${cfg.redis.createInstance}.service";
+    if cfg.redis.createInstance == "" then "redis.service" else "redis-${cfg.redis.createInstance}.service";
 
   configFile =
     if cfg.configText != "" then

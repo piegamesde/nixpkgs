@@ -274,9 +274,7 @@ lib.makeScope pkgs.newScope (
     throw
       "The ‘gnome.gnome-devel-docs’ package was removed as it is outdated and no longer relevant."; # added 2022-10-26
 
-  mutter338 =
-    throw
-      "The ‘gnome.mutter338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
+  mutter338 = throw "The ‘gnome.mutter338’ package was removed as it is no longer needed by Pantheon."; # added 2023-02-22
   mutter42 = throw "The ‘gnome.mutter42’ package was removed as it is no longer needed by Pantheon."; # added 2023-03-23
   gnome-settings-daemon338 =
     throw

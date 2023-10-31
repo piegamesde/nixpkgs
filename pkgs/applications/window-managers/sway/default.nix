@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
 
   mesonFlags =
     [ "-Dsd-bus-provider=${sd-bus-provider}" ]
-    ++ lib.optional (!enableXWayland) "-Dxwayland=disabled"
-    ++ lib.optional (!trayEnabled) "-Dtray=disabled";
+    ++ lib.optional (!enableXWayland) "-Dxwayland=disabled" ++ lib.optional (!trayEnabled) "-Dtray=disabled";
 
   passthru.tests.basic = nixosTests.sway;
 

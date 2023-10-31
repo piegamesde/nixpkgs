@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
   #reproducible-build
   postPatch = ''
     substituteInPlace configure.ac \
-      --replace "$(git describe || echo '(git description unavailable)')" "${
-        builtins.substring 0 7 src.rev
-      }"
+      --replace "$(git describe || echo '(git description unavailable)')" "${builtins.substring 0 7 src.rev}"
   '';
 
   passthru = {

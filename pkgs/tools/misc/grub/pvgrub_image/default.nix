@@ -28,9 +28,7 @@ in
       tar -cf memdisk.tar grub.cfg
       # We include all modules except all_video.mod as otherwise grub will fail printing "no symbol table"
       # if we include it.
-      grub-mkimage -O "${
-        efiSystemsBuild.${stdenv.hostPlatform.system}.target
-      }-xen" -c grub-bootstrap.cfg \
+      grub-mkimage -O "${efiSystemsBuild.${stdenv.hostPlatform.system}.target}-xen" -c grub-bootstrap.cfg \
         -m memdisk.tar -o "grub-${efiSystemsBuild.${stdenv.hostPlatform.system}.target}-xen.bin" \
         $(ls "${grub2_xen}/lib/grub/${
           efiSystemsBuild.${stdenv.hostPlatform.system}.target

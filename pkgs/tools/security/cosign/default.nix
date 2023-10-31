@@ -36,8 +36,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/cosign" ];
 
-  tags =
-    [ ] ++ lib.optionals pivKeySupport [ "pivkey" ] ++ lib.optionals pkcs11Support [ "pkcs11key" ];
+  tags = [ ] ++ lib.optionals pivKeySupport [ "pivkey" ] ++ lib.optionals pkcs11Support [ "pkcs11key" ];
 
   ldflags = [
     "-s"

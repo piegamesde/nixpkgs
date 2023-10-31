@@ -28,8 +28,7 @@ let
     let
       versionComponents = lib.versions.splitVersion packageVersion;
       minorVersion = lib.versions.minor packageVersion;
-      minorAvailable =
-        builtins.length versionComponents > 1 && builtins.match "[0-9]+" minorVersion != null;
+      minorAvailable = builtins.length versionComponents > 1 && builtins.match "[0-9]+" minorVersion != null;
       nextMinor = builtins.fromJSON minorVersion + 1;
       upperBound = "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
     in

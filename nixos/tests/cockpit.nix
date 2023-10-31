@@ -36,8 +36,7 @@ import ./make-test-python.nix (
           environment.systemPackages =
             let
               seleniumScript =
-                pkgs.writers.writePython3Bin "selenium-script"
-                  { libraries = with pkgs.python3Packages; [ selenium ]; }
+                pkgs.writers.writePython3Bin "selenium-script" { libraries = with pkgs.python3Packages; [ selenium ]; }
                   ''
                     from selenium import webdriver
                     from selenium.webdriver.common.by import By

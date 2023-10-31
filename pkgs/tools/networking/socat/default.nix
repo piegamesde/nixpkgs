@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
   ];
   doCheck = false; # fails a bunch, hangs
 
-  passthru.tests = lib.optionalAttrs stdenv.buildPlatform.isLinux {
-    musl = buildPackages.pkgsMusl.socat;
-  };
+  passthru.tests = lib.optionalAttrs stdenv.buildPlatform.isLinux { musl = buildPackages.pkgsMusl.socat; };
 
   meta = with lib; {
     description = "Utility for bidirectional data transfer between two independent data channels";

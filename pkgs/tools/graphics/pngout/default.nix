@@ -28,8 +28,7 @@ let
     };
   };
   platform =
-    platforms."${stdenv.hostPlatform.system}"
-      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    platforms."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   download =
     if stdenv.isDarwin then
       {

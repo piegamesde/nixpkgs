@@ -4835,12 +4835,8 @@ in
           ];
         }
       )
-      (
-        sources."@babel/generator-7.20.5" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
-      )
-      (
-        sources."@babel/helper-compilation-targets-7.20.0" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/generator-7.20.5" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; })
+      (sources."@babel/helper-compilation-targets-7.20.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-environment-visitor-7.18.9"
       sources."@babel/helper-function-name-7.19.0"
       sources."@babel/helper-hoist-variables-7.18.6"
@@ -4876,10 +4872,7 @@ in
       )
       sources."@babel/types-7.20.5"
       (
-        sources."@es-joy/jsdoccomment-0.10.8"
-        // {
-          dependencies = [ sources."jsdoc-type-pratt-parser-1.1.1" ];
-        }
+        sources."@es-joy/jsdoccomment-0.10.8" // { dependencies = [ sources."jsdoc-type-pratt-parser-1.1.1" ]; }
       )
       (
         sources."@eslint/eslintrc-0.4.3"
@@ -5402,9 +5395,7 @@ in
         }
       )
       sources."postman-collection-4.1.1"
-      (
-        sources."postman-collection-transformer-4.1.6" // { dependencies = [ sources."commander-8.3.0" ]; }
-      )
+      (sources."postman-collection-transformer-4.1.6" // { dependencies = [ sources."commander-8.3.0" ]; })
       sources."postman-jsdoc-theme-0.0.3"
       (
         sources."postman-request-2.88.1-postman.31"

@@ -138,8 +138,7 @@ in
       LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
     }
     // {
-      pname =
-        pname + lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
+      pname = pname + lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
       inherit version;
 
       patches =

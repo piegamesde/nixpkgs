@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
       # Needs to be compiled with -std=c++11 for clang < 11. Interestingly this is
       # only an issue with the useLLVM stdenv, not the darwin stdenv…
       # https://github.com/grpc/grpc/issues/26473#issuecomment-860885484
-      useLLVMAndOldCC =
-        (stdenv.hostPlatform.useLLVM or false) && lib.versionOlder stdenv.cc.cc.version "11.0";
+      useLLVMAndOldCC = (stdenv.hostPlatform.useLLVM or false) && lib.versionOlder stdenv.cc.cc.version "11.0";
       # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
       useOldGCC = !(stdenv.hostPlatform.useLLVM or false) && lib.versionOlder stdenv.cc.cc.version "10";
     in

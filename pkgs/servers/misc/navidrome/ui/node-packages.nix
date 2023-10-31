@@ -12849,21 +12849,14 @@ let
           ];
         }
       )
-      (
-        sources."@babel/generator-7.19.3" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
-      )
+      (sources."@babel/generator-7.19.3" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; })
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
-      (
-        sources."@babel/helper-compilation-targets-7.19.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/helper-compilation-targets-7.19.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-create-class-features-plugin-7.19.0"
       sources."@babel/helper-create-regexp-features-plugin-7.19.0"
       (
-        sources."@babel/helper-define-polyfill-provider-0.3.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/helper-define-polyfill-provider-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/helper-environment-visitor-7.18.9"
       sources."@babel/helper-explode-assignable-expression-7.18.6"
@@ -13118,10 +13111,7 @@ let
       sources."@jridgewell/resolve-uri-3.1.0"
       sources."@jridgewell/set-array-1.1.2"
       (
-        sources."@jridgewell/source-map-0.3.2"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
-        }
+        sources."@jridgewell/source-map-0.3.2" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
       )
       sources."@jridgewell/sourcemap-codec-1.4.14"
       sources."@jridgewell/trace-mapping-0.3.15"
@@ -14621,9 +14611,7 @@ let
       sources."reusify-1.0.4"
       sources."rimraf-3.0.2"
       sources."rollup-2.79.1"
-      (
-        sources."rollup-plugin-terser-7.0.2" // { dependencies = [ sources."serialize-javascript-4.0.0" ]; }
-      )
+      (sources."rollup-plugin-terser-7.0.2" // { dependencies = [ sources."serialize-javascript-4.0.0" ]; })
       sources."run-async-2.4.1"
       sources."run-parallel-1.2.0"
       sources."rxjs-6.6.7"

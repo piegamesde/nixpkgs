@@ -43,10 +43,7 @@ let
           url = dep.url or "";
 
           fetch =
-            if (url != "") then
-              ((if authenticated then requireFile else fetchurl) { inherit url sha1; })
-            else
-              "";
+            if (url != "") then ((if authenticated then requireFile else fetchurl) { inherit url sha1; }) else "";
 
           fetchMetadata = (if authenticated then requireFile else fetchurl) { inherit (metadata) url sha1; };
 

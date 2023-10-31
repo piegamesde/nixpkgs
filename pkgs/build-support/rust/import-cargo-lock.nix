@@ -99,9 +99,7 @@ let
       (
         nameVer: hash:
         let
-          unusedHash =
-            throw
-              "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
+          unusedHash = throw "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
           rev = namesGitShas.${nameVer} or unusedHash;
         in
         {
@@ -116,8 +114,7 @@ let
   fetchCrate =
     pkg: downloadUrl:
     let
-      checksum =
-        pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
+      checksum = pkg.checksum or parsedLockFile.metadata."checksum ${pkg.name} ${pkg.version} (${pkg.source})";
     in
     assert lib.assertMsg (checksum != null) ''
       Package ${pkg.name} does not have a checksum.

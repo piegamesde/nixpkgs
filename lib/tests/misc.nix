@@ -1266,8 +1266,7 @@ runTests {
     in
     {
       expr =
-        (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)))
-        .success;
+        (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a))).success;
       expected = false;
     };
 

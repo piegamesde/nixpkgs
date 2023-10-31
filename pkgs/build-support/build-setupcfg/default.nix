@@ -15,8 +15,7 @@ lib: pythonPackages:
   doCheck ? true,
 }:
 let
-  build =
-    if application then pythonPackages.buildPythonApplication else pythonPackages.buildPythonPackage;
+  build = if application then pythonPackages.buildPythonApplication else pythonPackages.buildPythonPackage;
 in
 build {
   inherit (info) pname version;

@@ -10,8 +10,7 @@ with lib;
 let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
-  checkConfigEnabled =
-    (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig == "syntax-only";
+  checkConfigEnabled = (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig == "syntax-only";
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
@@ -75,8 +74,7 @@ let
         else
           generatedPrometheusYml;
     in
-    promtoolCheck
-      "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
+    promtoolCheck "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
       "prometheus.yml"
       yml;
 

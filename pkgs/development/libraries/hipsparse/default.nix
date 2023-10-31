@@ -21,9 +21,7 @@ stdenv.mkDerivation (
     pname = "hipsparse";
     version = "5.4.4";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildSamples [ "sample" ];
+    outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildSamples [ "sample" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

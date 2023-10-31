@@ -111,10 +111,7 @@ in
                     map
                       (
                         { plugin, settings }:
-                        ''
-                          plugin ${plugin} "${
-                            toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)
-                          }"''
+                        ''plugin ${plugin} "${toString (lib.attrsets.mapAttrsToList (key: value: "${key}=${value}") settings)}"''
                       )
                       cfg.plugins
                   )

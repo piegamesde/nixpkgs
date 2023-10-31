@@ -764,16 +764,14 @@ in
             inherit (config.boot) resumeDevice;
           in
           resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
-        message =
-          "boot.resumeDevice has to be an absolute path." + " Old \"x:y\" style is no longer supported.";
+        message = "boot.resumeDevice has to be an absolute path." + " Old \"x:y\" style is no longer supported.";
       }
       # TODO: remove when #85000 is fixed
       {
         assertion =
           !config.boot.loader.supportsInitrdSecrets
           ->
-            all
-              (source: builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source))
+            all (source: builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source))
               (attrValues config.boot.initrd.secrets);
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when

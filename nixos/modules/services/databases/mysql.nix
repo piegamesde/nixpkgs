@@ -307,9 +307,7 @@ in
         serverId = mkOption {
           type = types.int;
           default = 1;
-          description =
-            lib.mdDoc
-              "Id of the MySQL server instance. This number must be unique for each instance.";
+          description = lib.mdDoc "Id of the MySQL server instance. This number must be unique for each instance.";
         };
 
         masterHost = mkOption {

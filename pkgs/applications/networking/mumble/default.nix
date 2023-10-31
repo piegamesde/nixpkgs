@@ -128,9 +128,7 @@ let
         postFixup = ''
           wrapProgram $out/bin/mumble \
             --prefix LD_LIBRARY_PATH : "${
-              lib.makeLibraryPath (
-                lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire
-              )
+              lib.makeLibraryPath (lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire)
             }"
         '';
       }

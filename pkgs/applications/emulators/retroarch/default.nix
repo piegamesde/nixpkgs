@@ -47,9 +47,7 @@
 }:
 
 let
-  runtimeLibs =
-    lib.optional withVulkan vulkan-loader
-    ++ lib.optional withGamemode (lib.getLib gamemode);
+  runtimeLibs = lib.optional withVulkan vulkan-loader ++ lib.optional withGamemode (lib.getLib gamemode);
 in
 stdenv.mkDerivation rec {
   pname = "retroarch-bare";

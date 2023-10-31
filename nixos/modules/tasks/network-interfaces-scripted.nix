@@ -51,8 +51,7 @@ let
       "mode"
       "xmit_hash_policy"
     ];
-    filterDeprecated =
-      bond: (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond);
+    filterDeprecated = bond: (filterAttrs (attrName: attr: elem attrName deprecated && attr != null) bond);
   };
 
   bondWarnings =
@@ -105,8 +104,7 @@ let
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
           || (cfg.enableIPv6 && cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "");
 
-        needNetworkSetup =
-          cfg.resolvconf.enable || cfg.defaultGateway != null || cfg.defaultGateway6 != null;
+        needNetworkSetup = cfg.resolvconf.enable || cfg.defaultGateway != null || cfg.defaultGateway6 != null;
 
         networkLocalCommands = lib.mkIf needNetworkSetup {
           after = [ "network-setup.service" ];
@@ -170,8 +168,7 @@ let
               ip route replace default ${
                 optionalString (cfg.defaultGateway.metric != null) "metric ${toString cfg.defaultGateway.metric}"
               } via "${cfg.defaultGateway.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null)
-                  "window ${toString cfg.defaultGatewayWindowSize}"
+                optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"
               } ${
                 optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"
               } proto static
@@ -185,8 +182,7 @@ let
               ip -6 route replace default ${
                 optionalString (cfg.defaultGateway6.metric != null) "metric ${toString cfg.defaultGateway6.metric}"
               } via "${cfg.defaultGateway6.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null)
-                  "window ${toString cfg.defaultGatewayWindowSize}"
+                optionalString (cfg.defaultGatewayWindowSize != null) "window ${toString cfg.defaultGatewayWindowSize}"
               } ${
                 optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"
               } proto static
@@ -330,11 +326,9 @@ let
               ];
               bindsTo = deps ++ optional v.rstp "mstpd.service";
               partOf = [ "network-setup.service" ] ++ optional v.rstp "mstpd.service";
-              after =
-                [ "network-pre.target" ]
-                ++ deps
-                ++ optional v.rstp "mstpd.service"
-                ++ map (i: "network-addresses-${i}.service") v.interfaces;
+              after = [
+                "network-pre.target"
+              ] ++ deps ++ optional v.rstp "mstpd.service" ++ map (i: "network-addresses-${i}.service") v.interfaces;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;
@@ -652,8 +646,7 @@ let
                   ${
                     optionalString (v.encapsulation != null)
                       "encap ${v.encapsulation.type} encap-dport ${toString v.encapsulation.port} ${
-                        optionalString (v.encapsulation.sourcePort != null)
-                          "encap-sport ${toString v.encapsulation.sourcePort}"
+                        optionalString (v.encapsulation.sourcePort != null) "encap-sport ${toString v.encapsulation.sourcePort}"
                       }"
                   }
                 ip link set "${n}" up
@@ -736,9 +729,7 @@ let
             }
           );
       in
-      listToAttrs (
-        map configureAddrs interfaces ++ map createTunDevice (filter (i: i.virtual) interfaces)
-      )
+      listToAttrs (map configureAddrs interfaces ++ map createTunDevice (filter (i: i.virtual) interfaces))
       // mapAttrs' createBridgeDevice cfg.bridges
       // mapAttrs' createVswitchDevice cfg.vswitches
       // mapAttrs' createBondDevice cfg.bonds

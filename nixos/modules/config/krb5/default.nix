@@ -68,10 +68,7 @@ let
 
   mkRelation =
     name: value:
-    if (isList value) then
-      concatMapStringsSep "\n" (mkRelation name) value
-    else
-      "${name} = ${mkVal value}";
+    if (isList value) then concatMapStringsSep "\n" (mkRelation name) value else "${name} = ${mkVal value}";
 
   mkVal =
     value:
@@ -99,12 +96,11 @@ let
 
   mkMappedAttrsOrString =
     value:
-    concatMapStringsSep "\n" (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
-      (
-        splitString "\n" (
-          if isAttrs value then concatStringsSep "\n" (mapAttrsToList mkRelation value) else value
-        )
-      );
+    concatMapStringsSep "\n" (line: if builtins.stringLength line > 0 then "${indent}${line}" else line) (
+      splitString "\n" (
+        if isAttrs value then concatStringsSep "\n" (mapAttrsToList mkRelation value) else value
+      )
+    );
 in
 {
 

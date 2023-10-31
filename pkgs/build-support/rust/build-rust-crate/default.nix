@@ -33,8 +33,7 @@ let
           # Find a choice that matches in name and optionally version.
           findMatchOrUseExtern =
             choices:
-            lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or ""))
-              { rename = extern; }
+            lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or "")) { rename = extern; }
               choices;
           name =
             if lib.hasAttr dep.crateName crateRenames then
@@ -301,15 +300,13 @@ lib.makeOverridable
           ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
           ++ (crate.nativeBuildInputs or [ ])
           ++ nativeBuildInputs_;
-        buildInputs =
-          lib.optionals stdenv.isDarwin [ libiconv ] ++ (crate.buildInputs or [ ]) ++ buildInputs_;
+        buildInputs = lib.optionals stdenv.isDarwin [ libiconv ] ++ (crate.buildInputs or [ ]) ++ buildInputs_;
         dependencies = map lib.getLib dependencies_;
         buildDependencies = map lib.getLib buildDependencies_;
 
         completeDeps = lib.unique (dependencies ++ lib.concatMap (dep: dep.completeDeps) dependencies);
         completeBuildDeps = lib.unique (
-          buildDependencies
-          ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps) buildDependencies
+          buildDependencies ++ lib.concatMap (dep: dep.completeBuildDeps ++ dep.completeDeps) buildDependencies
         );
 
         # Create a list of features that are enabled by the crate itself and

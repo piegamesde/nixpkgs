@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ removeReferencesTo ] ++ optional fortranSupport fortran;
 
-  buildInputs =
-    optional fortranSupport fortran ++ optional szipSupport szip ++ optional javaSupport jdk;
+  buildInputs = optional fortranSupport fortran ++ optional szipSupport szip ++ optional javaSupport jdk;
 
   propagatedBuildInputs = optional zlibSupport zlib ++ optional mpiSupport mpi;
 

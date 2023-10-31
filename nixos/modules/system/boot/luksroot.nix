@@ -535,11 +535,9 @@ let
               ''
             }
               echo "Waiting for your FIDO2 device..."
-              fido2luks open${
-                optionalString dev.allowDiscards " --allow-discards"
-              } ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${
-                toString dev.fido2.gracePeriod
-              } --salt string:$passphrase
+              fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} "${
+                builtins.concatStringsSep "," fido2luksCredentials
+              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally
@@ -915,9 +913,7 @@ in
                           twoFactor = mkOption {
                             default = true;
                             type = types.bool;
-                            description =
-                              lib.mdDoc
-                                "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false).";
+                            description = lib.mdDoc "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false).";
                           };
 
                           slot = mkOption {

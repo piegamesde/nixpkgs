@@ -169,11 +169,9 @@ stdenv.mkDerivation rec {
       substituteInPlace core/CMakeLists.txt \
         --replace "-F/System/Library/PrivateFrameworks" ""
     ''
-    +
-      lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-        ''
-          MACOSX_DEPLOYMENT_TARGET=10.16
-        '';
+    + lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    '';
 
   cmakeFlags =
     [

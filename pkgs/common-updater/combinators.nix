@@ -140,8 +140,7 @@ rec {
     let
       scripts = scriptsNormalized;
       hasCommitSupport =
-        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null null scripts
-        != null;
+        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null null scripts != null;
       validateFeatures =
         if hasCommitSupport then
           ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ] || supportedFeatures == [ "silent" ])

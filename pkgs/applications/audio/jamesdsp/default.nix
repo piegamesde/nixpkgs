@@ -64,9 +64,7 @@ mkDerivation rec {
       gst_all_1.gstreamer
     ];
 
-  qtWrapperArgs = lib.optionals usePulseaudio [
-    "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}"
-  ];
+  qtWrapperArgs = lib.optionals usePulseaudio [ "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${pluginPath}" ];
 
   qmakeFlags = lib.optionals usePulseaudio [ "CONFIG+=USE_PULSEAUDIO" ];
 

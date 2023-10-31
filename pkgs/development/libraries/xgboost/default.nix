@@ -62,9 +62,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ]
     ++ lib.optionals rLibrary [ R ];
 
-  buildInputs =
-    [ gtest ]
-    ++ lib.optional cudaSupport cudaPackages.cudatoolkit ++ lib.optional ncclSupport cudaPackages.nccl;
+  buildInputs = [
+    gtest
+  ] ++ lib.optional cudaSupport cudaPackages.cudatoolkit ++ lib.optional ncclSupport cudaPackages.nccl;
 
   propagatedBuildInputs = lib.optionals rLibrary [
     rPackages.data_table

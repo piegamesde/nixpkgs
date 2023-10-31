@@ -315,9 +315,7 @@ in
           "system"
         ];
         default = null;
-        description =
-          lib.mdDoc
-            "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
+        description = lib.mdDoc "Enable D-Bus remote control. Set to the bus you want Murmur to connect to.";
       };
     };
   };

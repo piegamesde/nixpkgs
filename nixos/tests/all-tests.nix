@@ -432,9 +432,7 @@ in
   # hibernation. This test happens to work on x86_64-linux but
   # not on other platforms.
   hibernate = handleTestOn [ "x86_64-linux" ] ./hibernate.nix { };
-  hibernate-systemd-stage-1 = handleTestOn [ "x86_64-linux" ] ./hibernate.nix {
-    systemdStage1 = true;
-  };
+  hibernate-systemd-stage-1 = handleTestOn [ "x86_64-linux" ] ./hibernate.nix { systemdStage1 = true; };
   hitch = handleTest ./hitch { };
   hledger-web = handleTest ./hledger-web.nix { };
   hocker-fetchdocker = handleTest ./hocker-fetchdocker { };
@@ -655,10 +653,8 @@ in
   opensmtpd-rspamd = handleTest ./opensmtpd-rspamd.nix { };
   openssh = handleTest ./openssh.nix { };
   octoprint = handleTest ./octoprint.nix { };
-  openstack-image-metadata =
-    (handleTestOn [ "x86_64-linux" ] ./openstack-image.nix { }).metadata or { };
-  openstack-image-userdata =
-    (handleTestOn [ "x86_64-linux" ] ./openstack-image.nix { }).userdata or { };
+  openstack-image-metadata = (handleTestOn [ "x86_64-linux" ] ./openstack-image.nix { }).metadata or { };
+  openstack-image-userdata = (handleTestOn [ "x86_64-linux" ] ./openstack-image.nix { }).userdata or { };
   opentabletdriver = handleTest ./opentabletdriver.nix { };
   owncast = handleTest ./owncast.nix { };
   image-contents = handleTest ./image-contents.nix { };
@@ -730,9 +726,7 @@ in
   polaris = handleTest ./polaris.nix { };
   pomerium = handleTestOn [ "x86_64-linux" ] ./pomerium.nix { };
   postfix = handleTest ./postfix.nix { };
-  postfix-raise-smtpd-tls-security-level =
-    handleTest ./postfix-raise-smtpd-tls-security-level.nix
-      { };
+  postfix-raise-smtpd-tls-security-level = handleTest ./postfix-raise-smtpd-tls-security-level.nix { };
   postfixadmin = handleTest ./postfixadmin.nix { };
   postgis = handleTest ./postgis.nix { };
   postgresql = handleTest ./postgresql.nix { };
@@ -875,9 +869,7 @@ in
   systemd-networkd-dhcpserver-static-leases =
     handleTest ./systemd-networkd-dhcpserver-static-leases.nix
       { };
-  systemd-networkd-ipv6-prefix-delegation =
-    handleTest ./systemd-networkd-ipv6-prefix-delegation.nix
-      { };
+  systemd-networkd-ipv6-prefix-delegation = handleTest ./systemd-networkd-ipv6-prefix-delegation.nix { };
   systemd-networkd-vrf = handleTest ./systemd-networkd-vrf.nix { };
   systemd-no-tainted = handleTest ./systemd-no-tainted.nix { };
   systemd-nspawn = handleTest ./systemd-nspawn.nix { };

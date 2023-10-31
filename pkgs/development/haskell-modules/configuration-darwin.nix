@@ -18,9 +18,7 @@ self: super:
 
     conduit-extra = super.conduit-extra.overrideAttrs (drv: { __darwinAllowLocalNetworking = true; });
 
-    streaming-commons = super.streaming-commons.overrideAttrs (
-      _: { __darwinAllowLocalNetworking = true; }
-    );
+    streaming-commons = super.streaming-commons.overrideAttrs (_: { __darwinAllowLocalNetworking = true; });
 
     halive = addBuildDepend darwin.apple_sdk.frameworks.AppKit super.halive;
 
@@ -85,9 +83,7 @@ self: super:
     al =
       overrideCabal
         (drv: {
-          libraryFrameworkDepends = [
-            darwin.apple_sdk.frameworks.OpenAL
-          ] ++ (drv.libraryFrameworkDepends or [ ]);
+          libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.OpenAL ] ++ (drv.libraryFrameworkDepends or [ ]);
         })
         super.al;
 
@@ -242,8 +238,7 @@ self: super:
 
     # conditional dependency via a cabal flag
     cas-store =
-      overrideCabal
-        (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); })
+      overrideCabal (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); })
         super.cas-store;
 
     # 2021-05-25: Tests fail and I have no way to debug them.

@@ -152,9 +152,7 @@ let
         sync = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Synchronizes until tip, if together with zeromq, keeps index synchronized.";
+          description = lib.mdDoc "Synchronizes until tip, if together with zeromq, keeps index synchronized.";
         };
 
         templateDir = mkOption {

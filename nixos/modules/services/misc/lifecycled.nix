@@ -15,8 +15,7 @@ let
   # systemd.services.lifecycled.serviceConfig.Environment
   configFile = pkgs.writeText "lifecycled" ''
     LIFECYCLED_HANDLER=${cfg.handler}
-    ${lib.optionalString (cfg.cloudwatchGroup != null)
-      "LIFECYCLED_CLOUDWATCH_GROUP=${cfg.cloudwatchGroup}"}
+    ${lib.optionalString (cfg.cloudwatchGroup != null) "LIFECYCLED_CLOUDWATCH_GROUP=${cfg.cloudwatchGroup}"}
     ${lib.optionalString (cfg.cloudwatchStream != null)
       "LIFECYCLED_CLOUDWATCH_STREAM=${cfg.cloudwatchStream}"}
     ${lib.optionalString cfg.debug "LIFECYCLED_DEBUG=${lib.boolToString cfg.debug}"}

@@ -78,9 +78,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optional withGTK "wrapGApp $out/bin/trackma-gtk";
 
   desktopItems =
-    lib.optional withQT (
-      mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)" false
-    )
+    lib.optional withQT (mkDesktopItem "trackma-qt" "Trackma (Qt)" "Trackma Updater (Qt-frontend)" false)
     ++ lib.optional withGTK (
       mkDesktopItem "trackma-gtk" "Trackma (GTK)" "Trackma Updater (Gtk-frontend)" false
     )

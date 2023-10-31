@@ -209,9 +209,7 @@ self: super:
     }
   );
 
-  cmp-dictionary = super.cmp-dictionary.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-dictionary = super.cmp-dictionary.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
   cmp-digraphs = super.cmp-digraphs.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
@@ -279,9 +277,7 @@ self: super:
     old: { dependencies = with self; [ nvim-cmp ]; }
   );
 
-  cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
   cmp-pandoc-nvim = super.cmp-pandoc-nvim.overrideAttrs (
     old: {
@@ -446,9 +442,7 @@ self: super:
     }
   );
 
-  crates-nvim = super.crates-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  crates-nvim = super.crates-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   ctrlp-cmatcher = super.ctrlp-cmatcher.overrideAttrs (
     old: {
@@ -634,9 +628,7 @@ self: super:
     old: { dependencies = with self; [ plenary-nvim ]; }
   );
 
-  gitsigns-nvim = super.gitsigns-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  gitsigns-nvim = super.gitsigns-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   harpoon = super.harpoon.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
@@ -851,9 +843,7 @@ self: super:
 
   ncm2-syntax = super.ncm2-syntax.overrideAttrs (old: { dependencies = with self; [ neco-syntax ]; });
 
-  ncm2-ultisnips = super.ncm2-ultisnips.overrideAttrs (
-    old: { dependencies = with self; [ ultisnips ]; }
-  );
+  ncm2-ultisnips = super.ncm2-ultisnips.overrideAttrs (old: { dependencies = with self; [ ultisnips ]; });
 
   neogit = super.neogit.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
@@ -868,13 +858,9 @@ self: super:
 
   noice-nvim = super.noice-nvim.overrideAttrs (old: { dependencies = with self; [ nui-nvim ]; });
 
-  null-ls-nvim = super.null-ls-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  null-ls-nvim = super.null-ls-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
-  nvim-dap-python = super.nvim-dap-python.overrideAttrs (
-    old: { dependencies = with self; [ nvim-dap ]; }
-  );
+  nvim-dap-python = super.nvim-dap-python.overrideAttrs (old: { dependencies = with self; [ nvim-dap ]; });
 
   nvim-lsputils = super.nvim-lsputils.overrideAttrs (old: { dependencies = with self; [ popfix ]; });
 
@@ -884,9 +870,7 @@ self: super:
     old: { passthru.python3Dependencies = [ python3.pkgs.mwclient ]; }
   );
 
-  nvim-spectre = super.nvim-spectre.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  nvim-spectre = super.nvim-spectre.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   nvim-teal-maker = super.nvim-teal-maker.overrideAttrs (
     old: {
@@ -1451,9 +1435,7 @@ self: super:
     }
   );
 
-  vim-dadbod-ui = super.vim-dadbod-ui.overrideAttrs (
-    old: { dependencies = with self; [ vim-dadbod ]; }
-  );
+  vim-dadbod-ui = super.vim-dadbod-ui.overrideAttrs (old: { dependencies = with self; [ vim-dadbod ]; });
 
   vim-dasht = super.vim-dasht.overrideAttrs (
     old: {
@@ -1613,9 +1595,7 @@ self: super:
     }
   );
 
-  vim-surround = super.vim-surround.overrideAttrs (
-    old: { dependencies = with self; [ vim-repeat ]; }
-  );
+  vim-surround = super.vim-surround.overrideAttrs (old: { dependencies = with self; [ vim-repeat ]; });
 
   vim-textobj-entire = super.vim-textobj-entire.overrideAttrs (
     old: {
@@ -1624,9 +1604,7 @@ self: super:
     }
   );
 
-  vim-unimpaired = super.vim-unimpaired.overrideAttrs (
-    old: { dependencies = with self; [ vim-repeat ]; }
-  );
+  vim-unimpaired = super.vim-unimpaired.overrideAttrs (old: { dependencies = with self; [ vim-repeat ]; });
 
   vim-wakatime = super.vim-wakatime.overrideAttrs (
     old: {
@@ -1724,9 +1702,7 @@ self: super:
     }
   );
 
-  vimshell-vim = super.vimshell-vim.overrideAttrs (
-    old: { dependencies = with self; [ vimproc-vim ]; }
-  );
+  vimshell-vim = super.vimshell-vim.overrideAttrs (old: { dependencies = with self; [ vimproc-vim ]; });
 
   vim-zettel = super.vim-zettel.overrideAttrs (
     old: {

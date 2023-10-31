@@ -61,10 +61,7 @@ in
     systemd.services.telegraf =
       let
         finalConfigFile =
-          if config.services.telegraf.environmentFiles == [ ] then
-            configFile
-          else
-            "/var/run/telegraf/config.toml";
+          if config.services.telegraf.environmentFiles == [ ] then configFile else "/var/run/telegraf/config.toml";
       in
       {
         description = "Telegraf Agent";

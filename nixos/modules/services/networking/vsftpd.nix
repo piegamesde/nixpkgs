@@ -272,9 +272,7 @@ in
         type = types.lines;
         default = "";
         example = "ftpd_banner=Hello";
-        description =
-          lib.mdDoc
-            "Extra configuration to add at the bottom of the generated configuration file.";
+        description = lib.mdDoc "Extra configuration to add at the bottom of the generated configuration file.";
       };
     } // (listToAttrs (catAttrs "nixosOption" optionDescription));
   };
@@ -292,8 +290,7 @@ in
       }
       {
         assertion =
-          (cfg.enableVirtualUsers -> cfg.userDbPath != null)
-          && (cfg.enableVirtualUsers -> cfg.localUsers != null);
+          (cfg.enableVirtualUsers -> cfg.userDbPath != null) && (cfg.enableVirtualUsers -> cfg.localUsers != null);
         message = "vsftpd: If enableVirtualUsers is true, you need to setup both the userDbPath and localUsers options.";
       }
     ];

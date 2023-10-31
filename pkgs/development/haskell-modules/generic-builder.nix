@@ -297,8 +297,7 @@ let
         "split-objs"
       )
       (enableFeature enableLibraryProfiling "library-profiling")
-      (optionalString
-        ((enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version)
+      (optionalString ((enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version)
         "--profiling-detail=${profilingDetail}"
       )
       (enableFeature enableExecutableProfiling (
@@ -323,9 +322,7 @@ let
       "--disable-executable-stripping"
     ]
     ++ optionals isGhcjs [ "--ghcjs" ]
-    ++ optionals isCross (
-      [ "--configure-option=--host=${stdenv.hostPlatform.config}" ] ++ crossCabalFlags
-    )
+    ++ optionals isCross ([ "--configure-option=--host=${stdenv.hostPlatform.config}" ] ++ crossCabalFlags)
     ++ optionals enableSeparateBinOutput [ "--bindir=${binDir}" ]
     ++ optionals (doHaddockInterfaces && isLibrary) [ "--ghc-options=-haddock" ];
 
@@ -356,12 +353,10 @@ let
     ++ executableToolDepends
     ++ optionals doCheck testToolDepends
     ++ optionals doBenchmark benchmarkToolDepends;
-  nativeBuildInputs =
-    [
-      ghc
-      removeReferencesTo
-    ]
-    ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
+  nativeBuildInputs = [
+    ghc
+    removeReferencesTo
+  ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
   propagatedBuildInputs =
     buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
   otherBuildInputsHaskell =
@@ -382,9 +377,7 @@ let
     ++ executableSystemDepends
     ++ executableFrameworkDepends
     ++ allPkgconfigDepends
-    ++ optionals doCheck (
-      testDepends ++ testHaskellDepends ++ testSystemDepends ++ testFrameworkDepends
-    )
+    ++ optionals doCheck (testDepends ++ testHaskellDepends ++ testSystemDepends ++ testFrameworkDepends)
     ++ optionals doBenchmark (
       benchmarkDepends ++ benchmarkHaskellDepends ++ benchmarkSystemDepends ++ benchmarkFrameworkDepends
     );
@@ -396,8 +389,7 @@ let
 
   ghcNameWithPrefix = "${ghc.targetPrefix}${ghc.haskellCompilerName}";
   mkGhcLibdir =
-    ghc:
-    "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}" + lib.optionalString (ghc ? hadrian) "/lib";
+    ghc: "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}" + lib.optionalString (ghc ? hadrian) "/lib";
   ghcLibdir = mkGhcLibdir ghc;
 
   nativeGhcCommand = "${nativeGhc.targetPrefix}ghc";

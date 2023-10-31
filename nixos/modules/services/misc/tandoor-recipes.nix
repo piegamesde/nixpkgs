@@ -100,9 +100,7 @@ in
           RuntimeDirectory = "tandoor-recipes";
 
           BindReadOnlyPaths = [
-            "${
-              config.environment.etc."ssl/certs/ca-certificates.crt".source
-            }:/etc/ssl/certs/ca-certificates.crt"
+            "${config.environment.etc."ssl/certs/ca-certificates.crt".source}:/etc/ssl/certs/ca-certificates.crt"
             builtins.storeDir
             "-/etc/resolv.conf"
             "-/etc/nsswitch.conf"
@@ -155,9 +153,7 @@ in
       '';
 
       environment = env // {
-        PYTHONPATH = "${
-            pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs
-          }:${pkg}/lib/tandoor-recipes";
+        PYTHONPATH = "${pkg.python.pkgs.makePythonPath pkg.propagatedBuildInputs}:${pkg}/lib/tandoor-recipes";
       };
     };
   };

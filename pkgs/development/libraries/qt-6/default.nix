@@ -179,9 +179,7 @@ let
         xcbuild = buildPackages.xcbuild.override { productBuildVer = "20A2408"; };
       };
       qtwebsockets = callPackage ./modules/qtwebsockets.nix { };
-      qtwebview = callPackage ./modules/qtwebview.nix {
-        inherit (darwin.apple_sdk_11_0.frameworks) WebKit;
-      };
+      qtwebview = callPackage ./modules/qtwebview.nix { inherit (darwin.apple_sdk_11_0.frameworks) WebKit; };
 
       wrapQtAppsHook =
         makeSetupHook

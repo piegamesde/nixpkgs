@@ -41,9 +41,7 @@ in
       debug = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Log more things that aren't directly related to booting a recognized client";
+        description = lib.mdDoc "Log more things that aren't directly related to booting a recognized client";
       };
 
       dhcpNoBind = mkOption {

@@ -16,9 +16,7 @@ let
 
   fdbServers =
     n:
-    concatStringsSep "\n" (
-      map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1))
-    );
+    concatStringsSep "\n" (map (x: "[fdbserver.${toString (x + cfg.listenPortStart)}]") (range 0 (n - 1)));
 
   backupAgents = n: concatStringsSep "\n" (map (x: "[backup_agent.${toString x}]") (range 1 n));
 
@@ -82,17 +80,13 @@ in
     publicAddress = mkOption {
       type = types.str;
       default = "auto";
-      description =
-        lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID";
+      description = lib.mdDoc "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenAddress = mkOption {
       type = types.str;
       default = "public";
-      description =
-        lib.mdDoc
-          "Publicly visible IP address of the process. Port is determined by process ID";
+      description = lib.mdDoc "Publicly visible IP address of the process. Port is determined by process ID";
     };
 
     listenPortStart = mkOption {

@@ -20,8 +20,7 @@ rec {
   };
 
   # Use this function in any package that uses Gerbil libraries, to define the GERBIL_LOADPATH.
-  gerbilLoadPath =
-    gerbilInputs: builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs);
+  gerbilLoadPath = gerbilInputs: builtins.concatStringsSep ":" (map (x: x + "/gerbil/lib") gerbilInputs);
 
   # Use this function to create a Gerbil library. See gerbil-utils as an example.
   gerbilPackage =

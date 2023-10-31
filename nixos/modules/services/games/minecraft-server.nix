@@ -54,16 +54,10 @@ let
   serverPort = cfg.serverProperties.server-port or defaultServerPort;
 
   rconPort =
-    if cfg.serverProperties.enable-rcon or false then
-      cfg.serverProperties."rcon.port" or 25575
-    else
-      null;
+    if cfg.serverProperties.enable-rcon or false then cfg.serverProperties."rcon.port" or 25575 else null;
 
   queryPort =
-    if cfg.serverProperties.enable-query or false then
-      cfg.serverProperties."query.port" or 25565
-    else
-      null;
+    if cfg.serverProperties.enable-query or false then cfg.serverProperties."query.port" or 25565 else null;
 in
 {
   options = {
@@ -121,11 +115,9 @@ in
       whitelist = mkOption {
         type =
           let
-            minecraftUUID =
-              types.strMatching "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
-              // {
-                description = "Minecraft UUID";
-              };
+            minecraftUUID = types.strMatching "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}" // {
+              description = "Minecraft UUID";
+            };
           in
           types.attrsOf minecraftUUID;
         default = { };

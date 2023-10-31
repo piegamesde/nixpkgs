@@ -119,8 +119,7 @@ let
   # Put all the providers we not longer support in this list.
   removed-providers =
     let
-      archived =
-        name: date: throw "the ${name} terraform provider has been archived by upstream on ${date}";
+      archived = name: date: throw "the ${name} terraform provider has been archived by upstream on ${date}";
       license =
         name: date:
         throw "the ${name} terraform provider removed from nixpkgs on ${date} because of unclear licensing";

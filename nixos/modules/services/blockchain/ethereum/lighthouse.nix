@@ -249,9 +249,7 @@ in
           --listen-address ${cfg.beacon.address} \
           --network ${cfg.network} \
           --datadir ${cfg.beacon.dataDir}/${cfg.network} \
-          --execution-endpoint http://${cfg.beacon.execution.address}:${
-            toString cfg.beacon.execution.port
-          } \
+          --execution-endpoint http://${cfg.beacon.execution.address}:${toString cfg.beacon.execution.port} \
           --execution-jwt ''${CREDENTIALS_DIRECTORY}/LIGHTHOUSE_JWT \
           ${
             lib.optionalString cfg.beacon.http.enable

@@ -296,8 +296,7 @@ let
     };
 
   headerChecks =
-    concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
-    + cfg.extraHeaderChecks;
+    concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks) + cfg.extraHeaderChecks;
 
   aliases =
     let
@@ -926,13 +925,9 @@ in
           // optionalAttrs (cfg.recipientDelimiter != "") { recipient_delimiter = cfg.recipientDelimiter; }
           // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
           // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
-          // optionalAttrs haveVirtual {
-            virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
-          }
+          // optionalAttrs haveVirtual { virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ]; }
           // optionalAttrs haveLocalRecipients {
-            local_recipient_maps = [
-              "hash:/etc/postfix/local_recipients"
-            ] ++ optional haveAliases "$alias_maps";
+            local_recipient_maps = [ "hash:/etc/postfix/local_recipients" ] ++ optional haveAliases "$alias_maps";
           }
           // optionalAttrs (cfg.dnsBlacklists != [ ]) { smtpd_client_restrictions = clientRestrictions; }
           // optionalAttrs cfg.useSrs {
@@ -1095,9 +1090,7 @@ in
       (mkIf haveVirtual { services.postfix.mapFiles.virtual = virtualFile; })
       (mkIf haveLocalRecipients { services.postfix.mapFiles.local_recipients = localRecipientMapFile; })
       (mkIf cfg.enableHeaderChecks { services.postfix.mapFiles.header_checks = headerChecksFile; })
-      (mkIf (cfg.dnsBlacklists != [ ]) {
-        services.postfix.mapFiles.client_access = checkClientAccessFile;
-      })
+      (mkIf (cfg.dnsBlacklists != [ ]) { services.postfix.mapFiles.client_access = checkClientAccessFile; })
     ]
   );
 

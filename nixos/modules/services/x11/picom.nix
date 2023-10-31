@@ -14,9 +14,7 @@ let
   opt = options.services.picom;
 
   pairOf =
-    x:
-    with types;
-    addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
+    x: with types; addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
@@ -289,8 +287,7 @@ in
         let
           res = x != "none";
           msg =
-            "The type of services.picom.vSync has changed to bool:"
-            + " interpreting ${x} as ${boolToString res}";
+            "The type of services.picom.vSync has changed to bool:" + " interpreting ${x} as ${boolToString res}";
         in
         if isBool x then x else warn msg res;
 

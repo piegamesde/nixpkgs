@@ -22,9 +22,7 @@ buildBazelPackage rec {
   GIT_VERSION = "v0.0-3179-g525ffaf7";
 
   # Derive nix package version from GIT_VERSION: "v1.2-345-abcde" -> "1.2.345"
-  version = builtins.concatStringsSep "." (
-    lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION))
-  );
+  version = builtins.concatStringsSep "." (lib.take 3 (lib.drop 1 (builtins.splitVersion GIT_VERSION)));
 
   src = fetchFromGitHub {
     owner = "chipsalliance";

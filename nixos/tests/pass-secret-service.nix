@@ -13,8 +13,7 @@ import ./make-test-python.nix (
 
         environment.systemPackages = [
           # Create a script that tries to make a request to the D-Bus secrets API.
-          (pkgs.writers.writePython3Bin "secrets-dbus-init"
-            { libraries = [ pkgs.python3Packages.secretstorage ]; }
+          (pkgs.writers.writePython3Bin "secrets-dbus-init" { libraries = [ pkgs.python3Packages.secretstorage ]; }
             ''
               import secretstorage
               print("Initializing dbus connection...")

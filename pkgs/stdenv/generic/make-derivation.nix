@@ -137,12 +137,11 @@ let
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-      configurePlatforms ? lib.optionals
-          (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault)
-          [
-            "build"
-            "host"
-          ],
+      configurePlatforms ?
+        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault) [
+          "build"
+          "host"
+        ],
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
       # Check phase
@@ -154,8 +153,7 @@ let
 
       ,
       # TODO(@Ericson2314): Make always true and remove / resolve #178468
-      strictDeps ?
-        if config.strictDepsByDefault then true else stdenv.hostPlatform != stdenv.buildPlatform,
+      strictDeps ? if config.strictDepsByDefault then true else stdenv.hostPlatform != stdenv.buildPlatform,
 
       enableParallelBuilding ? config.enableParallelBuildingByDefault,
 
@@ -277,10 +275,7 @@ let
         lib.flip lib.imap1 deps (
           index: dep:
           if
-            lib.isDerivation dep
-            || dep == null
-            || builtins.typeOf dep == "string"
-            || builtins.typeOf dep == "path"
+            lib.isDerivation dep || dep == null || builtins.typeOf dep == "string" || builtins.typeOf dep == "path"
           then
             dep
           else if lib.isList dep then
@@ -319,27 +314,20 @@ let
 
         outputs = outputs';
 
-        references =
-          nativeBuildInputs ++ buildInputs ++ propagatedNativeBuildInputs ++ propagatedBuildInputs;
+        references = nativeBuildInputs ++ buildInputs ++ propagatedNativeBuildInputs ++ propagatedBuildInputs;
 
         dependencies = map (map lib.chooseDevOutputs) [
           [
             (map (drv: drv.__spliced.buildBuild or drv) (checkDependencyList "depsBuildBuild" depsBuildBuild))
-            (map (drv: drv.__spliced.buildHost or drv) (
-              checkDependencyList "nativeBuildInputs" nativeBuildInputs'
-            ))
-            (map (drv: drv.__spliced.buildTarget or drv) (
-              checkDependencyList "depsBuildTarget" depsBuildTarget
-            ))
+            (map (drv: drv.__spliced.buildHost or drv) (checkDependencyList "nativeBuildInputs" nativeBuildInputs'))
+            (map (drv: drv.__spliced.buildTarget or drv) (checkDependencyList "depsBuildTarget" depsBuildTarget))
           ]
           [
             (map (drv: drv.__spliced.hostHost or drv) (checkDependencyList "depsHostHost" depsHostHost))
             (map (drv: drv.__spliced.hostTarget or drv) (checkDependencyList "buildInputs" buildInputs'))
           ]
           [
-            (map (drv: drv.__spliced.targetTarget or drv) (
-              checkDependencyList "depsTargetTarget" depsTargetTarget
-            ))
+            (map (drv: drv.__spliced.targetTarget or drv) (checkDependencyList "depsTargetTarget" depsTargetTarget))
           ]
         ];
         propagatedDependencies = map (map lib.chooseDevOutputs) [
@@ -384,9 +372,7 @@ let
         );
 
         computedPropagatedImpureHostDeps = lib.unique (
-          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
-            lib.concatLists propagatedDependencies
-          )
+          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (lib.concatLists propagatedDependencies)
         );
 
         envIsExportable = lib.isAttrs env && !lib.isDerivation env;
@@ -589,9 +575,7 @@ let
                   [binaries]
                   llvm-config = 'llvm-config-native'
                 '';
-                crossFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-                  "--cross-file=${crossFile}"
-                ];
+                crossFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "--cross-file=${crossFile}" ];
               in
               crossFlags ++ explicitFlags;
 
@@ -613,9 +597,9 @@ let
             enableParallelChecking = attrs.enableParallelChecking or true;
             enableParallelInstalling = attrs.enableParallelInstalling or true;
           }
-          //
-            lib.optionalAttrs (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl)
-              { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
+          // lib.optionalAttrs (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl) {
+            NIX_HARDENING_ENABLE = enabledHardeningOptions;
+          }
           // lib.optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
             requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [
               "gccarch-${stdenv.hostPlatform.gcc.arch}"

@@ -70,9 +70,7 @@ import ./make-test-python.nix (
 
       with subtest("test http json-rpc"):
           server.succeed(
-              "curl --fail http://localhost:${
-                toString httpPort
-              }/jsonrpc -d '{json.dumps(get_rpc_version)}'"
+              "curl --fail http://localhost:${toString httpPort}/jsonrpc -d '{json.dumps(get_rpc_version)}'"
           )
 
       with subtest("test a ipv6 connection"):

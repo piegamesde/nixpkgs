@@ -20,9 +20,7 @@ let
         in
         if isList property then
           ''
-            ${propertyName}=(${
-              lib.concatMapStrings (elem: ''"${toString elem}" '') (properties.${propertyName})
-            })
+            ${propertyName}=(${lib.concatMapStrings (elem: ''"${toString elem}" '') (properties.${propertyName})})
           ''
         else
           ''

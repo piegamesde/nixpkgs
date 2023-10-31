@@ -13,10 +13,7 @@ let
   inherit (localSystem) system;
 
   shell =
-    if system == "i686-freebsd" || system == "x86_64-freebsd" then
-      "/usr/local/bin/bash"
-    else
-      "/bin/bash";
+    if system == "i686-freebsd" || system == "x86_64-freebsd" then "/usr/local/bin/bash" else "/bin/bash";
 
   path =
     (lib.optionals (system == "i686-solaris") [ "/usr/gnu" ])

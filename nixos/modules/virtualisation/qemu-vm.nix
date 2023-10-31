@@ -55,9 +55,7 @@ let
         name = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
+          description = lib.mdDoc "A name for the drive. Must be unique in the drives list. Not passed to qemu.";
         };
       };
     };
@@ -145,9 +143,7 @@ let
         ${
           concatStringsSep " \\\n" (
             [ "-f qcow2" ]
-            ++
-              optional (cfg.useBootLoader && cfg.useDefaultFilesystems)
-                "-F qcow2 -b ${systemImage}/nixos.qcow2"
+            ++ optional (cfg.useBootLoader && cfg.useDefaultFilesystems) "-F qcow2 -b ${systemImage}/nixos.qcow2"
             ++
               optional (!(cfg.useBootLoader && cfg.useDefaultFilesystems))
                 "-o size=${toString config.virtualisation.diskSize}M"
@@ -240,8 +236,7 @@ let
         ${concatStringsSep " " config.virtualisation.qemu.networkingOptions} \
         ${
           concatStringsSep " \\\n    " (
-            mapAttrsToList
-              (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}")
+            mapAttrsToList (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}")
               config.virtualisation.sharedDirectories
           )
         } \
@@ -810,9 +805,7 @@ in
           (pkgs.OVMF.override {
                     secureBoot = cfg.useSecureBoot;
                   }).fd'';
-        description =
-          lib.mdDoc
-            "OVMF firmware package, defaults to OVMF configured with secure boot if needed.";
+        description = lib.mdDoc "OVMF firmware package, defaults to OVMF configured with secure boot if needed.";
       };
 
       firmware = mkOption {
@@ -1010,8 +1003,7 @@ in
             guest,
           }:
           if from == "host" then
-            "hostfwd=${proto}:${host.address}:${toString host.port}-"
-            + "${guest.address}:${toString guest.port},"
+            "hostfwd=${proto}:${host.address}:${toString host.port}-" + "${guest.address}:${toString guest.port},"
           else
             "'guestfwd=${proto}:${guest.address}:${toString guest.port}-"
             + "cmd:${pkgs.netcat}/bin/nc ${host.address} ${toString host.port}',"
@@ -1041,8 +1033,7 @@ in
           alphaNumericChars = lowerChars ++ upperChars ++ (map toString (range 0 9));
           # Replace all non-alphanumeric characters with underscores
           sanitizeShellIdent =
-            s:
-            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
+            s: concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
         in
         mkIf (!cfg.useBootLoader) [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${

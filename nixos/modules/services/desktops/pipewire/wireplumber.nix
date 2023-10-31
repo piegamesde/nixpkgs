@@ -19,9 +19,7 @@ in
         type = lib.types.bool;
         default = config.services.pipewire.enable;
         defaultText = lib.literalExpression "config.services.pipewire.enable";
-        description =
-          lib.mdDoc
-            "Whether to enable Wireplumber, a modular session / policy manager for PipeWire";
+        description = lib.mdDoc "Whether to enable Wireplumber, a modular session / policy manager for PipeWire";
       };
 
       package = lib.mkOption {

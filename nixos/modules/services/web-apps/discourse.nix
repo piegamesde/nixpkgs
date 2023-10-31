@@ -806,8 +806,7 @@ in
               umask u=rwx,g=,o=
 
               ${
-                utils.genJqSecretsReplacementSnippet cfg.siteSettings
-                  "/run/discourse/config/nixos_site_settings.json"
+                utils.genJqSecretsReplacementSnippet cfg.siteSettings "/run/discourse/config/nixos_site_settings.json"
               }
               install -T -m 0600 -o discourse ${discourseConf} /run/discourse/config/discourse.conf
               ${mkSecretReplacement cfg.database.passwordFile}
@@ -1128,9 +1127,7 @@ in
           isSystemUser = true;
         };
       }
-      // (lib.optionalAttrs cfg.nginx.enable {
-        ${config.services.nginx.user}.extraGroups = [ "discourse" ];
-      });
+      // (lib.optionalAttrs cfg.nginx.enable { ${config.services.nginx.user}.extraGroups = [ "discourse" ]; });
 
     users.groups = {
       discourse = { };

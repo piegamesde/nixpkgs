@@ -13,9 +13,7 @@ let
 
   steam-gamescope =
     let
-      exports = builtins.attrValues (
-        builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env
-      );
+      exports = builtins.attrValues (builtins.mapAttrs (n: v: "export ${n}=${v}") cfg.gamescopeSession.env);
     in
     pkgs.writeShellScriptBin "steam-gamescope" ''
       ${builtins.concatStringsSep "\n" exports}

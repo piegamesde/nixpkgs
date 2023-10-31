@@ -170,10 +170,7 @@ let
       false;
 
   darwinPlatformForCC = optionalString stdenv.targetPlatform.isDarwin (
-    if (targetPlatform.darwinPlatform == "macos" && isGNU) then
-      "macosx"
-    else
-      targetPlatform.darwinPlatform
+    if (targetPlatform.darwinPlatform == "macos" && isGNU) then "macosx" else targetPlatform.darwinPlatform
   );
 
   darwinMinVersion = optionalString stdenv.targetPlatform.isDarwin (
@@ -580,11 +577,9 @@ stdenv.mkDerivation {
     # instead of march. On all other platforms you should use mtune
     # and march instead.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
-    +
-      optionalString ((targetPlatform ? gcc.cpu) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)))
-        ''
-          echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
-        ''
+    + optionalString ((targetPlatform ? gcc.cpu) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64))) ''
+      echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
+    ''
 
     # -mfloat-abi only matters on arm32 but we set it here
     # unconditionally just in case. If the abi specifically sets hard

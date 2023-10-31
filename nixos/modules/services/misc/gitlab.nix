@@ -19,10 +19,7 @@ let
   ruby = cfg.packages.gitlab.ruby;
 
   postgresqlPackage =
-    if config.services.postgresql.enable then
-      config.services.postgresql.package
-    else
-      pkgs.postgresql_12;
+    if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql_12;
 
   gitlabSocket = "${cfg.statePath}/tmp/sockets/gitlab.socket";
   gitalySocket = "${cfg.statePath}/tmp/sockets/gitaly.socket";
@@ -252,9 +249,7 @@ let
         ${optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''}
         ${optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''}
         domain: "${cfg.smtp.domain}",
-        ${
-          optionalString (cfg.smtp.authentication != null) "authentication: :${cfg.smtp.authentication},"
-        }
+        ${optionalString (cfg.smtp.authentication != null) "authentication: :${cfg.smtp.authentication},"}
         enable_starttls_auto: ${boolToString cfg.smtp.enableStartTLSAuto},
         tls: ${boolToString cfg.smtp.tls},
         ca_file: "/etc/ssl/certs/ca-certificates.crt",

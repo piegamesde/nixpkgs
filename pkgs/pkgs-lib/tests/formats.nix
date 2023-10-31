@@ -168,8 +168,7 @@ runBuildTests {
 
   testIniListToValue = {
     drv =
-      evalFormat formats.ini
-        { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
+      evalFormat formats.ini { listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { }); }
         {
           foo = {
             bar = [

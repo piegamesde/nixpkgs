@@ -69,8 +69,7 @@ let
   #
   deriveBioc = mkDerive {
     mkHomepage =
-      { name, biocVersion, ... }:
-      "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
+      { name, biocVersion, ... }: "https://bioconductor.org/packages/${biocVersion}/bioc/html/${name}.html";
     mkUrls =
       {
         name,
@@ -1290,15 +1289,11 @@ let
 
     curl = old.curl.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
-    RcppParallel = old.RcppParallel.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    RcppParallel = old.RcppParallel.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     purrr = old.purrr.overrideAttrs (attrs: { patchPhase = "patchShebangs configure"; });
 
-    RcppArmadillo = old.RcppArmadillo.overrideAttrs (
-      attrs: { patchPhase = "patchShebangs configure"; }
-    );
+    RcppArmadillo = old.RcppArmadillo.overrideAttrs (attrs: { patchPhase = "patchShebangs configure"; });
 
     data_table = old.data_table.overrideAttrs (
       attrs: {

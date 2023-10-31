@@ -85,9 +85,7 @@ in
     environment.systemPackages = with pkgs; [ mackerel-agent ];
 
     environment.etc = {
-      "mackerel-agent/mackerel-agent.conf".source =
-        settingsFmt.generate "mackerel-agent.conf"
-          cfg.settings;
+      "mackerel-agent/mackerel-agent.conf".source = settingsFmt.generate "mackerel-agent.conf" cfg.settings;
       "mackerel-agent/conf.d/api-key.conf".source = cfg.apiKeyFile;
     };
 

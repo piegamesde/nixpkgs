@@ -267,9 +267,7 @@ in
               ''}
               ${optionalString sw.randomEncryption.enable ''
                 cryptsetup plainOpen -c ${sw.randomEncryption.cipher} -d ${sw.randomEncryption.source} \
-                  ${
-                    optionalString sw.randomEncryption.allowDiscards "--allow-discards"
-                  } ${sw.device} ${sw.deviceName}
+                  ${optionalString sw.randomEncryption.allowDiscards "--allow-discards"} ${sw.device} ${sw.deviceName}
                 mkswap ${sw.realDevice}
               ''}
             '';

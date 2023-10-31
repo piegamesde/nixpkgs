@@ -28,9 +28,7 @@ let
       populateImageCommands = config.sdImage.populateRootCommands;
       volumeLabel = "NIXOS_SD";
     }
-    // optionalAttrs (config.sdImage.rootPartitionUUID != null) {
-      uuid = config.sdImage.rootPartitionUUID;
-    }
+    // optionalAttrs (config.sdImage.rootPartitionUUID != null) { uuid = config.sdImage.rootPartitionUUID; }
   );
 in
 {
@@ -148,9 +146,7 @@ in
     };
 
     postBuildCommands = mkOption {
-      example =
-        literalExpression
-          "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''";
+      example = literalExpression "'' dd if=\${pkgs.myBootLoader}/SPL of=$img bs=1024 seek=1 conv=notrunc ''";
       default = "";
       description = lib.mdDoc ''
         Shell commands to run after the image is built.

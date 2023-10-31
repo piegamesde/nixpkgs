@@ -215,9 +215,7 @@ let
         );
       hasElem =
         needle: haystack:
-        builtins.elem needle (
-          builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack)
-        );
+        builtins.elem needle (builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " haystack));
       op = {
         "true" = x: y: true;
         "<=" = x: y: op.">=" y x;
@@ -232,9 +230,7 @@ let
             parts = builtins.splitVersion c;
             pruned = lib.take ((builtins.length parts) - 1) parts;
             upper = builtins.toString ((lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1);
-            upperConstraint = builtins.concatStringsSep "." (
-              ireplace (builtins.length pruned - 1) upper pruned
-            );
+            upperConstraint = builtins.concatStringsSep "." (ireplace (builtins.length pruned - 1) upper pruned);
           in
           op.">=" v c && op."<" v upperConstraint;
         "===" = x: y: x == y;

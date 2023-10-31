@@ -17,8 +17,7 @@ let
   stdenv = stdenvNoCC;
 
   standardFrameworkPath =
-    name: private:
-    "/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework";
+    name: private: "/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework";
 
   mkDepsRewrites =
     deps:
@@ -52,9 +51,7 @@ let
 
       rewrites =
         depList:
-        lib.fold mergeRewrites { } (
-          map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList)
-        );
+        lib.fold mergeRewrites { } (map (dep: dep.tbdRewrites) (lib.filter (dep: dep ? tbdRewrites) depList));
     in
     lib.escapeShellArgs (rewriteArgs (rewrites (builtins.attrValues deps)));
 
@@ -358,9 +355,7 @@ rec {
 
       # Overrides for framework derivations.
       overrides = super: {
-        CoreFoundation = lib.overrideDerivation super.CoreFoundation (
-          drv: { setupHook = ./cf-setup-hook.sh; }
-        );
+        CoreFoundation = lib.overrideDerivation super.CoreFoundation (drv: { setupHook = ./cf-setup-hook.sh; });
 
         # This framework doesn't exist in newer SDKs (somewhere around 10.13), but
         # there are references to it in nixpkgs.

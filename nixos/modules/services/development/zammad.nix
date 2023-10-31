@@ -33,9 +33,7 @@ in
 
   options = {
     services.zammad = {
-      enable = mkEnableOption (
-        lib.mdDoc "Zammad, a web-based, open source user support/ticketing solution"
-      );
+      enable = mkEnableOption (lib.mdDoc "Zammad, a web-based, open source user support/ticketing solution");
 
       package = mkOption {
         type = types.package;
@@ -244,20 +242,18 @@ in
       ];
     };
 
-    services.postgresql =
-      optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL")
+    services.postgresql = optionalAttrs (cfg.database.createLocally && cfg.database.type == "PostgreSQL") {
+      enable = true;
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
         {
-          enable = true;
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+          name = cfg.database.user;
+          ensurePermissions = {
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
     systemd.services.zammad-web = {
       inherit environment;

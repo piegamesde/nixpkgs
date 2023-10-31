@@ -69,10 +69,7 @@ let
     package:
     let
       metacoq-deps =
-        if package == "single" then
-          [ ]
-        else
-          map metacoq_ (head (splitList (lib.pred.equal package) packages));
+        if package == "single" then [ ] else map metacoq_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "./" else "./${package}";
       pname = if package == "all" then "metacoq" else "metacoq-${package}";
       pkgallMake = ''

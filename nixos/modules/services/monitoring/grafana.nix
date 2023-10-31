@@ -78,51 +78,49 @@ let
         ln -sf ${src} $out/${dir}/${filename}.yaml
       fi
     '';
-  provisionConfDir =
-    pkgs.runCommand "grafana-provisioning" { nativeBuildInputs = [ pkgs.xorg.lndir ]; }
-      ''
-        mkdir -p $out/{datasources,dashboards,notifiers,alerting}
-        ${ln {
-          src = datasourceFileOrDir;
-          dir = "datasources";
-          filename = "datasource";
-        }}
-        ${ln {
-          src = dashboardFileOrDir;
-          dir = "dashboards";
-          filename = "dashboard";
-        }}
-        ${ln {
-          src = notifierFileOrDir;
-          dir = "notifiers";
-          filename = "notifier";
-        }}
-        ${ln {
-          src = rulesFileOrDir;
-          dir = "alerting";
-          filename = "rules";
-        }}
-        ${ln {
-          src = contactPointsFileOrDir;
-          dir = "alerting";
-          filename = "contactPoints";
-        }}
-        ${ln {
-          src = policiesFileOrDir;
-          dir = "alerting";
-          filename = "policies";
-        }}
-        ${ln {
-          src = templatesFileOrDir;
-          dir = "alerting";
-          filename = "templates";
-        }}
-        ${ln {
-          src = muteTimingsFileOrDir;
-          dir = "alerting";
-          filename = "muteTimings";
-        }}
-      '';
+  provisionConfDir = pkgs.runCommand "grafana-provisioning" { nativeBuildInputs = [ pkgs.xorg.lndir ]; } ''
+    mkdir -p $out/{datasources,dashboards,notifiers,alerting}
+    ${ln {
+      src = datasourceFileOrDir;
+      dir = "datasources";
+      filename = "datasource";
+    }}
+    ${ln {
+      src = dashboardFileOrDir;
+      dir = "dashboards";
+      filename = "dashboard";
+    }}
+    ${ln {
+      src = notifierFileOrDir;
+      dir = "notifiers";
+      filename = "notifier";
+    }}
+    ${ln {
+      src = rulesFileOrDir;
+      dir = "alerting";
+      filename = "rules";
+    }}
+    ${ln {
+      src = contactPointsFileOrDir;
+      dir = "alerting";
+      filename = "contactPoints";
+    }}
+    ${ln {
+      src = policiesFileOrDir;
+      dir = "alerting";
+      filename = "policies";
+    }}
+    ${ln {
+      src = templatesFileOrDir;
+      dir = "alerting";
+      filename = "templates";
+    }}
+    ${ln {
+      src = muteTimingsFileOrDir;
+      dir = "alerting";
+      filename = "muteTimings";
+    }}
+  '';
 
   # Get a submodule without any embedded metadata:
   _filter = x: filterAttrs (k: v: k != "_module") x;
@@ -220,9 +218,7 @@ let
       };
       options.path = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Path grafana will watch for dashboards. Required when using the 'file' type.";
+        description = lib.mdDoc "Path grafana will watch for dashboards. Required when using the 'file' type.";
       };
     };
   };
@@ -2009,8 +2005,7 @@ in
       {
         assertion =
           let
-            prometheusIsNotDirect =
-              opt: all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
+            prometheusIsNotDirect = opt: all ({ type, access, ... }: type == "prometheus" -> access != "direct") opt;
           in
           cfg.provision.datasources.settings == null
           || prometheusIsNotDirect cfg.provision.datasources.settings.datasources;
@@ -2021,8 +2016,7 @@ in
         message = "Cannot set both dashboards settings and dashboards path";
       }
       {
-        assertion =
-          cfg.provision.alerting.rules.settings == null || cfg.provision.alerting.rules.path == null;
+        assertion = cfg.provision.alerting.rules.settings == null || cfg.provision.alerting.rules.path == null;
         message = "Cannot set both rules settings and rules path";
       }
       {
@@ -2043,8 +2037,7 @@ in
       }
       {
         assertion =
-          cfg.provision.alerting.muteTimings.settings == null
-          || cfg.provision.alerting.muteTimings.path == null;
+          cfg.provision.alerting.muteTimings.settings == null || cfg.provision.alerting.muteTimings.path == null;
         message = "Cannot set both mute timings settings and mute timings path";
       }
     ];

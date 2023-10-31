@@ -71,9 +71,7 @@ in
 rec {
   inherit mkTmuxPlugin;
 
-  mkDerivation =
-    throw
-      "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
+  mkDerivation = throw "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
 
   battery = mkTmuxPlugin {
     pluginName = "battery";
@@ -284,8 +282,7 @@ rec {
       for f in config.sh tmux-fingers.sh setup-fingers-mode-bindings.sh; do
       wrapProgram $target/scripts/$f \
         --prefix PATH : ${
-          with pkgs;
-          lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
+          with pkgs; lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
         }
       done
     '';

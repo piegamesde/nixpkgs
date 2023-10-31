@@ -270,9 +270,7 @@ in
                 "SECRET_KEY_BASE:${cfg.server.secretKeybaseFile}"
                 "RELEASE_COOKIE:${cfg.releaseCookiePath}"
               ]
-              ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [
-                "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}"
-              ];
+              ++ lib.optionals (cfg.mail.smtp.passwordFile != null) [ "SMTP_USER_PWD:${cfg.mail.smtp.passwordFile}" ];
           };
         };
       }

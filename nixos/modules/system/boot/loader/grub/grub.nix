@@ -60,9 +60,7 @@ let
         fullName = lib.getName realGrub;
         fullVersion = lib.getVersion realGrub;
         grubEfi = f grubEfi;
-        grubTargetEfi = optionalString (cfg.efiSupport && (cfg.version == 2)) (
-          f (grubEfi.grubTarget or "")
-        );
+        grubTargetEfi = optionalString (cfg.efiSupport && (cfg.version == 2)) (f (grubEfi.grubTarget or ""));
         bootPath = args.path;
         storePath = config.boot.loader.grub.storePath;
         bootloaderId =

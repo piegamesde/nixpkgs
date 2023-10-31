@@ -74,8 +74,7 @@ assert (vendorSha256 != "_unset" && vendorHash != "_unset")
 
 let
   hasAnyVendorHash =
-    (vendorSha256 != null && vendorSha256 != "_unset")
-    || (vendorHash != null && vendorHash != "_unset");
+    (vendorSha256 != null && vendorSha256 != "_unset") || (vendorHash != null && vendorHash != "_unset");
   vendorHashType =
     if hasAnyVendorHash then
       if vendorSha256 != null && vendorSha256 != "_unset" then "sha256" else "sri"

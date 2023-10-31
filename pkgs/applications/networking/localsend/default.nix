@@ -20,8 +20,7 @@ let
       hash = "sha256-Ibojcg5To288c+v6IKMOjuLz970osiKJU7/K0VnIs8k=";
     };
   };
-  src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 

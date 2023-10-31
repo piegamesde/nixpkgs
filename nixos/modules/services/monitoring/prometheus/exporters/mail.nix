@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.mail;
 
-  configFile =
-    if cfg.configuration != null then configurationFile else (escapeShellArg cfg.configFile);
+  configFile = if cfg.configuration != null then configurationFile else (escapeShellArg cfg.configFile);
 
   configurationFile = pkgs.writeText "prometheus-mail-exporter.conf" (
     builtins.toJSON (
@@ -23,9 +22,7 @@ let
             nameValuePair (toLower name) (
               (map (
                 srv:
-                (mapAttrs' (n: v: nameValuePair (toLower n) v) (
-                  filterAttrs (n: v: !(n == "_module" || v == null)) srv
-                ))
+                (mapAttrs' (n: v: nameValuePair (toLower n) v) (filterAttrs (n: v: !(n == "_module" || v == null)) srv))
               ))
                 value
             )

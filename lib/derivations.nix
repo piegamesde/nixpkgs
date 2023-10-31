@@ -68,8 +68,7 @@ in
       # attrset spine returned by lazyDerivation does not depend on it.
       # Instead, the individual derivation attributes do depend on it.
       checked =
-        throwIfNot (derivation.type or null == "derivation")
-          "lazySimpleDerivation: input must be a derivation."
+        throwIfNot (derivation.type or null == "derivation") "lazySimpleDerivation: input must be a derivation."
           throwIfNot
           (derivation.outputs == [ "out" ])
           # Supporting multiple outputs should be a matter of inheriting more attrs.

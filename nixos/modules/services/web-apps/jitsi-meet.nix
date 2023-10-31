@@ -165,9 +165,7 @@ in
       '';
     };
 
-    caddy.enable = mkEnableOption (
-      lib.mdDoc "Whether to enable caddy reverse proxy to expose jitsi-meet"
-    );
+    caddy.enable = mkEnableOption (lib.mdDoc "Whether to enable caddy reverse proxy to expose jitsi-meet");
 
     prosody.enable = mkOption {
       type = bool;
@@ -369,18 +367,14 @@ in
             proxy_set_header Host $host;
           '';
         };
-        locations."=/external_api.js" = mkDefault {
-          alias = "${pkgs.jitsi-meet}/libs/external_api.min.js";
-        };
+        locations."=/external_api.js" = mkDefault { alias = "${pkgs.jitsi-meet}/libs/external_api.min.js"; };
         locations."=/config.js" = mkDefault {
           alias =
             overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config)
               cfg.extraConfig;
         };
         locations."=/interface_config.js" = mkDefault {
-          alias =
-            overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig
-              "";
+          alias = overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig "";
         };
       };
     };

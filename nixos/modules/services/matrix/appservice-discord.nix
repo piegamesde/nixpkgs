@@ -14,9 +14,7 @@ let
   cfg = config.services.matrix-appservice-discord;
   opt = options.services.matrix-appservice-discord;
   # TODO: switch to configGen.json once RFC42 is implemented
-  settingsFile = pkgs.writeText "matrix-appservice-discord-settings.json" (
-    builtins.toJSON cfg.settings
-  );
+  settingsFile = pkgs.writeText "matrix-appservice-discord-settings.json" (builtins.toJSON cfg.settings);
 in
 {
   options = {

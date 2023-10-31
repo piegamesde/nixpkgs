@@ -262,8 +262,6 @@ in
       );
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
-  mips64el-nixCrossStatic =
-    mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64
-      nixCrossStatic;
+  mips64el-nixCrossStatic = mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64 nixCrossStatic;
   powerpc64le-nixCrossStatic = mapTestOnCross lib.systems.examples.powernv nixCrossStatic;
 }

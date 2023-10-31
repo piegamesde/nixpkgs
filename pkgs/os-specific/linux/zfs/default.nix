@@ -153,13 +153,10 @@ let
             }"
         '';
 
-      nativeBuildInputs =
-        [
-          autoreconfHook269
-          nukeReferences
-        ]
-        ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
-        ++ optional buildUser pkg-config;
+      nativeBuildInputs = [
+        autoreconfHook269
+        nukeReferences
+      ] ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ]) ++ optional buildUser pkg-config;
       buildInputs =
         optionals buildUser [
           zlib

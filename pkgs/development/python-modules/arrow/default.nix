@@ -27,9 +27,7 @@ buildPythonPackage rec {
     sed -i "/addopts/d" tox.ini
   '';
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [ python-dateutil ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
 
   nativeCheckInputs = [
     pytestCheckHook

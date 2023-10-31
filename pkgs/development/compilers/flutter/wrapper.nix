@@ -66,8 +66,7 @@ let
     let
       # https://discourse.nixos.org/t/handling-transitive-c-dependencies/5942/3
       deps =
-        pkg:
-        builtins.filter lib.isDerivation ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]));
+        pkg: builtins.filter lib.isDerivation ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]));
       collect = pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
     in
     builtins.concatMap collect appRuntimeDeps;
@@ -95,8 +94,7 @@ let
   includeFlags = map (pkg: "-isystem ${lib.getOutput "dev" pkg}/include") (
     appStaticBuildDeps ++ extraIncludes
   );
-  linkerFlags =
-    (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps) ++ extraLinkerFlags;
+  linkerFlags = (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps) ++ extraLinkerFlags;
 in
 (callPackage ./sdk-symlink.nix { }) (
   runCommandLocal "flutter-wrapped"

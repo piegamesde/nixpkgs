@@ -75,8 +75,7 @@ in
 # check that given window system is valid
 assert lib.assertOneOf "withWindowSystem" withWindowSystem' (builtins.attrNames windowSystems);
 # check that every given backend is valid
-assert builtins.all (b: lib.assertOneOf "each backend" b (builtins.attrNames backends))
-    withBackends;
+assert builtins.all (b: lib.assertOneOf "each backend" b (builtins.attrNames backends)) withBackends;
 
 stdenv.mkDerivation rec {
   pname = "imv";

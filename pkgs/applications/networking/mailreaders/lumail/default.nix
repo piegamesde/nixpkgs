@@ -18,9 +18,7 @@
 let
   version = "3.1";
   binaryName = if debugBuild then "lumail2-debug" else "lumail2";
-  alternativeConfig = builtins.toFile "lumail2.lua" (
-    builtins.readFile alternativeGlobalConfigFilePath
-  );
+  alternativeConfig = builtins.toFile "lumail2.lua" (builtins.readFile alternativeGlobalConfigFilePath);
 
   globalConfig =
     if alternativeGlobalConfigFilePath == null then

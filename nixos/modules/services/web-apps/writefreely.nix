@@ -102,9 +102,7 @@ let
   };
 
   withConfigFile = text: ''
-    db_pass=${
-      optionalString (cfg.database.passwordFile != null) "$(head -n1 ${cfg.database.passwordFile})"
-    }
+    db_pass=${optionalString (cfg.database.passwordFile != null) "$(head -n1 ${cfg.database.passwordFile})"}
 
     cp -f ${configFile} '${cfg.stateDir}/config.ini'
     sed -e "s,#dbpass#,$db_pass,g" -i '${cfg.stateDir}/config.ini'

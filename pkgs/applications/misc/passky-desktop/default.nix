@@ -20,8 +20,7 @@ let
       sha256 = "0mm7hk4v7zvpjdqyw3nhk33x72j0gh3f59bx3q18azlm4dr61r2d";
     };
   };
-  src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
   meta = with lib; {

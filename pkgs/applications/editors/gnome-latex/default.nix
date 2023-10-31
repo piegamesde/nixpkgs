@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
   pname = "gnome-latex";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "iL1TQL0ox+0Bx5ZqOgBzK72QJ3PfWsZZvmrRGAap50Q=";
   };
 

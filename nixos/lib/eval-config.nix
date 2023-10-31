@@ -88,10 +88,7 @@ let
       # Add the invoking file (or specified modulesLocation) as error message location
       # for modules that don't have their own locations; presumably inline modules.
       locatedModules =
-        if modulesLocation == null then
-          modules
-        else
-          map (lib.setDefaultModuleLocation modulesLocation) modules;
+        if modulesLocation == null then modules else map (lib.setDefaultModuleLocation modulesLocation) modules;
     in
     locatedModules ++ legacyModules;
 

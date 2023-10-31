@@ -283,9 +283,7 @@ let
 
         ctypes = callPackage ../development/ocaml-modules/ctypes { };
 
-        ctypes_stubs_js = callPackage ../development/ocaml-modules/ctypes_stubs_js {
-          inherit (pkgs) nodejs;
-        };
+        ctypes_stubs_js = callPackage ../development/ocaml-modules/ctypes_stubs_js { inherit (pkgs) nodejs; };
 
         cudf = callPackage ../development/ocaml-modules/cudf { };
 
@@ -433,10 +431,7 @@ let
         elpi = callPackage ../development/ocaml-modules/elpi (
           let
             ppxlib_0_15 =
-              if lib.versionAtLeast ppxlib.version "0.15" then
-                ppxlib.override { version = "0.15.0"; }
-              else
-                ppxlib;
+              if lib.versionAtLeast ppxlib.version "0.15" then ppxlib.override { version = "0.15.0"; } else ppxlib;
           in
           {
             ppx_deriving_0_15 = ppx_deriving.override { ppxlib = ppxlib_0_15; };
@@ -974,9 +969,7 @@ let
 
         metrics-rusage = callPackage ../development/ocaml-modules/metrics/rusage.nix { };
 
-        metrics-unix = callPackage ../development/ocaml-modules/metrics/unix.nix {
-          inherit (pkgs) gnuplot;
-        };
+        metrics-unix = callPackage ../development/ocaml-modules/metrics/unix.nix { inherit (pkgs) gnuplot; };
 
         mew = callPackage ../development/ocaml-modules/mew { };
 
@@ -994,9 +987,7 @@ let
 
         mirage-block = callPackage ../development/ocaml-modules/mirage-block { };
 
-        mirage-block-combinators =
-          callPackage ../development/ocaml-modules/mirage-block/combinators.nix
-            { };
+        mirage-block-combinators = callPackage ../development/ocaml-modules/mirage-block/combinators.nix { };
 
         mirage-block-ramdisk = callPackage ../development/ocaml-modules/mirage-block-ramdisk { };
 
@@ -1010,9 +1001,7 @@ let
 
         mirage-clock = callPackage ../development/ocaml-modules/mirage-clock { };
 
-        mirage-clock-freestanding =
-          callPackage ../development/ocaml-modules/mirage-clock/freestanding.nix
-            { };
+        mirage-clock-freestanding = callPackage ../development/ocaml-modules/mirage-clock/freestanding.nix { };
 
         mirage-clock-unix = callPackage ../development/ocaml-modules/mirage-clock/unix.nix { };
 
@@ -1032,9 +1021,7 @@ let
 
         mirage-crypto-rng-lwt = callPackage ../development/ocaml-modules/mirage-crypto/rng-lwt.nix { };
 
-        mirage-crypto-rng-mirage =
-          callPackage ../development/ocaml-modules/mirage-crypto/rng-mirage.nix
-            { };
+        mirage-crypto-rng-mirage = callPackage ../development/ocaml-modules/mirage-crypto/rng-mirage.nix { };
 
         mirage-device = callPackage ../development/ocaml-modules/mirage-device { };
 
@@ -1119,10 +1106,7 @@ let
         npy = callPackage ../development/ocaml-modules/npy { inherit (pkgs.python3Packages) numpy; };
 
         num =
-          if lib.versionOlder "4.06" ocaml.version then
-            callPackage ../development/ocaml-modules/num { }
-          else
-            null;
+          if lib.versionOlder "4.06" ocaml.version then callPackage ../development/ocaml-modules/num { } else null;
 
         ### O ###
 
@@ -1154,9 +1138,7 @@ let
           callPackage ../development/ocaml-modules/ocaml-migrate-parsetree/1.8.x.nix
             { };
 
-        ocaml-migrate-parsetree-2 =
-          callPackage ../development/ocaml-modules/ocaml-migrate-parsetree/2.x.nix
-            { };
+        ocaml-migrate-parsetree-2 = callPackage ../development/ocaml-modules/ocaml-migrate-parsetree/2.x.nix { };
 
         ocaml-monadic = callPackage ../development/ocaml-modules/ocaml-monadic { };
 
@@ -1267,9 +1249,7 @@ let
 
         opam-format = callPackage ../development/ocaml-modules/opam-format { inherit (pkgs) unzip; };
 
-        opam-repository = callPackage ../development/ocaml-modules/opam-repository {
-          inherit (pkgs) unzip;
-        };
+        opam-repository = callPackage ../development/ocaml-modules/opam-repository { inherit (pkgs) unzip; };
 
         opam-state = callPackage ../development/ocaml-modules/opam-state { inherit (pkgs) unzip; };
 
@@ -1592,13 +1572,9 @@ let
 
         tezos-base58 = callPackage ../development/ocaml-modules/tezos-base58 { };
 
-        tezos-bls12-381-polynomial =
-          callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial
-            { };
+        tezos-bls12-381-polynomial = callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial { };
 
-        tezos-plompiler =
-          callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial/plompiler.nix
-            { };
+        tezos-plompiler = callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial/plompiler.nix { };
 
         tezos-plonk = callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial/plonk.nix { };
 

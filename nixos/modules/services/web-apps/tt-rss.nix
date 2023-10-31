@@ -675,14 +675,10 @@ in
               if cfg.database.type == "pgsql" then
                 ''
                   ${optionalString (cfg.database.password != null) "PGPASSWORD=${cfg.database.password}"} \
-                  ${
-                    optionalString (cfg.database.passwordFile != null) "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
-                  } \
+                  ${optionalString (cfg.database.passwordFile != null) "PGPASSWORD=$(cat ${cfg.database.passwordFile})"} \
                   ${config.services.postgresql.package}/bin/psql \
                     -U ${cfg.database.user} \
-                    ${
-                      optionalString (cfg.database.host != null) "-h ${cfg.database.host} --port ${toString dbPort}"
-                    } \
+                    ${optionalString (cfg.database.host != null) "-h ${cfg.database.host} --port ${toString dbPort}"} \
                     -c '${e}' \
                     ${cfg.database.name}''
 
@@ -709,9 +705,7 @@ in
           '')
 
           + (optionalString (cfg.database.type == "mysql") ''
-            exists=$(${
-              callSql "select count(*) > 0 from information_schema.tables where table_schema = schema()"
-            } \
+            exists=$(${callSql "select count(*) > 0 from information_schema.tables where table_schema = schema()"} \
             | tail -n+2 | sed -e 's/[ \n\t]*//')
 
             if [ "$exists" == '0' ]; then

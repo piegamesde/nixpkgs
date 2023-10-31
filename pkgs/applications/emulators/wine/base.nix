@@ -69,17 +69,13 @@ stdenv.mkDerivation (
     # Fixes "Compiler cannot create executables" building wineWow with mingwSupport
     strictDeps = true;
 
-    nativeBuildInputs =
-      [
-        bison
-        flex
-        fontforge
-        makeWrapper
-        pkg-config
-      ]
-      ++ lib.optionals supportFlags.mingwSupport (
-        mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin
-      );
+    nativeBuildInputs = [
+      bison
+      flex
+      fontforge
+      makeWrapper
+      pkg-config
+    ] ++ lib.optionals supportFlags.mingwSupport (mingwGccs ++ lib.optional stdenv.isDarwin setupHookDarwin);
 
     buildInputs = toBuildInputs pkgArches (
       with supportFlags;

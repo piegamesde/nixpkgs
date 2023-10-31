@@ -21,8 +21,7 @@ let
   withOldMkDerivation =
     stdenvSuperArgs: k: stdenvSelf:
     let
-      mkDerivationFromStdenv-super =
-        stdenvSuperArgs.mkDerivationFromStdenv or defaultMkDerivationFromStdenv;
+      mkDerivationFromStdenv-super = stdenvSuperArgs.mkDerivationFromStdenv or defaultMkDerivationFromStdenv;
       mkDerivationSuper = mkDerivationFromStdenv-super stdenvSelf;
     in
     k stdenvSelf mkDerivationSuper;
@@ -140,8 +139,7 @@ rec {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
             NIX_CFLAGS_LINK =
-              toString (args.NIX_CFLAGS_LINK or "")
-              + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
+              toString (args.NIX_CFLAGS_LINK or "") + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
             nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
               (pkgs.buildPackages.makeSetupHook
                 {
@@ -295,8 +293,7 @@ rec {
         # https://github.com/rui314/mold#how-to-use
       }
       //
-        lib.optionalAttrs
-          (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"))
+        lib.optionalAttrs (stdenv.cc.isClang || (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12"))
           {
             mkDerivationFromStdenv = extendMkDerivationArgs old (
               args: { NIX_CFLAGS_LINK = toString (args.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold"; }

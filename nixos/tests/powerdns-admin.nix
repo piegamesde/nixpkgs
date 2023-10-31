@@ -37,9 +37,7 @@ let
               # It's insecure to have secrets in the world-readable nix store, but this is just a test
               environment.etc."powerdns-admin/secret".text = "secret key";
               environment.etc."powerdns-admin/salt".text = "salt";
-              environment.systemPackages = [
-                (pkgs.writeShellScriptBin "run-test" config.system.build.testScript)
-              ];
+              environment.systemPackages = [ (pkgs.writeShellScriptBin "run-test" config.system.build.testScript) ];
             }
           ]
           ++ configs

@@ -25,9 +25,7 @@ let
   ] ++ cfg.extraConfigFiles;
 
   devices = attrValues (filterAttrs (_: i: i != null) cfg.interface);
-  systemdDevices = forEach devices (
-    i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device"
-  );
+  systemdDevices = forEach devices (i: "sys-subsystem-net-devices-${utils.escapeSystemdPath i}.device");
 in
 {
   options = {
@@ -207,9 +205,7 @@ in
           bindsTo = systemdDevices;
           restartTriggers =
             [ config.environment.etc."consul.json".source ]
-            ++ mapAttrsToList (_: d: d.source) (
-              filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc
-            );
+            ++ mapAttrsToList (_: d: d.source) (filterAttrs (n: _: hasPrefix "consul.d/" n) config.environment.etc);
 
           serviceConfig = {
             ExecStart =

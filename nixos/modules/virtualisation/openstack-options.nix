@@ -66,9 +66,7 @@ in
 
     fileSystems =
       let
-        mountable =
-          lib.filterAttrs (_: value: ((value.mount or null) != null))
-            config.openstack.zfs.datasets;
+        mountable = lib.filterAttrs (_: value: ((value.mount or null) != null)) config.openstack.zfs.datasets;
       in
       lib.mapAttrs'
         (

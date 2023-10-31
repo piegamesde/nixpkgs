@@ -255,9 +255,7 @@ in
     environment.etc."geoclue/geoclue.conf".text = generators.toINI { } (
       {
         agent = {
-          whitelist = concatStringsSep ";" (
-            optional cfg.enableDemoAgent "geoclue-demo-agent" ++ defaultWhitelist
-          );
+          whitelist = concatStringsSep ";" (optional cfg.enableDemoAgent "geoclue-demo-agent" ++ defaultWhitelist);
         };
         network-nmea = {
           enable = cfg.enableNmea;

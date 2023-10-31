@@ -19,10 +19,7 @@ let
     use=${cfg.use}
     login=${cfg.username}
     password=${
-      if cfg.protocol == "nsupdate" then
-        "/run/${RuntimeDirectory}/ddclient.key"
-      else
-        "@password_placeholder@"
+      if cfg.protocol == "nsupdate" then "/run/${RuntimeDirectory}/ddclient.key" else "@password_placeholder@"
     }
     protocol=${cfg.protocol}
     ${lib.optionalString (cfg.script != "") "script=${cfg.script}"}

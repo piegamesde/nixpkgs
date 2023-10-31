@@ -73,8 +73,7 @@ let
       rec {
         original = officialRelease;
         release_version = original.version;
-        version =
-          if original ? candidate then "${release_version}-${original.candidate}" else release_version;
+        version = if original ? candidate then "${release_version}-${original.candidate}" else release_version;
       };
 
   monorepoSrc =

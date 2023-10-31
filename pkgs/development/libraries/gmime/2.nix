@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     zlib
     libgpg-error
   ];
-  configureFlags =
-    [ "--enable-introspection=yes" ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
+  configureFlags = [
+    "--enable-introspection=yes"
+  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \
@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
   '';
 
   preConfigure = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
-    cp ${
-      if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h
-    } ./iconv-detect.h
+    cp ${if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h} ./iconv-detect.h
   '';
 
   nativeCheckInputs = [ gnupg ];

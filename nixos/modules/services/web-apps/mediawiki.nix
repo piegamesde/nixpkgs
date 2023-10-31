@@ -254,9 +254,7 @@ in
         default =
           if cfg.webserver == "apache" then
             "${
-              if
-                cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL
-              then
+              if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then
                 "https"
               else
                 "http"
@@ -640,9 +638,7 @@ in
           --dbname ${cfg.database.name} \
           ${optionalString (cfg.database.tablePrefix != null) "--dbprefix ${cfg.database.tablePrefix}"} \
           --dbuser ${cfg.database.user} \
-          ${
-            optionalString (cfg.database.passwordFile != null) "--dbpassfile ${cfg.database.passwordFile}"
-          } \
+          ${optionalString (cfg.database.passwordFile != null) "--dbpassfile ${cfg.database.passwordFile}"} \
           --passfile ${cfg.passwordFile} \
           --dbtype ${cfg.database.type} \
           ${cfg.name} \
@@ -662,8 +658,7 @@ in
     systemd.services.httpd.after =
       optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
         "mysql.service"
-      ++ optional
-        (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")
+      ++ optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")
         "postgresql.service";
 
     users.users.${user} = {

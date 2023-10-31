@@ -13,8 +13,7 @@ let
   cfg = config.networking.supplicant;
 
   # We must escape interfaces due to the systemd interpretation
-  subsystemDevice =
-    interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
+  subsystemDevice = interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
 
   serviceName =
     iface:
@@ -74,10 +73,7 @@ let
       '';
 
       serviceConfig.ExecStart = "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confFileArg} -I${extraConfFile} ${bridgeArg} ${suppl.extraCmdArgs} ${
-          if (iface == "WLAN" || iface == "LAN") then
-            "-i%I"
-          else
-            (if (iface == "DBUS") then "-u" else ifaceArg)
+          if (iface == "WLAN" || iface == "LAN") then "-i%I" else (if (iface == "DBUS") then "-u" else ifaceArg)
         }";
     };
 in
@@ -243,8 +239,7 @@ in
         name = "99-zzz-60-supplicant.rules";
         destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
         text = ''
-          ${flip (concatMapStringsSep "\n")
-            (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
+          ${flip (concatMapStringsSep "\n") (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
             (
               iface:
               flip (concatMapStringsSep "\n") (splitString " " iface) (

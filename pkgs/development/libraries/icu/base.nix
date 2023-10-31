@@ -58,9 +58,7 @@ let
     configureFlags =
       [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
-      ++
-        lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-          "--with-cross-build=${nativeBuildRoot}";
+      ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "--with-cross-build=${nativeBuildRoot}";
 
     enableParallelBuilding = true;
 
@@ -143,6 +141,5 @@ let
   attrs = if buildRootOnly then buildRootOnlyAttrs else realAttrs;
 in
 stdenv.mkDerivation (
-  finalAttrs:
-  attrs // { passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage; }
+  finalAttrs: attrs // { passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage; }
 )

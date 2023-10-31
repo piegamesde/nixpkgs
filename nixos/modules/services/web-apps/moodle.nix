@@ -59,10 +59,7 @@ let
     );
 
     $CFG->wwwroot   = '${
-      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then
-        "https"
-      else
-        "http"
+      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then "https" else "http"
     }://${cfg.virtualHost.hostName}';
     $CFG->dataroot  = '${stateDir}';
     $CFG->admin     = 'admin';

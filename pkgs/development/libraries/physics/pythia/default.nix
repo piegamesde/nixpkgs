@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
   version = "8.309";
 
   src = fetchurl {
-    url = "https://pythia.org/download/pythia83/pythia${
-        builtins.replaceStrings [ "." ] [ "" ] version
-      }.tgz";
+    url = "https://pythia.org/download/pythia83/pythia${builtins.replaceStrings [ "." ] [ "" ] version}.tgz";
     sha256 = "sha256-W9r9nyxKHEf9ik6C+58Nj8+6TeEAO44Uvk4DR0NtbDM=";
   };
 

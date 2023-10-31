@@ -181,10 +181,7 @@ let
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
   pythonForBuildInterpreter =
-    if stdenv.hostPlatform == stdenv.buildPlatform then
-      "$out/bin/python"
-    else
-      pythonForBuild.interpreter;
+    if stdenv.hostPlatform == stdenv.buildPlatform then "$out/bin/python" else pythonForBuild.interpreter;
 
   # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
   # module that is imported by the sysconfig and distutils.sysconfig modules.

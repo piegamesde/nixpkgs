@@ -113,8 +113,7 @@ import ./make-test-python.nix (
 
         # AboutLink and HelpLink should be changed
         mutable.succeed("${
-          expectConfig
-            ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''
+          expectConfig ''.AboutLink == "https://mattermost.com" and .HelpLink == "https://nixos.org/nixos/manual"''
         }")
 
         ## Mostly mutable node tests ##
@@ -126,9 +125,7 @@ import ./make-test-python.nix (
 
         # Edit the config
         mostlyMutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
-        mostlyMutable.succeed("${
-          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
-        }")
+        mostlyMutable.succeed("${setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''}")
         mostlyMutable.systemctl("restart mattermost.service")
         mostlyMutable.wait_for_open_port(8065)
 

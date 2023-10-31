@@ -94,9 +94,7 @@ let
     leftHanded = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Enables left-handed button orientation, i.e. swapping left and right buttons.";
+      description = lib.mdDoc "Enables left-handed button orientation, i.e. swapping left and right buttons.";
     };
 
     middleEmulation = mkOption {

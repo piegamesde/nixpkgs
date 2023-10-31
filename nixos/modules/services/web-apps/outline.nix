@@ -666,9 +666,7 @@ in
 
           (lib.mkIf (cfg.slackAuthentication != null) { SLACK_CLIENT_ID = cfg.slackAuthentication.clientId; })
 
-          (lib.mkIf (cfg.googleAuthentication != null) {
-            GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId;
-          })
+          (lib.mkIf (cfg.googleAuthentication != null) { GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId; })
 
           (lib.mkIf (cfg.azureAuthentication != null) {
             AZURE_CLIENT_ID = cfg.azureAuthentication.clientId;
@@ -760,19 +758,13 @@ in
             export SLACK_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.slackAuthentication.secretFile})"
           ''}
           ${lib.optionalString (cfg.googleAuthentication != null) ''
-            export GOOGLE_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.googleAuthentication.clientSecretFile
-            })"
+            export GOOGLE_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.googleAuthentication.clientSecretFile})"
           ''}
           ${lib.optionalString (cfg.azureAuthentication != null) ''
-            export AZURE_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.azureAuthentication.clientSecretFile
-            })"
+            export AZURE_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.azureAuthentication.clientSecretFile})"
           ''}
           ${lib.optionalString (cfg.oidcAuthentication != null) ''
-            export OIDC_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.oidcAuthentication.clientSecretFile
-            })"
+            export OIDC_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.oidcAuthentication.clientSecretFile})"
           ''}
           ${lib.optionalString (cfg.sslKeyFile != null) ''
             export SSL_KEY="$(head -n1 ${lib.escapeShellArg cfg.sslKeyFile})"

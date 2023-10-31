@@ -665,8 +665,7 @@ rec {
         buildRustCrate = null;
       };
       tests =
-        lib.mapAttrs
-          (key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
+        lib.mapAttrs (key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
           cases;
     in
     tests

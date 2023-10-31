@@ -36,9 +36,7 @@ let
       inherit sha256;
     };
 
-  clang-tools-extra_src =
-    fetch "clang-tools-extra"
-      "01vgzd4k1q93nfs8gyl83mjlc4x0qsgfqw32lacbjzdxg0mdfvxj";
+  clang-tools-extra_src = fetch "clang-tools-extra" "01vgzd4k1q93nfs8gyl83mjlc4x0qsgfqw32lacbjzdxg0mdfvxj";
 
   llvm_meta = {
     license = lib.licenses.ncsa;
@@ -305,28 +303,19 @@ let
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
         stdenv =
-          if stdenv.hostPlatform.useLLVM or false then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libcxxabi = callPackage ./libcxxabi {
         inherit llvm_meta;
         stdenv =
-          if stdenv.hostPlatform.useLLVM or false then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libunwind = callPackage ./libunwind {
         inherit llvm_meta;
         stdenv =
-          if stdenv.hostPlatform.useLLVM or false then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       openmp = callPackage ./openmp { inherit llvm_meta targetLlvm; };

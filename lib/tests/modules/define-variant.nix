@@ -17,11 +17,7 @@ in
     variants.foo.variants.bar.attrs.z = 1;
     variants.foo.variants.foo.attrs.c = 3;
     resultFoo = lib.concatMapStringsSep " " toString (attrNames config.variants.foo.attrs);
-    resultFooBar = lib.concatMapStringsSep " " toString (
-      attrNames config.variants.foo.variants.bar.attrs
-    );
-    resultFooFoo = lib.concatMapStringsSep " " toString (
-      attrNames config.variants.foo.variants.foo.attrs
-    );
+    resultFooBar = lib.concatMapStringsSep " " toString (attrNames config.variants.foo.variants.bar.attrs);
+    resultFooFoo = lib.concatMapStringsSep " " toString (attrNames config.variants.foo.variants.foo.attrs);
   };
 }

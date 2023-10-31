@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
   configurePhase =
     ''
       runHook preConfigure
-      for opt in ${
-        lib.escapeShellArgs enabledOptions
-      }; do echo "#define $opt" >> src/config/general.h; done
+      for opt in ${lib.escapeShellArgs enabledOptions}; do echo "#define $opt" >> src/config/general.h; done
       substituteInPlace src/Makefile.housekeeping --replace '/bin/echo' echo
     ''
     + lib.optionalString stdenv.hostPlatform.isx86 ''
@@ -115,8 +113,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (from: to: if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}")
+      lib.mapAttrsToList (from: to: if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}")
         targets
     )}
 

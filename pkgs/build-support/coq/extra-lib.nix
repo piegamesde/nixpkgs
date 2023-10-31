@@ -179,8 +179,7 @@ recursiveUpdate lib (rec {
     let
       compare = f: if isFunction f then f else equal f;
       combine =
-        cl: var:
-        if cl ? case then compare cl.case var else all (equal true) (zipListsWith compare cl.cases var);
+        cl: var: if cl ? case then compare cl.case var else all (equal true) (zipListsWith compare cl.cases var);
     in
     switch-if
       (map

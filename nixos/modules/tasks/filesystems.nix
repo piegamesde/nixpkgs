@@ -511,9 +511,7 @@ in
             serviceConfig.Type = "oneshot";
           };
       in
-      listToAttrs (
-        map formatDevice (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems)
-      )
+      listToAttrs (map formatDevice (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems))
       // {
         # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.
         # This cannot be done with the other special filesystems because the pstore module (which creates the mount point) is not loaded then.

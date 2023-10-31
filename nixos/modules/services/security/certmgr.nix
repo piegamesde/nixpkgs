@@ -68,9 +68,7 @@ in
     validMin = mkOption {
       default = "72h";
       type = types.str;
-      description =
-        lib.mdDoc
-          "The interval before a certificate expires to start attempting to renew it.";
+      description = lib.mdDoc "The interval before a certificate expires to start attempting to renew it.";
     };
 
     renewInterval = mkOption {

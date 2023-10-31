@@ -398,9 +398,7 @@ in
         );
       in
       pkgs.recurseIntoAttrs (
-        pkgs.lib.genAttrs integerSimpleGhcNames (
-          name: compiler.${name}.override { enableIntegerSimple = true; }
-        )
+        pkgs.lib.genAttrs integerSimpleGhcNames (name: compiler.${name}.override { enableIntegerSimple = true; })
       );
 
     # Starting from GHC 9, integer-{simple,gmp} is replaced by ghc-bignum
@@ -412,9 +410,7 @@ in
         );
       in
       pkgs.recurseIntoAttrs (
-        pkgs.lib.genAttrs nativeBignumGhcNames (
-          name: compiler.${name}.override { enableNativeBignum = true; }
-        )
+        pkgs.lib.genAttrs nativeBignumGhcNames (name: compiler.${name}.override { enableNativeBignum = true; })
       );
   };
 

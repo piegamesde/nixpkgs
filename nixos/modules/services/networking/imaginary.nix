@@ -86,8 +86,7 @@ in
         ExecStart =
           let
             args =
-              lib.mapAttrsToList
-                (key: val: "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val)))
+              lib.mapAttrsToList (key: val: "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val)))
                 (
                   cfg.settings
                   // {

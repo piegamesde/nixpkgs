@@ -565,8 +565,7 @@ let
               auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
                 optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
               } ${
-                optionalString (ussh.authorizedPrincipals != null)
-                  "authorized_principals=${ussh.authorizedPrincipals}"
+                optionalString (ussh.authorizedPrincipals != null) "authorized_principals=${ussh.authorizedPrincipals}"
               } ${
                 optionalString (ussh.authorizedPrincipalsFile != null)
                   "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
@@ -578,9 +577,9 @@ let
               oath = config.security.pam.oath;
             in
             optionalString cfg.oathAuth ''
-              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${
-                toString oath.window
-              } usersfile=${toString oath.usersFile} digits=${toString oath.digits}
+              auth requisite ${pkgs.oath-toolkit}/lib/security/pam_oath.so window=${toString oath.window} usersfile=${
+                toString oath.usersFile
+              } digits=${toString oath.digits}
             ''
           )
           + (
@@ -590,9 +589,7 @@ let
             optionalString cfg.yubicoAuth ''
               auth ${yubi.control} ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=${toString yubi.mode} ${
                 optionalString (yubi.challengeResponsePath != null) "chalresp_path=${yubi.challengeResponsePath}"
-              } ${optionalString (yubi.mode == "client") "id=${toString yubi.id}"} ${
-                optionalString yubi.debug "debug"
-              }
+              } ${optionalString (yubi.mode == "client") "id=${toString yubi.id}"} ${optionalString yubi.debug "debug"}
             ''
           )
           + optionalString cfg.fprintAuth ''
@@ -895,10 +892,7 @@ let
     );
 
   motd =
-    if config.users.motdFile == null then
-      pkgs.writeText "motd" config.users.motd
-    else
-      config.users.motdFile;
+    if config.users.motdFile == null then pkgs.writeText "motd" config.users.motd else config.users.motdFile;
 
   makePAMService = name: service: {
     name = "pam.d/${name}";

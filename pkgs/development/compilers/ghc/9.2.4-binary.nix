@@ -189,16 +189,13 @@ let
 
   gmpUsed =
     (builtins.head (
-      builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or ""))
-        binDistUsed.archSpecificLibraries
+      builtins.filter (drv: lib.hasPrefix "gmp" (drv.nixPackage.name or "")) binDistUsed.archSpecificLibraries
     )).nixPackage;
 
   # GHC has other native backends (like PowerPC), but here only the ones
   # we ship bindists for matter.
   useLLVM =
-    !(
-      stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
-    );
+    !(stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin));
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.

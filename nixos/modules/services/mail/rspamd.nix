@@ -153,36 +153,32 @@ let
         extraConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Additional entries to put verbatim into worker section of rspamd config file.";
+          description = lib.mdDoc "Additional entries to put verbatim into worker section of rspamd config file.";
         };
       };
-      config =
-        mkIf (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy")
-          {
-            type = mkDefault name;
-            includes = mkDefault [ "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc" ];
-            bindSockets =
-              let
-                unixSocket = name: {
-                  mode = "0660";
-                  socket = "/run/rspamd/${name}.sock";
-                  owner = cfg.user;
-                  group = cfg.group;
-                };
-              in
-              mkDefault (
-                if name == "normal" then
-                  [ (unixSocket "rspamd") ]
-                else if name == "controller" then
-                  [ "localhost:11334" ]
-                else if name == "rspamd_proxy" then
-                  [ (unixSocket "proxy") ]
-                else
-                  [ ]
-              );
-          };
+      config = mkIf (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy") {
+        type = mkDefault name;
+        includes = mkDefault [ "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc" ];
+        bindSockets =
+          let
+            unixSocket = name: {
+              mode = "0660";
+              socket = "/run/rspamd/${name}.sock";
+              owner = cfg.user;
+              group = cfg.group;
+            };
+          in
+          mkDefault (
+            if name == "normal" then
+              [ (unixSocket "rspamd") ]
+            else if name == "controller" then
+              [ "localhost:11334" ]
+            else if name == "rspamd_proxy" then
+              [ (unixSocket "proxy") ]
+            else
+              [ ]
+          );
+      };
     };
 
   isUnixSocket = socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
@@ -219,9 +215,7 @@ let
           ''
             worker "${value.type}" {
               type = "${value.type}";
-              ${
-                optionalString (value.enable != null) "enabled = ${if value.enable != false then "yes" else "no"};"
-              }
+              ${optionalString (value.enable != null) "enabled = ${if value.enable != false then "yes" else "no"};"}
               ${mkBindSockets value.enable value.bindSockets}
               ${optionalString (value.count != null) "count = ${toString value.count};"}
               ${concatStringsSep "\n  " (map (each: ''.include "${each}"'') value.includes)}
@@ -304,8 +298,7 @@ let
   configOverrides =
     (mapAttrs'
       (
-        n: v:
-        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }
+        n: v: nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }
       )
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )
@@ -496,9 +489,7 @@ in
       restartTriggers = [ rspamdDir ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.rspamd}/bin/rspamd ${
-            optionalString cfg.debug "-d"
-          } -c /etc/rspamd/rspamd.conf -f";
+        ExecStart = "${pkgs.rspamd}/bin/rspamd ${optionalString cfg.debug "-d"} -c /etc/rspamd/rspamd.conf -f";
         Restart = "always";
 
         User = "${cfg.user}";

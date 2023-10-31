@@ -410,9 +410,7 @@ let
       config = {
         name = mkDefault name;
 
-        members = mapAttrsToList (n: u: u.name) (
-          filterAttrs (n: u: elem config.name u.extraGroups) cfg.users
-        );
+        members = mapAttrsToList (n: u: u.name) (filterAttrs (n: u: elem config.name u.extraGroups) cfg.users);
       };
     };
 

@@ -8,10 +8,7 @@ let
   removeRecurseForDerivations =
     alias:
     with lib;
-    if alias.recurseForDerivations or false then
-      removeAttrs alias [ "recurseForDerivations" ]
-    else
-      alias;
+    if alias.recurseForDerivations or false then removeAttrs alias [ "recurseForDerivations" ] else alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -20,13 +17,11 @@ let
   # Make sure that we are not shadowing something from
   # python-packages.nix.
   checkInPkgs =
-    n: alias:
-    if builtins.hasAttr n super then throw "Alias ${n} is still in python-packages.nix" else alias;
+    n: alias: if builtins.hasAttr n super then throw "Alias ${n} is still in python-packages.nix" else alias;
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-      aliases;
+    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))) aliases;
 in
 
 ### Deprecated aliases - for backward compatibility
@@ -68,9 +63,7 @@ mapAliases ({
   ColanderAlchemy = colanderalchemy; # added 2023-02-19
   CommonMark = commonmark; # added 2023-02-1
   ConfigArgParse = configargparse; # added 2021-03-18
-  coronavirus =
-    throw
-      "coronavirus was removed, because the source is not providing the data anymore."; # added 2023-05-04
+  coronavirus = throw "coronavirus was removed, because the source is not providing the data anymore."; # added 2023-05-04
   cozy = throw "cozy was removed because it was not actually https://pypi.org/project/Cozy/."; # added 2022-01-14
   cryptography_vectors = "cryptography_vectors is no longer exposed in python*Packages because it is used for testing cryptography only."; # Added 2022-03-23
   dask-xgboost = throw "dask-xgboost was removed because its features are available in xgboost"; # added 2022-05-24
@@ -87,13 +80,9 @@ mapAliases ({
   django-sampledatahelper =
     throw
       "django-sampledatahelper was removed because it is no longer compatible to latest Django version"; # added 2022-07-18
-  django_2 =
-    throw
-      "Django 2 has reached it's projected EOL in 2022/04 and has therefore been removed."; # added 2022-03-05
+  django_2 = throw "Django 2 has reached it's projected EOL in 2022/04 and has therefore been removed."; # added 2022-03-05
   django_appconf = django-appconf; # added 2022-03-03
-  django-discover-runner =
-    throw
-      "django-discover-runner was removed because it is no longer maintained."; # added 2022-11-21
+  django-discover-runner = throw "django-discover-runner was removed because it is no longer maintained."; # added 2022-11-21
   django_environ = django-environ; # added 2021-12-25
   django_extensions = django-extensions; # added 2022-01-09
   django_guardian = django-guardian; # added 2022-05-19
@@ -209,9 +198,7 @@ mapAliases ({
   pathpy = path; # added 2022-04-12
   pdfminer = pdfminer-six; # added 2022-05-25
   pep257 = pydocstyle; # added 2022-04-12
-  poetry =
-    throw
-      "poetry was promoted to a top-level attribute, use poetry-core to build Python packages"; # added 2023-01-09
+  poetry = throw "poetry was promoted to a top-level attribute, use poetry-core to build Python packages"; # added 2023-01-09
   poetry2conda = throw "poetry2conda was promoted to a top-level attribute"; # Added 2022-10-02
   poster3 = throw "poster3 is unmaintained and source is no longer available"; # added 2023-05-29
   postorius = throw "Please use pkgs.mailmanPackages.postorius"; # added 2022-04-29
@@ -231,9 +218,7 @@ mapAliases ({
   pycallgraph =
     throw
       "pycallgraph has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
-  pychef =
-    throw
-      "pychef has been removed because it's been archived upstream and abandoned since 2017."; # added 2022-11-14
+  pychef = throw "pychef has been removed because it's been archived upstream and abandoned since 2017."; # added 2022-11-14
   PyChromecast = pychromecast; # added 2023-02-19
   pycryptodome-test-vectors =
     throw
@@ -270,18 +255,14 @@ mapAliases ({
   pytest_6 = pytest; # added 2022-02-10
   pytestcov = pytest-cov; # added 2021-01-04
   pytest-pep8 = pytestpep8; # added 2021-01-04
-  pytest-pep257 =
-    throw
-      "pytest-pep257 was removed, as the pep257 package was migrated into pycodestyle"; # added 2022-04-12
+  pytest-pep257 = throw "pytest-pep257 was removed, as the pep257 package was migrated into pycodestyle"; # added 2022-04-12
   pytest-pythonpath = throw "pytest-pythonpath is obsolete as of pytest 7.0.0 and has been removed"; # added 2022-03-09
   pytestpep8 =
     throw
       "pytestpep8 was removed because it is abandoned and no longer compatible with pytest v6.0"; # added 2020-12-10
   pytestquickcheck = pytest-quickcheck; # added 2021-07-20
   pytestrunner = pytest-runner; # added 2021-01-04
-  python-forecastio =
-    throw
-      "python-forecastio has been removed, as the Dark Sky service was shut down."; # added 2023-04-05
+  python-forecastio = throw "python-forecastio has been removed, as the Dark Sky service was shut down."; # added 2023-04-05
   python-igraph = igraph; # added 2021-11-11
   python-lz4 = lz4; # added 2018-06-01
   python_magic = python-magic; # added 2022-05-07

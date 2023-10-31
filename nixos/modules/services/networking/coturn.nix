@@ -20,12 +20,8 @@ let
     ${lib.optionalString cfg.lt-cred-mech "lt-cred-mech"}
     ${lib.optionalString cfg.no-auth "no-auth"}
     ${lib.optionalString cfg.use-auth-secret "use-auth-secret"}
-    ${lib.optionalString (cfg.static-auth-secret != null) (
-      "static-auth-secret=${cfg.static-auth-secret}"
-    )}
-    ${lib.optionalString (cfg.static-auth-secret-file != null) (
-      "static-auth-secret=#static-auth-secret#"
-    )}
+    ${lib.optionalString (cfg.static-auth-secret != null) ("static-auth-secret=${cfg.static-auth-secret}")}
+    ${lib.optionalString (cfg.static-auth-secret-file != null) ("static-auth-secret=#static-auth-secret#")}
     realm=${cfg.realm}
     ${lib.optionalString cfg.no-udp "no-udp"}
     ${lib.optionalString cfg.no-tcp "no-tcp"}

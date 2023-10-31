@@ -120,9 +120,7 @@ let
       "/bin"
       "/sbin"
     ];
-    postBuild = concatStringsSep "\n" (
-      mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin
-    );
+    postBuild = concatStringsSep "\n" (mapAttrsToList (n: v: "ln -sf '${v}' $out/bin/'${n}'") cfg.extraBin);
   };
 
   initialRamdisk = pkgs.makeInitrdNG {
@@ -439,10 +437,7 @@ in
           # console, but some software like OpenSSH won't even allow you
           # to log in with an SSH key if you use ! so we use * instead
           "/etc/shadow".text = "root:${
-              if isBool cfg.emergencyAccess then
-                optionalString (!cfg.emergencyAccess) "*"
-              else
-                cfg.emergencyAccess
+              if isBool cfg.emergencyAccess then optionalString (!cfg.emergencyAccess) "*" else cfg.emergencyAccess
             }:::::::";
 
           "/bin".source = "${initrdBinEnv}/bin";
@@ -614,8 +609,6 @@ in
       };
     };
 
-    boot.kernelParams = lib.mkIf (config.boot.resumeDevice != "") [
-      "resume=${config.boot.resumeDevice}"
-    ];
+    boot.kernelParams = lib.mkIf (config.boot.resumeDevice != "") [ "resume=${config.boot.resumeDevice}" ];
   };
 }

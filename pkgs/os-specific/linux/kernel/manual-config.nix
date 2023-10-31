@@ -177,9 +177,7 @@ lib.makeOverridable (
         # https://github.com/openzfs/zfs/pull/13367
         ++
           optional
-            (
-              lib.versionAtLeast version "5.12" && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower
-            )
+            (lib.versionAtLeast version "5.12" && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower)
             (
               fetchpatch {
                 url = "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
@@ -477,8 +475,7 @@ lib.makeOverridable (
         ;
         inherit isZen isHardened isLibre;
         isXen =
-          lib.warn
-            "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
+          lib.warn "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
             true;
         baseVersion = lib.head (lib.splitString "-rc" version);
         kernelOlder = lib.versionOlder baseVersion;

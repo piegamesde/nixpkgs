@@ -67,9 +67,7 @@ mkDerivation {
       ]
       ++ gstPlugins gst_all_1
     );
-  propagatedBuildInputs =
-    optional pdfSupport mupdf
-    ++ optional presentationSupport libreoffice-unwrapped;
+  propagatedBuildInputs = optional pdfSupport mupdf ++ optional presentationSupport libreoffice-unwrapped;
   pythonPath = [ baseLib ] ++ optional vlcSupport python3Packages.python-vlc;
   # ++ optional enableMySql mysql-connector  # Untested. If interested, contact maintainer.
   # ++ optional enablePostgreSql psycopg2    # Untested. If interested, contact maintainer.

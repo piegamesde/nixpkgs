@@ -125,8 +125,7 @@ in
     services.xserver = {
       xkbDir = "${xkb_patched}/etc/X11/xkb";
       exportConfiguration =
-        config.services.xserver.displayManager.startx.enable
-        || config.services.xserver.displayManager.sx.enable;
+        config.services.xserver.displayManager.startx.enable || config.services.xserver.displayManager.sx.enable;
     };
   };
 }

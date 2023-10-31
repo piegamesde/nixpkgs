@@ -296,9 +296,7 @@ in
         paths = [ "/home" ];
         repository = "sftp:backup@host:/backups/home";
         passwordFile = "/etc/nixos/secrets/restic-password";
-        extraOptions = [
-          "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'"
-        ];
+        extraOptions = [ "sftp.command='ssh backup@host -i /etc/nixos/secrets/backup-private-key -s sftp'" ];
         timerConfig = {
           OnCalendar = "00:05";
           RandomizedDelaySec = "5h";
@@ -360,13 +358,11 @@ in
                   RESTIC_REPOSITORY_FILE = backup.repositoryFile;
                 }
                 // optionalAttrs (backup.rcloneOptions != null) (
-                  mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
-                    backup.rcloneOptions
+                  mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)) backup.rcloneOptions
                 )
                 // optionalAttrs (backup.rcloneConfigFile != null) { RCLONE_CONFIG = backup.rcloneConfigFile; }
                 // optionalAttrs (backup.rcloneConfig != null) (
-                  mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
-                    backup.rcloneConfig
+                  mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value)) backup.rcloneConfig
                 );
               path = [ pkgs.openssh ];
               restartIfChanged = false;
@@ -374,9 +370,7 @@ in
                 Type = "oneshot";
                 ExecStart =
                   (optionals (backupPaths != "") [
-                    "${resticCmd} backup ${
-                      concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-                    } ${backupPaths}"
+                    "${resticCmd} backup ${concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)} ${backupPaths}"
                   ])
                   ++ pruneCmd;
                 User = backup.user;

@@ -156,8 +156,7 @@ let
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
     plugin:
-    [ plugin ]
-    ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
+    [ plugin ] ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
@@ -274,9 +273,7 @@ let
           knownPlugins = vam.knownPlugins or vimPlugins;
 
           # plugins specified by the user
-          specifiedPlugins = map (pluginToDrv knownPlugins) (
-            lib.concatMap vamDictToNames vam.pluginDictionaries
-          );
+          specifiedPlugins = map (pluginToDrv knownPlugins) (lib.concatMap vamDictToNames vam.pluginDictionaries);
           # plugins with dependencies
           plugins = findDependenciesRecursively specifiedPlugins;
           vamPackages.vam = {

@@ -80,8 +80,7 @@ let
 
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};
 
-  drvName =
-    drv: discard (substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv));
+  drvName = drv: discard (substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv));
 
   rewriteHashes =
     drv: hashes:
@@ -120,8 +119,6 @@ assert (
   stringLength (drvName (toString oldDependency)) == stringLength (drvName (toString newDependency))
 );
 rewriteMemo.${drvHash} or (warn
-  "replace-dependency.nix: Derivation ${drvHash} does not depend on ${
-    discard (toString oldDependency)
-  }"
+  "replace-dependency.nix: Derivation ${drvHash} does not depend on ${discard (toString oldDependency)}"
   drv
 )

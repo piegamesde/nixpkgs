@@ -21,8 +21,7 @@ let
         sha256 = "sha256-36T7S/F35hRCmXXYA8DWwwLsuJiUVU9UBY7eAXjzx1s=";
       };
     }
-    .${stdenvNoCC.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
+    .${stdenvNoCC.hostPlatform.system} or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 in
 
 stdenvNoCC.mkDerivation {

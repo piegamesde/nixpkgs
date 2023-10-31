@@ -357,10 +357,7 @@ let
     }:
     let
       psk =
-        if peer.presharedKey != null then
-          pkgs.writeText "wg-psk" peer.presharedKey
-        else
-          peer.presharedKeyFile;
+        if peer.presharedKey != null then pkgs.writeText "wg-psk" peer.presharedKey else peer.presharedKeyFile;
       src = interfaceCfg.socketNamespace;
       dst = interfaceCfg.interfaceNamespace;
       ip = nsWrap "ip" src dst;
@@ -424,10 +421,7 @@ let
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
             concatMapStringsSep "\n"
-              (
-                allowedIP:
-                ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
-              )
+              (allowedIP: ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
               peer.allowedIPs
           );
         in
@@ -450,10 +444,7 @@ let
         let
           route_destroy = optionalString interfaceCfg.allowedIPsAsRoutes (
             concatMapStringsSep "\n"
-              (
-                allowedIP:
-                ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
-              )
+              (allowedIP: ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"'')
               peer.allowedIPs
           );
         in
@@ -468,8 +459,7 @@ let
     name: values:
     let
       mkPeerUnit =
-        peer:
-        (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
+        peer: (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -521,8 +511,7 @@ let
         ${optionalString
           (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace)
           ''${ipPreMove} link set "${name}" netns "${ns}"''}
-        ${optionalString (values.mtu != null)
-          ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
+        ${optionalString (values.mtu != null) ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
         ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'') values.ips}
 
@@ -612,8 +601,7 @@ in
       all_peers = flatten (
         mapAttrsToList
           (
-            interfaceName: interfaceCfg:
-            map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers
+            interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers
           )
           cfg.interfaces
       );

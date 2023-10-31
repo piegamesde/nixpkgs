@@ -18,31 +18,29 @@
     );
 
     # Copy secrets to their respective locations
-    boot.initrd.systemd.services.initrd-nixos-copy-secrets =
-      lib.mkIf (config.boot.initrd.secrets != { })
-        {
-          description = "Copy secrets into place";
-          # Run as early as possible
-          wantedBy = [ "sysinit.target" ];
-          before = [ "cryptsetup-pre.target" ];
-          unitConfig.DefaultDependencies = false;
+    boot.initrd.systemd.services.initrd-nixos-copy-secrets = lib.mkIf (config.boot.initrd.secrets != { }) {
+      description = "Copy secrets into place";
+      # Run as early as possible
+      wantedBy = [ "sysinit.target" ];
+      before = [ "cryptsetup-pre.target" ];
+      unitConfig.DefaultDependencies = false;
 
-          # We write the secrets to /.initrd-secrets and move them because this allows
-          # secrets to be written to /run. If we put the secret directly to /run and
-          # drop this service, we'd mount the /run tmpfs over the secret, making it
-          # invisible in stage 2.
-          script = ''
-            for secret in $(cd /.initrd-secrets; find . -type f -o -type l); do
-              mkdir -p "$(dirname "/$secret")"
-              cp "/.initrd-secrets/$secret" "/$secret"
-            done
-          '';
+      # We write the secrets to /.initrd-secrets and move them because this allows
+      # secrets to be written to /run. If we put the secret directly to /run and
+      # drop this service, we'd mount the /run tmpfs over the secret, making it
+      # invisible in stage 2.
+      script = ''
+        for secret in $(cd /.initrd-secrets; find . -type f -o -type l); do
+          mkdir -p "$(dirname "/$secret")"
+          cp "/.initrd-secrets/$secret" "/$secret"
+        done
+      '';
 
-          serviceConfig = {
-            Type = "oneshot";
-            RemainAfterExit = true;
-          };
-        };
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+    };
     # The script needs this
     boot.initrd.systemd.extraBin.find = "${pkgs.findutils}/bin/find";
   };

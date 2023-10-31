@@ -42,10 +42,7 @@ in
                       { value, ... }@x:
                       acc
                       // (
-                        if isList value then
-                          { ordered = acc.ordered ++ value; }
-                        else
-                          { unordered = acc.unordered ++ [ x ]; }
+                        if isList value then { ordered = acc.ordered ++ value; } else { unordered = acc.unordered ++ [ x ]; }
                       )
                     )
                     {

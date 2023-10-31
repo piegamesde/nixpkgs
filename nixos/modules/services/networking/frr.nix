@@ -175,10 +175,7 @@ in
           value.source = configFile service;
         };
       in
-      (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices)))
-      // {
-        "frr/vtysh.conf".text = "";
-      };
+      (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices))) // { "frr/vtysh.conf".text = ""; };
 
     systemd.tmpfiles.rules = [ "d /run/frr 0750 frr frr -" ];
 

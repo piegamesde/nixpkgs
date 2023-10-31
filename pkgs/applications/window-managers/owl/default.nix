@@ -74,9 +74,7 @@ mkDerivation {
 
     mkdir -p $out/{Applications,bin}
     mv Owl.app $out/Applications
-    makeWrapper $out/{Applications/Owl.app${
-      lib.optionalString stdenv.isDarwin "/Contents/MacOS"
-    },bin}/Owl
+    makeWrapper $out/{Applications/Owl.app${lib.optionalString stdenv.isDarwin "/Contents/MacOS"},bin}/Owl
 
     runHook postInstall
   '';

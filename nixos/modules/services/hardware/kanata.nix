@@ -77,8 +77,7 @@ let
 
   mkName = name: "kanata-${name}";
 
-  mkDevices =
-    devices: optionalString ((length devices) > 0) "linux-dev ${concatStringsSep ":" devices}";
+  mkDevices = devices: optionalString ((length devices) > 0) "linux-dev ${concatStringsSep ":" devices}";
 
   mkConfig =
     name: keyboard:

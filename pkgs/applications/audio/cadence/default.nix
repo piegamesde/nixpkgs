@@ -76,8 +76,7 @@ mkDerivation rec {
       outRef = placeholder "out";
       prefix = "${outRef}/share/cadence/src";
       scriptAndSource =
-        lib.mapAttrs'
-          (script: source: lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source))
+        lib.mapAttrs' (script: source: lib.nameValuePair ("${outRef}/bin/" + script) ("${prefix}/" + source))
           {
             "cadence" = "cadence.py";
             "claudia" = "claudia.py";

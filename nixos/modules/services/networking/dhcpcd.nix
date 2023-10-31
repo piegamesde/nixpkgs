@@ -16,8 +16,7 @@ let
   interfaces = attrValues config.networking.interfaces;
 
   enableDHCP =
-    config.networking.dhcpcd.enable
-    && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
+    config.networking.dhcpcd.enable && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
 
   # Don't start dhcpcd on explicitly configured interfaces or on
   # interfaces that are part of a bridge, bond or sit device.

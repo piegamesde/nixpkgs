@@ -36,10 +36,9 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ libGL ];
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ++ lib.optional waylandSupport extra-cmake-modules;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames ++ lib.optional waylandSupport extra-cmake-modules;
 
   buildInputs =
     if waylandSupport then

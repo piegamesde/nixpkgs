@@ -3712,10 +3712,7 @@ let
       sources."unescape-html-1.1.0"
       sources."unpipe-1.0.0"
       (
-        sources."useragent-generator-1.1.1-amkt-22079-finish.1"
-        // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
+        sources."useragent-generator-1.1.1-amkt-22079-finish.1" // { dependencies = [ sources."semver-5.7.1" ]; }
       )
       (sources."util-0.10.4" // { dependencies = [ sources."inherits-2.0.3" ]; })
       sources."util-deprecate-1.0.2"

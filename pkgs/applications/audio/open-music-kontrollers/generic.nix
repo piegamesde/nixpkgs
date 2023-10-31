@@ -17,8 +17,7 @@
   version,
   sha256,
   description,
-  url ?
-    "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz",
+  url ? "https://git.open-music-kontrollers.ch/lv2/${pname}.lv2/snapshot/${pname}.lv2-${version}.tar.xz",
   additionalBuildInputs ? [ ],
   postPatch ? "",
   ...

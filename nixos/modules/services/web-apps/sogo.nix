@@ -21,9 +21,7 @@ let
         )}
 
         ${pkgs.perl}/bin/perl -p ${
-          concatStringsSep " " (
-            mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces
-          )
+          concatStringsSep " " (mapAttrsToList (k: v: ''-e 's/${k}/''${ENV{"${k}"}}/g;' '') cfg.configReplaces)
         } /etc/sogo/sogo.conf.raw > /etc/sogo/sogo.conf
       ''
     else

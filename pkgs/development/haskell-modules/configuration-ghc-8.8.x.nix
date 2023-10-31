@@ -38,8 +38,7 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -92,9 +91,7 @@ self: super: {
   # https://github.com/snapframework/snap-core/issues/288
   snap-core =
     overrideCabal
-      (drv: {
-        prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
-      })
+      (drv: { prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''"; })
       super.snap-core;
 
   # Upstream ships a broken Setup.hs file.
@@ -139,9 +136,7 @@ self: super: {
 
   # ghc versions which don’t match the ghc-lib-parser-ex version need the
   # additional dependency to compile successfully.
-  ghc-lib-parser-ex = doDistribute (
-    addBuildDepend self.ghc-lib-parser self.ghc-lib-parser-ex_8_10_0_24
-  );
+  ghc-lib-parser-ex = doDistribute (addBuildDepend self.ghc-lib-parser self.ghc-lib-parser-ex_8_10_0_24);
 
   # has a restrictive lower bound on Cabal
   fourmolu = doJailbreak super.fourmolu;

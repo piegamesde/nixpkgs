@@ -50,9 +50,7 @@ makeScope newScope (
 
     inherit (callPackage ../development/interpreters/octave/hooks { }) writeRequiredOctavePackagesHook;
 
-    arduino = callPackage ../development/octave-modules/arduino {
-      inherit (pkgs) arduino-core-unwrapped;
-    };
+    arduino = callPackage ../development/octave-modules/arduino { inherit (pkgs) arduino-core-unwrapped; };
 
     audio = callPackage ../development/octave-modules/audio { };
 

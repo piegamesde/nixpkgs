@@ -1214,9 +1214,7 @@ in
         ];
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
-            ${
-              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([ configFile ] ++ cfg.extraConfigFiles)
-            }
+            ${concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([ configFile ] ++ cfg.extraConfigFiles)}
             --keys-directory ${cfg.dataDir}
         '';
         ExecReload = "${pkgs.util-linux}/bin/kill -HUP $MAINPID";

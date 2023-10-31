@@ -5,8 +5,7 @@
   darwin,
 }:
 let
-  common =
-    opts: callPackage (import ./common.nix opts) { inherit (darwin.apple_sdk.frameworks) PCSC; };
+  common = opts: callPackage (import ./common.nix opts) { inherit (darwin.apple_sdk.frameworks) PCSC; };
 in
 rec {
   openconnect = common rec {

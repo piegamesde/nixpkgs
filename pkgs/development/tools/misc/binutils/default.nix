@@ -202,10 +202,7 @@ stdenv.mkDerivation (
     # As binutils takes part in the stdenv building, we don't want references
     # to the bootstrap-tools libgcc (as uses to happen on arm/mips)
     env.NIX_CFLAGS_COMPILE =
-      if hostPlatform.isDarwin then
-        "-Wno-string-plus-int -Wno-deprecated-declarations"
-      else
-        "-static-libgcc";
+      if hostPlatform.isDarwin then "-Wno-string-plus-int -Wno-deprecated-declarations" else "-static-libgcc";
 
     hardeningDisable = [
       "format"
@@ -273,10 +270,7 @@ stdenv.mkDerivation (
 
     # Break dependency on pkgsBuildBuild.gcc when building a cross-binutils
     stripDebugList =
-      if stdenv.hostPlatform != stdenv.targetPlatform then
-        "bin lib ${stdenv.hostPlatform.config}"
-      else
-        null;
+      if stdenv.hostPlatform != stdenv.targetPlatform then "bin lib ${stdenv.hostPlatform.config}" else null;
 
     # INFO: Otherwise it fails with:
     # `./sanity.sh: line 36: $out/bin/size: not found`

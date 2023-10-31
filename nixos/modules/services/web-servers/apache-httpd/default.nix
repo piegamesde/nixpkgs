@@ -384,8 +384,7 @@ let
     </IfModule>
 
     ${let
-      toStr =
-        listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
+      toStr = listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
     concatStringsSep "\n" uniqueListen}
@@ -857,8 +856,7 @@ in
         }
         {
           assertion =
-            all
-              (hostOpts: with hostOpts; !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL))
+            all (hostOpts: with hostOpts; !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL))
               vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
@@ -1025,9 +1023,7 @@ in
       description = "Apache HTTPD";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
-      after = [
-        "network.target"
-      ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
+      after = [ "network.target" ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
 

@@ -13,7 +13,5 @@ in
 
 with python3.pkgs;
 toPythonModule (
-  notebook.overridePythonAttrs (
-    oldAttrs: { makeWrapperArgs = [ "--set JUPYTER_PATH ${jupyterPath}" ]; }
-  )
+  notebook.overridePythonAttrs (oldAttrs: { makeWrapperArgs = [ "--set JUPYTER_PATH ${jupyterPath}" ]; })
 )

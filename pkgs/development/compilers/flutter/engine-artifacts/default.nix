@@ -117,10 +117,7 @@ let
     }@args:
     let
       artifactDirectory =
-        if platform == null then
-          null
-        else
-          "${platform}${lib.optionalString (variant != null) "-${variant}"}";
+        if platform == null then null else "${platform}${lib.optionalString (variant != null) "-${variant}"}";
       archiveBasename = lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
     stdenv.mkDerivation (
@@ -153,9 +150,7 @@ let
           os: architectures:
           builtins.mapAttrs
             (architecture: variants: {
-              base =
-                map (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
-                  variants.base;
+              base = map (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args)) variants.base;
               variants =
                 builtins.mapAttrs
                   (

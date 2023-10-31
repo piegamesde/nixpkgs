@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
     ncurses
   ] ++ lib.optional stdenv.isDarwin memstreamHook;
 
-  configureFlags = [
-    "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
-  ];
+  configureFlags = [ "HOSTCC=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc" ];
 
   meta = with lib; {
     description = "Telescope is a w3m-like browser for Gemini";

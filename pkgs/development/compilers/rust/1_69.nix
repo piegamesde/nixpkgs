@@ -32,15 +32,9 @@ import ./default.nix
     rustcVersion = "1.69.0";
     rustcSha256 = "sha256-+wWXGGetbMq703ICefWpS5n2ECSSMYe1a7XEVfo89g8=";
 
-    llvmSharedForBuild = pkgsBuildBuild.llvmPackages_15.libllvm.override {
-      enableSharedLibraries = true;
-    };
-    llvmSharedForHost = pkgsBuildHost.llvmPackages_15.libllvm.override {
-      enableSharedLibraries = true;
-    };
-    llvmSharedForTarget = pkgsBuildTarget.llvmPackages_15.libllvm.override {
-      enableSharedLibraries = true;
-    };
+    llvmSharedForBuild = pkgsBuildBuild.llvmPackages_15.libllvm.override { enableSharedLibraries = true; };
+    llvmSharedForHost = pkgsBuildHost.llvmPackages_15.libllvm.override { enableSharedLibraries = true; };
+    llvmSharedForTarget = pkgsBuildTarget.llvmPackages_15.libllvm.override { enableSharedLibraries = true; };
 
     llvmBootstrapForDarwin = llvmPackages_11;
 

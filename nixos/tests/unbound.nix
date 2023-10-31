@@ -352,9 +352,7 @@ import ./make-test-python.nix (
         with subtest("client should be able to query the resolver"):
             test(client, ["${
               (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
-            }", "${
-              (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
-            }"], doh=True)
+            }", "${(lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address}"], doh=True)
 
         # discard the client we do not need anymore
         client.shutdown()

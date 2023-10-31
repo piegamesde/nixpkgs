@@ -148,9 +148,7 @@ with lib;
     (mkIf config.security.forcePageTableIsolation { boot.kernelParams = [ "pti=on" ]; })
 
     (mkIf (config.security.virtualisation.flushL1DataCache != null) {
-      boot.kernelParams = [
-        "kvm-intel.vmentry_l1d_flush=${config.security.virtualisation.flushL1DataCache}"
-      ];
+      boot.kernelParams = [ "kvm-intel.vmentry_l1d_flush=${config.security.virtualisation.flushL1DataCache}" ];
     })
   ];
 }

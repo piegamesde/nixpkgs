@@ -19,9 +19,7 @@ let
     mapAttrs (n: v: if n == "staticClients" then (builtins.map fixClient v) else v)
       cfg.settings;
   secretFiles = flatten (
-    builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (
-      cfg.settings.staticClients or [ ]
-    )
+    builtins.map (c: if c ? secretFile then [ c.secretFile ] else [ ]) (cfg.settings.staticClients or [ ])
   );
 
   settingsFormat = pkgs.formats.yaml { };

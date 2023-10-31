@@ -9,9 +9,7 @@ with lib;
 
 let
 
-  pcmciaUtils = pkgs.pcmciaUtils.passthru.function {
-    inherit (config.hardware.pcmcia) firmware config;
-  };
+  pcmciaUtils = pkgs.pcmciaUtils.passthru.function { inherit (config.hardware.pcmcia) firmware config; };
 in
 
 {

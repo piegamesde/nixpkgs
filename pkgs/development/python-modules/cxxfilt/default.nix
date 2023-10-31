@@ -16,9 +16,7 @@ buildPythonPackage rec {
 
   postPatch =
     let
-      libstdcpp = "${
-          lib.getLib gcc-unwrapped
-        }/lib/libstdc++${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libstdcpp = "${lib.getLib gcc-unwrapped}/lib/libstdc++${stdenv.hostPlatform.extensions.sharedLibrary}";
     in
     ''
       substituteInPlace cxxfilt/__init__.py \

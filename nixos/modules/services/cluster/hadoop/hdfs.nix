@@ -138,9 +138,7 @@ in
                   path = mkOption {
                     type = path;
                     example = [ "/var/lib/hadoop/hdfs/dn" ];
-                    description =
-                      lib.mdDoc
-                        "Determines where on the local filesystem a data node should store its blocks.";
+                    description = lib.mdDoc "Determines where on the local filesystem a data node should store its blocks.";
                   };
                 };
               }

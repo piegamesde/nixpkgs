@@ -258,9 +258,7 @@ self: super:
       super.hie-compat;
 
   # For -f-auto see cabal.project in haskell-language-server.
-  ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser (
-    disableCabalFlag "auto" super.ghc-lib-parser-ex
-  );
+  ghc-lib-parser-ex = addBuildDepend self.ghc-lib-parser (disableCabalFlag "auto" super.ghc-lib-parser-ex);
 
   # For -fghc-lib see cabal.project in haskell-language-server.
   stylish-haskell =
@@ -419,9 +417,7 @@ self: super:
   bindings-levmar = addExtraLibrary pkgs.blas super.bindings-levmar;
 
   # Requires wrapQtAppsHook
-  qtah-cpp-qt5 =
-    overrideCabal (drv: { buildDepends = [ pkgs.qt5.wrapQtAppsHook ]; })
-      super.qtah-cpp-qt5;
+  qtah-cpp-qt5 = overrideCabal (drv: { buildDepends = [ pkgs.qt5.wrapQtAppsHook ]; }) super.qtah-cpp-qt5;
 
   # The Haddock phase fails for one reason or another.
   deepseq-magic = dontHaddock super.deepseq-magic;
@@ -1410,8 +1406,7 @@ self: super:
 
   # hslua has tests that break when using musl.
   # https://github.com/hslua/hslua/issues/106
-  hslua-core =
-    if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.hslua-core else super.hslua-core;
+  hslua-core = if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.hslua-core else super.hslua-core;
 
   # Missing files required by the test suite.
   # https://github.com/deemp/flakes/issues/4
@@ -1770,9 +1765,7 @@ self: super:
   # https://github.com/k0001/hs-libsodium/issues/2
   libsodium =
     overrideCabal
-      (drv: {
-        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ];
-      })
+      (drv: { libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ]; })
       super.libsodium;
 
   svgcairo =
@@ -2398,9 +2391,7 @@ self: super:
 
   # Tests need to lookup target triple x86_64-unknown-linux
   # https://github.com/llvm-hs/llvm-hs/issues/334
-  llvm-hs =
-    overrideCabal { doCheck = pkgs.stdenv.targetPlatform.system == "x86_64-linux"; }
-      super.llvm-hs;
+  llvm-hs = overrideCabal { doCheck = pkgs.stdenv.targetPlatform.system == "x86_64-linux"; } super.llvm-hs;
 
   # Fix build with bytestring >= 0.11 (GHC 9.2)
   # https://github.com/llvm-hs/llvm-hs/pull/389

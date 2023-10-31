@@ -27,9 +27,7 @@ in
         };
         type = settingsFormat.type;
         default = { };
-        description =
-          lib.mdDoc
-            "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`.";
+        description = lib.mdDoc "Configuration for ulogd. See {file}`/share/doc/ulogd/` in `pkgs.ulogd.doc`.";
       };
 
       logLevel = mkOption {
@@ -54,9 +52,7 @@ in
       before = [ "network-pre.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.ulogd}/bin/ulogd -c ${settingsFile} --verbose --loglevel ${
-            toString cfg.logLevel
-          }";
+        ExecStart = "${pkgs.ulogd}/bin/ulogd -c ${settingsFile} --verbose --loglevel ${toString cfg.logLevel}";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
       };
     };

@@ -12,10 +12,7 @@ let
   dbFile =
     let
       password =
-        if cfg.database.createLocally then
-          "''"
-        else
-          "trim(file_get_contents('${cfg.database.passwordFile}'))";
+        if cfg.database.createLocally then "''" else "trim(file_get_contents('${cfg.database.passwordFile}'))";
     in
     pkgs.writeText "database.php" ''
       <?php

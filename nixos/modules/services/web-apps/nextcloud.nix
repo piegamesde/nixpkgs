@@ -813,8 +813,7 @@ in
               nextcloud26
           );
 
-        services.nextcloud.phpPackage =
-          if versionOlder cfg.package.version "26" then pkgs.php81 else pkgs.php82;
+        services.nextcloud.phpPackage = if versionOlder cfg.package.version "26" then pkgs.php81 else pkgs.php82;
       }
 
       {
@@ -879,9 +878,7 @@ in
                       'use_ssl' => ${boolToString s3.useSsl},
                       ${optionalString (s3.region != null) "'region' => '${s3.region}',"}
                       'use_path_style' => ${boolToString s3.usePathStyle},
-                      ${
-                        optionalString (s3.sseCKeyFile != null) "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"
-                      }
+                      ${optionalString (s3.sseCKeyFile != null) "'sse_c_key' => nix_read_secret('${s3.sseCKeyFile}'),"}
                     ],
                   ]
                 '';
@@ -952,9 +949,7 @@ in
                   'dbtype' => '${c.dbtype}',
                   'trusted_domains' => ${writePhpArray ([ cfg.hostName ] ++ c.extraTrustedDomains)},
                   'trusted_proxies' => ${writePhpArray (c.trustedProxies)},
-                  ${
-                    optionalString (c.defaultPhoneRegion != null) "'default_phone_region' => '${c.defaultPhoneRegion}',"
-                  }
+                  ${optionalString (c.defaultPhoneRegion != null) "'default_phone_region' => '${c.defaultPhoneRegion}',"}
                   ${
                     optionalString (nextcloudGreaterOrEqualThan "23")
                       "'profile.enabled' => ${boolToString cfg.globalProfiles},"

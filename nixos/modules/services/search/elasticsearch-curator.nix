@@ -94,8 +94,7 @@ in
     systemd.services.elasticsearch-curator = {
       startAt = cfg.interval;
       serviceConfig = {
-        ExecStart =
-          "${pkgs.elasticsearch-curator}/bin/curator" + " --config ${curatorConfig} ${curatorAction}";
+        ExecStart = "${pkgs.elasticsearch-curator}/bin/curator" + " --config ${curatorConfig} ${curatorAction}";
       };
     };
   };

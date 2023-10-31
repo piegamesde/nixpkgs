@@ -658,9 +658,7 @@ in
         '';
       };
     })
-    (mkIf (cfg.enable && cfg.openFirewall) {
-      networking.firewall.allowedTCPPorts = [ cfg.listenPort ];
-    })
+    (mkIf (cfg.enable && cfg.openFirewall) { networking.firewall.allowedTCPPorts = [ cfg.listenPort ]; })
   ];
 
   meta.doc = ./default.md;

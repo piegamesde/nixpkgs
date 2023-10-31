@@ -55,10 +55,7 @@ let
     [ "${sec} ${secName}" ] ++ map (x: " " + x) (genConfig value);
   genPair =
     { name, value }:
-    if !isAttrs value then
-      [ "${name} ${value}" ]
-    else
-      concatLists (mapAttrsToList (genSection name) value);
+    if !isAttrs value then [ "${name} ${value}" ] else concatLists (mapAttrsToList (genSection name) value);
 
   sudo_doas =
     if config.security.sudo.enable then
@@ -99,9 +96,7 @@ in
   options = {
     services.btrbk = {
       extraPackages = mkOption {
-        description =
-          lib.mdDoc
-            "Extra packages for btrbk, like compression utilities for `stream_compress`";
+        description = lib.mdDoc "Extra packages for btrbk, like compression utilities for `stream_compress`";
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "[ pkgs.xz ]";
@@ -163,9 +158,7 @@ in
                       };
                     };
                   };
-                  description =
-                    lib.mdDoc
-                      "configuration options for btrbk. Nested attrsets translate to subsections.";
+                  description = lib.mdDoc "configuration options for btrbk. Nested attrsets translate to subsections.";
                 };
               };
             }

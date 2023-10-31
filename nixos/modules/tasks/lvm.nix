@@ -50,14 +50,10 @@ in
       services.udev.packages = [ cfg.package.out ];
 
       # We need lvm2 for the device-mapper rules
-      boot.initrd.services.udev.packages = lib.mkIf config.boot.initrd.services.lvm.enable [
-        cfg.package
-      ];
+      boot.initrd.services.udev.packages = lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
       # The device-mapper rules want to call tools from lvm2
       boot.initrd.systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
-      boot.initrd.services.udev.binPackages = lib.mkIf config.boot.initrd.services.lvm.enable [
-        cfg.package
-      ];
+      boot.initrd.services.udev.binPackages = lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
     })
     (mkIf cfg.dmeventd.enable {
       systemd.sockets."dm-event".wantedBy = [ "sockets.target" ];
@@ -75,9 +71,7 @@ in
           "dm-thin-pool"
         ];
 
-        systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [
-          pkgs.thin-provisioning-tools
-        ];
+        systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ pkgs.thin-provisioning-tools ];
 
         extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
           for BIN in ${pkgs.thin-provisioning-tools}/bin/*; do
@@ -93,8 +87,7 @@ in
       };
 
       environment.etc."lvm/lvm.conf".text =
-        concatMapStringsSep "\n"
-          (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
+        concatMapStringsSep "\n" (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
           [
             "thin_check"
             "thin_dump"

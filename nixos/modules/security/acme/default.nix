@@ -162,9 +162,7 @@ let
       # This is a workaround
       extraDomains =
         data.extraDomainNames
-        ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (
-          builtins.attrNames data.extraDomains
-        ));
+        ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (builtins.attrNames data.extraDomains));
 
       # Create hashes for cert data directories based on configuration
       # Flags are separated to avoid collisions
@@ -236,10 +234,7 @@ let
       # Although --must-staple is common to both modes, it is not declared as a
       # mode-agnostic argument in lego and thus must come after the mode.
       runOpts = escapeShellArgs (
-        commonOpts
-        ++ [ "run" ]
-        ++ optionals data.ocspMustStaple [ "--must-staple" ]
-        ++ data.extraLegoRunFlags
+        commonOpts ++ [ "run" ] ++ optionals data.ocspMustStaple [ "--must-staple" ] ++ data.extraLegoRunFlags
       );
       renewOpts = escapeShellArgs (
         commonOpts
@@ -402,12 +397,10 @@ let
                 fi
               '');
           }
-          //
-            optionalAttrs (data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024)
-              {
-                CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-                AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-              };
+          // optionalAttrs (data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024) {
+            CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          };
 
         # Working directory will be /tmp
         script = ''
@@ -529,8 +522,7 @@ let
         # stay constant. Though notably it wouldn't matter much, because to get
         # the option information, a submodule with name `<name>` is evaluated
         # without any definitions.
-        defaultText =
-          if isDefaults then default else literalExpression "config.security.acme.defaults.${name}";
+        defaultText = if isDefaults then default else literalExpression "config.security.acme.defaults.${name}";
       };
     in
     {
@@ -1104,9 +1096,7 @@ in
           {
             "acme-selfsigned-ca" = selfsignCAService;
           }
-          // (mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
-            certConfigs
-          )
+          // (mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService) certConfigs)
         ));
 
       systemd.timers = mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer) certConfigs;

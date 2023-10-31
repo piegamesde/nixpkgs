@@ -34,14 +34,12 @@ let
         done
 
         ${cfg.up}
-        ${optionalString cfg.updateResolvConf
-          "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
+        ${optionalString cfg.updateResolvConf "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
       '';
 
       downScript = ''
         export PATH=${path}
-        ${optionalString cfg.updateResolvConf
-          "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
+        ${optionalString cfg.updateResolvConf "${pkgs.update-resolv-conf}/libexec/openvpn/update-resolv-conf"}
         ${cfg.down}
       '';
 
@@ -243,8 +241,7 @@ in
 
     systemd.services =
       (listToAttrs (
-        mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
-          cfg.servers
+        mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)) cfg.servers
       ))
       // restartService;
 

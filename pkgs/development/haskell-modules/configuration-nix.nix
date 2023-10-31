@@ -282,9 +282,7 @@ builtins.intersectAttrs super {
   # avoid compiling twice by providing executable as a separate output (with small closure size)
   niv = enableSeparateBinOutput (self.generateOptparseApplicativeCompletions [ "niv" ] super.niv);
   ghcid = enableSeparateBinOutput super.ghcid;
-  ormolu = self.generateOptparseApplicativeCompletions [ "ormolu" ] (
-    enableSeparateBinOutput super.ormolu
-  );
+  ormolu = self.generateOptparseApplicativeCompletions [ "ormolu" ] (enableSeparateBinOutput super.ormolu);
 
   # Generate shell completion.
   cabal2nix = self.generateOptparseApplicativeCompletions [ "cabal2nix" ] super.cabal2nix;
@@ -457,9 +455,7 @@ builtins.intersectAttrs super {
   mattermost-api = dontCheck super.mattermost-api;
 
   # Expect to find sendmail(1) in $PATH.
-  mime-mail =
-    appendConfigureFlag ''--ghc-option=-DMIME_MAIL_SENDMAIL_PATH="sendmail"''
-      super.mime-mail;
+  mime-mail = appendConfigureFlag ''--ghc-option=-DMIME_MAIL_SENDMAIL_PATH="sendmail"'' super.mime-mail;
 
   # Help the test suite find system timezone data.
   tz = overrideCabal (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; }) super.tz;

@@ -196,9 +196,7 @@ let
           }
           (
             { config, ... }:
-            mkIf config.openFirewall {
-              firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}";
-            }
+            mkIf config.openFirewall { firewallFilter = mkDefault "-p tcp -m tcp --dport ${toString config.port}"; }
           )
         ];
         internal = true;
@@ -353,9 +351,7 @@ in
             }
             {
               assertion =
-                cfg.ipmi.enable
-                -> (cfg.ipmi.webConfigFile != null)
-                -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile));
+                cfg.ipmi.enable -> (cfg.ipmi.webConfigFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.webConfigFile));
               message = ''
                 Config file specified in `services.prometheus.exporters.ipmi.webConfigFile' must
                   not reside within /tmp - it won't be visible to the systemd service.
@@ -413,9 +409,7 @@ in
       })
     ]
     ++ [
-      (mkIf config.services.prometheus.exporters.rtl_433.enable {
-        hardware.rtl-sdr.enable = mkDefault true;
-      })
+      (mkIf config.services.prometheus.exporters.rtl_433.enable { hardware.rtl-sdr.enable = mkDefault true; })
     ]
     ++ [
       (mkIf config.services.postfix.enable {

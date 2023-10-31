@@ -243,9 +243,7 @@ in
 
         script = ''
           ${concatStringsSep "\n" (
-            attrValues (
-              mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'') cfg.environmentFiles
-            )
+            attrValues (mapAttrs (name: path: ''export ${name}="$(< ${escapeShellArg path})"'') cfg.environmentFiles)
           )}
           exec ${patroni}/bin/patroni ${configFile}
         '';

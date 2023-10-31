@@ -31,9 +31,7 @@ assert enableDmeventd -> enableCmdlib;
 
 stdenv.mkDerivation rec {
   pname =
-    "lvm2"
-    + lib.optionalString enableDmeventd "-with-dmeventd"
-    + lib.optionalString enableVDO "-with-vdo";
+    "lvm2" + lib.optionalString enableDmeventd "-with-dmeventd" + lib.optionalString enableVDO "-with-vdo";
   inherit version;
 
   src = fetchurl {
@@ -120,9 +118,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # requires root
 
   makeFlags =
-    lib.optionals udevSupport [
-      "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators"
-    ]
+    lib.optionals udevSupport [ "SYSTEMD_GENERATOR_DIR=${placeholder "out"}/lib/systemd/system-generators" ]
     ++ lib.optionals onlyLib [ "libdm.device-mapper" ];
 
   # To prevent make install from failing.
@@ -142,9 +138,7 @@ stdenv.mkDerivation rec {
     ];
 
   installPhase = lib.optionalString onlyLib ''
-    install -D -t $out/lib libdm/ioctl/libdevmapper.${
-      if stdenv.hostPlatform.isStatic then "a" else "so"
-    }
+    install -D -t $out/lib libdm/ioctl/libdevmapper.${if stdenv.hostPlatform.isStatic then "a" else "so"}
     make -C libdm install_include
     make -C libdm install_pkgconfig
   '';

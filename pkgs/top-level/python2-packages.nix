@@ -42,9 +42,7 @@ with super; {
 
   pluggy = callPackage ../development/python2-modules/pluggy { };
 
-  pycairo = callPackage ../development/python2-modules/pycairo {
-    inherit (pkgs.buildPackages) meson;
-  };
+  pycairo = callPackage ../development/python2-modules/pycairo { inherit (pkgs.buildPackages) meson; };
 
   pygobject2 = callPackage ../development/python2-modules/pygobject { };
 

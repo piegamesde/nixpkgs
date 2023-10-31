@@ -10,9 +10,7 @@ import ./make-test-python.nix (
         users.users =
           with lib;
           mkMerge [
-            (listToAttrs (
-              map (n: nameValuePair n { isNormalUser = true; }) (genList (x: "user${toString x}") 6)
-            ))
+            (listToAttrs (map (n: nameValuePair n { isNormalUser = true; }) (genList (x: "user${toString x}") 6)))
             { user0.extraGroups = [ "wheel" ]; }
           ];
 

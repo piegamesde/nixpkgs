@@ -119,8 +119,7 @@ in
 
     programs.captive-browser.dhcp-dns =
       let
-        iface =
-          prefixes: optionalString cfg.bindInterface (escapeShellArgs (prefixes ++ [ cfg.interface ]));
+        iface = prefixes: optionalString cfg.bindInterface (escapeShellArgs (prefixes ++ [ cfg.interface ]));
       in
       mkOptionDefault (
         if config.networking.networkmanager.enable then

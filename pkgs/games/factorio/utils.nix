@@ -43,8 +43,7 @@ with lib; {
         if name != null then name else removeSuffix ".zip" (head (splitString "?" src.name))
       );
 
-      deps =
-        deps ++ optionals allOptionalMods optionalDeps ++ optionals allRecommendedMods recommendedDeps;
+      deps = deps ++ optionals allOptionalMods optionalDeps ++ optionals allRecommendedMods recommendedDeps;
 
       preferLocalBuild = true;
       buildCommand = ''

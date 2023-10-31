@@ -107,9 +107,7 @@ in
     extraConfig = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Additional config appended to the end of the generated {file}`cntlm.conf`.";
+      description = lib.mdDoc "Additional config appended to the end of the generated {file}`cntlm.conf`.";
     };
 
     configText = mkOption {

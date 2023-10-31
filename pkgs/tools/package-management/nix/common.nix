@@ -250,8 +250,7 @@ let
       );
 
       tests = {
-        nixi686 =
-          pkgsi686Linux.nixVersions.${"nix_${lib.versions.major version}_${lib.versions.minor version}"};
+        nixi686 = pkgsi686Linux.nixVersions.${"nix_${lib.versions.major version}_${lib.versions.minor version}"};
       };
     };
 

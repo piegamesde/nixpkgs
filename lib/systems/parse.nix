@@ -25,8 +25,7 @@ let
   inherit (lib.options) mergeOneOption;
 
   setTypes =
-    type:
-    mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
+    type: mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
 in
 
 rec {
@@ -515,8 +514,7 @@ rec {
     name = "kernel";
     description = "kernel name and information";
     merge = mergeOneOption;
-    check =
-      x: types.execFormat.check x.execFormat && all types.kernelFamily.check (attrValues x.families);
+    check = x: types.execFormat.check x.execFormat && all types.kernelFamily.check (attrValues x.families);
   };
 
   types.kernel = enum (attrValues kernels);
@@ -734,10 +732,7 @@ rec {
         kernel,
         abi,
       }:
-      types.cpuType.check cpu
-      && types.vendor.check vendor
-      && types.kernel.check kernel
-      && types.abi.check abi;
+      types.cpuType.check cpu && types.vendor.check vendor && types.kernel.check kernel && types.abi.check abi;
   };
 
   isSystem = isType "system";
@@ -834,8 +829,7 @@ rec {
         abi = elemAt l 3;
       };
     }
-    .${toString (length l)}
-      or (throw "system string has invalid number of hyphen-separated components");
+    .${toString (length l)} or (throw "system string has invalid number of hyphen-separated components");
 
   # This should revert the job done by config.guess from the gcc compiler.
   mkSystemFromSkeleton =

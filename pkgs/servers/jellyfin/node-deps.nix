@@ -12231,10 +12231,7 @@ let
         }
       )
       (
-        sources."@csstools/postcss-ic-unit-1.0.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."@csstools/postcss-ic-unit-1.0.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       sources."@csstools/postcss-is-pseudo-class-2.0.1"
       (
@@ -12361,10 +12358,7 @@ let
         }
       )
       (
-        sources."@typescript-eslint/utils-5.15.0"
-        // {
-          dependencies = [ sources."@types/json-schema-7.0.10" ];
-        }
+        sources."@typescript-eslint/utils-5.15.0" // { dependencies = [ sources."@types/json-schema-7.0.10" ]; }
       )
       (
         sources."@typescript-eslint/visitor-keys-5.15.0"
@@ -12431,10 +12425,7 @@ let
       sources."arrify-1.0.1"
       sources."assign-symbols-1.0.0"
       (
-        sources."ast-metadata-inferer-0.7.0"
-        // {
-          dependencies = [ sources."@mdn/browser-compat-data-3.3.14" ];
-        }
+        sources."ast-metadata-inferer-0.7.0" // { dependencies = [ sources."@mdn/browser-compat-data-3.3.14" ]; }
       )
       sources."ast-types-flow-0.0.7"
       sources."astral-regex-2.0.0"
@@ -13264,12 +13255,7 @@ let
           dependencies = [ sources."postcss-value-parser-4.2.0" ];
         }
       )
-      (
-        sources."postcss-color-hex-alpha-8.0.3"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-color-hex-alpha-8.0.3" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-color-rebeccapurple-7.0.2"
         // {
@@ -13288,12 +13274,7 @@ let
           ];
         }
       )
-      (
-        sources."postcss-convert-values-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-convert-values-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."postcss-custom-media-8.0.0"
       (
         sources."postcss-custom-properties-12.1.4"
@@ -13313,9 +13294,7 @@ let
           dependencies = [ sources."postcss-value-parser-4.2.0" ];
         }
       )
-      (
-        sources."postcss-env-function-4.0.5" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
-      )
+      (sources."postcss-env-function-4.0.5" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."postcss-focus-visible-6.0.4"
       sources."postcss-focus-within-5.0.4"
       sources."postcss-font-variant-5.0.0"
@@ -13339,9 +13318,7 @@ let
       )
       sources."postcss-initial-4.0.1"
       sources."postcss-jsx-0.36.4"
-      (
-        sources."postcss-lab-function-4.1.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
-      )
+      (sources."postcss-lab-function-4.1.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-less-3.1.4"
         // {
@@ -13386,12 +13363,7 @@ let
       )
       sources."postcss-media-minmax-5.0.0"
       sources."postcss-media-query-parser-0.2.3"
-      (
-        sources."postcss-merge-longhand-5.1.2"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-merge-longhand-5.1.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-merge-rules-5.1.0"
         // {
@@ -13410,10 +13382,7 @@ let
         }
       )
       (
-        sources."postcss-minify-gradients-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."postcss-minify-gradients-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       (
         sources."postcss-minify-params-5.1.1"
@@ -13453,10 +13422,7 @@ let
         }
       )
       (
-        sources."postcss-normalize-string-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."postcss-normalize-string-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       (
         sources."postcss-normalize-timing-functions-5.1.0"
@@ -13476,12 +13442,7 @@ let
           ];
         }
       )
-      (
-        sources."postcss-normalize-url-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-normalize-url-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       (
         sources."postcss-normalize-whitespace-5.1.1"
         // {
@@ -13489,12 +13450,7 @@ let
         }
       )
       sources."postcss-opacity-percentage-1.1.2"
-      (
-        sources."postcss-ordered-values-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
-      )
+      (sources."postcss-ordered-values-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
       sources."postcss-overflow-shorthand-3.0.3"
       sources."postcss-page-break-3.0.4"
       (sources."postcss-place-7.0.4" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; })
@@ -13523,10 +13479,7 @@ let
         }
       )
       (
-        sources."postcss-reduce-transforms-5.1.0"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."postcss-reduce-transforms-5.1.0" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       sources."postcss-replace-overflow-wrap-4.0.0"
       (

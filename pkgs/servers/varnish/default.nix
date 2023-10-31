@@ -76,8 +76,7 @@ let
 
       passthru = {
         python = python3;
-        tests =
-          nixosTests."varnish${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
+        tests = nixosTests."varnish${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
       };
 
       meta = with lib; {

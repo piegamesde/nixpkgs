@@ -174,9 +174,7 @@ rec {
     PKG_FINDUTILS = "${lib.makeBinPath [ findutils ]}";
     PKG_GETTEXT = "${lib.makeBinPath [ gettext ]}";
     PKG_COREUTILS = "${lib.makeBinPath [ coreutils ]}";
-    RESHOLVE_LORE = "${binlore.collect {
-      drvs = default_packages ++ [ coreutils ] ++ parsed_packages;
-    }}";
+    RESHOLVE_LORE = "${binlore.collect { drvs = default_packages ++ [ coreutils ] ++ parsed_packages; }}";
     PKG_PARSED = "${lib.makeBinPath parsed_packages}";
 
     # explicit interpreter for demo suite; maybe some better way...

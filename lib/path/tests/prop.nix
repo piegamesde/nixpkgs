@@ -16,9 +16,7 @@ let
   lib = import libpath;
 
   # read each file into a string
-  strings = map (name: builtins.readFile (dir + "/${name}")) (
-    builtins.attrNames (builtins.readDir dir)
-  );
+  strings = map (name: builtins.readFile (dir + "/${name}")) (builtins.attrNames (builtins.readDir dir));
 
   inherit (lib.path.subpath) normalise isValid;
   inherit (lib.asserts) assertMsg;

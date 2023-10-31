@@ -238,10 +238,7 @@ let
       ];
       description = "Scientific Programming Language";
       platforms =
-        if overridePlatforms == null then
-          (lib.platforms.linux ++ lib.platforms.darwin)
-        else
-          overridePlatforms;
+        if overridePlatforms == null then (lib.platforms.linux ++ lib.platforms.darwin) else overridePlatforms;
     };
   };
 in

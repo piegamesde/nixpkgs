@@ -48,9 +48,7 @@ selectPackages:
 let
   inherit (haskellPackages) llvmPackages ghc;
 
-  packages =
-    selectPackages haskellPackages
-    ++ lib.optional withHoogle (hoogleWithPackages selectPackages);
+  packages = selectPackages haskellPackages ++ lib.optional withHoogle (hoogleWithPackages selectPackages);
 
   isGhcjs = ghc.isGhcjs or false;
   isHaLVM = ghc.isHaLVM or false;
@@ -63,8 +61,7 @@ let
     if isHaLVM then
       "$out/lib/HaLVM-${ghc.version}"
     else
-      "$out/lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
-      + lib.optionalString (ghc ? hadrian) "/lib";
+      "$out/lib/${ghc.targetPrefix}${ghc.haskellCompilerName}" + lib.optionalString (ghc ? hadrian) "/lib";
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
@@ -140,30 +137,28 @@ else
         fi
 
       ''
-      + (lib.optionalString (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS)
-        ''
-          # Work around a linker limit in macOS Sierra (see generic-builder.nix):
-          local packageConfDir="${packageCfgDir}";
-          local dynamicLinksDir="$out/lib/links"
-          mkdir -p $dynamicLinksDir
-          # Clean up the old links that may have been (transitively) included by
-          # symlinkJoin:
-          rm -f $dynamicLinksDir/*
-          for d in $(grep -Poz "dynamic-library-dirs:\s*\K .+\n" $packageConfDir/*|awk '{print $2}'|sort -u); do
-            ln -s $d/*.dylib $dynamicLinksDir
-          done
-          for f in $packageConfDir/*.conf; do
-            # Initially, $f is a symlink to a read-only file in one of the inputs
-            # (as a result of this symlinkJoin derivation).
-            # Replace it with a copy whose dynamic-library-dirs points to
-            # $dynamicLinksDir
-            cp $f $f-tmp
-            rm $f
-            sed "N;s,dynamic-library-dirs:\s*.*,dynamic-library-dirs: $dynamicLinksDir," $f-tmp > $f
-            rm $f-tmp
-          done
-        ''
-      )
+      + (lib.optionalString (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS) ''
+        # Work around a linker limit in macOS Sierra (see generic-builder.nix):
+        local packageConfDir="${packageCfgDir}";
+        local dynamicLinksDir="$out/lib/links"
+        mkdir -p $dynamicLinksDir
+        # Clean up the old links that may have been (transitively) included by
+        # symlinkJoin:
+        rm -f $dynamicLinksDir/*
+        for d in $(grep -Poz "dynamic-library-dirs:\s*\K .+\n" $packageConfDir/*|awk '{print $2}'|sort -u); do
+          ln -s $d/*.dylib $dynamicLinksDir
+        done
+        for f in $packageConfDir/*.conf; do
+          # Initially, $f is a symlink to a read-only file in one of the inputs
+          # (as a result of this symlinkJoin derivation).
+          # Replace it with a copy whose dynamic-library-dirs points to
+          # $dynamicLinksDir
+          cp $f $f-tmp
+          rm $f
+          sed "N;s,dynamic-library-dirs:\s*.*,dynamic-library-dirs: $dynamicLinksDir," $f-tmp > $f
+          rm $f-tmp
+        done
+      '')
       + ''
         ${lib.optionalString hasLibraries ''
           # GHC 8.10 changes.

@@ -167,9 +167,7 @@ let
           "syslog"
         ];
 
-      knownFeatures =
-        builtins.attrNames featureDependencies
-        ++ builtins.attrNames nativeFeatureDependencies;
+      knownFeatures = builtins.attrNames featureDependencies ++ builtins.attrNames nativeFeatureDependencies;
       platformFeatures = lib.subtractLists platformMask knownFeatures;
 
       features_ =
@@ -187,9 +185,7 @@ let
             in
             if (unsupported != [ ]) then
               throw
-                "Feature(s) ${
-                  lib.concatStringsSep " " unsupported
-                } are not supported on ${stdenv.hostPlatform.system}"
+                "Feature(s) ${lib.concatStringsSep " " unsupported} are not supported on ${stdenv.hostPlatform.system}"
             else
               features;
     in
@@ -230,8 +226,7 @@ let
       depsBuildBuild = [ buildPackages.stdenv.cc ];
 
       postPatch =
-        lib.optionalString
-          (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0")
+        lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "12.0")
           ''
             substituteInPlace src/output/plugins/OSXOutputPlugin.cxx \
               --replace kAudioObjectPropertyElement{Main,Master} \
@@ -252,9 +247,7 @@ let
         "doc"
       ] ++ lib.optional (builtins.elem "documentation" features_) "man";
 
-      CXXFLAGS = lib.optionals stdenv.isDarwin [
-        "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0"
-      ];
+      CXXFLAGS = lib.optionals stdenv.isDarwin [ "-D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=0" ];
 
       mesonFlags =
         [

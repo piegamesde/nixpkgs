@@ -66,9 +66,7 @@ in
       enableAuth = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Enable client authentication. Creates a default superuser with username root!";
+        description = lib.mdDoc "Enable client authentication. Creates a default superuser with username root!";
       };
 
       initialRootPassword = mkOption {
@@ -172,9 +170,7 @@ in
         + lib.optionalString cfg.enableAuth ''
 
           if ! test -e "${cfg.dbpath}/.auth_setup_complete"; then
-            systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${
-              mongoCnf cfg_
-            }
+            systemd-run --unit=mongodb-for-setup --uid=${cfg.user} ${mongodb}/bin/mongod --config ${mongoCnf cfg_}
             # wait for mongodb
             while ! ${mongodb}/bin/mongo --eval "db.version()" > /dev/null 2>&1; do sleep 0.1; done
 

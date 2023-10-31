@@ -14,8 +14,7 @@ with lib;
 let
   cfg = config.networking.nat;
 
-  mkDest =
-    externalIP: if externalIP == null then "-j MASQUERADE" else "-j SNAT --to-source ${externalIP}";
+  mkDest = externalIP: if externalIP == null then "-j MASQUERADE" else "-j SNAT --to-source ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -66,9 +65,7 @@ let
       ${concatMapStrings
         (range: ''
           ${iptables} -w -t nat -A nixos-nat-post \
-            -s '${range}' ${
-              optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"
-            } ${dest}
+            -s '${range}' ${optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"} ${dest}
         '')
         internalIPs}
 

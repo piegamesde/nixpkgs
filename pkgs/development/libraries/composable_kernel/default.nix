@@ -23,9 +23,7 @@ let
       pname = "composable_kernel";
       version = "unstable-2023-01-16";
 
-      outputs = [
-        "out"
-      ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildExamples [ "example" ];
+      outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildExamples [ "example" ];
 
       # ROCm 5.6 should release composable_kernel as stable with a tag in the future
       src = fetchFromGitHub {

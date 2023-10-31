@@ -48,9 +48,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (haveLibc && stdenv.hostPlatform.isGnu) [
       "-DSANITIZER_COMMON_CFLAGS=-I${libxcrypt}/include"
     ]
-    ++ lib.optionals (useLLVM || bareMetal || isMusl || isAarch64) [
-      "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF"
-    ]
+    ++ lib.optionals (useLLVM || bareMetal || isMusl || isAarch64) [ "-DCOMPILER_RT_BUILD_LIBFUZZER=OFF" ]
     ++ lib.optionals (useLLVM || bareMetal || isMusl) [
       "-DCOMPILER_RT_BUILD_SANITIZERS=OFF"
       "-DCOMPILER_RT_BUILD_XRAY=OFF"

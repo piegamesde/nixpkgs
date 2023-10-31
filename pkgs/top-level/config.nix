@@ -50,9 +50,7 @@ let
 
     strictDepsByDefault = mkMassRebuild { feature = "set `strictDeps` to true by default"; };
 
-    structuredAttrsByDefault = mkMassRebuild {
-      feature = "set `__structuredAttrs` to true by default";
-    };
+    structuredAttrsByDefault = mkMassRebuild { feature = "set `__structuredAttrs` to true by default"; };
 
     enableParallelBuildingByDefault = mkMassRebuild {
       feature = "set `enableParallelBuilding` to true by default";
@@ -62,9 +60,7 @@ let
       feature = ''set `configurePlatforms` to `["build" "host"]` by default'';
     };
 
-    contentAddressedByDefault = mkMassRebuild {
-      feature = "set `__contentAddressed` to true by default";
-    };
+    contentAddressedByDefault = mkMassRebuild { feature = "set `__contentAddressed` to true by default"; };
 
     allowAliases = mkOption {
       type = types.bool;
@@ -112,9 +108,7 @@ let
       type = types.bool;
       default = false;
       # getEnv part is in check-meta.nix
-      defaultText =
-        literalExpression
-          ''false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"'';
+      defaultText = literalExpression ''false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"'';
       description = lib.mdDoc ''
         Whether to allow unsupported packages.
 

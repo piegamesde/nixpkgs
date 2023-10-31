@@ -28,8 +28,7 @@ let
   };
 
   # Convert a "stdenv.hostPlatform.system" to a dotnet RID
-  systemToDotnetRid =
-    system: runtimeIdentifierMap.${system} or (throw "unsupported platform ${system}");
+  systemToDotnetRid = system: runtimeIdentifierMap.${system} or (throw "unsupported platform ${system}");
 in
 rec {
   inherit systemToDotnetRid;

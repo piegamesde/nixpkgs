@@ -181,9 +181,7 @@ stdenvNoCC.mkDerivation (
       dotnet-sdk
     ];
 
-    makeWrapperArgs = args.makeWrapperArgs or [ ] ++ [
-      "--prefix LD_LIBRARY_PATH : ${dotnet-sdk.icu}/lib"
-    ];
+    makeWrapperArgs = args.makeWrapperArgs or [ ] ++ [ "--prefix LD_LIBRARY_PATH : ${dotnet-sdk.icu}/lib" ];
 
     # Stripping breaks the executable
     dontStrip = args.dontStrip or true;

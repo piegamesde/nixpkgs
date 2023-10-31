@@ -40,8 +40,7 @@ self: super: {
   stm = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -196,8 +195,7 @@ self: super: {
 
   # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
   hiedb =
-    overrideCabal
-      (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; })
+    overrideCabal (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; })
       super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206

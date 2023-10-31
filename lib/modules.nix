@@ -222,9 +222,7 @@ rec {
             type = types.bool;
             internal = true;
             default = true;
-            description =
-              lib.mdDoc
-                "Whether to check whether all option definitions have matching declarations.";
+            description = lib.mdDoc "Whether to check whether all option definitions have matching declarations.";
           };
 
           _module.freeformType = mkOption {
@@ -318,9 +316,7 @@ rec {
                   builtins.addErrorContext
                     "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
                     (
-                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (
-                        showDefs [ firstDef ]
-                      )
+                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [ firstDef ])
                     );
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
@@ -402,9 +398,7 @@ rec {
               showDefs defs
             }"
         else
-          unifyModuleSyntax (toString m) (toString m) (
-            applyModuleArgsIfFunction (toString m) (import m) args
-          );
+          unifyModuleSyntax (toString m) (toString m) (applyModuleArgsIfFunction (toString m) (import m) args);
 
       /* Collects all modules recursively into the form
 
@@ -904,9 +898,7 @@ rec {
           || (bothHave "type" && (!typesMergeable))
         then
           throw
-            "The option `${showOption loc}' in `${opt._file}' is already declared in ${
-              showFiles res.declarations
-            }."
+            "The option `${showOption loc}' in `${opt._file}' is already declared in ${showFiles res.declarations}."
         else
           let
             getSubModules = opt.options.type.getSubModules or null;
@@ -951,9 +943,7 @@ rec {
           let
             # For a better error message, evaluate all readOnly definitions as
             # if they were the only definition.
-            separateDefs =
-              map (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; })
-                defs';
+            separateDefs = map (def: def // { value = (mergeDefinitions loc opt.type [ def ]).mergedValue; }) defs';
           in
           throw
             "The option `${showOption loc}' is read-only, but it's set multiple times. Definition values:${
@@ -998,11 +988,7 @@ rec {
                   inherit (m) file;
                   inherit value;
                 })
-                (
-                  builtins.addErrorContext "while evaluating definitions from `${m.file}':" (
-                    dischargeProperties m.value
-                  )
-                )
+                (builtins.addErrorContext "while evaluating definitions from `${m.file}':" (dischargeProperties m.value))
             )
             defs;
 
@@ -1033,9 +1019,9 @@ rec {
             allInvalid = filter (def: !type.check def.value) defsFinal;
           in
           throw
-            "A definition for option `${
-              showOption loc
-            }' is not of type `${type.description}'. Definition values:${showDefs allInvalid}"
+            "A definition for option `${showOption loc}' is not of type `${type.description}'. Definition values:${
+              showDefs allInvalid
+            }"
       else
         # (nixos-option detects this specific error message and gives it special
         # handling.  If changed here, please change it there too.)
@@ -1121,8 +1107,7 @@ rec {
       getPrio =
         def: if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
-      strip =
-        def: if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
+      strip = def: if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
     in
     {
       values = concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ]) defs;
@@ -1423,9 +1408,7 @@ rec {
           );
         }
         // setAttrByPath to (
-          mkMerge (
-            optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (mergeFn config)
-          )
+          mkMerge (optional (any (f: (getAttrFromPath f config) != "_mkMergedOptionModule") from) (mergeFn config))
         );
     };
 

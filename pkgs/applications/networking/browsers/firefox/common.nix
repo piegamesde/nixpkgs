@@ -116,8 +116,7 @@
   # WARNING: NEVER set any of the options below to `true` by default.
   # Set to `!privacySupport` or `false`.
 
-  crashreporterSupport ?
-    !privacySupport && !stdenv.hostPlatform.isRiscV && !stdenv.hostPlatform.isMusl,
+  crashreporterSupport ? !privacySupport && !stdenv.hostPlatform.isRiscV && !stdenv.hostPlatform.isMusl,
   curl,
   geolocationSupport ? !privacySupport,
   googleAPISupport ? geolocationSupport,

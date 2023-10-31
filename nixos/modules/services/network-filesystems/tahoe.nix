@@ -248,9 +248,7 @@ in
             # arguments to $(tahoe run). The node directory must come first,
             # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
-              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${
-                lib.escapeShellArg pidfile
-              }
+              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${lib.escapeShellArg pidfile}
             '';
           };
           preStart = ''
@@ -299,8 +297,7 @@ in
               web.port = tcp:${toString settings.web.port}
 
               [client]
-              ${optionalString (settings.client.introducer != null)
-                "introducer.furl = ${settings.client.introducer}"}
+              ${optionalString (settings.client.introducer != null) "introducer.furl = ${settings.client.introducer}"}
               ${optionalString (settings.client.helper != null) "helper.furl = ${settings.client.helper}"}
 
               shares.needed = ${toString settings.client.shares.needed}
@@ -323,8 +320,7 @@ in
                 "host_privkey_file = ${settings.sftpd.hostPrivateKeyFile}"}
               ${optionalString (settings.sftpd.accounts.file != null)
                 "accounts.file = ${settings.sftpd.accounts.file}"}
-              ${optionalString (settings.sftpd.accounts.url != null)
-                "accounts.url = ${settings.sftpd.accounts.url}"}
+              ${optionalString (settings.sftpd.accounts.url != null) "accounts.url = ${settings.sftpd.accounts.url}"}
             '';
           }
         );
@@ -354,9 +350,7 @@ in
             # arguments to $(tahoe run). The node directory must come first,
             # and arguments which alter Twisted's behavior come afterwards.
             ExecStart = ''
-              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${
-                lib.escapeShellArg pidfile
-              }
+              ${settings.package}/bin/tahoe run ${lib.escapeShellArg nodedir} --pidfile=${lib.escapeShellArg pidfile}
             '';
           };
           preStart = ''

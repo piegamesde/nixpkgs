@@ -208,9 +208,7 @@ let
   };
 
   kodi_platforms =
-    lib.optional gbmSupport "gbm"
-    ++ lib.optional waylandSupport "wayland"
-    ++ lib.optional x11Support "x11";
+    lib.optional gbmSupport "gbm" ++ lib.optional waylandSupport "wayland" ++ lib.optional x11Support "x11";
 in
 stdenv.mkDerivation {
   pname = "kodi";

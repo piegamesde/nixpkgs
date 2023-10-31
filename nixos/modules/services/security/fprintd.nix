@@ -21,9 +21,7 @@ in
 
     services.fprintd = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "fprintd daemon and PAM module for fingerprint readers handling"
-      );
+      enable = mkEnableOption (lib.mdDoc "fprintd daemon and PAM module for fingerprint readers handling");
 
       package = mkOption {
         type = types.package;

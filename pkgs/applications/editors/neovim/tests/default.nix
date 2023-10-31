@@ -52,8 +52,7 @@ let
 
   nvimAutoDisableWrap = makeNeovimConfig { };
 
-  wrapNeovim2 =
-    suffix: config: wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; });
+  wrapNeovim2 = suffix: config: wrapNeovimUnstable neovim-unwrapped (config // { extraName = suffix; });
 
   nmt = fetchFromGitLab {
     owner = "rycee";
@@ -259,9 +258,7 @@ pkgs.recurseIntoAttrs (rec {
     extraName = "-with-opt-plugin";
     configure.packages.opt-plugins = with pkgs.vimPlugins; {
       opt = [
-        (dashboard-nvim.overrideAttrs (
-          old: { pname = old.pname + "-unique-for-tests-please-dont-use-opt"; }
-        ))
+        (dashboard-nvim.overrideAttrs (old: { pname = old.pname + "-unique-for-tests-please-dont-use-opt"; }))
       ];
     };
     configure.customRC = ''

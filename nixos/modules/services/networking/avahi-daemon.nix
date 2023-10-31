@@ -25,8 +25,7 @@ let
       browse-domains=${concatStringsSep ", " browseDomains}
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}
-      ${optionalString (allowInterfaces != null)
-        "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
+      ${optionalString (allowInterfaces != null) "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
       ${optionalString (denyInterfaces != null) "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
@@ -235,9 +234,7 @@ in
       domain = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to announce the locally used domain name for browsing by other hosts.";
+        description = lib.mdDoc "Whether to announce the locally used domain name for browsing by other hosts.";
       };
     };
 
@@ -293,9 +290,7 @@ in
       (mapAttrs'
         (
           n: v:
-          nameValuePair "avahi/services/${n}.service" {
-            ${if types.path.check v then "source" else "text"} = v;
-          }
+          nameValuePair "avahi/services/${n}.service" { ${if types.path.check v then "source" else "text"} = v; }
         )
         cfg.extraServiceFiles
       );

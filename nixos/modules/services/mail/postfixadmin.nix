@@ -72,9 +72,7 @@ in
       };
       passwordFile = mkOption {
         type = types.path;
-        description =
-          lib.mdDoc
-            "Password file for the postgresql connection. Must be readable by user `nginx`.";
+        description = lib.mdDoc "Password file for the postgresql connection. Must be readable by user `nginx`.";
       };
       dbname = mkOption {
         type = types.str;

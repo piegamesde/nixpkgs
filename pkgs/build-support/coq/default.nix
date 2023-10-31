@@ -175,8 +175,7 @@ stdenv.mkDerivation (
             ++ (args.nativeBuildInputs or [ ])
             ++ extraNativeBuildInputs
           );
-        buildInputs =
-          args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
+        buildInputs = args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
         inherit enableParallelBuilding;
 
         meta =

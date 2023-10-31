@@ -138,9 +138,7 @@ let
 
     inputstream-adaptive = callPackage ../applications/video/kodi/addons/inputstream-adaptive { };
 
-    inputstream-ffmpegdirect =
-      callPackage ../applications/video/kodi/addons/inputstream-ffmpegdirect
-        { };
+    inputstream-ffmpegdirect = callPackage ../applications/video/kodi/addons/inputstream-ffmpegdirect { };
 
     inputstream-rtmp = callPackage ../applications/video/kodi/addons/inputstream-rtmp { };
 

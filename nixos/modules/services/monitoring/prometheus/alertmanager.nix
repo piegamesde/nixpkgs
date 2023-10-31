@@ -20,8 +20,7 @@ let
 
   alertmanagerYml =
     let
-      yml =
-        if cfg.configText != null then pkgs.writeText "alertmanager.yml" cfg.configText else mkConfigFile;
+      yml = if cfg.configText != null then pkgs.writeText "alertmanager.yml" cfg.configText else mkConfigFile;
     in
     checkedConfig yml;
 

@@ -106,9 +106,7 @@ stdenv.mkDerivation rec {
             CryptOpenSSLBignum
           ]
         )
-        +
-          lib.optionalString (builtins.length runtimeDeps > 0)
-            " --prefix PATH : ${lib.makeBinPath runtimeDeps}";
+        + lib.optionalString (builtins.length runtimeDeps > 0) " --prefix PATH : ${lib.makeBinPath runtimeDeps}";
       wrapMonkeysphere = runtimeDeps: program: ''
         wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
       '';

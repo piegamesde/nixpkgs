@@ -271,9 +271,7 @@ in
         fi
       '';
 
-      boot.initrd.secrets = listToAttrs (
-        map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys
-      );
+      boot.initrd.secrets = listToAttrs (map (path: nameValuePair (initrdKeyPath path) path) cfg.hostKeys);
 
       # Systemd initrd stuff
       boot.initrd.systemd = mkIf config.boot.initrd.systemd.enable {

@@ -58,9 +58,7 @@ let
     saslauth = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Authentication for clients and servers. Recommended if you want to log in.";
+      description = lib.mdDoc "Authentication for clients and servers. Recommended if you want to log in.";
     };
 
     tls = mkOption {
@@ -170,9 +168,7 @@ let
     register = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allow users to register on this server using a client and change passwords";
+      description = lib.mdDoc "Allow users to register on this server using a client and change passwords";
     };
 
     mam = mkOption {
@@ -293,9 +289,7 @@ let
       cafile = "/etc/ssl/certs/ca-bundle.crt";
       key = "${o.key}";
       certificate = "${o.cert}";
-      ${
-        concatStringsSep "\n" (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)
-      }
+      ${concatStringsSep "\n" (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)}
     };
   '';
 
@@ -309,9 +303,7 @@ let
         };
         name = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "The name to return in service discovery responses for the MUC service itself";
+          description = lib.mdDoc "The name to return in service discovery responses for the MUC service itself";
           default = "Prosody Chatrooms";
         };
         restrictRoomCreation = mkOption {

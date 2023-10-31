@@ -191,9 +191,7 @@ stdenv.mkDerivation rec {
       (enableFeature coefficientRangeCheckingSupport "coefficient-range-checking")
       (enableFeature (vp9HighbitdepthSupport && is64bit) "vp9-highbitdepth")
       (enableFeature
-        (
-          experimentalSpatialSvcSupport || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport
-        )
+        (experimentalSpatialSvcSupport || experimentalFpMbStatsSupport || experimentalEmulateHardwareSupport)
         "experimental"
       )
     ]

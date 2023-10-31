@@ -62,9 +62,7 @@ let
   ];
 
   xmodules = lib.concatStringsSep "," (
-    map (x: "${x.out or x}/lib/xorg/modules") (
-      [ xorgserver ] ++ lib.optional (!useNvidia) xf86videonouveau
-    )
+    map (x: "${x.out or x}/lib/xorg/modules") ([ xorgserver ] ++ lib.optional (!useNvidia) xf86videonouveau)
   );
 
   modprobePatch = fetchpatch {

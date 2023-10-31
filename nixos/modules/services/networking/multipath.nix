@@ -210,9 +210,7 @@ in
             failback = mkOption {
               type = nullOr str;
               default = null; # real default: "manual"
-              description =
-                lib.mdDoc
-                  "Tell multipathd how to manage path group failback. Quote integers as strings";
+              description = lib.mdDoc "Tell multipathd how to manage path group failback. Quote integers as strings";
             };
 
             rr_weight = mkOption {
@@ -449,9 +447,7 @@ in
                 ]
               );
               default = null; # real default: "no"
-              description =
-                lib.mdDoc
-                  "If set to yes, kpartx will not automatically create partitions on the device";
+              description = lib.mdDoc "If set to yes, kpartx will not automatically create partitions on the device";
             };
 
             max_sectors_kb = mkOption {

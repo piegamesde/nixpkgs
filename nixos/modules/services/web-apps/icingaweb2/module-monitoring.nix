@@ -58,9 +58,7 @@ in
       mutable = mkOption {
         type = bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Make config.ini of the monitoring module mutable (e.g. via the web interface).";
+        description = lib.mdDoc "Make config.ini of the monitoring module mutable (e.g. via the web interface).";
       };
 
       protectedVars = mkOption {

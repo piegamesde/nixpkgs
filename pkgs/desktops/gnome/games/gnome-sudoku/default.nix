@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-sudoku/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-sudoku/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "ZRjZIzpG1+E4Bax4dme6RwGUjZ7UGke4h5f826Q7j7o=";
   };
 

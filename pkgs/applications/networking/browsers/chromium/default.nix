@@ -108,10 +108,7 @@ let
   };
 
   pkgSuffix =
-    if channel == "dev" then
-      "unstable"
-    else
-      (if channel == "ungoogled-chromium" then "stable" else channel);
+    if channel == "dev" then "unstable" else (if channel == "ungoogled-chromium" then "stable" else channel);
   pkgName = "google-chrome-${pkgSuffix}";
   chromeSrc =
     let

@@ -112,9 +112,7 @@ in
           ''
         else
           ''
-            echo Binary ${
-              bin.name or crateName
-            } not compiled due to not having all of the required features -- ${
+            echo Binary ${bin.name or crateName} not compiled due to not having all of the required features -- ${
               lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)
             } -- enabled.
           ''

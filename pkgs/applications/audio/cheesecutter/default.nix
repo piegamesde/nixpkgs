@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:0q4a791nayya6n01l0f4kk497rdq6kiq0n72fqdpwqy138pfwydn";
   };
 
-  patches =
-    [ ./0001-Drop-baked-in-build-date-for-r13y.patch ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
+  patches = [
+    ./0001-Drop-baked-in-build-date-for-r13y.patch
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin ./0002-Prepend-libSDL.dylib-to-macOS-SDL-loader.patch;
 
   nativeBuildInputs = [
     acme

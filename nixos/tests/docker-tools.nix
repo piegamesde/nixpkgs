@@ -12,31 +12,29 @@ import ./make-test-python.nix (
         # Rootfs diffs for layers 1 and 2 are identical (and empty)
         layer1 = pkgs.dockerTools.buildImage { name = "empty"; };
         layer2 = layer1.overrideAttrs (_: { fromImage = layer1; });
-        repeatedRootfsDiffs =
-          pkgs.runCommandNoCC "image-with-links.tar" { nativeBuildInputs = [ pkgs.jq ]; }
-            ''
-              mkdir contents
-              tar -xf "${layer2}" -C contents
-              cd contents
-              first_rootfs=$(jq -r '.[0].Layers[0]' manifest.json)
-              second_rootfs=$(jq -r '.[0].Layers[1]' manifest.json)
-              target_rootfs=$(sha256sum "$first_rootfs" | cut -d' ' -f 1).tar
+        repeatedRootfsDiffs = pkgs.runCommandNoCC "image-with-links.tar" { nativeBuildInputs = [ pkgs.jq ]; } ''
+          mkdir contents
+          tar -xf "${layer2}" -C contents
+          cd contents
+          first_rootfs=$(jq -r '.[0].Layers[0]' manifest.json)
+          second_rootfs=$(jq -r '.[0].Layers[1]' manifest.json)
+          target_rootfs=$(sha256sum "$first_rootfs" | cut -d' ' -f 1).tar
 
-              # Replace duplicated rootfs diffs with symlinks to one tarball
-              chmod -R ug+w .
-              mv "$first_rootfs" "$target_rootfs"
-              rm "$second_rootfs"
-              ln -s "../$target_rootfs" "$first_rootfs"
-              ln -s "../$target_rootfs" "$second_rootfs"
+          # Replace duplicated rootfs diffs with symlinks to one tarball
+          chmod -R ug+w .
+          mv "$first_rootfs" "$target_rootfs"
+          rm "$second_rootfs"
+          ln -s "../$target_rootfs" "$first_rootfs"
+          ln -s "../$target_rootfs" "$second_rootfs"
 
-              # Update manifest's layers to use the symlinks' target
-              cat manifest.json | \
-              jq ".[0].Layers[0] = \"$target_rootfs\"" |
-              jq ".[0].Layers[1] = \"$target_rootfs\"" > manifest.json.new
-              mv manifest.json.new manifest.json
+          # Update manifest's layers to use the symlinks' target
+          cat manifest.json | \
+          jq ".[0].Layers[0] = \"$target_rootfs\"" |
+          jq ".[0].Layers[1] = \"$target_rootfs\"" > manifest.json.new
+          mv manifest.json.new manifest.json
 
-              tar --sort=name --hard-dereference -cf $out .
-            '';
+          tar --sort=name --hard-dereference -cf $out .
+        '';
       in
       pkgs.dockerTools.buildImage {
         fromImage = repeatedRootfsDiffs;

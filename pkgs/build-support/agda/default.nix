@@ -51,8 +51,7 @@ let
         ln -s ${Agda}/bin/agda-mode $out/bin/agda-mode
       ''; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
-  withPackages =
-    arg: if builtins.isAttrs arg then withPackages' arg else withPackages' { pkgs = arg; };
+  withPackages = arg: if builtins.isAttrs arg then withPackages' arg else withPackages' { pkgs = arg; };
 
   extensions = [
     "agda"

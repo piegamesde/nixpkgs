@@ -49,14 +49,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  buildInputs =
-    [
-      libjpeg
-      zlib
-    ]
-    ++ lib.optional javaSupport jdk
-    ++ lib.optional szipSupport szip
-    ++ lib.optional uselibtirpc libtirpc;
+  buildInputs = [
+    libjpeg
+    zlib
+  ] ++ lib.optional javaSupport jdk ++ lib.optional szipSupport szip ++ lib.optional uselibtirpc libtirpc;
 
   preConfigure =
     lib.optionalString uselibtirpc ''

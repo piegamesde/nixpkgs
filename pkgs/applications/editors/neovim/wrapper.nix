@@ -54,8 +54,7 @@ let
           # (lib.intersperse "|" hostProviderViml)
         ]
         ++
-          lib.optionals
-            (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
+          lib.optionals (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
             [
               "--add-flags"
               ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''

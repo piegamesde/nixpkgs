@@ -11,8 +11,7 @@ let
   opt = options.services.mastodon;
 
   # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally =
-    cfg.database.createLocally && cfg.database.host == "/run/postgresql";
+  databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == "/run/postgresql";
 
   env =
     {
@@ -116,8 +115,7 @@ let
   envFile = pkgs.writeText "mastodon.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
-          env
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env
       ))
     )
   );
@@ -954,13 +952,11 @@ in
           enable = true;
           hostname = lib.mkDefault "${cfg.localDomain}";
         };
-        services.redis.servers.mastodon =
-          lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1")
-            {
-              enable = true;
-              port = cfg.redis.port;
-              bind = "127.0.0.1";
-            };
+        services.redis.servers.mastodon = lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1") {
+          enable = true;
+          port = cfg.redis.port;
+          bind = "127.0.0.1";
+        };
         services.postgresql = lib.mkIf databaseActuallyCreateLocally {
           enable = true;
           ensureUsers = [

@@ -16,9 +16,7 @@ let
   };
   javaPlatformVersion =
     javaVersion:
-    "${javaVersion}-${
-      javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")
-    }";
+    "${javaVersion}-${javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")}";
   source =
     product: javaVersion:
     (import ./hashes.nix).${product}.${javaPlatformVersion javaVersion} or (throw

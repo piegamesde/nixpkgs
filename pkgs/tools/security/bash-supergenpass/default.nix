@@ -33,9 +33,7 @@ stdenv.mkDerivation {
     }"
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/lanzz/bash-supergenpass.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://github.com/lanzz/bash-supergenpass.git"; };
 
   meta = with lib; {
     description = "Bash shell-script implementation of SuperGenPass password generation";

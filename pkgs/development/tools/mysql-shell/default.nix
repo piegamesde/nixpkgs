@@ -131,9 +131,7 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/mysqlsh --set PYTHONPATH "${
-      lib.makeSearchPath python3.sitePackages pythonDeps
-    }"
+    wrapProgram $out/bin/mysqlsh --set PYTHONPATH "${lib.makeSearchPath python3.sitePackages pythonDeps}"
   '';
 
   meta = with lib; {

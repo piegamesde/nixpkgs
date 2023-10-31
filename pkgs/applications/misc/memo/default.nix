@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      pandocReplacement =
-        if pandocSupport then "pandoc_cmd=${pandoc}/bin/pandoc" else "#pandoc_cmd=pandoc";
+      pandocReplacement = if pandocSupport then "pandoc_cmd=${pandoc}/bin/pandoc" else "#pandoc_cmd=pandoc";
     in
     ''
       mkdir -p $out/{bin,share/man/man1,share/bash-completion/completions,share/zsh/site-functions}

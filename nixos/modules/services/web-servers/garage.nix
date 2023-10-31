@@ -57,9 +57,7 @@ in
           data_dir = mkOption {
             default = "/var/lib/garage/data";
             type = types.path;
-            description =
-              lib.mdDoc
-                "The main data storage, put this on your large storage (e.g. high capacity HDD)";
+            description = lib.mdDoc "The main data storage, put this on your large storage (e.g. high capacity HDD)";
           };
 
           replication_mode = mkOption {
@@ -87,8 +85,7 @@ in
 
     package = mkOption {
       # TODO: when 23.05 is released and if Garage 0.9 is the default, put a stateVersion check.
-      default =
-        if versionAtLeast config.system.stateVersion "23.05" then pkgs.garage_0_8 else pkgs.garage_0_7;
+      default = if versionAtLeast config.system.stateVersion "23.05" then pkgs.garage_0_8 else pkgs.garage_0_7;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
       description =

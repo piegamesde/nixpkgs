@@ -41,8 +41,7 @@ let
         }"'';
   attrsToText =
     attrs:
-    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
-    + "\n";
+    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs) + "\n";
 
   osReleaseContents = {
     NAME = "${cfg.distroName}";
@@ -56,9 +55,7 @@ let
     HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
     DOCUMENTATION_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/learn.html";
     SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/community.html";
-    BUG_REPORT_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://github.com/NixOS/nixpkgs/issues";
+    BUG_REPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://github.com/NixOS/nixpkgs/issues";
   } // lib.optionalAttrs (cfg.variant_id != null) { VARIANT_ID = cfg.variant_id; };
 
   initrdReleaseContents = osReleaseContents // {

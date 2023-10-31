@@ -30,9 +30,7 @@ in
       luaModules = mkOption {
         default = [ ];
         type = types.listOf types.package;
-        description =
-          lib.mdDoc
-            "List of lua packages available for being used in the Awesome configuration.";
+        description = lib.mdDoc "List of lua packages available for being used in the Awesome configuration.";
         example = literalExpression "[ pkgs.luaPackages.vicious ]";
       };
 
@@ -60,9 +58,7 @@ in
     services.xserver.windowManager.session = singleton {
       name = "awesome";
       start = ''
-        ${awesome}/bin/awesome ${lib.optionalString cfg.noArgb "--no-argb"} ${
-          makeSearchPath cfg.luaModules
-        } &
+        ${awesome}/bin/awesome ${lib.optionalString cfg.noArgb "--no-argb"} ${makeSearchPath cfg.luaModules} &
         waitPID=$!
       '';
     };

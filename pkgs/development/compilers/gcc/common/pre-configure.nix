@@ -18,9 +18,7 @@ assert langAda -> gnat-bootstrap != null;
 let
   needsLib =
     (lib.versionOlder version "7" && (langJava || langGo))
-    || (
-      lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin
-    );
+    || (lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin);
 in
 lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export NIX_LDFLAGS=`echo $NIX_LDFLAGS | sed -e s~$prefix/lib~$prefix/lib/amd64~g`
@@ -106,11 +104,9 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # HACK: if host and target config are the same, but the platforms are
 # actually different we need to convince the configure script that it
 # is in fact building a cross compiler although it doesn't believe it.
-+
-  lib.optionalString (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform)
-    ''
-      substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
-    ''
++ lib.optionalString (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform) ''
+  substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
+''
 
 # Normally (for host != target case) --without-headers automatically
 # enables 'inhibit_libc=true' in gcc's gcc/configure.ac. But case of

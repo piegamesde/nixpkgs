@@ -2,18 +2,16 @@ import ../make-test-python.nix (
   { pkgs, lib, ... }:
 
   let
-    testOnlySSHCredentials =
-      pkgs.runCommand "pam-ussh-test-ca" { nativeBuildInputs = [ pkgs.openssh ]; }
-        ''
-          mkdir $out
-          ssh-keygen -t ed25519 -N "" -f $out/ca
+    testOnlySSHCredentials = pkgs.runCommand "pam-ussh-test-ca" { nativeBuildInputs = [ pkgs.openssh ]; } ''
+      mkdir $out
+      ssh-keygen -t ed25519 -N "" -f $out/ca
 
-          ssh-keygen -t ed25519 -N "" -f $out/alice
-          ssh-keygen -s $out/ca -I "alice user key" -n "alice,root" -V 19700101:forever $out/alice.pub
+      ssh-keygen -t ed25519 -N "" -f $out/alice
+      ssh-keygen -s $out/ca -I "alice user key" -n "alice,root" -V 19700101:forever $out/alice.pub
 
-          ssh-keygen -t ed25519 -N "" -f $out/bob
-          ssh-keygen -s $out/ca -I "bob user key" -n "bob" -V 19700101:forever $out/bob.pub
-        '';
+      ssh-keygen -t ed25519 -N "" -f $out/bob
+      ssh-keygen -s $out/ca -I "bob user key" -n "bob" -V 19700101:forever $out/bob.pub
+    '';
     makeTestScript =
       user:
       pkgs.writeShellScript "pam-ussh-${user}-test-script" ''

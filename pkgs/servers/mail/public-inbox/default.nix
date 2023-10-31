@@ -77,8 +77,7 @@ let
     "spawn"
   ];
 
-  testConditions =
-    with lib; concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
+  testConditions = with lib; concatMapStringsSep " " (n: "! -name ${escapeShellArg n}.t") skippedTests;
 in
 
 buildPerlPackage rec {

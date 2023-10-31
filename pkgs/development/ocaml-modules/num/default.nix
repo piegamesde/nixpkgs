@@ -43,9 +43,6 @@ stdenv.mkDerivation (
     };
   }
   // (
-    if lib.versions.majorMinor ocaml.version == "4.06" then
-      { env.NIX_CFLAGS_COMPILE = "-fcommon"; }
-    else
-      { }
+    if lib.versions.majorMinor ocaml.version == "4.06" then { env.NIX_CFLAGS_COMPILE = "-fcommon"; } else { }
   )
 )

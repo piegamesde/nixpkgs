@@ -21,9 +21,7 @@ let
     ''
       ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
         bind ${concatStringsSep " " hostOpts.listenAddresses}
-        ${
-          optionalString (hostOpts.useACMEHost != null) "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
-        }
+        ${optionalString (hostOpts.useACMEHost != null) "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"}
         log {
           ${hostOpts.logFormat}
         }
@@ -41,13 +39,11 @@ let
         ${cfg.extraConfig}
       '';
 
-      Caddyfile-formatted =
-        pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; }
-          ''
-            mkdir -p $out
-            cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
-            caddy fmt --overwrite $out/Caddyfile
-          '';
+      Caddyfile-formatted = pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; } ''
+        mkdir -p $out
+        cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
+        caddy fmt --overwrite $out/Caddyfile
+      '';
     in
     "${
       if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile

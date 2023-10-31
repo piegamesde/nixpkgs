@@ -130,9 +130,7 @@ let
                   // optionalAttrs (route.via != null) { Gateway = route.via; }
                   // optionalAttrs (route.type != null) { Type = route.type; }
                   // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
-                  // optionalAttrs (route.options ? initrwnd) {
-                    InitialAdvertisedReceiveWindow = route.options.initrwnd;
-                  }
+                  // optionalAttrs (route.options ? initrwnd) { InitialAdvertisedReceiveWindow = route.options.initrwnd; }
                   // optionalAttrs (route.options ? initcwnd) { InitialCongestionWindow = route.options.initcwnd; }
                   // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
                   // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
@@ -143,9 +141,7 @@ let
                   // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
                   // optionalAttrs (route.options ? from) { Source = route.options.from; }
                   // optionalAttrs (route.options ? table) { Table = route.options.table; }
-                  // optionalAttrs (route.options ? advmss) {
-                    TCPAdvertisedMaximumSegmentSize = route.options.advmss;
-                  }
+                  // optionalAttrs (route.options ? advmss) { TCPAdvertisedMaximumSegmentSize = route.options.advmss; }
                   // optionalAttrs (route.options ? ttl-propagate) {
                     TTLPropagate = route.options.ttl-propagate == "enabled";
                   };
@@ -472,9 +468,7 @@ in
             n: v:
             nameValuePair "${n}-netdev" (
               let
-                deps = map subsystemDevice (
-                  attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)
-                );
+                deps = map subsystemDevice (attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces));
                 ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
               in
               {

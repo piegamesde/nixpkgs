@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
       if lib.versionAtLeast luaversion "5.2" then "SYSCFLAGS" else "MYCFLAGS"
     })' )
     makeFlagsArray+=(${lib.optionalString stdenv.isDarwin ''CC="$CC"''}${
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-        " 'AR=${stdenv.cc.targetPrefix}ar rcu'"
+      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) " 'AR=${stdenv.cc.targetPrefix}ar rcu'"
     })
 
     installFlagsArray=( TO_BIN="lua luac" INSTALL_DATA='cp -d' \
@@ -126,10 +125,7 @@ stdenv.mkDerivation rec {
         if stdenv.isDarwin then
           "liblua.${version}.dylib"
         else
-          (
-            "liblua.a"
-            + lib.optionalString (!staticOnly) " liblua.so liblua.so.${luaversion} liblua.so.${version}"
-          )
+          ("liblua.a" + lib.optionalString (!staticOnly) " liblua.so liblua.so.${luaversion} liblua.so.${version}")
       }" )
 
     runHook postConfigure

@@ -89,18 +89,14 @@ let
 
       rawRequiredDeps = lib.filterAttrs (_: v: !(v.optional or false)) rawDeps;
 
-      desiredExtrasDeps = lib.unique (
-        lib.concatMap (extra: pyProject.tool.poetry.extras.${extra}) extras
-      );
+      desiredExtrasDeps = lib.unique (lib.concatMap (extra: pyProject.tool.poetry.extras.${extra}) extras);
 
       allRawDeps =
         if extras == [ "*" ] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
       checkInputs' =
         getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
-        ++ lib.flatten (
-          map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })) checkGroups
-        );
+        ++ lib.flatten (map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })) checkGroups);
     in
     {
       buildInputs = mkInput "buildInputs" (if includeBuildSystem then buildSystemPkgs else [ ]);
@@ -457,17 +453,14 @@ lib.makeScope pkgs.newScope (
             // (
               # Poetry>=1.2.0
               if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { }
-                  groups
+                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { } groups
               else
                 { }
             )
             // editablePackageSources
           );
 
-        editablePackageSources' =
-          builtins.removeAttrs allEditablePackageSources
-            excludedEditablePackageNames;
+        editablePackageSources' = builtins.removeAttrs allEditablePackageSources excludedEditablePackageNames;
 
         poetryPython = self.mkPoetryPackages {
           inherit
@@ -488,9 +481,7 @@ lib.makeScope pkgs.newScope (
 
         # Don't add editable sources to the environment since they will sometimes fail to build and are not useful in the development env
         editableAttrs = lib.attrNames editablePackageSources';
-        envPkgs =
-          builtins.filter (drv: !lib.elem (drv.pname or drv.name or "") editableAttrs)
-            poetryPackages;
+        envPkgs = builtins.filter (drv: !lib.elem (drv.pname or drv.name or "") editableAttrs) poetryPackages;
       in
       poetryPython.python.withPackages (ps: envPkgs ++ (extraPackages ps));
 

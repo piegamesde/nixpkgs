@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
     install -Dm644 ../VGMPlay.ini $out/share/vgmplay/VGMPlay.ini
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/ValleyBell/vgmplay-libvgm.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://github.com/ValleyBell/vgmplay-libvgm.git"; };
 
   meta = with lib; {
     mainProgram = "vgmplay";

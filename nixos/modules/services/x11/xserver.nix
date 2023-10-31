@@ -161,8 +161,7 @@ let
         echo "$config" >> $out
       ''; # */
 
-  prefixStringLines =
-    prefix: str: concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
+  prefixStringLines = prefix: str: concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
 
   indent = prefixStringLines "  ";
 
@@ -304,9 +303,7 @@ in
             '''
           ]
         '';
-        description =
-          lib.mdDoc
-            "Content of additional InputClass sections of the X server configuration file.";
+        description = lib.mdDoc "Content of additional InputClass sections of the X server configuration file.";
       };
 
       modules = mkOption {
@@ -507,9 +504,7 @@ in
       extraConfig = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Additional contents (sections) included in the X server configuration file";
+        description = lib.mdDoc "Additional contents (sections) included in the X server configuration file";
       };
 
       xrandrHeads = mkOption {
@@ -720,8 +715,7 @@ in
     systemd.services.display-manager.enable =
       let
         dmConf = cfg.displayManager;
-        noDmUsed =
-          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.lightdm.enable);
+        noDmUsed = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.lightdm.enable);
       in
       mkIf (noDmUsed) (mkDefault false);
 

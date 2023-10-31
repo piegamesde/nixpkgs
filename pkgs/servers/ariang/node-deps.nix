@@ -8897,12 +8897,7 @@ let
           ];
         }
       )
-      (
-        sources."@gulp-sourcemaps/map-sources-1.0.0"
-        // {
-          dependencies = [ sources."normalize-path-2.1.1" ];
-        }
-      )
+      (sources."@gulp-sourcemaps/map-sources-1.0.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; })
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"

@@ -11939,9 +11939,7 @@ in
           ];
         }
       )
-      (
-        sources."@azure/keyvault-keys-4.6.0" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; }
-      )
+      (sources."@azure/keyvault-keys-4.6.0" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; })
       sources."@azure/logger-1.0.4"
       sources."@azure/ms-rest-azure-env-2.0.0"
       (
@@ -11954,9 +11952,7 @@ in
         }
       )
       sources."@azure/ms-rest-nodeauth-3.1.1"
-      (
-        sources."@azure/msal-browser-2.33.0" // { dependencies = [ sources."@azure/msal-common-10.0.0" ]; }
-      )
+      (sources."@azure/msal-browser-2.33.0" // { dependencies = [ sources."@azure/msal-common-10.0.0" ]; })
       sources."@azure/msal-common-4.5.1"
       (
         sources."@azure/msal-node-1.0.0-beta.6"
@@ -13317,12 +13313,7 @@ in
       (sources."raw-body-2.5.2" // { dependencies = [ sources."iconv-lite-0.4.24" ]; })
       sources."rc-1.2.8"
       (sources."readable-stream-2.3.8" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
-      (
-        sources."readable-web-to-node-stream-3.0.2"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."readable-web-to-node-stream-3.0.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."readdirp-3.6.0"
       (sources."recast-0.21.5" // { dependencies = [ sources."ast-types-0.15.2" ]; })
       sources."rechoir-0.6.2"

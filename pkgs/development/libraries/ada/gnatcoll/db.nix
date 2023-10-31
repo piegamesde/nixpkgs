@@ -51,10 +51,7 @@ in
 stdenv.mkDerivation rec {
   # executables don't adhere to the string gnatcoll-* scheme
   pname =
-    if onlyExecutable then
-      builtins.replaceStrings [ "_" ] [ "-" ] component
-    else
-      "gnatcoll-${component}";
+    if onlyExecutable then builtins.replaceStrings [ "_" ] [ "-" ] component else "gnatcoll-${component}";
   version = "23.0.0";
 
   src = fetchFromGitHub {

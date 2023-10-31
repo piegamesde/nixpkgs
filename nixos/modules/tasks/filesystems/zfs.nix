@@ -261,9 +261,7 @@ in
         readOnly = true;
         type = types.package;
         default = if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs;
-        defaultText =
-          literalExpression
-            "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs";
+        defaultText = literalExpression "if config.boot.zfs.enableUnstable then pkgs.zfsUnstable else pkgs.zfs";
         description = lib.mdDoc "Configured ZFS userland tools package.";
       };
 
@@ -831,10 +829,7 @@ in
           # expand every pool. Otherwise we want to enumerate
           # just the specifically provided list of pools.
           poolListProvider =
-            if cfgExpandOnBoot == "all" then
-              "$(zpool list -H -o name)"
-            else
-              lib.escapeShellArgs cfgExpandOnBoot;
+            if cfgExpandOnBoot == "all" then "$(zpool list -H -o name)" else lib.escapeShellArgs cfgExpandOnBoot;
         in
         {
           description = "Expand specified ZFS pools";

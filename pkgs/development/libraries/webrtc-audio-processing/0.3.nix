@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
     ./enable-powerpc.patch
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin (
-    with darwin.apple_sdk.frameworks; [ ApplicationServices ]
-  );
+  buildInputs = lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
 
   patchPhase = lib.optionalString stdenv.hostPlatform.isMusl ''
     substituteInPlace webrtc/base/checks.cc --replace 'defined(__UCLIBC__)' 1

@@ -19,9 +19,7 @@ makeSetupHook
       ++ lib.optional (stdenv.isDarwin && stdenv.isAarch64) cc;
 
     substitutions = {
-      cc = "${cc}/bin/${cc.targetPrefix}cc ${
-          lib.escapeShellArgs (map (s: "-fsanitize=${s}") sanitizers)
-        }";
+      cc = "${cc}/bin/${cc.targetPrefix}cc ${lib.escapeShellArgs (map (s: "-fsanitize=${s}") sanitizers)}";
     };
 
     passthru = {

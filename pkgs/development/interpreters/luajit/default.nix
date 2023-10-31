@@ -115,9 +115,7 @@ stdenv.mkDerivation rec {
   LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
   LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
 
-  setupHook =
-    luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList
-      luaPackages.luaLib.luaCPathList;
+  setupHook = luaPackages.lua-setup-hook luaPackages.luaLib.luaPathList luaPackages.luaLib.luaCPathList;
 
   # copied from python
   passthru =

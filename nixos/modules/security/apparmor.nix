@@ -195,9 +195,7 @@ in
               # 3 - force all perms on the rule to be user
               default_owner_prompt = 1
 
-              custom_includes = /etc/apparmor.d ${
-                concatMapStringsSep " " (p: "${p}/etc/apparmor.d") cfg.packages
-              }
+              custom_includes = /etc/apparmor.d ${concatMapStringsSep " " (p: "${p}/etc/apparmor.d") cfg.packages}
 
             [qualifiers]
               ${pkgs.runtimeShell} = icnu

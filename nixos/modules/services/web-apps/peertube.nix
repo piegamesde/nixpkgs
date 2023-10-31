@@ -69,8 +69,7 @@ let
   envFile = pkgs.writeText "peertube.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
-          env
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env
       ))
     )
   );
@@ -339,8 +338,7 @@ in
         '';
       }
       {
-        assertion =
-          cfg.redis.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
+        assertion = cfg.redis.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
         message = ''
           <option>services.peertube.redis.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to

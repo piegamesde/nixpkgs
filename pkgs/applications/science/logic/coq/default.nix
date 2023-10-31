@@ -226,8 +226,7 @@ let
       UNAME=$(type -tp uname)
       RM=$(type -tp rm)
       substituteInPlace tools/beautify-archive --replace "/bin/rm" "$RM"
-      ${lib.optionalString (!coqAtLeast "8.7")
-        ''substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
+      ${lib.optionalString (!coqAtLeast "8.7") ''substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
       ${csdpPatch}
     '';
 
@@ -333,9 +332,7 @@ if coqAtLeast "8.17" then
       '';
       installPhase = ''
         runHook preInstall
-        dune install --prefix $out coq-core coq-stdlib coq coqide-server${
-          lib.optionalString buildIde " coqide"
-        }
+        dune install --prefix $out coq-core coq-stdlib coq coqide-server${lib.optionalString buildIde " coqide"}
         runHook postInstall
       '';
     }

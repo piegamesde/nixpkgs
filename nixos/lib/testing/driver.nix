@@ -33,9 +33,7 @@ let
   # TODO: This is an implementation error and needs fixing
   # the testing famework cannot legitimately restrict hostnames further
   # beyond RFC1035
-  invalidNodeNames =
-    lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
-      nodeHostNames;
+  invalidNodeNames = lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null) nodeHostNames;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
@@ -58,9 +56,7 @@ let
     hostPkgs.runCommand "nixos-test-driver-${config.name}"
       {
         # inherit testName; TODO (roberth): need this?
-        nativeBuildInputs = [
-          hostPkgs.makeWrapper
-        ] ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
+        nativeBuildInputs = [ hostPkgs.makeWrapper ] ++ lib.optionals (!config.skipTypeCheck) [ hostPkgs.mypy ];
         buildInputs = [ testDriver ];
         testScript = config.testScriptString;
         preferLocalBuild = true;

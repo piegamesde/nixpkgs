@@ -29,17 +29,14 @@
 assert lib.isList enabledFlavors && enabledFlavors != [ ];
 
 let
-  pinentryMkDerivation =
-    if (builtins.elem "qt" enabledFlavors) then mkDerivation else stdenv.mkDerivation;
+  pinentryMkDerivation = if (builtins.elem "qt" enabledFlavors) then mkDerivation else stdenv.mkDerivation;
 
   enableFeaturePinentry =
     f:
     let
       flag = flavorInfo.${f}.flag or null;
     in
-    lib.optionalString (flag != null) (
-      lib.enableFeature (lib.elem f enabledFlavors) ("pinentry-" + flag)
-    );
+    lib.optionalString (flag != null) (lib.enableFeature (lib.elem f enabledFlavors) ("pinentry-" + flag));
 
   flavorInfo = {
     curses = {

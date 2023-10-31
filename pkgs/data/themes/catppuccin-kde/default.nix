@@ -38,8 +38,7 @@ let
   installScript = ./install.sh;
 in
 
-lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents
-  accents
+lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents accents
   lib.checkListOfEnum
   "Invalid flavour, valid flavours are ${toString validFlavours}"
   validFlavours

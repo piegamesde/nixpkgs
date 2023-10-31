@@ -203,9 +203,7 @@ let
               ++ (if proto ? hostname then optionalNullString "hostname" proto.hostname else [ ])
               ++ (if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [ ])
               ++ (if proto ? outproxyPort then optionalNullInt "outproxyport" proto.outproxyPort else [ ])
-              ++ (
-                if proto ? outproxyEnable then optionalNullBool "outproxy.enabled" proto.outproxyEnable else [ ]
-              );
+              ++ (if proto ? outproxyEnable then optionalNullBool "outproxy.enabled" proto.outproxyEnable else [ ]);
           in
           (concatStringsSep "\n" protoOpts)
         ));
@@ -232,12 +230,8 @@ let
               ++ (if tun ? inbound.length then optionalNullInt "inbound.length" tun.inbound.length else [ ])
               ++ (if tun ? inbound.quantity then optionalNullInt "inbound.quantity" tun.inbound.quantity else [ ])
               ++ (if tun ? outbound.length then optionalNullInt "outbound.length" tun.outbound.length else [ ])
-              ++ (
-                if tun ? outbound.quantity then optionalNullInt "outbound.quantity" tun.outbound.quantity else [ ]
-              )
-              ++ (
-                if tun ? crypto.tagsToSend then optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend else [ ]
-              );
+              ++ (if tun ? outbound.quantity then optionalNullInt "outbound.quantity" tun.outbound.quantity else [ ])
+              ++ (if tun ? crypto.tagsToSend then optionalNullInt "crypto.tagstosend" tun.crypto.tagsToSend else [ ]);
           in
           concatStringsSep "\n" outTunOpts
         ))

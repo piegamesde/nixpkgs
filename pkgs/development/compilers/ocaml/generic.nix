@@ -39,8 +39,7 @@ assert framePointerSupport -> lib.versionAtLeast version "4.01";
 let
   src =
     args.src or (fetchurl {
-      url =
-        args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
+      url = args.url or "http://caml.inria.fr/pub/distrib/ocaml-${versionNoPatch}/ocaml-${version}.tar.xz";
       inherit (args) sha256;
     });
 in
@@ -150,8 +149,7 @@ stdenv.mkDerivation (
     # we place nixpkgs-specific targets to a separate file and set
     # sequential order among them as a single rule.
     makefile = ./Makefile.nixpkgs;
-    buildFlags =
-      if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
+    buildFlags = if useNativeCompilers then [ "nixpkgs_world_bootstrap_world_opt" ] else [ "nixpkgs_world" ];
     buildInputs =
       optional (lib.versionOlder version "4.07") ncurses
       ++ optionals useX11 [

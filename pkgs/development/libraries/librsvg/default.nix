@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals withIntrospection [ "devdoc" ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "a69IqdOlb9E7v7ufH3Z1myQLcKH6Ig/SOEdNZqkm+Yw=";
   };
 
@@ -146,10 +144,7 @@ stdenv.mkDerivation rec {
     ''
     +
       lib.optionalString
-        (
-          (stdenv.buildPlatform != stdenv.hostPlatform)
-          && (stdenv.hostPlatform.emulatorAvailable buildPackages)
-        )
+        ((stdenv.buildPlatform != stdenv.hostPlatform) && (stdenv.hostPlatform.emulatorAvailable buildPackages))
         ''
           # the replacement is the native conditional
           substituteInPlace gdk-pixbuf-loader/Makefile \

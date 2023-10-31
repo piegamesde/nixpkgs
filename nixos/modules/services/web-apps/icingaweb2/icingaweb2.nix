@@ -187,9 +187,7 @@ in
         user = "icingaweb2";
         phpEnv = {
           ICINGAWEB_LIBDIR = toString (
-            pkgs.linkFarm "icingaweb2-libdir" (
-              mapAttrsToList (name: path: { inherit name path; }) cfg.libraryPaths
-            )
+            pkgs.linkFarm "icingaweb2-libdir" (mapAttrsToList (name: path: { inherit name path; }) cfg.libraryPaths)
           );
         };
         phpPackage = pkgs.php.withExtensions ({ enabled, all }: [ all.imagick ] ++ enabled);
@@ -255,9 +253,7 @@ in
       in
       { }
       # Module packages
-      // (mapAttrs' (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; })
-        cfg.modulePackages
-      )
+      // (mapAttrs' (k: v: nameValuePair "icingaweb2/enabledModules/${k}" { source = v; }) cfg.modulePackages)
       # Built-in modules
       // doModule "doc"
       // doModule "migrate"
@@ -277,9 +273,7 @@ in
       // optionalAttrs (cfg.groupBackends != null) {
         "icingaweb2/groups.ini".text = generators.toINI { } cfg.groupBackends;
       }
-      // optionalAttrs (cfg.roles != null) {
-        "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles;
-      };
+      // optionalAttrs (cfg.roles != null) { "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles; };
 
     # User and group
     users.groups.icingaweb2 = { };

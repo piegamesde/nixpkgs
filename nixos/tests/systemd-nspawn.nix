@@ -64,10 +64,7 @@ import ./make-test-python.nix (
           };
         };
       client =
-        { pkgs, ... }:
-        {
-          environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg";
-        };
+        { pkgs, ... }: { environment.etc."systemd/import-pubring.gpg".source = "${gpgKeyring}/pubkey.gpg"; };
     };
 
     testScript = ''

@@ -5996,12 +5996,7 @@ in
           ];
         }
       )
-      (
-        sources."@gulp-sourcemaps/map-sources-1.0.0"
-        // {
-          dependencies = [ sources."normalize-path-2.1.1" ];
-        }
-      )
+      (sources."@gulp-sourcemaps/map-sources-1.0.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; })
       sources."@ungap/promise-all-settled-1.1.2"
       sources."abbrev-1.1.1"
       sources."acorn-7.4.1"

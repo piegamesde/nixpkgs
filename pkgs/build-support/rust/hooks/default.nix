@@ -126,9 +126,7 @@ in
                   [target."${shortTarget}"]
                   "linker" = "${ccForHost}"
                 ''}
-                "rustflags" = [ "-C", "target-feature=${
-                  if stdenv.hostPlatform.isStatic then "+" else "-"
-                }crt-static" ]
+                "rustflags" = [ "-C", "target-feature=${if stdenv.hostPlatform.isStatic then "+" else "-"}crt-static" ]
               '';
             };
           }

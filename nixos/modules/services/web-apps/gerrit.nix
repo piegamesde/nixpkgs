@@ -22,9 +22,7 @@ let
 
   gerritConfig = pkgs.writeText "gerrit.conf" (lib.generators.toGitINI cfg.settings);
 
-  replicationConfig = pkgs.writeText "replication.conf" (
-    lib.generators.toGitINI cfg.replicationSettings
-  );
+  replicationConfig = pkgs.writeText "replication.conf" (lib.generators.toGitINI cfg.replicationSettings);
 
   # Wrap the gerrit java with all the java options so it can be called
   # like a normal CLI app

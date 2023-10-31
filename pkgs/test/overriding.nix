@@ -55,9 +55,7 @@ let
 
   overrides1 = example.overrideAttrs (_: super: { pname = "a-better-${super.pname}"; });
 
-  repeatedOverrides = overrides1.overrideAttrs (
-    _: super: { pname = "${super.pname}-with-blackjack"; }
-  );
+  repeatedOverrides = overrides1.overrideAttrs (_: super: { pname = "${super.pname}-with-blackjack"; });
 in
 
 stdenvNoCC.mkDerivation {

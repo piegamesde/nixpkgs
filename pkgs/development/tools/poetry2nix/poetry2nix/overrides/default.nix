@@ -15,10 +15,8 @@ let
       buildSystem =
         if builtins.isAttrs attr then
           let
-            fromIsValid =
-              if builtins.hasAttr "from" attr then lib.versionAtLeast drv.version attr.from else true;
-            untilIsValid =
-              if builtins.hasAttr "until" attr then lib.versionOlder drv.version attr.until else true;
+            fromIsValid = if builtins.hasAttr "from" attr then lib.versionAtLeast drv.version attr.from else true;
+            untilIsValid = if builtins.hasAttr "until" attr then lib.versionOlder drv.version attr.until else true;
             intendedBuildSystem =
               if attr.buildSystem == "cython" then
                 self.python.pythonForBuild.pkgs.cython
@@ -405,10 +403,7 @@ lib.composeManyExtensions [
           sha256 = getCargoHash super.cryptography.version;
           isWheel = lib.hasSuffix ".whl" super.cryptography.src;
           scrypto =
-            if isWheel then
-              (super.cryptography.overridePythonAttrs { preferWheel = true; })
-            else
-              super.cryptography;
+            if isWheel then (super.cryptography.overridePythonAttrs { preferWheel = true; }) else super.cryptography;
         in
         scrypto.overridePythonAttrs (
           old:
@@ -544,8 +539,7 @@ lib.composeManyExtensions [
 
       ddtrace = super.ddtrace.overridePythonAttrs (
         old: {
-          buildInputs =
-            (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]);
+          buildInputs = (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]);
         }
       );
 
@@ -1245,9 +1239,7 @@ lib.composeManyExtensions [
 
       markupsafe = super.markupsafe.overridePythonAttrs (
         old: {
-          src = old.src.override {
-            pname = builtins.replaceStrings [ "markupsafe" ] [ "MarkupSafe" ] old.pname;
-          };
+          src = old.src.override { pname = builtins.replaceStrings [ "markupsafe" ] [ "MarkupSafe" ] old.pname; };
         }
       );
 
@@ -1590,11 +1582,9 @@ lib.composeManyExtensions [
             ];
 
           # Patch the dylib in the binary distribution to point to the nix build of libomp
-          preFixup =
-            lib.optionalString (stdenv.isDarwin && lib.versionAtLeast super.open3d.version "0.16.0")
-              ''
-                install_name_tool -change /opt/homebrew/opt/libomp/lib/libomp.dylib ${pkgs.llvmPackages.openmp}/lib/libomp.dylib $out/lib/python*/site-packages/open3d/cpu/pybind.cpython-*-darwin.so
-              '';
+          preFixup = lib.optionalString (stdenv.isDarwin && lib.versionAtLeast super.open3d.version "0.16.0") ''
+            install_name_tool -change /opt/homebrew/opt/libomp/lib/libomp.dylib ${pkgs.llvmPackages.openmp}/lib/libomp.dylib $out/lib/python*/site-packages/open3d/cpu/pybind.cpython-*-darwin.so
+          '';
 
           # TODO(Sem Mulder): Add overridable flags for CUDA/PyTorch/Tensorflow support.
           autoPatchelfIgnoreMissingDeps = true;
@@ -1628,13 +1618,9 @@ lib.composeManyExtensions [
 
       opencv-python = super.opencv-python.overridePythonAttrs self._opencv-python-override;
 
-      opencv-python-headless =
-        super.opencv-python-headless.overridePythonAttrs
-          self._opencv-python-override;
+      opencv-python-headless = super.opencv-python-headless.overridePythonAttrs self._opencv-python-override;
 
-      opencv-contrib-python =
-        super.opencv-contrib-python.overridePythonAttrs
-          self._opencv-python-override;
+      opencv-contrib-python = super.opencv-contrib-python.overridePythonAttrs self._opencv-python-override;
 
       openexr = super.openexr.overridePythonAttrs (
         old: {
@@ -2287,9 +2273,7 @@ lib.composeManyExtensions [
 
       pytest-runner = super.pytest-runner or super.pytestrunner;
 
-      pytest-pylint = super.pytest-pylint.overridePythonAttrs (
-        old: { buildInputs = [ self.pytest-runner ]; }
-      );
+      pytest-pylint = super.pytest-pylint.overridePythonAttrs (old: { buildInputs = [ self.pytest-runner ]; });
 
       # pytest-splinter seems to put a .marker file in an empty directory
       # presumably so it's tracked by and can be installed with MANIFEST.in, see
@@ -2316,9 +2300,7 @@ lib.composeManyExtensions [
         }
       );
 
-      python-jose = super.python-jose.overridePythonAttrs (
-        old: { buildInputs = [ self.pytest-runner ]; }
-      );
+      python-jose = super.python-jose.overridePythonAttrs (old: { buildInputs = [ self.pytest-runner ]; });
 
       python-magic = super.python-magic.overridePythonAttrs (
         old: {
@@ -2736,8 +2718,7 @@ lib.composeManyExtensions [
 
                 # without that autoPatchelfHook will fail because cudatoolkit is not in LD_LIBRARY_PATH
                 autoPatchelfIgnoreMissingDeps = true;
-                buildInputs =
-                  (old.buildInputs or [ ]) ++ [ self.torch ] ++ lib.optionals enableCuda [ cudatoolkit ];
+                buildInputs = (old.buildInputs or [ ]) ++ [ self.torch ] ++ lib.optionals enableCuda [ cudatoolkit ];
                 preConfigure =
                   if (enableCuda) then
                     ''
@@ -3100,18 +3081,16 @@ lib.composeManyExtensions [
         {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.ncurses ];
         }
-        //
-          lib.optionalAttrs (lib.versionAtLeast old.version "2.0.19" && lib.versionOlder old.version "2.0.20")
-            { sourceRoot = "."; }
+        // lib.optionalAttrs (lib.versionAtLeast old.version "2.0.19" && lib.versionOlder old.version "2.0.20") {
+          sourceRoot = ".";
+        }
       );
 
       wcwidth = super.wcwidth.overridePythonAttrs (
         old: {
           propagatedBuildInputs =
             (old.propagatedBuildInputs or [ ])
-            ++ lib.optional self.isPy27 (
-              self.backports-functools-lru-cache or self.backports_functools_lru_cache
-            );
+            ++ lib.optional self.isPy27 (self.backports-functools-lru-cache or self.backports_functools_lru_cache);
         }
       );
 

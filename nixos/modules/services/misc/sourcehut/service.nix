@@ -230,9 +230,7 @@ in
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Content of the `celeryconfig.py` used by the Celery responsible for webhooks.";
+          description = lib.mdDoc "Content of the `celeryconfig.py` used by the Celery responsible for webhooks.";
         };
       };
     };

@@ -215,9 +215,7 @@ let
                   type = types.nullOr types.path;
                   default = null;
                   example = "/var/log/authelia/authelia.log";
-                  description =
-                    mdDoc
-                      "File path where the logs will be written. If not set logs are written to stdout.";
+                  description = mdDoc "File path where the logs will be written. If not set logs are written to stdout.";
                 };
 
                 keep_stdout = mkOption {
@@ -338,8 +336,7 @@ in
               AUTHELIA_JWT_SECRET_FILE = instance.secrets.jwtSecretFile;
               AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE = instance.secrets.storageEncryptionKeyFile;
               AUTHELIA_SESSION_SECRET_FILE = instance.secrets.sessionSecretFile;
-              AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE =
-                instance.secrets.oidcIssuerPrivateKeyFile;
+              AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE = instance.secrets.oidcIssuerPrivateKeyFile;
               AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = instance.secrets.oidcHmacSecretFile;
             })
             // instance.environmentVariables;
@@ -435,10 +432,7 @@ in
 
       systemd.services = lib.mkMerge (
         map
-          (
-            instance:
-            lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; }
-          )
+          (instance: lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; })
           instances
       );
       users = lib.mkMerge (

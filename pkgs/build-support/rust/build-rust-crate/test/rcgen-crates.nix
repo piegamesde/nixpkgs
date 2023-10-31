@@ -2332,9 +2332,7 @@ rec {
           "serde_json" = [ "dep:serde_json" ];
           "spans" = [ "wasm-bindgen-macro/spans" ];
           "strict-macro" = [ "wasm-bindgen-macro/strict-macro" ];
-          "xxx_debug_only_print_generated_code" = [
-            "wasm-bindgen-macro/xxx_debug_only_print_generated_code"
-          ];
+          "xxx_debug_only_print_generated_code" = [ "wasm-bindgen-macro/xxx_debug_only_print_generated_code" ];
         };
         resolvedDefaultFeatures = [
           "default"
@@ -4398,9 +4396,7 @@ rec {
           pkgs:
           let
             self = {
-              crates =
-                lib.mapAttrs (packageId: value: buildByPackageIdForPkgsImpl self pkgs packageId)
-                  crateConfigs;
+              crates = lib.mapAttrs (packageId: value: buildByPackageIdForPkgsImpl self pkgs packageId) crateConfigs;
               build = mkBuiltByPackageIdByPkgs pkgs.buildPackages;
             };
           in
@@ -4472,8 +4468,7 @@ rec {
                   # https://www.pietroalbini.org/blog/downloading-crates-io/
                   # Not rate-limited, CDN URL.
                   url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
-                  sha256 =
-                    assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}"); crateConfig.sha256;
+                  sha256 = assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}"); crateConfig.sha256;
                 });
               extraRustcOpts =
                 lib.lists.optional (targetFeatures != [ ])
@@ -4582,9 +4577,7 @@ rec {
           mergedFeatures
           configs
         ];
-        onlyInCargo = builtins.attrNames (
-          lib.filterAttrs (n: v: !(v ? "crate2nix") && (v ? "cargo")) combined
-        );
+        onlyInCargo = builtins.attrNames (lib.filterAttrs (n: v: !(v ? "crate2nix") && (v ? "cargo")) combined);
         onlyInCrate2Nix = builtins.attrNames (
           lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined
         );
@@ -4683,9 +4676,7 @@ rec {
           crateConfig.dependencies or [ ]
           ++ lib.optionals (runTests && packageId == rootPackageId) (crateConfig.devDependencies or [ ])
         );
-        cacheWithAll = resolveDependencies cacheWithDependencies "build" (
-          crateConfig.buildDependencies or [ ]
-        );
+        cacheWithAll = resolveDependencies cacheWithDependencies "build" (crateConfig.buildDependencies or [ ]);
       in
       cacheWithAll;
 
@@ -4759,10 +4750,7 @@ rec {
               let
                 enabled = builtins.any (doesFeatureEnableDependency dependency) features;
               in
-              if (dependency.optional or false) && enabled then
-                [ (dependency.rename or dependency.name) ]
-              else
-                [ ]
+              if (dependency.optional or false) && enabled then [ (dependency.rename or dependency.name) ] else [ ]
             )
             dependencies;
       in

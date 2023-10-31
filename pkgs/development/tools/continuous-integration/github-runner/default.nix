@@ -80,9 +80,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
-  dotnetFlags = [
-    "-p:PackageRuntime=${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system}"
-  ];
+  dotnetFlags = [ "-p:PackageRuntime=${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system}" ];
 
   # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
   projectFile = [

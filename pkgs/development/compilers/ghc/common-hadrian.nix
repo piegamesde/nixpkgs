@@ -217,12 +217,7 @@ let
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
   toolsForTarget = [
-    (
-      if targetPlatform.isGhcjs then
-        pkgsBuildTarget.emscripten
-      else
-        pkgsBuildTarget.targetPackages.stdenv.cc
-    )
+    (if targetPlatform.isGhcjs then pkgsBuildTarget.emscripten else pkgsBuildTarget.targetPackages.stdenv.cc)
   ] ++ lib.optional useLLVM buildTargetLlvmPackages.llvm;
 
   targetCC = builtins.head toolsForTarget;
@@ -250,9 +245,7 @@ let
   useLdGold =
     targetPlatform.linker == "gold"
     || (
-      targetPlatform.linker == "bfd"
-      && (targetCC.bintools.bintools.hasGold or false)
-      && !targetPlatform.isMusl
+      targetPlatform.linker == "bfd" && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl
     );
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.

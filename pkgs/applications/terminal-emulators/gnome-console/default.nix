@@ -22,9 +22,7 @@ stdenv.mkDerivation rec {
   version = "44.0";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gnome-console/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/gnome-console/${lib.versions.major version}/${pname}-${version}.tar.xz";
     sha256 = "0cGv1eyNK9+Eo9sCmwSiQy7Me80kLCp0X+mYakKJiEQ=";
   };
 

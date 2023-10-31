@@ -15,8 +15,7 @@ let
 
   isRBACEnabled = elem "RBAC" cfg.authorizationMode;
 
-  apiserverServiceIP =
-    (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1");
+  apiserverServiceIP = (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1");
 in
 {
 
@@ -490,9 +489,7 @@ in
                             optionalString (cfg.featureGates != [ ])
                               "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                           } \
-                          ${
-                            optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"
-                          } \
+                          ${optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"} \
                           ${
                             optionalString (cfg.kubeletClientCaFile != null)
                               "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
@@ -509,8 +506,7 @@ in
                               "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
                           } \
                           ${
-                            optionalString (cfg.proxyClientCertFile != null)
-                              "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
+                            optionalString (cfg.proxyClientCertFile != null) "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
                           } \
                           ${
                             optionalString (cfg.proxyClientKeyFile != null) "--proxy-client-key-file=${cfg.proxyClientKeyFile}"
@@ -524,12 +520,8 @@ in
                           --service-cluster-ip-range=${cfg.serviceClusterIpRange} \
                           --storage-backend=${cfg.storageBackend} \
                           ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
-                          ${
-                            optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
-                          } \
-                          ${
-                            optionalString (cfg.tokenAuthFile != null) "--token-auth-file=${cfg.tokenAuthFile}"
-                          } \
+                          ${optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"} \
+                          ${optionalString (cfg.tokenAuthFile != null) "--token-auth-file=${cfg.tokenAuthFile}"} \
                           ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                           ${cfg.extraOpts}
           '';

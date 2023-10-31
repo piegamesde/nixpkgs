@@ -290,12 +290,8 @@ in
 
         linux_xanmod_tt = throw "linux_xanmod_tt was removed because upstream no longer offers this option";
 
-        linux_5_18_hardened =
-          throw
-            "linux 5.18 was removed because it has reached its end of life upstream";
-        linux_5_19_hardened =
-          throw
-            "linux 5.19 was removed because it has reached its end of life upstream";
+        linux_5_18_hardened = throw "linux 5.18 was removed because it has reached its end of life upstream";
+        linux_5_19_hardened = throw "linux 5.19 was removed because it has reached its end of life upstream";
         linux_6_0_hardened = throw "linux 6.0 was removed because it has reached its end of life upstream";
       }
     )
@@ -386,10 +382,7 @@ in
         hyperv-daemons = callPackage ../os-specific/linux/hyperv-daemons { };
 
         e1000e =
-          if lib.versionOlder kernel.version "4.10" then
-            callPackage ../os-specific/linux/e1000e { }
-          else
-            null;
+          if lib.versionOlder kernel.version "4.10" then callPackage ../os-specific/linux/e1000e { } else null;
 
         intel-speed-select =
           if lib.versionAtLeast kernel.version "5.3" then
@@ -578,10 +571,7 @@ in
         vmware = callPackage ../os-specific/linux/vmware { };
 
         wireguard =
-          if lib.versionOlder kernel.version "5.6" then
-            callPackage ../os-specific/linux/wireguard { }
-          else
-            null;
+          if lib.versionOlder kernel.version "5.6" then callPackage ../os-specific/linux/wireguard { } else null;
 
         x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
@@ -707,12 +697,8 @@ in
       linux_latest_libre = recurseIntoAttrs (packagesFor kernels.linux_latest_libre);
     }
     // lib.optionalAttrs config.allowAliases {
-      linux_5_18_hardened =
-        throw
-          "linux 5.18 was removed because it has reached its end of life upstream";
-      linux_5_19_hardened =
-        throw
-          "linux 5.19 was removed because it has reached its end of life upstream";
+      linux_5_18_hardened = throw "linux 5.18 was removed because it has reached its end of life upstream";
+      linux_5_19_hardened = throw "linux 5.19 was removed because it has reached its end of life upstream";
       linux_6_0_hardened = throw "linux 6.0 was removed because it has reached its end of life upstream";
       linux_xanmod_tt = throw "linux_xanmod_tt was removed because upstream no longer offers this option";
     }

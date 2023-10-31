@@ -137,9 +137,7 @@ self: super:
       setupHook = ./imake-setup-hook.sh;
       CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"}\"'";
 
-      configureFlags = attrs.configureFlags or [ ] ++ [
-        "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp"
-      ];
+      configureFlags = attrs.configureFlags or [ ] ++ [ "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp" ];
 
       inherit tradcpp;
     }
@@ -170,11 +168,9 @@ self: super:
         "man"
       ];
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-      depsBuildBuild =
-        [ buildPackages.stdenv.cc ]
-        ++ lib.optionals stdenv.hostPlatform.isStatic [
-          (xorg.buildPackages.stdenv.cc.libc.static or null)
-        ];
+      depsBuildBuild = [
+        buildPackages.stdenv.cc
+      ] ++ lib.optionals stdenv.hostPlatform.isStatic [ (xorg.buildPackages.stdenv.cc.libc.static or null) ];
       preConfigure = ''
         sed 's,^as_dummy.*,as_dummy="\$PATH",' -i configure
       '';
@@ -945,9 +941,7 @@ self: super:
 
   xdriinfo = super.xdriinfo.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ libGL ]; });
 
-  xvinfo = super.xvinfo.overrideAttrs (
-    attrs: { buildInputs = attrs.buildInputs ++ [ xorg.libXext ]; }
-  );
+  xvinfo = super.xvinfo.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ xorg.libXext ]; });
 
   xkbcomp = super.xkbcomp.overrideAttrs (
     attrs: { configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ]; }
@@ -1343,46 +1337,44 @@ self: super:
     }
   );
 
-  xinit =
-    (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; }).overrideAttrs
-      (
-        attrs: {
-          nativeBuildInputs = attrs.nativeBuildInputs ++ lib.optional isDarwin bootstrap_cmds;
-          depsBuildBuild = [ buildPackages.stdenv.cc ];
-          configureFlags =
-            [ "--with-xserver=${xorg.xorgserver.out}/bin/X" ]
-            ++ lib.optionals isDarwin [
-              "--with-bundle-id-prefix=org.nixos.xquartz"
-              "--with-launchdaemons-dir=\${out}/LaunchDaemons"
-              "--with-launchagents-dir=\${out}/LaunchAgents"
-            ];
-          patches =
-            [
-              # don't unset DBUS_SESSION_BUS_ADDRESS in startx
-              (fetchpatch {
-                name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
-                url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
-                sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
-              })
-            ];
-          postPatch = ''
-            # Avoid replacement of word-looking cpp's builtin macros in Nix's cross-compiled paths
-            substituteInPlace Makefile.in --replace "PROGCPPDEFS =" "PROGCPPDEFS = -Dlinux=linux -Dunix=unix"
-          '';
-          propagatedBuildInputs =
-            attrs.propagatedBuildInputs or [ ]
-            ++ [ xorg.xauth ]
-            ++ lib.optionals isDarwin [
-              xorg.libX11
-              xorg.xorgproto
-            ];
-          postFixup = ''
-            substituteInPlace $out/bin/startx \
-              --replace $out/etc/X11/xinit/xserverrc /etc/X11/xinit/xserverrc \
-              --replace $out/etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc
-          '';
-        }
-      );
+  xinit = (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; }).overrideAttrs (
+    attrs: {
+      nativeBuildInputs = attrs.nativeBuildInputs ++ lib.optional isDarwin bootstrap_cmds;
+      depsBuildBuild = [ buildPackages.stdenv.cc ];
+      configureFlags =
+        [ "--with-xserver=${xorg.xorgserver.out}/bin/X" ]
+        ++ lib.optionals isDarwin [
+          "--with-bundle-id-prefix=org.nixos.xquartz"
+          "--with-launchdaemons-dir=\${out}/LaunchDaemons"
+          "--with-launchagents-dir=\${out}/LaunchAgents"
+        ];
+      patches =
+        [
+          # don't unset DBUS_SESSION_BUS_ADDRESS in startx
+          (fetchpatch {
+            name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
+            url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
+            sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
+          })
+        ];
+      postPatch = ''
+        # Avoid replacement of word-looking cpp's builtin macros in Nix's cross-compiled paths
+        substituteInPlace Makefile.in --replace "PROGCPPDEFS =" "PROGCPPDEFS = -Dlinux=linux -Dunix=unix"
+      '';
+      propagatedBuildInputs =
+        attrs.propagatedBuildInputs or [ ]
+        ++ [ xorg.xauth ]
+        ++ lib.optionals isDarwin [
+          xorg.libX11
+          xorg.xorgproto
+        ];
+      postFixup = ''
+        substituteInPlace $out/bin/startx \
+          --replace $out/etc/X11/xinit/xserverrc /etc/X11/xinit/xserverrc \
+          --replace $out/etc/X11/xinit/xinitrc /etc/X11/xinit/xinitrc
+      '';
+    }
+  );
 
   xf86videointel = super.xf86videointel.overrideAttrs (
     attrs: {

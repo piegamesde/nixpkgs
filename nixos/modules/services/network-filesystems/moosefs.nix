@@ -210,9 +210,7 @@ in
         services.moosefs = {
           master.settings = mkIf cfg.master.enable {
             WORKING_USER = mfsUser;
-            EXPORTS_FILENAME = toString (
-              pkgs.writeText "mfsexports.cfg" (concatStringsSep "\n" cfg.master.exports)
-            );
+            EXPORTS_FILENAME = toString (pkgs.writeText "mfsexports.cfg" (concatStringsSep "\n" cfg.master.exports));
           };
 
           metalogger.settings = mkIf cfg.metalogger.enable {
@@ -223,23 +221,19 @@ in
           chunkserver.settings = mkIf cfg.chunkserver.enable {
             WORKING_USER = mfsUser;
             MASTER_HOST = cfg.masterHost;
-            HDD_CONF_FILENAME = toString (
-              pkgs.writeText "mfshdd.cfg" (concatStringsSep "\n" cfg.chunkserver.hdds)
-            );
+            HDD_CONF_FILENAME = toString (pkgs.writeText "mfshdd.cfg" (concatStringsSep "\n" cfg.chunkserver.hdds));
           };
         };
 
         # Create system user account for daemons
-        users =
-          mkIf (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable))
-            {
-              users.moosefs = {
-                isSystemUser = true;
-                description = "moosefs daemon user";
-                group = "moosefs";
-              };
-              groups.moosefs = { };
-            };
+        users = mkIf (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)) {
+          users.moosefs = {
+            isSystemUser = true;
+            description = "moosefs daemon user";
+            group = "moosefs";
+          };
+          groups.moosefs = { };
+        };
 
         environment.systemPackages =
           (lib.optional cfg.client.enable pkgs.moosefs) ++ (lib.optional cfg.master.enable initTool);
@@ -255,12 +249,8 @@ in
         # Ensure storage directories exist
         systemd.tmpfiles.rules =
           optional cfg.master.enable "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
-          ++
-            optional cfg.metalogger.enable
-              "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
-          ++
-            optional cfg.chunkserver.enable
-              "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}";
+          ++ optional cfg.metalogger.enable "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          ++ optional cfg.chunkserver.enable "d ${cfg.chunkserver.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}";
 
         # Service definitions
         systemd.services.mfs-master = mkIf cfg.master.enable (

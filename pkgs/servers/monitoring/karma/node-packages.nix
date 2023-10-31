@@ -17252,12 +17252,7 @@ let
           ];
         }
       )
-      (
-        sources."@babel/generator-7.18.13"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
-        }
-      )
+      (sources."@babel/generator-7.18.13" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; })
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
       sources."@babel/helper-compilation-targets-7.18.9"
@@ -17606,10 +17601,7 @@ let
       sources."@jridgewell/resolve-uri-3.1.0"
       sources."@jridgewell/set-array-1.1.2"
       (
-        sources."@jridgewell/source-map-0.3.2"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
-        }
+        sources."@jridgewell/source-map-0.3.2" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
       )
       sources."@jridgewell/sourcemap-codec-1.4.14"
       sources."@jridgewell/trace-mapping-0.3.15"
@@ -18065,9 +18057,7 @@ let
           ];
         }
       )
-      (
-        sources."@storybook/preset-create-react-app-4.1.2" // { dependencies = [ sources."semver-7.3.7" ]; }
-      )
+      (sources."@storybook/preset-create-react-app-4.1.2" // { dependencies = [ sources."semver-7.3.7" ]; })
       sources."@storybook/preview-web-6.5.10"
       (sources."@storybook/react-6.5.10" // { dependencies = [ sources."react-refresh-0.11.0" ]; })
       (
@@ -18243,20 +18233,13 @@ let
       sources."@types/yargs-17.0.11"
       sources."@types/yargs-parser-21.0.0"
       sources."@types/yauzl-2.10.0"
-      (
-        sources."@typescript-eslint/eslint-plugin-5.35.1" // { dependencies = [ sources."semver-7.3.7" ]; }
-      )
+      (sources."@typescript-eslint/eslint-plugin-5.35.1" // { dependencies = [ sources."semver-7.3.7" ]; })
       sources."@typescript-eslint/experimental-utils-5.35.1"
       sources."@typescript-eslint/parser-5.35.1"
       sources."@typescript-eslint/scope-manager-5.35.1"
       sources."@typescript-eslint/type-utils-5.35.1"
       sources."@typescript-eslint/types-5.35.1"
-      (
-        sources."@typescript-eslint/typescript-estree-5.35.1"
-        // {
-          dependencies = [ sources."semver-7.3.7" ];
-        }
-      )
+      (sources."@typescript-eslint/typescript-estree-5.35.1" // { dependencies = [ sources."semver-7.3.7" ]; })
       (
         sources."@typescript-eslint/utils-5.35.1"
         // {
@@ -18897,12 +18880,7 @@ let
         }
       )
       sources."eslint-config-prettier-8.5.0"
-      (
-        sources."eslint-config-react-app-7.0.1"
-        // {
-          dependencies = [ sources."eslint-plugin-jest-25.7.0" ];
-        }
-      )
+      (sources."eslint-config-react-app-7.0.1" // { dependencies = [ sources."eslint-plugin-jest-25.7.0" ]; })
       (sources."eslint-import-resolver-node-0.3.6" // { dependencies = [ sources."debug-3.2.7" ]; })
       (sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; })
       sources."eslint-plugin-flowtype-8.0.3"
@@ -20172,12 +20150,7 @@ let
       (sources."react-docgen-5.4.3" // { dependencies = [ sources."commander-2.20.3" ]; })
       sources."react-docgen-typescript-2.2.2"
       sources."react-dom-17.0.2"
-      (
-        sources."react-element-to-jsx-string-14.3.4"
-        // {
-          dependencies = [ sources."is-plain-object-5.0.0" ];
-        }
-      )
+      (sources."react-element-to-jsx-string-14.3.4" // { dependencies = [ sources."is-plain-object-5.0.0" ]; })
       sources."react-error-boundary-3.1.4"
       sources."react-error-overlay-6.0.11"
       sources."react-hotkeys-hook-3.4.7"

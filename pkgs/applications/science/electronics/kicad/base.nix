@@ -136,33 +136,29 @@ stdenv.mkDerivation rec {
       pcre2
     ];
 
-  buildInputs =
-    [
-      libGLU
-      libGL
-      zlib
-      libX11
-      wxGTK
-      gtk3
-      pcre
-      libXdmcp
-      gettext
-      glew
-      glm
-      libpthreadstubs
-      cairo
-      curl
-      openssl
-      boost
-      swig4
-      python
-      unixODBC
-      libdeflate
-      opencascade-occt
-    ]
-    ++ optional (withScripting) wxPython
-    ++ optional (withNgspice) libngspice
-    ++ optional (debug) valgrind;
+  buildInputs = [
+    libGLU
+    libGL
+    zlib
+    libX11
+    wxGTK
+    gtk3
+    pcre
+    libXdmcp
+    gettext
+    glew
+    glm
+    libpthreadstubs
+    cairo
+    curl
+    openssl
+    boost
+    swig4
+    python
+    unixODBC
+    libdeflate
+    opencascade-occt
+  ] ++ optional (withScripting) wxPython ++ optional (withNgspice) libngspice ++ optional (debug) valgrind;
 
   # debug builds fail all but the python test
   doInstallCheck = !(debug);

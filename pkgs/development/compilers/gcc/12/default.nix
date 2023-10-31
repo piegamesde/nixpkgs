@@ -92,12 +92,7 @@ let
     # a foreign one: https://github.com/iains/gcc-12-branch/issues/18
     ++
       optional
-        (
-          stdenv.isDarwin
-          && stdenv.isAarch64
-          && buildPlatform == hostPlatform
-          && hostPlatform == targetPlatform
-        )
+        (stdenv.isDarwin && stdenv.isAarch64 && buildPlatform == hostPlatform && hostPlatform == targetPlatform)
         (
           fetchpatch {
             name = "gcc-12-darwin-aarch64-support.patch";
@@ -353,8 +348,7 @@ lib.pipe
           target =
             lib.optionalString (profiledCompiler) "profiled"
             +
-              lib.optionalString
-                (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
+              lib.optionalString (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
                 "bootstrap";
         in
         lib.optional (target != "") target;
@@ -381,10 +375,7 @@ lib.pipe
         makeLibraryPath (optional (zlib != null) zlib)
       );
 
-      inherit (callFile ../common/extra-target-flags.nix { })
-        EXTRA_FLAGS_FOR_TARGET
-        EXTRA_LDFLAGS_FOR_TARGET
-      ;
+      inherit (callFile ../common/extra-target-flags.nix { }) EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
 
       passthru = {
         inherit
@@ -417,8 +408,7 @@ lib.pipe
     }
 
     //
-      optionalAttrs
-        (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
+      optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
         {
           makeFlags = [
             "all-gcc"

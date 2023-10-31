@@ -31,8 +31,7 @@ let
 
   modemConfigPath =
     let
-      mkModemConfigFile =
-        { config, name, ... }: mkConfigFile ".${name}" (cfg.commonModemConfig // config);
+      mkModemConfigFile = { config, name, ... }: mkConfigFile ".${name}" (cfg.commonModemConfig // config);
       mkLine =
         { name, type, ... }@modem:
         ''
@@ -234,8 +233,7 @@ let
       serviceConfig.Restart = "always";
       serviceConfig.KillMode = "process";
       serviceConfig.IgnoreSIGPIPE = false;
-      serviceConfig.ExecStart = ''
-        -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
+      serviceConfig.ExecStart = ''-${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
       # faxquit fails if the pipe is already gone
       # (e.g. the service is already stopping)
       serviceConfig.ExecStop = ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}" %I'';

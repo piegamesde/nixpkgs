@@ -115,9 +115,7 @@ switch arg
         in
         {
           inherit version;
-          src = fetcher (
-            location // { inherit rev; } // (optionalAttrs has-owner { owner = head splitted; })
-          );
+          src = fetcher (location // { inherit rev; } // (optionalAttrs has-owner { owner = head splitted; }));
         };
     }
     {

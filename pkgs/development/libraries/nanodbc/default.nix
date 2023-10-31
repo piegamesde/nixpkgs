@@ -27,10 +27,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ unixODBC ];
 
   cmakeFlags =
-    if (stdenv.hostPlatform.isStatic) then
-      [ "-DBUILD_STATIC_LIBS=ON" ]
-    else
-      [ "-DBUILD_SHARED_LIBS=ON" ];
+    if (stdenv.hostPlatform.isStatic) then [ "-DBUILD_STATIC_LIBS=ON" ] else [ "-DBUILD_SHARED_LIBS=ON" ];
 
   meta = with lib; {
     homepage = "https://github.com/nanodbc/nanodbc";

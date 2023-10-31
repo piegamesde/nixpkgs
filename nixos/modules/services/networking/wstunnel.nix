@@ -48,8 +48,7 @@ let
   };
   hostPortToString = { host, port }: "${host}:${builtins.toString port}";
   localRemoteToString =
-    { local, remote }:
-    utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
+    { local, remote }: utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
   commonOptions = {
     enable = mkOption {
       description = mdDoc "Whether to enable this `wstunnel` instance.";
@@ -345,14 +344,10 @@ let
                   optionalString (resolvedTlsCertificate != null)
                     "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
                 } \
-                ${
-                  optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
-                } \
+                ${optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"} \
                 ${optionalString verboseLogging "--verbose"} \
                 ${attrsToArgs extraArgs} \
-                ${
-                  utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
-                }
+                ${utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"}
             '';
           EnvironmentFile = optional (serverCfg.environmentFile != null) serverCfg.environmentFile;
           DynamicUser = true;
@@ -389,9 +384,7 @@ let
         Type = "simple";
         ExecStart = with clientCfg; ''
           ${package}/bin/wstunnel \
-            ${
-              concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)
-            } \
+            ${concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)} \
             ${concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)} \
             ${
               optionalString (dynamicToRemote != null)
@@ -412,9 +405,7 @@ let
             --udpTimeoutSec=${toString udpTimeout} \
             ${optionalString verboseLogging "--verbose"} \
             ${attrsToArgs extraArgs} \
-            ${
-              utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
-            }
+            ${utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"}
         '';
         EnvironmentFile = optional (clientCfg.environmentFile != null) clientCfg.environmentFile;
         DynamicUser = true;
@@ -423,8 +414,7 @@ let
           (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
           ++ (optionals
             (
-              (clientCfg.dynamicToRemote.port or 1024) < 1024
-              || (any (x: x.local.port < 1024) clientCfg.localToRemote)
+              (clientCfg.dynamicToRemote.port or 1024) < 1024 || (any (x: x.local.port < 1024) clientCfg.localToRemote)
             )
             [ "CAP_NET_BIND_SERVICE" ]
           );

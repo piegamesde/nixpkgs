@@ -26,9 +26,7 @@ rustPlatform.buildRustPackage rec {
   OPENSSL_LIB_DIR = "${lib.getLib openssl}/lib";
   OPENSSL_DIR = "${lib.getDev openssl}";
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isLinux [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
   meta = with lib; {
     description = "HTTP load testing application inspired by Ansible syntax";

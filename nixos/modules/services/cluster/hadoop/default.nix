@@ -203,9 +203,7 @@ with lib; {
           ./extraYARNConfs
         ]
       '';
-      description =
-        lib.mdDoc
-          "Directories containing additional config files to be added to HADOOP_CONF_DIR";
+      description = lib.mdDoc "Directories containing additional config files to be added to HADOOP_CONF_DIR";
     };
 
     gatewayRole.enable = mkEnableOption (lib.mdDoc "gateway role for deploying hadoop configs");

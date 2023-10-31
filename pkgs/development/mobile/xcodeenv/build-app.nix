@@ -41,14 +41,10 @@ let
 
   _target = if target == null then name else target;
 
-  _configuration =
-    if configuration == null then if release then "Release" else "Debug" else configuration;
+  _configuration = if configuration == null then if release then "Release" else "Debug" else configuration;
 
   _sdk =
-    if sdk == null then
-      if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion
-    else
-      sdk;
+    if sdk == null then if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion else sdk;
 
   # The following is to prevent repetition
   deleteKeychain = ''

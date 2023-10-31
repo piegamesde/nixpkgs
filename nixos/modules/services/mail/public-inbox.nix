@@ -21,8 +21,7 @@ let
       0;
 
   useSpamAssassin =
-    cfg.settings.publicinboxmda.spamcheck == "spamc"
-    || cfg.settings.publicinboxwatch.spamcheck == "spamc";
+    cfg.settings.publicinboxmda.spamcheck == "spamc" || cfg.settings.publicinboxwatch.spamcheck == "spamc";
 
   publicInboxDaemonOptions = proto: defaultPort: {
     args = mkOption {
@@ -440,13 +439,11 @@ in
     };
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = mkMerge (
-        map
-          (proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ]))
-          [
-            "imap"
-            "http"
-            "nntp"
-          ]
+        map (proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ])) [
+          "imap"
+          "http"
+          "nntp"
+        ]
       );
     };
     services.postfix = mkIf (cfg.postfix.enable && cfg.mda.enable) {
@@ -636,9 +633,7 @@ in
       ({
         public-inbox-init =
           let
-            PI_CONFIG = gitIni.generate "public-inbox.ini" (
-              filterAttrsRecursive (n: v: v != null) cfg.settings
-            );
+            PI_CONFIG = gitIni.generate "public-inbox.ini" (filterAttrsRecursive (n: v: v != null) cfg.settings);
           in
           mkMerge [
             (serviceConfig "init")

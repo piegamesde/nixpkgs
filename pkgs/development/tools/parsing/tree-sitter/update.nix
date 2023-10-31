@@ -440,8 +440,7 @@ let
            ${updateImpl} fetch-repo "$1"
          '')
          (
-           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; })
-             allGrammars
+           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; }) allGrammars
          )
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${

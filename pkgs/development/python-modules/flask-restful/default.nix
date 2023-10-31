@@ -28,9 +28,7 @@ buildPythonPackage rec {
   };
 
   # conditional so that overrides are easier for web applications
-  patches = lib.optionals (lib.versionAtLeast werkzeug.version "2.1.0") [
-    ./werkzeug-2.1.0-compat.patch
-  ];
+  patches = lib.optionals (lib.versionAtLeast werkzeug.version "2.1.0") [ ./werkzeug-2.1.0-compat.patch ];
 
   propagatedBuildInputs = [
     aniso8601

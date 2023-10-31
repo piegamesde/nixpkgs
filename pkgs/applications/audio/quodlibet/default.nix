@@ -149,21 +149,17 @@ python3.pkgs.buildPythonApplication rec {
       ]
     );
 
-  pytestFlags =
-    [
-      # requires networking
-      "--deselect=tests/test_browsers_iradio.py::TIRFile::test_download_tags"
-      # missing translation strings in potfiles
-      "--deselect=tests/test_po.py::TPOTFILESIN::test_missing"
-      # upstream does actually not enforce source code linting
-      "--ignore=tests/quality"
-      # build failure on Arch Linux
-      # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
-      "--ignore=tests/test_operon.py"
-    ]
-    ++ lib.optionals (withXineBackend || !withGstPlugins) [
-      "--ignore=tests/plugin/test_replaygain.py"
-    ];
+  pytestFlags = [
+    # requires networking
+    "--deselect=tests/test_browsers_iradio.py::TIRFile::test_download_tags"
+    # missing translation strings in potfiles
+    "--deselect=tests/test_po.py::TPOTFILESIN::test_missing"
+    # upstream does actually not enforce source code linting
+    "--ignore=tests/quality"
+    # build failure on Arch Linux
+    # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
+    "--ignore=tests/test_operon.py"
+  ] ++ lib.optionals (withXineBackend || !withGstPlugins) [ "--ignore=tests/plugin/test_replaygain.py" ];
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"

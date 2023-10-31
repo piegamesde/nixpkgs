@@ -4257,8 +4257,7 @@
     cpu = [ ];
   };
   "ripple-lib" = self.by-version."ripple-lib"."0.12.4";
-  by-spec."ripple-lib-transactionparser"."^0.3.2" =
-    self.by-version."ripple-lib-transactionparser"."0.3.2";
+  by-spec."ripple-lib-transactionparser"."^0.3.2" = self.by-version."ripple-lib-transactionparser"."0.3.2";
   by-version."ripple-lib-transactionparser"."0.3.2" = self.buildNodePackage {
     name = "ripple-lib-transactionparser-0.3.2";
     version = "0.3.2";

@@ -84,9 +84,7 @@ let
       authenticated-emails-file = authenticatedEmailsFile;
     }
     // lib.optionalAttrs (cfg.passBasicAuth) { basic-auth-password = cfg.basicAuthPassword; }
-    // lib.optionalAttrs (cfg.htpasswd.file != null) {
-      display-htpasswd-file = cfg.htpasswd.displayForm;
-    }
+    // lib.optionalAttrs (cfg.htpasswd.file != null) { display-htpasswd-file = cfg.htpasswd.displayForm; }
     // lib.optionalAttrs tls.enable {
       tls-cert-file = tls.certificate;
       tls-key-file = tls.key;

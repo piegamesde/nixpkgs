@@ -231,8 +231,7 @@ assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
 assert (lib.assertMsg
   (
     touchEFIVars
-    ->
-      partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
+    -> partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
   )
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );

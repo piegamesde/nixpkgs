@@ -183,9 +183,7 @@ in
       source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
     };
 
-    environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable [
-      "${cfg.package.jack}/lib"
-    ];
+    environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable [ "${cfg.package.jack}/lib" ];
 
     users = lib.mkIf cfg.systemWide {
       users.pipewire = {

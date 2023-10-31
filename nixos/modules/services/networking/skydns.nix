@@ -75,9 +75,7 @@ in
     extraConfig = mkOption {
       default = { };
       type = types.attrsOf types.str;
-      description =
-        lib.mdDoc
-          "Skydns attribute set of extra config options passed as environment variables.";
+      description = lib.mdDoc "Skydns attribute set of extra config options passed as environment variables.";
     };
   };
 

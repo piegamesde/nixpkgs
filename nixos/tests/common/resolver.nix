@@ -162,9 +162,7 @@
             lib.filter (z: lib.any (isSubZoneOf z) allZones) allZones;
 
           # All the zones without 'subZones'.
-          filteredZoneInfo =
-            map (zi: zi // { zones = lib.filter (x: !lib.elem x subZones) zi.zones; })
-              zoneInfo;
+          filteredZoneInfo = map (zi: zi // { zones = lib.filter (x: !lib.elem x subZones) zi.zones; }) zoneInfo;
         in
         pkgs.writeText "fake-root.zone" ''
           $TTL 3600

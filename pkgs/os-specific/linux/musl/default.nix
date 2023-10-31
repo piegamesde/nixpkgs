@@ -82,9 +82,7 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-qCw132TCSaZrkISmtDb8Q8ufyt8sAJdwACkvfwuoi/0=";
     })
   ];
-  CFLAGS = [
-    "-fstack-protector-strong"
-  ] ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64";
+  CFLAGS = [ "-fstack-protector-strong" ] ++ lib.optional stdenv.hostPlatform.isPower "-mlong-double-64";
 
   configureFlags = [
     "--enable-shared"

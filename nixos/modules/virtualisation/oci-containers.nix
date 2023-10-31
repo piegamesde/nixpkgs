@@ -229,8 +229,7 @@ let
       };
     };
 
-  isValidLogin =
-    login: login.username != null && login.passwordFile != null && login.registry != null;
+  isValidLogin = login: login.username != null && login.passwordFile != null && login.registry != null;
 
   mkService =
     name: container:
@@ -385,9 +384,7 @@ in
   config = lib.mkIf (cfg.containers != { }) (
     lib.mkMerge [
       {
-        systemd.services =
-          mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
-            cfg.containers;
+        systemd.services = mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v)) cfg.containers;
       }
       (lib.mkIf (cfg.backend == "podman") { virtualisation.podman.enable = true; })
       (lib.mkIf (cfg.backend == "docker") { virtualisation.docker.enable = true; })

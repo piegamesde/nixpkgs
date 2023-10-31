@@ -86,9 +86,7 @@ with lib; {
 
   config = mkIf cfg.enable {
     services.hydron.passwordFile = mkDefault (pkgs.writeText "hydron-password-file" cfg.password);
-    services.hydron.postgresArgsFile = mkDefault (
-      pkgs.writeText "hydron-postgres-args" cfg.postgresArgs
-    );
+    services.hydron.postgresArgsFile = mkDefault (pkgs.writeText "hydron-postgres-args" cfg.postgresArgs);
     services.hydron.postgresArgs = mkDefault ''
       {
         "driver": "postgres",

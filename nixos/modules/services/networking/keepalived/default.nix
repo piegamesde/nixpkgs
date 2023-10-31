@@ -76,9 +76,7 @@ let
           ${optionalString i.noPreempt "nopreempt"}
 
           ${
-            optionalString i.useVmac (
-              "use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
-            )
+            optionalString i.useVmac ("use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}")
           }
           ${optionalString i.vmacXmitBase "vmac_xmit_base"}
 
@@ -324,8 +322,7 @@ in
 
     systemd.services.keepalived =
       let
-        finalConfigFile =
-          if cfg.secretFile == null then keepalivedConf else "/run/keepalived/keepalived.conf";
+        finalConfigFile = if cfg.secretFile == null then keepalivedConf else "/run/keepalived/keepalived.conf";
       in
       {
         description = "Keepalive Daemon (LVS and VRRP)";

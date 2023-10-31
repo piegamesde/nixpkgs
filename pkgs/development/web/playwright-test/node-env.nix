@@ -552,13 +552,11 @@ let
     stdenv.mkDerivation (
       {
         name = "${name}${if version == null then "" else "-${version}"}";
-        buildInputs =
-          [
-            tarWrapper
-            python
-            nodejs
-          ]
-          ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
+        buildInputs = [
+          tarWrapper
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit nodejs;
 
@@ -669,13 +667,11 @@ let
       {
         name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
 
-        buildInputs =
-          [
-            tarWrapper
-            python
-            nodejs
-          ]
-          ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
+        buildInputs = [
+          tarWrapper
+          python
+          nodejs
+        ] ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit dontStrip; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall unpackPhase buildPhase;

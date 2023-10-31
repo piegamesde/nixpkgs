@@ -16,9 +16,7 @@ let
   noPhoningHome = {
     disable_guests = true; # disable automatic guest account registration at matrix.org
   };
-  configOverrides = writeText "element-config-overrides.json" (
-    builtins.toJSON (noPhoningHome // conf)
-  );
+  configOverrides = writeText "element-config-overrides.json" (builtins.toJSON (noPhoningHome // conf));
 in
 stdenv.mkDerivation rec {
   pname = "schildichat-web";

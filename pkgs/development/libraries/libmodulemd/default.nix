@@ -63,9 +63,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags = [
-    "-Dgobject_overrides_dir_py3=${placeholder "py"}/${python3.sitePackages}/gi/overrides"
-  ];
+  mesonFlags = [ "-Dgobject_overrides_dir_py3=${placeholder "py"}/${python3.sitePackages}/gi/overrides" ];
 
   postFixup = ''
     # Python overrides depend our own typelibs and other packages

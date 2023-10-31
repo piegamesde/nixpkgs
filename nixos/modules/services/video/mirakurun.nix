@@ -151,9 +151,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = mkIf (cfg.port != null) [ cfg.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = mkIf (cfg.port != null) [ cfg.port ]; };
 
     users.users.mirakurun = {
       description = "Mirakurun user";
@@ -197,10 +195,9 @@ in
       restartTriggers =
         let
           getconf = target: config.environment.etc."mirakurun/${target}.yml".source;
-          targets =
-            [ "server" ]
-            ++ optional (cfg.tunerSettings != null) "tuners"
-            ++ optional (cfg.channelSettings != null) "channels";
+          targets = [
+            "server"
+          ] ++ optional (cfg.tunerSettings != null) "tuners" ++ optional (cfg.channelSettings != null) "channels";
         in
         (map getconf targets);
     };

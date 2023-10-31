@@ -54,9 +54,7 @@ in
 
       accessTokenFile = mkOption {
         default = "${config.services.jenkins.home}/secrets/initialAdminPassword";
-        defaultText =
-          literalExpression
-            ''"''${config.services.jenkins.home}/secrets/initialAdminPassword"'';
+        defaultText = literalExpression ''"''${config.services.jenkins.home}/secrets/initialAdminPassword"'';
         type = types.str;
         example = "/run/keys/jenkins-job-builder-access-token";
         description = lib.mdDoc ''
@@ -170,10 +168,7 @@ in
             echo "Asking Jenkins to reload config"
             curl_opts="--silent --fail --show-error"
             access_token_file=${
-              if cfg.accessTokenFile != "" then
-                cfg.accessTokenFile
-              else
-                "$RUNTIME_DIRECTORY/jenkins_access_token.txt"
+              if cfg.accessTokenFile != "" then cfg.accessTokenFile else "$RUNTIME_DIRECTORY/jenkins_access_token.txt"
             }
             if [ "${cfg.accessToken}" != "" ]; then
                (umask 0077; printf "${cfg.accessToken}" >"$access_token_file")

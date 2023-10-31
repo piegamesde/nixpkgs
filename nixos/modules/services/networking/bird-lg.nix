@@ -57,8 +57,7 @@ let
 
   filterNull = filterAttrs (_: v: v != "" && v != null && v != [ ]);
 
-  argsAttrToList =
-    args: mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
+  argsAttrToList = args: mapAttrsToList (name: value: "${name} " + mkArgValue value) (filterNull args);
 in
 {
   options = {

@@ -6455,10 +6455,7 @@ let
     src = ./.;
     dependencies = [
       (
-        sources."@ampproject/remapping-2.2.0"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.1.1" ];
-        }
+        sources."@ampproject/remapping-2.2.0" // { dependencies = [ sources."@jridgewell/gen-mapping-0.1.1" ]; }
       )
       sources."@babel/code-frame-7.21.4"
       sources."@babel/compat-data-7.21.4"

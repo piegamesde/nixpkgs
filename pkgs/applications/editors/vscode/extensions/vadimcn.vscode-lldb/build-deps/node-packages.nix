@@ -3064,12 +3064,7 @@ let
       sources."tar-fs-2.1.1"
       (sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       (sources."terser-5.14.2" // { dependencies = [ sources."commander-2.20.3" ]; })
-      (
-        sources."terser-webpack-plugin-5.3.3"
-        // {
-          dependencies = [ sources."serialize-javascript-6.0.0" ];
-        }
-      )
+      (sources."terser-webpack-plugin-5.3.3" // { dependencies = [ sources."serialize-javascript-6.0.0" ]; })
       sources."tmp-0.2.1"
       sources."to-regex-range-5.0.1"
       sources."ts-loader-8.4.0"

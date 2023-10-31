@@ -274,8 +274,7 @@ let
   nullOff = b: if b == null then "off" else toString b;
   stripSlashes = replaceStrings [ "/" ] [ "." ];
 
-  attrsToFile =
-    config: concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
+  attrsToFile = config: concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
 
   mkDestAttrs =
     dst:
@@ -296,8 +295,7 @@ let
       enabled = onOff enable;
       # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
       mbuffer =
-        with mbuffer;
-        if enable then "mbuffer" + optionalString (port != null) ":${toString port}" else "off";
+        with mbuffer; if enable then "mbuffer" + optionalString (port != null) ":${toString port}" else "off";
       mbuffer_size = mbuffer.size;
       post_znap_cmd = nullOff postsnap;
       pre_znap_cmd = nullOff presnap;

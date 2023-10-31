@@ -92,9 +92,7 @@ let
               package = package;
               settings = {
                 mysqld = {
-                  plugin-load-add =
-                    lib.optional hasMroonga "ha_mroonga.so"
-                    ++ lib.optional hasRocksDB "ha_rocksdb.so";
+                  plugin-load-add = lib.optional hasMroonga "ha_mroonga.so" ++ lib.optional hasRocksDB "ha_rocksdb.so";
                 };
               };
             };

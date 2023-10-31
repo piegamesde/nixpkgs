@@ -242,9 +242,7 @@ in
     };
 
     nodeIp = mkOption {
-      description =
-        lib.mdDoc
-          "IP address of the node. If set, kubelet will use this IP address for the node.";
+      description = lib.mdDoc "IP address of the node. If set, kubelet will use this IP address for the node.";
       default = null;
       type = nullOr str;
     };
@@ -346,8 +344,7 @@ in
             (img: ''
               echo "Seeding container image: ${img}"
               ${if (lib.hasSuffix "gz" img) then
-                ''
-                  ${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
+                ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
               else
                 ''
                   ${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}

@@ -28,9 +28,7 @@ let
       lib.mapAttrs
         (
           type: pkgs:
-          lib.makeExtensible (
-            _: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs
-          )
+          lib.makeExtensible (_: lib.mapAttrs (pname: data: self.mkNextcloudDerivation { inherit data; }) pkgs)
         )
         generatedJson;
 in

@@ -21,14 +21,10 @@ let
         ${optionalString cfg.clearDefaultCommands "#stop"}
 
         #line-edit
-        ${concatStringsSep "\n" (
-          mapAttrsToList (command: action: "${command} ${action}") cfg.lineEditingKeys
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (command: action: "${command} ${action}") cfg.lineEditingKeys)}
 
         #env
-        ${concatStringsSep "\n" (
-          mapAttrsToList (variable: values: "${variable}=${values}") cfg.envVariables
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (variable: values: "${variable}=${values}") cfg.envVariables)}
       '';
 
   lessKey = pkgs.writeText "lessconfig" configText;
@@ -127,12 +123,10 @@ in
       // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
       // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
 
-    warnings =
-      optional (cfg.clearDefaultCommands && (all (x: x != "quit") (attrValues cfg.commands)))
-        ''
-          config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.
-          Consider adding a binding for 'quit'.
-        '';
+    warnings = optional (cfg.clearDefaultCommands && (all (x: x != "quit") (attrValues cfg.commands))) ''
+      config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.
+      Consider adding a binding for 'quit'.
+    '';
   };
 
   meta.maintainers = with maintainers; [ johnazoidberg ];

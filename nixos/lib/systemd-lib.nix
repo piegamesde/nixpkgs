@@ -138,13 +138,11 @@ rec {
     let
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
-    optional (badFields != [ ])
-      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
+    optional (badFields != [ ]) "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
 
   assertInt =
     name: group: attr:
-    optional (attr ? ${name} && !isInt attr.${name})
-      "Systemd ${group} field `${name}' is not an integer";
+    optional (attr ? ${name} && !isInt attr.${name}) "Systemd ${group} field `${name}' is not an integer";
 
   checkUnitConfig =
     group: checks: attrs:
@@ -280,8 +278,7 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs
-                (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
+              lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
                 units
             )
           )
@@ -532,8 +529,7 @@ rec {
             # systemd max line length is now 1MiB
             # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
             if stringLength s >= 1048576 then
-              throw
-                "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+              throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
             else
               s
           )

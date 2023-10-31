@@ -290,19 +290,13 @@ let
       libcxx = callPackage ./libcxx {
         inherit llvm_meta;
         stdenv =
-          if stdenv.hostPlatform.useLLVM or false then
-            overrideCC stdenv buildLlvmTools.clangNoLibcxx
-          else
-            stdenv;
+          if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
       };
 
       libcxxabi =
         let
           stdenv_ =
-            if stdenv.hostPlatform.useLLVM or false then
-              overrideCC stdenv buildLlvmTools.clangNoLibcxx
-            else
-              stdenv;
+            if stdenv.hostPlatform.useLLVM or false then overrideCC stdenv buildLlvmTools.clangNoLibcxx else stdenv;
           cxx-headers = callPackage ./libcxx {
             inherit llvm_meta;
             stdenv = stdenv_;

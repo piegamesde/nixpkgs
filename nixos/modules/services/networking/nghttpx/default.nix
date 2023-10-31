@@ -67,9 +67,7 @@ let
     frontend:
     let
       host = renderHost frontend.server;
-      params0 = lib.mapAttrsToList (n: v: if builtins.isBool v then n else v) (
-        filterParams frontend.params
-      );
+      params0 = lib.mapAttrsToList (n: v: if builtins.isBool v then n else v) (filterParams frontend.params);
 
       # NB: nghttpx doesn't accept "tls", you must omit "no-tls" for
       # the default behavior of turning on TLS.

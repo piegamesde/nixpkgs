@@ -11,8 +11,7 @@
   bison,
   linuxHeaders ? stdenv.cc.libc.linuxHeaders,
   gawk,
-  withPerl ?
-    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform perl,
+  withPerl ? stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform perl,
   perl,
   withPython ?
     stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform python3,
@@ -393,9 +392,7 @@ let
     runCommand ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}") { } ''
       touch $out
       while read -r path
-      do printf >>$out "%s,\n" ${
-        lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)
-      }
+      do printf >>$out "%s,\n" ${lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)}
       done <${closureInfo { inherit rootPaths; }}/store-paths
     '';
 in

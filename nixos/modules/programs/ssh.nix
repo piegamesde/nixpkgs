@@ -354,8 +354,7 @@ in
         "PubkeyAcceptedKeyTypes ${concatStringsSep "," cfg.pubkeyAcceptedKeyTypes}"}
       ${optionalString (cfg.hostKeyAlgorithms != [ ])
         "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
-      ${optionalString (cfg.kexAlgorithms != null)
-        "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
+      ${optionalString (cfg.kexAlgorithms != null) "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
       ${optionalString (cfg.ciphers != null) "Ciphers ${concatStringsSep "," cfg.ciphers}"}
       ${optionalString (cfg.macs != null) "MACs ${concatStringsSep "," cfg.macs}"}
     '';

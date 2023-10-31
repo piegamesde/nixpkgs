@@ -93,9 +93,7 @@ let
   # calculate the filename of a single zip file
   srcFilename =
     component: arch: version: rel:
-    "instantclient-${component}-${arch}-${version}"
-    + (optionalString (rel != "") "-${rel}")
-    + "dbru.zip"; # ¯\_(ツ)_/¯
+    "instantclient-${component}-${arch}-${version}" + (optionalString (rel != "") "-${rel}") + "dbru.zip"; # ¯\_(ツ)_/¯
 
   # fetcher for the non clickthrough artifacts
   fetcher =
@@ -120,9 +118,7 @@ in
 stdenv.mkDerivation {
   inherit pname version srcs;
 
-  buildInputs = [
-    stdenv.cc.cc.lib
-  ] ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
+  buildInputs = [ stdenv.cc.cc.lib ] ++ optional stdenv.isLinux libaio ++ optional odbcSupport unixODBC;
 
   nativeBuildInputs = [
     makeWrapper

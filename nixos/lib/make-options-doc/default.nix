@@ -115,25 +115,21 @@ in
 rec {
   inherit optionsNix;
 
-  optionsAsciiDoc =
-    pkgs.runCommand "options.adoc" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          $out
-      '';
+  optionsAsciiDoc = pkgs.runCommand "options.adoc" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; } ''
+    nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
+      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+      --revision ${lib.escapeShellArg revision} \
+      ${optionsJSON}/share/doc/nixos/options.json \
+      $out
+  '';
 
-  optionsCommonMark =
-    pkgs.runCommand "options.md" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          $out
-      '';
+  optionsCommonMark = pkgs.runCommand "options.md" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; } ''
+    nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
+      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+      --revision ${lib.escapeShellArg revision} \
+      ${optionsJSON}/share/doc/nixos/options.json \
+      $out
+  '';
 
   optionsJSON =
     pkgs.runCommand "options.json"

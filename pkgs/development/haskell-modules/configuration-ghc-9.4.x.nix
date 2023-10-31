@@ -7,8 +7,7 @@ let
     if builtins.compareVersions pkg.version ver <= 0 then
       act
     else
-      builtins.throw
-        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
+      builtins.throw "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
 in
 
 with haskellLib;
@@ -51,8 +50,7 @@ in
   system-cxx-std-lib = null;
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
-  terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
+  terminfo = if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -151,9 +149,7 @@ in
       (drv: {
         # Cabal 3.6 seems to preserve comments when reading, which makes this test fail
         # 2021-10-10: 9.2.1 is not yet supported (also no issue)
-        testFlags = [
-          "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/"
-        ] ++ drv.testFlags or [ ];
+        testFlags = [ "--skip=/Hpack/renderCabalFile/is inverse to readCabalFile/" ] ++ drv.testFlags or [ ];
       })
       (doJailbreak super.hpack);
 
@@ -252,9 +248,7 @@ in
   # The gtk2hs setup hook provided by this package lacks the ppOrdering field that
   # recent versions of Cabal require. This leads to builds like cairo and glib
   # failing during the Setup.hs phase: https://github.com/gtk2hs/gtk2hs/issues/323.
-  gtk2hs-buildtools =
-    appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch
-      super.gtk2hs-buildtools;
+  gtk2hs-buildtools = appendPatch ./patches/gtk2hs-buildtools-fix-ghc-9.4.x.patch super.gtk2hs-buildtools;
 
   # Pending text-2.0 support https://github.com/gtk2hs/gtk2hs/issues/327
   gtk = doJailbreak super.gtk;

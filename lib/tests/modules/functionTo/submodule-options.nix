@@ -38,9 +38,7 @@ in
   options = {
     result = lib.mkOption {
       type = types.str;
-      default = lib.concatStringsSep " " (
-        lib.attrValues (config.fun (throw "shouldn't use input param"))
-      );
+      default = lib.concatStringsSep " " (lib.attrValues (config.fun (throw "shouldn't use input param")));
     };
 
     optionsResult = lib.mkOption {

@@ -130,50 +130,47 @@ stdenv.mkDerivation (
       pkg-config
       cmake
     ];
-    buildInputs =
-      [
-        which
+    buildInputs = [
+      which
 
-        # Xen
-        bison
-        bzip2
-        checkpolicy
-        dev86
-        figlet
-        flex
-        gettext
-        glib
-        acpica-tools
-        libaio
-        libiconv
-        libuuid
-        ncurses
-        openssl
-        perl
-        python3Packages.python
-        xz
-        yajl
-        zlib
+      # Xen
+      bison
+      bzip2
+      checkpolicy
+      dev86
+      figlet
+      flex
+      gettext
+      glib
+      acpica-tools
+      libaio
+      libiconv
+      libuuid
+      ncurses
+      openssl
+      perl
+      python3Packages.python
+      xz
+      yajl
+      zlib
 
-        # oxenstored
-        ocamlPackages.findlib
-        ocamlPackages.ocaml
-        systemd
+      # oxenstored
+      ocamlPackages.findlib
+      ocamlPackages.ocaml
+      systemd
 
-        # Python fixes
-        python3Packages.wrapPython
+      # Python fixes
+      python3Packages.wrapPython
 
-        # Documentation
-        python3Packages.markdown
-        fig2dev
-        ghostscript
-        texinfo
-        pandoc
+      # Documentation
+      python3Packages.markdown
+      fig2dev
+      ghostscript
+      texinfo
+      pandoc
 
-        # Others
-      ]
-      ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
-      ++ (config.buildInputs or [ ]);
+      # Others
+    ] ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles)) ++ (config.buildInputs or [ ]);
 
     prePatch = ''
       ### Generic fixes

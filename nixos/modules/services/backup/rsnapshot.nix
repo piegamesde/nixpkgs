@@ -74,8 +74,7 @@ in
     mkMerge [
       {
         services.cron.systemCronJobs =
-          mapAttrsToList
-            (interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}")
+          mapAttrsToList (interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}")
             cfg.cronIntervals;
       }
       (mkIf cfg.enableManualRsnapshot {

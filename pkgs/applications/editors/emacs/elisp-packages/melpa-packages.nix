@@ -72,9 +72,7 @@ let
 
   buildWithGit =
     pkg:
-    pkg.overrideAttrs (
-      attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
-    );
+    pkg.overrideAttrs (attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; });
 
   fix-rtags = pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 
@@ -127,8 +125,7 @@ let
           dictionary = markBroken super.dictionary;
 
           # upstream issue: missing file header
-          fold-dwim =
-            if super.fold-dwim.version == "1.2" then markBroken super.fold-dwim else super.fold-dwim;
+          fold-dwim = if super.fold-dwim.version == "1.2" then markBroken super.fold-dwim else super.fold-dwim;
 
           # upstream issue: missing file header
           gl-conf-mode =

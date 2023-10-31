@@ -91,16 +91,12 @@ let
       );
       classimp = super.classimp.overrideLispAttrs (o: { nativeLibs = [ pkgs.assimp ]; });
       sdl2 = super.sdl2.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL2 ]; });
-      lispbuilder-sdl-cffi = super.lispbuilder-sdl-cffi.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.SDL ]; }
-      );
+      lispbuilder-sdl-cffi = super.lispbuilder-sdl-cffi.overrideLispAttrs (o: { nativeLibs = [ pkgs.SDL ]; });
       cl-opengl = super.cl-opengl.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGL ]; });
       cl-glu = super.cl-glu.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGLU ]; });
       cl-glut = super.cl-glut.overrideLispAttrs (o: { nativeLibs = [ pkgs.freeglut ]; });
       cl-glfw = super.cl-glfw.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
-      cl-glfw-opengl-core = super.cl-glfw-opengl-core.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libGL ]; }
-      );
+      cl-glfw-opengl-core = super.cl-glfw-opengl-core.overrideLispAttrs (o: { nativeLibs = [ pkgs.libGL ]; });
       cl-glfw3 = super.cl-glfw3.overrideLispAttrs (o: { nativeLibs = [ pkgs.glfw ]; });
       lev = super.lev.overrideLispAttrs (o: { nativeLibs = [ pkgs.libev ]; });
       cl-rdkafka = super.cl-rdkafka.overrideLispAttrs (

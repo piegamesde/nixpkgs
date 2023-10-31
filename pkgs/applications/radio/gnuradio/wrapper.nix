@@ -58,32 +58,30 @@ let
   makeWrapperArgs = builtins.concatStringsSep " " (
     [ ]
     # Emulating wrapGAppsHook & wrapQtAppsHook working together
-    ++
-      lib.optionals ((unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui"))
-        [
-          "--prefix"
-          "XDG_DATA_DIRS"
-          ":"
-          "$out/share"
-          "--prefix"
-          "XDG_DATA_DIRS"
-          ":"
-          "$out/share/gsettings-schemas/${pname}"
-          "--prefix"
-          "XDG_DATA_DIRS"
-          ":"
-          "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
-          "--prefix"
-          "XDG_DATA_DIRS"
-          ":"
-          "${hicolor-icon-theme}/share"
-          # Needs to run `gsettings` on startup, see:
-          # https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1764890.html
-          "--prefix"
-          "PATH"
-          ":"
-          "${lib.getBin glib}/bin"
-        ]
+    ++ lib.optionals ((unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui")) [
+      "--prefix"
+      "XDG_DATA_DIRS"
+      ":"
+      "$out/share"
+      "--prefix"
+      "XDG_DATA_DIRS"
+      ":"
+      "$out/share/gsettings-schemas/${pname}"
+      "--prefix"
+      "XDG_DATA_DIRS"
+      ":"
+      "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}"
+      "--prefix"
+      "XDG_DATA_DIRS"
+      ":"
+      "${hicolor-icon-theme}/share"
+      # Needs to run `gsettings` on startup, see:
+      # https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1764890.html
+      "--prefix"
+      "PATH"
+      ":"
+      "${lib.getBin glib}/bin"
+    ]
     ++ lib.optionals (unwrapped.hasFeature "gnuradio-companion") [
       "--set"
       "GDK_PIXBUF_MODULE_FILE"

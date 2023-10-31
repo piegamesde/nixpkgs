@@ -70,9 +70,7 @@ let
             ''
             + ''
               machine.succeed(
-                  "gnome-desktop-testing-runner ${
-                    escapeShellArgs testRunnerFlags
-                  } -d '${tested.installedTests}/share'"
+                  "gnome-desktop-testing-runner ${escapeShellArgs testRunnerFlags} -d '${tested.installedTests}/share'"
               )
             '';
         }

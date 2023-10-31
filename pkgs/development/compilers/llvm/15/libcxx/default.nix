@@ -91,9 +91,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional (!headersOnly && cxxabi.libName == "c++abi")
         "-DLIBCXX_CXX_ABI_INCLUDE_PATHS=${cxxabi.dev}/include/c++/v1"
-    ++
-      lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-        "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi) "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false) "-DLIBCXX_USE_COMPILER_RT=ON"
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"

@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   # Tip: "could not link appsrc to videoconvert1" can mean a lot of things, enable GST_DEBUG=2 for help.
   passthru.obsWrapperArguments =
     let
-      gstreamerHook =
-        package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
+      gstreamerHook = package: "--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${lib.getLib package}/lib/gstreamer-1.0";
     in
     with gst_all_1;
     builtins.map gstreamerHook [

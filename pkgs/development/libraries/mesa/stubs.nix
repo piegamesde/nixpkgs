@@ -88,8 +88,7 @@ stdenv.mkDerivation (
 
     meta =
       {
-        description =
-          "Stub bindings using " + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
+        description = "Stub bindings using " + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
         pkgConfigModules = [
           "gl"
           "egl"
@@ -98,11 +97,7 @@ stdenv.mkDerivation (
         ];
       }
       // {
-        inherit (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta)
-          homepage
-          license
-          platforms
-        ;
+        inherit (if stdenv.hostPlatform.isDarwin then mesa.meta else libglvnd.meta) homepage license platforms;
       };
   }
 )

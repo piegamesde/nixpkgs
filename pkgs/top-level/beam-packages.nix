@@ -32,9 +32,7 @@ let
     }
   );
 
-  packagesAliases = versionLoop (
-    version: { "erlangR${version}" = self.packages."erlang_${version}"; }
-  );
+  packagesAliases = versionLoop (version: { "erlangR${version}" = self.packages."erlang_${version}"; });
 in
 
 {

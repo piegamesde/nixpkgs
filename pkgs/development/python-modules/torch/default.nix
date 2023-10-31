@@ -148,17 +148,14 @@ let
   supportedCudaCapabilities =
     lists.intersectLists cudaFlags.cudaCapabilities
       supportedTorchCudaCapabilities;
-  unsupportedCudaCapabilities =
-    lists.subtractLists supportedCudaCapabilities
-      cudaFlags.cudaCapabilities;
+  unsupportedCudaCapabilities = lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
     trivial.throwIf (supported == [ ])
       (
-        "No supported GPU targets specified. Requested GPU targets: "
-        + strings.concatStringsSep ", " unsupported
+        "No supported GPU targets specified. Requested GPU targets: " + strings.concatStringsSep ", " unsupported
       )
       supported;
 
@@ -293,8 +290,7 @@ buildPythonPackage rec {
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
     +
-      lib.optionalString
-        (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
+      lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.targetPlatform.darwinSdkVersion "11.0")
         ''
           substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
           inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
@@ -401,8 +397,7 @@ buildPythonPackage rec {
       pythonRelaxDepsHook
       removeReferencesTo
     ]
-    ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
+    ++ lib.optionals cudaSupport [ cudatoolkit_joined ] ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
 
   buildInputs =
     [

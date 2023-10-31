@@ -284,7 +284,5 @@ rec {
   # Some tools (like dot) need a fontconfig configuration file.
   # This should be extended to allow the called to add additional
   # fonts.
-  fontsConf = pkgs.makeFontsConf {
-    fontDirectories = [ "${pkgs.ghostscript}/share/ghostscript/fonts" ];
-  };
+  fontsConf = pkgs.makeFontsConf { fontDirectories = [ "${pkgs.ghostscript}/share/ghostscript/fonts" ]; };
 }

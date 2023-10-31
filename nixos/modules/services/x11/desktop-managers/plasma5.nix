@@ -470,9 +470,7 @@ in
       nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
     })
 
-    (mkIf (cfg.kwinrc != { }) {
-      environment.etc."xdg/kwinrc".text = lib.generators.toINI { } cfg.kwinrc;
-    })
+    (mkIf (cfg.kwinrc != { }) { environment.etc."xdg/kwinrc".text = lib.generators.toINI { } cfg.kwinrc; })
 
     (mkIf (cfg.kdeglobals != { }) {
       environment.etc."xdg/kdeglobals".text = lib.generators.toINI { } cfg.kdeglobals;

@@ -48,9 +48,7 @@ buildGoModule rec {
     in
     ''
       for cmd in ${builtins.toString cmds}; do
-        go build -ldflags "${
-          builtins.toString ldflags
-        }" -trimpath -o bin/docker-credential-$cmd ./$cmd/cmd
+        go build -ldflags "${builtins.toString ldflags}" -trimpath -o bin/docker-credential-$cmd ./$cmd/cmd
       done
     '';
 

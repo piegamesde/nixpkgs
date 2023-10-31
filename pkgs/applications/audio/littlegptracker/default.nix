@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f2ip8z5wxk8fvlw47mczsbcrzh4nh1hgw1fwf5gjrqnzm8v111x";
   };
 
-  buildInputs = [
-    SDL
-  ] ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
+  buildInputs = [ SDL ] ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
 
   patches =
     [
@@ -32,10 +30,9 @@ stdenv.mkDerivation rec {
 
   preBuild = "cd projects";
 
-  makeFlags =
-    [ "CXX=${stdenv.cc.targetPrefix}c++" ]
-    ++ lib.optionals stdenv.isLinux [ "PLATFORM=DEB" ]
-    ++ lib.optionals stdenv.isDarwin [ "PLATFORM=OSX" ];
+  makeFlags = [
+    "CXX=${stdenv.cc.targetPrefix}c++"
+  ] ++ lib.optionals stdenv.isLinux [ "PLATFORM=DEB" ] ++ lib.optionals stdenv.isDarwin [ "PLATFORM=OSX" ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ "-fpermissive" ] ++ lib.optional stdenv.hostPlatform.isAarch64 "-Wno-error=narrowing"

@@ -100,18 +100,14 @@ stdenv.mkDerivation rec {
                  -std=f2008 \
                  -fopenmp -ftree-vectorize -funroll-loops \
                  -I${libxc}/include -I${libxsmm}/include \
-                 -I${libint}/include ${
-                   lib.optionalString enableElpa "$(pkg-config --variable=fcflags elpa)"
-                 }
+                 -I${libint}/include ${lib.optionalString enableElpa "$(pkg-config --variable=fcflags elpa)"}
     LIBS       = -lfftw3 -lfftw3_threads \
                  -lscalapack -lblas -llapack \
                  -lxcf03 -lxc -lxsmmf -lxsmm -lsymspg \
                  -lint2 -lstdc++ -lvori \
                  -lgomp -lpthread -lm \
                  -fopenmp ${lib.optionalString enableElpa "$(pkg-config --libs elpa)"} \
-                 -lz -ldl -lstdc++ ${
-                   lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"
-                 } \
+                 -lz -ldl -lstdc++ ${lib.optionalString (mpi.pname == "openmpi") "$(mpicxx --showme:link)"} \
                  -lplumed
     LDFLAGS    = \$(FCFLAGS) \$(LIBS)
     include ${plumed}/lib/plumed/src/lib/Plumed.inc

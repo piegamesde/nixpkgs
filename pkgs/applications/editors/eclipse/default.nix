@@ -68,9 +68,7 @@ rec {
   };
   buildEclipse =
     eclipseData:
-    buildEclipseUnversioned (
-      eclipseData // { productVersion = "${platform_major}.${platform_minor}"; }
-    );
+    buildEclipseUnversioned (eclipseData // { productVersion = "${platform_major}.${platform_minor}"; });
 
   ### Eclipse CPP
 

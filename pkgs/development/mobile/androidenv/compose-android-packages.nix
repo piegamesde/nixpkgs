@@ -120,8 +120,7 @@ let
         path: value:
         if (builtins.elemAt path ((builtins.length path) - 1)) == "archives" then
           (builtins.listToAttrs (
-            builtins.map
-              (archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; }))
+            builtins.map (archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; }))
               value
           ))
         else
@@ -159,8 +158,7 @@ let
 
   # Converts a license name to a list of license hashes.
   mkLicenseHashes =
-    licenseName:
-    builtins.map (licenseText: builtins.hashString "sha1" licenseText) (mkLicenses licenseName);
+    licenseName: builtins.map (licenseText: builtins.hashString "sha1" licenseText) (mkLicenses licenseName);
 
   # The list of all license names we're accepting. Put android-sdk-license there
   # by default.

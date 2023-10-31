@@ -324,9 +324,7 @@ let
             ++ lib.optionals withNuma [ "-DWITH_NUMA=ON" ]
             ++ lib.optionals (!withStorageMroonga) [ "-DWITHOUT_MROONGA=1" ]
             ++ lib.optionals (!withStorageRocks) [ "-DWITHOUT_ROCKSDB=1" ]
-            ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks) [
-              "-DWITH_ROCKSDB_JEMALLOC=ON"
-            ]
+            ++ lib.optionals (!stdenv.hostPlatform.isDarwin && withStorageRocks) [ "-DWITH_ROCKSDB_JEMALLOC=ON" ]
             ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ "-DWITH_JEMALLOC=yes" ]
             ++ lib.optionals stdenv.hostPlatform.isDarwin [
               "-DPLUGIN_AUTH_PAM=NO"

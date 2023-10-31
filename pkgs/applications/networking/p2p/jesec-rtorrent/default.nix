@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DUSE_RUNTIME_CA_DETECTION=NO" ]
-    ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO"
-    ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO";
+    ++ lib.optional (!jsonRpcSupport) "-DUSE_JSONRPC=NO" ++ lib.optional (!xmlRpcSupport) "-DUSE_XMLRPC=NO";
 
   doCheck = true;
 

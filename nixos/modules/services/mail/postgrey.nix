@@ -14,8 +14,7 @@ let
   natural' = with types; addCheck int (x: x > 0);
 
   socket =
-    with types;
-    addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
+    with types; addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
 
   inetSocket = with types; {
     options = {
@@ -154,9 +153,7 @@ in
       lookupBySubnet = mkOption {
         type = bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
+        description = lib.mdDoc "Strip the last N bits from IP addresses, determined by IPv4CIDR and IPv6CIDR";
       };
       IPv4CIDR = mkOption {
         type = natural;
@@ -216,9 +213,7 @@ in
           if cfg.socket ? path then
             "--unix=${cfg.socket.path} --socketmode=${cfg.socket.mode}"
           else
-            "--inet=${optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")}${
-              toString cfg.socket.port
-            }";
+            "--inet=${optionalString (cfg.socket.addr != null) (cfg.socket.addr + ":")}${toString cfg.socket.port}";
       in
       {
         description = "Postfix Greylisting Service";

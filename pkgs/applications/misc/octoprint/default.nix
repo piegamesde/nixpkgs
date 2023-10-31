@@ -219,9 +219,7 @@ let
             in
             ''
               sed -r -i \
-                ${
-                  lib.concatStringsSep "\n" (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints)
-                }
+                ${lib.concatStringsSep "\n" (map (e: ''-e 's@${e}[<>=]+.*@${e}",@g' \'') ignoreVersionConstraints)}
                 setup.py
             '';
 

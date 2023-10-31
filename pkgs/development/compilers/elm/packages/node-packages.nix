@@ -14708,9 +14708,7 @@ in
       sources."@babel/generator-7.21.4"
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
-      (
-        sources."@babel/helper-compilation-targets-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/helper-compilation-targets-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
       sources."@babel/helper-environment-visitor-7.18.9"

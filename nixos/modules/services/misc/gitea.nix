@@ -234,9 +234,7 @@ in
         default = "${cfg.stateDir}/custom";
         defaultText = literalExpression ''"''${config.${opt.stateDir}}/custom"'';
         type = types.str;
-        description =
-          lib.mdDoc
-            "Gitea custom directory. Used for config, custom templates and other options.";
+        description = lib.mdDoc "Gitea custom directory. Used for config, custom templates and other options.";
       };
 
       user = mkOption {
@@ -389,9 +387,7 @@ in
         file = mkOption {
           type = types.nullOr types.str;
           default = null;
-          description =
-            lib.mdDoc
-              "Filename to be used for the dump. If `null` a default name is chosen by gitea.";
+          description = lib.mdDoc "Filename to be used for the dump. If `null` a default name is chosen by gitea.";
           example = "gitea-dump";
         };
       };
@@ -498,8 +494,7 @@ in
                   if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
                 defaultText =
                   literalExpression
-                    ''
-                      if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
+                    ''if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
                 description = lib.mdDoc "Listen address. Must be a path when using a unix socket.";
               };
 

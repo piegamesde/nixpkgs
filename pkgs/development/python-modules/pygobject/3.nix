@@ -30,9 +30,7 @@ buildPythonPackage rec {
   format = "other";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "PGgF0TIb6QzDLmSCFaViQw4NPW7c2o9MXnqdr/ytVxA=";
   };
 

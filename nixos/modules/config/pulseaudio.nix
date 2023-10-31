@@ -246,9 +246,7 @@ in
       environment.etc = {
         "asound.conf".source = alsaConf;
 
-        "pulse/daemon.conf".source = writeText "daemon.conf" (
-          lib.generators.toKeyValue { } cfg.daemon.config
-        );
+        "pulse/daemon.conf".source = writeText "daemon.conf" (lib.generators.toKeyValue { } cfg.daemon.config);
 
         "openal/alsoft.conf".source = writeText "alsoft.conf" "drivers=pulse";
 

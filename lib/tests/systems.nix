@@ -177,7 +177,5 @@ lib.runTests {
     "i686-windows"
     "x86_64-windows"
   ];
-  testunix = mseteq unix (
-    linux ++ darwin ++ freebsd ++ openbsd ++ netbsd ++ illumos ++ cygwin ++ redox
-  );
+  testunix = mseteq unix (linux ++ darwin ++ freebsd ++ openbsd ++ netbsd ++ illumos ++ cygwin ++ redox);
 }

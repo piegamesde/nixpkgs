@@ -38,8 +38,7 @@
   rez,
   setfile,
   vmnet,
-  guestAgentSupport ? with stdenv.hostPlatform;
-    isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows,
+  guestAgentSupport ? with stdenv.hostPlatform; isLinux || isNetBSD || isOpenBSD || isSunOS || isWindows,
   numaSupport ? stdenv.isLinux && !stdenv.isAarch32,
   numactl,
   seccompSupport ? stdenv.isLinux,

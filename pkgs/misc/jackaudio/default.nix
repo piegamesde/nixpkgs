@@ -33,8 +33,7 @@
 
 let
   inherit (python3Packages) python dbus-python;
-  shouldUsePkg =
-    pkg: if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then pkg else null;
+  shouldUsePkg = pkg: if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then pkg else null;
 
   libOnly = prefix == "lib";
 

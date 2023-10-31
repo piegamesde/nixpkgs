@@ -19,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs =
     lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.apple_sdk.frameworks.IOKit ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-      darwin.apple_sdk_11_0.frameworks.Foundation
-    ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [ darwin.apple_sdk_11_0.frameworks.Foundation ];
 
   # tests are broken
   doCheck = false;

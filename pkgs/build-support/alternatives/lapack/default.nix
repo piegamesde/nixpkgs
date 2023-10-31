@@ -18,10 +18,7 @@ let
 
   lapackImplementation = lib.getName lapackProvider;
   lapackProvider' =
-    if lapackImplementation == "mkl" then
-      lapackProvider
-    else
-      lapackProvider.override { blas64 = isILP64; };
+    if lapackImplementation == "mkl" then lapackProvider else lapackProvider.override { blas64 = isILP64; };
 in
 
 assert isILP64 -> lapackImplementation == "mkl" || lapackProvider'.blas64;
@@ -125,9 +122,7 @@ stdenv.mkDerivation {
       ''
       + lib.optionalString (lapackImplementation == "mkl") ''
         mkdir -p $out/nix-support
-        echo 'export MKL_INTERFACE_LAYER=${
-          lib.optionalString isILP64 "I"
-        }LP64,GNU' > $out/nix-support/setup-hook
+        echo 'export MKL_INTERFACE_LAYER=${lib.optionalString isILP64 "I"}LP64,GNU' > $out/nix-support/setup-hook
         ln -s $out/lib/liblapack${canonicalExtension} $out/lib/libmkl_rt${stdenv.hostPlatform.extensions.sharedLibrary}
         ln -sf ${lapackProvider'}/include/* $dev/include
       ''

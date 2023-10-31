@@ -87,9 +87,7 @@ in
         ${lib.optionalString (cfg.secretKeyFile != null) ''
           export NIX_SECRET_KEY_FILE="$CREDENTIALS_DIRECTORY/NIX_SECRET_KEY_FILE"
         ''}
-        exec ${cfg.package}/bin/nix-serve --listen ${cfg.bindAddress}:${
-          toString cfg.port
-        } ${cfg.extraParams}
+        exec ${cfg.package}/bin/nix-serve --listen ${cfg.bindAddress}:${toString cfg.port} ${cfg.extraParams}
       '';
 
       serviceConfig = {

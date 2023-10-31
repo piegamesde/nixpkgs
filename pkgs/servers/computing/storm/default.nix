@@ -55,9 +55,7 @@ stdenv.mkDerivation rec {
     unzip  $out/lib/storm-client-${version}.jar defaults.yaml;
     zip -d $out/lib/storm-client-${version}.jar defaults.yaml;
     sed -i \
-       -e 's|java.library.path: .*|java.library.path: "${
-         lib.concatStringsSep ":" extraLibraryPaths
-       }"|' \
+       -e 's|java.library.path: .*|java.library.path: "${lib.concatStringsSep ":" extraLibraryPaths}"|' \
        -e 's|storm.log4j2.conf.dir: .*|storm.log4j2.conf.dir: "conf/log4j2"|' \
       defaults.yaml
     ${lib.optionalString (confFile != "") "cat ${confFile} >> defaults.yaml"}

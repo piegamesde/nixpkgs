@@ -305,9 +305,7 @@ let
     \set ON_ERROR_STOP on
 
     ALTER ROLE ${escapeSqlId db.username}
-      LOGIN PASSWORD ${
-        if db ? password then "${escapeSqlStr (sha256 db.password._secret)}" else "NULL"
-      };
+      LOGIN PASSWORD ${if db ? password then "${escapeSqlStr (sha256 db.password._secret)}" else "NULL"};
 
     ALTER DATABASE ${escapeSqlId db.database}
       OWNER TO ${escapeSqlId db.username};
@@ -460,9 +458,7 @@ let
       mapAttrsToList
         (key: val: ''
           mkdir -p $out/frontends/${escapeShellArg val.name}/
-          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${
-            escapeShellArg val.ref
-          }
+          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
         '')
         cfg.frontends
     )}
@@ -1052,8 +1048,7 @@ in
 
       nginx = mkOption {
         type =
-          with types;
-          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+          with types; nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.

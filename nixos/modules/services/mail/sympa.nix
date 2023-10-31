@@ -437,8 +437,7 @@ in
         "etc/list_aliases.tt2" = mkDefault { source = listAliases; };
       }
       // (flip mapAttrs' cfg.domains (
-        fqdn: domain:
-        nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
+        fqdn: domain: nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
       ));
 
     environment = {
@@ -577,8 +576,7 @@ in
     services.nginx.virtualHosts = mkIf usingNginx (
       let
         vHosts = unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
-        hostLocations =
-          host: map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
+        hostLocations = host: map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;
           enableACME = mkDefault true;

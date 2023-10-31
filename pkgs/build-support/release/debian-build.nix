@@ -69,9 +69,7 @@ vmTools.runInLinuxImage (
             --fstrans=${if fsTranslation then "yes" else "no"} \
             --requires="${lib.concatStringsSep "," debRequires}" \
             --provides="${lib.concatStringsSep "," debProvides}" \
-            ${
-              if (src ? version) then "--pkgversion=$(echo ${src.version} | tr _ -)" else "--pkgversion=0.0.0"
-            } \
+            ${if (src ? version) then "--pkgversion=$(echo ${src.version} | tr _ -)" else "--pkgversion=0.0.0"} \
             ''${debMaintainer:+--maintainer="'$debMaintainer'"} \
             ''${debName:+--pkgname="'$debName'"} \
             $checkInstallFlags \

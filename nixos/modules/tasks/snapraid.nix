@@ -86,9 +86,7 @@ in
       olderThan = mkOption {
         default = 10;
         example = 20;
-        description =
-          lib.mdDoc
-            "Number of days since data was last scrubbed before it can be scrubbed again.";
+        description = lib.mdDoc "Number of days since data was last scrubbed before it can be scrubbed again.";
         type = int;
       };
     };
@@ -136,9 +134,7 @@ in
             in
             concatStringsSep "\n" (
               map prependData ((mapAttrsToList (name: value: name + " " + value)) dataDisks)
-              ++
-                zipListsWith (a: b: a + b) ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6))
-                  parityFiles
+              ++ zipListsWith (a: b: a + b) ([ "parity " ] ++ map (i: toString i + "-parity ") (range 2 6)) parityFiles
               ++ map prependContent contentFiles
               ++ map prependExclude exclude
             )

@@ -93,9 +93,7 @@ stdenv.mkDerivation (
       libffi
     ] ++ optional enablePFM libpfm; # exegesis
 
-    propagatedBuildInputs = optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ] ++ [
-      zlib
-    ];
+    propagatedBuildInputs = optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ ncurses ] ++ [ zlib ];
 
     nativeCheckInputs = [ which ];
 

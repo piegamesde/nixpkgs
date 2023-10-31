@@ -562,8 +562,7 @@ let
     name: zone:
     optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (
       let
-        auth_file =
-          if zone.basicAuthFile != null then zone.basicAuthFile else mkHtpasswd name zone.basicAuth;
+        auth_file = if zone.basicAuthFile != null then zone.basicAuthFile else mkHtpasswd name zone.basicAuth;
       in
       ''
         auth_basic secured;
@@ -665,9 +664,7 @@ in
       defaultListenAddresses = mkOption {
         type = types.listOf types.str;
         default = [ "0.0.0.0" ] ++ optional enableIPv6 "[::0]";
-        defaultText =
-          literalExpression
-            ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
+        defaultText = literalExpression ''[ "0.0.0.0" ] ++ lib.optional config.networking.enableIPv6 "[::0]"'';
         example = literalExpression ''[ "10.0.0.12" "[2002:a00:1::]" ]'';
         description = lib.mdDoc ''
           If vhosts do not specify listenAddresses, use these addresses by default.
@@ -1330,9 +1327,7 @@ in
       description = "Nginx Web Server";
       wantedBy = [ "multi-user.target" ];
       wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
-      after = [
-        "network.target"
-      ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
+      after = [ "network.target" ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       # Nginx needs to be started in order to be able to request certificates
       # (it's hosting the acme challenge after all)
       # This fixes https://github.com/NixOS/nixpkgs/issues/81842

@@ -19,13 +19,11 @@ let
       al_v4 = builtins.match "([0-9.]+):([0-9]+)($)" addr;
       al_v6 = builtins.match "\\[(.+)]:([0-9]+)(%.*|$)" addr;
       al_portOnly = builtins.match "([0-9]+)" addr;
-      al =
-        findFirst (a: a != null) (throw "services.kresd.*: incorrect address specification '${addr}'")
-          [
-            al_v4
-            al_v6
-            al_portOnly
-          ];
+      al = findFirst (a: a != null) (throw "services.kresd.*: incorrect address specification '${addr}'") [
+        al_v4
+        al_v6
+        al_portOnly
+      ];
       port = elemAt al 1;
       addrSpec = if al_portOnly == null then "'${head al}${elemAt al 2}'" else "{'::', '0.0.0.0'}";
     in
@@ -182,9 +180,7 @@ in
     systemd.targets.kresd = {
       # configure units started by default
       wantedBy = [ "multi-user.target" ];
-      wants = [
-        "kres-cache-gc.service"
-      ] ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
+      wants = [ "kres-cache-gc.service" ] ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
     };
     systemd.services."kresd@".serviceConfig = {
       ExecStart =

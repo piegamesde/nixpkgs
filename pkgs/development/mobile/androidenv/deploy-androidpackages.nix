@@ -24,8 +24,7 @@ let
   ];
   sortedPackages = builtins.sort (x: y: builtins.lessThan x.name y.name) packages;
 
-  mkXmlAttrs =
-    attrs: lib.concatStrings (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
+  mkXmlAttrs = attrs: lib.concatStrings (lib.mapAttrsToList (name: value: " ${name}=\"${value}\"") attrs);
   mkXmlValues =
     attrs:
     lib.concatStrings (

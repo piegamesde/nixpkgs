@@ -134,10 +134,7 @@ in
       dataDir = mkOption {
         type = types.str;
         default =
-          if versionAtLeast config.system.stateVersion "17.09" then
-            "/var/lib/ipfs"
-          else
-            "/var/lib/ipfs/.ipfs";
+          if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/ipfs" else "/var/lib/ipfs/.ipfs";
         defaultText = literalExpression ''
           if versionAtLeast config.system.stateVersion "17.09"
           then "/var/lib/ipfs"
@@ -297,10 +294,7 @@ in
       }
       {
         assertion =
-          !(
-            (builtins.hasAttr "Pinning" cfg.settings)
-            && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning)
-          );
+          !((builtins.hasAttr "Pinning" cfg.settings) && (builtins.hasAttr "RemoteServices" cfg.settings.Pinning));
         message = ''
           You can't set services.kubo.settings.Pinning.RemoteServices because the ``config replace`` subcommand used at startup does not work with it.
         '';

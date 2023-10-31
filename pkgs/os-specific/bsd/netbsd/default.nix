@@ -333,9 +333,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             libutil.src
             (fetchNetBSD "external/bsd/flex" "9.2" "0h98jpfj7vx5zh7vd7bk6b1hmzgkcb757a8j6d9zgygxxv13v43m")
             (fetchNetBSD "sys/sys" "9.2" "0zawhw51klaigqqwkx0lzrx3mim2jywrc24cm7c66qsf1im9awgd")
-            (fetchNetBSD "common/include/rpc/types.h" "9.2"
-              "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a"
-            )
+            (fetchNetBSD "common/include/rpc/types.h" "9.2" "0n2df12mlc3cbc48jxq35yzl1y7ghgpykvy7jnfh898rdhac7m9a")
           ]
           ++ libutil.extraPaths
           ++ _mainLibcExtraPaths;
@@ -404,9 +402,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       propagatedBuildInputs = with self; compatIfNeeded;
       extraPaths = with self; [
         (fetchNetBSD "lib/libc/gen/fts.c" "9.2" "1a8hmf26242nmv05ipn3ircxb0jqmmi66rh78kkyi9vjwkfl3qn7")
-        (fetchNetBSD "lib/libc/include/namespace.h" "9.2"
-          "0kksr3pdwdc1cplqf5z12ih4cml6l11lqrz91f7hjjm64y7785kc"
-        )
+        (fetchNetBSD "lib/libc/include/namespace.h" "9.2" "0kksr3pdwdc1cplqf5z12ih4cml6l11lqrz91f7hjjm64y7785kc")
         (fetchNetBSD "lib/libc/gen/fts.3" "9.2" "1asxw0n3fhjdadwkkq3xplfgqgl3q32w1lyrvbakfa3gs0wz5zc1")
       ];
       skipIncludesPhase = true;
@@ -551,9 +547,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
-      extraPaths = [
-        (fetchNetBSD "share/mk" "9.2" "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy")
-      ];
+      extraPaths = [ (fetchNetBSD "share/mk" "9.2" "0w9x77cfnm6zwy40slradzi0ip9gz80x6lk7pvnlxzsr2m5ra5sy") ];
     };
 
     mtree = mkDerivation {

@@ -102,8 +102,7 @@ rec {
         => "usr/local/bin"
   */
   concatStringsSep =
-    builtins.concatStringsSep
-      or (separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list));
+    builtins.concatStringsSep or (separator: list: lib.foldl' (x: y: x + y) "" (intersperse separator list));
 
   /* Maps a function over a list of strings and then concatenates the
      result with the specified separator interspersed between
@@ -224,15 +223,11 @@ rec {
     s:
     warnIf (isPath s)
       ''
-        lib.strings.normalizePath: The argument (${
-          toString s
-        }) is a path value, but only strings are supported.
+        lib.strings.normalizePath: The argument (${toString s}) is a path value, but only strings are supported.
             Path values are always normalised in Nix, so there's no need to call this function on them.
             This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
-      (
-        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (stringToCharacters s)
-      );
+      (builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (stringToCharacters s));
 
   /* Depending on the boolean `cond', return either the given string
      or the empty string. Useful to concatenate against a bigger string.
@@ -691,9 +686,7 @@ rec {
   splitString =
     sep: s:
     let
-      splits = builtins.filter builtins.isString (
-        builtins.split (escapeRegex (toString sep)) (toString s)
-      );
+      splits = builtins.filter builtins.isString (builtins.split (escapeRegex (toString sep)) (toString s));
     in
     map (addContextFrom s) splits;
 
@@ -969,9 +962,9 @@ rec {
       reqWidth = width - (lib.stringLength filler);
     in
     assert lib.assertMsg (strw <= width)
-        "fixedWidthString: requested string length (${
-          toString width
-        }) must not be shorter than actual length (${toString strw})";
+        "fixedWidthString: requested string length (${toString width}) must not be shorter than actual length (${
+          toString strw
+        })";
     if strw == width then str else filler + fixedWidthString reqWidth filler str;
 
   /* Format a number adding leading zeroes up to fixed width.

@@ -219,12 +219,10 @@ in
     };
 
     # Create default cert store
-    system.activationScripts.makeStargazerCertDir =
-      lib.optionalAttrs (cfg.store == /var/lib/gemini/certs)
-        ''
-          mkdir -p /var/lib/gemini/certs
-          chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
-        '';
+    system.activationScripts.makeStargazerCertDir = lib.optionalAttrs (cfg.store == /var/lib/gemini/certs) ''
+      mkdir -p /var/lib/gemini/certs
+      chown -R ${cfg.user}:${cfg.group} /var/lib/gemini/certs
+    '';
 
     users.users = lib.optionalAttrs (cfg.user == "stargazer") {
       stargazer = {

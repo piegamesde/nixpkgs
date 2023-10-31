@@ -317,10 +317,7 @@ stdenv.mkDerivation (
       makeLibraryPath (optional (zlib != null) zlib)
     );
 
-    inherit (callFile ../common/extra-target-flags.nix { })
-      EXTRA_FLAGS_FOR_TARGET
-      EXTRA_LDFLAGS_FOR_TARGET
-    ;
+    inherit (callFile ../common/extra-target-flags.nix { }) EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
 
     passthru = {
       inherit
@@ -355,8 +352,7 @@ stdenv.mkDerivation (
   }
 
   //
-    optionalAttrs
-      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
+    optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

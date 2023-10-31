@@ -11,8 +11,7 @@ let
   };
 
   make =
-    crossSystem:
-    import ./make-bootstrap-tools.nix { pkgs = releaseLib.pkgsForCross crossSystem system; };
+    crossSystem: import ./make-bootstrap-tools.nix { pkgs = releaseLib.pkgsForCross crossSystem system; };
 in
 lib.mapAttrs (n: make) (
   with lib.systems.examples; {

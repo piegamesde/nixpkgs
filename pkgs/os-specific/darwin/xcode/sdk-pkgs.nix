@@ -22,8 +22,7 @@ rec {
     name = "ios-sdk";
     type = "derivation";
     outPath =
-      xcode
-      + "/Contents/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}${version}.sdk";
+      xcode + "/Contents/Developer/Platforms/${platform}.platform/Developer/SDKs/${platform}${version}.sdk";
 
     platform = stdenv.targetPlatform.xcodePlatform;
     version = stdenv.targetPlatform.sdkVer;

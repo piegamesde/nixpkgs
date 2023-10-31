@@ -144,9 +144,7 @@ in
       "--runstatedir=/var/run"
     ]
     ++ lib.optional (!enableSeccomp) "--without-seccomp"
-    ++ lib.optional (enableSuid != defaultToSuid) (
-      if enableSuid then "--with-suid" else "--without-suid"
-    )
+    ++ lib.optional (enableSuid != defaultToSuid) (if enableSuid then "--with-suid" else "--without-suid")
     ++ extraConfigureFlags;
 
   # Packages to prefix to the Apptainer/Singularity container runtime default PATH

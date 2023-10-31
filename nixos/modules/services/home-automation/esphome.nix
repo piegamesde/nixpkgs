@@ -42,9 +42,7 @@ in
     enableUnixSocket = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port.";
+      description = lib.mdDoc "Listen on a unix socket `/run/esphome/esphome.sock` instead of the TCP port.";
     };
 
     address = mkOption {
@@ -70,9 +68,7 @@ in
         "char-ttyS"
         "char-ttyUSB"
       ];
-      example = [
-        "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0"
-      ];
+      example = [ "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0" ];
       description = lib.mdDoc ''
         A list of device nodes to which {command}`esphome` has access to.
         Refer to DeviceAllow in systemd.resource-control(5) for more information.

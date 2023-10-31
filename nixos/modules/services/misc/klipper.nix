@@ -183,8 +183,7 @@ in
     systemd.services.klipper =
       let
         klippyArgs =
-          "--input-tty=${cfg.inputTTY}"
-          + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}";
+          "--input-tty=${cfg.inputTTY}" + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}";
         printerConfigPath =
           if cfg.mutableConfig then cfg.mutableConfigFolder + "/printer.cfg" else "/etc/klipper.cfg";
         printerConfigFile =

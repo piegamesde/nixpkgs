@@ -31,8 +31,7 @@ let
     };
   };
 
-  metadata =
-    assert platformMap ? ${stdenv.hostPlatform.system}; platformMap.${stdenv.hostPlatform.system};
+  metadata = assert platformMap ? ${stdenv.hostPlatform.system}; platformMap.${stdenv.hostPlatform.system};
 in
 stdenv.mkDerivation rec {
   pname = "swt";

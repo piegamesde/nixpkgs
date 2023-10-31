@@ -32,9 +32,7 @@ runCommand "Toolchains" { } (
     toolchain=$out/XcodeDefault.xctoolchain
     mkdir -p $toolchain
 
-    install -D ${
-      writeText "ToolchainInfo.plist" (toPlist { } ToolchainInfo)
-    } $toolchain/ToolchainInfo.plist
+    install -D ${writeText "ToolchainInfo.plist" (toPlist { } ToolchainInfo)} $toolchain/ToolchainInfo.plist
 
     ln -s $toolchain $toolchain/usr
 

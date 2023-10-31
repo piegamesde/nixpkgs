@@ -2627,9 +2627,7 @@ let
         Parent = "root";
         QuantumBytes = "300k";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionDeficitRoundRobinSchedulerClass;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDeficitRoundRobinSchedulerClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DeficitRoundRobinSchedulerClass]` section of the unit.  See
@@ -3621,9 +3619,7 @@ let
         # This must be done in stage 1 to avoid race conditions between udev and
         # network daemons.
         systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n) config.systemd.network.units;
-        systemd.storePaths = [
-          "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
-        ];
+        systemd.storePaths = [ "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link" ];
       }
 
       (mkIf cfg.enable {

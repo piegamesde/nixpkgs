@@ -81,9 +81,7 @@ let
     let
       modules = lib.filter hasPythonModule drvs;
     in
-    lib.unique (
-      [ python ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
-    );
+    lib.unique ([ python ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules));
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
   # providing Python modules.
@@ -122,8 +120,7 @@ let
 
   disabled =
     drv:
-    throw
-      "${removePythonPrefix (drv.pname or drv.name)} not supported for interpreter ${python.executable}";
+    throw "${removePythonPrefix (drv.pname or drv.name)} not supported for interpreter ${python.executable}";
 
   disabledIf = x: drv: if x then disabled drv else drv;
 in

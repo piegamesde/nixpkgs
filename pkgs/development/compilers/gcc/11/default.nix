@@ -309,8 +309,7 @@ lib.pipe
           target =
             lib.optionalString (profiledCompiler) "profiled"
             +
-              lib.optionalString
-                (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
+              lib.optionalString (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
                 "bootstrap";
         in
         lib.optional (target != "") target;
@@ -337,10 +336,7 @@ lib.pipe
         makeLibraryPath (optional (zlib != null) zlib)
       );
 
-      inherit (callFile ../common/extra-target-flags.nix { })
-        EXTRA_FLAGS_FOR_TARGET
-        EXTRA_LDFLAGS_FOR_TARGET
-      ;
+      inherit (callFile ../common/extra-target-flags.nix { }) EXTRA_FLAGS_FOR_TARGET EXTRA_LDFLAGS_FOR_TARGET;
 
       passthru = {
         inherit
@@ -374,8 +370,7 @@ lib.pipe
     }
 
     //
-      optionalAttrs
-        (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
+      optionalAttrs (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
         {
           makeFlags = [
             "all-gcc"

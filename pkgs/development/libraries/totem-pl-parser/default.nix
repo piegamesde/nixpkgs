@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
   version = "3.26.6";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "wN8PaNXPnX2kPIHH8T8RFYNYNo+Ywi1Hci870EvTrBw=";
   };
 
@@ -55,9 +53,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-    "-Dintrospection=false"
-  ];
+  mesonFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dintrospection=false" ];
 
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/Videos";

@@ -35,8 +35,7 @@ stdenv.mkDerivation {
   src =
     let
       asset =
-        assets."${stdenv.hostPlatform.system}"
-          or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
+        assets."${stdenv.hostPlatform.system}" or (throw "Unsupported platform ${stdenv.hostPlatform.system}");
     in
     fetchurl {
       url = "https://github.com/Virtuslab/scala-cli/releases/download/v${version}/${asset.asset}";

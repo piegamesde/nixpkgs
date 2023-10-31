@@ -38,9 +38,9 @@ let
     };
   };
   toMediaDirectory = d: ''
-    <directory location="${d.path}" mode="inotify" recursive="${
-      optionYesNo d.recursive
-    }" hidden-files="${optionYesNo d.hidden-files}" />
+    <directory location="${d.path}" mode="inotify" recursive="${optionYesNo d.recursive}" hidden-files="${
+      optionYesNo d.hidden-files
+    }" />
   '';
 
   transcodingConfig =

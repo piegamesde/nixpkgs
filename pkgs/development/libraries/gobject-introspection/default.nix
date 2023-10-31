@@ -79,22 +79,20 @@ stdenv.mkDerivation (
 
     strictDeps = true;
 
-    nativeBuildInputs =
-      [
-        meson
-        ninja
-        pkg-config
-        flex
-        bison
-        gtk-doc
-        docbook-xsl-nons
-        docbook_xml_dtd_45
-        # Build definition checks for the Python modules needed at runtime by importing them.
-        (buildPackages.python3.withPackages pythonModules)
-        finalAttrs.setupHook # move .gir files
-        # can't use canExecute, we need prebuilt when cross
-      ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ gobject-introspection-unwrapped ];
+    nativeBuildInputs = [
+      meson
+      ninja
+      pkg-config
+      flex
+      bison
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_45
+      # Build definition checks for the Python modules needed at runtime by importing them.
+      (buildPackages.python3.withPackages pythonModules)
+      finalAttrs.setupHook # move .gir files
+      # can't use canExecute, we need prebuilt when cross
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ gobject-introspection-unwrapped ];
 
     buildInputs = [ (python3.withPackages pythonModules) ];
 
@@ -126,9 +124,7 @@ stdenv.mkDerivation (
         "-Dgi_cross_binary_wrapper=${stdenv.hostPlatform.emulator buildPackages}"
         # can't use canExecute, we need prebuilt when cross
       ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        "-Dgi_cross_use_prebuilt_gi=true"
-      ];
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dgi_cross_use_prebuilt_gi=true" ];
 
     doCheck = !stdenv.isAarch64;
 

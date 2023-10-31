@@ -254,8 +254,7 @@ in
               ${if cfg.database.passFile != null then "--db-password" else null} = ''
                 "$(cat ${cfg.database.passFile})"'';
               ${if cfg.database.user != null then "--db-user" else null} = ''"${cfg.database.user}"'';
-              ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''
-                "${cfg.database.tableprefix}"'';
+              ${if cfg.database.tableprefix != null then "--db-prefix" else null} = ''"${cfg.database.tableprefix}"'';
               ${if cfg.database.host != null && cfg.database.port != null then "--db-host" else null} = ''
                 "${cfg.database.host}:${toString cfg.database.port}"'';
             }

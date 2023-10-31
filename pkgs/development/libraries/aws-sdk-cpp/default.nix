@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
       openssl
       zlib
     ]
-    ++ lib.optionals
-      (stdenv.isDarwin && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis)))
+    ++ lib.optionals (stdenv.isDarwin && ((builtins.elem "text-to-speech" apis) || (builtins.elem "*" apis)))
       [
         CoreAudio
         AudioToolbox

@@ -69,10 +69,7 @@ in
           ${compress} $diskImage
         '';
       configFile =
-        if cfg.configFile == null then
-          config.virtualisation.digitalOcean.defaultConfigFile
-        else
-          cfg.configFile;
+        if cfg.configFile == null then config.virtualisation.digitalOcean.defaultConfigFile else cfg.configFile;
       inherit (cfg) diskSize;
       inherit config lib pkgs;
     };

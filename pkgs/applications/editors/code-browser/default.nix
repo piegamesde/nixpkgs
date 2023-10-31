@@ -57,9 +57,7 @@ mkDerivation rec {
       wrapQtAppsHook
     ];
   buildInputs =
-    lib.optionals withQt [ qtbase ]
-    ++ lib.optionals withGtk2 [ gtk2 ]
-    ++ lib.optionals withGtk3 [ gtk3 ];
+    lib.optionals withQt [ qtbase ] ++ lib.optionals withGtk2 [ gtk2 ] ++ lib.optionals withGtk3 [ gtk3 ];
   makeFlags =
     [
       "prefix=$(out)"

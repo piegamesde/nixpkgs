@@ -232,8 +232,7 @@ in
               description = "NetworkManager plug-in";
               check =
                 p:
-                lib.assertMsg
-                  (types.package.check p && p ? networkManagerPlugin && lib.isString p.networkManagerPlugin)
+                lib.assertMsg (types.package.check p && p ? networkManagerPlugin && lib.isString p.networkManagerPlugin)
                   ''
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.

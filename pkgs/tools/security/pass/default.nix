@@ -48,9 +48,7 @@ let
   env =
     extensions:
     let
-      selected = [
-        pass
-      ] ++ extensions passExtensions ++ lib.optional tombPluginSupport passExtensions.tomb;
+      selected = [ pass ] ++ extensions passExtensions ++ lib.optional tombPluginSupport passExtensions.tomb;
     in
     buildEnv {
       # lib.getExe looks for name, so we keep it the same as mainProgram

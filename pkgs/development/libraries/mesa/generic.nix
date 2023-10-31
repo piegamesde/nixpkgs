@@ -94,8 +94,7 @@
   ,
   OpenGL,
   Xplugin,
-  withValgrind ?
-    lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken,
+  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken,
   valgrind-light,
   enableGalliumNine ? stdenv.isLinux,
   enableOSMesa ? stdenv.isLinux,
@@ -254,9 +253,7 @@ let
         "-Dclang-libdir=${llvmPackages.clang-unwrapped.lib}/lib"
       ]
       ++ lib.optional enablePatentEncumberedCodecs "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
-      ++
-        lib.optional (vulkanLayers != [ ])
-          "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}";
+      ++ lib.optional (vulkanLayers != [ ]) "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}";
 
     buildInputs =
       with xorg;

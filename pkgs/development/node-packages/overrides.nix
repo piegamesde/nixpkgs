@@ -24,9 +24,7 @@ final: prev: {
     '';
   };
 
-  "@electron-forge/cli" = prev."@electron-forge/cli".override {
-    buildInputs = [ final.node-gyp-build ];
-  };
+  "@electron-forge/cli" = prev."@electron-forge/cli".override { buildInputs = [ final.node-gyp-build ]; };
 
   "@forge/cli" = prev."@forge/cli".override {
     nativeBuildInputs = [ pkgs.pkg-config ];

@@ -25,10 +25,7 @@ let
       map
         (
           command:
-          if (isString command) then
-            command
-          else
-            "${toCommandOptionsString command.options}${command.command}"
+          if (isString command) then command else "${toCommandOptionsString command.options}${command.command}"
         )
         commands
     );
@@ -265,8 +262,7 @@ in
                   (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
                     rule.users
                   )
-                  (map
-                    (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
+                  (map (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
                     rule.groups
                   )
                 ]

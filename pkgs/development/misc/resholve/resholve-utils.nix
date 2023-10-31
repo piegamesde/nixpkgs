@@ -147,8 +147,7 @@ rec {
       throw "invalid solution"; # shouldn't trigger for now
 
   injectUnresholved =
-    solutions: unresholved:
-    (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
+    solutions: unresholved: (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
 
   # Build resholve invocation for each solution.
   phraseCommands =
@@ -184,8 +183,7 @@ rec {
   phraseContextForOut = invokable: phraseContext { inherit invokable; };
 
   phraseSolution = name: solution: (phraseContextForOut (phraseInvocation name solution));
-  phraseSolutions =
-    solutions: unresholved: phraseContextForOut (phraseCommands solutions unresholved);
+  phraseSolutions = solutions: unresholved: phraseContextForOut (phraseCommands solutions unresholved);
 
   writeScript =
     name: partialSolution: text:

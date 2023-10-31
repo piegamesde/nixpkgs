@@ -523,9 +523,7 @@ in
                                 assertions = [
                                   {
                                     assertion =
-                                      (builtins.compareVersions kernelVersion "5.8" <= 0)
-                                      -> config.privateNetwork
-                                      -> stringLength name <= 11;
+                                      (builtins.compareVersions kernelVersion "5.8" <= 0) -> config.privateNetwork -> stringLength name <= 11;
                                     message = ''
                                       Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
                                       not be longer than 11 characters, because the container's interface name is derived from it.
@@ -771,9 +769,7 @@ in
                     null;
               in
               {
-                path =
-                  builtins.seq checkAssertion mkIf options.config.isDefined
-                    config.config.system.build.toplevel;
+                path = builtins.seq checkAssertion mkIf options.config.isDefined config.config.system.build.toplevel;
               };
           }
         )
@@ -833,12 +829,9 @@ in
     in
     {
       warnings =
-        (optional
-          (config.virtualisation.containers.enable && versionOlder config.system.stateVersion "22.05")
-          ''
-            Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
-          ''
-        );
+        (optional (config.virtualisation.containers.enable && versionOlder config.system.stateVersion "22.05") ''
+          Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
+        '');
 
       systemd.targets.multi-user.wants = [ "machines.target" ];
 

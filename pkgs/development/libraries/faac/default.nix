@@ -16,9 +16,7 @@ stdenv.mkDerivation rec {
   version = "1.30";
 
   src = fetchurl {
-    url = "mirror://sourceforge/faac/${pname}-${
-        builtins.replaceStrings [ "." ] [ "_" ] version
-      }.tar.gz";
+    url = "mirror://sourceforge/faac/${pname}-${builtins.replaceStrings [ "." ] [ "_" ] version}.tar.gz";
     sha256 = "1lmj0dib3mjp84jhxc5ddvydkzzhb0gfrdh3ikcidjlcb378ghxd";
   };
 

@@ -634,9 +634,7 @@ stdenv.mkDerivation (
       let
         toStrip = lib.remove "data" finalAttrs.outputs; # We want to keep references to the data dir.
       in
-      "remove-references-to ${
-        lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)
-      } config.h";
+      "remove-references-to ${lib.concatStringsSep " " (map (o: "-t ${placeholder o}") toStrip)} config.h";
 
     nativeBuildInputs = [
       removeReferencesTo

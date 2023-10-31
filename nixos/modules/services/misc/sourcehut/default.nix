@@ -485,9 +485,7 @@ in
             (defaults to where the hgsrht code is)
           '';
           clone_bundle_threshold = mkOption {
-            description =
-              lib.mdDoc
-                ".hg/store size (in MB) past which the nightly job generates clone bundles.";
+            description = lib.mdDoc ".hg/store size (in MB) past which the nightly job generates clone bundles.";
             type = types.ints.unsigned;
             default = 50;
           };
@@ -814,9 +812,7 @@ in
         celeryConfig = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`.";
+          description = lib.mdDoc "Content of the `celeryconfig.py` used by the Celery of `listssrht-process`.";
         };
       };
     };
@@ -1091,9 +1087,7 @@ in
               {
                 # Note that git.sr.ht::dispatch is not a typo,
                 # gitsrht-dispatch always use this section
-                "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" =
-                  mkDefault
-                    "${cfg.builds.user}:${cfg.builds.group}";
+                "git.sr.ht::dispatch"."/usr/bin/buildsrht-keys" = mkDefault "${cfg.builds.user}:${cfg.builds.group}";
               }
               (mkIf cfg.builds.enableWorker {
                 "builds.sr.ht::worker".shell = "/usr/bin/runner-shell";
@@ -1322,9 +1316,7 @@ in
               };
             };
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [
-                "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
-              ];
+              serviceConfig.BindReadOnlyPaths = [ "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos" ];
             };
           })
         ];

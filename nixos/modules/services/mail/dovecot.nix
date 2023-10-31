@@ -159,9 +159,7 @@ let
           ];
           default = "no";
           example = "subscribe";
-          description =
-            lib.mdDoc
-              "Whether to automatically create or create and subscribe to the mailbox or not.";
+          description = lib.mdDoc "Whether to automatically create or create and subscribe to the mailbox or not.";
         };
         specialUse = mkOption {
           type = types.nullOr (
@@ -369,18 +367,14 @@ in
         default = true;
       };
 
-    enableDHE =
-      mkEnableOption (lib.mdDoc "enable ssl_dh and generation of primes for the key exchange")
-      // {
-        default = true;
-      };
+    enableDHE = mkEnableOption (lib.mdDoc "enable ssl_dh and generation of primes for the key exchange") // {
+      default = true;
+    };
 
     sieveScripts = mkOption {
       type = types.attrsOf types.path;
       default = { };
-      description =
-        lib.mdDoc
-          "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
+      description = lib.mdDoc "Sieve scripts to be executed. Key is a sequence, e.g. 'before2', 'after' etc.";
     };
 
     showPAMFailure = mkEnableOption (

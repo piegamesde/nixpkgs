@@ -40,15 +40,13 @@ let
 
         # copy additional plugin(s), theme(s) and language(s)
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
-            cfg.themes
+          mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}") cfg.themes
         )}
         ${concatStringsSep "\n" (
           mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
             cfg.plugins
         )}
-        ${concatMapStringsSep "\n"
-          (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/")
+        ${concatMapStringsSep "\n" (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/")
           cfg.languages}
       '';
     };
@@ -67,8 +65,7 @@ let
       DB_CHARSET = "utf8";
       # Always set DB_PASSWORD even when passwordFile is not set. This is the
       # default Wordpress behaviour.
-      DB_PASSWORD =
-        if (cfg.database.passwordFile != null) then { _file = cfg.database.passwordFile; } else "";
+      DB_PASSWORD = if (cfg.database.passwordFile != null) then { _file = cfg.database.passwordFile; } else "";
     }
     // cfg.settings;
 

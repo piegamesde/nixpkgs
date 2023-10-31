@@ -25,9 +25,7 @@ in
     mainboard = mkOption {
       type = types.lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details.";
+      description = lib.mdDoc "Custom mainboard description, see {manpage}`ras-mc-ctl(8)` for more details.";
       example = ''
         vendor = ASRock
         model = B450M Pro4
@@ -155,8 +153,7 @@ in
         serviceConfig = {
           StateDirectory = optionalString (cfg.record) "rasdaemon";
 
-          ExecStart =
-            "${pkgs.rasdaemon}/bin/rasdaemon --foreground" + optionalString (cfg.record) " --record";
+          ExecStart = "${pkgs.rasdaemon}/bin/rasdaemon --foreground" + optionalString (cfg.record) " --record";
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 

@@ -52,9 +52,7 @@ stdenv.mkDerivation {
 
   # We need a bootstrap-chicken to regenerate the c-files after
   # applying a patch to add support for CHICKEN_REPOSITORY_EXTRA
-  patches = lib.optionals (bootstrap-chicken != null) [
-    ./0001-Introduce-CHICKEN_REPOSITORY_EXTRA.patch
-  ];
+  patches = lib.optionals (bootstrap-chicken != null) [ ./0001-Introduce-CHICKEN_REPOSITORY_EXTRA.patch ];
 
   nativeBuildInputs = [
     makeWrapper

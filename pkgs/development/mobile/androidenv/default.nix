@@ -6,9 +6,7 @@
 }:
 
 rec {
-  composeAndroidPackages = pkgs.callPackage ./compose-android-packages.nix {
-    inherit licenseAccepted;
-  };
+  composeAndroidPackages = pkgs.callPackage ./compose-android-packages.nix { inherit licenseAccepted; };
 
   buildApp = pkgs.callPackage ./build-app.nix { inherit composeAndroidPackages; };
 

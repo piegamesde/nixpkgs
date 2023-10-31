@@ -16,8 +16,7 @@ let
         mapAttrs (k: v: if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v) cfg.settings
       )
     );
-  runtimeConfigFile =
-    if cfg.enableGossipEncryption then "/run/wgautomesh/wgautomesh.toml" else configFile;
+  runtimeConfigFile = if cfg.enableGossipEncryption then "/run/wgautomesh/wgautomesh.toml" else configFile;
 in
 {
   options.services.wgautomesh = {

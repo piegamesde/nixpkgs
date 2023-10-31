@@ -40,14 +40,12 @@ let
   hasAllowlistedLicense =
     assert areLicenseListsValid;
     attrs:
-    hasLicense attrs
-    && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
+    hasLicense attrs && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
 
   hasBlocklistedLicense =
     assert areLicenseListsValid;
     attrs:
-    hasLicense attrs
-    && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
+    hasLicense attrs && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
 
   allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
@@ -78,11 +76,9 @@ let
   # Check whether unfree packages are allowed and if not, whether the
   # package has an unfree license and is not explicitly allowed by the
   # `allowUnfreePredicate` function.
-  hasDeniedUnfreeLicense =
-    attrs: hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs;
+  hasDeniedUnfreeLicense = attrs: hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs;
 
-  allowInsecureDefaultPredicate =
-    x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
+  allowInsecureDefaultPredicate = x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
   allowInsecurePredicate = x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
 
   hasAllowedInsecure =
@@ -111,8 +107,7 @@ let
   hasDeniedNonSourceProvenance =
     attrs: hasNonSourceProvenance attrs && !allowNonSource && !allowNonSourcePredicate attrs;
 
-  showLicenseOrSourceType =
-    value: toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
+  showLicenseOrSourceType = value: toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
   showLicense = showLicenseOrSourceType;
   showSourceType = showLicenseOrSourceType;
 
@@ -438,9 +433,7 @@ let
           {
             valid = "no";
             reason = "non-source";
-            errormsg = "contains elements not built from source (‘${
-                showSourceType attrs.meta.sourceProvenance
-              }’)";
+            errormsg = "contains elements not built from source (‘${showSourceType attrs.meta.sourceProvenance}’)";
           }
         else if !allowBroken && attrs.meta.broken or false then
           {
@@ -548,10 +541,7 @@ let
       available =
         validity.valid != "no"
         && (
-          if config.checkMetaRecursively or false then
-            lib.all (d: d.meta.available or true) references
-          else
-            true
+          if config.checkMetaRecursively or false then lib.all (d: d.meta.available or true) references else true
         );
     };
 

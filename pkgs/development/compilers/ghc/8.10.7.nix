@@ -187,9 +187,7 @@ let
   useLdGold =
     targetPlatform.linker == "gold"
     || (
-      targetPlatform.linker == "bfd"
-      && (targetCC.bintools.bintools.hasGold or false)
-      && !targetPlatform.isMusl
+      targetPlatform.linker == "bfd" && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl
     );
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.

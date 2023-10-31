@@ -258,9 +258,7 @@ in
         uploaddir = "${stateDir}/upload";
         encryptionnonce = cfg.encryptionNonce;
         encryptionsecretboxkey = cfg.encryptionKey;
-        force_ssl =
-          mkIf (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL)
-            "on";
+        force_ssl = mkIf (cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL) "on";
         config.defaultlang = "en";
       };
     };

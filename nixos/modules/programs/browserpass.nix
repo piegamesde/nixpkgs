@@ -9,9 +9,7 @@ with lib;
 
 {
 
-  options.programs.browserpass.enable = mkEnableOption (
-    lib.mdDoc "Browserpass native messaging host"
-  );
+  options.programs.browserpass.enable = mkEnableOption (lib.mdDoc "Browserpass native messaging host");
 
   config = mkIf config.programs.browserpass.enable {
     environment.etc =

@@ -68,8 +68,7 @@ let
     "mod_wstunnel" # since v1.4.46
   ];
 
-  maybeModuleString =
-    moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
+  maybeModuleString = moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
 
   modulesIncludeString =
     concatStringsSep

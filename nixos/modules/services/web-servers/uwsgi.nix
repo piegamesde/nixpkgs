@@ -28,8 +28,7 @@ let
     let
       plugins' =
         if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ]) then
-          throw
-            "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
+          throw "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
         else
           c.plugins or cfg.plugins;
       plugins = unique plugins';

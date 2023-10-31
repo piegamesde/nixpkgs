@@ -18,9 +18,7 @@ let
   );
 
   fishAliases = concatStringsSep "\n" (
-    mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (
-      filterAttrs (k: v: v != null) cfg.shellAliases
-    )
+    mapAttrsFlatten (k: v: "alias ${k} ${escapeShellArg v}") (filterAttrs (k: v: v != null) cfg.shellAliases)
   );
 
   envShellInit = pkgs.writeText "shellInit" cfge.shellInit;

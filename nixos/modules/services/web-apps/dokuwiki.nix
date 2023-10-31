@@ -97,8 +97,7 @@ let
     hostName: cfg:
     let
       pc = cfg.pluginsConfig;
-      pc_gen =
-        pc: concatStringsSep "\n" (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
+      pc_gen = pc: concatStringsSep "\n" (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
     in
     writePhpFile "plugins.local-${hostName}.php" ''
       ${if isString pc then pc else pc_gen pc}
@@ -114,8 +113,7 @@ let
       basePackage = cfg.package;
       localConfig = dokuwikiLocalConfig hostName cfg;
       pluginsConfig = dokuwikiPluginsLocalConfig hostName cfg;
-      aclConfig =
-        if cfg.settings.useacl && cfg.acl != null then dokuwikiAclAuthConfig hostName cfg else null;
+      aclConfig = if cfg.settings.useacl && cfg.acl != null then dokuwikiAclAuthConfig hostName cfg else null;
     };
 
   aclOpts =
@@ -188,8 +186,7 @@ let
           description = lib.mdDoc "Alias of {option}${showOption toPath}";
           apply =
             x:
-            builtins.trace
-              "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}"
+            builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}"
               toOp;
         }
       );
@@ -258,9 +255,7 @@ let
               {
                 assertion = !ecOpt.isDefined;
                 message = ''
-                  The option definition `${ecPath}' in ${
-                    showFiles ecOpt.files
-                  } no longer has any effect; please remove it.
+                  The option definition `${ecPath}' in ${showFiles ecOpt.files} no longer has any effect; please remove it.
                   ${replaceExtraConfig}'';
               }
               {
@@ -279,9 +274,9 @@ let
                       "settings"
                       "useacl"
                     ]
-                  } is required when ${
-                    showPath [ "usersFile" ]
-                  } is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
+                  } is required when ${showPath [ "usersFile" ]} is set (Currently defiend as `${config.usersFile}' in ${
+                    showFiles options.usersFile.files
+                  }).";
               }
             ];
           }

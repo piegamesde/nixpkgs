@@ -11,8 +11,7 @@ let
 
   stateDirectory = "/var/lib/duplicity";
 
-  localTarget =
-    if hasPrefix "file://" cfg.targetUrl then removePrefix "file://" cfg.targetUrl else null;
+  localTarget = if hasPrefix "file://" cfg.targetUrl then removePrefix "file://" cfg.targetUrl else null;
 in
 {
   options.services.duplicity = {

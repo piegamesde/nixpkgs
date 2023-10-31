@@ -80,9 +80,7 @@ let
       bundledByPath ? false,
       ...
     }:
-    (lib.optionalString bundledByPath (
-      assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/"
-    ) # */
+    (lib.optionalString bundledByPath (assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/") # */
     );
 
   maybeCopyAll =
@@ -113,10 +111,7 @@ let
       let
         gemAttrs = composeGemAttrs ruby gems name attrs;
       in
-      if gemAttrs.type == "path" then
-        pathDerivation (gemAttrs.source // gemAttrs)
-      else
-        buildRubyGem gemAttrs
+      if gemAttrs.type == "path" then pathDerivation (gemAttrs.source // gemAttrs) else buildRubyGem gemAttrs
     );
 
   envPaths = lib.attrValues gems ++ lib.optional (!hasBundler) bundler;

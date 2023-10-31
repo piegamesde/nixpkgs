@@ -56,9 +56,7 @@ let
       "--prefix"
       "QT_PLUGIN_PATH"
       ":"
-      "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix (
-        builtins.map lib.getBin unwrapped.qtPackages
-      )}"
+      "${lib.makeSearchPath unwrapped.qtbase.qtPluginPrefix (builtins.map lib.getBin unwrapped.qtPackages)}"
       "--prefix"
       "QML2_IMPORT_PATH"
       ":"

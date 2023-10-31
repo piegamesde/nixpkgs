@@ -90,9 +90,7 @@ let
       # avoid double wrapping, see comment near finalMakeWrapperArgs
       makeWrapperArgs =
         let
-          binPath = lib.makeBinPath (
-            lib.optionals withRuby [ rubyEnv ] ++ lib.optionals withNodeJs [ nodejs ]
-          );
+          binPath = lib.makeBinPath (lib.optionals withRuby [ rubyEnv ] ++ lib.optionals withNodeJs [ nodejs ]);
         in
         [ "--inherit-argv0" ]
         ++ lib.optionals withRuby [

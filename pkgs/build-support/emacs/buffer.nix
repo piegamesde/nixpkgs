@@ -12,9 +12,7 @@ rec {
     pkgs':
     let
       pkgs = builtins.filter (x: x != null) pkgs';
-      extras = map (x: x.emacsBufferSetup pkgs) (
-        builtins.filter (builtins.hasAttr "emacsBufferSetup") pkgs
-      );
+      extras = map (x: x.emacsBufferSetup pkgs) (builtins.filter (builtins.hasAttr "emacsBufferSetup") pkgs);
     in
     writeText "dir-locals.el" ''
       (require 'inherit-local "${inherit-local}/share/emacs/site-lisp/elpa/inherit-local-${inherit-local.version}/inherit-local.elc")
@@ -56,9 +54,7 @@ rec {
         builtins.concatStringsSep " " (map (p: ''"${p}/bin"'') pkgs)
       }) exec-path))
 
-      (inherit-local-permanent eshell-path-env (concat "${
-        lib.makeSearchPath "bin" pkgs
-      }:" eshell-path-env))
+      (inherit-local-permanent eshell-path-env (concat "${lib.makeSearchPath "bin" pkgs}:" eshell-path-env))
 
       (setq nixpkgs--is-nixpkgs-buffer t)
       (inherit-local 'nixpkgs--is-nixpkgs-buffer)
@@ -79,9 +75,9 @@ rec {
       # Find the haskell package that the 'root' is in, if any.
       haskell-path-parent =
         let
-          filtered =
-            builtins.filter (name: lib.hasPrefix (toString (project-root + "/${name}")) (toString root))
-              (builtins.attrNames haskell-paths);
+          filtered = builtins.filter (name: lib.hasPrefix (toString (project-root + "/${name}")) (toString root)) (
+            builtins.attrNames haskell-paths
+          );
         in
         if filtered == [ ] then null else builtins.head filtered;
       # We're in the directory of a haskell package

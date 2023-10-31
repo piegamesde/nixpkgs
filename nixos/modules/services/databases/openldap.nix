@@ -393,9 +393,9 @@ in
           #   Got notification message from PID 6378, but reception only permitted for main PID 6377
           NotifyAccess = "all";
           RuntimeDirectory = "openldap";
-          StateDirectory =
-            [ "openldap" ]
-            ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
+          StateDirectory = [
+            "openldap"
+          ] ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

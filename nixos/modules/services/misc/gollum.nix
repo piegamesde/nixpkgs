@@ -82,9 +82,7 @@ in
     local-time = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Use the browser's local timezone instead of the server's for displaying dates.";
+      description = lib.mdDoc "Use the browser's local timezone instead of the server's for displaying dates.";
     };
 
     branch = mkOption {

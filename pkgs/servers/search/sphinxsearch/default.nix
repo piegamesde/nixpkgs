@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs =
-    lib.optionals enableMysql [ libmysqlclient ]
-    ++ lib.optionals enableXmlpipe2 [ expat ];
+  buildInputs = lib.optionals enableMysql [ libmysqlclient ] ++ lib.optionals enableXmlpipe2 [ expat ];
 
   CXXFLAGS =
     with lib;

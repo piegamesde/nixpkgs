@@ -51,16 +51,14 @@ let
       mapAttrsToList
         (
           k: v:
-          optionalString (v.hostname != "")
-            "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
+          optionalString (v.hostname != "") "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
         )
         (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo)
     )}
   '';
 
   parseModules =
-    x:
-    x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
+    x: x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
 
   cjdrouteConf = builtins.toJSON (
     recursiveUpdate

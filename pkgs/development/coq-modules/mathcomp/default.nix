@@ -110,10 +110,7 @@ let
     package:
     let
       mathcomp-deps =
-        if package == "single" then
-          [ ]
-        else
-          map mathcomp_ (head (splitList (lib.pred.equal package) packages));
+        if package == "single" then [ ] else map mathcomp_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "mathcomp" else "mathcomp/${package}";
       pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
       pkgallMake = ''

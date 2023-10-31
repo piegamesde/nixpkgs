@@ -481,9 +481,7 @@ in
                     type = types.str;
                     default = "notice"; # debug, verbose, notice, warning
                     example = "debug";
-                    description =
-                      lib.mdDoc
-                        "Specify the server verbosity level, options: debug, verbose, notice, warning.";
+                    description = lib.mdDoc "Specify the server verbosity level, options: debug, verbose, notice, warning.";
                   };
 
                   logfile = mkOption {
@@ -676,9 +674,7 @@ in
                     unixsocket = config.unixSocket;
                     unixsocketperm = toString config.unixSocketPerm;
                   })
-                  (mkIf (config.slaveOf != null) {
-                    slaveof = "${config.slaveOf.ip} ${toString config.slaveOf.port}";
-                  })
+                  (mkIf (config.slaveOf != null) { slaveof = "${config.slaveOf.ip} ${toString config.slaveOf.port}"; })
                   (mkIf (config.masterAuth != null) { masterauth = config.masterAuth; })
                   (mkIf (config.requirePass != null) { requirepass = config.requirePass; })
                 ];

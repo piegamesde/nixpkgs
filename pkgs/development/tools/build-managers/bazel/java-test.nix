@@ -46,9 +46,7 @@ let
     name = "bazel-test-java";
     inherit workspaceDir;
     bazelPkg = bazel;
-    buildInputs = [
-      (if lib.strings.versionOlder bazel.version "5.0.0" then openjdk8 else jdk11_headless)
-    ];
+    buildInputs = [ (if lib.strings.versionOlder bazel.version "5.0.0" then openjdk8 else jdk11_headless) ];
     bazelScript =
       ''
         ${bazel}/bin/bazel \

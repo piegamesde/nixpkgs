@@ -35,19 +35,17 @@ let
       }
     '';
 
-    haskell =
-      writeHaskellBin "test-writers-haskell-bin" { libraries = [ haskellPackages.acme-default ]; }
-        ''
-          import Data.Default
+    haskell = writeHaskellBin "test-writers-haskell-bin" { libraries = [ haskellPackages.acme-default ]; } ''
+      import Data.Default
 
-          int :: Int
-          int = def
+      int :: Int
+      int = def
 
-          main :: IO ()
-          main = case int of
-            18871 -> putStrLn $ id "success"
-            _ -> print "fail"
-        '';
+      main :: IO ()
+      main = case int of
+        18871 -> putStrLn $ id "success"
+        _ -> print "fail"
+    '';
 
     js = writeJSBin "test-writers-js-bin" { libraries = [ nodePackages.semver ]; } ''
       var semver = require('semver');
@@ -221,21 +219,19 @@ let
         if [[ "test" == "test" ]]; then echo "success"; fi
       ''
     );
-    haskell =
-      writeHaskell "test-writers-haskell-path" { libraries = [ haskellPackages.acme-default ]; }
-        (
-          writeText "test" ''
-            import Data.Default
+    haskell = writeHaskell "test-writers-haskell-path" { libraries = [ haskellPackages.acme-default ]; } (
+      writeText "test" ''
+        import Data.Default
 
-            int :: Int
-            int = def
+        int :: Int
+        int = def
 
-            main :: IO ()
-            main = case int of
-              18871 -> putStrLn $ id "success"
-              _ -> print "fail"
-          ''
-        );
+        main :: IO ()
+        main = case int of
+          18871 -> putStrLn $ id "success"
+          _ -> print "fail"
+      ''
+    );
   };
 
   writeTest =

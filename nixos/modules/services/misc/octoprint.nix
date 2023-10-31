@@ -104,9 +104,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "octoprint") {
-      octoprint.gid = config.ids.gids.octoprint;
-    };
+    users.groups = optionalAttrs (cfg.group == "octoprint") { octoprint.gid = config.ids.gids.octoprint; };
 
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"

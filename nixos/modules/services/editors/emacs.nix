@@ -103,9 +103,7 @@ in
       desktopApplicationFile
     ];
 
-    environment.variables.EDITOR = mkIf cfg.defaultEditor (
-      mkOverride 900 "${editorScript}/bin/emacseditor"
-    );
+    environment.variables.EDITOR = mkIf cfg.defaultEditor (mkOverride 900 "${editorScript}/bin/emacseditor");
   };
 
   meta.doc = ./emacs.md;

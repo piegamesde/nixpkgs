@@ -137,9 +137,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "moonraker") {
-      moonraker.gid = config.ids.gids.moonraker;
-    };
+    users.groups = optionalAttrs (cfg.group == "moonraker") { moonraker.gid = config.ids.gids.moonraker; };
 
     environment.etc."moonraker.cfg".source =
       let

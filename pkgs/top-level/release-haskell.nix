@@ -189,8 +189,7 @@ let
 
   # names of packages in an attribute set that are maintained
   maintainedPkgNames =
-    set:
-    builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set);
+    set: builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set);
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 

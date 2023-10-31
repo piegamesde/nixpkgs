@@ -323,8 +323,7 @@ let
             bit: range: ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
           sign =
             bit: range:
-            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
-              "${toString bit} bit signed integer";
+            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}" "${toString bit} bit signed integer";
         in
         {
           # An int with a fixed range.
@@ -818,8 +817,7 @@ let
           merge = loc: defs: {
             imports =
               staticModules
-              ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value)
-                defs;
+              ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value) defs;
           };
           inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
           substSubModules = m: deferredModuleWith (attrs // { staticModules = m; });
@@ -1036,11 +1034,8 @@ let
         t1: t2:
         mkOptionType rec {
           name = "either";
-          description = "${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1
-            } or ${
-              optionDescriptionPhrase (class: class == "noun" || class == "conjunction" || class == "composite")
-                t2
+          description = "${optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1} or ${
+              optionDescriptionPhrase (class: class == "noun" || class == "conjunction" || class == "composite") t2
             }";
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;

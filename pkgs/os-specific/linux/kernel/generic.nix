@@ -190,14 +190,12 @@ let
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
     # e.g. "defconfig"
-    kernelBaseConfig =
-      if defconfig != null then defconfig else stdenv.hostPlatform.linux-kernel.baseConfig;
+    kernelBaseConfig = if defconfig != null then defconfig else stdenv.hostPlatform.linux-kernel.baseConfig;
     # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
     makeFlags =
-      lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
-        stdenv.hostPlatform.linux-kernel.makeFlags
+      lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags) stdenv.hostPlatform.linux-kernel.makeFlags
       ++ extraMakeFlags;
 
     postPatch =
@@ -295,8 +293,7 @@ let
       isLibre
     ;
     isXen =
-      lib.warn
-        "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
+      lib.warn "The isXen attribute is deprecated. All Nixpkgs kernels that support it now have Xen enabled."
         true;
 
     # Adds dependencies needed to edit the config:

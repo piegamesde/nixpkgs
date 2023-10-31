@@ -49,9 +49,7 @@ let
     let
       finalCfg = {
         name = "${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}";
-        params = "init=${config.system.build.toplevel}/init ${additional} ${
-            toString config.boot.kernelParams
-          }";
+        params = "init=${config.system.build.toplevel}/init ${additional} ${toString config.boot.kernelParams}";
         image = "/boot/${config.system.boot.loader.kernelFile}";
         initrd = "/boot/initrd";
       };
@@ -75,8 +73,7 @@ let
   # Timeout in syslinux is in units of 1/10 of a second.
   # null means max timeout (35996, just under 1h in 1/10 seconds)
   # 0 means disable timeout
-  syslinuxTimeout =
-    if config.boot.loader.timeout == null then 35996 else config.boot.loader.timeout * 10;
+  syslinuxTimeout = if config.boot.loader.timeout == null then 35996 else config.boot.loader.timeout * 10;
 
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
@@ -154,8 +151,7 @@ let
     [ baseIsolinuxCfg ] ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
   );
 
-  refindBinary =
-    if targetArch == "x64" || targetArch == "aa64" then "refind_${targetArch}.efi" else null;
+  refindBinary = if targetArch == "x64" || targetArch == "aa64" then "refind_${targetArch}.efi" else null;
 
   # Setup instructions for rEFInd.
   refind =
@@ -853,8 +849,7 @@ in
         syslinux = if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;
       }
       //
-        optionalAttrs
-          (config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot)
+        optionalAttrs (config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot)
           {
             usbBootable = true;
             isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";

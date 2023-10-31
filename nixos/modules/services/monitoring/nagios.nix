@@ -151,9 +151,7 @@ in
         type = types.bool;
         default = pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform;
         defaultText = literalExpression "pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform";
-        description =
-          lib.mdDoc
-            "if true, the syntax of the nagios configuration file is checked at build time";
+        description = lib.mdDoc "if true, the syntax of the nagios configuration file is checked at build time";
       };
 
       cgiConfigFile = mkOption {

@@ -237,8 +237,7 @@ let
     let
       preUpFile = if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
       postUp =
-        optional (values.privateKeyFile != null)
-          "wg set ${name} private-key <(cat ${values.privateKeyFile})"
+        optional (values.privateKeyFile != null) "wg set ${name} private-key <(cat ${values.privateKeyFile})"
         ++ (concatMap
           (
             peer:
@@ -254,8 +253,7 @@ let
         else
           null;
       preDownFile = if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
-      postDownFile =
-        if values.postDown != "" then writeScriptFile "postDown.sh" values.postDown else null;
+      postDownFile = if values.postDown != "" then writeScriptFile "postDown.sh" values.postDown else null;
       configDir = pkgs.writeTextFile {
         name = "config-${name}";
         executable = false;

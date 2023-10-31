@@ -39,9 +39,7 @@ in
       profiles = mkOption {
         type = types.attrsOf types.path;
         default = { };
-        description =
-          lib.mdDoc
-            "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`.";
+        description = lib.mdDoc "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`.";
         internal = true;
       };
 
@@ -68,8 +66,6 @@ in
     environment.systemPackages = [ pkgs.dconf ];
 
     # Needed for unwrapped applications
-    environment.sessionVariables.GIO_EXTRA_MODULES = mkIf cfg.enable [
-      "${pkgs.dconf.lib}/lib/gio/modules"
-    ];
+    environment.sessionVariables.GIO_EXTRA_MODULES = mkIf cfg.enable [ "${pkgs.dconf.lib}/lib/gio/modules" ];
   };
 }

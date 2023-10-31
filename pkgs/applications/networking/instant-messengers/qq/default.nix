@@ -34,8 +34,7 @@ let
       sha256 = "sha256-1ba/IA/+X/s7jUtIhh3OsBHU7MPggGrASsBPx8euBBs=";
     };
   };
-  src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation {
   pname = "qq";

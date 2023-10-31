@@ -103,9 +103,7 @@ stdenv.mkDerivation rec {
         (
           x:
           ''
-            replace_dep "${x.f}" "${x.p.src}" "${
-              x.p.pname or (builtins.parseDrvName x.p.name).name
-            }" "${x.p.name}"''
+            replace_dep "${x.f}" "${x.p.src}" "${x.p.pname or (builtins.parseDrvName x.p.name).name}" "${x.p.name}"''
         )
         (
           map

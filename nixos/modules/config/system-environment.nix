@@ -74,8 +74,7 @@ in
     environment.etc."pam/environment".text =
       let
         suffixedVariables = flip mapAttrs cfg.profileRelativeSessionVariables (
-          envVar: suffixes:
-          flip concatMap cfg.profiles (profile: map (suffix: "${profile}${suffix}") suffixes)
+          envVar: suffixes: flip concatMap cfg.profiles (profile: map (suffix: "${profile}${suffix}") suffixes)
         );
 
         # We're trying to use the same syntax for PAM variables and env variables.

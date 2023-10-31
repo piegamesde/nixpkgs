@@ -20,8 +20,7 @@ let
   envFile = pkgs.writeText "nifi.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
-          env
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]) env
       ))
     )
   );
@@ -109,9 +108,7 @@ in
       initUser = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Initial user account for Apache NiFi. Username must be at least 4 characters.";
+        description = lib.mdDoc "Initial user account for Apache NiFi. Username must be at least 4 characters.";
       };
 
       initPasswordFile = lib.mkOption {
@@ -245,14 +242,11 @@ in
               -e '/nifi.security.keyPasswd/s|^#\+||' \
               -e '/nifi.security.truststorePasswd/s|^#\+||'
           ''}
-          ${lib.optionalString
-            ((cfg.enableHTTPS == true) && (cfg.proxyHost != null) && (cfg.proxyPort != null))
-            ''
-              sed -i /var/lib/nifi/conf/nifi.properties \
-                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${(toString cfg.proxyPort)}|g'
-            ''}
-          ${lib.optionalString
-            ((cfg.enableHTTPS == false) || (cfg.proxyHost == null) && (cfg.proxyPort == null))
+          ${lib.optionalString ((cfg.enableHTTPS == true) && (cfg.proxyHost != null) && (cfg.proxyPort != null)) ''
+            sed -i /var/lib/nifi/conf/nifi.properties \
+              -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${(toString cfg.proxyPort)}|g'
+          ''}
+          ${lib.optionalString ((cfg.enableHTTPS == false) || (cfg.proxyHost == null) && (cfg.proxyPort == null))
             ''
               sed -i /var/lib/nifi/conf/nifi.properties \
                 -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'

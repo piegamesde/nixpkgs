@@ -462,8 +462,7 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
-      { }
+    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)) { }
       list_of_attrs;
 
   /* Recursively collect sets that verify a given predicate named `pred`
@@ -649,10 +648,7 @@ rec {
         let
           g =
             name: value:
-            if isAttrs value && cond value then
-              recurse (path ++ [ name ]) value
-            else
-              f (path ++ [ name ]) value;
+            if isAttrs value && cond value then recurse (path ++ [ name ]) value else f (path ++ [ name ]) value;
         in
         mapAttrs g;
     in
@@ -773,8 +769,7 @@ rec {
      Type:
        zipAttrsWith :: (String -> [ Any ] -> Any) -> [ AttrSet ] -> AttrSet
   */
-  zipAttrsWith =
-    builtins.zipAttrsWith or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
+  zipAttrsWith = builtins.zipAttrsWith or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
 
   /* Merge sets of attributes and combine each attribute value in to a list.
 
@@ -836,10 +831,7 @@ rec {
           let
             here = attrPath ++ [ n ];
           in
-          if length values == 1 || pred here (elemAt values 1) (head values) then
-            head values
-          else
-            f here values
+          if length values == 1 || pred here (elemAt values 1) (head values) then head values else f here values
         );
     in
     f [ ] [
@@ -956,8 +948,7 @@ rec {
   */
   showAttrPath =
     # Attribute path to render to a string
-    path:
-    if path == [ ] then "<root attribute path>" else concatMapStringsSep "." escapeNixIdentifier path;
+    path: if path == [ ] then "<root attribute path>" else concatMapStringsSep "." escapeNixIdentifier path;
 
   /* Get a package output.
      If no output is found, fallback to `.out` and then to the default.

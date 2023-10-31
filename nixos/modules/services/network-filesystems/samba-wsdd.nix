@@ -92,9 +92,7 @@ in
         Type = "simple";
         ExecStart = ''
           ${pkgs.wsdd}/bin/wsdd ${optionalString (cfg.interface != null) "--interface '${cfg.interface}'"} \
-                                ${
-                                  optionalString (cfg.hoplimit != null) "--hoplimit '${toString cfg.hoplimit}'"
-                                } \
+                                ${optionalString (cfg.hoplimit != null) "--hoplimit '${toString cfg.hoplimit}'"} \
                                 ${optionalString (cfg.workgroup != null) "--workgroup '${cfg.workgroup}'"} \
                                 ${optionalString (cfg.hostname != null) "--hostname '${cfg.hostname}'"} \
                                 ${optionalString (cfg.domain != null) "--domain '${cfg.domain}'"} \
