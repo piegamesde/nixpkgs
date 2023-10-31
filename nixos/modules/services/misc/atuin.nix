@@ -36,9 +36,7 @@ in
       maxHistoryLength = mkOption {
         type = types.int;
         default = 8192;
-        description =
-          mdDoc
-            "The max length of each history item the atuin server should store.";
+        description = mdDoc "The max length of each history item the atuin server should store.";
       };
 
       port = mkOption {

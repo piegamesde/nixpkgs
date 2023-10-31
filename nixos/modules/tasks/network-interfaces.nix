@@ -30,8 +30,7 @@ let
         (
           i:
           attrNames (
-            filterAttrs
-              (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces))
+            filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces))
               i.interfaces
           )
         )
@@ -572,9 +571,7 @@ in
             The FQDN is required but cannot be determined. Please make sure that
             both networking.hostName and networking.domain are set properly.
           '';
-      defaultText =
-        literalExpression
-          ''"''${networking.hostName}.''${networking.domain}"'';
+      defaultText = literalExpression ''"''${networking.hostName}.''${networking.domain}"'';
       description = lib.mdDoc ''
         The fully qualified domain name (FQDN) of this host. It is the result
         of combining `networking.hostName` and `networking.domain.` Using this
@@ -1611,8 +1608,7 @@ in
             opt = i.tempAddress;
             val = tempaddrValues.${opt}.sysctl;
           in
-          nameValuePair "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
-            val
+          nameValuePair "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr" val
         )
       );
 
@@ -1766,9 +1762,7 @@ in
               wlanListDeviceFirst =
                 device: interfaces:
                 if hasAttr device interfaces then
-                  mapAttrsToList (n: v: v // { _iName = n; }) (
-                    filterAttrs (n: _: n == device) interfaces
-                  )
+                  mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n == device) interfaces)
                   ++ mapAttrsToList (n: v: v // { _iName = n; }) (
                     filterAttrs (n: _: n != device) interfaces
                   )
@@ -1799,9 +1793,7 @@ in
                   ${optionalString (current.type == "monitor" && current.flags != null)
                     "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
                   ${optionalString (current.type == "managed" && current.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-                      if current.fourAddr then "on" else "off"
-                    }"}
+                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
                   ${optionalString (current.mac != null)
                     "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
                 '';
@@ -1818,9 +1810,7 @@ in
                   ${optionalString (new.type == "monitor" && new.flags != null)
                     "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
                   ${optionalString (new.type == "managed" && new.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-                      if new.fourAddr then "on" else "off"
-                    }"}
+                    "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${if new.fourAddr then "on" else "off"}"}
                   ${optionalString (new.mac != null)
                     "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
                 '';

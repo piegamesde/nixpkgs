@@ -98,9 +98,7 @@ let
       }
     )
     ++ optional langFortran ../gfortran-driving.patch
-    ++
-      optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-        ../ppc-musl.patch
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
       fetchpatch {
         url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
@@ -296,12 +294,11 @@ stdenv.mkDerivation (
       ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
       ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
+      if profiledCompiler then "profiledbootstrap" else "bootstrap"
+    );
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
@@ -368,9 +365,7 @@ stdenv.mkDerivation (
 
   //
     optionalAttrs
-      (
-        targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
-      )
+      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

@@ -46,8 +46,7 @@ let
 
       TRUSTED_PROXY_IP = cfg.trustedProxy;
     }
-    // lib.optionalAttrs
-      (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
+    // lib.optionalAttrs (cfg.database.host != "/run/postgresql" && cfg.database.port != null)
       { DB_PORT = toString cfg.database.port; }
     // lib.optionalAttrs cfg.smtp.authenticate { SMTP_LOGIN = cfg.smtp.user; }
     // cfg.extraConfig;
@@ -204,9 +203,7 @@ in
 
   options = {
     services.mastodon = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "Mastodon, a federated social network server"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "Mastodon, a federated social network server");
 
       configureNginx = lib.mkOption {
         description = lib.mdDoc ''
@@ -516,9 +513,7 @@ in
         };
 
         authenticate = lib.mkOption {
-          description =
-            lib.mdDoc
-              "Authenticate with the SMTP server using username and password.";
+          description = lib.mdDoc "Authenticate with the SMTP server using username and password.";
           type = lib.types.bool;
           default = false;
         };
@@ -654,8 +649,7 @@ in
             '';
           }
           {
-            assertion =
-              !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
+            assertion = !databaseActuallyCreateLocally -> (cfg.database.host != "/run/postgresql");
             message = ''
               <option>services.mastodon.database.host</option> needs to be set if
                 <option>services.mastodon.database.createLocally</option> is not enabled.
@@ -678,8 +672,7 @@ in
           {
             assertion =
               1 == builtins.length (
-                lib.mapAttrsToList
-                  (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
+                lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
                   cfg.sidekiqProcesses
               );
             message = ''
@@ -959,12 +952,10 @@ in
           };
         };
 
-        services.postfix =
-          lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1")
-            {
-              enable = true;
-              hostname = lib.mkDefault "${cfg.localDomain}";
-            };
+        services.postfix = lib.mkIf (cfg.smtp.createLocally && cfg.smtp.host == "127.0.0.1") {
+          enable = true;
+          hostname = lib.mkDefault "${cfg.localDomain}";
+        };
         services.redis.servers.mastodon =
           lib.mkIf (cfg.redis.createLocally && cfg.redis.host == "127.0.0.1")
             {

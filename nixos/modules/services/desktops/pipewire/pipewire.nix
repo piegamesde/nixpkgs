@@ -133,13 +133,9 @@ in
       }
     ];
 
-    environment.systemPackages = [
-      cfg.package
-    ] ++ lib.optional cfg.jack.enable jack-libs;
+    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
 
-    systemd.packages = [
-      cfg.package
-    ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+    systemd.packages = [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
@@ -153,9 +149,7 @@ in
     systemd.user.sockets.pipewire.enable = !cfg.systemWide;
     systemd.user.services.pipewire.enable = !cfg.systemWide;
 
-    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [
-      "sockets.target"
-    ];
+    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
     systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [
       "sockets.target"
     ];

@@ -175,8 +175,7 @@ rec {
 
   gitignoreFilterPure =
     filter: patterns: root: name: type:
-    gitignoreFilter (gitignoreCompileIgnore patterns root) root name type
-    && filter name type;
+    gitignoreFilter (gitignoreCompileIgnore patterns root) root name type && filter name type;
 
   # This is a very hacky way of programming this!
   # A better way would be to reuse existing filtering by making multiple gitignore functions per each root.
@@ -228,8 +227,7 @@ rec {
     patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
 
   withRecursiveGitignoreFile =
-    patterns: root:
-    lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
+    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];
 
   # filterSource derivatives
 

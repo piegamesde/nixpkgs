@@ -12,9 +12,7 @@ stdenv.mkDerivation rec {
   version = "0.97-73";
 
   src = fetchurl {
-    url = "https://alpha.gnu.org/gnu/grub/grub-${
-        lib.versions.majorMinor version
-      }.tar.gz";
+    url = "https://alpha.gnu.org/gnu/grub/grub-${lib.versions.majorMinor version}.tar.gz";
     sha256 = "02r6b52r0nsp6ryqfiqchnl7r1d9smm80sqx24494gmx5p8ia7af";
   };
 

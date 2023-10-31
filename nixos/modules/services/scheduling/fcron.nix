@@ -64,17 +64,13 @@ in
       maxSerialJobs = mkOption {
         type = types.int;
         default = 1;
-        description =
-          lib.mdDoc
-            "Maximum number of serial jobs which can run simultaneously.";
+        description = lib.mdDoc "Maximum number of serial jobs which can run simultaneously.";
       };
 
       queuelen = mkOption {
         type = types.nullOr types.int;
         default = null;
-        description =
-          lib.mdDoc
-            "Number of jobs the serial queue and the lavg queue can contain.";
+        description = lib.mdDoc "Number of jobs the serial queue and the lavg queue can contain.";
       };
 
       systab = mkOption {

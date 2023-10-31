@@ -42,11 +42,7 @@ let
         ''
         ++
           lib.optional
-            (
-              checkedAttrs.email == null
-              && checkedAttrs.github == null
-              && checkedAttrs.matrix == null
-            )
+            (checkedAttrs.email == null && checkedAttrs.github == null && checkedAttrs.matrix == null)
             ''
               echo ${
                 lib.escapeShellArg (lib.showOption prefix)
@@ -63,9 +59,7 @@ let
     in
     lib.deepSeq checkedAttrs checks;
 
-  missingGithubIds = lib.concatLists (
-    lib.mapAttrsToList checkMaintainer lib.maintainers
-  );
+  missingGithubIds = lib.concatLists (lib.mapAttrsToList checkMaintainer lib.maintainers);
 
   success = pkgs.runCommand "checked-maintainers-success" { } ">$out";
 

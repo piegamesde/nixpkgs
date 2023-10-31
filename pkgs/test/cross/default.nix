@@ -160,11 +160,7 @@ let
 in
 {
   gcc =
-    (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = false; }))
-      tests
-    );
+    (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = false; })) tests);
   llvm =
-    (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = true; }))
-      tests
-    );
+    (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = true; })) tests);
 }

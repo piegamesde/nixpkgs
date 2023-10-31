@@ -38,9 +38,7 @@ let
         }
         ''
           remarshal -if json -of toml \
-            < ${
-              pkgs.writeText "dynamic_config.json" (builtins.toJSON cfg.dynamicConfigOptions)
-            } \
+            < ${pkgs.writeText "dynamic_config.json" (builtins.toJSON cfg.dynamicConfigOptions)} \
             > $out
         ''
     else

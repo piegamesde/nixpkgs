@@ -89,8 +89,7 @@ let
             services.hadoop.gatewayRole.enable = true;
 
             networking.firewall.allowedTCPPorts =
-              mkIf
-                ((builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall)
+              mkIf ((builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall)
                 allowedTCPPorts;
           }
           extraConfig
@@ -200,8 +199,7 @@ in
       extraConfig.services.hadoop.hdfsSiteInternal."dfs.datanode.data.dir" =
         mkIf (cfg.hdfs.datanode.dataDirs != null)
           (
-            concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path)
-              cfg.hdfs.datanode.dataDirs
+            concatMapStringsSep "," (x: "[" + x.type + "]file://" + x.path) cfg.hdfs.datanode.dataDirs
           );
     })
 

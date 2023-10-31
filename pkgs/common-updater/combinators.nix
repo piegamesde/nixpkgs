@@ -140,8 +140,7 @@ rec {
     let
       scripts = scriptsNormalized;
       hasCommitSupport =
-        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null
-          null
+        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null null
           scripts != null;
       validateFeatures =
         if hasCommitSupport then
@@ -174,9 +173,7 @@ rec {
         "Combining update scripts with different attr paths is currently unsupported.";
 
     {
-      command = commandsToShellInvocation (
-        builtins.map ({ command, ... }: command) scripts
-      );
+      command = commandsToShellInvocation (builtins.map ({ command, ... }: command) scripts);
       supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
     };
 

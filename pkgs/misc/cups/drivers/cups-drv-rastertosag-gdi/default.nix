@@ -38,9 +38,7 @@ python3Packages.buildPythonApplication rec {
     install -vDm 0644 -t "${placeholder "out"}/share/cups/model/rastertosag-gdi/" *.ppd
     install -vDm 0755 -t "${placeholder "out"}/bin/" rastertosag-gdi
     install -vd "${placeholder "out"}/lib/cups/filter/"
-    ln -vst "${placeholder "out"}/lib/cups/filter/" "${
-      placeholder "out"
-    }/bin/rastertosag-gdi"
+    ln -vst "${placeholder "out"}/lib/cups/filter/" "${placeholder "out"}/bin/rastertosag-gdi"
     runHook postInstall
   '';
   ppdFileCommands = [ "rastertosag-gdi" ];

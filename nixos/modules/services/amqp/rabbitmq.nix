@@ -179,9 +179,7 @@ in
         "management.tcp.ip" = cfg.listenAddress;
       };
 
-    services.rabbitmq.plugins =
-      optional cfg.managementPlugin.enable
-        "rabbitmq_management";
+    services.rabbitmq.plugins = optional cfg.managementPlugin.enable "rabbitmq_management";
 
     systemd.services.rabbitmq = {
       description = "RabbitMQ Server";

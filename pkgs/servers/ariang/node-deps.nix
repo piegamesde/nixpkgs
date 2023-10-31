@@ -8936,16 +8936,9 @@ let
       sources."angular-promise-buttons-0.1.23"
       sources."angular-route-1.6.10"
       sources."angular-sanitize-1.6.10"
-      (
-        sources."angular-sweetalert-1.1.2"
-        // {
-          dependencies = [ sources."sweetalert-0.4.2" ];
-        }
-      )
+      (sources."angular-sweetalert-1.1.2" // { dependencies = [ sources."sweetalert-0.4.2" ]; })
       sources."angular-touch-1.6.10"
-      (
-        sources."angular-translate-2.19.0" // { dependencies = [ sources."angular-1.8.3" ]; }
-      )
+      (sources."angular-translate-2.19.0" // { dependencies = [ sources."angular-1.8.3" ]; })
       sources."angular-ui-notification-0.3.6"
       sources."angular-utf8-base64-0.0.5"
       sources."angular-websocket-2.0.1"
@@ -9040,10 +9033,7 @@ let
       sources."browserify-des-1.0.2"
       sources."browserify-rsa-4.1.0"
       (
-        sources."browserify-sign-4.2.1"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
+        sources."browserify-sign-4.2.1" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
       )
       sources."browserify-zlib-0.2.0"
       sources."browserslist-4.21.4"
@@ -9082,12 +9072,7 @@ let
       sources."circular-json-0.3.3"
       sources."ckeditor-4.12.1"
       sources."clap-1.2.3"
-      (
-        sources."class-utils-0.3.6"
-        // {
-          dependencies = [ sources."define-property-0.2.5" ];
-        }
-      )
+      (sources."class-utils-0.3.6" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."classie-1.0.0"
       (sources."clean-css-4.2.4" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."clean-stack-2.2.0"
@@ -9154,9 +9139,7 @@ let
       sources."convert-source-map-1.1.3"
       sources."cookie-0.4.2"
       sources."copy-descriptor-0.1.1"
-      (
-        sources."copy-props-2.0.5" // { dependencies = [ sources."is-plain-object-5.0.0" ]; }
-      )
+      (sources."copy-props-2.0.5" // { dependencies = [ sources."is-plain-object-5.0.0" ]; })
       sources."core-util-is-1.0.3"
       sources."cors-2.8.5"
       (sources."create-ecdh-4.0.4" // { dependencies = [ sources."bn.js-4.12.0" ]; })
@@ -9305,12 +9288,7 @@ let
       sources."expand-tilde-2.0.2"
       (sources."ext-1.7.0" // { dependencies = [ sources."type-2.7.2" ]; })
       sources."extend-3.0.2"
-      (
-        sources."extend-shallow-3.0.2"
-        // {
-          dependencies = [ sources."is-extendable-1.0.1" ];
-        }
-      )
+      (sources."extend-shallow-3.0.2" // { dependencies = [ sources."is-extendable-1.0.1" ]; })
       sources."external-editor-2.2.0"
       (
         sources."extglob-2.0.4"
@@ -9350,9 +9328,7 @@ let
         // {
           dependencies = [
             (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
-            (
-              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."micromatch-3.1.10"
             sources."to-regex-range-2.1.1"
@@ -9390,9 +9366,7 @@ let
       sources."get-intrinsic-1.1.3"
       sources."get-symbol-description-1.0.0"
       sources."get-value-2.0.6"
-      (
-        sources."git-rev-sync-3.0.2" // { dependencies = [ sources."graceful-fs-4.1.15" ]; }
-      )
+      (sources."git-rev-sync-3.0.2" // { dependencies = [ sources."graceful-fs-4.1.15" ]; })
       sources."glob-7.2.3"
       sources."glob-parent-5.1.2"
       (
@@ -9412,9 +9386,7 @@ let
             sources."binary-extensions-1.13.1"
             (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."chokidar-2.1.8"
-            (
-              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."fsevents-1.2.13"
             (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
             sources."is-binary-path-1.0.1"
@@ -9460,12 +9432,7 @@ let
       sources."gulp-concat-2.6.1"
       sources."gulp-cssnano-2.1.3"
       sources."gulp-eslint-4.0.2"
-      (
-        sources."gulp-footer-2.0.2"
-        // {
-          dependencies = [ sources."lodash.template-3.6.2" ];
-        }
-      )
+      (sources."gulp-footer-2.0.2" // { dependencies = [ sources."lodash.template-3.6.2" ]; })
       sources."gulp-header-2.0.7"
       sources."gulp-htmlmin-5.0.1"
       (sources."gulp-if-3.0.0" // { dependencies = [ sources."through2-3.0.2" ]; })
@@ -9507,12 +9474,7 @@ let
           ];
         }
       )
-      (
-        sources."gulp-replace-1.1.3"
-        // {
-          dependencies = [ sources."@types/node-14.18.33" ];
-        }
-      )
+      (sources."gulp-replace-1.1.3" // { dependencies = [ sources."@types/node-14.18.33" ]; })
       (sources."gulp-rev-9.0.0" // { dependencies = [ sources."sort-keys-2.0.0" ]; })
       (
         sources."gulp-rev-replace-0.4.4"
@@ -9592,18 +9554,14 @@ let
           ];
         }
       )
-      (
-        sources."hash-base-3.1.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
-      )
+      (sources."hash-base-3.1.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."hash.js-1.1.7"
       sources."he-1.2.0"
       sources."hmac-drbg-1.0.1"
       sources."homedir-polyfill-1.0.3"
       sources."hosted-git-info-2.8.9"
       sources."html-comment-regex-1.1.2"
-      (
-        sources."html-minifier-3.5.21" // { dependencies = [ sources."commander-2.17.1" ]; }
-      )
+      (sources."html-minifier-3.5.21" // { dependencies = [ sources."commander-2.17.1" ]; })
       sources."htmlescape-1.1.1"
       (sources."http-errors-2.0.0" // { dependencies = [ sources."statuses-2.0.1" ]; })
       sources."http-proxy-1.18.1"
@@ -9646,10 +9604,7 @@ let
       sources."is-absolute-1.0.0"
       sources."is-absolute-url-2.1.0"
       (
-        sources."is-accessor-descriptor-0.1.6"
-        // {
-          dependencies = [ sources."kind-of-3.2.2" ];
-        }
+        sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
       )
       sources."is-arguments-1.1.1"
       sources."is-arrayish-0.2.1"
@@ -9659,9 +9614,7 @@ let
       sources."is-buffer-1.1.6"
       sources."is-callable-1.2.7"
       sources."is-core-module-2.11.0"
-      (
-        sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-      )
+      (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       sources."is-date-object-1.0.5"
       (sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; })
       sources."is-extendable-0.1.1"
@@ -9770,9 +9723,7 @@ let
         // {
           dependencies = [
             (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
-            (
-              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."findup-sync-2.0.0"
             sources."is-glob-3.1.0"
             (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
@@ -9856,12 +9807,7 @@ let
       sources."onetime-2.0.1"
       sources."openurl-1.1.1"
       sources."opn-5.3.0"
-      (
-        sources."optionator-0.8.3"
-        // {
-          dependencies = [ sources."fast-levenshtein-2.0.6" ];
-        }
-      )
+      (sources."optionator-0.8.3" // { dependencies = [ sources."fast-levenshtein-2.0.6" ]; })
       sources."options-0.0.6"
       sources."ordered-read-streams-1.0.1"
       sources."os-browserify-0.3.0"
@@ -10179,10 +10125,7 @@ let
       sources."readdirp-3.6.0"
       sources."rechoir-0.6.2"
       (
-        sources."reduce-css-calc-1.3.0"
-        // {
-          dependencies = [ sources."balanced-match-0.4.2" ];
-        }
+        sources."reduce-css-calc-1.3.0" // { dependencies = [ sources."balanced-match-0.4.2" ]; }
       )
       sources."reduce-function-call-1.0.3"
       sources."regex-not-1.0.2"
@@ -10327,12 +10270,7 @@ let
       sources."split-string-3.1.0"
       sources."sprintf-js-1.0.3"
       sources."stack-trace-0.0.10"
-      (
-        sources."static-extend-0.1.2"
-        // {
-          dependencies = [ sources."define-property-0.2.5" ];
-        }
-      )
+      (sources."static-extend-0.1.2" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."statuses-1.3.1"
       (
         sources."stream-browserify-3.0.0"
@@ -10344,12 +10282,7 @@ let
       sources."stream-combiner2-1.1.1"
       sources."stream-counter-1.0.0"
       sources."stream-exhaust-1.0.2"
-      (
-        sources."stream-http-3.2.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."stream-http-3.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."stream-shift-1.0.1"
       sources."stream-splicer-2.0.1"
       sources."stream-throttle-0.1.3"

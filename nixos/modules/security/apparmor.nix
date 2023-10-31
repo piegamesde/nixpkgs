@@ -255,8 +255,7 @@ in
           RemainAfterExit = "yes";
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
           ExecStart =
-            mapAttrsToList
-              (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
+            mapAttrsToList (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
               enabledPolicies;
           ExecStartPost = optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
           ExecReload =

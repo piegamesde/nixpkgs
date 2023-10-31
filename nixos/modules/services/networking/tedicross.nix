@@ -11,11 +11,9 @@ let
   dataDir = "/var/lib/tedicross";
   cfg = config.services.tedicross;
   configJSON = pkgs.writeText "tedicross-settings.json" (builtins.toJSON cfg.config);
-  configYAML =
-    pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; }
-      ''
-        ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
-      '';
+  configYAML = pkgs.runCommand "tedicross-settings.yaml" { preferLocalBuild = true; } ''
+    ${pkgs.remarshal}/bin/json2yaml -i ${configJSON} -o $out
+  '';
 in
 {
   options = {

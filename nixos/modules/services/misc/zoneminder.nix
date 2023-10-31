@@ -41,9 +41,7 @@ let
 
   dirStanzas =
     baseDir:
-    lib.concatStringsSep "\n" (
-      map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs
-    );
+    lib.concatStringsSep "\n" (map (e: "ZM_DIR_${lib.toUpper e}=${baseDir}/${e}") libDirs);
 
   defaultsFile = pkgs.writeText "60-defaults.conf" ''
     # 01-system-paths.conf
@@ -351,9 +349,7 @@ in
           procps
           psmisc
         ];
-        after = [
-          "nginx.service"
-        ] ++ lib.optional cfg.database.createLocally "mysql.service";
+        after = [ "nginx.service" ] ++ lib.optional cfg.database.createLocally "mysql.service";
         wantedBy = [ "multi-user.target" ];
         restartTriggers = [
           defaultsFile

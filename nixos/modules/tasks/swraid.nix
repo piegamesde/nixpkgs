@@ -44,9 +44,7 @@ in
     '';
 
     boot.initrd.systemd = lib.mkIf cfg.enable {
-      contents."/etc/mdadm.conf" = lib.mkIf (cfg.mdadmConf != "") {
-        text = cfg.mdadmConf;
-      };
+      contents."/etc/mdadm.conf" = lib.mkIf (cfg.mdadmConf != "") { text = cfg.mdadmConf; };
 
       packages = [ pkgs.mdadm ];
       initrdBin = [ pkgs.mdadm ];

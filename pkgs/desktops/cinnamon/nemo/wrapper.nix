@@ -9,8 +9,7 @@
 }:
 
 let
-  selectedExtensions =
-    extensions ++ (lib.optionals useDefaultExtensions nemoExtensions);
+  selectedExtensions = extensions ++ (lib.optionals useDefaultExtensions nemoExtensions);
 in
 symlinkJoin {
   name = "nemo-with-extensions-${nemo.version}";

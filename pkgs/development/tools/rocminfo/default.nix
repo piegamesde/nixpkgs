@@ -61,8 +61,7 @@ stdenv.mkDerivation (
       maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
       platforms = platforms.linux;
       broken =
-        stdenv.isAarch64
-        || versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+        stdenv.isAarch64 || versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };
   }
 )

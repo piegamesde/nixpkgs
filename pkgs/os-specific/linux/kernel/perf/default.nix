@@ -144,9 +144,7 @@ stdenv.mkDerivation {
           libopcodes_2_38
         ]
     )
-    ++
-      lib.optional (lib.meta.availableOn stdenv.hostPlatform systemtap)
-        systemtap.stapBuild
+    ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform systemtap) systemtap.stapBuild
     ++ lib.optional withGtk gtk2
     ++ lib.optional withZstd zstd
     ++ lib.optional withLibcap libcap

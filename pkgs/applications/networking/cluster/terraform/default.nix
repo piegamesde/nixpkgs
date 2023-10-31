@@ -102,9 +102,7 @@ let
 
           passthru = {
             withPlugins = newplugins: withPlugins (x: newplugins x ++ actualPlugins);
-            full = withPlugins (
-              p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders)
-            );
+            full = withPlugins (p: lib.filter lib.isDerivation (lib.attrValues p.actualProviders));
 
             # Expose wrappers around the override* functions of the terraform
             # derivation.
@@ -126,8 +124,7 @@ let
             # 3. Specifying overrides on the wrapper is unsupported.
             #
             # See nixpkgs#158620 for details.
-            overrideDerivation =
-              f: (pluggable (terraform.overrideDerivation f)).withPlugins plugins;
+            overrideDerivation = f: (pluggable (terraform.overrideDerivation f)).withPlugins plugins;
             overrideAttrs = f: (pluggable (terraform.overrideAttrs f)).withPlugins plugins;
             override = x: (pluggable (terraform.override x)).withPlugins plugins;
           };

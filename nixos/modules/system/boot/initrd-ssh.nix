@@ -98,9 +98,7 @@ in
     authorizedKeys = mkOption {
       type = types.listOf types.str;
       default = config.users.users.root.openssh.authorizedKeys.keys;
-      defaultText =
-        literalExpression
-          "config.users.users.root.openssh.authorizedKeys.keys";
+      defaultText = literalExpression "config.users.users.root.openssh.authorizedKeys.keys";
       description = lib.mdDoc ''
         Authorized keys for the root user on initrd.
       '';
@@ -153,9 +151,7 @@ in
           let
             name = builtins.baseNameOf path;
           in
-          builtins.unsafeDiscardStringContext (
-            "/etc/ssh/" + substring 1 (stringLength name) name
-          );
+          builtins.unsafeDiscardStringContext ("/etc/ssh/" + substring 1 (stringLength name) name);
 
       sshdCfg = config.services.openssh;
 

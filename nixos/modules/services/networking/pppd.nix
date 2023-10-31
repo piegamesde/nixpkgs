@@ -52,17 +52,13 @@ in
                   type = types.bool;
                   default = true;
                   example = false;
-                  description =
-                    lib.mdDoc
-                      "Whether the PPP session is automatically started at boot time.";
+                  description = lib.mdDoc "Whether the PPP session is automatically started at boot time.";
                 };
 
                 config = mkOption {
                   type = types.lines;
                   default = "";
-                  description =
-                    lib.mdDoc
-                      "pppd configuration for this peer, see the pppd(8) man page.";
+                  description = lib.mdDoc "pppd configuration for this peer, see the pppd(8) man page.";
                 };
               };
             }

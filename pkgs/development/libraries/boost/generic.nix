@@ -64,8 +64,7 @@ let
   );
 
   threading = lib.concatStringsSep "," (
-    lib.optional enableSingleThreaded "single"
-    ++ lib.optional enableMultiThreaded "multi"
+    lib.optional enableSingleThreaded "single" ++ lib.optional enableMultiThreaded "multi"
   );
 
   link = lib.concatStringsSep "," (
@@ -151,9 +150,7 @@ let
     ++ lib.optional (toolset != null) "toolset=${toolset}"
     ++ lib.optional (!enablePython) "--without-python"
     ++ lib.optional needUserConfig "--user-config=user-config.jam"
-    ++
-      lib.optional (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux)
-        "pch=off"
+    ++ lib.optional (stdenv.buildPlatform.isDarwin && stdenv.hostPlatform.isLinux) "pch=off"
     ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [ "threadapi=win32" ]
     ++ extraB2Args
   );
@@ -170,37 +167,31 @@ stdenv.mkDerivation {
     patches
     ++ lib.optional stdenv.isDarwin ./darwin-no-system-python.patch
     # Fix boost-context segmentation faults on ppc64 due to ABI violation
-    ++
-      lib.optional (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71")
-        (
-          fetchpatch {
-            url = "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
-            sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
-            stripLen = 1;
-            extraPrefix = "libs/context/";
-          }
-        )
+    ++ lib.optional (lib.versionAtLeast version "1.61" && lib.versionOlder version "1.71") (
+      fetchpatch {
+        url = "https://github.com/boostorg/context/commit/2354eca9b776a6739112833f64754108cc0d1dc5.patch";
+        sha256 = "067m4bjpmcanqvg28djax9a10avmdwhlpfx6gn73kbqqq70dnz29";
+        stripLen = 1;
+        extraPrefix = "libs/context/";
+      }
+    )
     # Fix compiler warning with GCC >= 8; TODO: patch may apply to older versions
-    ++
-      lib.optional (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67")
-        (
-          fetchpatch {
-            url = "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
-            sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
-            stripLen = 1;
-          }
-        )
-    ++
-      lib.optional (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70")
-        (
-          fetchpatch {
-            # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
-            url = "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
-            sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
-            stripLen = 1;
-            extraPrefix = "libs/context/";
-          }
-        )
+    ++ lib.optional (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.67") (
+      fetchpatch {
+        url = "https://github.com/boostorg/mpl/commit/f48fd09d021db9a28bd7b8452c175897e1af4485.patch";
+        sha256 = "15d2a636hhsb1xdyp44x25dyqfcaws997vnp9kl1mhzvxjzz7hb0";
+        stripLen = 1;
+      }
+    )
+    ++ lib.optional (lib.versionAtLeast version "1.65" && lib.versionOlder version "1.70") (
+      fetchpatch {
+        # support for Mips64n64 appeared in boost-context 1.70; this patch won't apply to pre-1.65 cleanly
+        url = "https://github.com/boostorg/context/commit/e3f744a1862164062d579d1972272d67bdaa9c39.patch";
+        sha256 = "sha256-qjQy1b4jDsIRrI+UYtcguhvChrMbGWO0UlEzEJHYzRI=";
+        stripLen = 1;
+        extraPrefix = "libs/context/";
+      }
+    )
     ++
       lib.optional (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
         ./cmake-paths.patch

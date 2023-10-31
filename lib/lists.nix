@@ -616,8 +616,7 @@ rec {
     lst:
     let
       vectorise =
-        s:
-        map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
+        s: map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
       prepared =
         map
           (x: [

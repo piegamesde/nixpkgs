@@ -516,9 +516,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (withHomed || withCryptsetup) [ libfido2 ]
       ++ lib.optionals withLibBPF [ libbpf ]
       ++ lib.optional withTpm2Tss tpm2-tss
-      ++ lib.optional withUkify (
-        python3Packages.python.withPackages (ps: with ps; [ pefile ])
-      );
+      ++ lib.optional withUkify (python3Packages.python.withPackages (ps: with ps; [ pefile ]));
 
     #dontAddPrefix = true;
 
@@ -744,8 +742,7 @@ stdenv.mkDerivation (
             where,
             ignore ? [ ],
           }:
-          map (path: ''substituteInPlace ${path} --replace '${search}' "${replacement}"'')
-            where;
+          map (path: ''substituteInPlace ${path} --replace '${search}' "${replacement}"'') where;
         mkEnsureSubstituted =
           {
             replacement,

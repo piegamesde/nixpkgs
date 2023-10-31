@@ -71,9 +71,7 @@ in
       offlinePasswords = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to store offline passwords when the server is down.";
+        description = lib.mdDoc "Whether to store offline passwords when the server is down.";
       };
 
       cacheCredentials = mkOption {

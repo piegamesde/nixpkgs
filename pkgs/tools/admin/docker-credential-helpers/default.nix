@@ -71,7 +71,5 @@ buildGoModule rec {
       license = licenses.mit;
       maintainers = with maintainers; [ marsam ];
     }
-    // lib.optionalAttrs stdenv.isDarwin {
-      mainProgram = "docker-credential-osxkeychain";
-    };
+    // lib.optionalAttrs stdenv.isDarwin { mainProgram = "docker-credential-osxkeychain"; };
 }

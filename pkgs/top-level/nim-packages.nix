@@ -97,9 +97,7 @@ lib.makeScope newScope (
 
     regex = callPackage ../development/nim-packages/regex { };
 
-    rocksdb = callPackage ../development/nim-packages/rocksdb {
-      inherit (pkgs) rocksdb;
-    };
+    rocksdb = callPackage ../development/nim-packages/rocksdb { inherit (pkgs) rocksdb; };
 
     safeset = callPackage ../development/nim-packages/safeset { };
 

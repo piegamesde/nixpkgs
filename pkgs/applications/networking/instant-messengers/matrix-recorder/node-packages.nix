@@ -1364,12 +1364,7 @@ let
       sources."q-1.5.1"
       sources."qs-6.5.2"
       (sources."rc-1.2.8" // { dependencies = [ sources."minimist-1.2.0" ]; })
-      (
-        sources."readable-stream-2.3.6"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."readable-stream-2.3.6" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."request-2.88.0"
       sources."rimraf-2.7.1"
       sources."safe-buffer-5.2.0"
@@ -1382,9 +1377,7 @@ let
       sources."sqlite3-4.1.0"
       sources."sshpk-1.16.1"
       sources."string-width-1.0.2"
-      (
-        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-      )
+      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."strip-ansi-3.0.1"
       sources."strip-json-comments-2.0.1"
       sources."tar-4.4.13"

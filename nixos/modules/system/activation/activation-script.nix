@@ -31,9 +31,7 @@ let
     let
       set' =
         mapAttrs
-          (
-            _: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v
-          )
+          (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
           set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
@@ -47,10 +45,7 @@ let
           (
             a: v:
             if onlyDry && !v.supportsDryActivation then
-              v
-              // {
-                text = "#### Activation script snippet ${a} does not support dry activation.";
-              }
+              v // { text = "#### Activation script snippet ${a} does not support dry activation."; }
             else
               v
           )

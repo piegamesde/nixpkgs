@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
 
   configurePhase = ''
     cd src
-    for pack in ${
-      lib.concatStringsSep " " packages
-    }; do make "yes-$pack" SHELL=$SHELL; done
+    for pack in ${lib.concatStringsSep " " packages}; do make "yes-$pack" SHELL=$SHELL; done
   '';
 
   # Must do manual build due to LAMMPS requiring a separate build for

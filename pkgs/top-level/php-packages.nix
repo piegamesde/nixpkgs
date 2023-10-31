@@ -284,9 +284,7 @@ lib.makeScope pkgs.newScope (
           sourceRoot = "php-${version}/ext/pdo_oci";
 
           buildInputs = [ pkgs.oracle-instantclient ];
-          configureFlags = [
-            "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"
-          ];
+          configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
 
           internalDeps = [ php.extensions.pdo ];
 
@@ -401,9 +399,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "iconv";
-              configureFlags = [
-                "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}"
-              ];
+              configureFlags = [ "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}" ];
               doCheck = false;
             }
             {

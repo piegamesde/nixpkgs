@@ -52,9 +52,7 @@ let
   unsupportedRocmArches = lists.subtractLists supportedRocmArches rocmArches;
 
   supportedCustomGpuTargets = lists.intersectLists gpuTargets supportedGpuTargets;
-  unsupportedCustomGpuTargets =
-    lists.subtractLists supportedCustomGpuTargets
-      gpuTargets;
+  unsupportedCustomGpuTargets = lists.subtractLists supportedCustomGpuTargets gpuTargets;
 
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =

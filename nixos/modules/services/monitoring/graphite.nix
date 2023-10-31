@@ -66,9 +66,7 @@ let
   carbonEnv = {
     PYTHONPATH =
       let
-        cenv = pkgs.python3.buildEnv.override {
-          extraLibs = [ pkgs.python3Packages.carbon ];
-        };
+        cenv = pkgs.python3.buildEnv.override { extraLibs = [ pkgs.python3Packages.carbon ]; };
       in
       "${cenv}/${pkgs.python3.sitePackages}";
     GRAPHITE_ROOT = dataDir;
@@ -163,17 +161,13 @@ in
       };
 
       enableCache = mkOption {
-        description =
-          lib.mdDoc
-            "Whether to enable carbon cache, the graphite storage daemon.";
+        description = lib.mdDoc "Whether to enable carbon cache, the graphite storage daemon.";
         default = false;
         type = types.bool;
       };
 
       storageAggregation = mkOption {
-        description =
-          lib.mdDoc
-            "Defines how to aggregate data to lower-precision retentions.";
+        description = lib.mdDoc "Defines how to aggregate data to lower-precision retentions.";
         default = null;
         type = types.nullOr types.str;
         example = ''
@@ -293,8 +287,7 @@ in
         default = "http://${cfg.web.listenAddress}:${toString cfg.web.port}";
         defaultText =
           literalExpression
-            ''
-              "http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
+            ''"http://''${config.${opt.web.listenAddress}}:''${toString config.${opt.web.port}}"'';
         description = lib.mdDoc "Host where graphite service runs.";
         type = types.str;
       };
@@ -394,10 +387,9 @@ in
         };
     })
 
-    (mkIf
-      (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay)
-      { environment.systemPackages = [ pkgs.python3Packages.carbon ]; }
-    )
+    (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay) {
+      environment.systemPackages = [ pkgs.python3Packages.carbon ];
+    })
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {

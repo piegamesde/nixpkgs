@@ -8,8 +8,7 @@
 let
   versionNoPatch = "${toString major_version}.${toString minor_version}";
   version = "${versionNoPatch}.${toString patch_version}";
-  safeX11 =
-    stdenv: !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
+  safeX11 = stdenv: !(stdenv.isAarch32 || stdenv.isMips || stdenv.hostPlatform.isStatic);
 in
 
 {
@@ -112,9 +111,7 @@ stdenv.mkDerivation (
       ++ optional aflSupport (flags "--with-afl" "-afl-instrument")
       ++ optional flambdaSupport (flags "--enable-flambda" "-flambda")
       ++ optional spaceTimeSupport (flags "--enable-spacetime" "-spacetime")
-      ++ optional framePointerSupport (
-        flags "--enable-frame-pointers" "-with-frame-pointers"
-      )
+      ++ optional framePointerSupport (flags "--enable-frame-pointers" "-with-frame-pointers")
       ++ optionals unsafeStringSupport [
         "--disable-force-safe-string"
         "DEFAULT_STRING=unsafe"
@@ -123,8 +120,7 @@ stdenv.mkDerivation (
         optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
           "-no-shared-libs"
       ++
-        optionals
-          (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08")
+        optionals (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08")
           [
             "-host ${stdenv.hostPlatform.config}"
             "-target ${stdenv.targetPlatform.config}"
@@ -145,9 +141,7 @@ stdenv.mkDerivation (
     # x86_64-unknown-linux-musl-ld: -r and -pie may not be used together
     hardeningDisable =
       lib.optional (lib.versionAtLeast version "4.09" && stdenv.hostPlatform.isMusl) "pie"
-      ++
-        lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
-          "strictoverflow"
+      ++ lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang) "strictoverflow"
       ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable;
 
     # Older versions have some race:
@@ -227,8 +221,7 @@ stdenv.mkDerivation (
 
       platforms = with platforms; linux ++ darwin;
       broken =
-        stdenv.isAarch64
-        && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
+        stdenv.isAarch64 && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
     };
   }
 )

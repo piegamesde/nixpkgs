@@ -22,9 +22,7 @@ let
         export ${n}="${getAttr n xEnv}"
       '')
       (attrNames xEnv)}
-    exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${
-      toString dmcfg.xserverArgs
-    } "$@"
+    exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} "$@"
   '';
 
   Xsetup = pkgs.writeShellScript "Xsetup" ''
@@ -86,9 +84,7 @@ let
       };
     };
 
-  cfgFile = iniFmt.generate "sddm.conf" (
-    lib.recursiveUpdate defaultConfig cfg.settings
-  );
+  cfgFile = iniFmt.generate "sddm.conf" (lib.recursiveUpdate defaultConfig cfg.settings);
 
   autoLoginSessionName = "${dmcfg.sessionData.autologinSession}.desktop";
 in
@@ -296,9 +292,7 @@ in
 
       sddm-autologin.text = ''
         auth     requisite pam_nologin.so
-        auth     required  pam_succeed_if.so uid >= ${
-          toString cfg.autoLogin.minimumUid
-        } quiet
+        auth     required  pam_succeed_if.so uid >= ${toString cfg.autoLogin.minimumUid} quiet
         auth     required  pam_permit.so
 
         account  include   sddm

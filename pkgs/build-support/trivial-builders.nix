@@ -355,9 +355,7 @@ rec {
             ${stdenv.shellDryRun} "$target"
             # use shellcheck which does not include docs
             # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
-            ${
-              lib.getExe (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)
-            } "$target"
+            ${lib.getExe (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)} "$target"
             runHook postCheck
           ''
         else
@@ -765,9 +763,7 @@ rec {
         lib.mapAttrs'
           (name: value: {
             inherit value;
-            name = lib.head (
-              builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name
-            );
+            name = lib.head (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name);
           })
           derivations;
       # The syntax of output paths differs between outputs named `out`

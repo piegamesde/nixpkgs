@@ -132,9 +132,7 @@ let
         port = mkOption {
           type = types.nullOr types.port;
           default = null;
-          description =
-            lib.mdDoc
-              "Override the default port on which to listen for connections.";
+          description = lib.mdDoc "Override the default port on which to listen for connections.";
         };
 
         dbCache = mkOption {
@@ -236,9 +234,9 @@ in
                 # otherwise, some options (e.g.: custom RPC port) will not work
                 ${optionalString cfg.testnet "[test]"}
                 # RPC users
-                ${concatMapStringsSep "\n"
-                  (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}")
-                  (attrValues cfg.rpc.users)}
+                ${concatMapStringsSep "\n" (rpcUser: "rpcauth=${rpcUser.name}:${rpcUser.passwordHMAC}") (
+                  attrValues cfg.rpc.users
+                )}
                 # Extra config options (from bitcoind nixos service)
                 ${cfg.extraConfig}
               '';
@@ -252,9 +250,7 @@ in
                 Group = cfg.group;
                 ExecStart = ''
                   ${cfg.package}/bin/bitcoind \
-                  ${
-                    if (cfg.configFile != null) then "-conf=${cfg.configFile}" else "-conf=${configFile}"
-                  } \
+                  ${if (cfg.configFile != null) then "-conf=${cfg.configFile}" else "-conf=${configFile}"} \
                   -datadir=${cfg.dataDir} \
                   -pid=${cfg.pidFile} \
                   ${optionalString cfg.testnet "-testnet"}\

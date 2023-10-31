@@ -123,8 +123,7 @@ let
         RestrictRealtime = true;
       };
       filter = key: value: (value != null) || !(lib.hasAttr key hardening);
-      apply =
-        service: lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
+      apply = service: lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
     in
     service:
     service // { serviceConfig = apply service; };
@@ -211,9 +210,7 @@ let
     after = [ "hylafax-spool.service" ];
     requires = [ "hylafax-spool.service" ];
     wantedBy = mkIf cfg.faxqclean.enable.spoolInit requires;
-    startAt =
-      mkIf (cfg.faxqclean.enable.frequency != null)
-        cfg.faxqclean.enable.frequency;
+    startAt = mkIf (cfg.faxqclean.enable.frequency != null) cfg.faxqclean.enable.frequency;
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxqclean"
       ''-q "${cfg.spoolAreaPath}"''

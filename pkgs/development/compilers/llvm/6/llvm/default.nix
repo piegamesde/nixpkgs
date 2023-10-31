@@ -16,9 +16,8 @@
   zlib,
   buildLlvmTools,
   fetchpatch,
-  doCheck ? stdenv.isLinux
-    && (!stdenv.isi686)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  doCheck ?
+    stdenv.isLinux && (!stdenv.isi686) && (stdenv.hostPlatform == stdenv.buildPlatform),
   debugVersion ? false,
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,

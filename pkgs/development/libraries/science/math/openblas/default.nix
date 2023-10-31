@@ -132,10 +132,7 @@ in
 
 let
   blas64 =
-    if blas64_ != null then
-      blas64_
-    else
-      lib.hasPrefix "x86_64" stdenv.hostPlatform.system;
+    if blas64_ != null then blas64_ else lib.hasPrefix "x86_64" stdenv.hostPlatform.system;
   # Convert flag values to format OpenBLAS's build expects.
   # `toString` is almost what we need other than bools,
   # which we need to map {true -> 1, false -> 0}
@@ -148,9 +145,7 @@ let
       "1"
     else
       "0";
-  mkMakeFlagsFromConfig = lib.mapAttrsToList (
-    var: val: "${var}=${mkMakeFlagValue val}"
-  );
+  mkMakeFlagsFromConfig = lib.mapAttrsToList (var: val: "${var}=${mkMakeFlagValue val}");
 
   shlibExt = stdenv.hostPlatform.extensions.sharedLibrary;
 in

@@ -11,12 +11,10 @@
     let
       ndkVersion = "21.0.6113669";
 
-      buildAndroidComposition =
-        buildPackages.buildPackages.androidenv.composeAndroidPackages
-          {
-            includeNDK = true;
-            inherit ndkVersion;
-          };
+      buildAndroidComposition = buildPackages.buildPackages.androidenv.composeAndroidPackages {
+        includeNDK = true;
+        inherit ndkVersion;
+      };
 
       androidComposition = androidenv.composeAndroidPackages {
         includeNDK = true;
@@ -45,12 +43,10 @@
     let
       ndkVersion = "23.1.7779620";
 
-      buildAndroidComposition =
-        buildPackages.buildPackages.androidenv.composeAndroidPackages
-          {
-            includeNDK = true;
-            inherit ndkVersion;
-          };
+      buildAndroidComposition = buildPackages.buildPackages.androidenv.composeAndroidPackages {
+        includeNDK = true;
+        inherit ndkVersion;
+      };
 
       androidComposition = androidenv.composeAndroidPackages {
         includeNDK = true;
@@ -79,12 +75,10 @@
     let
       ndkVersion = "24.0.8215888";
 
-      buildAndroidComposition =
-        buildPackages.buildPackages.androidenv.composeAndroidPackages
-          {
-            includeNDK = true;
-            inherit ndkVersion;
-          };
+      buildAndroidComposition = buildPackages.buildPackages.androidenv.composeAndroidPackages {
+        includeNDK = true;
+        inherit ndkVersion;
+      };
 
       androidComposition = androidenv.composeAndroidPackages {
         includeNDK = true;

@@ -109,8 +109,7 @@ in
     services.kubo = {
 
       enable = mkEnableOption (
-        lib.mdDoc
-          "Interplanetary File System (WARNING: may cause severe network degradation)"
+        lib.mdDoc "Interplanetary File System (WARNING: may cause severe network degradation)"
       );
 
       package = mkOption {
@@ -160,9 +159,7 @@ in
       autoMount = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether Kubo should try to mount /ipfs and /ipns at startup.";
+        description = lib.mdDoc "Whether Kubo should try to mount /ipfs and /ipns at startup.";
       };
 
       autoMigrate = mkOption {
@@ -194,9 +191,7 @@ in
       emptyRepo = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "If set to true, the repo won't be initialized with help files";
+        description = lib.mdDoc "If set to true, the repo won't be initialized with help files";
       };
 
       settings = mkOption {
@@ -287,9 +282,7 @@ in
       startWhenNeeded = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to use socket activation to start Kubo when needed.";
+        description = lib.mdDoc "Whether to use socket activation to start Kubo when needed.";
       };
     };
   };
@@ -394,30 +387,26 @@ in
         # After an unclean shutdown the fuse mounts at cfg.ipnsMountDir and cfg.ipfsMountDir are locked
         umount --quiet '${cfg.ipnsMountDir}' '${cfg.ipfsMountDir}' || true
       '';
-      serviceConfig =
-        {
-          ExecStart = [
-            ""
-            "${cfg.package}/bin/ipfs daemon ${kuboFlags}"
-          ];
-          User = cfg.user;
-          Group = cfg.group;
-          StateDirectory = "";
-          ReadWritePaths = optionals (!cfg.autoMount) [
-            ""
-            cfg.dataDir
-          ];
-        }
-        // optionalAttrs (cfg.serviceFdlimit != null) { LimitNOFILE = cfg.serviceFdlimit; };
+      serviceConfig = {
+        ExecStart = [
+          ""
+          "${cfg.package}/bin/ipfs daemon ${kuboFlags}"
+        ];
+        User = cfg.user;
+        Group = cfg.group;
+        StateDirectory = "";
+        ReadWritePaths = optionals (!cfg.autoMount) [
+          ""
+          cfg.dataDir
+        ];
+      } // optionalAttrs (cfg.serviceFdlimit != null) { LimitNOFILE = cfg.serviceFdlimit; };
     } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
 
     systemd.sockets.ipfs-gateway = {
       wantedBy = [ "sockets.target" ];
       socketConfig = {
         ListenStream = [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
-        ListenDatagram = [
-          ""
-        ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
+        ListenDatagram = [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };
     };
 

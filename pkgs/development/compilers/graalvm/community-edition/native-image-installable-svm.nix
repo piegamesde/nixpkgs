@@ -38,9 +38,7 @@ graalvmCEPackages.buildGraalvmProduct rec {
   graalvmPhases.postInstall = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/native-image \
       --prefix PATH : ${binPath} \
-      ${
-        lib.concatStringsSep " " (map (l: "--add-flags '-H:CLibraryPath=${l}/lib'") cLibs)
-      }
+      ${lib.concatStringsSep " " (map (l: "--add-flags '-H:CLibraryPath=${l}/lib'") cLibs)}
   '';
 
   graalvmPhases.installCheckPhase = ''

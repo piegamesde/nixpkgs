@@ -8375,9 +8375,7 @@ let
       sources."@babel/plugin-transform-typeof-symbol-7.18.9"
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
-      (
-        sources."@babel/preset-env-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/preset-env-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/runtime-7.19.0"
       sources."@babel/template-7.18.10"
@@ -8504,10 +8502,7 @@ let
         }
       )
       (
-        sources."@vue/babel-sugar-v-on-1.4.0"
-        // {
-          dependencies = [ sources."camelcase-5.3.1" ];
-        }
+        sources."@vue/babel-sugar-v-on-1.4.0" // { dependencies = [ sources."camelcase-5.3.1" ]; }
       )
       sources."@vue/cli-overlay-5.0.8"
       sources."@vue/cli-plugin-babel-5.0.8"
@@ -8704,10 +8699,7 @@ let
       sources."connect-history-api-fallback-2.0.0"
       sources."consolidate-0.15.1"
       (
-        sources."content-disposition-0.5.4"
-        // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
       sources."content-type-1.0.4"
       sources."convert-source-map-1.8.0"
@@ -8837,9 +8829,7 @@ let
           dependencies = [ sources."debug-3.2.7" ];
         }
       )
-      (
-        sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; }
-      )
+      (sources."eslint-module-utils-2.7.4" // { dependencies = [ sources."debug-3.2.7" ]; })
       (
         sources."eslint-plugin-es-4.1.0"
         // {
@@ -9002,10 +8992,7 @@ let
       )
       sources."html-entities-2.3.3"
       (
-        sources."html-minifier-terser-6.1.0"
-        // {
-          dependencies = [ sources."commander-8.3.0" ];
-        }
+        sources."html-minifier-terser-6.1.0" // { dependencies = [ sources."commander-8.3.0" ]; }
       )
       sources."html-tags-3.2.0"
       sources."html-webpack-plugin-5.5.0"
@@ -9185,12 +9172,7 @@ let
       sources."node-fetch-2.6.7"
       sources."node-forge-1.3.1"
       sources."node-releases-2.0.6"
-      (
-        sources."normalize-package-data-2.5.0"
-        // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."normalize-package-data-2.5.0" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."normalize-path-3.0.0"
       sources."normalize-range-0.1.2"
       sources."normalize-url-6.1.0"
@@ -9258,9 +9240,7 @@ let
       sources."postcss-discard-duplicates-5.1.0"
       sources."postcss-discard-empty-5.1.1"
       sources."postcss-discard-overridden-5.1.0"
-      (
-        sources."postcss-loader-6.2.1" // { dependencies = [ sources."cosmiconfig-7.0.1" ]; }
-      )
+      (sources."postcss-loader-6.2.1" // { dependencies = [ sources."cosmiconfig-7.0.1" ]; })
       sources."postcss-merge-longhand-5.1.6"
       sources."postcss-merge-rules-5.1.2"
       sources."postcss-minify-font-values-5.1.0"
@@ -9387,9 +9367,7 @@ let
       sources."string-width-4.2.3"
       sources."string.prototype.trimend-1.0.5"
       sources."string.prototype.trimstart-1.0.5"
-      (
-        sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."strip-ansi-6.0.1"
       sources."strip-bom-3.0.0"
       sources."strip-eof-1.0.0"
@@ -9412,9 +9390,7 @@ let
       sources."text-table-0.2.0"
       sources."thenify-3.3.1"
       sources."thenify-all-1.6.0"
-      (
-        sources."thread-loader-3.0.4" // { dependencies = [ sources."schema-utils-3.1.1" ]; }
-      )
+      (sources."thread-loader-3.0.4" // { dependencies = [ sources."schema-utils-3.1.1" ]; })
       sources."thunky-1.1.0"
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"

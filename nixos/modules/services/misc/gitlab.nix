@@ -257,9 +257,7 @@ let
       ActionMailer::Base.smtp_settings = {
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
-        ${
-          optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''
-        }
+        ${optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''}
         ${optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''}
         domain: "${cfg.smtp.domain}",
         ${
@@ -1337,9 +1335,7 @@ in
     };
 
     # Use postfix to send out mails.
-    services.postfix.enable = mkDefault (
-      cfg.smtp.enable && cfg.smtp.address == "localhost"
-    );
+    services.postfix.enable = mkDefault (cfg.smtp.enable && cfg.smtp.address == "localhost");
 
     users.users.${cfg.user} = {
       group = cfg.group;
@@ -1417,9 +1413,7 @@ in
               fi
             '';
           in
-          "+${
-            pkgs.writeShellScript "gitlab-pre-start-full-privileges" preStartFullPrivileges
-          }";
+          "+${pkgs.writeShellScript "gitlab-pre-start-full-privileges" preStartFullPrivileges}";
 
         ExecStart = pkgs.writeShellScript "gitlab-config" ''
           set -o errexit -o pipefail -o nounset
@@ -1485,8 +1479,7 @@ in
             }
 
             ${
-              utils.genJqSecretsReplacementSnippet gitlabConfig
-                "${cfg.statePath}/config/gitlab.yml"
+              utils.genJqSecretsReplacementSnippet gitlabConfig "${cfg.statePath}/config/gitlab.yml"
             }
 
             rm -f '${cfg.statePath}/config/secrets.yml'

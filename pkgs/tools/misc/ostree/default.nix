@@ -124,9 +124,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/libostree"
-    "installed_test_metadir=${
-      placeholder "installedTests"
-    }/share/installed-tests/libostree"
+    "installed_test_metadir=${placeholder "installedTests"}/share/installed-tests/libostree"
   ];
 
   preConfigure = ''

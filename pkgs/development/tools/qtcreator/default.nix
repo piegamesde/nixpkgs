@@ -36,9 +36,7 @@ in
 mkDerivation rec {
   pname = "qtcreator";
   version = "5.0.3";
-  baseVersion = builtins.concatStringsSep "." (
-    lib.take 2 (builtins.splitVersion version)
-  );
+  baseVersion = builtins.concatStringsSep "." (lib.take 2 (builtins.splitVersion version));
 
   src = fetchurl {
     url = "http://download.qt-project.org/official_releases/${pname}/${baseVersion}/${version}/qt-creator-opensource-src-${version}.tar.xz";
@@ -75,13 +73,9 @@ mkDerivation rec {
 
   buildFlags = lib.optional withDocumentation "docs";
 
-  installFlags = [
-    "INSTALL_ROOT=$(out)"
-  ] ++ lib.optional withDocumentation "install_docs";
+  installFlags = [ "INSTALL_ROOT=$(out)" ] ++ lib.optional withDocumentation "install_docs";
 
-  qtWrapperArgs = [
-    "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"
-  ];
+  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin" ];
 
   preConfigure =
     ''

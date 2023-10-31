@@ -30,9 +30,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/git-lfs/git-lfs/v${
-      lib.versions.major version
-    }/config.Vendor=${version}"
+    "-X github.com/git-lfs/git-lfs/v${lib.versions.major version}/config.Vendor=${version}"
   ];
 
   subPackages = [ "." ];

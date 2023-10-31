@@ -41,8 +41,7 @@ let
         lib.findFirst
           (
             listener:
-            lib.any (resource: lib.any (name: name == "client") resource.names)
-              listener.resources
+            lib.any (resource: lib.any (name: name == "client") resource.names) listener.resources
           )
           (lib.last cfg.settings.listeners)
           cfg.settings.listeners;
@@ -56,9 +55,7 @@ let
     pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
-        ${
-          lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)
-        } \
+        ${lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)} \
         "${listenerProtocol}://${
           if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
         }:${builtins.toString listener.port}/"
@@ -1206,9 +1203,7 @@ in
       '';
       environment =
         {
-          PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [
-            pluginsEnv
-          ];
+          PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [ pluginsEnv ];
         }
         // optionalAttrs (cfg.withJemalloc) {
           LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";

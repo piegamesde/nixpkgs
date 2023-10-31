@@ -385,8 +385,7 @@ in
             }
             {
               assertion =
-                cfg.mail.enable
-                -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null));
+                cfg.mail.enable -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.mail.configuration'
                   or 'services.prometheus.exporters.mail.configFile'.

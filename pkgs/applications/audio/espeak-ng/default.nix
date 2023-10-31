@@ -71,9 +71,7 @@ stdenv.mkDerivation rec {
           --replace 'espeak-ng-data/%_dict: src/espeak-ng' 'espeak-ng-data/%_dict: ${
             lib.getExe buildPackages.espeak-ng
           }' \
-          --replace '../src/espeak-ng --compile' "${
-            lib.getExe buildPackages.espeak-ng
-          } --compile"
+          --replace '../src/espeak-ng --compile' "${lib.getExe buildPackages.espeak-ng} --compile"
       '';
 
   postInstall = lib.optionalString stdenv.isLinux ''

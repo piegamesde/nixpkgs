@@ -94,9 +94,7 @@ in
               "--initial-volume=${toString cfg.initialVolume} "
             )
             + optionalString (cfg.port != null) ("--port=${toString cfg.port} ")
-            + optionalString (cfg.uuid != null) (
-              "--uuid=${utils.escapeSystemdExecArg cfg.uuid} "
-            );
+            + optionalString (cfg.uuid != null) ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ");
           Restart = "always";
           RuntimeDirectory = "gmediarender";
 

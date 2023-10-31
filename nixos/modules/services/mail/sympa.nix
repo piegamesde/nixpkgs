@@ -49,8 +49,7 @@ let
     }
     // commonServiceConfig;
 
-  configVal =
-    value: if isBool value then if value then "on" else "off" else toString value;
+  configVal = value: if isBool value then if value then "on" else "off" else toString value;
   configGenerator =
     c:
     concatStrings (
@@ -243,8 +242,7 @@ in
 
       name = mkOption {
         type = str;
-        default =
-          if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
+        default = if cfg.database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa";
         defaultText =
           literalExpression
             ''if database.type == "SQLite" then "${dataDir}/sympa.sqlite" else "sympa"'';
@@ -443,9 +441,7 @@ in
       }
       // (flip mapAttrs' cfg.domains (
         fqdn: domain:
-        nameValuePair "etc/${fqdn}/robot.conf" (
-          mkDefault { source = robotConfig fqdn domain; }
-        )
+        nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
       ));
 
     environment = {
@@ -585,8 +581,7 @@ in
       let
         vHosts = unique (remove null (mapAttrsToList (_k: v: v.webHost) cfg.domains));
         hostLocations =
-          host:
-          map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
+          host: map (v: v.webLocation) (filter (v: v.webHost == host) (attrValues cfg.domains));
         httpsOpts = optionalAttrs cfg.web.https {
           forceSSL = mkDefault true;
           enableACME = mkDefault true;

@@ -64,8 +64,7 @@ let
     min-version: upto-version:
     let
       inherit (upstream-info) version;
-      result =
-        lib.versionAtLeast version min-version && lib.versionOlder version upto-version;
+      result = lib.versionAtLeast version min-version && lib.versionOlder version upto-version;
     in
     warnObsoleteVersionConditional upto-version result;
 
@@ -196,10 +195,7 @@ let
   };
 
   suffix =
-    if (channel == "stable" || channel == "ungoogled-chromium") then
-      ""
-    else
-      "-" + channel;
+    if (channel == "stable" || channel == "ungoogled-chromium") then "" else "-" + channel;
 
   sandboxExecutableName = chromium.browser.passthru.sandboxExecutableName;
 

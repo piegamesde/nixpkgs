@@ -11,9 +11,7 @@ let
 
   cfg = config.services.confluence;
 
-  pkg = cfg.package.override (
-    optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; }
-  );
+  pkg = cfg.package.override (optionalAttrs cfg.sso.enable { enableSSO = cfg.sso.enable; });
 
   crowdProperties = pkgs.writeText "crowd.properties" ''
     application.name                        ${cfg.sso.applicationName}
@@ -219,9 +217,7 @@ in
         ''
           mkdir -p ${cfg.home}/{logs,work,temp,deploy}
 
-          sed -e 's,port="8090",port="${
-            toString cfg.listenPort
-          }" address="${cfg.listenAddress}",' \
+          sed -e 's,port="8090",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
           -e 's,protocol="org.apache.coyote.http11.Http11NioProtocol",protocol="org.apache.coyote.http11.Http11NioProtocol" proxyName="${cfg.proxy.name}" proxyPort="${

@@ -334,8 +334,7 @@ in
         }
 
         {
-          assertion =
-            offloadCfg.enableOffloadCmd -> offloadCfg.enable || reverseSyncCfg.enable;
+          assertion = offloadCfg.enableOffloadCmd -> offloadCfg.enable || reverseSyncCfg.enable;
           message = ''
             Offload command requires offloading or reverse prime sync to be enabled.
           '';
@@ -474,9 +473,9 @@ in
           ${pkgs.xorg.xrandr}/bin/xrandr --auto
         '';
 
-      environment.etc."nvidia/nvidia-application-profiles-rc" =
-        mkIf nvidia_x11.useProfiles
-          { source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc"; };
+      environment.etc."nvidia/nvidia-application-profiles-rc" = mkIf nvidia_x11.useProfiles {
+        source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
+      };
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source = "/run/opengl-driver/share/egl/egl_external_platform.d/";
@@ -564,12 +563,10 @@ in
       systemd.tmpfiles.rules =
         optional config.virtualisation.docker.enableNvidia
           "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
-        ++ optional
-          (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
+        ++ optional (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
           "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
-      boot.extraModulePackages =
-        if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
+      boot.extraModulePackages = if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
       hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
       # nvidia-uvm is required by CUDA applications.
@@ -584,9 +581,7 @@ in
       # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
         optional (offloadCfg.enable || cfg.modesetting.enable) "nvidia-drm.modeset=1"
-        ++
-          optional cfg.powerManagement.enable
-            "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+        ++ optional cfg.powerManagement.enable "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
         ++
           optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)

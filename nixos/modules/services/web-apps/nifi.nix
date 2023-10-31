@@ -262,20 +262,16 @@ in
               sed -i /var/lib/nifi/conf/nifi.properties \
                 -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'
             ''}
-          ${lib.optionalString
-            ((cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null))
-            ''
-              sed -i /var/lib/nifi/conf/bootstrap.conf \
-                -e 's|java.arg.2=.*|java.arg.2=-Xms${(toString cfg.initJavaHeapSize)}m|g' \
-                -e 's|java.arg.3=.*|java.arg.3=-Xmx${(toString cfg.maxJavaHeapSize)}m|g'
-            ''}
-          ${lib.optionalString
-            ((cfg.initJavaHeapSize == null) && (cfg.maxJavaHeapSize == null))
-            ''
-              sed -i /var/lib/nifi/conf/bootstrap.conf \
-                -e 's|java.arg.2=.*|java.arg.2=-Xms512m|g' \
-                -e 's|java.arg.3=.*|java.arg.3=-Xmx512m|g'
-            ''}
+          ${lib.optionalString ((cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null)) ''
+            sed -i /var/lib/nifi/conf/bootstrap.conf \
+              -e 's|java.arg.2=.*|java.arg.2=-Xms${(toString cfg.initJavaHeapSize)}m|g' \
+              -e 's|java.arg.3=.*|java.arg.3=-Xmx${(toString cfg.maxJavaHeapSize)}m|g'
+          ''}
+          ${lib.optionalString ((cfg.initJavaHeapSize == null) && (cfg.maxJavaHeapSize == null)) ''
+            sed -i /var/lib/nifi/conf/bootstrap.conf \
+              -e 's|java.arg.2=.*|java.arg.2=-Xms512m|g' \
+              -e 's|java.arg.3=.*|java.arg.3=-Xmx512m|g'
+          ''}
         '';
         ExecStart = "${cfg.package}/bin/nifi.sh start";
         ExecStop = "${cfg.package}/bin/nifi.sh stop";

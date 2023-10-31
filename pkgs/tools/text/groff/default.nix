@@ -90,9 +90,7 @@ stdenv.mkDerivation rec {
       texinfo
     ]
     # Required due to the patch that changes .ypp files.
-    ++
-      lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
-        bison;
+    ++ lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison;
   buildInputs =
     [
       perl

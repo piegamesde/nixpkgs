@@ -19,9 +19,7 @@ let
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
 
-  modulesTree = config.system.modulesTree.override {
-    name = kernel-name + "-modules";
-  };
+  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
 
   # Determine the set of modules that we need to mount the root FS.
@@ -160,8 +158,7 @@ let
         ln -sf kmod $out/bin/modprobe
 
         # Copy resize2fs if any ext* filesystems are to be resized
-        ${optionalString
-          (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems)
+        ${optionalString (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems)
           ''
             # We need mke2fs in the initrd.
             copy_bin_and_libs ${pkgs.e2fsprogs}/sbin/resize2fs
@@ -716,9 +713,7 @@ in
       default = [ ];
       example = [ "btrfs" ];
       type = types.listOf types.str;
-      description =
-        lib.mdDoc
-          "Names of supported filesystem types in the initial ramdisk.";
+      description = lib.mdDoc "Names of supported filesystem types in the initial ramdisk.";
     };
 
     boot.initrd.verbose = mkOption {
@@ -790,8 +785,7 @@ in
             all
               (
                 source:
-                builtins.isPath source
-                || (builtins.isString source && hasPrefix builtins.storeDir source)
+                builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source)
               )
               (attrValues config.boot.initrd.secrets);
         message = ''

@@ -239,8 +239,7 @@ rec {
           }
         );
 
-  closePropagationSlow =
-    list: (uniqList { inputList = (innerClosePropagation [ ] list); });
+  closePropagationSlow = list: (uniqList { inputList = (innerClosePropagation [ ] list); });
 
   # This is an optimisation of lib.closePropagation which avoids the O(n^2) behavior
   # Using a list of derivations, it generates the full closure of the propagatedXXXBuildInputs
@@ -278,8 +277,7 @@ rec {
                   [ ]
               )
               (
-                (item.val.propagatedBuildInputs or [ ])
-                ++ (item.val.propagatedNativeBuildInputs or [ ])
+                (item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ])
               );
       }
     );

@@ -53,9 +53,7 @@ let
     str
     // {
       check = x: str.check x && all isList (matching x);
-      description = "string containing all of the characters ${
-          concatStringsSep ", " list
-        }";
+      description = "string containing all of the characters ${concatStringsSep ", " list}";
     };
 
   timestampType = stringContainingStrings [
@@ -76,9 +74,7 @@ let
 
           label = mkOption {
             type = str;
-            description =
-              lib.mdDoc
-                "Label for this destination. Defaults to the attribute name.";
+            description = lib.mdDoc "Label for this destination. Defaults to the attribute name.";
           };
 
           plan = mkOption {
@@ -281,8 +277,7 @@ let
   stripSlashes = replaceStrings [ "/" ] [ "." ];
 
   attrsToFile =
-    config:
-    concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
+    config: concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
 
   mkDestAttrs =
     dst:
@@ -304,10 +299,7 @@ let
       # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
       mbuffer =
         with mbuffer;
-        if enable then
-          "mbuffer" + optionalString (port != null) ":${toString port}"
-        else
-          "off";
+        if enable then "mbuffer" + optionalString (port != null) ":${toString port}" else "off";
       mbuffer_size = mbuffer.size;
       post_znap_cmd = nullOff postsnap;
       pre_znap_cmd = nullOff presnap;

@@ -96,15 +96,11 @@ makeScope newScope (
 
     fpl = callPackage ../development/octave-modules/fpl { };
 
-    fuzzy-logic-toolkit =
-      callPackage ../development/octave-modules/fuzzy-logic-toolkit
-        { };
+    fuzzy-logic-toolkit = callPackage ../development/octave-modules/fuzzy-logic-toolkit { };
 
     ga = callPackage ../development/octave-modules/ga { };
 
-    general = callPackage ../development/octave-modules/general {
-      nettle = pkgs.nettle;
-    };
+    general = callPackage ../development/octave-modules/general { nettle = pkgs.nettle; };
 
     generate_html = callPackage ../development/octave-modules/generate_html { };
 
@@ -116,9 +112,7 @@ makeScope newScope (
 
     image-acquisition = callPackage ../development/octave-modules/image-acquisition { };
 
-    instrument-control =
-      callPackage ../development/octave-modules/instrument-control
-        { };
+    instrument-control = callPackage ../development/octave-modules/instrument-control { };
 
     io = callPackage ../development/octave-modules/io { inherit (octave) enableJava; };
 

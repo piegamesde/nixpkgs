@@ -69,9 +69,7 @@ with lib;
           networkmanager-openconnect = super.networkmanager-openconnect.override {
             withGnome = false;
           };
-          networkmanager-openvpn = super.networkmanager-openvpn.override {
-            withGnome = false;
-          };
+          networkmanager-openvpn = super.networkmanager-openvpn.override { withGnome = false; };
           networkmanager-sstp = super.networkmanager-vpnc.override { withGnome = false; };
           networkmanager-vpnc = super.networkmanager-vpnc.override { withGnome = false; };
           pango = super.pango.override { x11Support = false; };

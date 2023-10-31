@@ -407,9 +407,9 @@ in
     # with "native" and "gmp" backends.
     native-bignum =
       let
-        nativeBignumGhcNames =
-          pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes)
-            (pkgs.lib.attrNames compiler);
+        nativeBignumGhcNames = pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes) (
+          pkgs.lib.attrNames compiler
+        );
       in
       pkgs.recurseIntoAttrs (
         pkgs.lib.genAttrs nativeBignumGhcNames (
@@ -589,9 +589,7 @@ in
         compilerConfig =
           callPackage ../development/haskell-modules/configuration-ghc-8.10.x.nix
             { };
-        packageSetConfig =
-          callPackage ../development/haskell-modules/configuration-ghcjs.nix
-            { };
+        packageSetConfig = callPackage ../development/haskell-modules/configuration-ghcjs.nix { };
       };
 
       # The integer-simple attribute set contains package sets for all the GHC compilers
@@ -617,9 +615,9 @@ in
 
       native-bignum =
         let
-          nativeBignumGhcNames =
-            pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes)
-              (pkgs.lib.attrNames compiler);
+          nativeBignumGhcNames = pkgs.lib.filter (name: builtins.elem name nativeBignumIncludes) (
+            pkgs.lib.attrNames compiler
+          );
         in
         pkgs.lib.genAttrs nativeBignumGhcNames (
           name:

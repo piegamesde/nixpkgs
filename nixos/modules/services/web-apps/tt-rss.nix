@@ -53,9 +53,7 @@ let
         putenv('TTRSS_MYSQL_CHARSET=UTF8');
 
         putenv('TTRSS_DB_TYPE=${cfg.database.type}');
-        putenv('TTRSS_DB_HOST=${
-          optionalString (cfg.database.host != null) cfg.database.host
-        }');
+        putenv('TTRSS_DB_HOST=${optionalString (cfg.database.host != null) cfg.database.host}');
         putenv('TTRSS_DB_USER=${cfg.database.user}');
         putenv('TTRSS_DB_NAME=${cfg.database.name}');
         putenv('TTRSS_DB_PASS=' ${optionalString (password != null) ". ${password}"});
@@ -665,9 +663,7 @@ in
     ];
 
     systemd.services = {
-      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") {
-        restartTriggers = [ servedRoot ];
-      };
+      phpfpm-tt-rss = mkIf (cfg.pool == "${poolName}") { restartTriggers = [ servedRoot ]; };
 
       tt-rss = {
         description = "Tiny Tiny RSS feeds update daemon";
@@ -678,9 +674,7 @@ in
               e:
               if cfg.database.type == "pgsql" then
                 ''
-                  ${
-                    optionalString (cfg.database.password != null) "PGPASSWORD=${cfg.database.password}"
-                  } \
+                  ${optionalString (cfg.database.password != null) "PGPASSWORD=${cfg.database.password}"} \
                   ${
                     optionalString (cfg.database.passwordFile != null)
                       "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
@@ -700,8 +694,7 @@ in
                     -u ${cfg.database.user} \
                     ${optionalString (cfg.database.password != null) "-p${cfg.database.password}"} \
                     ${
-                      optionalString (cfg.database.host != null)
-                        "-h ${cfg.database.host} -P ${toString dbPort}"
+                      optionalString (cfg.database.host != null) "-h ${cfg.database.host} -P ${toString dbPort}"
                     } \
                     ${cfg.database.name}''
 
@@ -721,8 +714,7 @@ in
 
           + (optionalString (cfg.database.type == "mysql") ''
             exists=$(${
-              callSql
-                "select count(*) > 0 from information_schema.tables where table_schema = schema()"
+              callSql "select count(*) > 0 from information_schema.tables where table_schema = schema()"
             } \
             | tail -n+2 | sed -e 's/[ \n\t]*//')
 

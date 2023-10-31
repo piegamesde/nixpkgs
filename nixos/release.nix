@@ -181,9 +181,7 @@ rec {
   manual = manualHTML; # TODO(@oxij): remove eventually
   manualEpub =
     (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manualEpub));
-  manpages = buildFromConfig ({ ... }: { }) (
-    config: config.system.build.manual.manpages
-  );
+  manpages = buildFromConfig ({ ... }: { }) (config: config.system.build.manual.manpages);
   options =
     (buildFromConfig ({ ... }: { }) (config: config.system.build.manual.optionsJSON))
     .x86_64-linux;
@@ -541,9 +539,7 @@ rec {
       }
     );
 
-    ec2 = makeClosure (
-      { ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; }
-    );
+    ec2 = makeClosure ({ ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; });
 
     kde = makeClosure (
       { ... }:

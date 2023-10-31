@@ -211,9 +211,7 @@ let
 
       # Enabled extensions.
       ${
-        concatStringsSep "\n" (
-          mapAttrsToList (k: v: "wfLoadExtension('${k}');") cfg.extensions
-        )
+        concatStringsSep "\n" (mapAttrsToList (k: v: "wfLoadExtension('${k}');") cfg.extensions)
       }
 
 
@@ -650,8 +648,7 @@ in
           --dbport ${toString cfg.database.port} \
           --dbname ${cfg.database.name} \
           ${
-            optionalString (cfg.database.tablePrefix != null)
-              "--dbprefix ${cfg.database.tablePrefix}"
+            optionalString (cfg.database.tablePrefix != null) "--dbprefix ${cfg.database.tablePrefix}"
           } \
           --dbuser ${cfg.database.user} \
           ${
@@ -676,17 +673,11 @@ in
 
     systemd.services.httpd.after =
       optional
-        (
-          cfg.webserver == "apache"
-          && cfg.database.createLocally
-          && cfg.database.type == "mysql"
-        )
+        (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
         "mysql.service"
       ++ optional
         (
-          cfg.webserver == "apache"
-          && cfg.database.createLocally
-          && cfg.database.type == "postgres"
+          cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres"
         )
         "postgresql.service";
 

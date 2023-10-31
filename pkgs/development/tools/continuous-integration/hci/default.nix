@@ -24,9 +24,7 @@ let
           }
         '';
       })
-      (
-        addBuildTools [ makeWrapper ] (justStaticExecutables haskellPackages.hercules-ci-cli)
-      );
+      (addBuildTools [ makeWrapper ] (justStaticExecutables haskellPackages.hercules-ci-cli));
 in
 pkg
 // {

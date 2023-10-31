@@ -79,8 +79,7 @@ let
     if (builtins.length versions == 0) then
       [ ]
     else
-      (builtins.filter (x: hasInfix v x.file) candidates)
-      ++ (findBestMatches vs candidates);
+      (builtins.filter (x: hasInfix v x.file) candidates) ++ (findBestMatches vs candidates);
 
   # x = "cpXX" | "py2" | "py3" | "py2.py3"
   isPyVersionCompatible =

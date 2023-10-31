@@ -180,9 +180,7 @@ in
       ];
       wantedBy = [ "multi-user.target" ];
       path = cfg.packages;
-      environment.PYTHONPATH = "${
-          python.withPackages (p: [ package ])
-        }/${python.sitePackages}";
+      environment.PYTHONPATH = "${python.withPackages (p: [ package ])}/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}/info"

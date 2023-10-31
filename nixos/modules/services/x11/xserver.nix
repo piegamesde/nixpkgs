@@ -313,9 +313,7 @@ in
         type = types.listOf types.path;
         default = [ ];
         example = literalExpression "[ pkgs.xf86_input_wacom ]";
-        description =
-          lib.mdDoc
-            "Packages to be added to the module search path of the X server.";
+        description = lib.mdDoc "Packages to be added to the module search path of the X server.";
       };
 
       resolutions = mkOption {
@@ -741,12 +739,7 @@ in
       let
         dmConf = cfg.displayManager;
         noDmUsed =
-          !(
-            dmConf.gdm.enable
-            || dmConf.sddm.enable
-            || dmConf.xpra.enable
-            || dmConf.lightdm.enable
-          );
+          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.lightdm.enable);
       in
       mkIf (noDmUsed) (mkDefault false);
 
@@ -1025,9 +1018,7 @@ in
                 optionalString
                   (
                     driver.name != "virtualbox"
-                    && (
-                      cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null
-                    )
+                    && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
                   )
                   (
                     let

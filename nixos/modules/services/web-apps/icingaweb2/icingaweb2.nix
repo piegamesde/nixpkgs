@@ -268,9 +268,7 @@ in
       // doModule "translation"
       # Configs
       // optionalAttrs (cfg.generalConfig != null) {
-        "icingaweb2/config.ini".text = generators.toINI { } (
-          defaultConfig // cfg.generalConfig
-        );
+        "icingaweb2/config.ini".text = generators.toINI { } (defaultConfig // cfg.generalConfig);
       }
       // optionalAttrs (cfg.resources != null) {
         "icingaweb2/resources.ini".text = generators.toINI { } cfg.resources;

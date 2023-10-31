@@ -164,9 +164,7 @@ let
                 }",
                 "/mnt/etc/nixos/configuration.nix",
             )
-            machine.copy_from_host("${
-              pkgs.writeText "secret" "secret"
-            }", "/mnt/etc/nixos/secret")
+            machine.copy_from_host("${pkgs.writeText "secret" "secret"}", "/mnt/etc/nixos/secret")
 
         with subtest("Perform the installation"):
             machine.succeed("nixos-install < /dev/null >&2")

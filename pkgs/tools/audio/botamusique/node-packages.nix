@@ -4540,12 +4540,7 @@ let
       sources."@babel/code-frame-7.10.4"
       sources."@babel/compat-data-7.12.7"
       sources."@babel/core-7.12.9"
-      (
-        sources."@babel/eslint-parser-7.12.1"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."@babel/eslint-parser-7.12.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/eslint-plugin-7.12.1"
       sources."@babel/generator-7.12.5"
       sources."@babel/helper-annotate-as-pure-7.10.4"
@@ -4637,9 +4632,7 @@ let
       sources."@babel/template-7.12.7"
       sources."@babel/traverse-7.12.9"
       sources."@babel/types-7.12.7"
-      (
-        sources."@eslint/eslintrc-0.2.1" // { dependencies = [ sources."globals-12.4.0" ]; }
-      )
+      (sources."@eslint/eslintrc-0.2.1" // { dependencies = [ sources."globals-12.4.0" ]; })
       sources."@fortawesome/fontawesome-common-types-0.2.32"
       sources."@fortawesome/fontawesome-svg-core-1.2.32"
       sources."@fortawesome/free-regular-svg-icons-5.15.1"
@@ -4655,18 +4648,8 @@ let
       sources."@types/parse-json-4.0.0"
       sources."@types/source-list-map-0.1.2"
       sources."@types/tapable-1.0.6"
-      (
-        sources."@types/uglify-js-3.11.1"
-        // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
-      )
-      (
-        sources."@types/webpack-4.41.25"
-        // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
-      )
+      (sources."@types/uglify-js-3.11.1" // { dependencies = [ sources."source-map-0.6.1" ]; })
+      (sources."@types/webpack-4.41.25" // { dependencies = [ sources."source-map-0.6.1" ]; })
       (
         sources."@types/webpack-sources-2.0.0"
         // {
@@ -4763,12 +4746,7 @@ let
       sources."define-properties-1.1.3"
       sources."doctrine-3.0.0"
       sources."dom-converter-0.2.0"
-      (
-        sources."dom-serializer-0.2.2"
-        // {
-          dependencies = [ sources."domelementtype-2.0.2" ];
-        }
-      )
+      (sources."dom-serializer-0.2.2" // { dependencies = [ sources."domelementtype-2.0.2" ]; })
       sources."domelementtype-1.3.1"
       sources."domhandler-2.4.2"
       sources."domutils-1.5.1"
@@ -4832,12 +4810,7 @@ let
         }
       )
       sources."eslint-plugin-jquery-1.5.1"
-      (
-        sources."eslint-plugin-jsdoc-30.7.8"
-        // {
-          dependencies = [ sources."semver-7.3.2" ];
-        }
-      )
+      (sources."eslint-plugin-jsdoc-30.7.8" // { dependencies = [ sources."semver-7.3.2" ]; })
       sources."eslint-rule-composer-0.3.0"
       sources."eslint-scope-5.1.0"
       sources."eslint-utils-2.1.0"
@@ -5006,9 +4979,7 @@ let
           dependencies = [ sources."es-abstract-1.17.7" ];
         }
       )
-      (
-        sources."object.values-1.1.1" // { dependencies = [ sources."es-abstract-1.17.7" ]; }
-      )
+      (sources."object.values-1.1.1" // { dependencies = [ sources."es-abstract-1.17.7" ]; })
       sources."once-1.4.0"
       sources."onetime-5.1.2"
       sources."optionator-0.9.1"
@@ -5110,10 +5081,7 @@ let
       sources."source-list-map-2.0.1"
       sources."source-map-0.5.7"
       (
-        sources."source-map-support-0.5.19"
-        // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."source-map-support-0.5.19" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       sources."spdx-correct-3.1.1"
       sources."spdx-exceptions-2.3.0"
@@ -5131,9 +5099,7 @@ let
       )
       sources."string.prototype.trimend-1.0.3"
       sources."string.prototype.trimstart-1.0.3"
-      (
-        sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
-      )
+      (sources."string_decoder-1.3.0" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
       sources."strip-ansi-6.0.0"
       sources."strip-bom-3.0.0"
       sources."strip-final-newline-2.0.0"
@@ -5206,9 +5172,7 @@ let
       )
       (sources."webpack-cli-4.2.0" // { dependencies = [ sources."commander-6.2.0" ]; })
       sources."webpack-merge-4.2.2"
-      (
-        sources."webpack-sources-1.4.3" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."webpack-sources-1.4.3" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."which-2.0.2"
       sources."word-wrap-1.2.3"
       sources."wordwrapjs-4.0.0"

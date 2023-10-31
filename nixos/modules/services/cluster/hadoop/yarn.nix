@@ -58,9 +58,7 @@ in
           default = null;
         };
         maximumAllocationVCores = mkOption {
-          description =
-            lib.mdDoc
-              "The maximum virtual CPU cores any container can be allocated.";
+          description = lib.mdDoc "The maximum virtual CPU cores any container can be allocated.";
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -72,9 +70,7 @@ in
           default = null;
         };
         maximumAllocationMB = mkOption {
-          description =
-            lib.mdDoc
-              "The maximum physical memory any container can be allocated.";
+          description = lib.mdDoc "The maximum physical memory any container can be allocated.";
           type = with types; nullOr ints.positive;
           default = null;
         };
@@ -198,9 +194,7 @@ in
         with cfg.yarn.nodemanager;
         mkMerge [
           ({
-            "yarn.nodemanager.local-dirs" = mkIf (localDir != null) (
-              concatStringsSep "," localDir
-            );
+            "yarn.nodemanager.local-dirs" = mkIf (localDir != null) (concatStringsSep "," localDir);
             "yarn.scheduler.maximum-allocation-vcores" = resource.maximumAllocationVCores;
             "yarn.scheduler.maximum-allocation-mb" = resource.maximumAllocationMB;
             "yarn.nodemanager.resource.cpu-vcores" = resource.cpuVCores;

@@ -133,9 +133,7 @@ let
     vcard_legacy = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Converts users profiles and Avatars between old and new formats";
+      description = lib.mdDoc "Converts users profiles and Avatars between old and new formats";
     };
 
     bookmarks = mkOption {
@@ -281,9 +279,7 @@ let
     legacyauth = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Legacy authentication. Only used by some old clients and bots";
+      description = lib.mdDoc "Legacy authentication. Only used by some old clients and bots";
     };
   };
 
@@ -341,9 +337,7 @@ let
         maxHistoryMessages = mkOption {
           type = types.int;
           default = 20;
-          description =
-            lib.mdDoc
-              "Specifies a limit on what each room can be configured to keep";
+          description = lib.mdDoc "Specifies a limit on what each room can be configured to keep";
         };
         roomLocking = mkOption {
           type = types.bool;
@@ -416,9 +410,7 @@ let
         roomDefaultPublicJids = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "If set, the MUC rooms will display the public JIDs by default.";
+          description = lib.mdDoc "If set, the MUC rooms will display the public JIDs by default.";
         };
         roomDefaultChangeSubject = mkOption {
           type = types.bool;
@@ -967,9 +959,7 @@ in
       home = cfg.dataDir;
     };
 
-    users.groups.prosody = mkIf (cfg.group == "prosody") {
-      gid = config.ids.gids.prosody;
-    };
+    users.groups.prosody = mkIf (cfg.group == "prosody") { gid = config.ids.gids.prosody; };
 
     systemd.services.prosody = {
       description = "Prosody XMPP server";

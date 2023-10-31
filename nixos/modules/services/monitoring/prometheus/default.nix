@@ -57,8 +57,7 @@ let
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
     rule_files = map (promtoolCheck "check rules" "rules") (
-      cfg.ruleFiles
-      ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
+      cfg.ruleFiles ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
     );
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
@@ -77,9 +76,7 @@ let
           generatedPrometheusYml;
     in
     promtoolCheck
-      "check config ${
-        lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
-      }"
+      "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
       "prometheus.yml"
       yml;
 
@@ -101,9 +98,7 @@ let
         "--storage.tsdb.retention.time=${cfg.retentionTime}"
     ++ optional (cfg.webConfigFile != null) "--web.config.file=${cfg.webConfigFile}";
 
-  filterValidPrometheus = filterAttrsListRecursive (
-    n: v: !(n == "_module" || v == null)
-  );
+  filterValidPrometheus = filterAttrsListRecursive (n: v: !(n == "_module" || v == null));
   filterAttrsListRecursive =
     pred: x:
     if isAttrs x then
@@ -114,10 +109,7 @@ let
             let
               v = x.${name};
             in
-            if pred name v then
-              [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
-            else
-              [ ]
+            if pred name v then [ (nameValuePair name (filterAttrsListRecursive pred v)) ] else [ ]
           )
           (attrNames x)
       )
@@ -1950,8 +1942,7 @@ in
         StateDirectoryMode = "0700";
         # Hardening
         AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet =
-          if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet = if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "/dev/null rw" ];
         DevicePolicy = "strict";
         LockPersonality = true;

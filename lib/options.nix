@@ -157,9 +157,7 @@ rec {
       name' = if isList name then last name else name;
       default' = if isList default then default else [ default ];
       defaultPath = concatStringsSep "." default';
-      defaultValue =
-        attrByPath default' (throw "${defaultPath} cannot be found in pkgs")
-          pkgs;
+      defaultValue = attrByPath default' (throw "${defaultPath} cannot be found in pkgs") pkgs;
     in
     mkOption {
       defaultText = literalExpression ("pkgs." + defaultPath);
@@ -227,9 +225,7 @@ rec {
       head list
     else
       throw
-        "Cannot merge definitions of `${showOption loc}'. Definition values:${
-          showDefs defs
-        }";
+        "Cannot merge definitions of `${showOption loc}'. Definition values:${showDefs defs}";
 
   mergeOneOption = mergeUniqueOption { message = ""; };
 
@@ -241,9 +237,7 @@ rec {
     else
       assert length defs > 1;
       throw ''
-        The option `${
-          showOption loc
-        }' is defined multiple times while it's expected to be unique.
+        The option `${showOption loc}' is defined multiple times while it's expected to be unique.
         ${message}
         Definition values:${showDefs defs}
         ${prioritySuggestion}'';
@@ -322,9 +316,9 @@ rec {
               type = opt.type.description or "unspecified";
             }
             // optionalAttrs (opt ? example) {
-              example =
-                builtins.addErrorContext "while evaluating the example of option `${name}`"
-                  (renderOptionValue opt.example);
+              example = builtins.addErrorContext "while evaluating the example of option `${name}`" (
+                renderOptionValue opt.example
+              );
             }
             // optionalAttrs (opt ? default) {
               default =
@@ -511,9 +505,7 @@ rec {
           # Split it into its lines
           lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
           # Only display the first 5 lines, and indent them for better visibility
-          value = concatStringsSep "\n    " (
-            take 5 lines ++ optional (length lines > 5) "..."
-          );
+          value = concatStringsSep "\n    " (take 5 lines ++ optional (length lines > 5) "...");
           result =
             # Don't print any value if evaluating the value strictly fails
             if !prettyEval.success then

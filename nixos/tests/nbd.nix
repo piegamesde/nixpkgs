@@ -29,9 +29,7 @@ import ./make-test-python.nix (
         {
           # Create some small files of zeros to use as the ndb disks
           ## `vault-pub.disk` is accessible from any IP
-          systemd.services.create-pub-file = mkCreateSmallFileService {
-            path = "/vault-pub.disk";
-          };
+          systemd.services.create-pub-file = mkCreateSmallFileService { path = "/vault-pub.disk"; };
           ## `vault-priv.disk` is accessible only from localhost.
           ## It's also a loopback device to test exporting /dev/...
           systemd.services.create-priv-file = mkCreateSmallFileService {
@@ -109,9 +107,7 @@ import ./make-test-python.nix (
       server.succeed("nbd-client -d /dev/nbd0")
 
       # Server: Successfully connect to the aaa disk
-      server.succeed("nbd-client localhost ${
-        toString listenPort
-      } /dev/nbd0 -name aaa -persist")
+      server.succeed("nbd-client localhost ${toString listenPort} /dev/nbd0 -name aaa -persist")
       server.succeed(f"echo '{testString}' | dd of=/dev/nbd0 conv=notrunc")
       foundString = server.succeed(f"dd status=none if=/aaa.disk count={len(testString)}")[:len(testString)]
       if foundString != testString:

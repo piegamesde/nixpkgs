@@ -42,8 +42,7 @@ let
       pkg
       netConf
     ]
-    ++ optional config.services.saned.enable sanedConf
-    ++ config.hardware.sane.extraBackends;
+    ++ optional config.services.saned.enable sanedConf ++ config.hardware.sane.extraBackends;
   saneConfig = pkgs.mkSaneConfig {
     paths = backends;
     inherit (config.hardware.sane) disabledDefaultBackends;
@@ -183,9 +182,7 @@ in
       services.udev.packages = backends;
 
       users.groups.scanner.gid = config.ids.gids.scanner;
-      networking.firewall.allowedUDPPorts = mkIf config.hardware.sane.openFirewall [
-        8612
-      ];
+      networking.firewall.allowedUDPPorts = mkIf config.hardware.sane.openFirewall [ 8612 ];
     })
 
     (mkIf config.services.saned.enable {

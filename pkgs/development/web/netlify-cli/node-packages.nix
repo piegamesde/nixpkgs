@@ -9904,9 +9904,7 @@ let
       )
       sources."@dabh/diagnostics-2.0.2"
       sources."@import-maps/resolve-1.0.1"
-      (
-        sources."@jest/types-27.5.1" // { dependencies = [ sources."@types/yargs-16.0.4" ]; }
-      )
+      (sources."@jest/types-27.5.1" // { dependencies = [ sources."@types/yargs-16.0.4" ]; })
       sources."@jridgewell/resolve-uri-3.0.4"
       sources."@jridgewell/sourcemap-codec-1.4.11"
       sources."@mapbox/node-pre-gyp-1.0.10"
@@ -10343,12 +10341,7 @@ let
       sources."@types/mime-1.3.2"
       sources."@types/minimatch-3.0.5"
       sources."@types/node-16.11.22"
-      (
-        sources."@types/node-fetch-2.5.12"
-        // {
-          dependencies = [ sources."form-data-3.0.1" ];
-        }
-      )
+      (sources."@types/node-fetch-2.5.12" // { dependencies = [ sources."form-data-3.0.1" ]; })
       sources."@types/normalize-package-data-2.4.1"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
@@ -10372,12 +10365,7 @@ let
       sources."acorn-8.8.0"
       sources."acorn-walk-8.2.0"
       sources."agent-base-6.0.2"
-      (
-        sources."aggregate-error-3.1.0"
-        // {
-          dependencies = [ sources."clean-stack-2.2.0" ];
-        }
-      )
+      (sources."aggregate-error-3.1.0" // { dependencies = [ sources."clean-stack-2.2.0" ]; })
       (
         sources."all-node-versions-8.0.0"
         // {
@@ -10410,10 +10398,7 @@ let
       (sources."archive-type-4.0.0" // { dependencies = [ sources."file-type-4.4.0" ]; })
       sources."archiver-5.3.0"
       (
-        sources."archiver-utils-2.1.0"
-        // {
-          dependencies = [ sources."readable-stream-2.3.7" ];
-        }
+        sources."archiver-utils-2.1.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
       )
       sources."are-we-there-yet-2.0.0"
       sources."arg-4.1.3"
@@ -10457,12 +10442,7 @@ let
       sources."byline-5.0.0"
       sources."bytes-3.1.2"
       sources."cache-base-1.0.1"
-      (
-        sources."cacheable-request-7.0.2"
-        // {
-          dependencies = [ sources."get-stream-5.2.0" ];
-        }
-      )
+      (sources."cacheable-request-7.0.2" // { dependencies = [ sources."get-stream-5.2.0" ]; })
       sources."cachedir-2.3.0"
       sources."call-bind-1.0.2"
       sources."call-me-maybe-1.0.1"
@@ -10489,14 +10469,9 @@ let
           dependencies = [
             sources."define-property-0.2.5"
             (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
-            (
-              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
           ];
@@ -10554,10 +10529,7 @@ let
       )
       sources."console-control-strings-1.1.0"
       (
-        sources."content-disposition-0.5.4"
-        // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
       sources."content-type-1.0.4"
       sources."cookie-0.5.0"
@@ -10568,9 +10540,7 @@ let
         // {
           dependencies = [
             (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
-            (
-              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."is-extendable-0.1.1"
             (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."micromatch-3.1.10"
@@ -10602,9 +10572,7 @@ let
             sources."cp-file-7.0.0"
             sources."dir-glob-2.2.2"
             sources."fast-glob-2.2.7"
-            (
-              sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
+            (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             (sources."glob-parent-3.1.0" // { dependencies = [ sources."is-glob-3.1.0" ]; })
             sources."globby-9.2.0"
             sources."ignore-4.0.6"
@@ -10701,36 +10669,21 @@ let
       sources."destroy-1.2.0"
       sources."detect-libc-2.0.1"
       (
-        sources."detective-amd-4.0.1"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
+        sources."detective-amd-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
       )
       (
-        sources."detective-cjs-4.0.0"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
+        sources."detective-cjs-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
       )
       (
-        sources."detective-es6-3.0.0"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
+        sources."detective-es6-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
       )
       sources."detective-less-1.0.2"
       sources."detective-postcss-6.1.0"
       (
-        sources."detective-sass-4.0.1"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
+        sources."detective-sass-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
       )
       (
-        sources."detective-scss-3.0.0"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
+        sources."detective-scss-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
       )
       sources."detective-stylus-2.0.1"
       (
@@ -10747,12 +10700,7 @@ let
         // {
           dependencies = [
             sources."@sindresorhus/is-0.7.0"
-            (
-              sources."cacheable-request-2.1.4"
-              // {
-                dependencies = [ sources."get-stream-3.0.0" ];
-              }
-            )
+            (sources."cacheable-request-2.1.4" // { dependencies = [ sources."get-stream-3.0.0" ]; })
             sources."decompress-response-3.3.0"
             sources."get-stream-4.1.0"
             (
@@ -10826,14 +10774,9 @@ let
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
             (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
-            (
-              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."is-extendable-0.1.1"
             sources."kind-of-5.1.0"
@@ -10905,12 +10848,7 @@ let
           ];
         }
       )
-      (
-        sources."figures-3.2.0"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."figures-3.2.0" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       sources."file-size-0.0.5"
       sources."file-type-11.1.0"
       sources."file-uri-to-path-1.0.0"
@@ -11054,12 +10992,7 @@ let
       sources."is-data-descriptor-1.0.0"
       sources."is-descriptor-1.0.2"
       sources."is-docker-2.2.1"
-      (
-        sources."is-extendable-1.0.1"
-        // {
-          dependencies = [ sources."is-plain-object-2.0.4" ];
-        }
-      )
+      (sources."is-extendable-1.0.1" // { dependencies = [ sources."is-plain-object-2.0.4" ]; })
       sources."is-extglob-2.1.1"
       sources."is-fullwidth-code-point-4.0.0"
       sources."is-glob-4.0.3"
@@ -11113,9 +11046,7 @@ let
       sources."kuler-2.0.0"
       sources."lambda-local-2.0.3"
       sources."latest-version-5.1.0"
-      (
-        sources."lazystream-1.0.1" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
-      )
+      (sources."lazystream-1.0.1" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
       sources."leven-3.1.0"
       sources."lines-and-columns-1.2.4"
       (
@@ -11245,9 +11176,7 @@ let
       sources."media-typer-0.3.0"
       sources."memoize-one-6.0.0"
       sources."merge-descriptors-1.0.1"
-      (
-        sources."merge-options-3.0.4" // { dependencies = [ sources."is-plain-obj-2.1.0" ]; }
-      )
+      (sources."merge-options-3.0.4" // { dependencies = [ sources."is-plain-obj-2.1.0" ]; })
       sources."merge-stream-2.0.0"
       sources."merge2-1.4.1"
       sources."methods-1.1.2"
@@ -11302,10 +11231,7 @@ let
         }
       )
       (
-        sources."netlify-onegraph-internal-0.10.1"
-        // {
-          dependencies = [ sources."uuid-8.3.2" ];
-        }
+        sources."netlify-onegraph-internal-0.10.1" // { dependencies = [ sources."uuid-8.3.2" ]; }
       )
       (
         sources."netlify-redirect-parser-14.0.2"
@@ -11424,12 +11350,7 @@ let
           dependencies = [
             sources."@sindresorhus/is-0.14.0"
             sources."@szmarczak/http-timer-1.1.2"
-            (
-              sources."cacheable-request-6.1.0"
-              // {
-                dependencies = [ sources."get-stream-5.2.0" ];
-              }
-            )
+            (sources."cacheable-request-6.1.0" // { dependencies = [ sources."get-stream-5.2.0" ]; })
             sources."decompress-response-3.3.0"
             sources."defer-to-connect-1.1.3"
             sources."get-stream-4.1.0"
@@ -11438,12 +11359,7 @@ let
             sources."keyv-3.1.0"
             sources."normalize-url-4.5.1"
             sources."p-cancelable-1.1.0"
-            (
-              sources."responselike-1.0.2"
-              // {
-                dependencies = [ sources."lowercase-keys-1.0.1" ];
-              }
-            )
+            (sources."responselike-1.0.2" // { dependencies = [ sources."lowercase-keys-1.0.1" ]; })
             sources."semver-6.3.0"
             sources."to-readable-stream-1.0.0"
           ];
@@ -11482,9 +11398,7 @@ let
           dependencies = [ sources."color-name-1.1.4" ];
         }
       )
-      (
-        sources."precinct-9.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
+      (sources."precinct-9.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."precond-0.2.3"
       sources."prepend-http-2.0.0"
       sources."pretty-format-27.5.1"
@@ -11621,9 +11535,7 @@ let
       sources."shebang-regex-3.0.0"
       sources."side-channel-1.0.4"
       sources."signal-exit-3.0.7"
-      (
-        sources."simple-swizzle-0.2.2" // { dependencies = [ sources."is-arrayish-0.3.2" ]; }
-      )
+      (sources."simple-swizzle-0.2.2" // { dependencies = [ sources."is-arrayish-0.3.2" ]; })
       sources."slash-3.0.0"
       (sources."slice-ansi-5.0.0" // { dependencies = [ sources."ansi-styles-6.1.0" ]; })
       (
@@ -11634,14 +11546,9 @@ let
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
             (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
-            (
-              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."is-extendable-0.1.1"
             sources."kind-of-5.1.0"
@@ -11650,10 +11557,7 @@ let
         }
       )
       (
-        sources."snapdragon-node-2.1.1"
-        // {
-          dependencies = [ sources."define-property-1.0.0" ];
-        }
+        sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; }
       )
       (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       (sources."sort-keys-1.1.2" // { dependencies = [ sources."is-plain-obj-1.1.0" ]; })
@@ -11662,10 +11566,7 @@ let
       sources."source-map-js-1.0.2"
       sources."source-map-resolve-0.5.3"
       (
-        sources."source-map-support-0.5.21"
-        // {
-          dependencies = [ sources."source-map-0.6.1" ];
-        }
+        sources."source-map-support-0.5.21" // { dependencies = [ sources."source-map-0.6.1" ]; }
       )
       sources."source-map-url-0.4.1"
       sources."spdx-correct-3.1.1"
@@ -11682,14 +11583,9 @@ let
           dependencies = [
             sources."define-property-0.2.5"
             (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
+              sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
             )
-            (
-              sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-            )
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
           ];
@@ -11803,9 +11699,7 @@ let
       sources."typescript-4.8.4"
       sources."uid-safe-2.1.5"
       sources."unbzip2-stream-1.4.3"
-      (
-        sources."union-value-1.0.1" // { dependencies = [ sources."is-extendable-0.1.1" ]; }
-      )
+      (sources."union-value-1.0.1" // { dependencies = [ sources."is-extendable-0.1.1" ]; })
       sources."unique-string-2.0.0"
       sources."universal-user-agent-6.0.0"
       sources."universalify-2.0.0"
@@ -11837,10 +11731,7 @@ let
             sources."cli-boxes-3.0.0"
             sources."configstore-6.0.0"
             (
-              sources."crypto-random-string-4.0.0"
-              // {
-                dependencies = [ sources."type-fest-1.4.0" ];
-              }
+              sources."crypto-random-string-4.0.0" // { dependencies = [ sources."type-fest-1.4.0" ]; }
             )
             sources."emoji-regex-9.2.2"
             sources."escape-goat-4.0.0"
@@ -11889,12 +11780,7 @@ let
       sources."wcwidth-1.0.1"
       sources."web-streams-polyfill-3.2.0"
       sources."well-known-symbols-2.0.0"
-      (
-        sources."whatwg-url-5.0.0"
-        // {
-          dependencies = [ sources."webidl-conversions-3.0.1" ];
-        }
-      )
+      (sources."whatwg-url-5.0.0" // { dependencies = [ sources."webidl-conversions-3.0.1" ]; })
       sources."which-2.0.2"
       sources."wide-align-1.1.5"
       sources."widest-line-3.1.0"

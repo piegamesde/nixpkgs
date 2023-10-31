@@ -78,10 +78,7 @@ stdenv.mkDerivation rec {
     # boost_python expects
     [
       (
-        if pythonSupport then
-          "-Dpython_version=${python.pythonVersion}"
-        else
-          "-DBUILD_python=OFF"
+        if pythonSupport then "-Dpython_version=${python.pythonVersion}" else "-DBUILD_python=OFF"
       )
       "-DBLAS=open"
     ]

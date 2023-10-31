@@ -99,9 +99,7 @@ in
 
       extraGroups = mkOption {
         default = [ ];
-        description =
-          lib.mdDoc
-            "An array of additional groups for the `${defaultUser}` user.";
+        description = lib.mdDoc "An array of additional groups for the `${defaultUser}` user.";
         example = [ "docker" ];
         type = types.listOf types.str;
       };

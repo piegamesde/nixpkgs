@@ -114,18 +114,16 @@ let
     internAndFixPlugins "munin-extra-plugins.d" internOnePlugin
       nodeCfg.extraPlugins;
 
-  extraAutoPluginDir =
-    internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins
-      (
-        builtins.listToAttrs (
-          map
-            (path: {
-              name = baseNameOf path;
-              value = path;
-            })
-            nodeCfg.extraAutoPlugins
-        )
-      );
+  extraAutoPluginDir = internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins (
+    builtins.listToAttrs (
+      map
+        (path: {
+          name = baseNameOf path;
+          value = path;
+        })
+        nodeCfg.extraAutoPlugins
+    )
+  );
 
   customStaticDir = pkgs.runCommand "munin-custom-static-data" { } ''
     cp -a "${pkgs.munin}/etc/opt/munin/static" "$out"

@@ -84,35 +84,25 @@ assert (
 );
 assert (
   builtins.length eri3Am == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (
-    builtins.map (a: a <= maxAm && a >= 0) eri3Am
-  )
+  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3Am)
 );
 assert (
   builtins.length eri2Am == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (
-    builtins.map (a: a <= maxAm && a >= 0) eri2Am
-  )
+  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2Am)
 );
 
 # Ensure valid arguments for generated angular momenta in optimised ERI derivatives are used.
 assert (
   builtins.length eriOptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (
-    builtins.map (a: a <= maxAm && a >= 0) eriOptAm
-  )
+  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eriOptAm)
 );
 assert (
   builtins.length eri3OptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (
-    builtins.map (a: a <= maxAm && a >= 0) eri3OptAm
-  )
+  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri3OptAm)
 );
 assert (
   builtins.length eri2OptAm == eriDeriv + 1
-  && builtins.foldl' (a: b: a && b) true (
-    builtins.map (a: a <= maxAm && a >= 0) eri2OptAm
-  )
+  && builtins.foldl' (a: b: a && b) true (builtins.map (a: a <= maxAm && a >= 0) eri2OptAm)
 );
 
 # Ensure a valid derivative order for one-electron integrals
@@ -200,12 +190,8 @@ let
         "--with-eri3-max-am=${concatStringsSep "," (builtins.map builtins.toString eri3Am)}"
         "--with-eri2-max-am=${concatStringsSep "," (builtins.map builtins.toString eri2Am)}"
         "--with-eri-opt-am=${concatStringsSep "," (builtins.map builtins.toString eriOptAm)}"
-        "--with-eri3-opt-am=${
-          concatStringsSep "," (builtins.map builtins.toString eri3OptAm)
-        }"
-        "--with-eri2-opt-am=${
-          concatStringsSep "," (builtins.map builtins.toString eri2OptAm)
-        }"
+        "--with-eri3-opt-am=${concatStringsSep "," (builtins.map builtins.toString eri3OptAm)}"
+        "--with-eri2-opt-am=${concatStringsSep "," (builtins.map builtins.toString eri2OptAm)}"
         "--with-cartgauss-ordering=${cartGaussOrd}"
         "--with-shgauss-ordering=${shGaussOrd}"
         "--with-shell-set=${shellSet}"

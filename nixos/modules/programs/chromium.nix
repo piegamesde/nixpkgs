@@ -118,8 +118,6 @@ in
     environment.etc."brave/policies/managed/default.json".text =
       builtins.toJSON
         defaultProfile;
-    environment.etc."brave/policies/managed/extra.json".text =
-      builtins.toJSON
-        cfg.extraOpts;
+    environment.etc."brave/policies/managed/extra.json".text = builtins.toJSON cfg.extraOpts;
   };
 }

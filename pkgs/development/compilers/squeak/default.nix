@@ -86,9 +86,7 @@ stdenv.mkDerivation {
   };
   imageSrc =
     let
-      squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${
-          toString bits
-        }bit";
+      squeakImageName = "Squeak${squeakVersionBase}-${squeakImageVersion}-${toString bits}bit";
     in
     fetchzip {
       url = "https://files.squeak.org/${squeakVersionBase}/${squeakImageName}/${squeakImageName}.zip";

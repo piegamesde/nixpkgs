@@ -35,9 +35,7 @@ rec {
     let
       err =
         t: v:
-        abort (
-          "generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}"
-        );
+        abort ("generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}");
     in
     if isInt v then
       toString v
@@ -300,8 +298,7 @@ rec {
         "__toString"
         "__pretty"
       ];
-      stepIntoAttr =
-        evalNext: name: if builtins.elem name specialAttrs then id else evalNext;
+      stepIntoAttr = evalNext: name: if builtins.elem name specialAttrs then id else evalNext;
       transform =
         depth:
         if depthLimit != null && depth > depthLimit then
@@ -392,8 +389,7 @@ rec {
                   "''\${"
                   "'''"
                 ];
-            singlelineResult =
-              ''"'' + concatStringsSep "\\n" (map escapeSingleline lines) + ''"'';
+            singlelineResult = ''"'' + concatStringsSep "\\n" (map escapeSingleline lines) + ''"'';
             multilineResult =
               let
                 escapedLines = map escapeMultiline lines;
@@ -555,9 +551,7 @@ rec {
     in
     if isAttrs v then
       "{ ${
-        concatItems (
-          lib.attrsets.mapAttrsToList (key: value: "${key} = ${toDhall args value}") v
-        )
+        concatItems (lib.attrsets.mapAttrsToList (key: value: "${key} = ${toDhall args value}") v)
       } }"
     else if isList v then
       "[ ${concatItems (map (toDhall args) v)} ]"
@@ -670,9 +664,7 @@ rec {
         if v == [ ] then
           "{}"
         else
-          "{${introSpace}${
-            concatItems (map (value: "${toLua innerArgs value}") v)
-          }${outroSpace}}"
+          "{${introSpace}${concatItems (map (value: "${toLua innerArgs value}") v)}${outroSpace}}"
       )
     else if isAttrs v then
       (

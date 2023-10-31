@@ -36,9 +36,7 @@ stdenv.mkDerivation rec {
     glib # for glib-compile-schemas
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin (
-    with darwin.apple_sdk.frameworks; [ Cocoa ]
-  );
+  buildInputs = lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ Cocoa ]);
   propagatedBuildInputs = [
     glib
     libsigcxx

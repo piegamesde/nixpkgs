@@ -68,8 +68,7 @@ in
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic && (ghc.enableShared or false),
   enableDeadCodeElimination ? (!stdenv.isDarwin) # TODO: use -dead_strip for darwin
   ,
-  enableStaticLibraries ?
-    !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
+  enableStaticLibraries ? !(stdenv.hostPlatform.isWindows or stdenv.hostPlatform.isWasm),
   enableHsc2hsViaAsm ?
     stdenv.hostPlatform.isWindows && lib.versionAtLeast ghc.version "8.4",
   extraLibraries ? [ ],
@@ -282,9 +281,7 @@ let
       # Note: This must be kept in sync manually with mkGhcLibdir
       ("--libdir=\\$prefix/lib/\\$compiler" + lib.optionalString (ghc ? hadrian) "/lib")
       "--libsubdir=\\$abi/\\$libname"
-      (optionalString enableSeparateDataOutput
-        "--datadir=$data/share/${ghcNameWithPrefix}"
-      )
+      (optionalString enableSeparateDataOutput "--datadir=$data/share/${ghcNameWithPrefix}")
       (optionalString enableSeparateDocOutput "--docdir=${docdir "$doc"}")
     ]
     ++ optionals stdenv.hasCC [
@@ -313,27 +310,21 @@ let
       )
       (enableFeature enableLibraryProfiling "library-profiling")
       (optionalString
-        (
-          (enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version
-        )
+        ((enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version)
         "--profiling-detail=${profilingDetail}"
       )
       (enableFeature enableExecutableProfiling (
         if versionOlder ghc.version "8" then "executable-profiling" else "profiling"
       ))
       (enableFeature enableSharedLibraries "shared")
-      (optionalString (versionAtLeast ghc.version "7.10") (
-        enableFeature doCoverage "coverage"
-      ))
+      (optionalString (versionAtLeast ghc.version "7.10") (enableFeature doCoverage "coverage"))
       (optionalString (versionOlder "8.4" ghc.version) (
         enableFeature enableStaticLibraries "static"
       ))
       (optionalString (isGhcjs || versionOlder "7.4" ghc.version) (
         enableFeature enableSharedExecutables "executable-dynamic"
       ))
-      (optionalString (isGhcjs || versionOlder "7" ghc.version) (
-        enableFeature doCheck "tests"
-      ))
+      (optionalString (isGhcjs || versionOlder "7" ghc.version) (enableFeature doCheck "tests"))
       (enableFeature doBenchmark "benchmarks")
       "--enable-library-vanilla" # TODO: Should this be configurable?
       (enableFeature enableLibraryForGhci "library-for-ghci")
@@ -502,9 +493,9 @@ lib.fix (
 
       setupCompilerEnvironmentPhase =
         ''
-          NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${
+          NIX_BUILD_CORES=$(( NIX_BUILD_CORES < ${toString maxBuildCores} ? NIX_BUILD_CORES : ${
             toString maxBuildCores
-          } ? NIX_BUILD_CORES : ${toString maxBuildCores} ))
+          } ))
           runHook preSetupCompilerEnvironment
 
           echo "Build with ${ghc}."
@@ -542,8 +533,7 @@ lib.fix (
         ''
         # It is not clear why --extra-framework-dirs does work fine on Linux
         +
-          optionalString
-            (!stdenv.buildPlatform.isDarwin || versionAtLeast nativeGhc.version "8.0")
+          optionalString (!stdenv.buildPlatform.isDarwin || versionAtLeast nativeGhc.version "8.0")
             ''
               if [[ -d "$p/Library/Frameworks" ]]; then
                 configureFlags+=" --extra-framework-dirs=$p/Library/Frameworks"
@@ -555,8 +545,7 @@ lib.fix (
         # only use the links hack if we're actually building dylibs. otherwise, the
         # "dynamic-library-dirs" point to nonexistent paths, and the ln command becomes
         # "ln -s $out/lib/links", which tries to recreate the links dir and fails
-        + (optionalString
-          (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables))
+        + (optionalString (stdenv.isDarwin && (enableSharedLibraries || enableSharedExecutables))
           ''
             # Work around a limit in the macOS Sierra linker on the number of paths
             # referenced by any one dynamic library:

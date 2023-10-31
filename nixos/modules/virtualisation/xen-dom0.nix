@@ -230,9 +230,7 @@ in
         "loglvl=all"
         "guest_loglvl=all"
       ]
-      ++
-        optional (cfg.domain0MemorySize != 0)
-          "dom0_mem=${toString cfg.domain0MemorySize}M";
+      ++ optional (cfg.domain0MemorySize != 0) "dom0_mem=${toString cfg.domain0MemorySize}M";
 
     system.extraSystemBuilderCmds = ''
       ln -s ${cfg.package}/boot/xen.gz $out/xen.gz
@@ -312,9 +310,7 @@ in
         if (builtins.compareVersions cfg.package.version "4.8" < 0) then
           {
             ExecStart = ''
-              ${cfg.stored}${
-                optionalString cfg.trace " -T /var/log/xen/xenstored-trace.log"
-              } --no-fork
+              ${cfg.stored}${optionalString cfg.trace " -T /var/log/xen/xenstored-trace.log"} --no-fork
             '';
           }
         else
@@ -374,9 +370,7 @@ in
       serviceConfig = {
         ExecStart = ''
           ${cfg.package}/bin/xenconsoled\
-            ${
-              optionalString ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"
-            }\
+            ${optionalString ((builtins.compareVersions cfg.package.version "4.8" >= 0)) " -i"}\
             ${optionalString cfg.trace " --log=all --log-dir=/var/log/xen"}
         '';
       };

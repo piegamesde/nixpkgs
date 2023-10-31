@@ -99,8 +99,7 @@ let
   # archMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of architectures.
   # For example, "sm" and [ "8.0" "8.6" "8.7" ] produces [ "sm_80" "sm_86" "sm_87" ].
-  archMapper =
-    feat: lists.map (computeCapability: "${feat}_${dropDot computeCapability}");
+  archMapper = feat: lists.map (computeCapability: "${feat}_${dropDot computeCapability}");
 
   # gencodeMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of gencode arguments.

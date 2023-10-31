@@ -205,9 +205,7 @@ in
               "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
               "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
             ]
-            ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [
-              "${cfg.font}"
-            ]
+            ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [ "${cfg.font}" ]
             ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ];
 
           systemd.services.reload-systemd-vconsole-setup = {

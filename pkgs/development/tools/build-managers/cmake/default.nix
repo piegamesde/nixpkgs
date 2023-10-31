@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isCygwin ./004-cygwin.diff
     # Derived from https://github.com/curl/curl/commit/31f631a142d855f069242f3e0c643beec25d1b51
-    ++
-      lib.optional (stdenv.isDarwin && isBootstrap)
-        ./005-remove-systemconfiguration-dep.diff
+    ++ lib.optional (stdenv.isDarwin && isBootstrap) ./005-remove-systemconfiguration-dep.diff
     # On Darwin, always set CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG.
     ++ lib.optional stdenv.isDarwin ./006-darwin-always-set-runtime-c-flag.diff;
 
@@ -158,9 +156,7 @@ stdenv.mkDerivation rec {
       # package being built.
       "-DCMAKE_CXX_COMPILER=${stdenv.cc.targetPrefix}c++"
       "-DCMAKE_C_COMPILER=${stdenv.cc.targetPrefix}cc"
-      "-DCMAKE_AR=${
-        lib.getBin stdenv.cc.bintools.bintools
-      }/bin/${stdenv.cc.targetPrefix}ar"
+      "-DCMAKE_AR=${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar"
       "-DCMAKE_RANLIB=${
         lib.getBin stdenv.cc.bintools.bintools
       }/bin/${stdenv.cc.targetPrefix}ranlib"
@@ -197,9 +193,9 @@ stdenv.mkDerivation rec {
       configuration files, and generate native makefiles and workspaces that can
       be used in the compiler environment of your choice.
     '';
-    changelog = "https://cmake.org/cmake/help/v${
+    changelog = "https://cmake.org/cmake/help/v${lib.versions.majorMinor version}/release/${
         lib.versions.majorMinor version
-      }/release/${lib.versions.majorMinor version}.html";
+      }.html";
     license = licenses.bsd3;
     maintainers = with maintainers; [
       ttuegel

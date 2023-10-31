@@ -68,9 +68,7 @@ mapAliases ({
       "buildbot-pkg has been removed, it's only internally used in buildbot"; # added 2022-04-07
   bt_proximity = bt-proximity; # added 2021-07-02
   BTrees = btrees; # added 2023-02-19
-  carrot =
-    throw
-      "carrot has been removed, as its development was discontinued in 2012"; # added 2022-01-18
+  carrot = throw "carrot has been removed, as its development was discontinued in 2012"; # added 2022-01-18
   cchardet = faust-cchardet; # added 2023-03-02
   class-registry = phx-class-registry; # added 2021-10-05
   codespell = throw "codespell has been promoted to a top-level attribute"; # Added 2022-10-02
@@ -117,9 +115,7 @@ mapAliases ({
   django_taggit = django-taggit; # added 2021-10-11
   dns = dnspython; # added 2017-12-10
   dogpile_cache = dogpile-cache; # added 2021-10-28
-  dogpile-core =
-    throw
-      "dogpile-core is no longer maintained, use dogpile-cache instead"; # added 2021-11-20
+  dogpile-core = throw "dogpile-core is no longer maintained, use dogpile-cache instead"; # added 2021-11-20
   eebrightbox =
     throw
       "eebrightbox is unmaintained upstream and has therefore been removed"; # added 2022-02-03
@@ -135,9 +131,7 @@ mapAliases ({
   filemagic = throw "inactive since 2014, so use python-magic instead"; # added 2022-11-19
   flaskbabel = flask-babel; # added 2023-01-19
   flask_login = flask-login; # added 2022-10-17
-  flask-restplus =
-    throw
-      "flask-restplus is no longer maintained, use flask-restx instead"; # added 2023-02-21
+  flask-restplus = throw "flask-restplus is no longer maintained, use flask-restx instead"; # added 2023-02-21
   flask_sqlalchemy = flask-sqlalchemy; # added 2022-07-20
   flask_testing = flask-testing; # added 2022-04-25
   flask_wtf = flask-wtf; # added 2022-05-24
@@ -184,9 +178,7 @@ mapAliases ({
   ipaddress =
     throw
       "ipaddress has been removed because it is no longer required since python 2.7."; # added 2022-05-30
-  influxgraph =
-    throw
-      "influxgraph has been removed because it is no longer maintained"; # added 2022-07-10
+  influxgraph = throw "influxgraph has been removed because it is no longer maintained"; # added 2022-07-10
   itanium_demangler = itanium-demangler; # added 2022-1017
   JayDeBeApi = jaydebeapi; # added 2023-02-19
   jinja2_time = jinja2-time; # added 2022-11-07
@@ -252,13 +244,9 @@ mapAliases ({
   pur = throw "pur has been renamed to pkgs.pur"; # added 2021-11-08
   pushbullet = pushbullet-py; # Added 2022-10-15
   Pweave = pweave; # added 2023-02-19
-  pyalmond =
-    throw
-      "pyalmond has been removed, since its API endpoints have been shutdown"; # added 2023-02-02
+  pyalmond = throw "pyalmond has been removed, since its API endpoints have been shutdown"; # added 2023-02-02
   pyblake2 = throw "pyblake2 is deprecated in favor of hashlib"; # added 2023-04-23
-  pydrive =
-    throw
-      "pydrive is broken and deprecated and has been replaced with pydrive2."; # added 2022-06-01
+  pydrive = throw "pydrive is broken and deprecated and has been replaced with pydrive2."; # added 2022-06-01
   PyGithub = pygithub; # added 2023-02-19
   pyGtkGlade = throw "Glade support for pygtk has been removed"; # added 2022-01-15
   pycallgraph =
@@ -372,9 +360,7 @@ mapAliases ({
     throw
       "rig has been removed because it was pinned to python 2.7 and 3.5, failed to build and is otherwise unmaintained"; # added 2022-11-28
   rl-coach = "rl-coach was removed because the project is discontinued and was archived by upstream"; # added 2023-05-03
-  roboschool =
-    throw
-      "roboschool is deprecated in favor of PyBullet and has been removed"; # added 2022-01-15
+  roboschool = throw "roboschool is deprecated in favor of PyBullet and has been removed"; # added 2022-01-15
   ROPGadget = ropgadget; # added 2021-07-06
   rotate-backups =
     throw
@@ -434,9 +420,7 @@ mapAliases ({
   virtual-display = throw "virtual-display has been renamed to PyVirtualDisplay"; # added 2023-01-07
   Wand = wand; # added 2022-11-13
   WazeRouteCalculator = wazeroutecalculator; # added 2021-09-29
-  weakrefmethod =
-    throw
-      "weakrefmethod was removed since it's not needed in Python >= 3.4"; # added 2022-12-01
+  weakrefmethod = throw "weakrefmethod was removed since it's not needed in Python >= 3.4"; # added 2022-12-01
   webapp2 = throw "webapp2 is unmaintained since 2012"; # added 2022-05-29
   websocket_client = websocket-client; # added 2021-06-15
   wxPython_4_0 = throw "wxPython_4_0 has been removed, use wxPython_4_2 instead"; # added 2023-03-19

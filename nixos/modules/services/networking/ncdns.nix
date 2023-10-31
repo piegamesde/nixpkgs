@@ -240,9 +240,7 @@ in
       ncdns =
         {
           # Namecoin RPC
-          namecoinrpcaddress = "${cfgs.namecoind.rpc.address}:${
-              toString cfgs.namecoind.rpc.port
-            }";
+          namecoinrpcaddress = "${cfgs.namecoind.rpc.address}:${toString cfgs.namecoind.rpc.port}";
           namecoinrpcusername = cfgs.namecoind.rpc.user;
           namecoinrpcpassword = cfgs.namecoind.rpc.password;
 

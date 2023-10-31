@@ -100,9 +100,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${
-      placeholder "out"
-    }/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${placeholder "out"}/share/polkit-1/actions";
 
   # Avoid double wrapping
   dontWrapGApps = true;

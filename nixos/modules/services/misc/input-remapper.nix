@@ -26,9 +26,7 @@ in
         default = [ "graphical.target" ];
         example = [ "multi-user.target" ];
         type = types.listOf types.str;
-        description =
-          lib.mdDoc
-            "Specifies the WantedBy setting for the input-remapper service.";
+        description = lib.mdDoc "Specifies the WantedBy setting for the input-remapper service.";
       };
     };
   };

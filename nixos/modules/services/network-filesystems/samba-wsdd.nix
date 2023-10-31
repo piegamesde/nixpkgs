@@ -103,9 +103,7 @@ in
                                 ${
                                   optionalString (cfg.hostname != null) "--hostname '${cfg.hostname}'"
                                 } \
-                                ${
-                                  optionalString (cfg.domain != null) "--domain '${cfg.domain}'"
-                                } \
+                                ${optionalString (cfg.domain != null) "--domain '${cfg.domain}'"} \
                                 ${
                                   optionalString cfg.discovery "--discovery --listen '${cfg.listen}'"
                                 } \

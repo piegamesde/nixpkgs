@@ -17,10 +17,9 @@ stdenv.mkDerivation (
     pname = "rocrand";
     version = "5.4.3";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

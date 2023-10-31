@@ -25,8 +25,7 @@ let
   postgresqlVersion = lib.getVersion postgresqlPackage;
 
   # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally =
-    cfg.database.createLocally && cfg.database.host == null;
+  databaseActuallyCreateLocally = cfg.database.createLocally && cfg.database.host == null;
 
   tlsEnabled =
     cfg.enableACME || cfg.sslCertificate != null || cfg.sslCertificateKey != null;
@@ -34,9 +33,7 @@ in
 {
   options = {
     services.discourse = {
-      enable = lib.mkEnableOption (
-        lib.mdDoc "Discourse, an open source discussion platform"
-      );
+      enable = lib.mkEnableOption (lib.mdDoc "Discourse, an open source discussion platform");
 
       package = lib.mkOption {
         type = lib.types.package;
@@ -784,9 +781,7 @@ in
             };
           };
 
-          discourseConf = pkgs.writeText "discourse.conf" (
-            discourseKeyValue cfg.backendSettings
-          );
+          discourseConf = pkgs.writeText "discourse.conf" (discourseKeyValue cfg.backendSettings);
 
           mkSecretReplacement =
             file:

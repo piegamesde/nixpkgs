@@ -21,9 +21,7 @@ let
       let
         placeholders =
           (imap0
-            (
-              i: c: ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"''
-            )
+            (i: c: ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"'')
             creds
           );
       in
@@ -250,9 +248,9 @@ in
           if pkgs.lib.hasPrefix "/" cfg.network.listenAddress then
             cfg.network.listenAddress
           else
-            "${
-              optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"
-            }${toString cfg.network.port}"
+            "${optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"}${
+              toString cfg.network.port
+            }"
         )
       ];
     };

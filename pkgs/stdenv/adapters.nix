@@ -188,8 +188,7 @@ rec {
       old: {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
-            propagatedBuildInputs =
-              (args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]);
+            propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ (args.buildInputs or [ ]);
             buildInputs = [ ];
           }
         );
@@ -273,9 +272,7 @@ rec {
     let
       bintools = stdenv.cc.bintools.override {
         extraBuildCommands = ''
-          wrap ld.mold ${
-            ../build-support/bintools-wrapper/ld-wrapper.sh
-          } ${pkgs.mold}/bin/ld.mold
+          wrap ld.mold ${../build-support/bintools-wrapper/ld-wrapper.sh} ${pkgs.mold}/bin/ld.mold
           wrap ld ${../build-support/bintools-wrapper/ld-wrapper.sh} ${pkgs.mold}/bin/ld.mold
         '';
       };

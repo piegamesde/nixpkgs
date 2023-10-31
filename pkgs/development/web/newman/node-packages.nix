@@ -5036,18 +5036,8 @@ in
           ];
         }
       )
-      (
-        sources."command-line-tool-0.8.0"
-        // {
-          dependencies = [ sources."array-back-2.0.0" ];
-        }
-      )
-      (
-        sources."command-line-usage-4.1.0"
-        // {
-          dependencies = [ sources."array-back-2.0.0" ];
-        }
-      )
+      (sources."command-line-tool-0.8.0" // { dependencies = [ sources."array-back-2.0.0" ]; })
+      (sources."command-line-usage-4.1.0" // { dependencies = [ sources."array-back-2.0.0" ]; })
       sources."commander-7.2.0"
       sources."comment-parser-1.2.4"
       sources."common-sequence-2.0.2"
@@ -5148,9 +5138,7 @@ in
         }
       )
       sources."eslint-visitor-keys-2.1.0"
-      (
-        sources."espree-7.3.1" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; }
-      )
+      (sources."espree-7.3.1" // { dependencies = [ sources."eslint-visitor-keys-1.3.0" ]; })
       sources."esprima-4.0.1"
       (sources."esquery-1.4.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
       (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
@@ -5241,10 +5229,7 @@ in
       sources."istanbul-lib-coverage-3.2.0"
       sources."istanbul-lib-hook-3.0.0"
       (
-        sources."istanbul-lib-instrument-4.0.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."istanbul-lib-instrument-4.0.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."istanbul-lib-processinfo-2.0.3"
       (
@@ -5488,12 +5473,7 @@ in
       sources."qs-6.5.3"
       sources."rambda-7.4.0"
       sources."randombytes-2.1.0"
-      (
-        sources."readable-stream-2.3.7"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."readdir-0.0.13"
       sources."readdirp-3.6.0"
       sources."rechoir-0.6.2"
@@ -5588,15 +5568,11 @@ in
       sources."sprintf-js-1.0.3"
       sources."sshpk-1.17.0"
       sources."stack-trace-0.0.9"
-      (
-        sources."stream-connect-1.0.2" // { dependencies = [ sources."array-back-1.0.4" ]; }
-      )
+      (sources."stream-connect-1.0.2" // { dependencies = [ sources."array-back-1.0.4" ]; })
       sources."stream-length-1.0.2"
       sources."stream-via-1.0.4"
       sources."string-width-4.2.3"
-      (
-        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-      )
+      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."strip-ansi-6.0.1"
       sources."strip-bom-4.0.0"
       sources."strip-json-comments-3.1.1"

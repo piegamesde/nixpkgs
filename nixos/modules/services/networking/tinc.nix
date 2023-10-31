@@ -423,12 +423,8 @@ in
             description = "Tinc Daemon - ${network}";
             wantedBy = [ "multi-user.target" ];
             path = [ data.package ];
-            reloadTriggers = mkIf (versionAtLeast version "1.1pre") [
-              (builtins.toJSON etcConfig)
-            ];
-            restartTriggers = mkIf (versionOlder version "1.1pre") [
-              (builtins.toJSON etcConfig)
-            ];
+            reloadTriggers = mkIf (versionAtLeast version "1.1pre") [ (builtins.toJSON etcConfig) ];
+            restartTriggers = mkIf (versionOlder version "1.1pre") [ (builtins.toJSON etcConfig) ];
             serviceConfig = {
               Type = "simple";
               Restart = "always";

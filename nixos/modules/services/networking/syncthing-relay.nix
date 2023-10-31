@@ -123,9 +123,7 @@ in
         StateDirectory = baseNameOf dataDirectory;
 
         Restart = "on-failure";
-        ExecStart = "${pkgs.syncthing-relay}/bin/strelaysrv ${
-            concatStringsSep " " relayOptions
-          }";
+        ExecStart = "${pkgs.syncthing-relay}/bin/strelaysrv ${concatStringsSep " " relayOptions}";
       };
     };
   };

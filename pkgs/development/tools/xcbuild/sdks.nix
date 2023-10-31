@@ -22,9 +22,7 @@ let
   };
 
   SystemVersion =
-    lib.optionalAttrs (productBuildVer != null) {
-      ProductBuildVersion = productBuildVer;
-    }
+    lib.optionalAttrs (productBuildVer != null) { ProductBuildVersion = productBuildVer; }
     // {
       ProductName = "Mac OS X";
       ProductVersion = sdkVer;
@@ -36,9 +34,7 @@ runCommand "SDKs" { } ''
   install -D ${
     writeText "SDKSettings.plist" (toPlist { } SDKSettings)
   } $sdk/SDKSettings.plist
-  install -D ${
-    writeText "SDKSettings.json" (toJSON { } SDKSettings)
-  } $sdk/SDKSettings.json
+  install -D ${writeText "SDKSettings.json" (toJSON { } SDKSettings)} $sdk/SDKSettings.json
   install -D ${
     writeText "SystemVersion.plist" (toPlist { } SystemVersion)
   } $sdk/System/Library/CoreServices/SystemVersion.plist

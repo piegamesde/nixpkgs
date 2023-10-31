@@ -18,9 +18,8 @@
   zlib,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux
-    && (!stdenv.isx86_32)
-    && (stdenv.hostPlatform == stdenv.buildPlatform),
+  doCheck ?
+    stdenv.isLinux && (!stdenv.isx86_32) && (stdenv.hostPlatform == stdenv.buildPlatform),
   enableManpages ? false,
   enableSharedLibraries ? !stdenv.hostPlatform.isStatic,
   # broken for Ampere eMAG 8180 (c2.large.arm on Packet) #56245
@@ -33,8 +32,7 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion =
-    with lib; concatStringsSep "." (take 1 (splitVersion release_version));
+  shortVersion = with lib; concatStringsSep "." (take 1 (splitVersion release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking

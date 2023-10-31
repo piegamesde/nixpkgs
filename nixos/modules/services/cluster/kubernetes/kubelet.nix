@@ -385,17 +385,13 @@ in
                         ${
                           optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
                         } \
-                        ${
-                          optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"
-                        } \
+                        ${optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"} \
                         ${
                           optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"
                         } \
                         ${
                           optionalString (cfg.featureGates != [ ])
-                            "--feature-gates=${
-                              concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
-                            }"
+                            "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                         } \
                         --hairpin-mode=hairpin-veth \
                         --healthz-bind-address=${cfg.healthz.bind} \
@@ -417,9 +413,7 @@ in
                         ${
                           optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                         } \
-                        ${
-                          optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
-                        } \
+                        ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \
                         ${cfg.extraOpts}

@@ -12,9 +12,7 @@ let
   fpm = config.services.phpfpm.pools.roundcube;
   localDB = cfg.database.host == "localhost";
   user = cfg.database.username;
-  phpWithPspell = pkgs.php81.withExtensions (
-    { enabled, all }: [ all.pspell ] ++ enabled
-  );
+  phpWithPspell = pkgs.php81.withExtensions ({ enabled, all }: [ all.pspell ] ++ enabled);
 in
 {
   options.services.roundcube = {
@@ -119,8 +117,7 @@ in
         Note: Since roundcube only uses 70% of max upload values configured in php
         30% is added automatically to [](#opt-services.roundcube.maxAttachmentSize).
       '';
-      apply =
-        configuredMaxAttachmentSize: "${toString (configuredMaxAttachmentSize * 1.3)}M";
+      apply = configuredMaxAttachmentSize: "${toString (configuredMaxAttachmentSize * 1.3)}M";
     };
 
     extraConfig = mkOption {

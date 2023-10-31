@@ -66,9 +66,7 @@ let
   metaloggerCfg = settingsFormat.generate "mfsmetalogger.cfg" cfg.metalogger.settings;
 
   # chunkserver config file
-  chunkserverCfg =
-    settingsFormat.generate "mfschunkserver.cfg"
-      cfg.chunkserver.settings;
+  chunkserverCfg = settingsFormat.generate "mfschunkserver.cfg" cfg.chunkserver.settings;
 
   # generic template for all daemons
   systemdService = name: extraConfig: configFile: {
@@ -213,10 +211,7 @@ in
   config =
     mkIf
       (
-        cfg.client.enable
-        || cfg.master.enable
-        || cfg.metalogger.enable
-        || cfg.chunkserver.enable
+        cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable
       )
       {
 
@@ -250,10 +245,7 @@ in
         # Create system user account for daemons
         users =
           mkIf
-            (
-              cfg.runAsUser
-              && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
-            )
+            (cfg.runAsUser && (cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable))
             {
               users.moosefs = {
                 isSystemUser = true;
@@ -277,8 +269,7 @@ in
 
         # Ensure storage directories exist
         systemd.tmpfiles.rules =
-          optional cfg.master.enable
-            "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
+          optional cfg.master.enable "d ${cfg.master.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"
           ++
             optional cfg.metalogger.enable
               "d ${cfg.metalogger.settings.DATA_PATH} 0700 ${mfsUser} ${mfsUser}"

@@ -66,9 +66,7 @@ then
             rm "$dev/bin/g-ir-compiler"
             rm "$dev/bin/g-ir-scanner"
             export bash="${buildPackages.bash}"
-            export emulator=${
-              lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)
-            }
+            export emulator=${lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)}
             export emulatorwrapper="$dev/bin/g-ir-scanner-qemuwrapper"
             export buildlddtree="${buildPackages.pax-utils}/bin/lddtree"
 

@@ -362,9 +362,7 @@ in
       )
       { };
 
-  wrapPython = callPackage ../wrap-python.nix {
-    inherit (pkgs.buildPackages) makeWrapper;
-  };
+  wrapPython = callPackage ../wrap-python.nix { inherit (pkgs.buildPackages) makeWrapper; };
 
   sphinxHook =
     callPackage

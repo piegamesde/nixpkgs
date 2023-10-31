@@ -77,8 +77,7 @@ import ./make-test-python.nix (
                 }
               '';
             };
-            musicService =
-              with defaultMpdCfg; musicService { inherit user group musicDirectory; };
+            musicService = with defaultMpdCfg; musicService { inherit user group musicDirectory; };
           })
           { networking.firewall.allowedTCPPorts = [ 6600 ]; }
         ];

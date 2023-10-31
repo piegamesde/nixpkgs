@@ -78,8 +78,7 @@ let
       attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
     );
 
-  fix-rtags =
-    pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
+  fix-rtags = pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 
   generateMelpa = lib.makeOverridable (
     {
@@ -136,10 +135,7 @@ let
 
           # upstream issue: missing file header
           fold-dwim =
-            if super.fold-dwim.version == "1.2" then
-              markBroken super.fold-dwim
-            else
-              super.fold-dwim;
+            if super.fold-dwim.version == "1.2" then markBroken super.fold-dwim else super.fold-dwim;
 
           # upstream issue: missing file header
           gl-conf-mode =
@@ -156,8 +152,7 @@ let
           link = markBroken super.link;
 
           # upstream issue: missing file header
-          org-dp =
-            if super.org-dp.version == "1" then markBroken super.org-dp else super.org-dp;
+          org-dp = if super.org-dp.version == "1" then markBroken super.org-dp else super.org-dp;
 
           # upstream issue: missing file header
           revbufs =
@@ -699,9 +694,7 @@ let
           helm-rtags = fix-rtags super.helm-rtags;
 
           # tries to write to $HOME
-          php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (
-            attrs: { HOME = "/tmp"; }
-          );
+          php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (attrs: { HOME = "/tmp"; });
 
           racer = super.racer.overrideAttrs (
             attrs: {

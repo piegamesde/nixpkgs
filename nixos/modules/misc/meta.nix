@@ -7,8 +7,7 @@ let
     name = "maintainer";
     check = email: elem email (attrValues lib.maintainers);
     merge =
-      loc: defs:
-      listToAttrs (singleton (nameValuePair (last defs).file (last defs).value));
+      loc: defs: listToAttrs (singleton (nameValuePair (last defs).file (last defs).value));
   };
 
   listOfMaintainers = types.listOf maintainer // {

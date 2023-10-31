@@ -50,11 +50,7 @@ let
       end
     '')
     + (optionalString
-      (
-        cfg.roles.database.enable
-        && cfg.roles.backup.enable
-        && (!cfg.roles.backup.enableFabs)
-      )
+      (cfg.roles.database.enable && cfg.roles.backup.enable && (!cfg.roles.backup.enableFabs))
       ''
         bnode simple buserver 1
         parm ${openafsSrv}/libexec/openafs/buserver ${cfg.roles.backup.buserverArgs} ${
@@ -93,8 +89,7 @@ let
     mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
   );
 
-  useBuCellServDB =
-    (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
+  useBuCellServDB = (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
 
   cfg = config.services.openafsServer;
 

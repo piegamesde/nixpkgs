@@ -79,9 +79,7 @@ in
     environment.systemPackages = [ pkgs.udisks2 ];
 
     environment.etc =
-      (mapAttrs' (name: value: nameValuePair "udisks2/${name}" { source = value; })
-        configFiles
-      )
+      (mapAttrs' (name: value: nameValuePair "udisks2/${name}" { source = value; }) configFiles)
       // {
         # We need to make sure /etc/libblockdev/conf.d is populated to avoid
         # warnings

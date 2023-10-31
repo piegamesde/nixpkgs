@@ -57,8 +57,7 @@
   ,
   # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ?
-    !stdenv.targetPlatform.isWindows && !stdenv.targetPlatform.useiOSPrebuilt
+  enableShared ? !stdenv.targetPlatform.isWindows && !stdenv.targetPlatform.useiOSPrebuilt
 
   ,
   # Whether to build terminfo.
@@ -179,10 +178,7 @@ let
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
     install_name_tool =
-      if stdenv.targetPlatform.isAarch64 then
-        targetCC.bintools
-      else
-        targetCC.bintools.bintools;
+      if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"

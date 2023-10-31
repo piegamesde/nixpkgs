@@ -197,9 +197,7 @@ in
 
   cocoapods-disable-podfile-validations = attrs: { dependencies = [ "cocoapods" ]; };
 
-  cocoapods-generate = attrs: {
-    dependencies = attrs.dependencies ++ [ "cocoapods" ];
-  };
+  cocoapods-generate = attrs: { dependencies = attrs.dependencies ++ [ "cocoapods" ]; };
 
   cocoapods-git_url_rewriter = attrs: { dependencies = [ "cocoapods" ]; };
 

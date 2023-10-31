@@ -87,8 +87,9 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; })
-        (builtins.attrNames cfg.components)}
+      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; }) (
+        builtins.attrNames cfg.components
+      )}
     '';
   };
 
@@ -118,9 +119,7 @@ in
       enableAuthentication = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to publish privacy-sensitive authentication credentials";
+        description = lib.mdDoc "Whether to publish privacy-sensitive authentication credentials";
       };
 
       package = mkOption {
@@ -179,9 +178,7 @@ in
       enableLegacyModules = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to enable Dysnomia legacy process and wrapper modules";
+        description = lib.mdDoc "Whether to enable Dysnomia legacy process and wrapper modules";
       };
     };
   };
@@ -276,9 +273,7 @@ in
               documentRoot = config.services.httpd.virtualHosts.localhost.documentRoot;
             };
           }
-          // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
-            axis2-webservice = { };
-          }
+          // lib.optionalAttrs (config.services.tomcat.axis2.enable) { axis2-webservice = { }; }
           // lib.optionalAttrs (config.services.ejabberd.enable) {
             ejabberd-dump = {
               ejabberdUser = config.services.ejabberd.user;

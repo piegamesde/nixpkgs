@@ -44,8 +44,7 @@ crystal.buildCrystalPackage rec {
       # Replacing by the value (templates) of the variables ensures that building
       # fails if upstream changes the way the metadata is formatted.
       branchTemplate = ''{{ "#{`git branch | sed -n '/* /s///p'`.strip}" }}'';
-      commitTemplate = ''
-        {{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
+      commitTemplate = ''{{ "#{`git rev-list HEAD --max-count=1 --abbrev-commit`.strip}" }}'';
       versionTemplate = ''
         {{ "#{`git log -1 --format=%ci | awk '{print $1}' | sed s/-/./g`.strip}" }}'';
       # This always uses the latest commit which invalidates the cache even if

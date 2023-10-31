@@ -151,8 +151,7 @@ stdenv.mkDerivation (
         version = testers.testVersion { package = finalAttrs.finalPackage; };
 
         smoke-test =
-          runCommand "dotnet-sdk-smoke-test"
-            { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+          runCommand "dotnet-sdk-smoke-test" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
             ''
               HOME=$(pwd)/fake-home
               dotnet new console

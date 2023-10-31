@@ -116,15 +116,13 @@ stdenv.mkDerivation (
       #
       # See here for context:
       # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
-      ++
-        lib.optional (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64)
-          (
-            runCommand "bsm-audit-session-header" { } ''
-              install -Dm444 \
-                "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
-                "$out/include/bsm/audit_session.h"
-            ''
-          );
+      ++ lib.optional (stdenv.targetPlatform.isDarwin && !stdenv.targetPlatform.isAarch64) (
+        runCommand "bsm-audit-session-header" { } ''
+          install -Dm444 \
+            "${lib.getDev darwin.apple_sdk.sdk}/include/bsm/audit_session.h" \
+            "$out/include/bsm/audit_session.h"
+        ''
+      );
 
     hardeningDisable = [ "format" ];
 

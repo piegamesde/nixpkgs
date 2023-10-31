@@ -24,9 +24,7 @@ let
       cfg.servers}
 
     ${optionalString (cfg.initstepslew.enabled && (cfg.servers != [ ]))
-      "initstepslew ${toString cfg.initstepslew.threshold} ${
-        concatStringsSep " " cfg.servers
-      }"}
+      "initstepslew ${toString cfg.initstepslew.threshold} ${concatStringsSep " " cfg.servers}"}
 
     driftfile ${driftFile}
     keyfile ${keyFile}

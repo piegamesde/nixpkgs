@@ -119,11 +119,9 @@ import ../make-test-python.nix (
           ];
         };
 
-      dynamic1 =
-        { ... }@args: makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };
+      dynamic1 = { ... }@args: makeTincNode args "dynamic1" { virtualisation.vlans = [ 1 ]; };
 
-      dynamic2 =
-        { ... }@args: makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; };
+      dynamic2 = { ... }@args: makeTincNode args "dynamic2" { virtualisation.vlans = [ 2 ]; };
     };
 
     testScript = ''

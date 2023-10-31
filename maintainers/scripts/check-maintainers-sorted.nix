@@ -46,8 +46,7 @@ let
       line,
       key,
     }:
-    foldl' (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc)
-      null
+    foldl' (acc: n: if n.key < key && (acc == null || n.key > acc.key) then n else acc) null
       namesSorted;
   errors = foldl' add 0 (
     map

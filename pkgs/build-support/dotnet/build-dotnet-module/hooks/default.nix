@@ -66,9 +66,7 @@ in
               inherit buildType libraryPath;
               disabledTests = lib.optionalString (disabledTests != [ ]) (
                 let
-                  escapedNames =
-                    lib.lists.map (n: lib.replaceStrings [ "," ] [ "%2C" ] n)
-                      disabledTests;
+                  escapedNames = lib.lists.map (n: lib.replaceStrings [ "," ] [ "%2C" ] n) disabledTests;
                   filters = lib.lists.map (n: "FullyQualifiedName!=${n}") escapedNames;
                 in
                 "${lib.concatStringsSep "&" filters}"

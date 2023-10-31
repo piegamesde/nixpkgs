@@ -38,9 +38,9 @@ let
     splitBin = builtins.partition (p: p.tlType == "bin") all;
     bin =
       splitBin.right
-      ++ lib.optional
-        (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong)
-        (lib.getBin ghostscript);
+      ++ lib.optional (lib.any (p: p.tlType == "run" && p.pname == "pdfcrop") splitBin.wrong) (
+        lib.getBin ghostscript
+      );
     nonbin = splitBin.wrong;
 
     # extra interpreters needed for shebangs, based on 2015 schemes "medium" and "tetex"
@@ -201,8 +201,7 @@ in
               lib.concatMapStrings
                 (
                   pname:
-                  section "^% from ${pname}:$"
-                    "^% from|^%%% No changes may be made beyond this point.$"
+                  section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$"
                 )
                 hyphenPNames
             # pick up the footer (for language.def)
@@ -217,9 +216,7 @@ in
             + ''
               2,/^-- END of language.us.lua/p;
             ''
-            +
-              lib.concatMapStrings (pname: section "^-- from ${pname}:$" "^}$|^-- from")
-                hyphenPNames
+            + lib.concatMapStrings (pname: section "^-- from ${pname}:$" "^}$|^-- from") hyphenPNames
             + ''
               $p;
             ''

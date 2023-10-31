@@ -72,9 +72,7 @@ stdenv.mkDerivation rec {
     ninja
     python3
   ];
-  buildInputs =
-    lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm)
-      libunwind;
+  buildInputs = lib.optional (!stdenv.isDarwin && !stdenv.hostPlatform.isWasm) libunwind;
 
   cmakeFlags =
     [

@@ -67,9 +67,7 @@ let
       ${if to then "makeWrapper ${from} ${to}" else "wrapProgram ${from}"} \
         --set GDK_PIXBUF_MODULE_FILE "$GDK_PIXBUF_MODULE_FILE" \
         --argv0 factor \
-        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${
-          lib.makeLibraryPath runtimeLibs
-        } \
+        --prefix LD_LIBRARY_PATH : /run/opengl-driver/lib:${lib.makeLibraryPath runtimeLibs} \
         --prefix PATH : ${lib.makeBinPath [ graphviz ]}
     '';
 

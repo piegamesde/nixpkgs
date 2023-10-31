@@ -244,12 +244,11 @@ stdenv.mkDerivation rec {
     '';
 
   preFixup =
-    lib.optionalString (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
-      ''
-        wrapProgram $out/libexec/pulse/gsettings-helper \
-         --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
-         --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
-      ''
+    lib.optionalString (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
+      wrapProgram $out/libexec/pulse/gsettings-helper \
+       --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
+       --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
+    ''
     # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do

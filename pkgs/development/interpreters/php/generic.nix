@@ -54,8 +54,7 @@ let
       embedSupport ? false,
       ipv6Support ? true,
       systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
-      valgrindSupport ?
-        !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
+      valgrindSupport ? !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
       ztsSupport ? apxs2Support,
     }@args:
 
@@ -119,9 +118,7 @@ let
             getDepsRecursively =
               extensions:
               let
-                deps =
-                  lib.concatMap (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
-                    extensions;
+                deps = lib.concatMap (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ])) extensions;
               in
               if !(deps == [ ]) then deps ++ (getDepsRecursively deps) else deps;
 
@@ -278,9 +275,7 @@ let
             ++ lib.optional (!ipv6Support) "--disable-ipv6"
             ++ lib.optional systemdSupport "--with-fpm-systemd"
             ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-            ++
-              lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
-                "--enable-maintainer-zts"
+            ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0")) "--enable-maintainer-zts"
             ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0")) "--enable-zts"
 
             # Sendmail

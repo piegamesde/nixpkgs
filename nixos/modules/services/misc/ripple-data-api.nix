@@ -121,9 +121,7 @@ in
         };
 
         create = mkOption {
-          description =
-            lib.mdDoc
-              "Whether to create couchdb database needed by ripple data api.";
+          description = lib.mdDoc "Whether to create couchdb database needed by ripple data api.";
           type = types.bool;
           default = true;
         };

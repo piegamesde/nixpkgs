@@ -198,8 +198,7 @@ in
     # terminal instead of logging out of X11).
     environment.variables = config.environment.sessionVariables;
 
-    environment.profileRelativeEnvVars =
-      config.environment.profileRelativeSessionVariables;
+    environment.profileRelativeEnvVars = config.environment.profileRelativeSessionVariables;
 
     environment.shellAliases = mapAttrs (name: mkDefault) {
       ls = "ls --color=tty";

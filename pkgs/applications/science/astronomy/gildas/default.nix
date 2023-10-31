@@ -50,17 +50,13 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  buildInputs =
-    [
-      gtk2-x11
-      lesstif
-      cfitsio
-      python3Env
-      ncurses
-    ]
-    ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [ CoreFoundation ]
-    );
+  buildInputs = [
+    gtk2-x11
+    lesstif
+    cfitsio
+    python3Env
+    ncurses
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
 
   patches = [
     ./wrapper.patch

@@ -13,10 +13,7 @@ let
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (
     generators.toKeyValue
-      {
-        mkKeyValue =
-          k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v;
-      }
+      { mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v; }
       cfg.settings
   );
   need_CAP_NET_BIND_SERVICE =
@@ -185,9 +182,7 @@ in
         example = "/run/keys/biboumi.cfg";
       };
 
-      openFirewall = mkEnableOption (
-        lib.mdDoc "opening of the identd port in the firewall"
-      );
+      openFirewall = mkEnableOption (lib.mdDoc "opening of the identd port in the firewall");
     };
   };
 

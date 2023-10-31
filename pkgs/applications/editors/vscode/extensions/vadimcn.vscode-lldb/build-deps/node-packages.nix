@@ -3032,12 +3032,7 @@ let
       sources."randombytes-2.1.0"
       (sources."rc-1.2.8" // { dependencies = [ sources."strip-json-comments-2.0.1" ]; })
       sources."read-1.0.7"
-      (
-        sources."readable-stream-2.3.7"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."readdirp-3.5.0"
       sources."rechoir-0.7.1"
       sources."require-directory-2.1.1"
@@ -3060,18 +3055,14 @@ let
       sources."source-map-support-0.5.21"
       sources."string-argv-0.3.1"
       sources."string-width-2.1.1"
-      (
-        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-      )
+      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."strip-ansi-4.0.0"
       sources."strip-json-comments-3.1.1"
       sources."supports-color-8.1.1"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tapable-1.1.3"
       sources."tar-fs-2.1.1"
-      (
-        sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
-      )
+      (sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       (sources."terser-5.14.2" // { dependencies = [ sources."commander-2.20.3" ]; })
       (
         sources."terser-webpack-plugin-5.3.3"

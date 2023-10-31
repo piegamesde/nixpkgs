@@ -507,10 +507,7 @@ in
           );
 
         ca.cert =
-          if needToCreateCA then
-            "${cfg.dataDir}/keys/ca.cert"
-          else
-            "${cfg.pki.manual.ca.cert}";
+          if needToCreateCA then "${cfg.dataDir}/keys/ca.cert" else "${cfg.pki.manual.ca.cert}";
       };
 
       systemd.services.taskserver-init = {

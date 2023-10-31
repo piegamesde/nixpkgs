@@ -99,9 +99,7 @@ stdenv.mkDerivation (
       ++ (
         with python3Packages;
         [
-          (apsw.overrideAttrs (
-            oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }
-          ))
+          (apsw.overrideAttrs (oldAttrs: { setupPyBuildFlags = [ "--enable=load_extension" ]; }))
           beautifulsoup4
           css-parser
           cssselect

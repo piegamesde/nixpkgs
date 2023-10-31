@@ -14,8 +14,7 @@ let
   group = cfg.group;
   setgidGroup = cfg.setgidGroup;
 
-  haveAliases =
-    cfg.postmasterAlias != "" || cfg.rootAlias != "" || cfg.extraAliases != "";
+  haveAliases = cfg.postmasterAlias != "" || cfg.rootAlias != "" || cfg.extraAliases != "";
   haveCanonical = cfg.canonical != "";
   haveTransport = cfg.transport != "";
   haveVirtual = cfg.virtual != "";
@@ -422,17 +421,13 @@ in
       user = mkOption {
         type = types.str;
         default = "postfix";
-        description =
-          lib.mdDoc
-            "What to call the Postfix user (must be used only for postfix).";
+        description = lib.mdDoc "What to call the Postfix user (must be used only for postfix).";
       };
 
       group = mkOption {
         type = types.str;
         default = "postfix";
-        description =
-          lib.mdDoc
-            "What to call the Postfix group (must be used only for postfix).";
+        description = lib.mdDoc "What to call the Postfix group (must be used only for postfix).";
       };
 
       setgidGroup = mkOption {
@@ -683,17 +678,13 @@ in
       dnsBlacklists = mkOption {
         default = [ ];
         type = with types; listOf str;
-        description =
-          lib.mdDoc
-            "dns blacklist servers to use with smtpd_client_restrictions";
+        description = lib.mdDoc "dns blacklist servers to use with smtpd_client_restrictions";
       };
 
       dnsBlacklistOverrides = mkOption {
         default = "";
         type = types.lines;
-        description =
-          lib.mdDoc
-            "contents of check_client_access for overriding dnsBlacklists";
+        description = lib.mdDoc "contents of check_client_access for overriding dnsBlacklists";
       };
 
       masterConfig = mkOption {
@@ -938,9 +929,7 @@ in
               else
                 "[${cfg.relayHost}]:${toString cfg.relayPort}";
           }
-          // optionalAttrs (!config.networking.enableIPv6) {
-            inet_protocols = mkDefault "ipv4";
-          }
+          // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
           // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
           // optionalAttrs (cfg.networksStyle != "") { mynetworks_style = cfg.networksStyle; }
           // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
@@ -954,9 +943,7 @@ in
           // optionalAttrs haveAliases {
             alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ];
           }
-          // optionalAttrs haveTransport {
-            transport_maps = [ "hash:/etc/postfix/transport" ];
-          }
+          // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
           // optionalAttrs haveVirtual {
             virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
           }
@@ -1117,9 +1104,7 @@ in
                     // {
                       smtpd_tls_wrappermode = "yes";
                     }
-                    // optionalAttrs adjustSmtpTlsSecurityLevel {
-                      smtpd_tls_security_level = "encrypt";
-                    };
+                    // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
                 in
                 concatLists (mapAttrsToList mkKeyVal submissionsOptions);
             };

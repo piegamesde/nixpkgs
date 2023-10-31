@@ -115,8 +115,7 @@ final: prev: {
     name = "bitwarden-cli";
     nativeBuildInputs =
       with pkgs;
-      [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
     buildInputs = with pkgs; [
       pixman
       cairo
@@ -209,9 +208,8 @@ final: prev: {
         builtins.filter
           (
             d:
-            d.packageName != "@expo/traveling-fastlane-${
-              if stdenv.isLinux then "darwin" else "linux"
-            }"
+            d.packageName
+            != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
           )
           oldAttrs.dependencies;
     }
@@ -776,9 +774,7 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
-  webtorrent-cli = prev.webtorrent-cli.override {
-    buildInputs = [ final.node-gyp-build ];
-  };
+  webtorrent-cli = prev.webtorrent-cli.override { buildInputs = [ final.node-gyp-build ]; };
 
   wrangler = prev.wrangler.override (
     oldAttrs: {

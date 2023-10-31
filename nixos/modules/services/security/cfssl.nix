@@ -116,9 +116,7 @@ in
     tlsKey = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description =
-        lib.mdDoc
-          "Other endpoint's CA private key. Do not put this in nix-store.";
+      description = lib.mdDoc "Other endpoint's CA private key. Do not put this in nix-store.";
     };
 
     tlsCert = mkOption {

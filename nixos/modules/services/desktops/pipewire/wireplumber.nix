@@ -76,11 +76,9 @@ in
     systemd.services.wireplumber.wantedBy = [ "pipewire.service" ];
     systemd.user.services.wireplumber.wantedBy = [ "pipewire.service" ];
 
-    systemd.services.wireplumber.environment =
-      lib.mkIf config.services.pipewire.systemWide
-        {
-          # Force wireplumber to use system dbus.
-          DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/dbus/system_bus_socket";
-        };
+    systemd.services.wireplumber.environment = lib.mkIf config.services.pipewire.systemWide {
+      # Force wireplumber to use system dbus.
+      DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/dbus/system_bus_socket";
+    };
   };
 }

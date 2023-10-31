@@ -24,9 +24,7 @@ let
     };
 
     "fwupd/uefi_capsule.conf" = {
-      source = format.generate "uefi_capsule.conf" {
-        uefi_capsule = cfg.uefiCapsuleSettings;
-      };
+      source = format.generate "uefi_capsule.conf" { uefi_capsule = cfg.uefiCapsuleSettings; };
     };
   };
 

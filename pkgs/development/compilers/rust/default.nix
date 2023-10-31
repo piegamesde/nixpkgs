@@ -95,20 +95,18 @@ in
             # Use boot package set to break cycle
             rustPlatform = bootRustPlatform;
           }
-          //
-            lib.optionalAttrs (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform)
-              {
-                stdenv = llvmBootstrapForDarwin.stdenv;
-                pkgsBuildBuild = pkgsBuildBuild // {
-                  targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
-                };
-                pkgsBuildHost = pkgsBuildBuild // {
-                  targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
-                };
-                pkgsBuildTarget = pkgsBuildTarget // {
-                  targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
-                };
-              }
+          // lib.optionalAttrs (stdenv.cc.isClang && stdenv.hostPlatform == stdenv.buildPlatform) {
+            stdenv = llvmBootstrapForDarwin.stdenv;
+            pkgsBuildBuild = pkgsBuildBuild // {
+              targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
+            };
+            pkgsBuildHost = pkgsBuildBuild // {
+              targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
+            };
+            pkgsBuildTarget = pkgsBuildTarget // {
+              targetPackages.stdenv = llvmBootstrapForDarwin.stdenv;
+            };
+          }
         );
         rustfmt = self.callPackage ./rustfmt.nix { inherit Security; };
         cargo = self.callPackage ./cargo.nix {
@@ -117,9 +115,7 @@ in
           inherit CoreFoundation Security;
         };
         cargo-auditable = self.callPackage ./cargo-auditable.nix { };
-        cargo-auditable-cargo-wrapper =
-          self.callPackage ./cargo-auditable-cargo-wrapper.nix
-            { };
+        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix { };
         clippy = callPackage ./clippy.nix {
           # We want to use self, not buildRustPackages, so that
           # buildPackages.clippy uses the cross compiler and supports

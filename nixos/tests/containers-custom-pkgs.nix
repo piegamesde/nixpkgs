@@ -3,9 +3,7 @@ import ./make-test-python.nix (
   let
 
     customPkgs = pkgs.appendOverlays [
-      (self: super: {
-        hello = super.hello.overrideAttrs (old: { name = "custom-hello"; });
-      })
+      (self: super: { hello = super.hello.overrideAttrs (old: { name = "custom-hello"; }); })
     ];
   in
   {
@@ -22,8 +20,7 @@ import ./make-test-python.nix (
       {
         assertions =
           let
-            helloName =
-              (builtins.head config.containers.test.config.system.extraDependencies).name;
+            helloName = (builtins.head config.containers.test.config.system.extraDependencies).name;
           in
           [
             {

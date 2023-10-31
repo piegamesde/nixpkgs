@@ -23,13 +23,11 @@ stdenv.mkDerivation rec {
   pname = "graphene";
   version = "1.10.8";
 
-  outputs =
-    [
-      "out"
-      "dev"
-      "devdoc"
-    ]
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
+  outputs = [
+    "out"
+    "dev"
+    "devdoc"
+  ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
 
   src = fetchFromGitHub {
     owner = "ebassi";

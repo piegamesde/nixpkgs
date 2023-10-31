@@ -127,14 +127,11 @@ rec {
       default = { };
       description = mdDoc description;
     };
-    render = single (
-      attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs))
-    );
+    render = single (attrs: (paramsToRenderedStrings attrs (mapAttrs (_n: _v: param) attrs)));
   };
 
   mkPrefixedAttrsOfParams =
-    params:
-    mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
+    params: mkPrefixedAttrsOf params (types.submodule { options = paramsToOptions params; });
 
   mkPrefixedAttrsOfParam = param: mkPrefixedAttrsOf param param.option.type;
 

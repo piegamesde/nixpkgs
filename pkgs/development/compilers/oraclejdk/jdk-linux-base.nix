@@ -161,9 +161,7 @@ let
     '';
 
     postFixup = ''
-      rpath+="''${rpath:+:}${
-        lib.concatStringsSep ":" (map (a: "$jrePath/${a}") rSubPaths)
-      }"
+      rpath+="''${rpath:+:}${lib.concatStringsSep ":" (map (a: "$jrePath/${a}") rSubPaths)}"
 
       # set all the dynamic linkers
       find $out -type f -perm -0100 \
@@ -215,10 +213,7 @@ let
     rpath = lib.strings.makeLibraryPath libraries;
 
     passthru.mozillaPlugin =
-      if installjdk then
-        "/jre/lib/${architecture}/plugins"
-      else
-        "/lib/${architecture}/plugins";
+      if installjdk then "/jre/lib/${architecture}/plugins" else "/lib/${architecture}/plugins";
 
     passthru.jre = result; # FIXME: use multiple outputs or return actual JRE package
 

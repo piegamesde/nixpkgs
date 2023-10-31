@@ -17,9 +17,7 @@ let
     options = {
       autoStart = mkOption {
         default = true;
-        description =
-          lib.mdDoc
-            "Whether this VPN connection should be started automatically.";
+        description = lib.mdDoc "Whether this VPN connection should be started automatically.";
         type = types.bool;
       };
 

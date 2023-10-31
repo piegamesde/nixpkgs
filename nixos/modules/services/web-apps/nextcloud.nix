@@ -759,9 +759,7 @@ in
               A legacy Nextcloud install (from before NixOS ${nixos}) may be installed.
 
               After nextcloud${toString major} is installed successfully, you can safely upgrade
-              to ${toString (major + 1)}. The latest version available is nextcloud${
-                toString latest
-              }.
+              to ${toString (major + 1)}. The latest version available is nextcloud${toString latest}.
 
               Please note that Nextcloud doesn't support upgrades across multiple major versions
               (i.e. an upgrade from 16 is possible to 17, but not 16 to 18).
@@ -795,13 +793,10 @@ in
 
             For more context, here is the implementing pull request: https://github.com/NixOS/nixpkgs/pull/198470
           '')
-          ++ (optional
-            (cfg.enableBrokenCiphersForSSE && versionAtLeast cfg.package.version "26")
-            ''
-              Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
-              `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
-            ''
-          );
+          ++ (optional (cfg.enableBrokenCiphersForSSE && versionAtLeast cfg.package.version "26") ''
+            Nextcloud26 supports RC4 without requiring legacy OpenSSL, so
+            `services.nextcloud.enableBrokenCiphersForSSE` can be set to `false`.
+          '');
 
         services.nextcloud.package =
           with pkgs;
@@ -939,8 +934,7 @@ in
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],
                   ],
                   ${
-                    optionalString (showAppStoreSetting)
-                      "'appstoreenabled' => ${renderedAppStoreSetting},"
+                    optionalString (showAppStoreSetting) "'appstoreenabled' => ${renderedAppStoreSetting},"
                   }
                   'datadirectory' => '${datadir}/data',
                   'skeletondirectory' => '${cfg.skeletonDirectory}',
@@ -997,8 +991,7 @@ in
                   mkExport = { arg, value }: "export ${arg}=${value}";
                   dbpass = {
                     arg = "DBPASS";
-                    value =
-                      if c.dbpassFile != null then ''"$(<"${toString c.dbpassFile}")"'' else ''""'';
+                    value = if c.dbpassFile != null then ''"$(<"${toString c.dbpassFile}")"'' else ''""'';
                   };
                   adminpass = {
                     arg = "ADMINPASS";
@@ -1039,9 +1032,7 @@ in
             {
               wantedBy = [ "multi-user.target" ];
               before = [ "phpfpm-nextcloud.service" ];
-              after =
-                optional mysqlLocal "mysql.service"
-                ++ optional pgsqlLocal "postgresql.service";
+              after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
               requires =
                 optional mysqlLocal "mysql.service"
                 ++ optional pgsqlLocal "postgresql.service";
@@ -1109,9 +1100,7 @@ in
               serviceConfig.User = "nextcloud";
               # On Nextcloud ≥ 26, it is not necessary to patch the database files to prevent
               # an automatic creation of the database user.
-              environment.NC_setup_create_db_user =
-                lib.mkIf (nextcloudGreaterOrEqualThan "26")
-                  "false";
+              environment.NC_setup_create_db_user = lib.mkIf (nextcloudGreaterOrEqualThan "26") "false";
             };
           nextcloud-cron = {
             after = [ "nextcloud-setup.service" ];

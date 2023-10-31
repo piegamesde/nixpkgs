@@ -42,8 +42,7 @@ let
     babudb.logDir = ${home}/dir/db-log
     babudb.sync = ${if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode}
 
-    ${optionalString cfg.dir.replication.enable
-      "babudb.plugin.0 = ${dirReplicationConfig}"}
+    ${optionalString cfg.dir.replication.enable "babudb.plugin.0 = ${dirReplicationConfig}"}
 
     ${cfg.dir.extraConfig}
   '';
@@ -65,8 +64,7 @@ let
     babudb.logDir = ${home}/mrc/db-log
     babudb.sync = ${if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode}
 
-    ${optionalString cfg.mrc.replication.enable
-      "babudb.plugin.0 = ${mrcReplicationConfig}"}
+    ${optionalString cfg.mrc.replication.enable "babudb.plugin.0 = ${mrcReplicationConfig}"}
 
     ${cfg.mrc.extraConfig}
   '';

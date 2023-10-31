@@ -144,10 +144,7 @@ let
     prefix: properties:
     lib.concatStringsSep " \\\n" (
       lib.mapAttrsToList
-        (
-          property: value:
-          "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
-        )
+        (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
         properties
     );
 
@@ -172,10 +169,7 @@ let
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
       sorted =
         lib.sort
-          (
-            left: right:
-            (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount)
-          )
+          (left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount))
           mounts;
       cmd =
         { name, value }:
@@ -192,10 +186,7 @@ let
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
       sorted =
         lib.sort
-          (
-            left: right:
-            (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount)
-          )
+          (left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount))
           mounts;
       cmd =
         { name, value }:

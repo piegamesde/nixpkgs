@@ -9,9 +9,7 @@
 self: super:
 
 let
-  generatedGrammars = callPackage ./generated.nix {
-    inherit (tree-sitter) buildGrammar;
-  };
+  generatedGrammars = callPackage ./generated.nix { inherit (tree-sitter) buildGrammar; };
 
   generatedDerivations = lib.filterAttrs (_: lib.isDerivation) generatedGrammars;
 

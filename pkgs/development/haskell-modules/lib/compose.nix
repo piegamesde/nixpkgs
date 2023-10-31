@@ -36,9 +36,7 @@ rec {
   */
   overrideCabal =
     f: drv:
-    (drv.override (
-      args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; }
-    ))
+    (drv.override (args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; }))
     // {
       overrideScope = scope: overrideCabal f (drv.overrideScope scope);
     };
@@ -164,12 +162,10 @@ rec {
          > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
   */
   removeConfigureFlag =
-    x:
-    overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
+    x: overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
 
   addBuildTool = x: addBuildTools [ x ];
-  addBuildTools =
-    xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
+  addBuildTools = xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
 
   addExtraLibrary = x: addExtraLibraries [ x ];
   addExtraLibraries =
@@ -185,15 +181,12 @@ rec {
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =
-    xs:
-    overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
+    xs: overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
     xs:
-    overrideCabal (
-      drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; }
-    );
+    overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
 
   enableCabalFlag =
     x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
@@ -213,12 +206,8 @@ rec {
   enableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = true; });
   disableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = false; });
 
-  enableExecutableProfiling = overrideCabal (
-    drv: { enableExecutableProfiling = true; }
-  );
-  disableExecutableProfiling = overrideCabal (
-    drv: { enableExecutableProfiling = false; }
-  );
+  enableExecutableProfiling = overrideCabal (drv: { enableExecutableProfiling = true; });
+  disableExecutableProfiling = overrideCabal (drv: { enableExecutableProfiling = false; });
 
   enableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = true; });
   disableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = false; });
@@ -226,12 +215,8 @@ rec {
   enableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = true; });
   disableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = false; });
 
-  enableDeadCodeElimination = overrideCabal (
-    drv: { enableDeadCodeElimination = true; }
-  );
-  disableDeadCodeElimination = overrideCabal (
-    drv: { enableDeadCodeElimination = false; }
-  );
+  enableDeadCodeElimination = overrideCabal (drv: { enableDeadCodeElimination = true; });
+  disableDeadCodeElimination = overrideCabal (drv: { enableDeadCodeElimination = false; });
 
   enableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = true; });
   disableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = false; });
@@ -247,8 +232,7 @@ rec {
   #
   #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
   #
-  setBuildTargets =
-    xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
+  setBuildTargets = xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
   setBuildTarget = x: setBuildTargets [ x ];
 
   doHyperlinkSource = overrideCabal (drv: { hyperlinkSource = true; });
@@ -608,9 +592,7 @@ rec {
         executablePkgconfigDepends =
           propagatedPlainBuildInputs
             old.executablePkgconfigDepends or [ ];
-        libraryPkgconfigDepends =
-          propagatedPlainBuildInputs
-            old.libraryPkgconfigDepends or [ ];
+        libraryPkgconfigDepends = propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
         testPkgconfigDepends = propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
       }
     );

@@ -70,8 +70,7 @@ let
         builtins.filter lib.isDerivation (
           (pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ])
         );
-      collect =
-        pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
+      collect = pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
     in
     builtins.concatMap collect appRuntimeDeps;
 
@@ -94,15 +93,12 @@ let
   ];
 
   # Nix-specific compiler configuration.
-  pkgConfigPackages = map (lib.getOutput "dev") (
-    appBuildDeps ++ extraPkgConfigPackages
-  );
+  pkgConfigPackages = map (lib.getOutput "dev") (appBuildDeps ++ extraPkgConfigPackages);
   includeFlags = map (pkg: "-isystem ${lib.getOutput "dev" pkg}/include") (
     appStaticBuildDeps ++ extraIncludes
   );
   linkerFlags =
-    (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps)
-    ++ extraLinkerFlags;
+    (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps) ++ extraLinkerFlags;
 in
 (callPackage ./sdk-symlink.nix { }) (
   runCommandLocal "flutter-wrapped"
@@ -144,9 +140,7 @@ in
         --prefix CXXFLAGS "	" '${
           builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)
         }' \
-        --prefix CFLAGS "	" '${
-          builtins.concatStringsSep " " (includeFlags ++ extraCFlags)
-        }' \
+        --prefix CFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCFlags)}' \
         --prefix LDFLAGS "	" '${
           builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)
         }'

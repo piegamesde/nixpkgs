@@ -55,11 +55,7 @@ let
     hash = npmDepsHash;
   };
 
-  inherit (npmHooks.override { inherit nodejs; })
-    npmConfigHook
-    npmBuildHook
-    npmInstallHook
-  ;
+  inherit (npmHooks.override { inherit nodejs; }) npmConfigHook npmBuildHook npmInstallHook;
 in
 stdenv.mkDerivation (
   args

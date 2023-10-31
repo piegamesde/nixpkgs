@@ -40,10 +40,7 @@ let
   buildMenuGrub2 = buildMenuAdditionalParamsGrub2 "";
 
   targetArch =
-    if config.boot.loader.grub.forcei686 then
-      "ia32"
-    else
-      pkgs.stdenv.hostPlatform.efiArch;
+    if config.boot.loader.grub.forcei686 then "ia32" else pkgs.stdenv.hostPlatform.efiArch;
 
   #
   # Given params to add to `params`, build a set of default options.
@@ -80,10 +77,7 @@ let
   # null means max timeout (35996, just under 1h in 1/10 seconds)
   # 0 means disable timeout
   syslinuxTimeout =
-    if config.boot.loader.timeout == null then
-      35996
-    else
-      config.boot.loader.timeout * 10;
+    if config.boot.loader.timeout == null then 35996 else config.boot.loader.timeout * 10;
 
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
@@ -170,10 +164,7 @@ let
   );
 
   refindBinary =
-    if targetArch == "x64" || targetArch == "aa64" then
-      "refind_${targetArch}.efi"
-    else
-      null;
+    if targetArch == "x64" || targetArch == "aa64" then "refind_${targetArch}.efi" else null;
 
   # Setup instructions for rEFInd.
   refind =
@@ -788,13 +779,11 @@ in
     isoImage.contents =
       [
         {
-          source =
-            config.boot.kernelPackages.kernel + "/" + config.system.boot.loader.kernelFile;
+          source = config.boot.kernelPackages.kernel + "/" + config.system.boot.loader.kernelFile;
           target = "/boot/" + config.system.boot.loader.kernelFile;
         }
         {
-          source =
-            config.system.build.initialRamdisk + "/" + config.system.boot.loader.initrdFile;
+          source = config.system.build.initialRamdisk + "/" + config.system.boot.loader.initrdFile;
           target = "/boot/" + config.system.boot.loader.initrdFile;
         }
         {
@@ -834,8 +823,7 @@ in
           target = "/EFI";
         }
         {
-          source =
-            (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
+          source = (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
           target = "/boot/grub";
         }
         {
@@ -881,9 +869,7 @@ in
       }
       //
         optionalAttrs
-          (
-            config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot
-          )
+          (config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot)
           {
             usbBootable = true;
             isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";

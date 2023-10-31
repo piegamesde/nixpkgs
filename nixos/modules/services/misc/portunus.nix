@@ -20,9 +20,7 @@ in
     domain = mkOption {
       type = types.str;
       example = "sso.example.com";
-      description =
-        lib.mdDoc
-          "Subdomain which gets reverse proxied to Portunus webserver.";
+      description = lib.mdDoc "Subdomain which gets reverse proxied to Portunus webserver.";
     };
 
     port = mkOption {

@@ -18,8 +18,7 @@
   libXext,
   libICE,
   libXrandr,
-  pulseaudioSupport ?
-    config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
   OpenGL,
   GLUT,

@@ -37,9 +37,7 @@ let
         };
 
         autostart = mkOption {
-          description =
-            lib.mdDoc
-              "Whether to bring up this interface automatically during boot.";
+          description = lib.mdDoc "Whether to bring up this interface automatically during boot.";
           default = true;
           example = false;
           type = types.bool;
@@ -229,8 +227,7 @@ let
     };
   };
 
-  writeScriptFile =
-    name: text: ((pkgs.writeShellScriptBin name text) + "/bin/${name}");
+  writeScriptFile = name: text: ((pkgs.writeShellScriptBin name text) + "/bin/${name}");
 
   generateUnit =
     name: values:
@@ -241,8 +238,7 @@ let
         )
         "Only one of privateKey, configFile or privateKeyFile may be set";
     let
-      preUpFile =
-        if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
+      preUpFile = if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
       postUp =
         optional (values.privateKeyFile != null)
           "wg set ${name} private-key <(cat ${values.privateKeyFile})"
@@ -263,10 +259,7 @@ let
       preDownFile =
         if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
       postDownFile =
-        if values.postDown != "" then
-          writeScriptFile "postDown.sh" values.postDown
-        else
-          null;
+        if values.postDown != "" then writeScriptFile "postDown.sh" values.postDown else null;
       configDir = pkgs.writeTextFile {
         name = "config-${name}";
         executable = false;
@@ -410,9 +403,7 @@ in
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
     # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).
-    systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules =
-      mkDefault
-        false;
+    systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules = mkDefault false;
 
     # WireGuard interfaces should be ignored in determining whether the network is online.
     systemd.network.wait-online.ignoredInterfaces = builtins.attrNames cfg.interfaces;

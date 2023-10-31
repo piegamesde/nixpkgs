@@ -29,8 +29,7 @@ let
   # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
   hasPrefixInList =
     list: newPath:
-    lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
-      list;
+    lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath)) list;
   mergePaths =
     lib.foldl'
       (
@@ -264,8 +263,7 @@ in
           || (
             cfg.serverSettings.domain == null
             ->
-              cfg.serverSettings.role == "WriteReplica"
-              || cfg.serverSettings.role == "WriteReplicaNoUI"
+              cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI"
           );
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance

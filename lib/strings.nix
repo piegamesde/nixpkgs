@@ -311,8 +311,7 @@ rec {
             This function also copies the path to the Nix store, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
       (
-        lenContent >= lenSuffix
-        && substring (lenContent - lenSuffix) lenContent content == suffix
+        lenContent >= lenSuffix && substring (lenContent - lenSuffix) lenContent content == suffix
       );
 
   /* Determine whether a string contains the given infix
@@ -413,8 +412,7 @@ rec {
        => "foo\\x20bar"
   */
   escapeC =
-    list:
-    replaceStrings list (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list);
+    list: replaceStrings list (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list);
 
   /* Escape the string so it can be safely placed inside a URL
      query.
@@ -738,10 +736,7 @@ rec {
           preLen = stringLength prefix;
           sLen = stringLength str;
         in
-        if substring 0 preLen str == prefix then
-          substring preLen (sLen - preLen) str
-        else
-          str
+        if substring 0 preLen str == prefix then substring preLen (sLen - preLen) str else str
       );
 
   /* Return a string without the specified suffix, if the suffix matches.
@@ -1189,18 +1184,16 @@ rec {
             "/prefix/nix-profiles-library-paths.patch"
             "/prefix/compose-search-path.patch" ]
   */
-  readPathsFromFile =
-    lib.warn "lib.readPathsFromFile is deprecated, use a list instead"
-      (
-        rootPath: file:
-        let
-          lines = lib.splitString "\n" (readFile file);
-          removeComments = lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
-          relativePaths = removeComments lines;
-          absolutePaths = map (path: rootPath + "/${path}") relativePaths;
-        in
-        absolutePaths
-      );
+  readPathsFromFile = lib.warn "lib.readPathsFromFile is deprecated, use a list instead" (
+    rootPath: file:
+    let
+      lines = lib.splitString "\n" (readFile file);
+      removeComments = lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
+      relativePaths = removeComments lines;
+      absolutePaths = map (path: rootPath + "/${path}") relativePaths;
+    in
+    absolutePaths
+  );
 
   /* Read the contents of a file removing the trailing \n
 

@@ -157,8 +157,7 @@ let
 
   # Download and unpack the bootstrap tools (coreutils, GCC, Glibc, ...).
   bootstrapTools =
-    (import
-      (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools)
+    (import (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools)
       {
         inherit system bootstrapFiles;
         extraAttrs = lib.optionalAttrs config.contentAddressedByDefault {
@@ -212,9 +211,7 @@ let
               name = "${name}-gcc-wrapper";
               nativeTools = false;
               nativeLibc = false;
-              buildPackages = lib.optionalAttrs (prevStage ? stdenv) {
-                inherit (prevStage) stdenv;
-              };
+              buildPackages = lib.optionalAttrs (prevStage ? stdenv) { inherit (prevStage) stdenv; };
               cc = prevStage.gcc-unwrapped;
               bintools = prevStage.binutils;
               isGNU = true;

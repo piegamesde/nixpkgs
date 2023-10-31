@@ -73,13 +73,10 @@ python.pkgs.buildPythonApplication rec {
       --replace 'python-Levenshtein = "^0.12.0"' 'Levenshtein = ">0.12.0"'
   '';
 
-  buildInputs =
-    [
-      gtk3
-      pango
-    ]
-    ++ lib.optional notifySupport libnotify
-    ++ lib.optional networkSupport networkmanager;
+  buildInputs = [
+    gtk3
+    pango
+  ] ++ lib.optional notifySupport libnotify ++ lib.optional networkSupport networkmanager;
 
   propagatedBuildInputs =
     with python.pkgs;

@@ -56,9 +56,7 @@ symlinkJoin {
         RetroArch is the reference frontend for the libretro API.
       ''
       + lib.optionalString (cores != [ ]) ''
-        The following cores are included: ${
-          lib.concatStringsSep ", " (map (c: c.core) cores)
-        }
+        The following cores are included: ${lib.concatStringsSep ", " (map (c: c.core) cores)}
       '';
     mainProgram = "retroarch";
   };

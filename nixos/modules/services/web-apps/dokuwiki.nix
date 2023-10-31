@@ -15,19 +15,14 @@ let
   user = "dokuwiki";
   webserver = config.services.${cfg.webserver};
 
-  mkPhpIni = generators.toKeyValue {
-    mkKeyValue = generators.mkKeyValueDefault { } " = ";
-  };
-  mkPhpPackage =
-    cfg: cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; };
+  mkPhpIni = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " = "; };
+  mkPhpPackage = cfg: cfg.phpPackage.buildEnv { extraConfig = mkPhpIni cfg.phpOptions; };
 
   dokuwikiAclAuthConfig =
     hostName: cfg:
     let
       inherit (cfg) acl;
-      acl_gen = concatMapStringsSep "\n" (
-        l: "${l.page} 	 ${l.actor} 	 ${toString l.level}"
-      );
+      acl_gen = concatMapStringsSep "\n" (l: "${l.page} 	 ${l.actor} 	 ${toString l.level}");
     in
     pkgs.writeText "acl.auth-${hostName}.php" ''
       # acl.auth.php
@@ -75,8 +70,7 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort
-        "The dokuwiki localConf value ${lib.generators.toPretty { } v} can not be encoded.";
+      abort "The dokuwiki localConf value ${lib.generators.toPretty { } v} can not be encoded.";
 
   mkPhpAttrVals = v: flatten (mapAttrsToList mkPhpKeyVal v);
   mkPhpKeyVal =
@@ -105,9 +99,7 @@ let
       pc = cfg.pluginsConfig;
       pc_gen =
         pc:
-        concatStringsSep "\n" (
-          mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc
-        );
+        concatStringsSep "\n" (mapAttrsToList (n: v: "$plugins['${n}'] = ${boolToString v};") pc);
     in
     writePhpFile "plugins.local-${hostName}.php" ''
       ${if isString pc then pc else pc_gen pc}
@@ -201,9 +193,7 @@ let
           apply =
             x:
             builtins.trace
-              "Obsolete option `${showOption fromPath}' is used. It was renamed to ${
-                showOption toPath
-              }"
+              "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}"
               toOp;
         }
       );
@@ -280,11 +270,8 @@ let
                   ${replaceExtraConfig}'';
               }
               {
-                assertion =
-                  config.mergedConfig.useacl -> (config.acl != null || config.aclFile != null);
-                message = "Either ${showPath [ "acl" ]} or ${
-                    showPath [ "aclFile" ]
-                  } is mandatory if ${
+                assertion = config.mergedConfig.useacl -> (config.acl != null || config.aclFile != null);
+                message = "Either ${showPath [ "acl" ]} or ${showPath [ "aclFile" ]} is mandatory if ${
                     showPath [
                       "settings"
                       "useacl"
@@ -384,10 +371,7 @@ let
         usersFile = mkOption {
           type = with types; nullOr str;
           default =
-            if config.mergedConfig.useacl then
-              "/var/lib/dokuwiki/${name}/users.auth.php"
-            else
-              null;
+            if config.mergedConfig.useacl then "/var/lib/dokuwiki/${name}/users.auth.php" else null;
           description = lib.mdDoc ''
             Location of the dokuwiki users file. List of users. Format:
 
@@ -617,9 +601,7 @@ in
 
                 phpPackage = mkPhpPackage cfg;
                 phpEnv =
-                  optionalAttrs (cfg.usersFile != null) {
-                    DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}";
-                  }
+                  optionalAttrs (cfg.usersFile != null) { DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}"; }
                   // optionalAttrs (cfg.mergedConfig.useacl) {
                     DOKUWIKI_ACL_AUTH_CONFIG =
                       if (cfg.acl != null) then

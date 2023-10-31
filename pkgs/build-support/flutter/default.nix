@@ -89,9 +89,7 @@ let
 
         flutter packages get --offline -v
         flutter build linux -v --release --split-debug-info="$debug" ${
-          builtins.concatStringsSep " " (
-            map (flag: ''"${flag}"'') finalAttrs.flutterBuildFlags
-          )
+          builtins.concatStringsSep " " (map (flag: ''"${flag}"'') finalAttrs.flutterBuildFlags)
         }
 
         runHook postBuild
@@ -136,9 +134,7 @@ let
         # which is not what application authors expect.
         for f in "$out"/bin/*; do
           wrapProgram "$f" \
-            --suffix LD_LIBRARY_PATH : '${
-              lib.makeLibraryPath finalAttrs.runtimeDependencies
-            }'
+            --suffix LD_LIBRARY_PATH : '${lib.makeLibraryPath finalAttrs.runtimeDependencies}'
         done
 
         ${postFixup}

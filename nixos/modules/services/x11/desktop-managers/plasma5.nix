@@ -354,14 +354,10 @@ in
           ];
         in
         requiredPackages
-        ++
-          utils.removePackagesByName optionalPackages
-            config.environment.plasma5.excludePackages
+        ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages
 
         # Phonon audio backend
-        ++
-          lib.optional (cfg.phononBackend == "gstreamer")
-            libsForQt5.phonon-backend-gstreamer
+        ++ lib.optional (cfg.phononBackend == "gstreamer") libsForQt5.phonon-backend-gstreamer
         ++ lib.optional (cfg.phononBackend == "vlc") libsForQt5.phonon-backend-vlc
 
         # Optional hardware support features
@@ -538,9 +534,7 @@ in
           ];
         in
         requiredPackages
-        ++
-          utils.removePackagesByName optionalPackages
-            config.environment.plasma5.excludePackages;
+        ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages;
 
       systemd.user.services = {
         plasma-run-with-systemd = {

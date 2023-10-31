@@ -56,10 +56,7 @@ let
         ]
         ++
           lib.optionals
-            (
-              packpathDirs.myNeovimPackages.start != [ ]
-              || packpathDirs.myNeovimPackages.opt != [ ]
-            )
+            (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
             [
               "--add-flags"
               ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''

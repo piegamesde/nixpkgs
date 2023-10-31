@@ -123,9 +123,7 @@ in
       extraPackages32 = mkOption {
         type = types.listOf types.package;
         default = [ ];
-        example =
-          literalExpression
-            "with pkgs.pkgsi686Linux; [ intel-media-driver vaapiIntel ]";
+        example = literalExpression "with pkgs.pkgsi686Linux; [ intel-media-driver vaapiIntel ]";
         description = lib.mdDoc ''
           Additional packages to add to 32-bit OpenGL drivers on 64-bit systems.
           Used when {option}`driSupport32Bit` is set. This can be used to add OpenCL drivers, VA-API/VDPAU drivers etc.
@@ -178,8 +176,7 @@ in
     ];
 
     environment.sessionVariables.LD_LIBRARY_PATH = mkIf cfg.setLdLibraryPath (
-      [ "/run/opengl-driver/lib" ]
-      ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib"
+      [ "/run/opengl-driver/lib" ] ++ optional cfg.driSupport32Bit "/run/opengl-driver-32/lib"
     );
 
     hardware.opengl.package = mkDefault pkgs.mesa.drivers;

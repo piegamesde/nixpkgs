@@ -6,9 +6,7 @@
 let
   versions = lib.importJSON ./versions.json;
 
-  latestVersion = lib.last (
-    builtins.sort lib.versionOlder (builtins.attrNames versions)
-  );
+  latestVersion = lib.last (builtins.sort lib.versionOlder (builtins.attrNames versions));
   escapeVersion = builtins.replaceStrings [ "." ] [ "-" ];
 
   getJavaVersion =

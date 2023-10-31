@@ -164,8 +164,7 @@ in
                 --name ${escapeShellArg cfg.name}
                 ${optionalString cfg.replace "--replace"}
                 ${
-                  optionalString (cfg.runnerGroup != null)
-                    "--runnergroup ${escapeShellArg cfg.runnerGroup}"
+                  optionalString (cfg.runnerGroup != null) "--runnergroup ${escapeShellArg cfg.runnerGroup}"
                 }
                 ${optionalString cfg.ephemeral "--ephemeral"}
               )
@@ -193,9 +192,7 @@ in
             ln -s "$LOGS_DIRECTORY" "$WORK_DIRECTORY/_diag"
 
             # Link the runner credentials to the work dir
-            ln -s "$STATE_DIRECTORY"/{${
-              lib.concatStringsSep "," runnerCredFiles
-            }} "$WORK_DIRECTORY/"
+            ln -s "$STATE_DIRECTORY"/{${lib.concatStringsSep "," runnerCredFiles}} "$WORK_DIRECTORY/"
           '';
         in
         map

@@ -130,9 +130,7 @@ let
       extraFlags+=" --network-bridge=$HOST_BRIDGE"
     fi
 
-    extraFlags+=" ${
-      concatStringsSep " " (mapAttrsToList nspawnExtraVethArgs cfg.extraVeths)
-    }"
+    extraFlags+=" ${concatStringsSep " " (mapAttrsToList nspawnExtraVethArgs cfg.extraVeths)}"
 
     for iface in $INTERFACES; do
       extraFlags+=" --network-interface=$iface"
@@ -179,8 +177,7 @@ let
       --setenv PATH="$PATH" \
       ${optionalString cfg.ephemeral "--ephemeral"} \
       ${
-        optionalString
-          (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
+        optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
           ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
       } \
       ${
@@ -201,8 +198,7 @@ let
     fi
 
     ${concatStringsSep "\n" (
-      mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ")
-        cfg.extraVeths
+      mapAttrsToList (name: cfg: "ip link del dev ${name} 2> /dev/null || true ") cfg.extraVeths
     )}
   '';
 
@@ -848,8 +844,7 @@ in
       warnings =
         (optional
           (
-            config.virtualisation.containers.enable
-            && versionOlder config.system.stateVersion "22.05"
+            config.virtualisation.containers.enable && versionOlder config.system.stateVersion "22.05"
           )
           ''
             Enabling both boot.enableContainers & virtualisation.containers on system.stateVersion < 22.05 is unsupported.
@@ -899,10 +894,7 @@ in
                     lib.optional (!containerConfig.ephemeral)
                       "${stateDirectory}/%i";
                   environment.root =
-                    if containerConfig.ephemeral then
-                      "/run/nixos-containers/%i"
-                    else
-                      "${stateDirectory}/%i";
+                    if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
                 }
                 // (
                   if containerConfig.autoStart then
@@ -937,9 +929,7 @@ in
             + ":"
             + (toString p.hostPort)
             + ":"
-            + (
-              if p.containerPort == null then toString p.hostPort else toString p.containerPort
-            );
+            + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
         in
         mapAttrs'
           (

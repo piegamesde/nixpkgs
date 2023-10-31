@@ -84,9 +84,7 @@ in
       collectors = mkOption {
         type = with types; attrsOf (listOf path);
         default = { };
-        example =
-          literalExpression
-            ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
+        example = literalExpression ''{ "0" = [ "''${postgresStats}/bin/collect-stats" ]; }'';
         description = lib.mdDoc ''
           An attribute set mapping the frequency of collection to a list of
           binaries that should be executed at that frequency. You can use "0"

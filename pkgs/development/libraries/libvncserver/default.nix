@@ -31,15 +31,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [
-      libjpeg
-      openssl
-      libgcrypt
-      libpng
-    ]
-    ++ lib.optionals stdenv.isLinux [ systemd ]
-    ++ lib.optionals stdenv.isDarwin [ Carbon ];
+  buildInputs = [
+    libjpeg
+    openssl
+    libgcrypt
+    libpng
+  ] ++ lib.optionals stdenv.isLinux [ systemd ] ++ lib.optionals stdenv.isDarwin [ Carbon ];
 
   propagatedBuildInputs = [ zlib ];
 

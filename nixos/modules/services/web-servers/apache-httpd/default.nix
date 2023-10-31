@@ -209,11 +209,9 @@ let
         else
           abort "This case should never happen.";
 
-      sslServerCert =
-        if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
+      sslServerCert = if useACME then "${sslCertDir}/fullchain.pem" else hostOpts.sslServerCert;
       sslServerKey = if useACME then "${sslCertDir}/key.pem" else hostOpts.sslServerKey;
-      sslServerChain =
-        if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
+      sslServerChain = if useACME then "${sslCertDir}/chain.pem" else hostOpts.sslServerChain;
 
       acmeChallenge = optionalString (useACME && hostOpts.acmeRoot != null) ''
         Alias /.well-known/acme-challenge/ "${hostOpts.acmeRoot}/.well-known/acme-challenge/"
@@ -273,9 +271,7 @@ let
           SSLEngine on
           SSLCertificateFile ${sslServerCert}
           SSLCertificateKeyFile ${sslServerKey}
-          ${
-            optionalString (sslServerChain != null) "SSLCertificateChainFile ${sslServerChain}"
-          }
+          ${optionalString (sslServerChain != null) "SSLCertificateChainFile ${sslServerChain}"}
           ${optionalString hostOpts.http2 "Protocols h2 h2c http/1.1"}
           ${acmeChallenge}
           ${mkVHostCommonConf hostOpts}
@@ -355,10 +351,9 @@ let
         </Directory>
       ''}
 
-      ${optionalString (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "")
-        ''
-          RedirectPermanent / ${hostOpts.globalRedirect}
-        ''}
+      ${optionalString (hostOpts.globalRedirect != null && hostOpts.globalRedirect != "") ''
+        RedirectPermanent / ${hostOpts.globalRedirect}
+      ''}
 
       ${let
         makeDirConf = elem: ''
@@ -397,9 +392,7 @@ let
     ${let
       toStr =
         listen:
-        "Listen ${listen.ip}:${toString listen.port} ${
-          if listen.ssl then "https" else "http"
-        }";
+        "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
     concatStringsSep "\n" uniqueListen}
@@ -420,8 +413,9 @@ let
         else
           throw "Expecting either a string or attribute set including a name and path.";
     in
-    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}")
-      (unique (map mkModule modules))}
+    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}") (
+      unique (map mkModule modules)
+    )}
 
     AddHandler type-map var
 
@@ -477,9 +471,7 @@ let
         echo "$options" >> $out
       '';
 
-  mkCertOwnershipAssertion =
-    import
-      ../../../security/acme/mk-cert-ownership-assertion.nix;
+  mkCertOwnershipAssertion = import ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 
 {
@@ -642,9 +634,7 @@ in
         type = types.path;
         default = confFile;
         defaultText = literalExpression "confFile";
-        example =
-          literalExpression
-            ''pkgs.writeText "httpd.conf" "# my custom config file ..."'';
+        example = literalExpression ''pkgs.writeText "httpd.conf" "# my custom config file ..."'';
         description = lib.mdDoc ''
           Override the configuration file used by Apache. By default,
           NixOS generates one automatically.
@@ -846,9 +836,7 @@ in
       sslCiphers = mkOption {
         type = types.str;
         default = "HIGH:!aNULL:!MD5:!EXP";
-        description =
-          lib.mdDoc
-            "Cipher Suite available for negotiation in SSL proxy handshake.";
+        description = lib.mdDoc "Cipher Suite available for negotiation in SSL proxy handshake.";
       };
 
       sslProtocols = mkOption {
@@ -890,9 +878,7 @@ in
           '';
         }
         {
-          assertion =
-            all (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null))
-              vhosts;
+          assertion = all (hostOpts: !(hostOpts.enableACME && hostOpts.useACMEHost != null)) vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.enableACME` and
             `services.httpd.virtualHosts.<name>.useACMEHost` are mutually exclusive.

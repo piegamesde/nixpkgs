@@ -7,9 +7,7 @@ let
       lib.filterAttrs
         (
           _: v:
-          (builtins.tryEval (v.outPath or null)).success
-          && lib.isDerivation v
-          && !v.meta.broken
+          (builtins.tryEval (v.outPath or null)).success && lib.isDerivation v && !v.meta.broken
         )
         x
     );

@@ -38,15 +38,9 @@ let
     sendversion=${boolToString cfg.sendVersion}
 
     ${if cfg.registerName == "" then "" else "registerName=" + cfg.registerName}
-    ${if cfg.registerPassword == "" then
-      ""
-    else
-      "registerPassword=" + cfg.registerPassword}
+    ${if cfg.registerPassword == "" then "" else "registerPassword=" + cfg.registerPassword}
     ${if cfg.registerUrl == "" then "" else "registerUrl=" + cfg.registerUrl}
-    ${if cfg.registerHostname == "" then
-      ""
-    else
-      "registerHostname=" + cfg.registerHostname}
+    ${if cfg.registerHostname == "" then "" else "registerHostname=" + cfg.registerHostname}
 
     certrequired=${boolToString cfg.clientCertRequired}
     ${if cfg.sslCert == "" then "" else "sslCert=" + cfg.sslCert}

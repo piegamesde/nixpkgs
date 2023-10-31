@@ -97,9 +97,7 @@
 
       alkimia = callPackage ../development/libraries/alkimia { };
 
-      applet-window-buttons =
-        callPackage ../development/libraries/applet-window-buttons
-          { };
+      applet-window-buttons = callPackage ../development/libraries/applet-window-buttons { };
 
       appstream-qt = callPackage ../development/libraries/appstream/qt.nix { };
 
@@ -129,9 +127,7 @@
 
       kf5gpgmepp = callPackage ../development/libraries/kf5gpgmepp { };
 
-      kirigami-addons =
-        libsForQt5.callPackage ../development/libraries/kirigami-addons
-          { };
+      kirigami-addons = libsForQt5.callPackage ../development/libraries/kirigami-addons { };
 
       kimageannotator = callPackage ../development/libraries/kimageannotator { };
 
@@ -159,16 +155,14 @@
 
       packagekit-qt = callPackage ../tools/package-management/packagekit/qt.nix { };
 
-      libopenshot-audio =
-        callPackage ../applications/video/openshot-qt/libopenshot-audio.nix
-          {
-            inherit (pkgs.darwin.apple_sdk.frameworks)
-              Accelerate
-              AGL
-              Cocoa
-              Foundation
-            ;
-          };
+      libopenshot-audio = callPackage ../applications/video/openshot-qt/libopenshot-audio.nix {
+        inherit (pkgs.darwin.apple_sdk.frameworks)
+          Accelerate
+          AGL
+          Cocoa
+          Foundation
+        ;
+      };
 
       libqglviewer = callPackage ../development/libraries/libqglviewer {
         inherit (pkgs.darwin.apple_sdk.frameworks) AGL;
@@ -184,9 +178,7 @@
 
       kpmcore = callPackage ../development/libraries/kpmcore { };
 
-      mapbox-gl-native =
-        libsForQt5.callPackage ../development/libraries/mapbox-gl-native
-          { };
+      mapbox-gl-native = libsForQt5.callPackage ../development/libraries/mapbox-gl-native { };
 
       mapbox-gl-qml = libsForQt5.callPackage ../development/libraries/mapbox-gl-qml { };
 
@@ -202,9 +194,7 @@
         callPackage ../development/libraries/phonon/backends/gstreamer.nix
           { };
 
-      phonon-backend-vlc =
-        callPackage ../development/libraries/phonon/backends/vlc.nix
-          { };
+      phonon-backend-vlc = callPackage ../development/libraries/phonon/backends/vlc.nix { };
 
       plasma-wayland-protocols =
         callPackage ../development/libraries/plasma-wayland-protocols
@@ -260,9 +250,7 @@
 
       qtstyleplugins = callPackage ../development/libraries/qtstyleplugins { };
 
-      qtstyleplugin-kvantum =
-        callPackage ../development/libraries/qtstyleplugin-kvantum
-          { };
+      qtstyleplugin-kvantum = callPackage ../development/libraries/qtstyleplugin-kvantum { };
 
       quazip = callPackage ../development/libraries/quazip { };
 
@@ -286,9 +274,7 @@
 
       soundkonverter = callPackage ../applications/audio/soundkonverter { };
 
-      xp-pen-deco-01-v2-driver =
-        callPackage ../os-specific/linux/xp-pen-drivers/deco-01-v2
-          { };
+      xp-pen-deco-01-v2-driver = callPackage ../os-specific/linux/xp-pen-drivers/deco-01-v2 { };
 
       xp-pen-g430-driver = callPackage ../os-specific/linux/xp-pen-drivers/g430 { };
 

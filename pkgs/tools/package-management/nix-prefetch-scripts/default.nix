@@ -66,9 +66,9 @@ rec {
         git
         git-lfs
       ];
-  nix-prefetch-hg =
-    mkPrefetchScript "hg" ../../../build-support/fetchhg/nix-prefetch-hg
-      [ mercurial ];
+  nix-prefetch-hg = mkPrefetchScript "hg" ../../../build-support/fetchhg/nix-prefetch-hg [
+    mercurial
+  ];
   nix-prefetch-svn =
     mkPrefetchScript "svn" ../../../build-support/fetchsvn/nix-prefetch-svn
       [ subversion ];

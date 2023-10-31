@@ -10,8 +10,7 @@
   melpaStablePackages,
   runCommand,
   tree-sitter-grammars,
-  plugins ?
-    map (g: tree-sitter-grammars.${g}) (lib.importJSON ./default-grammars.json),
+  plugins ? map (g: tree-sitter-grammars.${g}) (lib.importJSON ./default-grammars.json),
   final,
 }:
 
@@ -65,8 +64,7 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (
 
     passthru = old.passthru or { } // {
       inherit plugins;
-      withPlugins =
-        fn: final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; };
+      withPlugins = fn: final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; };
     };
   }
 )

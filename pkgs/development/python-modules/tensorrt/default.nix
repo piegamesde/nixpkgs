@@ -8,9 +8,7 @@
 }:
 
 let
-  pyVersion = "${lib.versions.major python.version}${
-      lib.versions.minor python.version
-    }";
+  pyVersion = "${lib.versions.major python.version}${lib.versions.minor python.version}";
 in
 buildPythonPackage rec {
   pname = "tensorrt";

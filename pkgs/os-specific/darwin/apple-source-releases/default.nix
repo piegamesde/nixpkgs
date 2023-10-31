@@ -324,8 +324,7 @@ developerToolsPackages_11_3_1
       "sha256-FLgODBrfv+XsGaAjddncYAm/BIJJYw6LcwX/z7ncKFM="
       { };
   configd =
-    applePackage "configd" "osx-10.8.5"
-      "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
+    applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
       {
         Security =
           applePackage "Security/boot.nix" "osx-10.9.5"
@@ -337,16 +336,13 @@ developerToolsPackages_11_3_1
       "sha256-uHqLFOIpXK+n0RHyOZzVsP2DDZcFDivKCnqHBaXvHns="
       { };
   Csu =
-    applePackage "Csu" "osx-10.11.6"
-      "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY="
+    applePackage "Csu" "osx-10.11.6" "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY="
       { };
   dtrace =
-    applePackage "dtrace" "osx-10.12.6"
-      "sha256-Icr22ozixHquI0kRB2XZ+LlxD6V46sJHsHy4L/tDXZg="
+    applePackage "dtrace" "osx-10.12.6" "sha256-Icr22ozixHquI0kRB2XZ+LlxD6V46sJHsHy4L/tDXZg="
       { };
   dyld =
-    applePackage "dyld" "osx-10.12.6"
-      "sha256-JmKnOZtBPf96zEx7vhYHLBSTOPyKN71IdYE3R0IeJww="
+    applePackage "dyld" "osx-10.12.6" "sha256-JmKnOZtBPf96zEx7vhYHLBSTOPyKN71IdYE3R0IeJww="
       { };
   eap8021x =
     applePackage "eap8021x" "osx-10.11.6"
@@ -354,16 +350,13 @@ developerToolsPackages_11_3_1
       { };
   IOKit = applePackage "IOKit" "osx-10.11.6" "" { inherit IOKitSrcs; };
   launchd =
-    applePackage "launchd" "osx-10.9.5"
-      "sha256-dmV0UK7hG9wvTr+F4Z47nCFXcVZCV+cQ46WbE0DBtJs="
+    applePackage "launchd" "osx-10.9.5" "sha256-dmV0UK7hG9wvTr+F4Z47nCFXcVZCV+cQ46WbE0DBtJs="
       { };
   libauto =
-    applePackage "libauto" "osx-10.9.5"
-      "sha256-GnRcKq8jRbEsI/PSDphwUjWtpEIEcnLlQL9yxYLgSsU="
+    applePackage "libauto" "osx-10.9.5" "sha256-GnRcKq8jRbEsI/PSDphwUjWtpEIEcnLlQL9yxYLgSsU="
       { };
   Libc =
-    applePackage "Libc" "osx-10.12.6"
-      "sha256-LSsL7S3KFgGU9qjK4atu/4wBh8ftgfsk6JOvg+ZTZOY="
+    applePackage "Libc" "osx-10.12.6" "sha256-LSsL7S3KFgGU9qjK4atu/4wBh8ftgfsk6JOvg+ZTZOY="
       {
         Libc_10-9 = fetchFromGitHub {
           owner = "apple-oss-distributions";
@@ -389,12 +382,10 @@ developerToolsPackages_11_3_1
       "sha256-ZzPFkchK3EU95UQUVVrR0t8iilhi/VnIkjjtP6KT2oI="
       { };
   Libinfo =
-    applePackage "Libinfo" "osx-10.11.6"
-      "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ="
+    applePackage "Libinfo" "osx-10.11.6" "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ="
       { };
   Libm =
-    applePackage "Libm" "osx-10.7.4"
-      "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es="
+    applePackage "Libm" "osx-10.7.4" "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es="
       { };
   Libnotify =
     applePackage "Libnotify" "osx-10.12.6"
@@ -417,8 +408,7 @@ developerToolsPackages_11_3_1
       "sha256-zvRdCP//TjKCGAqm/5nJXPppshU1cv2fg/L/yK/olGQ="
       { };
   libutil =
-    applePackage "libutil" "osx-10.12.6"
-      "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs="
+    applePackage "libutil" "osx-10.12.6" "sha256-4PFuk+CTLwvd/Ll9GLBkiIM0Sh/CVaiKwh5m1noheRs="
       { };
   libunwind =
     applePackage "libunwind" "osx-10.12.6"
@@ -429,12 +419,10 @@ developerToolsPackages_11_3_1
       "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY="
       { };
   objc4 =
-    applePackage "objc4" "osx-10.12.6"
-      "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM="
+    applePackage "objc4" "osx-10.12.6" "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM="
       { };
   ppp =
-    applePackage "ppp" "osx-10.12.6"
-      "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0="
+    applePackage "ppp" "osx-10.12.6" "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0="
       { };
   removefile =
     applePackage "removefile" "osx-10.12.6"
@@ -442,16 +430,13 @@ developerToolsPackages_11_3_1
       { };
   xnu =
     if stdenv.isx86_64 then
-      applePackage "xnu" "osx-10.12.6"
-        "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI="
-        {
-          python3 = pkgs.buildPackages.buildPackages.python3; # TODO(@Ericson2314) this shouldn't be needed.
-        }
+      applePackage "xnu" "osx-10.12.6" "sha256-C8TPQlUT3RbzAy8YnZPNtr70hpaVG9Llv0h42s3NENI=" {
+        python3 = pkgs.buildPackages.buildPackages.python3; # TODO(@Ericson2314) this shouldn't be needed.
+      }
     else
       macosPackages_11_0_1.xnu;
   hfs =
-    applePackage "hfs" "osx-10.12.6"
-      "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4="
+    applePackage "hfs" "osx-10.12.6" "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4="
       { };
   Librpcsvc =
     applePackage "Librpcsvc" "osx-10.11.6"
@@ -497,8 +482,7 @@ developerToolsPackages_11_3_1
       "sha256-KSebU7ZyUsPeqn51nzuGNaNxs9pvmlIQQdkWXIVzDxw="
       { };
   top =
-    applePackage "top" "osx-10.11.6"
-      "sha256-jbz64ODogtpNyLpXGSZj1jCBdFPVXcVcBkL1vc7g5qQ="
+    applePackage "top" "osx-10.11.6" "sha256-jbz64ODogtpNyLpXGSZj1jCBdFPVXcVcBkL1vc7g5qQ="
       { };
   PowerManagement =
     applePackage "PowerManagement" "osx-10.11.6"
@@ -508,8 +492,7 @@ developerToolsPackages_11_3_1
   # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
   # be replaced by SystemConfiguration.framework from the macOS SDK.
   configdHeaders =
-    applePackage "configd" "osx-10.8.5"
-      "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
+    applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
       {
         headersOnly = true;
         Security = null;

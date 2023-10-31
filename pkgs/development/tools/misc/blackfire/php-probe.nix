@@ -69,9 +69,7 @@ let
     fetchurl {
       url = "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
           if isLinux then "linux" else "darwin"
-        }_${hashes.${system}.system}-php-${
-          builtins.replaceStrings [ "." ] [ "" ] phpMajor
-        }.so";
+        }_${hashes.${system}.system}-php-${builtins.replaceStrings [ "." ] [ "" ] phpMajor}.so";
       sha256 = hashes.${system}.sha256.${phpMajor};
     };
   self = stdenv.mkDerivation rec {
@@ -116,9 +114,7 @@ let
             exit 0
         fi
 
-        for source in ${
-          lib.concatStringsSep " " (builtins.attrNames passthru.updateables)
-        }; do
+        for source in ${lib.concatStringsSep " " (builtins.attrNames passthru.updateables)}; do
           update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "0" "${lib.fakeSha256}"
           update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "$NEW_VERSION"
         done

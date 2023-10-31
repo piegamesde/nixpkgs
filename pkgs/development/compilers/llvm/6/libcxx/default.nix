@@ -65,9 +65,7 @@ stdenv.mkDerivation {
       "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
     ]
     ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
-    ++
-      lib.optional (cxxabi.pname == "libcxxabi")
-        "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib";
+    ++ lib.optional (cxxabi.pname == "libcxxabi") "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

@@ -176,9 +176,7 @@ stdenv.mkDerivation (
 
     makeFlags = [
       "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/flatpak"
-      "installed_test_metadir=${
-        placeholder "installedTests"
-      }/share/installed-tests/flatpak"
+      "installed_test_metadir=${placeholder "installedTests"}/share/installed-tests/flatpak"
     ];
 
     postPatch =

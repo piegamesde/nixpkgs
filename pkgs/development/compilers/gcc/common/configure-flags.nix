@@ -133,8 +133,7 @@ let
               "--disable-libsanitizer"
             ]
         ++
-          lib.optional
-            (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
+          lib.optional (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
             "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
     );
@@ -153,9 +152,7 @@ let
         if libcCross == null then
           "--with-native-system-header-dir=${lib.getDev stdenv.cc.libc}/include"
         else
-          "--with-native-system-header-dir=${lib.getDev libcCross}${
-            libcCross.incdir or "/include"
-          }"
+          "--with-native-system-header-dir=${lib.getDev libcCross}${libcCross.incdir or "/include"}"
       )
       # gcc builds for cross-compilers (build != host) or cross-built
       # gcc (host != target) always apply the offset prefix to disentangle

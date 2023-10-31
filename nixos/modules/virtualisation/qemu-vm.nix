@@ -241,9 +241,7 @@ let
         ${
           concatStringsSep " \\\n    " (
             mapAttrsToList
-              (
-                tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
-              )
+              (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}")
               config.virtualisation.sharedDirectories
           )
         } \
@@ -485,15 +483,11 @@ in
         types.submodule {
           options.source = mkOption {
             type = types.str;
-            description =
-              lib.mdDoc
-                "The path of the directory to share, can be a shell variable";
+            description = lib.mdDoc "The path of the directory to share, can be a shell variable";
           };
           options.target = mkOption {
             type = types.path;
-            description =
-              lib.mdDoc
-                "The mount point of the directory inside the virtual machine";
+            description = lib.mdDoc "The mount point of the directory inside the virtual machine";
           };
         }
       );
@@ -1037,8 +1031,7 @@ in
       in
       [
         "-net nic,netdev=user.0,model=virtio"
-        ''
-          -netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
+        ''-netdev user,id=user.0,${forwardingOptions}${restrictNetworkOption}"$QEMU_NET_OPTS"''
       ];
 
     # FIXME: Consolidate this one day.
@@ -1119,8 +1112,7 @@ in
     virtualisation.fileSystems =
       let
         mkSharedDir = tag: share: {
-          name =
-            if tag == "nix-store" && cfg.writableStore then "/nix/.ro-store" else share.target;
+          name = if tag == "nix-store" && cfg.writableStore then "/nix/.ro-store" else share.target;
           value.device = tag;
           value.fsType = "9p";
           value.neededForBoot = true;
@@ -1180,33 +1172,31 @@ in
         }
       ];
 
-    boot.initrd.systemd =
-      lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore)
+    boot.initrd.systemd = lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore) {
+      mounts = [
         {
-          mounts = [
-            {
-              where = "/sysroot/nix/store";
-              what = "overlay";
-              type = "overlay";
-              options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
-              wantedBy = [ "initrd-fs.target" ];
-              before = [ "initrd-fs.target" ];
-              requires = [ "rw-store.service" ];
-              after = [ "rw-store.service" ];
-              unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
-            }
-          ];
-          services.rw-store = {
-            unitConfig = {
-              DefaultDependencies = false;
-              RequiresMountsFor = "/sysroot/nix/.rw-store";
-            };
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart = "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
-            };
-          };
+          where = "/sysroot/nix/store";
+          what = "overlay";
+          type = "overlay";
+          options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
+          wantedBy = [ "initrd-fs.target" ];
+          before = [ "initrd-fs.target" ];
+          requires = [ "rw-store.service" ];
+          after = [ "rw-store.service" ];
+          unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
+        }
+      ];
+      services.rw-store = {
+        unitConfig = {
+          DefaultDependencies = false;
+          RequiresMountsFor = "/sysroot/nix/.rw-store";
         };
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "/bin/mkdir -p -m 0755 /sysroot/nix/.rw-store/store /sysroot/nix/.rw-store/work /sysroot/nix/store";
+        };
+      };
+    };
 
     swapDevices = (if cfg.useDefaultFilesystems then mkVMOverride else mkDefault) [ ];
     boot.initrd.luks.devices =

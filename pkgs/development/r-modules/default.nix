@@ -91,9 +91,7 @@ let
         version,
         biocVersion,
       }:
-      [
-        "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz"
-      ];
+      [ "mirror://bioc/${biocVersion}/data/annotation/src/contrib/${name}_${version}.tar.gz" ];
     hydraPlatforms = [ ];
   };
   deriveBiocExp = mkDerive {
@@ -104,9 +102,7 @@ let
         version,
         biocVersion,
       }:
-      [
-        "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz"
-      ];
+      [ "mirror://bioc/${biocVersion}/data/experiment/src/contrib/${name}_${version}.tar.gz" ];
     hydraPlatforms = [ ];
   };
   deriveCran = mkDerive {
@@ -185,8 +181,7 @@ let
   # }
   overrideMaintainers =
     overrides: old:
-    lib.mapAttrs
-      (name: value: (builtins.getAttr name old).override { maintainers = value; })
+    lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; })
       overrides;
 
   # Overrides package definitions with new R dependencies.
@@ -432,9 +427,7 @@ let
       pkg-config
     ];
     curl = [ pkgs.curl.dev ];
-    data_table = [
-      pkgs.zlib.dev
-    ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp;
+    data_table = [ pkgs.zlib.dev ] ++ lib.optional stdenv.isDarwin pkgs.llvmPackages.openmp;
     devEMF = with pkgs; [ xorg.libXft.dev ];
     diversitree = with pkgs; [
       gsl
@@ -1603,9 +1596,7 @@ let
 
     ps = old.ps.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
-    rlang = old.rlang.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    rlang = old.rlang.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     systemfonts = old.systemfonts.overrideAttrs (
       attrs: { preConfigure = "patchShebangs configure"; }
@@ -1733,9 +1724,7 @@ let
 
     rgl = old.rgl.overrideAttrs (attrs: { RGL_USE_NULL = "true"; });
 
-    Rrdrand = old.Rrdrand.override {
-      platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
-    };
+    Rrdrand = old.Rrdrand.override { platforms = lib.platforms.x86_64 ++ lib.platforms.x86; };
 
     RandomFieldsUtils = old.RandomFieldsUtils.override {
       platforms = lib.platforms.x86_64 ++ lib.platforms.x86;
@@ -1768,8 +1757,7 @@ let
       attrs: {
         propagatedBuildInputs =
           with pkgs;
-          attrs.propagatedBuildInputs
-          ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+          attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
         patches = [ ./patches/rhdf5filters.patch ];
       }
     );

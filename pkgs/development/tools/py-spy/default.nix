@@ -33,9 +33,7 @@ rustPlatform.buildRustPackage rec {
       [
         # Pull a header that contains a definition of proc_pid_rusage().
         (runCommand "${pname}_headers" { } ''
-          install -Dm444 ${
-            lib.getDev darwin.apple_sdk.sdk
-          }/include/libproc.h $out/include/libproc.h
+          install -Dm444 ${lib.getDev darwin.apple_sdk.sdk}/include/libproc.h $out/include/libproc.h
         '')
       ];
 

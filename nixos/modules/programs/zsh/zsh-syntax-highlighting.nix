@@ -157,13 +157,11 @@ in
             optional (length (cfg.highlighters) > 0)
               "ZSH_HIGHLIGHT_HIGHLIGHTERS=(${concatStringsSep " " cfg.highlighters})"
           ++ optionals (length (attrNames cfg.patterns) > 0) (
-            mapAttrsToList
-              (pattern: design: "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')")
+            mapAttrsToList (pattern: design: "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')")
               cfg.patterns
           )
           ++ optionals (length (attrNames cfg.styles) > 0) (
-            mapAttrsToList (styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'")
-              cfg.styles
+            mapAttrsToList (styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'") cfg.styles
           )
         )
       );

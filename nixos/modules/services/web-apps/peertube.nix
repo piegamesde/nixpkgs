@@ -264,8 +264,7 @@ in
 
       port = lib.mkOption {
         type = lib.types.nullOr lib.types.port;
-        default =
-          if cfg.redis.createLocally && cfg.redis.enableUnixSocket then null else 31638;
+        default = if cfg.redis.createLocally && cfg.redis.enableUnixSocket then null else 31638;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && config.${opt.redis.enableUnixSocket}
           then null
@@ -346,8 +345,7 @@ in
       }
       {
         assertion =
-          cfg.redis.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
+          cfg.redis.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
         message = ''
           <option>services.peertube.redis.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -366,8 +364,7 @@ in
       }
       {
         assertion =
-          cfg.smtp.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
+          cfg.smtp.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
         message = ''
           <option>services.peertube.smtp.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -467,8 +464,7 @@ in
         RestrictAddressFamilies = [ "AF_UNIX" ];
         MemoryDenyWriteExecute = true;
         # System Call Filtering
-        SystemCallFilter =
-          "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
+        SystemCallFilter = "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
       } // cfgService;
     };
 

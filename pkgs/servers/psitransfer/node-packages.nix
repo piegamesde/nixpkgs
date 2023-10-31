@@ -1475,10 +1475,7 @@ in
           sources."any-promise-1.3.0"
           sources."archiver-4.0.2"
           (
-            sources."archiver-utils-2.1.0"
-            // {
-              dependencies = [ sources."readable-stream-2.3.7" ];
-            }
+            sources."archiver-utils-2.1.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
           )
           sources."array-flatten-1.1.1"
           sources."asap-2.0.6"
@@ -1517,10 +1514,7 @@ in
           sources."concat-map-0.0.1"
           sources."constantinople-4.0.1"
           (
-            sources."content-disposition-0.5.4"
-            // {
-              dependencies = [ sources."safe-buffer-5.2.1" ];
-            }
+            sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
           )
           sources."content-type-1.0.4"
           sources."cookie-0.4.2"
@@ -1577,9 +1571,7 @@ in
           sources."js-stringify-1.0.2"
           sources."jsonfile-2.4.0"
           sources."jstransformer-1.0.0"
-          (
-            sources."lazystream-1.0.1" // { dependencies = [ sources."readable-stream-2.3.7" ]; }
-          )
+          (sources."lazystream-1.0.1" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
           sources."lodash.defaults-4.2.0"
           sources."lodash.difference-4.5.0"
           sources."lodash.flatten-4.4.0"

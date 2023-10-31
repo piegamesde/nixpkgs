@@ -83,9 +83,7 @@ rec {
     );
 
   # Recursively map over every parameter in the given attribute set.
-  mapParamsRecursive = mapAttrsRecursiveCond' (
-    as: (!(as ? _type && as._type == "param"))
-  );
+  mapParamsRecursive = mapAttrsRecursiveCond' (as: (!(as ? _type && as._type == "param")));
 
   mapAttrsRecursiveCond' =
     cond: f: set:

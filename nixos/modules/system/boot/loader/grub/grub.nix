@@ -23,10 +23,7 @@ let
     else if cfg.zfsSupport then
       grubPkgs.grub2.override { zfsSupport = true; }
     else if cfg.trustedBoot.enable then
-      if cfg.trustedBoot.isHPLaptop then
-        grubPkgs.trustedGrub-for-HP
-      else
-        grubPkgs.trustedGrub
+      if cfg.trustedBoot.isHPLaptop then grubPkgs.trustedGrub-for-HP else grubPkgs.trustedGrub
     else
       grubPkgs.grub2;
 
@@ -74,8 +71,7 @@ let
             "${config.system.nixos.distroName}${efiSysMountPoint'}"
           else
             args.efiBootloaderId;
-        timeout =
-          if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+        timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
           if cfg.users == { } || cfg.version != 1 then
             cfg.users
@@ -130,10 +126,7 @@ let
             ""
           else
             (
-              if lib.last (lib.splitString "." cfg.font) == "pf2" then
-                cfg.font
-              else
-                "${convertedFont}"
+              if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}"
             );
       }
     );
@@ -155,8 +148,7 @@ let
       )
     ));
 
-  defaultSplash =
-    pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
+  defaultSplash = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
 in
 
 {
@@ -945,8 +937,7 @@ in
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
           }
           {
-            assertion =
-              cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
+            assertion = cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
         ]

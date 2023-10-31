@@ -19,10 +19,9 @@ stdenv.mkDerivation (
     pname = "hipcub";
     version = "5.4.4";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -37,10 +36,9 @@ stdenv.mkDerivation (
       hip
     ];
 
-    buildInputs =
-      [ rocprim ]
-      ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals buildBenchmarks [ gbenchmark ];
+    buildInputs = [
+      rocprim
+    ] ++ lib.optionals buildTests [ gtest ] ++ lib.optionals buildBenchmarks [ gbenchmark ];
 
     cmakeFlags =
       [

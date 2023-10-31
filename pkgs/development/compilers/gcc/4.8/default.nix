@@ -321,12 +321,11 @@ stdenv.mkDerivation (
 
     configureFlags = callFile ../common/configure-flags.nix { };
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
+      if profiledCompiler then "profiledbootstrap" else "bootstrap"
+    );
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
@@ -419,9 +418,7 @@ stdenv.mkDerivation (
 
   //
     optionalAttrs
-      (
-        targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
-      )
+      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

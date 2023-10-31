@@ -66,8 +66,7 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url =
-      downloadUrls.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
+    url = downloadUrls.${stdenv.system} or (throw "Unsupported system: ${stdenv.system}");
     inherit hash;
   };
 

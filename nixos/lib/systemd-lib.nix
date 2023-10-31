@@ -128,9 +128,7 @@ rec {
   assertRange =
     name: min: max: group: attr:
     optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
-      "Systemd ${group} field `${name}' is outside the range [${toString min},${
-        toString max
-      }]";
+      "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
 
   assertMinimum =
     name: min: group: attr:
@@ -285,9 +283,7 @@ rec {
           toString (
             mapAttrsToList (n: v: v.unit) (
               lib.filterAttrs
-                (
-                  n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists"
-                )
+                (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
                 units
             )
           )
@@ -320,8 +316,7 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
-                units
+              lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units
             )
           )
         }; do

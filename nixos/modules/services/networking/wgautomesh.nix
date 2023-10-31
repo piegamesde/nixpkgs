@@ -13,8 +13,7 @@ let
     # if value is null
     settingsFormat.generate "wgautomesh-config.toml" (
       filterAttrs (k: v: v != null) (
-        mapAttrs
-          (k: v: if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v)
+        mapAttrs (k: v: if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v)
           cfg.settings
       )
     );
@@ -170,8 +169,6 @@ in
       };
       wantedBy = [ "multi-user.target" ];
     };
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [
-      cfg.settings.gossip_port
-    ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.settings.gossip_port ];
   };
 }

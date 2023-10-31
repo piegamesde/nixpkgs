@@ -9416,9 +9416,7 @@ let
       sources."@babel/helper-plugin-utils-7.0.0"
       sources."@babel/helper-split-export-declaration-7.4.4"
       sources."@babel/helpers-7.6.2"
-      (
-        sources."@babel/highlight-7.5.0" // { dependencies = [ sources."js-tokens-4.0.0" ]; }
-      )
+      (sources."@babel/highlight-7.5.0" // { dependencies = [ sources."js-tokens-4.0.0" ]; })
       sources."@babel/parser-7.6.2"
       sources."@babel/plugin-syntax-object-rest-spread-7.2.0"
       sources."@babel/template-7.6.0"
@@ -9611,12 +9609,7 @@ let
           ];
         }
       )
-      (
-        sources."babel-generator-6.26.1"
-        // {
-          dependencies = [ sources."source-map-0.5.7" ];
-        }
-      )
+      (sources."babel-generator-6.26.1" // { dependencies = [ sources."source-map-0.5.7" ]; })
       sources."babel-helper-builder-binary-assignment-operator-visitor-6.24.1"
       sources."babel-helper-call-delegate-6.24.1"
       sources."babel-helper-define-map-6.26.0"
@@ -9739,12 +9732,7 @@ let
       sources."chrome-trace-event-1.0.2"
       sources."ci-info-2.0.0"
       sources."cipher-base-1.0.4"
-      (
-        sources."class-utils-0.3.6"
-        // {
-          dependencies = [ sources."define-property-0.2.5" ];
-        }
-      )
+      (sources."class-utils-0.3.6" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."clean-css-4.2.1"
       sources."cli-cursor-2.1.0"
       sources."cli-spinners-2.2.0"
@@ -9896,10 +9884,7 @@ let
       sources."execa-1.0.0"
       sources."exit-0.1.2"
       (
-        sources."expand-brackets-2.1.4"
-        // {
-          dependencies = [ sources."define-property-0.2.5" ];
-        }
+        sources."expand-brackets-2.1.4" // { dependencies = [ sources."define-property-0.2.5" ]; }
       )
       sources."expand-tilde-2.0.2"
       sources."expect-24.9.0"
@@ -10044,10 +10029,7 @@ let
       sources."isstream-0.1.2"
       sources."istanbul-lib-coverage-2.0.5"
       (
-        sources."istanbul-lib-instrument-3.3.0"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."istanbul-lib-instrument-3.3.0" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       (
         sources."istanbul-lib-report-2.0.8"
@@ -10105,12 +10087,7 @@ let
       (sources."jest-util-24.9.0" // { dependencies = [ sources."slash-2.0.0" ]; })
       sources."jest-validate-24.9.0"
       sources."jest-watcher-24.9.0"
-      (
-        sources."jest-worker-24.9.0"
-        // {
-          dependencies = [ sources."supports-color-6.1.0" ];
-        }
-      )
+      (sources."jest-worker-24.9.0" // { dependencies = [ sources."supports-color-6.1.0" ]; })
       sources."js-beautify-1.10.2"
       sources."js-stringify-1.0.2"
       sources."js-tokens-3.0.2"
@@ -10263,9 +10240,7 @@ let
       sources."nice-try-1.0.5"
       sources."node-forge-0.8.2"
       sources."node-int64-0.4.0"
-      (
-        sources."node-libs-browser-2.2.1" // { dependencies = [ sources."punycode-1.4.1" ]; }
-      )
+      (sources."node-libs-browser-2.2.1" // { dependencies = [ sources."punycode-1.4.1" ]; })
       sources."node-modules-regexp-1.0.0"
       sources."node-notifier-5.4.3"
       sources."nopt-4.0.1"
@@ -10276,12 +10251,7 @@ let
       sources."nwsapi-2.1.4"
       sources."oauth-sign-0.9.0"
       sources."object-assign-4.1.1"
-      (
-        sources."object-copy-0.1.0"
-        // {
-          dependencies = [ sources."define-property-0.2.5" ];
-        }
-      )
+      (sources."object-copy-0.1.0" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."object-inspect-1.6.0"
       sources."object-keys-1.1.1"
       sources."object-visit-1.0.1"
@@ -10364,9 +10334,7 @@ let
       sources."prelude-ls-1.1.2"
       sources."prettier-1.18.2"
       sources."pretty-2.0.0"
-      (
-        sources."pretty-format-24.9.0" // { dependencies = [ sources."ansi-regex-4.1.0" ]; }
-      )
+      (sources."pretty-format-24.9.0" // { dependencies = [ sources."ansi-regex-4.1.0" ]; })
       sources."private-0.1.8"
       sources."process-0.11.10"
       sources."process-nextick-args-2.0.1"
@@ -10584,12 +10552,7 @@ let
       sources."sshpk-1.16.1"
       sources."ssri-5.3.0"
       sources."stack-utils-1.0.2"
-      (
-        sources."static-extend-0.1.2"
-        // {
-          dependencies = [ sources."define-property-0.2.5" ];
-        }
-      )
+      (sources."static-extend-0.1.2" // { dependencies = [ sources."define-property-0.2.5" ]; })
       sources."statuses-1.5.0"
       sources."stealthy-require-1.1.1"
       sources."stream-browserify-2.0.2"
@@ -10739,12 +10702,7 @@ let
       sources."wcwidth-1.0.1"
       sources."webidl-conversions-4.0.2"
       (sources."webpack-4.35.0" // { dependencies = [ sources."acorn-6.3.0" ]; })
-      (
-        sources."webpack-bundle-analyzer-3.3.2"
-        // {
-          dependencies = [ sources."acorn-6.3.0" ];
-        }
-      )
+      (sources."webpack-bundle-analyzer-3.3.2" // { dependencies = [ sources."acorn-6.3.0" ]; })
       (
         sources."webpack-cli-3.3.4"
         // {

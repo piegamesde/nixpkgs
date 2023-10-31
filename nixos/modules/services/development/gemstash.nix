@@ -18,8 +18,7 @@ let
       map
         (attrName: {
           name = ":${attrName}";
-          value =
-            if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
+          value = if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
         })
         (attrNames s)
     );
@@ -117,9 +116,7 @@ in
           RestrictSUIDSGID = true;
           LockPersonality = true;
         }
-        (mkIf (cfg.settings.base_path == "/var/lib/gemstash") {
-          StateDirectory = "gemstash";
-        })
+        (mkIf (cfg.settings.base_path == "/var/lib/gemstash") { StateDirectory = "gemstash"; })
       ];
     };
   };

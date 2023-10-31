@@ -28,9 +28,7 @@ let
   mkSection = name: attrs: ''
     [${name}]
     ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (
-        lib.filterAttrs (k: v: v != null) attrs
-      )
+      lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (lib.filterAttrs (k: v: v != null) attrs)
     )}
   '';
 
@@ -41,8 +39,7 @@ let
         dhcp = cfg.dhcp;
         dns = cfg.dns;
         # If resolvconf is disabled that means that resolv.conf is managed by some other module.
-        rc-manager =
-          if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
+        rc-manager = if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
         firewall-backend = cfg.firewallBackend;
       })
       (mkSection "keyfile" {
@@ -152,8 +149,7 @@ let
       pkgs.modemmanager
       pkgs.networkmanager
     ]
-    ++ cfg.plugins
-    ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
+    ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
 in
 {
 
@@ -242,11 +238,7 @@ in
               check =
                 p:
                 lib.assertMsg
-                  (
-                    types.package.check p
-                    && p ? networkManagerPlugin
-                    && lib.isString p.networkManagerPlugin
-                  )
+                  (types.package.check p && p ? networkManagerPlugin && lib.isString p.networkManagerPlugin)
                   ''
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.
@@ -525,9 +517,9 @@ in
       // listToAttrs (
         lib.imap1
           (i: s: {
-            name = "NetworkManager/dispatcher.d/${
-                dispatcherTypesSubdirMap.${s.type}
-              }03userscript${lib.fixedWidthNumber 4 i}";
+            name = "NetworkManager/dispatcher.d/${dispatcherTypesSubdirMap.${s.type}}03userscript${
+                lib.fixedWidthNumber 4 i
+              }";
             value = {
               mode = "0544";
               inherit (s) source;
@@ -581,9 +573,7 @@ in
       wantedBy = [ "network-online.target" ];
     };
 
-    systemd.services.ModemManager.aliases = [
-      "dbus-org.freedesktop.ModemManager1.service"
-    ];
+    systemd.services.ModemManager.aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
 
     systemd.services.NetworkManager-dispatcher = {
       wantedBy = [ "network.target" ];

@@ -67,9 +67,7 @@ pkgs.stdenv.mkDerivation {
     echo nix-shell -p hydra-check --run "hydra-check ${
       builtins.concatStringsSep " " packages
     }"
-    nix-shell -p hydra-check --run "hydra-check ${
-      builtins.concatStringsSep " " packages
-    }"
+    nix-shell -p hydra-check --run "hydra-check ${builtins.concatStringsSep " " packages}"
     exit $?
   '';
 }

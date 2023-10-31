@@ -48,8 +48,7 @@ let
     lib.mapAttrsToList
       (name: value: {
         inherit name;
-        path =
-          if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value;
+        path = if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value;
       })
       (import shardsFile)
   );

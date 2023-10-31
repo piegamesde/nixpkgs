@@ -245,9 +245,7 @@ in
       type = types.lines;
       default = "";
       example = "mail_debug = yes";
-      description =
-        lib.mdDoc
-          "Additional entries to put verbatim into Dovecot's config file.";
+      description = lib.mdDoc "Additional entries to put verbatim into Dovecot's config file.";
     };
 
     mailPlugins =
@@ -385,9 +383,7 @@ in
       };
 
     enableDHE =
-      mkEnableOption (
-        lib.mdDoc "enable ssl_dh and generation of primes for the key exchange"
-      )
+      mkEnableOption (lib.mdDoc "enable ssl_dh and generation of primes for the key exchange")
       // {
         default = true;
       };
@@ -492,9 +488,7 @@ in
       {
         dovenull.gid = config.ids.gids.dovenull2;
       }
-      // optionalAttrs (cfg.group == "dovecot2") {
-        dovecot2.gid = config.ids.gids.dovecot2;
-      }
+      // optionalAttrs (cfg.group == "dovecot2") { dovecot2.gid = config.ids.gids.dovecot2; }
       // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
         ${cfg.mailGroup} = { };
       };
@@ -558,9 +552,7 @@ in
       {
         assertion =
           (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
-          && (
-            cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
-          );
+          && (cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
         message = "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
       {
@@ -568,8 +560,7 @@ in
         message = "dovecot is configured with showPAMFailure while enablePAM is disabled";
       }
       {
-        assertion =
-          cfg.sieveScripts != { } -> (cfg.mailUser != null && cfg.mailGroup != null);
+        assertion = cfg.sieveScripts != { } -> (cfg.mailUser != null && cfg.mailGroup != null);
         message = "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
       }
     ];

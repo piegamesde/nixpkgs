@@ -174,8 +174,7 @@ with lib;
         || partitionTableType == "hybrid"
         || partitionTableType == "legacy+gpt";
       hasBootPartition = partitionTableType == "efi" || partitionTableType == "hybrid";
-      hasNoFsPartition =
-        partitionTableType == "hybrid" || partitionTableType == "legacy+gpt";
+      hasNoFsPartition = partitionTableType == "hybrid" || partitionTableType == "legacy+gpt";
     in
     {
       assertions = [
@@ -189,8 +188,7 @@ with lib;
           message = "'efi' disk partitioning requires 'ovmf' bios";
         }
         {
-          assertion =
-            partitionTableType == "legacy" -> config.proxmox.qemuConf.bios == "seabios";
+          assertion = partitionTableType == "legacy" -> config.proxmox.qemuConf.bios == "seabios";
           message = "'legacy' disk partitioning requires 'seabios' bios";
         }
         {

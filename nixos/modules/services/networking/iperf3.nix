@@ -92,8 +92,7 @@ let
             ${optionalString (cfg.affinity != null) "--affinity ${toString cfg.affinity}"} \
             ${optionalString (cfg.bind != null) "--bind ${cfg.bind}"} \
             ${
-              optionalString (cfg.rsaPrivateKey != null)
-                "--rsa-private-key-path ${cfg.rsaPrivateKey}"
+              optionalString (cfg.rsaPrivateKey != null) "--rsa-private-key-path ${cfg.rsaPrivateKey}"
             } \
             ${
               optionalString (cfg.authorizedUsersFile != null)

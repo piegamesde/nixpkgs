@@ -153,9 +153,7 @@ in
       internal = true;
       type = types.nullOr types.str;
       default = trivial.revisionWithDefault null;
-      description =
-        lib.mdDoc
-          "The Git revision from which this NixOS configuration was built.";
+      description = lib.mdDoc "The Git revision from which this NixOS configuration was built.";
     };
 
     nixos.codeName = mkOption {
@@ -194,8 +192,7 @@ in
       # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
       apply =
         v:
-        lib.warnIf
-          (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
+        lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
           "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
           v;
       default = cfg.release;
@@ -224,9 +221,7 @@ in
       internal = true;
       type = types.str;
       default = "https://nixos.org/channels/nixos-unstable";
-      description =
-        lib.mdDoc
-          "Default NixOS channel to which the root user is subscribed.";
+      description = lib.mdDoc "Default NixOS channel to which the root user is subscribed.";
     };
 
     configurationRevision = mkOption {

@@ -105,10 +105,7 @@ let
       (line: if builtins.stringLength line > 0 then "${indent}${line}" else line)
       (
         splitString "\n" (
-          if isAttrs value then
-            concatStringsSep "\n" (mapAttrsToList mkRelation value)
-          else
-            value
+          if isAttrs value then concatStringsSep "\n" (mapAttrsToList mkRelation value) else value
         )
       );
 in

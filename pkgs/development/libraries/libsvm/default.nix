@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
 
   patches = lib.optionals withOpenMP [ ./openmp.patch ];
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [
-    llvmPackages.openmp
-  ];
+  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
 
   buildFlags = [
     "lib"

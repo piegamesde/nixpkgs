@@ -122,9 +122,7 @@ makeScope pkgs'.newScope (
             inherit (self) emacs;
           };
 
-          melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix {
-            inherit (self) emacs;
-          };
+          melpaBuild = pkgs.callPackage ../build-support/emacs/melpa.nix { inherit (self) emacs; };
 
           emacsWithPackages = emacsWithPackages { inherit pkgs lib; } self;
           withPackages = emacsWithPackages { inherit pkgs lib; } self;

@@ -570,8 +570,7 @@ in
                       path = config.flake.outPath;
                     }
                     //
-                      filterAttrs
-                        (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
+                      filterAttrs (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
                         config.flake
                   )
                 );

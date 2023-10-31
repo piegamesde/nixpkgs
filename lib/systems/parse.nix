@@ -752,9 +752,7 @@ rec {
   isSystem = isType "system";
 
   mkSystem =
-    components:
-    assert types.parsedPlatform.check components;
-    setType "system" components;
+    components: assert types.parsedPlatform.check components; setType "system" components;
 
   mkSkeletonFromList =
     l:
@@ -904,8 +902,7 @@ rec {
     in
     mkSystem parsed;
 
-  mkSystemFromString =
-    s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
+  mkSystemFromString = s: mkSystemFromSkeleton (mkSkeletonFromList (lib.splitString "-" s));
 
   kernelName = kernel: kernel.name + toString (kernel.version or "");
 

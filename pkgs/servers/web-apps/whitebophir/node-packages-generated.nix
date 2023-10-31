@@ -930,12 +930,7 @@ in
           sources."process-nextick-args-2.0.1"
           sources."promise-polyfill-1.1.6"
           sources."range-parser-1.2.1"
-          (
-            sources."readable-stream-2.3.7"
-            // {
-              dependencies = [ sources."safe-buffer-5.1.2" ];
-            }
-          )
+          (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
           sources."safe-buffer-5.2.1"
           sources."semver-5.7.1"
           sources."send-0.18.0"
@@ -965,9 +960,7 @@ in
           sources."statuses-2.0.1"
           sources."stream-from-promise-1.0.0"
           sources."stream-to-string-1.2.0"
-          (
-            sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-          )
+          (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
           sources."toidentifier-1.0.1"
           sources."toposort-2.0.2"
           sources."tslib-2.4.0"

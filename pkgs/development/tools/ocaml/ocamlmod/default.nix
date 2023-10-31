@@ -35,8 +35,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
     ];
 
     configurePhase =
-      "ocaml setup.ml -configure --prefix $out"
-      + lib.optionalString doCheck " --enable-tests";
+      "ocaml setup.ml -configure --prefix $out" + lib.optionalString doCheck " --enable-tests";
     buildPhase = "ocaml setup.ml -build";
     installPhase = "ocaml setup.ml -install";
 

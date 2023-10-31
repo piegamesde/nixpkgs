@@ -19,9 +19,7 @@ let
     in
     pkgs.writeShellScriptBin "steam-gamescope" ''
       ${builtins.concatStringsSep "\n" exports}
-      gamescope --steam ${
-        toString cfg.gamescopeSession.args
-      } -- steam -tenfoot -pipewire-dmabuf
+      gamescope --steam ${toString cfg.gamescopeSession.args} -- steam -tenfoot -pipewire-dmabuf
     '';
 
   gamescopeSessionFile =

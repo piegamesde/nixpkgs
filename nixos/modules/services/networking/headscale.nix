@@ -871,9 +871,7 @@ in
 
       script = ''
         ${optionalString (cfg.settings.db_password_file != null) ''
-          export HEADSCALE_DB_PASS="$(head -n1 ${
-            escapeShellArg cfg.settings.db_password_file
-          })"
+          export HEADSCALE_DB_PASS="$(head -n1 ${escapeShellArg cfg.settings.db_password_file})"
         ''}
 
         exec ${cfg.package}/bin/headscale serve

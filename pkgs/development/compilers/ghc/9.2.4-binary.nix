@@ -295,9 +295,7 @@ stdenv.mkDerivation rec {
       # We have to patch the GMP paths for the integer-gmp package.
       ''
         find . -name ghc-bignum.buildinfo \
-            -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${
-              lib.getLib gmpUsed
-            }/lib@" {} \;
+            -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${lib.getLib gmpUsed}/lib@" {} \;
 
         # we need to modify the package db directly for hadrian bindists
         find . -name 'ghc-bignum*.conf' \
@@ -312,9 +310,7 @@ stdenv.mkDerivation rec {
       # To link RTS in the end we also need libffi now
       find . -name 'rts*.conf' \
           -exec sed -e '/^[a-z-]*library-dirs/a \    ${lib.getLib libffi}/lib' \
-                    -e 's@/Library/Developer/.*/usr/include/ffi@${
-                      lib.getDev libffi
-                    }/include@' \
+                    -e 's@/Library/Developer/.*/usr/include/ffi@${lib.getDev libffi}/include@' \
                     -i {} \;
     ''
     +

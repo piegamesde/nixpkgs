@@ -100,9 +100,7 @@ with lib; {
     };
 
     virtualIps = mkOption {
-      type = types.listOf (
-        types.submodule (import ./virtual-ip-options.nix { inherit lib; })
-      );
+      type = types.listOf (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
       default = [ ];
       # TODO: example
       description = lib.mdDoc "Declarative vhost config";

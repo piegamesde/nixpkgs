@@ -17,9 +17,8 @@ let
 
   getName =
     attrs:
-    attrs.name or (
-      "${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}"
-    );
+    attrs.name
+      or ("${attrs.pname or "«name-missing»"}-${attrs.version or "«version-missing»"}");
 
   allowUnfree = config.allowUnfree || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1";
 
@@ -44,17 +43,13 @@ let
     assert areLicenseListsValid;
     attrs:
     hasLicense attrs
-    && lib.lists.any (l: builtins.elem l allowlist) (
-      lib.lists.toList attrs.meta.license
-    );
+    && lib.lists.any (l: builtins.elem l allowlist) (lib.lists.toList attrs.meta.license);
 
   hasBlocklistedLicense =
     assert areLicenseListsValid;
     attrs:
     hasLicense attrs
-    && lib.lists.any (l: builtins.elem l blocklist) (
-      lib.lists.toList attrs.meta.license
-    );
+    && lib.lists.any (l: builtins.elem l blocklist) (lib.lists.toList attrs.meta.license);
 
   allowBroken = config.allowBroken || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1";
 
@@ -120,8 +115,7 @@ let
   # package has non-source provenance and is not explicitly allowed by the
   # `allowNonSourcePredicate` function.
   hasDeniedNonSourceProvenance =
-    attrs:
-    hasNonSourceProvenance attrs && !allowNonSource && !allowNonSourcePredicate attrs;
+    attrs: hasNonSourceProvenance attrs && !allowNonSource && !allowNonSourcePredicate attrs;
 
   showLicenseOrSourceType =
     value: toString (map (v: v.shortName or "unknown") (lib.lists.toList value));
@@ -386,9 +380,7 @@ let
           [${lib.concatMapStringsSep ", " (x: "'${x}'") (lib.attrNames metaTypes)}]'';
   checkMeta =
     meta:
-    lib.optionals config.checkMeta (
-      lib.remove null (lib.mapAttrsToList checkMetaAttr meta)
-    );
+    lib.optionals config.checkMeta (lib.remove null (lib.mapAttrsToList checkMetaAttr meta));
 
   checkOutputsToInstall =
     attrs:
@@ -592,9 +584,7 @@ let
       handled =
         {
           no = handleEvalIssue { inherit meta attrs; } { inherit (validity) reason errormsg; };
-          warn = handleEvalWarning { inherit meta attrs; } {
-            inherit (validity) reason errormsg;
-          };
+          warn = handleEvalWarning { inherit meta attrs; } { inherit (validity) reason errormsg; };
           yes = true;
         }
         .${validity.valid};

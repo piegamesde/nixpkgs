@@ -18,8 +18,7 @@ let
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
     ++
-      concatMap
-        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
+      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues cfg.vswitches)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.macvlans)
     ++ concatMap (i: [ i.interface ]) (attrValues cfg.vlans);
@@ -102,15 +101,11 @@ let
           then
             [ "${dev}-netdev.service" ]
           else
-            optional (dev != null && dev != "lo" && !config.boot.isContainer) (
-              subsystemDevice dev
-            );
+            optional (dev != null && dev != "lo" && !config.boot.isContainer) (subsystemDevice dev);
 
         hasDefaultGatewaySet =
           (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
-          || (
-            cfg.enableIPv6 && cfg.defaultGateway6 != null && cfg.defaultGateway6.address != ""
-          );
+          || (cfg.enableIPv6 && cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "");
 
         needNetworkSetup =
           cfg.resolvconf.enable || cfg.defaultGateway != null || cfg.defaultGateway6 != null;
@@ -188,25 +183,24 @@ let
                   "dev ${cfg.defaultGateway.interface}"
               } proto static
             ''}
-            ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "")
-              ''
-                ${optionalString (cfg.defaultGateway6.interface != null) ''
-                  ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
-                    optionalString (cfg.defaultGateway6.metric != null)
-                      "metric ${toString cfg.defaultGateway6.metric}"
-                  } proto static
-                ''}
-                ip -6 route replace default ${
+            ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "") ''
+              ${optionalString (cfg.defaultGateway6.interface != null) ''
+                ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
                   optionalString (cfg.defaultGateway6.metric != null)
                     "metric ${toString cfg.defaultGateway6.metric}"
-                } via "${cfg.defaultGateway6.address}" ${
-                  optionalString (cfg.defaultGatewayWindowSize != null)
-                    "window ${toString cfg.defaultGatewayWindowSize}"
-                } ${
-                  optionalString (cfg.defaultGateway6.interface != null)
-                    "dev ${cfg.defaultGateway6.interface}"
                 } proto static
               ''}
+              ip -6 route replace default ${
+                optionalString (cfg.defaultGateway6.metric != null)
+                  "metric ${toString cfg.defaultGateway6.metric}"
+              } via "${cfg.defaultGateway6.address}" ${
+                optionalString (cfg.defaultGatewayWindowSize != null)
+                  "window ${toString cfg.defaultGatewayWindowSize}"
+              } ${
+                optionalString (cfg.defaultGateway6.interface != null)
+                  "dev ${cfg.defaultGateway6.interface}"
+              } proto static
+            ''}
           '';
         };
 
@@ -271,9 +265,7 @@ let
                 let
                   cidr = "${route.address}/${toString route.prefixLength}";
                   via = optionalString (route.via != null) ''via "${route.via}"'';
-                  options = concatStrings (
-                    mapAttrsToList (name: val: "${name} ${val} ") route.options
-                  );
+                  options = concatStrings (mapAttrsToList (name: val: "${name} ${val} ") route.options);
                   type = toString route.type;
                 in
                 ''
@@ -481,9 +473,7 @@ let
               preStart = ''
                 echo "Resetting Open vSwitch ${n}..."
                 ovs-vsctl --if-exists del-br ${n} -- add-br ${n} \
-                          -- set bridge ${n} protocols=${
-                            concatStringsSep "," v.supportedOpenFlowVersions
-                          }
+                          -- set bridge ${n} protocols=${concatStringsSep "," v.supportedOpenFlowVersions}
               '';
               script = ''
                 echo "Configuring Open vSwitch ${n}..."
@@ -768,8 +758,7 @@ let
           );
       in
       listToAttrs (
-        map configureAddrs interfaces
-        ++ map createTunDevice (filter (i: i.virtual) interfaces)
+        map configureAddrs interfaces ++ map createTunDevice (filter (i: i.virtual) interfaces)
       )
       // mapAttrs' createBridgeDevice cfg.bridges
       // mapAttrs' createVswitchDevice cfg.vswitches

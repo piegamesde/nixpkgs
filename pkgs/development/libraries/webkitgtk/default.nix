@@ -189,9 +189,7 @@ stdenv.mkDerivation (
         # compatible with our C++ standard library. This header is already in
         # the standard library on aarch64)
         runCommand "webkitgtk_headers" { } ''
-          install -Dm444 "${
-            lib.getDev apple_sdk.sdk
-          }"/include/libproc.h "$out"/include/libproc.h
+          install -Dm444 "${lib.getDev apple_sdk.sdk}"/include/libproc.h "$out"/include/libproc.h
         ''
       )
       ++ lib.optionals stdenv.isLinux [

@@ -127,9 +127,7 @@ stdenv.mkDerivation rec {
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
     '';
 
-  preDistPhases = [
-    (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase")
-  ];
+  preDistPhases = [ (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase") ];
 
   certifyBooksPhase = ''
     # Certify the community books

@@ -43,16 +43,12 @@ pkgs.runCommand "hadoop-conf" { } (
   with cfg; ''
     mkdir -p $out/
     cp ${siteXml "core-site.xml" (coreSite // coreSiteInternal)}/* $out/
-    cp ${
-      siteXml "hdfs-site.xml" (hdfsSiteDefault // hdfsSite // hdfsSiteInternal)
-    }/* $out/
+    cp ${siteXml "hdfs-site.xml" (hdfsSiteDefault // hdfsSite // hdfsSiteInternal)}/* $out/
     cp ${
       siteXml "hbase-site.xml" (hbaseSiteDefault // hbaseSite // hbaseSiteInternal)
     }/* $out/
     cp ${siteXml "mapred-site.xml" (mapredSiteDefault // mapredSite)}/* $out/
-    cp ${
-      siteXml "yarn-site.xml" (yarnSiteDefault // yarnSite // yarnSiteInternal)
-    }/* $out/
+    cp ${siteXml "yarn-site.xml" (yarnSiteDefault // yarnSite // yarnSiteInternal)}/* $out/
     cp ${siteXml "httpfs-site.xml" httpfsSite}/* $out/
     cp ${cfgFile "container-executor.cfg" containerExecutorCfg}/* $out/
     cp ${pkgs.writeTextDir "hadoop-user-functions.sh" userFunctions}/* $out/

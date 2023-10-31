@@ -108,9 +108,7 @@ with lib; {
         extraConfig = mkOption {
           type = lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Additional configuration added verbatim to the server config.";
+          description = lib.mdDoc "Additional configuration added verbatim to the server config.";
         };
       };
 
@@ -124,9 +122,7 @@ with lib; {
         extraConfig = mkOption {
           type = lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Additional configuration added verbatim to the client config.";
+          description = lib.mdDoc "Additional configuration added verbatim to the client config.";
         };
 
         restartForever = mkOption {
@@ -139,9 +135,9 @@ with lib; {
   };
 
   config = mkIf (cfg.server.enable || cfg.client.enable) {
-    networking.firewall.allowedTCPPorts =
-      mkIf (cfg.server.enable && cfg.server.openPorts)
-        [ cfg.serverPort ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.server.enable && cfg.server.openPorts) [
+      cfg.serverPort
+    ];
 
     services.udev.extraRules = mkIf (cfg.server.enable && cfg.server.usbPermissions) ''
       ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="${cfg.server.usbVid}", ATTRS{idProduct}=="${cfg.server.usbPid}", MODE="660", GROUP="${cfg.server.usbGroup}"

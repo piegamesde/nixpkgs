@@ -52,9 +52,7 @@ let
             inherit (metadata) url sha1;
           };
 
-          layout = "${
-              builtins.replaceStrings [ "." ] [ "/" ] groupId
-            }/${artifactId}/${versionDir}";
+          layout = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${versionDir}";
         in
         lib.optional (url != "") {
           layout = "${layout}/${fetch.name}";

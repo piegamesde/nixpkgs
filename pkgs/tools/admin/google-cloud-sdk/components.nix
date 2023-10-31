@@ -102,17 +102,15 @@ let
       baseUrl = builtins.dirOf schema_version.url;
       # Architectures supported by this component.  Defaults to all available
       # architectures.
-      architectures =
-        builtins.filter (arch: builtins.elem arch (builtins.attrNames arches))
-          (
-            lib.attrByPath
-              [
-                "platform"
-                "architectures"
-              ]
-              allArches
-              component
-          );
+      architectures = builtins.filter (arch: builtins.elem arch (builtins.attrNames arches)) (
+        lib.attrByPath
+          [
+            "platform"
+            "architectures"
+          ]
+          allArches
+          component
+      );
       # Operating systems supported by this component
       operating_systems =
         builtins.filter (os: builtins.elem os (builtins.attrNames oses))
@@ -139,9 +137,7 @@ let
           ]
           ""
           component;
-      dependencies =
-        builtins.map (dep: builtins.getAttr dep components)
-          component.dependencies;
+      dependencies = builtins.map (dep: builtins.getAttr dep components) component.dependencies;
       platforms =
         if component.platform == { } then
           lib.platforms.all

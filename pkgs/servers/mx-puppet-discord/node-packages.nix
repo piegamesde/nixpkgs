@@ -3362,12 +3362,7 @@ let
       sources."canvas-2.10.1"
       sources."chalk-4.1.2"
       sources."chownr-2.0.0"
-      (
-        sources."clone-response-1.0.3"
-        // {
-          dependencies = [ sources."mimic-response-1.0.1" ];
-        }
-      )
+      (sources."clone-response-1.0.3" // { dependencies = [ sources."mimic-response-1.0.1" ]; })
       sources."color-3.2.1"
       sources."color-convert-1.9.3"
       sources."color-name-1.1.3"

@@ -51,9 +51,7 @@ lib.makeScope pkgs.newScope (
     # Using 43 to match Mutter used in Pantheon
     gnome-settings-daemon = pkgs.gnome.gnome-settings-daemon43;
 
-    elementary-gsettings-schemas =
-      callPackage ./desktop/elementary-gsettings-schemas
-        { };
+    elementary-gsettings-schemas = callPackage ./desktop/elementary-gsettings-schemas { };
 
     touchegg = pkgs.touchegg.override { withPantheon = true; };
 
@@ -157,17 +155,11 @@ lib.makeScope pkgs.newScope (
 
     wingpanel-indicator-a11y = callPackage ./desktop/wingpanel-indicators/a11y { };
 
-    wingpanel-indicator-bluetooth =
-      callPackage ./desktop/wingpanel-indicators/bluetooth
-        { };
+    wingpanel-indicator-bluetooth = callPackage ./desktop/wingpanel-indicators/bluetooth { };
 
-    wingpanel-indicator-datetime =
-      callPackage ./desktop/wingpanel-indicators/datetime
-        { };
+    wingpanel-indicator-datetime = callPackage ./desktop/wingpanel-indicators/datetime { };
 
-    wingpanel-indicator-keyboard =
-      callPackage ./desktop/wingpanel-indicators/keyboard
-        { };
+    wingpanel-indicator-keyboard = callPackage ./desktop/wingpanel-indicators/keyboard { };
 
     wingpanel-indicator-network = callPackage ./desktop/wingpanel-indicators/network { };
 
@@ -191,17 +183,13 @@ lib.makeScope pkgs.newScope (
 
     switchboard = callPackage ./apps/switchboard { };
 
-    switchboard-with-plugs = callPackage ./apps/switchboard/wrapper.nix {
-      plugs = null;
-    };
+    switchboard-with-plugs = callPackage ./apps/switchboard/wrapper.nix { plugs = null; };
 
     switchboard-plug-a11y = callPackage ./apps/switchboard-plugs/a11y { };
 
     switchboard-plug-about = callPackage ./apps/switchboard-plugs/about { };
 
-    switchboard-plug-applications =
-      callPackage ./apps/switchboard-plugs/applications
-        { };
+    switchboard-plug-applications = callPackage ./apps/switchboard-plugs/applications { };
 
     switchboard-plug-bluetooth = callPackage ./apps/switchboard-plugs/bluetooth { };
 
@@ -211,23 +199,15 @@ lib.makeScope pkgs.newScope (
 
     switchboard-plug-keyboard = callPackage ./apps/switchboard-plugs/keyboard { };
 
-    switchboard-plug-mouse-touchpad =
-      callPackage ./apps/switchboard-plugs/mouse-touchpad
-        { };
+    switchboard-plug-mouse-touchpad = callPackage ./apps/switchboard-plugs/mouse-touchpad { };
 
     switchboard-plug-network = callPackage ./apps/switchboard-plugs/network { };
 
-    switchboard-plug-notifications =
-      callPackage ./apps/switchboard-plugs/notifications
-        { };
+    switchboard-plug-notifications = callPackage ./apps/switchboard-plugs/notifications { };
 
-    switchboard-plug-onlineaccounts =
-      callPackage ./apps/switchboard-plugs/onlineaccounts
-        { };
+    switchboard-plug-onlineaccounts = callPackage ./apps/switchboard-plugs/onlineaccounts { };
 
-    switchboard-plug-pantheon-shell =
-      callPackage ./apps/switchboard-plugs/pantheon-shell
-        { };
+    switchboard-plug-pantheon-shell = callPackage ./apps/switchboard-plugs/pantheon-shell { };
 
     switchboard-plug-power = callPackage ./apps/switchboard-plugs/power { };
 

@@ -45,8 +45,7 @@ let
       testScript =
         let
           backupName = if backup-all then "all" else "postgres";
-          backupService =
-            if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
+          backupService = if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
           backupFileBase = "/var/backup/postgresql/${backupName}";
         in
         ''

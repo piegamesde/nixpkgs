@@ -97,8 +97,8 @@
   ,
   OpenGL,
   Xplugin,
-  withValgrind ? lib.meta.availableOn stdenv.hostPlatform valgrind-light
-    && !valgrind-light.meta.broken,
+  withValgrind ?
+    lib.meta.availableOn stdenv.hostPlatform valgrind-light && !valgrind-light.meta.broken,
   valgrind-light,
   enableGalliumNine ? stdenv.isLinux,
   enableOSMesa ? stdenv.isLinux,
@@ -137,19 +137,14 @@ let
   # two different LLVMs are loaded in the same process.
   # FIXME: these should really go into some sort of versioned LLVM package set
   rust-bindgen' = rust-bindgen.override {
-    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override {
-      clang = llvmPackages.clang;
-    };
+    rust-bindgen-unwrapped = rust-bindgen.unwrapped.override { clang = llvmPackages.clang; };
   };
-  spirv-llvm-translator' = spirv-llvm-translator.override {
-    inherit (llvmPackages) llvm;
-  };
+  spirv-llvm-translator' = spirv-llvm-translator.override { inherit (llvmPackages) llvm; };
 
   haveWayland = lib.elem "wayland" eglPlatforms;
   haveZink = lib.elem "zink" galliumDrivers;
   haveDozen =
-    (lib.elem "d3d12" galliumDrivers)
-    || (lib.elem "microsoft-experimental" vulkanDrivers);
+    (lib.elem "d3d12" galliumDrivers) || (lib.elem "microsoft-experimental" vulkanDrivers);
   self = stdenv.mkDerivation {
     pname = "mesa";
     inherit version;

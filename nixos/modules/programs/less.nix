@@ -130,8 +130,7 @@ in
       // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
 
     warnings =
-      optional
-        (cfg.clearDefaultCommands && (all (x: x != "quit") (attrValues cfg.commands)))
+      optional (cfg.clearDefaultCommands && (all (x: x != "quit") (attrValues cfg.commands)))
         ''
           config.programs.less.clearDefaultCommands clears all default commands of less but there is no alternative binding for exiting.
           Consider adding a binding for 'quit'.

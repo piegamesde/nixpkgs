@@ -306,8 +306,7 @@ in
       assertions = [
         {
           assertion =
-            cfg.tokenjanitor.enable
-            -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
+            cfg.tokenjanitor.enable -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
           message = ''
             privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
             are to be searched.

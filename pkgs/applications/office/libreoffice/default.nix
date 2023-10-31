@@ -194,8 +194,7 @@ let
   srcs = {
     primary = primary-src;
     third_party =
-      map
-        (x: ((fetchurl { inherit (x) url sha256 name; }) // { inherit (x) md5name md5; }))
+      map (x: ((fetchurl { inherit (x) url sha256 name; }) // { inherit (x) md5name md5; }))
         (
           importVariant "download.nix"
           ++ [
@@ -665,9 +664,7 @@ in
       kcoreaddons
       kio
     ]
-    ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [
-      libwebp
-    ];
+    ++ optionals (lib.versionAtLeast (lib.versions.majorMinor version) "7.4") [ libwebp ];
 
   passthru = {
     inherit srcs;

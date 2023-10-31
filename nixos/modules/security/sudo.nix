@@ -17,8 +17,7 @@ let
   toGroupString = group: if (isInt group) then "%#${toString group}" else "%${group}";
 
   toCommandOptionsString =
-    options:
-    "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
+    options: "${concatStringsSep ":" options}${optionalString (length options != 0) ":"} ";
 
   toCommandsString =
     commands:
@@ -273,9 +272,7 @@ in
                   (map
                     (
                       group:
-                      "${toGroupString group}	${rule.host}=(${rule.runAs})	${
-                        toCommandsString rule.commands
-                      }"
+                      "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}"
                     )
                     rule.groups
                   )

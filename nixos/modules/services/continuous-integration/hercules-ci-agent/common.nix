@@ -121,9 +121,7 @@ let
           '';
           type = types.path;
           default = config.staticSecretsDirectory + "/cluster-join-token.key";
-          defaultText =
-            literalExpression
-              ''staticSecretsDirectory + "/cluster-join-token.key"'';
+          defaultText = literalExpression ''staticSecretsDirectory + "/cluster-join-token.key"'';
         };
         binaryCachesPath = mkOption {
           description = lib.mdDoc ''

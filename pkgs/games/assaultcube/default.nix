@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       libvorbis
     ];
 
-  targets =
-    (lib.optionalString server "server") + (lib.optionalString client " client");
+  targets = (lib.optionalString server "server") + (lib.optionalString client " client");
   makeFlags = [
     "-C source/src"
     "CXX=${stdenv.cc.targetPrefix}c++"

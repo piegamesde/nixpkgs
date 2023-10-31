@@ -68,8 +68,7 @@ let
 
     ${concatMapStringsSep "\n" (d: "${d.device} ${d.options}") cfg.devices}
 
-    ${optionalString cfg.autodetect
-      "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
+    ${optionalString cfg.autodetect "DEVICESCAN ${notifyOpts}${cfg.defaults.autodetected}"}
   '';
 
   smartdDeviceOpts =

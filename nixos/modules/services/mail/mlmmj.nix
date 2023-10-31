@@ -16,12 +16,10 @@ let
   spoolDir = "/var/spool/mlmmj";
   listDir = domain: list: "${spoolDir}/${domain}/${list}";
   listCtl = domain: list: "${listDir domain list}/control";
-  transport =
-    domain: list: "${domain}--${list}@local.list.mlmmj mlmmj:${domain}/${list}";
+  transport = domain: list: "${domain}--${list}@local.list.mlmmj mlmmj:${domain}/${list}";
   virtual = domain: list: "${list}@${domain} ${domain}--${list}@local.list.mlmmj";
   alias =
-    domain: list:
-    ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"'';
+    domain: list: ''${list}: "|${pkgs.mlmmj}/bin/mlmmj-receive -L ${listDir domain list}/"'';
   subjectPrefix = list: "[${list}]";
   listAddress = domain: list: "${list}@${domain}";
   customHeaders = domain: list: [
@@ -48,9 +46,7 @@ let
       ${pkgs.coreutils}/bin/mkdir -p ${ctlDir}
       echo ${listAddress d l} > '${ctlDir}/listaddress'
       [ ! -e ${ctlDir}/customheaders ] && \
-          echo "${
-            lib.concatStringsSep "\n" (customHeaders d l)
-          }" > '${ctlDir}/customheaders'
+          echo "${lib.concatStringsSep "\n" (customHeaders d l)}" > '${ctlDir}/customheaders'
       [ ! -e ${ctlDir}/footer ] && \
           echo ${footer d l} > '${ctlDir}/footer'
       [ ! -e ${ctlDir}/prefix ] && \

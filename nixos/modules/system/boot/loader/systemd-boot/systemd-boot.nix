@@ -25,14 +25,11 @@ let
 
     nix = config.nix.package.out;
 
-    timeout =
-      optionalString (config.boot.loader.timeout != null)
-        config.boot.loader.timeout;
+    timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
 
     editor = if cfg.editor then "True" else "False";
 
-    configurationLimit =
-      if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
+    configurationLimit = if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
 
     inherit (cfg) consoleMode graceful;
 
@@ -50,9 +47,7 @@ let
       ${concatStrings (
         mapAttrsToList
           (n: v: ''
-            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
-              escapeShellArg n
-            }
+            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
             ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${
               escapeShellArg n
             }
@@ -297,8 +292,7 @@ in
       [
         {
           assertion =
-            (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
-            ? efiBootStub;
+            (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
           message = "This kernel does not support the EFI boot stub";
         }
       ]

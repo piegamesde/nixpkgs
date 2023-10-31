@@ -56,8 +56,7 @@ let
       buildDrvInheritArgNames;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
-  name =
-    (if drvArgs ? name then drvArgs.name else "${drvArgs.pname}-${drvArgs.version}");
+  name = (if drvArgs ? name then drvArgs.name else "${drvArgs.pname}-${drvArgs.version}");
 
   deps = stdenvNoCC.mkDerivation (
     {

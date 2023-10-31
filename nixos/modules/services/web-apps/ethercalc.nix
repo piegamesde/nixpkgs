@@ -60,9 +60,7 @@ in
       after = [ "network.target" ];
       serviceConfig = {
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${
-            toString cfg.port
-          }";
+        ExecStart = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${toString cfg.port}";
         Restart = "always";
         StateDirectory = "ethercalc";
         WorkingDirectory = "/var/lib/ethercalc";

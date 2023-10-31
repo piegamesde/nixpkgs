@@ -43,9 +43,7 @@ in
         ++ optionals (cfg.webConfigFile != null) [
           "--web.config.file ${escapeShellArg cfg.webConfigFile}"
         ]
-        ++ optionals (cfg.configFile != null) [
-          "--config.file ${escapeShellArg cfg.configFile}"
-        ]
+        ++ optionals (cfg.configFile != null) [ "--config.file ${escapeShellArg cfg.configFile}" ]
         ++ extraFlags
       );
 

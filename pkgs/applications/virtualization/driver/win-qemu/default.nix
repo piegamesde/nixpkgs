@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
         (cd $out/${arch}/qemuagent; ${p7zip}/bin/7z x qemu-guest-agent.msi; rm qemu-guest-agent.msi)
       '';
       copy =
-        arch: version:
-        (copy_pvpanic arch version) + (copy_pciserial arch) + (copy_agent arch);
+        arch: version: (copy_pvpanic arch version) + (copy_pciserial arch) + (copy_agent arch);
     in
     (copy "amd64" "w8.1") + (copy "x86" "w8.1");
 

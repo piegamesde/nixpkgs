@@ -157,9 +157,7 @@ rec {
   */
   testOnCross =
     crossSystem: metaPatterns: f:
-    forMatchingSystems metaPatterns (
-      system: hydraJob' (f (pkgsForCross crossSystem system))
-    );
+    forMatchingSystems metaPatterns (system: hydraJob' (f (pkgsForCross crossSystem system)));
 
   /* Given a nested set where the leaf nodes are lists of platforms,
      map each leaf node to `testOn [platforms...] (pkgs:

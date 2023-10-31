@@ -35,9 +35,7 @@ in
   compressor ? "gzip",
   _compressorFunction ? if lib.isFunction compressor then
     compressor
-  else if
-    !builtins.hasContext compressor && builtins.hasAttr compressor compressors
-  then
+  else if !builtins.hasContext compressor && builtins.hasAttr compressor compressors then
     compressors.${compressor}.executable
   else
     _: compressor,
@@ -47,10 +45,8 @@ in
 
   # List of arguments to pass to the compressor program, or null to use its defaults
   compressorArgs ? null,
-  _compressorArgsReal ? if compressorArgs == null then
-    _compressorMeta.defaultArgs or [ ]
-  else
-    compressorArgs,
+  _compressorArgsReal ?
+    if compressorArgs == null then _compressorMeta.defaultArgs or [ ] else compressorArgs,
 
   # Filename extension to use for the compressed initramfs. This is
   # included for clarity, but $out/initrd will always be a symlink to

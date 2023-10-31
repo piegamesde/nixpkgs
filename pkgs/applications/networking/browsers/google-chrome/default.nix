@@ -168,10 +168,7 @@ let
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
   crashpadHandlerBinary =
-    if lib.versionAtLeast version "94" then
-      "chrome_crashpad_handler"
-    else
-      "crashpad_handler";
+    if lib.versionAtLeast version "94" then "chrome_crashpad_handler" else "crashpad_handler";
 in
 stdenv.mkDerivation {
   inherit version;

@@ -36,15 +36,9 @@ stdenv.mkDerivation rec {
     (debianPatch "directories" "0y5xvf26v9fk0rx6ncrxx4czckhjbi891hp3pixlmv568pg9cihd")
     (debianPatch "windowed" "1d8ghj4shvpb0s8l16kscz4l7rz1fxmfdpddy1ikz3678pw1sc8p")
     (debianPatch "dotfile" "17yirmnjhbd1clzhmdd2mfdhbxkyinaahd6v3yz5kzbcylvjz2r2")
-    (debianPatch "window-resizing"
-      "1n64gbhabl6vis7s294wxlj2k8s3ypxljpdg71icwz1m9jjx59df"
-    )
-    (debianPatch "save-score-444372"
-      "1skny6s3hjxkh8w4fq86vp51j7z40fvn80b8myl4i1zzlwag3x17"
-    )
-    (debianPatch "level-select-444948"
-      "008248s55188plggg2kg01nimjgc7w0sqd3c22sl6lzd1fjsflv8"
-    )
+    (debianPatch "window-resizing" "1n64gbhabl6vis7s294wxlj2k8s3ypxljpdg71icwz1m9jjx59df")
+    (debianPatch "save-score-444372" "1skny6s3hjxkh8w4fq86vp51j7z40fvn80b8myl4i1zzlwag3x17")
+    (debianPatch "level-select-444948" "008248s55188plggg2kg01nimjgc7w0sqd3c22sl6lzd1fjsflv8")
     (debianPatch "avoid-segfault-when-sdl-fails"
       "1yp758gi4i15gqk6wiqp815rqcmlyqx62ir1sw20hn6zb3j97bmc"
     )

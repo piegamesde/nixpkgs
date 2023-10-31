@@ -140,9 +140,7 @@ let
 
   mkWrappedPrograms =
     builtins.map
-      (
-        opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
-      )
+      (opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts)
       (lib.attrValues wrappers);
 in
 {

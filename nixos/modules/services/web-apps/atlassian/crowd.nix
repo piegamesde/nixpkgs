@@ -195,9 +195,7 @@ in
           rm -rf ${cfg.home}/work
           mkdir -p ${cfg.home}/{logs,database,work}
 
-          sed -e 's,port="8095",port="${
-            toString cfg.listenPort
-          }" address="${cfg.listenAddress}",' \
+          sed -e 's,port="8095",port="${toString cfg.listenPort}" address="${cfg.listenAddress}",' \
         ''
         + (lib.optionalString cfg.proxy.enable ''
           -e 's,compression="on",compression="off" protocol="HTTP/1.1" proxyName="${cfg.proxy.name}" proxyPort="${

@@ -337,8 +337,7 @@ package-set { inherit pkgs lib callPackage; } self
   developPackage =
     {
       root,
-      name ?
-        lib.optionalString (builtins.typeOf root == "path") (builtins.baseNameOf root),
+      name ? lib.optionalString (builtins.typeOf root == "path") (builtins.baseNameOf root),
       source-overrides ? { },
       overrides ? self: super: { },
       modifier ? drv: drv,
@@ -356,10 +355,7 @@ package-set { inherit pkgs lib callPackage; } self
           cabal2nixOptions
           { };
     in
-    if returnShellEnv then
-      (modifier drv).envFunc { inherit withHoogle; }
-    else
-      modifier drv;
+    if returnShellEnv then (modifier drv).envFunc { inherit withHoogle; } else modifier drv;
 
   # This can be used to easily create a derivation containing GHC and the specified set of Haskell packages.
   #
@@ -608,9 +604,7 @@ package-set { inherit pkgs lib callPackage; } self
       # This is a derivation created with `haskellPackages.mkDerivation`.
       #
       # pkgWithCombinedDeps :: HaskellDerivation
-      pkgWithCombinedDeps = self.mkDerivation (
-        genericBuilderArgsModifier genericBuilderArgs
-      );
+      pkgWithCombinedDeps = self.mkDerivation (genericBuilderArgsModifier genericBuilderArgs);
 
       # The derivation returned from `envFunc` for `pkgWithCombinedDeps`.
       #
@@ -636,8 +630,7 @@ package-set { inherit pkgs lib callPackage; } self
       old:
       mkDerivationArgs
       // {
-        nativeBuildInputs =
-          old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
+        nativeBuildInputs = old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
         buildInputs = old.buildInputs ++ mkDerivationArgs.buildInputs or [ ];
       }
     );

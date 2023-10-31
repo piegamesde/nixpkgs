@@ -167,9 +167,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional gssSupport "--with-gssapi=${lib.getDev libkrb5}"
       # For the 'urandom', maybe it should be a cross-system option
-      ++
-        lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-          "--with-random=/dev/urandom"
+      ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--with-random=/dev/urandom"
       ++ lib.optionals stdenv.hostPlatform.isWindows [
         "--disable-shared"
         "--enable-static"
@@ -181,8 +179,7 @@ stdenv.mkDerivation (
         "--without-ca-path"
       ]
       ++
-        lib.optionals
-          (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
+        lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
           [ "--without-ssl" ];
 
     CXX = "${stdenv.cc.targetPrefix}c++";
@@ -214,9 +211,7 @@ stdenv.mkDerivation (
         make -C scripts install
       ''
       + lib.optionalString scpSupport ''
-        sed '/^dependency_libs/s|${lib.getDev libssh2}|${
-          lib.getLib libssh2
-        }|' -i "$out"/lib/*.la
+        sed '/^dependency_libs/s|${lib.getDev libssh2}|${lib.getLib libssh2}|' -i "$out"/lib/*.la
       ''
       + lib.optionalString gnutlsSupport ''
         ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}

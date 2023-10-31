@@ -3983,10 +3983,7 @@ let
       sources."dom-serializer-1.4.1"
       sources."domelementtype-2.3.0"
       (
-        sources."domexception-2.0.1"
-        // {
-          dependencies = [ sources."webidl-conversions-5.0.0" ];
-        }
+        sources."domexception-2.0.1" // { dependencies = [ sources."webidl-conversions-5.0.0" ]; }
       )
       sources."domhandler-4.3.1"
       sources."domutils-2.8.0"
@@ -4230,9 +4227,7 @@ let
       sources."pify-3.0.0"
       sources."postcss-8.4.14"
       sources."prelude-ls-1.1.2"
-      (
-        sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; }
-      )
+      (sources."pretty-format-27.5.1" // { dependencies = [ sources."ansi-styles-5.2.0" ]; })
       sources."progress-2.0.3"
       sources."proxy-addr-2.0.7"
       sources."pseudomap-1.0.2"
@@ -4257,12 +4252,7 @@ let
           ];
         }
       )
-      (
-        sources."request-promise-4.2.6"
-        // {
-          dependencies = [ sources."tough-cookie-2.5.0" ];
-        }
-      )
+      (sources."request-promise-4.2.6" // { dependencies = [ sources."tough-cookie-2.5.0" ]; })
       sources."request-promise-core-1.1.4"
       sources."require-directory-2.1.1"
       sources."require-from-string-2.0.2"

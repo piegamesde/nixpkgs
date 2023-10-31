@@ -110,45 +110,41 @@ let
     assert expectedTestOutputs != null -> hasTests;
     assert hasTests -> expectedTestOutputs != null;
 
-    runCommand "run-buildRustCrate-${crateName}-test" { nativeBuildInputs = [ crate ]; }
-      (
-        if !hasTests then
-          ''
-            ${lib.concatMapStringsSep "\n"
-              (
-                binary:
-                # Can't actually run the binary when cross-compiling
-                (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ") + binary
-              )
-              binaries}
-            ${lib.optionalString isLib ''
-              test -e ${crate}/lib/*.rlib || exit 1
-              ${lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "test -x "} \
-                ${libTestBinary}/bin/run-test-${crateName}
-            ''}
-            touch $out
-          ''
-        else if stdenv.hostPlatform == stdenv.buildPlatform then
-          ''
-            for file in ${crate}/tests/*; do
-              $file 2>&1 >> $out
-            done
-            set -e
-            ${lib.concatMapStringsSep "\n"
-              (
-                o:
-                ''grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }''
-              )
-              expectedTestOutputs}
-          ''
-        else
-          ''
-            for file in ${crate}/tests/*; do
-              test -x "$file"
-            done
-            touch "$out"
-          ''
-      );
+    runCommand "run-buildRustCrate-${crateName}-test" { nativeBuildInputs = [ crate ]; } (
+      if !hasTests then
+        ''
+          ${lib.concatMapStringsSep "\n"
+            (
+              binary:
+              # Can't actually run the binary when cross-compiling
+              (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ") + binary
+            )
+            binaries}
+          ${lib.optionalString isLib ''
+            test -e ${crate}/lib/*.rlib || exit 1
+            ${lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "test -x "} \
+              ${libTestBinary}/bin/run-test-${crateName}
+          ''}
+          touch $out
+        ''
+      else if stdenv.hostPlatform == stdenv.buildPlatform then
+        ''
+          for file in ${crate}/tests/*; do
+            $file 2>&1 >> $out
+          done
+          set -e
+          ${lib.concatMapStringsSep "\n"
+            (o: ''grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
+            expectedTestOutputs}
+        ''
+      else
+        ''
+          for file in ${crate}/tests/*; do
+            test -x "$file"
+          done
+          touch "$out"
+        ''
+    );
 
   /* Returns a derivation that asserts that the crate specified by `crateArgs`
      has the specified files as output.
@@ -673,8 +669,7 @@ rec {
       tests =
         lib.mapAttrs
           (
-            key: value:
-            mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; })
+            key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; })
           )
           cases;
     in

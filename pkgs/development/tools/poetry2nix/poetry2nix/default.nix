@@ -106,9 +106,7 @@ let
         );
     in
     {
-      buildInputs = mkInput "buildInputs" (
-        if includeBuildSystem then buildSystemPkgs else [ ]
-      );
+      buildInputs = mkInput "buildInputs" (if includeBuildSystem then buildSystemPkgs else [ ]);
       propagatedBuildInputs = mkInput "propagatedBuildInputs" (
         getDeps allRawDeps
         ++ (
@@ -281,11 +279,10 @@ lib.makeScope pkgs.newScope (
 
                         sourceSpec =
                           ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
-                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { })
-                            .${normalizedName} or (normalizePackageSet
-                              pyProject.tool.poetry.group.dev.dependencies or { }
-                            ).${normalizedName} # Poetry 1.2.0+
-                              or { }
+                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
+                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { })
+                              .${normalizedName} # Poetry 1.2.0+
+                                or { }
                           );
                       }
                     );

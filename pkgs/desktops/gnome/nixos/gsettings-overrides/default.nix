@@ -18,13 +18,10 @@ let
 
   inherit (lib) concatMapStringsSep;
 
-  gsettingsOverridePackages =
-    [
-      gsettings-desktop-schemas
-      gnome-shell
-    ]
-    ++ lib.optionals flashbackEnabled [ gnome-flashback ]
-    ++ extraGSettingsOverridePackages;
+  gsettingsOverridePackages = [
+    gsettings-desktop-schemas
+    gnome-shell
+  ] ++ lib.optionals flashbackEnabled [ gnome-flashback ] ++ extraGSettingsOverridePackages;
 
   gsettingsOverrides = ''
     [org.gnome.desktop.background]

@@ -266,9 +266,7 @@ in
         '';
       };
 
-      openPeerPorts = mkEnableOption (
-        lib.mdDoc "opening of the peer port(s) in the firewall"
-      );
+      openPeerPorts = mkEnableOption (lib.mdDoc "opening of the peer port(s) in the firewall");
 
       openRPCPort = mkEnableOption (lib.mdDoc "opening of the RPC port in the firewall");
 
@@ -361,8 +359,7 @@ in
           ]
           ++ optional cfg.settings.incomplete-dir-enabled cfg.settings.incomplete-dir
           ++
-            optional
-              (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
+            optional (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
               cfg.settings.watch-dir;
         BindReadOnlyPaths =
           [
@@ -379,8 +376,7 @@ in
             )
             cfg.settings.script-torrent-done-filename
           ++
-            optional
-              (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
+            optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
               cfg.settings.watch-dir;
         StateDirectory = [
           "transmission"

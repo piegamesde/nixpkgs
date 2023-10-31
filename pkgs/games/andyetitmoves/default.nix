@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
 
   src =
     if
-      stdenv.hostPlatform.system == "i686-linux"
-      || stdenv.hostPlatform.system == "x86_64-linux"
+      stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux"
     then
       let
         postfix = if stdenv.hostPlatform.system == "i686-linux" then "i386" else "x86_64";

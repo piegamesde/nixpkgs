@@ -18,9 +18,7 @@ let
       buildCommand = ''
         mkdir -p $out/bin
 
-        makeWrapper ${dxx-rebirth}/bin/d${toString ver}x-rebirth $out/bin/descent${
-          toString ver
-        } \
+        makeWrapper ${dxx-rebirth}/bin/d${toString ver}x-rebirth $out/bin/descent${toString ver} \
           --add-flags "-hogdir ${assets}/share/games/descent${toString ver}"
       '';
 

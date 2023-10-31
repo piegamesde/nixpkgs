@@ -11,9 +11,7 @@ in
 
     # Fedora enables the first and third option by default. See the 10-oomd-* files here:
     # https://src.fedoraproject.org/rpms/systemd/tree/acb90c49c42276b06375a66c73673ac351025597
-    enableRootSlice = lib.mkEnableOption (
-      lib.mdDoc "oomd on the root slice (`-.slice`)"
-    );
+    enableRootSlice = lib.mkEnableOption (lib.mdDoc "oomd on the root slice (`-.slice`)");
     enableSystemSlice = lib.mkEnableOption (
       lib.mdDoc "oomd on the system slice (`system.slice`)"
     );

@@ -313,9 +313,7 @@ in
       };
 
       serve = {
-        enable = mkEnableOption (
-          lib.mdDoc "Automatic nginx and uwsgi setup for mailman-web"
-        );
+        enable = mkEnableOption (lib.mdDoc "Automatic nginx and uwsgi setup for mailman-web");
 
         virtualRoot = mkOption {
           default = "/";
@@ -548,8 +546,7 @@ in
         webHost: {
           locations = {
             ${cfg.serve.virtualRoot}.extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
-            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias =
-              webSettings.STATIC_ROOT + "/";
+            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias = webSettings.STATIC_ROOT + "/";
           };
         }
       );

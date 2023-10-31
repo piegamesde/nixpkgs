@@ -88,9 +88,7 @@ in
 
         address = mkOption {
           type = types.str;
-          description =
-            lib.mdDoc
-              "The IP address or hostname of the Zabbix server to connect to.";
+          description = lib.mdDoc "The IP address or hostname of the Zabbix server to connect to.";
           default = "localhost";
         };
       };

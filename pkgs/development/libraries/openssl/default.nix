@@ -62,13 +62,11 @@ let
           + lib.optionalString (lib.versionAtLeast version "1.1.1") ''
             substituteInPlace config --replace '/usr/bin/env' '${buildPackages.coreutils}/bin/env'
           ''
-          +
-            lib.optionalString (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl)
-              ''
-                substituteInPlace crypto/async/arch/async_posix.h \
-                  --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
-                            '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
-              ''
+          + lib.optionalString (lib.versionAtLeast version "1.1.1" && stdenv.hostPlatform.isMusl) ''
+            substituteInPlace crypto/async/arch/async_posix.h \
+              --replace '!defined(__ANDROID__) && !defined(__OpenBSD__)' \
+                        '!defined(__ANDROID__) && !defined(__OpenBSD__) && 0'
+          ''
           # Move ENGINESDIR into OPENSSLDIR for static builds, in order to move
           # it to the separate etc output.
           + lib.optionalString static ''
@@ -124,9 +122,7 @@ let
                 "./Configure BSD-x86_64"
               else if stdenv.hostPlatform.isx86_32 then
                 "./Configure BSD-x86"
-                +
-                  lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf")
-                    "-elf"
+                + lib.optionalString (stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf") "-elf"
               else
                 "./Configure BSD-generic${toString stdenv.hostPlatform.parsed.cpu.bits}"
             else if stdenv.hostPlatform.isMinGW then

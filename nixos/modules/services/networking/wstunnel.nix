@@ -12,8 +12,7 @@ let
   attrsToArgs =
     attrs:
     utils.escapeSystemdExecArgs (
-      mapAttrsToList
-        (name: value: if value == true then "--${name}" else "--${name}=${value}")
+      mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}")
         attrs
     );
   hostPortSubmodule = {
@@ -335,10 +334,7 @@ let
             with serverCfg;
             let
               resolvedTlsCertificate =
-                if useACMEHost != null then
-                  "${certConfig.directory}/fullchain.pem"
-                else
-                  tlsCertificate;
+                if useACMEHost != null then "${certConfig.directory}/fullchain.pem" else tlsCertificate;
               resolvedTlsKey =
                 if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
             in
@@ -364,15 +360,11 @@ let
                     "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
                 }
             '';
-          EnvironmentFile =
-            optional (serverCfg.environmentFile != null)
-              serverCfg.environmentFile;
+          EnvironmentFile = optional (serverCfg.environmentFile != null) serverCfg.environmentFile;
           DynamicUser = true;
           SupplementaryGroups = optional (serverCfg.useACMEHost != null) certConfig.group;
           PrivateTmp = true;
-          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
-            "CAP_NET_BIND_SERVICE"
-          ];
+          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
           NoNewPrivileges = true;
           RestrictNamespaces = "uts ipc pid user cgroup";
           ProtectSystem = "strict";
@@ -431,8 +423,7 @@ let
                 "--websocketPingFrequency=${toString websocketPingInterval}"
             } \
             ${
-              optionalString (upgradeCredentials != null)
-                "--upgradeCredentials=${upgradeCredentials}"
+              optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"
             } \
             --udpTimeoutSec=${toString udpTimeout} \
             ${optionalString verboseLogging "--verbose"} \
@@ -442,9 +433,7 @@ let
                 "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
             }
         '';
-        EnvironmentFile =
-          optional (clientCfg.environmentFile != null)
-            clientCfg.environmentFile;
+        EnvironmentFile = optional (clientCfg.environmentFile != null) clientCfg.environmentFile;
         DynamicUser = true;
         PrivateTmp = true;
         AmbientCapabilities =

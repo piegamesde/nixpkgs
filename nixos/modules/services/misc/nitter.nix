@@ -131,9 +131,7 @@ in
         listMinutes = mkOption {
           type = types.int;
           default = 240;
-          description =
-            lib.mdDoc
-              "How long to cache list info (not the tweets, so keep it high).";
+          description = lib.mdDoc "How long to cache list info (not the tweets, so keep it high).";
         };
 
         rssMinutes = mkOption {
@@ -282,9 +280,7 @@ in
         bidiSupport = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Support bidirectional text (makes clicking on tweets harder).";
+          description = lib.mdDoc "Support bidirectional text (makes clicking on tweets harder).";
         };
 
         hideTweetStats = mkOption {
@@ -404,8 +400,6 @@ in
       port = cfg.cache.redisPort;
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.server.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.server.port ]; };
   };
 }

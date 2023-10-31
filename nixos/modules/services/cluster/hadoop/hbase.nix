@@ -197,9 +197,7 @@ in
           };
         in
         mapAttrs hbaseRoleOption {
-          master.initHDFS = mkEnableOption (
-            mdDoc "initialization of the hbase directory on HDFS"
-          );
+          master.initHDFS = mkEnableOption (mdDoc "initialization of the hbase directory on HDFS");
           regionServer.overrideHosts = mkOption {
             type = types.bool;
             default = true;
@@ -220,13 +218,10 @@ in
 
       (mkIf cfg.gatewayRole.enable {
 
-        environment.systemPackages = mkIf cfg.gatewayRole.enableHbaseCli [
-          cfg.hbase.package
-        ];
+        environment.systemPackages = mkIf cfg.gatewayRole.enableHbaseCli [ cfg.hbase.package ];
 
-        services.hadoop.hbaseSiteInternal = with cfg.hbase; {
-          "hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum;
-        };
+        services.hadoop.hbaseSiteInternal =
+          with cfg.hbase; { "hbase.zookeeper.quorum" = mkIfNotNull zookeeperQuorum; };
 
         users.users.hbase = {
           description = "Hadoop HBase user";

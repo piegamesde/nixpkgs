@@ -68,9 +68,7 @@ runTests {
   # > The option `settings.NIXOS_FAKE_MMC_BLOCK_MINORS.freeform' has conflicting definitions, in `<unknown-file>' and `<unknown-file>'
   testTreeform =
     let
-      res = builtins.tryEval (
-        (getConfig freeformConfig).NIXOS_FAKE_MMC_BLOCK_MINORS.freeform
-      );
+      res = builtins.tryEval ((getConfig freeformConfig).NIXOS_FAKE_MMC_BLOCK_MINORS.freeform);
     in
     {
       expr = res.success;

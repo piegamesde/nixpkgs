@@ -614,9 +614,7 @@ in
                   slowLogLogSlowerThan = mkOption {
                     type = types.int;
                     default = 10000;
-                    description =
-                      lib.mdDoc
-                        "Log queries whose execution take longer than X in milliseconds.";
+                    description = lib.mdDoc "Log queries whose execution take longer than X in milliseconds.";
                     example = 1000;
                   };
 
@@ -734,9 +732,7 @@ in
           }
         )
         enabledServers;
-    users.groups =
-      mapAttrs' (name: conf: nameValuePair (redisName name) { })
-        enabledServers;
+    users.groups = mapAttrs' (name: conf: nameValuePair (redisName name) { }) enabledServers;
 
     systemd.services =
       mapAttrs'

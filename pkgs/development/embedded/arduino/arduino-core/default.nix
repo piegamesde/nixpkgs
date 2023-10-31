@@ -45,12 +45,10 @@ let
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_aarch64.so";
     }
-    ++
-      lib.optional (builtins.match "armv[67]l-linux" stdenv.hostPlatform.system != null)
-        {
-          jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
-          file = "libs/linux/libjSSC-2.8_armhf.so";
-        }
+    ++ lib.optional (builtins.match "armv[67]l-linux" stdenv.hostPlatform.system != null) {
+      jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
+      file = "libs/linux/libjSSC-2.8_armhf.so";
+    }
     ++ lib.optional (stdenv.hostPlatform.system == "x86_64-linux") {
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_x86_64.so";

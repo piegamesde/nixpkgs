@@ -15,9 +15,7 @@ let
 
   socket =
     with types;
-    addCheck (either (submodule unixSocket) (submodule inetSocket)) (
-      x: x ? path || x ? port
-    );
+    addCheck (either (submodule unixSocket) (submodule inetSocket)) (x: x ? path || x ? port);
 
   inetSocket = with types; {
     options = {
@@ -243,9 +241,7 @@ in
                       --delay=${toString cfg.delay} \
                       --max-age=${toString cfg.maxAge} \
                       --retry-window=${toString cfg.retryWindow} \
-                      ${
-                        if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"
-                      } \
+                      ${if cfg.lookupBySubnet then "--lookup-by-subnet" else "--lookup-by-host"} \
                       --ipv4cidr=${toString cfg.IPv4CIDR} --ipv6cidr=${toString cfg.IPv6CIDR} \
                       ${optionalString cfg.privacy "--privacy"} \
                       --auto-whitelist-clients=${

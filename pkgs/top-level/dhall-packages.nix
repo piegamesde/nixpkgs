@@ -22,9 +22,7 @@ let
         callPackage ../development/interpreters/dhall/build-dhall-directory-package.nix
           { };
 
-      buildDhallUrl =
-        callPackage ../development/interpreters/dhall/build-dhall-url.nix
-          { };
+      buildDhallUrl = callPackage ../development/interpreters/dhall/build-dhall-url.nix { };
 
       generateDhallDirectoryPackage =
         callPackage ../development/interpreters/dhall/generate-dhall-directory-package.nix

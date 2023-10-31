@@ -18,10 +18,7 @@ let
   overrides = import ./overrides.nix;
   baseName = lib.getName name;
   override =
-    if builtins.hasAttr baseName overrides then
-      builtins.getAttr baseName overrides
-    else
-      { };
+    if builtins.hasAttr baseName overrides then builtins.getAttr baseName overrides else { };
 in
 stdenv.mkDerivation (
   {

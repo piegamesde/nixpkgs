@@ -85,8 +85,7 @@ python3.pkgs.buildPythonApplication rec {
       mkDesktopItem "trackma-gtk" "Trackma (GTK)" "Trackma Updater (Gtk-frontend)" false
     )
     ++ lib.optional withCurses (
-      mkDesktopItem "trackma-curses" "Trackma (ncurses)"
-        "Trackma Updater (ncurses frontend)"
+      mkDesktopItem "trackma-curses" "Trackma (ncurses)" "Trackma Updater (ncurses frontend)"
         true
     );
 

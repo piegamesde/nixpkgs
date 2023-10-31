@@ -87,8 +87,7 @@ let
     else
       let
         sha256 = releaseInfo.original.sha256;
-        rev =
-          if gitRelease != null then gitRelease.rev else "llvmorg-${releaseInfo.version}";
+        rev = if gitRelease != null then gitRelease.rev else "llvmorg-${releaseInfo.version}";
       in
       fetchFromGitHub {
         owner = "llvm";
@@ -253,8 +252,7 @@ let
           ]
           ++ lib.optional (!stdenv.targetPlatform.isWasm) "--unwindlib=libunwind"
           ++
-            lib.optional
-              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
+            lib.optional (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
       };

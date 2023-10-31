@@ -124,9 +124,7 @@ in
               tun.device = mkOption {
                 type = types.nullOr types.str;
                 default = null;
-                description =
-                  lib.mdDoc
-                    "Name of the tun device. Defaults to nebula.\${networkName}.";
+                description = lib.mdDoc "Name of the tun device. Defaults to nebula.\${networkName}.";
               };
 
               firewall.outbound = mkOption {

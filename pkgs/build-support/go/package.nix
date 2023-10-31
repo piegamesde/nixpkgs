@@ -89,10 +89,7 @@ let
   importGodeps = { depsFile }: map dep2src (import depsFile);
 
   goPath =
-    if goDeps != null then
-      importGodeps { depsFile = goDeps; } ++ extraSrcs
-    else
-      extraSrcs;
+    if goDeps != null then importGodeps { depsFile = goDeps; } ++ extraSrcs else extraSrcs;
   package = stdenv.mkDerivation (
     (builtins.removeAttrs args [
       "goPackageAliases"
@@ -186,8 +183,7 @@ let
               buildInputs ++ (args.propagatedBuildInputs or [ ])
             );
             rename = to: from: "echo Renaming '${from}' to '${to}'; govers -d -m ${from} ${to}";
-            renames =
-              p: lib.concatMapStringsSep "\n" (rename p.goPackagePath) p.goPackageAliases;
+            renames = p: lib.concatMapStringsSep "\n" (rename p.goPackagePath) p.goPackageAliases;
           in
           lib.concatMapStringsSep "\n" renames inputsWithAliases
         );

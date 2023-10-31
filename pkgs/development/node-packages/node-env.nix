@@ -211,8 +211,7 @@ let
         then
             cd node_modules
             ${
-              lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency)
-                dependencies
+              lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies
             }
             cd ..
         fi

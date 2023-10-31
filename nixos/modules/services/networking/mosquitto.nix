@@ -155,9 +155,9 @@ let
         mapAttrsToList (n: u: "addLine ${escapeShellArg n} ${escapeShellArg u.${store}}") (
           filterAttrs (_: u: u.${store} != null) users
         )
-        ++
-          mapAttrsToList (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}")
-            (filterAttrs (_: u: u.${file} != null) users);
+        ++ mapAttrsToList (n: u: "addFile ${escapeShellArg n} ${escapeShellArg "${u.${file}}"}") (
+          filterAttrs (_: u: u.${file} != null) users
+        );
       plainLines = makeLines "password" "passwordFile";
       hashedLines = makeLines "hashedPassword" "hashedPasswordFile";
     in
@@ -363,9 +363,7 @@ let
     prefix: listener:
     assertKeysValid "${prefix}.settings" freeformListenerKeys listener.settings
     ++ userAsserts prefix listener.users
-    ++
-      imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v)
-        listener.authPlugins;
+    ++ imap0 (i: v: authAsserts "${prefix}.authPlugins.${toString i}" v) listener.authPlugins;
 
   formatListener =
     idx: listener:
@@ -635,18 +633,14 @@ let
       "per_listener_settings true"
       "persistence ${optionToString cfg.persistence}"
     ]
-    ++
-      map (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}")
-        cfg.logDest
+    ++ map (d: if path.check d then "log_dest file ${d}" else "log_dest ${d}") cfg.logDest
     ++ map (t: "log_type ${t}") cfg.logType
     ++ formatFreeform { } cfg.settings
     ++ concatLists (imap0 formatListener cfg.listeners)
     ++ concatLists (mapAttrsToList formatBridge cfg.bridges)
     ++ map (d: "include_dir ${d}") cfg.includeDirs;
 
-  configFile = pkgs.writeText "mosquitto.conf" (
-    concatStringsSep "\n" (formatGlobal cfg)
-  );
+  configFile = pkgs.writeText "mosquitto.conf" (concatStringsSep "\n" (formatGlobal cfg));
 in
 
 {
@@ -748,10 +742,7 @@ in
       };
       preStart = concatStringsSep "\n" (
         imap0
-          (
-            idx: listener:
-            makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}"
-          )
+          (idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}")
           cfg.listeners
       );
     };

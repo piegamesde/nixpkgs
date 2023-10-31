@@ -9,9 +9,7 @@ let
 
   inherit (kakouneUtils.override { }) buildKakounePluginFrom2Nix;
 
-  plugins = callPackage ./generated.nix {
-    inherit buildKakounePluginFrom2Nix overrides;
-  };
+  plugins = callPackage ./generated.nix { inherit buildKakounePluginFrom2Nix overrides; };
 
   # TL;DR
   # * Add your plugin to ./kakoune-plugin-names

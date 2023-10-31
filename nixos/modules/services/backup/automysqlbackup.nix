@@ -145,9 +145,7 @@ in
     };
     users.groups.${group} = { };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -" ];
 
     services.mysql.ensureUsers =
       optional (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")

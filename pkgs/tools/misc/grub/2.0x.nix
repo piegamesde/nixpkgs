@@ -462,8 +462,7 @@ in
       if efiSupport then
         "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
       else
-        lib.optionalString inPCSystems
-          "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
+        lib.optionalString inPCSystems "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
 
     doCheck = false;
     enableParallelBuilding = true;

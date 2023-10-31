@@ -54,8 +54,7 @@ let
       ''; # Local interfaces has been added for now: See https://github.com/agda/agda/issues/4526
 
   withPackages =
-    arg:
-    if builtins.isAttrs arg then withPackages' arg else withPackages' { pkgs = arg; };
+    arg: if builtins.isAttrs arg then withPackages' arg else withPackages' { pkgs = arg; };
 
   extensions = [
     "agda"
@@ -128,10 +127,7 @@ let
       LC_ALL = lib.optionalString (!stdenv.isDarwin) "C.UTF-8";
 
       meta =
-        if meta.broken or false then
-          meta // { hydraPlatforms = lib.platforms.none; }
-        else
-          meta;
+        if meta.broken or false then meta // { hydraPlatforms = lib.platforms.none; } else meta;
 
       # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests =
@@ -139,8 +135,7 @@ let
         lib.filterAttrs
           (
             name: pkg:
-            self.lib.isUnbrokenAgdaPackage pkg
-            && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
+            self.lib.isUnbrokenAgdaPackage pkg && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
           )
           self;
     };

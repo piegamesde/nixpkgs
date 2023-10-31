@@ -78,9 +78,7 @@ in
       powerOnBoot = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to power up the default Bluetooth controller on boot.";
+        description = lib.mdDoc "Whether to power up the default Bluetooth controller on boot.";
       };
 
       package = mkOption {
@@ -145,9 +143,7 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
-    environment.etc."bluetooth/input.conf".source =
-      cfgFmt.generate "input.conf"
-        cfg.input;
+    environment.etc."bluetooth/input.conf".source = cfgFmt.generate "input.conf" cfg.input;
     environment.etc."bluetooth/network.conf".source =
       cfgFmt.generate "network.conf"
         cfg.network;
@@ -166,13 +162,10 @@ in
             # will in fact load the configuration file at /etc/bluetooth/main.conf
             # so force it here to avoid any ambiguity and things suddenly breaking
             # if/when the bluez derivation is changed.
-            args =
-              [
-                "-f"
-                "/etc/bluetooth/main.conf"
-              ]
-              ++ optional hasDisabledPlugins
-                "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
+            args = [
+              "-f"
+              "/etc/bluetooth/main.conf"
+            ] ++ optional hasDisabledPlugins "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
           in
           {
             wantedBy = [ "bluetooth.target" ];

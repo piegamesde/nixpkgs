@@ -6592,9 +6592,7 @@ let
       sources."@babel/plugin-transform-typeof-symbol-7.18.9"
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
-      (
-        sources."@babel/preset-env-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."@babel/preset-env-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/preset-modules-0.1.5"
       sources."@babel/regjsgen-0.8.0"
       sources."@babel/runtime-7.14.6"
@@ -6798,10 +6796,7 @@ let
       sources."connect-history-api-fallback-2.0.0"
       sources."consolidate-0.15.1"
       (
-        sources."content-disposition-0.5.4"
-        // {
-          dependencies = [ sources."safe-buffer-5.2.1" ];
-        }
+        sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; }
       )
       sources."content-type-1.0.4"
       sources."convert-source-map-1.8.0"
@@ -7040,10 +7035,7 @@ let
       (sources."hpack.js-2.1.6" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
       sources."html-entities-2.3.2"
       (
-        sources."html-minifier-terser-6.0.2"
-        // {
-          dependencies = [ sources."commander-8.3.0" ];
-        }
+        sources."html-minifier-terser-6.0.2" // { dependencies = [ sources."commander-8.3.0" ]; }
       )
       sources."html-webpack-plugin-5.5.0"
       sources."htmlparser2-6.1.0"
@@ -7058,9 +7050,7 @@ let
       sources."icss-utils-5.1.0"
       sources."ignore-5.2.0"
       sources."immutable-4.0.0"
-      (
-        sources."import-fresh-3.3.0" // { dependencies = [ sources."resolve-from-4.0.0" ]; }
-      )
+      (sources."import-fresh-3.3.0" // { dependencies = [ sources."resolve-from-4.0.0" ]; })
       (
         sources."import-local-3.0.3"
         // {
@@ -7328,10 +7318,7 @@ let
           dependencies = [
             sources."source-map-0.7.3"
             (
-              sources."source-map-support-0.5.20"
-              // {
-                dependencies = [ sources."source-map-0.6.1" ];
-              }
+              sources."source-map-support-0.5.20" // { dependencies = [ sources."source-map-0.6.1" ]; }
             )
           ];
         }

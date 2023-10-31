@@ -186,9 +186,7 @@ in
         ];
       in
       requiredPackages
-      ++
-        utils.removePackagesByName optionalPackages
-          config.environment.deepin.excludePackages;
+      ++ utils.removePackagesByName optionalPackages config.environment.deepin.excludePackages;
 
     services.dbus.packages = with pkgs.deepin; [
       dde-dock

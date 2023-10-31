@@ -48,9 +48,7 @@ in
         path:
         let
           files = builtins.attrNames (builtins.readDir path);
-          matches = builtins.filter (match: match != null) (
-            map (builtins.match pattern) files
-          );
+          matches = builtins.filter (match: match != null) (map (builtins.match pattern) files);
         in
         if builtins.length matches != 0 then
           { inherit path matches; }

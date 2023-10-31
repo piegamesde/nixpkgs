@@ -341,9 +341,7 @@ in
     systemd.services.limesurvey-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-limesurvey.service" ];
-      after =
-        optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service";
+      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.DBENGINE = "${cfg.database.dbEngine}";
       environment.LIMESURVEY_CONFIG = limesurveyConfig;
       script = ''

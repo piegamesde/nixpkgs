@@ -45,8 +45,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
       # Pick an SDK
-      apple_sdk =
-        if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
+      apple_sdk = if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
 
       # Pick the source of libraries: either Apple's open source releases, or the
       # SDK.
@@ -55,8 +54,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       selectAttrs =
         attrs: names:
         lib.listToAttrs (
-          lib.concatMap
-            (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
+          lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
             names
         );
 
@@ -75,9 +73,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           ]
         )
         // {
-          inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages)
-            Security
-          ;
+          inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages) Security;
         };
     in
 
@@ -272,9 +268,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           # This may seem unimportant, but without it packages (e.g., bacula) will
           # fail with linker errors referring ___CFConstantStringClassReference.
           # It's not clear to me why some packages need this extra setup.
-          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (
-            drv: { setupHook = null; }
-          )
+          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (drv: { setupHook = null; })
         else
           callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { };
 

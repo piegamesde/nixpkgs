@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
       if withApplePCSC then
         "${PCSC}/Library/Frameworks/PCSC.framework/PCSC"
       else
-        "${
-          lib.getLib pcsclite
-        }/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
+        "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
     }"
     (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
       "XSLTPROC=${buildPackages.libxslt}/bin/xsltproc"

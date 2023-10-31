@@ -93,9 +93,7 @@ self: super:
         })
         super.al;
 
-    proteaaudio =
-      addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox
-        super.proteaaudio;
+    proteaaudio = addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox super.proteaaudio;
 
     # the system-fileio tests use canonicalizePath, which fails in the sandbox
     system-fileio = dontCheck super.system-fileio;
@@ -215,9 +213,7 @@ self: super:
 
     # FSEvents API is very buggy and tests are unreliable. See
     # http://openradar.appspot.com/10207999 and similar issues.
-    fsnotify = addBuildDepend darwin.apple_sdk.frameworks.Cocoa (
-      dontCheck super.fsnotify
-    );
+    fsnotify = addBuildDepend darwin.apple_sdk.frameworks.Cocoa (dontCheck super.fsnotify);
 
     FractalArt =
       overrideCabal
@@ -255,9 +251,7 @@ self: super:
     # conditional dependency via a cabal flag
     cas-store =
       overrideCabal
-        (drv: {
-          libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]);
-        })
+        (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); })
         super.cas-store;
 
     # 2021-05-25: Tests fail and I have no way to debug them.

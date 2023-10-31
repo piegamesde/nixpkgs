@@ -291,9 +291,7 @@ builtins.intersectAttrs super {
   );
 
   # Generate shell completion.
-  cabal2nix =
-    self.generateOptparseApplicativeCompletions [ "cabal2nix" ]
-      super.cabal2nix;
+  cabal2nix = self.generateOptparseApplicativeCompletions [ "cabal2nix" ] super.cabal2nix;
 
   arbtt =
     overrideCabal
@@ -314,9 +312,7 @@ builtins.intersectAttrs super {
       super.hzk;
 
   # Foreign dependency name clashes with another Haskell package.
-  libarchive-conduit = super.libarchive-conduit.override {
-    archive = pkgs.libarchive;
-  };
+  libarchive-conduit = super.libarchive-conduit.override { archive = pkgs.libarchive; };
 
   # Heist's test suite requires system pandoc
   heist = addTestToolDepend pkgs.pandoc super.heist;
@@ -378,9 +374,7 @@ builtins.intersectAttrs super {
         )
       ))
     ]
-    ++ (
-      if pkgs.stdenv.isDarwin then [ (appendConfigureFlag "-fhave-quartz-gtk") ] else [ ]
-    )
+    ++ (if pkgs.stdenv.isDarwin then [ (appendConfigureFlag "-fhave-quartz-gtk") ] else [ ])
   );
   gtksourceview2 = addPkgconfigDepend pkgs.gtk2 super.gtksourceview2;
   gtk-traymanager = addPkgconfigDepend pkgs.gtk3 super.gtk-traymanager;
@@ -528,9 +522,7 @@ builtins.intersectAttrs super {
   llvm-hs = super.llvm-hs.override { llvm-config = pkgs.llvm_9; };
 
   # Needs help finding LLVM.
-  spaceprobe =
-    addBuildTool self.buildHaskellPackages.llvmPackages.llvm
-      super.spaceprobe;
+  spaceprobe = addBuildTool self.buildHaskellPackages.llvmPackages.llvm super.spaceprobe;
 
   # Tries to run GUI in tests
   leksah = dontCheck (
@@ -641,9 +633,7 @@ builtins.intersectAttrs super {
   fltkhs =
     overrideCabal
       (drv: {
-        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [
-          pkgs.buildPackages.autoconf
-        ];
+        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ pkgs.buildPackages.autoconf ];
         librarySystemDepends = (drv.librarySystemDepends or [ ]) ++ [
           pkgs.fltk13
           pkgs.libGL
@@ -711,9 +701,7 @@ builtins.intersectAttrs super {
     appendPatch ./patches/GLUT.patch super.GLUT
   );
 
-  libsystemd-journal = doJailbreak (
-    addExtraLibrary pkgs.systemd super.libsystemd-journal
-  );
+  libsystemd-journal = doJailbreak (addExtraLibrary pkgs.systemd super.libsystemd-journal);
 
   # does not specify tests in cabal file, instead has custom runTest cabal hook,
   # so cabal2nix will not detect test dependencies.
@@ -1186,10 +1174,7 @@ builtins.intersectAttrs super {
           ''
           + (drv.postInstall or "");
       })
-      (
-        self.generateOptparseApplicativeCompletions [ "pnbackup" ]
-          super.pinboard-notes-backup
-      );
+      (self.generateOptparseApplicativeCompletions [ "pnbackup" ] super.pinboard-notes-backup);
 
   # Pass the correct libarchive into the package.
   streamly-archive = super.streamly-archive.override { archive = pkgs.libarchive; };
@@ -1570,9 +1555,7 @@ builtins.intersectAttrs super {
   cabal-install =
     overrideCabal
       (old: {
-        executableToolDepends = [
-          pkgs.buildPackages.makeWrapper
-        ] ++ old.buildToolDepends or [ ];
+        executableToolDepends = [ pkgs.buildPackages.makeWrapper ] ++ old.buildToolDepends or [ ];
         postInstall =
           old.postInstall
           + ''

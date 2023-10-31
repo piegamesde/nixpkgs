@@ -64,9 +64,7 @@ stdenv.mkDerivation {
             "-DCMAKE_SHARED_LINKER_FLAGS=-L${nativeLibcxxabi}/lib"
           ];
         in
-        "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=${
-          lib.concatStringsSep ";" nativeToolchainFlags
-        }"
+        "-DCROSS_TOOLCHAIN_FLAGS_NATIVE:list=${lib.concatStringsSep ";" nativeToolchainFlags}"
       )
     ];
 

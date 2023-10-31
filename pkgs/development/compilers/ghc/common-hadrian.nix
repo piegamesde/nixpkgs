@@ -246,10 +246,7 @@ let
     # part of the bintools wrapper (due to codesigning requirements), but not on
     # x86_64-darwin.
     install_name_tool =
-      if stdenv.targetPlatform.isAarch64 then
-        targetCC.bintools
-      else
-        targetCC.bintools.bintools;
+      if stdenv.targetPlatform.isAarch64 then targetCC.bintools else targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
@@ -280,8 +277,7 @@ in
 # C compiler, bintools and LLVM are used at build time, but will also leak into
 # the resulting GHC's settings file and used at runtime. This means that we are
 # currently only able to build GHC if hostPlatform == buildPlatform.
-assert !targetPlatform.isGhcjs
-  -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
+assert !targetPlatform.isGhcjs -> targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
   -> buildTargetLlvmPackages.clang == llvmPackages.clang;
@@ -395,12 +391,9 @@ stdenv.mkDerivation (
         )
       '';
 
-    ${
-      if targetPlatform.isGhcjs then "configureScript" else null
-    } = "emconfigure ./configure";
+    ${if targetPlatform.isGhcjs then "configureScript" else null} = "emconfigure ./configure";
     # GHC currently ships an edited config.sub so ghcjs is accepted which we can not rollback
-    ${if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null} =
-      true;
+    ${if targetPlatform.isGhcjs then "dontUpdateAutotoolsGnuConfigScripts" else null} = true;
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms = [

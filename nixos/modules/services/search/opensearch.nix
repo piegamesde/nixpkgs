@@ -224,9 +224,7 @@ in
               '';
             in
             [
-              "+${
-                pkgs.writeShellScript "opensearch-start-pre-full-privileges" startPreFullPrivileges
-              }"
+              "+${pkgs.writeShellScript "opensearch-start-pre-full-privileges" startPreFullPrivileges}"
               "${pkgs.writeShellScript "opensearch-start-pre-unprivileged" startPreUnprivileged}"
             ];
           ExecStartPost = pkgs.writeShellScript "opensearch-start-post" ''

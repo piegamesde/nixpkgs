@@ -333,7 +333,5 @@ stdenvNoCC.mkDerivation (
   # ICU tries to unconditionally load files from /usr/share/icu on Darwin, which makes builds fail
   # in the sandbox, so disable ICU on Darwin. This, as far as I know, shouldn't cause any built packages
   # to behave differently, just the dotnet build tool.
-  // lib.optionalAttrs stdenvNoCC.isDarwin {
-    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = 1;
-  }
+  // lib.optionalAttrs stdenvNoCC.isDarwin { DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = 1; }
 )

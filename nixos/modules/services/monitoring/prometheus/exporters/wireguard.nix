@@ -72,8 +72,7 @@ in
           ${optionalString cfg.singleSubnetPerField "-s true"} \
           ${optionalString cfg.withRemoteIp "-r true"} \
           ${
-            optionalString (cfg.wireguardConfig != null)
-              "-n ${escapeShellArg cfg.wireguardConfig}"
+            optionalString (cfg.wireguardConfig != null) "-n ${escapeShellArg cfg.wireguardConfig}"
           }
       '';
       RestrictAddressFamilies =

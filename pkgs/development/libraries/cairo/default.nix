@@ -207,13 +207,10 @@ stdenv.mkDerivation (
         lgpl2Plus
         mpl10
       ];
-      pkgConfigModules =
-        [
-          "cairo-ps"
-          "cairo-svg"
-        ]
-        ++ lib.optional gobjectSupport "cairo-gobject"
-        ++ lib.optional pdfSupport "cairo-pdf";
+      pkgConfigModules = [
+        "cairo-ps"
+        "cairo-svg"
+      ] ++ lib.optional gobjectSupport "cairo-gobject" ++ lib.optional pdfSupport "cairo-pdf";
       platforms = platforms.all;
     };
   }

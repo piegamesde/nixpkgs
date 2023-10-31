@@ -52,10 +52,7 @@ let
       pname ? applicationName,
       version ? lib.getVersion browser,
       desktopName ? # applicationName with first letter capitalized
-        (
-          lib.toUpper (lib.substring 0 1 applicationName)
-          + lib.substring 1 (-1) applicationName
-        ),
+        (lib.toUpper (lib.substring 0 1 applicationName) + lib.substring 1 (-1) applicationName),
       nameSuffix ? "",
       icon ? applicationName,
       wmClass ? applicationName,
@@ -198,9 +195,7 @@ let
                 extensions;
 
             Extensions = {
-              Install =
-                lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ]
-                  extensions;
+              Install = lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ] extensions;
             };
           }
           // lib.optionalAttrs smartcardSupport {
@@ -219,8 +214,7 @@ let
         // Security is maintained because only user whitelisted addons
         // with a checksum can be installed
         ${
-          lib.optionalString usesNixExtensions
-            ''lockPref("xpinstall.signatures.required", false)''
+          lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false)''
         };
       '';
     in

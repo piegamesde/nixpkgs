@@ -36,8 +36,7 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion =
-    with lib; concatStringsSep "." (take 1 (splitString "." release_version));
+  shortVersion = with lib; concatStringsSep "." (take 1 (splitString "." release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking

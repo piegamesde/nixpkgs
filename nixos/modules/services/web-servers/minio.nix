@@ -46,9 +46,7 @@ in
     configDir = mkOption {
       default = "/var/lib/minio/config";
       type = types.path;
-      description =
-        lib.mdDoc
-          "The config directory, for the access keys and other settings.";
+      description = lib.mdDoc "The config directory, for the access keys and other settings.";
     };
 
     accessKey = mkOption {

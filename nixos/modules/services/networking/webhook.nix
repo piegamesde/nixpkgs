@@ -27,19 +27,15 @@ let
         };
         execute-command = mkOption {
           type = types.str;
-          description =
-            mdDoc
-              "The command that should be executed when the hook is triggered.";
+          description = mdDoc "The command that should be executed when the hook is triggered.";
         };
       };
     }
   );
 
   hookFiles =
-    mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ])
-      cfg.hooks
-    ++ mapAttrsToList
-      (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
+    mapAttrsToList (name: hook: hookFormat.generate "webhook-${name}.json" [ hook ]) cfg.hooks
+    ++ mapAttrsToList (name: hook: pkgs.writeText "webhook-${name}.json.tmpl" "[${hook}]")
       cfg.hooksTemplated;
 in
 {

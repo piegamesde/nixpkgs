@@ -39,9 +39,7 @@ runCommand "${application.name}-wrapped"
         makeWrapper "$bin" $out/bin/''${bin##*/} \
             --suffix PATH : ${escapeShellArg (makeBinPath plugins)} \
             --suffix WAYFIRE_PLUGIN_PATH : ${escapeShellArg (makePluginPath plugins)} \
-            --suffix WAYFIRE_PLUGIN_XML_PATH : ${
-              escapeShellArg (makePluginXMLPath plugins)
-            }
+            --suffix WAYFIRE_PLUGIN_XML_PATH : ${escapeShellArg (makePluginXMLPath plugins)}
     done
     find ${application} -mindepth 1 -maxdepth 1 -not -name bin \
         -exec ln -s '{}' $out ';'

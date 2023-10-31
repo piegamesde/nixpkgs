@@ -39,9 +39,7 @@ in
       hardwareClockInLocalTime = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "If set, keep the hardware clock in local time instead of UTC.";
+        description = lib.mdDoc "If set, keep the hardware clock in local time instead of UTC.";
       };
     };
 

@@ -245,9 +245,7 @@ in
         VBoxManage modifyvm "$vmName" \
           --memory ${toString cfg.memorySize} \
           ${lib.cli.toGNUCommandLineShell { } cfg.params}
-        VBoxManage storagectl "$vmName" ${
-          lib.cli.toGNUCommandLineShell { } cfg.storageController
-        }
+        VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell { } cfg.storageController}
         VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 0 --device 0 --type hdd \
           --medium disk.vdi
         ${optionalString (cfg.extraDisk != null) ''

@@ -35,13 +35,10 @@ let
       throw (traceSeq v "services.unbound.settings: unexpected type");
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings [ "server" ]))
-    ++ [ "" ]
+    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings [ "server" ])) ++ [ "" ]
   );
   confServer = concatStringsSep "\n" (
-    mapAttrsToList (toConf "  ") (
-      builtins.removeAttrs cfg.settings.server [ "define-tag" ]
-    )
+    mapAttrsToList (toConf "  ") (builtins.removeAttrs cfg.settings.server [ "define-tag" ])
   );
 
   confFile = pkgs.writeText "unbound.conf" ''
@@ -214,9 +211,7 @@ in
         pidfile = ''""'';
         # when running under systemd there is no need to daemonize
         do-daemonize = false;
-        interface = mkDefault (
-          [ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1")
-        );
+        interface = mkDefault ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
         access-control = mkDefault (
           [ "127.0.0.0/8 allow" ] ++ (optional config.networking.enableIPv6 "::1/128 allow")
         );

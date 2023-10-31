@@ -23,12 +23,10 @@ let
   pathType = path: getAttr (baseNameOf path) (readDir (dirOf path));
 
   # Returns true if the path exists and is a directory, false otherwise.
-  pathIsDirectory =
-    path: if pathExists path then (pathType path) == "directory" else false;
+  pathIsDirectory = path: if pathExists path then (pathType path) == "directory" else false;
 
   # Returns true if the path exists and is a regular file, false otherwise.
-  pathIsRegularFile =
-    path: if pathExists path then (pathType path) == "regular" else false;
+  pathIsRegularFile = path: if pathExists path then (pathType path) == "regular" else false;
 
   /* A basic filter for `cleanSourceWith` that removes
      directories of version control system, backup files (*~)
@@ -43,8 +41,7 @@ let
       # Filter out version control software files/directories
       (
         baseName == ".git"
-        ||
-          type == "directory" && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
+        || type == "directory" && (baseName == ".svn" || baseName == "CVS" || baseName == ".hg")
       )
       ||
         # Filter out editor backup / swap files.
@@ -217,8 +214,7 @@ let
           fileName = path + "/${file}";
           packedRefsName = path + "/packed-refs";
           absolutePath =
-            base: path:
-            if lib.hasPrefix "/" path then path else toString (/. + "${base}/${path}");
+            base: path: if lib.hasPrefix "/" path then path else toString (/. + "${base}/${path}");
         in
         if
           pathIsRegularFile path
@@ -282,8 +278,7 @@ let
 
   pathHasContext = builtins.hasContext or (lib.hasPrefix storeDir);
 
-  canCleanSource =
-    src: src ? _isLibCleanSourceWith || !(pathHasContext (toString src));
+  canCleanSource = src: src ? _isLibCleanSourceWith || !(pathHasContext (toString src));
 
   # -------------------------------------------------------------------------- #
   # Internal functions

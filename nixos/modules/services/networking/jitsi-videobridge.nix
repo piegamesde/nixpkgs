@@ -9,8 +9,7 @@ with lib;
 
 let
   cfg = config.services.jitsi-videobridge;
-  attrsToArgs =
-    a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
+  attrsToArgs = a: concatStringsSep " " (mapAttrsToList (k: v: "${k}=${toString v}") a);
 
   # HOCON is a JSON superset that videobridge2 uses for configuration.
   # It can substitute environment variables which we use for passwords here.
@@ -70,9 +69,7 @@ let
 in
 {
   options.services.jitsi-videobridge = with types; {
-    enable = mkEnableOption (
-      lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router"
-    );
+    enable = mkEnableOption (lib.mdDoc "Jitsi Videobridge, a WebRTC compatible video router");
 
     config = mkOption {
       type = attrs;

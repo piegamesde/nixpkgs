@@ -40,8 +40,7 @@ let
 
   authenticatedEmailsFile = pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
-  getProviderOptions =
-    cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
+  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
 
   allConfig =
     with cfg;
@@ -84,9 +83,7 @@ let
     // lib.optionalAttrs (cfg.email.addresses != null) {
       authenticated-emails-file = authenticatedEmailsFile;
     }
-    // lib.optionalAttrs (cfg.passBasicAuth) {
-      basic-auth-password = cfg.basicAuthPassword;
-    }
+    // lib.optionalAttrs (cfg.passBasicAuth) { basic-auth-password = cfg.basicAuthPassword; }
     // lib.optionalAttrs (cfg.htpasswd.file != null) {
       display-htpasswd-file = cfg.htpasswd.displayForm;
     }

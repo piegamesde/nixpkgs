@@ -503,9 +503,7 @@ in
                           } \
                           ${
                             optionalString (cfg.featureGates != [ ])
-                              "--feature-gates=${
-                                concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
-                              }"
+                              "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                           } \
                           ${
                             optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"
@@ -553,9 +551,7 @@ in
                           ${
                             optionalString (cfg.tokenAuthFile != null) "--token-auth-file=${cfg.tokenAuthFile}"
                           } \
-                          ${
-                            optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
-                          } \
+                          ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                           ${cfg.extraOpts}
           '';
           WorkingDirectory = top.dataDir;
@@ -577,9 +573,7 @@ in
         listenClientUrls = mkDefault [ "https://0.0.0.0:2379" ];
         listenPeerUrls = mkDefault [ "https://0.0.0.0:2380" ];
         advertiseClientUrls = mkDefault [ "https://${top.masterAddress}:2379" ];
-        initialCluster = mkDefault [
-          "${top.masterAddress}=https://${top.masterAddress}:2380"
-        ];
+        initialCluster = mkDefault [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
         name = mkDefault top.masterAddress;
         initialAdvertisePeerUrls = mkDefault [ "https://${top.masterAddress}:2380" ];
       };

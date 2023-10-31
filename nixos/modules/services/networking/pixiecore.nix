@@ -49,9 +49,7 @@ in
       dhcpNoBind = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Handle DHCP traffic without binding to the DHCP server port";
+        description = lib.mdDoc "Handle DHCP traffic without binding to the DHCP server port";
       };
 
       quick = mkOption {
@@ -103,9 +101,7 @@ in
       statusPort = mkOption {
         type = types.port;
         default = 80;
-        description =
-          lib.mdDoc
-            "HTTP port for status information (can be the same as --port)";
+        description = lib.mdDoc "HTTP port for status information (can be the same as --port)";
       };
 
       apiServer = mkOption {
@@ -152,9 +148,7 @@ in
       serviceConfig = {
         User = "pixiecore";
         Restart = "always";
-        AmbientCapabilities = [
-          "cap_net_bind_service"
-        ] ++ optional cfg.dhcpNoBind "cap_net_raw";
+        AmbientCapabilities = [ "cap_net_bind_service" ] ++ optional cfg.dhcpNoBind "cap_net_raw";
         ExecStart =
           let
             argString =

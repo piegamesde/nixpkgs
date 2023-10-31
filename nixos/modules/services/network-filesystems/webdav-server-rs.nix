@@ -97,8 +97,7 @@ in
       }
       {
         assertion =
-          hasAttr cfg.group config.users.groups
-          && config.users.groups."${cfg.group}".gid != null;
+          hasAttr cfg.group config.users.groups && config.users.groups."${cfg.group}".gid != null;
         message = "users.groups.${cfg.group} and users.groups.${cfg.group}.gid must be defined.";
       }
     ];

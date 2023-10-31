@@ -6091,14 +6091,9 @@ in
               dependencies = [
                 sources."define-property-0.2.5"
                 (
-                  sources."is-accessor-descriptor-0.1.6"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
-                (
-                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
               ];
@@ -6124,15 +6119,10 @@ in
           sources."concat-stream-1.6.2"
           sources."config-chain-1.1.13"
           (
-            sources."convert-source-map-1.8.0"
-            // {
-              dependencies = [ sources."safe-buffer-5.1.2" ];
-            }
+            sources."convert-source-map-1.8.0" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
           )
           sources."copy-descriptor-0.1.1"
-          (
-            sources."copy-props-2.0.5" // { dependencies = [ sources."is-plain-object-5.0.0" ]; }
-          )
+          (sources."copy-props-2.0.5" // { dependencies = [ sources."is-plain-object-5.0.0" ]; })
           sources."core-util-is-1.0.3"
           sources."create-error-class-3.0.2"
           sources."cross-spawn-6.0.5"
@@ -6146,16 +6136,9 @@ in
           sources."decode-uri-component-0.2.0"
           sources."decompress-4.2.1"
           sources."decompress-tar-4.1.1"
-          (
-            sources."decompress-tarbz2-4.1.1"
-            // {
-              dependencies = [ sources."file-type-6.2.0" ];
-            }
-          )
+          (sources."decompress-tarbz2-4.1.1" // { dependencies = [ sources."file-type-6.2.0" ]; })
           sources."decompress-targz-4.1.1"
-          (
-            sources."decompress-unzip-4.0.1" // { dependencies = [ sources."file-type-3.9.0" ]; }
-          )
+          (sources."decompress-unzip-4.0.1" // { dependencies = [ sources."file-type-3.9.0" ]; })
           (
             sources."decompress-zip-0.3.3"
             // {
@@ -6222,14 +6205,9 @@ in
                 sources."define-property-0.2.5"
                 sources."extend-shallow-2.0.1"
                 (
-                  sources."is-accessor-descriptor-0.1.6"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
-                (
-                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
                 sources."ms-2.0.0"
@@ -6250,12 +6228,7 @@ in
           sources."expand-tilde-2.0.2"
           (sources."ext-1.6.0" // { dependencies = [ sources."type-2.6.0" ]; })
           sources."extend-3.0.2"
-          (
-            sources."extend-shallow-3.0.2"
-            // {
-              dependencies = [ sources."is-extendable-1.0.1" ];
-            }
-          )
+          (sources."extend-shallow-3.0.2" // { dependencies = [ sources."is-extendable-1.0.1" ]; })
           sources."external-editor-3.1.0"
           (
             sources."extglob-2.0.4"
@@ -6280,9 +6253,7 @@ in
           sources."filename-regex-2.0.1"
           sources."filename-reserved-regex-2.0.0"
           sources."filenamify-2.1.0"
-          (
-            sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-          )
+          (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
           sources."find-up-1.1.2"
           sources."findup-sync-3.0.0"
           sources."fined-1.2.0"
@@ -6652,12 +6623,7 @@ in
           sources."randombytes-2.1.0"
           sources."read-pkg-1.1.0"
           sources."read-pkg-up-1.0.1"
-          (
-            sources."readable-stream-2.3.7"
-            // {
-              dependencies = [ sources."safe-buffer-5.1.2" ];
-            }
-          )
+          (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
           sources."readdirp-2.2.1"
           sources."rechoir-0.6.2"
           sources."regex-cache-0.4.4"
@@ -6715,14 +6681,9 @@ in
                 sources."define-property-0.2.5"
                 sources."extend-shallow-2.0.1"
                 (
-                  sources."is-accessor-descriptor-0.1.6"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
-                (
-                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
                 sources."ms-2.0.0"
@@ -6730,10 +6691,7 @@ in
             }
           )
           (
-            sources."snapdragon-node-2.1.1"
-            // {
-              dependencies = [ sources."define-property-1.0.0" ];
-            }
+            sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; }
           )
           (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
           sources."source-map-0.5.7"
@@ -6754,14 +6712,9 @@ in
               dependencies = [
                 sources."define-property-0.2.5"
                 (
-                  sources."is-accessor-descriptor-0.1.6"
-                  // {
-                    dependencies = [ sources."kind-of-3.2.2" ];
-                  }
+                  sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; }
                 )
-                (
-                  sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; }
-                )
+                (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
                 sources."is-descriptor-0.1.6"
                 sources."kind-of-5.1.0"
               ];
@@ -6770,9 +6723,7 @@ in
           sources."stream-exhaust-1.0.2"
           sources."stream-shift-1.0.1"
           sources."string-width-1.0.2"
-          (
-            sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-          )
+          (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
           sources."strip-ansi-3.0.1"
           sources."strip-bom-2.0.0"
           sources."strip-bom-string-1.0.0"
@@ -6824,12 +6775,7 @@ in
           sources."typedarray-0.0.6"
           sources."unbzip2-stream-1.4.3"
           sources."unc-path-regex-0.1.2"
-          (
-            sources."undertaker-1.3.0"
-            // {
-              dependencies = [ sources."fast-levenshtein-1.1.4" ];
-            }
-          )
+          (sources."undertaker-1.3.0" // { dependencies = [ sources."fast-levenshtein-1.1.4" ]; })
           sources."undertaker-registry-1.0.1"
           sources."union-value-1.0.1"
           sources."unique-stream-2.3.1"
@@ -6861,10 +6807,7 @@ in
           sources."vinyl-2.2.1"
           sources."vinyl-fs-3.0.3"
           (
-            sources."vinyl-sourcemap-1.1.0"
-            // {
-              dependencies = [ sources."normalize-path-2.1.1" ];
-            }
+            sources."vinyl-sourcemap-1.1.0" // { dependencies = [ sources."normalize-path-2.1.1" ]; }
           )
           sources."which-1.3.1"
           sources."which-module-1.0.0"

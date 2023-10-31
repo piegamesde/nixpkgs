@@ -28,8 +28,7 @@ let
     ${optionalString cfg.lowmem "lowmem"}
     ${optionalString cfg.verylowmem "verylowmem"}
     ${optionalString (cfg.maxbw != null) "maxbw ${toString cfg.maxbw}"}
-    ${optionalString (cfg.maxbwRateUp != null)
-      "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
+    ${optionalString (cfg.maxbwRateUp != null) "maxbw-rate-up ${toString cfg.maxbwRateUp}"}
     ${optionalString (cfg.maxbwRateDown != null)
       "maxbw-rate-down ${toString cfg.maxbwRateDown}"}
   '';

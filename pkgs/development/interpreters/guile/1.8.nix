@@ -35,10 +35,9 @@ stdenv.mkDerivation rec {
     # pthreads, which work only in native builds.
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "--with-threads=no";
 
-  depsBuildBuild =
-    [ buildPackages.stdenv.cc ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      pkgsBuildBuild.guile_1_8;
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_1_8;
   nativeBuildInputs = [
     makeWrapper
     pkg-config

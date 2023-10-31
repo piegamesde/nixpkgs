@@ -34,9 +34,7 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs = [
-    pycodestyle
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [ pycodestyle ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     glibcLocales

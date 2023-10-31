@@ -15,9 +15,7 @@ in
 {
   options = {
     programs.gamemode = {
-      enable = mkEnableOption (
-        lib.mdDoc "GameMode to optimise system performance on demand"
-      );
+      enable = mkEnableOption (lib.mdDoc "GameMode to optimise system performance on demand");
 
       enableRenice =
         mkEnableOption (

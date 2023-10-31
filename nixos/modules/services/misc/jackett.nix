@@ -75,8 +75,6 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "jackett") {
-      jackett.gid = config.ids.gids.jackett;
-    };
+    users.groups = mkIf (cfg.group == "jackett") { jackett.gid = config.ids.gids.jackett; };
   };
 }

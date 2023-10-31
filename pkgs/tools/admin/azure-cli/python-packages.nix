@@ -445,8 +445,7 @@ let
             hash = "sha256-Q1gGq7EZ/JvYjD7y0mp3kEy15QKZI84UQTdlIBoQLMs=";
             extension = "zip";
           };
-          propagatedBuildInputs =
-            with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
+          propagatedBuildInputs = with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
         }
       );
 
@@ -510,19 +509,17 @@ let
         }
       );
 
-      azure-keyvault-administration =
-        super.azure-keyvault-administration.overridePythonAttrs
-          (
-            oldAttrs: rec {
-              version = "4.0.0b3";
-              src = super.fetchPypi {
-                inherit (oldAttrs) pname;
-                inherit version;
-                extension = "zip";
-                hash = "sha256-d3tJWObM3plRurzfqWmHkn5CqVL9ekQfn9AeDc/KxLQ=";
-              };
-            }
-          );
+      azure-keyvault-administration = super.azure-keyvault-administration.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "4.0.0b3";
+          src = super.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            extension = "zip";
+            hash = "sha256-d3tJWObM3plRurzfqWmHkn5CqVL9ekQfn9AeDc/KxLQ=";
+          };
+        }
+      );
 
       azure-keyvault-keys = super.azure-keyvault-keys.overridePythonAttrs (
         oldAttrs: rec {

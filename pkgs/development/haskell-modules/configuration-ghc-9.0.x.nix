@@ -66,9 +66,7 @@ self: super: {
   hackage-security = doJailbreak super.hackage-security;
   hashable = pkgs.lib.pipe super.hashable [
     (overrideCabal (
-      drv: {
-        postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
-      }
+      drv: { postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal"; }
     ))
     doJailbreak
     dontCheck
@@ -76,8 +74,7 @@ self: super: {
   ];
   hashable-time = doJailbreak super.hashable-time;
   HTTP =
-    overrideCabal
-      (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
+    overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
       (doJailbreak super.HTTP);
   integer-logarithms =
     overrideCabal
@@ -205,9 +202,7 @@ self: super: {
   # 2021-09-18: cabal2nix does not detect the need for ghc-api-compat.
   hiedb =
     overrideCabal
-      (old: {
-        libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ];
-      })
+      (old: { libraryHaskellDepends = old.libraryHaskellDepends ++ [ self.ghc-api-compat ]; })
       super.hiedb;
 
   # 2021-09-18: https://github.com/haskell/haskell-language-server/issues/2206

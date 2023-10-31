@@ -578,9 +578,7 @@ in
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
-    };
+    users.groups = lib.optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
 
     systemd.tmpfiles.rules = [
       "f ${cfg.secretKeyFile} 0600 ${cfg.user} ${cfg.group} -"
@@ -763,9 +761,7 @@ in
         script = ''
           export SECRET_KEY="$(head -n1 ${lib.escapeShellArg cfg.secretKeyFile})"
           export UTILS_SECRET="$(head -n1 ${lib.escapeShellArg cfg.utilsSecretFile})"
-          export AWS_SECRET_ACCESS_KEY="$(head -n1 ${
-            lib.escapeShellArg cfg.storage.secretKeyFile
-          })"
+          export AWS_SECRET_ACCESS_KEY="$(head -n1 ${lib.escapeShellArg cfg.storage.secretKeyFile})"
           ${lib.optionalString (cfg.slackAuthentication != null) ''
             export SLACK_CLIENT_SECRET="$(head -n1 ${
               lib.escapeShellArg cfg.slackAuthentication.secretFile

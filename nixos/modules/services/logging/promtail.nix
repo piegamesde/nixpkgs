@@ -11,9 +11,7 @@ let
   prettyJSON =
     conf:
     pkgs.runCommandLocal "promtail-config.json" { } ''
-      echo '${
-        builtins.toJSON conf
-      }' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
+      echo '${builtins.toJSON conf}' | ${pkgs.buildPackages.jq}/bin/jq 'del(._module)' > $out
     '';
 
   allowSystemdJournal =
@@ -60,9 +58,9 @@ in
           Restart = "on-failure";
           TimeoutStopSec = 10;
 
-          ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${
-              prettyJSON cfg.configuration
-            } ${escapeShellArgs cfg.extraFlags}";
+          ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${prettyJSON cfg.configuration} ${
+              escapeShellArgs cfg.extraFlags
+            }";
 
           ProtectSystem = "strict";
           ProtectHome = true;

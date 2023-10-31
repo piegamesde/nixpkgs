@@ -455,8 +455,7 @@ let
             concatMapStringsSep "\n"
               (
                 allowedIP:
-                ''
-                  ${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
+                ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
               )
               peer.allowedIPs
           );
@@ -524,10 +523,7 @@ let
 
         ${ipPreMove} link add dev "${name}" type wireguard
         ${optionalString
-          (
-            values.interfaceNamespace != null
-            && values.interfaceNamespace != values.socketNamespace
-          )
+          (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace)
           ''${ipPreMove} link set "${name}" netns "${ns}"''}
         ${optionalString (values.mtu != null)
           ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
@@ -537,9 +533,7 @@ let
 
         ${concatStringsSep " " (
           [ ''${wg} set "${name}" private-key "${privKey}"'' ]
-          ++
-            optional (values.listenPort != null)
-              ''listen-port "${toString values.listenPort}"''
+          ++ optional (values.listenPort != null) ''listen-port "${toString values.listenPort}"''
           ++ optional (values.fwMark != null) ''fwmark "${values.fwMark}"''
         )}
 
@@ -563,10 +557,7 @@ let
       ];
       ns = last nsList;
     in
-    if (length nsList > 0 && ns != "init") then
-      ''ip netns exec "${ns}" "${cmd}"''
-    else
-      cmd;
+    if (length nsList > 0 && ns != "init") then ''ip netns exec "${ns}" "${cmd}"'' else cmd;
 in
 
 {

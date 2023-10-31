@@ -95,9 +95,7 @@ let
     ++ optional langAda ../gnat-cflags-11.patch
     ++ optional langD ../libphobos.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++
-      optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-        ../ppc-musl.patch
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
 
     ++ optionals stdenv.isDarwin [
       (fetchpatch {
@@ -304,8 +302,7 @@ lib.pipe
 
       configureFlags = callFile ../common/configure-flags.nix { };
 
-      targetConfig =
-        if targetPlatform != hostPlatform then targetPlatform.config else null;
+      targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
       buildFlags =
         let
@@ -313,9 +310,7 @@ lib.pipe
             lib.optionalString (profiledCompiler) "profiled"
             +
               lib.optionalString
-                (
-                  targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap
-                )
+                (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
                 "bootstrap";
         in
         lib.optional (target != "") target;
@@ -384,9 +379,7 @@ lib.pipe
 
     //
       optionalAttrs
-        (
-          targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
-        )
+        (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
         {
           makeFlags = [
             "all-gcc"

@@ -13,9 +13,7 @@ in
 {
   options = {
     users.mysql = {
-      enable = mkEnableOption (
-        lib.mdDoc "Authentication against a MySQL/MariaDB database"
-      );
+      enable = mkEnableOption (lib.mdDoc "Authentication against a MySQL/MariaDB database");
       host = mkOption {
         type = types.str;
         example = "localhost";
@@ -151,9 +149,7 @@ in
               );
               default = null;
               example = "blowfish";
-              description =
-                lib.mdDoc
-                  "The default encryption method to use for `passwordCrypt = 1`.";
+              description = lib.mdDoc "The default encryption method to use for `passwordCrypt = 1`.";
             };
             where = mkOption {
               type = types.nullOr types.str;
@@ -400,9 +396,7 @@ in
           users.user_column=${cfg.pam.userColumn}
           users.password_column=${cfg.pam.passwordColumn}
           users.password_crypt=${cfg.pam.passwordCrypt}
-          users.disconnect_every_operation=${
-            if cfg.pam.disconnectEveryOperation then "1" else "0"
-          }
+          users.disconnect_every_operation=${if cfg.pam.disconnectEveryOperation then "1" else "0"}
           verbose=${if cfg.pam.verbose then "1" else "0"}
         ''
         + optionalString (cfg.pam.cryptDefault != null) ''

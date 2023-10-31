@@ -550,13 +550,10 @@ self: super:
 
   # see https://github.com/LumiGuide/haskell-opencv/commit/cd613e200aa20887ded83256cf67d6903c207a60
   opencv = dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv);
-  opencv-extra = dontCheck (
-    appendPatch ./patches/opencv-fix-116.patch super.opencv-extra
-  );
+  opencv-extra = dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv-extra);
 
   # Too strict lower bound on hspec
-  graphql =
-    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.graphql;
+  graphql = assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.graphql;
 
   # https://github.com/ekmett/structures/issues/3
   structures = dontCheck super.structures;
@@ -939,9 +936,7 @@ self: super:
         preCheck = "export HOME=$TMPDIR";
         testToolDepends = drv.testToolDepends or [ ] ++ [ self.cabal-install ];
         doCheck = false; # https://github.com/kazu-yamamoto/ghc-mod/issues/335
-        executableToolDepends = drv.executableToolDepends or [ ] ++ [
-          pkgs.buildPackages.emacs
-        ];
+        executableToolDepends = drv.executableToolDepends or [ ] ++ [ pkgs.buildPackages.emacs ];
         postInstall = ''
           local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/*/${drv.pname}-${drv.version}/elisp" )
           make -C $lispdir
@@ -1219,9 +1214,7 @@ self: super:
             export HOME="$TMPDIR"
           ''
           + (drv.preCheck or "");
-        libraryToolDepends = drv.libraryToolDepends or [ ] ++ [
-          pkgs.buildPackages.postgresql
-        ];
+        libraryToolDepends = drv.libraryToolDepends or [ ] ++ [ pkgs.buildPackages.postgresql ];
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.procps ];
       })
       super.tmp-postgres;
@@ -1321,16 +1314,12 @@ self: super:
   vulkan = super.vulkan.override { vulkan = pkgs.vulkan-loader; };
 
   # Compiles some C or C++ source which requires these headers
-  VulkanMemoryAllocator =
-    addExtraLibrary pkgs.vulkan-headers
-      super.VulkanMemoryAllocator;
+  VulkanMemoryAllocator = addExtraLibrary pkgs.vulkan-headers super.VulkanMemoryAllocator;
   # dontCheck can be removed on the next package set bump
   vulkan-utils = dontCheck (addExtraLibrary pkgs.vulkan-headers super.vulkan-utils);
 
   # https://github.com/dmwit/encoding/pull/3
-  encoding = doJailbreak (
-    appendPatch ./patches/encoding-Cabal-2.0.patch super.encoding
-  );
+  encoding = doJailbreak (appendPatch ./patches/encoding-Cabal-2.0.patch super.encoding);
 
   # Work around overspecified constraint on github ==0.18.
   github-backup = doJailbreak super.github-backup;
@@ -1415,10 +1404,7 @@ self: super:
   # musl fixes
   # dontCheck: use of non-standard strptime "%s" which musl doesn't support; only used in test
   unix-time =
-    if pkgs.stdenv.hostPlatform.isMusl then
-      dontCheck super.unix-time
-    else
-      super.unix-time;
+    if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.unix-time else super.unix-time;
 
   # Workaround for https://github.com/sol/hpack/issues/528
   # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
@@ -1436,10 +1422,7 @@ self: super:
   # hslua has tests that break when using musl.
   # https://github.com/hslua/hslua/issues/106
   hslua-core =
-    if pkgs.stdenv.hostPlatform.isMusl then
-      dontCheck super.hslua-core
-    else
-      super.hslua-core;
+    if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.hslua-core else super.hslua-core;
 
   # Missing files required by the test suite.
   # https://github.com/deemp/flakes/issues/4
@@ -1711,9 +1694,7 @@ self: super:
   # 2022-09-20: We have overridden lsp to not be the stackage version.
   # dhall-lsp-server needs the older 1.4.0.0 lsp
   dhall-lsp-server = super.dhall-lsp-server.override {
-    lsp = dontCheck (
-      super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; }
-    );
+    lsp = dontCheck (super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; });
   };
 
   # 2023-04-16: https://github.com/ghcjs/jsaddle/pull/137
@@ -1888,9 +1869,7 @@ self: super:
           ekg-json = self.hasura-ekg-json;
         }
       );
-  hasura-ekg-json = super.hasura-ekg-json.override {
-    ekg-core = self.hasura-ekg-core;
-  };
+  hasura-ekg-json = super.hasura-ekg-json.override { ekg-core = self.hasura-ekg-core; };
   pg-client =
     overrideCabal
       (drv: {
@@ -1968,9 +1947,7 @@ self: super:
           postInstall =
             drv.postInstall or ""
             + ''
-              wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
-                lib.makeBinPath deps
-              }"
+              wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${lib.makeBinPath deps}"
             '';
         })
         (addTestToolDepends deps super.update-nix-fetchgit)
@@ -2432,8 +2409,7 @@ self: super:
       (doJailbreak super.jsaddle);
 
   # 2022-03-22: Jailbreak for base bound: https://github.com/reflex-frp/reflex-dom/pull/433
-  reflex-dom =
-    assert super.reflex-dom.version == "0.6.1.1"; doJailbreak super.reflex-dom;
+  reflex-dom = assert super.reflex-dom.version == "0.6.1.1"; doJailbreak super.reflex-dom;
 
   # Tests need to lookup target triple x86_64-unknown-linux
   # https://github.com/llvm-hs/llvm-hs/issues/334
@@ -2602,9 +2578,7 @@ self: super:
   gogol-core = appendPatch ./patches/gogol-core-144.patch super.gogol-core;
 
   # Stackage LTS 19 still has 10.*
-  hadolint = super.hadolint.override {
-    language-docker = self.language-docker_11_0_0;
-  };
+  hadolint = super.hadolint.override { language-docker = self.language-docker_11_0_0; };
 
   nix-tree = super.nix-tree;
 

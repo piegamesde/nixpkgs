@@ -20,9 +20,7 @@ let
   opt = options.services.quorum;
   dataDir = "/var/lib/quorum";
   genesisFile = pkgs.writeText "genesis.json" (builtins.toJSON cfg.genesis);
-  staticNodesFile = pkgs.writeText "static-nodes.json" (
-    builtins.toJSON cfg.staticNodes
-  );
+  staticNodesFile = pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
 in
 {
   options = {
@@ -46,9 +44,7 @@ in
       port = mkOption {
         type = types.port;
         default = 21000;
-        description =
-          lib.mdDoc
-            "Override the default port on which to listen for connections.";
+        description = lib.mdDoc "Override the default port on which to listen for connections.";
       };
 
       nodekeyFile = mkOption {

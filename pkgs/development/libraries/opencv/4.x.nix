@@ -134,8 +134,7 @@ let
       else if stdenv.hostPlatform.system == "x86_64-darwin" then
         { ${name "mac_intel64"} = "fe6b2bb75ae0e3f19ad3ae1a31dfa4a2"; }
       else
-        throw
-          "ICV is not available for this platform (or not yet supported by this package)";
+        throw "ICV is not available for this platform (or not yet supported by this package)";
     dst = ".cache/ippicv";
   };
 
@@ -403,9 +402,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals enableCuda [ cuda-native-redist ];
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString enableEXR
-      "-I${ilmbase.dev}/include/OpenEXR";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString enableEXR "-I${ilmbase.dev}/include/OpenEXR";
 
   # Configure can't find the library without this.
   OpenBLAS_HOME = lib.optionalString withOpenblas openblas_.dev;
@@ -476,9 +473,7 @@ stdenv.mkDerivation {
       "-DWITH_OPENCL=OFF"
       "-DWITH_LAPACK=OFF"
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [
-      "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so"
-    ]
+    ++ lib.optionals (!stdenv.isDarwin) [ "-DOPENCL_LIBRARY=${ocl-icd}/lib/libOpenCL.so" ]
     ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ];
 
   postBuild = lib.optionalString enableDocs ''

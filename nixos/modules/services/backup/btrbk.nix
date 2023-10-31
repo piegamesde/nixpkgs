@@ -66,8 +66,7 @@ let
     else if config.security.doas.enable then
       "doas"
     else
-      throw
-        "The btrbk nixos module needs either sudo or doas enabled in the configuration";
+      throw "The btrbk nixos module needs either sudo or doas enabled in the configuration";
 
   addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
 

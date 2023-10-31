@@ -50,9 +50,7 @@ stdenv.mkDerivation rec {
       "--disable-werror"
       "--enable-synth"
     ]
-    ++ lib.optionals (backend == "llvm") [
-      "--with-llvm-config=${llvm.dev}/bin/llvm-config"
-    ];
+    ++ lib.optionals (backend == "llvm") [ "--with-llvm-config=${llvm.dev}/bin/llvm-config" ];
 
   hardeningDisable = [ "format" ];
 

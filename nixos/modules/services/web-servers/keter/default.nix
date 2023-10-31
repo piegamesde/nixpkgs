@@ -103,8 +103,7 @@ in
 
       globalKeterConfigFile = pkgs.writeTextFile {
         name = "keter-config.yml";
-        text =
-          (lib.generators.toYAML { } (cfg.globalKeterConfig // { root = cfg.keterRoot; }));
+        text = (lib.generators.toYAML { } (cfg.globalKeterConfig // { root = cfg.keterRoot; }));
       };
 
       # If things are expected to change often, put it in the bundle!

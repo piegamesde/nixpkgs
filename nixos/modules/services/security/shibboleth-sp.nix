@@ -20,9 +20,7 @@ in
 
       configFile = mkOption {
         type = types.path;
-        example =
-          literalExpression
-            ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
+        example = literalExpression ''"''${pkgs.shibboleth-sp}/etc/shibboleth/shibboleth2.xml"'';
         description = lib.mdDoc "Path to shibboleth config file";
       };
 

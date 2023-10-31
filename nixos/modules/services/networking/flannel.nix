@@ -106,9 +106,7 @@ in
     };
 
     storageBackend = mkOption {
-      description =
-        lib.mdDoc
-          "Determines where flannel stores its configuration at runtime";
+      description = lib.mdDoc "Determines where flannel stores its configuration at runtime";
       type = types.enum [
         "etcd"
         "kubernetes"
@@ -206,8 +204,8 @@ in
 
     # for some reason, flannel doesn't let you configure this path
     # see: https://github.com/coreos/flannel/blob/master/Documentation/configuration.md#configuration
-    environment.etc."kube-flannel/net-conf.json" =
-      mkIf (cfg.storageBackend == "kubernetes")
-        { source = pkgs.writeText "net-conf.json" (builtins.toJSON networkConfig); };
+    environment.etc."kube-flannel/net-conf.json" = mkIf (cfg.storageBackend == "kubernetes") {
+      source = pkgs.writeText "net-conf.json" (builtins.toJSON networkConfig);
+    };
   };
 }

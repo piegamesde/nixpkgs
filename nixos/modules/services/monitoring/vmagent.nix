@@ -86,9 +86,7 @@ in
 
     systemd.services.vmagent =
       let
-        prometheusConfig =
-          settingsFormat.generate "prometheusConfig.yaml"
-            cfg.prometheusConfig;
+        prometheusConfig = settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
       in
       {
         wantedBy = [ "multi-user.target" ];

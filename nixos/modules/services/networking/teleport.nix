@@ -101,8 +101,7 @@ in
           ${cfg.package}/bin/teleport start \
             ${optionalString cfg.insecure.enable "--insecure"} \
             ${
-              optionalString cfg.diag.enable
-                "--diag-addr=${cfg.diag.addr}:${toString cfg.diag.port}"
+              optionalString cfg.diag.enable "--diag-addr=${cfg.diag.addr}:${toString cfg.diag.port}"
             } \
             ${
               optionalString (cfg.settings != { })

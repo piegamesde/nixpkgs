@@ -62,9 +62,7 @@ let
       };
       values = mkOption {
         type = listOf str;
-        description =
-          lib.mdDoc
-            "A set of columns that will be used as values of this metric.";
+        description = lib.mdDoc "A set of columns that will be used as values of this metric.";
       };
     };
   };
@@ -75,8 +73,7 @@ let
     else
       let
         nameInline = mapAttrsToList (k: v: v // { name = k; });
-        renameStartupSql =
-          j: removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ];
+        renameStartupSql = j: removeAttrs (j // { startup_sql = j.startupSql; }) [ "startupSql" ];
         configuration = {
           jobs = map renameStartupSql (
             nameInline (

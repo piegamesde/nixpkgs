@@ -48,9 +48,7 @@ let
 
     # package update scripts
 
-    addonUpdateScript =
-      callPackage ../applications/video/kodi/addons/addon-update-script
-        { };
+    addonUpdateScript = callPackage ../applications/video/kodi/addons/addon-update-script { };
 
     # package builders
 
@@ -104,9 +102,7 @@ let
 
     svtplay = callPackage ../applications/video/kodi/addons/svtplay { };
 
-    steam-controller =
-      callPackage ../applications/video/kodi/addons/steam-controller
-        { };
+    steam-controller = callPackage ../applications/video/kodi/addons/steam-controller { };
 
     steam-launcher = callPackage ../applications/video/kodi/addons/steam-launcher { };
 
@@ -156,13 +152,9 @@ let
       callPackage ../applications/video/kodi/addons/inputstream-ffmpegdirect
         { };
 
-    inputstream-rtmp =
-      callPackage ../applications/video/kodi/addons/inputstream-rtmp
-        { };
+    inputstream-rtmp = callPackage ../applications/video/kodi/addons/inputstream-rtmp { };
 
-    inputstreamhelper =
-      callPackage ../applications/video/kodi/addons/inputstreamhelper
-        { };
+    inputstreamhelper = callPackage ../applications/video/kodi/addons/inputstreamhelper { };
 
     kodi-six = callPackage ../applications/video/kodi/addons/kodi-six { };
 
@@ -186,9 +178,7 @@ let
 
     xbmcswift2 = callPackage ../applications/video/kodi/addons/xbmcswift2 { };
 
-    typing_extensions =
-      callPackage ../applications/video/kodi/addons/typing_extensions
-        { };
+    typing_extensions = callPackage ../applications/video/kodi/addons/typing_extensions { };
 
     arrow = callPackage ../applications/video/kodi/addons/arrow { };
 

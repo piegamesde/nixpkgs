@@ -79,9 +79,7 @@ in
 
   sv-kalender = callPackage ./manual-packages/sv-kalender { };
 
-  tree-sitter-langs = callPackage ./manual-packages/tree-sitter-langs {
-    final = self;
-  };
+  tree-sitter-langs = callPackage ./manual-packages/tree-sitter-langs { final = self; };
 
   tsc = callPackage ./manual-packages/tsc { };
 

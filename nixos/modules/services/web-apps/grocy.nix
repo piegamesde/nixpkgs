@@ -127,9 +127,7 @@ in
       <?php
       Setting('CULTURE', '${cfg.settings.culture}');
       Setting('CURRENCY', '${cfg.settings.currency}');
-      Setting('CALENDAR_FIRST_DAY_OF_WEEK', '${
-        toString cfg.settings.calendar.firstDayOfWeek
-      }');
+      Setting('CALENDAR_FIRST_DAY_OF_WEEK', '${toString cfg.settings.calendar.firstDayOfWeek}');
       Setting('CALENDAR_SHOW_WEEK_OF_YEAR', ${
         boolToString cfg.settings.calendar.showWeekNumber
       });

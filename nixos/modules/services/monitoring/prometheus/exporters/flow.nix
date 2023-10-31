@@ -52,9 +52,7 @@ in
             optionalString (cfg.partitions != [ ])
               "-partitions ${concatStringsSep "," cfg.partitions}"
           } \
-          -addr ${cfg.listenAddress}:${toString cfg.port} ${
-            concatStringsSep " " cfg.extraFlags
-          }
+          -addr ${cfg.listenAddress}:${toString cfg.port} ${concatStringsSep " " cfg.extraFlags}
       '';
     };
   };

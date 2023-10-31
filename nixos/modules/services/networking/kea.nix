@@ -258,9 +258,7 @@ in
       };
     in
     mkIf
-      (
-        cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable || cfg.dhcp-ddns.enable
-      )
+      (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable || cfg.dhcp-ddns.enable)
       (
         mkMerge [
           { environment.systemPackages = [ package ]; }
@@ -268,9 +266,7 @@ in
           (mkIf cfg.ctrl-agent.enable {
             assertions = [
               {
-                assertion = xor (cfg.ctrl-agent.settings == null) (
-                  cfg.ctrl-agent.configFile == null
-                );
+                assertion = xor (cfg.ctrl-agent.settings == null) (cfg.ctrl-agent.configFile == null);
                 message = "Either services.kea.ctrl-agent.settings or services.kea.ctrl-agent.configFile must be set to a non-null value.";
               }
             ];

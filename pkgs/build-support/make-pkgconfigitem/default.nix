@@ -23,9 +23,7 @@
 
 let
   # only 'out' has to be changed, otherwise it would be replaced by the out of the writeTextFile
-  placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [
-    "@out@"
-  ];
+  placeholderToSubstVar = builtins.replaceStrings [ "${placeholder "out"}" ] [ "@out@" ];
 
   replacePlaceholderAndListToString =
     x:

@@ -13,8 +13,7 @@ let
 
   kernels =
     (pkgs.jupyter-kernel.create {
-      definitions =
-        if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
+      definitions = if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
     });
 
   jupyterhubConfig = pkgs.writeText "jupyterhub_config.py" ''

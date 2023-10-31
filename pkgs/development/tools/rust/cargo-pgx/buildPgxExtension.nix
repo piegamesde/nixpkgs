@@ -84,9 +84,7 @@ let
     export CARGO_TARGET_DIR="$(pwd)/target"
     pushd "${buildAndTestSubdir}"
   '';
-  maybeLeaveBuildAndTestSubdir =
-    lib.optionalString (buildAndTestSubdir != null)
-      "popd";
+  maybeLeaveBuildAndTestSubdir = lib.optionalString (buildAndTestSubdir != null) "popd";
 
   pgxPostgresMajor = lib.versions.major postgresql.version;
   preBuildAndTest = ''
@@ -110,9 +108,7 @@ let
   # so we don't accidentally `(rustPlatform.buildRustPackage argsForBuildRustPackage) // { ... }` because
   # we forgot parentheses
   finalArgs = argsForBuildRustPackage // {
-    buildInputs =
-      (args.buildInputs or [ ])
-      ++ lib.optionals stdenv.isDarwin [ Security ];
+    buildInputs = (args.buildInputs or [ ]) ++ lib.optionals stdenv.isDarwin [ Security ];
 
     nativeBuildInputs =
       (args.nativeBuildInputs or [ ])

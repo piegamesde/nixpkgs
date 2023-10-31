@@ -166,8 +166,7 @@ in
         attrsets.mapAttrsToList
           (name: config: [
             {
-              assertion =
-                config.compress > 0 -> versionAtLeast config.postgresqlPackage.version "10";
+              assertion = config.compress > 0 -> versionAtLeast config.postgresqlPackage.version "10";
               message = ''
                 Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
             }

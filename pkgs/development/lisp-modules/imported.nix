@@ -37727,9 +37727,7 @@ lib.makeScope pkgs.newScope (
             asd = "com.clearly-useful.generic-collection-interface.test";
           });
         systems = [ "com.clearly-useful.generic-collection-interface.test" ];
-        lispLibs = [
-          (getAttr "com_dot_clearly-useful_dot_generic-collection-interface" self)
-        ];
+        lispLibs = [ (getAttr "com_dot_clearly-useful_dot_generic-collection-interface" self) ];
         meta = {
           hydraPlatforms = [ ];
         };
@@ -54273,8 +54271,7 @@ lib.makeScope pkgs.newScope (
           (getAttr "hu_dot_dwim_dot_def_plus_contextl" self)
           (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_delico" self)
           (getAttr "hu_dot_dwim_dot_logger_plus_iolib" self)
-          (getAttr
-            "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
+          (getAttr "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
             self
           )
           (getAttr "hu_dot_dwim_dot_syntax-sugar" self)

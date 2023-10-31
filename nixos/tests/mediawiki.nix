@@ -9,9 +9,7 @@ let
     services.mediawiki.enable = true;
     services.mediawiki.httpd.virtualHost.hostName = "localhost";
     services.mediawiki.httpd.virtualHost.adminAddr = "root@example.com";
-    services.mediawiki.passwordFile =
-      pkgs.writeText "password"
-        "correcthorsebatterystaple";
+    services.mediawiki.passwordFile = pkgs.writeText "password" "correcthorsebatterystaple";
     services.mediawiki.extensions = {
       Matomo = pkgs.fetchzip {
         url = "https://github.com/DaSchTour/matomo-mediawiki-extension/archive/v4.0.1.tar.gz";

@@ -84,9 +84,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cp inxi $out/bin/
     wrapProgram $out/bin/inxi \
-      --set PERL5LIB "${
-        perlPackages.makePerlPath (with perlPackages; [ CpanelJSONXS ])
-      }" \
+      --set PERL5LIB "${perlPackages.makePerlPath (with perlPackages; [ CpanelJSONXS ])}" \
       ${prefixPath programs}
     mkdir -p $out/share/man/man1
     cp inxi.1 $out/share/man/man1/

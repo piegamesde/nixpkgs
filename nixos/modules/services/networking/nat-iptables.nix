@@ -60,9 +60,7 @@ let
       # NAT the marked packets.
       ${optionalString (cfg.internalInterfaces != [ ]) ''
         ${iptables} -w -t nat -A nixos-nat-post -m mark --mark 1 \
-          ${
-            optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"
-          } ${dest}
+          ${optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"} ${dest}
       ''}
 
       # NAT packets coming from the internal IPs.

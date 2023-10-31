@@ -368,9 +368,7 @@ lib.makeScope pkgs.newScope (
 
       elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (
         old: {
-          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-            old.nodejs.pkgs.node-gyp-build
-          ];
+          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ];
         }
       );
 

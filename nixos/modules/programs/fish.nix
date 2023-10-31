@@ -27,9 +27,7 @@ let
 
   envLoginShellInit = pkgs.writeText "loginShellInit" cfge.loginShellInit;
 
-  envInteractiveShellInit =
-    pkgs.writeText "interactiveShellInit"
-      cfge.interactiveShellInit;
+  envInteractiveShellInit = pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
 
   sourceEnv =
     file:

@@ -20,9 +20,7 @@ let
       (
         n: v:
         ''
-          "${n}":  ${if isBool v then "" else ''"''}${convType v}${
-            if isBool v then "" else ''"''
-          }''
+          "${n}":  ${if isBool v then "" else ''"''}${convType v}${if isBool v then "" else ''"''}''
       )
       cfg.config;
 
@@ -48,9 +46,7 @@ let
         ''
           ,
         ''
-        (
-          map (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'') cfg.pools
-        )
+        (map (v: ''{"url": "${v.url}", "user": "${v.user}", "pass": "${v.pass}"}'') cfg.pools)
     }]
     }
   '';

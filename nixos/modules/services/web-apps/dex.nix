@@ -39,9 +39,7 @@ let
 in
 {
   options.services.dex = {
-    enable = mkEnableOption (
-      lib.mdDoc "the OpenID Connect and OAuth2 identity provider"
-    );
+    enable = mkEnableOption (lib.mdDoc "the OpenID Connect and OAuth2 identity provider");
 
     environmentFile = mkOption {
       type = types.nullOr types.path;
@@ -157,9 +155,7 @@ in
           # Does not work well with the temporary root
           #UMask = "0066";
         }
-        // optionalAttrs (cfg.environmentFile != null) {
-          EnvironmentFile = cfg.environmentFile;
-        };
+        // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
   };
 

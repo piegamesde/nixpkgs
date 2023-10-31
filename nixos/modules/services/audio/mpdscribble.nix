@@ -182,9 +182,7 @@ in
                   };
                   passwordFile = mkOption {
                     type = types.nullOr types.str;
-                    description =
-                      lib.mdDoc
-                        "File containing the password, either as MD5SUM or cleartext.";
+                    description = lib.mdDoc "File containing the password, either as MD5SUM or cleartext.";
                   };
                 };
               };

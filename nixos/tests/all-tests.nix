@@ -30,8 +30,7 @@ let
       discoverTests (val { inherit system pkgs; })
     else
       val;
-  handleTest =
-    path: args: discoverTests (import path ({ inherit system pkgs; } // args));
+  handleTest = path: args: discoverTests (import path ({ inherit system pkgs; } // args));
   handleTestOn =
     systems: path: args:
     if elem system systems then handleTest path args else { };
@@ -304,9 +303,7 @@ in
       ]
       ./docker-tools-cross.nix
       { };
-  docker-tools-overlay =
-    handleTestOn [ "x86_64-linux" ] ./docker-tools-overlay.nix
-      { };
+  docker-tools-overlay = handleTestOn [ "x86_64-linux" ] ./docker-tools-overlay.nix { };
   documize = handleTest ./documize.nix { };
   documentation = pkgs.callPackage ../modules/misc/documentation/test.nix {
     inherit nixosLib;
@@ -353,9 +350,7 @@ in
     firefoxPackage = pkgs.firefox-devedition;
   };
   firefox-esr = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr; }; # used in `tested` job
-  firefox-esr-102 = handleTest ./firefox.nix {
-    firefoxPackage = pkgs.firefox-esr-102;
-  };
+  firefox-esr-102 = handleTest ./firefox.nix { firefoxPackage = pkgs.firefox-esr-102; };
   firejail = handleTest ./firejail.nix { };
   firewall = handleTest ./firewall.nix { nftables = false; };
   firewall-nftables = handleTest ./firewall.nix { nftables = true; };
@@ -650,9 +645,7 @@ in
   nomad = handleTest ./nomad.nix { };
   non-default-filesystems = handleTest ./non-default-filesystems.nix { };
   noto-fonts = handleTest ./noto-fonts.nix { };
-  noto-fonts-cjk-qt-default-weight =
-    handleTest ./noto-fonts-cjk-qt-default-weight.nix
-      { };
+  noto-fonts-cjk-qt-default-weight = handleTest ./noto-fonts-cjk-qt-default-weight.nix { };
   novacomd = handleTestOn [ "x86_64-linux" ] ./novacomd.nix { };
   nscd = handleTest ./nscd.nix { };
   nsd = handleTest ./nsd.nix { };
@@ -869,15 +862,13 @@ in
   systemd-initrd-btrfs-raid = handleTest ./systemd-initrd-btrfs-raid.nix { };
   systemd-initrd-luks-fido2 = handleTest ./systemd-initrd-luks-fido2.nix { };
   systemd-initrd-luks-keyfile = handleTest ./systemd-initrd-luks-keyfile.nix { };
-  systemd-initrd-luks-empty-passphrase =
-    handleTest ./initrd-luks-empty-passphrase.nix
-      { systemdStage1 = true; };
+  systemd-initrd-luks-empty-passphrase = handleTest ./initrd-luks-empty-passphrase.nix {
+    systemdStage1 = true;
+  };
   systemd-initrd-luks-password = handleTest ./systemd-initrd-luks-password.nix { };
   systemd-initrd-luks-tpm2 = handleTest ./systemd-initrd-luks-tpm2.nix { };
   systemd-initrd-modprobe = handleTest ./systemd-initrd-modprobe.nix { };
-  systemd-initrd-shutdown = handleTest ./systemd-shutdown.nix {
-    systemdStage1 = true;
-  };
+  systemd-initrd-shutdown = handleTest ./systemd-shutdown.nix { systemdStage1 = true; };
   systemd-initrd-simple = handleTest ./systemd-initrd-simple.nix { };
   systemd-initrd-swraid = handleTest ./systemd-initrd-swraid.nix { };
   systemd-initrd-vconsole = handleTest ./systemd-initrd-vconsole.nix { };

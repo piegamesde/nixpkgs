@@ -35,8 +35,7 @@
   pythonVersion,
   hash,
   passthruFun,
-  pythonAttr ?
-    "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}",
+  pythonAttr ? "pypy${lib.substring 0 1 pythonVersion}${lib.substring 2 3 pythonVersion}",
 }:
 
 assert zlibSupport -> zlib != null;
@@ -60,9 +59,7 @@ let
         else
           lib.optionalString isPy3k "3"
       }";
-    sitePackages = "${
-        lib.optionalString isPy38OrNewer "lib/${libPrefix}/"
-      }site-packages";
+    sitePackages = "${lib.optionalString isPy38OrNewer "lib/${libPrefix}/"}site-packages";
     hasDistutilsCxxPatch = false;
     inherit pythonAttr;
 

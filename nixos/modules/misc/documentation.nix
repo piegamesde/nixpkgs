@@ -97,9 +97,7 @@ let
           libPath = filter (pkgs.path + "/lib");
           pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
           nixosPath = filter (pkgs.path + "/nixos");
-          modules =
-            map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
-              docModules.lazy;
+          modules = map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'') docModules.lazy;
         }
         ''
           export NIX_STORE_DIR=$TMPDIR/store

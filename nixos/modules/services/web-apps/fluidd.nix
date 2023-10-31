@@ -45,9 +45,8 @@ in
   config = mkIf cfg.enable {
     services.nginx = {
       enable = true;
-      upstreams.fluidd-apiserver.servers."${moonraker.address}:${
-        toString moonraker.port
-      }" = { };
+      upstreams.fluidd-apiserver.servers."${moonraker.address}:${toString moonraker.port}" =
+        { };
       virtualHosts."${cfg.hostName}" = mkMerge [
         cfg.nginx
         {

@@ -13,8 +13,7 @@ let
   group = config.users.groups.trafficserver.name;
 
   getManualUrl =
-    name:
-    "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
+    name: "https://docs.trafficserver.apache.org/en/latest/admin-guide/files/${name}.en.html";
 
   yaml = pkgs.formats.yaml { };
 

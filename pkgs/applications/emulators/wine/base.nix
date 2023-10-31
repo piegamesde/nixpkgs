@@ -110,9 +110,7 @@ stdenv.mkDerivation (
         ++ lib.optional pulseaudioSupport pkgs.libpulseaudio
         ++ lib.optional (xineramaSupport && !waylandSupport) pkgs.xorg.libXinerama
         ++ lib.optional udevSupport pkgs.udev
-        ++ lib.optional vulkanSupport (
-          if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader
-        )
+        ++ lib.optional vulkanSupport (if stdenv.isDarwin then moltenvk else pkgs.vulkan-loader)
         ++ lib.optional sdlSupport pkgs.SDL2
         ++ lib.optional usbSupport pkgs.libusb1
         ++ lib.optionals gstreamerSupport (
@@ -203,9 +201,7 @@ stdenv.mkDerivation (
       prevConfigFlags
       ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
-      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
-        "--without-x"
-      ];
+      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [ "--without-x" ];
 
     # Wine locates a lot of libraries dynamically through dlopen().  Add
     # them to the RPATH so that the user doesn't have to set them in

@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
 
   # ordering of fixups is important
   postFixup =
-    (lib.optionalString amd amd-postFixup)
-    + (lib.optionalString nvidia nvidia-postFixup);
+    (lib.optionalString amd amd-postFixup) + (lib.optionalString nvidia nvidia-postFixup);
 
   doCheck = true;
 

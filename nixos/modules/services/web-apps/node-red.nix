@@ -55,9 +55,7 @@ in
     configFile = mkOption {
       type = types.path;
       default = "${cfg.package}/lib/node_modules/node-red/settings.js";
-      defaultText =
-        literalExpression
-          ''"''${package}/lib/node_modules/node-red/settings.js"'';
+      defaultText = literalExpression ''"''${package}/lib/node_modules/node-red/settings.js"'';
       description = lib.mdDoc ''
         Path to the JavaScript configuration file.
         See <https://github.com/node-red/node-red/blob/master/packages/node_modules/node-red/settings.js>
@@ -145,9 +143,7 @@ in
           Group = cfg.group;
           ExecStart = "${finalPackage}/bin/node-red ${
               pkgs.lib.optionalString cfg.safe "--safe"
-            } --settings ${cfg.configFile} --port ${
-              toString cfg.port
-            } --userDir ${cfg.userDir} ${
+            } --settings ${cfg.configFile} --port ${toString cfg.port} --userDir ${cfg.userDir} ${
               concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)
             }";
           PrivateTmp = true;

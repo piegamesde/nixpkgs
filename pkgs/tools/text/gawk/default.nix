@@ -61,12 +61,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin locale;
 
   configureFlags = [
-    (
-      if withSigsegv then
-        "--with-libsigsegv-prefix=${libsigsegv}"
-      else
-        "--without-libsigsegv"
-    )
+    (if withSigsegv then "--with-libsigsegv-prefix=${libsigsegv}" else "--without-libsigsegv")
     (if interactive then "--with-readline=${readline.dev}" else "--without-readline")
   ];
 

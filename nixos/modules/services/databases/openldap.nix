@@ -270,8 +270,7 @@ in
   config =
     let
       dbSettings = mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs) (
-        filterAttrs
-          (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
+        filterAttrs (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
           cfg.settings.children
       );
       settingsFile = pkgs.writeText "config.ldif" (

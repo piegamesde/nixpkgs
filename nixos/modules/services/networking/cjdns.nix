@@ -64,9 +64,7 @@ let
     x:
     x
     // {
-      connectTo =
-        mapAttrs (name: value: { inherit (value) password publicKey; })
-          x.connectTo;
+      connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo;
     };
 
   cjdrouteConf = builtins.toJSON (

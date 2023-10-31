@@ -37,9 +37,7 @@ buildPythonPackage rec {
 
   checkPhase = ''
     runHook preCheck
-    ${
-      lib.optionalString stdenv.isLinux "xvfb-run -s '-screen 0 800x600x24'"
-    } pytest tests
+    ${lib.optionalString stdenv.isLinux "xvfb-run -s '-screen 0 800x600x24'"} pytest tests
     runHook postCheck
   '';
 

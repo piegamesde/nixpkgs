@@ -60,10 +60,7 @@ stdenv.mkDerivation (
 
     makeFlags = [
       "SYSTEM=${
-        if stdenv.hostPlatform.isMinGW then
-          "mingw"
-        else
-          stdenv.hostPlatform.parsed.kernel.name
+        if stdenv.hostPlatform.isMinGW then "mingw" else stdenv.hostPlatform.parsed.kernel.name
       }"
     ];
 

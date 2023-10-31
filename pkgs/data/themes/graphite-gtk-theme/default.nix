@@ -99,16 +99,12 @@ lib.checkListOfEnum "${pname}: theme variants"
 
       name= ./install.sh \
         ${
-          lib.optionalString (themeVariants != [ ]) "--theme "
-          + builtins.toString themeVariants
+          lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants
         } \
         ${
-          lib.optionalString (colorVariants != [ ]) "--color "
-          + builtins.toString colorVariants
+          lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants
         } \
-        ${
-          lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants
-        } \
+        ${lib.optionalString (sizeVariants != [ ]) "--size " + builtins.toString sizeVariants} \
         ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
@@ -128,9 +124,7 @@ lib.checkListOfEnum "${pname}: theme variants"
 
         ./install.sh --justcopy --dest $out/share/grub/themes \
           ${lib.optionalString (builtins.elem "nord" tweaks) "--theme nord"} \
-          ${
-            lib.optionalString (grubScreens != [ ]) "--screen " + builtins.toString grubScreens
-          }
+          ${lib.optionalString (grubScreens != [ ]) "--screen " + builtins.toString grubScreens}
         )
       ''}
 

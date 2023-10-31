@@ -58,9 +58,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the OpenDKIM sender authentication system.";
+        description = lib.mdDoc "Whether to enable the OpenDKIM sender authentication system.";
       };
 
       socket = mkOption {

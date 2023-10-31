@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
     + (lib.optionalString (firmware == [ ])
       ''sed -i "s,STARTUP = true,STARTUP = false," Makefile''
     )
-    + (lib.optionalString (configOpts != null)
-      "ln -sf ${configOpts} ./config/config.opts"
-    );
+    + (lib.optionalString (configOpts != null) "ln -sf ${configOpts} ./config/config.opts");
 
   makeFlags = [ "LEX=flex" ];
   installFlags = [

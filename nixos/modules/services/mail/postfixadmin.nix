@@ -110,9 +110,7 @@ in
       ${cfg.extraConfig}
     '';
 
-    systemd.tmpfiles.rules = [
-      "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}"
-    ];
+    systemd.tmpfiles.rules = [ "d /var/cache/postfixadmin/templates_c 700 ${user} ${user}" ];
 
     services.nginx = {
       enable = true;

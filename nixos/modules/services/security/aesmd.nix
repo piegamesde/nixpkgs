@@ -19,9 +19,7 @@ let
         optional (whitelistUrl != null) "whitelist url = ${whitelistUrl}"
         ++ optional (proxy != null) "aesm proxy = ${proxy}"
         ++ optional (proxyType != null) "proxy type = ${proxyType}"
-        ++
-          optional (defaultQuotingType != null)
-            "default quoting type = ${defaultQuotingType}"
+        ++ optional (defaultQuotingType != null) "default quoting type = ${defaultQuotingType}"
         ++
           # Newline at end of file
           [ "" ]

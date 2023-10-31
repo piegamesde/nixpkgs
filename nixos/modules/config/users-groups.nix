@@ -368,10 +368,9 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (mkIf
-          (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ])
-          { autoSubUidGidRange = mkDefault true; }
-        )
+        (mkIf (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]) {
+          autoSubUidGidRange = mkDefault true;
+        })
       ];
     };
 
@@ -887,8 +886,7 @@ in
             message = "UIDs and GIDs must be unique!";
           }
           {
-            assertion =
-              !cfg.enforceIdUniqueness || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
+            assertion = !cfg.enforceIdUniqueness || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
           {
@@ -933,8 +931,7 @@ in
             [
               {
                 assertion =
-                  (user.hashedPassword != null)
-                  -> (builtins.match ".*:.*" user.hashedPassword == null);
+                  (user.hashedPassword != null) -> (builtins.match ".*:.*" user.hashedPassword == null);
                 message = ''
                   The password hash of user "${user.name}" contains a ":" character.
                   This is invalid and would break the login system because the fields
@@ -965,8 +962,7 @@ in
             ]
             ++ (map
               (shell: {
-                assertion =
-                  (user.shell == pkgs.${shell}) -> (config.programs.${shell}.enable == true);
+                assertion = (user.shell == pkgs.${shell}) -> (config.programs.${shell}.enable == true);
                 message = ''
                   users.users.${user.name}.shell is set to ${shell}, but
                   programs.${shell}.enable is not true. This will cause the ${shell}

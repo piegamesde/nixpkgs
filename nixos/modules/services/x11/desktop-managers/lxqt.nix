@@ -30,9 +30,7 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.lxqt.qterminal ]";
       type = types.listOf types.package;
-      description =
-        lib.mdDoc
-          "Which LXQt packages to exclude from the default environment";
+      description = lib.mdDoc "Which LXQt packages to exclude from the default environment";
     };
   };
 

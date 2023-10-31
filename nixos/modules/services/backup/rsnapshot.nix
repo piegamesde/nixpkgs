@@ -77,10 +77,7 @@ in
       {
         services.cron.systemCronJobs =
           mapAttrsToList
-            (
-              interval: time:
-              "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}"
-            )
+            (interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}")
             cfg.cronIntervals;
       }
       (mkIf cfg.enableManualRsnapshot {

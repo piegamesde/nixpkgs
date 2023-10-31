@@ -34,9 +34,7 @@ stdenv.mkDerivation rec {
       --replace "\`which mysql\`" "${
         lib.optionalString withMySQL "${mariadb.client}/bin/mysql"
       }" \
-      --replace "\`which psql\`" "${
-        lib.optionalString withPSQL "${postgresql}/bin/psql"
-      }" \
+      --replace "\`which psql\`" "${lib.optionalString withPSQL "${postgresql}/bin/psql"}" \
       --replace "\`which sqlite3\`" "${
         lib.optionalString withSQLite "${sqlite}/bin/sqlite3"
       }" \

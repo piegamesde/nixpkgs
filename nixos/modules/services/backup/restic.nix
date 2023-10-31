@@ -206,9 +206,7 @@ in
               description = lib.mdDoc ''
                 Extra extended options to be passed to the restic --option flag.
               '';
-              example = [
-                "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"
-              ];
+              example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
             };
 
             initialize = mkOption {
@@ -414,15 +412,12 @@ in
                       ${resticCmd} snapshots || ${resticCmd} init
                     ''}
                     ${optionalString (backup.dynamicFilesFrom != null) ''
-                      ${
-                        pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom
-                      } > ${filesFromTmpFile}
+                      ${pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom} > ${filesFromTmpFile}
                     ''}
                   '';
                 }
             //
-              optionalAttrs
-                (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null)
+              optionalAttrs (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null)
                 {
                   postStop = ''
                     ${optionalString (backup.backupCleanupCommand != null) ''

@@ -143,9 +143,7 @@ let
       # * https://github.com/python/cpython/commit/e6b247c8e524
       ../3.7/no-win64-workaround.patch
     ]
-    ++ lib.optionals (x11Support && stdenv.isDarwin) [
-      ./use-correct-tcl-tk-on-darwin.patch
-    ]
+    ++ lib.optionals (x11Support && stdenv.isDarwin) [ ./use-correct-tcl-tk-on-darwin.patch ]
     ++ lib.optionals stdenv.isLinux [
 
       # Disable the use of ldconfig in ctypes.util.find_library (since
@@ -179,9 +177,7 @@ let
       # compiler when needed.
       ./python-2.7-distutils-C++.patch
     ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-      ./cross-compile.patch
-    ];
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ ./cross-compile.patch ];
 
   preConfigure =
     ''
@@ -210,9 +206,7 @@ let
       "--with-system-expat"
       "--enable-unicode=ucs${toString ucsEncoding}"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isCygwin [
-      "ac_cv_func_bind_textdomain_codeset=yes"
-    ]
+    ++ lib.optionals stdenv.hostPlatform.isCygwin [ "ac_cv_func_bind_textdomain_codeset=yes" ]
     ++ lib.optionals stdenv.isDarwin [ "--disable-toolbox-glue" ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "PYTHON_FOR_BUILD=${lib.getBin buildPackages.python}/bin/python"

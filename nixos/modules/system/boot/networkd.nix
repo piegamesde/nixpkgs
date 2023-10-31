@@ -1473,22 +1473,20 @@ let
             ])
           ];
 
-      sectionEnhancedTransmissionSelection =
-        checkUnitConfig "EnhancedTransmissionSelection"
-          [
-            (assertOnlyFields [
-              "Parent"
-              "Handle"
-              "Bands"
-              "StrictBands"
-              "QuantumBytes"
-              "PriorityMap"
-            ])
-            (assertInt "Bands")
-            (assertRange "Bands" 1 16)
-            (assertInt "StrictBands")
-            (assertRange "StrictBands" 1 16)
-          ];
+      sectionEnhancedTransmissionSelection = checkUnitConfig "EnhancedTransmissionSelection" [
+        (assertOnlyFields [
+          "Parent"
+          "Handle"
+          "Bands"
+          "StrictBands"
+          "QuantumBytes"
+          "PriorityMap"
+        ])
+        (assertInt "Bands")
+        (assertRange "Bands" 1 16)
+        (assertInt "StrictBands")
+        (assertRange "StrictBands" 1 16)
+      ];
 
       sectionGenericRandomEarlyDetection = checkUnitConfig "GenericRandomEarlyDetection" [
         (assertOnlyFields [
@@ -2020,9 +2018,7 @@ let
           IncomingInterface = "eth1";
           Family = "both";
         };
-        type =
-          types.addCheck (types.attrsOf unitOption)
-            check.network.sectionRoutingPolicyRule;
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionRoutingPolicyRule;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[RoutingPolicyRule]` section of the unit.  See
@@ -2073,9 +2069,7 @@ let
         example = {
           Route = "fd00::/64";
         };
-        type =
-          types.addCheck (types.attrsOf unitOption)
-            check.network.sectionIPv6RoutePrefix;
+        type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPv6RoutePrefix;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
           `[IPv6RoutePrefix]` section of the unit.  See
@@ -2458,9 +2452,7 @@ let
         Parent = "ingress";
         DelaySec = "20msec";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionNetworkEmulator;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionNetworkEmulator;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[NetworkEmulator]` section of the unit.  See
@@ -2474,9 +2466,7 @@ let
         Parent = "ingress";
         Rate = "100k";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionTokenBucketFilter;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionTokenBucketFilter;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[TokenBucketFilter]` section of the unit.  See
@@ -2518,9 +2508,7 @@ let
         Parent = "ingress";
         PacketLimit = "3847";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionStochasticFairBlue;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionStochasticFairBlue;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[StochasticFairBlue]` section of the unit.  See
@@ -2620,9 +2608,7 @@ let
         Parent = "ingress";
         TargetSec = "20msec";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionControlledDelay;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionControlledDelay;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[ControlledDelay]` section of the unit.  See
@@ -2779,9 +2765,7 @@ let
         Parent = "root";
         PacketLimit = 10000;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionHeavyHitterFilter;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionHeavyHitterFilter;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HeavyHitterFilter]` section of the unit.  See
@@ -2794,9 +2778,7 @@ let
       example = {
         Parent = "root";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionQuickFairQueueing;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionQuickFairQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[QuickFairQueueing]` section of the unit.  See

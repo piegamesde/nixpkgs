@@ -216,21 +216,16 @@ in
     assertions = [
       {
         assertion =
-          cfg.storageBackend == "inmem"
-          -> (cfg.storagePath == null && cfg.storageConfig == null);
+          cfg.storageBackend == "inmem" -> (cfg.storagePath == null && cfg.storageConfig == null);
         message = ''
           The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }
       {
         assertion =
           (
-            (
-              cfg.storageBackend == "file"
-              -> (cfg.storagePath != null && cfg.storageConfig == null)
-            )
+            (cfg.storageBackend == "file" -> (cfg.storagePath != null && cfg.storageConfig == null))
             && (
-              cfg.storagePath != null
-              -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")
+              cfg.storagePath != null -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft")
             )
           );
         message = ''

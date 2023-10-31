@@ -135,9 +135,7 @@ in
         else if config.networking.useNetworkd then
           "${cfg.package}/bin/systemd-networkd-dns ${iface [ ]}"
         else
-          "${config.security.wrapperDir}/udhcpc --quit --now -f ${
-            iface [ "-i" ]
-          } -O dns --script ${
+          "${config.security.wrapperDir}/udhcpc --quit --now -f ${iface [ "-i" ]} -O dns --script ${
             pkgs.writeShellScript "udhcp-script" ''
               if [ "$1" = bound ]; then
                 echo "$dns"

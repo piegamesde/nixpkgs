@@ -132,10 +132,7 @@ let
         let
           pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name") attrs;
         in
-        if pos == null then
-          ""
-        else
-          " at ${pos.file}:${toString pos.line}:${toString pos.column}";
+        if pos == null then "" else " at ${pos.file}:${toString pos.line}:${toString pos.column}";
 
       leftPadName =
         name: against:
@@ -180,8 +177,7 @@ let
         '';
 
       checkDrv =
-        drv:
-        if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
+        drv: if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
     in
     inputs:
     builtins.map (checkDrv) inputs;

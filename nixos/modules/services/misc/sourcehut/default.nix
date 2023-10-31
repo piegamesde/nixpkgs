@@ -222,9 +222,7 @@ in
     };
 
     redis = {
-      enable = mkEnableOption (
-        lib.mdDoc "local redis integration in a dedicated redis-server"
-      );
+      enable = mkEnableOption (lib.mdDoc "local redis integration in a dedicated redis-server");
     };
 
     settings = mkOption {
@@ -237,9 +235,7 @@ in
             example = "example.com";
           };
           environment = mkOption {
-            description =
-              lib.mdDoc
-                ''Values other than "production" adds a banner to each page.'';
+            description = lib.mdDoc ''Values other than "production" adds a banner to each page.'';
             type = types.enum [
               "development"
               "production"
@@ -886,8 +882,7 @@ in
           # - /var/log/{build,git,hg}srht-keys
           # - /var/log/{git,hg}srht-shell
           # - /var/log/gitsrht-update-hook
-          authorizedKeysCommand = ''
-            /etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
+          authorizedKeysCommand = ''/etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
           # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
           authorizedKeysCommandUser = "root";
           extraConfig = ''
@@ -1316,9 +1311,7 @@ in
             services.sourcehut.settings = {
               # Note that git.sr.ht::dispatch is not a typo,
               # gitsrht-dispatch always uses this section.
-              "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" =
-                mkDefault
-                  "${cfg.hg.user}:${cfg.hg.group}";
+              "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" = mkDefault "${cfg.hg.user}:${cfg.hg.group}";
             };
             systemd.services.sshd = baseService;
           }

@@ -46,8 +46,7 @@ stdenvNoCC.mkDerivation rec {
       wrapProgram $out/bin/$i \
         --set FIRMWARE_ROOT $out/share/rpi-eeprom \
         ${
-          lib.optionalString stdenvNoCC.isAarch64
-            "--set VCMAILBOX ${libraspberrypi}/bin/vcmailbox"
+          lib.optionalString stdenvNoCC.isAarch64 "--set VCMAILBOX ${libraspberrypi}/bin/vcmailbox"
         } \
         --prefix PATH : "${
           lib.makeBinPath (

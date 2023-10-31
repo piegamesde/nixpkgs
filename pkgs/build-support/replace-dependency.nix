@@ -82,9 +82,7 @@ let
 
   drvName =
     drv:
-    discard (
-      substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv)
-    );
+    discard (substring 33 (stringLength (builtins.baseNameOf drv)) (builtins.baseNameOf drv));
 
   rewriteHashes =
     drv: hashes:

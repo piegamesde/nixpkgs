@@ -67,9 +67,7 @@ in
         defaultText = literalExpression "pkgs.fail2ban";
         type = types.package;
         example = literalExpression "pkgs.fail2ban_0_11";
-        description =
-          lib.mdDoc
-            "The fail2ban package to use for running the fail2ban service.";
+        description = lib.mdDoc "The fail2ban package to use for running the fail2ban service.";
       };
 
       packageFirewall = mkOption {
@@ -106,10 +104,7 @@ in
 
       banaction = mkOption {
         default =
-          if config.networking.nftables.enable then
-            "nftables-multiport"
-          else
-            "iptables-multiport";
+          if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
         defaultText =
           literalExpression
             ''
@@ -128,8 +123,7 @@ in
           if config.networking.nftables.enable then "nftables-allport" else "iptables-allport";
         defaultText =
           literalExpression
-            ''
-              if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
+            ''if config.networking.nftables.enable then "nftables-allport" else "iptables-allport"'';
         type = types.str;
         description = lib.mdDoc ''
           Default banning action (e.g. iptables, iptables-new, iptables-multiport,

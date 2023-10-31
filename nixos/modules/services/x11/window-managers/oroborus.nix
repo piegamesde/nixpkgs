@@ -13,9 +13,7 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.oroborus.enable = mkEnableOption (
-      lib.mdDoc "oroborus"
-    );
+    services.xserver.windowManager.oroborus.enable = mkEnableOption (lib.mdDoc "oroborus");
   };
 
   ###### implementation

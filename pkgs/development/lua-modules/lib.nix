@@ -19,8 +19,7 @@ let
   overrideLuarocks =
     drv: f:
     (drv.override (
-      args:
-      args // { buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f; }
+      args: args // { buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f; }
     ))
     // {
       overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;

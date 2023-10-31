@@ -342,9 +342,7 @@ let
   ];
 
   python = python3.override {
-    packageOverrides = lib.composeManyExtensions (
-      defaultOverrides ++ [ packageOverrides ]
-    );
+    packageOverrides = lib.composeManyExtensions (defaultOverrides ++ [ packageOverrides ]);
   };
 
   componentPackages = import ./component-packages.nix;

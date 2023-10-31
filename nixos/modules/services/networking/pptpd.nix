@@ -10,9 +10,7 @@ with lib;
 {
   options = {
     services.pptpd = {
-      enable = mkEnableOption (
-        lib.mdDoc "pptpd, the Point-to-Point Tunneling Protocol daemon"
-      );
+      enable = mkEnableOption (lib.mdDoc "pptpd, the Point-to-Point Tunneling Protocol daemon");
 
       serverIp = mkOption {
         type = types.str;

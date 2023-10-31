@@ -208,10 +208,7 @@ let
               ++ (if proto ? hostname then optionalNullString "hostname" proto.hostname else [ ])
               ++ (if proto ? outproxy then optionalNullString "outproxy" proto.outproxy else [ ])
               ++ (
-                if proto ? outproxyPort then
-                  optionalNullInt "outproxyport" proto.outproxyPort
-                else
-                  [ ]
+                if proto ? outproxyPort then optionalNullInt "outproxyport" proto.outproxyPort else [ ]
               )
               ++ (
                 if proto ? outproxyEnable then
@@ -248,10 +245,7 @@ let
               ++ (if tun ? keys then optionalNullString "keys" tun.keys else [ ])
               ++ (if tun ? address then optionalNullString "address" tun.address else [ ])
               ++ (
-                if tun ? inbound.length then
-                  optionalNullInt "inbound.length" tun.inbound.length
-                else
-                  [ ]
+                if tun ? inbound.length then optionalNullInt "inbound.length" tun.inbound.length else [ ]
               )
               ++ (
                 if tun ? inbound.quantity then
@@ -290,9 +284,7 @@ let
                 (intOpt "port" tun.port)
                 (strOpt "host" tun.address)
               ]
-              ++ (
-                if tun ? destination then optionalNullString "destination" tun.destination else [ ]
-              )
+              ++ (if tun ? destination then optionalNullString "destination" tun.destination else [ ])
               ++ (if tun ? keys then optionalNullString "keys" tun.keys else [ ])
               ++ (if tun ? inPort then optionalNullInt "inport" tun.inPort else [ ])
               ++ (if tun ? accessList then optionalEmptyList "accesslist" tun.accessList else [ ]);

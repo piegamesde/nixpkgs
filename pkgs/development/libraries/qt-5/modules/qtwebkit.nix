@@ -85,9 +85,7 @@ qtModule {
     [ "-DPORT=Qt" ]
     ++ lib.optionals stdenv.isDarwin [
       "-DQt5Multimedia_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5Multimedia"
-      "-DQt5MultimediaWidgets_DIR=${
-        lib.getDev qtmultimedia
-      }/lib/cmake/Qt5MultimediaWidgets"
+      "-DQt5MultimediaWidgets_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5MultimediaWidgets"
       "-DMACOS_FORCE_SYSTEM_XML_LIBRARIES=OFF"
     ];
 

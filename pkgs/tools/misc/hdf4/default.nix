@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
     ./darwin-aarch64.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   buildInputs =
     [

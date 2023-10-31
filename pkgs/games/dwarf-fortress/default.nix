@@ -55,8 +55,7 @@ let
   latestVersion = "0.47.05";
 
   # Converts a version to a package name.
-  versionToName =
-    version: "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
+  versionToName = version: "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
 
   dwarf-therapist-original = libsForQt5.callPackage ./dwarf-therapist {
     texlive = texlive.combine {

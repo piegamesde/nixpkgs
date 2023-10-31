@@ -109,9 +109,7 @@ let
       mathcomp-bigenough = callPackage ../development/coq-modules/mathcomp-bigenough { };
       mathcomp-classical = self.mathcomp-analysis.classical;
       mathcomp-finmap = callPackage ../development/coq-modules/mathcomp-finmap { };
-      mathcomp-real-closed =
-        callPackage ../development/coq-modules/mathcomp-real-closed
-          { };
+      mathcomp-real-closed = callPackage ../development/coq-modules/mathcomp-real-closed { };
       mathcomp-tarjan = callPackage ../development/coq-modules/mathcomp-tarjan { };
       mathcomp-word = callPackage ../development/coq-modules/mathcomp-word { };
       mathcomp-zify = callPackage ../development/coq-modules/mathcomp-zify { };

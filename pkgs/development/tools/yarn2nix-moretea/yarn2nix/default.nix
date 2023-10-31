@@ -25,10 +25,7 @@ let
   # TODO: support expression syntax (OR, AND, etc)
   getLicenseFromSpdxId =
     licstr:
-    if licstr == "UNLICENSED" then
-      lib.licenses.unfree
-    else
-      lib.getLicenseFromSpdxId licstr;
+    if licstr == "UNLICENSED" then lib.licenses.unfree else lib.getLicenseFromSpdxId licstr;
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
@@ -100,9 +97,9 @@ rec {
       packageResolutions ? { },
     }:
     let
-      extraNativeBuildInputs =
-        lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ])
-          (builtins.attrNames pkgConfig);
+      extraNativeBuildInputs = lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ]) (
+        builtins.attrNames pkgConfig
+      );
       extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
         builtins.attrNames pkgConfig
       );
@@ -230,10 +227,7 @@ rec {
       package = lib.importJSON packageJSON;
 
       packageGlobs =
-        if lib.isList package.workspaces then
-          package.workspaces
-        else
-          package.workspaces.packages;
+        if lib.isList package.workspaces then package.workspaces else package.workspaces.packages;
 
       packageResolutions = package.resolutions or { };
 
@@ -252,9 +246,7 @@ rec {
           children = lib.attrNames (
             lib.filterAttrs (name: type: type == "directory") (builtins.readDir base)
           );
-          matchingChildren =
-            lib.filter (child: builtins.match elemRegex child != null)
-              children;
+          matchingChildren = lib.filter (child: builtins.match elemRegex child != null) children;
         in
         if globElems == [ ] then
           [ base ]

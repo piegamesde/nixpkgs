@@ -163,9 +163,7 @@ in
         internal = true;
         default = "${xorg.xauth}/bin/xauth";
         defaultText = literalExpression ''"''${pkgs.xorg.xauth}/bin/xauth"'';
-        description =
-          lib.mdDoc
-            "Path to the {command}`xauth` program used by display managers.";
+        description = lib.mdDoc "Path to the {command}`xauth` program used by display managers.";
       };
 
       xserverBin = mkOption {
@@ -313,10 +311,7 @@ in
                 '';
           };
         default =
-          if dmDefault != null || wmDefault != null then
-            defaultSessionFromLegacyOptions
-          else
-            null;
+          if dmDefault != null || wmDefault != null then defaultSessionFromLegacyOptions else null;
         defaultText = literalMD ''
           Taken from display manager settings or window manager settings, if either is set.
         '';
@@ -354,9 +349,7 @@ in
         environment = mkOption {
           type = types.attrsOf types.unspecified;
           default = { };
-          description =
-            lib.mdDoc
-              "Additional environment variables needed by the display manager.";
+          description = lib.mdDoc "Additional environment variables needed by the display manager.";
         };
 
         logToFile = mkOption {

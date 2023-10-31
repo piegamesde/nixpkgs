@@ -230,8 +230,7 @@ let
     };
 
   isValidLogin =
-    login:
-    login.username != null && login.passwordFile != null && login.registry != null;
+    login: login.username != null && login.passwordFile != null && login.registry != null;
 
   mkService =
     name: container:

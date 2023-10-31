@@ -55,9 +55,7 @@ in
       isMaster = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether this is the master instance of your Graylog cluster";
+        description = lib.mdDoc "Whether this is the master instance of your Graylog cluster";
       };
 
       nodeIdFile = mkOption {

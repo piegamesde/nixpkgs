@@ -51,17 +51,13 @@ with lib.types; {
     group = mkOption {
       type = nullOr str;
       default = null;
-      description =
-        lib.mdDoc
-          "Name of group to run the script under. Defaults to user group.";
+      description = lib.mdDoc "Name of group to run the script under. Defaults to user group.";
     };
 
     extraConfig = mkOption {
       type = lines;
       default = "";
-      description =
-        lib.mdDoc
-          "Extra lines to be added verbatim to the vrrp_script section.";
+      description = lib.mdDoc "Extra lines to be added verbatim to the vrrp_script section.";
     };
   };
 }

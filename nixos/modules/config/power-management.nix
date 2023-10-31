@@ -27,9 +27,7 @@ in
       resumeCommands = mkOption {
         type = types.lines;
         default = "";
-        description =
-          lib.mdDoc
-            "Commands executed after the system resumes from suspend-to-RAM.";
+        description = lib.mdDoc "Commands executed after the system resumes from suspend-to-RAM.";
       };
 
       powerUpCommands = mkOption {

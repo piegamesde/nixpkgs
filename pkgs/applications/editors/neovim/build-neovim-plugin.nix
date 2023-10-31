@@ -41,9 +41,7 @@ let
       oa:
       attrs
       // {
-        nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [
-          lua.pkgs.luarocksMoveDataFolder
-        ];
+        nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ lua.pkgs.luarocksMoveDataFolder ];
       }
     )
   );

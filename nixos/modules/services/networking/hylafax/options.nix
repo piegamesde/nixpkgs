@@ -46,9 +46,7 @@ let
         int
         listOf
       ;
-      innerType = coercedTo bool (x: if x then "Yes" else "No") (
-        coercedTo int (toString) str
-      );
+      innerType = coercedTo bool (x: if x then "Yes" else "No") (coercedTo int (toString) str);
     in
     attrsOf (coercedTo innerType lib.singleton (listOf innerType));
 
@@ -110,8 +108,7 @@ let
         (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
       ];
       importDefaultConfig =
-        file:
-        lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file { inherit pkgs; });
+        file: lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file { inherit pkgs; });
       c.commonModemConfig = importDefaultConfig ./modem-default.nix;
       c.faxqConfig = importDefaultConfig ./faxq-default.nix;
       c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;

@@ -186,8 +186,7 @@ let
     res;
 
   aliases =
-    self: super:
-    lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
+    self: super: lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
 
   # stdenvOverrides is used to avoid having multiple of versions
   # of certain dependencies that were used in bootstrapping the
@@ -203,9 +202,7 @@ let
   # ... pkgs.foo ...").
   configOverrides =
     self: super:
-    lib.optionalAttrs allowCustomOverrides (
-      (config.packageOverrides or (super: { })) super
-    );
+    lib.optionalAttrs allowCustomOverrides ((config.packageOverrides or (super: { })) super);
 
   # Convenience attributes for instantitating package sets. Each of
   # these will instantiate a new version of allPackages. Currently the

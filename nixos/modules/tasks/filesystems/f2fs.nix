@@ -21,15 +21,13 @@ in
       "crc32"
     ];
 
-    boot.initrd.extraUtilsCommands =
-      mkIf (inInitrd && !config.boot.initrd.systemd.enable)
-        ''
-          copy_bin_and_libs ${pkgs.f2fs-tools}/sbin/fsck.f2fs
-          ${optionalString (any (fs: fs.autoResize) fileSystems) ''
-            # We need f2fs-tools' tools to resize filesystems
-            copy_bin_and_libs ${pkgs.f2fs-tools}/sbin/resize.f2fs
-          ''}
+    boot.initrd.extraUtilsCommands = mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
+      copy_bin_and_libs ${pkgs.f2fs-tools}/sbin/fsck.f2fs
+      ${optionalString (any (fs: fs.autoResize) fileSystems) ''
+        # We need f2fs-tools' tools to resize filesystems
+        copy_bin_and_libs ${pkgs.f2fs-tools}/sbin/resize.f2fs
+      ''}
 
-        '';
+    '';
   };
 }

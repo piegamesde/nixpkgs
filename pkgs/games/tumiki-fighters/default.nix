@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
     (debianPatch "windowed" "1wp74l0bi8wq85pcxnmkwrlfmlf09im95n27pxgz082lhwf2ksy1")
     (debianPatch "dotfile" "0d8x519bclh41j992qn6ijzfcrgacb79px6zjd1awypkwyc0j2p6")
     (debianPatch "makefile" "11xf2b31kjyps53jfryv82dv0g6q0smc9xgp8imrbr93mzi51vf0")
-    (debianPatch "window-resizing"
-      "1dm79d0yisa8zs5fr89y3wq2kzd3khcaxs0la8lhncvkqbd4smx8"
-    )
+    (debianPatch "window-resizing" "1dm79d0yisa8zs5fr89y3wq2kzd3khcaxs0la8lhncvkqbd4smx8")
     (debianPatch "dlang_v2" "1isnvbl3bjnpyphji8k3fl0yd1z4869h0lai143vpwgj6518lpg4")
     (debianPatch "gdc-8" "1md0zwmv50jnak5g9d93bglv9v4z41blinjii6kv3vmgjnajapzj")
   ];

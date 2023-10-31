@@ -68,14 +68,10 @@ lib.checkListOfEnum "${pname}: color variants"
 
       name= ./install.sh \
         ${
-          lib.optionalString (themeVariants != [ ]) (
-            "--theme " + builtins.toString themeVariants
-          )
+          lib.optionalString (themeVariants != [ ]) ("--theme " + builtins.toString themeVariants)
         } \
         ${
-          lib.optionalString (colorVariants != [ ]) (
-            "--color " + builtins.toString colorVariants
-          )
+          lib.optionalString (colorVariants != [ ]) ("--color " + builtins.toString colorVariants)
         } \
         --dest $out/share/icons
 

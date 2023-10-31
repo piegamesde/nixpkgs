@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
       ninja
       unzip
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.apple_sdk.frameworks.Foundation
-    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
     ++
       lib.optionals (!stdenv.hostPlatform.isDarwin)
         [

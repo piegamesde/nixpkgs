@@ -55,9 +55,7 @@ stdenvNoCC.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/neofetch \
-      --prefix PATH : ${
-        lib.makeBinPath ([ pciutils ] ++ lib.optional x11Support ueberzug)
-      }
+      --prefix PATH : ${lib.makeBinPath ([ pciutils ] ++ lib.optional x11Support ueberzug)}
   '';
 
   makeFlags = [

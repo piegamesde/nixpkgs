@@ -369,9 +369,7 @@ in
       certificates = mkOption {
         type = types.path;
         default = "${cfg.directories.home}/certificates";
-        defaultText =
-          literalExpression
-            ''"''${config.${opt.directories.home}}/certificates"'';
+        defaultText = literalExpression ''"''${config.${opt.directories.home}}/certificates"'';
         description = lib.mdDoc ''
           Directory for storing certificates to be used by Neo4j for
           TLS connections.
@@ -683,8 +681,7 @@ in
               };
 
               config.directoriesToCreate =
-                optionals
-                  (certDirOpt.highestPrio >= 1500 && options.baseDirectory.highestPrio >= 1500)
+                optionals (certDirOpt.highestPrio >= 1500 && options.baseDirectory.highestPrio >= 1500)
                   (map (opt: opt.value) (filter isDefaultPathOption (attrValues options)));
             }
           )

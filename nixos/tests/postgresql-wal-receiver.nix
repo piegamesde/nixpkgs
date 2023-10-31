@@ -67,9 +67,7 @@ let
             };
             # This is only to speedup test, it isn't time racing. Service is set to autorestart always,
             # default 60sec is fine for real system, but is too much for a test
-            systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec =
-              lib.mkForce
-                5;
+            systemd.services.postgresql-wal-receiver-main.serviceConfig.RestartSec = lib.mkForce 5;
           };
 
         testScript = ''

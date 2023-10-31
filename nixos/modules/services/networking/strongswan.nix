@@ -23,8 +23,7 @@ let
   cfg = config.services.strongswan;
 
   ipsecSecrets =
-    secrets:
-    toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets);
+    secrets: toFile "ipsec.secrets" (concatMapStringsSep "\n" (f: "include ${f}") secrets);
 
   ipsecConf =
     {

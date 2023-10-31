@@ -18,9 +18,8 @@ stdenv.mkDerivation (
     nativeBuildInputs = [ unzip ];
 
     src =
-      sources."${version}-${stdenv.hostPlatform.system}" or (throw
-        "unsupported version/system: ${version}/${stdenv.hostPlatform.system}"
-      );
+      sources."${version}-${stdenv.hostPlatform.system}"
+        or (throw "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
 
     installPhase =
       ''

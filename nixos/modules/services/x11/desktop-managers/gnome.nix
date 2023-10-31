@@ -33,11 +33,7 @@ let
 
   # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
   nixos-gsettings-desktop-schemas = pkgs.gnome.nixos-gsettings-overrides.override {
-    inherit (cfg)
-      extraGSettingsOverrides
-      extraGSettingsOverridePackages
-      favoriteAppsOverride
-    ;
+    inherit (cfg) extraGSettingsOverrides extraGSettingsOverridePackages favoriteAppsOverride;
     inherit flashbackEnabled nixos-background-dark nixos-background-light;
   };
 
@@ -72,8 +68,7 @@ let
     }
     ++ cfg.flashback.customSessions;
 
-  notExcluded =
-    pkg: mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages));
+  notExcluded = pkg: mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages));
 in
 
 {
@@ -310,9 +305,7 @@ in
       core-os-services.enable = mkEnableOption (lib.mdDoc "essential services for GNOME3");
       core-shell.enable = mkEnableOption (lib.mdDoc "GNOME Shell services");
       core-utilities.enable = mkEnableOption (lib.mdDoc "GNOME core utilities");
-      core-developer-tools.enable = mkEnableOption (
-        lib.mdDoc "GNOME core developer tools"
-      );
+      core-developer-tools.enable = mkEnableOption (lib.mdDoc "GNOME core developer tools");
       games.enable = mkEnableOption (lib.mdDoc "GNOME games");
     };
 
@@ -381,9 +374,7 @@ in
 
                 wmLabel = mkOption {
                   type = types.str;
-                  description =
-                    lib.mdDoc
-                      "The name of the window manager to show in the session chooser.";
+                  description = lib.mdDoc "The name of the window manager to show in the session chooser.";
                   example = "XMonad";
                 };
 
@@ -444,9 +435,7 @@ in
       services.gnome.core-shell.enable = true;
       services.gnome.core-utilities.enable = mkDefault true;
 
-      services.xserver.displayManager.sessionPackages = [
-        pkgs.gnome.gnome-session.sessions
-      ];
+      services.xserver.displayManager.sessionPackages = [ pkgs.gnome.gnome-session.sessions ];
 
       environment.extraInit = ''
         ${concatMapStrings
@@ -505,9 +494,7 @@ in
         [ gnome-flashback ] ++ map gnome-flashback.mkSystemdTargetForWm flashbackWms;
 
       # gnome-panel needs these for menu applet
-      environment.sessionVariables.XDG_DATA_DIRS = [
-        "${pkgs.gnome.gnome-flashback}/share"
-      ];
+      environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.gnome.gnome-flashback}/share" ];
       # TODO: switch to sessionVariables (resolve conflict)
       environment.variables.XDG_CONFIG_DIRS = [ "${pkgs.gnome.gnome-flashback}/etc/xdg" ];
     })
@@ -576,9 +563,7 @@ in
           optionalPackages = [ pkgs.gnome.gnome-shell-extensions ];
         in
         mandatoryPackages
-        ++
-          utils.removePackagesByName optionalPackages
-            config.environment.gnome.excludePackages;
+        ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
 
       services.colord.enable = mkDefault true;
       services.gnome.glib-networking.enable = true;
@@ -655,9 +640,7 @@ in
           ];
         in
         mandatoryPackages
-        ++
-          utils.removePackagesByName optionalPackages
-            config.environment.gnome.excludePackages;
+        ++ utils.removePackagesByName optionalPackages config.environment.gnome.excludePackages;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst

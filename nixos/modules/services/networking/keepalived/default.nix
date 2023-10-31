@@ -123,9 +123,7 @@ let
 
   notNullOrEmpty = s: !(s == null || s == "");
 
-  vrrpScripts =
-    mapAttrsToList (name: config: { inherit name; } // config)
-      cfg.vrrpScripts;
+  vrrpScripts = mapAttrsToList (name: config: { inherit name; } // config) cfg.vrrpScripts;
 
   vrrpInstances =
     mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)

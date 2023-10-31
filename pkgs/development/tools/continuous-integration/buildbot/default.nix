@@ -30,9 +30,7 @@ let
   buildbot = python.pkgs.callPackage ./master.nix {
     inherit buildbot-pkg buildbot-worker buildbot-plugins;
   };
-  buildbot-plugins = recurseIntoAttrs (
-    callPackage ./plugins.nix { inherit buildbot-pkg; }
-  );
+  buildbot-plugins = recurseIntoAttrs (callPackage ./plugins.nix { inherit buildbot-pkg; });
 in
 {
   inherit buildbot buildbot-plugins buildbot-worker;

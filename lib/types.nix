@@ -77,8 +77,7 @@ let
         null
       # simple types
       else if
-        (f.wrapped == null && f'.wrapped == null)
-        && (f.payload == null && f'.payload == null)
+        (f.wrapped == null && f'.wrapped == null) && (f.payload == null && f'.payload == null)
       then
         f.type
       # composed types
@@ -339,8 +338,7 @@ let
             };
           unsign =
             bit: range:
-            ign 0 (range - 1) "unsignedInt${toString bit}"
-              "${toString bit} bit unsigned integer";
+            ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
           sign =
             bit: range:
             ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
@@ -405,9 +403,7 @@ let
             addCheck number (x: x >= lowest && x <= highest)
             // {
               name = "numberBetween";
-              description = "integer or floating point number between ${
-                  betweenDesc lowest highest
-                }";
+              description = "integer or floating point number between ${betweenDesc lowest highest}";
             };
 
           nonnegative = addCheck number (x: x >= 0) // {
@@ -578,15 +574,12 @@ let
                       imap1
                         (
                           m: def':
-                          (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ])
-                            elemType
-                            [
-                              {
-                                inherit (def) file;
-                                value = def';
-                              }
-                            ]
-                          ).optionalValue
+                          (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ]) elemType [
+                            {
+                              inherit (def) file;
+                              value = def';
+                            }
+                          ]).optionalValue
                         )
                         def.value
                     )
@@ -849,10 +842,7 @@ let
             imports =
               staticModules
               ++ map
-                (
-                  def:
-                  lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value
-                )
+                (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value)
                 defs;
           };
           inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
@@ -980,9 +970,7 @@ let
             };
           getSubModules = modules;
           substSubModules = m: submoduleWith (attrs // { modules = m; });
-          nestedTypes = lib.optionalAttrs (freeformType != null) {
-            freeformType = freeformType;
-          };
+          nestedTypes = lib.optionalAttrs (freeformType != null) { freeformType = freeformType; };
           functor = defaultFunctor name // {
             type = types.submoduleWith;
             payload = {
@@ -1025,8 +1013,7 @@ let
                 else if lhs.description == rhs.description then
                   lhs.description
                 else
-                  throw
-                    "A submoduleWith option is declared multiple times with conflicting descriptions";
+                  throw "A submoduleWith option is declared multiple times with conflicting descriptions";
             };
           };
         };
@@ -1138,8 +1125,7 @@ let
           description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${
               optionDescriptionPhrase (class: class == "noun") coercedType
             } convertible to it";
-          check =
-            x: (coercedType.check x && finalType.check (coerceFunc x)) || finalType.check x;
+          check = x: (coercedType.check x && finalType.check (coerceFunc x)) || finalType.check x;
           merge =
             loc: defs:
             let

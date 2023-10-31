@@ -22,8 +22,7 @@ let
   backendsToPackages =
     let
       mkMap =
-        list: name:
-        if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
+        list: name: if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
     in
     foldl mkMap [ ];
 
@@ -38,9 +37,7 @@ let
           (name: if (isBuiltinBackend name) then ''"./backends/${name}"'' else ''"${name}"'')
           cfg.backends
       }],
-      ${
-        optionalString (cfg.graphiteHost != null) ''graphiteHost: "${cfg.graphiteHost}",''
-      }
+      ${optionalString (cfg.graphiteHost != null) ''graphiteHost: "${cfg.graphiteHost}",''}
       ${
         optionalString (cfg.graphitePort != null)
           ''graphitePort: "${toString cfg.graphitePort}",''

@@ -66,8 +66,7 @@
 
 with builtins;
 
-assert goPackagePath != ""
-  -> throw "`goPackagePath` is not needed with `buildGoModule`";
+assert goPackagePath != "" -> throw "`goPackagePath` is not needed with `buildGoModule`";
 assert (vendorSha256 == "_unset" && vendorHash == "_unset")
   -> throw "either `vendorHash` or `vendorSha256` is required";
 assert (vendorSha256 != "_unset" && vendorHash != "_unset")

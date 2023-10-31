@@ -80,9 +80,7 @@ let
   );
   x11ConfigureFlags = concatStringsSep " " (
     (
-      if
-        ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit))
-      then
+      if ((enableHAXM && (enable16Bit || enable32Bit)) || (enable16Bit && enable32Bit)) then
         [ "--enable-build-all" ]
       else if enableHAXM then
         [ "--enable-haxm" ]
@@ -105,8 +103,7 @@ let
     "SDL2_CONFIG=sdl2-config"
     "SDL_CONFIG=sdl-config"
     ''SDL_CFLAGS="$(sdl${sdlInfix}-config --cflags)"''
-    ''
-      SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
+    ''SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
   ];
   x11Bins = concatStringsSep " " (
     optionals enable16Bit [ "xnp2kai" ]

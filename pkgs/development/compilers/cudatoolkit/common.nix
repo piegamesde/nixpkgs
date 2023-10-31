@@ -195,8 +195,7 @@ backendStdenv.mkDerivation rec {
           cd ..
         done
       ''}
-      ${lib.optionalString
-        (lib.versionAtLeast version "10.1" && lib.versionOlder version "11")
+      ${lib.optionalString (lib.versionAtLeast version "10.1" && lib.versionOlder version "11")
         ''
           cd pkg/builds/cuda-toolkit
           mv * $out/

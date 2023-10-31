@@ -31,9 +31,7 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.mate.mate-terminal pkgs.mate.pluma ]";
       type = types.listOf types.package;
-      description =
-        lib.mdDoc
-          "Which MATE packages to exclude from the default environment";
+      description = lib.mdDoc "Which MATE packages to exclude from the default environment";
     };
   };
 

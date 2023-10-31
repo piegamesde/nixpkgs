@@ -101,10 +101,7 @@ in
           nameValuePair "errbot-${name}" (
             let
               dataDir =
-                if instanceCfg.dataDir != null then
-                  instanceCfg.dataDir
-                else
-                  "/var/lib/errbot/${name}";
+                if instanceCfg.dataDir != null then instanceCfg.dataDir else "/var/lib/errbot/${name}";
             in
             {
               after = [ "network-online.target" ];
@@ -116,9 +113,7 @@ in
               serviceConfig = {
                 User = "errbot";
                 Restart = "on-failure";
-                ExecStart = "${pkgs.errbot}/bin/errbot -c ${
-                    mkConfigDir instanceCfg dataDir
-                  }/config.py";
+                ExecStart = "${pkgs.errbot}/bin/errbot -c ${mkConfigDir instanceCfg dataDir}/config.py";
                 PermissionsStartOnly = true;
               };
             }

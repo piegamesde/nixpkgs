@@ -112,8 +112,7 @@ in
 
       serviceConfig =
         let
-          conf =
-            if cfg.configFile == null then prettyJSON cfg.configuration else cfg.configFile;
+          conf = if cfg.configFile == null then prettyJSON cfg.configuration else cfg.configFile;
         in
         {
           ExecStart = "${cfg.package}/bin/loki --config.file=${conf} ${

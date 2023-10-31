@@ -157,9 +157,7 @@ let
   transitiveClosure =
     plugin:
     [ plugin ]
-    ++ (lib.unique (
-      builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])
-    ));
+    ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
@@ -297,8 +295,7 @@ let
       entries =
         [ beforePlugins ]
         ++ lib.optional (vam != null) (
-          lib.warn
-            "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
+          lib.warn "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration"
             vamImpl
         )
         ++ lib.optional (packages != null && packages != [ ]) (nativeImpl packages)

@@ -20,8 +20,7 @@ let
       (
         vhostName: vhostConfig:
         let
-          serverName =
-            if vhostConfig.serverName != null then vhostConfig.serverName else vhostName;
+          serverName = if vhostConfig.serverName != null then vhostConfig.serverName else vhostName;
           certName =
             if vhostConfig.useACMEHost != null then vhostConfig.useACMEHost else serverName;
         in
@@ -390,8 +389,7 @@ let
                   addrs
               );
 
-          hostListen =
-            if vhost.forceSSL then filter (x: x.ssl) defaultListen else defaultListen;
+          hostListen = if vhost.forceSSL then filter (x: x.ssl) defaultListen else defaultListen;
 
           listenString =
             {
@@ -545,9 +543,7 @@ let
             ${
               concatStringsSep "\n" (
                 mapAttrsToList (n: v: ''fastcgi_param ${n} "${v}";'') (
-                  optionalAttrs (config.fastcgiParams != { }) (
-                    defaultFastcgiParams // config.fastcgiParams
-                  )
+                  optionalAttrs (config.fastcgiParams != { }) (defaultFastcgiParams // config.fastcgiParams)
                 )
               )
             }
@@ -572,10 +568,7 @@ let
     optionalString (zone.basicAuthFile != null || zone.basicAuth != { }) (
       let
         auth_file =
-          if zone.basicAuthFile != null then
-            zone.basicAuthFile
-          else
-            mkHtpasswd name zone.basicAuth;
+          if zone.basicAuthFile != null then zone.basicAuthFile else mkHtpasswd name zone.basicAuth;
       in
       ''
         auth_basic secured;
@@ -594,9 +587,7 @@ let
       )
     );
 
-  mkCertOwnershipAssertion =
-    import
-      ../../../security/acme/mk-cert-ownership-assertion.nix;
+  mkCertOwnershipAssertion = import ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 
 {

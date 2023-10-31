@@ -49,9 +49,7 @@ mkDerivation {
 
   preConfigure = ''
     substituteInPlace src/widgets/toglobalsetting.cpp \
-      --replace 'defaultGvHome = "/usr/bin"' 'defaultGvHome = "${
-        lib.getBin graphviz
-      }/bin"'
+      --replace 'defaultGvHome = "/usr/bin"' 'defaultGvHome = "${lib.getBin graphviz}/bin"'
     substituteInPlace extlibs/libermodel/dotgraph.cpp \
       --replace /usr/bin/dot ${lib.getBin graphviz}/bin/dot
   '';

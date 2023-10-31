@@ -103,9 +103,7 @@ stdenv.mkDerivation rec {
   sconsFlags = [ "production=true" ];
   preConfigure = ''
     sconsFlags+=" ${
-      lib.concatStringsSep " " (
-        lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options
-      )
+      lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${builtins.toJSON v}") options)
     }"
   '';
 

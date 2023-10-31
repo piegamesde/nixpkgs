@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
       --replace "ARFLAGS = -static -o" "ARFLAGS = -cru"
   '';
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [
-    llvmPackages.openmp
-  ];
+  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 

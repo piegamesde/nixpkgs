@@ -176,8 +176,7 @@ stdenv.mkDerivation (
             ++ extraNativeBuildInputs
           );
         buildInputs =
-          args.overrideBuildInputs
-            or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
+          args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
         inherit enableParallelBuilding;
 
         meta =
@@ -225,9 +224,7 @@ stdenv.mkDerivation (
       // (optionalAttrs (args ? useMelquiondRemake) rec {
         COQUSERCONTRIB = "$out/lib/coq/${coq.coq-version}/user-contrib";
         preConfigurePhases = "autoconf";
-        configureFlags = [
-          "--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}"
-        ];
+        configureFlags = [ "--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}" ];
         buildPhase = "./remake -j$NIX_BUILD_CORES";
         installPhase = "./remake install";
       })

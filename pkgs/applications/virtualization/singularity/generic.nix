@@ -232,9 +232,7 @@ in
     )}
     ${lib.optionalString (enableSuid && (starterSuidPath != null)) ''
       mv "$out"/libexec/${projectName}/bin/starter-suid{,.orig}
-      ln -s ${
-        lib.escapeShellArg starterSuidPath
-      } "$out/libexec/${projectName}/bin/starter-suid"
+      ln -s ${lib.escapeShellArg starterSuidPath} "$out/libexec/${projectName}/bin/starter-suid"
     ''}
   '';
 

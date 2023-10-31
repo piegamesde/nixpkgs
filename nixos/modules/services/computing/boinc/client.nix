@@ -9,9 +9,7 @@ with lib;
 
 let
   cfg = config.services.boinc;
-  allowRemoteGuiRpcFlag =
-    optionalString cfg.allowRemoteGuiRpc
-      "--allow_remote_gui_rpc";
+  allowRemoteGuiRpcFlag = optionalString cfg.allowRemoteGuiRpc "--allow_remote_gui_rpc";
 
   fhsEnv = pkgs.buildFHSEnv {
     name = "boinc-fhs-env";

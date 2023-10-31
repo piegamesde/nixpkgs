@@ -63,10 +63,7 @@ let
       AUTOMATIC_UPDATER_DISABLED = true;
       DB_NAME = cfg.database.name;
       DB_HOST = "${cfg.database.host}:${
-          if cfg.database.socket != null then
-            cfg.database.socket
-          else
-            toString cfg.database.port
+          if cfg.database.socket != null then cfg.database.socket else toString cfg.database.port
         }";
       DB_USER = cfg.database.user;
       DB_CHARSET = "utf8";
@@ -83,8 +80,7 @@ let
   wpConfig =
     hostName: cfg:
     let
-      conf_gen =
-        c: mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});") cfg.mergedConfig;
+      conf_gen = c: mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});") cfg.mergedConfig;
     in
     pkgs.writeTextFile {
       name = "wp-config-${hostName}.php";
@@ -125,8 +121,7 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort
-        "The Wordpress config value ${lib.generators.toPretty { } v} can not be encoded.";
+      abort "The Wordpress config value ${lib.generators.toPretty { } v} can not be encoded.";
 
   secretsVars = [
     "AUTH_KEY"

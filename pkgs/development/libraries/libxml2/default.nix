@@ -87,9 +87,9 @@ let
       lib.optionals pythonSupport [ python ]
       ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [ gettext ]
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [ ncurses ]
-      ++
-        lib.optionals (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
-          [ libintl ]
+      ++ lib.optionals (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [
+        libintl
+      ]
       ++
         lib.optionals stdenv.isFreeBSD
           [

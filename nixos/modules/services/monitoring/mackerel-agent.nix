@@ -127,9 +127,7 @@ in
         LimitNOFILE = mkDefault 65536;
         LimitNPROC = mkDefault 65536;
       };
-      restartTriggers = [
-        config.environment.etc."mackerel-agent/mackerel-agent.conf".source
-      ];
+      restartTriggers = [ config.environment.etc."mackerel-agent/mackerel-agent.conf".source ];
     };
   };
 }

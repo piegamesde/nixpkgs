@@ -13,12 +13,10 @@ let
   cfg = config.services.xserver.desktopManager.pantheon;
   serviceCfg = config.services.pantheon;
 
-  nixos-gsettings-desktop-schemas =
-    pkgs.pantheon.elementary-gsettings-schemas.override
-      {
-        extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
-        extraGSettingsOverrides = cfg.extraGSettingsOverrides;
-      };
+  nixos-gsettings-desktop-schemas = pkgs.pantheon.elementary-gsettings-schemas.override {
+    extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
+    extraGSettingsOverrides = cfg.extraGSettingsOverrides;
+  };
 in
 
 {
@@ -109,11 +107,9 @@ in
 
       # Ensure lightdm is used when Pantheon is enabled
       # Without it screen locking will be nonfunctional because of the use of lightlocker
-      warnings =
-        optional (config.services.xserver.displayManager.lightdm.enable != true)
-          ''
-            Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
-          '';
+      warnings = optional (config.services.xserver.displayManager.lightdm.enable != true) ''
+        Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
+      '';
 
       services.xserver.displayManager.lightdm.greeters.pantheon.enable = mkDefault true;
 

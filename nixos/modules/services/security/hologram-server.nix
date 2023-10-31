@@ -103,9 +103,7 @@ in
       roleAttr = mkOption {
         type = types.str;
         default = "businessCategory";
-        description =
-          lib.mdDoc
-            "Which LDAP group attribute to search for authorized role ARNs";
+        description = lib.mdDoc "Which LDAP group attribute to search for authorized role ARNs";
       };
 
       awsAccount = mkOption {

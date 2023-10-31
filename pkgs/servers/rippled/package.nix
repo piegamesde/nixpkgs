@@ -927,8 +927,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."content-disposition"."0.5.0" =
-    self.by-version."content-disposition"."0.5.0";
+  by-spec."content-disposition"."0.5.0" = self.by-version."content-disposition"."0.5.0";
   by-version."content-disposition"."0.5.0" = self.buildNodePackage {
     name = "content-disposition-0.5.0";
     version = "0.5.0";
@@ -1399,8 +1398,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."escape-string-regexp"."1.0.2" =
-    self.by-version."escape-string-regexp"."1.0.2";
+  by-spec."escape-string-regexp"."1.0.2" = self.by-version."escape-string-regexp"."1.0.2";
   by-version."escape-string-regexp"."1.0.2" = self.buildNodePackage {
     name = "escape-string-regexp-1.0.2";
     version = "1.0.2";
@@ -1416,8 +1414,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."escape-string-regexp"."^1.0.0" =
-    self.by-version."escape-string-regexp"."1.0.3";
+  by-spec."escape-string-regexp"."^1.0.0" = self.by-version."escape-string-regexp"."1.0.3";
   by-version."escape-string-regexp"."1.0.3" = self.buildNodePackage {
     name = "escape-string-regexp-1.0.3";
     version = "1.0.3";
@@ -1433,8 +1430,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."escape-string-regexp"."^1.0.2" =
-    self.by-version."escape-string-regexp"."1.0.3";
+  by-spec."escape-string-regexp"."^1.0.2" = self.by-version."escape-string-regexp"."1.0.3";
   by-spec."escodegen"."1.3.x" = self.by-version."escodegen"."1.3.3";
   by-version."escodegen"."1.3.3" = self.buildNodePackage {
     name = "escodegen-1.3.3";
@@ -2525,8 +2521,7 @@
     };
     deps = {
       "generate-function-2.0.0" = self.by-version."generate-function"."2.0.0";
-      "generate-object-property-1.1.1" =
-        self.by-version."generate-object-property"."1.1.1";
+      "generate-object-property-1.1.1" = self.by-version."generate-object-property"."1.1.1";
       "jsonpointer-1.1.0" = self.by-version."jsonpointer"."1.1.0";
       "xtend-4.0.0" = self.by-version."xtend"."4.0.0";
     };
@@ -2728,8 +2723,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."json-stringify-safe"."~5.0.0" =
-    self.by-version."json-stringify-safe"."5.0.0";
+  by-spec."json-stringify-safe"."~5.0.0" = self.by-version."json-stringify-safe"."5.0.0";
   by-version."json-stringify-safe"."5.0.0" = self.buildNodePackage {
     name = "json-stringify-safe-5.0.0";
     version = "5.0.0";
@@ -2866,8 +2860,7 @@
     cpu = [ ];
   };
   by-spec."lodash"."~2.4.1" = self.by-version."lodash"."2.4.2";
-  by-spec."lodash._basetostring"."^3.0.0" =
-    self.by-version."lodash._basetostring"."3.0.0";
+  by-spec."lodash._basetostring"."^3.0.0" = self.by-version."lodash._basetostring"."3.0.0";
   by-version."lodash._basetostring"."3.0.0" = self.buildNodePackage {
     name = "lodash._basetostring-3.0.0";
     version = "3.0.0";
@@ -4287,8 +4280,7 @@
     os = [ ];
     cpu = [ ];
   };
-  "ripple-lib-transactionparser" =
-    self.by-version."ripple-lib-transactionparser"."0.3.2";
+  "ripple-lib-transactionparser" = self.by-version."ripple-lib-transactionparser"."0.3.2";
   by-spec."ripple-wallet-generator"."^1.0.3" =
     self.by-version."ripple-wallet-generator"."1.0.3";
   by-version."ripple-wallet-generator"."1.0.3" = self.buildNodePackage {
@@ -4637,8 +4629,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."strip-json-comments"."0.1.x" =
-    self.by-version."strip-json-comments"."0.1.3";
+  by-spec."strip-json-comments"."0.1.x" = self.by-version."strip-json-comments"."0.1.3";
   by-version."strip-json-comments"."0.1.3" = self.buildNodePackage {
     name = "strip-json-comments-0.1.3";
     version = "0.1.3";

@@ -30,9 +30,7 @@ stdenv.mkDerivation {
   ];
 
   postInstall = lib.optionalString (debugLevel > 0) ''
-    mkdir -p $out/etc/scponly && echo ${
-      toString debugLevel
-    } > $out/etc/scponly/debuglevel
+    mkdir -p $out/etc/scponly && echo ${toString debugLevel} > $out/etc/scponly/debuglevel
   '';
 
   passthru.shellPath = "/bin/scponly";

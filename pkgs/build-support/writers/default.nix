@@ -113,14 +113,12 @@ let
             else
               { contentPath = content; }
           )
-          //
-            lib.optionalAttrs (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-              {
-                # post-link-hook expects codesign_allocate to be in PATH
-                # https://github.com/NixOS/nixpkgs/issues/154203
-                # https://github.com/NixOS/nixpkgs/issues/148189
-                nativeBuildInputs = [ stdenv.cc.bintools ];
-              }
+          // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) {
+            # post-link-hook expects codesign_allocate to be in PATH
+            # https://github.com/NixOS/nixpkgs/issues/154203
+            # https://github.com/NixOS/nixpkgs/issues/148189
+            nativeBuildInputs = [ stdenv.cc.bintools ];
+          }
         )
         ''
           ${compileScript}
@@ -301,8 +299,7 @@ let
       {
         libraries ? [ ],
       }:
-      makeScriptWriter
-        { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
+      makeScriptWriter { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
         name;
 
     # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
@@ -349,9 +346,7 @@ let
     #
     #   print Test.a
     # ''
-    writePyPy2 =
-      makePythonWriter pkgs.pypy2 pkgs.pypy2Packages
-        buildPackages.pypy2Packages;
+    writePyPy2 = makePythonWriter pkgs.pypy2 pkgs.pypy2Packages buildPackages.pypy2Packages;
 
     # writePyPy2Bin takes the same arguments as writePyPy2 but outputs a directory (like writeScriptBin)
     writePyPy2Bin = name: writePyPy2 "/bin/${name}";
@@ -387,9 +382,7 @@ let
     #   """)
     #   print(y[0]['test'])
     # ''
-    writePyPy3 =
-      makePythonWriter pkgs.pypy3 pkgs.pypy3Packages
-        buildPackages.pypy3Packages;
+    writePyPy3 = makePythonWriter pkgs.pypy3 pkgs.pypy3Packages buildPackages.pypy3Packages;
 
     # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)
     writePyPy3Bin = name: writePyPy3 "/bin/${name}";
@@ -403,8 +396,7 @@ let
       nameOrPath:
       let
         fname = last (builtins.split "/" nameOrPath);
-        path =
-          if strings.hasSuffix ".fsx" nameOrPath then nameOrPath else "${nameOrPath}.fsx";
+        path = if strings.hasSuffix ".fsx" nameOrPath then nameOrPath else "${nameOrPath}.fsx";
         _nugetDeps = mkNugetDeps {
           name = "${fname}-nuget-deps";
           nugetDeps = libraries;

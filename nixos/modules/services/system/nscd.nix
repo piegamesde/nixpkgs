@@ -99,8 +99,7 @@ in
     users.groups.${cfg.group} = { };
 
     systemd.services.nscd = {
-      description =
-        "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
+      description = "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
 
       before = [
         "nss-lookup.target"
@@ -141,10 +140,7 @@ in
       # and so users can set the owner of those files to the nscd user.
       serviceConfig = {
         ExecStart =
-          if cfg.enableNsncd then
-            "${pkgs.nsncd}/bin/nsncd"
-          else
-            "!@${cfg.package}/bin/nscd nscd";
+          if cfg.enableNsncd then "${pkgs.nsncd}/bin/nsncd" else "!@${cfg.package}/bin/nscd nscd";
         Type = if cfg.enableNsncd then "notify" else "forking";
         User = cfg.user;
         Group = cfg.group;

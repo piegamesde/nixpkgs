@@ -184,8 +184,7 @@ rec {
     };
   phraseContextForOut = invokable: phraseContext { inherit invokable; };
 
-  phraseSolution =
-    name: solution: (phraseContextForOut (phraseInvocation name solution));
+  phraseSolution = name: solution: (phraseContextForOut (phraseInvocation name solution));
   phraseSolutions =
     solutions: unresholved: phraseContextForOut (phraseCommands solutions unresholved);
 

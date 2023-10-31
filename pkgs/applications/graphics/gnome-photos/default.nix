@@ -106,9 +106,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapGApp "${
-      placeholder "installedTests"
-    }/libexec/installed-tests/gnome-photos/basic.py"
+    wrapGApp "${placeholder "installedTests"}/libexec/installed-tests/gnome-photos/basic.py"
   '';
 
   passthru = {

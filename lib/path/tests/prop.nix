@@ -36,8 +36,7 @@ let
     in
     # Check the lib.path.subpath.normalise property to only error on invalid subpaths
     assert assertMsg (originalValid -> tryOnce.success)
-        ''
-          Even though string "${str}" is valid as a subpath, the normalisation for it failed'';
+        ''Even though string "${str}" is valid as a subpath, the normalisation for it failed'';
     assert assertMsg (!originalValid -> !tryOnce.success)
         ''
           Even though string "${str}" is invalid as a subpath, the normalisation for it succeeded'';

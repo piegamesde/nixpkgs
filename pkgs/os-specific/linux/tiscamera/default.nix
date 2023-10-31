@@ -103,9 +103,7 @@ stdenv.mkDerivation rec {
     "-DTCAM_BUILD_WITH_GUI=${if withGui then "ON" else "OFF"}"
     "-DTCAM_DOWNLOAD_MESON=OFF"
     "-DTCAM_INTERNAL_ARAVIS=OFF"
-    "-DTCAM_ARAVIS_USB_VISION=${
-      if withAravis && withAravisUsbVision then "ON" else "OFF"
-    }"
+    "-DTCAM_ARAVIS_USB_VISION=${if withAravis && withAravisUsbVision then "ON" else "OFF"}"
     "-DTCAM_INSTALL_FORCE_PREFIX=ON"
   ];
 

@@ -39,8 +39,7 @@ let
     bind_timelimit ${toString cfg.bind.timeLimit}
     ${optionalString (cfg.bind.distinguishedName != "")
       "binddn ${cfg.bind.distinguishedName}"}
-    ${optionalString (cfg.daemon.rootpwmoddn != "")
-      "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
+    ${optionalString (cfg.daemon.rootpwmoddn != "") "rootpwmoddn ${cfg.daemon.rootpwmoddn}"}
     ${optionalString (cfg.daemon.extraConfig != "") cfg.daemon.extraConfig}
   '';
 
@@ -68,9 +67,7 @@ in
       loginPam = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to include authentication against LDAP in login PAM.";
+        description = lib.mdDoc "Whether to include authentication against LDAP in login PAM.";
       };
 
       nsswitch = mkOption {

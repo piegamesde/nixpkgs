@@ -293,9 +293,7 @@ in
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '');
-            hostElementsString =
-              concatMapStringsSep "\n" hostElementForVirtualHost
-                cfg.virtualHosts;
+            hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
             hostElementsSedString =
               replaceStrings [ "\n" ]
                 [
@@ -393,9 +391,7 @@ in
 
               # Symlink all the given web applications files or paths into the webapps/ directory
               # of this virtual host
-              for i in "${
-                optionalString (virtualHost ? webapps) (toString virtualHost.webapps)
-              }"; do
+              for i in "${optionalString (virtualHost ? webapps) (toString virtualHost.webapps)}"; do
                 if [ -f $i ]; then
                   # If the given web application is a file, symlink it into the webapps/ directory
                   ln -sfn $i ${cfg.baseDir}/virtualhosts/${virtualHost.name}/webapps/`basename $i`

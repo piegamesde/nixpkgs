@@ -62,9 +62,7 @@ stdenv.mkDerivation rec {
       "--with-ldap"
       "--with-ldapcrypto"
     ]
-    ++
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "BUILD_CC=$(CC_FOR_BUILD)";
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "BUILD_CC=$(CC_FOR_BUILD)";
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
     "-Wno-error=pointer-compare"

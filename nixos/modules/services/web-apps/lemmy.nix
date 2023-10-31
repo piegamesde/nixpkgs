@@ -26,9 +26,7 @@ in
 
   options.services.lemmy = {
 
-    enable = mkEnableOption (
-      lib.mdDoc "lemmy a federated alternative to reddit in rust"
-    );
+    enable = mkEnableOption (lib.mdDoc "lemmy a federated alternative to reddit in rust");
 
     ui = {
       port = mkOption {
@@ -38,9 +36,7 @@ in
       };
     };
 
-    caddy.enable = mkEnableOption (
-      lib.mdDoc "exposing lemmy with the caddy reverse proxy"
-    );
+    caddy.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
 
     database.createLocally = mkEnableOption (
       lib.mdDoc "creation of database on the instance"
@@ -183,8 +179,7 @@ in
         LEMMY_CONFIG_LOCATION = "/run/lemmy/config.hjson";
 
         # Verify how this is used, and don't put the password in the nix store
-        LEMMY_DATABASE_URL =
-          with cfg.settings.database; "postgres:///${database}?host=${host}";
+        LEMMY_DATABASE_URL = with cfg.settings.database; "postgres:///${database}?host=${host}";
       };
 
       documentation = [

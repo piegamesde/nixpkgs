@@ -13,9 +13,7 @@ let
 in
 {
   options.hardware.fancontrol = {
-    enable = mkEnableOption (
-      lib.mdDoc "software fan control (requires fancontrol.config)"
-    );
+    enable = mkEnableOption (lib.mdDoc "software fan control (requires fancontrol.config)");
 
     config = mkOption {
       type = types.lines;

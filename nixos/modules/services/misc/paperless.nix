@@ -28,9 +28,7 @@ let
     // optionalAttrs (config.time.timeZone != null) {
       PAPERLESS_TIME_ZONE = config.time.timeZone;
     }
-    // optionalAttrs enableRedis {
-      PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
-    }
+    // optionalAttrs enableRedis { PAPERLESS_REDIS = "unix://${redisServer.unixSocket}"; }
     // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =

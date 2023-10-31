@@ -37,13 +37,10 @@ stdenv.mkDerivation rec {
     sha256 = "11byyfpkcik7wvf2qic77zjamfr2rhji97dpj1gy2fg1bvpiqf4m";
   };
 
-  nativeBuildInputs =
-    [
-      intltool
-      pkg-config
-    ]
-    ++ lib.optionals (useGtk) [ wrapGAppsHook ]
-    ++ lib.optionals (useQt) [ wrapQtAppsHook ];
+  nativeBuildInputs = [
+    intltool
+    pkg-config
+  ] ++ lib.optionals (useGtk) [ wrapGAppsHook ] ++ lib.optionals (useQt) [ wrapQtAppsHook ];
 
   buildInputs =
     [
@@ -63,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (useQt) [ qtbase ];
   configureFlags =
     [ "--enable-sfml" ]
-    ++ lib.optionals (useGtk) [ "--enable-gtk3" ]
-    ++ lib.optionals (useQt) [ "--enable-qt5" ];
+    ++ lib.optionals (useGtk) [ "--enable-gtk3" ] ++ lib.optionals (useQt) [ "--enable-qt5" ];
 
   meta = with lib; {
     description = "A simple interface for devices supported by the linux UVC driver";

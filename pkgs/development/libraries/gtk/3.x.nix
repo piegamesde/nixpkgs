@@ -124,19 +124,15 @@ stdenv.mkDerivation (
         libxml2
       ]
       ++
-        lib.optionals
-          (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+        lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
           [ mesonEmulatorHook ]
       ++ lib.optionals waylandSupport [ wayland-scanner ];
 
-    buildInputs =
-      [
-        libxkbcommon
-        (libepoxy.override { inherit x11Support; })
-        isocodes
-      ]
-      ++ lib.optionals stdenv.isDarwin [ AppKit ]
-      ++ lib.optionals trackerSupport [ tracker ];
+    buildInputs = [
+      libxkbcommon
+      (libepoxy.override { inherit x11Support; })
+      isocodes
+    ] ++ lib.optionals stdenv.isDarwin [ AppKit ] ++ lib.optionals trackerSupport [ tracker ];
     #TODO: colord?
 
     propagatedBuildInputs =

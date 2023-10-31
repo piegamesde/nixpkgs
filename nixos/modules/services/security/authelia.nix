@@ -340,8 +340,7 @@ in
               AUTHELIA_SESSION_SECRET_FILE = instance.secrets.sessionSecretFile;
               AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY_FILE =
                 instance.secrets.oidcIssuerPrivateKeyFile;
-              AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE =
-                instance.secrets.oidcHmacSecretFile;
+              AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE = instance.secrets.oidcHmacSecretFile;
             })
             // instance.environmentVariables;
 

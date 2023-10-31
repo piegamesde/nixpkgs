@@ -28,9 +28,7 @@ in
       tremorLibDir = mkOption {
         type = types.path;
         default = "";
-        description =
-          lib.mdDoc
-            "Directory where to find /lib containing tremor script files";
+        description = lib.mdDoc "Directory where to find /lib containing tremor script files";
       };
 
       host = mkOption {

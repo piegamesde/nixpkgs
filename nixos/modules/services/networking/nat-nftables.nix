@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.networking.nat;
 
-  mkDest =
-    externalIP: if externalIP == null then "masquerade" else "snat ${externalIP}";
+  mkDest = externalIP: if externalIP == null then "masquerade" else "snat ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 

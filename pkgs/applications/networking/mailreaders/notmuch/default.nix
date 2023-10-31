@@ -77,9 +77,7 @@ stdenv.mkDerivation rec {
       "--infodir=${placeholder "info"}/share/info"
     ]
     ++ lib.optional (!withEmacs) "--without-emacs"
-    ++
-      lib.optional withEmacs
-        "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
+    ++ lib.optional withEmacs "--emacslispdir=${placeholder "emacs"}/share/emacs/site-lisp"
     ++ lib.optional (!withRuby) "--without-ruby";
 
   # Notmuch doesn't use autoconf and consequently doesn't tag --bindir and
@@ -112,8 +110,7 @@ stdenv.mkDerivation rec {
       ln -s ${test-database} test/test-databases/database-v1.tar.xz
     '';
 
-  doCheck =
-    !stdenv.hostPlatform.isDarwin && (lib.versionAtLeast gmime3.version "3.0.3");
+  doCheck = !stdenv.hostPlatform.isDarwin && (lib.versionAtLeast gmime3.version "3.0.3");
   checkTarget = "test";
   nativeCheckInputs = [
     which

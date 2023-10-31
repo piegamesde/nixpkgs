@@ -140,9 +140,7 @@ in
             uid_attribute = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "The udev attribute providing a unique path identifier (WWID)";
+              description = lib.mdDoc "The udev attribute providing a unique path identifier (WWID)";
             };
 
             getuid_callout = mkOption {
@@ -548,9 +546,7 @@ in
     extraConfigFile = mkOption {
       type = nullOr str;
       default = null;
-      description =
-        lib.mdDoc
-          "Append an additional file's contents to /etc/multipath.conf";
+      description = lib.mdDoc "Append an additional file's contents to /etc/multipath.conf";
     };
 
     pathGroups = mkOption {

@@ -36,9 +36,7 @@ let
       minor = l: lib.elemAt l 1;
       joinVersion = v: lib.concatStringsSep "." v;
     in
-    joinVersion (
-      if major pyVer == major ver && minor pyVer == minor ver then ver else pyVer
-    );
+    joinVersion (if major pyVer == major ver && minor pyVer == minor ver then ver else pyVer);
 
   # Compare a semver expression with a version
   isCompatible =
@@ -261,8 +259,7 @@ let
     builtins.map
       (
         drvAttr:
-        pythonPackages.${drvAttr}
-          or (throw "unsupported build system requirement ${drvAttr}")
+        pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}")
       )
       requiredPkgs;
 
@@ -276,9 +273,9 @@ let
       hasGitIgnore = builtins.pathExists gitIgnore;
       gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
     in
-    lib.optionals
-      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
-      (findGitIgnores parent)
+    lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (
+      findGitIgnores parent
+    )
     ++ gitIgnores;
 
   /* Provides a source filtering mechanism that:

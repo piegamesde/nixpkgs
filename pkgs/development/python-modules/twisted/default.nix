@@ -148,11 +148,9 @@ buildPythonPackage rec {
   # Generate Twisted's plug-in cache. Twisted users must do it as well. See
   # http://twistedmatrix.com/documents/current/core/howto/plugin.html#auto3
   # and http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=477103 for details.
-  postFixup =
-    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-      ''
-        $out/bin/twistd --help > /dev/null
-      '';
+  postFixup = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    $out/bin/twistd --help > /dev/null
+  '';
 
   nativeCheckInputs =
     [

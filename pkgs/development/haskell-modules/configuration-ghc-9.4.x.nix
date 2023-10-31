@@ -103,8 +103,7 @@ in
   hackage-security = doJailbreak super.hackage-security;
   hashable-time = doJailbreak super.hashable-time;
   HTTP =
-    overrideCabal
-      (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
+    overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
       (doJailbreak super.HTTP);
   integer-logarithms =
     overrideCabal

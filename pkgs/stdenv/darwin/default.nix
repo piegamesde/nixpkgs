@@ -215,9 +215,7 @@ rec {
               extraBuildCommands =
                 ''
                   echo "-rtlib=compiler-rt" >> $out/nix-support/cc-cflags
-                  echo "-B${
-                    last.pkgs."${finalLlvmPackages}".compiler-rt
-                  }/lib" >> $out/nix-support/cc-cflags
+                  echo "-B${last.pkgs."${finalLlvmPackages}".compiler-rt}/lib" >> $out/nix-support/cc-cflags
                   echo "-nostdlib++" >> $out/nix-support/cc-cflags
                 ''
                 + mkExtraBuildCommands cc;
@@ -330,9 +328,7 @@ rec {
         darwin = super.darwin.overrideScope (
           selfDarwin: superDarwin:
           {
-            darwin-stubs = superDarwin.darwin-stubs.override {
-              inherit (self) stdenvNoCC fetchurl;
-            };
+            darwin-stubs = superDarwin.darwin-stubs.override { inherit (self) stdenvNoCC fetchurl; };
 
             dyld = {
               name = "bootstrap-stage0-dyld";
@@ -516,8 +512,7 @@ rec {
     in
     with prevStage;
     stageFun 1 prevStage {
-      extraPreHook = ''
-        export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
+      extraPreHook = ''export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
       extraNativeBuildInputs = [ ];
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;
@@ -616,9 +611,7 @@ rec {
                 libraries = super."${finalLlvmPackages}".libraries.extend (
                   _: libSuper: {
                     inherit (pkgs."${finalLlvmPackages}") compiler-rt;
-                    libcxx = libSuper.libcxx.override {
-                      stdenv = overrideCC self.stdenv self.ccNoLibcxx;
-                    };
+                    libcxx = libSuper.libcxx.override { stdenv = overrideCC self.stdenv self.ccNoLibcxx; };
                     libcxxabi = libSuper.libcxxabi.override (
                       {
                         stdenv = overrideCC self.stdenv self.ccNoLibcxx;

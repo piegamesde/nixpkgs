@@ -111,9 +111,7 @@ in
       plugin = mkOption {
         type = types.nullOr types.str;
         default = null;
-        example =
-          literalExpression
-            ''"''${pkgs.shadowsocks-v2ray-plugin}/bin/v2ray-plugin"'';
+        example = literalExpression ''"''${pkgs.shadowsocks-v2ray-plugin}/bin/v2ray-plugin"'';
         description = lib.mdDoc ''
           SIP003 plugin for shadowsocks
         '';

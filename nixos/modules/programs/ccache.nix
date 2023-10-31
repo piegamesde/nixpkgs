@@ -66,9 +66,7 @@ in
           self: super:
           genAttrs cfg.packageNames (
             pn:
-            super.${pn}.override {
-              stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv;
-            }
+            super.${pn}.override { stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv; }
           )
         )
 

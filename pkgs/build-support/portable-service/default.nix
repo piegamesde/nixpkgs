@@ -77,9 +77,7 @@ let
           cp ${os-release} $out/etc/os-release
         ''
         # units **must** be copied to /etc/systemd/system/
-        + (lib.concatMapStringsSep "\n" (u: "cp ${u} $out/etc/systemd/system/${u.name};")
-          units
-        )
+        + (lib.concatMapStringsSep "\n" (u: "cp ${u} $out/etc/systemd/system/${u.name};") units)
         + (lib.concatMapStringsSep "\n"
           (
             { object, symlink }:

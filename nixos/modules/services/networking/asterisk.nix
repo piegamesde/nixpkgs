@@ -18,9 +18,7 @@ let
   logdir = "/var/log/asterisk";
 
   # Add filecontents from files of useTheseDefaultConfFiles to confFiles, do not override
-  defaultConfFiles =
-    subtractLists (attrNames cfg.confFiles)
-      cfg.useTheseDefaultConfFiles;
+  defaultConfFiles = subtractLists (attrNames cfg.confFiles) cfg.useTheseDefaultConfFiles;
   allConfFiles =
     {
       # Default asterisk.conf file
@@ -58,8 +56,7 @@ let
     }
     // mapAttrs (name: text: { inherit text; }) cfg.confFiles
     // listToAttrs (
-      map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; })
-        defaultConfFiles
+      map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; }) defaultConfFiles
     );
 in
 

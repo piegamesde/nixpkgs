@@ -14090,9 +14090,7 @@ with self;
       ClassAccessor
       ParseRecDescent
     ];
-    patches = [
-      ../development/perl-modules/Google-ProtocolBuffers-multiline-comments.patch
-    ];
+    patches = [ ../development/perl-modules/Google-ProtocolBuffers-multiline-comments.patch ];
     meta = {
       description = "Simple interface to Google Protocol Buffers";
       homepage = "https://github.com/csirtgadgets/google-protocolbuffers-perl";
@@ -24991,9 +24989,7 @@ with self;
           lib.concatStringsSep "\n" (map (f: "-L${f}/lib") buildInputs)
         }'
 
-      cp -v ${
-        ../development/perl-modules/perl-opengl-gl-extensions.txt
-      } utils/glversion.txt
+      cp -v ${../development/perl-modules/perl-opengl-gl-extensions.txt} utils/glversion.txt
 
       perl Makefile.PL PREFIX=$out INSTALLDIRS=site $makeMakerFlags
     '';
@@ -26325,9 +26321,7 @@ with self;
       HTTPMessage
       TryTiny
     ];
-    patches = [
-      ../development/perl-modules/Plack-test-replace-DES-hash-with-bcrypt.patch
-    ];
+    patches = [ ../development/perl-modules/Plack-test-replace-DES-hash-with-bcrypt.patch ];
     meta = {
       description = "Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)";
       homepage = "https://github.com/plack/Plack";
@@ -29822,9 +29816,7 @@ with self;
     };
   };
 
-  strip-nondeterminism =
-    callPackage ../development/perl-modules/strip-nondeterminism
-      { };
+  strip-nondeterminism = callPackage ../development/perl-modules/strip-nondeterminism { };
 
   StructDumb = buildPerlModule {
     pname = "Struct-Dumb";

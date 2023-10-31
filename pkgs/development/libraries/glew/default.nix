@@ -80,8 +80,7 @@ stdenv.mkDerivation (
       ]; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
       pkgConfigModules = [ "glew" ];
       platforms =
-        with platforms;
-        if enableEGL then subtractLists darwin mesaPlatforms else mesaPlatforms;
+        with platforms; if enableEGL then subtractLists darwin mesaPlatforms else mesaPlatforms;
     };
   }
 )

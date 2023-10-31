@@ -154,9 +154,7 @@ let
 in
 {
   options.services.writefreely = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "Writefreely, build a digital writing community"
-    );
+    enable = lib.mkEnableOption (lib.mdDoc "Writefreely, build a digital writing community");
 
     package = lib.mkOption {
       type = lib.types.package;
@@ -266,9 +264,7 @@ in
       tls = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether or not TLS should be used for the database connection.";
+        description = lib.mdDoc "Whether or not TLS should be used for the database connection.";
       };
 
       migrate = mkOption {
@@ -325,9 +321,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether or not to automatically fetch and configure SSL certs.";
+        description = lib.mdDoc "Whether or not to automatically fetch and configure SSL certs.";
       };
     };
   };
@@ -378,9 +372,7 @@ in
         Restart = "always";
         RestartSec = 20;
         ExecStart = "${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' serve";
-        AmbientCapabilities =
-          optionalString (settings.server.port < 1024)
-            "cap_net_bind_service";
+        AmbientCapabilities = optionalString (settings.server.port < 1024) "cap_net_bind_service";
       };
 
       preStart = ''

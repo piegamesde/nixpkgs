@@ -1907,12 +1907,7 @@ let
       sources."minimist-1.2.6"
       sources."mkdirp-classic-0.5.3"
       sources."ms-2.1.2"
-      (
-        sources."multistream-4.1.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."multistream-4.1.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."mustache-4.2.0"
       sources."nan-2.15.0"
       sources."napi-build-utils-1.0.2"
@@ -1974,9 +1969,7 @@ let
       sources."supports-color-7.2.0"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tar-fs-2.1.1"
-      (
-        sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; }
-      )
+      (sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."tiny-typed-emitter-2.1.0"
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"

@@ -17,9 +17,7 @@ let
       DATABASE_NAME = '${cfg.databaseName}'
       LOG_FILE = '${cfg.logDir}/alertad.log'
       LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-      CORS_ORIGINS = [ ${
-        concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins
-      } ];
+      CORS_ORIGINS = [ ${concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins} ];
       AUTH_REQUIRED = ${if cfg.authenticationRequired then "True" else "False"}
       SIGNUP_ENABLED = ${if cfg.signupEnabled then "True" else "False"}
       ${cfg.extraConfig}
@@ -39,9 +37,7 @@ in
     bind = mkOption {
       type = types.str;
       default = "0.0.0.0";
-      description =
-        lib.mdDoc
-          "Address to bind to. The default is to bind to all addresses";
+      description = lib.mdDoc "Address to bind to. The default is to bind to all addresses";
     };
 
     logDir = mkOption {

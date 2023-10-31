@@ -89,10 +89,7 @@ let
   inherit (lib) enableFeature optional optionals;
 in
 
-assert vp8DecoderSupport
-  || vp8EncoderSupport
-  || vp9DecoderSupport
-  || vp9EncoderSupport;
+assert vp8DecoderSupport || vp8EncoderSupport || vp9DecoderSupport || vp9EncoderSupport;
 assert internalStatsSupport && (vp9DecoderSupport || vp9EncoderSupport)
   -> postprocSupport;
 /* If spatialResamplingSupport not enabled, build will fail with undeclared variable errors.
@@ -181,12 +178,7 @@ stdenv.mkDerivation rec {
       (enableFeature ontheflyBitpackingSupport "onthefly-bitpacking")
       (enableFeature errorConcealmentSupport "error-concealment")
       # Shared libraries are only supported on ELF platforms
-      (
-        if isDarwin || isCygwin then
-          "--enable-static --disable-shared"
-        else
-          "--enable-shared"
-      )
+      (if isDarwin || isCygwin then "--enable-static --disable-shared" else "--enable-shared")
       (enableFeature smallSupport "small")
       (enableFeature postprocVisualizerSupport "postproc-visualizer")
       (enableFeature unitTestsSupport "unit-tests")

@@ -222,8 +222,7 @@ in
     systemd.user.services.systemd-tmpfiles-setup.wantedBy =
       optional
         (
-          cfg.tmpfiles.rules != [ ]
-          || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
+          cfg.tmpfiles.rules != [ ] || any (cfg': cfg'.rules != [ ]) (attrValues cfg.tmpfiles.users)
         )
         "basic.target";
 

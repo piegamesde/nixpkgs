@@ -16,8 +16,7 @@ let
     }:
     let
       Family =
-        lib.toUpper (lib.substring 0 1 family)
-        + lib.substring 1 (lib.stringLength family) family;
+        lib.toUpper (lib.substring 0 1 family) + lib.substring 1 (lib.stringLength family) family;
     in
     stdenvNoCC.mkDerivation rec {
       pname = "source-han-${family}";

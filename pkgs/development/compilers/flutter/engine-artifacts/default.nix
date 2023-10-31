@@ -122,9 +122,7 @@ let
           null
         else
           "${platform}${lib.optionalString (variant != null) "-${variant}"}";
-      archiveBasename =
-        lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}"
-          archive;
+      archiveBasename = lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
     stdenv.mkDerivation (
       {
@@ -139,8 +137,7 @@ let
             }/${archive}";
           stripRoot = false;
           hash =
-            (if artifactDirectory == null then hashes else hashes.${artifactDirectory})
-            .${archive};
+            (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
         };
 
         nativeBuildInputs = [ autoPatchelfHook ];

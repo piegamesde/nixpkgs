@@ -96,9 +96,7 @@ let
       # extract the unique part of the config's file name
       configName = builtins.head (builtins.match "configuration-(.+).nix" fileName);
       # match the major and minor version of the GHC the config is intended for, if any
-      configVersion = lib.concatStrings (
-        builtins.match "ghc-([0-9]+).([0-9]+).x" configName
-      );
+      configVersion = lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
       # return all package sets under haskell.packages matching the version components
       setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name}) (
         builtins.filter
@@ -124,9 +122,7 @@ let
 
   # attribute set that has all the attributes of haskellPackages set to null
   availableHaskellPackages = builtins.listToAttrs (
-    builtins.map (attr: lib.nameValuePair attr null) (
-      builtins.attrNames pkgs.haskellPackages
-    )
+    builtins.map (attr: lib.nameValuePair attr null) (builtins.attrNames pkgs.haskellPackages)
   );
 
   # evaluate a configuration and only return the attributes changed by it,

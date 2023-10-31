@@ -54,9 +54,7 @@ in
         glibc # requires getent
       ];
       serviceConfig = {
-        ExecStart = "${package}/bin/evcc --config ${configFile} ${
-            escapeShellArgs cfg.extraArgs
-          }";
+        ExecStart = "${package}/bin/evcc --config ${configFile} ${escapeShellArgs cfg.extraArgs}";
         CapabilityBoundingSet = [ "" ];
         DeviceAllow = [ "char-ttyUSB" ];
         DevicePolicy = "closed";

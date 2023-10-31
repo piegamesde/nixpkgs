@@ -70,9 +70,7 @@ buildDotnetPackage rec {
       loads = lib.concatStrings (
         map
           (
-            p:
-            replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ]
-              loadTemplate
+            p: replaceStrings [ "$PATH$" ] [ (unsafeDiscardStringContext (toString p)) ] loadTemplate
           )
           plugins
       );

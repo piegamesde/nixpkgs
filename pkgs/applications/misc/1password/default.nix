@@ -50,9 +50,7 @@ stdenv.mkDerivation {
     else
       throw "Source for ${pname} is not available for ${system}";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
   buildInputs = lib.optionals stdenv.isDarwin [
     xar

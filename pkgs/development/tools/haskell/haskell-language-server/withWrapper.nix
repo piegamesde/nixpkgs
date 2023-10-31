@@ -56,10 +56,7 @@ let
   makeSymlinks =
     version:
     concatMapStringsSep "\n"
-      (
-        x:
-        "ln -s ${tunedHls (getPackages version)}/bin/haskell-language-server $out/bin/${x}"
-      )
+      (x: "ln -s ${tunedHls (getPackages version)}/bin/haskell-language-server $out/bin/${x}")
       (targets version);
 in
 assert supportedGhcVersions != [ ];

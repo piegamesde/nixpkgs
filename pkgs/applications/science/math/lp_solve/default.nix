@@ -21,9 +21,7 @@ stdenv.mkDerivation rec {
       cctools
       fixDarwinDylibNames
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      autoSignDarwinBinariesHook
-    ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   dontConfigure = true;
 

@@ -92,9 +92,7 @@ let
     ++ optional langAda ../gnat-cflags.patch
     ++ optional langD ../libphobos.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++
-      optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-        ../ppc-musl.patch
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
@@ -102,8 +100,7 @@ let
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++
-      optional
-        (buildPlatform.system == "aarch64-darwin" && targetPlatform != buildPlatform)
+      optional (buildPlatform.system == "aarch64-darwin" && targetPlatform != buildPlatform)
         (
           fetchpatch {
             url = "https://raw.githubusercontent.com/richard-vd/musl-cross-make/5e9e87f06fc3220e102c29d3413fbbffa456fcd6/patches/gcc-${version}/0008-darwin-aarch64-self-host-driver.patch";
@@ -294,12 +291,11 @@ stdenv.mkDerivation (
 
     configureFlags = callFile ../common/configure-flags.nix { };
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
+      if profiledCompiler then "profiledbootstrap" else "bootstrap"
+    );
 
     inherit (callFile ../common/strip-attributes.nix { })
       stripDebugList
@@ -366,9 +362,7 @@ stdenv.mkDerivation (
 
   //
     optionalAttrs
-      (
-        targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic
-      )
+      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

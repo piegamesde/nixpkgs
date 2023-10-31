@@ -26,9 +26,7 @@ let
         port = mkOption {
           type = types.port;
           default = 30303;
-          description =
-            lib.mdDoc
-              "Port number Go Ethereum will be listening on, both TCP and UDP.";
+          description = lib.mdDoc "Port number Go Ethereum will be listening on, both TCP and UDP.";
         };
 
         http = {

@@ -47,8 +47,7 @@ let
             }
           ]
           (throw "meta-fetch: no fetcher found for domain ${domain} on ${rev}");
-      fetch =
-        x: if args ? sha256 then fetchzip (x // { inherit sha256; }) else fetchTarball x;
+      fetch = x: if args ? sha256 then fetchzip (x // { inherit sha256; }) else fetchTarball x;
     in
     fetch { inherit url; };
 in
@@ -63,9 +62,7 @@ let
   shortVersion =
     x:
     if (isString x && match "^/.*" x == null) then
-      findFirst (v: versions.majorMinor v == x) null (
-        sort versionAtLeast (attrNames release)
-      )
+      findFirst (v: versions.majorMinor v == x) null (sort versionAtLeast (attrNames release))
     else
       null;
   isShortVersion = x: shortVersion x != null;

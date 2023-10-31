@@ -37,10 +37,9 @@ builder rec {
   ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
-  depsBuildBuild =
-    [ buildPackages.stdenv.cc ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      pkgsBuildBuild.guile_2_2;
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_2_2;
   nativeBuildInputs = [
     makeWrapper
     pkg-config
@@ -88,9 +87,7 @@ builder rec {
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
   # don't have "libgcc_s.so.1" on clang
-  LDFLAGS =
-    lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic)
-      "-lgcc_s";
+  LDFLAGS = lib.optionalString (stdenv.cc.isGNU && !stdenv.hostPlatform.isStatic) "-lgcc_s";
 
   configureFlags =
     [ "--with-libreadline-prefix=${lib.getDev readline}" ]

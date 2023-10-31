@@ -15,8 +15,7 @@ let
     text = "default:";
   };
 
-  computedConfigFile =
-    if cfg.configFile == null then emptyConfigFile else cfg.configFile;
+  computedConfigFile = if cfg.configFile == null then emptyConfigFile else cfg.configFile;
 in
 {
   port = 9221;
@@ -121,8 +120,6 @@ in
             ${toString cfg.port} ${cfg.listenAddress}
         '';
       }
-      // optionalAttrs (cfg.environmentFile != null) {
-        EnvironmentFile = cfg.environmentFile;
-      };
+      // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
   };
 }

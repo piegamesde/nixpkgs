@@ -98,8 +98,7 @@ let
 
       testfun =
         name: attrs:
-        runCommand "${python.name}-tests-${name}"
-          ({ inherit (python) pythonVersion; } // attrs)
+        runCommand "${python.name}-tests-${name}" ({ inherit (python) pythonVersion; } // attrs)
           ''
             cp -r ${./tests/test_environments} tests
             chmod -R +w tests

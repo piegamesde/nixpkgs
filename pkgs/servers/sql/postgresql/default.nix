@@ -22,8 +22,8 @@ let
       libkrb5,
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
-      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-        && !stdenv.hostPlatform.isStatic,
+      enableSystemd ?
+        lib.meta.availableOn stdenv.hostPlatform systemd && !stdenv.hostPlatform.isStatic,
       gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs

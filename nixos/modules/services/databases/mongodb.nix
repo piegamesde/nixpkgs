@@ -21,8 +21,7 @@ let
       systemLog.destination: syslog
       storage.dbPath: ${cfg.dbpath}
       ${optionalString cfg.enableAuth "security.authorization: enabled"}
-      ${optionalString (cfg.replSetName != "")
-        "replication.replSetName: ${cfg.replSetName}"}
+      ${optionalString (cfg.replSetName != "") "replication.replSetName: ${cfg.replSetName}"}
       ${cfg.extraConfig}
     '';
 in

@@ -232,12 +232,8 @@ stdenv.mkDerivation rec {
       # Note, the `target` vs `host` confusion is intensional.
       "--target=${stdenv.hostPlatform.config}"
     ]
-    ++
-      optional (useUnfreeCodecs && codecs != null && !crossBuild)
-        "--codecsdir=${codecs}"
-    ++
-      optional (stdenv.hostPlatform.isx86 && !crossBuild)
-        "--enable-runtime-cpudetection"
+    ++ optional (useUnfreeCodecs && codecs != null && !crossBuild) "--codecsdir=${codecs}"
+    ++ optional (stdenv.hostPlatform.isx86 && !crossBuild) "--enable-runtime-cpudetection"
     ++ optional fribidiSupport "--enable-fribidi"
     ++ optional stdenv.isLinux "--enable-vidix"
     ++ optional stdenv.isLinux "--enable-fbdev"

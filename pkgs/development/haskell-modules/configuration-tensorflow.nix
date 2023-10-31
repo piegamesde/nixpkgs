@@ -29,9 +29,7 @@ in
 
   tensorflow =
     overrideCabal
-      (drv: {
-        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.vector-split ];
-      })
+      (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.vector-split ]; })
       (setTensorflowSourceRoot "tensorflow" super.tensorflow);
 
   tensorflow-core-ops =

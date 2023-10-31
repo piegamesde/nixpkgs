@@ -156,8 +156,7 @@ in
           StateDirectory = optionalString (cfg.record) "rasdaemon";
 
           ExecStart =
-            "${pkgs.rasdaemon}/bin/rasdaemon --foreground"
-            + optionalString (cfg.record) " --record";
+            "${pkgs.rasdaemon}/bin/rasdaemon --foreground" + optionalString (cfg.record) " --record";
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 

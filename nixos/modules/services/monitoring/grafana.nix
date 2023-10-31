@@ -41,9 +41,7 @@ let
           }
       );
 
-  datasourceFileOrDir =
-    mkProvisionCfg "datasource" "datasources"
-      cfg.provision.datasources;
+  datasourceFileOrDir = mkProvisionCfg "datasource" "datasources" cfg.provision.datasources;
   dashboardFileOrDir = mkProvisionCfg "dashboard" "providers" cfg.provision.dashboards;
 
   notifierConfiguration = {
@@ -58,8 +56,7 @@ let
   generateAlertingProvisioningYaml =
     x:
     if (cfg.provision.alerting."${x}".path == null) then
-      provisioningSettingsFormat.generate "${x}.yaml"
-        cfg.provision.alerting."${x}".settings
+      provisioningSettingsFormat.generate "${x}.yaml" cfg.provision.alerting."${x}".settings
     else
       cfg.provision.alerting."${x}".path;
   rulesFileOrDir = generateAlertingProvisioningYaml "rules";
@@ -299,9 +296,7 @@ let
       disable_resolve_message = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Turn off the message that sends when an alert returns to OK.";
+        description = lib.mdDoc "Turn off the message that sends when an alert returns to OK.";
       };
       settings = mkOption {
         type = types.nullOr types.attrs;
@@ -1079,10 +1074,7 @@ in
                 lib.mdDoc
                   "Directory where grafana will automatically scan and look for plugins";
               default =
-                if (cfg.declarativePlugins == null) then
-                  "${cfg.dataDir}/plugins"
-                else
-                  declarativePlugins;
+                if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
               defaultText =
                 literalExpression
                   ''
@@ -1373,9 +1365,7 @@ in
                   };
 
                   deleteDatasources = mkOption {
-                    description =
-                      lib.mdDoc
-                        "List of datasources that should be deleted from the database.";
+                    description = lib.mdDoc "List of datasources that should be deleted from the database.";
                     default = [ ];
                     type = types.listOf (
                       types.submodule {
@@ -1525,16 +1515,12 @@ in
                         };
 
                         options.folder = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Name of the folder the rule group will be stored in. Required.";
+                          description = lib.mdDoc "Name of the folder the rule group will be stored in. Required.";
                           type = types.str;
                         };
 
                         options.interval = mkOption {
-                          description =
-                            lib.mdDoc
-                              "Interval that the rule group should be evaluated at. Required.";
+                          description = lib.mdDoc "Interval that the rule group should be evaluated at. Required.";
                           type = types.str;
                         };
                       }
@@ -1736,9 +1722,7 @@ in
                   policies = mkOption {
                     description = lib.mdDoc "List of contact points to import or update.";
                     default = [ ];
-                    type = types.listOf (
-                      types.submodule { freeformType = provisioningSettingsFormat.type; }
-                    );
+                    type = types.listOf (types.submodule { freeformType = provisioningSettingsFormat.type; });
                   };
 
                   resetPolicies = mkOption {
@@ -2106,10 +2090,7 @@ in
           "CAP_NET_BIND_SERVICE"
         ];
         CapabilityBoundingSet =
-          if (cfg.settings.server.http_port < 1024) then
-            [ "CAP_NET_BIND_SERVICE" ]
-          else
-            [ "" ];
+          if (cfg.settings.server.http_port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         NoNewPrivileges = true;

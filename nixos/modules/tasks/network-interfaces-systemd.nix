@@ -29,8 +29,7 @@ let
     # add dependency to physical or independently created vswitch member interface
     # TODO: warn the user that any address configured on those interfaces will be useless
     ++
-      concatMap
-        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
+      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues cfg.vswitches);
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
@@ -40,8 +39,7 @@ let
       gateway =
         optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
           cfg.defaultGateway.address
-        ++ optional
-          (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
+        ++ optional (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
           cfg.defaultGateway6.address;
       makeGateway = gateway: {
         routeConfig = {
@@ -304,9 +302,7 @@ in
                     do = bond.driverOptions;
                     assertNoUnknownOption =
                       let
-                        knownOptions = flatten (
-                          mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping
-                        );
+                        knownOptions = flatten (mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping);
                         # options that apparently don’t exist in the networkd config
                         unknownOptions = [ "primary" ];
                         assertTrace = bool: msg: if bool then true else builtins.trace msg false;
@@ -338,9 +334,7 @@ in
                       )
                     );
                   in
-                  seq assertNoUnknownOption (
-                    buildOptionSet (filterSystemdOptions driverOptionMapping)
-                  );
+                  seq assertNoUnknownOption (buildOptionSet (filterSystemdOptions driverOptionMapping));
               };
 
               networks = listToAttrs (
@@ -391,8 +385,7 @@ in
                 # in networkd.
                 fooOverUDPConfig = {
                   Port = fou.port;
-                  Encapsulation =
-                    if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
+                  Encapsulation = if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
                 } // (optionalAttrs (fou.protocol != null) { Protocol = fou.protocol; });
               };
             }
@@ -521,9 +514,7 @@ in
                 preStart = ''
                   echo "Resetting Open vSwitch ${n}..."
                   ovs-vsctl --if-exists del-br ${n} -- add-br ${n} \
-                            -- set bridge ${n} protocols=${
-                              concatStringsSep "," v.supportedOpenFlowVersions
-                            }
+                            -- set bridge ${n} protocols=${concatStringsSep "," v.supportedOpenFlowVersions}
                 '';
                 script = ''
                   echo "Configuring Open vSwitch ${n}..."

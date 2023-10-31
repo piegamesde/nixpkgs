@@ -59,9 +59,7 @@ let
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
-  mkCertOwnershipAssertion =
-    import
-      ../../../security/acme/mk-cert-ownership-assertion.nix;
+  mkCertOwnershipAssertion = import ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 {
   imports = [

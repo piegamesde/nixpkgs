@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
       # or embedded after some update, even if the nixPackagers didn't intend to.
       # For non-linux I don't know a good replacement for `ldd`.
       deps =
-        runCommandLocal "knot-deps-test"
-          { nativeBuildInputs = [ (lib.getBin stdenv.cc.libc) ]; }
+        runCommandLocal "knot-deps-test" { nativeBuildInputs = [ (lib.getBin stdenv.cc.libc) ]; }
           ''
             for libname in libngtcp2 libxdp libbpf; do
               echo "Checking for $libname:"

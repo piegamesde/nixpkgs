@@ -30,11 +30,10 @@ let
       ErrorSMSPath = ${cfg.backend.files.errorSMSPath}
     ''}
 
-    ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite")
-      ''
-        Driver = ${cfg.backend.sql.driver}
-        DBDir = ${cfg.backend.sql.database}
-      ''}
+    ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "sqlite") ''
+      Driver = ${cfg.backend.sql.driver}
+      DBDir = ${cfg.backend.sql.database}
+    ''}
 
     ${optionalString
       (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql")
@@ -247,9 +246,7 @@ in
       wants =
         with cfg.backend;
         [ ]
-        ++ optionals (service == "sql" && sql.driver == "native_pgsql") [
-          "postgresql.service"
-        ];
+        ++ optionals (service == "sql" && sql.driver == "native_pgsql") [ "postgresql.service" ];
 
       preStart =
         with cfg.backend;

@@ -100,8 +100,7 @@ let
   libc_dev = if libc == null then "" else getDev libc;
   libc_lib = if libc == null then "" else getLib libc;
   cc_solib =
-    getLib cc
-    + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
+    getLib cc + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
 
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
   coreutils_bin = if nativeTools then "" else getBin coreutils;
@@ -271,9 +270,7 @@ stdenv.mkDerivation {
     + (
       if nativeTools then
         ''
-          echo ${
-            if targetPlatform.isDarwin then cc else nativePrefix
-          } > $out/nix-support/orig-cc
+          echo ${if targetPlatform.isDarwin then cc else nativePrefix} > $out/nix-support/orig-cc
 
           ccPath="${if targetPlatform.isDarwin then cc else nativePrefix}/bin"
         ''
@@ -464,9 +461,7 @@ stdenv.mkDerivation {
         echo "-B${libc_lib}${libc.libdir or "/lib/"}" >> $out/nix-support/libc-crt1-cflags
       ''
       + optionalString (!(cc.langD or false)) ''
-        echo "-idirafter ${libc_dev}${
-          libc.incdir or "/include"
-        }" >> $out/nix-support/libc-cflags
+        echo "-idirafter ${libc_dev}${libc.incdir or "/include"}" >> $out/nix-support/libc-cflags
       ''
       + optionalString (isGNU && (!(cc.langD or false))) ''
         for dir in "${cc}"/lib/gcc/*/*/include-fixed; do
@@ -517,9 +512,7 @@ stdenv.mkDerivation {
           done
         ''
     + optionalString (libcxx.isLLVM or false) ''
-      echo "-isystem ${
-        lib.getDev libcxx
-      }/include/c++/v1" >> $out/nix-support/libcxx-cxxflags
+      echo "-isystem ${lib.getDev libcxx}/include/c++/v1" >> $out/nix-support/libcxx-cxxflags
       echo "-stdlib=libc++" >> $out/nix-support/libcxx-ldflags
       echo "-l${libcxx.cxxabi.libName}" >> $out/nix-support/libcxx-ldflags
     ''
@@ -554,11 +547,9 @@ stdenv.mkDerivation {
       echo "$ccLDFlags" >> $out/nix-support/cc-ldflags
       echo "$ccCFlags" >> $out/nix-support/cc-cflags
     ''
-    +
-      optionalString (targetPlatform.isDarwin && (libcxx != null) && (cc.isClang or false))
-        ''
-          echo " -L${lib.getLib libcxx}/lib" >> $out/nix-support/cc-ldflags
-        ''
+    + optionalString (targetPlatform.isDarwin && (libcxx != null) && (cc.isClang or false)) ''
+      echo " -L${lib.getLib libcxx}/lib" >> $out/nix-support/cc-ldflags
+    ''
 
     ##
     ## Man page and info support
@@ -629,8 +620,7 @@ stdenv.mkDerivation {
       }" >> $out/nix-support/cc-cflags-before
     ''
     +
-      optionalString
-        (targetPlatform ? gcc.tune && isGccArchSupported targetPlatform.gcc.tune)
+      optionalString (targetPlatform ? gcc.tune && isGccArchSupported targetPlatform.gcc.tune)
         ''
           echo "-mtune=${targetPlatform.gcc.tune}" >> $out/nix-support/cc-cflags-before
         ''
@@ -646,8 +636,7 @@ stdenv.mkDerivation {
       hardening_unsupported_flags+=" stackprotector pic"
     ''
     +
-      optionalString
-        (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
+      optionalString (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
         ''
           hardening_unsupported_flags+=" stackprotector fortify pie pic"
         ''

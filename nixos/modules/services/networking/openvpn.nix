@@ -188,9 +188,7 @@ in
               autoStart = mkOption {
                 default = true;
                 type = types.bool;
-                description =
-                  lib.mdDoc
-                    "Whether this OpenVPN instance should be started automatically.";
+                description = lib.mdDoc "Whether this OpenVPN instance should be started automatically.";
               };
 
               updateResolvConf = mkOption {
@@ -246,8 +244,7 @@ in
 
     systemd.services =
       (listToAttrs (
-        mapAttrsFlatten
-          (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
+        mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
           cfg.servers
       ))
       // restartService;

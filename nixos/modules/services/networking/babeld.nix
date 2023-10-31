@@ -16,8 +16,7 @@ let
 
   paramsString =
     params:
-    concatMapStringsSep " "
-      (name: "${name} ${conditionalBoolToString (getAttr name params)}")
+    concatMapStringsSep " " (name: "${name} ${conditionalBoolToString (getAttr name params)}")
       (attrNames params);
 
   interfaceConfig =

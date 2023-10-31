@@ -23,9 +23,7 @@ let
         pkg-config = pkgs.pkg-config; # not to confuse with pythonPackages.pkg-config
       };
 
-      sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix {
-        inherit sage-src;
-      };
+      sage-docbuild = self.callPackage ./python-modules/sage-docbuild.nix { inherit sage-src; };
 
       sage-setup = self.callPackage ./python-modules/sage-setup.nix { inherit sage-src; };
     };

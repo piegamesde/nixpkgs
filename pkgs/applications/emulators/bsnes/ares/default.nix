@@ -87,9 +87,7 @@ stdenv.mkDerivation (
         "-C desktop-ui"
       ];
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.isDarwin
-        "-mmacosx-version-min=10.14";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-mmacosx-version-min=10.14";
 
     meta = with lib; {
       homepage = "https://ares-emu.net";

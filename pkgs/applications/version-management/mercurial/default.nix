@@ -177,8 +177,7 @@ let
         requiredSystemFeatures = [ "big-parallel" ];
 
         # Don't run tests if not-Linux or if cross-compiling.
-        meta.broken =
-          !stdenv.hostPlatform.isLinux || stdenv.buildPlatform != stdenv.hostPlatform;
+        meta.broken = !stdenv.hostPlatform.isLinux || stdenv.buildPlatform != stdenv.hostPlatform;
       }
       ''
         addToSearchPathWithCustomDelimiter : PYTHONPATH "${mercurial}/${python.sitePackages}"
@@ -255,9 +254,7 @@ self.overridePythonAttrs (
 
             mkdir -p $out/bin
 
-            for bindir in ${
-              lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)
-            }; do
+            for bindir in ${lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)}; do
               for bin in $bindir/*; do
                 ln -s ${env}/bin/$(basename $bin) $out/bin/
               done

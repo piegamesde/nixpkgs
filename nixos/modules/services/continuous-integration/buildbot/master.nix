@@ -88,9 +88,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the Buildbot continuous integration server.";
+        description = lib.mdDoc "Whether to enable the Buildbot continuous integration server.";
       };
 
       extraConfig = mkOption {
@@ -248,9 +246,7 @@ in
         type = types.functionTo (types.listOf types.package);
         default = pythonPackages: with pythonPackages; [ ];
         defaultText = literalExpression "pythonPackages: with pythonPackages; [ ]";
-        description =
-          lib.mdDoc
-            "Packages to add the to the PYTHONPATH of the buildbot process.";
+        description = lib.mdDoc "Packages to add the to the PYTHONPATH of the buildbot process.";
         example = literalExpression "pythonPackages: with pythonPackages; [ requests ]";
       };
     };

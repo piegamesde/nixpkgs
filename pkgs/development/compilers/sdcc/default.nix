@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
       PIC18 targets. It can be retargeted for other microprocessors.
     '';
     homepage = "https://sdcc.sourceforge.net/";
-    license =
-      with licenses; if (gputils == null) then gpl2Plus else unfreeRedistributable;
+    license = with licenses; if (gputils == null) then gpl2Plus else unfreeRedistributable;
     maintainers = with maintainers; [
       bjornfor
       yorickvp

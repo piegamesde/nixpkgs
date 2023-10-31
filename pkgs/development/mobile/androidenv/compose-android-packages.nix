@@ -43,8 +43,7 @@ let
     else if stdenv.system == "x86_64-darwin" then
       "macosx"
     else
-      throw
-        "No Android SDK tarballs are available for system architecture: ${stdenv.system}";
+      throw "No Android SDK tarballs are available for system architecture: ${stdenv.system}";
 
   # Uses mkrepo.rb to create a repo spec.
   mkRepoJson =
@@ -123,8 +122,7 @@ let
           (builtins.listToAttrs (
             builtins.map
               (
-                archive:
-                lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; })
+                archive: lib.attrsets.nameValuePair archive.os (fetchurl { inherit (archive) url sha1; })
               )
               value
           ))
@@ -373,8 +371,7 @@ rec {
   ndk-bundles = lib.optionals includeNDK (map makeNdkBundle ndkVersions);
 
   # The "default" NDK bundle.
-  ndk-bundle =
-    if includeNDK then lib.findFirst (x: x != null) null ndk-bundles else null;
+  ndk-bundle = if includeNDK then lib.findFirst (x: x != null) null ndk-bundles else null;
 
   google-apis =
     map

@@ -171,9 +171,7 @@ in
     systemd.services.moonraker = {
       description = "Moonraker, an API web server for Klipper";
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-      ] ++ optional config.services.klipper.enable "klipper.service";
+      after = [ "network.target" ] ++ optional config.services.klipper.enable "klipper.service";
 
       # Moonraker really wants its own config to be writable...
       script = ''

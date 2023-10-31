@@ -45,8 +45,7 @@ let
       };
   };
 in
-runCommand "documentation-check"
-  { inherit (sys.config.system.build.manual) optionsJSON; }
+runCommand "documentation-check" { inherit (sys.config.system.build.manual) optionsJSON; }
   ''
     json="$optionsJSON/share/doc/nixos/options.json"
     echo checking $json

@@ -190,8 +190,7 @@ with prev; {
       '';
       meta.broken = luaOlder "5.1" || luaAtLeast "5.3";
 
-      propagatedBuildInputs =
-        with lib; oa.propagatedBuildInputs ++ optional (!isLuaJIT) luaffi;
+      propagatedBuildInputs = with lib; oa.propagatedBuildInputs ++ optional (!isLuaJIT) luaffi;
     }
   );
 
@@ -456,9 +455,7 @@ with prev; {
     oa: lib.optionalAttrs stdenv.isLinux { buildInputs = [ glibc.out ]; }
   );
 
-  luazip = prev.luazip.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; }
-  );
+  luazip = prev.luazip.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ zziplib ]; });
 
   lua-yajl = prev.lua-yajl.overrideAttrs (
     oa: { buildInputs = oa.buildInputs ++ [ yajl ]; }

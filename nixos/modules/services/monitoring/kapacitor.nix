@@ -80,9 +80,7 @@ in
       type = types.str;
       default = "";
       example = "0.0.0.0";
-      description =
-        lib.mdDoc
-          "Address to bind to. The default is to bind to all addresses";
+      description = lib.mdDoc "Address to bind to. The default is to bind to all addresses";
     };
 
     extraConfig = mkOption {

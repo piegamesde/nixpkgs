@@ -247,12 +247,8 @@ in
         no_proxy = "127.0.0.1,localhost";
       }
       // optionalAttrs (cfg.proxy.httpProxy != null) { http_proxy = cfg.proxy.httpProxy; }
-      // optionalAttrs (cfg.proxy.httpsProxy != null) {
-        https_proxy = cfg.proxy.httpsProxy;
-      }
-      // optionalAttrs (cfg.proxy.rsyncProxy != null) {
-        rsync_proxy = cfg.proxy.rsyncProxy;
-      }
+      // optionalAttrs (cfg.proxy.httpsProxy != null) { https_proxy = cfg.proxy.httpsProxy; }
+      // optionalAttrs (cfg.proxy.rsyncProxy != null) { rsync_proxy = cfg.proxy.rsyncProxy; }
       // optionalAttrs (cfg.proxy.ftpProxy != null) { ftp_proxy = cfg.proxy.ftpProxy; }
       // optionalAttrs (cfg.proxy.allProxy != null) { all_proxy = cfg.proxy.allProxy; }
       // optionalAttrs (cfg.proxy.noProxy != null) { no_proxy = cfg.proxy.noProxy; };

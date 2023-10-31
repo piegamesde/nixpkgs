@@ -38,9 +38,7 @@ in
       };
 
       stun = mkOption {
-        description =
-          lib.mdDoc
-            ''STUN broker URL (default "stun:stun.stunprotocol.org:3478")'';
+        description = lib.mdDoc ''STUN broker URL (default "stun:stun.stunprotocol.org:3478")'';
         type = with types; nullOr str;
         default = null;
       };

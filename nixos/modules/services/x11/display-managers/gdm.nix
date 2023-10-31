@@ -172,9 +172,7 @@ in
     services.xserver.displayManager.job = {
       environment =
         {
-          GDM_X_SERVER_EXTRA_ARGS = toString (
-            filter (arg: arg != "-terminate") cfg.xserverArgs
-          );
+          GDM_X_SERVER_EXTRA_ARGS = toString (filter (arg: arg != "-terminate") cfg.xserverArgs);
           XDG_DATA_DIRS = lib.makeSearchPath "share" [
             gdm # for gnome-login.session
             cfg.sessionData.desktops

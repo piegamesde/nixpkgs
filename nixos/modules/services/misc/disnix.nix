@@ -49,9 +49,7 @@ in
       profiles = mkOption {
         type = types.listOf types.str;
         default = [ "default" ];
-        description =
-          lib.mdDoc
-            "Names of the Disnix profiles to expose in the system's PATH";
+        description = lib.mdDoc "Names of the Disnix profiles to expose in the system's PATH";
       };
     };
   };

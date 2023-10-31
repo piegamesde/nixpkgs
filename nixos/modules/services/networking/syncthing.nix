@@ -673,9 +673,7 @@ in
                     } ${cfg.configDir}/cert.pem
                   ''}
                   ${optionalString (cfg.key != null) ''
-                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${
-                      toString cfg.key
-                    } ${cfg.configDir}/key.pem
+                    install -Dm400 -o ${cfg.user} -g ${cfg.group} ${toString cfg.key} ${cfg.configDir}/key.pem
                   ''}
                 ''
               }";

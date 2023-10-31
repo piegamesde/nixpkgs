@@ -60,29 +60,24 @@ let
       }
     '';
 
-    perl =
-      writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; }
-        ''
-          use boolean;
-          print "success\n" if true;
-        '';
+    perl = writePerlBin "test-writers-perl-bin" { libraries = [ perlPackages.boolean ]; } ''
+      use boolean;
+      print "success\n" if true;
+    '';
 
-    pypy2 =
-      writePyPy2Bin "test-writers-pypy2-bin" { libraries = [ pypy2Packages.enum ]; }
-        ''
-          from enum import Enum
+    pypy2 = writePyPy2Bin "test-writers-pypy2-bin" { libraries = [ pypy2Packages.enum ]; } ''
+      from enum import Enum
 
 
-          class Test(Enum):
-              a = "success"
+      class Test(Enum):
+          a = "success"
 
 
-          print Test.a
-        '';
+      print Test.a
+    '';
 
     python3 =
-      writePython3Bin "test-writers-python3-bin"
-        { libraries = [ python3Packages.pyyaml ]; }
+      writePython3Bin "test-writers-python3-bin" { libraries = [ python3Packages.pyyaml ]; }
         ''
           import yaml
 
@@ -236,8 +231,7 @@ let
       ''
     );
     haskell =
-      writeHaskell "test-writers-haskell-path"
-        { libraries = [ haskellPackages.acme-default ]; }
+      writeHaskell "test-writers-haskell-path" { libraries = [ haskellPackages.acme-default ]; }
         (
           writeText "test" ''
             import Data.Default

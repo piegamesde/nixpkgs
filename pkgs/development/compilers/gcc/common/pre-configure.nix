@@ -125,8 +125,7 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 ''
 
 +
-  lib.optionalString
-    (!enableMultilib && hostPlatform.is64bit && !hostPlatform.isMips64n32)
+  lib.optionalString (!enableMultilib && hostPlatform.is64bit && !hostPlatform.isMips64n32)
     ''
       export linkLib64toLib=1
     ''

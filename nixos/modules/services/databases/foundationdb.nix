@@ -12,8 +12,7 @@ let
   pkg = cfg.package;
 
   # used for initial cluster configuration
-  initialIpAddr =
-    if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
+  initialIpAddr = if (cfg.publicAddress != "auto") then cfg.publicAddress else "127.0.0.1";
 
   fdbServers =
     n:
@@ -58,8 +57,7 @@ let
 
     ${optionalString (cfg.locality.machineId != null)
       "locality_machineid=${cfg.locality.machineId}"}
-    ${optionalString (cfg.locality.zoneId != null)
-      "locality_zoneid=${cfg.locality.zoneId}"}
+    ${optionalString (cfg.locality.zoneId != null) "locality_zoneid=${cfg.locality.zoneId}"}
     ${optionalString (cfg.locality.datacenterId != null)
       "locality_dcid=${cfg.locality.datacenterId}"}
     ${optionalString (cfg.locality.dataHall != null)

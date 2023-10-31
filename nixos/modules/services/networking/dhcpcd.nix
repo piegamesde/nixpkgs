@@ -10,10 +10,7 @@ with lib;
 let
 
   dhcpcd =
-    if !config.boot.isContainer then
-      pkgs.dhcpcd
-    else
-      pkgs.dhcpcd.override { udev = null; };
+    if !config.boot.isContainer then pkgs.dhcpcd else pkgs.dhcpcd.override { udev = null; };
 
   cfg = config.networking.dhcpcd;
 
@@ -27,14 +24,12 @@ let
   # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces =
     map (i: i.name) (
-      filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ])
-        interfaces
+      filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ]) interfaces
     )
     ++ mapAttrsToList (i: _: i) config.networking.sits
     ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bridges))
     ++ flatten (
-      concatMap
-        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
+      concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
         (attrValues config.networking.vswitches)
     )
     ++ concatLists (attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds))
@@ -60,9 +55,7 @@ let
       null
   );
 
-  staticIPv6Addresses = map (i: i.name) (
-    filter (i: i.ipv6.addresses != [ ]) interfaces
-  );
+  staticIPv6Addresses = map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);
 
   noIPv6rs = concatStringsSep "\n" (
     map
@@ -98,8 +91,7 @@ let
     } lo peth* vif* tap* tun* virbr* vnet* vboxnet* sit*
 
     # Use the list of allowed interfaces if specified
-    ${optionalString (allowInterfaces != null)
-      "allowinterfaces ${toString allowInterfaces}"}
+    ${optionalString (allowInterfaces != null) "allowinterfaces ${toString allowInterfaces}"}
 
     # Immediately fork to background if specified, otherwise wait for IP address to be assigned
     ${{
@@ -273,8 +265,7 @@ in
         hasDefaultGatewaySet =
           (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
           && (
-            !cfgN.enableIPv6
-            || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != "")
+            !cfgN.enableIPv6 || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != "")
           );
       in
       {

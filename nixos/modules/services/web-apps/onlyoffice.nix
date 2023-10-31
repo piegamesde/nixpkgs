@@ -85,9 +85,7 @@ in
     rabbitmqUrl = mkOption {
       type = types.str;
       default = "amqp://guest:guest@localhost:5672";
-      description =
-        lib.mdDoc
-          "The Rabbitmq in amqp URI style OnlyOffice should connect to.";
+      description = lib.mdDoc "The Rabbitmq in amqp URI style OnlyOffice should connect to.";
     };
   };
 

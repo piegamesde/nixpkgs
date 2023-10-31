@@ -11,9 +11,7 @@ let
 
   overrides =
     (self: super: {
-      cl_plus_ssl = super.cl_plus_ssl.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.openssl ]; }
-      );
+      cl_plus_ssl = super.cl_plus_ssl.overrideLispAttrs (o: { nativeLibs = [ pkgs.openssl ]; });
       cl-cffi-gtk-glib = super.cl-cffi-gtk-glib.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.glib ]; }
       );
@@ -38,9 +36,7 @@ let
       cl-gtk2-gdk = super.cl-gtk2-gdk.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
       );
-      cl-gtk2-glib = super.cl-gtk2-glib.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.glib ]; }
-      );
+      cl-gtk2-glib = super.cl-gtk2-glib.overrideLispAttrs (o: { nativeLibs = [ pkgs.glib ]; });
       cl-gtk2-pango = super.cl-gtk2-pango.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.pango ]; }
       );
@@ -71,9 +67,7 @@ let
       clsql-sqlite3 = super.clsql-sqlite3.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.sqlite ]; }
       );
-      cl-webkit2 = super.cl-webkit2.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.webkitgtk ]; }
-      );
+      cl-webkit2 = super.cl-webkit2.overrideLispAttrs (o: { nativeLibs = [ pkgs.webkitgtk ]; });
       dbd-mysql = super.dbd-mysql.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.mariadb.client ]; }
       );
@@ -166,12 +160,8 @@ let
           nativeLibs = [ pkgs.gsl ];
         }
       );
-      cl-libyaml = super.cl-libyaml.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libyaml ]; }
-      );
-      cl-libxml2 = super.cl-libxml2.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.libxml2 ]; }
-      );
+      cl-libyaml = super.cl-libyaml.overrideLispAttrs (o: { nativeLibs = [ pkgs.libyaml ]; });
+      cl-libxml2 = super.cl-libxml2.overrideLispAttrs (o: { nativeLibs = [ pkgs.libxml2 ]; });
       cl-readline = super.cl-readline.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.readline ]; }
       );

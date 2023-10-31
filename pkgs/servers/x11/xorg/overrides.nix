@@ -240,29 +240,19 @@ self: super:
     }
   );
   libXxf86dga = super.libXxf86dga.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libXxf86misc = super.libXxf86misc.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libdmx = super.libdmx.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libFS = super.libFS.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libWindowsWM = super.libWindowsWM.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   xdpyinfo = super.xdpyinfo.overrideAttrs (
     attrs: {

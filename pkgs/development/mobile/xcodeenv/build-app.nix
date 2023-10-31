@@ -43,10 +43,7 @@ let
   _target = if target == null then name else target;
 
   _configuration =
-    if configuration == null then
-      if release then "Release" else "Debug"
-    else
-      configuration;
+    if configuration == null then if release then "Release" else "Debug" else configuration;
 
   _sdk =
     if sdk == null then

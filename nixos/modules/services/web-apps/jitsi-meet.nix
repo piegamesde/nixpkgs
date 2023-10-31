@@ -376,14 +376,12 @@ in
         };
         locations."=/config.js" = mkDefault {
           alias =
-            overrideJs "${pkgs.jitsi-meet}/config.js" "config"
-              (recursiveUpdate defaultCfg cfg.config)
+            overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config)
               cfg.extraConfig;
         };
         locations."=/interface_config.js" = mkDefault {
           alias =
-            overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig"
-              cfg.interfaceConfig
+            overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig
               "";
         };
       };
@@ -403,13 +401,11 @@ in
               rm interface_config.js
               cp -R . $out
               cp ${
-                overrideJs "${pkgs.jitsi-meet}/config.js" "config"
-                  (recursiveUpdate defaultCfg cfg.config)
+                overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config)
                   cfg.extraConfig
               } $out/config.js
               cp ${
-                overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig"
-                  cfg.interfaceConfig
+                overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig
                   ""
               } $out/interface_config.js
               cp ./libs/external_api.min.js $out/external_api.js

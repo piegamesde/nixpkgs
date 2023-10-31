@@ -107,9 +107,7 @@ stdenv.mkDerivation rec {
         extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-load}" ];
       };
 
-      nasm-cf =
-        writeShellScript "nasm-cf"
-          "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
+      nasm-cf = writeShellScript "nasm-cf" "${sgx-asm-pp} --MITIGATION-CVE-2020-0551=CF $@";
       ipp-crypto-cve_2020_0551_cf = callPackage ./ipp-crypto.nix {
         extraCmakeFlags = [ "-DCMAKE_ASM_NASM_COMPILER=${nasm-cf}" ];
       };
@@ -262,9 +260,7 @@ stdenv.mkDerivation rec {
   # $(nix-build -A sgx-sdk.runTestsHW)/bin/run-tests-hw
   passthru.runTestsHW =
     let
-      testsHW = lib.filterAttrs (_: v: v ? "name") (
-        callPackage ../samples { sgxMode = "HW"; }
-      );
+      testsHW = lib.filterAttrs (_: v: v ? "name") (callPackage ../samples { sgxMode = "HW"; });
       testsHWLinked = linkFarmFromDrvs "sgx-samples-hw-bundle" (lib.attrValues testsHW);
     in
     writeShellApplication {

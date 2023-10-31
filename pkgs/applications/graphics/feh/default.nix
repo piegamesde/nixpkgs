@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       "PREFIX=${placeholder "out"}"
       "exif=1"
     ]
-    ++ lib.optional stdenv.isDarwin "verscmp=0"
-    ++ lib.optional enableAutoreload "inotify=1";
+    ++ lib.optional stdenv.isDarwin "verscmp=0" ++ lib.optional enableAutoreload "inotify=1";
 
   installTargets = [ "install" ];
   postInstall = ''

@@ -50,9 +50,7 @@ let
 
     doCheckByDefault = mkMassRebuild { feature = "run `checkPhase` by default"; };
 
-    strictDepsByDefault = mkMassRebuild {
-      feature = "set `strictDeps` to true by default";
-    };
+    strictDepsByDefault = mkMassRebuild { feature = "set `strictDeps` to true by default"; };
 
     structuredAttrsByDefault = mkMassRebuild {
       feature = "set `__structuredAttrs` to true by default";

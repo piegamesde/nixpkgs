@@ -51,9 +51,7 @@ let
       ifaceArg = concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
       driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
-      confFileArg =
-        optionalString (suppl.configFile.path != null)
-          "-c${suppl.configFile.path}";
+      confFileArg = optionalString (suppl.configFile.path != null) "-c${suppl.configFile.path}";
       extraConfFile =
         pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
           ''
@@ -159,9 +157,7 @@ in
                 type = types.str;
                 default = "";
                 example = "-e/run/wpa_supplicant/entropy.bin";
-                description =
-                  lib.mdDoc
-                    "Command line arguments to add when executing `wpa_supplicant`.";
+                description = lib.mdDoc "Command line arguments to add when executing `wpa_supplicant`.";
               };
 
               driver = mkOption {

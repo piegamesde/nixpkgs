@@ -50,9 +50,9 @@ let
     "devpts"
   ];
 
-  nonEmptyWithoutTrailingSlash =
-    addCheckDesc "non-empty without trailing slash" types.str
-      (s: isNonEmpty s && (builtins.match ".+/" s) == null);
+  nonEmptyWithoutTrailingSlash = addCheckDesc "non-empty without trailing slash" types.str (
+    s: isNonEmpty s && (builtins.match ".+/" s) == null
+  );
 
   coreFileSystemOpts =
     { name, config, ... }:
@@ -451,9 +451,7 @@ in
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++
               optional (sw.discardPolicy != null)
-                "discard${
-                  optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"
-                }"
+                "discard${optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"}"
           );
       in
       ''
@@ -525,9 +523,7 @@ in
           };
       in
       listToAttrs (
-        map formatDevice (
-          filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems
-        )
+        map formatDevice (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems)
       )
       // {
         # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.

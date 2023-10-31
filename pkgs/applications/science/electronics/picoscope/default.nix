@@ -111,10 +111,7 @@ let
       '';
       meta =
         with lib;
-        shared_meta lib
-        // {
-          description = "library for picotech oscilloscope ${name} series";
-        };
+        shared_meta lib // { description = "library for picotech oscilloscope ${name} series"; };
     };
 
   scopePkgs = lib.mapAttrs scopePkg sources;

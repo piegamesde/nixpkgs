@@ -34,9 +34,7 @@ let
   };
 
   data =
-    all_data.${
-      system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")
-    };
+    all_data.${system_map.${stdenv.hostPlatform.system} or (throw "Unsupported platform")};
 
   baseUrl = "https://apt.enpass.io";
 

@@ -94,9 +94,7 @@ in
                     } \
                     ${
                       optionalString (cfg.featureGates != [ ])
-                        "--feature-gates=${
-                          concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
-                        }"
+                        "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                     } \
                     --hostname-override=${cfg.hostname} \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig} \

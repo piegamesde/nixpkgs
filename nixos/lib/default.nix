@@ -33,9 +33,7 @@ in
 */
 {
   inherit
-    (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning
-      eval-config-minimal
-    )
+    (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning eval-config-minimal)
     evalModules
   ;
 

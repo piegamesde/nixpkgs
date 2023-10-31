@@ -278,9 +278,7 @@ let
                 else
                     # If the key file never shows up we should also try the empty passphrase
                     if ! try_empty_passphrase; then
-                       ${
-                         if dev.fallbackToPassword then "echo" else "die"
-                       } "${dev.keyFile} is unavailable"
+                       ${if dev.fallbackToPassword then "echo" else "die"} "${dev.keyFile} is unavailable"
                        echo " - failing back to interactive password prompt"
                        do_open_passphrase
                     fi
@@ -948,9 +946,7 @@ in
                           saltLength = mkOption {
                             default = 16;
                             type = types.int;
-                            description =
-                              lib.mdDoc
-                                "Length of the new salt in byte (64 is the effective maximum).";
+                            description = lib.mdDoc "Length of the new salt in byte (64 is the effective maximum).";
                           };
 
                           keyLength = mkOption {
@@ -1174,13 +1170,11 @@ in
     # copy the cryptsetup binary and it's dependencies
     boot.initrd.extraUtilsCommands =
       let
-        pbkdf2-sha512 =
-          pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; }
-            ''
-              mkdir -p "$out/bin"
-              cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
-              strip -s "$out/bin/pbkdf2-sha512"
-            '';
+        pbkdf2-sha512 = pkgs.runCommandCC "pbkdf2-sha512" { buildInputs = [ pkgs.openssl ]; } ''
+          mkdir -p "$out/bin"
+          cc -O3 -lcrypto ${./pbkdf2-sha512.c} -o "$out/bin/pbkdf2-sha512"
+          strip -s "$out/bin/pbkdf2-sha512"
+        '';
       in
       mkIf (!config.boot.initrd.systemd.enable) ''
         copy_bin_and_libs ${pkgs.cryptsetup}/bin/cryptsetup

@@ -17,9 +17,7 @@ let
   genRunnerName =
     name: service:
     let
-      hash = substring 0 12 (
-        hashString "md5" (unsafeDiscardStringContext (toJSON service))
-      );
+      hash = substring 0 12 (hashString "md5" (unsafeDiscardStringContext (toJSON service)));
     in
     if service ? description && service.description != null then
       "${hash} ${service.description}"
@@ -126,9 +124,7 @@ let
                         ++
                           optional (service.postBuildScript != null)
                             "--post-build-script ${service.postBuildScript}"
-                        ++
-                          optional (service.tagList != [ ])
-                            "--tag-list ${concatStringsSep "," service.tagList}"
+                        ++ optional (service.tagList != [ ]) "--tag-list ${concatStringsSep "," service.tagList}"
                         ++ optional service.runUntagged "--run-untagged"
                         ++ optional service.protected "--access-level ref_protected"
                         ++ optional service.debugTraceDisabled "--debug-trace-disabled"
@@ -145,9 +141,7 @@ let
                           ++ map (v: "--docker-volumes ${escapeShellArg v}") service.dockerVolumes
                           ++ map (v: "--docker-extra-hosts ${escapeShellArg v}") service.dockerExtraHosts
                           ++ map (v: "--docker-allowed-images ${escapeShellArg v}") service.dockerAllowedImages
-                          ++
-                            map (v: "--docker-allowed-services ${escapeShellArg v}")
-                              service.dockerAllowedServices
+                          ++ map (v: "--docker-allowed-services ${escapeShellArg v}") service.dockerAllowedServices
                         )
                       )
                     )

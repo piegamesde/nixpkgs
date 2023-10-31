@@ -67,9 +67,7 @@ let
         EOF
       '';
       buildPhase = ''
-        $CXX -std=c++11 main.cxx ${
-          toString (map (x: "-l${x.name}") sillyLibs)
-        } -o ${prefix}-asdf
+        $CXX -std=c++11 main.cxx ${toString (map (x: "-l${x.name}") sillyLibs)} -o ${prefix}-asdf
       '';
       buildInputs = sillyLibs;
       installPhase = ''

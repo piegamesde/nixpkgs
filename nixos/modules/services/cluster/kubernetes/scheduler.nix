@@ -41,9 +41,7 @@ in
     kubeconfig = top.lib.mkKubeConfigOptions "Kubernetes scheduler";
 
     leaderElect = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to start leader election before executing main loop.";
+      description = lib.mdDoc "Whether to start leader election before executing main loop.";
       type = bool;
       default = true;
     };
@@ -77,9 +75,7 @@ in
                     --bind-address=${cfg.address} \
                     ${
                       optionalString (cfg.featureGates != [ ])
-                        "--feature-gates=${
-                          concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
-                        }"
+                        "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                     } \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-scheduler" cfg.kubeconfig} \
                     --leader-elect=${boolToString cfg.leaderElect} \

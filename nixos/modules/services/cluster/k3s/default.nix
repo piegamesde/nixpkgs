@@ -21,9 +21,7 @@ let
       instruction;
 in
 {
-  imports = [
-    (removeOption [ "docker" ] "k3s docker option is no longer supported.")
-  ];
+  imports = [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];
 
   # interface
   options.services.k3s = {
@@ -122,9 +120,7 @@ in
     disableAgent = mkOption {
       type = types.bool;
       default = false;
-      description =
-        lib.mdDoc
-          "Only run the server. This option only makes sense for a server.";
+      description = lib.mdDoc "Only run the server. This option only makes sense for a server.";
     };
 
     environmentFile = mkOption {
@@ -154,8 +150,7 @@ in
       }
       {
         assertion =
-          cfg.role == "agent"
-          -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != "";
+          cfg.role == "agent" -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != "";
         message = "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
       }
       {

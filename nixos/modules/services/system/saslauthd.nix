@@ -20,9 +20,7 @@ in
 
     services.saslauthd = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "saslauthd, the Cyrus SASL authentication daemon"
-      );
+      enable = mkEnableOption (lib.mdDoc "saslauthd, the Cyrus SASL authentication daemon");
 
       package = mkOption {
         default = pkgs.cyrus_sasl.bin;

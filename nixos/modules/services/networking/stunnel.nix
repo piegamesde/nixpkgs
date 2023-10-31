@@ -226,9 +226,7 @@ in
       wantedBy = [ "multi-user.target" ];
       restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
       serviceConfig = {
-        ExecStart = "${pkgs.stunnel}/bin/stunnel ${
-            config.environment.etc."stunnel.cfg".source
-          }";
+        ExecStart = "${pkgs.stunnel}/bin/stunnel ${config.environment.etc."stunnel.cfg".source}";
         Type = "forking";
       };
     };

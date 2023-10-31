@@ -161,9 +161,7 @@ let
           touch "${finalConfig}"
         fi
 
-        iface_args="-s ${
-          optionalString cfg.dbusControlled "-u"
-        } -D${cfg.driver} ${configStr}"
+        iface_args="-s ${optionalString cfg.dbusControlled "-u"} -D${cfg.driver} ${configStr}"
 
         ${if iface == null then
           ''

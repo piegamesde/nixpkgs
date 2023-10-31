@@ -105,9 +105,7 @@ let
   needGrowfs = lib.any (fs: fs.autoResize) fileSystems;
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
-  modulesTree = config.system.modulesTree.override {
-    name = kernel-name + "-modules";
-  };
+  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {

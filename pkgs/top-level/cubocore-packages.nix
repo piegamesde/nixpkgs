@@ -11,16 +11,14 @@ let
     with self; {
 
       # Libs
-      libcprime =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime
-          { };
+      libcprime = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime { };
 
       libcsys = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcsys { };
 
       # Apps
-      coreaction =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/coreaction
-          { inherit libcprime libcsys; };
+      coreaction = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreaction {
+        inherit libcprime libcsys;
+      };
 
       corearchiver =
         libsForQt5.callPackage ../applications/misc/cubocore-packages/corearchiver
@@ -30,9 +28,9 @@ let
         inherit libcprime libcsys;
       };
 
-      coregarage =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/coregarage
-          { inherit libcprime libcsys; };
+      coregarage = libsForQt5.callPackage ../applications/misc/cubocore-packages/coregarage {
+        inherit libcprime libcsys;
+      };
 
       corehunt = libsForQt5.callPackage ../applications/misc/cubocore-packages/corehunt {
         inherit libcprime libcsys;
@@ -66,9 +64,9 @@ let
         inherit libcprime libcsys;
       };
 
-      corerenamer =
-        libsForQt5.callPackage ../applications/misc/cubocore-packages/corerenamer
-          { inherit libcprime libcsys; };
+      corerenamer = libsForQt5.callPackage ../applications/misc/cubocore-packages/corerenamer {
+        inherit libcprime libcsys;
+      };
 
       coreshot = libsForQt5.callPackage ../applications/misc/cubocore-packages/coreshot {
         inherit libcprime libcsys;

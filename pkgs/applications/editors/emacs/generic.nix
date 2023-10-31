@@ -125,12 +125,10 @@ assert withXwidgets -> withGTK3 && webkitgtk != null;
 assert withTreeSitter -> tree-sitter != null;
 
 let
-  libGccJitLibraryPaths =
-    [
-      "${lib.getLib libgccjit}/lib/gcc"
-      "${lib.getLib stdenv.cc.libc}/lib"
-    ]
-    ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${lib.getLib stdenv.cc.cc.libgcc}/lib" ];
+  libGccJitLibraryPaths = [
+    "${lib.getLib libgccjit}/lib/gcc"
+    "${lib.getLib stdenv.cc.libc}/lib"
+  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${lib.getLib stdenv.cc.cc.libgcc}/lib" ];
 in
 (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (
   finalAttrs:
@@ -142,9 +140,7 @@ in
     // {
       pname =
         pname
-        +
-          lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3)
-            "-nox";
+        + lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
       inherit version;
 
       patches =

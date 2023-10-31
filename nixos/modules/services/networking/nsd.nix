@@ -490,8 +490,7 @@ let
     };
   };
 
-  dnssecZones =
-    (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
+  dnssecZones = (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
 
   dnssec = dnssecZones != { };
 

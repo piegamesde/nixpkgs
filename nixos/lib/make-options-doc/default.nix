@@ -149,10 +149,7 @@ rec {
         # merge with an empty set if baseOptionsJSON is null to run markdown
         # processing on the input options
         baseJSON =
-          if baseOptionsJSON == null then
-            builtins.toFile "base.json" "{}"
-          else
-            baseOptionsJSON;
+          if baseOptionsJSON == null then builtins.toFile "base.json" "{}" else baseOptionsJSON;
       }
       ''
         # Export list of options in different format.
@@ -182,8 +179,7 @@ rec {
   '';
 
   optionsDocBook =
-    pkgs.runCommand "options-docbook.xml"
-      { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    pkgs.runCommand "options-docbook.xml" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
       ''
         nixos-render-docs -j $NIX_BUILD_CORES options docbook \
           --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \

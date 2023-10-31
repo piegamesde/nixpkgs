@@ -55,8 +55,7 @@ let
       'dbpersist' => 0,
       'dbport' => '${toString cfg.database.port}',
       ${
-        optionalString (cfg.database.socket != null)
-          "'dbsocket' => '${cfg.database.socket}',"
+        optionalString (cfg.database.socket != null) "'dbsocket' => '${cfg.database.socket}',"
       }
       'dbcollation' => 'utf8mb4_unicode_ci',
     );
@@ -355,9 +354,7 @@ in
     systemd.services.moodle-init = {
       wantedBy = [ "multi-user.target" ];
       before = [ "phpfpm-moodle.service" ];
-      after =
-        optional mysqlLocal "mysql.service"
-        ++ optional pgsqlLocal "postgresql.service";
+      after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
         ${phpExt}/bin/php ${cfg.package}/share/moodle/admin/cli/check_database_schema.php && rc=$? || rc=$?

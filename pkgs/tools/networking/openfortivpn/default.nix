@@ -33,9 +33,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
+  buildInputs = [ openssl ] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
 
   configureFlags =
     [ "--sysconfdir=/etc" ]

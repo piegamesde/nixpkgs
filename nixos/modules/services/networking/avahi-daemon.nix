@@ -210,9 +210,7 @@ in
       userServices = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to publish user services. Will set `addresses=true`.";
+        description = lib.mdDoc "Whether to publish user services. Will set `addresses=true`.";
       };
 
       addresses = mkOption {

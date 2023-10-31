@@ -241,9 +241,7 @@ in
 
               SELFHOST = "true";
             }
-            // (optionalAttrs (cfg.mail.smtp.user != null) {
-              SMTP_USER_NAME = cfg.mail.smtp.user;
-            });
+            // (optionalAttrs (cfg.mail.smtp.user != null) { SMTP_USER_NAME = cfg.mail.smtp.user; });
 
           path = [
             cfg.package

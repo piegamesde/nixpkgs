@@ -136,9 +136,7 @@ let
 
     NIX_LDFLAGS = lib.optionals (!atLeast24) [
       # https://github.com/NixOS/nix/commit/3e85c57a6cbf46d5f0fe8a89b368a43abd26daba
-      (lib.optionalString enableStatic
-        "-lssl -lbrotlicommon -lssh2 -lz -lnghttp2 -lcrypto"
-      )
+      (lib.optionalString enableStatic "-lssl -lbrotlicommon -lssh2 -lz -lnghttp2 -lcrypto")
       # https://github.com/NixOS/nix/commits/74b4737d8f0e1922ef5314a158271acf81cd79f8
       (lib.optionalString
         (
@@ -193,9 +191,7 @@ let
             # option was removed in 2.4
             "--disable-init-state"
           ]
-      ++ lib.optionals atLeast214 [
-        "CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include"
-      ]
+      ++ lib.optionals atLeast214 [ "CXXFLAGS=-I${lib.getDev rapidcheck}/extras/gtest/include" ]
       ++ lib.optionals stdenv.isLinux [
         "--with-sandbox-shell=${busybox-sandbox-shell}/bin/busybox"
       ]

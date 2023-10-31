@@ -96,9 +96,7 @@ in
           serverAliases = [ "wiki.''${config.networking.domain}" ];
         }
       '';
-      description =
-        lib.mdDoc
-          "Extra configuration for the nginx virtual host of Jirafeau.";
+      description = lib.mdDoc "Extra configuration for the nginx virtual host of Jirafeau.";
     };
 
     package = mkOption {

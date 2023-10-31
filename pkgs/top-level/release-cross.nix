@@ -133,9 +133,7 @@ in
             path: crossSystem: system:
             builtins.toString (lib.getAttrFromPath path (pkgsForCross crossSystem system));
         in
-        assertTrue (
-          f path null system == f ([ "buildPackages" ] ++ path) crossSystem system
-        );
+        assertTrue (f path null system == f ([ "buildPackages" ] ++ path) crossSystem system);
 
       testEqual = path: systems: forMatchingSystems systems (testEqualOne path);
 
@@ -193,18 +191,14 @@ in
 
   # Linux on aarch64
   aarch64 = mapTestOnCross lib.systems.examples.aarch64-multiplatform linuxCommon;
-  aarch64-musl =
-    mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl
-      linuxCommon;
+  aarch64-musl = mapTestOnCross lib.systems.examples.aarch64-multiplatform-musl linuxCommon;
 
   # Linux on RISCV
   riscv64 = mapTestOnCross lib.systems.examples.riscv64 linuxCommon;
   riscv32 = mapTestOnCross lib.systems.examples.riscv32 linuxCommon;
 
   # Linux on LoongArch
-  loongarch64-linux =
-    mapTestOnCross lib.systems.examples.loongarch64-linux
-      linuxCommon;
+  loongarch64-linux = mapTestOnCross lib.systems.examples.loongarch64-linux linuxCommon;
 
   m68k = mapTestOnCross lib.systems.examples.m68k linuxCommon;
   s390x = mapTestOnCross lib.systems.examples.s390x linuxCommon;
@@ -273,7 +267,5 @@ in
   mips64el-nixCrossStatic =
     mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64
       nixCrossStatic;
-  powerpc64le-nixCrossStatic =
-    mapTestOnCross lib.systems.examples.powernv
-      nixCrossStatic;
+  powerpc64le-nixCrossStatic = mapTestOnCross lib.systems.examples.powernv nixCrossStatic;
 }

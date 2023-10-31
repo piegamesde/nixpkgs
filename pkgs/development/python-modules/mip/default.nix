@@ -39,9 +39,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ dos2unix ];
   propagatedBuildInputs =
     [ cffi ]
-    ++ lib.optionals gurobiSupport (
-      [ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi
-    );
+    ++ lib.optionals gurobiSupport ([ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi);
 
   # Source files have CRLF terminators, which make patch error out when supplied
   # with diffs made on *nix machines

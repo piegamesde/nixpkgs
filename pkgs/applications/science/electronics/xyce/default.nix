@@ -170,9 +170,9 @@ stdenv.mkDerivation rec {
   postInstall = lib.optionalString enableDocs ''
     local docFiles=("doc/Users_Guide/Xyce_UG"
       "doc/Reference_Guide/Xyce_RG"
-      "doc/Release_Notes/Release_Notes_${
+      "doc/Release_Notes/Release_Notes_${lib.versions.majorMinor version}/Release_Notes_${
         lib.versions.majorMinor version
-      }/Release_Notes_${lib.versions.majorMinor version}")
+      }")
 
     # Release notes refer to an image not in the repo.
     sed -i -E 's/\\includegraphics\[height=(0.5in)\]\{snllineblubrd\}/\\mbox\{\\rule\{0mm\}\{\1\}\}/' ''${docFiles[2]}.tex

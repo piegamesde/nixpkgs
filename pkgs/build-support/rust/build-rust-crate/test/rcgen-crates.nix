@@ -1093,8 +1093,7 @@ rec {
           {
             name = "libc";
             packageId = "libc";
-            target =
-              { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
+            target = { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
           }
         ];
       };
@@ -1715,16 +1714,14 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."os" == "android") || (target."os" == "linux"));
+            target = { target, features }: ((target."os" == "android") || (target."os" == "linux"));
           }
           {
             name = "once_cell";
             packageId = "once_cell";
             optional = true;
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."os" == "android") || (target."os" == "linux"));
+            target = { target, features }: ((target."os" == "android") || (target."os" == "linux"));
             features = [ "std" ];
           }
           {
@@ -1754,9 +1751,7 @@ rec {
                 || (target."arch" == "x86_64")
                 || (
                   ((target."arch" == "aarch64") || (target."arch" == "arm"))
-                  && (
-                    (target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux")
-                  )
+                  && ((target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux"))
                 )
               );
           }
@@ -1804,8 +1799,7 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."unix" or false) || (target."windows" or false));
+            target = { target, features }: ((target."unix" or false) || (target."windows" or false));
           }
         ];
         features = {
@@ -3966,8 +3960,7 @@ rec {
           {
             name = "winapi-x86_64-pc-windows-gnu";
             packageId = "winapi-x86_64-pc-windows-gnu";
-            target =
-              { target, features }: (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu");
+            target = { target, features }: (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu");
           }
         ];
         features = {
@@ -4155,10 +4148,7 @@ rec {
       # This doesn't appear to be officially documented anywhere yet.
       # See https://github.com/rust-lang-nursery/rust-forge/issues/101.
       os =
-        if stdenv.hostPlatform.isDarwin then
-          "macos"
-        else
-          stdenv.hostPlatform.parsed.kernel.name;
+        if stdenv.hostPlatform.isDarwin then "macos" else stdenv.hostPlatform.parsed.kernel.name;
       arch = stdenv.hostPlatform.parsed.cpu.name;
       family = "unix";
       env = "gnu";
@@ -4338,8 +4328,7 @@ rec {
                   if crateOverrides == pkgs.defaultCrateOverrides then
                     buildRustCrateForPkgs
                   else
-                    pkgs:
-                    (buildRustCrateForPkgs pkgs).override { defaultCrateOverrides = crateOverrides; }
+                    pkgs: (buildRustCrateForPkgs pkgs).override { defaultCrateOverrides = crateOverrides; }
                 );
             builtRustCrates = builtRustCratesWithFeatures {
               inherit packageId features;
@@ -4523,9 +4512,7 @@ rec {
       assert (builtins.isList dependencies);
       assert (builtins.isAttrs target);
       let
-        enabledDependencies = filterEnabledDependencies {
-          inherit dependencies features target;
-        };
+        enabledDependencies = filterEnabledDependencies { inherit dependencies features target; };
         depDerivation = dependency: buildByPackageId dependency.packageId;
       in
       map depDerivation enabledDependencies;
@@ -4573,9 +4560,7 @@ rec {
             features = rootFeatures;
             inherit packageId target;
           };
-          diffedDefaultPackageFeatures = diffDefaultPackageFeatures {
-            inherit packageId target;
-          };
+          diffedDefaultPackageFeatures = diffDefaultPackageFeatures { inherit packageId target; };
         };
       in
       {
@@ -4735,9 +4720,7 @@ rec {
             targetFunc = dep.target or (features: true);
           in
           targetFunc { inherit features target; }
-          && (
-            !(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features
-          )
+          && (!(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features)
         )
         dependencies;
 

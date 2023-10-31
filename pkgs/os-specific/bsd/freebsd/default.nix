@@ -406,12 +406,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         ./libnetbsd-do-install.patch
         #./libnetbsd-define-__va_list.patch
       ];
-      makeFlags =
-        [
-          "STRIP=-s" # flag to install, not command
-          "MK_WERROR=no"
-        ]
-        ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
+      makeFlags = [
+        "STRIP=-s" # flag to install, not command
+        "MK_WERROR=no"
+      ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
       buildInputs = with self; compatIfNeeded;
     };
 
@@ -446,13 +444,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
             libmd
             libnetbsd
           ];
-        makeFlags =
-          [
-            "STRIP=-s" # flag to install, not command
-            "MK_WERROR=no"
-            "TESTSDIR=${builtins.placeholder "test"}"
-          ]
-          ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
+        makeFlags = [
+          "STRIP=-s" # flag to install, not command
+          "MK_WERROR=no"
+          "TESTSDIR=${builtins.placeholder "test"}"
+        ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "INSTALL=boot-install";
         postInstall = ''
           install -D -m 0550 ${binstall} $out/bin/binstall
           substituteInPlace $out/bin/binstall --subst-var out

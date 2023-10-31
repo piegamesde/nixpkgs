@@ -743,12 +743,8 @@ let
             concatStringsSep " \\\n  " (
               [ "session required ${pkgs.pam}/lib/security/pam_tty_audit.so" ]
               ++ optional cfg.ttyAudit.openOnly "open_only"
-              ++
-                optional (cfg.ttyAudit.enablePattern != null)
-                  "enable=${cfg.ttyAudit.enablePattern}"
-              ++
-                optional (cfg.ttyAudit.disablePattern != null)
-                  "disable=${cfg.ttyAudit.disablePattern}"
+              ++ optional (cfg.ttyAudit.enablePattern != null) "enable=${cfg.ttyAudit.enablePattern}"
+              ++ optional (cfg.ttyAudit.disablePattern != null) "disable=${cfg.ttyAudit.disablePattern}"
             )
           )
           + optionalString config.services.homed.enable ''
@@ -796,9 +792,7 @@ let
             session optional pam_xauth.so xauthpath=${pkgs.xorg.xauth}/bin/xauth systemuser=99
           ''
           + optionalString (cfg.limits != [ ]) ''
-            session required ${pkgs.pam}/lib/security/pam_limits.so conf=${
-              makeLimitsConf cfg.limits
-            }
+            session required ${pkgs.pam}/lib/security/pam_limits.so conf=${makeLimitsConf cfg.limits}
           ''
           +
             optionalString
@@ -830,8 +824,7 @@ let
   inherit (pkgs) pam_krb5 pam_ccreds;
 
   use_ldap = (config.users.ldap.enable && config.users.ldap.loginPam);
-  pam_ldap =
-    if config.users.ldap.daemon.enable then pkgs.nss_pam_ldapd else pkgs.pam_ldap;
+  pam_ldap = if config.users.ldap.daemon.enable then pkgs.nss_pam_ldapd else pkgs.pam_ldap;
 
   # Create a limits.conf(5) file.
   makeLimitsConf =
@@ -1416,9 +1409,7 @@ in
       ++ optionals config.security.pam.enableFscrypt [ pkgs.fscrypt-experimental ]
       ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
 
-    boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [
-      "ecryptfs"
-    ];
+    boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [ "ecryptfs" ];
 
     security.wrappers = {
       unix_chkpwd = {
@@ -1551,8 +1542,7 @@ in
         mr ${config.systemd.package}/lib/security/pam_systemd.so,
       ''
       +
-        optionalString
-          (isEnabled (cfg: cfg.enableAppArmor) && config.security.apparmor.enable)
+        optionalString (isEnabled (cfg: cfg.enableAppArmor) && config.security.apparmor.enable)
           ''
             mr ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so,
           ''

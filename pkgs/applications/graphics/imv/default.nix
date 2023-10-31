@@ -78,8 +78,7 @@ assert lib.assertOneOf "withWindowSystem" withWindowSystem' (
   builtins.attrNames windowSystems
 );
 # check that every given backend is valid
-assert builtins.all
-    (b: lib.assertOneOf "each backend" b (builtins.attrNames backends))
+assert builtins.all (b: lib.assertOneOf "each backend" b (builtins.attrNames backends))
     withBackends;
 
 stdenv.mkDerivation rec {
@@ -120,8 +119,7 @@ stdenv.mkDerivation rec {
       pango
       inih
     ]
-    ++ windowSystems."${withWindowSystem'}"
-    ++ builtins.map (b: backends."${b}") withBackends;
+    ++ windowSystems."${withWindowSystem'}" ++ builtins.map (b: backends."${b}") withBackends;
 
   postInstall = ''
     # fix the executable path and install the desktop item

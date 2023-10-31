@@ -913,9 +913,7 @@ rec {
       extraCommands ? "",
       ...
     }:
-    (buildImage (
-      args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }
-    ));
+    (buildImage (args // { extraCommands = (mkDbExtraCommand copyToRoot) + extraCommands; }));
 
   # TODO: add the dependencies of the config json.
   buildLayeredImageWithNixDb =
@@ -1006,9 +1004,7 @@ rec {
           ${optionalString enableFakechroot ''
             export FAKECHROOT_EXCLUDE_PATH=/dev:/proc:/sys:${builtins.storeDir}:$out/layer.tar
           ''}
-          ${
-            optionalString enableFakechroot "fakechroot chroot $PWD/old_out "
-          }fakeroot bash -c '
+          ${optionalString enableFakechroot "fakechroot chroot $PWD/old_out "}fakeroot bash -c '
             source $stdenv/setup
             ${optionalString (!enableFakechroot) "cd old_out"}
             eval "$fakeRootCommands"
@@ -1130,9 +1126,7 @@ rec {
                 "created": $created
               }
               ' --arg store_dir "${storeDir}" \
-                --argjson from_image ${
-                  if fromImage == null then "null" else "'\"${fromImage}\"'"
-                } \
+                --argjson from_image ${if fromImage == null then "null" else "'\"${fromImage}\"'"} \
                 --slurpfile store_layers store_layers.json \
                 --arg customisation_layer ${customisationLayer} \
                 --arg repo_tag "$imageName:$imageTag" \

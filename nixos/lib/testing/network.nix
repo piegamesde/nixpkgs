@@ -20,9 +20,7 @@ let
     mdDoc
   ;
 
-  nodeNumbers = listToAttrs (
-    zipListsWith nameValuePair (attrNames nodes) (range 1 254)
-  );
+  nodeNumbers = listToAttrs (zipListsWith nameValuePair (attrNames nodes) (range 1 254));
 
   networkModule =
     {
@@ -38,9 +36,7 @@ let
         nameValuePair "eth${toString snd}" {
           ipv4.addresses = [
             {
-              address = "192.168.${toString fst}.${
-                  toString config.virtualisation.test.nodeNumber
-                }";
+              address = "192.168.${toString fst}.${toString config.virtualisation.test.nodeNumber}";
               prefixLength = 24;
             }
           ];

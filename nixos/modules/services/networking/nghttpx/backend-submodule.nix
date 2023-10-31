@@ -36,9 +36,7 @@
     };
 
     params = lib.mkOption {
-      type = lib.types.nullOr (
-        lib.types.submodule (import ./backend-params-submodule.nix)
-      );
+      type = lib.types.nullOr (lib.types.submodule (import ./backend-params-submodule.nix));
       example = {
         proto = "h2";
         tls = true;

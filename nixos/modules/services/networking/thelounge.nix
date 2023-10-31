@@ -11,8 +11,7 @@ let
   cfg = config.services.thelounge;
   dataDir = "/var/lib/thelounge";
   configJsData =
-    "module.exports = "
-    + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
+    "module.exports = " + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
   pluginManifest = {
     dependencies = builtins.listToAttrs (
       builtins.map

@@ -33,8 +33,7 @@ in
 
 # TODO: loop over targetPrefixed binaries too
 stdenv.mkDerivation {
-  pname =
-    "${targetPrefix}cctools-binutils-darwin" + lib.optionalString dualAs "-dualas";
+  pname = "${targetPrefix}cctools-binutils-darwin" + lib.optionalString dualAs "-dualas";
   inherit (cctools) version;
   outputs = [
     "out"

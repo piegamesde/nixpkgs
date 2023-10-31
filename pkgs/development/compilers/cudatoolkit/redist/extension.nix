@@ -25,9 +25,7 @@ let
   buildCudaToolkitRedistPackages =
     { version, manifest }:
     let
-      attrs = lib.filterAttrs (key: value: key != "release_date") (
-        lib.importJSON manifest
-      );
+      attrs = lib.filterAttrs (key: value: key != "release_date") (lib.importJSON manifest);
     in
     lib.mapAttrs buildCudaToolkitRedistPackage attrs;
 

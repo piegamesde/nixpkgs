@@ -187,9 +187,7 @@
 
             # Generate the sample source
 
-            substitute ${
-              ./sample_source.csh.in
-            } sample_source.csh --replace @sed@ ${gnused}/bin/sed
+            substitute ${./sample_source.csh.in} sample_source.csh --replace @sed@ ${gnused}/bin/sed
             chmod u+rw sample_source.csh
 
 
@@ -391,9 +389,7 @@
 
             # Generate the sample source "$PWD/delta:$PWD/foxtrot" "$PWD/delta:$PWD/foxtrot"
 
-            substitute ${
-              ./sample_source.sh.in
-            } sample_source.sh --replace @sed@ ${gnused}/bin/sed
+            substitute ${./sample_source.sh.in} sample_source.sh --replace @sed@ ${gnused}/bin/sed
             chmod u+rw sample_source.sh
 
 
@@ -416,9 +412,7 @@
             shellcheck -s dash sample_source_patched.sh
 
             echo "Testing in Bash if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            bash --posix ${
-              ./test-sourcing-posix
-            } "./sample_source.sh" "./sample_source_patched.sh"
+            bash --posix ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Dash if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
             dash ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
@@ -437,9 +431,7 @@
             shellcheck -s dash sample_source_patched.sh
 
             echo "Testing in Bash if sample_source.bash and sample_source_patched.bash modifies PATH the same way"
-            bash --posix ${
-              ./test-sourcing-posix
-            } "./sample_source.sh" "./sample_source_patched.sh"
+            bash --posix ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"
 
             echo "Testing in Dash if sample_source.sh and sample_source_patched.sh modifies PATH the same way"
             dash ${./test-sourcing-posix} "./sample_source.sh" "./sample_source_patched.sh"

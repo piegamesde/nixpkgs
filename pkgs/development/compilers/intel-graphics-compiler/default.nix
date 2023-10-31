@@ -88,9 +88,7 @@ stdenv.mkDerivation rec {
     ln -s ${clang}/bin/clang $out/
     ln -s clang $out/clang-${lib.versions.major (lib.getVersion clang)}
     ln -s ${opencl-clang}/lib/* $out/
-    ln -s ${lib.getLib libclang}/lib/clang/${
-      lib.getVersion clang
-    }/include/opencl-c.h $out/
+    ln -s ${lib.getLib libclang}/lib/clang/${lib.getVersion clang}/include/opencl-c.h $out/
     ln -s ${lib.getLib libclang}/lib/clang/${
       lib.getVersion clang
     }/include/opencl-c-base.h $out/

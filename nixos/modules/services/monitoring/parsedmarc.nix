@@ -564,9 +564,7 @@ in
                   cat <(echo -n "${cfg.provision.localMail.recipientName}:") /run/parsedmarc/dmarc_user_passwd | chpasswd
                 '';
             in
-            "+${
-              pkgs.writeShellScript "parsedmarc-start-pre-full-privileges" startPreFullPrivileges
-            }";
+            "+${pkgs.writeShellScript "parsedmarc-start-pre-full-privileges" startPreFullPrivileges}";
           Type = "simple";
           User = "parsedmarc";
           Group = "parsedmarc";

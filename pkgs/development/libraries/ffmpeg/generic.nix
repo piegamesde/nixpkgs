@@ -405,17 +405,9 @@ assert withUnfree -> withGPL && withGPLv3;
 assert withPixelutils -> buildAvutil;
 # *  Program dependencies
 assert buildFfmpeg
-  ->
-    buildAvcodec
-    && buildAvfilter
-    && buildAvformat
-    && (buildSwresample || buildAvresample);
+  -> buildAvcodec && buildAvfilter && buildAvformat && (buildSwresample || buildAvresample);
 assert buildFfplay
-  ->
-    buildAvcodec
-    && buildAvformat
-    && buildSwscale
-    && (buildSwresample || buildAvresample);
+  -> buildAvcodec && buildAvformat && buildSwscale && (buildSwresample || buildAvresample);
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies
 assert buildAvcodec -> buildAvutil; # configure flag since 0.6
@@ -467,10 +459,7 @@ stdenv.mkDerivation (
       [
         #mingw64 is internally treated as mingw32, so 32 and 64 make no difference here
         "--target_os=${
-          if stdenv.hostPlatform.isMinGW then
-            "mingw64"
-          else
-            stdenv.hostPlatform.parsed.kernel.name
+          if stdenv.hostPlatform.isMinGW then "mingw64" else stdenv.hostPlatform.parsed.kernel.name
         }"
         "--arch=${stdenv.hostPlatform.parsed.cpu.name}"
         "--pkg-config=${buildPackages.pkg-config.targetPrefix}pkg-config"
@@ -572,9 +561,7 @@ stdenv.mkDerivation (
         (enableFeature withModplug "libmodplug")
         (enableFeature withMysofa "libmysofa")
         (enableFeature withOpus "libopus")
-        (optionalString (versionAtLeast version "5.0" && withLibplacebo)
-          "--enable-libplacebo"
-        )
+        (optionalString (versionAtLeast version "5.0" && withLibplacebo) "--enable-libplacebo")
         (enableFeature withSvg "librsvg")
         (enableFeature withSrt "libsrt")
         (enableFeature withSsh "libssh")
@@ -772,8 +759,7 @@ stdenv.mkDerivation (
     # Fails with SIGABRT otherwise FIXME: Why?
     checkPhase =
       let
-        ldLibraryPathEnv =
-          if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+        ldLibraryPathEnv = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
         libsToLink =
           [ ]
           ++ optional buildAvcodec "libavcodec"
@@ -787,9 +773,7 @@ stdenv.mkDerivation (
           ++ optional buildSwscale "libswscale";
       in
       ''
-        ${ldLibraryPathEnv}="${
-          lib.concatStringsSep ":" libsToLink
-        }" make check -j$NIX_BUILD_CORES
+        ${ldLibraryPathEnv}="${lib.concatStringsSep ":" libsToLink}" make check -j$NIX_BUILD_CORES
       '';
 
     outputs =

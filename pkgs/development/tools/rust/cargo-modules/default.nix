@@ -19,9 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-ydL2LQVewDmTsMWWAvTXSEp2bkfZdCSBxCIY8+DnABQ=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.CoreServices
-  ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   meta = with lib; {
     description = "A cargo plugin for showing a tree-like overview of a crate's modules";

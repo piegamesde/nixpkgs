@@ -125,9 +125,7 @@ in
               extraConfig = mkOption {
                 type = types.lines;
                 default = "";
-                description =
-                  lib.mdDoc
-                    "Extra configuration-lines added to the section of the service.";
+                description = lib.mdDoc "Extra configuration-lines added to the section of the service.";
               };
             };
           })

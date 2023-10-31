@@ -10,9 +10,7 @@ let
   ppdOptionsString =
     options:
     optionalString (options != { }) (
-      concatStringsSep " " (
-        mapAttrsToList (name: value: "-o '${name}'='${value}'") options
-      )
+      concatStringsSep " " (mapAttrsToList (name: value: "-o '${name}'='${value}'") options)
     );
   ensurePrinter = p: ''
     ${pkgs.cups}/bin/lpadmin -p '${p.name}' -E \

@@ -69,9 +69,7 @@ in
                   // {
                     display_name = if (kernel.displayName != "") then kernel.displayName else kernelName;
                   }
-                  // (optionalAttrs (kernel ? interruptMode) {
-                    interrupt_mode = kernel.interruptMode;
-                  })
+                  // (optionalAttrs (kernel ? interruptMode) { interrupt_mode = kernel.interruptMode; })
                 );
                 extraPaths =
                   kernel.extraPaths or { }

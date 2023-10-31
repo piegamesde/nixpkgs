@@ -456,12 +456,8 @@ in
 
       wantedBy = [ "multi-user.target" ];
       wants = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      bindsTo = [
-        "avahi-daemon.service"
-      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      partOf = [
-        "avahi-daemon.service"
-      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      bindsTo = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      partOf = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
       after = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
 
       path = [ cups ];

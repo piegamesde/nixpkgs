@@ -30,8 +30,7 @@ let
     else if stdenv.hostPlatform.isOpenBSD then
       "ob"
     else
-      throw
-        "Add ${stdenv.hostPlatform.uname.system} to chezOs to enable building chez-racket";
+      throw "Add ${stdenv.hostPlatform.uname.system} to chezOs to enable building chez-racket";
 
   inherit (stdenv.hostPlatform) system;
   chezSystem = "t${chezArch}${chezOs}";

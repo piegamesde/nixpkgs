@@ -87,9 +87,7 @@ in
             lib.mdDoc "exit instead of restarting when a game ends"
           );
           options.Guests = mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
-          options.Newusers = mkEnableOption (
-            lib.mdDoc "new users to login if auth is enabled"
-          );
+          options.Newusers = mkEnableOption (lib.mdDoc "new users to login if auth is enabled");
           options.port = mkOption {
             type = types.port;
             default = 5556;
@@ -234,9 +232,7 @@ in
         SystemCallErrorNumber = "EPERM";
       };
     };
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
   };
   meta.maintainers = with lib.maintainers; [ julm ];
 }

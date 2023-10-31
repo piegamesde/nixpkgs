@@ -20,10 +20,7 @@ let
       #   };
       # works.
       base =
-        if cfg.enableJIT && !cfg.package.jitSupport then
-          cfg.package.withJIT
-        else
-          cfg.package;
+        if cfg.enableJIT && !cfg.package.jitSupport then cfg.package.withJIT else cfg.package;
     in
     if cfg.extraPlugins == [ ] then base else base.withPackages (_: cfg.extraPlugins);
 
@@ -505,9 +502,7 @@ in
       # systems!
       mkDefault (if cfg.enableJIT then base.withJIT else base);
 
-    services.postgresql.dataDir =
-      mkDefault
-        "/var/lib/postgresql/${cfg.package.psqlSchema}";
+    services.postgresql.dataDir = mkDefault "/var/lib/postgresql/${cfg.package.psqlSchema}";
 
     services.postgresql.authentication = mkAfter ''
       # Generated file; do not edit!
@@ -532,8 +527,7 @@ in
     environment.pathsToLink = [ "/share/postgresql" ];
 
     system.extraDependencies =
-      lib.optional
-        (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
+      lib.optional (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
         configFileCheck;
 
     systemd.services.postgresql = {
@@ -612,9 +606,7 @@ in
                 );
 
                 userClauses = ''
-                  $PSQL -tAc 'ALTER ROLE "${user.name}" ${
-                    concatStringsSep " " clauseSqlStatements
-                  }' '';
+                  $PSQL -tAc 'ALTER ROLE "${user.name}" ${concatStringsSep " " clauseSqlStatements}' '';
               in
               ''
                 $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'

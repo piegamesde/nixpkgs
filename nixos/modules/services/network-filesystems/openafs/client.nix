@@ -172,17 +172,13 @@ in
           default = config.boot.kernelPackages.openafs;
           defaultText = literalExpression "config.boot.kernelPackages.openafs";
           type = types.package;
-          description =
-            lib.mdDoc
-              "OpenAFS kernel module package. MUST match the userland package!";
+          description = lib.mdDoc "OpenAFS kernel module package. MUST match the userland package!";
         };
         programs = mkOption {
           default = getBin pkgs.openafs;
           defaultText = literalExpression "getBin pkgs.openafs";
           type = types.package;
-          description =
-            lib.mdDoc
-              "OpenAFS programs package. MUST match the kernel module package!";
+          description = lib.mdDoc "OpenAFS programs package. MUST match the kernel module package!";
         };
       };
 

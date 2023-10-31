@@ -6,8 +6,7 @@
 
 let
   removeLibraryHaskellDepends =
-    pnames: depends:
-    builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends;
+    pnames: depends: builtins.filter (e: !(builtins.elem (e.pname or "") pnames)) depends;
 in
 
 with haskellLib;

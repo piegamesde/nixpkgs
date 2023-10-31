@@ -222,9 +222,7 @@ in
         enable = mkEnableOption (lib.mdDoc "tcp streaming support");
 
         anonymousClients = {
-          allowAll = mkEnableOption (
-            lib.mdDoc "all anonymous clients to stream to the server"
-          );
+          allowAll = mkEnableOption (lib.mdDoc "all anonymous clients to stream to the server");
           allowedIpRanges = mkOption {
             type = types.listOf types.str;
             default = [ ];

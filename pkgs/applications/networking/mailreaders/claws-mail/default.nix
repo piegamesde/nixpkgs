@@ -38,8 +38,7 @@
   networkmanager,
   enableLibetpan ? true,
   libetpan,
-  enableValgrind ?
-    !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
+  enableValgrind ? !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
   valgrind,
   enableSvg ? true,
   librsvg,
@@ -325,9 +324,7 @@ stdenv.mkDerivation rec {
       glib-networking
       gtk3
     ]
-    ++ lib.concatMap (f: lib.optionals f.enabled f.deps) (
-      lib.filter (f: f ? deps) features
-    );
+    ++ lib.concatMap (f: lib.optionals f.enabled f.deps) (lib.filter (f: f ? deps) features);
 
   configureFlags =
     [

@@ -54,15 +54,11 @@ let
             kernel.meta.broken
             || lib.versions.majorMinor version == "4.14"
             || (
-              stdenv.isx86_64
-              && lib.versionAtLeast version "4.19"
-              && lib.versionOlder version "5.5"
+              stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5"
             );
         };
       };
-      kernelPatches = kernel.kernelPatches ++ [
-        kernelPatches.hardened.${kernel.meta.branch}
-      ];
+      kernelPatches = kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ];
       isHardened = true;
     };
 in
@@ -305,9 +301,7 @@ in
         linux_5_19 =
           throw
             "linux 5.19 was removed because it has reached its end of life upstream";
-        linux_6_0 =
-          throw
-            "linux 6.0 was removed because it has reached its end of life upstream";
+        linux_6_0 = throw "linux 6.0 was removed because it has reached its end of life upstream";
 
         linux_xanmod_tt =
           throw
@@ -453,9 +447,7 @@ in
 
         tbs = callPackage ../os-specific/linux/tbs { };
 
-        mbp2018-bridge-drv =
-          callPackage ../os-specific/linux/mbp-modules/mbp2018-bridge-drv
-            { };
+        mbp2018-bridge-drv = callPackage ../os-specific/linux/mbp-modules/mbp2018-bridge-drv { };
 
         new-lg4ff = callPackage ../os-specific/linux/new-lg4ff { };
 
@@ -565,9 +557,7 @@ in
 
         isgx = callPackage ../os-specific/linux/isgx { };
 
-        rr-zen_workaround =
-          callPackage ../development/tools/analysis/rr/zen_workaround.nix
-            { };
+        rr-zen_workaround = callPackage ../development/tools/analysis/rr/zen_workaround.nix { };
 
         sysdig = callPackage ../os-specific/linux/sysdig { };
 
@@ -658,8 +648,7 @@ in
       }
     );
 
-  hardenedPackagesFor =
-    kernel: overrides: packagesFor (hardenedKernelFor kernel overrides);
+  hardenedPackagesFor = kernel: overrides: packagesFor (hardenedKernelFor kernel overrides);
 
   vanillaPackages =
     {
@@ -677,15 +666,9 @@ in
       linux_4_9 =
         throw
           "linux 4.9 was removed because it will reach its end of life within 22.11"; # Added 2022-11-08
-      linux_5_18 =
-        throw
-          "linux 5.18 was removed because it reached its end of life upstream"; # Added 2022-09-17
-      linux_5_19 =
-        throw
-          "linux 5.19 was removed because it reached its end of life upstream"; # Added 2022-11-01
-      linux_6_0 =
-        throw
-          "linux 6.0 was removed because it reached its end of life upstream"; # Added 2023-01-20
+      linux_5_18 = throw "linux 5.18 was removed because it reached its end of life upstream"; # Added 2022-09-17
+      linux_5_19 = throw "linux 5.19 was removed because it reached its end of life upstream"; # Added 2022-11-01
+      linux_6_0 = throw "linux 6.0 was removed because it reached its end of life upstream"; # Added 2023-01-20
     };
 
   rtPackages = {
@@ -711,9 +694,7 @@ in
 
       # Intentionally lacks recurseIntoAttrs, as -rc kernels will quite likely break out-of-tree modules and cause failed Hydra builds.
       linux_testing = packagesFor kernels.linux_testing;
-      linux_testing_bcachefs = recurseIntoAttrs (
-        packagesFor kernels.linux_testing_bcachefs
-      );
+      linux_testing_bcachefs = recurseIntoAttrs (packagesFor kernels.linux_testing_bcachefs);
 
       linux_hardened = recurseIntoAttrs (
         hardenedPackagesFor packageAliases.linux_default.kernel { }
@@ -779,9 +760,7 @@ in
     linux_default = packages.linux_6_1;
     # Update this when adding the newest kernel major version!
     linux_latest = packages.linux_6_3;
-    linux_mptcp =
-      throw
-        "'linux_mptcp' has been moved to https://github.com/teto/mptcp-flake";
+    linux_mptcp = throw "'linux_mptcp' has been moved to https://github.com/teto/mptcp-flake";
     linux_rt_default = packages.linux_rt_5_4;
     linux_rt_latest = packages.linux_rt_6_1;
     linux_hardkernel_latest = packages.hardkernel_4_14;

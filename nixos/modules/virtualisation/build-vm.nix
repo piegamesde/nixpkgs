@@ -18,8 +18,7 @@ let
           _file = "nixos/default.nix##vmWithBootLoader";
           virtualisation.useBootLoader = true;
           virtualisation.useEFIBoot =
-            config.boot.loader.systemd-boot.enable
-            || config.boot.loader.efi.canTouchEfiVariables;
+            config.boot.loader.systemd-boot.enable || config.boot.loader.efi.canTouchEfiVariables;
         }
       )
     ];

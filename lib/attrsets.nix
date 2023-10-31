@@ -251,8 +251,7 @@ rec {
             else if isAttrs value then
               # If we do have a value and it's an attribute set, override it
               # with the nested modifications
-              value
-              // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name}) nested
+              value // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name}) nested
             else
               # However if it's not an attribute set, we can't apply the nested
               # modifications, throw an error
@@ -331,9 +330,8 @@ rec {
        catAttrs :: String -> [AttrSet] -> [Any]
   */
   catAttrs =
-    builtins.catAttrs or (
-      attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l)
-    );
+    builtins.catAttrs
+      or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
 
   /* Filter an attribute set by removing all attributes for which the
      given predicate return false.
@@ -467,8 +465,7 @@ rec {
     list_of_attrs:
     foldr
       (
-        n: a:
-        foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)
+        n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)
       )
       { }
       list_of_attrs;
@@ -520,10 +517,7 @@ rec {
       (
         listOfAttrs: attrName:
         concatMap
-          (
-            attrs:
-            map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}
-          )
+          (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
           listOfAttrs
       )
       [ { } ]
@@ -785,8 +779,7 @@ rec {
        zipAttrsWith :: (String -> [ Any ] -> Any) -> [ AttrSet ] -> AttrSet
   */
   zipAttrsWith =
-    builtins.zipAttrsWith
-      or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
+    builtins.zipAttrsWith or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
 
   /* Merge sets of attributes and combine each attribute value in to a list.
 
@@ -1103,7 +1096,5 @@ rec {
   zipWithNames = zipAttrsWithNames;
 
   # DEPRECATED
-  zip =
-    builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead"
-      zipAttrsWith;
+  zip = builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead" zipAttrsWith;
 }

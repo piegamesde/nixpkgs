@@ -130,9 +130,7 @@ let
     };
 
     keyFile = mkOption {
-      description =
-        lib.mdDoc
-          "${prefix} client key file used to connect to kube-apiserver.";
+      description = lib.mdDoc "${prefix} client key file used to connect to kube-apiserver.";
       type = types.nullOr types.path;
       default = null;
     };
@@ -259,9 +257,7 @@ in
     };
 
     secretsPath = mkOption {
-      description =
-        lib.mdDoc
-          "Default location for kubernetes secrets. Not a store location.";
+      description = lib.mdDoc "Default location for kubernetes secrets. Not a store location.";
       type = types.path;
       default = cfg.dataDir + "/secrets";
       defaultText = literalExpression ''

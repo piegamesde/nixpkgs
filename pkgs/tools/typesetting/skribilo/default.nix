@@ -38,18 +38,16 @@ stdenv.mkDerivation (
       pkg-config
     ];
 
-    buildInputs =
-      [
-        fig2dev
-        gettext
-        ghostscript
-        guile
-        guile-lib
-        guile-reader
-        imagemagick
-        ploticus
-      ]
-      ++ optional enableEmacs emacs ++ optional enableLout lout ++ optional enableTex tex;
+    buildInputs = [
+      fig2dev
+      gettext
+      ghostscript
+      guile
+      guile-lib
+      guile-reader
+      imagemagick
+      ploticus
+    ] ++ optional enableEmacs emacs ++ optional enableLout lout ++ optional enableTex tex;
 
     postInstall =
       let

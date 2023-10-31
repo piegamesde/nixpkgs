@@ -118,9 +118,7 @@ mkDerivation rec {
       pdal
       zstd
     ]
-    ++ lib.optional withGrass grass
-    ++ lib.optional withWebKit qtwebkit
-    ++ pythonBuildInputs;
+    ++ lib.optional withGrass grass ++ lib.optional withWebKit qtwebkit ++ pythonBuildInputs;
 
   nativeBuildInputs = [
     makeWrapper

@@ -21,10 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-LMDtFUrsPYgj/Fl9aBW1todlj1D3LlFxAkzNFAzCGLQ=";
   };
 
-  nativeCheckInputs =
-    [ pytest ]
-    ++ passthru.optional-dependencies.pycryptodome
-    ++ passthru.optional-dependencies.pysha3;
+  nativeCheckInputs = [
+    pytest
+  ] ++ passthru.optional-dependencies.pycryptodome ++ passthru.optional-dependencies.pysha3;
 
   checkPhase = ''
     pytest tests/backends/pycryptodome/

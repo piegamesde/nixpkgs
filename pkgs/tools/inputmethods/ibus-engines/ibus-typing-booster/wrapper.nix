@@ -18,9 +18,7 @@
 
 let
 
-  hunspellDirs = lib.makeSearchPath "share/hunspell" (
-    lib.attrVals langs hunspellDicts
-  );
+  hunspellDirs = lib.makeSearchPath "share/hunspell" (lib.attrVals langs hunspellDicts);
 in
 
 symlinkJoin {

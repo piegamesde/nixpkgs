@@ -45,9 +45,7 @@ let
   newLibpath = "${atomEnv.libPath}:${additionalLibs}";
 
   # Hunspell
-  hunspellDirs =
-    builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell")
-      languages;
+  hunspellDirs = builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
   hunspellTargetDirs = "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
   hunspellCopyCommands =
     lib.concatMapStringsSep "\n" (lang: "cp -r ${lang}/* ${hunspellTargetDirs};")

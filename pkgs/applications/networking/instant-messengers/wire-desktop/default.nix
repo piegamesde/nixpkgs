@@ -69,8 +69,7 @@ let
     inherit pname version meta;
 
     src = fetchurl {
-      url =
-        "https://wire-app.wire.com/linux/debian/pool/main/" + "Wire-${version}_amd64.deb";
+      url = "https://wire-app.wire.com/linux/debian/pool/main/" + "Wire-${version}_amd64.deb";
       inherit hash;
     };
 

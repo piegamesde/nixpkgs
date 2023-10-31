@@ -39,9 +39,7 @@ let
   # dont use the "=" operator
   settingsFormat =
     (pkgs.formats.keyValue {
-      mkKeyValue =
-        lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
-          " ";
+      mkKeyValue = lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; } " ";
     });
 
   configFile = settingsFormat.generate "config" cfg.settings;
@@ -110,8 +108,7 @@ let
       usersWithKeys = attrValues (
         flip filterAttrs config.users.users (
           n: u:
-          length u.openssh.authorizedKeys.keys != 0
-          || length u.openssh.authorizedKeys.keyFiles != 0
+          length u.openssh.authorizedKeys.keys != 0 || length u.openssh.authorizedKeys.keyFiles != 0
         )
       );
     in
@@ -662,9 +659,7 @@ in
     users.groups.sshd = { };
 
     services.openssh.moduliFile = mkDefault "${cfgc.package}/etc/ssh/moduli";
-    services.openssh.sftpServerExecutable =
-      mkDefault
-        "${cfgc.package}/libexec/sftp-server";
+    services.openssh.sftpServerExecutable = mkDefault "${cfgc.package}/libexec/sftp-server";
 
     environment.etc = authKeysFiles // {
       "ssh/moduli".source = cfg.moduliFile;
@@ -783,9 +778,7 @@ in
     services.openssh.extraConfig = mkOrder 0 ''
       UsePAM yes
 
-      Banner ${
-        if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner
-      }
+      Banner ${if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner}
 
       AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
       ${concatMapStrings

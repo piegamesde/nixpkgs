@@ -72,8 +72,7 @@ import ./make-test-python.nix (
             enableDocker = false;
           };
 
-          systemd.services.nomad.serviceConfig.ExecStartPre = "${pkgs.writeShellScript
-              "mk_data_dir"
+          systemd.services.nomad.serviceConfig.ExecStartPre = "${pkgs.writeShellScript "mk_data_dir"
               ''
                 set -euxo pipefail
 

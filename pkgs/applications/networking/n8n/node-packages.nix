@@ -12037,9 +12037,7 @@ in
           ];
         }
       )
-      (
-        sources."@grpc/proto-loader-0.6.13" // { dependencies = [ sources."yargs-16.2.0" ]; }
-      )
+      (sources."@grpc/proto-loader-0.6.13" // { dependencies = [ sources."yargs-16.2.0" ]; })
       (
         sources."@icetee/ftp-0.3.15"
         // {
@@ -12071,9 +12069,7 @@ in
       sources."@lezer/javascript-1.4.1"
       sources."@lezer/lr-1.3.3"
       sources."@mapbox/node-pre-gyp-1.0.10"
-      (
-        sources."@n8n_io/license-sdk-1.8.0" // { dependencies = [ sources."axios-1.1.3" ]; }
-      )
+      (sources."@n8n_io/license-sdk-1.8.0" // { dependencies = [ sources."axios-1.1.3" ]; })
       sources."@n8n_io/riot-tmpl-2.0.0"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
@@ -12102,9 +12098,7 @@ in
           ];
         }
       )
-      (
-        sources."@oclif/help-1.0.5" // { dependencies = [ sources."@oclif/config-1.18.6" ]; }
-      )
+      (sources."@oclif/help-1.0.5" // { dependencies = [ sources."@oclif/config-1.18.6" ]; })
       sources."@oclif/linewrap-1.0.0"
       sources."@oclif/parser-3.8.10"
       sources."@oclif/screen-3.0.4"
@@ -12146,12 +12140,7 @@ in
       sources."@segment/loosely-validate-event-2.0.0"
       sources."@selderee/plugin-htmlparser2-0.10.0"
       (sources."@sentry/core-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
-      (
-        sources."@sentry/integrations-7.40.0"
-        // {
-          dependencies = [ sources."tslib-1.14.1" ];
-        }
-      )
+      (sources."@sentry/integrations-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
       (sources."@sentry/node-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
       sources."@sentry/types-7.40.0"
       (sources."@sentry/utils-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
@@ -12183,12 +12172,7 @@ in
       sources."@types/mime-3.0.1"
       sources."@types/multer-1.4.7"
       sources."@types/node-18.14.6"
-      (
-        sources."@types/node-fetch-2.6.2"
-        // {
-          dependencies = [ sources."form-data-3.0.1" ];
-        }
-      )
+      (sources."@types/node-fetch-2.6.2" // { dependencies = [ sources."form-data-3.0.1" ]; })
       sources."@types/pumpify-1.4.1"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
@@ -12203,9 +12187,7 @@ in
       sources."@types/webidl-conversions-7.0.0"
       sources."@types/whatwg-url-8.2.2"
       sources."@vue/compiler-sfc-2.7.14"
-      (
-        sources."@vue/composition-api-1.7.1" // { dependencies = [ sources."vue-2.6.14" ]; }
-      )
+      (sources."@vue/composition-api-1.7.1" // { dependencies = [ sources."vue-2.6.14" ]; })
       sources."@vue/devtools-api-6.5.0"
       sources."@xmldom/xmldom-0.8.6"
       sources."a-sync-waterfall-1.0.1"
@@ -12226,12 +12208,7 @@ in
       sources."adler-32-1.2.0"
       sources."agent-base-6.0.2"
       sources."agentkeepalive-4.3.0"
-      (
-        sources."aggregate-error-3.1.0"
-        // {
-          dependencies = [ sources."clean-stack-2.2.0" ];
-        }
-      )
+      (sources."aggregate-error-3.1.0" // { dependencies = [ sources."clean-stack-2.2.0" ]; })
       sources."ajv-6.12.6"
       (
         sources."amqplib-0.10.3"
@@ -12541,9 +12518,7 @@ in
       sources."dot-case-3.0.4"
       sources."dotenv-8.6.0"
       sources."dreamopt-0.6.0"
-      (
-        sources."duplexify-4.1.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; }
-      )
+      (sources."duplexify-4.1.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."ecc-jsbn-0.1.2"
       sources."ecdsa-sig-formatter-1.0.11"
       sources."ee-first-1.1.1"
@@ -12610,12 +12585,7 @@ in
       sources."express-prom-bundle-6.6.0"
       sources."extend-3.0.2"
       sources."extend-shallow-2.0.1"
-      (
-        sources."external-editor-3.1.0"
-        // {
-          dependencies = [ sources."iconv-lite-0.4.24" ];
-        }
-      )
+      (sources."external-editor-3.1.0" // { dependencies = [ sources."iconv-lite-0.4.24" ]; })
       sources."extsprintf-1.3.0"
       sources."fast-deep-equal-3.1.3"
       sources."fast-glob-3.2.12"
@@ -12625,12 +12595,7 @@ in
       sources."fastq-1.15.0"
       sources."fecha-4.2.3"
       sources."fflate-0.7.4"
-      (
-        sources."figures-3.2.0"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."figures-3.2.0" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       sources."file-saver-2.0.5"
       sources."file-type-16.5.4"
       sources."file-uri-to-path-1.0.0"
@@ -13017,9 +12982,7 @@ in
       sources."mimic-fn-2.1.0"
       sources."mimic-response-3.1.0"
       sources."minimalistic-assert-1.0.1"
-      (
-        sources."minimatch-3.1.2" // { dependencies = [ sources."brace-expansion-1.1.11" ]; }
-      )
+      (sources."minimatch-3.1.2" // { dependencies = [ sources."brace-expansion-1.1.11" ]; })
       sources."minimist-1.2.8"
       sources."minipass-4.2.4"
       (
@@ -13185,15 +13148,8 @@ in
           ];
         }
       )
-      (
-        sources."n8n-workflow-0.139.0" // { dependencies = [ sources."ast-types-0.15.2" ]; }
-      )
-      (
-        sources."named-placeholders-1.1.3"
-        // {
-          dependencies = [ sources."lru-cache-7.18.3" ];
-        }
-      )
+      (sources."n8n-workflow-0.139.0" // { dependencies = [ sources."ast-types-0.15.2" ]; })
+      (sources."named-placeholders-1.1.3" // { dependencies = [ sources."lru-cache-7.18.3" ]; })
       sources."nan-2.17.0"
       sources."nanoclone-0.2.1"
       sources."nanoid-3.3.4"
@@ -13225,12 +13181,7 @@ in
       )
       sources."node-gyp-build-4.6.0"
       sources."node-html-markdown-1.3.0"
-      (
-        sources."node-html-parser-6.1.5"
-        // {
-          dependencies = [ sources."css-select-5.1.0" ];
-        }
-      )
+      (sources."node-html-parser-6.1.5" // { dependencies = [ sources."css-select-5.1.0" ]; })
       sources."node-machine-id-1.1.12"
       sources."node-rsa-1.1.1"
       sources."node-ssh-12.0.5"
@@ -13301,12 +13252,7 @@ in
       sources."passport-cookie-1.0.9"
       sources."passport-jwt-4.0.1"
       sources."passport-strategy-1.0.0"
-      (
-        sources."password-prompt-1.1.2"
-        // {
-          dependencies = [ sources."ansi-escapes-3.2.0" ];
-        }
-      )
+      (sources."password-prompt-1.1.2" // { dependencies = [ sources."ansi-escapes-3.2.0" ]; })
       sources."path-case-3.0.4"
       sources."path-dirname-1.0.2"
       sources."path-is-absolute-1.0.1"
@@ -13406,12 +13352,7 @@ in
       sources."range-parser-1.2.1"
       (sources."raw-body-2.5.2" // { dependencies = [ sources."iconv-lite-0.4.24" ]; })
       sources."rc-1.2.8"
-      (
-        sources."readable-stream-2.3.8"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."readable-stream-2.3.8" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       (
         sources."readable-web-to-node-stream-3.0.2"
         // {
@@ -13595,9 +13536,7 @@ in
       sources."string.prototype.startswith-1.0.0"
       sources."string.prototype.trimend-1.0.6"
       sources."string.prototype.trimstart-1.0.6"
-      (
-        sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; }
-      )
+      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."strip-ansi-6.0.1"
       sources."strip-json-comments-2.0.1"
       sources."strtok3-6.3.0"
@@ -13627,9 +13566,7 @@ in
           ];
         }
       )
-      (
-        sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; }
-      )
+      (sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."tarn-3.0.2"
       sources."tdigest-0.1.2"
       (

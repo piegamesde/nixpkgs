@@ -17,9 +17,7 @@ let
   testDriver = hostPkgs.callPackage ../test-driver {
     inherit (config) enableOCR extraPythonPackages;
     qemu_pkg = config.qemu.package;
-    imagemagick_light = hostPkgs.imagemagick_light.override {
-      inherit (hostPkgs) libtiff;
-    };
+    imagemagick_light = hostPkgs.imagemagick_light.override { inherit (hostPkgs) libtiff; };
     tesseract4 = hostPkgs.tesseract4.override { enableLanguages = [ "eng" ]; };
   };
 
@@ -31,9 +29,7 @@ let
       nodesList = map (c: c.system.name) (lib.attrValues config.nodes);
     in
     nodesList
-    ++
-      lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList)
-        "machine";
+    ++ lib.optional (lib.length nodesList == 1 && !lib.elem "machine" nodesList) "machine";
 
   # TODO: This is an implementation error and needs fixing
   # the testing famework cannot legitimately restrict hostnames further

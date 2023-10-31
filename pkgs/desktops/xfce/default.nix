@@ -130,9 +130,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "xfce") keep extra (
 
     xfce4-genmon-plugin = callPackage ./panel-plugins/xfce4-genmon-plugin { };
 
-    xfce4-i3-workspaces-plugin =
-      callPackage ./panel-plugins/xfce4-i3-workspaces-plugin
-        { };
+    xfce4-i3-workspaces-plugin = callPackage ./panel-plugins/xfce4-i3-workspaces-plugin { };
 
     xfce4-namebar-plugin = callPackage ./panel-plugins/xfce4-namebar-plugin { };
 

@@ -51,9 +51,7 @@ let
 
   showDeclPrefix =
     loc: decl: prefix:
-    " - option(s) with prefix `${
-       showOption (loc ++ [ prefix ])
-     }' in module `${decl._file}'";
+    " - option(s) with prefix `${showOption (loc ++ [ prefix ])}' in module `${decl._file}'";
   showRawDecls =
     loc: decls:
     concatStringsSep "\n" (
@@ -397,9 +395,7 @@ rec {
       loadModule =
         args: fallbackFile: fallbackKey: m:
         if isFunction m || isAttrs m then
-          unifyModuleSyntax fallbackFile fallbackKey (
-            applyModuleArgsIfFunction fallbackKey m args
-          )
+          unifyModuleSyntax fallbackFile fallbackKey (applyModuleArgsIfFunction fallbackKey m args)
         else if isList m then
           let
             defs = [
@@ -456,9 +452,7 @@ rec {
               n: x:
               let
                 module = loadModule args parentFile "${parentKey}:anon-${toString n}" x;
-                collectedImports =
-                  collectStructuredModules module._file module.key module.imports
-                    args;
+                collectedImports = collectStructuredModules module._file module.key module.imports args;
               in
               {
                 key = module.key;
@@ -516,9 +510,7 @@ rec {
                   toString file
                 }` is none of that, but is of type ${builtins.typeOf m}.";
 
-          disabledKeys =
-            concatMap ({ file, disabled }: map (moduleKey file) disabled)
-              disabled;
+          disabledKeys = concatMap ({ file, disabled }: map (moduleKey file) disabled) disabled;
           keyFilter = filter (attrs: !elem attrs.key disabledKeys);
         in
         map (attrs: attrs.module) (
@@ -529,9 +521,7 @@ rec {
         );
     in
     modulesPath: initialModules: args:
-    filterModules modulesPath (
-      collectStructuredModules unknownModule "" initialModules args
-    );
+    filterModules modulesPath (collectStructuredModules unknownModule "" initialModules args);
 
   # Wrap a module with a default location for reporting errors.
   setDefaultModuleLocation = file: m: {
@@ -914,8 +904,7 @@ rec {
           t' = opt.options.type;
           mergedType = t.typeMerge t'.functor;
           typesMergeable = mergedType != null;
-          typeSet =
-            if (bothHave "type") && typesMergeable then { type = mergedType; } else { };
+          typeSet = if (bothHave "type") && typesMergeable then { type = mergedType; } else { };
           bothHave = k: opt.options ? ${k} && res ? ${k};
         in
         if
@@ -980,9 +969,7 @@ rec {
           throw
             "The option `${
               showOption loc
-            }' is read-only, but it's set multiple times. Definition values:${
-              showDefs separateDefs
-            }"
+            }' is read-only, but it's set multiple times. Definition values:${showDefs separateDefs}"
         else
           mergeDefinitions loc opt.type defs';
 
@@ -998,9 +985,7 @@ rec {
     in
     warnDeprecation opt
     // {
-      value =
-        builtins.addErrorContext "while evaluating the option `${showOption loc}':"
-          value;
+      value = builtins.addErrorContext "while evaluating the option `${showOption loc}':" value;
       inherit (res.defsFinal') highestPrio;
       definitions = map (def: def.value) res.defsFinal;
       files = map (def: def.file) res.defsFinal;
@@ -1368,9 +1353,7 @@ rec {
       warn = true;
       use =
         builtins.trace
-          "Obsolete option `${showOption from}' is used. It was renamed to `${
-            showOption to
-          }'.";
+          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
     };
 
   mkRenamedOptionModuleWith =
@@ -1392,9 +1375,7 @@ rec {
       warn = lib.isInOldestRelease sinceRelease;
       use =
         lib.warnIf (lib.isInOldestRelease sinceRelease)
-          "Obsolete option `${showOption from}' is used. It was renamed to `${
-            showOption to
-          }'.";
+          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
     };
 
   /* Return a module that causes a warning to be shown if any of the "from"
@@ -1455,9 +1436,9 @@ rec {
                   opt = getAttrFromPath f options;
                 in
                 optionalString (val != "_mkMergedOptionModule")
-                  "The option `${showOption f}' defined in ${
-                    showFiles opt.files
-                  } has been changed to `${showOption to}' that has a different type. Please read `${
+                  "The option `${showOption f}' defined in ${showFiles opt.files} has been changed to `${
+                    showOption to
+                  }' that has a different type. Please read `${
                     showOption to
                   }' documentation and update your configuration accordingly."
               )
@@ -1552,9 +1533,7 @@ rec {
     { config, options, ... }:
     let
       fromOpt = getAttrFromPath from options;
-      toOf = attrByPath to (
-        abort "Renaming error: option `${showOption to}' does not exist."
-      );
+      toOf = attrByPath to (abort "Renaming error: option `${showOption to}' does not exist.");
       toType =
         let
           opt = attrByPath to { } options;

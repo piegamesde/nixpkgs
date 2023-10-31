@@ -157,9 +157,7 @@ in
       palmDetect = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable palm detection (hardware support required)";
+        description = lib.mdDoc "Whether to enable palm detection (hardware support required)";
       };
 
       palmMinWidth = mkOption {
@@ -173,9 +171,7 @@ in
         type = types.nullOr types.int;
         default = null;
         example = 20;
-        description =
-          lib.mdDoc
-            "Minimum finger pressure at which touch is considered a palm";
+        description = lib.mdDoc "Minimum finger pressure at which touch is considered a palm";
       };
 
       horizontalScroll = mkOption {
@@ -216,8 +212,7 @@ in
         ${optionalString (cfg.minSpeed != null) ''Option "MinSpeed" "${cfg.minSpeed}"''}
         ${optionalString (cfg.maxSpeed != null) ''Option "MaxSpeed" "${cfg.maxSpeed}"''}
         ${
-          optionalString (cfg.accelFactor != null)
-            ''Option "AccelFactor" "${cfg.accelFactor}"''
+          optionalString (cfg.accelFactor != null) ''Option "AccelFactor" "${cfg.accelFactor}"''
         }
         ${optionalString cfg.tapButtons tapConfig}
         Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
@@ -233,8 +228,7 @@ in
             ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''
         }
         ${
-          optionalString (cfg.palmMinZ != null)
-            ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''
+          optionalString (cfg.palmMinZ != null) ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''
         }
         ${
           optionalString (cfg.scrollDelta != null)

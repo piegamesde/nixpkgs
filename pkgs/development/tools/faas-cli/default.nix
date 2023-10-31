@@ -44,9 +44,7 @@ buildGoModule rec {
     "-w"
     "-X github.com/openfaas/faas-cli/version.GitCommit=ref/tags/${version}"
     "-X github.com/openfaas/faas-cli/version.Version=${version}"
-    "-X github.com/openfaas/faas-cli/commands.Platform=${
-      faasPlatform stdenv.targetPlatform
-    }"
+    "-X github.com/openfaas/faas-cli/commands.Platform=${faasPlatform stdenv.targetPlatform}"
   ];
 
   nativeBuildInputs = [

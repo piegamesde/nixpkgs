@@ -30,10 +30,7 @@ stdenv.mkDerivation {
         name: commit: hash:
         fetchurl {
           url =
-            "https://salsa.debian.org/images-team/syslinux/raw/"
-            + commit
-            + "/debian/patches/"
-            + name;
+            "https://salsa.debian.org/images-team/syslinux/raw/" + commit + "/debian/patches/" + name;
           inherit name hash;
         };
       fetchArchlinuxPatch =

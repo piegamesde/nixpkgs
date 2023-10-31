@@ -80,9 +80,7 @@ let
 
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
-    ++
-      optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority)
-        opt.localSystem
+    ++ optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority) opt.localSystem
     ++
       optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority)
         opt.crossSystem;

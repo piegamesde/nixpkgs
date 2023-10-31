@@ -85,8 +85,7 @@ pythonPackages.callPackage
       isSource = source != null;
       isGit = isSource && source.type == "git";
       isUrl = isSource && source.type == "url";
-      isWheelUrl =
-        isSource && source.type == "url" && lib.strings.hasSuffix ".whl" source.url;
+      isWheelUrl = isSource && source.type == "url" && lib.strings.hasSuffix ".whl" source.url;
       isDirectory = isSource && source.type == "directory";
       isFile = isSource && source.type == "file";
       isLegacy = isSource && source.type == "legacy";
@@ -115,8 +114,7 @@ pythonPackages.callPackage
           # the `wheel` package cannot be built from a wheel, since that requires the wheel package
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
           entries =
-            (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist)
-            ++ eggs;
+            (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist) ++ eggs;
           lockFileEntry =
             (
               if lib.length entries > 0 then
@@ -187,9 +185,7 @@ pythonPackages.callPackage
         (
           lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
           ++ lib.optional isDirectory buildSystemPkgs
-          ++
-            lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-              pythonPackages.setuptools
+          ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) pythonPackages.setuptools
         );
 
       propagatedBuildInputs =
@@ -235,9 +231,7 @@ pythonPackages.callPackage
               submodules = true;
               rev = source.resolved_reference or source.reference;
               ref =
-                sourceSpec.branch or (
-                  if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD"
-                );
+                sourceSpec.branch or (if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD");
             }
             // (lib.optionalAttrs
               ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4"))

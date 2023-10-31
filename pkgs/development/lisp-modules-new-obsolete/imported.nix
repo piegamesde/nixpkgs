@@ -34721,9 +34721,7 @@ in
         asd = "com.clearly-useful.generic-collection-interface.test";
       });
     systems = [ "com.clearly-useful.generic-collection-interface.test" ];
-    lispLibs = [
-      (getAttr "com_dot_clearly-useful_dot_generic-collection-interface" pkgs)
-    ];
+    lispLibs = [ (getAttr "com_dot_clearly-useful_dot_generic-collection-interface" pkgs) ];
   };
   com_dot_clearly-useful_dot_iterate_plus = {
     pname = "com.clearly-useful.iterate+";
@@ -51354,8 +51352,7 @@ in
       (getAttr "hu_dot_dwim_dot_def_plus_contextl" pkgs)
       (getAttr "hu_dot_dwim_dot_def_plus_hu_dot_dwim_dot_delico" pkgs)
       (getAttr "hu_dot_dwim_dot_logger_plus_iolib" pkgs)
-      (getAttr
-        "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
+      (getAttr "hu_dot_dwim_dot_quasi-quote_dot_xml_plus_hu_dot_dwim_dot_quasi-quote_dot_js"
         pkgs
       )
       (getAttr "hu_dot_dwim_dot_syntax-sugar" pkgs)

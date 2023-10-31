@@ -17,9 +17,7 @@ in
 
   options = {
     services.erigon = {
-      enable = mkEnableOption (
-        lib.mdDoc "Ethereum implementation on the efficiency frontier"
-      );
+      enable = mkEnableOption (lib.mdDoc "Ethereum implementation on the efficiency frontier");
 
       extraArgs = mkOption {
         type = types.listOf types.str;

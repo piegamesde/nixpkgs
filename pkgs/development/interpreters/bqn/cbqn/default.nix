@@ -20,12 +20,8 @@ let
   cbqn-bytecode-submodule = callPackage ./cbqn-bytecode.nix {
     inherit lib fetchFromGitHub stdenvNoCC;
   };
-  replxx-submodule = callPackage ./replxx.nix {
-    inherit lib fetchFromGitHub stdenvNoCC;
-  };
-  singeli-submodule = callPackage ./singeli.nix {
-    inherit lib fetchFromGitHub stdenvNoCC;
-  };
+  replxx-submodule = callPackage ./replxx.nix { inherit lib fetchFromGitHub stdenvNoCC; };
+  singeli-submodule = callPackage ./singeli.nix { inherit lib fetchFromGitHub stdenvNoCC; };
 in
 assert genBytecode -> ((bqn-path != null) && (mbqn-source != null));
 
@@ -53,9 +49,7 @@ stdenv.mkDerivation rec {
     patchShebangs build/build
   '';
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-  ] ++ lib.optional enableReplxx "REPLXX=1";
+  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ] ++ lib.optional enableReplxx "REPLXX=1";
 
   buildFlags =
     [

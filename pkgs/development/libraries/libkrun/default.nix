@@ -71,7 +71,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ nickcao ];
     platforms = libkrunfw.meta.platforms;
-    sourceProvenance =
-      with sourceTypes; lib.optionals stdenv.isDarwin [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; lib.optionals stdenv.isDarwin [ binaryNativeCode ];
   };
 }

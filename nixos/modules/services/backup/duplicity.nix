@@ -12,10 +12,7 @@ let
   stateDirectory = "/var/lib/duplicity";
 
   localTarget =
-    if hasPrefix "file://" cfg.targetUrl then
-      removePrefix "file://" cfg.targetUrl
-    else
-      null;
+    if hasPrefix "file://" cfg.targetUrl then removePrefix "file://" cfg.targetUrl else null;
 in
 {
   options.services.duplicity = {
@@ -169,9 +166,7 @@ in
                 lib.escapeShellArg cfg.cleanup.maxAge
               } ${target} --force ${extra}"}
             ${lib.optionalString (cfg.cleanup.maxFull != null)
-              "${dup} remove-all-but-n-full ${
-                toString cfg.cleanup.maxFull
-              } ${target} --force ${extra}"}
+              "${dup} remove-all-but-n-full ${toString cfg.cleanup.maxFull} ${target} --force ${extra}"}
             ${lib.optionalString (cfg.cleanup.maxIncr != null)
               "${dup} remove-all-inc-of-but-n-full ${
                 toString cfg.cleanup.maxIncr
@@ -196,12 +191,10 @@ in
                       p
                     ])
                     cfg.exclude
-                ++ (lib.optionals (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always")
-                  [
-                    "--full-if-older-than"
-                    cfg.fullIfOlderThan
-                  ]
-                )
+                ++ (lib.optionals (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always") [
+                  "--full-if-older-than"
+                  cfg.fullIfOlderThan
+                ])
               )
             } ${extra}
           '';

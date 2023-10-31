@@ -199,9 +199,7 @@ let
             callPackage ./3rdparty/addons/virtual-desktop-bar.nix
               { };
           bismuth = callPackage ./3rdparty/addons/bismuth { };
-          kwin-dynamic-workspaces =
-            callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix
-              { };
+          kwin-dynamic-workspaces = callPackage ./3rdparty/kwin/scripts/dynamic-workspaces.nix { };
           kwin-tiling = callPackage ./3rdparty/kwin/scripts/tiling.nix { };
           krohnkite = callPackage ./3rdparty/kwin/scripts/krohnkite.nix { };
           krunner-ssh = callPackage ./3rdparty/addons/krunner-ssh.nix { };

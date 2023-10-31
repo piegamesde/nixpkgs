@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # patch cl-plus-ssl to ensure that it finds libssl and libcrypto
-    sed 's|libssl.so|${
-      lib.getLib openssl
-    }/lib/libssl.so|' -i ext/cl-plus-ssl/src/reload.lisp
+    sed 's|libssl.so|${lib.getLib openssl}/lib/libssl.so|' -i ext/cl-plus-ssl/src/reload.lisp
     sed 's|libcrypto.so|${
       lib.getLib openssl
     }/lib/libcrypto.so|' -i ext/cl-plus-ssl/src/reload.lisp

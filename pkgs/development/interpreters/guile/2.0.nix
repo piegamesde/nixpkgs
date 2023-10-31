@@ -37,10 +37,9 @@ builder rec {
   ];
   setOutputFlags = false; # $dev gets into the library otherwise
 
-  depsBuildBuild =
-    [ buildPackages.stdenv.cc ]
-    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      pkgsBuildBuild.guile_2_0;
+  depsBuildBuild = [
+    buildPackages.stdenv.cc
+  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) pkgsBuildBuild.guile_2_0;
 
   nativeBuildInputs = [
     makeWrapper
@@ -95,9 +94,7 @@ builder rec {
   # "libgcc_s.so.1 must be installed for pthread_cancel to work".
 
   # don't have "libgcc_s.so.1" on darwin
-  LDFLAGS =
-    lib.optionalString (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl)
-      "-lgcc_s";
+  LDFLAGS = lib.optionalString (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl) "-lgcc_s";
 
   configureFlags =
     [ "--with-libreadline-prefix" ]

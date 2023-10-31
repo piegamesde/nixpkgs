@@ -66,8 +66,7 @@ buildPythonPackage rec {
       pyyaml
       urllib3
     ]
-    ++ passthru.optional-dependencies.launchpad
-    ++ passthru.optional-dependencies.fastimport;
+    ++ passthru.optional-dependencies.launchpad ++ passthru.optional-dependencies.fastimport;
 
   nativeCheckInputs = [ testtools ];
 
