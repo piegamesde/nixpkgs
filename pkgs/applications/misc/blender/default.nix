@@ -158,8 +158,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional jackaudioSupport libjack2
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optional colladaSupport opencollada
-    ++ lib.optional spaceNavSupport libspnav
-  ;
+    ++ lib.optional spaceNavSupport libspnav;
   pythonPath = with python310Packages; [
     numpy
     requests
@@ -193,8 +192,7 @@ stdenv.mkDerivation rec {
     + (lib.optionalString hipSupport ''
       substituteInPlace extern/hipew/src/hipew.c --replace '"/opt/rocm/hip/lib/libamdhip64.so"' '"${hip}/lib/libamdhip64.so"'
       substituteInPlace extern/hipew/src/hipew.c --replace '"opt/rocm/hip/bin"' '"${hip}/bin"'
-    '')
-  ;
+    '');
 
   cmakeFlags =
     [
@@ -238,8 +236,7 @@ stdenv.mkDerivation rec {
       "-DWITH_CYCLES_CUDA_BINARIES=ON"
       "-DWITH_CYCLES_DEVICE_OPTIX=ON"
       "-DOPTIX_ROOT_DIR=${optix}"
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR -I${python}/include/${python.libPrefix}";
 
@@ -254,8 +251,7 @@ stdenv.mkDerivation rec {
         "/Applications/Blender.app/Contents/MacOS/Blender"
       else
         "/bin/blender"
-    )
-  ;
+    );
   postInstall =
     lib.optionalString stdenv.isDarwin ''
       mkdir $out/Applications
@@ -267,8 +263,7 @@ stdenv.mkDerivation rec {
         --prefix PATH : $program_PATH \
         --prefix PYTHONPATH : "$program_PYTHONPATH" \
         --add-flags '--python-use-system-env'
-    ''
-  ;
+    '';
 
   # Set RUNPATH so that libcuda and libnvrtc in /run/opengl-driver(-32)/lib can be
   # found. See the explanation in libglvnd.

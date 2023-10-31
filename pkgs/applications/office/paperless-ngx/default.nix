@@ -239,8 +239,7 @@ python.pkgs.buildPythonApplication rec {
     ]
     ++ redis.optional-dependencies.hiredis
     ++ twisted.optional-dependencies.tls
-    ++ uvicorn.optional-dependencies.standard
-  ;
+    ++ uvicorn.optional-dependencies.standard;
 
   postBuild = ''
     # Compile manually because `pythonRecompileBytecodeHook` only works

@@ -35,8 +35,7 @@ buildGoModule {
     ''
     + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       export GOARCH=$(go env GOHOSTARCH)
-    ''
-  ;
+    '';
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU

@@ -121,8 +121,7 @@ in
             else if cfg.database.type == "pgsql" then
               config.services.postgresql.port
             else
-              1521
-          ;
+              1521;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql" then config.${options.services.mysql.port}
             else if config.${opt.database.type} == "pgsql" then config.${options.services.postgresql.port}
@@ -253,8 +252,7 @@ in
         ''
         + optionalString (cfg.database.type == "oracle") ''
           extension=${pkgs.phpPackages.oci8}/lib/php/extensions/oci8.so
-        ''
-      ;
+        '';
       phpEnv.ZABBIX_CONFIG = "${zabbixConfig}";
       settings = {
         "listen.owner" = config.services.httpd.user;

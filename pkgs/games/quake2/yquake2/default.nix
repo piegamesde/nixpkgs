@@ -47,8 +47,7 @@ let
       + lib.optionalString (openalSupport && !stdenv.isDarwin) ''
         substituteInPlace Makefile \
           --replace "\"libopenal.so.1\"" "\"${openal}/lib/libopenal.so.1\""
-      ''
-    ;
+      '';
 
     buildInputs =
       [
@@ -60,8 +59,7 @@ let
         Cocoa
         OpenAL
       ]
-      ++ lib.optional openalSupport openal
-    ;
+      ++ lib.optional openalSupport openal;
 
     makeFlags = [
       "WITH_OPENAL=${mkFlag openalSupport}"

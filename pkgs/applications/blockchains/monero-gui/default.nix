@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
       protobuf
       python3
     ]
-    ++ lib.optionals stdenv.isDarwin [ qtmacextras ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ qtmacextras ];
 
   postUnpack = ''
     # copy monero sources here

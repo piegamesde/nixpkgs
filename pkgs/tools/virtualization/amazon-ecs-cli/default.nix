@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
         sha256 = "1viala49sifpcmgn3jw24h5bkrlm4ffadjiqagbxj3lr0r78i9nm";
       }
     else
-      throw "Architecture not supported"
-  ;
+      throw "Architecture not supported";
 
   dontUnpack = true;
 

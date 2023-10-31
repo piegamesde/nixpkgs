@@ -31,8 +31,7 @@ let
     else
       substring (head nonchars).ind
         (add 1 (sub (last nonchars).ind (head nonchars).ind))
-        str
-  ;
+        str;
   indent =
     str:
     concatStrings (

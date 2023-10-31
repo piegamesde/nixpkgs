@@ -86,8 +86,7 @@ rustPlatform.buildRustPackage rec {
       Foundation
       libiconv
       UserNotifications
-    ]
-  ;
+    ];
 
   buildFeatures = [ "distro-defaults" ];
 
@@ -122,8 +121,7 @@ rustPlatform.buildRustPackage rec {
       rm $OUT_APP/*.dylib
       cp -r assets/shell-integration/* "$OUT_APP"
       ln -s $out/bin/{wezterm,wezterm-mux-server,wezterm-gui,strip-ansi-escapes} "$OUT_APP"
-    ''
-  ;
+    '';
 
   passthru = {
     tests = {

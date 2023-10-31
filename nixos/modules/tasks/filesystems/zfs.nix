@@ -134,8 +134,7 @@ let
         command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
             toString keys
           }";
-      }
-  ;
+      };
 
   createImportService =
     {
@@ -217,8 +216,7 @@ let
           else
             exit 1
           fi
-        ''
-      ;
+        '';
     };
 
   zedConf =
@@ -240,8 +238,7 @@ let
                 else if isList v then
                   ''"'' + (concatStringsSep " " v) + ''"''
                 else
-                  err "this value is" (toString v)
-              ;
+                  err "this value is" (toString v);
             }
             "=";
       }
@@ -673,8 +670,7 @@ in
                   (fs: ''
                     zfs load-key -- ${escapeShellArg fs}
                   '')
-                  (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)
-              }
+                  (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)}
             '')
             rootPools
           )
@@ -850,8 +846,7 @@ in
             if cfgExpandOnBoot == "all" then
               "$(zpool list -H -o name)"
             else
-              lib.escapeShellArgs cfgExpandOnBoot
-          ;
+              lib.escapeShellArgs cfgExpandOnBoot;
         in
         {
           description = "Expand specified ZFS pools";
@@ -889,8 +884,7 @@ in
             else if name == "monthly" then
               "month"
             else
-              throw "unknown snapshot name"
-          ;
+              throw "unknown snapshot name";
           numSnapshots = name: builtins.getAttr name cfgSnapshots;
         in
         builtins.listToAttrs (

@@ -118,8 +118,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableZstd "--zstd"
     ++ lib.optional enableLua "--lua"
-    ++ lib.optional enableMixmaster "--mixmaster"
-  ;
+    ++ lib.optional enableMixmaster "--mixmaster";
 
   postInstall =
     ''
@@ -129,8 +128,7 @@ stdenv.mkDerivation rec {
     # Contains vim-keys, keybindings presets and more.
     +
       lib.optionalString withContrib
-        "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt"
-  ;
+        "${lib.getExe lndir} ${passthru.contrib} $out/share/doc/neomutt";
 
   doCheck = true;
 

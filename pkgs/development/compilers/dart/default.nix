@@ -30,8 +30,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString (stdenv.isLinux) ''
         find $out/bin -executable -type f -exec patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) {} \;
-      ''
-    ;
+      '';
 
     libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
     dontStrip = true;

@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
       jsoncpp
       openssl
       zmqpp
-    ]
-  ;
+    ];
 
   meta = {
     description = "Easy to use, general purpose Computer Algebra System${

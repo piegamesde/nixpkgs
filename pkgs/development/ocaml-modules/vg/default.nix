@@ -59,8 +59,7 @@ else
       ++ optionals htmlcBackend [
         js_of_ocaml
         js_of_ocaml-ppx
-      ]
-    ;
+      ];
 
     strictDeps = true;
 
@@ -69,8 +68,7 @@ else
       + " --with-uutf ${lib.boolToString pdfBackend}"
       + " --with-otfm ${lib.boolToString pdfBackend}"
       + " --with-js_of_ocaml ${lib.boolToString htmlcBackend}"
-      + " --with-cairo2 false"
-    ;
+      + " --with-cairo2 false";
 
     inherit (topkg) installPhase;
 

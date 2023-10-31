@@ -106,8 +106,7 @@ with lib;
         }
       else
         { default = null; }
-    )
-  ;
+    );
 
   runnerGroup = mkOption {
     type = types.nullOr types.str;

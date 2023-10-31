@@ -127,8 +127,7 @@ stdenv.mkDerivation rec {
     + ''
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/diasurgical/devilutionX";

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString cppSupport "-cpp"
     + lib.optionalString fortranSupport "-fortran"
     + lib.optionalString mpiSupport "-mpi"
-    + lib.optionalString threadsafe "-threadsafe"
-  ;
+    + lib.optionalString threadsafe "-threadsafe";
 
   src = fetchurl {
     url = "https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-${
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     optional fortranSupport fortran
     ++ optional szipSupport szip
-    ++ optional javaSupport jdk
-  ;
+    ++ optional javaSupport jdk;
 
   propagatedBuildInputs = optional zlibSupport zlib ++ optional mpiSupport mpi;
 
@@ -89,8 +87,7 @@ stdenv.mkDerivation rec {
     ++ optionals threadsafe [
       "--enable-threadsafe"
       "--disable-hl"
-    ]
-  ;
+    ];
 
   patches =
     [

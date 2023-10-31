@@ -53,8 +53,7 @@ let
     if builtins.hasAttr event cfg.hooks then
       (shellCmdsForEventScript event (builtins.getAttr event cfg.hooks))
     else
-      ""
-  ;
+      "";
 
   scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; } (
     ''
@@ -72,6 +71,7 @@ let
       sed -i -e "s|^SCRIPTDIR=.*|SCRIPTDIR=$out|" "$out/apccontrol"
     ''
     + concatStringsSep "\n" (map eventToShellCmds eventList)
+
   );
 
   # Ensure the CLI uses our generated configFile

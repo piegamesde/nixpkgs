@@ -31,8 +31,7 @@ let
     else if stdenv.isDarwin then
       "Mac OSX"
     else
-      throw "unsupported platform"
-  ;
+      throw "unsupported platform";
 in
 stdenv.mkDerivation rec {
   pname = "lorien";

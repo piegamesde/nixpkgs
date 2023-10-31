@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
       sha256 = "0cclgyqv4f9pjsdlh93cqvgbzrp8ajvrpc2xszs03sknqz2kdh7r";
       url =
         "https://dl.ganttproject.biz/ganttproject-${version}/"
-        + "ganttproject-${version}-${build}.zip"
-      ;
+        + "ganttproject-${version}-${build}.zip";
     };
 
   nativeBuildInputs = [ makeWrapper ];

@@ -167,8 +167,7 @@ let
         if builtins.hasAttr value variables then
           (builtins.toJSON variables."${value}")
         else
-          value
-      ;
+          value;
       processVar =
         value:
         builtins.foldl' (acc: v: v acc) value [
@@ -207,8 +206,7 @@ let
           exprs
       )
     else
-      builtins.map transformExpressions exprs
-  ;
+      builtins.map transformExpressions exprs;
 
   # Recursively eval all expressions
   evalExpressions =
@@ -281,8 +279,7 @@ let
           exprs
       )
     else
-      builtins.map evalExpressions exprs
-  ;
+      builtins.map evalExpressions exprs;
 
   # Now that we have performed an eval all that's left to do is to concat the graph into a single bool
   reduceExpressions =

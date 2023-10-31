@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
       Cocoa
       QTKit
       Accelerate
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

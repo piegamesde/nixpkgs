@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
     ''
     + (lib.optionalString (lisp-compiler.pname == "ecl") ''
       cp src/binary-ecl/maxima.fas* "$out/lib/maxima/${version}/binary-ecl/"
-    '')
-  ;
+    '');
 
   patches =
     [

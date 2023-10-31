@@ -29,8 +29,7 @@ let
     else if stdenv.hostPlatform.system == "x86_64-darwin" then
       "macos64"
     else
-      throw "Unsupported system: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   desktopItem = makeDesktopItem {
     name = "jameica";

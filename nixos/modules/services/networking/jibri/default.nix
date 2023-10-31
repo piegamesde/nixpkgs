@@ -20,16 +20,16 @@ let
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
-      builtins.toJSON x
-  ;
+      builtins.toJSON x;
 
   # We're passing passwords in environment variables that have names generated
   # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
     "XMPP_PASSWORD_"
-    + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s
-  ;
+    +
+      stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_")
+        s;
 
   defaultJibriConfig = {
     id = "";
@@ -427,8 +427,7 @@ in
           ${pkgs.jdk11_headless}/bin/java -Djava.util.logging.config.file=${
             ./logging.properties-journal
           } -Dconfig.file=${configFile} -jar ${pkgs.jibri}/opt/jitsi/jibri/jibri.jar --config /var/lib/jibri/jibri.json
-        ''
-      ;
+        '';
 
       environment.HOME = "/var/lib/jibri";
 

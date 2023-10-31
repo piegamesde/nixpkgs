@@ -19,8 +19,7 @@ let
     else if enableStatic then
       "static"
     else
-      throw "neither shared nor static libraries requested"
-  ;
+      throw "neither shared nor static libraries requested";
 in
 stdenv.mkDerivation rec {
   pname = "build2";

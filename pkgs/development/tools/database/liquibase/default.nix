@@ -20,8 +20,7 @@ let
     ++ lib.optionals redshiftSupport [
       redshift_jdbc
       liquibase_redshift_extension
-    ]
-  ;
+    ];
 in
 
 stdenv.mkDerivation rec {

@@ -143,8 +143,7 @@ let
               + ''
                 runHook postInstall
               ''
-          )
-        ;
+          );
       }
     );
 
@@ -201,8 +200,7 @@ let
               cp ${noopScript} libexec/extract-node
               cp ${linkFiles} libexec/inject-libv8
             '';
-          }
-        ;
+          };
         mini_suffix = gems.mini_suffix // {
           propagatedBuildInputs = [ libpsl ];
           dontBuild = false;
@@ -225,8 +223,7 @@ let
             export SASS_EMBEDDED=${dart-sass-embedded}/bin
           '';
         };
-      }
-    ;
+      };
 
     groups = [
       "default"

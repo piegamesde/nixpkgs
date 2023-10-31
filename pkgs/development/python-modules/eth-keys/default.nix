@@ -42,8 +42,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.coincurve
     ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
-    ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome
-  ;
+    ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome;
 
   disabledTests = [
     # tests are broken

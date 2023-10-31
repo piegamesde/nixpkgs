@@ -34,8 +34,7 @@ let
     else if (length rule.args == 0) then
       "args"
     else
-      "args ${concatStringsSep " " rule.args}"
-  ;
+      "args ${concatStringsSep " " rule.args}";
 
   mkRule =
     rule:

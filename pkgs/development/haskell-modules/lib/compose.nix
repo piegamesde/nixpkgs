@@ -41,8 +41,7 @@ rec {
     ))
     // {
       overrideScope = scope: overrideCabal f (drv.overrideScope scope);
-    }
-  ;
+    };
 
   # : Map Name (Either Path VersionNumber) -> HaskellPackageOverrideSet
   # Given a set whose values are either paths or version strings, produces
@@ -367,8 +366,7 @@ rec {
 
           # Remove every directory which could have links to other store paths.
           rm -rf $out/lib $out/nix-support $out/share/doc
-        ''
-      ;
+        '';
     }
   );
 
@@ -434,8 +432,7 @@ rec {
             );
           in
           "${pkgs.haskellPackages.packunused}/bin/packunused"
-          + optionalString (args != "") " ${args}"
-        ;
+          + optionalString (args != "") " ${args}";
       })
       (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
@@ -548,8 +545,7 @@ rec {
               echo 'Could not find ${exeName} in completion script.'
               exit 1
             }
-          ''
-        ;
+          '';
       }
     );
 
@@ -624,8 +620,7 @@ rec {
                         }
                       ]
                   )
-                  (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
-            ;
+                  (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
           }
         );
     in

@@ -32,8 +32,7 @@ import ./make-test-python.nix (
                       --replace "binary=/usr/bin/" "comm=" \
                       --replace "/usr/bin/dockerd" "dockerd" \
                       --replace "/usr/bin" "/run/current-system/sw/bin"
-                  ''
-                ;
+                  '';
                 nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
                 buildPhase = ''
                   runHook preBuild

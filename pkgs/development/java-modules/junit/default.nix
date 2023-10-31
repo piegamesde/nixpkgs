@@ -186,8 +186,7 @@ rec {
           sonatypeParent_7
           surefire_2_17
         ]
-      )
-    ;
+      );
     sha512 = "0bbldnf37jl855s1pdx2a518ivfifv75189vsbpylnj8530vnf8z6b2dglkcbcjgr22lp1s4m1nnplz5dmka9sr7vj055p88k27kqw9";
     version = "4.12";
   };

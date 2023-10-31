@@ -25,8 +25,7 @@ let
     && !stdenv.isAarch64
     # Valgrind on musl does not hook malloc calls properly, resulting in errors `Invalid free() / delete / delete[] / realloc()`
     # https://bugs.kde.org/show_bug.cgi?id=435441
-    && !stdenv.hostPlatform.isMusl
-  ;
+    && !stdenv.hostPlatform.isMusl;
 in
 stdenv.mkDerivation rec {
   pname = "libpsl";

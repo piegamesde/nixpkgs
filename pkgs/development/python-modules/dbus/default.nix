@@ -50,8 +50,7 @@ buildPythonPackage rec {
     ]
     # My guess why it's sometimes trying to -lncurses.
     # It seems not to retain the dependency anyway.
-    ++ lib.optional (!python ? modules) ncurses
-  ;
+    ++ lib.optional (!python ? modules) ncurses;
 
   doCheck = isPy3k;
   nativeCheckInputs = [

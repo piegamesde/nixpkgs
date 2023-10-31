@@ -282,8 +282,7 @@ in
               + concatStrings (innerElementsForVirtualHost virtualHost)
               + ''
                 </Host>
-              ''
-            ;
+              '';
             innerElementsForVirtualHost =
               virtualHost:
               (map
@@ -295,8 +294,7 @@ in
               ++ (optional cfg.logPerVirtualHost ''
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
-              '')
-            ;
+              '');
             hostElementsString =
               concatMapStringsSep "\n" hostElementForVirtualHost
                 cfg.virtualHosts;
@@ -315,8 +313,7 @@ in
               escapeShellArg hostElementsSedString
             } \
                   ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
-          ''
-        }
+          ''}
         ${optionalString (cfg.logDirs != [ ]) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i

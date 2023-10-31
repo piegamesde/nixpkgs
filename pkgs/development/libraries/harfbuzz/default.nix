@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       # ApplicationServices.framework headers have cast-align warnings.
       substituteInPlace src/hb.hh \
         --replace '#pragma GCC diagnostic error   "-Wcast-align"' ""
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

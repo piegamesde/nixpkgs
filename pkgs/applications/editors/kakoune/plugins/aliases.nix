@@ -13,8 +13,7 @@ let
     if alias.recurseForDerivations or false then
       removeAttrs alias [ "recurseForDerivations" ]
     else
-      alias
-  ;
+      alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -28,8 +27,7 @@ let
     if builtins.hasAttr n overridden then
       throw "Alias ${n} is still in kakounePlugins"
     else
-      alias
-  ;
+      alias;
 
   mapAliases =
     aliases:

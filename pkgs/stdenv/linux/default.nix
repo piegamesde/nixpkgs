@@ -235,11 +235,9 @@ let
                     (a.postFixup or "")
                     + ''
                       echo "--sysroot=${lib.getDev (getLibc prevStage)}" >> $out/nix-support/cc-cflags
-                    ''
-                  ;
+                    '';
                 }
-              )
-        ;
+              );
 
         overrides =
           self: super: (overrides self super) // { fetchurl = thisStdenv.fetchurlBoot; };
@@ -298,8 +296,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             ''
             + lib.optionalString (localSystem.libc == "musl") ''
               ln -s ${bootstrapTools}/include-libc $out/include
-            ''
-          ;
+            '';
           passthru.isFromBootstrapFiles = true;
         };
         gcc-unwrapped = bootstrapTools;
@@ -514,8 +511,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               attrs.postFixup or ""
               + ''
                 ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
-              ''
-            ;
+              '';
             # Apparently iconv won't work with bootstrap glibc, but it will be used
             # with glibc built later where we keep *this* build of libunistring,
             # so we need to trick it into supporting libiconv.
@@ -531,8 +527,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               + ''
                 ${self.nukeReferences}/bin/nuke-refs -e '${lib.getLib self.libunistring}' \
                   "$out"/lib/lib*.so.*.*
-              ''
-            ;
+              '';
           }
         );
 
@@ -654,8 +649,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
                   };
                 }
               );
-        }
-      ;
+        };
       extraNativeBuildInputs =
         [ prevStage.patchelf ]
         ++
@@ -857,8 +851,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               mpfr
               isl
             ]
-          )
-        ;
+          );
 
         overrides =
           self: super:
@@ -905,8 +898,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
             # Need to get rid of these when cross-compiling.
             inherit (prevStage) binutils binutils-unwrapped;
             gcc = cc;
-          }
-        ;
+          };
       };
     }
   )

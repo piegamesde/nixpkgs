@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     ]
     # help2man can't cross compile because it runs `poke --help` to
     # generate the man page
-    ++ lib.optional (!isCross) "man"
-  ;
+    ++ lib.optional (!isCross) "man";
 
   postPatch = ''
     patchShebangs .
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals guiSupport [
       makeWrapper
       tcl.tclPackageHook
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -82,8 +80,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional miSupport json_c
     ++ lib.optional nbdSupport libnbd
     ++ lib.optional textStylingSupport gettext
-    ++ lib.optional (!isCross) dejagnu
-  ;
+    ++ lib.optional (!isCross) dejagnu;
 
   configureFlags =
     [

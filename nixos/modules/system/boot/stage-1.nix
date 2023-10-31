@@ -249,8 +249,7 @@ let
         else
           ''
             $out/bin/mount --help 2>&1 | grep -q "BusyBox"
-          ''
-        }
+          ''}
         $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
         $out/bin/udevadm --version
         $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
@@ -409,8 +408,7 @@ let
       else
         ''
           echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
-        ''
-      }
+        ''}
     '';
   };
 
@@ -477,8 +475,7 @@ let
           object = options.source;
         })
         config.boot.initrd.extraFiles
-      )
-    ;
+      );
   };
 
   # Script to add secret files to the initrd at bootloader update time
@@ -791,8 +788,7 @@ in
           resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
         message =
           "boot.resumeDevice has to be an absolute path."
-          + " Old \"x:y\" style is no longer supported."
-        ;
+          + " Old \"x:y\" style is no longer supported.";
       }
       # TODO: remove when #85000 is fixed
       {
@@ -805,8 +801,7 @@ in
                 builtins.isPath source
                 || (builtins.isString source && hasPrefix builtins.storeDir source)
               )
-              (attrValues config.boot.initrd.secrets)
-        ;
+              (attrValues config.boot.initrd.secrets);
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when
           using a bootloader that doesn't natively support initrd

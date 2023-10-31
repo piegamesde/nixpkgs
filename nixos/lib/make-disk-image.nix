@@ -271,8 +271,7 @@ let
       vpc = "vhd";
       raw = "img";
     }
-      .${format} or format
-  ;
+      .${format} or format;
 
   rootPartition =
     {
@@ -528,8 +527,7 @@ let
         else
           ''
             reservedSpace=0
-          ''
-        }
+          ''}
         additionalSpace=$(( $(numfmt --from=iec '${additionalSpace}') + reservedSpace ))
 
         # Compute required space in filesystem blocks
@@ -563,8 +561,7 @@ let
     else
       ''
         truncate -s ${toString diskSize}M $diskImage
-      ''
-    }
+      ''}
 
     ${partitionDiskScript}
 
@@ -578,8 +575,7 @@ let
     else
       ''
         mkfs.${fsType} -b ${blockSize} -F -L ${label} $diskImage
-      ''
-    }
+      ''}
 
     echo "copying staging root to image..."
     cptofs -p ${
@@ -599,8 +595,7 @@ let
     else
       ''
         ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${format} ${compress} $diskImage $out/${filename}
-      ''
-    }
+      ''}
     diskImage=$out/${filename}
   '';
 

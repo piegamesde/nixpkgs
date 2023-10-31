@@ -33,8 +33,7 @@ buildPythonPackage rec {
       # remove some integers in this test case which overflow on 32bit systems
       sed -i -r -e '/class *UnitGetSizeTestCase/,/^$/{/[0-9]{11}/d}' \
         tests/test__ped_ped.py
-    ''
-  ;
+    '';
 
   patches = [
     ./fix-test-pythonpath.patch

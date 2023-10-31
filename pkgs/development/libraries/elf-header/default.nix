@@ -11,8 +11,7 @@ let
     if stdenvNoCC.targetPlatform.isMusl then
       "musl-${libc.version}/include/elf.h"
     else
-      "glibc-${libc.version}/elf/elf.h"
-  ;
+      "glibc-${libc.version}/elf/elf.h";
 in
 
 stdenvNoCC.mkDerivation {

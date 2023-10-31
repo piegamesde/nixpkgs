@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
       systemd
       upower
     ]
-    ++ lib.optionals stdenv.isDarwin [ e2fsprogs ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ e2fsprogs ];
 
   mesonFlags =
     [

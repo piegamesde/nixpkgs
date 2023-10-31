@@ -25,6 +25,5 @@ buildNimPackage rec {
       description = "Nim wrappers over some of the Tkrzw C++ library";
       license = lib.licenses.apsl20;
       maintainers = with lib.maintainers; [ ehmry ];
-    }
-  ;
+    };
 }

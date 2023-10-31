@@ -111,8 +111,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (headersOnly) [
       "-DCMAKE_C_COMPILER_WORKS=ON"
       "-DCMAKE_CXX_COMPILER_WORKS=ON"
-    ]
-  ;
+    ];
 
   ninjaFlags = lib.optional headersOnly "generate-cxx-headers";
   installTargets = lib.optional headersOnly "install-cxx-headers";

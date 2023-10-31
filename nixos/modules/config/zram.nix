@@ -148,15 +148,13 @@ in
                       if cfg.memoryMax != null then
                         "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
                       else
-                        size
-                    ;
+                        size;
                     compression-algorithm = cfg.algorithm;
                     swap-priority = cfg.priority;
                   }
                   // lib.optionalAttrs (cfg.writebackDevice != null) {
                     writeback-device = cfg.writebackDevice;
-                  }
-                ;
+                  };
               })
               devices
           )

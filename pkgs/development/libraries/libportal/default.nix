@@ -19,8 +19,7 @@
 assert variant == null
   || variant == "gtk3"
   || variant == "gtk4"
-  || variant == "qt5"
-;
+  || variant == "qt5";
 
 stdenv.mkDerivation rec {
   pname = "libportal" + lib.optionalString (variant != null) "-${variant}";
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
     [ glib ]
     ++ lib.optionals (variant == "gtk3") [ gtk3 ]
     ++ lib.optionals (variant == "gtk4") [ gtk4 ]
-    ++ lib.optionals (variant == "qt5") [ libsForQt5.qtbase ]
-  ;
+    ++ lib.optionals (variant == "qt5") [ libsForQt5.qtbase ];
 
   mesonFlags = [
     "-Dbackends=${lib.optionalString (variant != null) variant}"

@@ -22,8 +22,7 @@ let
     else if value == false then
       "# setting `${name}` explicitly set to false"
     else
-      generators.mkKeyValueDefault { } "=" name value
-  ;
+      generators.mkKeyValueDefault { } "=" name value;
 
   settingsFormat = pkgs.formats.keyValue {
     mkKeyValue = formatKeyValue;

@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       "-DTAP_CHECKS=OFF"
     ]
     ++ lib.optionals (!enableUnfree) [ "-DAPACHE_ONLY=ON" ]
-    ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ];
 
   # Fix the install phase which tries to install into the pgsql extension dir,
   # and cannot be manually overridden. This is rather fragile but works OK.

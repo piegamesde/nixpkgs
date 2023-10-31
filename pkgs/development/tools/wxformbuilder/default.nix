@@ -25,8 +25,7 @@ stdenv.mkDerivation {
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
-    ++ lib.optionals stdenv.isLinux [ shared-mime-info ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ shared-mime-info ];
 
   buildInputs = [
     wxGTK32

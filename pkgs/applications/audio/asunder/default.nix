@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional opusSupport opusTools
     ++ lib.optional wavpackSupport wavpack
     ++ lib.optional monkeysAudioSupport monkeysAudio
-    ++ [ cdparanoia ]
-  ;
+    ++ [ cdparanoia ];
 
   postInstall = ''
     wrapProgram "$out/bin/asunder" \

@@ -146,8 +146,7 @@ in
                   if cfg.maxUploadSizeMegabytes == 0 then
                     "0"
                   else
-                    "${cfg.maxUploadSizeMegabytes}m"
-                ;
+                    "${cfg.maxUploadSizeMegabytes}m";
               in
               ''
                 index index.php;

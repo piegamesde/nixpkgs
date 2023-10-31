@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
       amrwb
     ]
     ++ lib.optional enableLibpulseaudio libpulseaudio
-    ++ lib.optional stdenv.isDarwin CoreAudio
-  ;
+    ++ lib.optional stdenv.isDarwin CoreAudio;
 
   meta = with lib; {
     description = "Sample Rate Converter for audio";

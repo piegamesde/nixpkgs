@@ -54,8 +54,7 @@ let
         ${scfg.config}
         !
         end
-      ''
-  ;
+      '';
 
   serviceOptions = service: {
     enable = mkEnableOption (
@@ -181,8 +180,7 @@ in
       (builtins.listToAttrs (map mkEtcLink (filter isEnabled allServices)))
       // {
         "frr/vtysh.conf".text = "";
-      }
-    ;
+      };
 
     systemd.tmpfiles.rules = [ "d /run/frr 0750 frr frr -" ];
 
@@ -207,8 +205,7 @@ in
               if service == "zebra" then
                 "FRR Zebra routing manager"
               else
-                "FRR ${toUpper service} routing daemon"
-            ;
+                "FRR ${toUpper service} routing daemon";
 
             unitConfig.Documentation =
               if service == "zebra" then "man:zebra(8)" else "man:${daemon}(8) man:zebra(8)";
@@ -225,8 +222,7 @@ in
                   optionalString (scfg.vtyListenPort != null)
                     " -P ${toString scfg.vtyListenPort}"
                 + " "
-                + (concatStringsSep " " scfg.extraOptions)
-              ;
+                + (concatStringsSep " " scfg.extraOptions);
               ExecReload = "${pkgs.python3.interpreter} ${pkgs.frr}/libexec/frr/frr-reload.py --reload --daemon ${
                   daemonName service
                 } --bindir ${pkgs.frr}/bin --rundir /run/frr /etc/frr/${service}.conf";

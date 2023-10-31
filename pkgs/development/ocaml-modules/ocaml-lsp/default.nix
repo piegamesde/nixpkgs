@@ -27,8 +27,7 @@ buildDunePackage rec {
       fiber
       xdg
     ]
-    ++ lib.optional (lib.versionAtLeast version "1.14.2") ocamlc-loc
-  ;
+    ++ lib.optional (lib.versionAtLeast version "1.14.2") ocamlc-loc;
 
   nativeBuildInputs = [ makeWrapper ];
 

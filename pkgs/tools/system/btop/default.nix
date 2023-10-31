@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
       runCommand "${pname}_headers" { } ''
         install -Dm444 "${lib.getDev sdk}"/include/libproc.h "$out"/include/libproc.h
       ''
-    )
-  ;
+    );
 
   installFlags = [ "PREFIX=$(out)" ];
 

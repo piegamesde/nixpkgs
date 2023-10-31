@@ -37,8 +37,7 @@ let
         + lib.optionalString (disableRemoteLogging) ''
           sed -i "0,/ammonite.Main/{s|ammonite.Main'|ammonite.Main' --no-remote-logging|}" $out/bin/amm
           sed -i '1i #!/bin/sh' $out/bin/amm
-        ''
-      ;
+        '';
 
       passthru = {
 

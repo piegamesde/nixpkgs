@@ -58,7 +58,6 @@
         // {
           maintainers = allMaintainers;
           inherit (cabal-install.meta) platforms;
-        }
-      ;
+        };
     }
   )

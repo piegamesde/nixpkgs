@@ -38,8 +38,7 @@ buildPythonPackage rec {
       boost
       ocl-icd
       opencl-headers
-    ])
-  ;
+    ]);
 
   propagatedBuildInputs = [
     numpy

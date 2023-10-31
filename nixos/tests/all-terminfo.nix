@@ -20,8 +20,7 @@ import ./make-test-python.nix (
           o.success
           && lib.isDerivation o.value
           && o.value ? outputs
-          && builtins.elem "terminfo" o.value.outputs
-        ;
+          && builtins.elem "terminfo" o.value.outputs;
         terminfos = lib.filterAttrs infoFilter pkgs;
         excludedTerminfos =
           lib.filterAttrs

@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
         ''
       else
         ''cp "${variantsDat}" VARIANTS.dat''
-    )
-  ;
+    );
 
   postBuild = ''
     # convert bdf fonts to psf

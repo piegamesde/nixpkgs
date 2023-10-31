@@ -29,15 +29,13 @@ rec {
         if lockfile == null then
           assert gemdir != null; gemdir + "/Gemfile.lock"
         else
-          lockfile
-      ;
+          lockfile;
 
       gemset =
         if gemset == null then
           assert gemdir != null; gemdir + "/gemset.nix"
         else
-          gemset
-      ;
+          gemset;
     };
 
   filterGemset =
@@ -77,8 +75,7 @@ rec {
     groups: attrs:
     groups == null
     || !(attrs ? groups)
-    || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ]
-  ;
+    || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ];
 
   applyGemConfigs =
     attrs:

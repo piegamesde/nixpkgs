@@ -103,8 +103,7 @@ stdenv.mkDerivation {
     ''
     + optionalString withTsm ''
       export XBSA_CFLAGS="-Dxbsa -DNEW_XBSA -I${tsm-client}/lib64/sample -DXBSA_TSMLIB=\\\"${tsm-client}/lib64/libApiTSM64.so\\\""
-    ''
-  ;
+    '';
 
   buildFlags = [ "all_nolibafs" ];
 
@@ -116,8 +115,7 @@ stdenv.mkDerivation {
     ''
     + optionalString withDevdoc ''
       make dox
-    ''
-  ;
+    '';
 
   postInstall =
     ''
@@ -135,8 +133,7 @@ stdenv.mkDerivation {
       mkdir -p $devdoc/share/devhelp/openafs/doxygen
       cp -r doc/{pdf,protocol} $devdoc/share/devhelp/openafs
       cp -r doc/doxygen/output/html $devdoc/share/devhelp/openafs/doxygen
-    ''
-  ;
+    '';
 
   # Avoid references to $TMPDIR by removing it and let patchelf cleanup the
   # binaries.

@@ -103,8 +103,7 @@ stdenv.mkDerivation rec {
     # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
     ++ lib.optional openglSupport libGL
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
-    ++ lib.optionals x11Support [ libX11 ]
-  ;
+    ++ lib.optionals x11Support [ libX11 ];
 
   propagatedBuildInputs =
     lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
@@ -136,8 +135,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals drmSupport [
       libdrm
       mesa
-    ]
-  ;
+    ];
 
   buildInputs =
     [ libiconv ]
@@ -151,8 +149,7 @@ stdenv.mkDerivation rec {
       CoreServices
       ForceFeedback
       OpenGL
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -161,8 +158,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
     ++ lib.optional stdenv.targetPlatform.isWindows "--disable-video-opengles"
-    ++ lib.optional stdenv.isDarwin "--disable-sdltest"
-  ;
+    ++ lib.optional stdenv.isDarwin "--disable-sdltest";
 
   # We remove libtool .la files when static libs are requested,
   # because they make the builds of downstream libs like `SDL_tff`

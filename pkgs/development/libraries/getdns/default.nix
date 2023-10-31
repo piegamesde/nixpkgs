@@ -85,8 +85,7 @@ rec {
           their applications.
         '';
         homepage = "https://getdnsapi.net";
-      }
-    ;
+      };
   };
 
   stubby = stdenv.mkDerivation rec {
@@ -137,7 +136,6 @@ rec {
           the getdns team.
         '';
         homepage = "https://dnsprivacy.org/wiki/x/JYAT";
-      }
-    ;
+      };
   };
 }

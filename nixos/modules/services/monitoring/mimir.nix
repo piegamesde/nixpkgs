@@ -75,8 +75,7 @@ in
             if cfg.configFile == null then
               settingsFormat.generate "config.yaml" cfg.configuration
             else
-              cfg.configFile
-          ;
+              cfg.configFile;
         in
         {
           ExecStart = "${cfg.package}/bin/mimir --config.file=${conf}";

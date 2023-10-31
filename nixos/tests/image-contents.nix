@@ -44,8 +44,7 @@ let
         }
       ];
     })
-    + "/nixos.qcow2"
-  ;
+    + "/nixos.qcow2";
 in
 makeEc2Test {
   name = "image-contents";

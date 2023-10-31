@@ -109,7 +109,6 @@ import ../make-test-python.nix (
         machine.fail("journalctl -o cat -u k3s.service | grep 'ipset utility not found'")
 
         machine.shutdown()
-      ''
-    ;
+      '';
   }
 )

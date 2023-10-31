@@ -129,8 +129,7 @@ stdenv.mkDerivation rec {
       "USE_SILK="
     ]
     ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}"
-    ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${stdenv.cc.libc}"
-  ;
+    ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${stdenv.cc.libc}";
 
   enableParallelBuilding = true;
 

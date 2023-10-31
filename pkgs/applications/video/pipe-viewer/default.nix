@@ -55,8 +55,7 @@ buildPerlModule rec {
   buildInputs =
     [ perlEnv ]
     # Can't be in perlEnv for wrapGAppsHook to work correctly
-    ++ lib.optional withGtk3 Gtk3
-  ;
+    ++ lib.optional withGtk3 Gtk3;
 
   # Not supported by buildPerlModule
   # and the Perl code fails anyway
@@ -94,8 +93,7 @@ buildPerlModule rec {
           ]
         }" \
         --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/trizen/pipe-viewer";

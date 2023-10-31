@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     lib.optional enableWX wxGTK32
     ++ lib.optional (enableWX && stdenv.isDarwin) Cocoa
-    ++ lib.optional enableXWin xorg.libX11
-  ;
+    ++ lib.optional enableXWin xorg.libX11;
 
   passthru = {
     inherit (xorg) libX11;

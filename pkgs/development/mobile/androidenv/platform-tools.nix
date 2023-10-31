@@ -30,6 +30,5 @@ deployAndroidPackage {
       do
           ln -s $i
       done
-    ''
-  ;
+    '';
 }

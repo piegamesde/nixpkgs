@@ -105,8 +105,7 @@
       ]
       ++ adb-shell.optional-dependencies.async
       ++ androidtv.optional-dependencies.async
-      ++ pure-python-adb.optional-dependencies.async
-    ;
+      ++ pure-python-adb.optional-dependencies.async;
     "androidtv_remote" = ps: with ps; [ ]; # missing inputs: androidtvremote2
     "anel_pwrctrl" = ps: with ps; [ ]; # missing inputs: anel_pwrctrl-homeassistant
     "anova" = ps: with ps; [ ]; # missing inputs: anova-wifi
@@ -2673,8 +2672,7 @@
       ]
       ++ samsungctl.optional-dependencies.websocket
       ++ samsungtvws.optional-dependencies.async
-      ++ samsungtvws.optional-dependencies.encrypted
-    ;
+      ++ samsungtvws.optional-dependencies.encrypted;
     "satel_integra" = ps: with ps; [ ]; # missing inputs: satel_integra
     "scene" = ps: with ps; [ ];
     "schedule" = ps: with ps; [ ];

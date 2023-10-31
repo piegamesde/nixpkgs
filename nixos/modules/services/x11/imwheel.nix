@@ -75,8 +75,7 @@ in
               "--kill"
             ]
             ++ cfg.extraOptions
-          )
-        ;
+          );
         ExecStop = "${pkgs.procps}/bin/pkill imwheel";
         RestartSec = 3;
         Restart = "always";

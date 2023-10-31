@@ -302,8 +302,7 @@ let
     else if builtins.isList x then
       "{ ${lib.concatMapStringsSep ", " toLua x} }"
     else
-      throw "Invalid Lua value"
-  ;
+      throw "Invalid Lua value";
 
   createSSLOptsStr = o: ''
     ssl = {
@@ -820,8 +819,7 @@ in
                 You need to setup at least a MUC domain to comply with
                 XEP-0423.
               ''
-              + genericErrMsg
-            ;
+              + genericErrMsg;
           }
           {
             assertion = cfg.uploadHttp != null || !cfg.xmppComplianceSuite;
@@ -831,8 +829,7 @@ in
                 config.services.prosody.uploadHttp to comply with
                 XEP-0423.
               ''
-              + genericErrMsg
-            ;
+              + genericErrMsg;
           }
         ];
       in
@@ -851,8 +848,7 @@ in
               }
             ]
           else
-            [ ]
-        ;
+            [ ];
         mucDiscoItems =
           builtins.foldl'
             (

@@ -53,8 +53,7 @@ let
           sha256 = "sha256-f2lxfv0sFESpDnINDKlfVcR0pySAueMeOMbkgBWzz7Q=";
         }
       else
-        throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}"
-    ;
+        throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
 
     nativeBuildInputs = [ makeWrapper ];
     buildInputs = [ dpkg ];

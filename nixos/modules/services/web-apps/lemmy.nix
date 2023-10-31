@@ -173,8 +173,7 @@ in
           cfg.database.createLocally
           ->
             cfg.settings.database.host == "localhost"
-            || cfg.settings.database.host == "/run/postgresql"
-        ;
+            || cfg.settings.database.host == "/run/postgresql";
         message = "if you want to create the database locally, you need to use a local database";
       }
     ];

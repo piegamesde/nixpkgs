@@ -25,8 +25,7 @@ let
       archdir ? if (stdenv.hostPlatform.system == "aarch64-linux") then
         "arm-64bit"
       else
-        "x86-64bit"
-      ,
+        "x86-64bit",
       ...
     }:
     stdenv.mkDerivation rec {
@@ -127,8 +126,7 @@ let
         ++ [
           # This variable allows the user to pass additional options to curl
           "NIX_CURL_FLAGS"
-        ]
-      ;
+        ];
     };
 
   fetchPianoteqTrial =
@@ -236,8 +234,7 @@ in
       if (stdenv.hostPlatform.system == "aarch64-linux") then
         throw "Pianoteq stage-6 is not supported on aarch64-linux"
       else
-        "amd64"
-    ;
+        "amd64";
     src = fetchPianoteqWithLogin {
       name = "pianoteq_stage_linux_v${versionForFile version}.7z";
       sha256 = "0jy0hkdynhwv0zhrqkby0hdphgmcc09wxmy74rhg9afm1pzl91jy";

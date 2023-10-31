@@ -147,8 +147,7 @@ self
             license = lib.licenses.free;
             hydraPlatforms = [ ];
           }
-          // meta
-        ;
+          // meta;
       }
     );
 }

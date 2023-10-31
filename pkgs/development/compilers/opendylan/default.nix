@@ -49,8 +49,7 @@ stdenv.mkDerivation {
     else
       ''
         ./autogen.sh
-      ''
-  ;
+      '';
 
   configureFlags = [
     (

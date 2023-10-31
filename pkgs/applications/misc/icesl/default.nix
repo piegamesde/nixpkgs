@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
         sha256 = "0n2yyxzw0arkc70f0qli4n5chdlh9vc7aqizk4v7825mcglhwlyh";
       }
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
 
   nativeBuildInputs = [ makeWrapper ];
   installPhase = ''

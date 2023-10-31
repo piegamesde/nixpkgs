@@ -46,8 +46,7 @@ mkDerivation rec {
         gstreamer
       ]
     )
-    ++ pythonPath
-  ;
+    ++ pythonPath;
 
   pythonPath = with python3Packages; [
     yt-dlp

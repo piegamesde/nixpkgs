@@ -35,8 +35,7 @@ stdenv.mkDerivation (
         "--with-libatomic-ops=none"
       ]
       ++ lib.optional enableMmap "--enable-mmap"
-      ++ lib.optional enableLargeConfig "--enable-large-config"
-    ;
+      ++ lib.optional enableLargeConfig "--enable-large-config";
 
     # This stanza can be dropped when a release fixes this issue:
     #   https://github.com/ivmai/bdwgc/issues/376

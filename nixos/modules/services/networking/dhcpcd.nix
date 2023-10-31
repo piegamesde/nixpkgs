@@ -13,8 +13,7 @@ let
     if !config.boot.isContainer then
       pkgs.dhcpcd
     else
-      pkgs.dhcpcd.override { udev = null; }
-  ;
+      pkgs.dhcpcd.override { udev = null; };
 
   cfg = config.networking.dhcpcd;
 
@@ -22,8 +21,7 @@ let
 
   enableDHCP =
     config.networking.dhcpcd.enable
-    && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces)
-  ;
+    && (config.networking.useDHCP || any (i: i.useDHCP == true) interfaces);
 
   # Don't start dhcpcd on explicitly configured interfaces or on
   # interfaces that are part of a bridge, bond or sit device.
@@ -44,8 +42,7 @@ let
     ++ concatLists (
       attrValues (mapAttrs (n: v: v.interfaces) config.networking.bonds)
     )
-    ++ config.networking.dhcpcd.denyInterfaces
-  ;
+    ++ config.networking.dhcpcd.denyInterfaces;
 
   arrayAppendOrNull =
     a1: a2:
@@ -56,8 +53,7 @@ let
     else if a2 == null then
       a1
     else
-      a1 ++ a2
-  ;
+      a1 ++ a2;
 
   # If dhcp is disabled but explicit interfaces are enabled,
   # we need to provide dhcp just for those interfaces.
@@ -267,8 +263,7 @@ in
           -> elem config.environment.memoryAllocator.provider [
             "libc"
             "scudo"
-          ]
-        ;
+          ];
         message = ''
           dhcpcd with privilege separation is incompatible with chosen system malloc.
             Currently only the `libc` and `scudo` allocators are known to work.
@@ -286,8 +281,7 @@ in
           && (
             !cfgN.enableIPv6
             || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != "")
-          )
-        ;
+          );
       in
       {
         description = "DHCP Client";

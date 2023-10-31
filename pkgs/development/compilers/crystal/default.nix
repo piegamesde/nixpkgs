@@ -66,8 +66,7 @@ let
     else
       "https://github.com/crystal-lang/crystal/releases/download/${version}/crystal-${version}-${
         toString rel
-      }-${arch}.tar.gz"
-  ;
+      }-${arch}.tar.gz";
 
   genericBinary =
     {
@@ -192,8 +191,7 @@ let
                     # See https://github.com/NixOS/nixpkgs/pull/195606#issuecomment-1356491277
                     substituteInPlace spec/compiler/loader/unix_spec.cr \
                       --replace 'it "parses file paths"' 'pending "parses file paths"'
-                  ''
-            ;
+                  '';
 
             # Defaults are 4
             preBuild = ''

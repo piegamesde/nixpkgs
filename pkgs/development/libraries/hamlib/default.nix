@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals pythonBindings [ python3 ]
     ++ lib.optionals tclBindings [ tcl ]
-    ++ lib.optionals perlBindings [ perl ]
-  ;
+    ++ lib.optionals perlBindings [ perl ];
 
   buildInputs =
     [
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
       python3
       ncurses
     ]
-    ++ lib.optionals tclBindings [ tcl ]
-  ;
+    ++ lib.optionals tclBindings [ tcl ];
 
   configureFlags =
     [ "CC_FOR_BUILD=${stdenv.cc.targetPrefix}cc" ]
@@ -63,8 +61,7 @@ stdenv.mkDerivation rec {
       "--with-tcl-binding"
       "--with-tcl=${tcl}/lib/"
     ]
-    ++ lib.optionals pythonBindings [ "--with-python-binding" ]
-  ;
+    ++ lib.optionals pythonBindings [ "--with-python-binding" ];
 
   meta = with lib; {
     description = "Runtime library to control radio transceivers and receivers";

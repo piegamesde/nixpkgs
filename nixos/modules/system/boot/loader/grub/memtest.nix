@@ -96,8 +96,7 @@ in
             }
           ''
         else
-          throw "Memtest86+ is not supported with GRUB 1."
-      ;
+          throw "Memtest86+ is not supported with GRUB 1.";
 
       boot.loader.grub.extraFiles."memtest.bin" = "${memtest86}/memtest.bin";
     })

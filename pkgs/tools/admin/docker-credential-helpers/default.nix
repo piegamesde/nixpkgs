@@ -44,8 +44,7 @@ buildGoModule rec {
           [
             "secretservice"
             "pass"
-          ]
-      ;
+          ];
     in
     ''
       for cmd in ${builtins.toString cmds}; do
@@ -74,6 +73,5 @@ buildGoModule rec {
     }
     // lib.optionalAttrs stdenv.isDarwin {
       mainProgram = "docker-credential-osxkeychain";
-    }
-  ;
+    };
 }

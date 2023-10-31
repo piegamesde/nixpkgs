@@ -98,8 +98,7 @@ buildPythonPackage rec {
       "test_for_loop_fixpoint_correctly_identifies_loop_varying_residuals_unrolled_for_loop"
       "testQdwhWithRandomMatrix3"
       "testScanGrad_jit_scan"
-    ]
-  ;
+    ];
 
   # See https://github.com/google/jax/issues/11722. This is a temporary fix in
   # order to unblock etils, and upgrading jax/jaxlib to the latest version. See

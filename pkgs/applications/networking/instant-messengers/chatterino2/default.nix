@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     + ''
       mkdir -p $out/share/icons/hicolor/256x256/apps
       cp $src/resources/icon.png $out/share/icons/hicolor/256x256/apps/chatterino.png
-    ''
-  ;
+    '';
   meta = with lib; {
     description = "A chat client for Twitch chat";
     longDescription = ''

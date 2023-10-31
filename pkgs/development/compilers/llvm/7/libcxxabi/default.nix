@@ -47,8 +47,7 @@ stdenv.mkDerivation {
         }
       }
       popd
-    ''
-  ;
+    '';
 
   patches = [ ./gnu-install-dirs.patch ];
 
@@ -60,8 +59,7 @@ stdenv.mkDerivation {
     ++ lib.optionals (standalone && withLibunwind) [
       "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
     ]
-    ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF"
-  ;
+    ++ lib.optional (!enableShared) "-DLIBCXXABI_ENABLE_SHARED=OFF";
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

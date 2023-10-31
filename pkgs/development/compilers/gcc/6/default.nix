@@ -67,8 +67,11 @@
 
 assert langJava
   ->
-    zip != null && unzip != null && zlib != null && boehmgc != null && perl != null
-; # for `--enable-java-home'
+    zip != null
+    && unzip != null
+    && zlib != null
+    && boehmgc != null
+    && perl != null; # for `--enable-java-home'
 
 # Make sure we get GNU sed.
 assert stdenv.buildPlatform.isDarwin -> gnused != null;
@@ -129,8 +132,7 @@ let
       }
     )
 
-    ++ [ ../libsanitizer-no-cyclades-9.patch ]
-  ;
+    ++ [ ../libsanitizer-no-cyclades-9.patch ];
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -260,8 +262,7 @@ assert x11Support
         libart_lgpl
       ]
       ++ xlibs
-    )) == [ ]
-;
+    )) == [ ];
 
 stdenv.mkDerivation (
   {
@@ -289,8 +290,7 @@ stdenv.mkDerivation (
         fetchurl {
           url = "mirror://gnu/gcc/gcc-${version}/gcc-${version}.tar.xz";
           sha256 = "0i89fksfp6wr1xg9l8296aslcymv2idn60ip31wr9s4pwin7kwby";
-        }
-    ;
+        };
 
     inherit patches;
 
@@ -307,8 +307,7 @@ stdenv.mkDerivation (
           "lib"
           "man"
           "info"
-        ]
-    ;
+        ];
     setOutputFlags = false;
     NIX_NO_SELF_RPATH = true;
 
@@ -356,8 +355,7 @@ stdenv.mkDerivation (
             ''
           )
         )
-      )
-    ;
+      );
 
     inherit
       noSysDirs

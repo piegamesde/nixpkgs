@@ -65,8 +65,7 @@ in
             else
               ''
                 cp $jsonPath config.json
-              ''
-            }
+              ''}
             ${pkgs.remarshal}/bin/json2toml < config.json > $out
           '';
       defaultText =

@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       libmodule
     ]
     ++ optional withGeoclue geoclue2
-    ++ optional withUpower upower
-  ;
+    ++ optional withUpower upower;
 
   cmakeFlags = [
     # bash-completion.pc completionsdir=${bash-completion.out}

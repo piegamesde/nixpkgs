@@ -10,8 +10,7 @@ import ./make-test-python.nix (
       if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
         "x86_64-linux"
       else
-        "aarch64-linux"
-    ;
+        "aarch64-linux";
 
     remoteCrossPkgs =
       import ../.. # nixpkgs

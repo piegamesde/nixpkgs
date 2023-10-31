@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       # will need to check both these are true for musl
       "libmonit_cv_setjmp_available=yes"
       "libmonit_cv_vsnprintf_c99_conformant=yes"
-    ]
-  ;
+    ];
 
   meta = {
     homepage = "https://mmonit.com/monit/";

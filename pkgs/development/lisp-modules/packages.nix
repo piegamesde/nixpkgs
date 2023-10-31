@@ -209,8 +209,7 @@ let
             parachute
             osicat
           ]
-          ++ [ self.cl-tar-file ]
-        ;
+          ++ [ self.cl-tar-file ];
         systems = [
           "tar"
           "tar/common-extract"
@@ -334,8 +333,7 @@ let
               mk-string-metrics
               cl-css
             ]
-          )
-        ;
+          );
 
         src = pkgs.fetchzip {
           url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";
@@ -379,8 +377,7 @@ let
               --prefix XDG_DATA_DIRS : $GSETTINGS_SCHEMAS_PATH \
               --prefix GIO_EXTRA_MODULES ":" ${pkgs.dconf.lib}/lib/gio/modules/ \
               --prefix GIO_EXTRA_MODULES ":" ${pkgs.glib-networking}/lib/gio/modules/
-          ''
-        ;
+          '';
       };
 
       nyxt = self.nyxt-gtk;
@@ -579,8 +576,7 @@ let
           ++ [
             self.cl-glib
             self.cl-glib_dot_gio
-          ]
-        ;
+          ];
         nativeBuildInputs = [
           pkgs.gobject-introspection
           pkgs.gtk4

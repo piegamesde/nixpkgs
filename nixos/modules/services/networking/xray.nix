@@ -80,8 +80,7 @@ with lib;
             checkPhase = ''
               ${cfg.package}/bin/xray -test -config $out
             '';
-          }
-      ;
+          };
     in
     mkIf cfg.enable {
       assertions = [

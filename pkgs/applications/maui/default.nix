@@ -51,8 +51,7 @@ let
           // {
             homepage = meta.homepage or "https://mauikit.org/";
             platforms = meta.platforms or lib.platforms.linux;
-          }
-        ;
+          };
       }
     );
 

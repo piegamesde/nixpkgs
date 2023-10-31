@@ -71,8 +71,7 @@ stdenv.mkDerivation rec {
       networkmanager
       glib
     ]
-    ++ lib.optionals withSensors [ lm_sensors ]
-  ;
+    ++ lib.optionals withSensors [ lm_sensors ];
 
   propagatedBuildInputs =
     [ ]
@@ -92,8 +91,7 @@ stdenv.mkDerivation rec {
     [ ]
     ++ lib.optionals (!withNetworkManager) [ "--disable-libnm" ]
     ++ lib.optionals (!withPython) [ "--disable-python-tools" ]
-    ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ]
-  ;
+    ++ lib.optionals (!withSensors) [ "--disable-lmsensors" ];
 
   enableParallelBuilding = true;
 

@@ -54,8 +54,7 @@ let
         "pythontex"
         "dviasm"
         "texliveonfly"
-      ]
-    ;
+      ];
     pkgNeedsRuby = pkg: pkg.tlType == "run" && pkg.pname == "match-parens";
     extraInputs =
       lib.optional (lib.any pkgNeedsPython splitBin.wrong) python3
@@ -402,7 +401,6 @@ in
       # and other non-deterministic diagnostics.
       ''
         find "$TEXMFSYSVAR"/web2c -name '*.log' -delete
-      ''
-  ;
+      '';
 }).overrideAttrs
   (_: { allowSubstitutes = true; })

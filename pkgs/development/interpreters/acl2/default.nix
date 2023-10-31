@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString certifyBooks ''
       # Some books also care about $USER being nonempty.
       export USER=nobody
-    ''
-  ;
+    '';
 
   postConfigure = ''
     # ACL2 and its books need to be built in place in the out directory because
@@ -128,8 +127,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString certifyBooks ''
       ln -s $out/share/${pname}/books/build/cert.pl  $out/bin/${pname}-cert
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
-    ''
-  ;
+    '';
 
   preDistPhases = [
     (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase")
@@ -181,8 +179,7 @@ stdenv.mkDerivation rec {
           ''
             The community books are not included in this package.
           ''
-      )
-    ;
+      );
     homepage = "https://www.cs.utexas.edu/users/moore/acl2/";
     downloadPage = "https://github.com/acl2-devel/acl2-devel/releases";
     license =
@@ -200,8 +197,7 @@ stdenv.mkDerivation rec {
         cc0
         publicDomain
         unfreeRedistributable
-      ]
-    ;
+      ];
     maintainers = with maintainers; [
       kini
       raskin

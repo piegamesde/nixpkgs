@@ -46,8 +46,7 @@ buildPythonApplication rec {
     # Graphviz support
     ++ lib.optional enableGraphviz graphviz
     # Ghostscript support
-    ++ lib.optional enableGhostscript ghostscript
-  ;
+    ++ lib.optional enableGhostscript ghostscript;
 
   src = fetchFromGitHub {
     owner = "gramps-project";

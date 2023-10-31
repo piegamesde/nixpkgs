@@ -62,8 +62,7 @@ let
             fi
           done
         ''
-        + postBuild
-      ;
+        + postBuild;
 
       inherit (lua) meta;
 

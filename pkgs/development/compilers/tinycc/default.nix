@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
     ${if stdenv.isDarwin && !isCleanVer version then
       "echo 'not overwriting VERSION since it would upset ld'"
     else
-      "echo ${version} > VERSION"
-    }
+      "echo ${version} > VERSION"}
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
   '';
 

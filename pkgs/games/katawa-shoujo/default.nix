@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
       libXmu
       libGL
       libGLU
-    ]
-  ;
+    ];
 
   desktopItems = [
     (makeDesktopItem rec {
@@ -122,8 +121,7 @@ stdenv.mkDerivation rec {
             installDir = "$out/share/katawa-shoujo";
             dataDir = installDir;
             bin = "${installDir}/'Katawa Shoujo'.sh";
-          }
-      ;
+          };
       libDir = with platformDetails; "${dataDir}/lib/${arch}";
     in
     with platformDetails;
@@ -180,8 +178,7 @@ stdenv.mkDerivation rec {
       ln -s ${bin} $out/bin/katawa-shoujo
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Bishoujo-style visual novel by Four Leaf Studios, built in Ren'Py";

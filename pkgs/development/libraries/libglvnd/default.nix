@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     # Remove when aarch64-darwin asm support is upstream: https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/216
     ++
       lib.optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-        "--disable-asm"
-  ;
+        "--disable-asm";
 
   outputs = [
     "out"

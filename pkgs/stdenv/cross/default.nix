@@ -52,8 +52,7 @@ lib.init bootStages
         if crossSystem.isStatic then
           buildPackages.stdenvAdapters.makeStatic
         else
-          lib.id
-      ;
+          lib.id;
     in
     {
       inherit config;
@@ -96,8 +95,7 @@ lib.init bootStages
               else if crossSystem.useLLVM or false then
                 buildPackages.llvmPackages.clangUseLLVM
               else
-                buildPackages.gcc
-            ;
+                buildPackages.gcc;
 
             extraNativeBuildInputs =
               old.extraNativeBuildInputs
@@ -117,13 +115,11 @@ lib.init bootStages
                           "relibc"
                         ]
                         || p.isiOS
-                        || p.isGenode
-                      ;
+                        || p.isGenode;
                     in
                     f hostPlatform && !(f buildPlatform)
                   )
-                  buildPackages.updateAutotoolsGnuConfigScriptsHook
-            ;
+                  buildPackages.updateAutotoolsGnuConfigScriptsHook;
           }
         )
       );

@@ -75,8 +75,7 @@ in
         let
           bindAddr =
             (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress) "127.0.0.1")
-            + cfg.listenAddress
-          ;
+            + cfg.listenAddress;
         in
         lib.mkBefore ''
           until ${

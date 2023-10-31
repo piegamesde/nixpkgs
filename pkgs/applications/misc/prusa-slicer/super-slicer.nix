@@ -63,8 +63,7 @@ let
         + ''
           substituteInPlace src/CMakeLists.txt \
             --replace "scintilla" ""
-        ''
-      ;
+        '';
 
       # We don't need PS overrides anymore, and gcode-viewer is embedded in the binary.
       postInstall = null;

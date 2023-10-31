@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
           freeglut
           libGLU
         ]
-    )
-  ;
+    );
   outputs = [
     "bin"
     "dev"

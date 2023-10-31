@@ -198,8 +198,7 @@ in
             else
               "${binYggdrasil} -genconf"
           )
-          + " > /run/yggdrasil/yggdrasil.conf"
-          }
+          + " > /run/yggdrasil/yggdrasil.conf"}
 
           # start yggdrasil
           ${binYggdrasil} -useconffile /run/yggdrasil/yggdrasil.conf

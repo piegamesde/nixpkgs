@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
       }
     else
       throw
-        "nvidia-cg-toolkit does not support platform ${stdenv.hostPlatform.system}"
-  ;
+        "nvidia-cg-toolkit does not support platform ${stdenv.hostPlatform.system}";
 
   installPhase = ''
     for b in cgc cgfxcat cginfo

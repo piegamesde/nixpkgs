@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
       "--enable-lt=${libtool}/bin/libtool"
     ]
     ++ lib.optionals disableDocs [ "--disable-docs" ]
-    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
   configureScript = "../configure";
 

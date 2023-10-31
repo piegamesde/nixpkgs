@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       CoreAudio
       Kernel
       OpenGL
-    ]
-  ;
+    ];
 
   env.NIX_CFLAGS_COMPILE =
     toString

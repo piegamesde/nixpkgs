@@ -29,8 +29,7 @@ let
     ))
     // {
       overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;
-    }
-  ;
+    };
 in
 rec {
   inherit overrideLuarocks;

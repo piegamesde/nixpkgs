@@ -41,14 +41,12 @@ let
     ${if cfg.registerPassword == "" then
       ""
     else
-      "registerPassword=" + cfg.registerPassword
-    }
+      "registerPassword=" + cfg.registerPassword}
     ${if cfg.registerUrl == "" then "" else "registerUrl=" + cfg.registerUrl}
     ${if cfg.registerHostname == "" then
       ""
     else
-      "registerHostname=" + cfg.registerHostname
-    }
+      "registerHostname=" + cfg.registerHostname}
 
     certrequired=${boolToString cfg.clientCertRequired}
     ${if cfg.sslCert == "" then "" else "sslCert=" + cfg.sslCert}

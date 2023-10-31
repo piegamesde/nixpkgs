@@ -108,8 +108,7 @@ rec {
         override = overrideArgs;
       }
     else
-      result
-  ;
+      result;
 
   /* Call the package function in the file `fn` with the required
      arguments automatically.  The function is called with the
@@ -180,8 +179,7 @@ rec {
         else
           ", did you mean ${lib.concatStringsSep ", " (lib.init suggestions)} or ${
             lib.last suggestions
-          }?"
-      ;
+          }?";
 
       errorForArg =
         arg:
@@ -195,12 +193,10 @@ rec {
             else if !lib.isFunction fn then
               toString fn + lib.optionalString (lib.sources.pathIsDirectory fn) "/default.nix"
             else
-              "<unknown location>"
-          ;
+              "<unknown location>";
         in
         ''Function called without required argument "${arg}" at ''
-        + "${loc'}${prettySuggestions (getSuggestions arg)}"
-      ;
+        + "${loc'}${prettySuggestions (getSuggestions arg)}";
 
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
@@ -228,8 +224,7 @@ rec {
         + " did you mean to use `callPackage` instead?"
       )
     else
-      lib.mapAttrs mkAttrOverridable pkgs
-  ;
+      lib.mapAttrs mkAttrOverridable pkgs;
 
   /* Add attributes to each output of a derivation without changing
      the derivation itself and check a given condition when evaluating.
@@ -243,8 +238,7 @@ rec {
         drv
         // (builtins.listToAttrs outputsList)
         // ({ all = map (x: x.value) outputsList; })
-        // passthru
-      ;
+        // passthru;
 
       outputToAttrListElement = outputName: {
         name = outputName;
@@ -263,8 +257,7 @@ rec {
             lib.optionalAttrs (passthru ? overrideAttrs) {
               # TODO: also add overrideAttrs when overrideAttrs is not custom, e.g. when not splicing.
               overrideAttrs = f: (passthru.overrideAttrs f).${outputName};
-            }
-        ;
+            };
       };
 
       outputsList = map outputToAttrListElement outputs;
@@ -273,8 +266,7 @@ rec {
     // {
       drvPath = assert condition; drv.drvPath;
       outPath = assert condition; drv.outPath;
-    }
-  ;
+    };
 
   /* Strip a derivation of all non-essential attributes, returning
      only those needed by hydra-eval-jobs. Also strictly evaluate the
@@ -295,8 +287,7 @@ rec {
           _hydraAggregate = true;
           constituents = map hydraJob (lib.flatten drv.constituents);
         }
-        // (lib.listToAttrs outputsList)
-      ;
+        // (lib.listToAttrs outputsList);
 
       makeOutput =
         outputName:

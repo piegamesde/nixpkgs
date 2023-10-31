@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
           libXinerama
           libXrandr
         ]
-    )
-  ;
+    );
 
   doCheck = false;
 

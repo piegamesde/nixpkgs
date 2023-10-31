@@ -107,8 +107,7 @@ stdenv.mkDerivation rec {
       libpcap
       CoreAudioKit
       ForceFeedback
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     copyDesktopItems

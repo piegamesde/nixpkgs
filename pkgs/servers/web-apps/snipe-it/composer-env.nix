@@ -153,8 +153,7 @@ let
                   ${if symlinkDependencies then
                     ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
                   else
-                    ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-                  }
+                    ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
                 ''
               else
                 ''
@@ -165,10 +164,8 @@ let
                       ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
                   else
                     ''
-                      cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
-                  }
-                ''
-              }
+                      cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
+                ''}
             ''
           )
           (builtins.attrNames dependencies);
@@ -201,8 +198,7 @@ let
               cp -av $src $out
               chmod -R u+w $out
               cd $out
-            ''
-          }
+            ''}
 
           # Remove unwanted files
           rm -f *.nix

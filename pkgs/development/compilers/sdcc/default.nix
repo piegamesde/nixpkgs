@@ -19,8 +19,7 @@ let
     ++ (lib.optionals (gputils == null) [
       "pic14"
       "pic16"
-    ])
-  ;
+    ]);
 in
 
 stdenv.mkDerivation rec {

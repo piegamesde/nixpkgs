@@ -92,8 +92,7 @@ let
     // passthruAttrs
     // {
       inherit name;
-    }
-  ;
+    };
 in
 
 fetcher fetcherArgs

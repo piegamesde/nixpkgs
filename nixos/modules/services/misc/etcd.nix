@@ -202,8 +202,7 @@ in
           ETCD_INITIAL_CLUSTER_STATE = cfg.initialClusterState;
           ETCD_INITIAL_CLUSTER_TOKEN = cfg.initialClusterToken;
         })
-        // (mapAttrs' (n: v: nameValuePair "ETCD_${n}" v) cfg.extraConf)
-      ;
+        // (mapAttrs' (n: v: nameValuePair "ETCD_${n}" v) cfg.extraConf);
 
       unitConfig = {
         Documentation = "https://github.com/coreos/etcd";

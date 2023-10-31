@@ -31,8 +31,7 @@ let
     else if stdenv.targetPlatform.system == "i686-linux" then
       "qemu-i386"
     else
-      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!"
-  ;
+      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
   libdislocator = callPackage ./libdislocator.nix { inherit aflplusplus; };
   libtokencap = callPackage ./libtokencap.nix { inherit aflplusplus; };
   aflplusplus = stdenvNoCC.mkDerivation rec {
@@ -139,8 +138,7 @@ let
         done
         makeWrapperArgs="--set-default 'AFL_WINE_PATH' '$winePath'" \
           wrapPythonProgramsIn $out/bin ${python.pkgs.pefile}
-      ''
-    ;
+      '';
 
     nativeInstallCheckInputs = [
       perl

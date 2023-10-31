@@ -146,8 +146,7 @@ in
               ++ map prependExclude exclude
             )
             + "\n"
-            + extraConfig
-          ;
+            + extraConfig;
         };
       };
 

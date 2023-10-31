@@ -52,7 +52,6 @@ stdenv.mkDerivation rec {
       stdenv.isDarwin
       ||
         # https://github.com/bcampbell/evilpixie/issues/28
-        stdenv.isAarch64
-    ;
+        stdenv.isAarch64;
   };
 }

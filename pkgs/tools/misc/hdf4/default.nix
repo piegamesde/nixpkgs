@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional javaSupport jdk
     ++ lib.optional szipSupport szip
-    ++ lib.optional uselibtirpc libtirpc
-  ;
+    ++ lib.optional uselibtirpc libtirpc;
 
   preConfigure =
     lib.optionalString uselibtirpc ''
@@ -70,8 +69,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString szipSupport ''
       export SZIP_INSTALL=${szip}
-    ''
-  ;
+    '';
 
   cmakeFlags =
     [
@@ -92,8 +90,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals szipSupport [
       "-DHDF4_ENABLE_SZIP_ENCODING=ON"
       "-DHDF4_ENABLE_SZIP_SUPPORT=ON"
-    ]
-  ;
+    ];
 
   doCheck = true;
 

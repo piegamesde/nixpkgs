@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
       gnupg
       gpgme.dev
     ]
-    ++ lib.optionals wgetSupport [ wget ]
-  ;
+    ++ lib.optionals wgetSupport [ wget ];
 
   configureFlags =
     [

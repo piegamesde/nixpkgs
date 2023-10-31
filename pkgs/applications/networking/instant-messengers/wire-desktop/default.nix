@@ -71,8 +71,7 @@ let
     src = fetchurl {
       url =
         "https://wire-app.wire.com/linux/debian/pool/main/"
-        + "Wire-${version}_amd64.deb"
-      ;
+        + "Wire-${version}_amd64.deb";
       inherit hash;
     };
 
@@ -146,8 +145,7 @@ let
     src = fetchurl {
       url =
         "https://github.com/wireapp/wire-desktop/releases/download/"
-        + "macos%2F${version}/Wire.pkg"
-      ;
+        + "macos%2F${version}/Wire.pkg";
       inherit hash;
     };
 

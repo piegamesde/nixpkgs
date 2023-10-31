@@ -128,22 +128,19 @@ let
             out = ocamlPackages_4_05;
           }
         ]
-        ocamlPackages_4_14
-  ;
+        ocamlPackages_4_14;
   ocamlNativeBuildInputs =
     with ocamlPackages;
     [
       ocaml
       findlib
     ]
-    ++ optional (coqAtLeast "8.14") dune_2
-  ;
+    ++ optional (coqAtLeast "8.14") dune_2;
   ocamlPropagatedBuildInputs =
     [ ]
     ++ optional (!coqAtLeast "8.10") ocamlPackages.camlp5
     ++ optional (!coqAtLeast "8.13") ocamlPackages.num
-    ++ optional (coqAtLeast "8.13") ocamlPackages.zarith
-  ;
+    ++ optional (coqAtLeast "8.13") ocamlPackages.zarith;
   self = stdenv.mkDerivation {
     pname = "coq";
     inherit (fetched) version src;
@@ -212,8 +209,7 @@ let
       ++ ocamlNativeBuildInputs
       ++ optional buildIde copyDesktopItems
       ++ optional (buildIde && coqAtLeast "8.10") wrapGAppsHook
-      ++ optional (!coqAtLeast "8.6") gnumake42
-    ;
+      ++ optional (!coqAtLeast "8.6") gnumake42;
     buildInputs =
       [ ncurses ]
       ++ optionals buildIde (
@@ -258,8 +254,7 @@ let
           configureFlagsArray=(
             ${ideFlags}
           )
-        ''
-    ;
+        '';
 
     prefixKey = "-prefix ";
 
@@ -304,8 +299,7 @@ let
       + optionalString buildIde ''
         mkdir -p "$out/share/pixmaps"
         ln -s "$out/share/coq/coq.png" "$out/share/pixmaps/"
-      ''
-    ;
+      '';
 
     meta = {
       description = "Coq proof assistant";

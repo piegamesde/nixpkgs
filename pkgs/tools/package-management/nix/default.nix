@@ -77,8 +77,7 @@ let
             + lib.optionalString aws-sdk-cpp.stdenv.isi686 ''
               # EPSILON is exceeded
               rm aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
-            ''
-          ;
+            '';
 
           patches = (args.patches or [ ]) ++ [
             ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch
@@ -118,8 +117,7 @@ let
         if lib.versionAtLeast args.version "2.12pre" then
           aws-sdk-cpp-nix
         else
-          aws-sdk-cpp-old-nix
-      ;
+          aws-sdk-cpp-old-nix;
     };
 
   # https://github.com/NixOS/nix/pull/7585

@@ -91,8 +91,7 @@ rustPlatform.buildRustPackage rec {
       for prog in $out/bin/*; do
         wrapProgram "$prog" --prefix DYLD_LIBRARY_PATH : "${stfl}/lib"
       done
-    ''
-  ;
+    '';
 
   passthru = {
     updateScript = nix-update-script { };

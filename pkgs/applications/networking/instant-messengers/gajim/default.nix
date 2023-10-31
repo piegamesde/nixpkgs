@@ -70,8 +70,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optional enableSecrets libsecret
     ++ lib.optional enableSpelling gspell
     ++ lib.optional enableUPnP gupnp-igd
-    ++ lib.optional enableAppIndicator libappindicator-gtk3
-  ;
+    ++ lib.optional enableAppIndicator libappindicator-gtk3;
 
   nativeBuildInputs = [
     gettext
@@ -107,8 +106,7 @@ python3.pkgs.buildPythonApplication rec {
       python-axolotl
       qrcode
     ]
-    ++ extraPythonPackages python3.pkgs
-  ;
+    ++ extraPythonPackages python3.pkgs;
 
   nativeCheckInputs = [
     xvfb-run

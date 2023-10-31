@@ -119,8 +119,7 @@ stdenv.mkDerivation {
         XCODEFLAGS="-scheme MacVim -derivedDataPath $NIX_BUILD_TOP/derivedData"
         --with-xcodecfg="Release"
       )
-    ''
-  ;
+    '';
 
   # Because we're building with system clang, this means we're building against Xcode's SDK and
   # linking against system libraries. The configure script is picking up Nix Libsystem (via ruby)

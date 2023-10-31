@@ -136,8 +136,7 @@ python3.pkgs.buildPythonApplication rec {
   pname =
     "asciidoc"
     + lib.optionalString enableStandardFeatures "-full"
-    + lib.optionalString enableExtraPlugins "-with-plugins"
-  ;
+    + lib.optionalString enableExtraPlugins "-with-plugins";
   version = "10.2.0";
 
   src = fetchFromGitHub {
@@ -289,8 +288,7 @@ python3.pkgs.buildPythonApplication rec {
       # We want to use asciidoc from the build platform to build the documentation.
       substituteInPlace Makefile.in \
         --replace "python3 -m asciidoc.a2x" "${buildPackages.asciidoc}/bin/a2x"
-    ''
-  ;
+    '';
 
   postBuild = ''
     make manpages

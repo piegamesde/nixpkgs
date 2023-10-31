@@ -41,8 +41,7 @@ let
         ${cfg.extraConfig}
       ''
     else
-      cfg.config
-  ;
+      cfg.config;
 
   configPath = pkgs.writeText "smokeping.conf" configFile;
   cgiHome = pkgs.writeScript "smokeping.fcgi" ''

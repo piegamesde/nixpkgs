@@ -75,8 +75,7 @@ stdenvNoCC.mkDerivation (
           7zz x $src
         ''
       else
-        null
-    ;
+        null;
 
     nativeBuildInputs =
       [ validatePkgConfig ]
@@ -107,8 +106,7 @@ stdenvNoCC.mkDerivation (
           rpmextract ${oneapi-mkl-devel}
           rpmextract ${oneapi-openmp}
           rpmextract ${oneapi-tbb}
-        ''
-    ;
+        '';
 
     installPhase =
       ''
@@ -176,8 +174,7 @@ stdenvNoCC.mkDerivation (
         ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/libcblas${shlibExt}".3"
         ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapack${shlibExt}".3"
         ln -s $out/lib/libmkl_rt${shlibExt} $out/lib/liblapacke${shlibExt}".3"
-      ''
-    ;
+      '';
 
     # fixDarwinDylibName fails for libmkl_cdft_core.dylib because the
     # larger updated load commands do not fit. Use install_name_tool

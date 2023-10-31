@@ -22,8 +22,7 @@ let
         ]
         false
         x
-      )
-    ;
+      );
   };
 
   impanel = optionalString (cfg.panel != null) "--panel=${cfg.panel}";

@@ -142,8 +142,7 @@ let
     // {
       satisfiesSubpathInvariant =
         src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
-    }
-  ;
+    };
 
   /* Filter sources by a list of regular expressions.
 
@@ -238,13 +237,13 @@ let
                 if pathIsRegularFile "${gitDir}/commondir" then
                   lib.fileContents "${gitDir}/commondir"
                 else
-                  gitDir
-              ;
+                  gitDir;
               commonDir' = lib.removeSuffix "/" commonDir'';
               commonDir = absolutePath gitDir commonDir';
               refFile = lib.removePrefix "${commonDir}/" "${gitDir}/${file}";
             in
             readCommitFromFile refFile commonDir
+
         else if
           pathIsRegularFile fileName
         # Sometimes git stores the commitId directly in the file but
@@ -258,6 +257,7 @@ let
             { value = fileContent; }
           else
             readCommitFromFile (lib.head matchRef) path
+
         else if
           pathIsRegularFile packedRefsName
         # Sometimes, the file isn't there at all and has been packed away in the
@@ -275,9 +275,9 @@ let
             { error = "Could not find " + file + " in " + packedRefsName; }
           else
             { value = lib.head (matchRef (lib.head refs)); }
+
         else
-          { error = "Not a .git directory: " + toString path; }
-      ;
+          { error = "Not a .git directory: " + toString path; };
     in
     readCommitFromFile "HEAD";
 

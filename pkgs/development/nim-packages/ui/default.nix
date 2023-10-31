@@ -28,6 +28,5 @@ buildNimPackage rec {
       description = "Nim bindings to libui";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

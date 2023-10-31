@@ -101,8 +101,7 @@ let
       add_header Access-Control-Allow-Origin    '*';
       add_header Access-Control-Allow-Methods   'GET, OPTIONS';
       add_header Access-Control-Allow-Headers   'Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
-    ''
-  ;
+    '';
 in
 {
   options.services.peertube = {
@@ -263,8 +262,7 @@ in
           if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then
             "127.0.0.1"
           else
-            null
-        ;
+            null;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && !config.${opt.redis.enableUnixSocket}
           then "127.0.0.1"
@@ -328,8 +326,7 @@ in
       {
         assertion =
           cfg.serviceEnvironmentFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile
-        ;
+          || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
         message = ''
           <option>services.peertube.serviceEnvironmentFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -354,8 +351,7 @@ in
       {
         assertion =
           cfg.redis.enableUnixSocket
-          || (cfg.redis.host != null && cfg.redis.port != null)
-        ;
+          || (cfg.redis.host != null && cfg.redis.port != null);
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
         '';
@@ -363,8 +359,7 @@ in
       {
         assertion =
           cfg.redis.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile
-        ;
+          || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
         message = ''
           <option>services.peertube.redis.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -374,8 +369,7 @@ in
       {
         assertion =
           cfg.database.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile
-        ;
+          || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
         message = ''
           <option>services.peertube.database.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -385,8 +379,7 @@ in
       {
         assertion =
           cfg.smtp.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile
-        ;
+          || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
         message = ''
           <option>services.peertube.smtp.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -501,8 +494,7 @@ in
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
           "peertube-init-db.service"
-        ]
-      ;
+        ];
       requires =
         lib.optional cfg.redis.createLocally "redis-peertube.service"
         ++ lib.optionals cfg.database.createLocally [
@@ -627,8 +619,7 @@ in
               lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
                 ''
                   add_header Alt-Svc                          'h3=":443"; ma=86400';
-                ''
-          ;
+                '';
         };
 
         locations."~ ^/api/v1/(videos|video-playlists|video-channels|users/me)" = {
@@ -647,8 +638,7 @@ in
               lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
                 ''
                   add_header Alt-Svc                          'h3=":443"; ma=86400';
-                ''
-          ;
+                '';
         };
 
         locations."@api" = {
@@ -725,8 +715,7 @@ in
               lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
                 ''
                   add_header Alt-Svc                          'h3=":443"; ma=86400';
-                ''
-          ;
+                '';
         };
 
         locations."^~ /lazy-static/avatars/" = {

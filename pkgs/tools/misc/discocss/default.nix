@@ -32,8 +32,7 @@ stdenvNoCC.mkDerivation rec {
       ln -s $out/bin/discocss $out/bin/discord
       mkdir -p $out/share
       ln -s ${discord}/share/* $out/share
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A tiny Discord css-injector";

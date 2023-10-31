@@ -93,8 +93,7 @@ lib.warnIf (enableQT != false)
       ++ lib.optionals enableInventor [
         "-DINVENTOR_INCLUDE_DIR=${coin3d}/include"
         "-DINVENTOR_LIBRARY_RELEASE=${coin3d}/lib/libCoin.so"
-      ]
-    ;
+      ];
 
     nativeBuildInputs = [ cmake ];
 
@@ -116,8 +115,7 @@ lib.warnIf (enableQT != false)
       ++ lib.optionals enablePython [
         boost_python
         python3
-      ]
-    ;
+      ];
 
     propagatedBuildInputs = [
       clhep
@@ -134,8 +132,7 @@ lib.warnIf (enableQT != false)
       ''
       + lib.optionalString enableQt ''
         wrapQtAppsHook
-      ''
-    ;
+      '';
 
     setupHook = ./geant4-hook.sh;
 

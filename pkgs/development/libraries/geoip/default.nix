@@ -15,8 +15,7 @@ let
     if lib.isDerivation geoipDatabase then
       "${toString geoipDatabase}/share/GeoIP"
     else
-      geoipDatabase
-  ;
+      geoipDatabase;
 in
 stdenv.mkDerivation rec {
   pname = drvName;

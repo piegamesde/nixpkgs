@@ -22,8 +22,7 @@ let
     else if isList x then
       "[${concatMapStringsSep "," toHOCON x}]"
     else
-      builtins.toJSON x
-  ;
+      builtins.toJSON x;
 
   configFile = pkgs.writeText "jicofo.conf" (toHOCON cfg.config);
 in

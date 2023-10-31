@@ -157,8 +157,7 @@ in
 
           ExecStart =
             "${pkgs.rasdaemon}/bin/rasdaemon --foreground"
-            + optionalString (cfg.record) " --record"
-          ;
+            + optionalString (cfg.record) " --record";
           ExecStop = "${pkgs.rasdaemon}/bin/rasdaemon --disable";
           Restart = "on-abort";
 

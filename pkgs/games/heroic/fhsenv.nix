@@ -32,8 +32,7 @@ buildFHSEnv {
       xorg.xrandr
       zstd
     ]
-    ++ extraPkgs pkgs
-  ;
+    ++ extraPkgs pkgs;
 
   multiPkgs =
     let
@@ -130,8 +129,7 @@ buildFHSEnv {
       zlib
     ]
     ++ xorgDeps pkgs
-    ++ extraLibraries pkgs
-  ;
+    ++ extraLibraries pkgs;
 
   extraInstallCommands = ''
     mkdir -p $out/share

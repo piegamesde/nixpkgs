@@ -84,8 +84,7 @@ stdenv.mkDerivation rec {
         GLUT
         Cocoa
       ]
-    )
-  ;
+    );
 
   preConfigure = ''
     HOME=$TMP

@@ -51,8 +51,7 @@ in
         ]
       )
       old
-    )
-  ;
+    );
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
   epoxy = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
@@ -95,8 +94,7 @@ in
         pkgs.libGLU
       ]
       old
-    )
-  ;
+    );
   openssl = addToBuildInputs pkgs.openssl;
   plot = addToBuildInputs pkgs.plotutils;
   postgresql = addToBuildInputsWithPkgConfig pkgs.postgresql;
@@ -122,8 +120,7 @@ in
         pkgs.stfl
       ]
       old
-    )
-  ;
+    );
   taglib = addToBuildInputs [
     pkgs.zlib
     pkgs.taglib

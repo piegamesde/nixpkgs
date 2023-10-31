@@ -24,8 +24,7 @@ buildPythonPackage rec {
   nativeCheckInputs =
     [ pytest ]
     ++ passthru.optional-dependencies.pycryptodome
-    ++ passthru.optional-dependencies.pysha3
-  ;
+    ++ passthru.optional-dependencies.pysha3;
 
   checkPhase = ''
     pytest tests/backends/pycryptodome/

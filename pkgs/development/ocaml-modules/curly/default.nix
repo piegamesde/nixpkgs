@@ -37,8 +37,7 @@ buildDunePackage rec {
     lib.versionAtLeast ocaml.version "4.08"
     # Some test fails in macOS sandbox
     # > Fatal error: exception Unix.Unix_error(Unix.EPERM, "bind", "")
-    && !stdenv.isDarwin
-  ;
+    && !stdenv.isDarwin;
 
   postPatch = ''
     substituteInPlace src/curly.ml \

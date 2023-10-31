@@ -58,8 +58,7 @@ let
         url =
           "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"
           + optionalString stdenv.isAarch64 "-aarch64"
-          + ".tar.gz"
-        ;
+          + ".tar.gz";
         inherit (platformAttrs.${stdenv.system}) hash;
       };
       doCheck = true;
@@ -101,8 +100,7 @@ let
           # Add the spark shuffle service jar to YARN
           cp ${spark.src}/yarn/spark-${spark.version}-yarn-shuffle.jar $out/lib/${untarDir}/share/hadoop/yarn/
         ''
-        + libPatches
-      ;
+        + libPatches;
 
       passthru = {
         inherit tests;
@@ -190,8 +188,7 @@ in
         # NixOS/nixpkgs#193370
         # This workaround is needed to use protobuf 3.19
         patchelf --replace-needed libprotobuf.so.18 libprotobuf.so $out/lib/${untarDir}/lib/native/libhdfspp.so
-      ''
-    ;
+      '';
     tests = nixosTests.hadoop;
   };
   hadoop_3_2 = common rec {

@@ -89,8 +89,7 @@ let
       "${cfg.database.socket}"
     else
       throw
-        "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}"
-  ;
+        "Unsupported database type: ${cfg.database.type} for socket: ${cfg.database.socket}";
 
   mediawikiConfig = pkgs.writeText "LocalSettings.php" ''
     <?php
@@ -274,8 +273,7 @@ in
                 "http"
             }://${cfg.httpd.virtualHost.hostName}"
           else
-            "http://localhost"
-        ;
+            "http://localhost";
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             "''${if cfg.httpd.virtualHost.addSSL || cfg.httpd.virtualHost.forceSSL || cfg.httpd.virtualHost.onlySSL then "https" else "http"}://''${cfg.httpd.virtualHost.hostName}"
@@ -312,8 +310,7 @@ in
             else
               config.services.httpd.adminAddr
           else
-            "root@localhost"
-        ;
+            "root@localhost";
         defaultText = literalExpression ''
           if cfg.webserver == "apache" then
             if cfg.httpd.virtualHost.adminAddr != null then
@@ -432,8 +429,7 @@ in
             else if (cfg.database.type == "postgres" && cfg.database.createLocally) then
               "/run/postgresql"
             else
-              null
-          ;
+              null;
           defaultText = literalExpression "/run/mysqld/mysqld.sock";
           description =
             lib.mdDoc
@@ -529,8 +525,7 @@ in
       {
         assertion =
           cfg.database.createLocally
-          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres")
-        ;
+          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
         message = "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
       }
       {
@@ -600,8 +595,7 @@ in
               "listen.group" = group;
             }
         )
-        // cfg.poolConfig
-      ;
+        // cfg.poolConfig;
     };
 
     services.httpd = lib.mkIf (cfg.webserver == "apache") {
@@ -630,8 +624,7 @@ in
               <Directory "${cfg.uploadsDir}">
                 Require all granted
               </Directory>
-            ''
-          ;
+            '';
         }
       ];
     };

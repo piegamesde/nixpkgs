@@ -74,8 +74,7 @@ in
         }
         "openal/alsoft.conf"
         "wildmidi/wildmidi.conf"
-      ]
-    ;
+      ];
     "abstractions/authentication" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/authentication"
@@ -94,8 +93,7 @@ in
         "pwdb.conf"
         "default/passwd"
         "login.defs"
-      ]
-    ;
+      ];
     "abstractions/base" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/base"
       r ${pkgs.stdenv.cc.libc}/share/locale/**,
@@ -137,8 +135,7 @@ in
         "inputrc"
         # run out of /etc/bash.bashrc
         "DIR_COLORS"
-      ]
-    ;
+      ];
     "abstractions/consoles" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/consoles"
     '';
@@ -220,8 +217,7 @@ in
           trail = "/{,*-}mimeapps.list";
         }
         "xdg/mimeapps.list"
-      ]
-    ;
+      ];
     "abstractions/kde" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/kde"
@@ -253,8 +249,7 @@ in
           path = "xdg";
           trail = "/Trolltech.conf";
         }
-      ]
-    ;
+      ];
     "abstractions/kerberosclient" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/kerberosclient"
@@ -275,8 +270,7 @@ in
         "krb.conf"
         "krb.realms"
         "srvtab"
-      ]
-    ;
+      ];
     "abstractions/ldapclient" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/ldapclient"
@@ -296,8 +290,7 @@ in
           path = "sasl2";
           trail = "/*";
         }
-      ]
-    ;
+      ];
     "abstractions/likewise" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/likewise"
     '';
@@ -347,8 +340,7 @@ in
           path = "libnl-3";
           trail = "/classid";
         }
-      ]
-    ;
+      ];
     "abstractions/nis" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/nis"
     '';
@@ -395,8 +387,7 @@ in
           path = "pkcs11";
           trail = "/modules/*";
         }
-      ]
-    ;
+      ];
     "abstractions/perl" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/perl"
       ${etcRule {
@@ -433,8 +424,7 @@ in
           path = "php7";
           trail = "/**.ini";
         }
-      ]
-    ;
+      ];
     "abstractions/postfix-common" =
       ''
         include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/postfix-common"
@@ -447,8 +437,7 @@ in
         }
         "postfix/main.cf"
         "postfix/master.cf"
-      ]
-    ;
+      ];
     "abstractions/python" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/python"
     '';
@@ -466,8 +455,7 @@ in
           trail = "/qtlogging.ini";
         }
         "xdg/QtProject/qtlogging.ini"
-      ]
-    ;
+      ];
     "abstractions/samba" = ''
       include "${pkgs.apparmor-profiles}/etc/apparmor.d/abstractions/samba"
       ${etcRule {
@@ -522,8 +510,7 @@ in
           path = "pki/trust/anchors";
           trail = "/**";
         }
-      ]
-    ;
+      ];
     "abstractions/ssl_keys" = ''
       # security.acme NixOS module
       r /var/lib/acme/*/full.pem,

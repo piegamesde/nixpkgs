@@ -384,8 +384,7 @@ rec {
                 # Darwin.C.stdint. Apparently fixed in later SDKs.
                 awk -i inplace '/CFBase.h/ { print "#include <stdint.h>" } { print }' \
                   $out/Library/Frameworks/CoreVideo.framework/Headers/CVBase.h
-              ''
-            ;
+              '';
           }
         );
 
@@ -402,8 +401,7 @@ rec {
                 # Thus, it is easier to replace the file than to fix the symlink.
                 cp --remove-destination ${MacOSX-SDK}/usr/lib/libSystem.B.tbd \
                   $out/Library/Frameworks/System.framework/Versions/B/System.tbd
-              ''
-            ;
+              '';
           }
         );
       };
@@ -411,8 +409,7 @@ rec {
       # Merge extraDeps into generatedDeps.
       deps =
         generatedDeps
-        // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps)
-      ;
+        // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
 
       # Create derivations, and add private frameworks.
       bareFrameworks =
@@ -422,8 +419,7 @@ rec {
             inherit frameworks;
             libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
           }
-        ))
-      ;
+        ));
     in
     # Apply derivation overrides.
     bareFrameworks // overrides bareFrameworks;

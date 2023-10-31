@@ -91,8 +91,7 @@ let
         + "\n"
       )
     else
-      null
-  ;
+      null;
 
   buCellServDB = pkgs.writeText "backup-cellServDB-${cfg.cellName}" (
     mkCellServDB cfg.cellName cfg.roles.backup.cellServDB

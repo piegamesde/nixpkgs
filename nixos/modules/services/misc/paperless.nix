@@ -31,8 +31,7 @@ let
     // optionalAttrs enableRedis {
       PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
     }
-    // (lib.mapAttrs (_: toString) cfg.extraConfig)
-  ;
+    // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =
     let
@@ -300,8 +299,7 @@ in
             ${pkg}/bin/paperless-ngx manage_superuser
             echo "$superuserState" > "$superuserStateFile"
           fi
-        ''
-      ;
+        '';
     } // optionalAttrs enableRedis { after = [ "redis-paperless.service" ]; };
 
     systemd.services.paperless-task-queue = {
@@ -401,8 +399,7 @@ in
         // lib.optionalAttrs (cfg.port < 1024) {
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        }
-      ;
+        };
       environment = env // {
         PATH = mkForce pkg.path;
         PYTHONPATH = "${

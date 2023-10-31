@@ -64,8 +64,7 @@ in
           if config.services.telegraf.environmentFiles == [ ] then
             configFile
           else
-            "/var/run/telegraf/config.toml"
-        ;
+            "/var/run/telegraf/config.toml";
       in
       {
         description = "Telegraf Agent";

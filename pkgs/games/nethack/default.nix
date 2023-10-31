@@ -25,8 +25,7 @@ let
     if stdenv.hostPlatform.isUnix then
       "unix"
     else
-      throw "Unknown platform for NetHack: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unknown platform for NetHack: ${stdenv.hostPlatform.system}";
   unixHint =
     if x11Mode then
       "linux-x11"
@@ -38,8 +37,7 @@ let
       "macosx10.10"
     # We probably want something different for Darwin
     else
-      "unix"
-  ;
+      "unix";
   userDir = "~/.config/nethack";
   binPath = lib.makeBinPath [
     coreutils
@@ -54,8 +52,7 @@ stdenv.mkDerivation rec {
     else if qtMode then
       "nethack-qt"
     else
-      "nethack"
-  ;
+      "nethack";
 
   src = fetchurl {
     url = "https://nethack.org/download/${version}/nethack-${
@@ -75,8 +72,7 @@ stdenv.mkDerivation rec {
       gzip
       qt5.qtbase.bin
       qt5.qtmultimedia.bin
-    ]
-  ;
+    ];
 
   nativeBuildInputs =
     [
@@ -94,8 +90,7 @@ stdenv.mkDerivation rec {
       qt5.qtmultimedia.dev
       qt5.wrapQtAppsHook
       bdftopcf
-    ]
-  ;
+    ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

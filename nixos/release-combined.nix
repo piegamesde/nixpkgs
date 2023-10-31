@@ -30,8 +30,7 @@ let
       else
         pkgs.lib.mapAttrs (n: v: removeMaintainers v) set
     else
-      set
-  ;
+      set;
 in
 rec {
 

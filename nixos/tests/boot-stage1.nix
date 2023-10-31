@@ -131,8 +131,7 @@ import ./make-test-python.nix (
                     return 1;
                   }
                 '';
-              }
-            ;
+              };
 
             copyCanaries =
               with lib;

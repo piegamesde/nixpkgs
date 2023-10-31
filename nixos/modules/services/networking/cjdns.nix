@@ -69,8 +69,7 @@ let
       connectTo =
         mapAttrs (name: value: { inherit (value) password publicKey; })
           x.connectTo;
-    }
-  ;
+    };
 
   cjdrouteConf = builtins.toJSON (
     recursiveUpdate
@@ -85,14 +84,12 @@ let
             if (cfg.ETHInterface.bind != "") then
               [ (parseModules cfg.ETHInterface) ]
             else
-              [ ]
-          ;
+              [ ];
           UDPInterface =
             if (cfg.UDPInterface.bind != "") then
               [ (parseModules cfg.UDPInterface) ]
             else
-              [ ]
-          ;
+              [ ];
         };
 
         privateKey = "@CJDNS_PRIVATE_KEY@";
@@ -305,8 +302,7 @@ in
                 echo "CJDNS_ADMIN_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" \
                     >> /etc/cjdns.keys
             fi
-          ''
-      ;
+          '';
 
       script =
         (

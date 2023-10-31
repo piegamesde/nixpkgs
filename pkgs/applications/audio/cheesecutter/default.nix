@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       ''
         rpath=$(patchelf --print-rpath $out/bin/ccutter)
         patchelf --set-rpath "$rpath:${rpathSDL}" $out/bin/ccutter
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A tracker program for composing music for the SID chip";

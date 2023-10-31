@@ -26,8 +26,7 @@ stdenv.mkDerivation rec {
         sha256 = "0c61ihvblcsjrw6ncr8x8ylhskcrqs8pajs4mg5di36cvqw12nq5";
       }
     else
-      throw "platform ${stdenv.hostPlatform.system} not supported."
-  ;
+      throw "platform ${stdenv.hostPlatform.system} not supported.";
 
   nativeBuildInputs = [
     patchelf

@@ -38,8 +38,7 @@ let
           substituteInPlace tests/CMakeLists.txt \
             --replace "igraph_scg_grouping3" "" \
             --replace "igraph_scg_semiprojectors2" ""
-        ''
-      ;
+        '';
       buildInputs = old.buildInputs ++ [ suitesparse ];
       cmakeFlags = old.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
     }
@@ -113,8 +112,7 @@ stdenv.mkDerivation rec {
         pybind11
       ]
     )
-    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-  ;
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   cmakeFlags = with lib.versions; [
     "-DHAL_VERSION_RETURN=${version}"

@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optionals (stdenv.buildPlatform != stdenv.targetPlatform) [
       "ARCH=${linuxArchMapping."${stdenv.targetPlatform.linuxArch}"}"
       "CROSS_COMPILE=${stdenv.targetPlatform.config}-"
-    ])
-  ;
+    ]);
 
   outputs = [
     "out"

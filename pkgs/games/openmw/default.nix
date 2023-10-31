@@ -86,8 +86,7 @@ mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       # Don't fix Darwin app bundle
       sed -i '/fixup_bundle/d' CMakeLists.txt
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

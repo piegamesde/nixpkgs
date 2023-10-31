@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ]
     # polkit requires pam, which requires shadow.h, which is not available on
     # darwin
-    ++ lib.optional (!stdenv.isDarwin) polkit
-  ;
+    ++ lib.optional (!stdenv.isDarwin) polkit;
 
   propagatedBuildInputs = [
     glib

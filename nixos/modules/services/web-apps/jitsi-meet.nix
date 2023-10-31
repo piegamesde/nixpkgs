@@ -274,8 +274,7 @@ in
             if cfg.videobridge.passwordFile != null then
               cfg.videobridge.passwordFile
             else
-              "/var/lib/jitsi-meet/videobridge-secret"
-          ;
+              "/var/lib/jitsi-meet/videobridge-secret";
         in
         ''
           ${config.services.prosody.package}/bin/prosodyctl register focus auth.${cfg.hostName} "$(cat /var/lib/jitsi-meet/jicofo-user-secret)"
@@ -344,8 +343,7 @@ in
             chmod 640 /var/lib/jitsi-meet/jitsi-meet.{crt,key}
             chown root:jitsi-meet /var/lib/jitsi-meet/jitsi-meet.{crt,key}
           fi
-        ''
-      ;
+        '';
     };
 
     services.nginx = mkIf cfg.nginx.enable {

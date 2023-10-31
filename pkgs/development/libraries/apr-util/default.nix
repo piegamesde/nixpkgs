@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
       "--without-freetds"
       "--without-berkeley-db"
       "--without-crypto"
-    ]
-  ;
+    ];
 
   postConfigure =
     ''
@@ -79,8 +78,7 @@ stdenv.mkDerivation rec {
           --replace "-ldb-6.9" "-ldb"
         substituteInPlace apu-1-config \
           --replace "-ldb-6.9" "-ldb"
-      ''
-  ;
+      '';
 
   propagatedBuildInputs =
     [
@@ -92,8 +90,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sslSupport openssl
     ++ lib.optional bdbSupport db
     ++ lib.optional ldapSupport openldap
-    ++ lib.optional stdenv.isFreeBSD cyrus_sasl
-  ;
+    ++ lib.optional stdenv.isFreeBSD cyrus_sasl;
 
   postInstall = ''
     for f in $out/lib/*.la $out/lib/apr-util-1/*.la $dev/bin/apu-1-config; do

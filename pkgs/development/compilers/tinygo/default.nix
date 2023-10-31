@@ -135,8 +135,7 @@ buildGoModule rec {
     + lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
       substituteInPlace Makefile \
         --replace "./build/tinygo" "${buildPackages.tinygo}/bin/tinygo"
-    ''
-  ;
+    '';
 
   preBuild = ''
     export PATH=$out/libexec/tinygo:$PATH
@@ -149,8 +148,7 @@ buildGoModule rec {
         if (stdenv.buildPlatform.canExecute stdenv.hostPlatform) then
           "build/tinygo"
         else
-          "${buildPackages.tinygo}/bin/tinygo"
-      ;
+          "${buildPackages.tinygo}/bin/tinygo";
     in
     ''
       # Move binary

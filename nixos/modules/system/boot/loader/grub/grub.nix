@@ -28,8 +28,7 @@ let
       else
         grubPkgs.trustedGrub
     else
-      grubPkgs.grub2
-  ;
+      grubPkgs.grub2;
 
   grub =
     # Don't include GRUB if we're only generating a GRUB menu (e.g.,
@@ -41,8 +40,7 @@ let
     if cfg.efiSupport && (cfg.version == 2) then
       realGrub.override { efiSupport = cfg.efiSupport; }
     else
-      null
-  ;
+      null;
 
   f = x: optionalString (x != null) ("" + x);
 
@@ -75,16 +73,14 @@ let
           if args.efiBootloaderId == null then
             "${config.system.nixos.distroName}${efiSysMountPoint'}"
           else
-            args.efiBootloaderId
-        ;
+            args.efiBootloaderId;
         timeout =
           if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
           if cfg.users == { } || cfg.version != 1 then
             cfg.users
           else
-            throw "GRUB version 1 does not support user accounts."
-        ;
+            throw "GRUB version 1 does not support user accounts.";
         theme = f cfg.theme;
         inherit efiSysMountPoint;
         inherit (args) devices;
@@ -138,8 +134,7 @@ let
                 cfg.font
               else
                 "${convertedFont}"
-            )
-        ;
+            );
       }
     );
 
@@ -918,16 +913,14 @@ in
             assertion = cfg.mirroredBoots != [ ];
             message =
               "You must set the option ‘boot.loader.grub.devices’ or "
-              + "'boot.loader.grub.mirroredBoots' to make the system bootable."
-            ;
+              + "'boot.loader.grub.mirroredBoots' to make the system bootable.";
           }
           {
             assertion =
               cfg.efiSupport
               || all (c: c < 2) (
                 mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters
-              )
-            ;
+              );
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {
@@ -945,8 +938,7 @@ in
           {
             assertion =
               !cfg.trustedBoot.enable
-              || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated"
-            ;
+              || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
             message = "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
           }
           {
@@ -975,8 +967,7 @@ in
                 if args.efiSysMountPoint == null then
                   true
                 else
-                  hasPrefix "/" args.efiSysMountPoint
-              ;
+                  hasPrefix "/" args.efiSysMountPoint;
               message = "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
           ]

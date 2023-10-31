@@ -19,8 +19,7 @@ let
     if application then
       pythonPackages.buildPythonApplication
     else
-      pythonPackages.buildPythonPackage
-  ;
+      pythonPackages.buildPythonPackage;
 in
 build {
   inherit (info) pname version;

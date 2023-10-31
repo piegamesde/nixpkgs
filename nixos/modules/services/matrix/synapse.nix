@@ -32,8 +32,7 @@ let
         "127.0.0.1"
         "::1"
       ])
-    )
-  ;
+    );
 
   registerNewMatrixUser =
     let
@@ -743,8 +742,7 @@ in
                   if lib.versionAtLeast config.system.stateVersion "22.05" then
                     "${cfg.dataDir}/media_store"
                   else
-                    "${cfg.dataDir}/media"
-                ;
+                    "${cfg.dataDir}/media";
                 defaultText = "${cfg.dataDir}/media_store for when system.stateVersion is at least 22.05, ${cfg.dataDir}/media when lower than 22.05";
                 description = lib.mdDoc ''
                   Directory where uploaded images and attachments are stored.
@@ -931,8 +929,7 @@ in
                   if versionAtLeast config.system.stateVersion "18.03" then
                     "psycopg2"
                   else
-                    "sqlite3"
-                ;
+                    "sqlite3";
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"

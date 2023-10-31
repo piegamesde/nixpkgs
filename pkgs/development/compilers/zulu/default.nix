@@ -37,8 +37,7 @@ let
     else if stdenv.isDarwin then
       sha256_x64_darwin
     else
-      sha256_x64_linux
-  ;
+      sha256_x64_linux;
   extension = if stdenv.isDarwin then "zip" else "tar.gz";
   architecture = if stdenv.isAarch64 then "aarch64" else "x64";
 
@@ -83,8 +82,7 @@ stdenv.mkDerivation {
   nativeBuildInputs =
     [ makeWrapper ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals stdenv.isDarwin [ unzip ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ unzip ];
 
   installPhase =
     ''
@@ -117,8 +115,7 @@ stdenv.mkDerivation {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   preFixup = ''
     find "$out" -name libfontmanager.so -exec \

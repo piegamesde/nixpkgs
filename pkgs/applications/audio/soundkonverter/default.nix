@@ -89,8 +89,7 @@ let
     ++ lib.optionals withAac [
       faad2
       aacgain
-    ]
-  ;
+    ];
 in
 mkDerivation rec {
   pname = "soundkonverter";

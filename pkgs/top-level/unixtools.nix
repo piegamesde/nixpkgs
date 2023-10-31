@@ -86,8 +86,7 @@ let
         if stdenv.hostPlatform.libc == "glibc" then
           pkgs.stdenv.cc.libc
         else
-          pkgs.netbsd.getconf
-      ;
+          pkgs.netbsd.getconf;
       darwin = pkgs.darwin.system_cmds;
     };
     getent = {
@@ -95,8 +94,7 @@ let
         if stdenv.hostPlatform.libc == "glibc" then
           pkgs.stdenv.cc.libc
         else
-          pkgs.netbsd.getent
-      ;
+          pkgs.netbsd.getent;
       darwin = pkgs.netbsd.getent;
     };
     getopt = {

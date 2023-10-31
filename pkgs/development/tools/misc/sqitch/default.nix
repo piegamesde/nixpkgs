@@ -16,8 +16,7 @@ let
     [ ]
     ++ lib.optional mysqlSupport DBDmysql
     ++ lib.optional postgresqlSupport DBDPg
-    ++ lib.optional templateToolkitSupport TemplateToolkit
-  ;
+    ++ lib.optional templateToolkitSupport TemplateToolkit;
 in
 
 stdenv.mkDerivation {
@@ -44,8 +43,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/sqitch
-    ''
-  ;
+    '';
   dontStrip = true;
   postFixup = ''
     wrapProgram $out/bin/sqitch --prefix PERL5LIB : ${

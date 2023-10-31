@@ -107,8 +107,7 @@ mkDerivation rec {
             "    LLVM_CXXFLAGS += -fno-rtti"
           ]
         }'
-    ''
-  ;
+    '';
 
   preBuild = lib.optionalString withDocumentation ''
     ln -s ${lib.getLib qtbase}/$qtDocPrefix $NIX_QT5_TMP/share

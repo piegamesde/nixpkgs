@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
       substituteInPlace Makefile.in --replace "tests" " "
 
       substituteInPlace doc/Makefile.am --replace 'flex.1: $(top_srcdir)/configure.ac' 'flex.1: '
-    ''
-  ;
+    '';
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
   nativeBuildInputs = [

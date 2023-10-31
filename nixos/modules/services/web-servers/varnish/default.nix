@@ -18,8 +18,7 @@ let
            makeSearchPathOutput "lib" "lib/varnish/vmods" (
              [ cfg.package ] ++ cfg.extraModules
            )
-         }' -r vmod_path"
-  ;
+         }' -r vmod_path";
 in
 {
   options = {

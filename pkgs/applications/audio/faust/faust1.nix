@@ -139,8 +139,7 @@ let
       meta = meta // {
         description = "The ${baseName} script, part of faust functional programming language for realtime audio signal processing";
       };
-    }
-  ;
+    };
 
   # Some 'faust2appl' scripts, such as faust2alsa, run faust to
   # generate cpp code, then invoke the c++ compiler to build the code.

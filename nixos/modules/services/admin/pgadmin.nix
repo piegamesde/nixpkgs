@@ -50,8 +50,7 @@ let
     else if builtins.isList value then
       "[${concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
     else
-      throw "Unrecognized type"
-  ;
+      throw "Unrecognized type";
 
   formatPy =
     attrs:
@@ -169,8 +168,7 @@ in
         MAIL_USE_TLS = cfg.emailServer.useTLS;
         MAIL_USERNAME = cfg.emailServer.username;
         SECURITY_EMAIL_SENDER = cfg.emailServer.sender;
-      })
-    ;
+      });
 
     systemd.services.pgadmin = {
       wantedBy = [ "multi-user.target" ];
@@ -227,8 +225,7 @@ in
             pw = f.read()
           MAIL_PASSWORD = pw
         ''
-        + formatPy cfg.settings
-      ;
+        + formatPy cfg.settings;
       mode = "0600";
       user = "pgadmin";
       group = "pgadmin";

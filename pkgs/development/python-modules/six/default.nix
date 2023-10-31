@@ -26,8 +26,7 @@ buildPythonPackage rec {
         "--deselect=test_six.py::test_move_items"
       ]
     else
-      null
-  ;
+      null;
 
   pythonImportsCheck = [ "six" ];
 

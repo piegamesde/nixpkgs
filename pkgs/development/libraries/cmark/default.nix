@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
     # Link the executable with the shared library on system with shared libraries.
     lib.optional (!stdenv.hostPlatform.isStatic) "-DCMARK_STATIC=OFF"
     # Do not attempt to build .so library on static platform.
-    ++ lib.optional stdenv.hostPlatform.isStatic "-DCMARK_SHARED=OFF"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isStatic "-DCMARK_SHARED=OFF";
 
   doCheck = true;
 

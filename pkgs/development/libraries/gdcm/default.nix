@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enablePython [
       "-DGDCM_WRAP_PYTHON:BOOL=ON"
       "-DGDCM_INSTALL_PYTHONMODULE_DIR=${placeholder "out"}/${python.sitePackages}"
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ cmake ];
 
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enablePython [
       swig
       python
-    ]
-  ;
+    ];
 
   disabledTests = [
     # require networking:

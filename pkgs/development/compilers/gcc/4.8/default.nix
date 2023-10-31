@@ -62,8 +62,11 @@
 
 assert langJava
   ->
-    zip != null && unzip != null && zlib != null && boehmgc != null && perl != null
-; # for `--enable-java-home'
+    zip != null
+    && unzip != null
+    && zlib != null
+    && boehmgc != null
+    && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -116,8 +119,7 @@ let
         includes = [ "gcc/reload.h" ];
         sha256 = "sha256-66AMP7/ajunGKAN5WJz/yPn42URZ2KN51yPrFdsxEuM=";
       })
-    ]
-  ;
+    ];
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -243,8 +245,7 @@ assert x11Support
         libart_lgpl
       ]
       ++ xlibs
-    )) == [ ]
-;
+    )) == [ ];
 
 stdenv.mkDerivation (
   {
@@ -294,8 +295,7 @@ stdenv.mkDerivation (
                     done
         ''
       else
-        null
-    ;
+        null;
 
     inherit
       noSysDirs

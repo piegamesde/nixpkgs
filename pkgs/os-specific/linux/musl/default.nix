@@ -44,8 +44,7 @@ let
     else if stdenv.hostPlatform.isx86_32 then
       "i386"
     else
-      null
-  ;
+      null;
 in
 stdenv.mkDerivation rec {
   pname = "musl";
@@ -154,8 +153,7 @@ stdenv.mkDerivation rec {
       install -D ${queue_h} $dev/include/sys/queue.h
       install -D ${cdefs_h} $dev/include/sys/cdefs.h
       install -D ${tree_h} $dev/include/sys/tree.h
-    ''
-  ;
+    '';
 
   passthru.linuxHeaders = linuxHeaders;
 

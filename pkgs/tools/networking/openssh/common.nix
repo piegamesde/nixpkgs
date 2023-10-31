@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
     # needed here to access krb5-config in order to cross compile. See:
     # https://github.com/NixOS/nixpkgs/pull/107606
     ++ lib.optional withKerberos pkgs.libkrb5
-    ++ extraNativeBuildInputs
-  ;
+    ++ extraNativeBuildInputs;
   buildInputs =
     [
       zlib
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withFIDO libfido2
     ++ lib.optional withKerberos libkrb5
-    ++ lib.optional stdenv.isLinux pam
-  ;
+    ++ lib.optional stdenv.isLinux pam;
 
   preConfigure = ''
     # Setting LD causes `configure' and `make' to disagree about which linker
@@ -100,8 +98,7 @@ stdenv.mkDerivation rec {
     )
     ++ lib.optional stdenv.isDarwin "--disable-libutil"
     ++ lib.optional (!linkOpenssl) "--without-openssl"
-    ++ extraConfigureFlags
-  ;
+    ++ extraConfigureFlags;
 
   ${if stdenv.hostPlatform.isStatic then "NIX_LDFLAGS" else null} = [
     "-laudit"
@@ -170,8 +167,7 @@ stdenv.mkDerivation rec {
       "unit"
       "file-tests"
       "interop-tests"
-    ]
-  ;
+    ];
 
   postInstall = ''
     # Install ssh-copy-id, it's very useful.
@@ -202,10 +198,8 @@ stdenv.mkDerivation rec {
             eelco
             aneeshusa
           ]
-        )
-      ;
+        );
       mainProgram = "ssh";
     }
-    // extraMeta
-  ;
+    // extraMeta;
 }

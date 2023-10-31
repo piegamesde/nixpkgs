@@ -28,8 +28,7 @@ let
           require('${defaultConfig}'),
           ${builtins.toJSON cfg.config}
         )
-      ''
-  ;
+      '';
 in
 {
   options.services.shout = {

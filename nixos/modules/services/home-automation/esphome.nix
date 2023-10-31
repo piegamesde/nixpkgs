@@ -24,8 +24,7 @@ let
     if cfg.enableUnixSocket then
       "--socket /run/esphome/esphome.sock"
     else
-      "--address ${cfg.address} --port ${toString cfg.port}"
-  ;
+      "--address ${cfg.address} --port ${toString cfg.port}";
 in
 {
   meta.maintainers = with maintainers; [ oddlama ];

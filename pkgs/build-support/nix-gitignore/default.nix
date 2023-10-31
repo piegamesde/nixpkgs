@@ -83,8 +83,9 @@ rec {
               recurse =
                 str:
                 [ (substring 0 1 str) ]
-                ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)))
-              ;
+                ++ (
+                  if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str))
+                );
             in
             str:
             recurse str;
@@ -134,8 +135,7 @@ rec {
           hasSlash = mapAroundCharclass findSlash l != l;
         in
         (if (elemAt split 0) == "/" || hasSlash then "^" else "(^|.*/)")
-        + (elemAt split 1)
-      ;
+        + (elemAt split 1);
 
       # regex -> regex
       handleSlashSuffix =
@@ -179,8 +179,7 @@ rec {
   gitignoreFilterPure =
     filter: patterns: root: name: type:
     gitignoreFilter (gitignoreCompileIgnore patterns root) root name type
-    && filter name type
-  ;
+    && filter name type;
 
   # This is a very hacky way of programming this!
   # A better way would be to reuse existing filtering by making multiple gitignore functions per each root.
@@ -263,8 +262,7 @@ rec {
       throw "type error in gitignoreSource(patterns -> source -> path), "
         ''use [] or "" if there are no additional patterns''
     else
-      gitignoreFilterSource (_: _: true) patterns
-  ;
+      gitignoreFilterSource (_: _: true) patterns;
 
   gitignoreRecursiveSource = gitignoreFilterSourcePure (_: _: true);
 }

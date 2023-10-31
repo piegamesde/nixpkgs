@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
       yoda
     ]
     ++ lib.optional withPython python
-    ++ lib.optional (withPython && python.isPy3k) ncurses
-  ;
+    ++ lib.optional (withPython && python.isPy3k) ncurses;
 
   propagatedBuildInputs = [ zlib ] ++ lib.optional withPython swig;
 

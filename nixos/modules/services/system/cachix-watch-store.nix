@@ -104,8 +104,7 @@ in
               "--jobs"
               (toString cfg.jobs)
             ])
-            ++ [ cfg.cacheName ]
-          ;
+            ++ [ cfg.cacheName ];
         in
         ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"

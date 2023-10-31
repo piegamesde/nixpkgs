@@ -164,8 +164,7 @@
           {
             outputHash = "";
             outputHashAlgo = "sha256";
-          }
-      ;
+          };
 
       forceGitDeps_ = lib.optionalAttrs forceGitDeps { FORCE_GIT_DEPS = true; };
     in

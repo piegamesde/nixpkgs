@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
   installTargets =
     [ "install_hdrs" ]
     ++ lib.optional (!stdenv.targetPlatform.isStatic) "install_shared_lib"
-    ++ lib.optional stdenv.targetPlatform.isStatic "install_lib"
-  ;
+    ++ lib.optional stdenv.targetPlatform.isStatic "install_lib";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libcctz.so $out/lib/libcctz.so

@@ -46,8 +46,7 @@ buildFHSEnv {
       fahclient
       ocl-icd
     ]
-    ++ extraPkgs
-  ;
+    ++ extraPkgs;
 
   runScript = "/bin/FAHClient";
 

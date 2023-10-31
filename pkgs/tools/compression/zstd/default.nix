@@ -107,8 +107,7 @@ stdenv.mkDerivation rec {
       + lib.optionalString stdenv.isDarwin ''
         install_name_tool -change @rpath/libzstd.1.dylib $out/lib/libzstd.1.dylib $bin/bin/pzstd
       ''
-    )
-  ;
+    );
 
   outputs = [
     "bin"

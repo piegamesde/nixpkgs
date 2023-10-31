@@ -45,7 +45,6 @@ buildGoModule rec {
         uri-canva
         marsam
       ]
-      ++ lib.teams.bazel.members
-    ;
+      ++ lib.teams.bazel.members;
   };
 }

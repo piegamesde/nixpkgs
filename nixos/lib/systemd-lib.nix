@@ -61,8 +61,7 @@ rec {
           name=${shellEscape name}
           mkdir -p "$out/$(dirname "$name")"
           ln -s /dev/null "$out/$name"
-        ''
-  ;
+        '';
 
   boolValues = [
     true
@@ -89,8 +88,7 @@ rec {
       ]
       ++ digits
     )
-    && all (num: elem num digits) nums
-  ;
+    && all (num: elem num digits) nums;
 
   assertByteFormat =
     name: group: attr:
@@ -104,8 +102,7 @@ rec {
     stringLength s == 17
     && flip all (splitString ":" s) (
       bytes: all (byte: elem byte hexChars) (stringToCharacters bytes)
-    )
-  ;
+    );
 
   assertMacAddress =
     name: group: attr:
@@ -180,8 +177,7 @@ rec {
     if errors == [ ] then
       true
     else
-      builtins.trace (concatStringsSep "\n" errors) false
-  ;
+      builtins.trace (concatStringsSep "\n" errors) false;
 
   toOption =
     x:
@@ -190,8 +186,7 @@ rec {
     else if x == false then
       "false"
     else
-      toString x
-  ;
+      toString x;
 
   attrsToSection =
     as:
@@ -469,8 +464,7 @@ rec {
           }
           // optionalAttrs (options.startLimitBurst.isDefined) {
             StartLimitBurst = toString config.startLimitBurst;
-          }
-        ;
+          };
       };
     };
 
@@ -506,8 +500,7 @@ rec {
             Where = config.where;
           }
           // optionalAttrs (config.type != "") { Type = config.type; }
-          // optionalAttrs (config.options != "") { Options = config.options; }
-        ;
+          // optionalAttrs (config.options != "") { Options = config.options; };
       };
     };
 
@@ -581,13 +574,11 @@ rec {
             X-RestartIfChanged=false
           ''
         else
-          ""
-        }
+          ""}
         ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
           "X-StopIfChanged=false"}
         ${attrsToSection def.serviceConfig}
-      ''
-    ;
+      '';
   };
 
   socketToUnit = name: def: {
@@ -605,8 +596,7 @@ rec {
         ${attrsToSection def.socketConfig}
         ${concatStringsSep "\n" (map (s: "ListenStream=${s}") def.listenStreams)}
         ${concatStringsSep "\n" (map (s: "ListenDatagram=${s}") def.listenDatagrams)}
-      ''
-    ;
+      '';
   };
 
   timerToUnit = name: def: {
@@ -622,8 +612,7 @@ rec {
       + ''
         [Timer]
         ${attrsToSection def.timerConfig}
-      ''
-    ;
+      '';
   };
 
   pathToUnit = name: def: {
@@ -639,8 +628,7 @@ rec {
       + ''
         [Path]
         ${attrsToSection def.pathConfig}
-      ''
-    ;
+      '';
   };
 
   mountToUnit = name: def: {
@@ -656,8 +644,7 @@ rec {
       + ''
         [Mount]
         ${attrsToSection def.mountConfig}
-      ''
-    ;
+      '';
   };
 
   automountToUnit = name: def: {
@@ -673,8 +660,7 @@ rec {
       + ''
         [Automount]
         ${attrsToSection def.automountConfig}
-      ''
-    ;
+      '';
   };
 
   sliceToUnit = name: def: {
@@ -690,7 +676,6 @@ rec {
       + ''
         [Slice]
         ${attrsToSection def.sliceConfig}
-      ''
-    ;
+      '';
   };
 }

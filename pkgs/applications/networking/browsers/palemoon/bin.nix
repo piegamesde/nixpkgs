@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       if withGTK3 then
         "sha256-Kre+F1AE4bC5hAODYjo+S6TUCpKk8KMnYumQWHz+epY="
       else
-        "sha256-LIsep7KsNhsw3zlmgltu6/4qZEWjGQbUmLqHCabSTfg="
-    ;
+        "sha256-LIsep7KsNhsw3zlmgltu6/4qZEWjGQbUmLqHCabSTfg=";
   };
 
   preferLocalBuild = true;

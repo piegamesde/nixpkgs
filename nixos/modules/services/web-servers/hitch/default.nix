@@ -108,8 +108,7 @@ with lib; {
         + (optionalString cfg.ocsp-stapling.enabled ''
           mkdir -p ${ocspDir}
           chown -R hitch:hitch ${ocspDir}
-        '')
-      ;
+        '');
       serviceConfig = {
         Type = "forking";
         ExecStart = "${pkgs.hitch}/sbin/hitch --daemon --config ${hitchConfig}";

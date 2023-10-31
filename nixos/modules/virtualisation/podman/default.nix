@@ -18,8 +18,7 @@ let
         ++ [ "/run/wrappers" ]
         ++
           lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-            config.boot.zfs.package
-      ;
+            config.boot.zfs.package;
     });
 
   # Provides a fake "docker" binary mapping to podman

@@ -31,8 +31,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "x86"
     else
-      throw "Unsupported platform ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported platform ${stdenv.hostPlatform.system}";
 in
 
 stdenv.mkDerivation rec {

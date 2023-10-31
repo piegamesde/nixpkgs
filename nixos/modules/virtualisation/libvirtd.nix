@@ -451,8 +451,7 @@ in
       path =
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
         ++ optional vswitch.enable vswitch.package
-        ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package
-      ;
+        ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
 
       serviceConfig = {
         Type = "notify";

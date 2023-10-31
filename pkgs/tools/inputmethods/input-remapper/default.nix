@@ -55,8 +55,7 @@ in
     + lib.optionalString withDebugLogLevel ''
       # if debugging
       substituteInPlace inputremapper/logger.py --replace "logger.setLevel(logging.INFO)"  "logger.setLevel(logging.DEBUG)"
-    ''
-  ;
+    '';
 
   doCheck = withDoCheck;
   nativeCheckInputs = [ psutil ];
@@ -168,7 +167,6 @@ in
         + ''
           # set revision for --version output
           echo "COMMIT_HASH = '${final.src.rev}'" > inputremapper/commit_hash.py
-        ''
-      ;
+        '';
     }
   )

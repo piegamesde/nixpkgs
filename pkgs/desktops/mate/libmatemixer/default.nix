@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ glib ]
     ++ lib.optional alsaSupport alsa-lib
-    ++ lib.optional pulseaudioSupport libpulseaudio
-  ;
+    ++ lib.optional pulseaudioSupport libpulseaudio;
 
   configureFlags = lib.optional ossSupport "--enable-oss";
 

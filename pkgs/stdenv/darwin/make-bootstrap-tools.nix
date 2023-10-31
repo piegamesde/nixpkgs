@@ -21,8 +21,7 @@ let
           (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin;
       }
     else
-      { }
-  ;
+      { };
 in
 with import pkgspath ({ inherit localSystem; } // cross // custom-bootstrap);
 
@@ -201,8 +200,7 @@ rec {
         ''
           sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
             $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
-        ''
-      }
+        ''}
 
       nuke-refs $out/lib/*
       nuke-refs $out/lib/system/*

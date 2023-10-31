@@ -69,8 +69,7 @@ let
         else if cmdline_ == "" then
           ".*"
         else
-          escapeRegex cmdline_
-      ;
+          escapeRegex cmdline_;
     in
     writeIgnoreRule "cron-${name}" {
       inherit level;

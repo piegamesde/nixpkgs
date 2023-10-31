@@ -29,8 +29,7 @@ python3.pkgs.buildPythonApplication rec {
       python-dateutil
       pytz # https://github.com/Kozea/Radicale/issues/816
     ]
-    ++ passlib.optional-dependencies.bcrypt
-  ;
+    ++ passlib.optional-dependencies.bcrypt;
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook

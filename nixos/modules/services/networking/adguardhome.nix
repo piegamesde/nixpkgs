@@ -153,8 +153,7 @@ in
                 "bind_hosts"
               ]
               cfg.settings
-            )
-        ;
+            );
         message = "AdGuard setting dns.bind_host or dns.bind_hosts needs to be configured for a minimal working configuration";
       }
       {
@@ -168,8 +167,7 @@ in
                   "dns"
                   "bootstrap_dns"
                 ]
-                cfg.settings
-        ;
+                cfg.settings;
         message = "AdGuard setting dns.bootstrap_dns needs to be configured for a minimal working configuration";
       }
     ];

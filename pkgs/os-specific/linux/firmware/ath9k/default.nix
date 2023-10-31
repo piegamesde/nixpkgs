@@ -138,8 +138,7 @@ stdenv.mkDerivation (
           + ''
             echo '}'
             exit
-          ''
-        ;
+          '';
       };
     };
 

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-gWCBH2zfhJdJ3XUAxvZ0+gBHye5uYCUgX1BDEoaruxY=";
       }
     else
-      throw "Whalebird is not supported for ${stdenv.system}"
-  ;
+      throw "Whalebird is not supported for ${stdenv.system}";
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -33,8 +33,7 @@ stdenv.mkDerivation {
             "https://salsa.debian.org/images-team/syslinux/raw/"
             + commit
             + "/debian/patches/"
-            + name
-          ;
+            + name;
           inherit name hash;
         };
       fetchArchlinuxPatch =
@@ -44,8 +43,7 @@ stdenv.mkDerivation {
             "https://raw.githubusercontent.com/archlinux/svntogit-packages/"
             + commit
             + "/trunk/"
-            + name
-          ;
+            + name;
           inherit name hash;
         };
     in

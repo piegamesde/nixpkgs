@@ -174,8 +174,7 @@ let
                   --prefix PATH : "${lib.makeBinPath wrapperInputs}"
               '';
             }
-          )
-      ;
+          );
     in
     withPlugins (_: [ ]);
 

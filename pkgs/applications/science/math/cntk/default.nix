@@ -105,8 +105,7 @@ stdenv.mkDerivation rec {
       "--with-gdk-nvml-lib=${nvidia_x11}/lib"
       "--with-cub=${cub}"
     ]
-    ++ lib.optional onebitSGDSupport "--1bitsgd=yes"
-  ;
+    ++ lib.optional onebitSGDSupport "--1bitsgd=yes";
 
   configurePhase = ''
     sed -i \

@@ -127,8 +127,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (kernel != null) ''
       export INSTALL_MOD_PATH="$out"
       export KERNELDIR="${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ''
-  ;
+    '';
 
   postInstall =
     ''
@@ -150,8 +149,7 @@ stdenv.mkDerivation rec {
           sed -i "s#$kernel_dev#................................#g" $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
           xz $out/lib/modules/${kernel.modDirVersion}/extra/scap.ko
       fi
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A tracepoint-based system tracing tool for Linux (with clients for other OSes)";

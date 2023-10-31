@@ -139,8 +139,7 @@ in
           cat > ${configsDir}/Nginx.conf <<EOF
           location ${cfg.nginxStatusUrl}
           EOF
-        '')
-      ;
+        '');
     };
 
     warnings =

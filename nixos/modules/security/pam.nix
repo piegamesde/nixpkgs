@@ -923,8 +923,7 @@ let
     if config.users.motdFile == null then
       pkgs.writeText "motd" config.users.motd
     else
-      config.users.motdFile
-  ;
+      config.users.motdFile;
 
   makePAMService = name: service: {
     name = "pam.d/${name}";
@@ -1423,8 +1422,7 @@ in
       ++ optionals config.security.pam.oath.enable [ pkgs.oath-toolkit ]
       ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ]
       ++ optionals config.security.pam.enableFscrypt [ pkgs.fscrypt-experimental ]
-      ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ]
-    ;
+      ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
 
     boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [
       "ecryptfs"
@@ -1575,7 +1573,6 @@ in
       ''
       + optionalString config.services.homed.enable ''
         mr ${config.systemd.package}/lib/security/pam_systemd_home.so
-      ''
-    ;
+      '';
   };
 }

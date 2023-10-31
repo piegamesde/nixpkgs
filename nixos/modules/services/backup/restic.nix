@@ -341,15 +341,13 @@ in
                   }"
                 ]
               else
-                [ ]
-            ;
+                [ ];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
             backupPaths =
               if (backup.dynamicFilesFrom == null) then
                 optionalString (backup.paths != null) (concatStringsSep " " backup.paths)
               else
-                "--files-from ${filesFromTmpFile}"
-            ;
+                "--files-from ${filesFromTmpFile}";
             pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
               (resticCmd + " forget --prune " + (concatStringsSep " " backup.pruneOpts))
               (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
@@ -382,8 +380,7 @@ in
                   mapAttrs'
                     (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
                     backup.rcloneConfig
-                )
-              ;
+                );
               path = [ pkgs.openssh ];
               restartIfChanged = false;
               serviceConfig =
@@ -395,8 +392,7 @@ in
                         concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
                       } ${backupPaths}"
                     ])
-                    ++ pruneCmd
-                  ;
+                    ++ pruneCmd;
                   User = backup.user;
                   RuntimeDirectory = "restic-backups-${name}";
                   CacheDirectory = "restic-backups-${name}";

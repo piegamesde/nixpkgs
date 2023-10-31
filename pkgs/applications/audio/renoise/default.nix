@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         releasePath
     else
       throw
-        "Platform is not supported. Use instalation native to your platform https://www.renoise.com/"
-  ;
+        "Platform is not supported. Use instalation native to your platform https://www.renoise.com/";
 
   buildInputs = [
     alsa-lib

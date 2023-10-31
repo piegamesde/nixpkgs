@@ -80,8 +80,7 @@ buildGoModule rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       export PULUMI_HOME=$(mktemp -d)
-    ''
-  ;
+    '';
 
   # Allow tests that bind or connect to localhost on macOS.
   __darwinAllowLocalNetworking = true;

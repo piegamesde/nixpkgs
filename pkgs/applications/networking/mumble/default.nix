@@ -104,8 +104,7 @@ let
           ++ lib.optional jackSupport libjack2
           ++ lib.optional speechdSupport speechd
           ++ lib.optional pulseSupport libpulseaudio
-          ++ lib.optional pipewireSupport pipewire
-        ;
+          ++ lib.optional pipewireSupport pipewire;
 
         configureFlags =
           [
@@ -122,8 +121,7 @@ let
           ++ lib.optional (!speechdSupport) "-D speechd=OFF"
           ++ lib.optional (!pulseSupport) "-D pulseaudio=OFF"
           ++ lib.optional (!pipewireSupport) "-D pipewire=OFF"
-          ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON"
-        ;
+          ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON";
 
         env.NIX_CFLAGS_COMPILE =
           lib.optionalString speechdSupport
@@ -154,8 +152,7 @@ let
             "-D CMAKE_PREFIX_PATH=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
             "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
           ]
-          ++ lib.optional grpcSupport "-D grpc=ON"
-        ;
+          ++ lib.optional grpcSupport "-D grpc=ON";
 
         buildInputs =
           [ libcap ]
@@ -163,8 +160,7 @@ let
           ++ lib.optionals grpcSupport [
             grpc
             which
-          ]
-        ;
+          ];
       }
       source;
 

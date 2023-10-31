@@ -144,8 +144,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       gappsWrapperArgs+=("--prefix" "DYLD_LIBRARY_PATH" ":" ${libPath})
-    ''
-  ;
+    '';
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # Cannot set DYLD_LIBRARY_PATH as an attr of this drv, becasue dynamic
@@ -168,8 +167,7 @@ stdenv.mkDerivation rec {
       "--enable-lt=${libtool}/bin/libtool"
     ]
     ++ lib.optionals disableDocs [ "--disable-docs" ]
-    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "--enable-xonx" ];
 
   configureScript = "../configure";
 

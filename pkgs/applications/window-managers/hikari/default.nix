@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
     ++
       mapAttrsToList
         (feat: enabled: optionalString enabled "WITH_${toUpper feat}=YES")
-        features
-  ;
+        features;
 
   postPatch = ''
     # Can't suid in nix store

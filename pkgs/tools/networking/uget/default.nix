@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
         gst-plugins-good
       ]
     )
-    ++ (lib.optional (aria2 != null) aria2)
-  ;
+    ++ (lib.optional (aria2 != null) aria2);
 
   enableParallelBuilding = true;
 

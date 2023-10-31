@@ -81,8 +81,7 @@ buildPythonPackage rec {
       else
         passthru.optional-dependencies.enterprise_cert
     )
-    ++ passthru.optional-dependencies.reauth
-  ;
+    ++ passthru.optional-dependencies.reauth;
 
   pythonImportsCheck = [
     "google.auth"

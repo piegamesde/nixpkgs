@@ -173,8 +173,7 @@ stdenv.mkDerivation (
         # Others
       ]
       ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
-      ++ (config.buildInputs or [ ])
-    ;
+      ++ (config.buildInputs or [ ]);
 
     prePatch = ''
       ### Generic fixes
@@ -341,8 +340,7 @@ stdenv.mkDerivation (
         "Xen hypervisor and related components"
         +
           optionalString (args ? meta && args.meta ? description)
-            " (${args.meta.description})"
-      ;
+            " (${args.meta.description})";
       longDescription =
         (args.meta.longDescription or "")
         + ''
@@ -351,8 +349,7 @@ stdenv.mkDerivation (
         ''
         + withXenfiles (
           name: x: "* ${name}: ${x.meta.description or "(No description)"}."
-        )
-      ;
+        );
       platforms = [ "x86_64-linux" ];
       maintainers = [ ];
       license = lib.licenses.gpl2;

@@ -74,8 +74,7 @@ let
             [
               darwin-endian-h
               darwin-byteswap-h
-            ]
-      ;
+            ];
 
       extraIncludeDirs =
         lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
@@ -112,8 +111,7 @@ let
             ''
               make headers $makeFlags
             ''
-        )
-      ;
+        );
 
       checkPhase = ''
         make headers_check $makeFlags
@@ -134,8 +132,7 @@ let
         + ''
           mkdir -p $out/include/config
           echo "${version}-default" > $out/include/config/kernel.release
-        ''
-      ;
+        '';
 
       meta = with lib; {
         description = "Header files and scripts for Linux kernel";

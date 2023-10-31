@@ -67,8 +67,7 @@ let
     else if hasAttr dfVersion dfhack-releases then
       getAttr dfVersion dfhack-releases
     else
-      throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}"
-  ;
+      throw "[DFHack] Unsupported Dwarf Fortress version: ${dfVersion}";
 
   version = release.dfHackRelease;
 
@@ -81,8 +80,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "32"
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
 
   fakegit = writeScriptBin "git" ''
     #! ${stdenv.shell}

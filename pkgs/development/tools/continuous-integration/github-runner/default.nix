@@ -77,8 +77,7 @@ buildDotnetModule rec {
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
-    ]
-  ;
+    ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
@@ -170,8 +169,7 @@ buildDotnetModule rec {
       "GitHub.Runner.Common.Tests.Worker.VariablesL0.Constructor_SetsOrdinalIgnoreCaseComparer"
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchCancellation"
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchRunNewJob"
-    ]
-  ;
+    ];
 
   testProjectFile = [ "src/Test/Test.csproj" ];
 
@@ -241,8 +239,7 @@ buildDotnetModule rec {
         --run 'mkdir -p "$RUNNER_ROOT"'
         --chdir "$out"
       )
-    ''
-  ;
+    '';
 
   # List of files to wrap
   executables = [

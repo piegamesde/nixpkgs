@@ -39,8 +39,7 @@ in
       {
         assertion =
           !(builtins.hasAttr "bolt-path" cfg.settings)
-          && !(builtins.hasAttr "engine-path" cfg.settings)
-        ;
+          && !(builtins.hasAttr "engine-path" cfg.settings);
         message = "services.influxdb2.config: bolt-path and engine-path should not be set as they are managed by systemd";
       }
     ];

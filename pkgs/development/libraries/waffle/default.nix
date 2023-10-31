@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals useGbm [
       udev
       mesa
-    ]
-  ;
+    ];
 
   dontUseCmakeConfigure = true;
 

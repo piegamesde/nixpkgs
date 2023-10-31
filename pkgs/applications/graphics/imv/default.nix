@@ -43,8 +43,7 @@ let
     else if stdenv.isLinux then
       "all"
     else
-      "x11"
-  ;
+      "x11";
 
   windowSystems = {
     all = windowSystems.x11 ++ windowSystems.wayland;
@@ -124,8 +123,7 @@ stdenv.mkDerivation rec {
       inih
     ]
     ++ windowSystems."${withWindowSystem'}"
-    ++ builtins.map (b: backends."${b}") withBackends
-  ;
+    ++ builtins.map (b: backends."${b}") withBackends;
 
   postInstall = ''
     # fix the executable path and install the desktop item

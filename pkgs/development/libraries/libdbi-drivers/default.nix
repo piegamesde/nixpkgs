@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
       "--with-pgsql"
       "--with-pgsql_incdir=${postgresql}/include"
       "--with-pgsql_libdir=${postgresql.lib}/lib"
-    ]
-  ;
+    ];
 
   installFlags = [ "DESTDIR=\${out}" ];
 

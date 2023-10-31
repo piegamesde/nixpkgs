@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         sha256 = "1waip5pmcf5ffcfvn8lf1rvsaq2ab66imrbfqs777scz7k8fhhjb";
       }
     else
-      throw "baudline isn't supported (yet?) on ${stdenv.hostPlatform.system}"
-  ;
+      throw "baudline isn't supported (yet?) on ${stdenv.hostPlatform.system}";
 
   nativeBuildInputs = [ makeWrapper ];
 

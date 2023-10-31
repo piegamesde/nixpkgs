@@ -27,6 +27,5 @@ buildNimPackage rec {
       description = "Pure Nim implementation of deflate, zlib, gzip and zip";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

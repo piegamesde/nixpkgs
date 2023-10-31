@@ -37,8 +37,7 @@ let
         (mkLinkFarmEntry' "themes")
         (mkLinkFarmEntry "completions" "site-functions")
         (mkLinkFarmEntry' "plugins")
-      ]
-  ;
+      ];
 in
 {
   imports = [

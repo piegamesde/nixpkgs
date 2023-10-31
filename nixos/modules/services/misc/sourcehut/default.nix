@@ -31,13 +31,11 @@ let
               else if v == false then
                 "no"
               else
-                generators.mkValueStringDefault { } v
-            ;
+                generators.mkValueStringDefault { } v;
           }
           "="
           k
-          v
-    ;
+          v;
   };
   configIniOfService =
     srv:
@@ -1008,8 +1006,7 @@ in
                     exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
                   ''
                 }:/usr/bin/hgsrht-hook-changegroup"
-              ]
-            ;
+              ];
           };
         };
       })
@@ -1415,8 +1412,7 @@ in
             '';
             ExecStart =
               "${cfg.python}/bin/celery --app listssrht.process worker --hostname listssrht-process@%%h "
-              + concatStringsSep " " cfg.lists.process.extraArgs
-            ;
+              + concatStringsSep " " cfg.lists.process.extraArgs;
             # Avoid crashing: os.getloadavg()
             ProcSubset = mkForce "all";
           };
@@ -1483,8 +1479,7 @@ in
                 )
                 cfg.settings
             )
-          )
-        ;
+          );
         serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${
             toString (cfg.meta.port + 100)
           }";
@@ -1498,8 +1493,7 @@ in
                   s = cfg.settings."meta.sr.ht::billing";
                 in
                 s.enabled == "yes"
-                -> (s.stripe-public-key != null && s.stripe-secret-key != null)
-              ;
+                -> (s.stripe-public-key != null && s.stripe-secret-key != null);
               message = "If meta.sr.ht::billing is enabled, the keys must be defined.";
             }
           ];

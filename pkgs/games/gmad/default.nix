@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     else if stdenv.isDarwin then
       "gmad_osx"
     else
-      "gmad"
-  ;
+      "gmad";
 
   premakeFlags = [
     "--bootil_lib=${bootil}/lib"

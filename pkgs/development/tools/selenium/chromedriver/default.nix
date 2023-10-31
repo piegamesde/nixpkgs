@@ -92,8 +92,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.isDarwin) ''
       patchelf --set-interpreter ${glibc.out}/lib/ld-linux-x86-64.so.2 $out/bin/chromedriver
       wrapProgram "$out/bin/chromedriver" --prefix LD_LIBRARY_PATH : "${libs}"
-    ''
-  ;
+    '';
 
   passthru.tests.version = testers.testVersion { package = chromedriver; };
 

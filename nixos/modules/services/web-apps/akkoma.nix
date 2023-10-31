@@ -74,8 +74,7 @@ let
         )
         // {
           description = "Elixir value";
-        }
-      ;
+        };
     in
     elixirValue';
 
@@ -119,8 +118,7 @@ let
         else if isList v then
           map (replaceSec' args) v
         else
-          v
-      ;
+          v;
     in
     replaceSec' { };
 
@@ -162,8 +160,7 @@ let
                   addr
                 ]
               else
-                format.lib.mkRaw (erlAddr addr)
-            ;
+                format.lib.mkRaw (erlAddr addr);
           }
         ]
         cfg.config
@@ -177,8 +174,7 @@ let
       runtimeInputs ? [ ],
     }:
     pkgs.writeShellApplication { inherit name text runtimeInputs; }
-    + "/bin/${name}"
-  ;
+    + "/bin/${name}";
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
@@ -301,8 +297,7 @@ let
         *:*:*${esc cfg.initDb.username}:${esc (sha256 cfg.initDb.password._secret)}
       ''
     else
-      null
-  ;
+      null;
 
   escapeSqlId = x: ''"${replaceStrings [ ''"'' ] [ ''""'' ] x}"'';
   escapeSqlStr = x: "'${replaceStrings [ "'" ] [ "''" ] x}'";
@@ -332,8 +327,7 @@ let
     else if db ? hostname then
       db.hostname
     else
-      null
-  ;
+      null;
 
   initDbScript = writeShell {
     name = "akkoma-initdb";
@@ -461,8 +455,7 @@ let
         '';
       }
     else
-      null
-  ;
+      null;
 
   staticDir = ex.":pleroma".":instance".static_dir;
   uploadDir = ex.":pleroma".":instance".upload_dir;
@@ -1155,8 +1148,7 @@ in
             gawk
             gnused
           ]
-          ++ cfg.extraPackages
-        ;
+          ++ cfg.extraPackages;
       in
       {
         description = "Akkoma social network";
@@ -1296,8 +1288,7 @@ in
               else if hasInfix ":" web.http.ip then
                 "http://[${web.http.ip}]:${toString web.http.port}"
               else
-                "http://${web.http.ip}:${toString web.http.port}"
-            ;
+                "http://${web.http.ip}:${toString web.http.port}";
 
             proxyWebsockets = true;
             recommendedProxySettings = true;

@@ -269,7 +269,6 @@ let
     if builtins.pathExists ./imported.nix then
       pkgs.callPackage ./imported.nix { inherit build-asdf-system; }
     else
-      { }
-  ;
+      { };
 in
 qlpkgs.overrideScope' overrides

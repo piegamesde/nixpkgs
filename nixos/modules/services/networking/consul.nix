@@ -215,8 +215,7 @@ in
             {
               ExecStart =
                 "@${lib.getExe cfg.package} consul agent -config-dir /etc/consul.d"
-                + concatMapStrings (n: " -config-file ${n}") configFiles
-              ;
+                + concatMapStrings (n: " -config-file ${n}") configFiles;
               ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
               PermissionsStartOnly = true;
               User = if cfg.dropPrivileges then "consul" else null;
@@ -240,8 +239,7 @@ in
                 else if cfg.forceAddrFamily == "ipv4" then
                   "-4"
                 else
-                  ""
-              ;
+                  "";
             in
             ''
               mkdir -m 0700 -p ${dataDir}
@@ -280,8 +278,7 @@ in
             )
             + ''
               echo "}" >> /etc/consul-addrs.json
-            ''
-          ;
+            '';
         };
       }
 

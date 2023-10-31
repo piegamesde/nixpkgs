@@ -13,8 +13,7 @@ let
     if builtins.isString server then
       "unix://${server}"
     else
-      "${server.host},${builtins.toString server.port}"
-  ;
+      "${server.host},${builtins.toString server.port}";
 
   # Filter out submodule parameters whose value is null or false or is
   # the key _module.

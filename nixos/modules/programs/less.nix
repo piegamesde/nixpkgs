@@ -31,8 +31,7 @@ let
         ${concatStringsSep "\n" (
           mapAttrsToList (variable: values: "${variable}=${values}") cfg.envVariables
         )}
-      ''
-  ;
+      '';
 
   lessKey = pkgs.writeText "lessconfig" configText;
 in
@@ -128,8 +127,7 @@ in
         LESSKEYIN_SYSTEM = toString lessKey;
       }
       // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
-      // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; }
-    ;
+      // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
 
     warnings =
       optional

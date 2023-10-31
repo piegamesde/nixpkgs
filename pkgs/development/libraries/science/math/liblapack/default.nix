@@ -46,8 +46,7 @@ stdenv.mkDerivation (
       # https://github.com/Reference-LAPACK/lapack/issues/757
       ++
         lib.optional (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-          "-DTEST_FORTRAN_COMPILER=OFF"
-    ;
+          "-DTEST_FORTRAN_COMPILER=OFF";
 
     passthru = {
       inherit blas64;
@@ -61,8 +60,7 @@ stdenv.mkDerivation (
               lib.versions.major finalAttrs.version
             }"
           else
-            stdenv.hostPlatform.extensions.sharedLibrary
-        ;
+            stdenv.hostPlatform.extensions.sharedLibrary;
       in
       lib.optionalString blas64 ''
         ln -s $out/lib/liblapack64${canonicalExtension} $out/lib/liblapack${canonicalExtension}

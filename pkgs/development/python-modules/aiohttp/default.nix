@@ -75,8 +75,7 @@ buildPythonPackage rec {
       asynctest
       typing-extensions
     ]
-    ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ]
-  ;
+    ++ lib.optionals (pythonOlder "3.7") [ idna-ssl ];
 
   nativeCheckInputs =
     [
@@ -110,8 +109,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       "test_addresses" # https://github.com/aio-libs/aiohttp/issues/3572, remove >= v4.0.0
       "test_close"
-    ]
-  ;
+    ];
 
   disabledTestPaths = [
     "test_proxy_functional.py" # FIXME package proxy.py
@@ -128,8 +126,7 @@ buildPythonPackage rec {
     + lib.optionalString stdenv.isDarwin ''
       # Work around "OSError: AF_UNIX path too long"
       export TMPDIR="/tmp"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     changelog = "https://github.com/aio-libs/aiohttp/blob/v${version}/CHANGES.rst";

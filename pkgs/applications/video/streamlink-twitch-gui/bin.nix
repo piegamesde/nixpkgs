@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       if arch == "linux64" then
         "sha256-kfCGhIgKMI0siDqnmIHSMk6RMHFlW6uwVsW48aiRua0="
       else
-        "sha256-+jgTpIYb4BPM7Ixmo+YUeOX5OlQlMaRVEXf3WzS2lAI="
-    ;
+        "sha256-+jgTpIYb4BPM7Ixmo+YUeOX5OlQlMaRVEXf3WzS2lAI=";
   };
 
   nativeBuildInputs = with xorg; [

@@ -23,8 +23,7 @@ let
       fetchurl {
         url = "${baseUrl}-cc.jar";
         sha256 = "0ky5vxh8m1v98zllifxif8xxd25j2xdp19hjnj4xlkck71lbnb34";
-      }
-  ;
+      };
 
   desktopIcon = fetchurl {
     url = "https://github.com/CCEmuX/CCEmuX/raw/${rev}/src/main/resources/img/icon.png";

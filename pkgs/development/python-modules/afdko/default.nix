@@ -112,8 +112,7 @@ buildPythonPackage rec {
           # https://github.com/adobe-type-tools/afdko/issues/1425
           "test_spec"
         ]
-    ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ]
-  ;
+    ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ];
 
   passthru.tests = {
     fullTestsuite = afdko.override { runAllTests = true; };

@@ -127,8 +127,7 @@ stdenv.mkDerivation rec {
       ocl-icd
     ]
     ++ lib.optional stdenv.isDarwin gtk-mac-integration
-    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp
-  ;
+    ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   cmakeFlags =
     [ "-DBUILD_USERMANUAL=False" ]

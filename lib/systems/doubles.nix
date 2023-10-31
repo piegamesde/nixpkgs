@@ -186,8 +186,7 @@ in
         kernel = parse.kernels.linux;
         abi = parse.abis.gnuabielfv2;
       }
-    )
-  ;
+    );
   illumos = filterDoubles predicates.isSunOS;
   linux = filterDoubles predicates.isLinux;
   netbsd = filterDoubles predicates.isNetBSD;

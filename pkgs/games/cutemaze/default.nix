@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
         runHook postInstall
       ''
     else
-      null
-  ;
+      null;
 
   meta = with lib; {
     changelog = "https://github.com/gottcode/cutemaze/blob/v${version}/ChangeLog";

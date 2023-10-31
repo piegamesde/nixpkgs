@@ -197,8 +197,7 @@ stdenv.mkDerivation (
         # Wine requires `qos.h`, which is not included by default on the 10.12 SDK in nixpkgs.
         ./darwin-qos.patch
       ]
-      ++ patches'
-    ;
+      ++ patches';
 
     configureFlags =
       prevConfigFlags
@@ -206,8 +205,7 @@ stdenv.mkDerivation (
       ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
       ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [
         "--without-x"
-      ]
-    ;
+      ];
 
     # Wine locates a lot of libraries dynamically through dlopen().  Add
     # them to the RPATH so that the user doesn't have to set them in
@@ -271,8 +269,7 @@ stdenv.mkDerivation (
               --prefix GST_PLUGIN_SYSTEM_PATH_1_0 ":" "$GST_PLUGIN_SYSTEM_PATH_1_0"
           fi
         done
-      ''
-    ;
+      '';
 
     enableParallelBuilding = true;
 
@@ -281,8 +278,7 @@ stdenv.mkDerivation (
     hardeningDisable =
       [ "bindnow" ]
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
-      ++ lib.optional (supportFlags.mingwSupport) "format"
-    ;
+      ++ lib.optional (supportFlags.mingwSupport) "format";
 
     passthru = {
       inherit pkgArches;
@@ -303,14 +299,12 @@ stdenv.mkDerivation (
         if supportFlags.waylandSupport then
           "An Open Source implementation of the Windows API on top of OpenGL and Unix (with experimental Wayland support)"
         else
-          "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix"
-      ;
+          "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix";
       platforms =
         if supportFlags.waylandSupport then
           (lib.remove "x86_64-darwin" prevPlatforms)
         else
-          prevPlatforms
-      ;
+          prevPlatforms;
       maintainers = with lib.maintainers; [
         avnik
         raskin

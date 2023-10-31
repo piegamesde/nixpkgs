@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       mkdir -p $out/Applications
       cp -R Source/Forms/PokeFinder.app $out/Applications
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake

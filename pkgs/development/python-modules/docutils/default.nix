@@ -26,8 +26,7 @@ buildPythonPackage rec {
     lib.optionalString stdenv.isDarwin ''LANG="en_US.UTF-8" LC_ALL="en_US.UTF-8" ''
     + ''
       ${python.interpreter} test/alltests.py
-    ''
-  ;
+    '';
 
   # Create symlinks lacking a ".py" suffix, many programs depend on these names
   postFixup = ''

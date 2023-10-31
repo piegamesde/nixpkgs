@@ -154,8 +154,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     makeWrapper

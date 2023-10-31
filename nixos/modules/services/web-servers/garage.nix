@@ -95,8 +95,7 @@ in
         if versionAtLeast config.system.stateVersion "23.05" then
           pkgs.garage_0_8
         else
-          pkgs.garage_0_7
-      ;
+          pkgs.garage_0_7;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
       description =

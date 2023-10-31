@@ -34,8 +34,7 @@ let
     else if stdenv.hostPlatform.system == "aarch64-linux" then
       "ARM_NEON_ASIMD"
     else
-      "None"
-  ;
+      "None";
 in
 stdenv.mkDerivation rec {
   pname = "gromacs";
@@ -83,8 +82,7 @@ stdenv.mkDerivation rec {
       else
         [ "-DGMX_MPI:BOOL=FALSE" ]
     )
-    ++ lib.optional enableCuda "-DGMX_GPU=CUDA"
-  ;
+    ++ lib.optional enableCuda "-DGMX_GPU=CUDA";
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/*.pc \

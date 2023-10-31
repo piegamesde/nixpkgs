@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString useHunspell ''
       # On all platforms, we must inject our dictionnaries
       ${hunspellCopyCommands}
-    ''
-  ;
+    '';
 
   postFixup =
     ''
@@ -164,8 +163,7 @@ stdenv.mkDerivation rec {
       # Copy the nemo action file
       mkdir -p $out/share/nemo/actions
       cp ${./pulsar.nemo_action} $out/share/nemo/actions/pulsar.nemo_action
-    ''
-  ;
+    '';
 
   desktopItems = [
     (makeDesktopItem {

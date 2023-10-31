@@ -70,8 +70,7 @@ stdenv.mkDerivation (
           if lib.isDerivation conf || builtins.isPath conf then
             conf
           else
-            writeText "config.def.h" conf
-        ;
+            writeText "config.def.h" conf;
       in
       lib.optionalString (conf != null) "cp ${configFile} config.def.h";
 

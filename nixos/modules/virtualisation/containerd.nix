@@ -11,8 +11,7 @@ let
     if cfg.configFile == null then
       settingsFormat.generate "containerd.toml" cfg.settings
     else
-      cfg.configFile
-  ;
+      cfg.configFile;
 
   containerdConfigChecked =
     pkgs.runCommand "containerd-config-checked.toml"
@@ -84,8 +83,7 @@ in
           runc
           iptables
         ]
-        ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
-      ;
+        ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         ExecStart = "${pkgs.containerd}/bin/containerd ${
             lib.concatStringsSep " " (lib.cli.toGNUCommandLine { } cfg.args)

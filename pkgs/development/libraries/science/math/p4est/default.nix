@@ -49,8 +49,7 @@ stdenv.mkDerivation {
   configureFlags =
     p4est-sc.configureFlags
     ++ [ "--with-sc=${p4est-sc}" ]
-    ++ lib.optional withMetis "--with-metis"
-  ;
+    ++ lib.optional withMetis "--with-metis";
 
   inherit (p4est-sc)
     makeFlags

@@ -121,8 +121,7 @@ stdenv.mkDerivation rec {
       # "-DJPEGXL_ENABLE_PLUGINS=ON"
     ]
     ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DJPEGXL_STATIC=ON" ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch32 [ "-DJPEGXL_FORCE_NEON=ON" ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isAarch32 [ "-DJPEGXL_FORCE_NEON=ON" ];
 
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
   CXXFLAGS =

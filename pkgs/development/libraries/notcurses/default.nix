@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optional qrcodegenSupport qrcodegen
-    ++ lib.optional multimediaSupport ffmpeg
-  ;
+    ++ lib.optional multimediaSupport ffmpeg;
 
   cmakeFlags =
     lib.optional (qrcodegenSupport) "-DUSE_QRCODEGEN=ON"

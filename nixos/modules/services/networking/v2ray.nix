@@ -80,8 +80,7 @@ with lib;
             checkPhase = ''
               ${cfg.package}/bin/v2ray test -c $out
             '';
-          }
-      ;
+          };
     in
     mkIf cfg.enable {
       assertions = [

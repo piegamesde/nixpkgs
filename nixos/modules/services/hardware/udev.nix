@@ -195,8 +195,7 @@ let
     then
       pkgs.compressFirmwareXz firmware
     else
-      id firmware
-  ;
+      id firmware;
 
   # Udev has a 512-character limit for ENV{PATH}, so create a symlink
   # tree to work around this.

@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       WebKit
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DUSE_HAMLIB=ON"

@@ -33,11 +33,9 @@ assert release
     && certificatePassword != null
     && provisioningProfile != null
     && signMethod != null
-    && codeSignIdentity != null
-;
+    && codeSignIdentity != null;
 assert enableWirelessDistribution
-  -> installURL != null && bundleId != null && appVersion != null
-;
+  -> installURL != null && bundleId != null && appVersion != null;
 
 let
   # Set some default values here
@@ -48,15 +46,13 @@ let
     if configuration == null then
       if release then "Release" else "Debug"
     else
-      configuration
-  ;
+      configuration;
 
   _sdk =
     if sdk == null then
       if release then "iphoneos" + sdkVersion else "iphonesimulator" + sdkVersion
     else
-      sdk
-  ;
+      sdk;
 
   # The following is to prevent repetition
   deleteKeychain = ''

@@ -126,8 +126,7 @@ let
         if builtins.isList output.modeline then
           output.modeline
         else
-          [ output.modeline ]
-      ;
+          [ output.modeline ];
       renderModeline = l: "modeline = ${l}";
     in
     ''
@@ -251,7 +250,6 @@ in
       else if builtins.isString cfg.phocConfig then
         pkgs.writeText "phoc.ini" cfg.phocConfig
       else
-        pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig)
-    ;
+        pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig);
   };
 }

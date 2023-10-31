@@ -49,8 +49,7 @@ buildGoModule rec {
       components
     + lib.optionalString isFull ''
       ln -sLf ${coredns}/bin/coredns $out/bin
-    ''
-  ;
+    '';
 
   ldflags =
     let

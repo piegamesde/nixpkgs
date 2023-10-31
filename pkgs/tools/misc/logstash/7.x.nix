@@ -26,8 +26,7 @@ let
         x86_64-linux = "3a2da2e63bc08ee1886db29c80103c669d3ed6960290b8b97d771232769f282e";
         x86_64-darwin = "655ab873e16257827f884f67b66d62c4da40a895d06206faa435615ad0a56796";
         aarch64-linux = "235cf57afb619801808d5fe1bff7e01a4a9b29f77723566e5371b5f3b2bf8fad";
-      }
-  ;
+      };
   this = stdenv.mkDerivation rec {
     version = elk7Version;
     pname = "logstash${lib.optionalString (!enableUnfree) "-oss"}";

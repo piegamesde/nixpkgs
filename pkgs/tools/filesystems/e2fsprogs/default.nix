@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
         "--disable-uuidd"
       ]
     else
-      [ "--enable-libuuid --disable-e2initrd-helper" ]
-  ;
+      [ "--enable-libuuid --disable-e2initrd-helper" ];
 
   nativeCheckInputs = [ buildPackages.perl ];
   doCheck = true;
@@ -84,8 +83,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isLinux ''
       mkdir -p $fuse2fs/bin
       mv $bin/bin/fuse2fs $fuse2fs/bin/fuse2fs
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
 

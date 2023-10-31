@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional outputsSupport "--enable-outputs"
     ++ lib.optional visualizerSupport "--enable-visualizer --with-fftw"
     ++ lib.optional clockSupport "--enable-clock"
-    ++ lib.optional taglibSupport "--with-taglib"
-  ;
+    ++ lib.optional taglibSupport "--with-taglib";
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optional taglibSupport taglib;
 

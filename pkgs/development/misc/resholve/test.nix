@@ -202,8 +202,7 @@ rec {
         else
           cat demo.ansi && exit 1
         fi
-      ''
-    ;
+      '';
   };
 
   # Caution: ci.nix asserts the equality of both of these w/ diff

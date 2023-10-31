@@ -16,8 +16,7 @@ stdenvNoCC.mkDerivation (
       if stdenv.isDarwin then
         pkgsCross.mingwW64.dxvk_1
       else
-        pkgsCross.mingwW64.dxvk_2
-    ;
+        pkgsCross.mingwW64.dxvk_2;
   in
   {
     pname = "dxvk";

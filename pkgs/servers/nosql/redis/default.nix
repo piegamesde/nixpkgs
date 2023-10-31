@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
       "MALLOC=libc"
     ]
     ++ lib.optionals withSystemd [ "USE_SYSTEMD=yes" ]
-    ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ]
-  ;
+    ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ];
 
   enableParallelBuilding = true;
 

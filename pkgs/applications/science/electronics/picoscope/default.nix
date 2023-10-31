@@ -37,8 +37,7 @@ let
           expipiplus1
           wirew0rm
         ]
-        ++ teams.lumiguide.members
-      ;
+        ++ teams.lumiguide.members;
       platforms = [ "x86_64-linux" ];
       license = licenses.unfree;
     };
@@ -77,8 +76,7 @@ let
             // {
               sourceProvenance = with sourceTypes; [ binaryNativeCode ];
               description = "library for picotech oscilloscope software";
-            }
-          ;
+            };
         }
       )
       { };
@@ -116,8 +114,7 @@ let
         shared_meta lib
         // {
           description = "library for picotech oscilloscope ${name} series";
-        }
-      ;
+        };
     };
 
   scopePkgs = lib.mapAttrs scopePkg sources;
@@ -155,8 +152,7 @@ stdenv.mkDerivation rec {
         libpicoipp
       ]
       ++ scopeLibs
-    ))
-  ;
+    ));
 
   installPhase = ''
     runHook preInstall
@@ -196,6 +192,5 @@ stdenv.mkDerivation rec {
         users, or exported in text, CSV and MathWorks MATLAB 4 formats.
       '';
       sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    }
-  ;
+    };
 }

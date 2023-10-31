@@ -38,8 +38,7 @@ let
         cuda_cudart # cuda_runtime.h cuda_runtime_api.h
         cuda_nvcc
       ]
-      ++ cuda-common-redist
-    ;
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -70,8 +69,7 @@ buildPythonPackage {
     + lib.optionalString torch.cudaSupport ''
       substituteInPlace bitsandbytes/cuda_setup/main.py  \
         --replace "/usr/local/cuda/lib64" "${cuda-native-redist}/lib"
-    ''
-  ;
+    '';
 
   CUDA_HOME = "${cuda-native-redist}";
 
@@ -85,8 +83,7 @@ buildPythonPackage {
       in
       "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
     else
-      "make CUDA_VERSION=CPU cpuonly"
-  ;
+      "make CUDA_VERSION=CPU cpuonly";
 
   nativeBuildInputs = [
     setuptools

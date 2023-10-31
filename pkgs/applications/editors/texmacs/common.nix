@@ -52,8 +52,7 @@ rec {
     '')
     + (lib.optionalString koreanFonts ''
       gunzip < ${koreanFontsSrc} | (cd TeXmacs && tar xvf -)
-    '')
-  ;
+    '');
 
   meta = {
     description = "WYSIWYW editing platform with special features for scientists";

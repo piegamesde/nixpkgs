@@ -46,8 +46,7 @@ rec {
                 { }
                 z
               )
-              // x
-            ;
+              // x;
           }
         ));
       withStdOverrides = base // {
@@ -78,8 +77,7 @@ rec {
     else if val == true || val == false then
       false
     else
-      null
-  ;
+      null;
 
   # Return true only if there is an attribute and it is true.
   checkFlag =
@@ -91,8 +89,7 @@ rec {
     else if (elem name (attrByPath [ "flags" ] [ ] attrSet)) then
       true
     else
-      attrByPath [ name ] false attrSet
-  ;
+      attrByPath [ name ] false attrSet;
 
   # Input : attrSet, [ [name default] ... ], name
   # Output : its value or default.
@@ -162,8 +159,7 @@ rec {
             x = head xs;
             y = if elem x acc then [ ] else [ x ];
           in
-          y ++ go (tail xs) (y ++ acc)
-      ;
+          y ++ go (tail xs) (y ++ acc);
     in
     go inputList acc;
 
@@ -186,8 +182,7 @@ rec {
         outputList = newOutputList;
         inputList = (tail inputList);
         inherit getter compare;
-      }
-  ;
+      };
 
   condConcat =
     name: list: checker:
@@ -196,8 +191,7 @@ rec {
     else if checker (head list) then
       condConcat (name + (head (tail list))) (tail (tail list)) checker
     else
-      condConcat name (tail (tail list)) checker
-  ;
+      condConcat name (tail (tail list)) checker;
 
   lazyGenericClosure =
     { startSet, operator }:
@@ -214,8 +208,7 @@ rec {
           if elem key doneKeys then
             work (tail list) doneKeys result
           else
-            work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result)
-      ;
+            work (tail list ++ operator x) ([ key ] ++ doneKeys) ([ x ] ++ result);
     in
     work startSet [ ] [ ];
 
@@ -244,12 +237,10 @@ rec {
             inputList =
               (maybeAttrNullable "propagatedBuildInputs" [ ] y)
               ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
-              ++ ys
-            ;
+              ++ ys;
             acc = acc';
           }
-        )
-  ;
+        );
 
   closePropagationSlow =
     list: (uniqList { inputList = (innerClosePropagation [ ] list); });
@@ -292,8 +283,7 @@ rec {
               (
                 (item.val.propagatedBuildInputs or [ ])
                 ++ (item.val.propagatedNativeBuildInputs or [ ])
-              )
-        ;
+              );
       }
     );
 
@@ -301,8 +291,7 @@ rec {
     if builtins ? genericClosure then
       closePropagationFast
     else
-      closePropagationSlow
-  ;
+      closePropagationSlow;
 
   # calls a function (f attr value ) for each record item. returns a list
   mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
@@ -453,8 +442,7 @@ rec {
           "preConfigure"
           "postInstall"
         ]
-    )
-  ;
+    );
 
   nixType =
     x:
@@ -473,8 +461,7 @@ rec {
     else if isInt x then
       "int"
     else
-      "string"
-  ;
+      "string";
 
   /* deprecated:
 

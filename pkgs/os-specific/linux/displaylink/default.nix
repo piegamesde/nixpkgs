@@ -17,8 +17,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "x86"
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
   bins = "${arch}-ubuntu-1604";
   libPath = lib.makeLibraryPath [
     stdenv.cc.cc

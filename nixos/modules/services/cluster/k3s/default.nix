@@ -156,8 +156,7 @@ in
       {
         assertion =
           cfg.role == "agent"
-          -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != ""
-        ;
+          -> cfg.configPath != null || cfg.tokenFile != null || cfg.token != "";
         message = "token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'";
       }
       {

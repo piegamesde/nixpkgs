@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       gettext-stub
       ocaml_libvirt
     ]
-    ++ [ libxml2 ]
-  ;
+    ++ [ libxml2 ];
 
   prePatch = ''
     substituteInPlace ocaml-dep.sh.in --replace '#!/bin/bash' '#!${stdenv.shell}'

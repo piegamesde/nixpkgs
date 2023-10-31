@@ -397,8 +397,7 @@ in
           }
         }';" ext/pg_query/extconf.rb
       '';
-    }
-  ;
+    };
 
   prettier = attrs: { meta.mainProgram = "rbprettier"; };
 
@@ -423,8 +422,7 @@ in
         libselinux
         libsepol
       ]
-      ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
     propagatedBuildInputs = [
       atk
       gdk-pixbuf
@@ -471,8 +469,7 @@ in
           (
             lib.versionAtLeast attrs.version "1.53.0" && stdenv.isDarwin && stdenv.isAarch64
           )
-          autoSignDarwinBinariesHook
-    ;
+          autoSignDarwinBinariesHook;
     buildInputs = [ openssl ];
     hardeningDisable = [ "format" ];
     env.NIX_CFLAGS_COMPILE = toString [
@@ -500,8 +497,7 @@ in
             # For >= v1.48.0
             substituteInPlace src/ruby/ext/grpc/extconf.rb \
               --replace 'apple_toolchain = ' 'apple_toolchain = false && '
-          ''
-    ;
+          '';
   };
 
   hitimes = attrs: {
@@ -779,8 +775,7 @@ in
             --replace 'ffi_lib ["sodium"' \
                       'ffi_lib ["${libsodium}/lib/libsodium${stdenv.hostPlatform.extensions.sharedLibrary}"'
         '';
-      }
-  ;
+      };
 
   re2 = attrs: { buildInputs = [ re2 ]; };
 
@@ -860,8 +855,7 @@ in
     // (lib.optionalAttrs stdenv.isDarwin {
       # https://github.com/NixOS/nixpkgs/issues/19098
       buildFlags = [ "--disable-lto" ];
-    })
-  ;
+    });
 
   scrypt =
     attrs:
@@ -892,8 +886,7 @@ in
           "--with-sqlite3-include=${sqlite.dev}/include"
           "--with-sqlite3-lib=${sqlite.out}/lib"
         ];
-      }
-  ;
+      };
 
   rb-readline = attrs: {
     dontBuild = false;
@@ -929,8 +922,7 @@ in
             if lib.versionAtLeast attrs.version "2.0" then
               "lib/tzinfo/data_sources/zoneinfo_data_source.rb"
             else
-              "lib/tzinfo/zoneinfo_data_source.rb"
-          ;
+              "lib/tzinfo/zoneinfo_data_source.rb";
         in
         ''
           substituteInPlace ${path} \

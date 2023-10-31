@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
       zstd
     ]
     # gtk-doc is looked for with pkg-config
-    ++ lib.optionals withDevdoc [ gtk-doc ]
-  ;
+    ++ lib.optionals withDevdoc [ gtk-doc ];
 
   preConfigure = ''
     ./autogen.sh

@@ -66,8 +66,7 @@ let
         ]
       )
     else
-      lua
-  ;
+      lua;
 
   pyEnv = python3.withPackages (
     ps:
@@ -124,8 +123,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals doCheck [
       glibcLocales
       procps
-    ]
-  ;
+    ];
 
   inherit doCheck;
 
@@ -193,8 +191,7 @@ stdenv.mkDerivation rec {
             $out/lib/nvim/parser/${language}.so
         '')
         treesitter-parsers
-    )
-  ;
+    );
 
   shellHook = ''
     export VIMRUNTIME=$PWD/runtime

@@ -120,8 +120,7 @@ mkDerivation rec {
     ]
     ++ lib.optional withGrass grass
     ++ lib.optional withWebKit qtwebkit
-    ++ pythonBuildInputs
-  ;
+    ++ pythonBuildInputs;
 
   nativeBuildInputs = [
     makeWrapper
@@ -152,8 +151,7 @@ mkDerivation rec {
         gminor = lib.versions.minor grass.version;
       in
       "-DGRASS_PREFIX${gmajor}=${grass}/grass${gmajor}${gminor}"
-    )
-  ;
+    );
 
   dontWrapGApps = true; # wrapper params passed below
 

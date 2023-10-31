@@ -44,8 +44,7 @@ let
       "macosx"
     else
       throw
-        "No Android SDK tarballs are available for system architecture: ${stdenv.system}"
-  ;
+        "No Android SDK tarballs are available for system architecture: ${stdenv.system}";
 
   # Uses mkrepo.rb to create a repo spec.
   mkRepoJson =
@@ -112,8 +111,7 @@ let
       in
       lib.importJSON "${mkRepoJson repoXmlSpec}"
     else
-      lib.importJSON repoJson
-  ;
+      lib.importJSON repoJson;
 
   # Converts all 'archives' keys in a repo spec to fetchurl calls.
   fetchArchives =
@@ -614,6 +612,5 @@ rec {
             )
             licenseNames}
         '';
-      }
-  ;
+      };
 }

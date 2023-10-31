@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       Kernel
-    ]
-  ;
+    ];
 
   outputs = [
     "out"

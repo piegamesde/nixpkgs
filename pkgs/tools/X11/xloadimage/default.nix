@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withJpegSupport [ libjpeg ]
     ++ lib.optionals withPngSupport [ libpng ]
-    ++ lib.optionals withTiffSupport [ libtiff ]
-  ;
+    ++ lib.optionals withTiffSupport [ libtiff ];
 
   # NOTE: we patch the build-info script so that it never detects the utilities
   # it's trying to find; one of the Debian patches adds support for

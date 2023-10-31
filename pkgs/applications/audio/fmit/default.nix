@@ -44,8 +44,7 @@ mkDerivation rec {
     ]
     ++ lib.optionals alsaSupport [ alsa-lib ]
     ++ lib.optionals jackSupport [ libjack2 ]
-    ++ lib.optionals portaudioSupport [ portaudio ]
-  ;
+    ++ lib.optionals portaudioSupport [ portaudio ];
 
   postPatch = ''
     substituteInPlace fmit.pro --replace '$$FMITVERSIONGITPRO' '${version}'

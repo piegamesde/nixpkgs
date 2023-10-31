@@ -106,8 +106,7 @@ let
                 range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${toString n}::2;
               }
             ''
-          )
-        ;
+          );
       };
     };
 
@@ -614,8 +613,7 @@ let
               "local": "192.168.1.1",
               "dev": "eth1",
           } in fous, "fou4 exists"
-        ''
-      ;
+        '';
     };
     sit =
       let
@@ -1051,8 +1049,7 @@ let
               assert (
                   residue == ""
               ), "Some virtual interface has not been properly cleaned:\n{}".format(residue)
-        ''
-      ;
+        '';
     };
     privacy = {
       name = "Privacy";
@@ -1251,8 +1248,7 @@ let
               assert (
                   ipv6Residue == ""
               ), "The IPv6 routing table has not been properly cleaned:\n{}".format(ipv6Residue)
-        ''
-      ;
+        '';
     };
     rename = {
       name = "RenameInterface";
@@ -1279,8 +1275,7 @@ let
                 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="52:54:00:12:01:01", KERNEL=="eth*", NAME="custom_name"
               '';
             }
-        )
-      ;
+        );
       testScript = ''
         machine.succeed("udevadm settle")
         print(machine.succeed("ip link show dev custom_name"))

@@ -249,8 +249,7 @@ let
         }
         // {
           providedSessions = [ "gnome-flashback-${wmName}" ];
-        }
-      ;
+        };
 
       mkSystemdTargetForWm =
         {

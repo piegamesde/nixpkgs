@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isWindows ''
       cd windows
-    ''
-  ;
+    '';
 
   TOOLPATH = stdenv.cc.targetPrefix;
   makefile = if stdenv.hostPlatform.isWindows then "Makefile.mgw" else null;
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
         done
       ''
     else
-      null
-  ;
+      null;
 
   nativeBuildInputs = [
     autoconf

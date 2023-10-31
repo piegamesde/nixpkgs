@@ -117,8 +117,7 @@ stdenv.mkDerivation rec {
     "qemu"
     + lib.optionalString xenSupport "-xen"
     + lib.optionalString hostCpuOnly "-host-cpu-only"
-    + lib.optionalString nixosTestRunner "-for-vm-tests"
-  ;
+    + lib.optionalString nixosTestRunner "-for-vm-tests";
   version = "8.0.0";
 
   src = fetchurl {
@@ -147,8 +146,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals gtkSupport [ wrapGAppsHook ]
     ++ lib.optionals hexagonSupport [ glib ]
-    ++ lib.optionals stdenv.isDarwin [ sigtool ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ sigtool ];
 
   buildInputs =
     [
@@ -219,8 +217,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals libiscsiSupport [ libiscsi ]
     ++ lib.optionals smbdSupport [ samba ]
     ++ lib.optionals uringSupport [ liburing ]
-    ++ lib.optionals canokeySupport [ canokey-qemu ]
-  ;
+    ++ lib.optionals canokeySupport [ canokey-qemu ];
 
   dontUseMesonConfigure = true; # meson's configurePhase isn't compatible with qemu build
 
@@ -307,8 +304,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional libiscsiSupport "--enable-libiscsi"
     ++ lib.optional smbdSupport "--smbd=${samba}/bin/smbd"
     ++ lib.optional uringSupport "--enable-linux-io-uring"
-    ++ lib.optional canokeySupport "--enable-canokey"
-  ;
+    ++ lib.optional canokeySupport "--enable-canokey";
 
   dontWrapGApps = true;
 
@@ -335,8 +331,7 @@ stdenv.mkDerivation rec {
       for f in $out/bin/qemu-system-*; do
         wrapGApp $f
       done
-    ''
-  ;
+    '';
   preBuild = "cd build";
 
   # tests can still timeout on slower systems
@@ -373,8 +368,7 @@ stdenv.mkDerivation rec {
       # in fifo behaviour
       substituteInPlace ../tests/unit/meson.build \
         --replace "'test-io-channel-command'" "#'test-io-channel-command'"
-    ''
-  ;
+    '';
 
   # Add a ‘qemu-kvm’ wrapper for compatibility/convenience.
   postInstall = ''

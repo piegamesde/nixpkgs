@@ -35,8 +35,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.argon2
     ++ passthru.optional-dependencies.bcrypt
-    ++ passthru.optional-dependencies.totp
-  ;
+    ++ passthru.optional-dependencies.totp;
 
   pythonImportsCheck = [ "passlib" ];
 

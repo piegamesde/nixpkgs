@@ -48,14 +48,12 @@ let
               "no"
             else
               toString value
-          )
-      ;
+          );
       mkEntry = name: value: "${escape name} =${mkVal value}";
     in
     concatStringsSep "\n" (mapAttrsToList mkEntry cfg.config)
     + "\n"
-    + cfg.extraConfig
-  ;
+    + cfg.extraConfig;
 
   masterCfOptions =
     {
@@ -195,8 +193,7 @@ let
               wakeupUCDefined = options.wakeupUnusedComponent.isDefined;
               finalValue =
                 toString config.wakeup
-                + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent) "?"
-              ;
+                + optionalString (wakeupUCDefined && !config.wakeupUnusedComponent) "?";
             in
             if wakeupDefined then finalValue else "-";
         in
@@ -288,8 +285,7 @@ let
     + "\n"
     + concatMapStringsSep "\n" formatLine masterCf
     + "\n"
-    + cfg.extraMasterConf
-  ;
+    + cfg.extraMasterConf;
 
   headerCheckOptions =
     { ... }:
@@ -312,8 +308,7 @@ let
 
   headerChecks =
     concatStringsSep "\n" (map (x: "${x.pattern} ${x.action}") cfg.headerChecks)
-    + cfg.extraHeaderChecks
-  ;
+    + cfg.extraHeaderChecks;
 
   aliases =
     let
@@ -325,8 +320,7 @@ let
     + optionalString (cfg.rootAlias != "") ''
       root${separator} ${cfg.rootAlias}
     ''
-    + cfg.extraAliases
-  ;
+    + cfg.extraAliases;
 
   aliasesFile = pkgs.writeText "postfix-aliases" aliases;
   canonicalFile = pkgs.writeText "postfix-canonical" cfg.canonical;
@@ -950,8 +944,7 @@ in
               if cfg.lookupMX then
                 "${cfg.relayHost}:${toString cfg.relayPort}"
               else
-                "[${cfg.relayHost}]:${toString cfg.relayPort}"
-            ;
+                "[${cfg.relayHost}]:${toString cfg.relayPort}";
           }
           // optionalAttrs (!config.networking.enableIPv6) {
             inet_protocols = mkDefault "ipv4";
@@ -1010,8 +1003,7 @@ in
             smtpd_tls_key_file = cfg.sslKey;
 
             smtpd_tls_security_level = "may";
-          }
-        ;
+          };
 
         services.postfix.masterConfig =
           {
@@ -1131,8 +1123,7 @@ in
                   adjustSmtpTlsSecurityLevel =
                     !(cfg.submissionsOptions ? smtpd_tls_security_level)
                     || cfg.submissionsOptions.smtpd_tls_security_level == "none"
-                    || cfg.submissionsOptions.smtpd_tls_security_level == "may"
-                  ;
+                    || cfg.submissionsOptions.smtpd_tls_security_level == "may";
                   submissionsOptions =
                     cfg.submissionsOptions
                     // {
@@ -1140,13 +1131,11 @@ in
                     }
                     // optionalAttrs adjustSmtpTlsSecurityLevel {
                       smtpd_tls_security_level = "encrypt";
-                    }
-                  ;
+                    };
                 in
                 concatLists (mapAttrsToList mkKeyVal submissionsOptions);
             };
-          }
-        ;
+          };
       }
 
       (mkIf haveAliases { services.postfix.aliasFiles.aliases = aliasesFile; })

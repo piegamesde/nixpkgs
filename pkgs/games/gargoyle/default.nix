@@ -35,8 +35,7 @@ let
           export _LIBDIR=libexec/gargoyle
           export GARGLKINI="$out/etc/garglk.ini"
         ''
-    )
-  ;
+    );
 in
 
 stdenv.mkDerivation rec {
@@ -94,8 +93,7 @@ stdenv.mkDerivation rec {
         cp garglk/gargoyle.desktop "$out/share/applications"
         mkdir -p "$out/share/icons/hicolor/32x32/apps"
         cp garglk/gargoyle-house.png "$out/share/icons/hicolor/32x32/apps"
-      ''
-  ;
+      '';
 
   enableParallelBuilding = true;
 

@@ -78,8 +78,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.isDarwin ''
       install_name_tool -id $out/lib/libtinyxml.dylib $out/lib/libtinyxml.dylib
-    ''
-  ;
+    '';
 
   meta = {
     description = "Simple, small, C++ XML parser that can be easily integrating into other programs";

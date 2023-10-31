@@ -85,8 +85,7 @@ let
         sha256 = "sha256-GAg5zj2ETXdXVfVwNvf4VjRVEHePNWf28xMDsTyjiEs=";
       }
     else
-      throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "MongoDB compass is not supported on ${stdenv.hostPlatform.system}";
 in
 # NOTE While MongoDB Compass is available to darwin, I do not have resources to test it
 # Feel free to make a PR adding support if desired

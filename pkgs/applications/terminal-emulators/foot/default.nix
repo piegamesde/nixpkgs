@@ -70,8 +70,7 @@ let
     else if stdenv.cc.isGNU then
       "gcc"
     else
-      "unknown"
-  ;
+      "unknown";
 
   # https://codeberg.org/dnkl/foot/src/branch/master/INSTALL.md#performance-optimized-pgo
   pgoCflags =
@@ -89,16 +88,14 @@ let
       "gcc" = "gcc-ar";
       "unknown" = "ar";
     }
-      ."${compilerName}"
-  ;
+      ."${compilerName}";
 
   # PGO only makes sense if we are not cross compiling and
   # using a compiler which foot's PGO build supports (clang or gcc)
   doPgo =
     allowPgo
     && (stdenv.hostPlatform == stdenv.buildPlatform)
-    && compilerName != "unknown"
-  ;
+    && compilerName != "unknown";
 
   terminfoDir = "${placeholder "terminfo"}/share/terminfo";
 in
@@ -179,8 +176,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (doPgo && compilerName == "clang") ''
       llvm-profdata merge default_*profraw --output=default.profdata
-    ''
-  ;
+    '';
 
   # Install example themes which can be added to foot.ini via the include
   # directive to a separate output to save a bit of space

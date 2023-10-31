@@ -132,8 +132,7 @@ in
       after =
         [ "network.target" ]
         ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service"
-      ;
+        ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
       path = [ cfg.package-api ];
       restartTriggers = [ configFile ];

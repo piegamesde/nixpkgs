@@ -224,8 +224,7 @@ let
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
-    ]
-  ;
+    ];
 in
 
 stdenv.mkDerivation rec {
@@ -351,8 +350,7 @@ stdenv.mkDerivation rec {
         else
           echo Not a hadrian bindist, not applying xxx path workaround.
         fi
-      ''
-  ;
+      '';
 
   # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure = lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
@@ -366,8 +364,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
   # No building is necessary, but calling make without flags ironically
   # calls install-strip ...
@@ -454,8 +451,7 @@ stdenv.mkDerivation rec {
       # legal reasons (retaining the legal notices etc)
       # As a last resort we could unpack the docs separately and symlink them in.
       # They're in $out/share/{doc,man}.
-    ''
-  ;
+    '';
 
   # In nixpkgs, musl based builds currently enable `pie` hardening by default
   # (see `defaultHardeningFlags` in `make-derivation.nix`).
@@ -520,7 +516,6 @@ stdenv.mkDerivation rec {
         prusnak
         domenkozar
       ]
-      ++ lib.teams.haskell.members
-    ;
+      ++ lib.teams.haskell.members;
   };
 }

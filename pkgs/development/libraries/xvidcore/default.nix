@@ -25,15 +25,13 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       # Undocumented darwin hack
       substituteInPlace configure --replace "-no-cpp-precomp" ""
-    ''
-  ;
+    '';
 
   configureFlags =
     [ ]
     # Undocumented darwin hack (assembly is probably disabled due to an
     # issue with nasm, however yasm is now used)
-    ++ lib.optional stdenv.isDarwin "--enable-macosx_module --disable-assembly"
-  ;
+    ++ lib.optional stdenv.isDarwin "--enable-macosx_module --disable-assembly";
 
   nativeBuildInputs = [ ] ++ lib.optional (!stdenv.isDarwin) yasm;
 
@@ -44,8 +42,7 @@ stdenv.mkDerivation rec {
       autoconf
       automake
       libtool
-    ]
-  ;
+    ];
 
   # Don't remove static libraries (e.g. 'libs/*.a') on darwin.  They're needed to
   # compile ffmpeg (and perhaps other things).

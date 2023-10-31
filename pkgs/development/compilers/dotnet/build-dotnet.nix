@@ -39,8 +39,7 @@ let
     else if type == "runtime" then
       "dotnet-runtime"
     else
-      "dotnet-sdk"
-  ;
+      "dotnet-sdk";
 
   descriptions = {
     aspnetcore = "ASP.NET Core Runtime ${version}";
@@ -55,8 +54,7 @@ let
         nugetDeps = packages;
       }
     else
-      null
-  ;
+      null;
 in
 stdenv.mkDerivation (
   finalAttrs: rec {
@@ -149,8 +147,7 @@ stdenv.mkDerivation (
             exec ${./update.sh} "${majorVersion}"
           ''
         else
-          null
-      ;
+          null;
 
       tests = {
         version = testers.testVersion { package = finalAttrs.finalPackage; };

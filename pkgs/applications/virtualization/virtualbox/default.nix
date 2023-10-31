@@ -137,8 +137,7 @@ stdenv.mkDerivation {
     ++ optionals enableWebService [
       gsoap
       zlib
-    ]
-  ;
+    ];
 
   hardeningDisable = [
     "format"
@@ -198,8 +197,7 @@ stdenv.mkDerivation {
       ./qt-dependency-paths.patch
       # https://github.com/NixOS/nixpkgs/issues/123851
       ./fix-audio-driver-loading.patch
-    ]
-  ;
+    ];
 
   postPatch =
     ''
@@ -210,8 +208,7 @@ stdenv.mkDerivation {
       # Fix compile error in version 6.1.6
       substituteInPlace src/VBox/HostServices/SharedClipboard/VBoxSharedClipboardSvc-x11-stubs.cpp \
         --replace PSHCLFORMATDATA PSHCLFORMATS
-    ''
-  ;
+    '';
 
   # first line: ugly hack, and it isn't yet clear why it's a problem
   configurePhase = ''
@@ -330,8 +327,7 @@ stdenv.mkDerivation {
     # the source code (see postPatch).
     + optionalString (!headless && !enableHardening) ''
       wrapQtApp $out/libexec/virtualbox/VirtualBoxVM
-    ''
-  ;
+    '';
 
   passthru = {
     inherit version; # for guest additions

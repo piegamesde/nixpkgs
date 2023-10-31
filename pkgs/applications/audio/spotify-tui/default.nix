@@ -95,8 +95,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Security
-    ]
-  ;
+    ];
 
   postInstall = ''
     for shell in bash fish zsh; do

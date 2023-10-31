@@ -11441,8 +11441,7 @@ with self;
           sed -i"" -e "s@ok(\$ENV{\"\\\x@#ok(\$ENV{\"\\\x@" t/env.t
         ''
       else
-        null
-    ;
+        null;
     meta = {
       description = "Determine the locale encoding";
       license = with lib.licenses; [
@@ -15661,8 +15660,7 @@ with self;
       ];
       broken =
         stdenv.isi686 # loadable library and perl binaries are mismatched (got handshake key 0x7d40080, needed 0x7dc0080)
-        || stdenv.isDarwin
-      ; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.HTTPHeaderParserXS.x86_64-darwin
+        || stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/perl534Packages.HTTPHeaderParserXS.x86_64-darwin
     };
   };
 
@@ -17377,8 +17375,7 @@ with self;
         for file in bin/*; do
           shortenPerlShebang "$file"
         done
-      ''
-    ;
+      '';
     postInstall = ''
       for file in latexmlc latexmlmath latexmlpost ; do
         # add runtime dependencies that cause silent failures when missing
@@ -25130,8 +25127,7 @@ with self;
       + lib.optionalString stdenv.isDarwin ''
         rm t/30_connect.t
         rm t/45_class.t
-      ''
-    ;
+      '';
     meta = {
       description = "Perl extension for Apache ZooKeeper";
       homepage = "https://github.com/mark-5/p5-net-zookeeper";
@@ -30679,8 +30675,7 @@ with self;
       ''
       + lib.optionalString stdenv.isDarwin ''
         mv $out/lib/perl5/darwin-thread-multi-2level $out/lib/perl5/site_perl/
-      ''
-    ;
+      '';
     meta = {
       description = "Interface to Tcl/Tk with Perl/Tk compatible syntax";
       license = with lib.licenses; [
@@ -36444,8 +36439,7 @@ with self;
       ''
       + lib.optionalString stdenv.isCygwin ''
         sed -i"" -e "s@my \$compiler = File::Spec->catfile(\$path, \$cc\[0\]) \. \$Config{_exe};@my \$compiler = File::Spec->catfile(\$path, \$cc\[0\]) \. (\$^O eq 'cygwin' ? \"\" : \$Config{_exe});@" inc/Devel/CheckLib.pm
-      ''
-    ;
+      '';
     makeMakerFlags = [
       "EXPATLIBPATH=${pkgs.expat.out}/lib"
       "EXPATINCPATH=${pkgs.expat.dev}/include"

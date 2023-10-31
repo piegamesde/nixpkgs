@@ -54,8 +54,7 @@ let
             (entryAt (el - 1)) # platform
           ]
         else
-          entries'
-      ;
+          entries';
       p = removeSuffix ".whl" (builtins.elemAt entries 4);
     in
     {
@@ -81,8 +80,7 @@ let
       [ ]
     else
       (builtins.filter (x: hasInfix v x.file) candidates)
-      ++ (findBestMatches vs candidates)
-  ;
+      ++ (findBestMatches vs candidates);
 
   # x = "cpXX" | "py2" | "py3" | "py2.py3"
   isPyVersionCompatible =
@@ -97,8 +95,7 @@ let
         m:
         builtins.elem m.tag tags
         && m.major == major
-        && builtins.compareVersions minor m.minor >= 0
-      ;
+        && builtins.compareVersions minor m.minor >= 0;
       parseMarker =
         v:
         let
@@ -131,8 +128,7 @@ let
           python.passthru.implementation == "cpython"
           && builtins.elemAt (lib.splitString "." python.version) 0 == "3"
           && x == "abi3"
-        )
-      ;
+        );
       withPython =
         ver: abi: x:
         (isPyVersionCompatible ver x.pyVer) && (isPyAbiCompatible abi x.abi);
@@ -166,8 +162,7 @@ let
           else
             (p: p == "any" || (hasInfix "macosx" p && hasSuffix "x86_64" p))
         else
-          (p: p == "any")
-      ;
+          (p: p == "any");
       withPlatforms = x: lib.lists.any withPlatform (splitString "." x.platform);
       filterWheel =
         x:

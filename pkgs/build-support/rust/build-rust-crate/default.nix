@@ -49,15 +49,13 @@ let
                   choices
               )
             else
-              extern
-          ;
+              extern;
           opts = lib.optionalString (dep.stdlib or false) "noprelude:";
           filename =
             if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
               "${dep.metadata}.rlib"
             else
-              "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}"
-          ;
+              "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
         in
         " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
       )
@@ -243,8 +241,7 @@ lib.makeOverridable
     let
       crate =
         crate_
-        // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_)
-      ;
+        // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_);
       dependencies_ = dependencies;
       buildDependencies_ = buildDependencies;
       processedAttrs = [
@@ -317,13 +314,11 @@ lib.makeOverridable
           ]
           ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
           ++ (crate.nativeBuildInputs or [ ])
-          ++ nativeBuildInputs_
-        ;
+          ++ nativeBuildInputs_;
         buildInputs =
           lib.optionals stdenv.isDarwin [ libiconv ]
           ++ (crate.buildInputs or [ ])
-          ++ buildInputs_
-        ;
+          ++ buildInputs_;
         dependencies = map lib.getLib dependencies_;
         buildDependencies = map lib.getLib buildDependencies_;
 
@@ -387,8 +382,7 @@ lib.makeOverridable
           else if lib.attrByPath [ "plugin" ] false crate then
             [ "dylib" ]
           else
-            (crate.type or [ "lib" ])
-        ;
+            (crate.type or [ "lib" ]);
         colors = lib.attrByPath [ "colors" ] "always" crate;
         extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
         edition = crate.edition or null;
@@ -396,13 +390,11 @@ lib.makeOverridable
         extraRustcOpts =
           lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts
           ++ extraRustcOpts_
-          ++ (lib.optional (edition != null) "--edition ${edition}")
-        ;
+          ++ (lib.optional (edition != null) "--edition ${edition}");
         extraRustcOptsForBuildRs =
           lib.optionals (crate ? extraRustcOptsForBuildRs) crate.extraRustcOptsForBuildRs
           ++ extraRustcOptsForBuildRs_
-          ++ (lib.optional (edition != null) "--edition ${edition}")
-        ;
+          ++ (lib.optional (edition != null) "--edition ${edition}");
 
         configurePhase = configureCrate {
           inherit
@@ -460,8 +452,7 @@ lib.makeOverridable
             [
               "out"
               "lib"
-            ]
-        ;
+            ];
         outputDev = if buildTests then [ "out" ] else [ "lib" ];
 
         meta = {

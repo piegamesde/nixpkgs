@@ -90,8 +90,7 @@ let
       xorg.fontbhlucidatypewriter75dpi
       xorg.fontbh100dpi
     ]
-    ++ extraFontDirs
-  ;
+    ++ extraFontDirs;
   fontsConf = makeFontsConf {
     fontDirectories = fontDirs ++ [
       "/Library/Fonts"

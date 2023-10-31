@@ -93,8 +93,7 @@ stdenv.mkDerivation rec {
       gl3w
       SDL2
       fmt
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     parallel

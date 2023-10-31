@@ -98,8 +98,7 @@ let
       https-address = tls.httpsAddress;
     }
     // (getProviderOptions cfg cfg.provider)
-    // cfg.extraConfig
-  ;
+    // cfg.extraConfig;
 
   mapConfig =
     key: attr:

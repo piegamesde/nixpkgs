@@ -67,8 +67,7 @@ let
         ]
         # when gr-qtgui is disabled, icu needs to be included, otherwise
         # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ]
-      ;
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
       pythonNative = with python.pkgs; [
         mako
         six
@@ -157,8 +156,7 @@ let
           alsa-lib
           libjack2
         ]
-        ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
-      ;
+        ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = {
@@ -269,8 +267,7 @@ stdenv.mkDerivation {
       logLib = log4cpp;
     }
     // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; }
-  ;
+    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
   cmakeFlags =
     shared.cmakeFlags
     # From some reason, if these are not set, libcodec2 and gsm are not
@@ -291,8 +288,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals (hasFeature "volk" && volk != null) [
       "-DENABLE_INTERNAL_VOLK=OFF"
-    ]
-  ;
+    ];
 
   postInstall =
     shared.postInstall
@@ -300,6 +296,5 @@ stdenv.mkDerivation {
     # set that reference).
     + lib.optionalString (!hasFeature "python-support") ''
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
-    ''
-  ;
+    '';
 }

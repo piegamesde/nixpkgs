@@ -70,8 +70,7 @@ let
         sort versionAtLeast (attrNames release)
       )
     else
-      null
-  ;
+      null;
   isShortVersion = x: shortVersion x != null;
   isPathString = x: isString x && match "^/.*" x != null && pathExists x;
 in

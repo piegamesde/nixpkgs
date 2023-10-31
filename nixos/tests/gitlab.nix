@@ -443,8 +443,7 @@ import ./make-test-python.nix (
                     """
                 )
                 gitlab.succeed("test -s /tmp/archive.tar.bz2")
-          ''
-        ;
+          '';
       in
       ''
         gitlab.start()
@@ -469,7 +468,6 @@ import ./make-test-python.nix (
         gitlab.systemctl("start gitlab.target")
       ''
       + waitForServices
-      + test false
-    ;
+      + test false;
   }
 )

@@ -69,8 +69,7 @@ perlPackages.buildPerlPackage rec {
 
       installShellCompletion --bash --name feedgnuplot.bash completions/bash/feedgnuplot
       installShellCompletion --zsh completions/zsh/_feedgnuplot
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "General purpose pipe-oriented plotting tool";

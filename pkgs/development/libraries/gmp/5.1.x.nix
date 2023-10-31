@@ -57,8 +57,7 @@ let
         "--build=${stdenv.buildPlatform.config}"
       ]
       ++ optional (cxx && stdenv.isDarwin) "CPPFLAGS=-fexceptions"
-      ++ optional (stdenv.isDarwin && stdenv.is64bit) "ABI=64"
-    ;
+      ++ optional (stdenv.isDarwin && stdenv.is64bit) "ABI=64";
 
     doCheck = true;
 

@@ -107,8 +107,7 @@ let
         mdbook
       ]
       ++ lib.optionals (atLeast213 && enableDocumentation) [ mdbook-linkcheck ]
-      ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ]
-    ;
+      ++ lib.optionals stdenv.isLinux [ util-linuxMinimal ];
 
     buildInputs =
       [
@@ -131,8 +130,7 @@ let
       ++ lib.optionals (atLeast24 && stdenv.isx86_64) [ libcpuid ]
       ++ lib.optionals atLeast214 [ rapidcheck ]
       ++ lib.optionals withLibseccomp [ libseccomp ]
-      ++ lib.optionals withAWS [ aws-sdk-cpp ]
-    ;
+      ++ lib.optionals withAWS [ aws-sdk-cpp ];
 
     propagatedBuildInputs = [
       boehmgc
@@ -182,8 +180,7 @@ let
               --subst-var-by tar ${gnutar}/bin/tar \
               --subst-var-by tr ${coreutils}/bin/tr
             mv tmp/config.nix.in corepkgs/config.nix.in
-          ''
-    ;
+          '';
 
     configureFlags =
       [
@@ -224,8 +221,7 @@ let
           ]
       ++ lib.optionals (atLeast210 && stdenv.cc.isGNU && !enableStatic) [
         "--enable-lto"
-      ]
-    ;
+      ];
 
     makeFlags =
       [
@@ -237,8 +233,7 @@ let
       ]
       ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
         "PRECOMPILE_HEADERS=0"
-      ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1"
-    ;
+      ++ lib.optional (stdenv.hostPlatform.isDarwin) "PRECOMPILE_HEADERS=1";
 
     installFlags = [ "sysconfdir=$(out)/etc" ];
 
@@ -253,8 +248,7 @@ let
       # See https://github.com/NixOS/nix/issues/5687
       + lib.optionalString (atLeast25 && stdenv.isDarwin) ''
         echo "exit 99" > tests/gc-non-blocking.sh
-      ''
-    ;
+      '';
 
     separateDebugInfo = stdenv.isLinux && (atLeast24 -> !enableStatic);
 

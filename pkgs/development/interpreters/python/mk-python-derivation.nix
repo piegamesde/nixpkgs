@@ -125,8 +125,7 @@ let
         # all pythonModules have the pythonModule attribute
         (drv ? "pythonModule")
         # Some pythonModules are turned in to a pythonApplication by setting the field to false
-        && (!builtins.isBool drv.pythonModule)
-      ;
+        && (!builtins.isBool drv.pythonModule);
       isMismatchedPython = drv: drv.pythonModule != python;
 
       optionalLocation =
@@ -138,8 +137,7 @@ let
         if pos == null then
           ""
         else
-          " at ${pos.file}:${toString pos.line}:${toString pos.column}"
-      ;
+          " at ${pos.file}:${toString pos.line}:${toString pos.column}";
 
       leftPadName =
         name: against:
@@ -188,8 +186,7 @@ let
         if (isPythonModule drv) && (isMismatchedPython drv) then
           throwMismatch drv
         else
-          drv
-      ;
+          drv;
     in
     inputs:
     builtins.map (checkDrv) inputs;
@@ -247,8 +244,7 @@ let
                 pythonNamespacesHook
               ]
           ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
-          ++ nativeBuildInputs
-        ;
+          ++ nativeBuildInputs;
 
         buildInputs = validatePythonMatches "buildInputs" (buildInputs ++ pythonPath);
 
@@ -279,16 +275,14 @@ let
                 # pass in a hook that sets it.
                 setuptoolsCheckHook
               ]
-          ++ nativeCheckInputs
-        ;
+          ++ nativeCheckInputs;
         installCheckInputs = checkInputs;
 
         postFixup =
           lib.optionalString (!dontWrapPythonPrograms) ''
             wrapPythonPrograms
           ''
-          + attrs.postFixup or ""
-        ;
+          + attrs.postFixup or "";
 
         # Python packages built through cross-compilation are always for the host platform.
         disallowedReferences =

@@ -173,8 +173,7 @@ let
                 else if type == "themeLanguage" then
                   "https://i18n.svn.wordpress.org/themes/" + data.path
                 else
-                  throw "fetchWordpress: invalid package type ${type}"
-              ;
+                  throw "fetchWordpress: invalid package type ${type}";
             }
           )
           { };
@@ -196,8 +195,7 @@ let
               pkgs
           )
         )
-        generatedJson
-  ;
+        generatedJson;
 in
 # This creates an extensible scope.
 lib.recursiveUpdate

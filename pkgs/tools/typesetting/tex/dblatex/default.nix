@@ -98,8 +98,7 @@ stdenv.mkDerivation rec {
               -e 's|cmd = "convert|cmd = "${imagemagick.out}/bin/convert|g' \
               -i "$file"
       done
-    ''
-  ;
+    '';
 
   dontBuild = true;
 

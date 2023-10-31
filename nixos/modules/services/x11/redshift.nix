@@ -179,8 +179,7 @@ in
           if lcfg.provider == "manual" then
             "${toString lcfg.latitude}:${toString lcfg.longitude}"
           else
-            lcfg.provider
-        ;
+            lcfg.provider;
       in
       {
         description = "Redshift colour temperature adjuster";

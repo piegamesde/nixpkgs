@@ -121,8 +121,7 @@ let
         if platform == null then
           null
         else
-          "${platform}${lib.optionalString (variant != null) "-${variant}"}"
-      ;
+          "${platform}${lib.optionalString (variant != null) "-${variant}"}";
       archiveBasename =
         lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}"
           archive;

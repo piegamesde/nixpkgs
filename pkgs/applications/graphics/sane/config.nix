@@ -53,6 +53,5 @@ stdenv.mkDerivation {
       mkdir -p $out/etc/sane.d $out/etc/sane.d/dll.d $out/lib/sane
     ''
     + (concatMapStrings installSanePath paths)
-    + (concatMapStrings disableBackend disabledDefaultBackends)
-  ;
+    + (concatMapStrings disableBackend disabledDefaultBackends);
 }

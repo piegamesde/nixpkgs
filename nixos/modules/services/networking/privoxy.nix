@@ -20,8 +20,7 @@ let
     else
       ''
         ${name} ${toString val}
-      ''
-  ;
+      '';
 
   configType =
     with types;
@@ -40,8 +39,7 @@ let
         set of settings. Each setting can be either a value (integer, string,
         boolean or path) or a list of such values.
       '';
-    }
-  ;
+    };
 
   ageType = types.str // {
     check =
@@ -178,8 +176,7 @@ in
             x
             ++ optional (cfg.userActions != "") (
               toString (pkgs.writeText "user.actions" cfg.userActions)
-            )
-          ;
+            );
           default = [
             "match-all.action"
             "default.action"
@@ -198,8 +195,7 @@ in
             x
             ++ optional (cfg.userFilters != "") (
               toString (pkgs.writeText "user.filter" cfg.userFilters)
-            )
-          ;
+            );
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
             absolute or relative to the privoxy configuration directory.
@@ -309,8 +305,7 @@ in
         ca-directory = "/var/empty";
         certificate-directory = "/run/privoxy/certs";
         trusted-cas-file = "/etc/ssl/certs/ca-certificates.crt";
-      })
-    ;
+      });
   };
 
   imports =

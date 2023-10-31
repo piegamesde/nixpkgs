@@ -57,8 +57,7 @@ buildPythonPackage rec {
       lib.optionalString (gui) ''
         targetDir=$out/${python.sitePackages}
         cp -vr $src/arelle $targetDir
-      ''
-  ;
+      '';
 
   # Documentation
   postBuild = ''
@@ -77,8 +76,7 @@ buildPythonPackage rec {
         An open source facility for XBRL, the eXtensible Business Reporting
         Language supporting various standards, exposed through a Python or
         REST API''
-      + lib.optionalString gui " and a graphical user interface"
-    ;
+      + lib.optionalString gui " and a graphical user interface";
     homepage = "http://arelle.org/";
     license = licenses.asl20;
     platforms = platforms.all;

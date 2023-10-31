@@ -69,15 +69,13 @@ in
         if lib.isPath cfg.extraCss then
           { source = cfg.extraCss; }
         else
-          { text = cfg.extraCss; }
-      ;
+          { text = cfg.extraCss; };
 
       "greetd/regreet.toml".source =
         if lib.isPath cfg.settings then
           cfg.settings
         else
-          settingsFormat.generate "regreet.toml" cfg.settings
-      ;
+          settingsFormat.generate "regreet.toml" cfg.settings;
     };
 
     systemd.tmpfiles.rules =

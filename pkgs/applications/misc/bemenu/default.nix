@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
       xorg.libXdmcp
       xorg.libpthreadstubs
       xorg.libxcb
-    ]
-  ;
+    ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
     [ "clients" ]
     ++ lib.optional ncursesSupport "curses"
     ++ lib.optional waylandSupport "wayland"
-    ++ lib.optional x11Support "x11"
-  ;
+    ++ lib.optional x11Support "x11";
 
   meta = with lib; {
     homepage = "https://github.com/Cloudef/bemenu";

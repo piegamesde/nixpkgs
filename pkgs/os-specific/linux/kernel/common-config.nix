@@ -351,8 +351,7 @@ let
       // optionalAttrs (stdenv.hostPlatform.system == "aarch64-linux") {
         # enable HDMI-CEC on RPi boards
         DRM_VC4_HDMI_CEC = yes;
-      }
-    ;
+      };
 
     sound =
       {
@@ -590,8 +589,7 @@ let
         KVM_AMD_SEV = whenAtLeast "4.16" yes;
         # AMD SEV-SNP
         SEV_GUEST = whenAtLeast "5.19" module;
-      }
-    ;
+      };
 
     microcode = {
       MICROCODE = yes;
@@ -796,8 +794,7 @@ let
         TEST_ASYNC_DRIVER_PROBE = option no;
         WW_MUTEX_SELFTEST = option no;
         XZ_DEC_TEST = option no;
-      }
-    ;
+      };
 
     criu =
       if (versionAtLeast version "4.19") then
@@ -822,8 +819,7 @@ let
             HID_PICOLCD_CIR = option yes;
             DEBUG_MEMORY_INIT = option yes;
           }
-        )
-    ;
+        );
 
     misc =
       let
@@ -1145,8 +1141,7 @@ let
           {
             CHROMEOS_LAPTOP = module;
             CHROMEOS_PSTORE = module;
-          }
-    ;
+          };
   };
 in
 flattenKConf options

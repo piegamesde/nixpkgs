@@ -51,8 +51,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       Cocoa
       Foundation
-    ]
-  ;
+    ];
 
   # Some tests require networking
   doCheck = false;

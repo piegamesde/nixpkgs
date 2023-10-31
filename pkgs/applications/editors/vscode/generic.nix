@@ -168,8 +168,7 @@ let
       )
       + ''
         runHook postInstall
-      ''
-    ;
+      '';
 
     preFixup = ''
       gappsWrapperArgs+=(
@@ -205,8 +204,7 @@ let
       + lib.optionalString (lib.versionOlder version "1.78.0") ''
         # see https://github.com/gentoo/gentoo/commit/4da5959
         chmod +x resources/app/node_modules/node-pty/build/Release/spawn-helper
-      ''
-    ;
+      '';
 
     inherit meta;
   };
@@ -249,8 +247,7 @@ let
             krb5
           ]
         )
-        ++ additionalPkgs pkgs
-      ;
+        ++ additionalPkgs pkgs;
 
       extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];
 

@@ -121,8 +121,7 @@ stdenv.mkDerivation rec {
       Cocoa
       Foundation
     ]
-    ++ lib.optional (restSupport || colladaSupport) boost
-  ;
+    ++ lib.optional (restSupport || colladaSupport) boost;
 
   cmakeFlags =
     lib.optional (!withApps) "-DBUILD_OSG_APPLICATIONS=OFF"

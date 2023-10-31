@@ -131,8 +131,7 @@ let
     else if optCryptopp != null then
       "cryptopp"
     else
-      "none"
-  ;
+      "none";
 
   cryptoLibsMap = {
     nss = [
@@ -340,8 +339,7 @@ rec {
         optExpat
         optFuse
         optLibedit
-      ]
-    ;
+      ];
 
     pythonPath = [
       ceph-python-env

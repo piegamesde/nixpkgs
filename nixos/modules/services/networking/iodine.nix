@@ -255,8 +255,7 @@ in
             MemoryDenyWriteExecute = true;
           };
         };
-      }
-    ;
+      };
 
     users.users.${iodinedUser} = {
       uid = config.ids.uids.iodined;

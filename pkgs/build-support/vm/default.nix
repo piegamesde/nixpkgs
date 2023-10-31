@@ -16,8 +16,7 @@
     "9pnet_virtio"
     "crc32c_generic"
   ]
-    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos"
-  ,
+    ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isx86 "rtc_cmos",
 }:
 
 let
@@ -955,8 +954,7 @@ rec {
     })
     // {
       inherit expr;
-    }
-  ;
+    };
 
   # The set of supported RPM-based distributions.
 
@@ -1470,8 +1468,7 @@ rec {
         makeImageFromDebDist (as // as2)
       )
       debDistros
-    )
-  ;
+    );
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
   diskImageExtraFuns =

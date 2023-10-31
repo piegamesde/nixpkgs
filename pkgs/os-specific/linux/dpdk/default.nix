@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString mod ''
       # kernel_install_dir is hardcoded to `/lib/modules`; patch that.
       sed -i "s,kernel_install_dir *= *['\"].*,kernel_install_dir = '$kmod/lib/modules/${kernel.modDirVersion}'," kernel/linux/meson.build
-    ''
-  ;
+    '';
 
   mesonFlags =
     [
@@ -98,8 +97,7 @@ stdenv.mkDerivation rec {
         "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     ++
       lib.optional (withExamples != [ ])
-        "-Dexamples=${builtins.concatStringsSep "," withExamples}"
-  ;
+        "-Dexamples=${builtins.concatStringsSep "," withExamples}";
 
   postInstall =
     ''
@@ -113,8 +111,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (withExamples != [ ]) ''
       mkdir -p $examples/bin
       find examples -type f -executable -exec install {} $examples/bin \;
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

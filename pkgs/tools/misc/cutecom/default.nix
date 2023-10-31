@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
         cp cutecom.desktop "$out/share/applications"
         cp images/cutecom.svg "$out/share/icons/hicolor/scalable/apps"
         cp cutecom.1 "$out/share/man/man1"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A graphical serial terminal";

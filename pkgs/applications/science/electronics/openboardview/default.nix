@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.isDarwin) ''
       wrapGApp "$out/bin/${pname}" \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
-    ''
-  ;
+    '';
 
   passthru.updateScript = gitUpdater { ignoredVersions = ".*\\.90\\..*"; };
 

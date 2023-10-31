@@ -16,15 +16,13 @@ let
     && builtins.elem cfg.style [
       "adwaita"
       "adwaita-dark"
-    ]
-  ;
+    ];
   isQtStyle =
     cfg.platformTheme == "gtk2"
     && !(builtins.elem cfg.style [
       "adwaita"
       "adwaita-dark"
-    ])
-  ;
+    ]);
   isQt5ct = cfg.platformTheme == "qt5ct";
   isLxqt = cfg.platformTheme == "lxqt";
   isKde = cfg.platformTheme == "kde";
@@ -53,8 +51,7 @@ let
       ]
     else
       throw
-        "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible."
-  ;
+        "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible.";
 in
 
 {

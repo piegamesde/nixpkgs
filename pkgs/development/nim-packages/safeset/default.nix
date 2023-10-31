@@ -24,6 +24,5 @@ buildNimPackage rec {
       description = "safeset library for nim";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];
-    }
-  ;
+    };
 }

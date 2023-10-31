@@ -106,8 +106,7 @@ stdenv.mkDerivation {
         ./autogen.sh --prefix=$out --enable-progpath=$out/bin
         make
       )
-    ''
-  ;
+    '';
 
   installPhase = ''
     (

@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
       AVFoundation
       AVKit
       WebKit
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = lib.optional stdenv.isDarwin AGL;
 
@@ -101,8 +100,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withWebKit [
       "--enable-webview"
       "--enable-webviewwebkit"
-    ]
-  ;
+    ];
 
   SEARCH_LIB = "${libGLU.out}/lib ${libGL.out}/lib ";
 
@@ -121,8 +119,7 @@ stdenv.mkDerivation rec {
         'ac_cv_prog_SETFILE="${setfile}/bin/SetFile"'
       substituteInPlace configure --replace \
         "-framework System" "-lSystem"
-    ''
-  ;
+    '';
 
   postInstall = "\n    pushd $out/include\n    ln -s wx-*/* .\n    popd\n  ";
 

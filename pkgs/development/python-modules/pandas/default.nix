@@ -131,8 +131,7 @@ buildPythonPackage rec {
       echo "#!${runtimeShell}" > pbpaste
       chmod a+x pbcopy pbpaste
       export PATH=$(pwd):$PATH
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
 

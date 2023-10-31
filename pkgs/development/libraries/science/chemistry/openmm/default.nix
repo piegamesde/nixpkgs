@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
       ocl-icd
       opencl-headers
     ]
-    ++ lib.optional enableCuda cudaPackages.cudatoolkit
-  ;
+    ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
   propagatedBuildInputs = lib.optionals enablePython (
     with python3Packages; [
@@ -86,8 +85,7 @@ stdenv.mkDerivation rec {
       "-DOPENMM_BUILD_DRUDE_CUDA_LIB=ON"
       "-DOPENMM_BUILD_RPMD_CUDA_LIB=ON"
       "-DCMAKE_LIBRARY_PATH=${cudaPackages.cudatoolkit}/lib64/stubs"
-    ]
-  ;
+    ];
 
   postInstall = lib.strings.optionalString enablePython ''
     export OPENMM_LIB_PATH=$out/lib

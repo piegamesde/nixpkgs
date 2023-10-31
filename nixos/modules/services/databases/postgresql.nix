@@ -23,14 +23,12 @@ let
         if cfg.enableJIT && !cfg.package.jitSupport then
           cfg.package.withJIT
         else
-          cfg.package
-      ;
+          cfg.package;
     in
     if cfg.extraPlugins == [ ] then
       base
     else
-      base.withPackages (_: cfg.extraPlugins)
-  ;
+      base.withPackages (_: cfg.extraPlugins);
 
   toStr =
     value:
@@ -41,8 +39,7 @@ let
     else if isString value then
       "'${lib.replaceStrings [ "'" ] [ "''" ] value}'"
     else
-      toString value
-  ;
+      toString value;
 
   # The main PostgreSQL configuration file.
   configFile = pkgs.writeTextDir "postgresql.conf" (
@@ -509,8 +506,7 @@ in
           else if versionAtLeast config.system.stateVersion "17.09" then
             mkThrow "9_6"
           else
-            mkThrow "9_5"
-        ;
+            mkThrow "9_5";
       in
       # Note: when changing the default, make it conditional on
       # ‘system.stateVersion’ to maintain compatibility with existing
@@ -635,8 +631,7 @@ in
               ''
             )
             cfg.ensureUsers}
-        ''
-      ;
+        '';
 
       serviceConfig = mkMerge [
         {

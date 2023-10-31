@@ -19,8 +19,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
       configureFlagsArray+=("ac_cv_check_sjlj=ssjlj")
-    ''
-  ;
+    '';
 
   # Fails parallel build due to missing dependency on autogenrated
   # 'pth_p.h' file:

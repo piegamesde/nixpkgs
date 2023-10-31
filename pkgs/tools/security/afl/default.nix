@@ -18,8 +18,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "qemu-i386"
     else
-      throw "afl: no support for ${stdenv.hostPlatform.system}!"
-  ;
+      throw "afl: no support for ${stdenv.hostPlatform.system}!";
   afl = stdenv.mkDerivation rec {
     pname = "afl";
     version = "2.57b";

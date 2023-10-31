@@ -54,8 +54,7 @@ let
               grep -q "@suffixSalt@" $out/bin/cc && (echo "$out/bin/cc contains unsubstituted variables" && false)
 
               touch $out
-            ''
-          ;
+            '';
         }
         // extraAttrs
       )

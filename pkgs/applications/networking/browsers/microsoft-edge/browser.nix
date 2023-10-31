@@ -176,8 +176,7 @@ stdenv.mkDerivation rec {
     ${if channel == "stable" then
       ""
     else
-      "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"
-    }
+      "ln -sf $out/opt/microsoft/${shortName}/${baseName}-${channel} $out/opt/microsoft/${shortName}/${baseName}"}
 
     ln -sf $out/opt/microsoft/${shortName}/${longName} $out/bin/${longName}
 

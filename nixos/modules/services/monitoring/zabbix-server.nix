@@ -97,8 +97,7 @@ in
           if cfg.database.type == "mysql" then
             pkgs.zabbix.server-mysql
           else
-            pkgs.zabbix.server-pgsql
-        ;
+            pkgs.zabbix.server-pgsql;
         defaultText = literalExpression "pkgs.zabbix.server-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };
@@ -385,8 +384,7 @@ in
           chmod 0600 ${passwordFile}
           echo -n "DBPassword = " > ${passwordFile}
           cat ${cfg.database.passwordFile} >> ${passwordFile}
-        ''
-      ;
+        '';
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/sbin/zabbix_server zabbix_server -f --config ${configFile}";

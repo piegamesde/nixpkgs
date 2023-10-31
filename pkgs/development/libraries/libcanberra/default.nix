@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
       AppKit
     ]
     ++ lib.optional stdenv.isLinux libcap
-    ++ lib.optional withAlsa alsa-lib
-  ;
+    ++ lib.optional withAlsa alsa-lib;
 
   configureFlags = [ "--disable-oss" ];
 

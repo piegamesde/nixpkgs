@@ -13,8 +13,7 @@ rec {
     else if platform.isPower64 then
       "powerpc64" # never add "le" suffix
     else
-      platform.parsed.cpu.name
-  ;
+      platform.parsed.cpu.name;
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_os
   toTargetOs =
@@ -24,8 +23,7 @@ rec {
     else if platform.isDarwin then
       "macos"
     else
-      platform.parsed.kernel.name
-  ;
+      platform.parsed.kernel.name;
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_family
   toTargetFamily =
@@ -40,8 +38,8 @@ rec {
         if builtins.isList f then f else [ f ]
       )
     else
-      lib.optional platform.isUnix "unix" ++ lib.optional platform.isWindows "windows"
-  ;
+      lib.optional platform.isUnix "unix"
+      ++ lib.optional platform.isWindows "windows";
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor
   toTargetVendor =
@@ -84,8 +82,7 @@ rec {
         builtins.toJSON platform.rustc.platform
       )
     else
-      toRustTarget platform
-  ;
+      toRustTarget platform;
 
   # Returns true if the target is no_std
   # https://github.com/rust-lang/rust/blob/2e44c17c12cec45b6a682b1e53a04ac5b5fcc9d2/src/bootstrap/config.rs#L415-L421

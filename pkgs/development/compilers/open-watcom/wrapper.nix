@@ -23,8 +23,7 @@ let
         # we don't support running on AXP
         # don't know what MIPS, PPC bindirs are called
         else
-          throw "Don't know where ${system} binaries are located!"
-      ;
+          throw "Don't know where ${system} binaries are located!";
 
       binDirs =
         with stdenv.hostPlatform;
@@ -44,8 +43,7 @@ let
           [
             (lib.optionalString is64bit "${archToBindir}l64")
             "${archToBindir}l"
-          ]
-      ;
+          ];
       # TODO
       # This works good enough as-is, but should really only be targetPlatform-specific
       # but we don't support targeting DOS, OS/2, 16-bit Windows etc Nixpkgs-wide so this needs extra logic

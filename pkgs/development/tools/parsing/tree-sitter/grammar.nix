@@ -45,8 +45,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString (location != null) ''
         cd ${location}
-      ''
-    ;
+      '';
 
     # When both scanner.{c,cc} exist, we should not link both since they may be the same but in
     # different languages. Just randomly prefer C++ if that happens.

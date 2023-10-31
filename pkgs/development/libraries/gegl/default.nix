@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
       suitesparse
     ]
     ++ lib.optionals stdenv.isDarwin [ OpenCL ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
-  ;
+    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 
   # for gegl-4.0.pc
   propagatedBuildInputs = [

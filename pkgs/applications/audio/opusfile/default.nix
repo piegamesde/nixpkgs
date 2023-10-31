@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     ]
     # fixes problem with openssl 1.1 dependency
     # see https://github.com/xiph/opusfile/issues/13
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ ./disable-cert-store.patch ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isWindows [ ./disable-cert-store.patch ];
   configureFlags = [ "--disable-examples" ];
 
   meta = with lib; {

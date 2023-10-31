@@ -43,8 +43,7 @@ let
       # the hashed mirrors.
       "NIX_CONNECT_TIMEOUT"
     ]
-    ++ (map (site: "NIX_MIRRORS_${site}") sites)
-  ;
+    ++ (map (site: "NIX_MIRRORS_${site}") sites);
 in
 
 {
@@ -140,8 +139,7 @@ let
     else if urls == [ ] && url != "" then
       (if lib.isString url then [ url ] else throw "`url` is not a string")
     else
-      throw "fetchurl requires either `url` or `urls` to be set"
-  ;
+      throw "fetchurl requires either `url` or `urls` to be set";
 
   hash_ =
     # Many other combinations don't make sense, but this is the most common one:
@@ -182,8 +180,7 @@ let
       throw
         "fetchurl requires a hash for fixed-output derivation: ${
           lib.concatStringsSep ", " urls_
-        }"
-  ;
+        }";
 in
 
 stdenvNoCC.mkDerivation (
@@ -198,8 +195,7 @@ stdenvNoCC.mkDerivation (
           else if name != "" then
             name
           else
-            baseNameOf (toString (builtins.head urls_))
-        ;
+            baseNameOf (toString (builtins.head urls_));
       }
   )
   // {
@@ -227,8 +223,7 @@ stdenvNoCC.mkDerivation (
       then
         "${cacert}/etc/ssl/certs/ca-bundle.crt"
       else
-        "/no-cert-file.crt"
-    ;
+        "/no-cert-file.crt";
 
     outputHashMode = if (recursiveHash || executable) then "recursive" else "flat";
 
@@ -267,8 +262,7 @@ stdenvNoCC.mkDerivation (
         ''
           ${netrcPhase}
           curlOpts="$curlOpts --netrc-file $PWD/netrc"
-        ''
-    ;
+        '';
 
     inherit meta;
     passthru = {

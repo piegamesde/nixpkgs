@@ -19,8 +19,7 @@ let
     if pluginSupport then
       plain
     else
-      haskell.lib.compose.disableCabalFlag "plugins" plain
-  ;
+      haskell.lib.compose.disableCabalFlag "plugins" plain;
   static = haskell.lib.compose.justStaticExecutables plugins;
 in
 (haskell.lib.compose.overrideCabal

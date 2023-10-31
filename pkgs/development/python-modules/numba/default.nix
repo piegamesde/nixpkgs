@@ -60,8 +60,7 @@ buildPythonPackage rec {
     ++ lib.optionals cudaSupport [
       cudatoolkit
       cudatoolkit.lib
-    ]
-  ;
+    ];
 
   patches =
     [

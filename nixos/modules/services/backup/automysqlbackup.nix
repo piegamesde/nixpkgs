@@ -41,8 +41,7 @@ let
     else if false == val then
       "'no'"
     else
-      "'${toString val}'"
-  ;
+      "'${toString val}'";
 
   configFile = pkgs.writeText "automysqlbackup.conf" ''
     #version=${pkg.version}

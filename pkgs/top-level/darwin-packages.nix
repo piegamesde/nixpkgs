@@ -100,8 +100,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           if stdenv.targetPlatform != stdenv.hostPlatform then
             pkgs.libcCross
           else
-            pkgs.stdenv.cc.libc
-        ;
+            pkgs.stdenv.cc.libc;
         bintools = self.binutils-unwrapped;
       };
 
@@ -116,8 +115,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           if stdenv.targetPlatform != stdenv.hostPlatform then
             pkgs.libcCross
           else
-            pkgs.stdenv.cc.libc
-        ;
+            pkgs.stdenv.cc.libc;
         bintools = self.binutilsDualAs-unwrapped;
       };
 
@@ -282,8 +280,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
             drv: { setupHook = null; }
           )
         else
-          callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { }
-      ;
+          callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { };
 
       # As the name says, this is broken, but I don't want to lose it since it's a direction we want to go in
       # libdispatch-broken = callPackage ../os-specific/darwin/swift-corelibs/libdispatch.nix { };

@@ -16,8 +16,7 @@ let
     else if stdenv.hostPlatform.system == "aarch64-linux" then
       "linux-arm"
     else
-      throw "Platform ${stdenv.hostPlatform.system} not yet supported."
-  ;
+      throw "Platform ${stdenv.hostPlatform.system} not yet supported.";
 in
 
 stdenv.mkDerivation rec {

@@ -40,8 +40,7 @@ let
             if vhostConfig.sslTrustedCertificate != null then
               vhostConfig.sslTrustedCertificate
             else
-              "${certs.${certName}.directory}/chain.pem"
-          ;
+              "${certs.${certName}.directory}/chain.pem";
         })
       )
       cfg.virtualHosts;
@@ -378,8 +377,7 @@ let
                   if vhost.listenAddresses != [ ] then
                     vhost.listenAddresses
                   else
-                    cfg.defaultListenAddresses
-                ;
+                    cfg.defaultListenAddresses;
               in
               optionals (hasSSL || vhost.rejectSSL) (
                 map
@@ -398,8 +396,7 @@ let
                     ssl = false;
                   })
                   addrs
-              )
-          ;
+              );
 
           hostListen =
             if vhost.forceSSL then filter (x: x.ssl) defaultListen else defaultListen;
@@ -438,8 +435,7 @@ let
             + optionalString vhost.default "default_server "
             + optionalString vhost.reuseport "reuseport "
             + optionalString (extraParameters != [ ]) (concatStringsSep " " extraParameters)
-            + ";"
-          ;
+            + ";";
 
           redirectListen = filter (x: !x.ssl) defaultListen;
 
@@ -591,8 +587,7 @@ let
           if zone.basicAuthFile != null then
             zone.basicAuthFile
           else
-            mkHtpasswd name zone.basicAuth
-        ;
+            mkHtpasswd name zone.basicAuth;
       in
       ''
         auth_basic secured;
@@ -1317,8 +1312,7 @@ in
         {
           assertion =
             any (host: host.rejectSSL) (attrValues virtualHosts)
-            -> versionAtLeast cfg.package.version "1.19.4"
-          ;
+            -> versionAtLeast cfg.package.version "1.19.4";
           message = ''
             services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
             1.19.4 or above; see the documentation for services.nginx.package.
@@ -1328,8 +1322,7 @@ in
         {
           assertion =
             any (host: host.kTLS) (attrValues virtualHosts)
-            -> versionAtLeast cfg.package.version "1.21.4"
-          ;
+            -> versionAtLeast cfg.package.version "1.21.4";
           message = ''
             services.nginx.virtualHosts.<name>.kTLS requires nginx version
             1.21.4 or above; see the documentation for services.nginx.package.
@@ -1349,8 +1342,7 @@ in
         {
           assertion =
             cfg.package.pname != "nginxQuic"
-            -> all (host: !host.quic) (attrValues virtualHosts)
-          ;
+            -> all (host: !host.quic) (attrValues virtualHosts);
           message = ''
             services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
             which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
@@ -1367,8 +1359,7 @@ in
               groups = config.users.groups;
             }
           )
-          dependentCertNames
-    ;
+          dependentCertNames;
 
     services.nginx.additionalModules =
       optional cfg.recommendedBrotliSettings pkgs.nginxModules.brotli

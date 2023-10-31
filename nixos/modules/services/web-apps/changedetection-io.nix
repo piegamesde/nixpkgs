@@ -157,8 +157,7 @@ in
                 lib.optional cfg.playwrightSupport
                   "PLAYWRIGHT_DRIVER_URL=ws://127.0.0.1:${
                     toString cfg.chromePort
-                  }/?stealth=1&--disable-web-security=true"
-            ;
+                  }/?stealth=1&--disable-web-security=true";
             EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
             ExecStart = ''
               ${pkgs.changedetection-io}/bin/changedetection.py \

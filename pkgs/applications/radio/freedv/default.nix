@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       AVFoundation
       Cocoa
       CoreMedia
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DUSE_INTERNAL_CODEC2:BOOL=FALSE"

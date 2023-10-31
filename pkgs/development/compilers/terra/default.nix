@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
       libobjc
       Cocoa
       Foundation
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DHAS_TERRA_VERSION=0"

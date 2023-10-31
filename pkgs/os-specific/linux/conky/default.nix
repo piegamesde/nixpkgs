@@ -69,8 +69,7 @@ assert docsSupport
     && man != null
     && less != null
     && docbook_xsl != null
-    && docbook_xml_dtd_44 != null
-;
+    && docbook_xml_dtd_44 != null;
 
 assert ncursesSupport -> ncurses != null;
 
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
       substituteInPlace cmake/Conky.cmake --replace "# set(RELEASE true)" "set(RELEASE true)"
 
       cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
-    ''
-  ;
+    '';
 
   NIX_LDFLAGS = "-lgcc_s";
 
@@ -164,8 +162,7 @@ stdenv.mkDerivation rec {
     ++ optional weatherXoapSupport libxml2
     ++ optional nvidiaSupport libXNVCtrl
     ++ optional pulseSupport libpulseaudio
-    ++ optional journalSupport systemd
-  ;
+    ++ optional journalSupport systemd;
 
   cmakeFlags =
     [ ]
@@ -186,8 +183,7 @@ stdenv.mkDerivation rec {
     ++ optional wirelessSupport "-DBUILD_WLAN=ON"
     ++ optional nvidiaSupport "-DBUILD_NVIDIA=ON"
     ++ optional pulseSupport "-DBUILD_PULSEAUDIO=ON"
-    ++ optional journalSupport "-DBUILD_JOURNAL=ON"
-  ;
+    ++ optional journalSupport "-DBUILD_JOURNAL=ON";
 
   # `make -f src/CMakeFiles/conky.dir/build.make src/CMakeFiles/conky.dir/conky.cc.o`:
   # src/conky.cc:137:23: fatal error: defconfig.h: No such file or directory

@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
       # FIXME: fails ipopt test with Invalid_Option on darwin, so disable.
       "-DPAGMO_WITH_IPOPT=no"
       "-DLLVM_USE_LINKER=gold"
-    ]
-  ;
+    ];
 
   doCheck = runTests;
 

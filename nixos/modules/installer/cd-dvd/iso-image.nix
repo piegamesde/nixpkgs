@@ -45,8 +45,7 @@ let
     if config.boot.loader.grub.forcei686 then
       "ia32"
     else
-      pkgs.stdenv.hostPlatform.efiArch
-  ;
+      pkgs.stdenv.hostPlatform.efiArch;
 
   #
   # Given params to add to `params`, build a set of default options.
@@ -86,8 +85,7 @@ let
     if config.boot.loader.timeout == null then
       35996
     else
-      config.boot.loader.timeout * 10
-  ;
+      config.boot.loader.timeout * 10;
 
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
@@ -179,8 +177,7 @@ let
     if targetArch == "x64" || targetArch == "aa64" then
       "refind_${targetArch}.efi"
     else
-      null
-  ;
+      null;
 
   # Setup instructions for rEFInd.
   refind =
@@ -190,8 +187,7 @@ let
         cp -v ${pkgs.refind}/share/refind/${refindBinary} $out/EFI/boot/
       ''
     else
-      "# No refind for ${targetArch}"
-  ;
+      "# No refind for ${targetArch}";
 
   grubPkgs =
     if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
@@ -267,8 +263,7 @@ let
           set menu_color_normal=cyan/blue
           set menu_color_highlight=white/blue
         fi
-      ''
-    }
+      ''}
   '';
 
   # The EFI boot image.
@@ -526,8 +521,7 @@ in
         # Untested but should also reduce size for these platforms
         + lib.optionalString isAarch "-Xbcj arm"
         + lib.optionalString (isPower && is32bit && isBigEndian) "-Xbcj powerpc"
-        + lib.optionalString (isSparc) "-Xbcj sparc"
-      ;
+        + lib.optionalString (isSparc) "-Xbcj sparc";
       description = lib.mdDoc ''
         Compression settings to use for the squashfs nix store.
       '';
@@ -874,8 +868,7 @@ in
           source = config.isoImage.grubTheme;
           target = "/EFI/boot/grub-theme";
         }
-      ]
-    ;
+      ];
 
     boot.loader.timeout = 10;
 
@@ -894,8 +887,7 @@ in
           if config.isoImage.makeBiosBootable && canx86BiosBoot then
             pkgs.syslinux
           else
-            null
-        ;
+            null;
       }
       //
         optionalAttrs

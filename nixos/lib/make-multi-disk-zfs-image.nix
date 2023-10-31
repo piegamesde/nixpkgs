@@ -107,8 +107,7 @@ let
       vpc = "vhd";
       raw = "img";
     }
-      .${formatOpt} or formatOpt
-  ;
+      .${formatOpt} or formatOpt;
   bootFilename = "nixos.boot${filenameSuffix}";
   rootFilename = "nixos.root${filenameSuffix}";
 
@@ -272,8 +271,7 @@ let
           ) > $out
 
           nixpkgs-fmt $out
-        ''
-  ;
+        '';
 
   image =
     (pkgs.vmTools.override {
@@ -291,8 +289,7 @@ let
           {
             QEMU_OPTS =
               "-drive file=$bootDiskImage,if=virtio,cache=unsafe,werror=report"
-              + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report"
-            ;
+              + " -drive file=$rootDiskImage,if=virtio,cache=unsafe,werror=report";
             inherit memSize;
             preVM = ''
               PATH=$PATH:${pkgs.qemu_kvm}/bin
@@ -314,8 +311,7 @@ let
                 ''
                   ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
                   ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
-                ''
-              }
+                ''}
               bootDiskImage=$out/${bootFilename}
               rootDiskImage=$out/${rootFilename}
               set -x

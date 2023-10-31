@@ -14,8 +14,7 @@ let
     if config.security.polkit.enable then
       pkgs.pcscliteWithPolkit
     else
-      pkgs.pcsclite
-  ;
+      pkgs.pcsclite;
 
   pluginEnv = pkgs.buildEnv {
     name = "pcscd-plugins";

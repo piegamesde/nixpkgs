@@ -12,8 +12,7 @@ let
 
   extraTools =
     "FLOTTER prolog2dfg dfg2otter dfg2dimacs dfg2tptp"
-    + " dfg2ascii dfg2dfg tptp2dfg dimacs2dfg pgen rescmp"
-  ;
+    + " dfg2ascii dfg2dfg tptp2dfg dimacs2dfg pgen rescmp";
 in
 
 stdenv.mkDerivation {

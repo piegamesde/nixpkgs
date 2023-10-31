@@ -72,8 +72,7 @@ buildPythonPackage rec {
     ++ lib.optionals (isPyPy) [
       tk
       libX11
-    ]
-  ;
+    ];
 
   # NOTE: we use LCMS_ROOT as WEBP root since there is not other setting for webp.
   # NOTE: The Pillow install script will, by default, add paths like /usr/lib
@@ -114,6 +113,5 @@ buildPythonPackage rec {
       substituteInPlace setup.py \
         --replace '"/Library/Frameworks",' "" \
         --replace '"/System/Library/Frameworks"' ""
-    ''
-  ;
+    '';
 }

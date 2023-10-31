@@ -43,8 +43,7 @@ python3.pkgs.buildPythonApplication rec {
       typer
       watchdog
     ]
-    ++ typer.optional-dependencies.all
-  ;
+    ++ typer.optional-dependencies.all;
 
   passthru.optional-dependencies = with python3.pkgs; {
     aws = [ boto3 ];

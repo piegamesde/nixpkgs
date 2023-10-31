@@ -182,8 +182,7 @@ let
       "systemd-exit.service"
       "systemd-update-done.service"
     ]
-    ++ cfg.additionalUpstreamSystemUnits
-  ;
+    ++ cfg.additionalUpstreamSystemUnits;
 
   upstreamSystemWants = [
     "sysinit.target.wants"
@@ -647,8 +646,7 @@ in
             nameValuePair "${n}.automount" (automountToUnit n v)
           )
           cfg.automounts
-      )
-    ;
+      );
 
     # Environment of PID 1
     systemd.managerEnvironment = {

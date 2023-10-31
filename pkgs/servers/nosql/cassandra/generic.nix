@@ -125,6 +125,5 @@ stdenv.mkDerivation rec {
       license = licenses.asl20;
       maintainers = [ maintainers.roberth ];
     }
-    // extraMeta
-  ;
+    // extraMeta;
 }

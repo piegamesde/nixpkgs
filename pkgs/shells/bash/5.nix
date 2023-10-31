@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
     # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
     # or you can check libc/include/sys/cdefs.h in bionic source code
-    ++ lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify"
-  ;
+    ++ lib.optional (stdenv.hostPlatform.libc == "bionic") "fortify";
 
   outputs = [
     "out"
@@ -67,8 +66,7 @@ stdenv.mkDerivation rec {
     + ''
       -DNON_INTERACTIVE_LOGIN_SHELLS
       -DSSH_SOURCE_BASHRC
-    ''
-  ;
+    '';
 
   patchFlags = [ "-p0" ];
 
@@ -99,8 +97,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.hostPlatform.libc == "musl") [
       "--without-bash-malloc"
       "--disable-nls"
-    ]
-  ;
+    ];
 
   strictDeps = true;
   # Note: Bison is needed because the patches above modify parse.y.
@@ -108,8 +105,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ bison ]
     ++ lib.optional withDocs texinfo
-    ++ lib.optional stdenv.hostPlatform.isDarwin binutils
-  ;
+    ++ lib.optional stdenv.hostPlatform.isDarwin binutils;
 
   buildInputs = lib.optional interactive readline;
 
@@ -138,8 +134,7 @@ stdenv.mkDerivation rec {
     else
       ''
         rm -rf "$out/share" "$out/bin/bashbug"
-      ''
-  ;
+      '';
 
   passthru = {
     shellPath = "/bin/bash";
@@ -150,8 +145,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/bash/";
     description =
       "GNU Bourne-Again Shell, the de facto standard shell on Linux"
-      + lib.optionalString interactive " (for interactive use)"
-    ;
+      + lib.optionalString interactive " (for interactive use)";
     longDescription = ''
       Bash is the shell, or command language interpreter, that will
       appear in the GNU operating system.  Bash is an sh-compatible

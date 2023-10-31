@@ -22,8 +22,7 @@ let
             rm -rf ${xip}
             pbzx -n Content | cpio -i
             rm Content Metadata
-          ''
-      ;
+          '';
       app = requireFile rec {
         name = "Xcode.app";
         url = "https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_${version}/${xip}";

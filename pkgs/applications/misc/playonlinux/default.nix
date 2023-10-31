@@ -61,8 +61,7 @@ let
     else if stdenv.hostPlatform.system == "i686-linux" then
       "${stdenv.cc}/nix-support/dynamic-linker"
     else
-      throw "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported platform for PlayOnLinux: ${stdenv.hostPlatform.system}";
   ld64 = "${stdenv.cc}/nix-support/dynamic-linker";
   libs =
     pkgs:
@@ -146,8 +145,7 @@ stdenv.mkDerivation {
     else
       ''
         rm $out/share/playonlinux/bin/check_dd_amd64.bz2
-      ''
-    }
+      ''}
     for f in $out/share/playonlinux/bin/*; do
       bzip2 $f
     done

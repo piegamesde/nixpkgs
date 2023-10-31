@@ -54,8 +54,7 @@ let
           // {
             homepage = meta.homepage or "http://www.kde.org";
             platforms = meta.platforms or lib.platforms.linux;
-          }
-        ;
+          };
       }
     );
 

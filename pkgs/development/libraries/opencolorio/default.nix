@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals buildApps [
       lcms2
       openexr_3
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [
@@ -97,8 +96,7 @@ stdenv.mkDerivation rec {
       "-DOCIO_BUILD_GPU_TESTS=OFF"
     ]
     ++ lib.optional (!pythonBindings) "-DOCIO_BUILD_PYTHON=OFF"
-    ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF"
-  ;
+    ++ lib.optional (!buildApps) "-DOCIO_BUILD_APPS=OFF";
 
   # precision issues on non-x86
   doCheck = stdenv.isx86_64;

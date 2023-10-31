@@ -215,8 +215,7 @@ python3Packages.buildPythonApplication rec {
           pdfminer-six
         ]
       )
-    )
-  ;
+    );
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
 

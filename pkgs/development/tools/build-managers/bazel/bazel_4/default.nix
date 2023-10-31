@@ -458,8 +458,7 @@ stdenv.mkDerivation rec {
       # downstream packages using buildBazelPackage
       # fixed-output hashes of the fetch phase need to be spot-checked manually
       downstream = recurseIntoAttrs ({ inherit bazel-watcher; });
-    }
-  ;
+    };
 
   src_for_updater = stdenv.mkDerivation rec {
     name = "updater-sources";
@@ -789,8 +788,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       echo "${cctools}" >> $out/nix-support/depends
-    ''
-  ;
+    '';
 
   dontStrip = true;
   dontPatchELF = true;

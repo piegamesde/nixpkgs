@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
     + (lib.optionalString enableX11 ''
       substituteInPlace src/common/x11_util.c \
           --replace '"/usr/bin/xauth"' '"${xorg.xauth}/bin/xauth"'
-    '')
-  ;
+    '');
 
   # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
   # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
@@ -127,8 +126,7 @@ stdenv.mkDerivation rec {
       "--with-bpf=${libbpf}"
     ]
     ++ (optional enableGtk2 "--disable-gtktest")
-    ++ (optional (!enableX11) "--disable-x11")
-  ;
+    ++ (optional (!enableX11) "--disable-x11");
 
   preConfigure = ''
     patchShebangs ./doc/html/shtml2html.py

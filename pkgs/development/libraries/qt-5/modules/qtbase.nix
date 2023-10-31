@@ -176,8 +176,7 @@ stdenv.mkDerivation (
       ++ lib.optional developerBuild gdb
       ++ lib.optional (cups != null) cups
       ++ lib.optional (mysqlSupport) libmysqlclient
-      ++ lib.optional (postgresql != null) postgresql
-    ;
+      ++ lib.optional (postgresql != null) postgresql;
 
     nativeBuildInputs = [
       bison
@@ -256,8 +255,7 @@ stdenv.mkDerivation (
             sed -i mkspecs/common/gcc-base-unix.conf \
                 -e "/^QMAKE_LFLAGS_SHLIB/ s/-shared/-shared -static-libgcc/"
           ''
-      )
-    ;
+      );
 
     qtPluginPrefix = "lib/qt-${qtCompatVersion}/plugins";
     qtQmlPrefix = "lib/qt-${qtCompatVersion}/qml";
@@ -459,8 +457,7 @@ stdenv.mkDerivation (
             "-I"
             "${libmysqlclient}/include"
           ]
-      )
-    ;
+      );
 
     # Move selected outputs.
     postInstall = ''

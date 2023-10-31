@@ -233,8 +233,7 @@ in
               hookFiles
             ++ optional cfg.enableTemplates "-template"
             ++ optional cfg.verbose "-verbose"
-            ++ cfg.extraArgs
-          ;
+            ++ cfg.extraArgs;
         in
         ''
           ${cfg.package}/bin/webhook ${escapeShellArgs args}

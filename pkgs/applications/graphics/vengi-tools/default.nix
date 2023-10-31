@@ -67,8 +67,7 @@ stdenv.mkDerivation rec {
       CoreServices
       OpenCL
     ]
-    ++ lib.optional (!stdenv.isDarwin) opencl-headers
-  ;
+    ++ lib.optional (!stdenv.isDarwin) opencl-headers;
 
   cmakeFlags = [
     # Disable tests due to a problem in linking gtest:

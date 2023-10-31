@@ -46,8 +46,7 @@ import ./make-test-python.nix (
               }
             ];
           };
-        }
-      ;
+        };
       client_eth1 =
         { lib, ... }:
         client_base
@@ -65,8 +64,7 @@ import ./make-test-python.nix (
               }
             ];
           };
-        }
-      ;
+        };
       client_eth1_rstp =
         { lib, ... }:
         client_base
@@ -84,8 +82,7 @@ import ./make-test-python.nix (
               }
             ];
           };
-        }
-      ;
+        };
     };
 
     testScript =

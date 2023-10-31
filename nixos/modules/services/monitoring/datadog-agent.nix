@@ -32,8 +32,7 @@ let
         enabled = true;
       };
     }
-    // cfg.extraConfig
-  ;
+    // cfg.extraConfig;
 
   # Generate Datadog configuration files for each configured checks.
   # This works because check configurations have predictable paths,
@@ -62,8 +61,7 @@ let
         source = writeText "datadog.yaml" (toJSON ddConf);
       };
     }
-    // makeCheckConfigs (cfg.checks // defaultChecks)
-  ;
+    // makeCheckConfigs (cfg.checks // defaultChecks);
 
   # Apply the configured extraIntegrations to the provided agent
   # package. See the documentation of `dd-agent/integrations-core.nix`

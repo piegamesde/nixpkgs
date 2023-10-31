@@ -211,8 +211,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
         xorg.libXcomposite
         wayland-protocols
-      ]
-    ;
+      ];
 
     propagatedBuildInputs = [
       gtk3
@@ -241,8 +240,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [ "-DUSE_GTK4=ON" ]
       ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
-      ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ]
-    ;
+      ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ];
 
     postPatch = ''
       patchShebangs .

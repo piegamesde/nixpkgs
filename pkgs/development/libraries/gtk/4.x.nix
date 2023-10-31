@@ -142,8 +142,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals xineramaSupport [ xorg.libXinerama ]
     ++ lib.optionals cupsSupport [ cups ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isMusl [ libexecinfo ];
   #TODO: colord?
 
   propagatedBuildInputs =
@@ -161,8 +160,7 @@ stdenv.mkDerivation rec {
       # Required for GSettings schemas at runtime.
       # Will be picked up by wrapGAppsHook.
       gsettings-desktop-schemas
-    ]
-  ;
+    ];
 
   mesonFlags =
     [
@@ -177,8 +175,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isDarwin && !stdenv.isAarch64) [
       "-Dmedia-gstreamer=disabled" # requires gstreamer-gl
     ]
-    ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ]
-  ;
+    ++ lib.optionals (!x11Support) [ "-Dx11-backend=false" ];
 
   doCheck = false; # needs X11
 
@@ -230,8 +227,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString broadwaySupport ''
       # Broadway daemon
       moveToOutput bin/gtk4-broadwayd "$out"
-    ''
-  ;
+    '';
 
   # Wrap demos
   postFixup =
@@ -246,8 +242,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString x11Support ''
       # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
       moveToOutput "share/doc" "$devdoc"
-    ''
-  ;
+    '';
 
   passthru = {
     updateScript = gnome.updateScript {

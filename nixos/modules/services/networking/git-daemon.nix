@@ -136,8 +136,7 @@ in
           } --user=${cfg.user} --group=${cfg.group} ${cfg.options} "
         + "--verbose "
         + (optionalString cfg.exportAll "--export-all ")
-        + concatStringsSep " " cfg.repositories
-      ;
+        + concatStringsSep " " cfg.repositories;
     };
   };
 }

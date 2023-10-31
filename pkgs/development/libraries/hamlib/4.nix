@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals perlBindings [
       perl
       perlPackages.ExtUtilsMakeMaker
-    ]
-  ;
+    ];
 
   configureFlags =
     lib.optionals perlBindings [ "--with-perl-binding" ]
@@ -58,8 +57,7 @@ stdenv.mkDerivation rec {
       "--with-tcl-binding"
       "--with-tcl=${tcl}/lib/"
     ]
-    ++ lib.optionals pythonBindings [ "--with-python-binding" ]
-  ;
+    ++ lib.optionals pythonBindings [ "--with-python-binding" ];
 
   meta = with lib; {
     description = "Runtime library to control radio transceivers and receivers";

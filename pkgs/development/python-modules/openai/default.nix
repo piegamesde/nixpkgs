@@ -47,8 +47,7 @@ buildPythonPackage rec {
       builtins.attrValues {
         inherit (passthru.optional-dependencies) embeddings wandb;
       }
-    )
-  ;
+    );
 
   passthru.optional-dependencies = {
     datalib = [

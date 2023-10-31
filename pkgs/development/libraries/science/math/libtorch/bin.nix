@@ -26,8 +26,7 @@ let
     if stdenv.hostPlatform.system == "x86_64-darwin" then
       libcxx
     else
-      stdenv.cc.cc.lib
-  ;
+      stdenv.cc.cc.lib;
 in
 stdenv.mkDerivation {
   inherit version;
@@ -39,8 +38,7 @@ stdenv.mkDerivation {
     if stdenv.isDarwin then
       [ fixDarwinDylibNames ]
     else
-      [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ]
-  ;
+      [ patchelf ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 
   dontBuild = true;
   dontConfigure = true;
@@ -97,8 +95,7 @@ stdenv.mkDerivation {
       for f in $out/lib/*.dylib; do
           otool -L $f
       done
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

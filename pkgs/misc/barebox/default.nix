@@ -82,11 +82,9 @@ let
           license = licenses.gpl2;
           maintainers = with maintainers; [ emantor ];
         }
-        // extraMeta
-      ;
+        // extraMeta;
     }
-    // removeAttrs args [ "extraMeta" ]
-  ;
+    // removeAttrs args [ "extraMeta" ];
 in
 {
   inherit buildBarebox;

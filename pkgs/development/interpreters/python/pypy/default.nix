@@ -107,8 +107,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       libunwind
       Security
-    ]
-  ;
+    ];
 
   # Remove bootstrap python from closure
   dontPatchShebangs = true;
@@ -192,8 +191,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/${executable}-c/pypy/bin
       mv $out/bin/${executable} $out/${executable}-c/pypy/bin/${executable}
       ln -s $out/${executable}-c/pypy/bin/${executable} $out/bin/${executable}
-    ''
-  ;
+    '';
 
   setupHook = python-setup-hook sitePackages;
 
@@ -227,8 +225,7 @@ stdenv.mkDerivation rec {
           # disable __all__ because of spurious imp/importlib warning and
           # warning-to-error test policy
           "test___all__"
-        ]
-      ;
+        ];
     in
     ''
       export TERMINFO="${ncurses.out}/share/terminfo/";
@@ -253,8 +250,7 @@ stdenv.mkDerivation rec {
         ++ lib.optionals isPy3k [
           "tkinter"
           "lzma"
-        ]
-      ;
+        ];
       imports = lib.concatMapStringsSep "; " (x: "import ${x}") modules;
     in
     ''

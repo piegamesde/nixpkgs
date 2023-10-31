@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!buildDocs) ''
       sed "/^subdir('doc')$/d" -i meson.build
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "An ncurses toolkit for creating text-mode graphical user interfaces";

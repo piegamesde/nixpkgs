@@ -58,8 +58,7 @@ let
               license = licenses.mit;
               maintainers = with maintainers; [ ];
             }
-            // (prepkg.meta or { })
-          ;
+            // (prepkg.meta or { });
         }
         // prepkg
       )

@@ -71,8 +71,7 @@ buildGoModule {
     + ''
           --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ zlib ]}"
       done
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A tool for building and running mobile apps written in Go";

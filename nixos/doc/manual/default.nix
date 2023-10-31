@@ -45,8 +45,7 @@ let
       // {
         # Clean up declaration sites to not refer to the NixOS source tree.
         declarations = map stripAnyPrefixes opt.declarations;
-      }
-    ;
+      };
   };
 
   nixos-lib = import ../../lib { };
@@ -83,8 +82,7 @@ let
                   decl
               )
               opt.declarations;
-        }
-      ;
+        };
       documentType = "none";
       variablelistId = "test-options-list";
       optionIdPrefix = "test-opt-";
@@ -256,8 +254,7 @@ rec {
               buildPackages.libxslt.bin
             ]
           else
-            [ buildPackages.nixos-render-docs ]
-        ;
+            [ buildPackages.nixos-render-docs ];
         inputs = lib.optionals (!allowDocBook) (
           lib.sourceFilesBySuffices ./. [ ".md" ]
         );
@@ -307,8 +304,7 @@ rec {
               --chunk-toc-depth 1 \
               ./manual.md \
               $dst/index.html
-          ''
-        }
+          ''}
 
         mkdir -p $out/nix-support
         echo "nix-build out $out" >> $out/nix-support/hydra-build-products
@@ -363,8 +359,7 @@ rec {
             buildPackages.libxml2.bin
             buildPackages.libxslt.bin
           ]
-          ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ]
-        ;
+          ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ];
         allowedReferences = [ "out" ];
       }
       ''
@@ -389,7 +384,6 @@ rec {
               --revision ${lib.escapeShellArg revision} \
               ${optionsJSON}/share/doc/nixos/options.json \
               $out/share/man/man5/configuration.nix.5
-          ''
-        }
+          ''}
       '';
 }

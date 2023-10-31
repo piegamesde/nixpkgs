@@ -151,8 +151,7 @@ stdenv.mkDerivation {
       ApplicationServices
       gmp
     ]
-    ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ])
-  ;
+    ++ lib.optionals (withQt && stdenv.isDarwin) (with qt5; [ qtmacextras ]);
 
   strictDeps = true;
 
@@ -197,8 +196,7 @@ stdenv.mkDerivation {
           cp ../wsutil/*.h $dev/include/wsutil/
           cp ../wsutil/wmem/*.h $dev/include/wsutil/wmem/
         ''
-    )
-  ;
+    );
 
   dontFixCmake = true;
 

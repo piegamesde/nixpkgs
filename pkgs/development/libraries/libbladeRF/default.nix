@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       libusb1
     ]
     ++ lib.optionals stdenv.isLinux [ udev ]
-    ++ lib.optionals stdenv.isDarwin [ ncurses ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ ncurses ];
 
   postUnpack = ''
     cp -r ${noos}/* source/thirdparty/analogdevicesinc/no-OS/

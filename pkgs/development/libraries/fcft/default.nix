@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       tllist
     ]
     ++ lib.optionals (withShapingTypes != [ ]) [ harfbuzz ]
-    ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ]
-  ;
+    ++ lib.optionals (builtins.elem "run" withShapingTypes) [ utf8proc ];
   nativeCheckInputs = [ check ];
 
   mesonBuildType = "release";

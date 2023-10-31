@@ -105,8 +105,7 @@ stdenv.mkDerivation rec {
 
   doCheck =
     !stdenv.hostPlatform.isMusl # iconv binary
-    && !stdenv.hostPlatform.isDarwin
-  ;
+    && !stdenv.hostPlatform.isDarwin;
 
   passthru.tests = {
     nixos = nixosTests.man;

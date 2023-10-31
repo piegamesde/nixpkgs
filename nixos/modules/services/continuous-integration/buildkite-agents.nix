@@ -24,8 +24,7 @@ let
           description = lib.mdDoc description;
           type = types.nullOr types.lines;
         }
-        // (if example == null then { } else { inherit example; })
-      ;
+        // (if example == null then { } else { inherit example; });
     };
   mkHookOptions = hooks: listToAttrs (map mkHookOption hooks);
 
@@ -302,8 +301,7 @@ in
               if lib.isList value then
                 lib.concatStringsSep "," (builtins.map (v: "${name}=${v}") value)
               else
-                "${name}=${value}"
-            ;
+                "${name}=${value}";
             tagsStr = lib.concatStringsSep "," (lib.mapAttrsToList tagStr cfg.tags);
           in
           optionalString (cfg.privateSshKeyPath != null) ''
@@ -320,8 +318,7 @@ in
             hooks-path="${cfg.hooksPath}"
             ${cfg.extraConfig}
             EOF
-          ''
-        ;
+          '';
 
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/buildkite-agent start --config ${cfg.dataDir}/buildkite-agent.cfg";

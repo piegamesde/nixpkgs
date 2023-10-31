@@ -146,8 +146,7 @@ python3Packages.buildPythonApplication {
       chmod +w $sitepackages/edenscm-isl/run-isl
       substituteInPlace $sitepackages/edenscm-isl/run-isl \
         --replace 'NODE=node' 'NODE=${nodejs}/bin/node'
-    ''
-  ;
+    '';
 
   postFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/sl \

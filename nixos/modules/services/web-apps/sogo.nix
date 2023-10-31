@@ -30,8 +30,7 @@ let
     else
       ''
         cp /etc/sogo/sogo.conf.raw /etc/sogo/sogo.conf
-      ''
-    }
+      ''}
   '';
 in
 {

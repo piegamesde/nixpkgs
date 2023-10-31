@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
         sha256 = "1h05lal5jnjwm30dbqvd6gisgrmf1an8xf34f01gs9pwqvqfvmxc";
       }
     else
-      throw "Unsupported system"
-  ;
+      throw "Unsupported system";
 
   buildInputs = [ libsecret ];
 
@@ -54,8 +53,7 @@ stdenv.mkDerivation rec {
       ''
         mkdir -p "$out/Applications"
         mv Archi.app "$out/Applications/"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "ArchiMate modelling toolkit";

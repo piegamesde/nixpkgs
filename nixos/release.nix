@@ -21,8 +21,7 @@ let
   version = fileContents ../.version;
   versionSuffix =
     (if stableBranch then "." else "pre")
-    + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}"
-  ;
+    + "${toString nixpkgs.revCount}.${nixpkgs.shortRev}";
 
   # Run the tests for each platform.  You can run a test by doing
   # e.g. ‘nix-build release.nix -A tests.login.x86_64-linux’,
@@ -43,8 +42,7 @@ let
         pkgs = import ./.. { inherit system; };
         callTest = config: { ${system} = hydraJob config.driver; };
       };
-    }
-  ;
+    };
 
   allTests = foldAttrs recursiveUpdate { } (
     map allTestsForSystem supportedSystems
@@ -119,8 +117,7 @@ let
         maintainers = map (x: lib.maintainers.${x}) maintainers;
       };
       inherit config;
-    }
-  ;
+    };
 
   makeClosure =
     module: buildFromConfig module (config: config.system.build.toplevel);

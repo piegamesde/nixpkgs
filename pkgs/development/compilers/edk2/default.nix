@@ -24,8 +24,7 @@ let
     else if stdenv.isAarch64 then
       "AARCH64"
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
 
   buildStdenv = if stdenv.isDarwin then llvmPackages_9.stdenv else stdenv;
 
@@ -72,8 +71,7 @@ let
 
     env.NIX_CFLAGS_COMPILE =
       "-Wno-return-type"
-      + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation"
-    ;
+      + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation";
 
     hardeningDisable = [
       "format"

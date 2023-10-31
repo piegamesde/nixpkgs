@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals pgpSupport [ gpgme ]
     ++ lib.optionals pythonPluginSupport [ python3 ]
-    ++ lib.optionals traySupport [ gtk3 ]
-  ;
+    ++ lib.optionals traySupport [ gtk3 ];
 
   # Enable feature flags, so that build fail if libs are missing
   configureFlags =
@@ -101,8 +100,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals traySupport [ "--enable-icons-and-clipboard" ]
     ++ lib.optionals pgpSupport [ "--enable-pgp" ]
     ++ lib.optionals pythonPluginSupport [ "--enable-python-plugins" ]
-    ++ lib.optionals omemoSupport [ "--enable-omemo" ]
-  ;
+    ++ lib.optionals omemoSupport [ "--enable-omemo" ];
 
   preAutoreconf = ''
     mkdir m4

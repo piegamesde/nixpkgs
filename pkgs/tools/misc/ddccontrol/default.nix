@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       # Upstream PR: https://github.com/ddccontrol/ddccontrol/pull/115
       substituteInPlace src/lib/Makefile.am       \
         --replace "/etc/" "\$""{sysconfdir}/"
-    ''
-  ;
+    '';
 
   preConfigure = ''
     intltoolize --force

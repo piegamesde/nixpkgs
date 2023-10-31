@@ -49,8 +49,7 @@ mkDerivation rec {
       alsa-lib
       libpulseaudio
     ]
-    ++ lib.optional withJack libjack2
-  ;
+    ++ lib.optional withJack libjack2;
 
   dontFixCmake = true;
 

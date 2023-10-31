@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
         --replace "LINUX_Z_RELRO = ,-z,relro" "" \
         --replace "-soname" "-install_name" \
         --replace "gcc" $CC
-    ''
-  ;
+    '';
   installPhase =
     let
       versionOneDot = versionMajor + "." + removeDots versionMinor;

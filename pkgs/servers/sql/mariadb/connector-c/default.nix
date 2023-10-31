@@ -48,8 +48,7 @@ stdenv.mkDerivation {
       # Force building static libraries
       substituteInPlace libmariadb/CMakeLists.txt \
         --replace 'libmariadb SHARED' 'libmariadb STATIC'
-    ''
-  ;
+    '';
 
   # The cmake setup-hook uses $out/lib by default, this is not the case here.
   preConfigure = optionalString stdenv.isDarwin ''

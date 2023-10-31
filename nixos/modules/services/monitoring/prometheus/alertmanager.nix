@@ -26,8 +26,7 @@ let
         if cfg.configText != null then
           pkgs.writeText "alertmanager.yml" cfg.configText
         else
-          mkConfigFile
-      ;
+          mkConfigFile;
     in
     checkedConfig yml;
 
@@ -43,8 +42,7 @@ let
     ++ (optional (cfg.webExternalUrl != null)
       "--web.external-url ${cfg.webExternalUrl}"
     )
-    ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}")
-  ;
+    ++ (optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}");
 in
 {
   imports = [
@@ -205,8 +203,7 @@ in
         assertion = cfg.configuration != null || cfg.configText != null;
         message =
           "Can not enable alertmanager without a configuration. "
-          + "Set either the `configuration` or `configText` attribute."
-        ;
+          + "Set either the `configuration` or `configText` attribute.";
       };
     })
     (mkIf cfg.enable {
@@ -231,8 +228,7 @@ in
             "${cfg.package}/bin/alertmanager"
             + optionalString (length cmdlineArgs != 0) (
               " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-            )
-          ;
+            );
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };
       };

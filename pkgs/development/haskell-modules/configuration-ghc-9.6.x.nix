@@ -16,8 +16,7 @@ let
       act
     else
       builtins.throw
-        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this"
-  ;
+        "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
   jailbreakForCurrentVersion =
     p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
@@ -61,8 +60,7 @@ self: super: {
     if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
       null
     else
-      self.terminfo_0_4_1_5
-  ;
+      self.terminfo_0_4_1_5;
   text = null;
   time = null;
   transformers = null;

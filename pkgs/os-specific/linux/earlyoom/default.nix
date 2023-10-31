@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString withManpage ''
       installManPage earlyoom.1
-    ''
-  ;
+    '';
 
   passthru.tests = {
     inherit (nixosTests) earlyoom;

@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
       fetchurl {
         url = "https://github.com/purescript/psc-package/releases/download/v0.6.2/linux64.tar.gz";
         sha256 = "1zvay9q3xj6yd76w6qyb9la4jaj9zvpf4dp78xcznfqbnbhm1a54";
-      }
-  ;
+      };
 
   buildInputs = [
     gmp
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
         --bash <($PSC_PACKAGE --bash-completion-script $PSC_PACKAGE) \
         --fish <($PSC_PACKAGE --fish-completion-script $PSC_PACKAGE) \
         --zsh <($PSC_PACKAGE --zsh-completion-script $PSC_PACKAGE)
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A package manager for PureScript based on package sets";

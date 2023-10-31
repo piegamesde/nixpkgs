@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
       libyubikey
       yubikey-personalization
     ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Cocoa ];
 
   cmakeFlags = [
     "-DNO_GTEST=ON"
@@ -95,8 +94,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/ui/cli/CMakeLists.txt --replace "uuid" ""
-    ''
-  ;
+    '';
 
   installFlags = [ "PREFIX=${placeholder "out"}" ];
 

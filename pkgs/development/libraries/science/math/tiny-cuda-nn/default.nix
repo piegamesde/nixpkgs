@@ -29,8 +29,7 @@ let
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
       ]
-      ++ cuda-common-redist
-    ;
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -148,8 +147,7 @@ stdenv.mkDerivation (
       ''
       + ''
         runHook postInstall
-      ''
-    ;
+      '';
 
     passthru = {
       inherit cudaPackages;

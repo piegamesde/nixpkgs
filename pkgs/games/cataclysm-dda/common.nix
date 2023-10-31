@@ -78,8 +78,7 @@ stdenv.mkDerivation {
       "NATIVE=osx"
       "CLANG=1"
       "OSX_MIN=${stdenv.targetPlatform.darwinMinVersion}"
-    ]
-  ;
+    ];
 
   postInstall = optionalString tiles (
     if !stdenv.isDarwin then patchDesktopFile else installMacOSAppLauncher

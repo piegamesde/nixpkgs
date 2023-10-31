@@ -143,8 +143,7 @@ rec {
           args: {
             NIX_CFLAGS_LINK =
               toString (args.NIX_CFLAGS_LINK or "")
-              + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc"
-            ;
+              + lib.optionalString (stdenv.cc.isGNU or false) " -static-libgcc";
             nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
               (pkgs.buildPackages.makeSetupHook
                 {
@@ -175,6 +174,7 @@ rec {
       # Apple does not provide a static version of libSystem or crt0.o
       # So we can’t build static binaries without extensive hacks.
       ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeStaticBinaries
+
     # Glibc doesn’t come with static runtimes by default.
     # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
     );

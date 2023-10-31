@@ -51,8 +51,7 @@ rustPlatform.buildRustPackage rec {
     ''
     + lib.optionalString withPCRE2 ''
       echo '(a(aa)aa)' | $out/bin/rg -P '\((a*|(?R))*\)'
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A utility that combines the usability of The Silver Searcher with the raw speed of grep";

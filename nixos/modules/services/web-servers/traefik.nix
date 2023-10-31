@@ -44,8 +44,7 @@ let
             > $out
         ''
     else
-      cfg.dynamicConfigFile
-  ;
+      cfg.dynamicConfigFile;
   staticConfigFile =
     if cfg.staticConfigFile == null then
       pkgs.runCommand "config.toml"
@@ -67,8 +66,7 @@ let
             > $out
         ''
     else
-      cfg.staticConfigFile
-  ;
+      cfg.staticConfigFile;
 in
 {
   options.services.traefik = {

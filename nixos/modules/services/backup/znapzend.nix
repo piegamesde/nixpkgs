@@ -56,8 +56,7 @@ let
       description = "string containing all of the characters ${
           concatStringsSep ", " list
         }";
-    }
-  ;
+    };
 
   timestampType = stringContainingStrings [
     "%Y"
@@ -310,8 +309,7 @@ let
         if enable then
           "mbuffer" + optionalString (port != null) ":${toString port}"
         else
-          "off"
-      ;
+          "off";
       mbuffer_size = mbuffer.size;
       post_znap_cmd = nullOff postsnap;
       pre_znap_cmd = nullOff presnap;
@@ -321,8 +319,9 @@ let
       tsformat = timestampFormat;
       zend_delay = toString sendDelay;
     }
-    // foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations))
-  ;
+    // foldr (a: b: a // b) { } (
+      map mkDestAttrs (builtins.attrValues destinations)
+    );
 
   files =
     mapAttrs'
@@ -518,8 +517,7 @@ in
           )
           + ''
             wait
-          ''
-        ;
+          '';
 
         serviceConfig = {
           # znapzendzetup --import apparently tries to connect to the backup

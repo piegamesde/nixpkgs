@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
         ]
       else
         [ boost ]
-    )
-  ;
+    );
 
   nativeBuildInputs = [
     cmake

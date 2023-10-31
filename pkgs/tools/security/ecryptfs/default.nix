@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       intltool
     ]
     # if python2 support is requested, it is needed at builtime as well as runtime.
-    ++ lib.optionals (enablePython) [ python2 ]
-  ;
+    ++ lib.optionals (enablePython) [ python2 ];
   buildInputs = [
     perl
     nss

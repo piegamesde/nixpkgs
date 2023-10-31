@@ -50,8 +50,7 @@ let
         url = builtins.elemAt parts 0;
         sha = builtins.elemAt parts 4;
       }
-      // lib.optionalAttrs (type != null) { inherit type value; }
-  ;
+      // lib.optionalAttrs (type != null) { inherit type value; };
 
   # shadows args.lockFileContents
   lockFileContents =
@@ -200,8 +199,7 @@ let
               submodules = true;
             }
           else
-            missingHash
-        ;
+            missingHash;
       in
       runCommand "${pkg.name}-${pkg.version}" { } ''
         tree=${tree}
@@ -256,8 +254,7 @@ let
         EOF
       ''
     else
-      throw "Cannot handle crate source: ${pkg.source}"
-  ;
+      throw "Cannot handle crate source: ${pkg.source}";
 
   vendorDir =
     runCommand "cargo-vendor-dir"

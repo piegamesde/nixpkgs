@@ -88,8 +88,7 @@ let
       ln -sfn /run/current-system /nix/var/nix/gcroots/current-system
 
       exit $_status
-    ''
-  ;
+    '';
 
   path =
     with pkgs;
@@ -277,8 +276,7 @@ in
         ''
           rm -f /usr/bin/env
           rmdir --ignore-fail-on-non-empty /usr/bin /usr
-        ''
-    ;
+        '';
 
     system.activationScripts.specialfs = ''
       specialMount() {

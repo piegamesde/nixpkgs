@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
         numpy
         python
       ]
-    )
-  ;
+    );
 
   # compile CUDA code for all extant GPUs so the binary will work with any GPU
   # and driver combination. to be ultimately solved upstream:
@@ -59,8 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableFortran "-DBUILD_ZFORP=ON"
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
     ++ lib.optional enablePython "-DBUILD_ZFPY=ON"
-    ++ ([ "-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}" ])
-  ;
+    ++ ([ "-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}" ]);
 
   doCheck = true;
 

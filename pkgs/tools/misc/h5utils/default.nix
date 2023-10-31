@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optional hdf5.mpiSupport hdf5.mpi
     ++ optional (hdf4 != null) hdf4
-    ++ optional (libmatheval != null) libmatheval
-  ;
+    ++ optional (libmatheval != null) libmatheval;
 
   meta = with lib; {
     description = "A set of utilities for visualization and conversion of scientific data in the free, portable HDF5 format";

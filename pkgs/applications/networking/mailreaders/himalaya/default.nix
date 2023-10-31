@@ -32,8 +32,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs =
     [ ]
     ++ lib.optional (installManPages || installShellCompletions) installShellFiles
-    ++ lib.optional (!stdenv.hostPlatform.isDarwin) pkg-config
-  ;
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) pkg-config;
 
   buildInputs =
     [ ]
@@ -46,16 +45,14 @@ rustPlatform.buildRustPackage rec {
       else
         [ openssl ]
     )
-    ++ lib.optional withNotmuchBackend notmuch
-  ;
+    ++ lib.optional withNotmuchBackend notmuch;
 
   buildNoDefaultFeatures = true;
   buildFeatures =
     [ ]
     ++ lib.optional withImapBackend "imap-backend"
     ++ lib.optional withNotmuchBackend "notmuch-backend"
-    ++ lib.optional withSmtpSender "smtp-sender"
-  ;
+    ++ lib.optional withSmtpSender "smtp-sender";
 
   postInstall =
     lib.optionalString installManPages ''
@@ -68,8 +65,7 @@ rustPlatform.buildRustPackage rec {
         --bash <($out/bin/himalaya completion bash) \
         --fish <($out/bin/himalaya completion fish) \
         --zsh <($out/bin/himalaya completion zsh)
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Command-line interface for email management";

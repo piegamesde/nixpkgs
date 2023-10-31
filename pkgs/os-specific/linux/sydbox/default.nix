@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
       python3
       perl
       which
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
       "--enable-installed-tests"
       "--libexecdir=${placeholder "installedTests"}/libexec"
     ]
-    ++ lib.optional debugBuild "--enable-debug"
-  ;
+    ++ lib.optional debugBuild "--enable-debug";
 
   makeFlags = [ "SYD_INCLUDEDIR=${stdenv.cc.libc.dev}/include" ];
 
@@ -82,8 +80,7 @@ stdenv.mkDerivation rec {
       ''
         # Tests are installed despite --disable-installed-tests
         rm -r $out/bin/syd-test $out/libexec
-      ''
-  ;
+      '';
 
   meta = with lib; {
     homepage = "https://sydbox.exherbo.org/";

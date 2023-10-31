@@ -44,8 +44,7 @@ let
         env.NIX_CFLAGS_COMPILE = "-fcommon";
       }
     else
-      throw "lablgtk is not available for OCaml ${ocaml.version}"
-  ;
+      throw "lablgtk is not available for OCaml ${ocaml.version}";
 in
 
 stdenv.mkDerivation {

@@ -53,8 +53,7 @@ buildPerlPackage rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       shortenPerlShebang $out/bin/strip-nondeterminism
-    ''
-  ;
+    '';
 
   installCheckPhase = ''
     runHook preInstallCheck

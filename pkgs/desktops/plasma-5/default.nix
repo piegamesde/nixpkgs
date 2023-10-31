@@ -115,8 +115,7 @@ let
                 license = meta.license or license;
                 maintainers = (meta.maintainers or [ ]) ++ maintainers;
                 platforms = meta.platforms or lib.platforms.linux;
-              }
-            ;
+              };
           in
           qtStdenv.mkDerivation (
             args
@@ -223,7 +222,6 @@ let
       plasma-phone-components =
         throw
           "'plasma-phone-components' has been renamed to/replaced by 'plasma-mobile'";
-    }
-  ;
+    };
 in
 lib.makeScope libsForQt5.newScope packages

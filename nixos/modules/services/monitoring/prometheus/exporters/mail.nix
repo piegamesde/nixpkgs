@@ -14,8 +14,7 @@ let
     if cfg.configuration != null then
       configurationFile
     else
-      (escapeShellArg cfg.configFile)
-  ;
+      (escapeShellArg cfg.configFile);
 
   configurationFile = pkgs.writeText "prometheus-mail-exporter.conf" (
     builtins.toJSON (

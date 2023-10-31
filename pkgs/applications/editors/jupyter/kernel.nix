@@ -83,8 +83,7 @@ in
                   }
                   // lib.optionalAttrs (kernel.logo64 != null) {
                     "logo-64x64.png" = kernel.logo64;
-                  }
-                ;
+                  };
                 linkExtraPaths =
                   lib.mapAttrsToList
                     (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")

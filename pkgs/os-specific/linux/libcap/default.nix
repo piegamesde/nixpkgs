@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString usePam ''
       mkdir -p "$pam/lib/security"
       mv "$lib"/lib/security "$pam/lib"
-    ''
-  ;
+    '';
 
   meta = {
     description = "Library for working with POSIX capabilities";

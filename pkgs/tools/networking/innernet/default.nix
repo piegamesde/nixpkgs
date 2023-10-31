@@ -48,8 +48,7 @@ rustPlatform.buildRustPackage rec {
     + (lib.optionalString stdenv.isLinux ''
       find . -regex '.*\.\(target\|service\)' | xargs install -Dt $out/lib/systemd/system
       find $out/lib/systemd/system -type f | xargs sed -i "s|/usr/bin/innernet|$out/bin/innernet|"
-    '')
-  ;
+    '');
 
   passthru.tests = {
     serverVersion = testers.testVersion {

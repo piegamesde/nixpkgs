@@ -44,8 +44,7 @@ buildPythonPackage rec {
       traitlets
     ]
     ++ jsonschema.optional-dependencies.format
-    ++ jsonschema.optional-dependencies.format-nongpl
-  ;
+    ++ jsonschema.optional-dependencies.format-nongpl;
 
   passthru.optional-dependencies = {
     cli = [

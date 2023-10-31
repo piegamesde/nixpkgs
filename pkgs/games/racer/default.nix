@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
         sha256 = "0rjy3gmlhwfkb9zs58j0mc0dar0livwpbc19r6zw5r2k6r7xdan0";
       }
     else
-      throw "System not supported"
-  ;
+      throw "System not supported";
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [

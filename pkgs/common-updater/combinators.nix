@@ -55,8 +55,7 @@ let
       {
         args = args ++ [ arg ];
         inherit maxArgIndex paths;
-      }
-  ;
+      };
   /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
      Helper function that extracts file paths from command arguments and replaces them with argv[x] references.
   */
@@ -115,8 +114,7 @@ let
       # We need paths as separate arguments so that update.nix can ensure they refer to the local directory
       # rather than a store path.
     ]
-    ++ extracted.paths
-  ;
+    ++ extracted.paths;
 in
 rec {
   /* normalize : UpdateScript → UpdateScript
@@ -130,8 +128,7 @@ rec {
     }
     // lib.optionalAttrs (updateScript ? attrPath) {
       inherit (updateScript) attrPath;
-    }
-  ;
+    };
 
   /* sequence : [UpdateScript] → UpdateScript
      EXPERIMENTAL! Combines multiple update scripts to run in sequence.
@@ -156,8 +153,7 @@ rec {
             supportedFeatures == [ "commit" ] || supportedFeatures == [ "silent" ]
           )
         else
-          ({ supportedFeatures, ... }: supportedFeatures == [ ])
-      ;
+          ({ supportedFeatures, ... }: supportedFeatures == [ ]);
     in
 
     assert lib.assertMsg (lib.all validateFeatures scripts)

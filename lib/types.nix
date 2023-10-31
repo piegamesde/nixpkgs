@@ -88,8 +88,7 @@ let
       else if (f.payload != null && f'.payload != null) && (payload != null) then
         f.type payload
       else
-        null
-    ;
+        null;
 
     # Default type functor
     defaultFunctor = name: {
@@ -216,8 +215,7 @@ let
       if unparenthesize (t.descriptionClass or null) then
         t.description
       else
-        "(${t.description})"
-    ;
+        "(${t.description})";
 
     # When adding new types don't forget to document them in
     # nixos/doc/manual/development/option-types.xml!
@@ -244,8 +242,7 @@ let
               if isAttrs value && isStringLike value then
                 "stringCoercibleSet"
               else
-                builtins.typeOf value
-            ;
+                builtins.typeOf value;
 
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
@@ -277,8 +274,7 @@ let
                         showFiles (getFiles defs)
                       }."
                   else
-                    (listOf anything).merge
-                ;
+                    (listOf anything).merge;
                 # This is the type of packages, only accept a single definition
                 stringCoercibleSet = mergeOneOption;
                 lambda =
@@ -333,16 +329,14 @@ let
             // {
               name = "intBetween";
               description = "integer between ${betweenDesc lowest highest}";
-            }
-          ;
+            };
           ign =
             lowest: highest: name: docStart:
             between lowest highest
             // {
               inherit name;
               description = docStart + "; between ${betweenDesc lowest highest}";
-            }
-          ;
+            };
           unsign =
             bit: range:
             ign 0 (range - 1) "unsignedInt${toString bit}"
@@ -414,8 +408,7 @@ let
               description = "integer or floating point number between ${
                   betweenDesc lowest highest
                 }";
-            }
-          ;
+            };
 
           nonnegative = addCheck number (x: x >= 0) // {
             name = "numberNonnegative";
@@ -447,8 +440,7 @@ let
               ''
                 [ 	
                 ]*''
-              x == null
-        ;
+              x == null;
         inherit (str) merge;
       };
 
@@ -492,8 +484,7 @@ let
             if sep == "" then
               "Concatenated string" # for types.string.
             else
-              "strings concatenated with ${builtins.toJSON sep}"
-          ;
+              "strings concatenated with ${builtins.toJSON sep}";
           descriptionClass = "noun";
           check = isString;
           merge = loc: defs: concatStringsSep sep (getValues defs);
@@ -522,8 +513,7 @@ let
           description = "${
               optionDescriptionPhrase (class: class == "noun") entryType
             }, not containing newlines or colons";
-        }
-      ;
+        };
 
       attrs = mkOptionType {
         name = "attrs";
@@ -556,8 +546,7 @@ let
           then
             toDerivation res
           else
-            res
-        ;
+            res;
       };
 
       shellPackage = package // {
@@ -631,8 +620,7 @@ let
               optionDescriptionPhrase (class: class == "noun") list
             }";
           emptyValue = { }; # no .value attr, meaning unset
-        }
-      ;
+        };
 
       attrsOf =
         elemType:
@@ -739,11 +727,9 @@ let
           deprecationMessage =
             "Mixing lists with attribute values is no longer"
             + " possible; please use `types.attrsOf` instead. See"
-            + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation."
-          ;
+            + " https://github.com/NixOS/nixpkgs/issues/1800 for the motivation.";
           nestedTypes.elemType = elemType;
-        }
-      ;
+        };
 
       # Value of given type but with no merging (i.e. `uniq list`s are not concatenated).
       uniq =
@@ -803,8 +789,7 @@ let
                   showFiles (getFiles defs)
                 }."
             else
-              elemType.merge loc defs
-          ;
+              elemType.merge loc defs;
           emptyValue = {
             value = null;
           };
@@ -925,8 +910,7 @@ let
               # This also propagates file information to all submodules
               mergedOption = fixupOptionType loc (mergeOptionDecls loc optionModules);
             in
-            mergedOption.type
-        ;
+            mergedOption.type;
       };
 
       submoduleWith =
@@ -1007,8 +991,7 @@ let
               # discovery doesn't care about the attribute name used here, so this
               # is just to avoid conflicts with potential options from the submodule
               _freeformOptions = freeformType.getSubOptions prefix;
-            }
-          ;
+            };
           getSubModules = modules;
           substSubModules = m: submoduleWith (attrs // { modules = m; });
           nestedTypes = lib.optionalAttrs (freeformType != null) {
@@ -1037,8 +1020,7 @@ let
                     ''
                       A submoduleWith option is declared multiple times with the same specialArgs "${
                         toString (attrNames intersecting)
-                      }"''
-              ;
+                      }"'';
               shorthandOnlyDefinesConfig =
                 if lhs.shorthandOnlyDefinesConfig == null then
                   rhs.shorthandOnlyDefinesConfig
@@ -1048,8 +1030,7 @@ let
                   lhs.shorthandOnlyDefinesConfig
                 else
                   throw
-                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values"
-              ;
+                    "A submoduleWith option is declared multiple times with conflicting shorthandOnlyDefinesConfig values";
               description =
                 if lhs.description == null then
                   rhs.description
@@ -1059,8 +1040,7 @@ let
                   lhs.description
                 else
                   throw
-                    "A submoduleWith option is declared multiple times with conflicting descriptions"
-              ;
+                    "A submoduleWith option is declared multiple times with conflicting descriptions";
             };
           };
         };
@@ -1079,8 +1059,7 @@ let
             else if builtins.isBool v then
               boolToString v
             else
-              "<${builtins.typeOf v}>"
-          ;
+              "<${builtins.typeOf v}>";
         in
         mkOptionType rec {
           name = "enum";
@@ -1094,8 +1073,7 @@ let
             else if builtins.length values == 1 then
               "value ${show (builtins.head values)} (singular enum)"
             else
-              "one of ${concatMapStringsSep ", " show values}"
-          ;
+              "one of ${concatMapStringsSep ", " show values}";
           descriptionClass = if builtins.length values < 2 then "noun" else "conjunction";
           check = flip elem values;
           merge = mergeEqualOption;
@@ -1129,8 +1107,7 @@ let
             else if all (x: t2.check x) defList then
               t2.merge loc defs
             else
-              mergeOneOption loc defs
-          ;
+              mergeOneOption loc defs;
           typeMerge =
             f':
             let
@@ -1140,8 +1117,7 @@ let
             if (name == f'.name) && (mt1 != null) && (mt2 != null) then
               functor.type mt1 mt2
             else
-              null
-          ;
+              null;
           functor = (defaultFunctor name) // {
             wrapped = [
               t1
@@ -1160,8 +1136,7 @@ let
             if ts == [ ] then
               throw "types.oneOf needs to get at least one type in its argument"
             else
-              head ts
-          ;
+              head ts;
           tail' = tail ts;
         in
         foldl' either head' tail';

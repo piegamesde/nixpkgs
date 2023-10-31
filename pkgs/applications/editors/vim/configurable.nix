@@ -175,16 +175,14 @@ stdenv.mkDerivation rec {
     ++ lib.optional multibyteSupport "--enable-multibyte"
     ++ lib.optional cscopeSupport "--enable-cscope"
     ++ lib.optional netbeansSupport "--enable-netbeans"
-    ++ lib.optional ximSupport "--enable-xim"
-  ;
+    ++ lib.optional ximSupport "--enable-xim";
 
   nativeBuildInputs =
     [ pkg-config ]
     ++ lib.optional wrapPythonDrv makeWrapper
     ++ lib.optional nlsSupport gettext
     ++ lib.optional perlSupport perl
-    ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook
-  ;
+    ++ lib.optional (guiSupport == "gtk3") wrapGAppsHook;
 
   buildInputs =
     [
@@ -215,8 +213,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional luaSupport lua
     ++ lib.optional pythonSupport python3
     ++ lib.optional tclSupport tcl
-    ++ lib.optional rubySupport ruby
-  ;
+    ++ lib.optional rubySupport ruby;
 
   # error: '__declspec' attributes are not enabled; use '-fdeclspec' or '-fms-extensions' to enable support for __declspec attributes
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-fdeclspec";
@@ -227,8 +224,7 @@ stdenv.mkDerivation rec {
       cp ${vimPlugins.vim-nix.src}/ftplugin/nix.vim runtime/ftplugin/nix.vim
       cp ${vimPlugins.vim-nix.src}/indent/nix.vim runtime/indent/nix.vim
       cp ${vimPlugins.vim-nix.src}/syntax/nix.vim runtime/syntax/nix.vim
-    ''
-  ;
+    '';
 
   preInstall = ''
     mkdir -p $out/share/applications $out/share/icons/{hicolor,locolor}/{16x16,32x32,48x48}/apps
@@ -240,8 +236,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       ln -sfn '${nixosRuntimepath}' "$out"/share/vim/vimrc
-    ''
-  ;
+    '';
 
   postFixup = lib.optionalString wrapPythonDrv ''
     wrapProgram "$out/bin/vim" --prefix PATH : "${python3}/bin" \

@@ -54,14 +54,12 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       patchShebangs utils/cat_files.py
-    ''
-  ;
+    '';
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
       python3
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-  ;
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ cxxabi ];
 
@@ -83,8 +81,7 @@ stdenv.mkDerivation {
       "-DLIBCXX_ENABLE_FILESYSTEM=OFF"
       "-DLIBCXX_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF"
-  ;
+    ++ lib.optional (!enableShared) "-DLIBCXX_ENABLE_SHARED=OFF";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

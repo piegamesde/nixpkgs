@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
         ocaml
         findlib
       ]
-    )
-  ;
+    );
   buildInputs =
     [
       libxcrypt
@@ -117,8 +116,7 @@ stdenv.mkDerivation rec {
         ounit
       ]
     )
-    ++ lib.optional javaSupport jdk
-  ;
+    ++ lib.optional javaSupport jdk;
 
   prePatch = ''
     # build-time scripts

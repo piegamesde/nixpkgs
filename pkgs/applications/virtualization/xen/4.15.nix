@@ -149,8 +149,7 @@ callPackage
           };
           meta.description = "Xen's fork of iPXE";
         };
-      }
-    ;
+      };
 
     configureFlags =
       [ ]
@@ -162,8 +161,7 @@ callPackage
       ++ optional (!withInternalSeabios && !withSeabios) "--disable-seabios"
 
       ++ optional (withOVMF) "--with-system-ovmf=${OVMF.fd}/FV/OVMF.fd"
-      ++ optional (withInternalOVMF) "--enable-ovmf"
-    ;
+      ++ optional (withInternalOVMF) "--enable-ovmf";
 
     NIX_CFLAGS_COMPILE = toString [
       # TODO 4.15: drop unneeded ones
@@ -216,8 +214,7 @@ callPackage
         if withInternalQemu then
           "lib/xen/bin/qemu-system-i386"
         else
-          throw "this xen has no qemu builtin"
-      ;
+          throw "this xen has no qemu builtin";
     };
   }))
   ({ ocamlPackages = ocaml-ng.ocamlPackages_4_14; } // args)

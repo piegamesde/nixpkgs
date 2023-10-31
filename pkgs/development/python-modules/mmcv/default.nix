@@ -41,8 +41,7 @@ let
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
       ]
-      ++ cuda-common-redist
-    ;
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -73,8 +72,7 @@ buildPythonPackage rec {
       export CXX=${backendStdenv.cc}/bin/c++
       export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
       export FORCE_CUDA=1
-    ''
-  ;
+    '';
 
   postPatch = ''
     substituteInPlace setup.py --replace "cpu_use = 4" "cpu_use = $NIX_BUILD_CORES"

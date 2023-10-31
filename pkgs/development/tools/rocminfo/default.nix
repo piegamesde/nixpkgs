@@ -62,8 +62,7 @@ stdenv.mkDerivation (
       platforms = platforms.linux;
       broken =
         stdenv.isAarch64
-        || versions.minor finalAttrs.version != versions.minor stdenv.cc.version
-      ;
+        || versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };
   }
 )

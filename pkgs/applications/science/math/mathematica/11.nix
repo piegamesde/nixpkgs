@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
     lib.makeLibraryPath buildInputs
     + lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") (
       ":" + lib.makeSearchPathOutput "lib" "lib64" buildInputs
-    )
-  ;
+    );
 
   phases = "unpackPhase installPhase fixupPhase";
 

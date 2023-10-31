@@ -103,8 +103,7 @@ let
             if isOption val then
               attrByPath newPath (notFound newPath) cfg.pki.manual
             else
-              findPkiDefinitions newPath val
-          ;
+              findPkiDefinitions newPath val;
         in
         flatten (mapAttrsToList mkSublist attrs);
     in
@@ -407,8 +406,7 @@ in
               then
                 "server"
               else
-                concatStringsSep "." path
-            ;
+                concatStringsSep "." path;
             recurse =
               path: attrs:
               let
@@ -422,8 +420,7 @@ in
                       else if val == false then
                         "false"
                       else
-                        toString val
-                    ;
+                        toString val;
                   in
                   if isAttrs val then recurse newPath val else [ "${mkKey newPath}=${scalar}" ];
               in
@@ -515,8 +512,7 @@ in
           if needToCreateCA then
             "${cfg.dataDir}/keys/ca.cert"
           else
-            "${cfg.pki.manual.ca.cert}"
-        ;
+            "${cfg.pki.manual.ca.cert}";
       };
 
       systemd.services.taskserver-init = {

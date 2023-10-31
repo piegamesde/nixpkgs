@@ -52,8 +52,7 @@ stdenv.mkDerivation {
     # earlier.  It is merged upstream in texinfo 6.8.
     + lib.optionalString (version == "6.7") ''
       patch -p1 -d gnulib < ${gnulib.passthru.longdouble-redirect-patch}
-    ''
-  ;
+    '';
 
   # ncurses is required to build `makedoc'
   # this feature is introduced by the ./cross-tools-flags.patch
@@ -81,16 +80,14 @@ stdenv.mkDerivation {
       libiconv
       gawk
     ]
-    ++ optional interactive ncurses
-  ;
+    ++ optional interactive ncurses;
 
   configureFlags =
     [ "PERL=${buildPackages.perl}/bin/perl" ]
     # Perl XS modules are difficult to cross-compile and texinfo has pure Perl
     # fallbacks.
     ++ optional crossBuildTools "--enable-perl-xs=no"
-    ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk"
-  ;
+    ++ lib.optional stdenv.isSunOS "AWK=${gawk}/bin/awk";
 
   installFlags = [ "TEXMF=$(out)/texmf-dist" ];
   installTargets = [

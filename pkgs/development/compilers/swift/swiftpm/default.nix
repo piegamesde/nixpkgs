@@ -91,8 +91,7 @@ let
             ninja
             swift
           ]
-          ++ lib.optionals stdenv.isDarwin [ DarwinTools ]
-        ;
+          ++ lib.optionals stdenv.isDarwin [ DarwinTools ];
 
         buildInputs = (attrs.buildInputs or [ ]) ++ [ Foundation ];
 
@@ -104,8 +103,7 @@ let
               substituteInPlace cmake/modules/SwiftSupport.cmake \
                 --replace '"aarch64" PARENT_SCOPE' '"arm64" PARENT_SCOPE'
             fi
-          ''
-        ;
+          '';
 
         preConfigure =
           (attrs.preConfigure or "")
@@ -113,8 +111,7 @@ let
             # Builds often don't set a target, and our default minimum macOS deployment
             # target on x86_64-darwin is too low. Harmless on non-Darwin.
             export MACOSX_DEPLOYMENT_TARGET=10.15.4
-          ''
-        ;
+          '';
 
         postInstall =
           (attrs.postInstall or "")
@@ -131,8 +128,7 @@ let
             for dylib in $dylibs; do
               install_name_tool -id $dylib $changes $dylib
             done
-          ''
-        ;
+          '';
 
         cmakeFlags =
           (attrs.cmakeFlags or [ ])
@@ -141,8 +137,7 @@ let
             # create references to $out. None of our builds run their own products,
             # so we don't have to account for that scenario.
             "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-          ]
-        ;
+          ];
       }
     );
 
@@ -175,8 +170,7 @@ let
         # Fix up the installation so the module can be found on non-Darwin.
         mkdir -p $out/${swiftStaticModuleSubdir}
         mv $out/lib/swift_static/${swiftOs}/*.swiftmodule $out/${swiftStaticModuleSubdir}/
-      ''
-    ;
+      '';
   };
 
   swift-collections = mkBootstrapDerivation {
@@ -197,8 +191,7 @@ let
         # Fix up the installation so the module can be found on non-Darwin.
         mkdir -p $out/${swiftStaticModuleSubdir}
         mv $out/lib/swift_static/${swiftOs}/*.swiftmodule $out/${swiftStaticModuleSubdir}/
-      ''
-    ;
+      '';
   };
 
   swift-tools-support-core = mkBootstrapDerivation {
@@ -223,8 +216,7 @@ let
         # Headers are not installed.
         mkdir -p $out/include
         cp -r ../Sources/TSCclibc/include $out/include/TSC
-      ''
-    ;
+      '';
   };
 
   swift-argument-parser = mkBootstrapDerivation {
@@ -247,8 +239,7 @@ let
         # Fix rpath so ArgumentParserToolInfo can be found.
         patchelf --add-rpath "$out/lib/swift/${swiftOs}" \
           $out/lib/swift/${swiftOs}/libArgumentParser.so
-      ''
-    ;
+      '';
   };
 
   Yams = mkBootstrapDerivation {
@@ -300,8 +291,7 @@ let
         # Swift modules are not installed.
         mkdir -p $out/${swiftModuleSubdir}
         cp products/llbuildSwift/*.swift{module,doc} $out/${swiftModuleSubdir}/
-      ''
-    ;
+      '';
   };
 
   swift-driver = mkBootstrapDerivation {
@@ -322,8 +312,7 @@ let
         # Swift modules are not installed.
         mkdir -p $out/${swiftModuleSubdir}
         cp swift/*.swift{module,doc} $out/${swiftModuleSubdir}/
-      ''
-    ;
+      '';
   };
 
   swift-crypto = mkBootstrapDerivation {
@@ -343,8 +332,7 @@ let
 
         # Headers are not installed.
         cp -r ../Sources/CCryptoBoringSSL/include $out/include
-      ''
-    ;
+      '';
   };
 
   # Build a bootrapping swiftpm using CMake.
@@ -411,8 +399,7 @@ stdenv.mkDerivation (
             inherit (builtins) storeDir;
           }
         }
-      ''
-    ;
+      '';
 
     buildPhase = ''
       # Required to link with swift-corelibs-xctest on Darwin.

@@ -58,8 +58,7 @@ buildPythonPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       PCSC
       libiconv
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     pytestCheckHook

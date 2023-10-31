@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.hostPlatform.linuxArch == "arm") "CONFIG_AEABI=y"
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
-  ;
+        "CROSS_COMPILE=${stdenv.cc.targetPrefix}";
 
   # Install static binaries as well.
   postInstall = ''

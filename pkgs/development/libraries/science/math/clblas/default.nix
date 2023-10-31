@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
       Accelerate
       CoreGraphics
       CoreVideo
-    ]
-  ;
+    ];
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [ OpenCL ];
 
   strictDeps = true;

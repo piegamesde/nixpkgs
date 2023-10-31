@@ -43,8 +43,7 @@ python3.pkgs.buildPythonApplication rec {
       idna
       cryptography
       pyopenssl
-    ]
-  ;
+    ];
 
   nativeCheckInputs =
     [

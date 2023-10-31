@@ -11,8 +11,7 @@ datadog-agent.overrideAttrs (
           domenkozar
           rvl
         ];
-      }
-    ;
+      };
     subPackages = [ "cmd/process-agent" ];
     postInstall = null;
   }

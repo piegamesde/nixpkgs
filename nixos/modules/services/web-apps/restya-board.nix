@@ -299,8 +299,7 @@ in
               else
                 "'$(cat ${cfg.database.passwordFile})');/g"
             }" "${runDir}/server/php/config.inc.php"
-          ''
-        }
+          ''}
         sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${
           toString cfg.database.port
         }');/g" "${runDir}/server/php/config.inc.php"

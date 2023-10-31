@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isLinux libcap
     ++ lib.optional enableGSSAPI libkrb5
-    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]))
-  ;
+    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "BUILD_CC=$(CC_FOR_BUILD)"
-  ;
+        "BUILD_CC=$(CC_FOR_BUILD)";
 
   postInstall = ''
     moveToOutput bin/bind9-config $dev

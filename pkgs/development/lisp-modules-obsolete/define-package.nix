@@ -129,8 +129,7 @@ let
         clwrapper.lisp
         clwrapper.asdf
       ]
-      ++ (args.propagatedBuildInputs or [ ])
-    ;
+      ++ (args.propagatedBuildInputs or [ ]);
     buildInputs = buildInputs;
     dontStrip = true;
 

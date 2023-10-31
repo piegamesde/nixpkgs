@@ -79,8 +79,7 @@ buildPythonPackage rec {
         substituteInPlace $out/${python.sitePackages}/triton/compiler.py \
           --replace '${oldStr}' '${newStr}'
       ''
-    )
-  ;
+    );
 
   meta = with lib; {
     description = "A language and compiler for custom Deep Learning operations";

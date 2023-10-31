@@ -17,8 +17,7 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l
-    ;
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 
@@ -122,8 +121,7 @@ in
           else
             "Move files from `${cfg.configDir}` to `${unifiedConfigDir}` then remove services.moonraker.configDir from your config."
         }
-      ''
-    ;
+      '';
 
     assertions = [
       {

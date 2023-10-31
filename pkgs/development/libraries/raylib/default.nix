@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
       "-DCUSTOMIZE_BUILD=1"
     ]
     ++ lib.optional includeEverything "-DINCLUDE_EVERYTHING=ON"
-    ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON"
-  ;
+    ++ lib.optional sharedLib "-DBUILD_SHARED_LIBS=ON";
 
   # fix libasound.so/libpulse.so not being found
   preFixup = ''

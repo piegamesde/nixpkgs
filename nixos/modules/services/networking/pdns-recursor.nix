@@ -36,8 +36,7 @@ let
     else if builtins.isList val then
       (concatMapStringsSep "," serialize val)
     else
-      ""
-  ;
+      "";
 
   configDir = pkgs.writeTextDir "recursor.conf" (
     concatStringsSep "\n" (

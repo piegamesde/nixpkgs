@@ -70,8 +70,7 @@ import ./versions.nix (
       ++ optional sshSupport libssh2
       ++ optional mysqlSupport libmysqlclient
       ++ optional postgresqlSupport postgresql
-      ++ optional ipmiSupport openipmi
-    ;
+      ++ optional ipmiSupport openipmi;
 
     configureFlags =
       [
@@ -92,8 +91,7 @@ import ./versions.nix (
       ++ optional sshSupport "--with-ssh2=${libssh2.dev}"
       ++ optional mysqlSupport "--with-mysql"
       ++ optional postgresqlSupport "--with-postgresql"
-      ++ optional ipmiSupport "--with-openipmi=${openipmi.dev}"
-    ;
+      ++ optional ipmiSupport "--with-openipmi=${openipmi.dev}";
 
     prePatch = ''
       find database -name data.sql -exec sed -i 's|/usr/bin/||g' {} +
@@ -118,8 +116,7 @@ import ./versions.nix (
       + optionalString postgresqlSupport ''
         mkdir -p $out/share/zabbix/database/postgresql
         cp -prvd database/postgresql/*.sql $out/share/zabbix/database/postgresql/
-      ''
-    ;
+      '';
 
     meta = with lib; {
       description = "An enterprise-class open source distributed monitoring solution";

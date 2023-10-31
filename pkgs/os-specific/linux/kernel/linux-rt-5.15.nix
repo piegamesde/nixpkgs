@@ -24,8 +24,7 @@ buildLinux (
       if (builtins.match "[^.]*[.][^.]*-.*" version) == null then
         version
       else
-        lib.replaceStrings [ "-" ] [ ".0-" ] version
-    ;
+        lib.replaceStrings [ "-" ] [ ".0-" ] version;
 
     src = fetchurl {
       url = "mirror://kernel/linux/kernel/v5.x/linux-${kversion}.tar.xz";
@@ -55,8 +54,7 @@ buildLinux (
         # Fix error: unused option: RT_GROUP_SCHED.
         RT_GROUP_SCHED = lib.mkForce (option no); # Removed by sched-disable-rt-group-sched-on-rt.patch.
       }
-      // structuredExtraConfig
-    ;
+      // structuredExtraConfig;
 
     extraMeta = extraMeta // {
       inherit branch;

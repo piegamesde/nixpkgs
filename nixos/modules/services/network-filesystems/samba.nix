@@ -28,8 +28,7 @@ let
           ${key} = ${smbToString (getAttr key share)}
         '')
         (attrNames share)
-    ))
-  ;
+    ));
 
   configFile = pkgs.writeText "smb.conf" (
     if cfg.configText != null then

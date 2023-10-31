@@ -288,8 +288,7 @@ in
       }
       // optionalAttrs (cfg.roles != null) {
         "icingaweb2/roles.ini".text = generators.toINI { } cfg.roles;
-      }
-    ;
+      };
 
     # User and group
     users.groups.icingaweb2 = { };

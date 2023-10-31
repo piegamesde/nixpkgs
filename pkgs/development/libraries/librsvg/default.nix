@@ -104,8 +104,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "--disable-Bsymbolic"
     ++
       lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-        "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}"
-  ;
+        "RUST_TARGET=${rust.toRustTarget stdenv.hostPlatform}";
 
   doCheck = false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
 
@@ -155,8 +154,7 @@ stdenv.mkDerivation rec {
           # the replacement is the native conditional
           substituteInPlace gdk-pixbuf-loader/Makefile \
             --replace 'RUN_QUERY_LOADER_TEST = false' 'RUN_QUERY_LOADER_TEST = test -z "$(DESTDIR)"' \
-        ''
-  ;
+        '';
 
   # Not generated when cross compiling.
   postInstall =

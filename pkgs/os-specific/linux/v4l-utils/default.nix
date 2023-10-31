@@ -62,8 +62,7 @@ stdenv.mkDerivation rec {
       libX11
       qtbase
       libGLU
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ libjpeg ];
 

@@ -96,8 +96,7 @@ in
           else if v == false then
             "off"
           else
-            generators.mkValueStringDefault { } v
-        ;
+            generators.mkValueStringDefault { } v;
         mkKeyValueString = k: v: "${k} ${mkValueString v}";
         mkInnerSectionString =
           attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValueString attrs);

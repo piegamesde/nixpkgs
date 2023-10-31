@@ -52,8 +52,7 @@ buildPythonPackage rec {
     ''
     + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       export CMAKE_ARGS="-DCMAKE_CXX_COMPILER_AR=$AR -DCMAKE_CXX_COMPILER_RANLIB=$RANLIB"
-    ''
-  ;
+    '';
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals (stdenv.cc.isClang && stdenv.isDarwin) [

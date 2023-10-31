@@ -34,11 +34,9 @@ assert useX11 -> safeX11 stdenv;
 assert aflSupport -> lib.versionAtLeast version "4.05";
 assert flambdaSupport -> lib.versionAtLeast version "4.03";
 assert spaceTimeSupport
-  -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12"
-;
+  -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12";
 assert unsafeStringSupport
-  -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0"
-;
+  -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0";
 assert framePointerSupport -> lib.versionAtLeast version "4.01";
 
 let
@@ -130,8 +128,7 @@ stdenv.mkDerivation (
           [
             "-host ${stdenv.hostPlatform.config}"
             "-target ${stdenv.targetPlatform.config}"
-          ]
-    ;
+          ];
     dontAddStaticConfigureFlags = lib.versionOlder version "4.08";
 
     # on aarch64-darwin using --host and --target causes the build to invoke
@@ -152,8 +149,7 @@ stdenv.mkDerivation (
       ++
         lib.optional (lib.versionAtLeast version "5.0" && stdenv.cc.isClang)
           "strictoverflow"
-      ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable
-    ;
+      ++ lib.optionals (args ? hardeningDisable) args.hardeningDisable;
 
     # Older versions have some race:
     #  cp: cannot stat 'boot/ocamlrun': No such file or directory
@@ -173,8 +169,7 @@ stdenv.mkDerivation (
       if useNativeCompilers then
         [ "nixpkgs_world_bootstrap_world_opt" ]
       else
-        [ "nixpkgs_world" ]
-    ;
+        [ "nixpkgs_world" ];
     buildInputs =
       optional (lib.versionOlder version "4.07") ncurses
       ++ optionals useX11 [
@@ -197,8 +192,7 @@ stdenv.mkDerivation (
         optionalString (lib.versionOlder version "4.08" && stdenv.hostPlatform.isStatic)
           ''
             configureFlagsArray+=("-cc" "$CC" "-as" "$AS" "-partialld" "$LD -r")
-          ''
-    ;
+          '';
     postBuild = ''
       mkdir -p $out/include
       ln -sv $out/lib/ocaml/caml $out/include/caml
@@ -237,8 +231,7 @@ stdenv.mkDerivation (
       platforms = with platforms; linux ++ darwin;
       broken =
         stdenv.isAarch64
-        && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02")
-      ;
+        && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
     };
   }
 )

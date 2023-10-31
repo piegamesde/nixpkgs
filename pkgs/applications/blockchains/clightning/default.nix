@@ -73,8 +73,7 @@ stdenv.mkDerivation rec {
       ''
         substituteInPlace external/libwally-core/tools/autogen.sh --replace gsed sed && \
         substituteInPlace external/libwally-core/configure.ac --replace gsed sed
-      ''
-  ;
+      '';
 
   configureFlags = [
     "--disable-developer"

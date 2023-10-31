@@ -206,8 +206,7 @@ in
           inherit (config.environment.sessionVariables) NIX_PATH;
           HOME = "/root";
         }
-        // config.networking.proxy.envVars
-      ;
+        // config.networking.proxy.envVars;
 
       path = with pkgs; [
         coreutils
@@ -271,8 +270,7 @@ in
         else
           ''
             ${nixos-rebuild} ${cfg.operation} ${toString (cfg.flags ++ upgradeFlag)}
-          ''
-      ;
+          '';
 
       startAt = cfg.dates;
 

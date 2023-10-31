@@ -96,8 +96,7 @@ let
           "-DCMAKE_INSTALL_LOCALEDIR=share/locale"
         ]
         ++ optionals buildServer [ "-DENABLE_PROMETHEUS=1" ]
-        ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ]
-      ;
+        ++ optionals withTouchSupport [ "-DENABLE_TOUCH=TRUE" ];
 
       env.NIX_CFLAGS_COMPILE = "-DluaL_reg=luaL_Reg"; # needed since luajit-2.1.0-beta3
 
@@ -143,8 +142,7 @@ let
           postgresql
           hiredis
           prometheus-cpp
-        ]
-      ;
+        ];
 
       postPatch =
         ''
@@ -152,8 +150,7 @@ let
         ''
         + lib.optionalString stdenv.isDarwin ''
           sed -i '/pagezero_size/d;/fixup_bundle/d' src/CMakeLists.txt
-        ''
-      ;
+        '';
 
       postInstall =
         lib.optionalString stdenv.isLinux ''
@@ -164,8 +161,7 @@ let
         + lib.optionalString stdenv.isDarwin ''
           mkdir -p $out/Applications
           mv $out/minetest.app $out/Applications
-        ''
-      ;
+        '';
 
       meta = with lib; {
         homepage = "http://minetest.net/";

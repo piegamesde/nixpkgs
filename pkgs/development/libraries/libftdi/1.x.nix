@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
       doxygen
       graphviz
     ]
-    ++ optionals pythonSupport [ swig ]
-  ;
+    ++ optionals pythonSupport [ swig ];
 
   buildInputs = [ libconfuse ] ++ optionals cppSupport [ boost ];
 
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
     + optionalString docSupport ''
       cp -r doc/man "$out/share/"
       cp -r doc/html "$out/share/doc/libftdi1/"
-    ''
-  ;
+    '';
 
   postFixup = optionalString cppSupport ''
     # This gets misassigned to the C++ version's path for some reason

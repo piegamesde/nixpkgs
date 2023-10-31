@@ -196,8 +196,7 @@ stdenv.mkDerivation rec {
       qtsvg
       qtx11extras
     ]
-    ++ optional (waylandSupport && withQt5) qtwayland
-  ;
+    ++ optional (waylandSupport && withQt5) qtwayland;
 
   nativeBuildInputs =
     [
@@ -212,8 +211,7 @@ stdenv.mkDerivation rec {
     ++ optionals waylandSupport [
       wayland
       wayland-protocols
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 
@@ -260,8 +258,7 @@ stdenv.mkDerivation rec {
     ''
     + optionalString withQt5 ''
       remove-references-to -t "${qtbase.dev}" $out/lib/vlc/plugins/gui/libqt_plugin.so
-    ''
-  ;
+    '';
 
   # Most of the libraries are auto-detected so we don't need to set a bunch of
   # "--enable-foo" flags here
@@ -277,8 +274,7 @@ stdenv.mkDerivation rec {
       "--enable-sout"
       "--enable-chromecast"
       "--enable-microdns"
-    ]
-  ;
+    ];
 
   # Remove runtime dependencies on libraries
   postConfigure = ''

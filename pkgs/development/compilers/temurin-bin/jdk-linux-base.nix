@@ -49,8 +49,7 @@ let
       if sourcePerArch.packageType == "jdk" then
         "${name-prefix}-bin"
       else
-        "${name-prefix}-${sourcePerArch.packageType}-bin"
-    ;
+        "${name-prefix}-${sourcePerArch.packageType}-bin";
 
     version =
       sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");

@@ -69,8 +69,7 @@ let
       {
         files = [ ];
         properties = { };
-      }
-  ;
+      };
 in
 {
   imports = [
@@ -211,8 +210,7 @@ in
             ProtectKernelLogs=no
             ProtectKernelModules=no
             ReadWritePaths=
-          ''
-        ;
+          '';
       })
     ];
 

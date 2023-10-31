@@ -69,8 +69,7 @@ stdenv.mkDerivation rec {
       # support, because the path still gets included in the binary even
       # though it isn't used.
       "--with-luks2-external-tokens-path=/"
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
   buildInputs = [

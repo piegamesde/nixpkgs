@@ -48,8 +48,7 @@ let
             fi
           done
         ''
-        + postBuild
-      ;
+        + postBuild;
 
       meta = perl.meta // {
         outputsToInstall = [ "out" ];

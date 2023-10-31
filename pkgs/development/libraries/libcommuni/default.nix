@@ -40,8 +40,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       "-config"
       "qt_framework"
-    ]
-  ;
+    ];
 
   dontWrapQtApps = true;
 

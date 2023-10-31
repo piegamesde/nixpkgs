@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional useLua lua5_3
     ++ lib.optional usePcre pcre
-    ++ lib.optional stdenv.isLinux systemd
-  ;
+    ++ lib.optional stdenv.isLinux systemd;
 
   # TODO: make it work on bsd as well
   makeFlags = [
@@ -77,8 +76,7 @@ stdenv.mkDerivation rec {
       "USE_GETADDRINFO=1"
     ]
     ++ lib.optionals withPrometheusExporter [ "USE_PROMEX=yes" ]
-    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ]
-  ;
+    ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
 
   enableParallelBuilding = true;
 

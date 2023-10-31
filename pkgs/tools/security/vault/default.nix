@@ -53,8 +53,7 @@ buildGoModule rec {
             glibc
           ]
         }
-    ''
-  ;
+    '';
 
   passthru.tests = {
     inherit (nixosTests)

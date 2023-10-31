@@ -62,8 +62,7 @@ let
               "init"
               "${placeholder "out"}/init"
             ]
-            + " < ${json}"
-          ;
+            + " < ${json}";
 
           # We slurp all specialisations and inject them as values, such that
           # `.specialisations.${name}` embeds the specialisation's bootspec
@@ -88,8 +87,7 @@ let
               "--sort-keys"
               ''."org.nixos.specialisation.v1" = ($ARGS.named | map_values(. | first))''
             ]
-            + " ${lib.concatStringsSep " " specialisationLoader}"
-          ;
+            + " ${lib.concatStringsSep " " specialisationLoader}";
         in
         "${toplevelInjector} | ${specialisationInjector} > $out/${filename}";
 

@@ -40,8 +40,7 @@ let
       {
         extension = "linux.tar.gz";
         hash = "sha256-rDi7pvDeKQM96GZTjDr6ZDQTGbaVu+OI77xf2egw6Sg=";
-      }
-  ;
+      };
 in
 stdenv.mkDerivation rec {
   pname = "pngout";
@@ -64,8 +63,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       patchelf --set-interpreter ${stdenv.cc.libc}/lib/${platform.ld-linux} $out/bin/pngout
-    ''
-  ;
+    '';
 
   meta = {
     description = "A tool that aggressively optimizes the sizes of PNG images";

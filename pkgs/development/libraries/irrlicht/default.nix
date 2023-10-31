@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isAarch64 ''
       substituteInPlace source/Irrlicht/Makefile \
         --replace "-DIRRLICHT_EXPORTS=1" "-DIRRLICHT_EXPORTS=1 -DPNG_ARM_NEON_OPT=0"
-    ''
-  ;
+    '';
 
   preConfigure = ''
     cd source/Irrlicht

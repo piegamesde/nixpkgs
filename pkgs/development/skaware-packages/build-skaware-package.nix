@@ -92,8 +92,7 @@ stdenv.mkDerivation {
     # Explicitly setting target ensures code can be compiled against a skalibs
     # binary built on a different version of darwin.
     # http://www.skarnet.org/cgi-bin/archive.cgi?1:mss:623:heiodchokfjdkonfhdph
-    ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}")
-  ;
+    ++ (lib.optional stdenv.isDarwin "--build=${stdenv.hostPlatform.system}");
 
   inherit postConfigure;
 
@@ -130,8 +129,7 @@ stdenv.mkDerivation {
         Profpatsch
         qyliss
       ]
-      ++ maintainers
-    ;
+      ++ maintainers;
   };
 
   inherit passthru;

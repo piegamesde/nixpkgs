@@ -248,8 +248,7 @@ stdenv.mkDerivation rec {
           obadz
           maxeaubrey
         ]
-      )
-    ;
+      );
     platforms = platforms.linux;
   };
 }

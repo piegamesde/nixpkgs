@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
     )
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        ./abstract-socket-namespace.patch
-  ;
+        ./abstract-socket-namespace.patch;
 
   meta = with lib; {
     homepage = "https://people.gnome.org/~veillard/gamin/";

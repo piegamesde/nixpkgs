@@ -98,8 +98,7 @@ in
       serviceConfig = {
         ExecStart =
           "${pkgs.elasticsearch-curator}/bin/curator"
-          + " --config ${curatorConfig} ${curatorAction}"
-        ;
+          + " --config ${curatorConfig} ${curatorAction}";
       };
     };
   };

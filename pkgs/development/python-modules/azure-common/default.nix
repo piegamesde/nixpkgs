@@ -30,8 +30,7 @@ buildPythonPackage rec {
     else
       ''
         echo "__import__('pkg_resources').declare_namespace(__name__)" >> "$out/lib/${python.libPrefix}"/site-packages/azure/__init__.py
-      ''
-  ;
+      '';
 
   doCheck = false;
 

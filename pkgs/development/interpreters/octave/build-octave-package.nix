@@ -121,8 +121,7 @@ stdenv.mkDerivation (
           tar --transform 's,^,${fullLibName}/,' -cz * -f ${fullLibName}.tar.gz
         ''
       else
-        preBuild
-    ;
+        preBuild;
 
     buildPhase = ''
       runHook preBuild

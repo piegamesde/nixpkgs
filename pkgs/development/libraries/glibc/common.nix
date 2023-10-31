@@ -103,8 +103,7 @@ stdenv.mkDerivation (
         ./reenable_DT_HASH.patch
       ]
       ++ lib.optional stdenv.hostPlatform.isMusl ./fix-rpc-types-musl-conflicts.patch
-      ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch
-    ;
+      ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch;
 
     postPatch =
       ''
@@ -132,8 +131,7 @@ stdenv.mkDerivation (
         -#define LIBIDN2_SONAME "libidn2.so.0"
         +#define LIBIDN2_SONAME "${lib.getLib libidn2}/lib/libidn2.so.0"
         EOF
-      ''
-    ;
+      '';
 
     configureFlags =
       [
@@ -181,8 +179,7 @@ stdenv.mkDerivation (
             "libc_cv_as_needed=no"
           ]
       ++ lib.optional withGd "--with-gd"
-      ++ lib.optional (!withLibcrypt) "--disable-crypt"
-    ;
+      ++ lib.optional (!withLibcrypt) "--disable-crypt";
 
     makeFlags = [ "OBJCOPY=${stdenv.cc.targetPrefix}objcopy" ];
 
@@ -208,8 +205,7 @@ stdenv.mkDerivation (
         gd
         libpng
       ]
-      ++ extraBuildInputs
-    ;
+      ++ extraBuildInputs;
 
     env = {
       linuxHeaders = lib.optionalString withLinuxHeaders linuxHeaders;
@@ -290,8 +286,7 @@ stdenv.mkDerivation (
             -e '/^OBJCOPY=/d' \
             -e '/^OBJDUMP=/d' \
             $configureScript
-        ''
-      ;
+        '';
 
       preBuild = lib.optionalString withGd "unset NIX_DONT_SET_RPATH";
 
@@ -320,7 +315,6 @@ stdenv.mkDerivation (
           ];
           platforms = platforms.linux;
         }
-        // (args.meta or { })
-      ;
+        // (args.meta or { });
     }
 )

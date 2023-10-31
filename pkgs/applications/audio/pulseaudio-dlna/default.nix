@@ -54,8 +54,7 @@ python3Packages.buildPythonApplication {
     ++ lib.optional faacSupport faac
     ++ lib.optional flacSupport flac
     ++ lib.optional soxSupport sox
-    ++ lib.optional vorbisSupport vorbis-tools
-  ;
+    ++ lib.optional vorbisSupport vorbis-tools;
 
   # pulseaudio-dlna shells out to pactl to configure sinks and sources.
   # As pactl might not be in $PATH, add --suffix it (so pactl configured by the

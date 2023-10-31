@@ -33,8 +33,7 @@ let
       + " "
       + (if h.publicKey != null then h.publicKey else readFile h.publicKeyFile)
     ))
-    + "\n"
-  ;
+    + "\n";
 
   knownHostsFiles = [
     "/etc/ssh/ssh_known_hosts"
@@ -335,8 +334,7 @@ in
         name: data: {
           assertion =
             (data.publicKey == null && data.publicKeyFile != null)
-            || (data.publicKey != null && data.publicKeyFile == null)
-          ;
+            || (data.publicKey != null && data.publicKeyFile == null);
           message = "knownHost ${name} must contain either a publicKey or publicKeyFile";
         }
       );
@@ -384,8 +382,7 @@ in
           + optionalString (cfg.agentPKCS11Whitelist != null) (
             "-P ${cfg.agentPKCS11Whitelist} "
           )
-          + "-a %t/ssh-agent"
-        ;
+          + "-a %t/ssh-agent";
         StandardOutput = "null";
         Type = "forking";
         Restart = "on-failure";

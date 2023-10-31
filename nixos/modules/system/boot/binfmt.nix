@@ -41,8 +41,7 @@ let
           optionalString preserveArgvZero "P"
           + optionalString (openBinary && !matchCredentials) "O"
           + optionalString matchCredentials "C"
-          + optionalString fixBinary "F"
-      ;
+          + optionalString fixBinary "F";
     in
     ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
@@ -62,8 +61,7 @@ let
       ''
         rm -f /run/binfmt/${name}
         ln -s ${interpreter} /run/binfmt/${name}
-      ''
-  ;
+      '';
 
   getEmulator = system: (lib.systems.elaborate { inherit system; }).emulator pkgs;
   getQemuArch = system: (lib.systems.elaborate { inherit system; }).qemuArch;
@@ -390,8 +388,7 @@ in
         in
         [ "/run/binfmt" ]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
-        ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems)
-      ;
+        ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems);
     };
 
     environment.etc."binfmt.d/nixos.conf".source =

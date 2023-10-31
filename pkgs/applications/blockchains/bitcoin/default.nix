@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ]
-  ;
+    ++ lib.optionals withGui [ wrapQtAppsHook ];
 
   buildInputs =
     [
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
       qrencode
       qtbase
       qttools
-    ]
-  ;
+    ];
 
   postInstall = lib.optionalString withGui ''
     install -Dm644 ${desktop} $out/share/applications/bitcoin-qt.desktop
@@ -94,8 +92,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [ python3 ];
 
@@ -105,8 +102,7 @@ stdenv.mkDerivation rec {
     [ "LC_ALL=en_US.UTF-8" ]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
-    ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}"
-  ;
+    ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
 
   enableParallelBuilding = true;
 

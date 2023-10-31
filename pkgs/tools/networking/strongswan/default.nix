@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableNetworkManager [
       networkmanager
       glib
-    ]
-  ;
+    ];
 
   patches = [
     ./ext_auth-path.patch
@@ -175,8 +174,7 @@ stdenv.mkDerivation rec {
       "--enable-kernel-libipsec"
       "--enable-osx-attr"
       "--disable-scripts"
-    ]
-  ;
+    ];
 
   postInstall = ''
     # this is needed for l2tp

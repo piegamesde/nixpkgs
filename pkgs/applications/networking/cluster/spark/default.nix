@@ -68,8 +68,7 @@ let
             ln -s "$n" $(echo "$n" | sed -r 's/slave(s?).sh$/worker\1.sh/g') || true
           done
           ln -s $out/lib/${untarDir}/lib/spark-assembly-*.jar $out/share/java
-        ''
-      ;
+        '';
 
       meta = {
         description = "Apache Spark is a fast and general engine for large-scale data processing";

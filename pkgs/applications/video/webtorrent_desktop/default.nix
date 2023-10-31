@@ -25,8 +25,7 @@ runCommand "${pname}-${version}"
           sha256 = "13gd8isq2l10kibsc1bsc15dbgpnwa7nw4cwcamycgx6pfz9a852";
         }
       else
-        throw "Webtorrent is not currently supported on ${stdenv.hostPlatform.system}"
-    ;
+        throw "Webtorrent is not currently supported on ${stdenv.hostPlatform.system}";
 
     fhs = buildFHSEnv rec {
       name = "fhsEnterWebTorrent";

@@ -35,8 +35,7 @@ let
         hash = "sha256-NoIoa20+2sH41rEnr8lsMhtfesrtdPINiXtUnxYVm8s=";
       }
     else
-      throw "Incompatible LLVM version."
-  ;
+      throw "Incompatible LLVM version.";
 in
 stdenv.mkDerivation {
   pname = "SPIRV-LLVM-Translator";

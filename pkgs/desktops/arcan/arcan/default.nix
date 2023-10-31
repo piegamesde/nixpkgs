@@ -156,8 +156,7 @@ stdenv.mkDerivation (
       '')
       + ''
         popd
-      ''
-    ;
+      '';
 
     postPatch = ''
       substituteInPlace ./src/platform/posix/paths.c \

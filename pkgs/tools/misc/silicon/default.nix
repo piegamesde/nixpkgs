@@ -52,8 +52,7 @@ rustPlatform.buildRustPackage rec {
       AppKit
       CoreText
       Security
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

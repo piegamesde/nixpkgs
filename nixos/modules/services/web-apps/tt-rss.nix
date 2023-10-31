@@ -15,8 +15,7 @@ let
     if cfg.database.port == null then
       (if cfg.database.type == "pgsql" then 5432 else 3306)
     else
-      cfg.database.port
-  ;
+      cfg.database.port;
 
   poolName = "tt-rss";
 
@@ -39,8 +38,7 @@ let
         else if (cfg.database.passwordFile != null) then
           "file_get_contents('${cfg.database.passwordFile}')"
         else
-          null
-      ;
+          null;
     in
     pkgs.writeText "config.php" ''
       <?php
@@ -713,8 +711,7 @@ in
                     ${cfg.database.name}''
 
               else
-                ""
-            ;
+                "";
           in
           (optionalString (cfg.database.type == "pgsql") ''
             exists=$(${
@@ -741,8 +738,7 @@ in
             else
               echo 'The database contains some data. Leaving it as it is.'
             fi;
-          '')
-        ;
+          '');
 
         serviceConfig = {
           User = "${cfg.user}";
@@ -760,8 +756,7 @@ in
         after =
           [ "network.target" ]
           ++ optional mysqlLocal "mysql.service"
-          ++ optional pgsqlLocal "postgresql.service"
-        ;
+          ++ optional pgsqlLocal "postgresql.service";
       };
     };
 

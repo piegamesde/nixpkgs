@@ -89,8 +89,7 @@ rec {
         else if elem ? parsed then
           elem
         else
-          { parsed = elem; }
-      ;
+          { parsed = elem; };
     in
     lib.matchAttrs pattern platform;
 
@@ -106,8 +105,7 @@ rec {
   availableOn =
     platform: pkg:
     ((!pkg ? meta.platforms) || lib.any (platformMatch platform) pkg.meta.platforms)
-    && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or [ ])
-  ;
+    && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or [ ]);
 
   /* Get the corresponding attribute in lib.licenses
      from the SPDX ID.

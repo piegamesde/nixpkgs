@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       opencl-clhpp
       ocl-icd
     ]
-    ++ lib.optionals stdenv.isDarwin [ OpenCL ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ OpenCL ];
 
   # https://github.com/clMathLibraries/clFFT/issues/237
   CXXFLAGS = "-std=c++98";

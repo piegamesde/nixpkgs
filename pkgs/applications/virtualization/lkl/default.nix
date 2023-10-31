@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString firewallSupport ''
       cat ${./lkl-defconfig-enable-nftables} >> arch/lkl/configs/defconfig
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir -p $out/bin $lib/lib $dev

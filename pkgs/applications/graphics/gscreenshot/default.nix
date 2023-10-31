@@ -60,8 +60,7 @@ python3Packages.buildPythonApplication rec {
         pygobject3
         setuptools
       ]
-    )
-  ;
+    );
 
   patches = [ ./0001-Changing-paths-to-be-nix-compatible.patch ];
 

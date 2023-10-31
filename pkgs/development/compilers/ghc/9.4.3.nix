@@ -158,8 +158,7 @@ let
       ''
     + lib.optionalString targetPlatform.useAndroidPrebuilt ''
       EXTRA_CC_OPTS += -std=gnu99
-    ''
-  ;
+    '';
 
   # Splicer will pull out correct variations
   libDeps =
@@ -167,8 +166,9 @@ let
     lib.optional enableTerminfo ncurses
     ++ [ libffi ]
     ++ lib.optional (!enableNativeBignum) gmp
-    ++ lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows) libiconv
-  ;
+    ++
+      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows)
+        libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST
@@ -188,16 +188,14 @@ let
       if stdenv.targetPlatform.isAarch64 then
         targetCC.bintools
       else
-        targetCC.bintools.bintools
-    ;
+        targetCC.bintools.bintools;
     # Same goes for strip.
     strip =
       # TODO(@sternenseemann): also use wrapper if linker == "bfd" or "gold"
       if stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin then
         targetCC.bintools
       else
-        targetCC.bintools.bintools
-    ;
+        targetCC.bintools.bintools;
   };
 
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
@@ -209,8 +207,7 @@ let
       targetPlatform.linker == "bfd"
       && (targetCC.bintools.bintools.hasGold or false)
       && !targetPlatform.isMusl
-    )
-  ;
+    );
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [
@@ -225,8 +222,7 @@ in
 assert targetCC == pkgsHostTarget.targetPackages.stdenv.cc;
 assert buildTargetLlvmPackages.llvm == llvmPackages.llvm;
 assert stdenv.targetPlatform.isDarwin
-  -> buildTargetLlvmPackages.clang == llvmPackages.clang
-;
+  -> buildTargetLlvmPackages.clang == llvmPackages.clang;
 
 stdenv.mkDerivation (
   rec {
@@ -339,8 +335,7 @@ stdenv.mkDerivation (
         substituteInPlace configure --replace \
           'MinBootGhcVersion="9.0"' \
           'MinBootGhcVersion="8.10"'
-      ''
-    ;
+      '';
 
     # TODO(@Ericson2314): Always pass "--target" and always prefix.
     configurePlatforms = [
@@ -383,8 +378,7 @@ stdenv.mkDerivation (
         "CONF_GCC_LINKER_OPTS_STAGE1=-fuse-ld=gold"
         "CONF_GCC_LINKER_OPTS_STAGE2=-fuse-ld=gold"
       ]
-      ++ lib.optionals (disableLargeAddressSpace) [ "--disable-large-address-space" ]
-    ;
+      ++ lib.optionals (disableLargeAddressSpace) [ "--disable-large-address-space" ];
 
     # Make sure we never relax`$PATH` and hooks support for compatibility.
     strictDeps = true;
@@ -407,8 +401,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
         autoSignDarwinBinariesHook
       ]
-      ++ lib.optionals enableDocs [ sphinx ]
-    ;
+      ++ lib.optionals enableDocs [ sphinx ];
 
     # For building runtime libs
     depsBuildTarget = toolsForTarget;
@@ -438,8 +431,7 @@ stdenv.mkDerivation (
       # See:
       # * https://github.com/NixOS/nixpkgs/issues/129247
       # * https://gitlab.haskell.org/ghc/ghc/-/issues/19580
-      ++ lib.optional stdenv.targetPlatform.isMusl "pie"
-    ;
+      ++ lib.optional stdenv.targetPlatform.isMusl "pie";
 
     # big-parallel allows us to build with more than 2 cores on
     # Hydra which already warrants a significant speedup

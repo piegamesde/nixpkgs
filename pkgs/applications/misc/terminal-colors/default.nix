@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     # such file or directory".
     + ''
       patchShebangs ./$pname
-    ''
-  ;
+    '';
 
   buildPhase = ''
     runHook preBuild

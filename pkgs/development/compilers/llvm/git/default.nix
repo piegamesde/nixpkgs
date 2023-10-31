@@ -79,10 +79,8 @@ let
           if original ? candidate then
             "${release_version}-${original.candidate}"
           else
-            release_version
-        ;
-      }
-  ;
+            release_version;
+      };
 
   monorepoSrc =
     if monorepoSrc' != null then
@@ -97,8 +95,7 @@ let
         owner = "llvm";
         repo = "llvm-project";
         inherit rev sha256;
-      }
-  ;
+      };
 
   inherit (releaseInfo) release_version version;
 
@@ -116,8 +113,7 @@ let
       ++ lib.platforms.riscv
       ++ lib.platforms.s390x
       ++ lib.platforms.wasi
-      ++ lib.platforms.x86
-    ;
+      ++ lib.platforms.x86;
   };
 
   tools = lib.makeExtensible (
@@ -151,8 +147,7 @@ let
         + ''
           ln -s "${targetLlvmLibraries.compiler-rt.out}/lib" "$rsrc/lib"
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
-        ''
-      ;
+        '';
 
       bintoolsNoLibc' =
         if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
@@ -197,8 +192,7 @@ let
         else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
           tools.libstdcxxClang
         else
-          tools.libcxxClang
-      ;
+          tools.libcxxClang;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;
@@ -267,8 +261,7 @@ let
             lib.optional
               (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
               "-lunwind"
-          ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions"
-        ;
+          ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
       };
 
       clangNoLibcxx = wrapCCWith rec {
@@ -343,8 +336,7 @@ let
           if stdenv.hostPlatform.useLLVM or false then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRtWithLibc
           else
-            stdenv
-        ;
+            stdenv;
       };
 
       compiler-rt-no-libc = callPackage ./compiler-rt {
@@ -353,8 +345,7 @@ let
           if stdenv.hostPlatform.useLLVM or false then
             overrideCC stdenv buildLlvmTools.clangNoCompilerRt
           else
-            stdenv
-        ;
+            stdenv;
       };
 
       # N.B. condition is safe because without useLLVM both are the same.
@@ -362,8 +353,7 @@ let
         if stdenv.hostPlatform.isAndroid then
           libraries.compiler-rt-libc
         else
-          libraries.compiler-rt-no-libc
-      ;
+          libraries.compiler-rt-no-libc;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 

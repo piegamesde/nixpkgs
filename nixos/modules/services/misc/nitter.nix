@@ -21,8 +21,7 @@ let
                 if isString v then
                   ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
                 else
-                  generators.mkValueStringDefault { } v
-              ;
+                  generators.mkValueStringDefault { } v;
             }
             " = ";
       }
@@ -347,8 +346,7 @@ in
       {
         assertion =
           !cfg.redisCreateLocally
-          || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379)
-        ;
+          || (cfg.cache.redisHost == "localhost" && cfg.cache.redisPort == 6379);
         message = "When services.nitter.redisCreateLocally is enabled, you need to use localhost:6379 as a cache server.";
       }
     ];

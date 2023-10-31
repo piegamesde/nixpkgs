@@ -36,8 +36,7 @@ appimageTools.wrapType2 rec {
     ++ [
       p.at-spi2-atk
       p.at-spi2-core
-    ]
-  ;
+    ];
   extraInstallCommands = ''
     mv $out/bin/{${name},${pname}}
     install -m 444 -D ${appimageContents}/notable.desktop $out/share/applications/notable.desktop

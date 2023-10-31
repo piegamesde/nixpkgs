@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
       openssl
     ]
     ++ lib.optionals withGeolocation [ libmaxminddb ]
-    ++ lib.optionals stdenv.isDarwin [ gettext ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ gettext ];
 
   configureFlags = [
     "--enable-utf8"

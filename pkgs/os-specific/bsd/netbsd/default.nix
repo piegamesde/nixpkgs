@@ -161,8 +161,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
                   xargs -0tr sed -i '0,/^#/s//#include <nbtool_config.h>\n\0/'
               set -e
             ''
-            + attrs.postPatch or ""
-          ;
+            + attrs.postPatch or "";
         }
       )
     );
@@ -253,8 +252,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             netbsdSetupHook
             makeMinimal
             rsync
-          ]
-        ;
+          ];
 
         buildInputs = with self; commonDeps;
 
@@ -277,8 +275,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
                 # GNU objcopy produces broken .a libs which won't link into dependers.
                 # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
                 "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
-              ]
-        ;
+              ];
         RENAME = "-D";
 
         passthru.tests = {
@@ -332,8 +329,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             substitute ${./libbsd-overlay.pc} $out/lib/pkgconfig/libbsd-overlay.pc \
               --subst-var-by out $out \
               --subst-var-by version ${version}
-          ''
-        ;
+          '';
         extraPaths =
           with self;
           [
@@ -351,8 +347,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             )
           ]
           ++ libutil.extraPaths
-          ++ _mainLibcExtraPaths
-        ;
+          ++ _mainLibcExtraPaths;
       }
     );
 
@@ -390,8 +385,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           # fts header is needed. glibc already has this header, but musl doesn't,
           # so make sure pkgsMusl.netbsd.install still builds in case you want to
           # remove it!
-          ++ [ fts ]
-        ;
+          ++ [ fts ];
         installPhase = ''
           runHook preInstall
 
@@ -566,8 +560,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
             --replace '-Wl,--fatal-warnings' "" \
             --replace '-Wl,--warn-shared-textrel' ""
-        ''
-      ;
+        '';
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
@@ -790,8 +783,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           popd
         ''
         # multiple header dirs, see above
-        + self.include.postConfigure
-      ;
+        + self.include.postConfigure;
 
       makeFlags = defaultMakeFlags ++ [ "FIRMWAREDIR=$(out)/libdata/firmware" ];
       hardeningDisable = [ "pic" ];
@@ -1140,8 +1132,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
           (fetchNetBSD "external/bsd/jemalloc" "9.2"
             "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb"
           )
-        ]
-      ;
+        ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook
         netbsdSetupHook

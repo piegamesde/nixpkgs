@@ -55,8 +55,7 @@ mkDerivation rec {
       "--disable-qtgui"
       "--disable-x11mon"
     ]
-    ++ (if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ])
-  ;
+    ++ (if stdenv.isLinux then [ "--with-inotify" ] else [ "--without-inotify" ]);
 
   env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];
 
@@ -84,8 +83,7 @@ mkDerivation rec {
       zlib
     ]
     ++ lib.optionals withGui [ qtbase ]
-    ++ lib.optionals stdenv.isDarwin [ libiconv ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ libiconv ];
 
   # the filters search through ${PATH} using a sh proc 'checkcmds' for the
   # filtering utils. Short circuit this by replacing the filtering command with
@@ -165,8 +163,7 @@ mkDerivation rec {
     + lib.optionalString (stdenv.isDarwin && withGui) ''
       mkdir $out/Applications
       mv $out/bin/recoll.app $out/Applications
-    ''
-  ;
+    '';
 
   enableParallelBuilding = true;
 

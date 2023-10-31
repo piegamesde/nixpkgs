@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
         [
           # -Bsymbolic-functions is not supported on darwin
           "-D_b_symbolic_functions=false"
-        ]
-  ;
+        ];
 
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
   env.NIX_CFLAGS_COMPILE =
@@ -157,8 +156,7 @@ stdenv.mkDerivation rec {
         astsmtl
         antono
       ]
-      ++ teams.gnome.members
-    ;
+      ++ teams.gnome.members;
     platforms = platforms.unix;
   };
 }

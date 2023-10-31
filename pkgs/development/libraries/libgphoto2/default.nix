@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
         if stdenv.buildPlatform == stdenv.hostPlatform then
           "$out"
         else
-          buildPackages.libgphoto2
-      ;
+          buildPackages.libgphoto2;
     in
     ''
       mkdir -p $out/lib/udev/{rules.d,hwdb.d}

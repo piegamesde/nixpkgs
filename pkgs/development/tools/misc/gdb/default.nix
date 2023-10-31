@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
       substituteInPlace sim/erc32/interf.c  --replace sys/fcntl.h fcntl.h
       substituteInPlace sim/erc32/sis.c  --replace sys/fcntl.h fcntl.h
       substituteInPlace sim/ppc/emul_unix.c --replace sys/termios.h termios.h
-    ''
-  ;
+    '';
 
   patches = [
     ./debug-info-from-env.patch
@@ -101,8 +100,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional doCheck dejagnu
     ++ lib.optional enableDebuginfod (
       elfutils.override { enableDebuginfod = true; }
-    )
-  ;
+    );
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 
@@ -168,8 +166,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!pythonSupport) "--without-python"
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-nls"
     ++ lib.optional stdenv.hostPlatform.isStatic "--disable-inprocess-agent"
-    ++ lib.optional enableDebuginfod "--with-debuginfod=yes"
-  ;
+    ++ lib.optional enableDebuginfod "--with-debuginfod=yes";
 
   postInstall = ''
     # Remove Info files already provided by Binutils and other packages.

@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       CoreMIDI
       CoreServices
       Kernel
-    ]
-  ;
+    ];
 
   installPhase =
     if stdenv.isDarwin then
@@ -75,8 +74,7 @@ stdenv.mkDerivation rec {
 
         wrapProgram $out/bin/MIDIVisualizer \
           --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A small MIDI visualizer tool, using OpenGL";

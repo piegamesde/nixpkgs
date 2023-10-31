@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals gnomeSupport [
       libsecret
       gcr
-    ]
-  ;
+    ];
 
   configureFlags =
     [
@@ -66,8 +65,7 @@ stdenv.mkDerivation rec {
       "--enable-libnotify"
     ]
     ++ lib.optional spellChecking "--with-gtkspell"
-    ++ lib.optional gnomeSupport "--enable-gkr"
-  ;
+    ++ lib.optional gnomeSupport "--enable-gkr";
 
   postInstall = ''
     wrapProgram $out/bin/pan --suffix PATH : ${gnupg}/bin

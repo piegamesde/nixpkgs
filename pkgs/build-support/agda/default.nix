@@ -58,8 +58,7 @@ let
     if builtins.isAttrs arg then
       withPackages' arg
     else
-      withPackages' { pkgs = arg; }
-  ;
+      withPackages' { pkgs = arg; };
 
   extensions = [
     "agda"
@@ -109,8 +108,7 @@ let
             runHook preBuild
             agda ${includePathArgs} ${everythingFile}
             runHook postBuild
-          ''
-      ;
+          '';
 
       installPhase =
         if installPhase != null then
@@ -127,8 +125,7 @@ let
               )
             } \) -exec cp -p --parents -t "$out" {} +
             runHook postInstall
-          ''
-      ;
+          '';
 
       # As documented at https://github.com/NixOS/nixpkgs/issues/172752,
       # we need to set LC_ALL to an UTF-8-supporting locale. However, on
@@ -141,8 +138,7 @@ let
         if meta.broken or false then
           meta // { hydraPlatforms = lib.platforms.none; }
         else
-          meta
-      ;
+          meta;
 
       # Retrieve all packages from the finished package set that have the current package as a dependency and build them
       passthru.tests =

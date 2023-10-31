@@ -304,8 +304,7 @@ buildPythonPackage rec {
           substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace '#if __cplusplus >= 201703L
           inline void *aligned_alloc(size_t align, size_t size)' '#if __cplusplus >= 201703L && 0
           inline void *aligned_alloc(size_t align, size_t size)'
-        ''
-  ;
+        '';
 
   preConfigure =
     lib.optionalString cudaSupport ''
@@ -321,8 +320,7 @@ buildPythonPackage rec {
       export PYTORCH_ROCM_ARCH="${gpuTargetString}"
       export CMAKE_CXX_FLAGS="-I${rocmtoolkit_joined}/include -I${rocmtoolkit_joined}/include/rocblas"
       python tools/amd_build/build_amd.py
-    ''
-  ;
+    '';
 
   # Use pytorch's custom configurations
   dontUseCmakeConfigure = true;
@@ -411,8 +409,7 @@ buildPythonPackage rec {
       removeReferencesTo
     ]
     ++ lib.optionals cudaSupport [ cudatoolkit_joined ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ]
-  ;
+    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
 
   buildInputs =
     [
@@ -432,8 +429,7 @@ buildPythonPackage rec {
       Accelerate
       CoreServices
       libobjc
-    ]
-  ;
+    ];
 
   propagatedBuildInputs =
     [
@@ -463,8 +459,7 @@ buildPythonPackage rec {
     # so not including it in the cpu-only build;
     # torch.compile relies on openai-triton,
     # so we include it for the cuda build as well
-    ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ]
-  ;
+    ++ lib.optionals (rocmSupport || cudaSupport) [ openai-triton ];
 
   # Tests take a long time and may be flaky, so just sanity-check imports
   doCheck = false;
@@ -530,8 +525,7 @@ buildPythonPackage rec {
 
       substituteInPlace $dev/share/cmake/ATen/ATenConfig.cmake \
         --replace "/build/source/torch/include" "$dev/include"
-    ''
-  ;
+    '';
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     for f in $(ls $lib/lib/*.dylib); do

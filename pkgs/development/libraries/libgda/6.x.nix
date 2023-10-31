@@ -85,8 +85,7 @@ stdenv.mkDerivation rec {
       sqlite
     ]
     ++ lib.optionals mysqlSupport [ libmysqlclient ]
-    ++ lib.optionals postgresSupport [ postgresql ]
-  ;
+    ++ lib.optionals postgresSupport [ postgresql ];
 
   postPatch = ''
     patchShebangs \

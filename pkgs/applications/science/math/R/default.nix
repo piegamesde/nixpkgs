@@ -162,8 +162,7 @@ stdenv.mkDerivation (
         )
         echo >>etc/Renviron.in "TCLLIBPATH=${tk}/lib"
         echo >>etc/Renviron.in "TZDIR=${tzdata}/share/zoneinfo"
-      ''
-    ;
+      '';
 
     installTargets = [
       "install"

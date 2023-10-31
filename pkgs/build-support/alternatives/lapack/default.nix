@@ -14,16 +14,14 @@ let
     if stdenv.hostPlatform.isLinux then
       "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
     else
-      stdenv.hostPlatform.extensions.sharedLibrary
-  ;
+      stdenv.hostPlatform.extensions.sharedLibrary;
 
   lapackImplementation = lib.getName lapackProvider;
   lapackProvider' =
     if lapackImplementation == "mkl" then
       lapackProvider
     else
-      lapackProvider.override { blas64 = isILP64; }
-  ;
+      lapackProvider.override { blas64 = isILP64; };
 in
 
 assert isILP64 -> lapackImplementation == "mkl" || lapackProvider'.blas64;

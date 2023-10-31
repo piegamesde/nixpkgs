@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
       pushd pip
       ${python.pythonForBuild.interpreter} -m pip install --no-build-isolation --no-index --prefix=$out  --ignore-installed --no-dependencies --no-cache .
       popd
-    ''
-  ;
+    '';
 
   meta = {
     description = "Version of pip used for bootstrapping";

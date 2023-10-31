@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace src/CMakeLists.txt \
       --replace 'add_definitions(-DGPAC_CONFIG_LINUX)' 'add_definitions(-DGPAC_CONFIG_DARWIN)'
-    ''
-  ;
+    '';
 
   cmakeDir = "../src";
 
@@ -50,8 +49,7 @@ stdenv.mkDerivation rec {
       leptonica
       tesseract4
       ffmpeg_4
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [

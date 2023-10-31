@@ -121,8 +121,7 @@ let
         ''
           start_all()
         ''
-        + test
-      ;
+        + test;
     };
 
   mkKubernetesMultiNodeTest =

@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enablePAM pam
     ++ lib.optional enableSPF libspf2
     ++ lib.optional enableDMARC opendmarc
-    ++ lib.optional enableRedis hiredis
-  ;
+    ++ lib.optional enableRedis hiredis;
 
   configurePhase = ''
     runHook preConfigure

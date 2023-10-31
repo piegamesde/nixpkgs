@@ -83,8 +83,7 @@ stdenv.mkDerivation (
                 cp -R "$TMPDIR/"* $KEEPBUILDDIR
             fi
         fi
-      ''
-    ;
+      '';
   }
 
   // removeAttrs args [ "lib" ] # Propagating lib causes the evaluation to fail, because lib is a function that can't be converted to a string
@@ -143,8 +142,7 @@ stdenv.mkDerivation (
       ++ (lib.optional doCoverageAnalysis args.makeGCOVReport)
       ++ (lib.optional doClangAnalysis args.clang-analyzer)
       ++ (lib.optional doCoverityAnalysis args.cov-build)
-      ++ (lib.optional doCoverityAnalysis args.xz)
-    ;
+      ++ (lib.optional doCoverityAnalysis args.xz);
 
     lcovFilter = [ "${builtins.storeDir}/*" ] ++ lcovFilter;
 
@@ -157,8 +155,7 @@ stdenv.mkDerivation (
         if doCoverageAnalysis then
           "Coverage analysis"
         else
-          "Nix package for ${stdenv.hostPlatform.system}"
-      ;
+          "Nix package for ${stdenv.hostPlatform.system}";
     };
   }
 

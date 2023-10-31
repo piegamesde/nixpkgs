@@ -83,8 +83,7 @@ let
       zlib
     ]
     ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals mediaSupport [ ffmpeg ]
-  ;
+    ++ lib.optionals mediaSupport [ ffmpeg ];
 
   # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [
@@ -256,8 +255,7 @@ stdenv.mkDerivation rec {
     else
       ''
         clearPref("security.sandbox.content.write_path_whitelist");
-      ''
-    }
+      ''}
 
     ${lib.optionalString (extraPrefs != "") ''
       ${extraPrefs}

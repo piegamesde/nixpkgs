@@ -116,8 +116,7 @@ buildPythonPackage rec {
       setuptools
     ]
     # ld: library not found for -lcups
-    ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [ cups ]
-  ;
+    ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [ cups ];
 
   passthru = {
     inherit sip pyqt6-sip;

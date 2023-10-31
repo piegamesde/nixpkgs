@@ -65,8 +65,7 @@ stdenv.mkDerivation rec {
       CoreFoundation
       Security
       SystemConfiguration
-    ]
-  ;
+    ];
 
   ## ugly, X should be made an option
   configureFlags = [

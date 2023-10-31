@@ -47,8 +47,7 @@ in
             ))
             // {
               description = "settings option";
-            }
-          ;
+            };
           options.admin = mkOption {
             type = with types; listOf str;
             default = [ ];

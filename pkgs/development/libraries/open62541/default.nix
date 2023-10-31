@@ -68,8 +68,7 @@ stdenv.mkDerivation (
       ++
         lib.optional (withEncryption != false)
           "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
-      ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON"
-    ;
+      ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON";
 
     nativeBuildInputs =
       [
@@ -140,8 +139,7 @@ stdenv.mkDerivation (
         # remove duplicate libraries in build/bin/, which cause forbidden
         # references to /build/ in ua_server_ctt
         rm -r bin/libopen62541*
-      ''
-    ;
+      '';
 
     passthru.tests =
       let

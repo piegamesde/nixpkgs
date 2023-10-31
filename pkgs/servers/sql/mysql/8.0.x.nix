@@ -82,8 +82,7 @@ let
         CoreServices
         developer_cmds
         DarwinTools
-      ]
-    ;
+      ];
 
     outputs = [
       "out"

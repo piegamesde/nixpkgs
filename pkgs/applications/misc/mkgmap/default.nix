@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
           cp ${res} test/resources/in/${builtins.replaceStrings [ "__" ] [ "/" ] res.name}
         '')
         testInputs}
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     jdk
@@ -82,8 +81,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString withExamples ''
       mkdir -p $out/share/mkgmap
       cp -r dist/examples $out/share/mkgmap/
-    ''
-  ;
+    '';
 
   passthru.updateScript = [
     ./update.sh

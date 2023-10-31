@@ -35,8 +35,7 @@ let
         cuda_cudart # cuda_runtime.h
         cuda_nvcc
       ]
-      ++ cuda-common-redist
-    ;
+      ++ cuda-common-redist;
   };
 
   cuda-redist = symlinkJoin {
@@ -87,8 +86,7 @@ buildPythonPackage {
       export CXX=${backendStdenv.cc}/bin/c++
       export TORCH_CUDA_ARCH_LIST="${lib.concatStringsSep ";" cudaCapabilities}"
       export FORCE_CUDA=1
-    ''
-  ;
+    '';
 
   # tries to download many datasets for tests
   doCheck = false;

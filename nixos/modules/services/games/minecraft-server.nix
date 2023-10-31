@@ -59,15 +59,13 @@ let
     if cfg.serverProperties.enable-rcon or false then
       cfg.serverProperties."rcon.port" or 25575
     else
-      null
-  ;
+      null;
 
   queryPort =
     if cfg.serverProperties.enable-query or false then
       cfg.serverProperties."query.port" or 25565
     else
-      null
-  ;
+      null;
 in
 {
   options = {
@@ -198,8 +196,7 @@ in
         example =
           "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing "
           + "-XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 "
-          + "-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10"
-        ;
+          + "-XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
         description = lib.mdDoc "JVM options for the Minecraft server.";
       };
     };
@@ -308,8 +305,7 @@ in
                 rm .declarative
               fi
             ''
-        )
-      ;
+        );
     };
 
     networking.firewall = mkIf cfg.openFirewall (
@@ -319,8 +315,7 @@ in
           allowedTCPPorts =
             [ serverPort ]
             ++ optional (queryPort != null) queryPort
-            ++ optional (rconPort != null) rconPort
-          ;
+            ++ optional (rconPort != null) rconPort;
         }
       else
         {
@@ -335,8 +330,7 @@ in
         message =
           "You must agree to Mojangs EULA to run minecraft-server."
           + " Read https://account.mojang.com/documents/minecraft_eula and"
-          + " set `services.minecraft-server.eula` to `true` if you agree."
-        ;
+          + " set `services.minecraft-server.eula` to `true` if you agree.";
       }
     ];
   };

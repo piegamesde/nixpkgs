@@ -399,8 +399,7 @@ let
               ./common/user-account.nix
               ./common/x11.nix
             ]
-            ++ vmConfigs
-          ;
+            ++ vmConfigs;
           virtualisation.memorySize = 2048;
           virtualisation.qemu.options = [
             "-cpu"

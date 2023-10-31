@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
     ++ (lib.optional withKeePassBrowser "-DWITH_XC_BROWSER=ON")
     ++ (lib.optional withKeePassKeeShare "-DWITH_XC_KEESHARE=ON")
     ++ (lib.optional withKeePassNetworking "-DWITH_XC_NETWORKING=ON")
-    ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON")
-  ;
+    ++ (lib.optional withKeePassSSHAgent "-DWITH_XC_SSHAGENT=ON");
 
   doCheck = true;
   checkPhase = ''
@@ -111,8 +110,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       wrapQtApp "$out/Applications/KeePassXC.app/Contents/MacOS/KeePassXC"
-    ''
-  ;
+    '';
 
   buildInputs =
     [
@@ -132,8 +130,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (stdenv.isDarwin && withKeePassTouchID) LocalAuthentication
     ++ lib.optional stdenv.isDarwin qtmacextras
     ++ lib.optional stdenv.isLinux libusb1
-    ++ lib.optional withKeePassX11 qtx11extras
-  ;
+    ++ lib.optional withKeePassX11 qtx11extras;
 
   passthru.tests = nixosTests.keepassxc;
 

@@ -51,8 +51,7 @@ stdenv.mkDerivation (
       ]
       ++ optional enableEmacs emacs
       ++ optional enableLout lout
-      ++ optional enableTex tex
-    ;
+      ++ optional enableTex tex;
 
     postInstall =
       let

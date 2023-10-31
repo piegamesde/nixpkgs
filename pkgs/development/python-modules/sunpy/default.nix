@@ -95,8 +95,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.database
     ++ passthru.optional-dependencies.image
     ++ passthru.optional-dependencies.net
-    ++ passthru.optional-dependencies.timeseries
-  ;
+    ++ passthru.optional-dependencies.timeseries;
 
   postPatch = ''
     substituteInPlace setup.cfg \

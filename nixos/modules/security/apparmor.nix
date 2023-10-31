@@ -24,8 +24,7 @@ let
     // {
       default = true;
       example = false;
-    }
-  ;
+    };
   enabledPolicies = filterAttrs (n: p: p.enable) cfg.policies;
 in
 
@@ -174,8 +173,7 @@ in
           (p: ''
             Include ${p}/etc/apparmor.d
           '')
-          cfg.packages
-    ;
+          cfg.packages;
     # For aa-logprof
     environment.etc."apparmor/apparmor.conf".text = "";
     # For aa-logprof
@@ -286,8 +284,7 @@ in
             ++
               # Optionally kill the processes which are unconfined but now have a profile loaded
               # (because AppArmor can only start to confine new processes).
-              optional cfg.killUnconfinedConfinables killUnconfinedConfinables
-          ;
+              optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
           ExecStop = "${pkgs.apparmor-utils}/bin/aa-teardown";
           CacheDirectory = [
             "apparmor"

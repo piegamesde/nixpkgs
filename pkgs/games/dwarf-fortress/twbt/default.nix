@@ -48,8 +48,7 @@ let
     if hasAttr dfVersion twbt-releases then
       getAttr dfVersion twbt-releases
     else
-      throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}"
-  ;
+      throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}";
 in
 
 stdenvNoCC.mkDerivation rec {
@@ -61,8 +60,7 @@ stdenvNoCC.mkDerivation rec {
       if version == "6.xx" then
         "https://github.com/thurin/df-twbt/releases/download/${release.dfhackRelease}/twbt-${version}-linux64-${release.dfhackRelease}.zip"
       else
-        "https://github.com/mifki/df-twbt/releases/download/v${version}/twbt-${version}-linux.zip"
-    ;
+        "https://github.com/mifki/df-twbt/releases/download/v${version}/twbt-${version}-linux.zip";
     sha256 = release.sha256;
   };
 

@@ -79,8 +79,7 @@ stdenv.mkDerivation (
         xcbutilcursor
         xcbutilerrors
         xcbutilwm
-      ]
-    ;
+      ];
 
     mesonBuildType = "release";
 

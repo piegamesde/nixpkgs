@@ -97,8 +97,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         AppKit
         Cocoa
-      ]
-    ;
+      ];
 
     preConfigure =
       if
@@ -110,8 +109,7 @@ stdenv.mkDerivation (
           MACOSX_DEPLOYMENT_TARGET=10.16
         ''
       else
-        null
-    ;
+        null;
 
     configureFlags =
       [
@@ -127,8 +125,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         "ac_cv_path_GTK_UPDATE_ICON_CACHE=${buildPackages.gtk2}/bin/gtk-update-icon-cache"
         "ac_cv_path_GDK_PIXBUF_CSOURCE=${buildPackages.gdk-pixbuf.dev}/bin/gdk-pixbuf-csource"
-      ]
-    ;
+      ];
 
     installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 

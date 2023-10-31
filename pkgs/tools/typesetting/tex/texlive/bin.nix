@@ -77,8 +77,7 @@ let
         # (i.e. from buildPackages.texlive.bin.core.dev)
         lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
           sed -i 's|\./himktables|himktables|' texk/web2c/Makefile.in
-        ''
-    ;
+        '';
 
     configureFlags =
       [
@@ -114,8 +113,7 @@ let
   # RISC-V: https://github.com/LuaJIT/LuaJIT/issues/628
   withLuaJIT =
     !(stdenv.hostPlatform.isPower && stdenv.hostPlatform.is64bit)
-    && !stdenv.hostPlatform.isRiscV
-  ;
+    && !stdenv.hostPlatform.isRiscV;
 in
 rec {
   # un-indented
@@ -195,8 +193,7 @@ rec {
         "bibtex8"
         "bibtex-x"
         "upmendex" # ICU isn't small
-      ]
-    ;
+      ];
 
     enableParallelBuilding = true;
 
@@ -262,8 +259,7 @@ rec {
         mkdir -p $dev/bin
         cp texk/web2c/.libs/himktables $dev/bin/himktables
       ''
-      + cleanBrokenLinks
-    ;
+      + cleanBrokenLinks;
 
     setupHook = ./setup-hook.sh; # TODO: maybe texmf-nix -> texmf (and all references)
     passthru = {
@@ -354,8 +350,7 @@ rec {
               "luajithbtex"
               "mfluajit"
             ]
-          )
-    ;
+          );
 
     configureScript = ":";
 
@@ -402,8 +397,7 @@ rec {
             fi
           )
         done
-      ''
-    ;
+      '';
 
     preBuild = "cd texk/web2c";
     enableParallelBuilding = true;
@@ -438,8 +432,7 @@ rec {
       + lib.optionalString withLuaJIT ''
         mv "$out/bin"/mfluajit{,-nowin} "$mflua/bin/"
         mv "$out/bin"/{luajittex,luajithbtex,texluajit,texluajitc} "$luajittex/bin/"
-      ''
-    ;
+      '';
   };
 
   chktex = stdenv.mkDerivation {
@@ -558,8 +551,7 @@ rec {
       ''
       + lib.optionalString stdenv.isDarwin ''
         shortenPerlShebang "$out"/bin/latexindent
-      ''
-    ;
+      '';
   };
 
   pygmentex = python3Packages.buildPythonApplication rec {

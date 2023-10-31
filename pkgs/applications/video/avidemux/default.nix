@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
       qttools
       qtbase
     ]
-    ++ lib.optional withVPX libvpx
-  ;
+    ++ lib.optional withVPX libvpx;
 
   buildCommand =
     let

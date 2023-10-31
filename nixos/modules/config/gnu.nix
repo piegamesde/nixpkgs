@@ -32,8 +32,7 @@
         zile
         texinfo # for the stand-alone Info reader
       ]
-      ++ lib.optional (!stdenv.isAarch32) grub2
-    ;
+      ++ lib.optional (!stdenv.isAarch32) grub2;
 
     # GNU GRUB, where available.
     boot.loader.grub.enable = !pkgs.stdenv.isAarch32;

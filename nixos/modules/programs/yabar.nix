@@ -86,8 +86,7 @@ in
 
             Most of them don't occur on master anymore, until a new release is published, it's recommended
             to use `yabar-unstable'.
-          ''
-      ;
+          '';
 
       description = lib.mdDoc ''
         The package which contains the `yabar` binary.

@@ -75,8 +75,7 @@ mkDerivation rec {
       poppler
       netcdf
       sqlite
-    ]
-  ;
+    ];
 
   cmakeFlags = [ "-DOpenMP_SUPPORT=${if stdenv.isDarwin then "OFF" else "ON"}" ];
 

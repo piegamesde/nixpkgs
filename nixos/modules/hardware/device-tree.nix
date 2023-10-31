@@ -80,8 +80,7 @@ let
         cd ${src}/dtbs
         find . -type f -name '${cfg.filter}' -print0 \
           | xargs -0 cp -v --no-preserve=mode --target-directory $out --parents
-      ''
-  ;
+      '';
 
   filteredDTBs = filterDTBs cfg.kernelPackage;
 
@@ -122,8 +121,7 @@ let
             else
               compileDTS o.name (pkgs.writeText "dts" o.dtsText)
           else
-            o.dtboFile
-        ;
+            o.dtboFile;
       }
     );
 in
@@ -237,7 +235,6 @@ in
       if (cfg.overlays != [ ]) then
         pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
       else
-        filteredDTBs
-    ;
+        filteredDTBs;
   };
 }

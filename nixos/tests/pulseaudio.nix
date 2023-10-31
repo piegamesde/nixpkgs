@@ -58,8 +58,7 @@ let
           // lib.optionalAttrs systemWide {
             users.users.alice.extraGroups = [ "pulse-access" ];
             systemd.services.pulseaudio.wantedBy = [ "multi-user.target" ];
-          }
-        ;
+          };
 
         enableOCR = true;
 

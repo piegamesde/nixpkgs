@@ -42,8 +42,7 @@ let
         after =
           [ "network.target" ]
           ++ optional cfg.postgresql.enable "postgresql.service"
-          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service"
-        ;
+          ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
         requires =
           optional cfg.postgresql.enable "postgresql.service"
           ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
@@ -82,8 +81,7 @@ let
               "/run/systemd"
             ]
             ++ optional cfg.postgresql.enable "/run/postgresql"
-            ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}"
-          ;
+            ++ optional cfg.redis.enable "/run/redis-sourcehut-${srvsrht}";
           # LoadCredential= are unfortunately not available in ExecStartPre=
           # Hence this one is run as root (the +) with RootDirectoryStartOnly=
           # to reach credentials wherever they are.
@@ -266,8 +264,7 @@ in
             //
               optionalAttrs
                 (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or ""))
-                { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; }
-          ;
+                { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; };
         };
 
         services.nginx = mkIf cfg.nginx.enable {
@@ -378,8 +375,7 @@ in
                       "${cfg.python}/bin/gunicorn ${srvsrht}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${
                         toString srvCfg.port
                       } "
-                      + concatStringsSep " " srvCfg.gunicorn.extraArgs
-                    ;
+                      + concatStringsSep " " srvCfg.gunicorn.extraArgs;
                   };
                   preStart =
                     let
@@ -439,8 +435,7 @@ in
                 Restart = "always";
                 ExecStart =
                   "${cfg.python}/bin/celery --app ${srvsrht}.webhooks worker --hostname ${srvsrht}-webhooks@%%h "
-                  + concatStringsSep " " srvCfg.webhooks.extraArgs
-                ;
+                  + concatStringsSep " " srvCfg.webhooks.extraArgs;
                 # Avoid crashing: os.getloadavg()
                 ProcSubset = mkForce "all";
               };

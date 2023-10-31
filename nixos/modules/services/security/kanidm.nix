@@ -228,8 +228,7 @@ in
         assertion =
           !cfg.enableServer
           || ((cfg.serverSettings.tls_chain or null) == null)
-          || (!lib.isStorePath cfg.serverSettings.tls_chain)
-        ;
+          || (!lib.isStorePath cfg.serverSettings.tls_chain);
         message = ''
           <option>services.kanidm.serverSettings.tls_chain</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -240,8 +239,7 @@ in
         assertion =
           !cfg.enableServer
           || ((cfg.serverSettings.tls_key or null) == null)
-          || (!lib.isStorePath cfg.serverSettings.tls_key)
-        ;
+          || (!lib.isStorePath cfg.serverSettings.tls_key);
         message = ''
           <option>services.kanidm.serverSettings.tls_key</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -271,8 +269,7 @@ in
             ->
               cfg.serverSettings.role == "WriteReplica"
               || cfg.serverSettings.role == "WriteReplicaNoUI"
-          )
-        ;
+          );
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
           is not a ReadOnlyReplica. Otherwise the db would inherit it from

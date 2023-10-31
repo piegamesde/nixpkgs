@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional ffmpegSupport "-DUSE_FFMPEG=On"
     ++ lib.optional dicomSupport "-DUSE_DICOM=On"
     ++ lib.optional withModelRepo "-DMODEL_REPO=On"
-    ++ lib.optional withCadFeatures "-DCAD_FEATURES=On"
-  ;
+    ++ lib.optional withCadFeatures "-DCAD_FEATURES=On";
 
   installPhase = ''
     runHook preInstall
@@ -71,8 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional sshSupport openssl
     ++ lib.optional tetgenSupport tetgen
     ++ lib.optional ffmpegSupport ffmpeg_4
-    ++ lib.optional dicomSupport dcmtk
-  ;
+    ++ lib.optional dicomSupport dcmtk;
 
   meta = with lib; {
     description = "FEBio Suite Solver";

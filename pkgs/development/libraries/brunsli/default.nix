@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       rm -r build
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [ cmake ];
 

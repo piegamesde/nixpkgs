@@ -22,8 +22,7 @@ let
               ln -s ${dataDir}/.env $out/.env
               ln -s ${dataDir}/storage $out/storage
               ln -s ${dataDir}/public/uploads $out/public/uploads
-            ''
-          ;
+            '';
         }
       );
 in

@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     ++ optionals openglSupport [
       libGL
       libGLU
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

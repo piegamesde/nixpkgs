@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       substituteInPlace meson.build \
         --replace "-Werror=format-truncation=0" "" \
         --replace "-Wno-stringop-overflow" ""
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     m4

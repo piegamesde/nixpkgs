@@ -16,16 +16,14 @@ let
     else if stdenv.isAarch64 then
       "arm64"
     else
-      throw "Unsupported architecture"
-  ;
+      throw "Unsupported architecture";
   os =
     if stdenv.isLinux then
       "linux"
     else if stdenv.isDarwin then
       "darwin"
     else
-      throw "Unsupported os"
-  ;
+      throw "Unsupported os";
   versionInfo = versions."${os}-${arch}";
   inherit (versionInfo) version sha256 url;
 in

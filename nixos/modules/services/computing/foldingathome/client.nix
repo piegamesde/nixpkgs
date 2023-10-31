@@ -17,8 +17,7 @@ let
       "--user"
       cfg.user
     ]
-    ++ cfg.extraArgs
-  ;
+    ++ cfg.extraArgs;
 in
 {
   imports = [

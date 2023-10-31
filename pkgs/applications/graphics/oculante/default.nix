@@ -60,8 +60,7 @@ rustPlatform.buildRustPackage rec {
       libxkbcommon
       wayland
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ darwin.libobjc ];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/oculante --add-rpath ${

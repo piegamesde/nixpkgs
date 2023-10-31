@@ -66,8 +66,7 @@ pythonPackages.buildPythonApplication rec {
         pygobject3
         pylast
       ]
-    )
-  ;
+    );
 
   meta = with lib; {
     broken = stdenv.isDarwin;

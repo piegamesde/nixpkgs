@@ -207,8 +207,7 @@ in
           else if pgsqlLocal then
             "/run/postgresql"
           else
-            null
-        ;
+            null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc

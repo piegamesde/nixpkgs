@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
       "--enable-jit=auto"
     ]
     # fix pcre jit in systemd units that set MemoryDenyWriteExecute=true like gitea
-    ++ lib.optional withJitSealloc "--enable-jit-sealloc"
-  ;
+    ++ lib.optional withJitSealloc "--enable-jit-sealloc";
 
   outputs = [
     "bin"

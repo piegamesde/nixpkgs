@@ -153,8 +153,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       cairo
       gtk-mac-integration
-    ]
-  ;
+    ];
 
   # Make sure PyXML modules can be found at run-time.
   postInstall = lib.optionalString stdenv.isDarwin ''

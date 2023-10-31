@@ -13,8 +13,7 @@ let
     if lib.hasPrefix "rocm-llvm-" name then
       "llvmPackages_rocm.${lib.removePrefix "rocm-llvm-" name}"
     else
-      name
-  ;
+      name;
 
   updateScript = writeScript "update.sh" ''
     #!/usr/bin/env nix-shell

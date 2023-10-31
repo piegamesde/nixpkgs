@@ -7,8 +7,7 @@ let
     if cfg.protocol == "ssh" then
       "nix-store --serve ${lib.optionalString cfg.write "--write"}"
     else
-      "nix-daemon --stdio"
-  ;
+      "nix-daemon --stdio";
 in
 {
   options = {

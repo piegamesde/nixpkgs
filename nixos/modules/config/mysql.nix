@@ -430,8 +430,7 @@ in
           log.host_column=${cfg.pam.logging.hostColumn}
           log.rhost_column=${cfg.pam.logging.rHostColumn}
           log.time_column=${cfg.pam.logging.timeColumn}
-        ''
-      ;
+        '';
     };
 
     environment.etc."libnss-mysql.cfg" = {
@@ -472,8 +471,7 @@ in
         + ''
           host ${cfg.host}
           database ${cfg.database}
-        ''
-      ;
+        '';
     };
 
     environment.etc."libnss-mysql-root.cfg" = {

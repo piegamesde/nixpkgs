@@ -24,8 +24,7 @@ let
       plugin_opts = cfg.pluginOpts;
     }
     // optionalAttrs (cfg.password != null) { password = cfg.password; }
-    // cfg.extraConfig
-  ;
+    // cfg.extraConfig;
 
   configFile = pkgs.writeText "shadowsocks.json" (builtins.toJSON opts);
 in
@@ -162,8 +161,7 @@ in
       path =
         [ pkgs.shadowsocks-libev ]
         ++ optional (cfg.plugin != null) cfg.plugin
-        ++ optional (cfg.passwordFile != null) pkgs.jq
-      ;
+        ++ optional (cfg.passwordFile != null) pkgs.jq;
       serviceConfig.PrivateTmp = true;
       script = ''
         ${optionalString (cfg.passwordFile != null) ''

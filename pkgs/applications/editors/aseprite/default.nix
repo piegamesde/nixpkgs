@@ -49,8 +49,7 @@ stdenv.mkDerivation rec {
       if unfree then
         "16yn7y9xdc5jd50cq7bmsm320gv23pp71lr8hg2nmynzc8ibyda8"
       else
-        "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di"
-    ;
+        "0gd49lns2bpzbkwax5jf9x1xmg1j8ij997kcxr2596cwiswnw4di";
   };
 
   nativeBuildInputs = [
@@ -97,8 +96,7 @@ stdenv.mkDerivation rec {
           url = "https://github.com/orivej/aseprite/commit/ea87e65b357ad0bd65467af5529183b5a48a8c17.patch";
           sha256 = "1vwn8ivap1pzdh444sdvvkndp55iz146nhmd80xbm8cyzn3qmg91";
         })
-      ]
-  ;
+      ];
 
   postPatch = ''
     sed -i src/config.h -e "s-\\(#define VERSION\\) .*-\\1 \"$version\"-"
@@ -171,8 +169,7 @@ stdenv.mkDerivation rec {
       + lib.optionalString unfree ''
         This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
         Consider supporting the developer: https://aseprite.org/#buy
-      ''
-    ;
+      '';
     maintainers = with maintainers; [ orivej ];
     platforms = platforms.linux;
   };

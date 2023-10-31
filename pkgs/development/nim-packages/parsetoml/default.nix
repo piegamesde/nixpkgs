@@ -24,6 +24,5 @@ buildNimPackage rec {
       description = "A Nim library to parse TOML files";
       license = [ licenses.mit ];
       maintainers = with maintainers; [ sikmir ];
-    }
-  ;
+    };
 }

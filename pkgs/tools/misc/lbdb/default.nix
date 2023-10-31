@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withGnupg gnupg
     ++ lib.optional withGoobook goobook
     ++ lib.optional withKhard khard
-    ++ lib.optional withMu mu
-  ;
+    ++ lib.optional withMu mu;
 
   configureFlags =
     [ ]
@@ -53,8 +52,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withGnupg "--with-gpg"
     ++ lib.optional withGoobook "--with-goobook"
     ++ lib.optional withKhard "--with-khard"
-    ++ lib.optional withMu "--with-mu"
-  ;
+    ++ lib.optional withMu "--with-mu";
 
   patches = [
     ./add-methods-to-rc.patch

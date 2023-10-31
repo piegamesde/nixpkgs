@@ -16,8 +16,7 @@ let
   enable32BitAlsaPlugins =
     cfg.alsa.support32Bit
     && pkgs.stdenv.isx86_64
-    && pkgs.pkgsi686Linux.alsa-lib != null
-  ;
+    && pkgs.pkgsi686Linux.alsa-lib != null;
 
   umaskNeeded = versionOlder cfg.jackd.package.version "1.9.12";
   bridgeNeeded = versionAtLeast cfg.jackd.package.version "1.9.12";

@@ -44,8 +44,7 @@ let
     ++ optional withJpegrecompress jpeg-archive
     ++ optional withJpegtran libjpeg
     ++ optional withGifsicle gifsicle
-    ++ optional withSvgo svgo
-  ;
+    ++ optional withSvgo svgo;
 
   disabledWorkersFlags =
     optional (!withPngcrush) "--no-pngcrush"
@@ -59,8 +58,7 @@ let
     ++ optional (!withJpegrecompress) "--no-jpegrecompress"
     ++ optional (!withJpegtran) "--no-jpegtran"
     ++ optional (!withGifsicle) "--no-gifsicle"
-    ++ optional (!withSvgo) "--no-svgo"
-  ;
+    ++ optional (!withSvgo) "--no-svgo";
 in
 
 bundlerApp {

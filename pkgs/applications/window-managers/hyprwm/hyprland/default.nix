@@ -96,8 +96,7 @@ stdenv.mkDerivation rec {
       xcbutilwm
       xwayland
     ]
-    ++ lib.optionals withSystemd [ systemd ]
-  ;
+    ++ lib.optionals withSystemd [ systemd ];
 
   mesonBuildType = if debug then "debug" else "release";
 

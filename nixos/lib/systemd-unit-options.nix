@@ -48,8 +48,7 @@ rec {
           defs'
 
       else
-        mergeEqualOption loc defs'
-    ;
+        mergeEqualOption loc defs';
   };
 
   sharedOptions = {

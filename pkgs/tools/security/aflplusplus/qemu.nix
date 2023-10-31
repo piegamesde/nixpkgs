@@ -24,8 +24,7 @@ let
     else if stdenv.targetPlatform.system == "i686-linux" then
       "i386-linux-user"
     else
-      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!"
-  ;
+      throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
 in
 stdenv.mkDerivation {
   name = "aflplusplus-${qemuName}";

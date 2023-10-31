@@ -70,8 +70,7 @@ stdenv.mkDerivation rec {
       CoreAudio
       AudioToolbox
     ]
-    ++ optionals withLibao [ libao ]
-  ;
+    ++ optionals withLibao [ libao ];
 
   cmakeFlags =
     [
@@ -106,8 +105,7 @@ stdenv.mkDerivation rec {
     ++ optionals enableTools [
       "-DUTIL_CHARCNV_ICONV=ON"
       "-DUTIL_CHARCNV_WINAPI=${onOff stdenv.hostPlatform.isWindows}"
-    ]
-  ;
+    ];
 
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/ValleyBell/libvgm.git";
@@ -125,8 +123,7 @@ stdenv.mkDerivation rec {
       then
         licenses.unfree # https://github.com/ValleyBell/libvgm/issues/43
       else
-        licenses.gpl2Only
-    ;
+        licenses.gpl2Only;
     maintainers = with maintainers; [ OPNA2608 ];
     platforms = platforms.all;
   };

@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace CMakeLists.txt \
         --replace '-Wl,--no-undefined -Wl,--as-needed' '-Wl,-undefined,error'
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/selmf/unarr";

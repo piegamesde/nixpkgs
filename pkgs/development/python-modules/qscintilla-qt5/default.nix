@@ -60,8 +60,7 @@ buildPythonPackage rec {
                   self.builder_settings.append('QT += printsupport')
 
                   if self.qsci_features_dir is not None:"
-    ''
-  ;
+    '';
 
   dontConfigure = true;
 

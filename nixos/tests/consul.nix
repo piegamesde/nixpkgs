@@ -104,8 +104,7 @@ import ./make-test-python.nix (
                 if numConsensusServers == 1 then
                   allConsensusServerHosts
                 else
-                  builtins.filter (h: h != thisConsensusServerHost) allConsensusServerHosts
-              ;
+                  builtins.filter (h: h != thisConsensusServerHost) allConsensusServerHosts;
               bind_addr = ip;
             };
           };

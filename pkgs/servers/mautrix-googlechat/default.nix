@@ -59,8 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     ]
     ++ lib.optionals enableE2be passthru.optional-dependencies.e2be
     ++ lib.optionals enableMetrics passthru.optional-dependencies.metrics
-    ++ lib.optionals enableSqlite passthru.optional-dependencies.sqlite
-  ;
+    ++ lib.optionals enableSqlite passthru.optional-dependencies.sqlite;
 
   doCheck = false;
 

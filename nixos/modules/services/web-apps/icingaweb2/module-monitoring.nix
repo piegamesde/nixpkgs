@@ -211,7 +211,6 @@ in
       }
       // optionalAttrs (!cfg.mutableTransports) {
         "icingaweb2/modules/monitoring/commandtransports.ini".text = transportsIni;
-      }
-    ;
+      };
   };
 }

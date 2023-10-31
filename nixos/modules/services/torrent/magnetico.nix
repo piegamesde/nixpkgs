@@ -25,8 +25,7 @@ let
             '')
             cfg.web.credentials
         )
-      )
-  ;
+      );
 
   # default options in magneticod/main.go
   dbURI = concatStrings [

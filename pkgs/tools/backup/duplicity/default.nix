@@ -100,8 +100,7 @@ pythonPackages.buildPythonApplication rec {
         pytest
         pytest-runner
       ]
-    )
-  ;
+    );
 
   postInstall = ''
     wrapProgram $out/bin/duplicity \
@@ -137,8 +136,7 @@ pythonPackages.buildPythonApplication rec {
       # > Max open files of 256 is too low, should be >= 1024.
       # > Use 'ulimit -n 1024' or higher to correct.
       ulimit -n 1024
-    ''
-  ;
+    '';
 
   # TODO: Fix test failures on macOS 10.13:
   #

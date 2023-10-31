@@ -155,8 +155,7 @@ in
             iproute2
             iptables
           ]
-        )
-      ;
+        );
 
       serviceConfig = mkMerge [
         {
@@ -173,8 +172,7 @@ in
             + concatMapStrings (path: " -config=${path}") cfg.extraSettingsPaths
             + concatMapStrings (key: " -config=\${CREDENTIALS_DIRECTORY}/${key}") (
               lib.attrNames cfg.credentials
-            )
-          ;
+            );
           KillMode = "process";
           KillSignal = "SIGINT";
           LimitNOFILE = 65536;

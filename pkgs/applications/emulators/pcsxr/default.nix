@@ -94,8 +94,7 @@ stdenv.mkDerivation rec {
     else if stdenv.isi686 then
       "x86"
     else
-      "no"
-  ; # debian patch 2 says ppc doesn't work
+      "no"; # debian patch 2 says ppc doesn't work
 
   configureFlags = [
     "--enable-opengl"

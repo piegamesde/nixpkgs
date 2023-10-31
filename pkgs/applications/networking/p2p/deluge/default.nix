@@ -54,8 +54,7 @@ let
           gtk3
           gobject-introspection
           pygobject3
-        ]
-      ;
+        ];
 
       nativeBuildInputs =
         [
@@ -95,8 +94,7 @@ let
               rm -r $out/lib/${python3Packages.python.libPrefix}/site-packages/deluge/ui/gtk3
               rm -r $out/share/{icons,man/man1/deluge-gtk*,pixmaps}
             ''
-        )
-      ;
+        );
 
       postFixup = ''
         for f in $out/lib/systemd/system/*; do

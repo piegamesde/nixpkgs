@@ -92,8 +92,7 @@ backendStdenv.mkDerivation {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   # Without --add-needed autoPatchelf forgets $ORIGIN on cuda>=8.0.5.
   postFixup =
@@ -124,8 +123,7 @@ backendStdenv.mkDerivation {
     # embarking into unknown and unsupported territory when doing so.
     broken =
       strings.versionOlder cudaVersion minCudaVersion
-      || strings.versionOlder maxCudaVersion cudaVersion
-    ;
+      || strings.versionOlder maxCudaVersion cudaVersion;
     description = "NVIDIA CUDA Deep Neural Network library (cuDNN)";
     homepage = "https://developer.nvidia.com/cudnn";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];

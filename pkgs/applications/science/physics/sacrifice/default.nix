@@ -37,8 +37,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace configure --replace LIB_SUFFIX=\"so\" LIB_SUFFIX=\"dylib\"
-    ''
-  ;
+    '';
 
   configureFlags = [
     "--with-HepMC=${hepmc2}"
@@ -54,8 +53,7 @@ stdenv.mkDerivation {
       ''
         wrapProgram $out/bin/run-pythia \
           --prefix LD_LIBRARY_PATH : "${pythia}/lib"
-      ''
-  ;
+      '';
 
   enableParallelBuilding = true;
 

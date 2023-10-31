@@ -79,16 +79,14 @@ let
         "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'"
       )
     else
-      targetPlatform.parsed.kernel.name
-  ;
+      targetPlatform.parsed.kernel.name;
 
   # Apple Silicon uses a different CPU name in the target triple.
   swiftArch =
     if stdenv.isDarwin && stdenv.isAarch64 then
       "arm64"
     else
-      targetPlatform.parsed.cpu.name
-  ;
+      targetPlatform.parsed.cpu.name;
 
   # On Darwin, a `.swiftmodule` is a subdirectory in `lib/swift/<OS>`,
   # containing binaries for supported archs. On other platforms, binaries are
@@ -99,8 +97,7 @@ let
     if hostPlatform.isDarwin then
       "lib/swift/${swiftOs}"
     else
-      "lib/swift/${swiftOs}/${swiftArch}"
-  ;
+      "lib/swift/${swiftOs}/${swiftArch}";
 
   # And then there's also a separate subtree for statically linked  modules.
   toStaticSubdir = lib.replaceStrings [ "/swift/" ] [ "/swift_static/" ];
@@ -253,8 +250,7 @@ stdenv.mkDerivation {
       CoreServices
       Foundation
       Combine
-    ]
-  ;
+    ];
 
   # This is a partial reimplementation of our setup hook. Because we reuse
   # the Swift wrapper for the Swift build itself, we need to do some of the
@@ -623,8 +619,7 @@ stdenv.mkDerivation {
         export CXX=$NIX_CC/bin/clang++
         unset ninjaFlags
       ''}
-    ''
-  ;
+    '';
 
   # TODO: ~50 failing tests on x86_64-linux. Other platforms not checked.
   doCheck = false;

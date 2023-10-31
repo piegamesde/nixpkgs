@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
         sha256 = "1gjf3vd7hiyzxjvlg2zfc3y2j0lyr6nhbws4xb5dmin3csyp8qb8";
       }
     )
-    ++ lib.optional stdenv.hostPlatform.isMusl ./musl-fixes.patch
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMusl ./musl-fixes.patch;
 
   buildInputs = [ libevent ];
   propagatedBuildInputs = [ cyrus_sasl ];

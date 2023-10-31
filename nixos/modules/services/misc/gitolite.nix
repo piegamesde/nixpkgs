@@ -12,8 +12,7 @@ let
   # Use writeTextDir to not leak Nix store hash into file name
   pubkeyFile =
     (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey)
-    + "/gitolite-admin.pub"
-  ;
+    + "/gitolite-admin.pub";
   hooks = lib.concatMapStrings (hook: "${hook} ") cfg.commonHooks;
 in
 {
@@ -155,8 +154,7 @@ in
               1;
             ''
           } >>"$out/gitolite.rc"
-        ''
-      ;
+        '';
     in
     {
       services.gitolite.extraGitoliteRc = optionalString cfg.enableGitAnnex ''
@@ -226,8 +224,7 @@ in
               else
                 ''
                   :
-                ''
-            ;
+                '';
             rcSetupScriptIfDefaultFileOrStoreSymlink =
               if manageGitoliteRc then
                 ''
@@ -236,8 +233,7 @@ in
               else
                 ''
                   [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
-                ''
-            ;
+                '';
           in
           ''
             if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
@@ -261,8 +257,7 @@ in
               chmod +x .gitolite/hooks/common/*
             fi
             gitolite setup # Upgrade if needed
-          ''
-        ;
+          '';
       };
 
       environment.systemPackages = [

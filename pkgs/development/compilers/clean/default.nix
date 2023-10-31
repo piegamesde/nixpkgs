@@ -20,8 +20,7 @@ stdenv.mkDerivation {
         sha256 = "06k283y9adbi28f78k3m5ssg6py73qqkz3sm8dgxc89drv4krl2i";
       })
     else
-      throw "Architecture not supported"
-  ;
+      throw "Architecture not supported";
 
   hardeningDisable = [
     "format"

@@ -118,8 +118,7 @@ stdenv.mkDerivation rec {
       "--without-cairo"
       "--without-freetype"
       "--without-x"
-    ]
-  ;
+    ];
 
   # Otherwise a very confusing "Can't load GDAL library" error
   makeFlags = lib.optional stdenv.isDarwin "GDAL_DYNAMIC=";

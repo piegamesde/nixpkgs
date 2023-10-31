@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       # On Mac, do not build a .dmg, instead copy the .app to the source dir
       gawk -i inplace 'BEGIN { del=0 } /hdiutil/ { del=2 } del<=0 { print } /$VERSION.dmg/ { del -= 1 }' release/makemacapp.in
       echo "mv \"\$APPROOT\" \"\$SRCDIR/\"" >> release/makemacapp.in
-    ''
-  ;
+    '';
 
   dontUseCmakeBuildDir = true;
 
@@ -101,8 +100,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       make dmg
-    ''
-  ;
+    '';
 
   postInstall =
     lib.optionalString stdenv.isLinux ''
@@ -130,8 +128,7 @@ stdenv.mkDerivation rec {
       echo "#!/usr/bin/env bash
       open $out/Applications/TigerVNC\ Viewer\ ${version}.app --args \$@" >> $out/bin/vncviewer
       chmod +x $out/bin/vncviewer
-    ''
-  ;
+    '';
 
   buildInputs =
     [

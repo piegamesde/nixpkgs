@@ -127,8 +127,7 @@ let
               '')
               cfg.repos
           )}
-        ''
-  ;
+        '';
 in
 {
   options = {

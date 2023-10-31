@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals waylandSupport [
       wayland-protocols
       xwayland
-    ]
-  ;
+    ];
 
   patches = [
     # Executables cannot be made setuid in nix store. They should be
@@ -93,7 +92,6 @@ stdenv.mkDerivation rec {
         matejc
         ftrvxmtrx
       ]
-      ++ teams.enlightenment.members
-    ;
+      ++ teams.enlightenment.members;
   };
 }

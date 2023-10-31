@@ -252,8 +252,7 @@ in
           (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
           cfg.servers
       ))
-      // restartService
-    ;
+      // restartService;
 
     environment.systemPackages = [ openvpn ];
 

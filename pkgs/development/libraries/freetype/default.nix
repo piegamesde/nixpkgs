@@ -66,8 +66,7 @@ stdenv.mkDerivation (
         makeWrapper
       ]
       # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
-      ++ lib.optional (!stdenv.isLinux) gnumake
-    ;
+      ++ lib.optional (!stdenv.isLinux) gnumake;
 
     patches = [
       ./enable-table-validation.patch
@@ -101,8 +100,7 @@ stdenv.mkDerivation (
 
         wrapProgram "$dev/bin/freetype-config" \
           --set PKG_CONFIG_PATH "$PKG_CONFIG_PATH:$dev/lib/pkgconfig"
-      ''
-    ;
+      '';
 
     passthru.tests = {
       inherit

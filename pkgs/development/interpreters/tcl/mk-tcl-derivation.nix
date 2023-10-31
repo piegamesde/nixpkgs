@@ -71,8 +71,7 @@ let
           if (!dontConfigure && addTclConfigureFlags) then
             (configureFlags ++ defaultTclPkgConfigureFlags)
           else
-            configureFlags
-        ;
+            configureFlags;
 
         meta = {
           platforms = tcl.meta.platforms;

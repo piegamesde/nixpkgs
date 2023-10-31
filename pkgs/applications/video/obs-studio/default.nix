@@ -109,8 +109,7 @@ stdenv.mkDerivation rec {
     ++ optionals pipewireSupport [
       pipewire
       libdrm
-    ]
-  ;
+    ];
 
   # Copied from the obs-linuxbrowser
   postUnpack = ''

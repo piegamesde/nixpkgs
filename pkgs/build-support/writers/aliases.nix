@@ -9,8 +9,7 @@ let
     if alias.recurseForDerivations or false then
       removeAttrs alias [ "recurseForDerivations" ]
     else
-      alias
-  ;
+      alias;
 
   # Disabling distribution prevents top-level aliases for non-recursed package
   # sets from building on Hydra.
@@ -24,8 +23,7 @@ let
     if builtins.hasAttr n prev then
       throw "Alias ${n} is still in writers"
     else
-      alias
-  ;
+      alias;
 
   mapAliases =
     aliases:

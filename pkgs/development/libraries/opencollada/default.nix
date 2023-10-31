@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace GeneratedSaxParser/src/GeneratedSaxParserUtils.cpp \
         --replace math.h cmath
-    ''
-  ;
+    '';
 
   meta = {
     description = "A library for handling the COLLADA file format";

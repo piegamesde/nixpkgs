@@ -94,8 +94,7 @@ let
             pkg-config
           ]
           ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
-          ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper
-        ;
+          ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeWrapper;
 
         buildInputs =
           [
@@ -129,8 +128,7 @@ let
                 openssl
                 curl
               ]
-          )
-        ;
+          );
 
         prePatch = ''
           sed -i 's,[^"]*/var/log,/var/log,g' storage/mroonga/vendor/groonga/CMakeLists.txt
@@ -142,8 +140,7 @@ let
           # https://jira.mariadb.org/browse/MDEV-26769?focusedCommentId=206073&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-206073
           ++
             lib.optional (!stdenv.hostPlatform.isLinux && lib.versionAtLeast version "10.6")
-              ./patch/macos-MDEV-26769-regression-fix.patch
-        ;
+              ./patch/macos-MDEV-26769-regression-fix.patch;
 
         cmakeFlags =
           [
@@ -195,8 +192,7 @@ let
             # revisit this if nixpkgs supports any architecture whose stack grows upwards
             "-DSTACK_DIRECTION=-1"
             "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
-          ]
-        ;
+          ];
 
         postInstall = lib.optionalString (!withEmbedded) ''
           # Remove Development components. Need to use libmysqlclient.
@@ -266,8 +262,7 @@ let
               rm "$out"/lib/{libmariadb${libExt},libmysqlclient${libExt},libmysqlclient_r${libExt}}
               mv "$libmysqlclient_path" "$out"/lib/libmysqlclient${libExt}
               ln -sv libmysqlclient${libExt} "$out"/lib/libmysqlclient_r${libExt}
-            ''
-          ;
+            '';
         }
       );
 
@@ -305,8 +300,7 @@ let
               msgpack
               zeromq
             ]
-            ++ lib.optionals (lib.versionAtLeast common.version "10.7") [ fmt_8 ]
-          ;
+            ++ lib.optionals (lib.versionAtLeast common.version "10.7") [ fmt_8 ];
 
           propagatedBuildInputs = lib.optional withNuma numactl;
 
@@ -342,8 +336,7 @@ let
               "-DPLUGIN_AUTH_PAM_V1=NO"
               "-DWITHOUT_OQGRAPH=1"
               "-DWITHOUT_PLUGIN_S3=1"
-            ]
-          ;
+            ];
 
           preConfigure = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
             patchShebangs scripts/mytop.sh
@@ -366,8 +359,7 @@ let
                   mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
                   mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
                   rm -r "$out"/OFF
-                ''
-          ;
+                '';
 
           CXXFLAGS = lib.optionalString stdenv.hostPlatform.isi686 "-fpermissive";
           NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";

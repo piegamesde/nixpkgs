@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (stdenv.isDarwin && stdenv.isAarch64) ''
       export LC_ALL=C
-    ''
-  ;
+    '';
 
   # With CMake we have to enable samples or there won't be
   # a tests target. This removes them.

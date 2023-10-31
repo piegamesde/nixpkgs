@@ -95,8 +95,7 @@ let
     component: arch: version: rel:
     "instantclient-${component}-${arch}-${version}"
     + (optionalString (rel != "") "-${rel}")
-    + "dbru.zip"
-  ; # ¯\_(ツ)_/¯
+    + "dbru.zip"; # ¯\_(ツ)_/¯
 
   # fetcher for the non clickthrough artifacts
   fetcher =
@@ -133,8 +132,7 @@ stdenv.mkDerivation {
       unzip
     ]
     ++ optional stdenv.isLinux autoPatchelfHook
-    ++ optional stdenv.isDarwin fixDarwinDylibNames
-  ;
+    ++ optional stdenv.isDarwin fixDarwinDylibNames;
 
   outputs = [
     "out"

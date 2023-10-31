@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
             COMP_LIBS="" LIBS="-lblas -llapack"
           );
         ''
-    )
-  ;
+    );
 
   installPhase = ''
     mkdir -p $out/bin

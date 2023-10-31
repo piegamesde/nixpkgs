@@ -65,8 +65,7 @@ let
           host = cfg.database.host;
           port = cfg.database.port;
           tls = cfg.database.tls;
-        }
-    ;
+        };
 
     server = cfg.settings.server or { } // {
       bind = cfg.settings.server.bind or "localhost";
@@ -373,8 +372,7 @@ in
         [ "network.target" ]
         ++ optional isSqlite "writefreely-sqlite-init.service"
         ++ optional isMysql "writefreely-mysql-init.service"
-        ++ optional isMysqlLocal "mysql.service"
-      ;
+        ++ optional isMysqlLocal "mysql.service";
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

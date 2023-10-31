@@ -154,8 +154,7 @@ mkDerivation (
         ln -s $out/share/vim-plugins/tamarin-prover $out/share/nvim/site
         # Emacs SPTHY major mode
         install -Dt $out/share/emacs/site-lisp etc/spthy-mode.el
-      ''
-    ;
+      '';
 
     checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
 

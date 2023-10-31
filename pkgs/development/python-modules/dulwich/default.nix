@@ -55,8 +55,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.fastimport
     ++ passthru.optional-dependencies.pgp
-    ++ passthru.optional-dependencies.paramiko
-  ;
+    ++ passthru.optional-dependencies.paramiko;
 
   doCheck = !stdenv.isDarwin;
 

@@ -31,8 +31,7 @@ in
             splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange
           )
         ))
-        + ".254"
-      ;
+        + ".254";
       defaultText = literalMD ''
         The `x.y.z.254` IP of
         `config.${options.services.kubernetes.apiserver.serviceClusterIpRange}`.

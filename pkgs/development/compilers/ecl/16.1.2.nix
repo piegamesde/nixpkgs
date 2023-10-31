@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
       --prefix NIX_LDFLAGS_BEFORE_${gcc.bintools.suffixSalt} ' ' "-L${
         lib.getLib libffi
       }/lib"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Lisp implementation aiming to be small, fast and easy to embed";

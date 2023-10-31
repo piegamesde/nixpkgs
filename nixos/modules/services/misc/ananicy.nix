@@ -17,8 +17,7 @@ let
     if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then
       "ananicy-cpp"
     else
-      "ananicy"
-  ;
+      "ananicy";
 in
 {
   options = {
@@ -114,8 +113,7 @@ in
             check_disks_schedulers = mkOD true;
             check_freq = mkOD 5;
           }
-      )
-    ;
+      );
 
     systemd = {
       # https://gitlab.com/ananicy-cpp/ananicy-cpp/#cgroups applies to both ananicy and -cpp

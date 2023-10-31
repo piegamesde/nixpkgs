@@ -98,8 +98,7 @@ mkDerivation rec {
       qtwayland
     ]
     ++ lib.optional stdenv.isDarwin qtmacextras
-    ++ lib.optional spacenavSupport libspnav
-  ;
+    ++ lib.optional spacenavSupport libspnav;
 
   qmakeFlags =
     [ "VERSION=${version}" ]

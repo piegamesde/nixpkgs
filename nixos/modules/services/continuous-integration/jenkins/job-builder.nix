@@ -130,8 +130,7 @@ in
             (cfg.accessToken != "" && cfg.accessTokenFile == "")
             || (cfg.accessToken == "" && cfg.accessTokenFile != "")
           else
-            true
-        ;
+            true;
         message = ''
           One of accessToken and accessTokenFile options must be non-empty
           strings, but not both. Current values:
@@ -261,8 +260,7 @@ in
               rm -rf "$jobdir"
           done
         ''
-        + (optionalString (cfg.accessUser != "") reloadScript)
-      ;
+        + (optionalString (cfg.accessUser != "") reloadScript);
       serviceConfig = {
         Type = "oneshot";
         User = jenkinsCfg.user;

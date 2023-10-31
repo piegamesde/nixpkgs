@@ -84,8 +84,7 @@ let
         else if lib.isList p then
           { path = p; }
         else
-          p
-      ;
+          p;
       describe =
         args:
         let
@@ -154,8 +153,7 @@ rec {
           if baseOptionsJSON == null then
             builtins.toFile "base.json" "{}"
           else
-            baseOptionsJSON
-        ;
+            baseOptionsJSON;
       }
       ''
         # Export list of options in different format.

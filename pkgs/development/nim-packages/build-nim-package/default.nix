@@ -34,8 +34,7 @@ stdenv.mkDerivation (
           runHook postConfigure
         ''
       else
-        configurePhase
-    ;
+        configurePhase;
 
     buildPhase =
       if (buildPhase == null) then
@@ -45,8 +44,7 @@ stdenv.mkDerivation (
           runHook postBuild
         ''
       else
-        buildPhase
-    ;
+        buildPhase;
 
     checkPhase =
       if (checkPhase == null) then
@@ -56,8 +54,7 @@ stdenv.mkDerivation (
           runHook postCheck
         ''
       else
-        checkPhase
-    ;
+        checkPhase;
 
     installPhase =
       if (installPhase == null) then
@@ -67,8 +64,7 @@ stdenv.mkDerivation (
           runHook postInstall
         ''
       else
-        installPhase
-    ;
+        installPhase;
 
     meta = meta // {
       platforms = meta.platforms or nim.meta.platforms;

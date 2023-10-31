@@ -21,8 +21,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       install -Dm644 -t $out/etc/udev/rules.d Linux_udevrules/70-stm32vcp.rules
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Read, write and execute programs on PADAUK microcontroller";

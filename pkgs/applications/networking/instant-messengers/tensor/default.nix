@@ -68,8 +68,7 @@ mkDerivation rec {
           --subst-var-by bin $out/bin/tensor
 
         runHook postInstall
-      ''
-  ;
+      '';
 
   meta = with lib; {
     homepage = "https://matrix.org/docs/projects/client/tensor.html";

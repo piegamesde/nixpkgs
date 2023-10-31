@@ -29,8 +29,7 @@ qtModule {
       libpulseaudio
       alsa-lib
       wayland
-    ]
-  ;
+    ];
   outputs = [
     "bin"
     "dev"

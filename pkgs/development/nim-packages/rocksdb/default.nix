@@ -28,6 +28,5 @@ buildNimPackage rec {
     // {
       description = "Nim wrapper for RocksDB";
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

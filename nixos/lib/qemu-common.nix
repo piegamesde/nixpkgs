@@ -10,8 +10,7 @@ let
         throw "Can't have more than 255 nets or nodes!"
       else
         lib.toHexString n
-    )
-  ;
+    );
 in
 
 rec {
@@ -31,8 +30,7 @@ rec {
       "ttyAMA0"
     else
       throw
-        "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'"
-  ;
+        "Unknown QEMU serial device for system '${pkgs.stdenv.hostPlatform.system}'";
 
   qemuBinary =
     qemuPkg:
@@ -79,6 +77,5 @@ rec {
       let
         guestMap = (otherHostGuestMatrix.${hostSystem} or throwUnsupportedHostSystem);
       in
-      (guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap))
-  ;
+      (guestMap.${guestSystem} or (throwUnsupportedGuestSystem guestMap));
 }

@@ -77,8 +77,7 @@ stdenv.mkDerivation rec {
         ''
           rm $out/lib/systemd/system/atopgpu.service $out/bin/atopgpud $out/share/man/man8/atopgpud.8
         ''
-    )
-  ;
+    );
 
   meta = with lib; {
     platforms = platforms.linux;

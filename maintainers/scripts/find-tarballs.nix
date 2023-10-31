@@ -65,8 +65,7 @@ let
           x
       )
     else
-      [ ]
-  ;
+      [ ];
 
   keyDrv =
     drv:
@@ -76,8 +75,7 @@ let
         value = drv;
       }
     else
-      { }
-  ;
+      { };
 
   immediateDependenciesOf =
     drv:
@@ -102,8 +100,7 @@ let
     else if isList x then
       concatLists (map derivationsIn x)
     else
-      [ ]
-  ;
+      [ ];
 
   canEval = val: (builtins.tryEval val).success;
 in

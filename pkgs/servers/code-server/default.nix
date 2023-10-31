@@ -151,8 +151,7 @@ stdenv.mkDerivation rec {
       Security
       cctools
       xcbuild
-    ]
-  ;
+    ];
 
   patches =
     [
@@ -279,8 +278,7 @@ stdenv.mkDerivation rec {
 
       # create release
       yarn release
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir -p $out/libexec/code-server $out/bin

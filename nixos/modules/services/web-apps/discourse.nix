@@ -20,8 +20,7 @@ let
     if config.services.postgresql.enable then
       config.services.postgresql.package
     else
-      pkgs.postgresql
-  ;
+      pkgs.postgresql;
 
   postgresqlVersion = lib.getVersion postgresqlPackage;
 
@@ -564,13 +563,11 @@ in
           cfg.database.ignorePostgresqlVersion
           || (
             databaseActuallyCreateLocally -> upstreamPostgresqlVersion == postgresqlVersion
-          )
-        ;
+          );
         message =
           "The PostgreSQL version recommended for use with Discourse is ${upstreamPostgresqlVersion}, you're using ${postgresqlVersion}. "
           + "Either update your PostgreSQL package to the correct version or set services.discourse.database.ignorePostgresqlVersion. "
-          + "See https://nixos.org/manual/nixos/stable/index.html#module-postgresql for details on how to upgrade PostgreSQL."
-        ;
+          + "See https://nixos.org/manual/nixos/stable/index.html#module-postgresql for details on how to upgrade PostgreSQL.";
       }
     ];
 
@@ -786,8 +783,7 @@ in
                 else if isFloat v then
                   lib.strings.floatToString v
                 else
-                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}"
-              ;
+                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
             };
           };
 
@@ -920,8 +916,7 @@ in
                   extraConfig
                   + ''
                     proxy_set_header X-Request-Start "t=''${msec}";
-                  ''
-                ;
+                  '';
               };
             cache = time: ''
               expires ${time};
@@ -949,8 +944,7 @@ in
               cache_1y
               + ''
                 add_header Access-Control-Allow-Origin *;
-              ''
-            ;
+              '';
             "/srv/status" = proxy {
               extraConfig = ''
                 access_log off;
@@ -964,8 +958,7 @@ in
                 # asset pipeline enables this
                 brotli_static on;
                 gzip_static on;
-              ''
-            ;
+              '';
             "~ ^/plugins/".extraConfig = cache_1y;
             "~ /images/emoji/".extraConfig = cache_1y;
             "~ ^/uploads/" = proxy {
@@ -990,8 +983,7 @@ in
                   location ~ /_?optimized/ {
                       try_files $uri =404;
                   }
-                ''
-              ;
+                '';
             };
             "~ ^/admin/backups/" = proxy {
               extraConfig = ''
@@ -1069,8 +1061,7 @@ in
                   if cfg.mail.incoming.apiKeyFile == null then
                     "/var/lib/discourse-mail-receiver/api_key"
                   else
-                    cfg.mail.incoming.apiKeyFile
-                ;
+                    cfg.mail.incoming.apiKeyFile;
               in
               ''
                 set -o errexit -o pipefail -o nounset -o errtrace

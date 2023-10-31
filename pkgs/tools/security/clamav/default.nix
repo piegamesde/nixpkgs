@@ -66,8 +66,7 @@ stdenv.mkDerivation rec {
       check
     ]
     ++ lib.optional stdenv.isLinux systemd
-    ++ lib.optional stdenv.isDarwin Foundation
-  ;
+    ++ lib.optional stdenv.isDarwin Foundation;
 
   cmakeFlags = [
     "-DSYSTEMD_UNIT_DIR=${placeholder "out"}/lib/systemd"

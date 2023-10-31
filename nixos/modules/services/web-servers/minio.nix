@@ -133,8 +133,7 @@ in
               else if ((cfg.accessKey != "") || (cfg.secretKey != "")) then
                 (legacyCredentials cfg)
               else
-                null
-            ;
+                null;
           };
           environment = {
             MINIO_REGION = "${cfg.region}";

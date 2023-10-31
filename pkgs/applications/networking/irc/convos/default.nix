@@ -110,8 +110,7 @@ perlPackages.buildPerlPackage rec {
     ''
     + ''
       wrapProgram $out/bin/convos --set MOJO_HOME $out
-    ''
-  ;
+    '';
 
   passthru.tests = nixosTests.convos;
 

@@ -52,8 +52,7 @@ buildPythonPackage rec {
       httpx
     ]
     ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
 
   nativeCheckInputs = [
     pytestCheckHook

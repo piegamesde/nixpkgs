@@ -376,8 +376,7 @@ rec {
               f="$out/Library/Frameworks/QuartzCore.framework/Headers/CoreImage.h"
               substituteInPlace "$f" \
                 --replace "QuartzCore/../Frameworks/CoreImage.framework/Headers" "CoreImage"
-            ''
-          ;
+            '';
         }
       );
 
@@ -388,8 +387,7 @@ rec {
             + ''
               mkdir -p $out/include/simd
               cp ${lib.getDev sdk}/include/simd/*.h $out/include/simd/
-            ''
-          ;
+            '';
         }
       );
 
@@ -414,8 +412,7 @@ rec {
           "SkyLight"
           "UIFoundation"
         ]
-        (x: tbdOnlyFramework x { })
-  ;
+        (x: tbdOnlyFramework x { });
 
   bareFrameworks = lib.mapAttrs framework (
     import ./frameworks.nix {

@@ -92,8 +92,7 @@ let
     if systemLocale == "ca_ES@valencia" then
       "ca-valencia"
     else
-      lib.replaceStrings [ "_" ] [ "-" ] systemLocale
-  ;
+      lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
@@ -152,8 +151,7 @@ stdenv.mkDerivation {
       ffmpeg
     ]
     + ":"
-    + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ]
-  ;
+    + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
 
   inherit gtk3;
 
@@ -229,8 +227,7 @@ stdenv.mkDerivation {
       if channel == "devedition" then
         "https://archive.mozilla.org/pub/devedition/releases/"
       else
-        "https://archive.mozilla.org/pub/firefox/releases/"
-    ;
+        "https://archive.mozilla.org/pub/firefox/releases/";
   };
   meta = with lib; {
     changelog = "https://www.mozilla.org/en-US/firefox/${version}/releasenotes/";

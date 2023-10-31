@@ -50,8 +50,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (geolite-legacy != null) [
       "--with-geoip-db=${geolite-legacy}/share/GeoIP"
     ]
-    ++ lib.optionals (ip2location-c != null) [ "--enable-ip2location" ]
-  ;
+    ++ lib.optionals (ip2location-c != null) [ "--enable-ip2location" ];
 
   enableParallelBuilding = true;
 

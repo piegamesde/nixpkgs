@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       xorg.libSM
       xorg.libICE
     ]
-    ++ lib.optional enablePython python
-  ;
+    ++ lib.optional enablePython python;
 
   enableParallelBuilding = true;
 

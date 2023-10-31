@@ -15,8 +15,7 @@ let
     if hasPrefix "file://" cfg.targetUrl then
       removePrefix "file://" cfg.targetUrl
     else
-      null
-  ;
+      null;
 in
 {
   options.services.duplicity = {
@@ -215,8 +214,7 @@ in
             StateDirectory = baseNameOf stateDirectory;
           }
           // optionalAttrs (localTarget != null) { ReadWritePaths = localTarget; }
-          // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; }
-        ;
+          // optionalAttrs (cfg.secretFile != null) { EnvironmentFile = cfg.secretFile; };
       } // optionalAttrs (cfg.frequency != null) { startAt = cfg.frequency; };
 
       tmpfiles.rules =

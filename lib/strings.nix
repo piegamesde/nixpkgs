@@ -91,8 +91,7 @@ rec {
             x
           ])
           list
-      )
-  ;
+      );
 
   /* Concatenate a list of strings with a separator between each element
 
@@ -1048,8 +1047,7 @@ rec {
       "float"
       "bool"
     ]
-    || (isList x && lib.all isConvertibleWithToString x)
-  ;
+    || (isList x && lib.all isConvertibleWithToString x);
 
   /* Check whether a value can be coerced to a string.
      The value must be a string, path, or attribute set.
@@ -1079,8 +1077,7 @@ rec {
       in
       substring 0 1 str == "/" && dirOf str == storeDir
     else
-      false
-  ;
+      false;
 
   /* Parse a string as an int. Does not support parsing of integers with preceding zero due to
      ambiguity between zero-padded and octal numbers. See toIntBase10.
@@ -1121,8 +1118,7 @@ rec {
 
       octalAmbigError =
         "toInt: Ambiguity in interpretation of ${escapeNixString str}"
-        + " between octal and zero padded integer."
-      ;
+        + " between octal and zero padded integer.";
     in
     # Error on presence of non digit characters.
     if strippedInput == null then
@@ -1135,8 +1131,7 @@ rec {
       throw generalError
     # Return result.
     else
-      parsedInput
-  ;
+      parsedInput;
 
   /* Parse a string as a base 10 int. This supports parsing of zero-padded integers.
 
@@ -1185,8 +1180,7 @@ rec {
       throw generalError
     # Return result.
     else
-      parsedInput
-  ;
+      parsedInput;
 
   /* Read a list of paths from `file`, relative to the `rootPath`.
      Lines beginning with `#` are treated as comments and ignored.
@@ -1265,8 +1259,7 @@ rec {
         (x: substring (lib.max (stringLength x - 207) 0) (-1) x)
         # If the result is empty, replace it with "unknown"
         (x: if stringLength x == 0 then "unknown" else x)
-      ]
-  ;
+      ];
 
   /* Computes the Levenshtein distance between two strings.
      Complexity O(n*m) where n and m are the lengths of the strings.
@@ -1300,8 +1293,7 @@ rec {
         else if i == 0 then
           j
         else
-          lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1)) (d (i - 1) (j - 1) + c)
-      ;
+          lib.min (lib.min (d (i - 1) j + 1) (d i (j - 1) + 1)) (d (i - 1) (j - 1) + c);
     in
     d (stringLength a) (stringLength b);
 
@@ -1317,8 +1309,7 @@ rec {
         else if substring i 1 a == substring i 1 b then
           go (i + 1)
         else
-          i
-      ;
+          i;
     in
     go 0;
 
@@ -1336,8 +1327,7 @@ rec {
         then
           go (i + 1)
         else
-          i
-      ;
+          i;
     in
     go 0;
 
@@ -1402,8 +1392,7 @@ rec {
         # vice versa
         # Example: "abcdef" -> "zbcdez" or "bcdefz" or "zabcde"
         else
-          xinfix == yinfix || xdelr == ydell || xdell == ydelr
-      ;
+          xinfix == yinfix || xdelr == ydell || xdell == ydelr;
     in
     k:
     if k <= 0 then
@@ -1432,9 +1421,7 @@ rec {
           else if k == 2 then
             infixDifferAtMost2 ainfix binfix
           else
-            levenshtein ainfix binfix <= k
-        ;
+            levenshtein ainfix binfix <= k;
       in
-      f
-  ;
+      f;
 }

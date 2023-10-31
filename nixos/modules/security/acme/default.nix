@@ -123,8 +123,7 @@ let
               done
             '')
             certConfigs
-        ))
-      ;
+        ));
     in
     {
       description = "Fix owner and group of all ACME certificates";
@@ -168,8 +167,7 @@ let
         data.extraDomainNames
         ++ (optionals (data.extraDomains != "_mkMergedOptionModule") (
           builtins.attrNames data.extraDomains
-        ))
-      ;
+        ));
 
       # Create hashes for cert data directories based on configuration
       # Flags are separated to avoid collisions
@@ -210,8 +208,7 @@ let
             "--http"
             "--http.webroot"
             data.webroot
-          ]
-      ;
+          ];
 
       commonOpts =
         [
@@ -237,8 +234,7 @@ let
               name
             ])
             extraDomains
-        ++ data.extraLegoFlags
-      ;
+        ++ data.extraLegoFlags;
 
       # Although --must-staple is common to both modes, it is not declared as a
       # mode-agnostic argument in lego and thus must come after the mode.
@@ -415,8 +411,7 @@ let
                       }"
                   }
                 fi
-              '')
-            ;
+              '');
           }
           //
             optionalAttrs
@@ -427,8 +422,7 @@ let
               {
                 CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
                 AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-              }
-        ;
+              };
 
         # Working directory will be /tmp
         script = ''
@@ -555,8 +549,7 @@ let
           if isDefaults then
             default
           else
-            literalExpression "config.security.acme.defaults.${name}"
-        ;
+            literalExpression "config.security.acme.defaults.${name}";
       };
     in
     {
@@ -1120,8 +1113,7 @@ in
               }
             ])
             cfg.certs
-        ))
-      ;
+        ));
 
       users.users.acme = {
         home = "/var/lib/acme";
@@ -1146,8 +1138,7 @@ in
             (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
             certConfigs
           )
-        ))
-      ;
+        ));
 
       systemd.timers =
         mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)

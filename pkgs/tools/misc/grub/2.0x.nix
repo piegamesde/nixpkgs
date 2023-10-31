@@ -374,8 +374,7 @@ in
         ''
           echo '#! ${runtimeShell}' > util/grub-kbdcomp.in
           echo 'echo "Compile grub2 with { kbdcompSupport = true; } to enable support for this command."' >> util/grub-kbdcomp.in
-        ''
-    ;
+        '';
 
     depsBuildBuild = [ buildPackages.stdenv.cc ];
     nativeBuildInputs = [
@@ -456,8 +455,7 @@ in
       ++ lib.optionals xenSupport [
         "--with-platform=xen"
         "--target=${efiSystemsBuild.${stdenv.hostPlatform.system}.target}"
-      ]
-    ;
+      ];
 
     # save target that grub is compiled for
     grubTarget =
@@ -465,8 +463,7 @@ in
         "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
       else
         lib.optionalString inPCSystems
-          "${pcSystems.${stdenv.hostPlatform.system}.target}-pc"
-    ;
+          "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
 
     doCheck = false;
     enableParallelBuilding = true;

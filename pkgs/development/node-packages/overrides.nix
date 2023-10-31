@@ -40,8 +40,7 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
-      ]
-    ;
+      ];
   };
 
   "@githubnext/github-copilot-cli" = pkgs.github-copilot-cli;
@@ -59,8 +58,7 @@ final: prev: {
         ++ lib.optionals stdenv.isDarwin [
           AppKit
           Security
-        ]
-      ;
+        ];
       buildInputs = [
         final.node-gyp-build
         final.node-pre-gyp
@@ -118,8 +116,7 @@ final: prev: {
     nativeBuildInputs =
       with pkgs;
       [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
     buildInputs = with pkgs; [
       pixman
       cairo
@@ -329,8 +326,7 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [
         darwin.apple_sdk.frameworks.AppKit
         darwin.apple_sdk.frameworks.Security
-      ]
-    ;
+      ];
   };
 
   jsonplaceholder = prev.jsonplaceholder.override {
@@ -355,8 +351,7 @@ final: prev: {
         cairo
         pango
       ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
   makam = prev.makam.override {
@@ -746,8 +741,7 @@ final: prev: {
         pango
         libjpeg
       ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
   vega-lite = prev.vega-lite.override {
@@ -783,8 +777,7 @@ final: prev: {
         cairo
         pango
       ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
   webtorrent-cli = prev.webtorrent-cli.override {

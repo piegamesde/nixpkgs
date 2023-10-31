@@ -62,8 +62,7 @@ in
         + (optionalString (cfg.rttablesExtraConfig != "") ''
 
 
-          ${cfg.rttablesExtraConfig}'')
-      ;
+          ${cfg.rttablesExtraConfig}'');
     };
   };
 }

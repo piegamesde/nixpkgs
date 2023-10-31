@@ -80,8 +80,7 @@ stdenv.mkDerivation rec {
     + ''
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -98,8 +97,7 @@ stdenv.mkDerivation rec {
     + ''
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   setupHook = ./setup-hook.sh;
 

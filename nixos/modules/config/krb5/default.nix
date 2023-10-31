@@ -66,8 +66,7 @@ let
         value
       )
     else
-      value
-  ;
+      value;
 
   indent = "  ";
 
@@ -76,8 +75,7 @@ let
     if (isList value) then
       concatMapStringsSep "\n" (mkRelation name) value
     else
-      "${name} = ${mkVal value}"
-  ;
+      "${name} = ${mkVal value}";
 
   mkVal =
     value:
@@ -103,8 +101,7 @@ let
 
         }''
     else
-      value
-  ;
+      value;
 
   mkMappedAttrsOrString =
     value:
@@ -370,8 +367,7 @@ in
           + optionalString (mergedConfig.extraConfig != null) (
             "\n" + mergedConfig.extraConfig
           )
-        )
-    ;
+        );
 
     warnings = flatten [
       (optional (cfg.defaultRealm != null) ''

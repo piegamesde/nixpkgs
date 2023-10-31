@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
         $out/opt/brother/Printers/HLL2375DW/cupswrapper/brother-HLL2375DW-cups-en.ppd \
         $out/share/cups/model/
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "http://www.brother.com/";

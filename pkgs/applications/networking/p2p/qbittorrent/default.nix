@@ -47,8 +47,7 @@ mkDerivation rec {
       qtsvg
     ]
     ++ lib.optional guiSupport dbus # D(esktop)-Bus depends on GUI support
-    ++ lib.optional trackerSearch python3
-  ;
+    ++ lib.optional trackerSearch python3;
 
   # Otherwise qm_gen.pri assumes lrelease-qt5, which does not exist.
   QMAKE_LRELEASE = "lrelease";
@@ -63,8 +62,7 @@ mkDerivation rec {
       "--enable-systemd"
     ] # Also place qbittorrent-nox systemd service files
     ++ lib.optional (!webuiSupport) "--disable-webui"
-    ++ lib.optional debugSupport "--enable-debug"
-  ;
+    ++ lib.optional debugSupport "--enable-debug";
 
   qtWrapperArgs =
     lib.optional trackerSearch

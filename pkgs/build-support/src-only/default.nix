@@ -14,8 +14,7 @@ let
     if builtins.hasAttr "name" args then
       args.name
     else
-      "${args.pname}-${args.version}"
-  ;
+      "${args.pname}-${args.version}";
 in
 stdenv.mkDerivation (
   args

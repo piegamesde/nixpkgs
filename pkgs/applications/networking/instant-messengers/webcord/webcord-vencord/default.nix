@@ -22,7 +22,6 @@ webcord.overrideAttrs (
           FlafyDev
           NotAShelf
         ];
-      }
-    ;
+      };
   }
 )

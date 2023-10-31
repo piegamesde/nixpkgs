@@ -46,8 +46,7 @@ assert lib.assertOneOf "withSDLVersion" withSDLVersion [
 assert enableHAXM
   -> (lib.assertMsg enableX11
     "Must enable X11 graphics interface for HAXM build."
-  )
-;
+  );
 let
   inherit (lib) optional optionals optionalString;
   inherit (lib.strings) concatStringsSep concatMapStringsSep;
@@ -71,8 +70,7 @@ let
     else if stdenv.hostPlatform.isDarwin then
       "mac"
     else
-      "unix"
-  ;
+      "unix";
   sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
     optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
   );
@@ -141,8 +139,7 @@ stdenv.mkDerivation rec {
       ./autogen.sh ${x11ConfigureFlags}
       ./configure ${x11ConfigureFlags}
       cd ..
-    ''
-  ;
+    '';
 
   nativeBuildInputs =
     sdlDepsBuildonly
@@ -189,8 +186,7 @@ stdenv.mkDerivation rec {
       cd x11
       make $buildFlags ${x11BuildFlags}
       cd ..
-    ''
-  ;
+    '';
 
   installPhase =
     optionalString enableSDL ''
@@ -206,8 +202,7 @@ stdenv.mkDerivation rec {
         install -D -m 755 $emu $out/bin/$emu
       done
       cd ..
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A PC-9801 series emulator";

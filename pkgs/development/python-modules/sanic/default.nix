@@ -74,8 +74,7 @@ buildPythonPackage rec {
     + lib.optionalString stdenv.isDarwin ''
       # OSError: [Errno 24] Too many open files
       ulimit -n 1024
-    ''
-  ;
+    '';
 
   # uvloop usage is buggy
   #SANIC_NO_UVLOOP = true;

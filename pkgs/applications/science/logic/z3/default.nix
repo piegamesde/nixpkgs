@@ -46,8 +46,7 @@ let
         ++ optionals ocamlBindings [
           ocaml
           findlib
-        ]
-      ;
+        ];
       propagatedBuildInputs = [
         python.pkgs.setuptools
       ] ++ optionals ocamlBindings [ zarith ];
@@ -66,8 +65,7 @@ let
           ++ optional pythonBindings "--python --pypkgdir=$out/${python.sitePackages}"
         )
         + "\n"
-        + "cd build"
-      ;
+        + "cd build";
 
       doCheck = true;
       checkPhase = ''
@@ -90,8 +88,7 @@ let
           mkdir -p $java/share/java
           mv com.microsoft.z3.jar $java/share/java
           moveToOutput "lib/libz3java.${stdenv.hostPlatform.extensions.sharedLibrary}" "$java"
-        ''
-      ;
+        '';
 
       outputs = [
         "out"

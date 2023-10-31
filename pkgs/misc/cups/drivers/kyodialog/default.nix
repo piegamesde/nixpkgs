@@ -106,8 +106,7 @@ stdenv.mkDerivation rec {
       substituteInPlace $out/share/applications/kyodialog.desktop \
         --replace Exec=\"/usr/bin/kyodialog${kyodialog_version}\" Exec=\"$out/bin/kyodialog\" \
         --replace Icon=/usr/share/kyocera/appicon_H.png Icon=$out/share/${pname}/icons/appicon_H.png
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "CUPS drivers for several Kyocera printers";

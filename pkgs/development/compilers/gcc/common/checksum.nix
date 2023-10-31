@@ -12,8 +12,7 @@ let
     (with stdenv; buildPlatform == hostPlatform && hostPlatform == targetPlatform)
     && langC
     && langCC
-    && !stdenv.hostPlatform.isDarwin
-  ;
+    && !stdenv.hostPlatform.isDarwin;
 in
 (
   pkg:

@@ -172,8 +172,7 @@ with lib;
       supportBios =
         partitionTableType == "legacy"
         || partitionTableType == "hybrid"
-        || partitionTableType == "legacy+gpt"
-      ;
+        || partitionTableType == "legacy+gpt";
       hasBootPartition =
         partitionTableType == "efi" || partitionTableType == "hybrid";
       hasNoFsPartition =
@@ -184,8 +183,7 @@ with lib;
         {
           assertion =
             config.boot.loader.systemd-boot.enable
-            -> config.proxmox.qemuConf.bios == "ovmf"
-          ;
+            -> config.proxmox.qemuConf.bios == "ovmf";
           message = "systemd-boot requires 'ovmf' bios";
         }
         {

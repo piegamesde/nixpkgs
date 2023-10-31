@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
       bin/kc.sh build
 
       runHook postBuild
-    ''
-  ;
+    '';
 
   installPhase = ''
     runHook preInstall

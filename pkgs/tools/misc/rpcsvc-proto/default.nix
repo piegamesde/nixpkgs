@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
       substituteInPlace rpcsvc/Makefile.am \
         --replace '$(top_builddir)/rpcgen/rpcgen' '${buildPackages.rpcsvc-proto}/bin/rpcgen'
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/thkukuk/rpcsvc-proto";

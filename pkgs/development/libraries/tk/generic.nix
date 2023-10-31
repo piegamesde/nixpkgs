@@ -44,8 +44,7 @@ tcl.mkTclDerivation {
         ''
           substituteInPlace unix/configure* \
             --replace " -framework UniformTypeIdentifiers" ""
-        ''
-  ;
+        '';
 
   postInstall =
     ''
@@ -55,14 +54,12 @@ tcl.mkTclDerivation {
     ''
     + lib.optionalString (stdenv.isDarwin) ''
       cp ../macosx/*.h $out/include
-    ''
-  ;
+    '';
 
   configureFlags =
     [ "--enable-threads" ]
     ++ lib.optional stdenv.is64bit "--enable-64bit"
-    ++ lib.optional enableAqua "--enable-aqua"
-  ;
+    ++ lib.optional enableAqua "--enable-aqua";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ ];

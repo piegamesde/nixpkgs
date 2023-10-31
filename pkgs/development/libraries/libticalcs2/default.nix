@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       bzip2
     ]
     ++ lib.optionals stdenv.isLinux [ acl ]
-    ++ lib.optionals stdenv.isDarwin [ libobjc ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ libobjc ];
 
   meta = with lib; {
     changelog = "http://lpg.ticalc.org/prj_tilp/news.html";

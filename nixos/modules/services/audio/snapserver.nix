@@ -45,8 +45,7 @@ let
     + "?"
     + os' "name=" name
     + concatStrings (mapAttrsToList flatten opt.query)
-    + ''"''
-  ;
+    + ''"'';
 
   optionalNull = val: ret: optional (val != null) ret;
 
@@ -362,8 +361,7 @@ in
     networking.firewall.allowedTCPPorts =
       optionals cfg.openFirewall [ cfg.port ]
       ++ optional (cfg.openFirewall && cfg.tcp.enable) cfg.tcp.port
-      ++ optional (cfg.openFirewall && cfg.http.enable) cfg.http.port
-    ;
+      ++ optional (cfg.openFirewall && cfg.http.enable) cfg.http.port;
   };
 
   meta = {

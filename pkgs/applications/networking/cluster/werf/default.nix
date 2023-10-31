@@ -79,8 +79,7 @@ buildGoModule rec {
     + lib.optionalString (CGO_ENABLED == 0) ''
       # A workaround for osusergo.
       export USER=nixbld
-    ''
-  ;
+    '';
 
   postInstall = ''
     installShellCompletion --cmd werf \

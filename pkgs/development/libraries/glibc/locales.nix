@@ -69,8 +69,7 @@ callPackage ./common.nix { inherit stdenv; } {
     + ''
       make localedata/install-locales \
           localedir=$out/lib/locale \
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir -p "$out/lib/locale" "$out/share/i18n"

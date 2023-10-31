@@ -10,8 +10,7 @@ let
     if (builtins.hasAttr stdenv.hostPlatform.system sources.platforms) then
       builtins.getAttr (stdenv.hostPlatform.system) sources.platforms
     else
-      throw "Not supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "Not supported on ${stdenv.hostPlatform.system}";
 in
 stdenv.mkDerivation {
   pname = "tabnine";

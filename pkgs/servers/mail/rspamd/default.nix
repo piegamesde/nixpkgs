@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
       lapack
     ]
     ++ lib.optional withLuaJIT luajit
-    ++ lib.optional (!withLuaJIT) lua
-  ;
+    ++ lib.optional (!withLuaJIT) lua;
 
   cmakeFlags =
     [
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
       "-DENABLE_JEMALLOC=ON"
     ]
     ++ lib.optional withHyperscan "-DENABLE_HYPERSCAN=ON"
-    ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF"
-  ;
+    ++ lib.optional (!withLuaJIT) "-DENABLE_LUAJIT=OFF";
 
   passthru.tests.rspamd = nixosTests.rspamd;
 

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
       lib.optional (stdenv.hostPlatform.system == "x86_64-linux")
         # Force use of old memcpy so that installwatch works on Glibc <
         # 2.14.
-        ./use-old-memcpy.patch
-  ;
+        ./use-old-memcpy.patch;
 
   buildInputs = [ gettext ];
 

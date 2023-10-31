@@ -145,8 +145,7 @@ in
                   include "${cfg.rulesetFile}"
                 ''
               else
-                cfg.ruleset
-              }
+                cfg.ruleset}
             '';
             checkPhase = lib.optionalString cfg.checkRuleset ''
               cp $out ruleset.conf

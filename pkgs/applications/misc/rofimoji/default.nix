@@ -48,8 +48,7 @@ buildPythonApplication rec {
     ++ optionals x11Support [
       xdotool
       xsel
-    ]
-  ;
+    ];
 
   # The 'extractors' sub-module is used for development
   # and has additional dependencies.

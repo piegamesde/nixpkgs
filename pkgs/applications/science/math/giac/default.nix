@@ -132,8 +132,7 @@ stdenv.mkDerivation rec {
       fltk
       xorg.libX11
     ]
-    ++ lib.optional enableMicroPy python3
-  ;
+    ++ lib.optional enableMicroPy python3;
 
   # xcas Phys and Turtle menus are broken with split outputs
   # and interactive use is likely to need docs
@@ -168,8 +167,7 @@ stdenv.mkDerivation rec {
       "--with-x"
     ]
     ++ lib.optionals (!enableGUI) [ "--disable-fltk" ]
-    ++ lib.optionals (!enableMicroPy) [ "--disable-micropy" ]
-  ;
+    ++ lib.optionals (!enableMicroPy) [ "--disable-micropy" ];
 
   postInstall =
     ''
@@ -193,8 +191,7 @@ stdenv.mkDerivation rec {
       for i in pixmaps application-registry applications icons; do
         rm -r "$out/share/$i";
       done;
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "A free computer algebra system (CAS)";

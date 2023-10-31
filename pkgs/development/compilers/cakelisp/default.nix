@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
       substituteInPlace Build.sh --replace '--export-dynamic' '-export_dynamic'
       substituteInPlace runtime/HotReloading.cake --replace '--export-dynamic' '-export_dynamic'
       substituteInPlace Bootstrap.cake --replace '--export-dynamic' '-export_dynamic'
-    ''
-  ;
+    '';
 
   buildPhase = ''
     ./Build.sh

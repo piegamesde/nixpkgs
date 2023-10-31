@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
     # signature. Add the fixup hook to sign the output.
     ++
       lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-        [ autoSignDarwinBinariesHook ]
-  ;
+        [ autoSignDarwinBinariesHook ];
 
   buildInputs =
     [
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!stdenv.isDarwin) [
       e2fsprogs
       gpm
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

@@ -132,8 +132,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildDocs ''
         export HOME=$(mktemp -d)
         export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
-      ''
-    ;
+      '';
 
     doCheck = buildTests;
     checkTarget = "build_tests";
@@ -193,8 +192,7 @@ stdenv.mkDerivation (
       broken =
         versions.minor finalAttrs.version != versions.minor hip-common.version
         || versions.minor finalAttrs.version != versions.minor hipcc.version
-        || buildTests
-      ;
+        || buildTests;
     };
   }
 )

@@ -20,8 +20,7 @@
       || stdenv.hostPlatform.isCygwin
       || stdenv.hostPlatform.isLinux
       || stdenv.hostPlatform.isWasi
-    )
-  ,
+    ),
   icuSupport ? false,
   icu,
   enableShared ?
@@ -52,8 +51,7 @@ let
         "doc"
       ]
       ++ lib.optional pythonSupport "py"
-      ++ lib.optional (enableStatic && enableShared) "static"
-    ;
+      ++ lib.optional (enableStatic && enableShared) "static";
     outputMan = "bin";
 
     src = fetchurl {
@@ -101,8 +99,7 @@ let
             # platforms, it may end up using that from /usr/lib, and thus lack a
             # RUNPATH for that, leading to undefined references for its users.
             xz
-          ]
-    ;
+          ];
 
     propagatedBuildInputs =
       [
@@ -110,8 +107,7 @@ let
         findXMLCatalogs
       ]
       ++ lib.optionals stdenv.isDarwin [ libiconv ]
-      ++ lib.optionals icuSupport [ icu ]
-    ;
+      ++ lib.optionals icuSupport [ icu ];
 
     configureFlags = [
       "--exec-prefix=${placeholder "dev"}"
@@ -131,8 +127,7 @@ let
 
     doCheck =
       (stdenv.hostPlatform == stdenv.buildPlatform)
-      && stdenv.hostPlatform.libc != "musl"
-    ;
+      && stdenv.hostPlatform.libc != "musl";
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';
@@ -155,8 +150,7 @@ let
       ''
       + lib.optionalString (enableStatic && enableShared) ''
         moveToOutput lib/libxml2.a "$static"
-      ''
-    ;
+      '';
 
     passthru = {
       inherit version;

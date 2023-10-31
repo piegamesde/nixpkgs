@@ -9,8 +9,7 @@ let
 
   gemTests =
     (lib.mapAttrs (name: gem: [ name ]) pkgs.ruby.gems)
-    // (import ./require_exceptions.nix)
-  ;
+    // (import ./require_exceptions.nix);
 
   testWrapper =
     ruby:
@@ -43,8 +42,7 @@ let
                 ${lib.concatStringsSep "\n" (map (n: "require '${n}'") gemTests.${name})}
               ''
             else
-              pkgs.writeText "${name}.rb" gemTests.${name}
-          ;
+              pkgs.writeText "${name}.rb" gemTests.${name};
 
           deps = ruby.withPackages (g: [ g.${name} ]);
         in

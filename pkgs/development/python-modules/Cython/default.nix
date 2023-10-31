@@ -27,8 +27,7 @@ let
     ++ lib.optionals stdenv.isi686 [
       "future_division"
       "overflow_check_longlong"
-    ]
-  ;
+    ];
 in
 buildPythonPackage rec {
   pname = "cython";

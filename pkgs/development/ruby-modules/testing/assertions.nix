@@ -9,16 +9,14 @@
         "expected '${toString expected}'(${builtins.typeOf expected})"
         + " !=  "
         + "actual '${toString actual}'(${builtins.typeOf actual})"
-      ))
-  ;
+      ));
 
   beASet =
     actual:
     if builtins.isAttrs actual then
       (test.passed "is a set")
     else
-      (test.failed "is not a set, was ${builtins.typeOf actual}: ${toString actual}")
-  ;
+      (test.failed "is not a set, was ${builtins.typeOf actual}: ${toString actual}");
 
   haveKeys =
     expected: actual:
@@ -32,14 +30,12 @@
         "keys differ: expected: [${lib.concatStringsSep ";" expected}] actual: [${
           lib.concatStringsSep ";" (builtins.attrNames actual)
         }]"
-      )
-  ;
+      );
 
   havePrefix =
     expected: actual:
     if lib.hasPrefix expected actual then
       (test.passed "has prefix '${expected}'")
     else
-      (test.failed "prefix '${expected}' not found in '${actual}'")
-  ;
+      (test.failed "prefix '${expected}' not found in '${actual}'");
 }

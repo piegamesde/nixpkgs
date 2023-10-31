@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isDarwin [
       apple_sdk.libs.xpc
       apple_sdk.frameworks.CoreServices
-    ]
-  ;
+    ];
 
   src = fetchFromGitHub {
     owner = "andersbakken";

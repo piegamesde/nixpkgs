@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!static) ''
       sed -i 's,-static,,g' src/Makefile
-    ''
-  ;
+    '';
 
   preBuild = ''
     cd src

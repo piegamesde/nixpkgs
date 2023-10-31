@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.isLinux [
       ocl-icd
       opencl-headers
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

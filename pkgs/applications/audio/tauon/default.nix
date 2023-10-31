@@ -115,8 +115,7 @@ stdenv.mkDerivation rec {
       setproctitle
     ]
     ++ lib.optional withDiscordRPC pypresence
-    ++ lib.optional stdenv.isLinux pulsectl
-  ;
+    ++ lib.optional stdenv.isLinux pulsectl;
 
   makeWrapperArgs = [
     "--prefix PATH : ${lib.makeBinPath [ ffmpeg ]}"

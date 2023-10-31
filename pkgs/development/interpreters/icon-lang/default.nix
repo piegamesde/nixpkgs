@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
         else if stdenv.isSunOS then
           "solaris"
         else
-          throw "unsupported system"
-      ;
+          throw "unsupported system";
     in
     "make ${target} name=${platform}";
 

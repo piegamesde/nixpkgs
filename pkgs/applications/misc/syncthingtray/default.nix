@@ -54,8 +54,7 @@ mkDerivation rec {
     ++ lib.optionals webviewSupport [ qtwebengine ]
     ++ lib.optionals jsSupport [ qtdeclarative ]
     ++ lib.optionals kioPluginSupport [ kio ]
-    ++ lib.optionals plasmoidSupport [ plasma-framework ]
-  ;
+    ++ lib.optionals plasmoidSupport [ plasma-framework ];
 
   nativeBuildInputs = [
     cmake
@@ -78,8 +77,7 @@ mkDerivation rec {
     ++ lib.optionals (!plasmoidSupport) [ "-DNO_PLASMOID=ON" ]
     ++ lib.optionals (!kioPluginSupport) [ "-DNO_FILE_ITEM_ACTION_PLUGIN=ON" ]
     ++ lib.optionals systemdSupport [ "-DSYSTEMD_SUPPORT=ON" ]
-    ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ]
-  ;
+    ++ lib.optionals (!webviewSupport) [ "-DWEBVIEW_PROVIDER:STRING=none" ];
 
   meta = with lib; {
     homepage = "https://github.com/Martchus/syncthingtray";

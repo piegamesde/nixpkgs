@@ -32,8 +32,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.isDarwin ''
       install_name_tool -id $out/lib/libsonic.so.0.3.0 $out/lib/libsonic.so.0.3.0
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Simple library to speed up or slow down speech";

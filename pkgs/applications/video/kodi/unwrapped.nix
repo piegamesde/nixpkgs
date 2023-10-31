@@ -210,8 +210,7 @@ let
   kodi_platforms =
     lib.optional gbmSupport "gbm"
     ++ lib.optional waylandSupport "wayland"
-    ++ lib.optional x11Support "x11"
-  ;
+    ++ lib.optional x11Support "x11";
 in
 stdenv.mkDerivation {
   pname = "kodi";
@@ -331,8 +330,7 @@ stdenv.mkDerivation {
       libxkbcommon.dev
       mesa.dev
       libinput.dev
-    ]
-  ;
+    ];
 
   nativeBuildInputs =
     [
@@ -408,8 +406,7 @@ stdenv.mkDerivation {
 
       CXX=$CXX_FOR_BUILD LD=ld make EXTRA_CONFIGURE= -C tools/depends/native/TexturePacker
       cmakeFlags+=" -DWITH_TEXTUREPACKER=$PWD/tools/depends/native/TexturePacker/bin"
-    ''
-  ;
+    '';
 
   postPatch = ''
     substituteInPlace xbmc/platform/posix/PosixTimezone.cpp \

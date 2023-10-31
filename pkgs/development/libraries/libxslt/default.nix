@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
       python
       ncurses
     ]
-    ++ lib.optionals cryptoSupport [ libgcrypt ]
-  ;
+    ++ lib.optionals cryptoSupport [ libgcrypt ];
 
   propagatedBuildInputs = [ findXMLCatalogs ];
 
@@ -76,8 +75,7 @@ stdenv.mkDerivation rec {
       mkdir -p $py/nix-support
       echo ${libxml2.py} >> $py/nix-support/propagated-build-inputs
       moveToOutput ${python.sitePackages} "$py"
-    ''
-  ;
+    '';
 
   passthru = {
     inherit pythonSupport;

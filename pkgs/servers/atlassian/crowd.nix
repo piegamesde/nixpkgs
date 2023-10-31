@@ -52,8 +52,7 @@ optionalWarning (openidPassword != "WILL_NEVER_BE_SET")
             -e 's,http://localhost:${
               toString port
             }/openidserver,${proxyUrl}/openidserver,'
-        ''
-      ;
+        '';
 
       installPhase = ''
         cp -rva . $out

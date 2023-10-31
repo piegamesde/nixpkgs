@@ -93,8 +93,7 @@ let
         args = cfg.${cmd}.arguments;
       in
       optionalString (length args != 0) (" \\\n  " + concatStringsSep " \\\n  " args)
-    )
-  ;
+    );
 
   argumentsOf =
     cmd:
@@ -170,8 +169,7 @@ let
             if cfg.tracing.config == null then
               null
             else
-              toString (toYAML "tracing.yaml" cfg.tracing.config)
-          ;
+              toString (toYAML "tracing.yaml" cfg.tracing.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.tracing.config == null then null
             else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
@@ -230,8 +228,7 @@ let
           If no client CA is specified, there is no client verification on server side.
           (tls.NoClientCert)
         '';
-      }
-    ;
+      };
 
     objstore = cfg: {
 
@@ -243,8 +240,7 @@ let
             if cfg.objstore.config == null then
               null
             else
-              toString (toYAML "objstore.yaml" cfg.objstore.config)
-          ;
+              toString (toYAML "objstore.yaml" cfg.objstore.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.objstore.config == null then null
             else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
@@ -309,8 +305,7 @@ let
         reloader.rule-dirs = mkListParam "reloader.rule-dir" ''
           Rule directories for the reloader to refresh.
         '';
-      }
-    ;
+      };
 
     store =
       params.common cfg.store
@@ -369,8 +364,7 @@ let
           relative to current time, such as -1d or 2h45m. Valid duration units are
           ms, s, m, h, d, w, y.
         '';
-      }
-    ;
+      };
 
     query = params.common cfg.query // {
 
@@ -608,8 +602,7 @@ let
         query.sd-dns-interval = mkParamDef types.str "30s" ''
           Interval between DNS resolutions.
         '';
-      }
-    ;
+      };
 
     compact =
       params.log
@@ -677,8 +670,7 @@ let
         compact.concurrency = mkParamDef types.int 1 ''
           Number of goroutines to use when compacting groups.
         '';
-      }
-    ;
+      };
 
     downsample =
       params.log
@@ -690,8 +682,7 @@ let
           Data directory relative to `/var/lib`
           in which to cache blocks and process downsamplings.
         '';
-      }
-    ;
+      };
 
     receive =
       params.common cfg.receive
@@ -718,8 +709,7 @@ let
 
           `0d` - disables this retention
         '';
-      }
-    ;
+      };
   };
 
   assertRelativeStateDir = cmd: {
@@ -728,8 +718,7 @@ let
         assertion = !hasPrefix "/" cfg.${cmd}.stateDir;
         message =
           "The option services.thanos.${cmd}.stateDir should not be an absolute directory."
-          + " It should be a directory relative to /var/lib."
-        ;
+          + " It should be a directory relative to /var/lib.";
       }
     ];
   };
@@ -823,8 +812,7 @@ in
           message =
             "services.thanos.sidecar requires uniquely identifying external labels "
             + "to be configured in the Prometheus server. "
-            + "Please set services.prometheus.globalConfig.external_labels."
-          ;
+            + "Please set services.prometheus.globalConfig.external_labels.";
         }
       ];
       systemd.services.thanos-sidecar = {
@@ -908,8 +896,7 @@ in
                 ExecStart = thanos "compact";
               };
             }
-            // optionalAttrs (!wait) { inherit (cfg.compact) startAt; }
-          ;
+            // optionalAttrs (!wait) { inherit (cfg.compact) startAt; };
         }
       ]
     ))

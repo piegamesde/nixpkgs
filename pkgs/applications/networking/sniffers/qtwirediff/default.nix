@@ -43,8 +43,7 @@ stdenv.mkDerivation {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   meta = {
     description = "Debugging tool to diff network traffic leveraging Wireshark";

@@ -37,8 +37,7 @@ let
       if (cfg.headingText != null) then
         (lib.escapeShellArg cfg.headingText)
       else
-        null
-    ;
+        null;
     nodemodification = lib.boolToString cfg.nodeModification;
     configcheckms = toString cfg.configCheckMs;
     jquerystyle = cfg.jqueryStyle;

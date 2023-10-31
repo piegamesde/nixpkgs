@@ -22,8 +22,7 @@ let
     if cfg.enableGossipEncryption then
       "/run/wgautomesh/wgautomesh.toml"
     else
-      configFile
-  ;
+      configFile;
 in
 {
   options.services.wgautomesh = {

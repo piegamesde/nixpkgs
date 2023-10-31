@@ -40,8 +40,7 @@ buildPythonPackage rec {
     + lib.optionalString withVoice ''
       substituteInPlace "discord/player.py" \
         --replace "executable='ffmpeg'" "executable='${ffmpeg}/bin/ffmpeg'"
-    ''
-  ;
+    '';
 
   # Only have integration tests with discord
   doCheck = false;

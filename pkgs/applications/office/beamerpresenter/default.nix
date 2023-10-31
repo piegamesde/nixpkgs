@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
       mupdf
       openjpeg
     ]
-    ++ lib.optionals usePoppler [ poppler ]
-  ;
+    ++ lib.optionals usePoppler [ poppler ];
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"

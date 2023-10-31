@@ -51,8 +51,7 @@ let
         twbt.lib
         twbt.art
       ]
-      ++ [ dwarf-fortress ]
-    ;
+      ++ [ dwarf-fortress ];
 
     ignoreCollisions = true;
   };
@@ -69,8 +68,7 @@ let
             else if stdenv.hostPlatform.isDarwin then
               "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
             else
-              null
-          ;
+              null;
           INTRO = enableIntro;
           TRUETYPE = enableTruetype;
           FPS = enableFPS;
@@ -90,8 +88,7 @@ let
     else if lib.isString v then
       v
     else
-      throw "dwarf-fortress: unsupported configuration value ${toString v}"
-  ;
+      throw "dwarf-fortress: unsupported configuration value ${toString v}";
 
   config = runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; } (
     ''
@@ -215,8 +212,7 @@ lib.throwIf (enableTWBT && !enableDFHack)
           --subst-var-by jre ${jdk.jre} \
           --subst-var dfInit
         chmod 755 $out/bin/soundsense
-      ''
-    ;
+      '';
 
     preferLocalBuild = true;
 

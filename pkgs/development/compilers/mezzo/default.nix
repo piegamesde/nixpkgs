@@ -65,8 +65,7 @@ else
       # Compatibility with PPrint ≥ 20220103
       + ''
         substituteInPlace typing/Fact.ml --replace PPrintOCaml PPrint.OCaml
-      ''
-    ;
+      '';
 
     createFindlibDestdir = true;
 

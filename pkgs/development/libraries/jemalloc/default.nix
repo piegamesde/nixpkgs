@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isAarch64 "--with-lg-page=16"
     # See https://github.com/jemalloc/jemalloc/issues/1997
     # Using a value of 48 should work on both emulated and native x86_64-darwin.
-    ++ lib.optional (stdenv.isDarwin && stdenv.isx86_64) "--with-lg-vaddr=48"
-  ;
+    ++ lib.optional (stdenv.isDarwin && stdenv.isx86_64) "--with-lg-vaddr=48";
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin

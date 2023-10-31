@@ -45,8 +45,7 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals (withCvx) [ cvxpy ]
     ++ lib.optionals (withVisualization) [ matplotlib ]
-    ++ lib.optionals (withJit) [ numba ]
-  ;
+    ++ lib.optionals (withJit) [ numba ];
 
   # Tests
   pythonImportsCheck = [ "qiskit.ignis" ];

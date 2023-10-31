@@ -37,8 +37,7 @@ let
           charInfo_width
           react
         ];
-      }
-  ;
+      };
 in
 
 buildDunePackage rec {

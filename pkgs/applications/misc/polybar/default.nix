@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals i3Support [
       jsoncpp
       i3
-    ]
-  ;
+    ];
 
   patches = [ ./remove-hardcoded-etc.diff ];
 

@@ -65,8 +65,7 @@ stdenv.mkDerivation (
           "--enable-sse2 --enable-avx --enable-avx2 --enable-avx512 --enable-avx128-fma"
       ++ lib.optional enableMpi "--enable-mpi"
       # doc generation causes Fortran wrapper generation which hard-codes gcc
-      ++ lib.optional (!withDoc) "--disable-doc"
-    ;
+      ++ lib.optional (!withDoc) "--disable-doc";
 
     # fftw builds with -mtune=native by default
     postPatch = ''

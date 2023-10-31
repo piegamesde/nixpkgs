@@ -45,8 +45,7 @@ let
     if builtins.typeOf gemFiles.gemset != "set" then
       import gemFiles.gemset
     else
-      gemFiles.gemset
-  ;
+      gemFiles.gemset;
 
   filteredGemset = filterGemset { inherit ruby groups; } importedGemset;
 
@@ -67,8 +66,7 @@ let
     if hasBundler then
       gems.bundler
     else
-      defs.bundler.override (attrs: { inherit ruby; })
-  ;
+      defs.bundler.override (attrs: { inherit ruby; });
 
   gems = lib.flip lib.mapAttrs configuredGemset (
     name: attrs: buildGem name attrs
@@ -82,8 +80,7 @@ let
         gem = gems.${pname};
         version = gem.version;
       in
-      "${pname}-${version}"
-  ;
+      "${pname}-${version}";
 
   pname' = if pname != null then pname else name;
 
@@ -105,8 +102,7 @@ let
       let
         mainGem = gems.${pkgname} or (throw "bundlerEnv: gem ${pkgname} not found");
       in
-      copyIfBundledByPath mainGem
-  ;
+      copyIfBundledByPath mainGem;
 
   # We have to normalize the Gemfile.lock, otherwise bundler tries to be
   # helpful by doing so at run time, causing executables to immediately bail
@@ -151,8 +147,7 @@ let
           binPaths = envPaths;
         }
       )
-      + lib.optionalString (postBuild != null) postBuild
-    ;
+      + lib.optionalString (postBuild != null) postBuild;
 
     meta = {
       platforms = ruby.meta.platforms;
@@ -236,7 +231,6 @@ let
         eval "$postBuild"
       ''
     else
-      buildEnv basicEnvArgs
-  ;
+      buildEnv basicEnvArgs;
 in
 basicEnv

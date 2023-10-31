@@ -86,8 +86,7 @@ stdenv.mkDerivation (
         ./cpp-precomp.patch
         ./sw_vers.patch
       ]
-      ++ lib.optional crossCompiling ./MakeMaker-cross.patch
-    ;
+      ++ lib.optional crossCompiling ./MakeMaker-cross.patch;
 
     # This is not done for native builds because pwd may need to come from
     # bootstrap tools when building bootstrap perl.
@@ -110,8 +109,7 @@ stdenv.mkDerivation (
         # the output in some cases (when cross-compiling)
         ''
           unset src
-        ''
-    ;
+        '';
 
     # Build a thread-safe Perl with a dynamic libperl.so.  We need the
     # "installstyle" option to ensure that modules are put under
@@ -153,8 +151,7 @@ stdenv.mkDerivation (
         "-Dprefix=${placeholder "out"}"
         "-Dman1dir=${placeholder "out"}/share/man/man1"
         "-Dman3dir=${placeholder "out"}/share/man/man3"
-      ]
-    ;
+      ];
 
     configureScript =
       lib.optionalString (!crossCompiling)
@@ -201,8 +198,7 @@ stdenv.mkDerivation (
       + lib.optionalString (!enableThreading) ''
         # We need to do this because the bootstrap doesn't have a static libpthread
         sed -i 's,\(libswanted.*\)pthread,\1,g' Configure
-      ''
-    ;
+      '';
 
     # Default perl does not support --host= & co.
     configurePlatforms = [ ];
@@ -234,8 +230,7 @@ stdenv.mkDerivation (
           if lib.hasAttr perlAttr pkgsTargetTarget then
             (override pkgsTargetTarget.${perlAttr})
           else
-            { }
-        ;
+            { };
       };
 
     doCheck = false; # some tests fail, expensive
@@ -279,8 +274,7 @@ stdenv.mkDerivation (
         # into $mini/lib/perl5/cross_perl/${version}.
         wrapProgram $mini/bin/perl --prefix PERL5LIB : \
           "$mini/lib/perl5/cross_perl/${version}:$out/lib/perl5/${version}:$out/lib/perl5/${version}/$runtimeArch"
-      ''
-    ; # */
+      ''; # */
 
     meta = with lib; {
       homepage = "https://www.perl.org/";

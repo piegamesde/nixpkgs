@@ -23,8 +23,7 @@ let
       {
         version = "2.0.0";
         hash = "sha256:1nhz44cyipy922anzml856532m73nn0g7iwkg79yzhq6yb87109w";
-      }
-  ;
+      };
 in
 
 buildDunePackage rec {

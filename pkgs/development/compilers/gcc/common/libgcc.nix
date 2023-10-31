@@ -11,8 +11,7 @@ let
     (with stdenv; targetPlatform == hostPlatform)
     && !langJit
     && !stdenv.hostPlatform.isDarwin
-    && !stdenv.hostPlatform.isStatic
-  ;
+    && !stdenv.hostPlatform.isStatic;
 in
 (
   pkg:
@@ -108,8 +107,7 @@ in
           + ''
             patchelf --set-rpath "" $libgcc/lib/libgcc_s.so.1
           ''
-        )
-      ;
+        );
     }
   )
 )

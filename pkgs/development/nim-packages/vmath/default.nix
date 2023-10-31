@@ -24,6 +24,5 @@ buildNimPackage rec {
       description = "Math vector library for graphical things";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

@@ -171,8 +171,7 @@ in
             ++ optional (cfg.stateDir == defaultstateDir) "galene"
             ++ optional (cfg.dataDir == defaultdataDir) "galene/data"
             ++ optional (cfg.groupsDir == defaultgroupsDir) "galene/groups"
-            ++ optional (cfg.recordingsDir == defaultrecordingsDir) "galene/recordings"
-          ;
+            ++ optional (cfg.recordingsDir == defaultrecordingsDir) "galene/recordings";
 
           # Hardening
           CapabilityBoundingSet = [ "" ];

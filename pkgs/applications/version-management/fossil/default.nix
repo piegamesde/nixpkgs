@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
       ed
     ]
     ++ lib.optional stdenv.isDarwin libiconv
-    ++ lib.optional (!withInternalSqlite) sqlite
-  ;
+    ++ lib.optional (!withInternalSqlite) sqlite;
 
   enableParallelBuilding = true;
 

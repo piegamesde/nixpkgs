@@ -183,8 +183,7 @@ recursiveUpdate lib (rec {
         if cl ? case then
           compare cl.case var
         else
-          all (equal true) (zipListsWith compare cl.cases var)
-      ;
+          all (equal true) (zipListsWith compare cl.cases var);
     in
     switch-if
       (map

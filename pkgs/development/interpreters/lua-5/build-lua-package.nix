@@ -116,8 +116,7 @@ let
           [ lua.pkgs.luarocks ]
           ++ buildInputs
           ++ lib.optionals self.doCheck ([ luarocksCheckHook ] ++ self.nativeCheckInputs)
-          ++ (map (d: d.dep) externalDeps')
-        ;
+          ++ (map (d: d.dep) externalDeps');
 
         # propagate lua to active setup-hook in nix-shell
         propagatedBuildInputs = propagatedBuildInputs ++ [ lua ];
@@ -170,8 +169,7 @@ let
           ''
           + ''
             runHook postConfigure
-          ''
-        ;
+          '';
 
         buildPhase = ''
           runHook preBuild
@@ -190,8 +188,7 @@ let
           lib.optionalString (!dontWrapLuaPrograms) ''
             wrapLuaPrograms
           ''
-          + attrs.postFixup or ""
-        ;
+          + attrs.postFixup or "";
 
         installPhase = ''
           runHook preInstall

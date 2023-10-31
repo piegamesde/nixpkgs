@@ -101,8 +101,7 @@ stdenv.mkDerivation (
         python3Packages.breathe
         python3Packages.myst-parser
       ]
-      ++ lib.optionals buildTests [ zlib ]
-    ;
+      ++ lib.optionals buildTests [ zlib ];
 
     cmakeFlags =
       [
@@ -128,8 +127,7 @@ stdenv.mkDerivation (
         "-DMIOPEN_TEST_GFX90A=ON"
         "-DMIOPEN_TEST_GFX103X=ON"
         "-DGOOGLETEST_DIR=${gtest.src}" # Custom linker names
-      ]
-    ;
+      ];
 
     postPatch =
       ''
@@ -155,8 +153,7 @@ stdenv.mkDerivation (
         ln -sf ${kdbs.gfx90878} src/kernels/gfx90878.kdb
         ln -sf ${kdbs.gfx90a68} src/kernels/gfx90a68.kdb
         ln -sf ${kdbs.gfx90a6e} src/kernels/gfx90a6e.kdb
-      ''
-    ;
+      '';
 
     # Unfortunately, it seems like we have to call make on these manually
     postBuild =
@@ -166,8 +163,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString buildTests ''
         make -j$NIX_BUILD_CORES check
-      ''
-    ;
+      '';
 
     postInstall =
       ''
@@ -196,8 +192,7 @@ stdenv.mkDerivation (
         # Apparently gfx1030_40 wasn't generated so the developers suggest just renaming gfx1030_36 to it
         # Should be fixed in the next miopen kernel generation batch
         ln -s ${kdbs.gfx1030_36} $out/share/miopen/db/gfx1030_40.kdb
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

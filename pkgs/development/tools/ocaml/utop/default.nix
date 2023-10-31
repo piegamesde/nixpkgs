@@ -35,8 +35,7 @@ let
         sha256 = "sha256-kvFBCe69TRQIWvZV47SH7ISus9k8afGRw5WLKzKqw08=";
         duneVersion = "2";
         propagatedBuildInputs = [ lambda-term ];
-      }
-  ;
+      };
 in
 
 buildDunePackage rec {

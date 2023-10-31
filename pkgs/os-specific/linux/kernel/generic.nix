@@ -57,8 +57,7 @@
   # optionally be compressed with gzip or bzip2.
   kernelPatches ? [ ],
   ignoreConfigErrors ? stdenv.hostPlatform.linux-kernel.name != "pc"
-    || stdenv.hostPlatform != stdenv.buildPlatform
-  ,
+    || stdenv.hostPlatform != stdenv.buildPlatform,
   extraMeta ? { },
 
   isZen ? false,
@@ -127,8 +126,7 @@ let
     configfile.moduleStructuredConfig.intermediateNixConfig
     # extra config in legacy string format
     + extraConfig
-    + stdenv.hostPlatform.linux-kernel.extraConfig or ""
-  ;
+    + stdenv.hostPlatform.linux-kernel.extraConfig or "";
 
   structuredConfigFromPatches =
     map
@@ -188,8 +186,7 @@ let
         bison
         flex
       ]
-      ++ lib.optional (lib.versionAtLeast version "5.2") pahole
-    ;
+      ++ lib.optional (lib.versionAtLeast version "5.2") pahole;
 
     platformName = stdenv.hostPlatform.linux-kernel.name;
     # e.g. "defconfig"
@@ -197,16 +194,14 @@ let
       if defconfig != null then
         defconfig
       else
-        stdenv.hostPlatform.linux-kernel.baseConfig
-    ;
+        stdenv.hostPlatform.linux-kernel.baseConfig;
     # e.g. "bzImage"
     kernelTarget = stdenv.hostPlatform.linux-kernel.target;
 
     makeFlags =
       lib.optionals (stdenv.hostPlatform.linux-kernel ? makeFlags)
         stdenv.hostPlatform.linux-kernel.makeFlags
-      ++ extraMakeFlags
-    ;
+      ++ extraMakeFlags;
 
     postPatch =
       kernel.postPatch
@@ -214,8 +209,7 @@ let
         # Patch kconfig to print "###" after every question so that
         # generate-config.pl from the generic builder can answer them.
         sed -e '/fflush(stdout);/i\printf("###");' -i scripts/kconfig/conf.c
-      ''
-    ;
+      '';
 
     preUnpack = kernel.preUnpack or "";
 
@@ -321,8 +315,7 @@ let
               pkg-config
               ncurses
             ]
-          )
-        ;
+          );
       }
     );
 

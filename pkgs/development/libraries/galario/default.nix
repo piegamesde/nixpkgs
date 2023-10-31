@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
       fftwFloat
     ]
     ++ lib.optional enablePython pythonPackages.python
-    ++ lib.optional stdenv.isDarwin llvmPackages.openmp
-  ;
+    ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
   propagatedBuildInputs = lib.optionals enablePython [
     pythonPackages.numpy
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
     ${if stdenv.isDarwin then
       "export DYLD_LIBRARY_PATH=$(pwd)/src/"
     else
-      "export LD_LIBRARY_PATH=$(pwd)/src/"
-    }
+      "export LD_LIBRARY_PATH=$(pwd)/src/"}
     ${lib.optionalString enablePython
       "sed -i -e 's|^#!.*|#!${stdenv.shell}|' python/py.test.sh"}
   '';

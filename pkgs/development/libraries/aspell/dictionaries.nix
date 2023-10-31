@@ -159,8 +159,7 @@ let
           "filename"
           "sha256"
           "meta"
-        ]
-      ;
+        ];
     in
     buildDict buildArgs;
 

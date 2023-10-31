@@ -76,8 +76,7 @@ pythonPackages.callPackage
           isCompatibleEgg =
             fname:
             !lib.strings.hasSuffix ".egg" fname
-            || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname
-          ;
+            || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
         in
         builtins.filter
           (
@@ -105,8 +104,7 @@ pythonPackages.callPackage
         if builtins.pathExists pyProjectPath then
           poetryLib.getBuildSystemPkgs { inherit pythonPackages pyProject; }
         else
-          [ ]
-      ;
+          [ ];
 
       pname = normalizePackageName name;
       preferWheel' = preferWheel && pname != "wheel";
@@ -122,8 +120,7 @@ pythonPackages.callPackage
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
           entries =
             (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist)
-            ++ eggs
-          ;
+            ++ eggs;
           lockFileEntry =
             (
               if lib.length entries > 0 then
@@ -142,16 +139,14 @@ pythonPackages.callPackage
             else if lib.strings.hasSuffix ".whl" name then
               "wheel"
             else
-              "pyproject"
-          ;
+              "pyproject";
           kind =
             if _isEgg then
               python.pythonVersion
             else if format == "pyproject" then
               "source"
             else
-              (builtins.elemAt (lib.strings.splitString "-" name) 2)
-          ;
+              (builtins.elemAt (lib.strings.splitString "-" name) 2);
         };
 
       format =
@@ -160,8 +155,7 @@ pythonPackages.callPackage
         else if isDirectory || isGit || isUrl then
           "pyproject"
         else
-          fileInfo.format
-      ;
+          fileInfo.format;
 
       hooks = python.pkgs.callPackage ./hooks { };
     in
@@ -191,8 +185,7 @@ pythonPackages.callPackage
           hooks.removePathDependenciesHook
           hooks.removeGitDependenciesHook
           hooks.pipBuildHook
-        ]
-      ;
+        ];
 
       buildInputs =
         (
@@ -281,8 +274,7 @@ pythonPackages.callPackage
             pname = name;
             inherit (fileInfo) file hash kind;
             inherit version;
-          }
-      ;
+          };
     }
   )
   { }

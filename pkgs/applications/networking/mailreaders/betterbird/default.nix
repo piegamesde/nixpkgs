@@ -89,8 +89,7 @@
           cd ..
         fi
       done < <(cat $patches/series $patches/series-M-C)
-    ''
-  ;
+    '';
 
   extraBuildInputs = [ libdbusmenu-gtk3 ];
 
@@ -128,8 +127,7 @@
           rmdir $out/lib/thunderbird/
           rm $out/bin/thunderbird
           ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
-        ''
-      ;
+        '';
 
       doInstallCheck = false;
       requiredSystemFeatures = [ ];

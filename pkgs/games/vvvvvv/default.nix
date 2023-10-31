@@ -88,8 +88,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description =
       "A retro-styled platform game"
-      + lib.optionalString makeAndPlay " (redistributable, without original levels)"
-    ;
+      + lib.optionalString makeAndPlay " (redistributable, without original levels)";
     longDescription =
       ''
         VVVVVV is a platform game all about exploring one simple mechanical
@@ -97,8 +96,7 @@ stdenv.mkDerivation rec {
       ''
       + lib.optionalString makeAndPlay ''
         (Redistributable version, doesn't include the original levels.)
-      ''
-    ;
+      '';
     homepage = "https://thelettervsixtim.es";
     license = licenses.unfree;
     maintainers = with maintainers; [ martfont ];

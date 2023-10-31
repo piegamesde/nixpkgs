@@ -47,8 +47,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional withPulseAudio libpulseaudio
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional (withMPRIS || withNotify) dbus
-    ++ lib.optional stdenv.isDarwin Cocoa
-  ;
+    ++ lib.optional stdenv.isDarwin Cocoa;
 
   env.NIX_CFLAGS_COMPILE =
     lib.optionalString stdenv.isDarwin
@@ -64,8 +63,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional withPulseAudio "pulseaudio_backend"
     ++ lib.optional withPortAudio "portaudio_backend"
     ++ lib.optional withMPRIS "mpris"
-    ++ lib.optional withNotify "notify"
-  ;
+    ++ lib.optional withNotify "notify";
 
   meta = with lib; {
     description = "Cross-platform ncurses Spotify client written in Rust, inspired by ncmpc and the likes";

@@ -84,8 +84,7 @@ mkDerivation rec {
       libao
       ffmpeg
     ]
-    ++ lib.optional withZim zstd
-  ;
+    ++ lib.optional withZim zstd;
 
   qmakeFlags = with lib; [
     "goldendict.pro"

@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
         --replace '-dynamiclib' ' ' \
         --replace '-falign-loops=16' ' '
       substituteInPlace Makefile --replace '-Wl,-soname,' ' '
-    ''
-  ;
+    '';
 
   configureFlags = [
     "--enable-pic"

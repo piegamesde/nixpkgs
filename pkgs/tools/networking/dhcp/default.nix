@@ -64,8 +64,7 @@ stdenv.mkDerivation rec {
     ]
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "BUILD_CC=$(CC_FOR_BUILD)"
-  ;
+        "BUILD_CC=$(CC_FOR_BUILD)";
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
     "-Wno-error=pointer-compare"
@@ -96,8 +95,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!withRelay) ''
       rm $out/sbin/dhcrelay
-    ''
-  ;
+    '';
 
   preConfigure = ''
     substituteInPlace configure --replace "/usr/bin/file" "${file}/bin/file"

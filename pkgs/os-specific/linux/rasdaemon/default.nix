@@ -105,8 +105,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (!stdenv.isAarch64) ''
       substituteInPlace $out/bin/ras-mc-ctl \
         --replace 'find_prog ("dmidecode")' '"${dmidecode}/bin/dmidecode"'
-    ''
-  ;
+    '';
 
   passthru.tests = nixosTests.rasdaemon;
 

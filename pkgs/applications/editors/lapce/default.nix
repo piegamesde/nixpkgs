@@ -113,8 +113,7 @@ rustPlatform.buildRustPackage rec {
       ApplicationServices
       Carbon
       AppKit
-    ]
-  ;
+    ];
 
   postInstall = ''
     install -Dm0644 $src/extra/images/logo.svg $out/share/icons/hicolor/scalable/apps/lapce.svg

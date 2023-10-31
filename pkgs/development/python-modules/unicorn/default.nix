@@ -30,8 +30,7 @@ buildPythonPackage rec {
     ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
       "--plat-name"
       "macosx_11_0"
-    ]
-  ;
+    ];
 
   propagatedBuildInputs = [ setuptools ];
 

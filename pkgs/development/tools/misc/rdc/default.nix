@@ -107,8 +107,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildTests ''
         mkdir -p $test
         mv $out/bin/rdctst_tests $test/bin
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -56,8 +56,7 @@ let
           darwinAarch64DebuggerBins
           ++ darwinX86DebuggerBins
           ++ omniSharpBins
-          ++ razorBins
-        ;
+          ++ razorBins;
       };
     }
     .${system} or (throw "Unsupported system: ${system}");
@@ -139,8 +138,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
           '')
           vsixInfo.binaries
       )
-    )
-  ;
+    );
 
   meta = {
     description = "C# for Visual Studio Code (powered by OmniSharp)";

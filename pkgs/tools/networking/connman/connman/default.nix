@@ -101,8 +101,7 @@ stdenv.mkDerivation rec {
     ++ optionals (enablePptp) [
       pptp
       ppp
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     pkg-config
@@ -173,8 +172,7 @@ stdenv.mkDerivation rec {
     ++ optionals (enableHh2serialGps) [ "--enable-hh2serial-gps" ]
     ++ optionals (enableL2tp) [ "--enable-l2tp" ]
     ++ optionals (enableIospm) [ "--enable-iospm" ]
-    ++ optionals (enableTist) [ "--enable-tist" ]
-  ;
+    ++ optionals (enableTist) [ "--enable-tist" ];
 
   doCheck = true;
 

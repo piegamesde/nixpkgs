@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
         libxcb
         libxshmfence
       ]
-    )
-  ;
+    );
 
   runtimeDependencies = with pkgs; [ eudev ];
 

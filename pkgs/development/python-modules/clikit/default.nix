@@ -51,8 +51,7 @@ buildPythonPackage rec {
     ++ lib.optionals isPy27 [
       typing
       enum34
-    ]
-  ;
+    ];
 
   nativeCheckInputs = [
     pytest-mock

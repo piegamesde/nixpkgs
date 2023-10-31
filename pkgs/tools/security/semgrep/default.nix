@@ -32,8 +32,7 @@ buildPythonApplication rec {
     ))
     + ''
       cd cli
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [ pythonRelaxDepsHook ];
   # tell cli/setup.py to not copy semgrep-core into the result

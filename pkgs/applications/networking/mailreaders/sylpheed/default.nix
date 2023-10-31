@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     [ gtk2 ]
     ++ lib.optionals gpgSupport [ gpgme ]
     ++ lib.optionals sslSupport [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   configureFlags =
     lib.optional gpgSupport "--enable-gpgme"

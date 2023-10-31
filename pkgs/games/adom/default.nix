@@ -31,8 +31,7 @@ let
       libGL
       alsa-lib
       libpulseaudio
-    ]
-  ;
+    ];
 in
 stdenv.mkDerivation rec {
   name = "adom-${version}-noteye";

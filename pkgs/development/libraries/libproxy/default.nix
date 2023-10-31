@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
           dbus
           networkmanager
         ]
-    )
-  ;
+    );
 
   cmakeFlags =
     [

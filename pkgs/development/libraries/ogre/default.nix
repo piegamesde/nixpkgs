@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
       xorgproto
     ]
     ++ lib.optionals stdenv.isDarwin [ Cocoa ]
-    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ]
-  ;
+    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ];
 
   cmakeFlags = [
     "-DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=FALSE"

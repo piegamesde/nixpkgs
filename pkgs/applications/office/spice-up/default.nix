@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
         samdroid-apps
         xiorcale
       ]
-      ++ teams.pantheon.members
-    ;
+      ++ teams.pantheon.members;
     platforms = platforms.linux;
     # The COPYING file has GPLv3; some files have GPLv2+ and some have GPLv3+
     license = licenses.gpl3Plus;

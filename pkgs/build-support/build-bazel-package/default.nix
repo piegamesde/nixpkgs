@@ -137,8 +137,7 @@ stdenv.mkDerivation (
             # This is needed for Bazel fetchers that are themselves programs (e.g.
             # rules_go using the go toolchain)
             export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
-          ''
-        ;
+          '';
 
         buildPhase =
           fFetchAttrs.buildPhase or ''
@@ -230,8 +229,7 @@ stdenv.mkDerivation (
         export bazelOut="$NIX_BUILD_TOP/output"
         export bazelUserRoot="$NIX_BUILD_TOP/tmp"
         export HOME="$NIX_BUILD_TOP"
-      ''
-    ;
+      '';
 
     preConfigure =
       ''
@@ -253,8 +251,7 @@ stdenv.mkDerivation (
           fi
         done
       ''
-      + fBuildAttrs.preConfigure or ""
-    ;
+      + fBuildAttrs.preConfigure or "";
 
     buildPhase =
       fBuildAttrs.buildPhase or ''

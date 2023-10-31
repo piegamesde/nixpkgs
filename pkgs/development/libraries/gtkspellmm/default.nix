@@ -17,8 +17,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "mirror://sourceforge/project/gtkspell/gtkspellmm/"
-      + "${pname}-${version}.tar.xz"
-    ;
+      + "${pname}-${version}.tar.xz";
     sha256 = "0i8mxwyfv5mskachafa4qlh315q0cfph7s66s1s34nffadbmm1sv";
   };
 

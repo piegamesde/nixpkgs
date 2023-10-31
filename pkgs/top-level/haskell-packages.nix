@@ -137,8 +137,7 @@ in
         else if stdenv.hostPlatform.isMusl then
           packages.ghc8102Binary
         else
-          packages.ghc865Binary
-      ;
+          packages.ghc865Binary;
       inherit (buildPackages.python3Packages) sphinx;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_7;
       llvmPackages = pkgs.llvmPackages_7;
@@ -155,8 +154,7 @@ in
           # to my (@a-m-joseph) knowledge there are no newer official binaries for this platform
           packages.ghc865Binary
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -175,8 +173,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       inherit (buildPackages.darwin) autoSignDarwinBinariesHook xattr;
       buildTargetLlvmPackages = pkgsBuildTarget.llvmPackages_12;
@@ -191,8 +188,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -209,8 +205,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -227,8 +222,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -245,8 +239,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc810
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -270,8 +263,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -295,8 +287,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -320,8 +311,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -345,8 +335,7 @@ in
         else if stdenv.hostPlatform.isPower64 && stdenv.hostPlatform.isLittleEndian then
           packages.ghc902
         else
-          packages.ghc8107Binary
-      ;
+          packages.ghc8107Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -367,8 +356,7 @@ in
         else if stdenv.isAarch64 then
           packages.ghc924BinaryMinimal
         else
-          packages.ghc924Binary
-      ;
+          packages.ghc924Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and
@@ -389,8 +377,7 @@ in
         else if stdenv.isAarch64 then
           packages.ghc924BinaryMinimal
         else
-          packages.ghc924Binary
-      ;
+          packages.ghc924Binary;
       inherit (buildPackages.python3Packages) sphinx;
       # Need to use apple's patched xattr until
       # https://github.com/xattr/xattr/issues/44 and

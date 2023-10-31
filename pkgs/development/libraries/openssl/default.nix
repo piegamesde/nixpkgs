@@ -76,8 +76,7 @@ let
             substituteInPlace Configurations/unix-Makefile.tmpl \
               --replace 'ENGINESDIR=$(libdir)/engines-{- $sover_dirname -}' \
                         'ENGINESDIR=$(OPENSSLDIR)/engines-{- $sover_dirname -}'
-          ''
-        ;
+          '';
 
         outputs =
           [
@@ -92,20 +91,17 @@ let
           # compiled into 'libcrypto.a'. This makes it a runtime dependency of
           # any package that statically links openssl, so we want to keep that
           # output minimal.
-          ++ lib.optional static "etc"
-        ;
+          ++ lib.optional static "etc";
         setOutputFlags = false;
         separateDebugInfo =
           !stdenv.hostPlatform.isDarwin
           && !(stdenv.hostPlatform.useLLVM or false)
-          && stdenv.cc.isGNU
-        ;
+          && stdenv.cc.isGNU;
 
         nativeBuildInputs =
           lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper
           ++ [ perl ]
-          ++ lib.optionals static [ removeReferencesTo ]
-        ;
+          ++ lib.optionals static [ removeReferencesTo ];
         buildInputs =
           lib.optional withCryptodev cryptodev
           ++ lib.optional withZlib zlib;
@@ -196,8 +192,7 @@ let
           # This introduces a reference to the CTLOG_FILE which is undesired when
           # trying to build binaries statically.
           ++ lib.optional static "no-ct"
-          ++ lib.optional withZlib "zlib"
-        ;
+          ++ lib.optional withZlib "zlib";
 
         makeFlags = [
           "MANDIR=$(man)/share/man"
@@ -256,8 +251,7 @@ let
             rmdir $etc/etc/ssl/{certs,private}
 
             ${lib.optionalString (conf != null) "cat ${conf} > $etc/etc/ssl/openssl.cnf"}
-          ''
-        ;
+          '';
 
         postFixup = lib.optionalString (!stdenv.hostPlatform.isWindows) ''
           # Check to make sure the main output and the static runtime dependencies
@@ -283,8 +277,7 @@ let
             ];
             platforms = platforms.all;
           }
-          // extraMeta
-        ;
+          // extraMeta;
       }
     );
 in

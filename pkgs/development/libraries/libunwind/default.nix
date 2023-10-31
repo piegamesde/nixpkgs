@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     else
       lib.optionalString stdenv.hostPlatform.isMusl ''
         substituteInPlace configure.ac --replace "-lgcc_s" "-lgcc_eh"
-      ''
-  ;
+      '';
 
   nativeBuildInputs = [ autoreconfHook ];
 

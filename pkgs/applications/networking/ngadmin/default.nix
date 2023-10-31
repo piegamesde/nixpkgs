@@ -26,8 +26,7 @@ stdenv.mkDerivation {
     with lib;
     optional (!withReadline) "--without-readline"
     ++ optional enableEmu "--enable-emu"
-    ++ optional enableSpy "--enable-spy"
-  ;
+    ++ optional enableSpy "--enable-spy";
 
   meta = with lib; {
     description = "Netgear switch (NSDP) administration tool";

@@ -10,8 +10,7 @@ import ./make-test-python.nix (
             (builtins.toString (
               builtins.toFile "autoplay-pref.js" ''defaultPref("media.autoplay.default",0);''
             ))
-          ]
-        ;
+          ];
       }
     );
   in

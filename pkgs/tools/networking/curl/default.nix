@@ -136,8 +136,7 @@ stdenv.mkDerivation (
       ++ optional wolfsslSupport wolfssl
       ++ optional rustlsSupport rustls-ffi
       ++ optional zlibSupport zlib
-      ++ optional zstdSupport zstd
-    ;
+      ++ optional zstdSupport zstd;
 
     # for the second line see https://curl.haxx.se/mail/tracker-2014-03/0087.html
     preConfigure = ''
@@ -184,8 +183,7 @@ stdenv.mkDerivation (
       ++
         lib.optionals
           (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport)
-          [ "--without-ssl" ]
-    ;
+          [ "--without-ssl" ];
 
     CXX = "${stdenv.cc.targetPrefix}c++";
     CXXCPP = "${stdenv.cc.targetPrefix}c++ -E";
@@ -206,8 +204,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.hostPlatform.isMusl ''
         # different resolving behaviour?
         rm tests/data/test1592
-      ''
-    ;
+      '';
 
     postInstall =
       ''
@@ -225,8 +222,7 @@ stdenv.mkDerivation (
         ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}
         ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4
         ln $out/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/libcurl-gnutls${stdenv.hostPlatform.extensions.sharedLibrary}.4.4.0
-      ''
-    ;
+      '';
 
     passthru =
       let

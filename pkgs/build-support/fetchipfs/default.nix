@@ -23,8 +23,7 @@ let
     || md5 != ""
     || sha1 != ""
     || sha256 != ""
-    || sha512 != ""
-  ;
+    || sha512 != "";
 in
 
 if (!hasHash) then
@@ -46,8 +45,7 @@ else
       else if sha1 != "" then
         "sha1"
       else
-        "md5"
-    ;
+        "md5";
     outputHash =
       if outputHash != "" then
         outputHash
@@ -58,8 +56,7 @@ else
       else if sha1 != "" then
         sha1
       else
-        md5
-    ;
+        md5;
 
     outputHashMode = "recursive";
 

@@ -123,8 +123,7 @@ let
         })
         (filter dependsOnOld (builtins.attrNames references))
     )
-    // rewrittenDeps
-  ;
+    // rewrittenDeps;
 
   drvHash = discard (toString drv);
 in

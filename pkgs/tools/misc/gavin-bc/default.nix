@@ -35,8 +35,7 @@ stdenv.mkDerivation (
 
     buildInputs =
       (lib.optional (historyType == "editline") editline)
-      ++ (lib.optional (historyType == "readline") readline)
-    ;
+      ++ (lib.optional (historyType == "readline") readline);
 
     configureFlags =
       [ "--disable-nls" ]
@@ -45,8 +44,7 @@ stdenv.mkDerivation (
       )
       ++ (lib.optional (historyType == "editline") "--enable-editline")
       ++ (lib.optional (historyType == "readline") "--enable-readline")
-      ++ (lib.optional (historyType == "internal") "--enable-internal-history")
-    ;
+      ++ (lib.optional (historyType == "internal") "--enable-internal-history");
 
     meta = {
       homepage = "https://git.gavinhoward.com/gavin/bc";

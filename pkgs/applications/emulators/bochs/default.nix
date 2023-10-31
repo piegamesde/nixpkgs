@@ -59,8 +59,7 @@ stdenv.mkDerivation (
         libX11
         libXpm
       ]
-      ++ lib.optionals stdenv.isDarwin [ libobjc ]
-    ;
+      ++ lib.optionals stdenv.isDarwin [ libobjc ];
 
     configureFlags =
       [
@@ -133,8 +132,7 @@ stdenv.mkDerivation (
         "--enable-plugins"
         "--enable-pnic"
         "--enable-sb16"
-      ]
-    ;
+      ];
 
     enableParallelBuilding = true;
 

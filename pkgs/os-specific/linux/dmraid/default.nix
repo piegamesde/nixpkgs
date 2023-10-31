@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       NIX_CFLAGS_COMPILE+=" -D_GNU_SOURCE"
-    ''
-  ;
+    '';
 
   preConfigure = "cd */";
 

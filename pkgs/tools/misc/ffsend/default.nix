@@ -45,8 +45,7 @@ rustPlatform.buildRustPackage rec {
         AppKit
       ]
     else
-      [ openssl ]
-  ;
+      [ openssl ];
 
   preBuild = lib.optionalString (x11Support && usesX11) (
     if preferXsel && xsel != null then

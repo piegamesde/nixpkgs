@@ -78,11 +78,9 @@ let
         if (cfg.database.passwordFile != null) then
           { _file = cfg.database.passwordFile; }
         else
-          ""
-      ;
+          "";
     }
-    // cfg.settings
-  ;
+    // cfg.settings;
 
   wpConfig =
     hostName: cfg:
@@ -132,8 +130,7 @@ let
       abort
         "The Wordpress config value ${
           lib.generators.toPretty { } v
-        } can not be encoded."
-  ;
+        } can not be encoded.";
 
   secretsVars = [
     "AUTH_KEY"
@@ -491,8 +488,7 @@ in
                 services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
             })
             eachSite
-          )
-        ;
+          );
 
         services.mysql =
           mkIf (any (v: v.database.createLocally) (attrValues eachSite))

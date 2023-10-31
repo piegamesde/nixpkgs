@@ -52,8 +52,7 @@ let
   doCheck =
     !stdenv.isFreeBSD
     && !stdenv.isDarwin
-    && stdenv.buildPlatform == stdenv.hostPlatform
-  ;
+    && stdenv.buildPlatform == stdenv.hostPlatform;
 
   inherit (stdenv.hostPlatform) isDarwin;
 in
@@ -97,8 +96,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isMusl ''
       # See https://gitlab.com/gnutls/gnutls/-/issues/945
          sed '2iecho "certtool tests skipped in musl build"\nexit 0' -i tests/cert-tests/certtool.sh
-    ''
-  ;
+    '';
 
   preConfigure = "patchShebangs .";
   configureFlags =
@@ -130,8 +128,7 @@ stdenv.mkDerivation rec {
       libiconv
     ]
     ++ lib.optional (withP11-kit) p11-kit
-    ++ lib.optional (tpmSupport && stdenv.isLinux) trousers
-  ;
+    ++ lib.optional (tpmSupport && stdenv.isLinux) trousers;
 
   nativeBuildInputs =
     [
@@ -147,8 +144,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs =
     [ nettle ]
     # Builds dynamically linking against gnutls seem to need the framework now.
-    ++ lib.optional isDarwin Security
-  ;
+    ++ lib.optional isDarwin Security;
 
   inherit doCheck;
   # stdenv's `NIX_SSL_CERT_FILE=/no-cert-file.crt` breaks tests.
@@ -168,8 +164,7 @@ stdenv.mkDerivation rec {
       # It seems only useful for static linking but basically noone does that.
       substituteInPlace "$out/lib/libgnutls.la" \
         --replace "-lunistring" ""
-    ''
-  ;
+    '';
 
   passthru.tests = {
     inherit

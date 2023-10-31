@@ -45,8 +45,7 @@ stdenv.mkDerivation {
       ./bdf2psf.pl -s UniCyrX.sfm u_vga16.bdf \
         | psfaddtable - UniCyrX.sfm - \
         | gzip -c -9 -n > u_vga16.psf.gz
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -62,8 +61,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isLinux ''
       # install psf (for linux virtual terminal)
       install -m 644 -D *.psf.gz -t "$out/share/consolefonts"
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

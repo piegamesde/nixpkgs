@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     + ''
       echo $version > .tarball-version
       ./autogen.sh
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://gitlab.com/psmisc/psmisc";

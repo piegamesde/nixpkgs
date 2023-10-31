@@ -191,8 +191,7 @@ let
                   lib.concatStringsSep " " unsupported
                 } are not supported on ${stdenv.hostPlatform.system}"
             else
-              features
-      ;
+              features;
     in
     stdenv.mkDerivation rec {
       pname = "mpd";
@@ -220,8 +219,7 @@ let
         ++ lib.optionals stdenv.isDarwin [
           AudioToolbox
           AudioUnit
-        ]
-      ;
+        ];
 
       nativeBuildInputs = [
         meson
@@ -272,8 +270,7 @@ let
         ++ lib.optional (builtins.elem "zeroconf" features_) "-Dzeroconf=avahi"
         ++
           lib.optional (builtins.elem "systemd" features_)
-            "-Dsystemd_system_unit_dir=etc/systemd/system"
-      ;
+            "-Dsystemd_system_unit_dir=etc/systemd/system";
 
       passthru.tests.nixos = nixosTests.mpd;
 
@@ -336,8 +333,7 @@ in
       ++ lib.optionals (!stdenv.isDarwin) [
         "mad"
         "jack"
-      ]
-    ;
+      ];
   };
   mpdWithFeatures = run;
 }

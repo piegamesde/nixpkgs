@@ -29,13 +29,11 @@ let
         ${if length (splitString "/" conf.privateKey) > 1 then
           "dbms.ssl.policy.${name}.private_key=${conf.privateKey}"
         else
-          "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"
-        }
+          "dbms.ssl.policy.${name}.private_key=${conf.baseDirectory}/${conf.privateKey}"}
         ${if length (splitString "/" conf.privateKey) > 1 then
           "dbms.ssl.policy.${name}.public_certificate=${conf.publicCertificate}"
         else
-          "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"
-        }
+          "dbms.ssl.policy.${name}.public_certificate=${conf.baseDirectory}/${conf.publicCertificate}"}
         dbms.ssl.policy.${name}.revoked_dir=${conf.revokedDir}
         dbms.ssl.policy.${name}.tls_versions=${concatStringsSep "," conf.tlsVersions}
         dbms.ssl.policy.${name}.trust_all=${boolToString conf.trustAll}

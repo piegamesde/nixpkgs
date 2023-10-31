@@ -72,8 +72,7 @@ let
         ]
         # when gr-qtgui is disabled, icu needs to be included, otherwise
         # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ]
-      ;
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
       pythonNative = with python.pkgs; [
         mako
         six
@@ -175,8 +174,7 @@ let
           alsa-lib
           libjack2
         ]
-        ++ lib.optionals stdenv.isDarwin [ CoreAudio ]
-      ;
+        ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = {
@@ -317,8 +315,7 @@ stdenv.mkDerivation {
     }
     // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
     // lib.optionalAttrs (hasFeature "gr-pdu") { inherit libiio libad9361; }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; }
-  ;
+    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
 
   postInstall =
     shared.postInstall
@@ -327,6 +324,5 @@ stdenv.mkDerivation {
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $out/lib/cmake/gnuradio/GnuradioConfig.cmake
       ${removeReferencesTo}/bin/remove-references-to -t ${python} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
       ${removeReferencesTo}/bin/remove-references-to -t ${python.pkgs.pybind11} $out/lib/cmake/gnuradio/gnuradio-runtimeTargets.cmake
-    ''
-  ;
+    '';
 }

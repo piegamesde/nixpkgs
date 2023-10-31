@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       # https://github.com/NixOS/nixpkgs/issues/34817
       rm -r ldc-${version}-src/tests/plugins/addFuncEntryCall
-    ''
-  ;
+    '';
 
   postPatch =
     ''
@@ -69,8 +68,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       substituteInPlace runtime/phobos/std/socket.d --replace "foreach (name; names)" "names = []; foreach (name; names)"
-    ''
-  ;
+    '';
 
   nativeBuildInputs =
     [
@@ -91,8 +89,7 @@ stdenv.mkDerivation rec {
         [
           # https://github.com/NixOS/nixpkgs/pull/36378#issuecomment-385034818
           gdb
-        ]
-  ;
+        ];
 
   buildInputs = [
     curl

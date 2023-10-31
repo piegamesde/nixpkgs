@@ -97,8 +97,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString withLLVM ''
       substituteInPlace mono/mini/aot-compiler.c --replace "llvm_path = g_strdup (\"\")" "llvm_path = g_strdup (\"${llvm}/bin/\")"
-    ''
-  ;
+    '';
 
   # Fix mono DLLMap so it can find libX11 to run winforms apps
   # libgdiplus is correctly handled by the --with-libgdiplus configure flag
@@ -121,8 +120,7 @@ stdenv.mkDerivation rec {
     # [1] https://github.com/mono/mono/blob/master/scripts/gmcs.in
     + ''
       ln -s $out/bin/mcs $out/bin/gmcs
-    ''
-  ;
+    '';
 
   inherit enableParallelBuilding;
 

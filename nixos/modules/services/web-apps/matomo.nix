@@ -315,8 +315,7 @@ in
           else if (cfg.webServerUser != null) then
             cfg.webServerUser
           else
-            ""
-        ;
+            "";
       in
       {
         ${pool} = {

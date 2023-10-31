@@ -90,8 +90,7 @@ buildPythonPackage rec {
     ++ lib.optionals (stdenv.isDarwin) [ xattr ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
     ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ++ cachecontrol.optional-dependencies.filecache
-  ;
+    ++ cachecontrol.optional-dependencies.filecache;
 
   postInstall = ''
     installShellCompletion --cmd poetry \

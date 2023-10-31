@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
       # remove x86_64-only libraries
       sed -i '/bc1enc/d' src/nvtt/tests/CMakeLists.txt
       sed -i '/libsquish/d;/CMP_Core/d' extern/CMakeLists.txt
-    ''
-  ;
+    '';
 
   cmakeFlags = [ "-DNVTT_SHARED=TRUE" ];
 

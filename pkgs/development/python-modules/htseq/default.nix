@@ -34,8 +34,7 @@ buildPythonPackage rec {
     ''
     + lib.optionalString isPy3k ''
       ${python.interpreter} python3/test/test_general.py
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://htseq.readthedocs.io/";

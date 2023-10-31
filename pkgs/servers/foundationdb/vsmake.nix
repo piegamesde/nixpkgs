@@ -97,8 +97,7 @@ let
           substituteInPlace ./Makefile \
             --replace 'TLS_LIBS +=' '#TLS_LIBS +=' \
             --replace 'LDFLAGS :=' 'LDFLAGS := -ltls -lssl -lcrypto'
-        ''
-      ;
+        '';
 
       separateDebugInfo = true;
       enableParallelBuilding = true;
@@ -117,8 +116,7 @@ let
           "KVRELEASE=1"
           "NOSTRIP=1"
         ]
-        ++ lib.optionals officialRelease [ "RELEASE=true" ]
-      ;
+        ++ lib.optionals officialRelease [ "RELEASE=true" ];
 
       # on 6.0 and later, we can specify all this information manually
       configurePhase = lib.optionalString (lib.versionAtLeast version "6.0") ''
@@ -168,8 +166,7 @@ let
           ln -sfv $out/bin/fdbbackup $out/bin/fdbdr
 
           ln -sfv $out/bin/fdbbackup $out/libexec/backup_agent
-        ''
-      ;
+        '';
 
       outputs = [
         "out"

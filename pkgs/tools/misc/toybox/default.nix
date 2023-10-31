@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     ++ optionals (enableStatic && stdenv.cc.libc ? static) [
       stdenv.cc.libc
       stdenv.cc.libc.static
-    ]
-  ;
+    ];
 
   postPatch = "patchShebangs .";
 

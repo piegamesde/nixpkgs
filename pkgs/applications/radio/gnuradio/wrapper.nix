@@ -51,8 +51,7 @@ let
           )
         )
         unwrapped.featuresInfo
-    )
-  ;
+    );
   pythonEnv = unwrapped.python.withPackages (ps: pythonPkgs);
 
   pname = unwrapped.pname + "-wrapped";
@@ -206,7 +205,6 @@ let
         inherit (unwrapped) meta;
       }
     else
-      unwrapped.overrideAttrs (_: { inherit passthru; })
-  ;
+      unwrapped.overrideAttrs (_: { inherit passthru; });
 in
 self

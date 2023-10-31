@@ -198,8 +198,7 @@ in
             touch "${cfg.dbpath}/.auth_setup_complete"
             systemctl stop mongodb-for-setup
           fi
-        ''
-      ;
+        '';
       postStart = ''
         if test -e "${cfg.dbpath}/.first_startup"; then
           ${

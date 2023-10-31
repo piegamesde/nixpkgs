@@ -373,8 +373,7 @@ in
           + cfg.package.version
           + ''
             , and enabling it is an error.
-          ''
-        ;
+          '';
       }
     ];
 

@@ -336,8 +336,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
 
           "lib/libcapsicum"
           "lib/libcasper"
-        ]
-      ;
+        ];
 
       patches = [
         ./compat-install-dirs.patch
@@ -353,8 +352,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         ''
         + lib.optionalString stdenv.hostPlatform.isx86 ''
           cp ../../sys/x86/include/elf.h ../../sys/x86
-        ''
-      ;
+        '';
 
       setupHooks = [
         ../../../build-support/setup-hooks/role.bash
@@ -396,8 +394,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         ''
         + lib.optionalString stdenv.hostPlatform.isDarwin ''
           cp --no-preserve=mode -r cross-build/include/darwin/* $out/1-include
-        ''
-      ;
+        '';
     };
 
     libnetbsd = mkDerivation {
@@ -454,8 +451,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           ++ [
             libmd
             libnetbsd
-          ]
-        ;
+          ];
         makeFlags =
           [
             "STRIP=-s" # flag to install, not command
@@ -560,8 +556,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           substituteInPlace $BSDSRCDIR/share/mk/bsd.sys.mk \
             --replace '-Wl,--fatal-warnings' "" \
             --replace '-Wl,--warn-shared-textrel' ""
-        ''
-      ;
+        '';
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
@@ -692,8 +687,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
         ++ [
           libnv
           libsbuf
-        ]
-      ;
+        ];
     };
     ##
     ## END COMMAND LINE TOOLS
@@ -962,8 +956,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
           libdwarf
           zlib
           libspl
-        ]
-      ;
+        ];
       meta.license = lib.licenses.cddl;
     };
 

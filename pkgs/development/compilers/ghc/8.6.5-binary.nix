@@ -22,8 +22,7 @@ let
 
   useNcurses6 =
     stdenv.hostPlatform.system == "x86_64-linux"
-    || (with stdenv.hostPlatform; isPower64 && isLittleEndian)
-  ;
+    || (with stdenv.hostPlatform; isPower64 && isLittleEndian);
 
   ourNcurses = if useNcurses6 then ncurses6 else ncurses5;
 
@@ -44,8 +43,7 @@ let
       # Could be stdenv.cc.bintools.dynamicLinker, keeping as-is to avoid rebuild.
       ''"$(cat $NIX_CC/nix-support/dynamic-linker)"''
     else
-      "${lib.getLib glibc}/lib/ld-linux*"
-  ;
+      "${lib.getLib glibc}/lib/ld-linux*";
 
   downloadsUrl = "https://downloads.haskell.org/ghc";
 
@@ -59,8 +57,7 @@ let
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
-    ]
-  ;
+    ];
 in
 
 stdenv.mkDerivation rec {
@@ -161,8 +158,7 @@ stdenv.mkDerivation rec {
       # Use objcopy magic to make the change:
       lib.optionalString stdenv.hostPlatform.isMusl ''
         find ./ghc-${version}/rts -name "libHSrts*.a" -exec ''${OBJCOPY:-objcopy} --redefine-sym __strdup=strdup {} \;
-      ''
-  ;
+      '';
 
   configurePlatforms = [ ];
   configureFlags =
@@ -172,8 +168,7 @@ stdenv.mkDerivation rec {
       # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/6124
     ]
     ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
   # No building is necessary, but calling make without flags ironically
   # calls install-strip ...
@@ -210,8 +205,7 @@ stdenv.mkDerivation rec {
       for file in $(find "$out" -name setup-config); do
         substituteInPlace $file --replace /usr/bin/ranlib "$(type -P ranlib)"
       done
-    ''
-  ;
+    '';
 
   # In nixpkgs, musl based builds currently enable `pie` hardening by default
   # (see `defaultHardeningFlags` in `make-derivation.nix`).

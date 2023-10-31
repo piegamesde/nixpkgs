@@ -71,8 +71,7 @@ let
           "--disable-static --enable-shared"
       ++
         optional (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-          "--disable-assembly"
-    ;
+          "--disable-assembly";
 
     doCheck = true; # not cross;
 

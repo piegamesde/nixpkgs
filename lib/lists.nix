@@ -189,8 +189,7 @@ rec {
     else if len != 1 then
       multiple
     else
-      head found
-  ;
+      head found;
 
   /* Find the first element in the list matching the specified
      predicate or return `default` if no such element exists.
@@ -485,8 +484,7 @@ rec {
           }
         else
           # grab the first one before us and continue
-          dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong)
-      ;
+          dfs' (head b.right) ([ us ] ++ visited) (tail b.right ++ b.wrong);
     in
     dfs' (head list) [ ] (tail list);
 
@@ -532,8 +530,7 @@ rec {
     # Slow, but short. Can be made a bit faster with an explicit stack.
     else
       # there are no cycles
-      { result = [ dfsthis.minimal ] ++ toporest.result; }
-  ;
+      { result = [ dfsthis.minimal ] ++ toporest.result; };
 
   /* Sort a list based on a comparator function which compares two
      elements and returns true if the first argument is strictly below
@@ -568,8 +565,7 @@ rec {
             next {
               left = [ el ] ++ left;
               inherit right;
-            }
-        ;
+            };
         pivot = pivot' 1 {
           left = [ ];
           right = [ ];
@@ -603,8 +599,7 @@ rec {
       let
         rel = cmp (head a) (head b);
       in
-      if rel == 0 then compareLists cmp (tail a) (tail b) else rel
-  ;
+      if rel == 0 then compareLists cmp (tail a) (tail b) else rel;
 
   /* Sort list using "Natural sorting".
      Numeric portions of strings are sorted in numeric order.

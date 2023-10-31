@@ -124,8 +124,7 @@ let
         pkg-config
         rustPlatform.bindgenHook
       ]
-      ++ lib.optionals useFakeRustfmt [ fakeRustfmt ]
-    ;
+      ++ lib.optionals useFakeRustfmt [ fakeRustfmt ];
 
     buildPhase = ''
       runHook preBuild

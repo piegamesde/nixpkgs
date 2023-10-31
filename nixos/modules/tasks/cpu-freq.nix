@@ -86,8 +86,7 @@ in
             "${cpupower}/bin/cpupower frequency-set "
             + optionalString governorEnable "--governor ${cfg.cpuFreqGovernor} "
             + optionalString maxEnable "--max ${toString cfg.cpufreq.max} "
-            + optionalString minEnable "--min ${toString cfg.cpufreq.min} "
-          ;
+            + optionalString minEnable "--min ${toString cfg.cpufreq.min} ";
           SuccessExitStatus = "0 237";
         };
       };

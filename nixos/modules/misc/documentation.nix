@@ -31,8 +31,7 @@ let
     && builtins.isPath m
     && isFunction f
     && instance ? options
-    && instance.meta.buildDocsInSandbox or true
-  ;
+    && instance.meta.buildDocsInSandbox or true;
 
   docModules =
     let
@@ -438,8 +437,7 @@ in
           ++ optionals cfg.doc.enable [
             manual.manualHTML
             nixos-help
-          ]
-        ;
+          ];
       })
     ]
   );

@@ -75,8 +75,7 @@
 # files.
 
 assert x11Support
-  -> tcl != null && tk != null && xorgproto != null && libX11 != null
-;
+  -> tcl != null && tk != null && xorgproto != null && libX11 != null;
 
 assert bluezSupport -> bluez != null;
 
@@ -134,8 +133,7 @@ let
         if lib.hasAttr pythonAttr pkgsTargetTarget then
           (override pkgsTargetTarget.${pythonAttr})
         else
-          { }
-      ;
+          { };
     };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
@@ -158,8 +156,7 @@ let
           && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
           && (enableLTO || enableOptimizations)
         )
-        [ stdenv.cc.cc.libllvm.out ]
-  ;
+        [ stdenv.cc.cc.libllvm.out ];
 
   buildInputs =
     filter (p: p != null) (
@@ -187,8 +184,7 @@ let
     )
 
     ++ optionals enableFramework [ Cocoa ]
-    ++ optionals tzdataSupport [ tzdata ]
-  ; # `zoneinfo` module
+    ++ optionals tzdataSupport [ tzdata ]; # `zoneinfo` module
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
@@ -196,8 +192,7 @@ let
     if stdenv.hostPlatform == stdenv.buildPlatform then
       "$out/bin/python"
     else
-      pythonForBuild.interpreter
-  ;
+      pythonForBuild.interpreter;
 
   # The CPython interpreter contains a _sysconfigdata_<platform specific suffix>
   # module that is imported by the sysconfig and distutils.sysconfig modules.
@@ -244,8 +239,7 @@ let
         else if isx86_32 then
           "i386"
         else
-          parsed.cpu.name
-      ;
+          parsed.cpu.name;
       pythonAbiName =
         # python's build doesn't support every gnu<extension>, and doesn't
         # differentiate between musl and glibc, so we list those supported in
@@ -265,14 +259,12 @@ let
         then
           parsed.abi.name
         else
-          "gnu"
-      ;
+          "gnu";
       multiarch =
         if isDarwin then
           "darwin"
         else
-          "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}"
-      ;
+          "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}";
 
       abiFlags = optionalString isPy37 "m";
 
@@ -312,8 +304,7 @@ stdenv.mkDerivation {
     + optionalString (pythonOlder "3.9" && stdenv.isDarwin && x11Support) ''
       # Broken on >= 3.9; replaced with ./3.9/darwin-tcl-tk.patch
       substituteInPlace setup.py --replace /Library/Frameworks /no-such-path
-    ''
-  ;
+    '';
 
   patches =
     optionals (version == "3.10.9")
@@ -394,8 +385,7 @@ stdenv.mkDerivation {
         [
           # https://github.com/python/cpython/issues/90656
           ./loongarch-support.patch
-        ]
-  ;
+        ];
 
   postPatch =
     ''
@@ -408,8 +398,7 @@ stdenv.mkDerivation {
     ''
     + optionalString (x11Support && (tix != null)) ''
       substituteInPlace "Lib/tkinter/tix.py" --replace "os.environ.get('TIX_LIBRARY')" "os.environ.get('TIX_LIBRARY') or '${tix}/lib'"
-    ''
-  ;
+    '';
 
   env = {
     CPPFLAGS = concatStringsSep " " (map (p: "-I${getDev p}/include") buildInputs);
@@ -487,8 +476,7 @@ stdenv.mkDerivation {
           "ac_cv_func_lchmod=no"
         ]
     ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
-    ++ optional static "LDFLAGS=-static"
-  ;
+    ++ optional static "LDFLAGS=-static";
 
   preConfigure =
     optionalString (pythonOlder "3.12") ''
@@ -521,8 +509,7 @@ stdenv.mkDerivation {
       # https://fedoraproject.org/wiki/Changes/PythonNoSemanticInterpositionSpeedup
       optionalString enableNoSemanticInterposition ''
         export CFLAGS_NODIST="-fno-semantic-interposition"
-      ''
-  ;
+      '';
 
   setupHook = python-setup-hook sitePackages;
 
@@ -629,8 +616,7 @@ stdenv.mkDerivation {
       # bytecode compilations for the same reason - we don't want bytecode generated.
       mkdir -p $out/share/gdb
       sed '/^#!/d' Tools/gdb/libpython.py > $out/share/gdb/libpython.py
-    ''
-  ;
+    '';
 
   preFixup = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     # Ensure patch-shebangs uses shebangs of host interpreter.
@@ -682,8 +668,7 @@ stdenv.mkDerivation {
       if sourceVersion.suffix == "" then
         "https://docs.python.org/release/${version}/whatsnew/changelog.html"
       else
-        "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}"
-    ;
+        "https://docs.python.org/${majorMinor}/whatsnew/changelog.html#python-${dashedVersion}";
     description = "A high-level dynamically-typed programming language";
     longDescription = ''
       Python is a remarkably powerful dynamic programming language that

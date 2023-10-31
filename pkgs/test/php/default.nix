@@ -53,8 +53,7 @@ in
             attrs.postInstall or ""
             + ''
               touch "$out/oApee-was-here"
-            ''
-          ;
+            '';
         }
       );
     in
@@ -84,8 +83,7 @@ in
                 attrs.postInstall or ""
                 + ''
                   touch "$out/oAs-first"
-                ''
-              ;
+                '';
             }
           )
         )
@@ -98,8 +96,7 @@ in
                 attrs.postInstall or ""
                 + ''
                   touch "$out/oAs-second"
-                ''
-              ;
+                '';
             }
           )
         )
@@ -124,8 +121,7 @@ in
                 attrs.postInstall or ""
                 + ''
                   touch "$out/oAs-first"
-                ''
-              ;
+                '';
             }
           )
         )
@@ -138,8 +134,7 @@ in
                 attrs.postInstall or ""
                 + ''
                   touch "$out/oAs-second"
-                ''
-              ;
+                '';
             }
           )
         )

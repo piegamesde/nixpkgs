@@ -61,8 +61,7 @@ in
               config.nodesCompat;
         }
       else
-        config.testScript
-    ;
+        config.testScript;
 
     defaults =
       { config, name, ... }:

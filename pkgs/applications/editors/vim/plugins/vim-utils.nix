@@ -148,15 +148,13 @@ let
           # back to a string.
           (knownPlugins.${plugin} // { pname = plugin; })
         else
-          plugin
-      ;
+          plugin;
     in
     # make sure all the dependencies of the plugin are also derivations
     drv
     // {
       dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]);
-    }
-  ;
+    };
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
@@ -164,8 +162,7 @@ let
     [ plugin ]
     ++ (lib.unique (
       builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])
-    ))
-  ;
+    ));
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
@@ -174,8 +171,7 @@ let
     if builtins.isString x then
       [ x ]
     else
-      (lib.optional (x ? name) x.name) ++ (x.names or [ ])
-  ;
+      (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
 
   rtpPath = ".";
 
@@ -233,8 +229,7 @@ let
           packdirStart
           packdirOpt
         ]
-        ++ lib.optional (allPython3Dependencies python3.pkgs != [ ]) python3link
-      ;
+        ++ lib.optional (allPython3Dependencies python3.pkgs != [ ]) python3link;
     in
     buildEnv {
       name = "vim-pack-dir";
@@ -283,8 +278,7 @@ let
         + ''
 
           call plug#end()
-        ''
-      ;
+        '';
 
       # vim-addon-manager = VAM (deprecated)
       vamImpl =
@@ -316,8 +310,7 @@ let
             "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
         )
         ++ lib.optional (plug != null) plugImpl
-        ++ [ customRC ]
-      ;
+        ++ [ customRC ];
     in
     lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries);
 
@@ -347,8 +340,7 @@ rec {
           executableName ? if lib.hasInfix "vim" name then
             lib.replaceStrings [ "vim" ] [ "$exe" ] name
           else
-            "\${exe/vim/${lib.escapeShellArg name}}"
-          ,
+            "\${exe/vim/${lib.escapeShellArg name}}",
           # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
           vimrcConfig ? null,
           # A custom vimrc file.
@@ -374,8 +366,7 @@ rec {
               "Set `standalone = false` to include the manual."
             else
               lib.optionalString (wrapManual == false && name == "vim")
-                "Set `standalone = true` to get the *vim wrappers only."
-            }''
+                "Set `standalone = true` to get the *vim wrappers only."}''
           lib.warnIf
           (wrapGui != null)
           "vim.customize: wrapGui is deprecated: gvim is now automatically included if present"
@@ -390,8 +381,7 @@ rec {
                 else if vimrcConfig != null then
                   mkVimrcFile vimrcConfig
                 else
-                  throw "at least one of vimrcConfig and vimrcFile must be specified"
-              ;
+                  throw "at least one of vimrcConfig and vimrcFile must be specified";
               bin = runCommand "${name}-bin" { nativeBuildInputs = [ makeWrapper ]; } ''
                 vimrc=${lib.escapeShellArg vimrc}
                 gvimrc=${
@@ -431,8 +421,7 @@ rec {
 
       override = f: makeCustomizable (vim.override f);
       overrideAttrs = f: makeCustomizable (vim.overrideAttrs f);
-    }
-  ;
+    };
 
   vimWithRC = throw "vimWithRC was removed, please use vim.customize instead";
 

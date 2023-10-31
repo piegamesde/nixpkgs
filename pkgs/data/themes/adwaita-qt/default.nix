@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
     [ qtbase ]
     ++ lib.optionals stdenv.isLinux [ xorg.libxcb ]
     ++ lib.optionals (!useQt6) [ qt5.qtx11extras ]
-    ++ lib.optionals useQt6 [ qtwayland ]
-  ;
+    ++ lib.optionals useQt6 [ qtwayland ];
 
   # Qt setup hook complains about missing `wrapQtAppsHook` otherwise.
   dontWrapQtApps = true;

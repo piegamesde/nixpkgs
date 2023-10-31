@@ -55,8 +55,7 @@ stdenv.mkDerivation rec {
           coq
           flocq
         ]
-      )
-  ;
+      );
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip

@@ -19,8 +19,7 @@ let
           if enableJavaFX then
             "cbb3b96d80a0675893f21dc51ba3f532049c501bd7dc4c8d1ee930e63032c745"
           else
-            "1jihn125dmxr9y5h9jq89zywm3z6rbwv5q7msfzsf2wzrr13jh0z"
-        ;
+            "1jihn125dmxr9y5h9jq89zywm3z6rbwv5q7msfzsf2wzrr13jh0z";
       };
 
       aarch64-darwin = {
@@ -31,8 +30,7 @@ let
           if enableJavaFX then
             "a49b23abfd83784d2ac935fc24e25ab7cb09b8ffc8e47c32ed446e05b8a21396"
           else
-            "1i0bcjx3acb5dhslf6cabdcnd6mrz9728vxw9hb4al5y3f5fll4w"
-        ;
+            "1i0bcjx3acb5dhslf6cabdcnd6mrz9728vxw9hb4al5y3f5fll4w";
       };
     }
     ."${stdenv.hostPlatform.system}";

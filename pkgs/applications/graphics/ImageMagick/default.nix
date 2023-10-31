@@ -77,8 +77,7 @@ let
     else if stdenv.hostPlatform.system == "powerpc64le-linux" then
       "ppc64le"
     else
-      null
-  ;
+      null;
 in
 
 stdenv.mkDerivation (
@@ -148,8 +147,7 @@ stdenv.mkDerivation (
       ++ lib.optionals stdenv.isDarwin [
         ApplicationServices
         Foundation
-      ]
-    ;
+      ];
 
     propagatedBuildInputs =
       [ curl ]
@@ -159,8 +157,7 @@ stdenv.mkDerivation (
       ++ lib.optional lcms2Support lcms2
       ++ lib.optional libX11Support libX11
       ++ lib.optional libXtSupport libXt
-      ++ lib.optional libwebpSupport libwebp
-    ;
+      ++ lib.optional libwebpSupport libwebp;
 
     postInstall =
       ''
@@ -176,8 +173,7 @@ stdenv.mkDerivation (
         for la in $out/lib/*.la; do
           sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
         done
-      ''
-    ;
+      '';
 
     passthru.tests = {
       version = testers.testVersion { package = imagemagick; };

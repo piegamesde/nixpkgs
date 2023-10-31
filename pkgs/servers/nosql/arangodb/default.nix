@@ -26,8 +26,7 @@ let
     if targetArchitecture == null then
       defaultTargetArchitecture
     else
-      targetArchitecture
-  ;
+      targetArchitecture;
 in
 
 gcc10Stdenv.mkDerivation rec {

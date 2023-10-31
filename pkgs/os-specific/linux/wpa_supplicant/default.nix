@@ -108,8 +108,7 @@ stdenv.mkDerivation rec {
         ''
           CONFIG_WPA_CLI_EDIT=y
         ''
-    )
-  ;
+    );
 
   preBuild = ''
     for manpage in wpa_supplicant/doc/docbook/wpa_supplicant.conf* ; do
@@ -132,8 +131,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optional dbusSupport dbus
     ++ optional withReadline readline
-    ++ optional withPcsclite pcsclite
-  ;
+    ++ optional withPcsclite pcsclite;
 
   nativeBuildInputs = [ pkg-config ];
 
@@ -153,8 +151,7 @@ stdenv.mkDerivation rec {
     + ''
       rm $out/share/man/man8/wpa_priv.8
       install -Dm444 wpa_supplicant.conf $out/share/doc/wpa_supplicant/wpa_supplicant.conf.example
-    ''
-  ;
+    '';
 
   passthru.tests = {
     inherit (nixosTests) wpa_supplicant;

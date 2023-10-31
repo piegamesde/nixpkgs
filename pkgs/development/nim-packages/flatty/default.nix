@@ -24,6 +24,5 @@ buildNimPackage rec {
       description = "Tools and serializer for plain flat binary files";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

@@ -18,8 +18,7 @@
 
 assert desktopSupport == "gnomeflashback"
   || desktopSupport == "mate"
-  || desktopSupport == "xfce4"
-;
+  || desktopSupport == "xfce4";
 
 stdenv.mkDerivation rec {
   version = "unstable-2017-09-15";
@@ -51,8 +50,7 @@ stdenv.mkDerivation rec {
       gtk2
       libxfce4util
       xfce4-panel
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     autoreconfHook

@@ -143,8 +143,7 @@ let
               lopsided98
             ];
           }
-          // extraMeta
-        ;
+          // extraMeta;
       }
       // removeAttrs args [ "extraMeta" ]
     )

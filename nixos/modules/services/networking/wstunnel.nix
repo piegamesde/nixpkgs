@@ -341,8 +341,7 @@ let
                 if useACMEHost != null then
                   "${certConfig.directory}/fullchain.pem"
                 else
-                  tlsCertificate
-              ;
+                  tlsCertificate;
               resolvedTlsKey =
                 if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
             in
@@ -462,8 +461,7 @@ let
               || (any (x: x.local.port < 1024) clientCfg.localToRemote)
             )
             [ "CAP_NET_BIND_SERVICE" ]
-          )
-        ;
+          );
         NoNewPrivileges = true;
         RestrictNamespaces = "uts ipc pid user cgroup";
         ProtectSystem = "strict";
@@ -529,8 +527,7 @@ in
   config = mkIf cfg.enable {
     systemd.services =
       (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers))
-      // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients))
-    ;
+      // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
 
     assertions =
       (mapAttrsToList
@@ -568,8 +565,7 @@ in
           '';
         })
         cfg.clients
-      )
-    ;
+      );
   };
 
   meta.maintainers = with maintainers; [ alyaeanyx ];

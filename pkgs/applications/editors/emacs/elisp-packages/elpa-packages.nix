@@ -79,8 +79,7 @@ let
           if super.org-transclusion.version == "1.2.0" then
             markBroken super.org-transclusion
           else
-            super.org-transclusion
-        ;
+            super.org-transclusion;
         rcirc-menu = markBroken super.rcirc-menu; # Missing file header
         cl-lib = null; # builtin
         cl-print = null; # builtin
@@ -122,8 +121,7 @@ let
               + "\n"
               + ''
                 ./install.sh --prefix=$out
-              ''
-            ;
+              '';
 
             meta = old.meta // {
               maintainers = [ lib.maintainers.sternenseemann ];
@@ -155,8 +153,7 @@ let
                 outd=$out/share/emacs/site-lisp/elpa/jinx-*
                 install -m444 -t $outd jinx-mod${libExt}
                 rm $outd/jinx-mod.c $outd/emacs-module.h
-              ''
-            ;
+              '';
 
             meta = old.meta // {
               maintainers = [ lib.maintainers.DamienCassou ];
@@ -172,8 +169,7 @@ let
               + ''
                 substituteInPlace ./plz.el \
                   --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
-              ''
-            ;
+              '';
             preInstall = ''
               tar -cf "$pname-$version.tar" --transform "s,^,$pname-$version/," * .[!.]*
               src="$pname-$version.tar"

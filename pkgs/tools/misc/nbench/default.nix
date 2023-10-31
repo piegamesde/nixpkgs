@@ -20,8 +20,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Makefile --replace "-static" ""
-    ''
-  ;
+    '';
 
   buildInputs = lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ];
 

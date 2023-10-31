@@ -42,8 +42,7 @@ stdenv.mkDerivation (
       [ "out" ]
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ]
-    ;
+      ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -66,8 +65,7 @@ stdenv.mkDerivation (
         python3Packages.sphinx-rtd-theme
         python3Packages.breathe
       ]
-      ++ lib.optionals buildTests [ openblas ]
-    ;
+      ++ lib.optionals buildTests [ openblas ];
 
     cmakeFlags =
       [
@@ -84,8 +82,7 @@ stdenv.mkDerivation (
         # "-DAPI_BENCH_CLBLAST=ON"
         # Needs https://github.com/openai/triton
         # "-DAPI_BENCH_ISAAC=ON"
-      ]
-    ;
+      ];
 
     # Unfortunately, it seems like we have to call make on these manually
     postBuild =
@@ -98,8 +95,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString buildBenchmarks ''
         make examples
-      ''
-    ;
+      '';
 
     postInstall =
       lib.optionalString buildDocs ''
@@ -119,8 +115,7 @@ stdenv.mkDerivation (
         patchelf --set-rpath ${
           lib.makeLibraryPath finalAttrs.buildInputs
         }:$out/lib $benchmark/bin/*
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -67,8 +67,7 @@ rec {
 
           StrongSwan default: ````${builtins.toJSON strongswanDefault}````
         ''
-      )
-  ;
+      );
 
   single = f: name: value: { ${name} = f value; };
 

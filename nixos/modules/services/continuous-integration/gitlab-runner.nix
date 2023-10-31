@@ -24,8 +24,7 @@ let
     if service ? description && service.description != null then
       "${hash} ${service.description}"
     else
-      "${name}_${config.networking.hostName}_${hash}"
-  ;
+      "${name}_${config.networking.hostName}_${hash}";
 
   hashedServices =
     mapAttrs' (name: service: nameValuePair (genRunnerName name service) service)
@@ -173,8 +172,7 @@ let
 
           # make config file readable by service
           chown -R --reference="$HOME" "$(dirname ${configPath})"
-        ''
-    ;
+        '';
   };
   startScript = pkgs.writeShellScriptBin "gitlab-runner-start" ''
     export CONFIG_FILE=${configPath}
@@ -606,8 +604,7 @@ in
           util-linux
           cfg.package
         ]
-        ++ cfg.extraPackages
-      ;
+        ++ cfg.extraPackages;
       reloadIfChanged = true;
       serviceConfig =
         {

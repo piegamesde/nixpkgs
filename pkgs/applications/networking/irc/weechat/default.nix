@@ -123,8 +123,7 @@ stdenv.mkDerivation rec {
     ++ optionals stdenv.isDarwin [
       "-DICONV_LIBRARY=${libiconv}/lib/libiconv.dylib"
     ]
-    ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF")) plugins
-  ;
+    ++ map (p: "-D${p.cmakeFlag}=" + (if p.enabled then "ON" else "OFF")) plugins;
 
   nativeBuildInputs = [
     cmake
@@ -148,14 +147,12 @@ stdenv.mkDerivation rec {
       libresolv
     ]
     ++ concatMap (p: p.buildInputs) enabledPlugins
-    ++ extraBuildInputs
-  ;
+    ++ extraBuildInputs;
 
   env.NIX_CFLAGS_COMPILE =
     "-I${python}/include/${python.libPrefix}"
     # Fix '_res_9_init: undefined symbol' error
-    + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv")
-  ;
+    + (lib.optionalString stdenv.isDarwin "-DBIND_8_COMPAT=1 -lresolv");
 
   postInstall = with lib; ''
     for p in ${concatMapStringsSep " " (p: p.name) enabledPlugins}; do

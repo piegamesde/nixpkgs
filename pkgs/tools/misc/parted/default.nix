@@ -40,14 +40,12 @@ stdenv.mkDerivation rec {
     [ libuuid ]
     ++ lib.optional (readline != null) readline
     ++ lib.optional (gettext != null) gettext
-    ++ lib.optional (lvm2 != null) lvm2
-  ;
+    ++ lib.optional (lvm2 != null) lvm2;
 
   configureFlags =
     (if (readline != null) then [ "--with-readline" ] else [ "--without-readline" ])
     ++ lib.optional (lvm2 == null) "--disable-device-mapper"
-    ++ lib.optional enableStatic "--enable-static"
-  ;
+    ++ lib.optional enableStatic "--enable-static";
 
   # Tests were previously failing due to Hydra running builds as uid 0.
   # That should hopefully be fixed now.

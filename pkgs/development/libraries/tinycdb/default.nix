@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
           cp libcdb.so* $lib/lib
           cp cdb-shared $out/bin/cdb
         ''
-    )
-  ;
+    );
 
   src = fetchurl {
     url = "http://www.corpit.ru/mjt/tinycdb/${pname}-${version}.tar.gz";

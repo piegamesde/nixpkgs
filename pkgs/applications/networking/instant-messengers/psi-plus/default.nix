@@ -88,8 +88,7 @@ mkDerivation rec {
       gst_all_1.gst-plugins-good
     ]
     ++ lib.optionals (chatType == "webkit") [ qtwebkit ]
-    ++ lib.optionals (chatType == "webengine") [ qtwebengine ]
-  ;
+    ++ lib.optionals (chatType == "webengine") [ qtwebengine ];
 
   preFixup = lib.optionalString voiceMessagesSupport ''
     qtWrapperArgs+=(

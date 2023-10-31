@@ -250,8 +250,7 @@ let
         ${init runScript} ${initArgs}
       )
       exec "''${cmd[@]}"
-    ''
-  ;
+    '';
 
   bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
 in

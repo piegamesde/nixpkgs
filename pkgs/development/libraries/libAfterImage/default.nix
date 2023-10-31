@@ -92,8 +92,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace Makefile.in \
         --replace "-soname," "-install_name,$out/lib/"
-    ''
-  ;
+    '';
 
   configureFlags = [
     "--with-gif"

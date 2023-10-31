@@ -52,8 +52,7 @@ stdenv.mkDerivation rec {
         ''
         + lib.optionalString (isRelative path) ''
           s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
-        ''
-      ;
+        '';
     in
     ''
       sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {

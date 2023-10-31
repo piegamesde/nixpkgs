@@ -67,26 +67,21 @@
 with builtins;
 
 assert goPackagePath != ""
-  -> throw "`goPackagePath` is not needed with `buildGoModule`"
-;
+  -> throw "`goPackagePath` is not needed with `buildGoModule`";
 assert (vendorSha256 == "_unset" && vendorHash == "_unset")
-  -> throw "either `vendorHash` or `vendorSha256` is required"
-;
+  -> throw "either `vendorHash` or `vendorSha256` is required";
 assert (vendorSha256 != "_unset" && vendorHash != "_unset")
-  -> throw "both `vendorHash` and `vendorSha256` set. only one can be set."
-;
+  -> throw "both `vendorHash` and `vendorSha256` set. only one can be set.";
 
 let
   hasAnyVendorHash =
     (vendorSha256 != null && vendorSha256 != "_unset")
-    || (vendorHash != null && vendorHash != "_unset")
-  ;
+    || (vendorHash != null && vendorHash != "_unset");
   vendorHashType =
     if hasAnyVendorHash then
       if vendorSha256 != null && vendorSha256 != "_unset" then "sha256" else "sri"
     else
-      null
-  ;
+      null;
 
   args = removeAttrs args' [
     "overrideModAttrs"
@@ -170,8 +165,7 @@ let
                         goModVendorFlags+=(-v)
                       fi
                       go mod vendor "''${goModVendorFlags[@]}"
-                    ''
-                  }
+                    ''}
 
                     mkdir -p vendor
 
@@ -191,8 +185,7 @@ let
                 else
                   ''
                     cp -r --reflink=auto vendor $out
-                  ''
-                }
+                  ''}
 
                   if ! [ "$(ls -A $out)" ]; then
                     echo "vendor folder is empty, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
@@ -226,8 +219,7 @@ let
         // overrideModAttrs modArgs
       )
     else
-      ""
-  ;
+      "";
 
   package = stdenv.mkDerivation (
     args
@@ -262,8 +254,7 @@ let
               ''
                 rm -rf vendor
                 cp -r --reflink=auto ${go-modules} vendor
-              ''
-            }
+              ''}
           ''
           + ''
 

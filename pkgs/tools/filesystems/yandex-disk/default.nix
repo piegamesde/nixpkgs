@@ -24,8 +24,7 @@ let
         gcclib = "${stdenv.cc.cc.lib}/lib";
         sha256 = "sha256-28dmdnJf+qh9r3F0quwlYXB/UqcOzcHzuzFq8vt2bf0=";
         webarchive = "20220519080430";
-      }
-  ;
+      };
 in
 stdenv.mkDerivation rec {
 

@@ -49,8 +49,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildDocs [ "doc" ]
       ++ lib.optionals (buildTests || buildBenchmarks) [ "test" ]
       ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ++ lib.optionals buildSamples [ "sample" ]
-    ;
+      ++ lib.optionals buildSamples [ "sample" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -81,8 +80,7 @@ stdenv.mkDerivation (
         sphinx
         python3Packages.sphinx-rtd-theme
         python3Packages.breathe
-      ]
-    ;
+      ];
 
     cmakeFlags =
       [
@@ -104,8 +102,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildBenchmarks [
         "-DROCWMMA_BUILD_BENCHMARK_TESTS=ON"
         "-DROCWMMA_BENCHMARK_WITH_ROCBLAS=ON"
-      ]
-    ;
+      ];
 
     postPatch = lib.optionalString buildDocs ''
       patchShebangs docs/*.sh
@@ -139,8 +136,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString (buildTests || buildBenchmarks || buildSamples) ''
         rm -rf $out/bin
-      ''
-    ;
+      '';
 
     passthru.updateScript = rocmUpdateScript {
       name = finalAttrs.pname;

@@ -36,8 +36,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString stdenv.hostPlatform.isWasm ''
       patch -p1 -d $(ls -d llvm-*) -i ${./wasm.patch}
-    ''
-  ;
+    '';
 
   patches = [
     ./no-threads.patch
@@ -58,8 +57,7 @@ stdenv.mkDerivation {
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ]
-  ;
+    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do

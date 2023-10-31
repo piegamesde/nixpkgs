@@ -31,8 +31,7 @@ let
           throw
             "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
         else
-          c.plugins or cfg.plugins
-      ;
+          c.plugins or cfg.plugins;
       plugins = unique plugins';
 
       hasPython = v: filter (n: n == "python${v}") plugins != [ ];
@@ -48,8 +47,7 @@ let
         else if hasPython3 then
           cfg.package.python3
         else
-          null
-      ;
+          null;
 
       pythonEnv = python.withPackages (c.pythonPackages or (self: [ ]));
 
@@ -85,8 +83,7 @@ let
                   pkgs.buildEnv {
                     name = "vassals";
                     paths = mapAttrsToList buildCfg c.vassals;
-                  }
-              ;
+                  };
             }
             // removeAttrs c [
               "type"
@@ -94,8 +91,7 @@ let
             ]
           else
             throw
-              "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'"
-        ;
+              "`type` attribute in uWSGI configuration should be either 'normal' or 'emperor'";
       };
     in
     pkgs.writeTextDir "${name}.json" (builtins.toJSON uwsgiCfg);

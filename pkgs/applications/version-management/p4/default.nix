@@ -91,8 +91,7 @@ stdenv.mkDerivation rec {
       "-sOSVER=1013"
       "-sMACOSX_SDK=${emptyDirectory}"
       "-sLIBC++DIR=${libcxxUnified}/lib"
-    ]
-  ;
+    ];
 
   CCFLAGS =
     # The file contrib/optimizations/slide_hash_neon.h is missing from the
@@ -116,8 +115,7 @@ stdenv.mkDerivation rec {
           "limits"
           "-include"
           "thread"
-        ]
-  ;
+        ];
 
   buildPhase = ''
     runHook preBuild

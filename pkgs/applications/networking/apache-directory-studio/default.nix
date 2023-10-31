@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
         sha256 = "19zdspzv4n3mfgb1g45s3wh0vbvn6a9zjd4xi5x2afmdjkzlwxi4";
       }
     else
-      throw "Unsupported system: ${stdenv.hostPlatform.system}"
-  ;
+      throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   desktopItem = makeDesktopItem {
     name = "apache-directory-studio";

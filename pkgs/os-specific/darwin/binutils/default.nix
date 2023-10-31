@@ -108,8 +108,7 @@ stdenv.mkDerivation {
       mv $out/bin/${targetPrefix}as $out/bin/${targetPrefix}gas
       makeWrapper "${clang-unwrapped}/bin/clang" "$out/bin/${targetPrefix}as" \
         --add-flags "-x assembler -integrated-as -c"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = lib.optionals (stdenv.isAarch64 || dualAs) [ makeWrapper ];
 

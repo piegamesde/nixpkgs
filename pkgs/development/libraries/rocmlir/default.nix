@@ -26,8 +26,7 @@ let
     else if stdenv.isAarch64 then
       "AArch64"
     else
-      throw "Unsupported ROCm LLVM platform"
-  ;
+      throw "Unsupported ROCm LLVM platform";
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -70,8 +69,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (!buildRockCompiler) [
         "-DROCM_PATH=${rocminfo}"
         "-DROCM_TEST_CHIPSET=gfx000"
-      ]
-    ;
+      ];
 
     dontBuild = true;
     doCheck = true;

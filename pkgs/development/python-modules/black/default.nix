@@ -52,8 +52,7 @@ buildPythonPackage rec {
       platformdirs
     ]
     ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ]
-  ;
+    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   passthru.optional-dependencies = {
     colorama = [ colorama ];
@@ -85,8 +84,7 @@ buildPythonPackage rec {
     + lib.optionalString stdenv.isDarwin ''
       # Work around https://github.com/psf/black/issues/2105
       export TMPDIR="/tmp"
-    ''
-  ;
+    '';
 
   disabledTests =
     [

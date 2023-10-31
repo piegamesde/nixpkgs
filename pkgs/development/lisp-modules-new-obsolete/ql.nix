@@ -164,8 +164,7 @@ let
         pkgs = builtQlpkgs;
       }
     else
-      { }
-  ;
+      { };
 
   builtQlpkgs = mapAttrs (n: v: build v) qlpkgs;
 
@@ -175,8 +174,7 @@ let
       builtPkg = build-asdf-system pkg;
       withExtras =
         pkg
-        // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg))
-      ;
+        // (optionalAttrs (hasAttr pkg.pname extras) (extras.${pkg.pname} builtPkg));
       fixedUp = fixup withExtras;
     in
     build-asdf-system fixedUp;

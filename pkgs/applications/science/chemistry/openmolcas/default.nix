@@ -103,8 +103,7 @@ stdenv.mkDerivation {
     ++ lib.optionals enableMpi [
       "-DGA=ON"
       "-DMPI=ON"
-    ]
-  ;
+    ];
 
   preConfigure = lib.optionalString enableMpi ''
     export GAROOT=${globalarrays};

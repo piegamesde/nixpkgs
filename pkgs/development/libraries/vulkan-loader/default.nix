@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
     ++
       lib.optional stdenv.isLinux
         "-DSYSCONFDIR=${addOpenGLRunpath.driverLink}/share"
-    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-DUSE_GAS=OFF"
-  ;
+    ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-DUSE_GAS=OFF";
 
   outputs = [
     "out"

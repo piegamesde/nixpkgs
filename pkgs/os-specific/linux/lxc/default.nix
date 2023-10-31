@@ -86,8 +86,7 @@ stdenv.mkDerivation rec {
       "--enable-bash"
       (if doCheck then "--enable-tests" else "--disable-tests")
       "--with-rootfs-path=/var/lib/lxc/rootfs"
-    ]
-  ;
+    ];
 
   doCheck = false;
 

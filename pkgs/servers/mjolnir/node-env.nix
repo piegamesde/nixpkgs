@@ -478,8 +478,7 @@ let
           ]
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs
-        ;
+          ++ buildInputs;
 
         inherit nodejs;
 
@@ -600,8 +599,7 @@ let
           ]
           ++ lib.optional (stdenv.isLinux) utillinux
           ++ lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs
-        ;
+          ++ buildInputs;
 
         inherit dontStrip; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall unpackPhase buildPhase;

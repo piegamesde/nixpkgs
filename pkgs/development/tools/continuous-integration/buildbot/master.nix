@@ -92,8 +92,7 @@ let
         pyyaml
       ]
       # tls
-      ++ twisted.optional-dependencies.tls
-    ;
+      ++ twisted.optional-dependencies.tls;
 
     nativeCheckInputs = [
       treq

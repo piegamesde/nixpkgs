@@ -171,8 +171,7 @@ stdenv.mkDerivation rec {
       sed -i '/qemucaps2xmltest/d' tests/meson.build
       sed -i '/qemuhotplugtest/d' tests/meson.build
       sed -i '/virnetdaemontest/d' tests/meson.build
-    ''
-  ;
+    '';
 
   strictDeps = true;
 
@@ -191,8 +190,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (!isDarwin) rpcsvc-proto
     # NOTE: needed for rpcgen
-    ++ lib.optional isDarwin darwin.developer_cmds
-  ;
+    ++ lib.optional isDarwin darwin.developer_cmds;
 
   buildInputs =
     [
@@ -241,8 +239,7 @@ stdenv.mkDerivation rec {
       openiscsi
     ]
     ++ lib.optionals enableXen [ xen ]
-    ++ lib.optionals enableZfs [ zfs ]
-  ;
+    ++ lib.optionals enableZfs [ zfs ];
 
   preConfigure =
     let
@@ -274,8 +271,7 @@ stdenv.mkDerivation rec {
 
       patchShebangs .
     ''
-    + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides))
-  ;
+    + (lib.concatStringsSep "\n" (lib.mapAttrsToList patchBuilder overrides));
 
   mesonAutoFeatures = "disabled";
 
@@ -379,8 +375,7 @@ stdenv.mkDerivation rec {
       rm $out/lib/systemd/system/{virtlockd,virtlogd}.*
       wrapProgram $out/sbin/libvirtd \
         --prefix PATH : /run/libvirt/nix-emulators:${binPath}
-    ''
-  ;
+    '';
 
   passthru.updateScript = writeScript "update-libvirt" ''
     #!/usr/bin/env nix-shell

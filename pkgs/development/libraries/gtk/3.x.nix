@@ -128,8 +128,7 @@ stdenv.mkDerivation (
         lib.optionals
           (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
           [ mesonEmulatorHook ]
-      ++ lib.optionals waylandSupport [ wayland-scanner ]
-    ;
+      ++ lib.optionals waylandSupport [ wayland-scanner ];
 
     buildInputs =
       [
@@ -138,8 +137,7 @@ stdenv.mkDerivation (
         isocodes
       ]
       ++ lib.optionals stdenv.isDarwin [ AppKit ]
-      ++ lib.optionals trackerSupport [ tracker ]
-    ;
+      ++ lib.optionals trackerSupport [ tracker ];
     #TODO: colord?
 
     propagatedBuildInputs =
@@ -175,8 +173,7 @@ stdenv.mkDerivation (
         wayland-protocols
       ]
       ++ lib.optionals xineramaSupport [ libXinerama ]
-      ++ lib.optionals cupsSupport [ cups ]
-    ;
+      ++ lib.optionals cupsSupport [ cups ];
 
     mesonFlags = [
       "-Dgtk_doc=${lib.boolToString withIntrospection}"
@@ -232,8 +229,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString (stdenv.buildPlatform == stdenv.hostPlatform) ''
         GTK_PATH="''${out:?}/lib/gtk-3.0/3.0.0/immodules/" ''${dev:?}/bin/gtk-query-immodules-3.0 > "''${out:?}/lib/gtk-3.0/3.0.0/immodules.cache"
-      ''
-    ;
+      '';
 
     # Wrap demos
     postFixup =
@@ -248,8 +244,7 @@ stdenv.mkDerivation (
       + lib.optionalString stdenv.isDarwin ''
         # a comment created a cycle between outputs
         sed '/^# ModulesPath =/d' -i "$out"/lib/gtk-*/*/immodules.cache
-      ''
-    ;
+      '';
 
     passthru = {
       updateScript = gnome.updateScript {

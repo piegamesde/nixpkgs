@@ -35,8 +35,7 @@ stdenv.mkDerivation {
           makeWrapper ${env}/bin/yq2ded $out/bin/yq2ded-${game.title} \
             --add-flags "+set game ${game.id}"
         '')
-        games
-  ;
+        games;
 
   meta = {
     inherit description;

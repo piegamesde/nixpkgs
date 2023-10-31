@@ -231,8 +231,7 @@ with pkgs; rec {
           cp ${busyboxMinimal}/bin/busybox $out/on-server
           chmod u+w $out/on-server/busybox
           nuke-refs $out/on-server/busybox
-        ''
-      ; # */
+        ''; # */
 
       # The result should not contain any references (store paths) so
       # that we can safely copy them out of the store and to other
@@ -283,8 +282,7 @@ with pkgs; rec {
         inherit bootstrapFiles extraAttrs;
       }
     else
-      throw "unsupported libc"
-  ;
+      throw "unsupported libc";
 
   test = derivation {
     name = "test-bootstrap-tools";
@@ -348,7 +346,6 @@ with pkgs; rec {
         ./configure --prefix=$out
         make
         make install
-      ''
-    ;
+      '';
   };
 }

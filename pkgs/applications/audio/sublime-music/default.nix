@@ -79,8 +79,7 @@ python.pkgs.buildPythonApplication rec {
       pango
     ]
     ++ lib.optional notifySupport libnotify
-    ++ lib.optional networkSupport networkmanager
-  ;
+    ++ lib.optional networkSupport networkmanager;
 
   propagatedBuildInputs =
     with python.pkgs;
@@ -99,8 +98,7 @@ python.pkgs.buildPythonApplication rec {
     ]
     ++ lib.optional chromecastSupport pychromecast
     ++ lib.optional keyringSupport keyring
-    ++ lib.optional serverSupport bottle
-  ;
+    ++ lib.optional serverSupport bottle;
 
   nativeCheckInputs = with python.pkgs; [ pytest ];
 

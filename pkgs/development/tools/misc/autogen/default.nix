@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
         fetchurl {
           url =
             "https://salsa.debian.org/debian/autogen/-/raw/debian/${ver}"
-            + "/debian/patches/${pname}.diff?inline=false"
-          ;
+            + "/debian/patches/${pname}.diff?inline=false";
           inherit name sha256;
         };
     in
@@ -108,8 +107,7 @@ stdenv.mkDerivation rec {
       #"MAKEINFO=${buildPackages.texinfo}/bin/makeinfo"
     ]
     # See: https://sourceforge.net/p/autogen/bugs/187/
-    ++ lib.optionals stdenv.isDarwin [ "ac_cv_func_utimensat=no" ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ "ac_cv_func_utimensat=no" ];
 
   #doCheck = true; # not reliable
 
@@ -131,8 +129,7 @@ stdenv.mkDerivation rec {
         local nrp="$(patchelf --print-rpath "$f" | sed -E 's@(:|^)'$NIX_BUILD_TOP'[^:]*:@\1@g')"
         patchelf --set-rpath "$nrp" "$f"
       done
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Automated text and program generation tool";

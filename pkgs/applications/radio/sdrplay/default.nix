@@ -12,8 +12,7 @@ let
     else if stdenv.isi686 then
       "i686"
     else
-      throw "unsupported architecture"
-  ;
+      throw "unsupported architecture";
 in
 stdenv.mkDerivation rec {
   pname = "sdrplay";

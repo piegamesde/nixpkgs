@@ -59,8 +59,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableDjvu [ djvulibre ]
     ++ lib.optionals enableEpub [ webkitgtk ]
     ++ lib.optionals enablePostScript [ libspectre ]
-    ++ lib.optionals enableXps [ libgxps ]
-  ;
+    ++ lib.optionals enableXps [ libgxps ];
 
   configureFlags =
     [ ]
@@ -68,8 +67,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (enableEpub) [ "--enable-epub" ]
     ++ lib.optionals (enablePostScript) [ "--enable-ps" ]
     ++ lib.optionals (enableXps) [ "--enable-xps" ]
-    ++ lib.optionals (enableImages) [ "--enable-pixbuf" ]
-  ;
+    ++ lib.optionals (enableImages) [ "--enable-pixbuf" ];
 
   env.NIX_CFLAGS_COMPILE = "-I${glib.dev}/include/gio-unix-2.0";
 

@@ -17,8 +17,7 @@ let
           "src"
           "outputHash"
         ]
-        value
-  ;
+        value;
   getChecksum =
     name: value:
     if hasChecksum value then
@@ -28,8 +27,7 @@ let
         rev = value.src.rev;
       }
     else
-      null
-  ;
+      null;
   checksums = lib.mapAttrs getChecksum generated;
 in
 lib.filterAttrs (n: v: v != null) checksums

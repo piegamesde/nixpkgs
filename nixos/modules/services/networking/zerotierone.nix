@@ -60,8 +60,7 @@ in
             touch "/var/lib/zerotier-one/networks.d/${netId}.conf"
           '')
           cfg.joinNetworks
-        )
-      ;
+        );
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/zerotier-one -p${toString cfg.port}";
         Restart = "always";

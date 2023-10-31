@@ -89,7 +89,6 @@ import ./make-test-python.nix (
         with subtest("bit. zone forwarding works"):
             server.wait_for_unit("pdns-recursor")
             assert "1.2.3.4" in server.succeed("host test.bit")
-      ''
-    ;
+      '';
   }
 )

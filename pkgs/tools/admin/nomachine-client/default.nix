@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-TvEU1hDvPXQbF7fMI89I2bhap1Y0oetUoFl3yR5eTGg=";
       }
     else
-      throw "NoMachine client is not supported on ${stdenv.hostPlatform.system}"
-  ;
+      throw "NoMachine client is not supported on ${stdenv.hostPlatform.system}";
 
   # nxusb-legacy is only needed for kernel versions < 3
   postUnpack = ''

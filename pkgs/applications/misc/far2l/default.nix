@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
       Cocoa
       AudioToolbox
       OpenGL
-    ]
-  ;
+    ];
 
   postPatch =
     ''
@@ -113,8 +112,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString stdenv.isDarwin ''
       substituteInPlace WinPort/src/Backend/WX/CMakeLists.txt \
         --replace "-framework System" -lSystem
-    ''
-  ;
+    '';
 
   cmakeFlags = lib.mapAttrsToList (k: v: "-D${k}=${if v then "yes" else "no"}") {
     TTYX = withTTYX;

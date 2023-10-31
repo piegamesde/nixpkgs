@@ -59,15 +59,13 @@ let
           sourceRoot = "mercurial-${version}/rust";
         }
       else
-        null
-    ;
+        null;
     cargoRoot = if rustSupport then "rust" else null;
 
     propagatedBuildInputs =
       lib.optional re2Support fb-re2
       ++ lib.optional gitSupport pygit2
-      ++ lib.optional highlightSupport pygments
-    ;
+      ++ lib.optional highlightSupport pygments;
     nativeBuildInputs =
       [
         makeWrapper
@@ -114,8 +112,7 @@ let
         installShellCompletion --cmd hg \
           --bash contrib/bash_completion \
           --zsh contrib/zsh_completion
-      ''
-    ;
+      '';
 
     passthru.tests = {
       mercurial-tests = makeTests { flags = "--with-hg=$MERCURIAL_BASE/bin/hg"; };

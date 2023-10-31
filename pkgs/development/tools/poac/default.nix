@@ -106,7 +106,6 @@ stdenv.mkDerivation rec {
     broken =
       (stdenv.isLinux && stdenv.isAarch64)
       # error: excess elements in scalar initializer on std::aligned_alloc
-      || (stdenv.isDarwin && stdenv.isx86_64)
-    ;
+      || (stdenv.isDarwin && stdenv.isx86_64);
   };
 }

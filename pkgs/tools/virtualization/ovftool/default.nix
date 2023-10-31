@@ -56,8 +56,7 @@ let
     if builtins.hasAttr system ovftoolSystems then
       ovftoolSystems.${system}
     else
-      throw "System '${system}' is unsupported by ovftool"
-  ;
+      throw "System '${system}' is unsupported by ovftool";
 
   ovftoolSource =
     if builtins.hasAttr system ovftoolBundles then
@@ -67,8 +66,7 @@ let
         name = ovftoolSystem.filename;
         url = ovftoolSystem.url;
         sha256 = ovftoolSystem.sha256;
-      }
-  ;
+      };
 in
 stdenv.mkDerivation rec {
   pname = "ovftool";

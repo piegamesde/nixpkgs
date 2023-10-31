@@ -113,8 +113,7 @@ let
                 decl
             )
             opt.declarations;
-      }
-    ;
+      };
   };
 in
 pkgs.runCommand "doc-support" { } ''

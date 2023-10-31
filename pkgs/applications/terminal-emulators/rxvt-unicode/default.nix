@@ -105,8 +105,7 @@ stdenv.mkDerivation {
         [ ./patches/9.06-font-width.patch ]
     )
     ++ [ ./patches/256-color-resources.patch ]
-    ++ optional stdenv.isDarwin ./patches/makefile-phony.patch
-  ;
+    ++ optional stdenv.isDarwin ./patches/makefile-phony.patch;
 
   configureFlags = [
     "--with-terminfo=${placeholder "terminfo"}/share/terminfo"
@@ -133,8 +132,7 @@ stdenv.mkDerivation {
       # is added to PERL5LIB automatically
       mkdir -p $out/$(dirname ${perl.libPrefix})
       ln -s $out/lib/urxvt $out/${perl.libPrefix}
-    ''
-  ;
+    '';
 
   postInstall = ''
     mkdir -p $out/nix-support

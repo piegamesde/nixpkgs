@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       libX11
     ]
     ++ lib.optionals stdenv.isLinux [ numactl ]
-    ++ lib.optional enableCuda cudaPackages.cudatoolkit
-  ;
+    ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
   # Since `libpci' appears in `hwloc.pc', it must be propagated.
   propagatedBuildInputs = lib.optional stdenv.isLinux pciutils;

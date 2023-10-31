@@ -34,8 +34,7 @@ let
             fi
           ''
         else
-          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"
-        }
+          "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
       '';
 
   databaseSettingsOpts = with types; {

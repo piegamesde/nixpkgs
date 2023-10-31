@@ -30,8 +30,7 @@ stdenv.mkDerivation rec {
       fetchurl {
         url = "https://github.com/containers/libkrun/releases/download/v${version}/v${version}-with_macos_prebuilts.tar.gz";
         hash = "sha256-8hPbnZtDbiVdwBrtxt4nZ/QA2OFtui2VsQlaoOmWybo=";
-      }
-  ;
+      };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -45,8 +44,7 @@ stdenv.mkDerivation rec {
       rust.cargo
       rust.rustc
     ]
-    ++ lib.optional sevVariant pkg-config
-  ;
+    ++ lib.optional sevVariant pkg-config;
 
   buildInputs =
     [ (libkrunfw.override { inherit sevVariant; }) ]
@@ -59,8 +57,7 @@ stdenv.mkDerivation rec {
       Hypervisor
       dtc
     ]
-    ++ lib.optional sevVariant openssl
-  ;
+    ++ lib.optional sevVariant openssl;
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"

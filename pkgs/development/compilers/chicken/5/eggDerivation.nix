@@ -21,8 +21,7 @@ let
     if builtins.hasAttr baseName overrides then
       builtins.getAttr baseName overrides
     else
-      lib.id
-  ;
+      lib.id;
 in
 (stdenv.mkDerivation (
   {

@@ -58,8 +58,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ passthru.optional-dependencies.async
-    ++ passthru.optional-dependencies.encrypted
-  ;
+    ++ passthru.optional-dependencies.encrypted;
 
   pythonImportsCheck = [ "samsungtvws" ];
 

@@ -116,8 +116,7 @@ stdenv.mkDerivation rec {
       moltenvk
       OpenGL
       VideoToolbox
-    ]
-  ;
+    ];
 
   cmakeFlags =
     [
@@ -160,8 +159,7 @@ stdenv.mkDerivation rec {
       mkdir -p $out/Applications
       cp -r ./Binaries/Dolphin.app $out/Applications
       ln -s $out/Applications/Dolphin.app/Contents/MacOS/Dolphin $out/bin
-    ''
-  ;
+    '';
 
   passthru = {
     tests.version = testers.testVersion {

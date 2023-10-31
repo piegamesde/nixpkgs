@@ -12,8 +12,7 @@ let
     else if stdenv.isx86_64 then
       "x86_64"
     else
-      throw "Unknown architecture"
-  ;
+      throw "Unknown architecture";
 in
 stdenv.mkDerivation {
   pname = "grub4dos";

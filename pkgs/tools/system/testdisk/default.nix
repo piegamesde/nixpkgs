@@ -49,8 +49,7 @@ assert enableQt -> qwt != null;
       qtbase
       qttools
       qwt
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [ pkg-config ];
 

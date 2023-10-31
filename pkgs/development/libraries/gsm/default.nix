@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
         # Remove line that is unused when building shared libraries
         sed -e 's,$(RANLIB) $(LIBGSM),,' -i Makefile
       ''
-    )
-  ;
+    );
 
   makeFlags = [
     "SHELL=${stdenv.shell}"

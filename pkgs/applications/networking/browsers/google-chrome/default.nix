@@ -163,8 +163,7 @@ let
     ++ [
       gtk3
       gtk4
-    ]
-  ;
+    ];
 
   suffix = lib.optionalString (channel != "stable") "-${channel}";
 
@@ -172,8 +171,7 @@ let
     if lib.versionAtLeast version "94" then
       "chrome_crashpad_handler"
     else
-      "crashpad_handler"
-  ;
+      "crashpad_handler";
 in
 stdenv.mkDerivation {
   inherit version;
@@ -276,7 +274,6 @@ stdenv.mkDerivation {
       if (channel == "dev") then
         "google-chrome-unstable"
       else
-        "google-chrome-${channel}"
-    ;
+        "google-chrome-${channel}";
   };
 }

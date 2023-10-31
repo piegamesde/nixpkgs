@@ -24,8 +24,7 @@ let
     if stdenv.hostPlatform != stdenv.buildPlatform then
       glibcCross
     else
-      assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc
-  ;
+      assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
 in
 
 stdenv.mkDerivation rec {
@@ -96,8 +95,7 @@ stdenv.mkDerivation rec {
       "--with-yescrypt"
     ]
     ++ lib.optional (stdenv.hostPlatform.libc != "glibc") "--disable-nscd"
-    ++ lib.optional withTcb "--with-tcb"
-  ;
+    ++ lib.optional withTcb "--with-tcb";
 
   preBuild = lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
     substituteInPlace lib/nscd.c --replace /usr/sbin/nscd ${glibc.bin}/bin/nscd

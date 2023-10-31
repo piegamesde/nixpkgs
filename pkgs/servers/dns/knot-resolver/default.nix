@@ -74,8 +74,7 @@ let # un-indented, over the whole file
         echo 'os.exit(77)' > daemon/lua/trust_anchors.test/bootstrap.test.lua
         sed -E '/^[[:blank:]]*test_(dstaddr|headers),?$/d' -i \
           tests/config/doh2.test.lua modules/http/http_doh.test.lua
-      ''
-    ;
+      '';
 
     preConfigure = ''
       patchShebangs scripts/
@@ -129,8 +128,7 @@ let # un-indented, over the whole file
       ''
       + optionalString stdenv.targetPlatform.isLinux ''
         rm -r "$out"/lib/sysusers.d/ # ATM more likely to harm than help
-      ''
-    ;
+      '';
 
     doInstallCheck = with stdenv; hostPlatform == buildPlatform;
     nativeInstallCheckInputs = [

@@ -51,8 +51,7 @@ stdenv.mkDerivation rec {
         makeWrapper ${jre}/bin/java $out/bin/josm \
           --add-flags "${extraJavaOpts} -jar $out/share/josm/josm.jar" \
           --prefix LD_LIBRARY_PATH ":" '${libXxf86vm}/lib'
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "An extensible editor for OpenStreetMap";

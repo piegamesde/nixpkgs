@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
         (
           stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"
         )
-        [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ]
-  ;
+        [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ ]

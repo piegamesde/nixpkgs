@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       ln -s libopenfec${so} $out/lib/libopenfec${so}.1
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Application-level Forward Erasure Correction codes";

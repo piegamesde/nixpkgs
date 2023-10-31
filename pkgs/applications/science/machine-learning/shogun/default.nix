@@ -144,8 +144,7 @@ stdenv.mkDerivation rec {
         numpy
       ]
     )
-    ++ lib.optional opencvSupport opencv
-  ;
+    ++ lib.optional opencvSupport opencv;
 
   cmakeFlags =
     let
@@ -194,8 +193,7 @@ stdenv.mkDerivation rec {
       patchShebangs scripts/light-scrubber.sh
       echo "removing SVMlight code"
       ./scripts/light-scrubber.sh
-    ''
-  ;
+    '';
 
   postInstall = ''
     mkdir -p $doc/share/doc/shogun/examples

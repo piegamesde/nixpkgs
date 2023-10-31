@@ -64,8 +64,7 @@ rustPlatform.buildRustPackage rec {
       xorg.libXv
       pango
       libdrm
-    ]
-  ;
+    ];
 
   nativeBuildInputs =
     [

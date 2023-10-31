@@ -91,8 +91,7 @@ stdenv.mkDerivation {
     # at this.)
     + ''
       ln -s ${pkg-config}/share $out/share
-    ''
-  ;
+    '';
 
   setupHooks = [
     ../setup-hooks/role.bash
@@ -130,8 +129,7 @@ stdenv.mkDerivation {
     ##
     ## Extra custom steps
     ##
-    + extraBuildCommands
-  ;
+    + extraBuildCommands;
 
   env = {
     shell = getBin stdenvNoCC.shell + stdenvNoCC.shell.shellPath or "";
@@ -153,9 +151,7 @@ stdenv.mkDerivation {
           ]
           "pkg-config"
           pkg-config_
-        + " (wrapper script)"
-      ;
+        + " (wrapper script)";
       priority = 10;
-    }
-  ;
+    };
 }

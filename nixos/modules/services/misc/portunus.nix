@@ -287,8 +287,7 @@ in
               PORTUNUS_SLAPD_TLS_DOMAIN_NAME = cfg.domain;
               PORTUNUS_SLAPD_TLS_PRIVATE_KEY = "${acmeDirectory}/key.pem";
             }
-          ))
-        ;
+          ));
       };
     };
 

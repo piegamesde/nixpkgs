@@ -38,8 +38,7 @@ buildPythonPackage rec {
         --replace "-mthumb" ""
       substituteInPlace src/cpp/skia-builder/skia/src/core/SkOpts.cpp \
         --replace "defined(SK_CPU_ARM64)" "0"
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cython

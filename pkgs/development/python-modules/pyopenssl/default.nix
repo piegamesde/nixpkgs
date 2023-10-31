@@ -93,8 +93,7 @@ buildPythonPackage rec {
         [
           # https://github.com/pyca/pyopenssl/issues/974
           "test_verify_with_time"
-        ]
-  ;
+        ];
 
   meta = with lib; {
     description = "Python wrapper around the OpenSSL library";

@@ -16,8 +16,7 @@ let
     if cfg.configPath == null then
       pkgs.writeText "matterbridge.toml" (cfg.configFile)
     else
-      cfg.configPath
-  ;
+      cfg.configPath;
 in
 
 {

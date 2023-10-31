@@ -32,8 +32,7 @@
 
 assert releaseType == "alpha"
   || releaseType == "headless"
-  || releaseType == "demo"
-;
+  || releaseType == "demo";
 
 let
 
@@ -103,8 +102,7 @@ let
           else
             builtins.mapAttrs (f (path ++ [ name ])) value
         else
-          throw "expected attrset at ${toString path} - got ${toString value}"
-      ;
+          throw "expected attrset at ${toString path} - got ${toString value}";
     in
     builtins.mapAttrs (f [ ]) versions;
   makeBinDist =
@@ -147,8 +145,7 @@ let
                       # Deliberately failing since username/token was not provided, so we can't fetch.
                       # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
                       exit 1
-                    ''
-                ;
+                    '';
                 failureHook = ''
                   cat <<EOF
                   ${helpMsg}
@@ -156,8 +153,7 @@ let
                 '';
               }
             )
-          )
-      ;
+          );
     };
 
   configBaseCfg = ''
@@ -206,8 +202,7 @@ let
           "--token=${token}"
         ]
       else
-        null
-    ;
+        null;
 
     meta = {
       description = "A game in which you build and maintain factories";
@@ -300,8 +295,7 @@ let
           cp -a data/core/graphics/factorio-icon.png $out/share/icons/hicolor/64x64/apps/factorio.png
           cp -a data/core/graphics/factorio-icon@2x.png $out/share/icons/hicolor/128x128/apps/factorio.png
           ln -s ${desktopItem}/share/applications $out/share/
-        ''
-      ;
+        '';
     };
     alpha = demo // {
 
@@ -309,8 +303,7 @@ let
         demo.installPhase
         + ''
           cp -a doc-html $out/share/factorio
-        ''
-      ;
+        '';
     };
   };
 in

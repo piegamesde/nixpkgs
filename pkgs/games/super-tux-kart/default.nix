@@ -121,8 +121,7 @@ stdenv.mkDerivation rec {
       IOKit
       Cocoa
       libsamplerate
-    ]
-  ;
+    ];
 
   cmakeFlags = [
     "-DBUILD_RECORDER=${

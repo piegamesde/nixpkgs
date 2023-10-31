@@ -23,8 +23,7 @@ let
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
       enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-        && !stdenv.hostPlatform.isStatic
-      ,
+        && !stdenv.hostPlatform.isStatic,
       gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs
@@ -96,8 +95,7 @@ let
         ++ lib.optionals zstdEnabled [ zstd ]
         ++ lib.optionals enableSystemd [ systemd ]
         ++ lib.optionals gssSupport [ libkrb5 ]
-        ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ]
-      ;
+        ++ lib.optionals (!stdenv'.isDarwin) [ libossp_uuid ];
 
       nativeBuildInputs =
         [
@@ -137,8 +135,7 @@ let
         ++ lib.optionals zstdEnabled [ "--with-zstd" ]
         ++ lib.optionals gssSupport [ "--with-gssapi" ]
         ++ lib.optionals stdenv'.hostPlatform.isRiscV [ "--disable-spinlocks" ]
-        ++ lib.optionals jitSupport [ "--with-llvm" ]
-      ;
+        ++ lib.optionals jitSupport [ "--with-llvm" ];
 
       patches =
         [
@@ -171,8 +168,7 @@ let
           substituteInPlace src/backend/jit/jit.c --replace pkglib_path \"$out/lib\"
           substituteInPlace src/backend/jit/llvm/llvmjit.c --replace pkglib_path \"$out/lib\"
           substituteInPlace src/backend/jit/llvm/llvmjit_inline.cpp --replace pkglib_path \"$out/lib\"
-        ''
-      ;
+        '';
 
       postInstall =
         ''
@@ -222,8 +218,7 @@ let
             # Restore the correct rpath
             patchelf $out/lib/llvmjit.so --set-rpath "$rpath"
           ''}
-        ''
-      ;
+        '';
 
       postFixup =
         lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc")
@@ -248,8 +243,7 @@ let
               --replace "object_address" ""
           ''
         else
-          null
-      ;
+          null;
 
       doInstallCheck = false; # needs a running daemon?
 
@@ -304,8 +298,7 @@ let
               postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
             };
         }
-        // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; }
-      ;
+        // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; };
 
       meta = with lib; {
         homepage = "https://www.postgresql.org";

@@ -30,8 +30,7 @@ appimageTools.wrapType2 rec {
       udev
       wooting-udev-rules
       xorg.libxkbfile
-    ])
-  ;
+    ]);
   extraInstallCommands = "mv $out/bin/{${name},${pname}}";
 
   meta = with lib; {

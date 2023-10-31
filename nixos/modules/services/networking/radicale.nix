@@ -20,8 +20,7 @@ let
     if cfg.settings == { } then
       pkgs.writeText "radicale.conf" cfg.config
     else
-      format.generate "radicale.conf" cfg.settings
-  ;
+      format.generate "radicale.conf" cfg.settings;
 
   rightsFile = format.generate "radicale.rights" cfg.rights;
 
@@ -32,8 +31,7 @@ let
           "server"
           "hosts"
         ]
-        cfg.settings
-  ;
+        cfg.settings;
 in
 {
   options.services.radicale = {
@@ -151,8 +149,7 @@ in
       ++ optional (cfg.config != "") ''
         The option services.radicale.config is deprecated.
         Use services.radicale.settings instead.
-      ''
-    ;
+      '';
 
     services.radicale.settings.rights = mkIf (cfg.rights != { }) {
       type = "from_file";

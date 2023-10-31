@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
     else
       ''
         make -f Makefile.SSE3.PTHREADS.gcc
-      ''
-  ;
+      '';
 
   installPhase =
     if useMpi then
@@ -39,8 +38,7 @@ stdenv.mkDerivation rec {
     else
       ''
         mkdir -p $out/bin && cp raxmlHPC-PTHREADS-SSE3 $out/bin
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies";

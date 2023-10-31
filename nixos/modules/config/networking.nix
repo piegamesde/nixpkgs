@@ -195,8 +195,7 @@ in
       {
         "127.0.0.2" = hostnames;
       }
-      // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; }
-    ;
+      // optionalAttrs cfg.enableIPv6 { "::1" = hostnames; };
 
     networking.hostFiles =
       let
@@ -268,8 +267,7 @@ in
       // optionalAttrs (cfg.proxy.allProxy != null) {
         all_proxy = cfg.proxy.allProxy;
       }
-      // optionalAttrs (cfg.proxy.noProxy != null) { no_proxy = cfg.proxy.noProxy; }
-    ;
+      // optionalAttrs (cfg.proxy.noProxy != null) { no_proxy = cfg.proxy.noProxy; };
 
     # Install the proxy environment variables
     environment.sessionVariables = cfg.proxy.envVars;

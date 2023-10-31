@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
         -e "s@/usr/share/sounds/sf2/@${soundfont-fluid}/share/soundfonts/@g" \
         -e "s@FluidR3_GM.sf2@FluidR3_GM2-2.sf2@g" \
         src/sound/music_fluidsynth_mididevice.cpp
-    ''
-  ;
+    '';
 
   cmakeFlags =
     [ "-DFORCE_INTERNAL_GME=OFF" ]

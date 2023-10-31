@@ -106,8 +106,7 @@ stdenv.mkDerivation {
     ''
     + ''
       runHook postConfigure
-    ''
-  ;
+    '';
 
   installPhase = ''
     runHook preInstall

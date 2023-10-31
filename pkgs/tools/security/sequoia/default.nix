@@ -72,8 +72,7 @@ rustPlatform.buildRustPackage rec {
       pythonPackages.python
       pythonPackages.cffi
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -98,8 +97,7 @@ rustPlatform.buildRustPackage rec {
     ''
     + lib.optionalString (!pythonSupport) ''
       export makeFlags="PYTHON=disable"
-    ''
-  ;
+    '';
 
   # Don't use buildRustPackage phases, only use it for rust deps setup
   configurePhase = null;

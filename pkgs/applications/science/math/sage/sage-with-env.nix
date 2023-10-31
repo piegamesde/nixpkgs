@@ -59,8 +59,7 @@ let
         if (builtins.head parts) == python3.libPrefix then
           builtins.tail parts
         else
-          parts
-      ;
+          parts;
       version = lib.last stripped_parts;
       orig_pkgname = lib.init stripped_parts;
       pkgname = patch_names (lib.concatStringsSep "_" orig_pkgname);
@@ -83,8 +82,7 @@ let
           )
         else
           [ ]
-      )
-  ;
+      );
 
   allInputs = lib.remove null (
     nativeBuildInputs ++ buildInputs ++ pythonEnv.extraLibs ++ [ makeWrapper ]

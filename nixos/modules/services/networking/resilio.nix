@@ -50,8 +50,7 @@ let
           }
           // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
           // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
-          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; })
-        ;
+          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
       }
       // optionalAttrs (sharedFoldersRecord != [ ]) {
         shared_folders = sharedFoldersRecord;
@@ -72,8 +71,7 @@ let
               }
             )
           else
-            entry.secretFile
-        ;
+            entry.secretFile;
       })
       cfg.sharedFolders;
 

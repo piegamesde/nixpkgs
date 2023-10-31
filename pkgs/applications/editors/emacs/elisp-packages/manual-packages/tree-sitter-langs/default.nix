@@ -47,8 +47,7 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (
       + ''
         substituteInPlace ./tree-sitter-langs-build.el \
         --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
-      ''
-    ;
+      '';
 
     postInstall =
       old.postInstall or ""
@@ -63,8 +62,7 @@ melpaStablePackages.tree-sitter-langs.overrideAttrs (
             fi
           '')
           plugins
-      )
-    ;
+      );
 
     passthru = old.passthru or { } // {
       inherit plugins;

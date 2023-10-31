@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
         gst-plugins-bad
       ]
     )
-    ++ lib.optionals (enableViewer) [ gtk3 ]
-  ;
+    ++ lib.optionals (enableViewer) [ gtk3 ];
 
   mesonFlags =
     [ ]
@@ -77,8 +76,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!enableGstPlugin) "-Dgst-plugin=disabled"
     ++ lib.optional (!enableViewer) "-Dviewer=disabled"
     ++ lib.optional (!enableUsb) "-Dviewer=disabled"
-    ++ lib.optional (!enablePacketSocket) "-Dpacket-socket=disabled"
-  ;
+    ++ lib.optional (!enablePacketSocket) "-Dpacket-socket=disabled";
 
   doCheck = true;
 

@@ -129,8 +129,7 @@ stdenv.mkDerivation rec {
         --replace '--convert icns' "" \
         --replace '--output AppIcon.icns' 'AppIcon.icns' \
         --replace "\''${appicon_path}" "\''${appicon_path}/icon_16x16.png \''${appicon_path}/icon_32x32.png \''${appicon_path}/icon_128x128.png \''${appicon_path}/icon_256x256.png \''${appicon_path}/icon_512x512.png"
-    ''
-  ;
+    '';
 
   nativeBuildInputs =
     [
@@ -205,8 +204,7 @@ stdenv.mkDerivation rec {
       IOSurface
       Metal
       libicns
-    ]
-  ;
+    ];
 
   enableParallelBuilding = true;
 

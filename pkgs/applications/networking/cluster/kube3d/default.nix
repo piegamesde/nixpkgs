@@ -15,8 +15,7 @@ let
       else
         true
     else
-      false
-  ;
+      false;
 in
 buildGoModule rec {
   pname = "kube3d";
@@ -46,8 +45,7 @@ buildGoModule rec {
       "-w"
       "-X ${t}.Version=v${version}"
     ]
-    ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ]
-  ;
+    ++ lib.optionals k3sVersionSet [ "-X ${t}.K3sVersion=v${k3sVersion}" ];
 
   preCheck = ''
     # skip test that uses networking

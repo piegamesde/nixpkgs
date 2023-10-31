@@ -81,8 +81,7 @@ stdenv.mkDerivation rec {
     ++ optionals dvdisasterSupport [ dvdisaster ]
     ++ optionals udevSupport [ udev ]
     ++ optionals dbusSupport [ dbus ]
-    ++ optionals thumbnailSupport [ libgnomeui ]
-  ;
+    ++ optionals thumbnailSupport [ libgnomeui ];
 
   enableParallelBuilding = true;
 

@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       AppKit
-    ]
-  ;
+    ];
 
   preCheck = ''
     export HOME=$TMPDIR

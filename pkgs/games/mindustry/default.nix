@@ -197,8 +197,7 @@ stdenv.mkDerivation rec {
     ''
     + optionalString enableServer ''
       gradle --offline --no-daemon server:dist -Pbuildversion=${buildVersion}
-    ''
-  ;
+    '';
 
   installPhase =
     with lib;
@@ -239,8 +238,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       runHook postInstall
-    ''
-  ;
+    '';
 
   passthru.tests = {
     nixosTest = nixosTests.mindustry;

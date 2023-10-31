@@ -39,6 +39,5 @@ buildNimPackage rec {
       description = "Full-featured 2d graphics library for Nim";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];
-    }
-  ;
+    };
 }

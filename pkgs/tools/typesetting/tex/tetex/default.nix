@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
         find ./ -name "config.guess" -exec rm {} \; -exec ln -s ${automake}/share/automake-*/config.guess {} \;
       ''
     else
-      null
-  ;
+      null;
 
   patches = [
     ./environment.patch
@@ -72,8 +71,7 @@ stdenv.mkDerivation rec {
       "--with-system-ncurses"
     ]
     # couldn't get gsftopk working on darwin
-    ++ lib.optional stdenv.isDarwin "--without-gsftopk"
-  ;
+    ++ lib.optional stdenv.isDarwin "--without-gsftopk";
 
   postUnpack = ''
     mkdir -p $out/share/texmf

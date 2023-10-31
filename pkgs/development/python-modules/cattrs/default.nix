@@ -38,8 +38,7 @@ buildPythonPackage rec {
   propagatedBuildInputs =
     [ attrs ]
     ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ]
-  ;
+    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
 
   nativeCheckInputs = [
     hypothesis

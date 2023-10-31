@@ -82,8 +82,7 @@ buildPythonPackage rec {
       pyodbc
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ]
-  ;
+    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
 
   pytestFlagsArray = [
     "--deselect tests/functions/test_database.py::TestDatabasePostgresCreateDatabaseCloseConnection::test_create_database_twice"

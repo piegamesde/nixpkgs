@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
   makeFlags =
     lib.optional (vendorCertFile != null) "VENDOR_CERT_FILE=${vendorCertFile}"
     ++ lib.optional (defaultLoader != null) "DEFAULT_LOADER=${defaultLoader}"
-    ++ [ target ]
-  ;
+    ++ [ target ];
 
   installPhase = ''
     mkdir -p $out/share/shim

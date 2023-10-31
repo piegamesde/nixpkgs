@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional withPgSQL postgresql
     ++ lib.optional withSQLite sqlite
-    ++ lib.optional withDB db
-  ;
+    ++ lib.optional withDB db;
   nativeBuildInputs = [ makeWrapper ];
   # patch out libmysql >= 5 check, since mariadb-connector is at 3.x
   postPatch = ''
@@ -89,8 +88,7 @@ stdenv.mkDerivation rec {
       "--with-mysql-includes=${mariadb-connector-c.dev}/include/mysql"
       "--with-mysql-libraries=${mariadb-connector-c.out}/lib/mysql"
     ]
-    ++ lib.optional withPgSQL "--with-pgsql-libraries=${postgresql.lib}/lib"
-  ;
+    ++ lib.optional withPgSQL "--with-pgsql-libraries=${postgresql.lib}/lib";
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

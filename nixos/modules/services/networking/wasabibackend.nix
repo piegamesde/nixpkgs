@@ -38,8 +38,7 @@ let
       Network = "RegTest";
       RegTestBitcoinP2pEndPoint = "${cfg.endpoint.ip}:${toString cfg.endpoint.port}";
       RegTestBitcoinCoreRpcEndPoint = "${cfg.rpc.ip}:${toString cfg.rpc.port}";
-    }
-  ;
+    };
 
   configFile = pkgs.writeText "wasabibackend.conf" (builtins.toJSON confOptions);
 in
@@ -165,8 +164,7 @@ in
               cat ${cfg.dataDir}/.walletwasabi/backend/Config.json | ${pkgs.jq}/bin/jq --arg rpconnection "${cfg.rpc.user}:$(cat "${cfg.rpc.passwordFile}")" '. + { BitcoinRpcConnectionString: $rpconnection }' > $CONFIGTMP
               mv $CONFIGTMP ${cfg.dataDir}/.walletwasabi/backend/Config.json
             ''}
-          ''
-        }
+          ''}
         chmod ug+w ${cfg.dataDir}/.walletwasabi/backend/Config.json
       '';
       serviceConfig = {

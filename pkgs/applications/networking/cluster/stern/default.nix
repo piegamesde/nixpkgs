@@ -36,8 +36,7 @@ buildGoModule rec {
         if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
           "$out"
         else
-          buildPackages.stern
-      ;
+          buildPackages.stern;
     in
     ''
       for shell in bash zsh; do

@@ -95,8 +95,7 @@ in
               if cfg.enableUnixSocket then
                 "-s /run/memcached/memcached.sock"
               else
-                "-l ${cfg.listen} -p ${toString cfg.port}"
-            ;
+                "-l ${cfg.listen} -p ${toString cfg.port}";
           in
           "${memcached}/bin/memcached ${networking} -m ${toString cfg.maxMemory} -c ${
             toString cfg.maxConnections

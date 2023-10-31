@@ -32,8 +32,7 @@ let
         [ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)
       ))
     else
-      throw (traceSeq v "services.unbound.settings: unexpected type")
-  ;
+      throw (traceSeq v "services.unbound.settings: unexpected type");
 
   confNoServer = concatStringsSep "\n" (
     (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings [ "server" ]))
@@ -165,8 +164,7 @@ in
                   values or an attribute set. The allowed values are integers,
                   strings, booleans or floats.
                 '';
-              }
-            ;
+              };
 
             options = {
               remote-control.control-enable = mkOption {

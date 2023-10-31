@@ -219,8 +219,7 @@ let
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
-    ]
-  ;
+    ];
 in
 
 stdenv.mkDerivation rec {
@@ -337,8 +336,7 @@ stdenv.mkDerivation rec {
       lib.optionalString stdenv.isLinux ''
         find . -type f -executable -exec patchelf \
             --interpreter ${stdenv.cc.bintools.dynamicLinker} {} \;
-      ''
-  ;
+      '';
 
   # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure = lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
@@ -352,8 +350,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional stdenv.isDarwin "--with-gcc=${./gcc-clang-wrapper.sh}"
     # From: https://github.com/NixOS/nixpkgs/pull/43369/commits
-    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMusl "--disable-ld-override";
 
   # No building is necessary, but calling make without flags ironically
   # calls install-strip ...
@@ -445,8 +442,7 @@ stdenv.mkDerivation rec {
     # where we modify the package db before installing
     + ''
       "$out/bin/ghc-pkg" --package-db="$out/lib/"ghc-*/package.conf.d recache
-    ''
-  ;
+    '';
 
   # In nixpkgs, musl based builds currently enable `pie` hardening by default
   # (see `defaultHardeningFlags` in `make-derivation.nix`).

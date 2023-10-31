@@ -230,8 +230,7 @@ runCommand drvName
         if channel == "stable" then
           "https://developer.android.com/studio/index.html"
         else
-          "https://developer.android.com/studio/preview/index.html"
-      ;
+          "https://developer.android.com/studio/preview/index.html";
       license = with licenses; [
         asl20
         unfree

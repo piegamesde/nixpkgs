@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
       libiconv
       Security
       AppKit
-    ]
-  ;
+    ];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;

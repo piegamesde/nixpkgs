@@ -209,8 +209,7 @@ in
                     if (versionAtLeast postgresqlPackage.version "10") then
                       "${postgresqlPackage}/bin/pg_receivewal"
                     else
-                      "${postgresqlPackage}/bin/pg_receivexlog"
-                  ;
+                      "${postgresqlPackage}/bin/pg_receivexlog";
                 in
                 ''
                   ${receiverCommand config.postgresqlPackage} \

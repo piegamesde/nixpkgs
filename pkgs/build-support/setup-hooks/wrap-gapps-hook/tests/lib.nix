@@ -16,8 +16,7 @@ rec {
         echo "Skipping test $name" > /dev/stderr
       ''
     else
-      text
-  ;
+      text;
 
   fail = text: ''
     echo "FAIL: $name: ${text}" > /dev/stderr

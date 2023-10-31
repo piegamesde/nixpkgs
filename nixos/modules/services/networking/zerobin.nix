@@ -87,8 +87,7 @@ in
           createHome = true;
         }
       else
-        { }
-    ;
+        { };
     users.groups.${cfg.group} = { };
 
     systemd.services.zerobin = {

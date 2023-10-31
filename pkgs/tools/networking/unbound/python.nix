@@ -74,8 +74,7 @@ stdenv.mkDerivation rec {
     # patchelf is only available on Linux and no patching is needed on darwin
     + lib.optionalString stdenv.isLinux ''
       patchelf --replace-needed libunbound.so.8 $out/${python.sitePackages}/libunbound.so.8 $out/${python.sitePackages}/_unbound.so
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Python library for Unbound, the validating, recursive, and caching DNS resolver";

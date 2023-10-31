@@ -50,8 +50,7 @@ buildLinux (
         # Fix error: unused option: RT_GROUP_SCHED.
         RT_GROUP_SCHED = lib.mkForce (option no); # Removed by sched-disable-rt-group-sched-on-rt.patch.
       }
-      // structuredExtraConfig
-    ;
+      // structuredExtraConfig;
 
     extraMeta = extraMeta // {
       inherit branch;

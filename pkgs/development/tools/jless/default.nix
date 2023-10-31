@@ -26,8 +26,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
-    ++ lib.optionals stdenv.isLinux [ libxcb ]
-  ;
+    ++ lib.optionals stdenv.isLinux [ libxcb ];
 
   meta = with lib; {
     description = "A command-line pager for JSON data";

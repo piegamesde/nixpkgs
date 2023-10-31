@@ -33,8 +33,7 @@ rustPlatform.buildRustPackage rec {
       IOKit
       Foundation
       PCSC
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "YubiKey plugin for age";

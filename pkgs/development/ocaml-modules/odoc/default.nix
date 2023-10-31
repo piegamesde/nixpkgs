@@ -55,8 +55,7 @@ buildDunePackage rec {
   ];
   doCheck =
     lib.versionAtLeast ocaml.version "4.08"
-    && lib.versionOlder yojson.version "2.0"
-  ;
+    && lib.versionOlder yojson.version "2.0";
 
   preCheck = ''
     # some run.t files check the content of patchShebangs-ed scripts, so patch

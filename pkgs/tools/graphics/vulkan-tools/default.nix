@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
       moltenvk.dev
       AppKit
       Cocoa
-    ]
-  ;
+    ];
 
   libraryPath = lib.strings.makeLibraryPath [ vulkan-loader ];
 

@@ -47,8 +47,7 @@ python3.pkgs.buildPythonApplication rec {
       pkgsCross.avr.buildPackages.binutils.bintools
       pkgsCross.avr.buildPackages.gcc8
       pkgsCross.avr.libcCross
-    ]
-  ;
+    ];
 
   # no tests implemented
   doCheck = false;

@@ -92,8 +92,7 @@ rec {
                   }
                 ]
               )
-              ([ predefined.${entry} ] ++ tail todo)
-      ;
+              ([ predefined.${entry} ] ++ tail todo);
     in
     (f { } arg).result;
 

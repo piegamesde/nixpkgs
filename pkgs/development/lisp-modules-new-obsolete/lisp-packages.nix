@@ -80,8 +80,7 @@ let
         if length node.lispLibs == 0 then
           acc
         else
-          builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs
-      ;
+          builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
     in
     toList (walk { } { inherit lispLibs; });
 
@@ -110,8 +109,7 @@ let
         __functor = self: ff;
       }
     else
-      ff
-  ;
+      ff;
 
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
@@ -205,8 +203,7 @@ let
               path =
                 makeLibraryPath libs
                 + optionalString (length paths != 0) ":"
-                + concatStringsSep ":" paths
-              ;
+                + concatStringsSep ":" paths;
             in
             concatStringsSep ":" (unique (splitString ":" path));
 
@@ -308,8 +305,7 @@ let
               if builtins.length (args.patches or [ ]) > 0 then
                 pkgs.applyPatches { inherit (args) src patches; }
               else
-                args.src
-            ;
+                args.src;
             patches = [ ];
 
             # make sure that propagated build-inputs from lispLibs are propagated

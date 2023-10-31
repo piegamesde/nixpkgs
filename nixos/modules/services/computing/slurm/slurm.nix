@@ -402,8 +402,7 @@ in
               wrappedSlurm
               coreutils
             ]
-            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11
-          ;
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
           wantedBy = [ "multi-user.target" ];
           after = [
@@ -441,8 +440,7 @@ in
               munge
               coreutils
             ]
-            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11
-          ;
+            ++ lib.optional cfg.enableSrunX11 slurm-spank-x11;
 
           wantedBy = [ "multi-user.target" ];
           after = [

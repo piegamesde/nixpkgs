@@ -122,8 +122,7 @@ let
             language = "markdown_inline";
             location = "tree-sitter-markdown-inline";
           };
-        }
-      ;
+        };
     in
     lib.mapAttrs build (grammars);
 
@@ -153,8 +152,7 @@ let
                   lib.strings.removeSuffix "-grammar" name
                 )
               ))
-              + ".so"
-            ;
+              + ".so";
             path = "${drv}/parser";
           }
         )

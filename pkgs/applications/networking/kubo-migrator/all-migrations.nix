@@ -79,8 +79,7 @@ let
       fs-repo-2-to-3
       fs-repo-1-to-2
       fs-repo-0-to-1
-    ]
-  ;
+    ];
 in
 
 symlinkJoin {

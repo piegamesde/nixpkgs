@@ -42,8 +42,7 @@ let
     ]
     // {
       description = "limesurvey config type (str, int, bool or attribute set thereof)";
-    }
-  ;
+    };
 
   limesurveyConfig = pkgs.writeText "config.php" ''
     <?php
@@ -143,8 +142,7 @@ in
           else if pgsqlLocal then
             "/run/postgresql"
           else
-            null
-        ;
+            null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description =
           lib.mdDoc
@@ -244,8 +242,7 @@ in
             "${cfg.database.type}:dbname=${cfg.database.name};host=${
               if pgsqlLocal then cfg.database.socket else cfg.database.host
             };port=${toString cfg.database.port}"
-            + optionalString mysqlLocal ";socket=${cfg.database.socket}"
-          ;
+            + optionalString mysqlLocal ";socket=${cfg.database.socket}";
           username = cfg.database.user;
           password =
             mkIf (cfg.database.passwordFile != null)

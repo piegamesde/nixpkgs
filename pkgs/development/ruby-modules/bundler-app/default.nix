@@ -69,8 +69,7 @@ let
           inherit basicEnv;
           inherit (basicEnv) env;
         }
-        // passthru
-      ;
+        // passthru;
     };
 in
 runCommand basicEnv.name cmdArgs ''

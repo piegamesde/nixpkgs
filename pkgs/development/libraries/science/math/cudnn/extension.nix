@@ -40,8 +40,7 @@ let
   isSupported =
     release:
     strings.versionAtLeast cudaVersion release.minCudaVersion
-    && strings.versionAtLeast release.maxCudaVersion cudaVersion
-  ;
+    && strings.versionAtLeast release.maxCudaVersion cudaVersion;
 
   # useCudatoolkitRunfile :: Bool
   useCudatoolkitRunfile = strings.versionOlder cudaVersion "11.3.999";

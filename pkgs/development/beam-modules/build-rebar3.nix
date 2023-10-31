@@ -80,8 +80,7 @@ let
           ''
             rm -f rebar rebar3
           ''
-          + postPatch
-        ;
+          + postPatch;
 
         buildPhase = ''
           runHook preBuild

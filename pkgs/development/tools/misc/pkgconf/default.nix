@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
     # outputs or someting.
     + ''
       mv ${placeholder "dev"}/share ${placeholder "out"}
-    ''
-  ;
+    '';
 
   meta = with lib; {
     homepage = "https://github.com/pkgconf/pkgconf";

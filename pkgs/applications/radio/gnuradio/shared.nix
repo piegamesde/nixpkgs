@@ -34,8 +34,7 @@ rec {
         owner = "gnuradio";
         rev = "v${version}";
         sha256 = sourceSha256;
-      }
-  ;
+      };
   # Check if a feature is enabled, while defaulting to true if feat is not
   # specified.
   hasFeature =
@@ -86,8 +85,7 @@ rec {
       stdenv.cc.cc
     ]
     # If python-support is disabled, we probably don't want it referenced
-    ++ lib.optionals (!hasFeature "python-support") [ python ]
-  ;
+    ++ lib.optionals (!hasFeature "python-support") [ python ];
   # Gcc references from examples
   stripDebugList =
     [
@@ -96,8 +94,7 @@ rec {
     ]
     ++ lib.optionals (hasFeature "gr-audio") [ "share/gnuradio/examples/audio" ]
     ++ lib.optionals (hasFeature "gr-uhd") [ "share/gnuradio/examples/uhd" ]
-    ++ lib.optionals (hasFeature "gr-qtgui") [ "share/gnuradio/examples/qt-gui" ]
-  ;
+    ++ lib.optionals (hasFeature "gr-qtgui") [ "share/gnuradio/examples/qt-gui" ];
   postInstall =
     ""
     # Gcc references
@@ -107,8 +104,7 @@ rec {
     # Clang references in InstalledDir
     + lib.optionalString (hasFeature "gnuradio-runtime" && stdenv.isDarwin) ''
       ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/lib/libgnuradio-runtime${stdenv.hostPlatform.extensions.sharedLibrary})
-    ''
-  ;
+    '';
   # NOTE: Outputs are disabled due to upstream not using GNU InstallDIrs cmake
   # module. It's not that bad since it's a development package for most
   # purposes. If closure size needs to be reduced, features should be disabled
@@ -124,8 +120,7 @@ rec {
       ;
     }
     // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit qt; }
-    // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; }
-  ;
+    // lib.optionalAttrs (hasFeature "gnuradio-companion") { inherit gtk; };
   # Wrapping is done with an external wrapper
   dontWrapPythonPrograms = true;
   dontWrapQtApps = true;

@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-M0hOJOsTTRxPef8rTO+/KpiP4lr8mtplS9KITaFOFPA=";
       }
     else
-      throw "Platform not supported"
-  ;
+      throw "Platform not supported";
 
   nativeBuildInputs = [
     which

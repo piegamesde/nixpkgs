@@ -22,8 +22,7 @@ let
       rev = "6edc54705454c6410469a9cb5bc58e412779731a";
       sha256 = "x+PuPYGD4Pd0fcJtlLWByGy/nggsmZkxwSXxJfPvUgo=";
     }
-    + "/patches/patch0.txt"
-  ;
+    + "/patches/patch0.txt";
 in
 stdenv.mkDerivation rec {
   pname = "sasquatch";

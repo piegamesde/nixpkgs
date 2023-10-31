@@ -77,8 +77,7 @@ let
         ++
           optional (vpxSupport && hasPrefix "0.8." version)
             ./vpxenc-0.8.17-libvpx-1.5.patch
-        ++ optional (vpxSupport && hasPrefix "12." version) ./vpx-12.3-libvpx-1.8.patch
-      ;
+        ++ optional (vpxSupport && hasPrefix "12." version) ./vpx-12.3-libvpx-1.8.patch;
 
       postPatch = ''
         patchShebangs .
@@ -117,8 +116,7 @@ let
         ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
           "--cross-prefix=${stdenv.cc.targetPrefix}"
           "--enable-cross-compile"
-        ]
-      ;
+        ];
 
       nativeBuildInputs = [
         pkg-config
@@ -144,8 +142,7 @@ let
         ++ optional faacSupport faac
         ++ optional vaapiSupport libva
         ++ optional vdpauSupport libvdpau
-        ++ optional freetypeSupport freetype
-      ;
+        ++ optional freetypeSupport freetype;
 
       enableParallelBuilding = true;
 
@@ -189,8 +186,7 @@ let
           else if enableGPL then
             gpl2Plus
           else
-            lgpl21Plus
-        ;
+            lgpl21Plus;
         platforms = with platforms; linux ++ darwin;
         knownVulnerabilities =
           lib.optional (lib.versionOlder version "12.1") "CVE-2017-9051"
@@ -201,8 +197,7 @@ let
           ++ lib.optionals (lib.versionOlder version "12.4") [
             "CVE-2019-9717"
             "CVE-2019-9720"
-          ]
-        ;
+          ];
       };
     }; # libavFun
 in

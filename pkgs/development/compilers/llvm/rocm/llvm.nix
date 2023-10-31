@@ -49,8 +49,7 @@ let
     else if stdenv.isAarch64 then
       "AArch64"
     else
-      throw "Unsupported ROCm LLVM platform"
-  ;
+      throw "Unsupported ROCm LLVM platform";
   inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
   llvmTargetsToBuild' = [
     "AMDGPU"
@@ -67,8 +66,7 @@ stdenv.mkDerivation (
       ++ lib.optionals buildMan [
         "man"
         "info" # Avoid `attribute 'info' missing` when using with wrapCC
-      ]
-    ;
+      ];
 
     patches = extraPatches;
 
@@ -93,8 +91,7 @@ stdenv.mkDerivation (
         python3Packages.recommonmark
       ]
       ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [ lit ]
-      ++ extraNativeBuildInputs
-    ;
+      ++ extraNativeBuildInputs;
 
     buildInputs = [
       libxml2
@@ -145,8 +142,7 @@ stdenv.mkDerivation (
       ++ lib.optionals (buildTests && !finalAttrs.passthru.isLLVM) [
         "-DLLVM_EXTERNAL_LIT=${lit}/bin/.lit-wrapped"
       ]
-      ++ extraCMakeFlags
-    ;
+      ++ extraCMakeFlags;
 
     postPatch =
       lib.optionalString finalAttrs.passthru.isLLVM ''
@@ -160,8 +156,7 @@ stdenv.mkDerivation (
         substituteInPlace unittests/Support/CMakeLists.txt \
           --replace "Path.cpp" ""
       ''
-      + extraPostPatch
-    ;
+      + extraPostPatch;
 
     doCheck = buildTests;
     checkTarget = lib.concatStringsSep " " checkTargets;
@@ -174,8 +169,7 @@ stdenv.mkDerivation (
       + lib.optionalString buildMan ''
         mkdir -p $info
       ''
-      + extraPostInstall
-    ;
+      + extraPostInstall;
 
     passthru = {
       isLLVM = targetDir == "llvm";
@@ -198,8 +192,7 @@ stdenv.mkDerivation (
           acowley
           lovesegfault
         ]
-        ++ teams.rocm.members
-      ;
+        ++ teams.rocm.members;
       platforms = platforms.linux;
       broken = isBroken;
     };

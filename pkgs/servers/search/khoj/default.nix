@@ -44,8 +44,7 @@ python3.pkgs.buildPythonApplication rec {
       hatch-vcs
       hatchling
     ]
-    ++ (with qt6; [ wrapQtAppsHook ])
-  ;
+    ++ (with qt6; [ wrapQtAppsHook ]);
 
   buildInputs =
     lib.optionals stdenv.isLinux [ qt6.qtwayland ]

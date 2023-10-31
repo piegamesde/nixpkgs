@@ -45,8 +45,7 @@ let
         CFLAGS="-fPIC -I."
         $CC $CFLAGS -c sha1.c -o sha1.o
         $LD $LDFLAGS sha1.o -o libsha1.so
-      ''
-    ;
+      '';
 
     installPhase = ''
       mkdir -p $out/lib
@@ -76,8 +75,7 @@ stdenv.mkDerivation (
         fetchurl {
           url = "https://isabelle.in.tum.de/website-${dirname}/dist/${dirname}_linux_arm.tar.gz";
           hash = "sha256-qI/BR/KZwLjnkO5q/yYeW4lN4xyUe78VOM2INC/Z/io=";
-        }
-    ;
+        };
 
     nativeBuildInputs = [ java ];
 
@@ -187,8 +185,7 @@ stdenv.mkDerivation (
           }" $d/*.so
         done
         patchelf --set-rpath "${stdenv.cc.cc.lib}/lib" contrib/z3-*/$arch/z3
-      ''
-    ;
+      '';
 
     buildPhase = ''
       export HOME=$TMP # The build fails if home is not set
@@ -295,8 +292,7 @@ stdenv.mkDerivation (
               (c: ''
                 echo contrib/${c.pname}-${c.version} >> ${base}/etc/components
               '')
-              components
-        ;
+              components;
       };
   }
 )

@@ -39,8 +39,7 @@ let
           cfg.port}
 
         ${cfg.extraConfig}
-      ''
-  ;
+      '';
 in
 
 {

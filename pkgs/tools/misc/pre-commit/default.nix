@@ -96,8 +96,7 @@ buildPythonApplication rec {
 
       python -m venv --system-site-packages venv
       source "$PWD/venv/bin/activate"
-    ''
-  ;
+    '';
 
   postCheck = ''
     deactivate

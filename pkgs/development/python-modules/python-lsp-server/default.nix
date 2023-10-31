@@ -116,8 +116,7 @@ buildPythonPackage rec {
     ]
     ++ passthru.optional-dependencies.all
     # pyqt5 is broken on aarch64-darwin
-    ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [ pyqt5 ]
-  ;
+    ++ lib.optionals (!stdenv.isDarwin || !stdenv.isAarch64) [ pyqt5 ];
 
   disabledTests =
     [

@@ -150,7 +150,6 @@ in
       if cfg.policy != { } then
         pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
       else
-        "${pkgs.skopeo.policy}/default-policy.json"
-    ;
+        "${pkgs.skopeo.policy}/default-policy.json";
   };
 }

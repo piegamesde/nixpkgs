@@ -26,8 +26,7 @@ buildPythonPackage {
       old_rpath=$(patchelf --print-rpath $out/${py.sitePackages}/_tkinter*)
       new_rpath=$(sed "s#${py}#${python}#g" <<< "$old_rpath" )
       patchelf --set-rpath $new_rpath $out/${py.sitePackages}/_tkinter*
-    ''
-  ;
+    '';
 
   meta = py.meta;
 }

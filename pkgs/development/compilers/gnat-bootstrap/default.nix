@@ -107,8 +107,7 @@ stdenv.mkDerivation rec {
     # other bytes.
     + ''
       sed -i "s,/usr/bin/sed,sed\x00\x00\x00\x00\x00\x00\x00\x00\x00," libexec/gcc/${upstreamTriplet}/${gccVersion}/install-tools/fixincl
-    ''
-  ;
+    '';
 
   installPhase =
     ''
@@ -154,8 +153,7 @@ stdenv.mkDerivation rec {
 
       "$out"/libexec/gcc/${upstreamTriplet}/${gccVersion}/install-tools/mkheaders -v -v \
         "$out" "${stdenv.cc.libc}"
-    ''
-  ;
+    '';
 
   passthru = {
     langC = true; # TRICK for gcc-wrapper to wrap it

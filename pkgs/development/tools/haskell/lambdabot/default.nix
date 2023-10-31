@@ -41,8 +41,7 @@ haskellLib.overrideCabal
           --replace '@config@' '${configStr}'
         substituteInPlace src/Modules.hs \
           --replace '@modules@' '${modulesStr}'
-      ''
-    ;
+      '';
 
     buildTools = (self.buildTools or [ ]) ++ [ makeWrapper ];
 
@@ -51,7 +50,6 @@ haskellLib.overrideCabal
       + ''
         wrapProgram $out/bin/lambdabot \
           --prefix PATH ":" '${bins}'
-      ''
-    ;
+      '';
   })
   haskellPackages.lambdabot

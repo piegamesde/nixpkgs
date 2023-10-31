@@ -82,8 +82,7 @@ stdenv.mkDerivation rec {
       perlPackages.Filechdir
     ]
     ++ lib.optionals subversionSupport [ subversion ]
-    ++ lib.optionals mercurialSupport [ mercurial ]
-  ;
+    ++ lib.optionals mercurialSupport [ mercurial ];
 
   patches = [
     # A few markdown tests fail, but this is expected when using Text::Markdown

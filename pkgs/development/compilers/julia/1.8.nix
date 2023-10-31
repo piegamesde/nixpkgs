@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
       ]
     ++ lib.optionals stdenv.isAarch64 [
       "JULIA_CPU_TARGET=generic;cortex-a57;thunderx2t99;armv8.2-a,crypto,fullfp16,lse,rdm"
-    ]
-  ;
+    ];
 
   # remove forbidden reference to $TMPDIR
   preFixup = ''

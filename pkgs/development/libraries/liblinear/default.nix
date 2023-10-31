@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
       ''
         install -Dt $out/lib liblinear.so.${soVersion}
         ln -s $out/lib/liblinear.so.${soVersion} $out/lib/liblinear.so
-      ''
-    }
+      ''}
     install -D train $bin/bin/liblinear-train
     install -D predict $bin/bin/liblinear-predict
     install -Dm444 -t $dev/include linear.h

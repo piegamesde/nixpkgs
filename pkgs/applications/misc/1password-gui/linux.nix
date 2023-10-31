@@ -101,8 +101,7 @@ stdenv.mkDerivation {
           pango
           systemd
         ]
-        + ":${stdenv.cc.cc.lib}/lib64"
-      ;
+        + ":${stdenv.cc.cc.lib}/lib64";
     in
     ''
       runHook preInstall
@@ -134,8 +133,7 @@ stdenv.mkDerivation {
       done
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   preFixup = ''
     # makeWrapper defaults to makeBinaryWrapper due to wrapGAppsHook

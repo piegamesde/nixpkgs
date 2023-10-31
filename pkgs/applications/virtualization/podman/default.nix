@@ -122,8 +122,7 @@ buildGoModule rec {
     else
       ''
         make bin/podman bin/rootlessport bin/quadlet
-      ''
-    }
+      ''}
     make docs
     runHook postBuild
   '';
@@ -137,8 +136,7 @@ buildGoModule rec {
     else
       ''
         make install.bin install.systemd
-      ''
-    }
+      ''}
     make install.completions install.man
     mkdir -p ${HELPER_BINARIES_DIR}
     ln -s ${helpersBin}/bin/* ${HELPER_BINARIES_DIR}

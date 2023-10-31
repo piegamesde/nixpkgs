@@ -26,8 +26,7 @@
     else
       null
   else
-    lib.getLib libc
-  ,
+    lib.getLib libc,
   nativeTools,
   noLibc ? false,
   nativeLibc,
@@ -132,8 +131,7 @@ let
     else if lib.hasSuffix "pc-gnu" targetPlatform.config then
       "ld.so.1"
     else
-      ""
-  ;
+      "";
 
   expand-response-params =
     lib.optionalString
@@ -269,8 +267,7 @@ stdenv.mkDerivation {
         basename=$(basename "$variant")
         wrap $basename ${./ld-wrapper.sh} $variant
       done
-    ''
-  ;
+    '';
 
   strictDeps = true;
   depsTargetTargetPropagated = extraPackages;
@@ -464,8 +461,7 @@ stdenv.mkDerivation {
     ##
     ## Extra custom steps
     ##
-    + extraBuildCommands
-  ;
+    + extraBuildCommands;
 
   env = {
     # for substitution in utils.bash
@@ -501,10 +497,8 @@ stdenv.mkDerivation {
           ]
           "System binary utilities"
           bintools_
-        + " (wrapper script)"
-      ;
+        + " (wrapper script)";
       priority = 10;
     }
-    // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; }
-  ;
+    // optionalAttrs useMacosReexportHack { platforms = lib.platforms.darwin; };
 }

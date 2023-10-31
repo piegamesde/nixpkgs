@@ -44,8 +44,7 @@ let
       "aarch64"
     else
       throw
-        "don't know what platform suffix for ${stdenv.hostPlatform.system} will be"
-  ;
+        "don't know what platform suffix for ${stdenv.hostPlatform.system} will be";
 in
 rec {
 

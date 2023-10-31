@@ -44,8 +44,7 @@ rec {
           env
           name
         ]
-        "unexpected type: ${builtins.typeOf val}"
-  ;
+        "unexpected type: ${builtins.typeOf val}";
 
   # Build fake/fix/keep directives from Nix types
   phraseDirectives =
@@ -60,8 +59,7 @@ rec {
     else if builtins.isString input then
       input
     else
-      throw "unexpected type for input: ${builtins.typeOf input}"
-  ;
+      throw "unexpected type for input: ${builtins.typeOf input}";
 
   # Special-case value representation by type/name
   phraseEnvVal =
@@ -80,8 +78,7 @@ rec {
           solution
           env
         ]
-        "unexpected type: ${builtins.typeOf val}"
-  ;
+        "unexpected type: ${builtins.typeOf val}";
 
   # Shell-format each env value
   shellEnv =
@@ -148,8 +145,7 @@ rec {
         phraseEnvs solution value
       } ${resholve}/bin/resholve --overwrite ${phraseArgs value}"
     else
-      throw "invalid solution"
-  ; # shouldn't trigger for now
+      throw "invalid solution"; # shouldn't trigger for now
 
   injectUnresholved =
     solutions: unresholved:
@@ -209,8 +205,7 @@ rec {
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out
-        ''
-      ;
+        '';
     };
   writeScriptBin =
     name: partialSolution: text:
@@ -226,8 +221,7 @@ rec {
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out/bin/${name}
-        ''
-      ;
+        '';
     };
   mkDerivation =
     {

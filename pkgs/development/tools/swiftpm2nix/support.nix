@@ -73,7 +73,6 @@ rec {
             cp -r "$orig" .build/checkouts/$1
             chmod -R u+w .build/checkouts/$1
           }
-        ''
-      ;
+        '';
     };
 }

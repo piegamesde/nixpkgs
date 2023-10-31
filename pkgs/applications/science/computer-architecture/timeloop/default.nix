@@ -74,16 +74,14 @@ stdenv.mkDerivation rec {
 
       #gpm doesn't exist on darwin
       substituteInPlace ./src/SConscript --replace ", 'gpm'" ""
-    ''
-  ;
+    '';
 
   sconsFlags =
     # will fail on clang/darwin on link without --static due to undefined extern
     # however, will fail with static on linux as nixpkgs deps aren't static
     lib.optional stdenv.isDarwin "--static"
     ++ lib.optional enableAccelergy "--accelergy"
-    ++ lib.optional enableISL "--with-isl"
-  ;
+    ++ lib.optional enableISL "--with-isl";
 
   installPhase = ''
     cp -r ./bin ./lib $out

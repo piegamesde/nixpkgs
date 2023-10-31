@@ -94,8 +94,7 @@ buildGoModule rec {
         --replace /usr/sbin/bitmask-root ${bitmask-root}/bin/bitmask-root \
         --replace /usr/bin/lxpolkit /run/wrappers/bin/polkit-agent-helper-1 \
         --replace '"polkit-gnome-authentication-agent-1",' '"polkit-gnome-authentication-agent-1","polkitd",'
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     cmake
@@ -152,8 +151,7 @@ buildGoModule rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       install -m 444 -D -t $out/share/polkit-1/actions ${bitmask-root}/share/polkit-1/actions/se.leap.bitmask.policy
-    ''
-  ;
+    '';
 
   # Some tests need access to the Internet:
   # Post "https://api.black.riseup.net/3/cert": dial tcp: lookup api.black.riseup.net on [::1]:53: read udp [::1]:56553->[::1]:53: read: connection refused

@@ -16,8 +16,7 @@ let
       {
         version = "3.2.1";
         sha256 = "zyF703DzRZDBhlNFFt/dknmZ7layqhgjG1/ZDN+PEsg=";
-      }
-  ;
+      };
 in
 buildPecl {
   pname = "oci8";

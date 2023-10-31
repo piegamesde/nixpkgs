@@ -65,8 +65,7 @@ mkDerivation rec {
       CoreAudio
       CoreFoundation
       MediaPlayer
-    ]
-  ;
+    ];
 
   nativeBuildInputs = [
     cmake

@@ -132,8 +132,7 @@ let
             if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
           EOF
         ''
-        + concatProducts "postInstall"
-      ;
+        + concatProducts "postInstall";
 
       preFixup =
         lib.optionalString (stdenv.isLinux) ''
@@ -141,8 +140,7 @@ let
             wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
           done
         ''
-        + concatProducts "preFixup"
-      ;
+        + concatProducts "preFixup";
       postFixup = concatProducts "postFixup";
 
       doInstallCheck = true;

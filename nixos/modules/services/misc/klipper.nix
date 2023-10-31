@@ -14,8 +14,7 @@ let
       if builtins.length l == 1 then
         generators.mkValueStringDefault { } (head l)
       else
-        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l
-    ;
+        lib.concatMapStrings (s: "\n  ${generators.mkValueStringDefault { } s}") l;
     mkKeyValue = generators.mkKeyValueDefault { } ":";
   };
 in
@@ -164,8 +163,7 @@ in
                 )
               )
               cfg.firmwares
-          )
-        ;
+          );
         message = "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
       }
       {
@@ -179,8 +177,7 @@ in
         if cfg.settings != null then
           format.generate "klipper.cfg" cfg.settings
         else
-          cfg.configFile
-      ;
+          cfg.configFile;
     };
 
     services.klipper = mkIf cfg.octoprintIntegration {
@@ -192,20 +189,17 @@ in
       let
         klippyArgs =
           "--input-tty=${cfg.inputTTY}"
-          + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}"
-        ;
+          + optionalString (cfg.apiSocket != null) " --api-server=${cfg.apiSocket}";
         printerConfigPath =
           if cfg.mutableConfig then
             cfg.mutableConfigFolder + "/printer.cfg"
           else
-            "/etc/klipper.cfg"
-        ;
+            "/etc/klipper.cfg";
         printerConfigFile =
           if cfg.settings != null then
             format.generate "klipper.cfg" cfg.settings
           else
-            cfg.configFile
-        ;
+            cfg.configFile;
       in
       {
         description = "Klipper 3D Printer Firmware";

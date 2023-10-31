@@ -51,8 +51,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals (withGui && stdenv.isDarwin) [
       Cocoa
       WebKit
-    ]
-  ;
+    ];
 
   buildNoDefaultFeatures = true;
   buildFeatures = [ "doh" ] ++ lib.optional withGui "webgui";

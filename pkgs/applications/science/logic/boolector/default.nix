@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     + ''
       export ${var}=$(readlink -f lib)
       patchShebangs ..
-    ''
-  ;
+    '';
 
   postCheck = lib.optionalString stdenv.isDarwin ''
     rm -rf bin

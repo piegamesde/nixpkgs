@@ -108,8 +108,7 @@ let
           # wrapProgram can't operate on symlinks
           rm "$out/Applications/mpv.app/Contents/MacOS/mpv"
           makeWrapper "${mpv}/Applications/mpv.app/Contents/MacOS/mpv" "$out/Applications/mpv.app/Contents/MacOS/mpv" ${mostMakeWrapperArgs}
-        ''
-      ;
+        '';
 
       meta = {
         inherit (mpv.meta)

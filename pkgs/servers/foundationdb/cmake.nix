@@ -117,8 +117,7 @@ let
               "-DOPENSSL_USE_STATIC_LIBS=FALSE"
               "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
               "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
-            ]
-      ;
+            ];
 
       hardeningDisable = [ "fortify" ];
 
@@ -173,8 +172,7 @@ let
           # java bindings
           mkdir -p $lib/share/java
           mv lib/fdb-java-*.jar $lib/share/java/fdb-java.jar
-        ''
-      ;
+        '';
 
       outputs = [
         "out"

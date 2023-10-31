@@ -63,8 +63,7 @@ rustPlatform.buildRustPackage rec {
       Foundation
       libiconv
       OpenGL
-    ]
-  ;
+    ];
 
   postInstall = lib.optionalString stdenv.isLinux ''
     patchelf --set-rpath ${lib.makeLibraryPath rpathLibs} $out/bin/slint-lsp

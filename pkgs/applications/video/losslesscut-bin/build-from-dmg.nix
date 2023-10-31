@@ -40,6 +40,5 @@ stdenvNoCC.mkDerivation {
         platforms = singleton (if isAarch64 then "aarch64-darwin" else "x86_64-darwin");
         mainProgram = "losslesscut";
       }
-    )
-  ;
+    );
 }

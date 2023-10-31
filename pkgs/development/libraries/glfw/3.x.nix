@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     [ cmake ]
     ++ lib.optional stdenv.isDarwin fixDarwinDylibNames
-    ++ lib.optional waylandSupport extra-cmake-modules
-  ;
+    ++ lib.optional waylandSupport extra-cmake-modules;
 
   buildInputs =
     if waylandSupport then
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
       ++ lib.optionals stdenv.isDarwin [
         Cocoa
         Kernel
-      ]
-  ;
+      ];
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=ON" ]
@@ -72,8 +70,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals waylandSupport [
       "-DGLFW_USE_WAYLAND=ON"
       "-DCMAKE_C_FLAGS=-D_GLFW_EGL_LIBRARY='\"${lib.getLib libGL}/lib/libEGL.so.1\"'"
-    ]
-  ;
+    ];
 
   postPatch = lib.optionalString waylandSupport ''
     substituteInPlace src/wl_init.c \

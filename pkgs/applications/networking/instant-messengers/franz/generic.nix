@@ -100,8 +100,7 @@ stdenv.mkDerivation (
         cups
         expat
         stdenv.cc.cc
-      ]
-    ;
+      ];
     runtimeDependencies = [
       stdenv.cc.cc.lib
       (lib.getLib udev)

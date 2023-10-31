@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ libgpg-error ]
     ++ lib.optional stdenv.isDarwin gettext
-    ++ lib.optional enableCapabilities libcap
-  ;
+    ++ lib.optional enableCapabilities libcap;
 
   strictDeps = true;
 
@@ -87,8 +86,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString enableCapabilities ''
       sed -i 's,\(-lcap\),-L${libcap.lib}/lib \1,' $out/lib/libgcrypt.la
-    ''
-  ;
+    '';
 
   # TODO: figure out why this is even necessary and why the missing dylib only crashes
   # random instead of every test

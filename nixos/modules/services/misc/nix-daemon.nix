@@ -58,8 +58,7 @@ let
         else if strings.isConvertibleWithToString v then
           toString v
         else
-          abort "The nix conf value: ${toPretty { } v} can not be encoded"
-      ;
+          abort "The nix conf value: ${toPretty { } v} can not be encoded";
 
       mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
 
@@ -880,8 +879,7 @@ in
             + "      "
             + (concatStringsSep "\n      " (
               map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
-            ))
-          ;
+            ));
         }
       ];
 
@@ -907,8 +905,7 @@ in
         // {
           CURL_CA_BUNDLE = "/etc/ssl/certs/ca-certificates.crt";
         }
-        // config.networking.proxy.envVars
-      ;
+        // config.networking.proxy.envVars;
 
       unitConfig.RequiresMountsFor = "/nix/store";
 

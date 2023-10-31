@@ -19,8 +19,7 @@
   else if stdenv.cc.isGNU then
     "gcc"
   else
-    null
-  ,
+    null,
   enableRelease ? true,
   enableDebug ? false,
   enableSingleThreaded ? false,
@@ -58,8 +57,7 @@ assert with lib;
   (
     stdenv.isLinux && toolset == "clang" && versionAtLeast stdenv.cc.version "8.0.0"
   )
-  -> versionAtLeast version "1.69"
-;
+  -> versionAtLeast version "1.69";
 
 let
 
@@ -93,14 +91,12 @@ let
     else if lib.versionOlder version "1.65" then
       "$(($NIX_BUILD_CORES<=256 ? $NIX_BUILD_CORES : 256))"
     else
-      "$NIX_BUILD_CORES"
-  ;
+      "$NIX_BUILD_CORES";
 
   needUserConfig =
     stdenv.hostPlatform != stdenv.buildPlatform
     || useMpi
-    || (stdenv.isDarwin && enableShared)
-  ;
+    || (stdenv.isDarwin && enableShared);
 
   b2Args = lib.concatStringsSep " " (
     [
@@ -221,8 +217,7 @@ stdenv.mkDerivation {
         relative = "include";
         sha256 = "sha256-KlmIbixcds6GyKYt1fx5BxDIrU7msrgDdYo9Va/KJR4=";
       }
-    )
-  ;
+    );
 
   meta = with lib; {
     homepage = "http://boost.org/";
@@ -232,8 +227,7 @@ stdenv.mkDerivation {
     badPlatforms =
       optional (versionOlder version "1.59") "aarch64-linux"
       ++ optional ((versionOlder version "1.57") || version == "1.58") "x86_64-darwin"
-      ++ optionals (versionOlder version "1.73") platforms.riscv
-    ;
+      ++ optionals (versionOlder version "1.73") platforms.riscv;
     maintainers = with maintainers; [ hjones2199 ];
 
     broken =
@@ -243,8 +237,7 @@ stdenv.mkDerivation {
       stdenv.hostPlatform.isMips64n32
       ||
         # the patch above does not apply cleanly to pre-1.65 boost
-        (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"))
-    ;
+        (stdenv.hostPlatform.isMips64n64 && (versionOlder version "1.65"));
   };
 
   passthru = {
@@ -294,8 +287,7 @@ stdenv.mkDerivation {
         : ${python}/lib
         ;
       EOF
-    ''
-  ;
+    '';
 
   NIX_CFLAGS_LINK =
     lib.optionalString stdenv.isDarwin
@@ -321,8 +313,7 @@ stdenv.mkDerivation {
       libxcrypt
       python
     ]
-    ++ lib.optional enableNumpy python.pkgs.numpy
-  ;
+    ++ lib.optional enableNumpy python.pkgs.numpy;
 
   configureScript = "./bootstrap.sh";
   configurePlatforms = [ ];
@@ -335,8 +326,7 @@ stdenv.mkDerivation {
       "--with-bjam=b2" # prevent bootstrapping b2 in configurePhase
     ]
     ++ lib.optional (toolset != null) "--with-toolset=${toolset}"
-    ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ]
-  ;
+    ++ [ (if enableIcu then "--with-icu=${icu.dev}" else "--without-icu") ];
 
   buildPhase = ''
     runHook preBuild
@@ -365,8 +355,7 @@ stdenv.mkDerivation {
     ''
     + lib.optionalString (stdenv.hostPlatform.libc == "msvcrt") ''
       $RANLIB "$out/lib/"*.a
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

@@ -39,8 +39,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ lib.optionals (pythonOlder "3.8") [
       backports.cached-property
       importlib_metadata
-    ]
-  ;
+    ];
 
   nativeCheckInputs = with python3.pkgs; [
     hypothesis

@@ -30,8 +30,7 @@ let
     if targetPackages ? gobject-introspection-unwrapped then
       targetPackages.gobject-introspection-unwrapped.override argsForTarget
     else
-      overriddenUnwrappedGir
-  ;
+      overriddenUnwrappedGir;
 in
 
 # wrap both pkgsCrossX.buildPackages.gobject-introspection and {pkgs,pkgsSomethingExecutableOnBuildSystem).buildPackages.gobject-introspection
@@ -103,8 +102,7 @@ then
 
             preConfigureHooks+=(override-pkg-config-gir-variables)
           EOF
-        ''
-      ;
+        '';
     }
   )
 else

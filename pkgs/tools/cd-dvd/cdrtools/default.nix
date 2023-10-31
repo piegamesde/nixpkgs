@@ -29,8 +29,7 @@ stdenv.mkDerivation rec {
       [
         acl
         libcap
-      ]
-  ;
+      ];
 
   postPatch =
     ''
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
       ln -sv i386-darwin-clang64.rul RULES/arm64-darwin-cc.rul
       ln -sv i386-darwin-clang64.rul RULES/arm64-darwin-clang.rul
       ln -sv i386-darwin-clang64.rul RULES/arm64-darwin-clang64.rul
-    ''
-  ;
+    '';
 
   dontConfigure = true;
 

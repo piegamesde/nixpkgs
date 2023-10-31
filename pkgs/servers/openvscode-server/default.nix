@@ -129,8 +129,7 @@ stdenv.mkDerivation rec {
       Cocoa
       Security
       cctools
-    ]
-  ;
+    ];
 
   patches =
     [
@@ -213,8 +212,7 @@ stdenv.mkDerivation rec {
 
       # build and minify
       yarn --offline gulp vscode-reh-web-${vsBuildTarget}-min
-    ''
-  ;
+    '';
 
   installPhase = ''
     mkdir -p $out

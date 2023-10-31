@@ -79,8 +79,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals polkitSupport [
       dbus
       polkit
-    ]
-  ;
+    ];
 
   meta = with lib; {
     description = "Middleware to access a smart card using SCard API (PC/SC)";

@@ -113,8 +113,7 @@ in
         if cfg.atopgpu.enable then
           (cfg.package.override { withAtopgpu = true; })
         else
-          cfg.package
-      ;
+          cfg.package;
     in
     {
       environment.etc = mkIf (cfg.settings != { }) {
@@ -185,8 +184,7 @@ in
             }
             // mkService cfg.atopacctService.enable "atopacct" [ atop ]
             // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
-            // mkService cfg.atopgpu.enable "atopgpu" [ atop ]
-          ;
+            // mkService cfg.atopgpu.enable "atopgpu" [ atop ];
           timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [ atop ];
         };
 

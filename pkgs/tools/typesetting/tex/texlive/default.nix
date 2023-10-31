@@ -155,8 +155,7 @@ let
         ]
         ++ lib.optional (attrs.sha512 ? doc) (mkPkgV "doc")
         ++ lib.optional (attrs.sha512 ? source) (mkPkgV "source")
-        ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; })
-      ;
+        ++ lib.optional (bin ? ${pname}) (bin.${pname} // { tlType = "bin"; });
     };
 
   version = {
@@ -191,8 +190,7 @@ let
       # please note that this server is not meant for large scale deployment and should be avoided on release branches
       # https://tug.org/pipermail/tex-live/2019-November/044456.html
       "https://texlive.info/tlnet-archive/${year}/${month}/${day}/tlnet"
-    ]
-  ;
+    ];
 
   tlpdbxz = fetchurl {
     urls = map (up: "${up}/tlpkg/texlive.tlpdb.xz") urlPrefixes;
@@ -253,8 +251,7 @@ let
             // lib.optionalAttrs (tlType == "run") {
               hasFormats = args.hasFormats or false;
               hasHyphens = args.hasHyphens or false;
-            }
-          ;
+            };
         }
         // lib.optionalAttrs (fixedHash != null) {
           outputHash = fixedHash;
@@ -309,8 +306,7 @@ let
       "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
     &&
       lib.assertMsg (tlpdbVersion.frozen == version.final)
-        "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate"
-  ;
+        "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
 in
 tl
 // {

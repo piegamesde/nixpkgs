@@ -124,8 +124,7 @@ lib.makeOverridable (
 
         isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
       }
-      // config_
-    ;
+      // config_;
 
     isModular = config.isYes "MODULES";
 
@@ -167,8 +166,7 @@ lib.makeOverridable (
           pahole
           zlib
         ]
-        ++ optional (lib.versionAtLeast version "5.8") elfutils
-      ;
+        ++ optional (lib.versionAtLeast version "5.8") elfutils;
 
       patches =
         map (p: p.patch) kernelPatches
@@ -192,8 +190,7 @@ lib.makeOverridable (
                 url = "https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git/patch/?id=d9e5c3e9e75162f845880535957b7fd0b4637d23";
                 hash = "sha256-bBOyJcP6jUvozFJU0SPTOf3cmnTQ6ZZ4PlHjiniHXLU=";
               }
-            )
-      ;
+            );
 
       preUnpack = ''
         # The same preUnpack is used to build the configfile,
@@ -301,8 +298,7 @@ lib.makeOverridable (
           "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
         ]
         ++ (kernelConf.makeFlags or [ ])
-        ++ extraMakeFlags
-      ;
+        ++ extraMakeFlags;
 
       karch = stdenv.hostPlatform.linuxArch;
 
@@ -322,8 +318,7 @@ lib.makeOverridable (
         ++ optionals buildDTBs [
           "dtbs_install"
           "INSTALL_DTBS_PATH=$(out)/dtbs"
-        ]
-      ;
+        ];
 
       preInstall =
         let
@@ -507,8 +502,7 @@ lib.makeOverridable (
               " (with patches: "
               + lib.concatStringsSep ", " (map (x: x.name) kernelPatches)
               + ")"
-          )
-        ;
+          );
         license = lib.licenses.gpl2Only;
         homepage = "https://www.kernel.org/";
         maintainers = lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];

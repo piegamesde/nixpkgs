@@ -45,8 +45,7 @@ let
       ++ lib.platforms.power
       ++ lib.platforms.s390x
       ++ lib.platforms.wasi
-      ++ lib.platforms.x86
-    ;
+      ++ lib.platforms.x86;
   };
 
   tools = lib.makeExtensible (
@@ -119,8 +118,7 @@ let
         else if (pkgs.targetPackages.stdenv or stdenv).cc.isGNU then
           tools.libstdcxxClang
         else
-          tools.libcxxClang
-      ;
+          tools.libcxxClang;
 
       libstdcxxClang = wrapCCWith rec {
         cc = tools.clang-unwrapped;

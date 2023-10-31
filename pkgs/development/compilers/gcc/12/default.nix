@@ -157,8 +157,7 @@ let
     ++
       optional
         (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
-  ;
+        ./Added-mcf-thread-model-support-from-mcfgthread.patch;
 
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
@@ -312,8 +311,7 @@ lib.pipe
              '-s' # workaround for hitting hydra log limit
              'LIMITS_H_TEST=false'
           )
-        ''
-      ;
+        '';
 
       inherit
         noSysDirs
@@ -337,8 +335,7 @@ lib.pipe
         (callFile ../common/pre-configure.nix { })
         + ''
           ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
-        ''
-      ;
+        '';
 
       dontDisableStatic = true;
 
@@ -366,8 +363,7 @@ lib.pipe
                   && hostPlatform == buildPlatform
                   && !disableBootstrap
                 )
-                "bootstrap"
-          ;
+                "bootstrap";
         in
         lib.optional (target != "") target;
 

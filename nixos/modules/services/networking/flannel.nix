@@ -180,8 +180,7 @@ in
           FLANNELD_KUBE_SUBNET_MGR = "true";
           FLANNELD_KUBECONFIG_FILE = cfg.kubeconfig;
           NODE_NAME = cfg.nodeName;
-        }
-      ;
+        };
       path = [ pkgs.iptables ];
       preStart = optionalString (cfg.storageBackend == "etcd") ''
         echo "setting network configuration"

@@ -28,8 +28,7 @@ stdenv.mkDerivation rec {
         MACOSX_DEPLOYMENT_TARGET=10.16
       ''
     else
-      null
-  ;
+      null;
 
   postInstall = ''
     moveToOutput bin/gsl-config "$dev"

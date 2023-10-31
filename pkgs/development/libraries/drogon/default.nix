@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals mysqlSupport [
       libmysqlclient
       mariadb
-    ]
-  ;
+    ];
 
   patches = [
     # this part of the test would normally fail because it attempts to configure a CMake project that uses find_package on itself

@@ -72,8 +72,7 @@ let
       wmCommand = "${pkgs.gnome.metacity}/bin/metacity";
       enableGnomePanel = true;
     }
-    ++ cfg.flashback.customSessions
-  ;
+    ++ cfg.flashback.customSessions;
 
   notExcluded =
     pkg: mkDefault (!(lib.elem pkg config.environment.gnome.excludePackages));
@@ -585,8 +584,7 @@ in
         mandatoryPackages
         ++
           utils.removePackagesByName optionalPackages
-            config.environment.gnome.excludePackages
-      ;
+            config.environment.gnome.excludePackages;
 
       services.colord.enable = mkDefault true;
       services.gnome.glib-networking.enable = true;
@@ -665,8 +663,7 @@ in
         mandatoryPackages
         ++
           utils.removePackagesByName optionalPackages
-            config.environment.gnome.excludePackages
-      ;
+            config.environment.gnome.excludePackages;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/gnome-3-38/elements/core/meta-gnome-core-utilities.bst

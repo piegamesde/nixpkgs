@@ -24,8 +24,7 @@ let
     else if lib.isInt v then
       toString v
     else
-      v
-  ;
+      v;
 
   mkSection = name: attrs: ''
     [${name}]
@@ -155,8 +154,7 @@ let
       pkgs.networkmanager
     ]
     ++ cfg.plugins
-    ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ]
-  ;
+    ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
 in
 {
 
@@ -539,8 +537,7 @@ in
             };
           })
           cfg.dispatcherScripts
-      )
-    ;
+      );
 
     environment.systemPackages = packages;
 
@@ -639,8 +636,7 @@ in
             else if cfg.wifi.powersave then
               3
             else
-              2
-          ;
+              2;
         };
       }
     ];
@@ -653,8 +649,7 @@ in
     services.dbus.packages =
       packages
       ++ optional cfg.enableStrongSwan pkgs.strongswanNM
-      ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq
-    ;
+      ++ optional (cfg.dns == "dnsmasq") pkgs.dnsmasq;
 
     services.udev.packages = packages;
   };

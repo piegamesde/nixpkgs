@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
       zlib
     ]
     ++ lib.optionals withJACK [ libjack2 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ]
-  ;
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
 
   cmakeFlags = [
     "-DBUILD_GUI=${if withGUI then "ON" else "OFF"}"

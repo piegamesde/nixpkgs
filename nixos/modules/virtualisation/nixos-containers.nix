@@ -219,8 +219,7 @@ let
               fi
             ''
           else
-            "${ipcmd} add ${cfg.${attribute}} dev $ifaceHost"
-        ;
+            "${ipcmd} add ${cfg.${attribute}} dev $ifaceHost";
         renderExtraVeth =
           name: cfg:
           if cfg.hostBridge != null then
@@ -245,8 +244,7 @@ let
               ${optionalString (cfg.localAddress6 != null) ''
                 ip -6 route add ${cfg.localAddress6} dev ${name}
               ''}
-            ''
-        ;
+            '';
       in
       ''
         if [ -n "$HOST_ADDRESS" ]  || [ -n "$LOCAL_ADDRESS" ] ||
@@ -368,8 +366,7 @@ let
         if d.hostPath != null then
           "${d.hostPath}:${d.mountPoint}"
         else
-          "${d.mountPoint}"
-      ;
+          "${d.mountPoint}";
     in
     flagPrefix + mountstr;
 
@@ -539,8 +536,7 @@ in
                                   then
                                     { inherit (host.config.nixpkgs) hostPlatform; }
                                   else
-                                    { inherit (host.config.nixpkgs) localSystem; }
-                                ;
+                                    { inherit (host.config.nixpkgs) localSystem; };
                                 boot.isContainer = true;
                                 networking.hostName = mkDefault name;
                                 networking.useDHCP = false;
@@ -549,8 +545,7 @@ in
                                     assertion =
                                       (builtins.compareVersions kernelVersion "5.8" <= 0)
                                       -> config.privateNetwork
-                                      -> stringLength name <= 11
-                                    ;
+                                      -> stringLength name <= 11;
                                     message = ''
                                       Container name `${name}` is too long: When `privateNetwork` is enabled, container names can
                                       not be longer than 11 characters, because the container's interface name is derived from it.
@@ -793,8 +788,7 @@ in
                         This only sets the `pkgs` argument used inside the container modules.
                     ''
                   else
-                    null
-                ;
+                    null;
               in
               {
                 path =
@@ -901,8 +895,7 @@ in
                         }
                       else
                         { }
-                    )
-                  ;
+                    );
                 in
                 recursiveUpdate unit {
                   preStart = preStartScript containerConfig;
@@ -916,8 +909,7 @@ in
                     if containerConfig.ephemeral then
                       "/run/nixos-containers/%i"
                     else
-                      "${stateDirectory}/%i"
-                  ;
+                      "${stateDirectory}/%i";
                 }
                 // (
                   if containerConfig.autoStart then
@@ -957,8 +949,7 @@ in
                 toString p.hostPort
               else
                 toString p.containerPort
-            )
-          ;
+            );
         in
         mapAttrs'
           (

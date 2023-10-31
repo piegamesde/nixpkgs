@@ -44,8 +44,7 @@ stdenv.mkDerivation rec {
       ''
         mkdir -p $out/bin
         cp -RT bin $out/bin
-      ''
-  ;
+      '';
 
   meta = with lib; {
     description = "A high-capacity 2D color bar code (${subproject})";

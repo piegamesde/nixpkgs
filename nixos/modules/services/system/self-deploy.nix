@@ -22,8 +22,7 @@ let
         if builtins.isString value then
           " --argstr ${lib.escapeShellArg key} ${lib.escapeShellArg value}"
         else
-          " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}"
-      ;
+          " --arg ${lib.escapeShellArg key} ${lib.escapeShellArg (toString value)}";
     in
     lib.concatStrings (lib.mapAttrsToList toArg args);
 
@@ -164,8 +163,7 @@ in
           gzip
           nix
         ]
-        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ]
-      ;
+        ++ lib.optionals (cfg.switchCommand == "boot") [ systemd ];
 
       script = ''
         if [ ! -e ${repositoryDirectory} ]; then

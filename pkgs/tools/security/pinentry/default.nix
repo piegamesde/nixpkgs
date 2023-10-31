@@ -23,8 +23,7 @@
     "emacs"
   ]
     ++ lib.optionals stdenv.isLinux [ "gnome3" ]
-    ++ lib.optionals (!stdenv.isDarwin) [ "qt" ]
-  ,
+    ++ lib.optionals (!stdenv.isDarwin) [ "qt" ],
 }:
 
 assert lib.isList enabledFlavors && enabledFlavors != [ ];
@@ -34,8 +33,7 @@ let
     if (builtins.elem "qt" enabledFlavors) then
       mkDerivation
     else
-      stdenv.mkDerivation
-  ;
+      stdenv.mkDerivation;
 
   enableFeaturePinentry =
     f:
@@ -101,8 +99,7 @@ pinentryMkDerivation rec {
       libassuan
     ]
     ++ lib.optional withLibsecret libsecret
-    ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors
-  ;
+    ++ lib.concatMap (f: flavorInfo.${f}.buildInputs or [ ]) enabledFlavors;
 
   dontWrapGApps = true;
   dontWrapQtApps = true;
@@ -145,8 +142,7 @@ pinentryMkDerivation rec {
       ln -sf ${placeholder (lib.head enabledFlavors)}/bin/pinentry-${
         flavorInfo.${lib.head enabledFlavors}.bin
       } $out/bin/pinentry
-    ''
-  ;
+    '';
 
   outputs = [ "out" ] ++ enabledFlavors;
 

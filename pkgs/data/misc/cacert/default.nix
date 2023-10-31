@@ -63,8 +63,7 @@ let
               lib.replaceStrings [ "." ] [ "_" ] version
             }_RTM/src/nss-${version}.tar.gz";
           sha256 = "sha256-PzhfxoZHa7uoEQNfpoIbVCR11VdHsYwgwiHU1mVzuXU=";
-        }
-    ;
+        };
 
     dontBuild = true;
 

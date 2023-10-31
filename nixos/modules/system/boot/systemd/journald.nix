@@ -109,8 +109,7 @@ in
       ++ optionals cfg.enableHttpGateway [
         "systemd-journal-gatewayd.socket"
         "systemd-journal-gatewayd.service"
-      ]
-    ;
+      ];
 
     environment.etc = {
       "systemd/journald.conf".text = ''

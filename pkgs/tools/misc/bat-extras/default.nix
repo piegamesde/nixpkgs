@@ -153,8 +153,7 @@ let
         ''
         + ''
           runHook postInstall
-        ''
-      ;
+        '';
 
       # We already patched
       dontPatchShebangs = true;

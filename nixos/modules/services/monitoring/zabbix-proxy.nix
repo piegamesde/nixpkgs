@@ -85,8 +85,7 @@ in
           else if cfg.database.type == "pgsql" then
             pkgs.zabbix.proxy-pgsql
           else
-            pkgs.zabbix.proxy-sqlite
-        ;
+            pkgs.zabbix.proxy-sqlite;
         defaultText = literalExpression "pkgs.zabbix.proxy-pgsql";
         description = lib.mdDoc "The Zabbix package to use.";
       };
@@ -375,8 +374,7 @@ in
           chmod 0600 ${passwordFile}
           echo -n "DBPassword = " > ${passwordFile}
           cat ${cfg.database.passwordFile} >> ${passwordFile}
-        ''
-      ;
+        '';
 
       serviceConfig = {
         ExecStart = "@${cfg.package}/sbin/zabbix_proxy zabbix_proxy -f --config ${configFile}";

@@ -39,8 +39,7 @@ let
         dune_3
         luv
         extlib-1-7-7
-      ]
-  ;
+      ];
 
   defaultPatch = ''
     substituteInPlace extra/haxelib_src/src/haxelib/client/Main.hx \
@@ -65,8 +64,7 @@ let
         ]
         ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2
         ++ lib.optional (lib.versionAtLeast version "4.1" && stdenv.isDarwin) Security
-        ++ ocamlDependencies version
-      ;
+        ++ ocamlDependencies version;
 
       src = fetchFromGitHub {
         owner = "HaxeFoundation";

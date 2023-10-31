@@ -41,8 +41,7 @@ stdenv.mkDerivation {
     ]
     ++ lib.optionals (fuseSupport) [ fuse ]
     ++ lib.optionals (selinuxSupport) [ libselinux ]
-    ++ lib.optionals (udevSupport) [ udev ]
-  ;
+    ++ lib.optionals (udevSupport) [ udev ];
   nativeBuildInputs = [
     meson
     ninja
@@ -66,8 +65,7 @@ stdenv.mkDerivation {
   mesonFlags =
     lib.optionals (!fuseSupport) [ "-Dfuse=false" ]
     ++ lib.optionals (!udevSupport) [ "-Dudev=false" ]
-    ++ lib.optionals (!selinuxSupport) [ "-Dselinux=false" ]
-  ;
+    ++ lib.optionals (!selinuxSupport) [ "-Dselinux=false" ];
 
   doCheck = true;
   preCheck = ''

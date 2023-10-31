@@ -35,8 +35,7 @@ stdenv.mkDerivation rec {
     # pthreads, which work only in native builds.
     ++
       lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "--with-threads=no"
-  ;
+        "--with-threads=no";
 
   depsBuildBuild =
     [ buildPackages.stdenv.cc ]
@@ -81,8 +80,7 @@ stdenv.mkDerivation rec {
     + ''
       sed -i "$out/lib/pkgconfig/guile"-*.pc    \
           -e "s|-lltdl|-L${libtool.lib}/lib -lltdl|g"
-    ''
-  ;
+    '';
 
   # One test fails.
   # ERROR: file: "libtest-asmobs", message: "file not found"

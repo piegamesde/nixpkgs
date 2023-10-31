@@ -100,8 +100,7 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString stdenv.isDarwin ''
       sed -i -e 's|@import AppKit;|#import <AppKit/AppKit.h>|' src/macfonts.m
-    ''
-  ;
+    '';
 
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AppKit";
 

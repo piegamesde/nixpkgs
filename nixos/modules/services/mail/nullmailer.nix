@@ -211,8 +211,7 @@ with lib;
           )
           // optionalAttrs (cfg.remotesFile != null) {
             "nullmailer/remotes".source = cfg.remotesFile;
-          }
-        ;
+          };
       };
 
       users = {

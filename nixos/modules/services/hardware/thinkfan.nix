@@ -118,8 +118,7 @@ let
     )
     // {
       "${type}" = query;
-    }
-  ;
+    };
 
   syntaxNote = name: ''
     ::: {.note}

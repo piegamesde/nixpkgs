@@ -43,8 +43,7 @@ stdenv.mkDerivation rec {
       if buildClient then
         "User information lookup program"
       else
-        "Remote user information server"
-    ;
+        "Remote user information server";
     platforms = platforms.linux;
     license = licenses.bsdOriginal;
   };

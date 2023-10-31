@@ -32,8 +32,7 @@ buildPythonPackage rec {
       jeepney
       secretstorage
     ]
-    ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ]
-  ;
+    ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ];
 
   pythonImportsCheck = [
     "keyring"

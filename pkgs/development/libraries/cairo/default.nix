@@ -143,8 +143,7 @@ stdenv.mkDerivation (
         xcbutil
       ]
       ++ optional gobjectSupport glib
-      ++ optional glSupport libGL
-    ; # TODO: maybe liblzo but what would it be for here?
+      ++ optional glSupport libGL; # TODO: maybe liblzo but what would it be for here?
 
     configureFlags =
       [ "--enable-tee" ]
@@ -164,8 +163,7 @@ stdenv.mkDerivation (
             ++ optional pdfSupport "--enable-pdf"
           )
       )
-      ++ optional (!x11Support) "--disable-xlib"
-    ;
+      ++ optional (!x11Support) "--disable-xlib";
 
     preConfigure =
       # On FreeBSD, `-ldl' doesn't exist.
@@ -182,8 +180,7 @@ stdenv.mkDerivation (
         sed -i "src/cairo.pc.in" \
             -es'|^Cflags:\(.*\)$|Cflags: \1 -I${freetype.dev}/include/freetype2 -I${freetype.dev}/include|g'
         substituteInPlace configure --replace strings $STRINGS
-      ''
-    ;
+      '';
 
     enableParallelBuilding = true;
 
@@ -217,8 +214,7 @@ stdenv.mkDerivation (
           "cairo-svg"
         ]
         ++ lib.optional gobjectSupport "cairo-gobject"
-        ++ lib.optional pdfSupport "cairo-pdf"
-      ;
+        ++ lib.optional pdfSupport "cairo-pdf";
       platforms = platforms.all;
     };
   }

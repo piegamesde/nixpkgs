@@ -25,8 +25,7 @@ let
             if hasWildcard then
               (builtins.substring 0 (builtins.stringLength c) version)
             else
-              version
-          ;
+              version;
         in
         f v c;
     in

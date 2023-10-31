@@ -54,8 +54,7 @@ stdenv.mkDerivation rec {
           libXext
           libxkbfile
         ]
-      )
-  ;
+      );
 
   outputs = [
     "out"

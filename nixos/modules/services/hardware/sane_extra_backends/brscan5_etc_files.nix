@@ -40,8 +40,7 @@ let
     ${if (lib.hasAttr "nodename" nd && nd.nodename != null) then
       ''nodename="${nd.nodename}"''
     else
-      ''ip="${nd.ip}"''
-    }'';
+      ''ip="${nd.ip}"''}'';
   addAllNetDev = xs: lib.concatStringsSep "\n" (map addNetDev xs);
 in
 

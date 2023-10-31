@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (libGL != null) libGL
     ++ lib.optional (libGLU != null) libGLU
-    ++ lib.optional (freeglut != null) freeglut
-  ;
+    ++ lib.optional (freeglut != null) freeglut;
 
   preConfigure = ''
     substituteInPlace src/Makefile.in \

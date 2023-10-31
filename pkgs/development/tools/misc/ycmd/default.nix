@@ -52,8 +52,7 @@ stdenv.mkDerivation {
       jedi-language-server
       pybind11
     ]
-    ++ lib.optional stdenv.isDarwin Cocoa
-  ;
+    ++ lib.optional stdenv.isDarwin Cocoa;
 
   buildPhase = ''
     export EXTRA_CMAKE_ARGS="-DPATH_TO_LLVM_ROOT=${llvmPackages.libllvm} -DUSE_SYSTEM_ABSEIL=true"
@@ -111,8 +110,7 @@ stdenv.mkDerivation {
     + lib.optionalString withTypescript ''
       TARGET=$out/lib/ycmd/third_party/tsserver
       ln -sf ${nodePackages.typescript} $TARGET
-    ''
-  ;
+    '';
 
   # fixup the argv[0] and replace __file__ with the corresponding path so
   # python won't be thrown off by argv[0]

@@ -53,8 +53,7 @@ stdenv.mkDerivation rec {
       # delete line containing os-wrappers-test, disables
       # the building of os-wrappers-test
       sed -i '/os-wrappers-test/d' tests/meson.build
-    ''
-  ;
+    '';
 
   outputs =
     [
@@ -91,8 +90,7 @@ stdenv.mkDerivation rec {
       python3
       docbook_xml_dtd_45
       docbook_xsl
-    ]
-  ;
+    ];
 
   buildInputs =
     [
@@ -105,8 +103,7 @@ stdenv.mkDerivation rec {
       docbook_xsl
       docbook_xml_dtd_45
       docbook_xml_dtd_42
-    ]
-  ;
+    ];
 
   postFixup = ''
     # The pkg-config file is required for cross-compilation:

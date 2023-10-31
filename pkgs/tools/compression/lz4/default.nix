@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
       "WINDRES:=${stdenv.cc.bintools.targetPrefix}windres"
     ]
     # TODO make full dictionary
-    ++ lib.optional stdenv.hostPlatform.isMinGW "TARGET_OS=MINGW"
-  ;
+    ++ lib.optional stdenv.hostPlatform.isMinGW "TARGET_OS=MINGW";
 
   doCheck = false; # tests take a very long time
   checkTarget = "test";
@@ -62,8 +61,7 @@ stdenv.mkDerivation rec {
     ''
     + ''
       moveToOutput bin "$bin"
-    ''
-  ;
+    '';
 
   meta = with lib; {
     description = "Extremely fast compression algorithm";

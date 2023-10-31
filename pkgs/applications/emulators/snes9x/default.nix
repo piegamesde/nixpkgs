@@ -78,8 +78,7 @@ stdenv.mkDerivation rec {
       portaudio
       SDL2
       util-linuxMinimal # provides libmount
-    ]
-  ;
+    ];
 
   configureFlags =
     lib.optional stdenv.hostPlatform.sse4_1Support "--enable-sse41"

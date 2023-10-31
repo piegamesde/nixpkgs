@@ -29,8 +29,7 @@ let
     else if stdenv.hostPlatform.system == "x86_64-linux" then
       "x86_64-linux-gnu"
     else
-      throw "amdgpu-pro is Linux only. Sorry."
-  ;
+      throw "amdgpu-pro is Linux only. Sorry.";
 in
 stdenv.mkDerivation rec {
 
@@ -177,8 +176,7 @@ stdenv.mkDerivation rec {
       install opt/amdgpu-pro/etc/vulkan/icd.d/amd_icd${bitness}.json $vulkan/share/vulkan/icd.d
 
       runHook postInstall
-    ''
-  ;
+    '';
 
   preFixup =
     (
@@ -215,8 +213,7 @@ stdenv.mkDerivation rec {
       find $out -type f -exec perl -pi -e 's:/opt/amdgpu/:/run/amdgpu/:g' {} \;
 
       substituteInPlace $vulkan/share/vulkan/icd.d/*.json --replace /opt/amdgpu-pro/lib/${libArch} "$out/opt/amdgpu-pro/lib"
-    ''
-  ;
+    '';
 
   # doing this in post because shrinking breaks things that dynamically load
   postFixup = ''

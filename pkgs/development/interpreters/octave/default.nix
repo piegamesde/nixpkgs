@@ -90,8 +90,7 @@ let
         lapack = lapack';
       }
     else
-      null
-  ;
+      null;
 
   octavePackages = import ../../../top-level/octave-packages.nix {
     inherit pkgs;
@@ -164,8 +163,7 @@ let
         libiconv
         darwin.apple_sdk.frameworks.Accelerate
         darwin.apple_sdk.frameworks.Cocoa
-      ]
-    ;
+      ];
     nativeBuildInputs =
       [
         pkg-config
@@ -179,8 +177,7 @@ let
       ++ lib.optionals enableQt [
         qtscript
         qttools
-      ]
-    ;
+      ];
 
     doCheck = !stdenv.isDarwin;
 
@@ -201,8 +198,7 @@ let
       ++ lib.optionals stdenv.isDarwin [ "--enable-link-all-dependencies" ]
       ++ lib.optionals enableReadline [ "--enable-readline" ]
       ++ lib.optionals stdenv.isDarwin [ "--with-x=no" ]
-      ++ lib.optionals enableQt [ "--with-qt=5" ]
-    ;
+      ++ lib.optionals enableQt [ "--with-qt=5" ];
 
     # Keep a copy of the octave tests detailed results in the output
     # derivation, because someone may care
@@ -245,8 +241,7 @@ let
         if overridePlatforms == null then
           (lib.platforms.linux ++ lib.platforms.darwin)
         else
-          overridePlatforms
-      ;
+          overridePlatforms;
     };
   };
 in

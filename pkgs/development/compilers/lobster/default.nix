@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
         libGL
         xorg.libX11
         xorg.libXext
-      ]
-  ;
+      ];
 
   preConfigure = ''
     cd dev

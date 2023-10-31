@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) ''
       # This benchmark times out on Hydra.nixos.org
       sed -i '/memcpy_speed/d' testsuite/meson.build
-    ''
-  ;
+    '';
 
   outputs = [
     "out"

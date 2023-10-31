@@ -23,8 +23,7 @@ let
     serviceConfig = {
       ExecStart =
         "${pkgs.freeradius}/bin/radiusd -f -d ${cfg.configDir} -l stdout"
-        + optionalString cfg.debug " -xx"
-      ;
+        + optionalString cfg.debug " -xx";
       ExecReload = [
         "${pkgs.freeradius}/bin/radiusd -C -d ${cfg.configDir} -l stdout"
         "${pkgs.coreutils}/bin/kill -HUP $MAINPID"

@@ -69,8 +69,7 @@ let
           then
             3
           else
-            5
-        ;
+            5;
         startLimitIntervalSec = 60 * 30; # 30 mins
 
         serviceConfig =
@@ -98,8 +97,7 @@ let
             RestartSec = "20s";
             PrivateDevices = "no"; # osd needs disk access
           }
-          // optionalAttrs (daemonType == "mon") { RestartSec = "10"; }
-        ;
+          // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
       }
     );
 
@@ -446,8 +444,7 @@ in
           }
           //
             optionalAttrs (cfg.client.enable && cfg.client.extraConfig != { })
-              cfg.client.extraConfig
-        ;
+              cfg.client.extraConfig;
       in
       generators.toINI { } totalConfig;
 
@@ -470,8 +467,7 @@ in
           ++ optional cfg.mds.enable (makeServices "mds" cfg.mds.daemons)
           ++ optional cfg.osd.enable (makeServices "osd" cfg.osd.daemons)
           ++ optional cfg.rgw.enable (makeServices "rgw" cfg.rgw.daemons)
-          ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons)
-        ;
+          ++ optional cfg.mgr.enable (makeServices "mgr" cfg.mgr.daemons);
       in
       mkMerge services;
 
@@ -491,8 +487,7 @@ in
           ++ optional cfg.mds.enable (makeTarget "mds")
           ++ optional cfg.osd.enable (makeTarget "osd")
           ++ optional cfg.rgw.enable (makeTarget "rgw")
-          ++ optional cfg.mgr.enable (makeTarget "mgr")
-        ;
+          ++ optional cfg.mgr.enable (makeTarget "mgr");
       in
       mkMerge targets;
 
@@ -504,7 +499,6 @@ in
       ]
       ++ optionals cfg.mgr.enable [ "d /var/lib/ceph/mgr - ceph ceph - -" ]
       ++ optionals cfg.mon.enable [ "d /var/lib/ceph/mon - ceph ceph - -" ]
-      ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ]
-    ;
+      ++ optionals cfg.osd.enable [ "d /var/lib/ceph/osd - ceph ceph - -" ];
   };
 }

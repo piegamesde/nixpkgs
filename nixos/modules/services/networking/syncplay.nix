@@ -22,8 +22,7 @@ let
     ++ optionals (cfg.certDir != null) [
       "--tls"
       cfg.certDir
-    ]
-  ;
+    ];
 in
 {
   options = {

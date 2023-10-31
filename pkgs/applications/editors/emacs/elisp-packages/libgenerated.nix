@@ -130,8 +130,7 @@ in
                 if (sha256 == null || broken) then
                   null
                 else
-                  lib.getAttr fetcher (fetcherGenerators args sourceArgs)
-              ;
+                  lib.getAttr fetcher (fetcherGenerators args sourceArgs);
               recipe =
                 if commit == null then
                   null
@@ -140,8 +139,7 @@ in
                     name = pname + "-recipe";
                     url = "https://raw.githubusercontent.com/melpa/melpa/${commit}/recipes/${ename}";
                     inherit sha256;
-                  }
-              ;
+                  };
               packageRequires = lib.optionals (deps != null) (
                 map (dep: pkgargs.${dep} or self.${dep} or null) deps
               );
@@ -153,6 +151,5 @@ in
           { }
       )
     else
-      null
-  ;
+      null;
 }

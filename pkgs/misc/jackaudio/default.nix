@@ -38,8 +38,7 @@ let
     if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then
       pkg
     else
-      null
-  ;
+      null;
 
   libOnly = prefix == "lib";
 
@@ -101,8 +100,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optional (optDbus != null) "--dbus"
       ++ lib.optional (optLibffado != null) "--firewire"
-      ++ lib.optional (optAlsaLib != null) "--alsa"
-    ;
+      ++ lib.optional (optAlsaLib != null) "--alsa";
 
     postInstall =
       (

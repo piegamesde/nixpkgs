@@ -108,8 +108,7 @@ with lib; {
             After =
               [ "network-pre.target" ]
               ++ optional config.networking.dhcpcd.enable "dhcpcd.service"
-              ++ optional config.systemd.network.enable "systemd-networkd.service"
-            ;
+              ++ optional config.systemd.network.enable "systemd-networkd.service";
           };
         };
 

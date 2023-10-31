@@ -91,8 +91,7 @@ mkChromiumDerivation (
         "An open source web browser from Google"
         +
           lib.optionalString ungoogled
-            ", with dependencies on Google web services removed"
-      ;
+            ", with dependencies on Google web services removed";
       longDescription = ''
         Chromium is an open source web browser from Google that aims to build a
         safer, faster, and more stable way for all Internet users to experience
@@ -103,8 +102,7 @@ mkChromiumDerivation (
         if ungoogled then
           "https://github.com/ungoogled-software/ungoogled-chromium"
         else
-          "https://www.chromium.org/"
-      ;
+          "https://www.chromium.org/";
       maintainers =
         with lib.maintainers;
         if ungoogled then
@@ -117,8 +115,7 @@ mkChromiumDerivation (
           [
             primeos
             thefloweringash
-          ]
-      ;
+          ];
       license = if enableWideVine then lib.licenses.unfree else lib.licenses.bsd3;
       platforms = lib.platforms.linux;
       mainProgram = "chromium";

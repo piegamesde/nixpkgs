@@ -113,8 +113,7 @@ let
         if package == "single" then
           [ ]
         else
-          map mathcomp_ (head (splitList (lib.pred.equal package) packages))
-      ;
+          map mathcomp_ (head (splitList (lib.pred.equal package) packages));
       pkgpath = if package == "single" then "mathcomp" else "mathcomp/${package}";
       pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
       pkgallMake = ''
@@ -156,8 +155,7 @@ let
             + ''
               cd ${pkgpath}
             ''
-            + optionalString (package == "all") pkgallMake
-          ;
+            + optionalString (package == "all") pkgallMake;
 
           meta = {
             homepage = "https://math-comp.github.io/";

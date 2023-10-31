@@ -25,8 +25,7 @@ stdenv.mkDerivation (
   finalAttrs: {
     pname =
       "alice-tools"
-      + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}"
-    ;
+      + lib.optionalString withGUI "-qt${lib.versions.major qtbase.version}";
     version = "0.13.0";
 
     src = fetchFromGitHub {
@@ -87,8 +86,7 @@ stdenv.mkDerivation (
       + ''
 
         runHook postInstall
-      ''
-    ;
+      '';
 
     passthru = {
       updateScript = gitUpdater { };
@@ -96,8 +94,7 @@ stdenv.mkDerivation (
         package = finalAttrs.finalPackage;
         command =
           lib.optionalString withGUI "env QT_QPA_PLATFORM=minimal "
-          + "${lib.getExe finalAttrs.finalPackage} --version"
-        ;
+          + "${lib.getExe finalAttrs.finalPackage} --version";
       };
     };
 

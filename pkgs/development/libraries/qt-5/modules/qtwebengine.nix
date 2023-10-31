@@ -185,8 +185,7 @@ qtModule {
       substituteInPlace src/3rdparty/chromium/build/config/compiler/BUILD.gn \
         --replace "-Wl,-fatal_warnings" ""
     '')
-    + postPatch
-  ;
+    + postPatch;
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU
@@ -218,8 +217,7 @@ qtModule {
       "-system-ffmpeg"
     ]
     ++ lib.optional pipewireSupport "-webengine-webrtc-pipewire"
-    ++ lib.optional enableProprietaryCodecs "-proprietary-codecs"
-  ;
+    ++ lib.optional enableProprietaryCodecs "-proprietary-codecs";
 
   propagatedBuildInputs =
     [
@@ -311,8 +309,7 @@ qtModule {
 
       openbsm
       libunwind
-    ]
-  ;
+    ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     cups
@@ -351,8 +348,7 @@ qtModule {
       sed 's/${
         lib.head (lib.splitString "-" version)
       } /${qtCompatVersion} /' -i "$out"/lib/cmake/*/*Config.cmake
-    ''
-  ;
+    '';
 
   requiredSystemFeatures = [ "big-parallel" ];
 

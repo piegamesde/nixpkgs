@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
       librsvg
     ]
     ++ lib.optionals stdenv.isLinux [ libcanberra-gtk3 ]
-    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ]
-  ;
+    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration ];
 
   cmakeFlags =
     [

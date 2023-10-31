@@ -90,8 +90,7 @@ in
               ++ (if cfg.ipv4 then [ "-4" ] else [ "-no-4" ])
               ++ (if cfg.ipv6 then [ "-6" ] else [ "-no-6" ])
               ++ optional cfg.deleteMissing "--delete-missing"
-              ++ optional cfg.proxied "--proxied"
-            ;
+              ++ optional cfg.proxied "--proxied";
           in
           "${pkgs.cloudflare-dyndns}/bin/cloudflare-dyndns ${toString args}";
       };

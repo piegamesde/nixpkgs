@@ -75,8 +75,7 @@ stdenv.mkDerivation rec {
   meta = {
     description =
       "A frantic 80's style 2D shooter, similar to XKobo and Kobo Deluxe"
-      + optionalString (!useProprietaryAssets) " (built without proprietary assets)"
-    ;
+      + optionalString (!useProprietaryAssets) " (built without proprietary assets)";
     longDescription =
       ''
         Kobo Redux is a frantic 80's style 2D shooter, inspired by the look and
@@ -88,8 +87,7 @@ stdenv.mkDerivation rec {
 
         This version replaces the official proprietary assets with placeholders.
         For the full experience, consider installing "koboredux" instead.
-      ''
-    ;
+      '';
     homepage = "https://olofson.itch.io/kobo-redux";
     license = with licenses; if useProprietaryAssets then unfree else gpl2;
     platforms = platforms.all;

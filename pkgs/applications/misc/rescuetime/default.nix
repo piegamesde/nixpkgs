@@ -30,8 +30,7 @@ let
         name = "rescuetime-installer.deb";
         url = "https://www.rescuetime.com/installers/rescuetime_${version}_amd64.deb";
         sha256 = "09ng0yal66d533vzfv27k9l2va03rqbqmsni43qi3hgx7w9wx5ii";
-      }
-  ;
+      };
 in
 mkDerivation rec {
   # https://www.rescuetime.com/updates/linux_release_notes.html

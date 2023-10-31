@@ -50,8 +50,7 @@ buildLinux (
         #GATOR_MALI_MIDGARD_PATH ${src}/drivers/gpu/arm/midgard
 
       ''
-      + (args.extraConfig or "")
-    ;
+      + (args.extraConfig or "");
 
     extraMeta.platforms = [ "armv7l-linux" ];
   }

@@ -82,8 +82,7 @@ buildNpmPackage rec {
     if builtins.isAttrs privateBuildPlan then
       builtins.toJSON { buildPlans.${pname} = privateBuildPlan; }
     else
-      privateBuildPlan
-  ;
+      privateBuildPlan;
 
   inherit extraParameters;
   passAsFile =

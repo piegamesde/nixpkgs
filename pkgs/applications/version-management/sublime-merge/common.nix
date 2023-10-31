@@ -163,8 +163,7 @@ stdenv.mkDerivation (rec {
         mkdir -p "$out/share/icons/hicolor/$size/apps"
         ln -s ''$${primaryBinary}/Icon/$size/* $out/share/icons/hicolor/$size/apps
       done
-    ''
-  ;
+    '';
 
   passthru = {
     updateScript =

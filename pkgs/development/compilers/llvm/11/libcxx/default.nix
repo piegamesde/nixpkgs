@@ -95,8 +95,7 @@ stdenv.mkDerivation {
           && stdenv.hostPlatform.isAarch64
           && stdenv.hostPlatform != stdenv.buildPlatform
         )
-        "-DCMAKE_SYSTEM_VERSION=20.1.0"
-  ;
+        "-DCMAKE_SYSTEM_VERSION=20.1.0";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

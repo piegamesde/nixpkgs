@@ -110,8 +110,7 @@ let
             "out"
             "man"
           ];
-        }
-      ;
+        };
     in
     buildEnv {
       name = "weechat-bin-env-${weechat.version}";

@@ -33,8 +33,7 @@ python3Packages.buildPythonApplication rec {
       imagemagick_light
       tesseract4
     ])
-    ++ extraPythonPackages python3Packages
-  ;
+    ++ extraPythonPackages python3Packages;
 
   doCheck = true;
   nativeCheckInputs = with python3Packages; [

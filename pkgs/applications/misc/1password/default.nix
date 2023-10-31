@@ -48,8 +48,7 @@ stdenv.mkDerivation {
     if (builtins.elem system platforms) then
       sources.${system}
     else
-      throw "Source for ${pname} is not available for ${system}"
-  ;
+      throw "Source for ${pname} is not available for ${system}";
 
   nativeBuildInputs = [
     installShellFiles

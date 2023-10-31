@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
       sed -i -e '/PROGS/ s/fmtoy_jack//' Makefile
       substituteInPlace Makefile \
         --replace '$(shell pkg-config alsa jack --cflags)' ""
-    ''
-  ;
+    '';
 
   nativeBuildInputs = [
     dos2unix

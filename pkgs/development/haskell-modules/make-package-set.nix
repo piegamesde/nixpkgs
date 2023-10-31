@@ -140,8 +140,7 @@ let
             # appears as if all arguments were already manually passed, so the scope change would do
             # nothing.
             callPackageWithScope newScope drv manualArgs;
-        }
-      ;
+        };
     in
     lib.makeOverridable drvScope (auto // manualArgs);
 
@@ -301,8 +300,7 @@ package-set { inherit pkgs lib callPackage; } self
           if pkgs.lib.canCleanSource src then
             pkgs.lib.cleanSourceWith { inherit src filter; }
           else
-            src
-        ;
+            src;
       };
     in
     overrideCabal (orig: { inherit src; }) (callPackageKeepDeriver expr args);
@@ -366,8 +364,7 @@ package-set { inherit pkgs lib callPackage; } self
     if returnShellEnv then
       (modifier drv).envFunc { inherit withHoogle; }
     else
-      modifier drv
-  ;
+      modifier drv;
 
   # This can be used to easily create a derivation containing GHC and the specified set of Haskell packages.
   #
@@ -604,8 +601,7 @@ package-set { inherit pkgs lib callPackage; } self
             if pkgs.lib.length selected == 1 then
               (pkgs.lib.head selected).name
             else
-              "packages"
-          ;
+              "packages";
           version = "0";
           license = null;
         }
@@ -613,8 +609,7 @@ package-set { inherit pkgs lib callPackage; } self
         // pkgs.lib.optionalAttrs doBenchmark {
           # `doBenchmark` needs to explicitly be set here because haskellPackages.mkDerivation defaults it to `false`.  If the user wants benchmark dependencies included in their development shell, it has to be explicitly enabled here.
           doBenchmark = true;
-        }
-      ;
+        };
 
       # This is a pseudo Haskell package derivation that contains all the
       # dependencies for the packages in `selected`.
