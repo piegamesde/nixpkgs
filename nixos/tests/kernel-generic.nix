@@ -55,7 +55,8 @@ let
     ;
   };
 in
-mapAttrs (_: lP: testsForLinuxPackages lP) kernels // {
+mapAttrs (_: lP: testsForLinuxPackages lP) kernels
+// {
   inherit testsForLinuxPackages;
 
   testsForKernel = kernel: testsForLinuxPackages (pkgs.linuxPackagesFor kernel);

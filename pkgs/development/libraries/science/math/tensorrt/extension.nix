@@ -53,9 +53,7 @@ let
         ;
       };
     in
-    {
-      inherit buildTensorRTPackage;
-    } // allBuilds // defaultBuild
+    { inherit buildTensorRTPackage; } // allBuilds // defaultBuild
   ;
 
   tarballURL =

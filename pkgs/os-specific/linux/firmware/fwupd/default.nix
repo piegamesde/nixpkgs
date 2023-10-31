@@ -112,7 +112,8 @@ let
         };
       };
     in
-    src // {
+    src
+    // {
       meta = src.meta // {
         # For update script
         position =

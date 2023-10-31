@@ -95,7 +95,8 @@ let
     documentType = "none";
     transformOptions =
       opt:
-      opt // {
+      opt
+      // {
         declarations =
           map
             (

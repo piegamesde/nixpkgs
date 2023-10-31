@@ -737,7 +737,8 @@ let
         refresh_interval = mkDefOpt types.str "60s" ''
           The time after which the containers are refreshed.
         '';
-      } // extraOptions
+      }
+      // extraOptions
     )
   ;
 

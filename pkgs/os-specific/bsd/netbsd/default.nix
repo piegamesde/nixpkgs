@@ -133,19 +133,25 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             platforms = platforms.unix;
             license = licenses.bsd2;
           };
-        } // lib.optionalAttrs stdenv'.hasCC {
+        }
+        // lib.optionalAttrs stdenv'.hasCC {
           # TODO should CC wrapper set this?
           CPP = "${stdenv'.cc.targetPrefix}cpp";
-        } // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
+        }
+        // lib.optionalAttrs stdenv'.isDarwin { MKRELRO = "no"; }
         // lib.optionalAttrs (stdenv'.cc.isClang or false) {
           HAVE_LLVM = lib.versions.major (lib.getVersion stdenv'.cc.cc);
-        } // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
+        }
+        // lib.optionalAttrs (stdenv'.cc.isGNU or false) {
           HAVE_GCC = lib.versions.major (lib.getVersion stdenv'.cc.cc);
-        } // lib.optionalAttrs (stdenv'.isx86_32) { USE_SSP = "no"; }
+        }
+        // lib.optionalAttrs (stdenv'.isx86_32) { USE_SSP = "no"; }
         // lib.optionalAttrs (attrs.headersOnly or false) {
           installPhase = "includesPhase";
           dontBuild = true;
-        } // attrs // {
+        }
+        // attrs
+        // {
           # Files that use NetBSD-specific macros need to have nbtool_config.h
           # included ahead of them on non-NetBSD platforms.
           postPatch =

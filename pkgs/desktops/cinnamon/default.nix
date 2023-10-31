@@ -9,7 +9,8 @@ lib.makeScope pkgs.newScope (
   with self; {
     iso-flags-png-320x420 = pkgs.iso-flags.overrideAttrs (
       p:
-      p // {
+      p
+      // {
         buildPhase = "make png-country-320x240-fancy";
         # installPhase = "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png-320x420";
         installPhase = "mkdir -p $out/share && mv build/png-country-4x2-fancy/res-320x240 $out/share/iso-flags-png";
@@ -18,7 +19,8 @@ lib.makeScope pkgs.newScope (
 
     iso-flags-svg = pkgs.iso-flags.overrideAttrs (
       p:
-      p // {
+      p
+      // {
         buildPhase = "mkdir -p $out/share";
         installPhase = "mv svg $out/share/iso-flags-svg";
       }
@@ -60,7 +62,8 @@ lib.makeScope pkgs.newScope (
     xreader = callPackage ./xreader { };
     xviewer = callPackage ./xviewer { };
   }
-) // lib.optionalAttrs config.allowAliases {
+)
+// lib.optionalAttrs config.allowAliases {
   # Aliases need to be outside the scope or they will shadow the attributes from parent scope.
   xapps = pkgs.cinnamon.xapp; # added 2022-07-27
 }

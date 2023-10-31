@@ -61,8 +61,9 @@ let
   checkType = types.submodule {
     freeformType = settingsFormat.type.nestedTypes.elemType;
 
-    options.enabled =
-      mkEnableOption (mdDoc "this activity check") // { default = true; };
+    options.enabled = mkEnableOption (mdDoc "this activity check") // {
+      default = true;
+    };
 
     options.class = mkOption {
       default = null;
@@ -100,8 +101,9 @@ let
   wakeupType = types.submodule {
     freeformType = settingsFormat.type.nestedTypes.elemType;
 
-    options.enabled =
-      mkEnableOption (mdDoc "this wake-up check") // { default = true; };
+    options.enabled = mkEnableOption (mdDoc "this wake-up check") // {
+      default = true;
+    };
 
     options.class = mkOption {
       default = null;

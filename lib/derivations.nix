@@ -108,6 +108,7 @@ in
       # The meta attribute can either be taken from the derivation, or if the
       # `lazyDerivation` caller knew a shortcut, be taken from there.
       meta = args.meta or checked.meta;
-    } // passthru
+    }
+    // passthru
   ;
 }

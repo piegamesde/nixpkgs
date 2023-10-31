@@ -80,71 +80,77 @@ callPackage
     };
 
     # Sources needed to build tools and firmwares.
-    xenfiles = optionalAttrs withInternalQemu {
-      qemu-xen = {
-        src = fetchgit {
-          url = "https://xenbits.xen.org/git-http/qemu-xen.git";
-          # rev = "refs/tags/qemu-xen-${version}";
-          # use revision hash - reproducible but must be updated with each new version
-          rev = "e2af2d050338c99e8436e251ad67aafb3ebbd501";
-          sha256 = "sha256-gVykPtzAA7tmpe6iVvnulaW+b0jD3gwL1JXC5yeIA7M=";
+    xenfiles =
+      optionalAttrs withInternalQemu {
+        qemu-xen = {
+          src = fetchgit {
+            url = "https://xenbits.xen.org/git-http/qemu-xen.git";
+            # rev = "refs/tags/qemu-xen-${version}";
+            # use revision hash - reproducible but must be updated with each new version
+            rev = "e2af2d050338c99e8436e251ad67aafb3ebbd501";
+            sha256 = "sha256-gVykPtzAA7tmpe6iVvnulaW+b0jD3gwL1JXC5yeIA7M=";
+          };
+          buildInputs = qemuDeps;
+          postPatch = ''
+            # needed in build but /usr/bin/env is not available in sandbox
+            substituteInPlace scripts/tracetool.py \
+              --replace "/usr/bin/env python" "${python3}/bin/python"
+          '';
+          meta.description = "Xen's fork of upstream Qemu";
         };
-        buildInputs = qemuDeps;
-        postPatch = ''
-          # needed in build but /usr/bin/env is not available in sandbox
-          substituteInPlace scripts/tracetool.py \
-            --replace "/usr/bin/env python" "${python3}/bin/python"
-        '';
-        meta.description = "Xen's fork of upstream Qemu";
-      };
-    } // optionalAttrs withInternalTraditionalQemu {
-      # TODO 4.15: something happened with traditional in this release?
-      qemu-xen-traditional = {
-        src = fetchgit {
-          url = "https://xenbits.xen.org/git-http/qemu-xen-traditional.git";
-          # rev = "refs/tags/xen-${version}";
-          # use revision hash - reproducible but must be updated with each new version
-          rev = "3d273dd05e51e5a1ffba3d98c7437ee84e8f8764";
-          sha256 = "1dc6dhjp4y2irmi9yiyw1kzmm1habyy8j1s2zkf6qyak850krqj7";
+      }
+      // optionalAttrs withInternalTraditionalQemu {
+        # TODO 4.15: something happened with traditional in this release?
+        qemu-xen-traditional = {
+          src = fetchgit {
+            url = "https://xenbits.xen.org/git-http/qemu-xen-traditional.git";
+            # rev = "refs/tags/xen-${version}";
+            # use revision hash - reproducible but must be updated with each new version
+            rev = "3d273dd05e51e5a1ffba3d98c7437ee84e8f8764";
+            sha256 = "1dc6dhjp4y2irmi9yiyw1kzmm1habyy8j1s2zkf6qyak850krqj7";
+          };
+          buildInputs = qemuDeps;
+          patches = [ ];
+          postPatch = ''
+            substituteInPlace xen-hooks.mak \
+              --replace /usr/include/pci ${pciutils}/include/pci
+          '';
+          meta.description = "Xen's fork of upstream Qemu that uses old device model";
         };
-        buildInputs = qemuDeps;
-        patches = [ ];
-        postPatch = ''
-          substituteInPlace xen-hooks.mak \
-            --replace /usr/include/pci ${pciutils}/include/pci
-        '';
-        meta.description = "Xen's fork of upstream Qemu that uses old device model";
-      };
-    } // optionalAttrs withInternalSeabios {
-      "firmware/seabios-dir-remote" = {
-        src = fetchgit {
-          url = "https://xenbits.xen.org/git-http/seabios.git";
-          rev = "155821a1990b6de78dde5f98fa5ab90e802021e0";
-          sha256 = "sha256-F3lzr00CMAObJtpz0eZFT/rwjFx+bvlI37/JtHXP5Eo=";
+      }
+      // optionalAttrs withInternalSeabios {
+        "firmware/seabios-dir-remote" = {
+          src = fetchgit {
+            url = "https://xenbits.xen.org/git-http/seabios.git";
+            rev = "155821a1990b6de78dde5f98fa5ab90e802021e0";
+            sha256 = "sha256-F3lzr00CMAObJtpz0eZFT/rwjFx+bvlI37/JtHXP5Eo=";
+          };
+          patches = [ ./0000-qemu-seabios-enable-ATA_DMA.patch ];
+          meta.description = "Xen's fork of Seabios";
         };
-        patches = [ ./0000-qemu-seabios-enable-ATA_DMA.patch ];
-        meta.description = "Xen's fork of Seabios";
-      };
-    } // optionalAttrs withInternalOVMF {
-      "firmware/ovmf-dir-remote" = {
-        src = fetchgit {
-          url = "https://xenbits.xen.org/git-http/ovmf.git";
-          rev = "a3741780fe3535e19e02efa869a7cac481891129";
-          sha256 = "0000000000000000000000000000000000000000000000000000";
+      }
+      // optionalAttrs withInternalOVMF {
+        "firmware/ovmf-dir-remote" = {
+          src = fetchgit {
+            url = "https://xenbits.xen.org/git-http/ovmf.git";
+            rev = "a3741780fe3535e19e02efa869a7cac481891129";
+            sha256 = "0000000000000000000000000000000000000000000000000000";
+          };
+          meta.description = "Xen's fork of OVMF";
         };
-        meta.description = "Xen's fork of OVMF";
-      };
-    } // {
-      # TODO: patch Xen to make this optional?
-      "firmware/etherboot/ipxe.git" = {
-        src = fetchgit {
-          url = "https://git.ipxe.org/ipxe.git";
-          rev = "988d2c13cdf0f0b4140685af35ced70ac5b3283c";
-          sha256 = "1pkf1n1c0rdlzfls8fvjvi1sd9xjd9ijqlyz3wigr70ijcv6x8i9";
+      }
+      // {
+        # TODO: patch Xen to make this optional?
+        "firmware/etherboot/ipxe.git" = {
+          src = fetchgit {
+            url = "https://git.ipxe.org/ipxe.git";
+            rev = "988d2c13cdf0f0b4140685af35ced70ac5b3283c";
+            sha256 = "1pkf1n1c0rdlzfls8fvjvi1sd9xjd9ijqlyz3wigr70ijcv6x8i9";
+          };
+          meta.description = "Xen's fork of iPXE";
         };
-        meta.description = "Xen's fork of iPXE";
-      };
-    };
+      }
+    ;
 
     configureFlags =
       [ ]

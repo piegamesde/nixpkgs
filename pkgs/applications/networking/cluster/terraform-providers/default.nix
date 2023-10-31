@@ -154,6 +154,4 @@ let
   # excluding aliases, used by terraform-full
   actualProviders = automated-providers // special-providers;
 in
-actualProviders // removed-providers // {
-  inherit actualProviders mkProvider;
-}
+actualProviders // removed-providers // { inherit actualProviders mkProvider; }

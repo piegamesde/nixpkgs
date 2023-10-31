@@ -23,8 +23,9 @@ let
 in
 (if stdenvNoCC.isDarwin then x86_64-dmg else x86_64-appimage).overrideAttrs (
   oldAttrs: {
-    passthru =
-      (oldAttrs.passthru or { }) // { inherit x86_64-appimage x86_64-dmg; };
+    passthru = (oldAttrs.passthru or { }) // {
+      inherit x86_64-appimage x86_64-dmg;
+    };
     meta = oldAttrs.meta // {
       platforms = x86_64-appimage.meta.platforms ++ x86_64-dmg.meta.platforms;
     };

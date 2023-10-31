@@ -28,7 +28,8 @@ let
   stackHook = makeSetupHook { name = "stack-hook"; } ./stack-hook.sh;
 in
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
 
     # Doesn't work in the sandbox. Pass `--option sandbox relaxed` or
     # `--option sandbox false` to be able to build this

@@ -56,6 +56,7 @@ symlinkJoin {
     bird-lg-frontend
     bird-lg-proxy
   ];
-} // {
+}
+// {
   inherit (bird-lg-frontend) version meta;
 }

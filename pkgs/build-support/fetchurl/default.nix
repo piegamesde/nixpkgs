@@ -21,7 +21,8 @@ let
       strictDeps = true;
       builder = ./write-mirror-list.sh;
       preferLocalBuild = true;
-    } // mirrors
+    }
+    // mirrors
   );
 
   # Names of the master sites that are mirrored (i.e., "sourceforge",
@@ -200,7 +201,8 @@ stdenvNoCC.mkDerivation (
             baseNameOf (toString (builtins.head urls_))
         ;
       }
-  ) // {
+  )
+  // {
     builder = ./builder.sh;
 
     nativeBuildInputs = [ curl ] ++ nativeBuildInputs;
@@ -270,6 +272,8 @@ stdenvNoCC.mkDerivation (
     ;
 
     inherit meta;
-    passthru = { inherit url; } // passthru;
+    passthru = {
+      inherit url;
+    } // passthru;
   }
 )

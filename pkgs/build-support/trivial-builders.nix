@@ -100,10 +100,12 @@ rec {
         enableParallelBuilding = true;
         inherit buildCommand name;
         passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
-      } // (lib.optionalAttrs runLocal {
+      }
+      // (lib.optionalAttrs runLocal {
         preferLocalBuild = true;
         allowSubstitutes = false;
-      }) // builtins.removeAttrs derivationArgs [ "passAsFile" ]
+      })
+      // builtins.removeAttrs derivationArgs [ "passAsFile" ]
     )
   ;
 
@@ -531,13 +533,16 @@ rec {
       ...
     }:
     let
-      args = removeAttrs args_ [
-        "name"
-        "postBuild"
-      ] // {
-        inherit preferLocalBuild allowSubstitutes;
-        passAsFile = [ "paths" ];
-      }; # pass the defaults
+      args =
+        removeAttrs args_ [
+          "name"
+          "postBuild"
+        ]
+        // {
+          inherit preferLocalBuild allowSubstitutes;
+          passAsFile = [ "paths" ];
+        }
+      ; # pass the defaults
     in
     runCommand name args ''
       mkdir -p $out
@@ -655,7 +660,8 @@ rec {
     script:
     runCommand name
       (
-        substitutions // {
+        substitutions
+        // {
           inherit meta;
           inherit depsTargetTargetPropagated;
           propagatedBuildInputs =
@@ -675,13 +681,15 @@ rec {
           ;
           strictDeps = true;
           # TODO 2023-01, no backport: simplify to inherit passthru;
-          passthru = passthru // optionalAttrs (substitutions ? passthru) (
-            warn
-              "makeSetupHook (name = ${
-                lib.strings.escapeNixString name
-              }): `substitutions.passthru` is deprecated. Please set `passthru` directly."
-              substitutions.passthru
-          );
+          passthru =
+            passthru
+            // optionalAttrs (substitutions ? passthru) (
+              warn
+                "makeSetupHook (name = ${
+                  lib.strings.escapeNixString name
+                }): `substitutions.passthru` is deprecated. Please set `passthru` directly."
+                substitutions.passthru
+            );
         }
       )
       (

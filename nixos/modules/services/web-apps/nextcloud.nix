@@ -49,12 +49,14 @@ let
     mkKeyValue = generators.mkKeyValueDefault { } " = ";
   };
 
-  phpOptions = {
-    upload_max_filesize = cfg.maxUploadSize;
-    post_max_size = cfg.maxUploadSize;
-    memory_limit = cfg.maxUploadSize;
-  } // cfg.phpOptions
-    // optionalAttrs cfg.caching.apcu { "apc.enable_cli" = "1"; };
+  phpOptions =
+    {
+      upload_max_filesize = cfg.maxUploadSize;
+      post_max_size = cfg.maxUploadSize;
+      memory_limit = cfg.maxUploadSize;
+    }
+    // cfg.phpOptions // optionalAttrs cfg.caching.apcu { "apc.enable_cli" = "1"; }
+  ;
 
   occ = pkgs.writeScriptBin "nextcloud-occ" ''
     #! ${pkgs.runtimeShell}
@@ -619,17 +621,20 @@ in
       };
     };
 
-    enableImagemagick = mkEnableOption (
-      lib.mdDoc ''
-        the ImageMagick module for PHP.
-        This is used by the theming app and for generating previews of certain images (e.g. SVG and HEIF).
-        You may want to disable it for increased security. In that case, previews will still be available
-        for some images (e.g. JPEG and PNG).
-        See <https://github.com/nextcloud/server/issues/13099>.
-      ''
-    ) // {
-      default = true;
-    };
+    enableImagemagick =
+      mkEnableOption (
+        lib.mdDoc ''
+          the ImageMagick module for PHP.
+          This is used by the theming app and for generating previews of certain images (e.g. SVG and HEIF).
+          You may want to disable it for increased security. In that case, previews will still be available
+          for some images (e.g. JPEG and PNG).
+          See <https://github.com/nextcloud/server/issues/13099>.
+        ''
+      )
+      // {
+        default = true;
+      }
+    ;
 
     caching = {
       apcu = mkOption {
@@ -1170,10 +1175,13 @@ in
               NEXTCLOUD_CONFIG_DIR = "${datadir}/config";
               PATH = "/run/wrappers/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/usr/bin:/bin";
             };
-            settings = mapAttrs (name: mkDefault) {
-              "listen.owner" = config.services.nginx.user;
-              "listen.group" = config.services.nginx.group;
-            } // cfg.poolSettings;
+            settings =
+              mapAttrs (name: mkDefault) {
+                "listen.owner" = config.services.nginx.user;
+                "listen.group" = config.services.nginx.group;
+              }
+              // cfg.poolSettings
+            ;
             extraConfig = cfg.poolConfig;
           };
         };

@@ -81,7 +81,8 @@ let
             techknowlogick
           ];
         };
-      } // attrs'
+      }
+      // attrs'
     )
   ;
 

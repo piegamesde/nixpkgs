@@ -95,5 +95,7 @@ else
 
     dontStrip = true;
 
-    meta = meta // { inherit (ocaml.meta) platforms; };
+    meta = meta // {
+      inherit (ocaml.meta) platforms;
+    };
   }

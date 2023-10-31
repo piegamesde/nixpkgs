@@ -19,7 +19,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "safeset library for nim";
       license = [ licenses.gpl2 ];
       maintainers = [ maintainers.marcusramberg ];

@@ -3838,7 +3838,8 @@ let
       sources."@babel/code-frame-7.12.11"
       sources."@babel/helper-validator-identifier-7.18.6"
       (
-        sources."@babel/highlight-7.18.6" // {
+        sources."@babel/highlight-7.18.6"
+        // {
           dependencies = [
             sources."ansi-styles-3.2.1"
             sources."chalk-2.4.2"
@@ -3851,7 +3852,8 @@ let
         }
       )
       (
-        sources."@eslint/eslintrc-0.4.3" // {
+        sources."@eslint/eslintrc-0.4.3"
+        // {
           dependencies = [
             sources."argparse-1.0.10"
             sources."debug-4.3.4"
@@ -3861,7 +3863,8 @@ let
         }
       )
       (
-        sources."@humanwhocodes/config-array-0.5.0" // {
+        sources."@humanwhocodes/config-array-0.5.0"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."ms-2.1.2"
@@ -3905,7 +3908,8 @@ let
       sources."acorn-jsx-5.3.2"
       sources."acorn-walk-7.2.0"
       (
-        sources."agent-base-6.0.2" // {
+        sources."agent-base-6.0.2"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."ms-2.1.2"
@@ -3928,7 +3932,8 @@ let
       sources."aws4-1.11.0"
       sources."balanced-match-1.0.2"
       (
-        sources."basic-auth-2.0.1" // {
+        sources."basic-auth-2.0.1"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )
@@ -3983,7 +3988,8 @@ let
       sources."dom-serializer-1.4.1"
       sources."domelementtype-2.3.0"
       (
-        sources."domexception-2.0.1" // {
+        sources."domexception-2.0.1"
+        // {
           dependencies = [ sources."webidl-conversions-5.0.0" ];
         }
       )
@@ -3991,7 +3997,8 @@ let
       sources."domutils-2.8.0"
       sources."ecc-jsbn-0.1.2"
       (
-        sources."editorconfig-0.15.3" // {
+        sources."editorconfig-0.15.3"
+        // {
           dependencies = [
             sources."lru-cache-4.1.5"
             sources."semver-5.7.1"
@@ -4009,7 +4016,8 @@ let
       sources."escape-string-regexp-4.0.0"
       sources."escodegen-2.0.0"
       (
-        sources."eslint-7.32.0" // {
+        sources."eslint-7.32.0"
+        // {
           dependencies = [
             sources."argparse-1.0.10"
             sources."debug-4.3.4"
@@ -4023,18 +4031,21 @@ let
         }
       )
       (
-        sources."eslint-scope-5.1.1" // {
+        sources."eslint-scope-5.1.1"
+        // {
           dependencies = [ sources."estraverse-4.3.0" ];
         }
       )
       (
-        sources."eslint-utils-2.1.0" // {
+        sources."eslint-utils-2.1.0"
+        // {
           dependencies = [ sources."eslint-visitor-keys-1.3.0" ];
         }
       )
       sources."eslint-visitor-keys-2.1.0"
       (
-        sources."espree-7.3.1" // {
+        sources."espree-7.3.1"
+        // {
           dependencies = [
             sources."acorn-7.4.1"
             sources."eslint-visitor-keys-1.3.0"
@@ -4091,7 +4102,8 @@ let
       sources."htmlparser2-6.1.0"
       sources."http-errors-2.0.0"
       (
-        sources."http-proxy-agent-4.0.1" // {
+        sources."http-proxy-agent-4.0.1"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."ms-2.1.2"
@@ -4100,7 +4112,8 @@ let
       )
       sources."http-signature-1.2.0"
       (
-        sources."https-proxy-agent-5.0.1" // {
+        sources."https-proxy-agent-5.0.1"
+        // {
           dependencies = [
             sources."debug-4.3.4"
             sources."ms-2.1.2"
@@ -4134,7 +4147,8 @@ let
       sources."jest-get-type-27.5.1"
       sources."jest-matcher-utils-27.5.1"
       (
-        sources."jest-message-util-27.5.1" // {
+        sources."jest-message-util-27.5.1"
+        // {
           dependencies = [ sources."@babel/code-frame-7.18.6" ];
         }
       )
@@ -4158,7 +4172,8 @@ let
       sources."lru-cache-6.0.0"
       sources."make-error-1.3.6"
       (
-        sources."matrix-bot-sdk-0.5.19" // {
+        sources."matrix-bot-sdk-0.5.19"
+        // {
           dependencies = [
             sources."domhandler-3.3.0"
             sources."html-to-text-6.0.0"
@@ -4178,7 +4193,8 @@ let
       sources."minimist-1.2.6"
       sources."mkdirp-1.0.4"
       (
-        sources."mocha-9.2.2" // {
+        sources."mocha-9.2.2"
+        // {
           dependencies = [
             sources."ansi-colors-4.1.1"
             (sources."debug-4.3.3" // { dependencies = [ sources."ms-2.1.2" ]; })
@@ -4225,7 +4241,8 @@ let
       sources."postcss-8.4.14"
       sources."prelude-ls-1.1.2"
       (
-        sources."pretty-format-27.5.1" // {
+        sources."pretty-format-27.5.1"
+        // {
           dependencies = [ sources."ansi-styles-5.2.0" ];
         }
       )
@@ -4244,7 +4261,8 @@ let
       sources."readdirp-3.6.0"
       sources."regexpp-3.2.0"
       (
-        sources."request-2.88.2" // {
+        sources."request-2.88.2"
+        // {
           dependencies = [
             sources."form-data-2.3.3"
             sources."qs-6.5.3"
@@ -4253,7 +4271,8 @@ let
         }
       )
       (
-        sources."request-promise-4.2.6" // {
+        sources."request-promise-4.2.6"
+        // {
           dependencies = [ sources."tough-cookie-2.5.0" ];
         }
       )
@@ -4287,7 +4306,8 @@ let
       sources."sprintf-js-1.0.3"
       sources."sshpk-1.17.0"
       (
-        sources."stack-utils-2.0.5" // {
+        sources."stack-utils-2.0.5"
+        // {
           dependencies = [ sources."escape-string-regexp-2.0.0" ];
         }
       )
@@ -4302,7 +4322,8 @@ let
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."symbol-tree-3.2.4"
       (
-        sources."table-6.8.0" // {
+        sources."table-6.8.0"
+        // {
           dependencies = [
             sources."ajv-8.11.0"
             sources."json-schema-traverse-1.0.0"
@@ -4316,7 +4337,8 @@ let
       sources."tr46-2.1.0"
       sources."ts-mocha-9.0.2"
       (
-        sources."ts-node-7.0.1" // {
+        sources."ts-node-7.0.1"
+        // {
           dependencies = [
             sources."diff-3.5.0"
             sources."mkdirp-0.5.6"
@@ -4328,7 +4350,8 @@ let
       )
       sources."tslib-1.14.1"
       (
-        sources."tslint-6.1.3" // {
+        sources."tslint-6.1.3"
+        // {
           dependencies = [
             sources."ansi-styles-3.2.1"
             sources."argparse-1.0.10"

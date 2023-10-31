@@ -132,7 +132,9 @@ let
         chmod +x "$out/bin/simutrans"
       '';
 
-      passthru.meta = binaries.meta // { hydraPlatforms = [ ]; };
+      passthru.meta = binaries.meta // {
+        hydraPlatforms = [ ];
+      };
       passthru.binaries = binaries;
     }
   ;

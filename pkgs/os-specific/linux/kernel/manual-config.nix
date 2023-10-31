@@ -127,7 +127,8 @@ lib.makeOverridable (
         isEnabled = attr: (config.isModule attr) || (config.isYes attr);
 
         isDisabled = attr: (!(config.isSet attr)) || (config.isNo attr);
-      } // config_
+      }
+      // config_
     ;
 
     isModular = config.isYes "MODULES";
@@ -523,7 +524,9 @@ lib.makeOverridable (
         platforms = platforms.linux;
         timeout = 14400; # 4 hours
       } // extraMeta;
-    } // optionalAttrs (pos != null) { inherit pos; } // optionalAttrs isModular {
+    }
+    // optionalAttrs (pos != null) { inherit pos; }
+    // optionalAttrs isModular {
       outputs = [
         "out"
         "dev"

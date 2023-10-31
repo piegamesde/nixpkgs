@@ -18,7 +18,8 @@ assert lib.elem type [
 }@args:
 
 stdenvNoCC.mkDerivation (
-  args // rec {
+  args
+  // rec {
     pname = args.pname or "cataclysm-dda-${type}-${modName}";
 
     modRoot = args.modRoot or ".";

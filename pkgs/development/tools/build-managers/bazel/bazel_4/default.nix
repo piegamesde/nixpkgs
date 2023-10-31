@@ -308,7 +308,8 @@ stdenv.mkDerivation rec {
               inherit buildInputs;
               preferLocalBuild = true;
               meta.platforms = platforms;
-            } // attrs'
+            }
+            // attrs'
           )
           script
       ;
@@ -398,7 +399,8 @@ stdenv.mkDerivation rec {
         }
       else
         { }
-    ) // {
+    )
+    // {
       bashTools = callPackage ../bash-tools-test.nix {
         inherit runLocal bazelTest distDir;
         bazel = bazel_self;

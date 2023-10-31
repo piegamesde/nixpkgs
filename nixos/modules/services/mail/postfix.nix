@@ -867,11 +867,11 @@ in
           };
         };
 
-        users.groups = optionalAttrs (group == "postfix") {
-          ${group}.gid = config.ids.gids.postfix;
-        } // optionalAttrs (setgidGroup == "postdrop") {
-          ${setgidGroup}.gid = config.ids.gids.postdrop;
-        };
+        users.groups =
+          optionalAttrs (group == "postfix") { ${group}.gid = config.ids.gids.postfix; }
+          // optionalAttrs (setgidGroup == "postdrop") {
+            ${setgidGroup}.gid = config.ids.gids.postdrop;
+          };
 
         systemd.services.postfix-setup = {
           description = "Setup for Postfix mail server";
@@ -944,71 +944,86 @@ in
           };
         };
 
-        services.postfix.config = (mapAttrs (_: v: mkDefault v) {
-          compatibility_level = pkgs.postfix.version;
-          mail_owner = cfg.user;
-          default_privs = "nobody";
+        services.postfix.config =
+          (mapAttrs (_: v: mkDefault v) {
+            compatibility_level = pkgs.postfix.version;
+            mail_owner = cfg.user;
+            default_privs = "nobody";
 
-          # NixOS specific locations
-          data_directory = "/var/lib/postfix/data";
-          queue_directory = "/var/lib/postfix/queue";
+            # NixOS specific locations
+            data_directory = "/var/lib/postfix/data";
+            queue_directory = "/var/lib/postfix/queue";
 
-          # Default location of everything in package
-          meta_directory = "${pkgs.postfix}/etc/postfix";
-          command_directory = "${pkgs.postfix}/bin";
-          sample_directory = "/etc/postfix";
-          newaliases_path = "${pkgs.postfix}/bin/newaliases";
-          mailq_path = "${pkgs.postfix}/bin/mailq";
-          readme_directory = false;
-          sendmail_path = "${pkgs.postfix}/bin/sendmail";
-          daemon_directory = "${pkgs.postfix}/libexec/postfix";
-          manpage_directory = "${pkgs.postfix}/share/man";
-          html_directory = "${pkgs.postfix}/share/postfix/doc/html";
-          shlib_directory = false;
-          mail_spool_directory = "/var/spool/mail/";
-          setgid_group = cfg.setgidGroup;
-        }) // optionalAttrs (cfg.relayHost != "") {
-          relayhost =
-            if cfg.lookupMX then
-              "${cfg.relayHost}:${toString cfg.relayPort}"
-            else
-              "[${cfg.relayHost}]:${toString cfg.relayPort}"
-          ;
-        } // optionalAttrs (!config.networking.enableIPv6) {
-          inet_protocols = mkDefault "ipv4";
-        } // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
+            # Default location of everything in package
+            meta_directory = "${pkgs.postfix}/etc/postfix";
+            command_directory = "${pkgs.postfix}/bin";
+            sample_directory = "/etc/postfix";
+            newaliases_path = "${pkgs.postfix}/bin/newaliases";
+            mailq_path = "${pkgs.postfix}/bin/mailq";
+            readme_directory = false;
+            sendmail_path = "${pkgs.postfix}/bin/sendmail";
+            daemon_directory = "${pkgs.postfix}/libexec/postfix";
+            manpage_directory = "${pkgs.postfix}/share/man";
+            html_directory = "${pkgs.postfix}/share/postfix/doc/html";
+            shlib_directory = false;
+            mail_spool_directory = "/var/spool/mail/";
+            setgid_group = cfg.setgidGroup;
+          })
+          // optionalAttrs (cfg.relayHost != "") {
+            relayhost =
+              if cfg.lookupMX then
+                "${cfg.relayHost}:${toString cfg.relayPort}"
+              else
+                "[${cfg.relayHost}]:${toString cfg.relayPort}"
+            ;
+          }
+          // optionalAttrs (!config.networking.enableIPv6) {
+            inet_protocols = mkDefault "ipv4";
+          }
+          // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
           // optionalAttrs (cfg.networksStyle != "") {
             mynetworks_style = cfg.networksStyle;
-          } // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
+          }
+          // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
           // optionalAttrs (cfg.domain != "") { mydomain = cfg.domain; }
           // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
           // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
           // optionalAttrs (cfg.relayDomains != null) {
             relay_domains = cfg.relayDomains;
-          } // optionalAttrs (cfg.recipientDelimiter != "") {
+          }
+          // optionalAttrs (cfg.recipientDelimiter != "") {
             recipient_delimiter = cfg.recipientDelimiter;
-          } // optionalAttrs haveAliases {
+          }
+          // optionalAttrs haveAliases {
             alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ];
-          } // optionalAttrs haveTransport {
+          }
+          // optionalAttrs haveTransport {
             transport_maps = [ "hash:/etc/postfix/transport" ];
-          } // optionalAttrs haveVirtual {
+          }
+          // optionalAttrs haveVirtual {
             virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
-          } // optionalAttrs haveLocalRecipients {
+          }
+          // optionalAttrs haveLocalRecipients {
             local_recipient_maps =
               [ "hash:/etc/postfix/local_recipients" ] ++ optional haveAliases "$alias_maps";
-          } // optionalAttrs (cfg.dnsBlacklists != [ ]) {
+          }
+          // optionalAttrs (cfg.dnsBlacklists != [ ]) {
             smtpd_client_restrictions = clientRestrictions;
-          } // optionalAttrs cfg.useSrs {
+          }
+          // optionalAttrs cfg.useSrs {
             sender_canonical_maps = [ "tcp:127.0.0.1:10001" ];
             sender_canonical_classes = [ "envelope_sender" ];
             recipient_canonical_maps = [ "tcp:127.0.0.1:10002" ];
             recipient_canonical_classes = [ "envelope_recipient" ];
-          } // optionalAttrs cfg.enableHeaderChecks {
+          }
+          // optionalAttrs cfg.enableHeaderChecks {
             header_checks = [ "regexp:/etc/postfix/header_checks" ];
-          } // optionalAttrs (cfg.tlsTrustedAuthorities != "") {
+          }
+          // optionalAttrs (cfg.tlsTrustedAuthorities != "") {
             smtp_tls_CAfile = cfg.tlsTrustedAuthorities;
             smtp_tls_security_level = mkDefault "may";
-          } // optionalAttrs (cfg.sslCert != "") {
+          }
+          // optionalAttrs (cfg.sslCert != "") {
             smtp_tls_cert_file = cfg.sslCert;
             smtp_tls_key_file = cfg.sslKey;
 
@@ -1018,135 +1033,145 @@ in
             smtpd_tls_key_file = cfg.sslKey;
 
             smtpd_tls_security_level = "may";
-          };
+          }
+        ;
 
-        services.postfix.masterConfig = {
-          pickup = {
-            private = false;
-            wakeup = 60;
-            maxproc = 1;
-          };
-          cleanup = {
-            private = false;
-            maxproc = 0;
-          };
-          qmgr = {
-            private = false;
-            wakeup = 300;
-            maxproc = 1;
-          };
-          tlsmgr = {
-            wakeup = 1000;
-            wakeupUnusedComponent = false;
-            maxproc = 1;
-          };
-          rewrite = {
-            command = "trivial-rewrite";
-          };
-          bounce = {
-            maxproc = 0;
-          };
-          defer = {
-            maxproc = 0;
-            command = "bounce";
-          };
-          trace = {
-            maxproc = 0;
-            command = "bounce";
-          };
-          verify = {
-            maxproc = 1;
-          };
-          flush = {
-            private = false;
-            wakeup = 1000;
-            wakeupUnusedComponent = false;
-            maxproc = 0;
-          };
-          proxymap = {
-            command = "proxymap";
-          };
-          proxywrite = {
-            maxproc = 1;
-            command = "proxymap";
-          };
-          showq = {
-            private = false;
-          };
-          error = { };
-          retry = {
-            command = "error";
-          };
-          discard = { };
-          local = {
-            privileged = true;
-          };
-          virtual = {
-            privileged = true;
-          };
-          lmtp = { };
-          anvil = {
-            maxproc = 1;
-          };
-          scache = {
-            maxproc = 1;
-          };
-        } // optionalAttrs cfg.enableSubmission {
-          submission = {
-            type = "inet";
-            private = false;
-            command = "smtpd";
-            args =
-              let
-                mkKeyVal = opt: val: [
-                  "-o"
-                  (opt + "=" + val)
-                ];
-              in
-              concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
-            ;
-          };
-        } // optionalAttrs cfg.enableSmtp {
-          smtp_inet = {
-            name = "smtp";
-            type = "inet";
-            private = false;
-            command = "smtpd";
-          };
-          smtp = { };
-          relay = {
-            command = "smtp";
-            args = [
-              "-o"
-              "smtp_fallback_relay="
-            ];
-          };
-        } // optionalAttrs cfg.enableSubmissions {
-          submissions = {
-            type = "inet";
-            private = false;
-            command = "smtpd";
-            args =
-              let
-                mkKeyVal = opt: val: [
-                  "-o"
-                  (opt + "=" + val)
-                ];
-                adjustSmtpTlsSecurityLevel =
-                  !(cfg.submissionsOptions ? smtpd_tls_security_level)
-                  || cfg.submissionsOptions.smtpd_tls_security_level == "none"
-                  || cfg.submissionsOptions.smtpd_tls_security_level == "may"
-                ;
-                submissionsOptions = cfg.submissionsOptions // {
-                  smtpd_tls_wrappermode = "yes";
-                } // optionalAttrs adjustSmtpTlsSecurityLevel {
-                  smtpd_tls_security_level = "encrypt";
-                };
-              in
-              concatLists (mapAttrsToList mkKeyVal submissionsOptions)
-            ;
-          };
-        };
+        services.postfix.masterConfig =
+          {
+            pickup = {
+              private = false;
+              wakeup = 60;
+              maxproc = 1;
+            };
+            cleanup = {
+              private = false;
+              maxproc = 0;
+            };
+            qmgr = {
+              private = false;
+              wakeup = 300;
+              maxproc = 1;
+            };
+            tlsmgr = {
+              wakeup = 1000;
+              wakeupUnusedComponent = false;
+              maxproc = 1;
+            };
+            rewrite = {
+              command = "trivial-rewrite";
+            };
+            bounce = {
+              maxproc = 0;
+            };
+            defer = {
+              maxproc = 0;
+              command = "bounce";
+            };
+            trace = {
+              maxproc = 0;
+              command = "bounce";
+            };
+            verify = {
+              maxproc = 1;
+            };
+            flush = {
+              private = false;
+              wakeup = 1000;
+              wakeupUnusedComponent = false;
+              maxproc = 0;
+            };
+            proxymap = {
+              command = "proxymap";
+            };
+            proxywrite = {
+              maxproc = 1;
+              command = "proxymap";
+            };
+            showq = {
+              private = false;
+            };
+            error = { };
+            retry = {
+              command = "error";
+            };
+            discard = { };
+            local = {
+              privileged = true;
+            };
+            virtual = {
+              privileged = true;
+            };
+            lmtp = { };
+            anvil = {
+              maxproc = 1;
+            };
+            scache = {
+              maxproc = 1;
+            };
+          }
+          // optionalAttrs cfg.enableSubmission {
+            submission = {
+              type = "inet";
+              private = false;
+              command = "smtpd";
+              args =
+                let
+                  mkKeyVal = opt: val: [
+                    "-o"
+                    (opt + "=" + val)
+                  ];
+                in
+                concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions)
+              ;
+            };
+          }
+          // optionalAttrs cfg.enableSmtp {
+            smtp_inet = {
+              name = "smtp";
+              type = "inet";
+              private = false;
+              command = "smtpd";
+            };
+            smtp = { };
+            relay = {
+              command = "smtp";
+              args = [
+                "-o"
+                "smtp_fallback_relay="
+              ];
+            };
+          }
+          // optionalAttrs cfg.enableSubmissions {
+            submissions = {
+              type = "inet";
+              private = false;
+              command = "smtpd";
+              args =
+                let
+                  mkKeyVal = opt: val: [
+                    "-o"
+                    (opt + "=" + val)
+                  ];
+                  adjustSmtpTlsSecurityLevel =
+                    !(cfg.submissionsOptions ? smtpd_tls_security_level)
+                    || cfg.submissionsOptions.smtpd_tls_security_level == "none"
+                    || cfg.submissionsOptions.smtpd_tls_security_level == "may"
+                  ;
+                  submissionsOptions =
+                    cfg.submissionsOptions
+                    // {
+                      smtpd_tls_wrappermode = "yes";
+                    }
+                    // optionalAttrs adjustSmtpTlsSecurityLevel {
+                      smtpd_tls_security_level = "encrypt";
+                    }
+                  ;
+                in
+                concatLists (mapAttrsToList mkKeyVal submissionsOptions)
+              ;
+            };
+          }
+        ;
       }
 
       (mkIf haveAliases { services.postfix.aliasFiles.aliases = aliasesFile; })

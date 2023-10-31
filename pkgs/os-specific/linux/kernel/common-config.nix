@@ -66,29 +66,32 @@ let
       GDB_SCRIPTS = yes;
     };
 
-    power-management = {
-      CPU_FREQ_DEFAULT_GOV_PERFORMANCE = yes;
-      CPU_FREQ_GOV_SCHEDUTIL = yes;
-      PM_ADVANCED_DEBUG = yes;
-      PM_WAKELOCKS = yes;
-      POWERCAP = yes;
-      # ACPI Firmware Performance Data Table Support
-      ACPI_FPDT = whenAtLeast "5.12" (option yes);
-      # ACPI Heterogeneous Memory Attribute Table Support
-      ACPI_HMAT = whenAtLeast "5.2" (option yes);
-      # ACPI Platform Error Interface
-      ACPI_APEI = (option yes);
-      # APEI Generic Hardware Error Source
-      ACPI_APEI_GHES = (option yes);
-    } // optionalAttrs (stdenv.hostPlatform.isx86) {
-      INTEL_IDLE = yes;
-      INTEL_RAPL = whenAtLeast "5.3" module;
-      X86_INTEL_LPSS = yes;
-      X86_INTEL_PSTATE = yes;
-      X86_AMD_PSTATE = whenAtLeast "5.17" yes;
-      # Intel DPTF (Dynamic Platform and Thermal Framework) Support
-      ACPI_DPTF = whenAtLeast "5.10" yes;
-    };
+    power-management =
+      {
+        CPU_FREQ_DEFAULT_GOV_PERFORMANCE = yes;
+        CPU_FREQ_GOV_SCHEDUTIL = yes;
+        PM_ADVANCED_DEBUG = yes;
+        PM_WAKELOCKS = yes;
+        POWERCAP = yes;
+        # ACPI Firmware Performance Data Table Support
+        ACPI_FPDT = whenAtLeast "5.12" (option yes);
+        # ACPI Heterogeneous Memory Attribute Table Support
+        ACPI_HMAT = whenAtLeast "5.2" (option yes);
+        # ACPI Platform Error Interface
+        ACPI_APEI = (option yes);
+        # APEI Generic Hardware Error Source
+        ACPI_APEI_GHES = (option yes);
+      }
+      // optionalAttrs (stdenv.hostPlatform.isx86) {
+        INTEL_IDLE = yes;
+        INTEL_RAPL = whenAtLeast "5.3" module;
+        X86_INTEL_LPSS = yes;
+        X86_INTEL_PSTATE = yes;
+        X86_AMD_PSTATE = whenAtLeast "5.17" yes;
+        # Intel DPTF (Dynamic Platform and Thermal Framework) Support
+        ACPI_DPTF = whenAtLeast "5.10" yes;
+      }
+    ;
 
     external-firmware = {
       # Support drivers that need external firmware.
@@ -311,55 +314,61 @@ let
       FONT_TER16x32 = whenAtLeast "5.0" yes;
     };
 
-    video = {
-      DRM_LEGACY = no;
-      NOUVEAU_LEGACY_CTX_SUPPORT = whenBetween "5.2" "6.3" no;
+    video =
+      {
+        DRM_LEGACY = no;
+        NOUVEAU_LEGACY_CTX_SUPPORT = whenBetween "5.2" "6.3" no;
 
-      # Allow specifying custom EDID on the kernel command line
-      DRM_LOAD_EDID_FIRMWARE = yes;
-      VGA_SWITCHEROO = yes; # Hybrid graphics support
-      DRM_GMA500 = whenAtLeast "5.12" module;
-      DRM_GMA600 = whenOlder "5.13" yes;
-      DRM_GMA3600 = whenOlder "5.12" yes;
-      DRM_VMWGFX_FBCON = whenOlder "6.2" yes;
-      # (experimental) amdgpu support for verde and newer chipsets
-      DRM_AMDGPU_SI = yes;
-      # (stable) amdgpu support for bonaire and newer chipsets
-      DRM_AMDGPU_CIK = yes;
-      # Allow device firmware updates
-      DRM_DP_AUX_CHARDEV = yes;
-      # amdgpu display core (DC) support
-      DRM_AMD_DC_DCN1_0 = whenBetween "4.15" "5.6" yes;
-      DRM_AMD_DC_PRE_VEGA = whenBetween "4.15" "4.18" yes;
-      DRM_AMD_DC_DCN2_0 = whenBetween "5.3" "5.6" yes;
-      DRM_AMD_DC_DCN2_1 = whenBetween "5.4" "5.6" yes;
-      DRM_AMD_DC_DCN3_0 = whenBetween "5.9" "5.11" yes;
-      DRM_AMD_DC_DCN = whenAtLeast "5.11" yes;
-      DRM_AMD_DC_HDCP = whenAtLeast "5.5" yes;
-      DRM_AMD_DC_SI = whenAtLeast "5.10" yes;
-    } // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux") {
-      # Intel GVT-g graphics virtualization supports 64-bit only
-      DRM_I915_GVT = whenAtLeast "4.16" yes;
-      DRM_I915_GVT_KVMGT = whenAtLeast "4.16" module;
-      # Enable Hyper-V Synthetic DRM Driver
-      DRM_HYPERV = whenAtLeast "5.14" module;
-    } // optionalAttrs (stdenv.hostPlatform.system == "aarch64-linux") {
-      # enable HDMI-CEC on RPi boards
-      DRM_VC4_HDMI_CEC = yes;
-    };
+        # Allow specifying custom EDID on the kernel command line
+        DRM_LOAD_EDID_FIRMWARE = yes;
+        VGA_SWITCHEROO = yes; # Hybrid graphics support
+        DRM_GMA500 = whenAtLeast "5.12" module;
+        DRM_GMA600 = whenOlder "5.13" yes;
+        DRM_GMA3600 = whenOlder "5.12" yes;
+        DRM_VMWGFX_FBCON = whenOlder "6.2" yes;
+        # (experimental) amdgpu support for verde and newer chipsets
+        DRM_AMDGPU_SI = yes;
+        # (stable) amdgpu support for bonaire and newer chipsets
+        DRM_AMDGPU_CIK = yes;
+        # Allow device firmware updates
+        DRM_DP_AUX_CHARDEV = yes;
+        # amdgpu display core (DC) support
+        DRM_AMD_DC_DCN1_0 = whenBetween "4.15" "5.6" yes;
+        DRM_AMD_DC_PRE_VEGA = whenBetween "4.15" "4.18" yes;
+        DRM_AMD_DC_DCN2_0 = whenBetween "5.3" "5.6" yes;
+        DRM_AMD_DC_DCN2_1 = whenBetween "5.4" "5.6" yes;
+        DRM_AMD_DC_DCN3_0 = whenBetween "5.9" "5.11" yes;
+        DRM_AMD_DC_DCN = whenAtLeast "5.11" yes;
+        DRM_AMD_DC_HDCP = whenAtLeast "5.5" yes;
+        DRM_AMD_DC_SI = whenAtLeast "5.10" yes;
+      }
+      // optionalAttrs (stdenv.hostPlatform.system == "x86_64-linux") {
+        # Intel GVT-g graphics virtualization supports 64-bit only
+        DRM_I915_GVT = whenAtLeast "4.16" yes;
+        DRM_I915_GVT_KVMGT = whenAtLeast "4.16" module;
+        # Enable Hyper-V Synthetic DRM Driver
+        DRM_HYPERV = whenAtLeast "5.14" module;
+      }
+      // optionalAttrs (stdenv.hostPlatform.system == "aarch64-linux") {
+        # enable HDMI-CEC on RPi boards
+        DRM_VC4_HDMI_CEC = yes;
+      }
+    ;
 
-    sound = {
-      SND_DYNAMIC_MINORS = yes;
-      SND_AC97_POWER_SAVE = yes; # AC97 Power-Saving Mode
-      SND_HDA_INPUT_BEEP = yes; # Support digital beep via input layer
-      SND_HDA_RECONFIG = yes; # Support reconfiguration of jack functions
-      # Support configuring jack functions via fw mechanism at boot
-      SND_HDA_PATCH_LOADER = yes;
-      SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7" yes; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
-      SND_OSSEMUL = yes;
-      SND_USB_CAIAQ_INPUT = yes;
-      # Enable Sound Open Firmware support
-    } // optionalAttrs
+    sound =
+      {
+        SND_DYNAMIC_MINORS = yes;
+        SND_AC97_POWER_SAVE = yes; # AC97 Power-Saving Mode
+        SND_HDA_INPUT_BEEP = yes; # Support digital beep via input layer
+        SND_HDA_RECONFIG = yes; # Support reconfiguration of jack functions
+        # Support configuring jack functions via fw mechanism at boot
+        SND_HDA_PATCH_LOADER = yes;
+        SND_HDA_CODEC_CA0132_DSP = whenOlder "5.7" yes; # Enable DSP firmware loading on Creative Soundblaster Z/Zx/ZxR/Recon
+        SND_OSSEMUL = yes;
+        SND_USB_CAIAQ_INPUT = yes;
+        # Enable Sound Open Firmware support
+      }
+      // optionalAttrs
         (stdenv.hostPlatform.system == "x86_64-linux" && versionAtLeast version "5.5")
         {
           SND_SOC_INTEL_SOUNDWIRE_SOF_MACH = whenAtLeast "5.10" module;
@@ -393,26 +402,30 @@ let
           SND_SOC_SOF_MERRIFIELD_SUPPORT = whenOlder "5.12" yes;
           SND_SOC_SOF_TIGERLAKE = whenAtLeast "5.12" module;
           SND_SOC_SOF_TIGERLAKE_SUPPORT = whenOlder "5.12" yes;
-        };
+        }
+    ;
 
-    usb-serial = {
-      USB_SERIAL_GENERIC = yes; # USB Generic Serial Driver
-    } // optionalAttrs (versionOlder version "4.16") {
-      # Include firmware for various USB serial devices.
-      # Only applicable for kernels below 4.16, after that no firmware is shipped in the kernel tree.
-      USB_SERIAL_KEYSPAN_MPR = yes;
-      USB_SERIAL_KEYSPAN_USA28 = yes;
-      USB_SERIAL_KEYSPAN_USA28X = yes;
-      USB_SERIAL_KEYSPAN_USA28XA = yes;
-      USB_SERIAL_KEYSPAN_USA28XB = yes;
-      USB_SERIAL_KEYSPAN_USA19 = yes;
-      USB_SERIAL_KEYSPAN_USA18X = yes;
-      USB_SERIAL_KEYSPAN_USA19W = yes;
-      USB_SERIAL_KEYSPAN_USA19QW = yes;
-      USB_SERIAL_KEYSPAN_USA19QI = yes;
-      USB_SERIAL_KEYSPAN_USA49W = yes;
-      USB_SERIAL_KEYSPAN_USA49WLC = yes;
-    };
+    usb-serial =
+      {
+        USB_SERIAL_GENERIC = yes; # USB Generic Serial Driver
+      }
+      // optionalAttrs (versionOlder version "4.16") {
+        # Include firmware for various USB serial devices.
+        # Only applicable for kernels below 4.16, after that no firmware is shipped in the kernel tree.
+        USB_SERIAL_KEYSPAN_MPR = yes;
+        USB_SERIAL_KEYSPAN_USA28 = yes;
+        USB_SERIAL_KEYSPAN_USA28X = yes;
+        USB_SERIAL_KEYSPAN_USA28XA = yes;
+        USB_SERIAL_KEYSPAN_USA28XB = yes;
+        USB_SERIAL_KEYSPAN_USA19 = yes;
+        USB_SERIAL_KEYSPAN_USA18X = yes;
+        USB_SERIAL_KEYSPAN_USA19W = yes;
+        USB_SERIAL_KEYSPAN_USA19QW = yes;
+        USB_SERIAL_KEYSPAN_USA19QI = yes;
+        USB_SERIAL_KEYSPAN_USA49W = yes;
+        USB_SERIAL_KEYSPAN_USA49WLC = yes;
+      }
+    ;
 
     usb = {
       USB_DEBUG = {
@@ -522,62 +535,66 @@ let
       UNICODE = whenAtLeast "5.2" yes; # Casefolding support for filesystems
     };
 
-    security = {
-      FORTIFY_SOURCE = option yes;
+    security =
+      {
+        FORTIFY_SOURCE = option yes;
 
-      # https://googleprojectzero.blogspot.com/2019/11/bad-binder-android-in-wild-exploit.html
-      DEBUG_LIST = yes;
-      HARDENED_USERCOPY = yes;
-      RANDOMIZE_BASE = option yes;
-      STRICT_DEVMEM = mkDefault yes; # Filter access to /dev/mem
-      IO_STRICT_DEVMEM = mkDefault yes;
-      SECURITY_SELINUX_BOOTPARAM_VALUE = whenOlder "5.1" (freeform "0"); # Disable SELinux by default
-      # Prevent processes from ptracing non-children processes
-      SECURITY_YAMA = option yes;
-      # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
-      # This does not have any effect if a program does not support it
-      SECURITY_LANDLOCK = whenAtLeast "5.13" yes;
-      DEVKMEM = whenOlder "5.13" no; # Disable /dev/kmem
+        # https://googleprojectzero.blogspot.com/2019/11/bad-binder-android-in-wild-exploit.html
+        DEBUG_LIST = yes;
+        HARDENED_USERCOPY = yes;
+        RANDOMIZE_BASE = option yes;
+        STRICT_DEVMEM = mkDefault yes; # Filter access to /dev/mem
+        IO_STRICT_DEVMEM = mkDefault yes;
+        SECURITY_SELINUX_BOOTPARAM_VALUE = whenOlder "5.1" (freeform "0"); # Disable SELinux by default
+        # Prevent processes from ptracing non-children processes
+        SECURITY_YAMA = option yes;
+        # The goal of Landlock is to enable to restrict ambient rights (e.g. global filesystem access) for a set of processes.
+        # This does not have any effect if a program does not support it
+        SECURITY_LANDLOCK = whenAtLeast "5.13" yes;
+        DEVKMEM = whenOlder "5.13" no; # Disable /dev/kmem
 
-      USER_NS = yes; # Support for user namespaces
+        USER_NS = yes; # Support for user namespaces
 
-      SECURITY_APPARMOR = yes;
-      DEFAULT_SECURITY_APPARMOR = yes;
+        SECURITY_APPARMOR = yes;
+        DEFAULT_SECURITY_APPARMOR = yes;
 
-      RANDOM_TRUST_CPU = whenOlder "6.2" (whenAtLeast "4.19" yes); # allow RDRAND to seed the RNG
-      RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (whenAtLeast "5.4" yes); # allow the bootloader to seed the RNG
+        RANDOM_TRUST_CPU = whenOlder "6.2" (whenAtLeast "4.19" yes); # allow RDRAND to seed the RNG
+        RANDOM_TRUST_BOOTLOADER = whenOlder "6.2" (whenAtLeast "5.4" yes); # allow the bootloader to seed the RNG
 
-      MODULE_SIG = no; # r13y, generates a random key during build and bakes it in
-      # Depends on MODULE_SIG and only really helps when you sign your modules
-      # and enforce signatures which we don't do by default.
-      SECURITY_LOCKDOWN_LSM = whenAtLeast "5.4" no;
+        MODULE_SIG = no; # r13y, generates a random key during build and bakes it in
+        # Depends on MODULE_SIG and only really helps when you sign your modules
+        # and enforce signatures which we don't do by default.
+        SECURITY_LOCKDOWN_LSM = whenAtLeast "5.4" no;
 
-      # provides a register of persistent per-UID keyrings, useful for encrypting storage pools in stratis
-      PERSISTENT_KEYRINGS = yes;
-      # enable temporary caching of the last request_key() result
-      KEYS_REQUEST_CACHE = whenAtLeast "5.3" yes;
-    } // optionalAttrs (!stdenv.hostPlatform.isAarch32) {
+        # provides a register of persistent per-UID keyrings, useful for encrypting storage pools in stratis
+        PERSISTENT_KEYRINGS = yes;
+        # enable temporary caching of the last request_key() result
+        KEYS_REQUEST_CACHE = whenAtLeast "5.3" yes;
+      }
+      // optionalAttrs (!stdenv.hostPlatform.isAarch32) {
 
-      # Detect buffer overflows on the stack
-      CC_STACKPROTECTOR_REGULAR = {
-        optional = true;
-        tristate = whenOlder "4.18" "y";
-      };
-    } // optionalAttrs stdenv.hostPlatform.isx86_64 {
-      # Enable Intel SGX
-      X86_SGX = whenAtLeast "5.11" yes;
-      # Allow KVM guests to load SGX enclaves
-      X86_SGX_KVM = whenAtLeast "5.13" yes;
+        # Detect buffer overflows on the stack
+        CC_STACKPROTECTOR_REGULAR = {
+          optional = true;
+          tristate = whenOlder "4.18" "y";
+        };
+      }
+      // optionalAttrs stdenv.hostPlatform.isx86_64 {
+        # Enable Intel SGX
+        X86_SGX = whenAtLeast "5.11" yes;
+        # Allow KVM guests to load SGX enclaves
+        X86_SGX_KVM = whenAtLeast "5.13" yes;
 
-      # AMD Cryptographic Coprocessor (CCP)
-      CRYPTO_DEV_CCP = yes;
-      # AMD SME
-      AMD_MEM_ENCRYPT = yes;
-      # AMD SEV and AMD SEV-SE
-      KVM_AMD_SEV = whenAtLeast "4.16" yes;
-      # AMD SEV-SNP
-      SEV_GUEST = whenAtLeast "5.19" module;
-    };
+        # AMD Cryptographic Coprocessor (CCP)
+        CRYPTO_DEV_CCP = yes;
+        # AMD SME
+        AMD_MEM_ENCRYPT = yes;
+        # AMD SEV and AMD SEV-SE
+        KVM_AMD_SEV = whenAtLeast "4.16" yes;
+        # AMD SEV-SNP
+        SEV_GUEST = whenAtLeast "5.19" module;
+      }
+    ;
 
     microcode = {
       MICROCODE = yes;
@@ -727,59 +744,63 @@ let
     };
 
     # Disable various self-test modules that have no use in a production system
-    tests = {
-      # This menu disables all/most of them on >= 4.16
-      RUNTIME_TESTING_MENU = option no;
-    } // optionalAttrs (versionOlder version "4.16") {
-      # For older kernels, painstakingly disable each symbol.
-      ARM_KPROBES_TEST = option no;
-      ASYNC_RAID6_TEST = option no;
-      ATOMIC64_SELFTEST = option no;
-      BACKTRACE_SELF_TEST = option no;
-      INTERVAL_TREE_TEST = option no;
-      PERCPU_TEST = option no;
-      RBTREE_TEST = option no;
-      TEST_BITMAP = option no;
-      TEST_BPF = option no;
-      TEST_FIRMWARE = option no;
-      TEST_HASH = option no;
-      TEST_HEXDUMP = option no;
-      TEST_KMOD = option no;
-      TEST_KSTRTOX = option no;
-      TEST_LIST_SORT = option no;
-      TEST_LKM = option no;
-      TEST_PARMAN = option no;
-      TEST_PRINTF = option no;
-      TEST_RHASHTABLE = option no;
-      TEST_SORT = option no;
-      TEST_STATIC_KEYS = option no;
-      TEST_STRING_HELPERS = option no;
-      TEST_UDELAY = option no;
-      TEST_USER_COPY = option no;
-      TEST_UUID = option no;
-    } // {
-      CRC32_SELFTEST = option no;
-      CRYPTO_TEST = option no;
-      EFI_TEST = option no;
-      GLOB_SELFTEST = option no;
-      DRM_DEBUG_MM_SELFTEST = {
-        optional = true;
-        tristate = whenOlder "4.18" "n";
-      };
-      LNET_SELFTEST = {
-        optional = true;
-        tristate = whenOlder "4.18" "n";
-      };
-      LOCK_TORTURE_TEST = option no;
-      MTD_TESTS = option no;
-      NOTIFIER_ERROR_INJECTION = option no;
-      RCU_PERF_TEST = whenOlder "5.9" no;
-      RCU_SCALE_TEST = whenAtLeast "5.10" no;
-      RCU_TORTURE_TEST = option no;
-      TEST_ASYNC_DRIVER_PROBE = option no;
-      WW_MUTEX_SELFTEST = option no;
-      XZ_DEC_TEST = option no;
-    };
+    tests =
+      {
+        # This menu disables all/most of them on >= 4.16
+        RUNTIME_TESTING_MENU = option no;
+      }
+      // optionalAttrs (versionOlder version "4.16") {
+        # For older kernels, painstakingly disable each symbol.
+        ARM_KPROBES_TEST = option no;
+        ASYNC_RAID6_TEST = option no;
+        ATOMIC64_SELFTEST = option no;
+        BACKTRACE_SELF_TEST = option no;
+        INTERVAL_TREE_TEST = option no;
+        PERCPU_TEST = option no;
+        RBTREE_TEST = option no;
+        TEST_BITMAP = option no;
+        TEST_BPF = option no;
+        TEST_FIRMWARE = option no;
+        TEST_HASH = option no;
+        TEST_HEXDUMP = option no;
+        TEST_KMOD = option no;
+        TEST_KSTRTOX = option no;
+        TEST_LIST_SORT = option no;
+        TEST_LKM = option no;
+        TEST_PARMAN = option no;
+        TEST_PRINTF = option no;
+        TEST_RHASHTABLE = option no;
+        TEST_SORT = option no;
+        TEST_STATIC_KEYS = option no;
+        TEST_STRING_HELPERS = option no;
+        TEST_UDELAY = option no;
+        TEST_USER_COPY = option no;
+        TEST_UUID = option no;
+      }
+      // {
+        CRC32_SELFTEST = option no;
+        CRYPTO_TEST = option no;
+        EFI_TEST = option no;
+        GLOB_SELFTEST = option no;
+        DRM_DEBUG_MM_SELFTEST = {
+          optional = true;
+          tristate = whenOlder "4.18" "n";
+        };
+        LNET_SELFTEST = {
+          optional = true;
+          tristate = whenOlder "4.18" "n";
+        };
+        LOCK_TORTURE_TEST = option no;
+        MTD_TESTS = option no;
+        NOTIFIER_ERROR_INJECTION = option no;
+        RCU_PERF_TEST = whenOlder "5.9" no;
+        RCU_SCALE_TEST = whenAtLeast "5.10" no;
+        RCU_TORTURE_TEST = option no;
+        TEST_ASYNC_DRIVER_PROBE = option no;
+        WW_MUTEX_SELFTEST = option no;
+        XZ_DEC_TEST = option no;
+      }
+    ;
 
     criu =
       if (versionAtLeast version "4.19") then
@@ -794,7 +815,8 @@ let
             # For older kernels, CHECKPOINT_RESTORE is hidden behind EXPERT.
             EXPERT = yes;
             CHECKPOINT_RESTORE = yes;
-          } // optionalAttrs (features.criu_revert_expert or true) {
+          }
+          // optionalAttrs (features.criu_revert_expert or true) {
             RFKILL_INPUT = option yes;
             HID_PICOLCD_FB = option yes;
             HID_PICOLCD_BACKLIGHT = option yes;
@@ -1051,74 +1073,82 @@ let
 
         # Fresh toolchains frequently break -Werror build for minor issues.
         WERROR = whenAtLeast "5.15" no;
-      } // optionalAttrs
-        (
-          stdenv.hostPlatform.system == "x86_64-linux"
-          || stdenv.hostPlatform.system == "aarch64-linux"
-        )
-        {
-          # Enable CPU/memory hotplug support
-          # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
-          ACPI_HOTPLUG_CPU = yes;
-          ACPI_HOTPLUG_MEMORY = yes;
-          MEMORY_HOTPLUG = yes;
-          MEMORY_HOTREMOVE = yes;
-          HOTPLUG_CPU = yes;
-          MIGRATION = yes;
-          SPARSEMEM = yes;
-
-          # Bump the maximum number of CPUs to support systems like EC2 x1.*
-          # instances and Xeon Phi.
-          NR_CPUS = freeform "384";
-        } // optionalAttrs
-        (
-          stdenv.hostPlatform.system == "armv7l-linux"
-          || stdenv.hostPlatform.system == "aarch64-linux"
-        )
-        {
-          # Enables support for the Allwinner Display Engine 2.0
-          SUN8I_DE2_CCU = yes;
-
-          # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
-          CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
-
-          # Distros should configure the default as a kernel option.
-          # We previously defined it on the kernel command line as cma=
-          # The kernel command line will override a platform-specific configuration from its device tree.
-          # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
-          CMA_SIZE_MBYTES = freeform "32";
-
-          # Many ARM SBCs hand off a pre-configured framebuffer.
-          # This always can can be replaced by the actual native driver.
-          # Keeping it a built-in ensures it will be used if possible.
-          FB_SIMPLE = yes;
-        } // optionalAttrs
-        (
-          versionAtLeast version "5.4"
-          && (
+      }
+      //
+        optionalAttrs
+          (
             stdenv.hostPlatform.system == "x86_64-linux"
             || stdenv.hostPlatform.system == "aarch64-linux"
           )
-        )
-        {
-          # Required for various hardware features on Chrome OS devices
-          CHROME_PLATFORMS = yes;
-          CHROMEOS_TBMC = module;
+          {
+            # Enable CPU/memory hotplug support
+            # Allows you to dynamically add & remove CPUs/memory to a VM client running NixOS without requiring a reboot
+            ACPI_HOTPLUG_CPU = yes;
+            ACPI_HOTPLUG_MEMORY = yes;
+            MEMORY_HOTPLUG = yes;
+            MEMORY_HOTREMOVE = yes;
+            HOTPLUG_CPU = yes;
+            MIGRATION = yes;
+            SPARSEMEM = yes;
 
-          CROS_EC = module;
+            # Bump the maximum number of CPUs to support systems like EC2 x1.*
+            # instances and Xeon Phi.
+            NR_CPUS = freeform "384";
+          }
+      //
+        optionalAttrs
+          (
+            stdenv.hostPlatform.system == "armv7l-linux"
+            || stdenv.hostPlatform.system == "aarch64-linux"
+          )
+          {
+            # Enables support for the Allwinner Display Engine 2.0
+            SUN8I_DE2_CCU = yes;
 
-          CROS_EC_I2C = module;
-          CROS_EC_SPI = module;
-          CROS_EC_LPC = module;
-          CROS_EC_ISHTP = module;
+            # See comments on https://github.com/NixOS/nixpkgs/commit/9b67ea9106102d882f53d62890468071900b9647
+            CRYPTO_AEGIS128_SIMD = whenAtLeast "5.4" no;
 
-          CROS_KBD_LED_BACKLIGHT = module;
-        } // optionalAttrs
-        (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux")
-        {
-          CHROMEOS_LAPTOP = module;
-          CHROMEOS_PSTORE = module;
-        }
+            # Distros should configure the default as a kernel option.
+            # We previously defined it on the kernel command line as cma=
+            # The kernel command line will override a platform-specific configuration from its device tree.
+            # https://github.com/torvalds/linux/blob/856deb866d16e29bd65952e0289066f6078af773/kernel/dma/contiguous.c#L35-L44
+            CMA_SIZE_MBYTES = freeform "32";
+
+            # Many ARM SBCs hand off a pre-configured framebuffer.
+            # This always can can be replaced by the actual native driver.
+            # Keeping it a built-in ensures it will be used if possible.
+            FB_SIMPLE = yes;
+          }
+      //
+        optionalAttrs
+          (
+            versionAtLeast version "5.4"
+            && (
+              stdenv.hostPlatform.system == "x86_64-linux"
+              || stdenv.hostPlatform.system == "aarch64-linux"
+            )
+          )
+          {
+            # Required for various hardware features on Chrome OS devices
+            CHROME_PLATFORMS = yes;
+            CHROMEOS_TBMC = module;
+
+            CROS_EC = module;
+
+            CROS_EC_I2C = module;
+            CROS_EC_SPI = module;
+            CROS_EC_LPC = module;
+            CROS_EC_ISHTP = module;
+
+            CROS_KBD_LED_BACKLIGHT = module;
+          }
+      //
+        optionalAttrs
+          (versionAtLeast version "5.4" && stdenv.hostPlatform.system == "x86_64-linux")
+          {
+            CHROMEOS_LAPTOP = module;
+            CHROMEOS_PSTORE = module;
+          }
     ;
   };
 in

@@ -125,6 +125,7 @@ stdenv.mkDerivation rec {
       platforms = platforms.unix;
       license = licenses.asl20;
       maintainers = [ maintainers.roberth ];
-    } // extraMeta
+    }
+    // extraMeta
   ;
 }

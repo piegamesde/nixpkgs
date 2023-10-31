@@ -44,13 +44,15 @@ let
         default = { };
         description = lib.mdDoc "Extra environment variables for ${serviceName}";
       };
-    } // (optionalAttrs firewallOption {
+    }
+    // (optionalAttrs firewallOption {
       openFirewall = mkOption {
         type = types.bool;
         default = false;
         description = lib.mdDoc "Open firewall ports for ${serviceName}.";
       };
-    }) // (optionalAttrs (extraOpts != null) extraOpts)
+    })
+    // (optionalAttrs (extraOpts != null) extraOpts)
   ;
 
   # Generator for HDFS service configs

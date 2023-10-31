@@ -11,7 +11,9 @@ let
   # dontFilter to true here so that _all_ packages are visibile in coqPackages.
   # There may be some versions of the top-level coq and coqPackages that don't
   # build QuickChick, which is what we are using for this test below.
-  coqWithAllPackages = coq // { dontFilter = true; };
+  coqWithAllPackages = coq // {
+    dontFilter = true;
+  };
 
   coqPackages = mkCoqPackages coqWithAllPackages;
 

@@ -45,7 +45,8 @@ let
     buildGoModule =
       args:
       buildGoModule (
-        args // rec {
+        args
+        // rec {
           version = "0.14.54";
           src = fetchFromGitHub {
             owner = "evanw";

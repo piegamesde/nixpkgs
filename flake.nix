@@ -23,7 +23,8 @@
           nixosSystem =
             args:
             import ./nixos/lib/eval-config.nix (
-              args // {
+              args
+              // {
                 modules =
                   args.modules
                   ++ [ {
@@ -33,7 +34,8 @@
                     system.nixos.revision = final.mkIf (self ? rev) self.rev;
                   } ]
                 ;
-              } // lib.optionalAttrs (!args ? system) {
+              }
+              // lib.optionalAttrs (!args ? system) {
                 # Allow system to be set modularly in nixpkgs.system.
                 # We set it to null, to remove the "legacy" entrypoint's
                 # non-hermetic default.

@@ -17,17 +17,22 @@ let
   enableRedis = !hasAttr "PAPERLESS_REDIS" cfg.extraConfig;
   redisServer = config.services.redis.servers.paperless;
 
-  env = {
-    PAPERLESS_DATA_DIR = cfg.dataDir;
-    PAPERLESS_MEDIA_ROOT = cfg.mediaDir;
-    PAPERLESS_CONSUMPTION_DIR = cfg.consumptionDir;
-    PAPERLESS_NLTK_DIR = nltkDir;
-    GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
-  } // optionalAttrs (config.time.timeZone != null) {
-    PAPERLESS_TIME_ZONE = config.time.timeZone;
-  } // optionalAttrs enableRedis {
-    PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
-  } // (lib.mapAttrs (_: toString) cfg.extraConfig);
+  env =
+    {
+      PAPERLESS_DATA_DIR = cfg.dataDir;
+      PAPERLESS_MEDIA_ROOT = cfg.mediaDir;
+      PAPERLESS_CONSUMPTION_DIR = cfg.consumptionDir;
+      PAPERLESS_NLTK_DIR = nltkDir;
+      GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
+    }
+    // optionalAttrs (config.time.timeZone != null) {
+      PAPERLESS_TIME_ZONE = config.time.timeZone;
+    }
+    // optionalAttrs enableRedis {
+      PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
+    }
+    // (lib.mapAttrs (_: toString) cfg.extraConfig)
+  ;
 
   manage =
     let
@@ -383,22 +388,26 @@ in
       # during migrations
       bindsTo = [ "paperless-scheduler.service" ];
       after = [ "paperless-scheduler.service" ];
-      serviceConfig = defaultServiceConfig // {
-        User = cfg.user;
-        ExecStart = ''
-          ${pkg.python.pkgs.gunicorn}/bin/gunicorn \
-            -c ${pkg}/lib/paperless-ngx/gunicorn.conf.py paperless.asgi:application
-        '';
-        Restart = "on-failure";
+      serviceConfig =
+        defaultServiceConfig
+        // {
+          User = cfg.user;
+          ExecStart = ''
+            ${pkg.python.pkgs.gunicorn}/bin/gunicorn \
+              -c ${pkg}/lib/paperless-ngx/gunicorn.conf.py paperless.asgi:application
+          '';
+          Restart = "on-failure";
 
-        # gunicorn needs setuid, liblapack needs mbind
-        SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
-        # Needs to serve web page
-        PrivateNetwork = false;
-      } // lib.optionalAttrs (cfg.port < 1024) {
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-      };
+          # gunicorn needs setuid, liblapack needs mbind
+          SystemCallFilter = defaultServiceConfig.SystemCallFilter ++ [ "@setuid mbind" ];
+          # Needs to serve web page
+          PrivateNetwork = false;
+        }
+        // lib.optionalAttrs (cfg.port < 1024) {
+          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        }
+      ;
       environment = env // {
         PATH = mkForce pkg.path;
         PYTHONPATH = "${

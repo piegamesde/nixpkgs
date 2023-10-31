@@ -83,7 +83,9 @@ let
     # tested in psycopg
     doCheck = false;
 
-    meta = baseMeta // { description = "C optimisation distribution for Psycopg"; };
+    meta = baseMeta // {
+      description = "C optimisation distribution for Psycopg";
+    };
   };
 
   psycopg-pool = buildPythonPackage {
@@ -104,7 +106,9 @@ let
     # tested in psycopg
     doCheck = false;
 
-    meta = baseMeta // { description = "Connection Pool for Psycopg"; };
+    meta = baseMeta // {
+      description = "Connection Pool for Psycopg";
+    };
   };
 in
 
@@ -219,5 +223,7 @@ buildPythonPackage rec {
     pool = psycopg-pool;
   };
 
-  meta = baseMeta // { description = "PostgreSQL database adapter for Python"; };
+  meta = baseMeta // {
+    description = "PostgreSQL database adapter for Python";
+  };
 }

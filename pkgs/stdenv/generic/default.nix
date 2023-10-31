@@ -100,11 +100,13 @@ let
       lib.optionalAttrs (allowedRequisites != null) {
         allowedRequisites =
           allowedRequisites ++ defaultNativeBuildInputs ++ defaultBuildInputs;
-      } // lib.optionalAttrs config.contentAddressedByDefault {
+      }
+      // lib.optionalAttrs config.contentAddressedByDefault {
         __contentAddressed = true;
         outputHashAlgo = "sha256";
         outputHashMode = "recursive";
-      } // {
+      }
+      // {
         inherit name;
         inherit disallowedRequisites;
 
@@ -160,7 +162,8 @@ let
           defaultNativeBuildInputs
           defaultBuildInputs
         ;
-      } // lib.optionalAttrs buildPlatform.isDarwin {
+      }
+      // lib.optionalAttrs buildPlatform.isDarwin {
         __sandboxProfile = stdenvSandboxProfile;
         __impureHostDeps = __stdenvImpureHostDeps;
       }

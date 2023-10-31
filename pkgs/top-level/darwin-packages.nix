@@ -63,26 +63,32 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
         )
       ;
 
-      chooseLibs = (
-        # There are differences in which libraries are exported. Avoid evaluation
-        # errors when a package is not provided.
-        selectAttrs (if useAppleSDKLibs then apple_sdk else appleSourcePackages) [
-          "Libsystem"
-          "LibsystemCross"
-          "libcharset"
-          "libunwind"
-          "objc4"
-          "configd"
-          "IOKit"
-        ]
-      ) // {
-        inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages)
-          Security
-        ;
-      };
+      chooseLibs =
+        (
+          # There are differences in which libraries are exported. Avoid evaluation
+          # errors when a package is not provided.
+          selectAttrs (if useAppleSDKLibs then apple_sdk else appleSourcePackages) [
+            "Libsystem"
+            "LibsystemCross"
+            "libcharset"
+            "libunwind"
+            "objc4"
+            "configd"
+            "IOKit"
+          ]
+        )
+        // {
+          inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages)
+            Security
+          ;
+        }
+      ;
     in
 
-    impure-cmds // appleSourcePackages // chooseLibs // {
+    impure-cmds
+    // appleSourcePackages
+    // chooseLibs
+    // {
 
       inherit apple_sdk apple_sdk_10_12 apple_sdk_11_0;
 

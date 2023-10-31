@@ -86,7 +86,8 @@ rec {
           else
             f
               (
-                done // listToAttrs [ {
+                done
+                // listToAttrs [ {
                   name = entry;
                   value = 1;
                 } ]

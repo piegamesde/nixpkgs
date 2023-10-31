@@ -83,7 +83,8 @@ in
               substitutions = {
                 inherit pythonInterpreter pythonSitePackages;
               };
-            } // (makeSetupHookArgs [
+            }
+            // (makeSetupHookArgs [
               pip
               wheel
             ])

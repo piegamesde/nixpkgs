@@ -298,7 +298,8 @@ stdenv.mkDerivation (
       platforms = platforms.all;
       priority = 6; # in `buildEnv' (including the one inside `perl.withPackages') the library files will have priority over files in `perl`
     };
-  } // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) rec {
+  }
+  // lib.optionalAttrs (stdenv.buildPlatform != stdenv.hostPlatform) rec {
     crossVersion = "c876045741f5159318085d2737b0090f35a842ca"; # June 5, 2022
 
     perl-cross-src = fetchFromGitHub {

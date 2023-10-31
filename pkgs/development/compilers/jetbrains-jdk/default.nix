@@ -170,6 +170,8 @@ openjdk17.overrideAttrs (
       broken = stdenv.isDarwin;
     };
 
-    passthru = oldAttrs.passthru // { home = "${jetbrains.jdk}/lib/openjdk"; };
+    passthru = oldAttrs.passthru // {
+      home = "${jetbrains.jdk}/lib/openjdk";
+    };
   }
 )

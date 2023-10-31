@@ -72,7 +72,9 @@ let
     }:
     {
       inherit name;
-      value = value // { file = removeNixpkgs value.file; };
+      value = value // {
+        file = removeNixpkgs value.file;
+      };
     }
   ;
 

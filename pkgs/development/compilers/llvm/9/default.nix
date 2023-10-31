@@ -65,7 +65,8 @@ let
     tools:
     let
       callPackage = newScope (
-        tools // {
+        tools
+        // {
           inherit
             stdenv
             cmake
@@ -111,7 +112,9 @@ let
         enablePolly = true;
       };
 
-      llvm-polly = tools.libllvm-polly.lib // { outputSpecified = false; };
+      llvm-polly = tools.libllvm-polly.lib // {
+        outputSpecified = false;
+      };
 
       libclang = callPackage ./clang { inherit clang-tools-extra_src llvm_meta; };
 
@@ -275,7 +278,9 @@ let
     libraries:
     let
       callPackage = newScope (
-        libraries // buildLlvmTools // {
+        libraries
+        // buildLlvmTools
+        // {
           inherit
             stdenv
             cmake
@@ -357,6 +362,4 @@ let
     }
   );
 in
-{
-  inherit tools libraries release_version;
-} // libraries // tools
+{ inherit tools libraries release_version; } // libraries // tools

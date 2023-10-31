@@ -405,9 +405,7 @@ rec {
           let
             key = pred e;
           in
-          r // {
-            ${key} = (r.${key} or [ ]) ++ [ e ];
-          }
+          r // { ${key} = (r.${key} or [ ]) ++ [ e ]; }
         )
         { }
     );

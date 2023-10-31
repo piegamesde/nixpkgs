@@ -23,7 +23,8 @@ buildNimPackage rec {
   doCheck = true;
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Nim bindings to libui";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

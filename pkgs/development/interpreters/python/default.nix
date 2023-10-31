@@ -240,7 +240,8 @@
         self = __splicedPackages.python310;
         inherit (darwin) configd;
         inherit passthruFun;
-      } // sources.python310
+      }
+      // sources.python310
     );
 
     python311 = callPackage ./cpython (
@@ -248,7 +249,8 @@
         self = __splicedPackages.python311;
         inherit (darwin) configd;
         inherit passthruFun;
-      } // sources.python311
+      }
+      // sources.python311
     );
 
     python312 = callPackage ./cpython {
@@ -290,7 +292,8 @@
           enableOptimizations = false;
           enableLTO = false;
           mimetypesSupport = false;
-        } // sources.python310
+        }
+        // sources.python310
       )).overrideAttrs
         (
           old: {

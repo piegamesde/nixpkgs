@@ -29,5 +29,7 @@ buildDunePackage {
     cmdliner
   ];
 
-  meta = alcotest.meta // { description = "Lwt-based helpers for Alcotest"; };
+  meta = alcotest.meta // {
+    description = "Lwt-based helpers for Alcotest";
+  };
 }

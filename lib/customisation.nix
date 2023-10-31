@@ -46,14 +46,17 @@ rec {
       {
         meta = drv.meta or { };
         passthru = if drv ? passthru then drv.passthru else { };
-      } // (drv.passthru or { }) //
-      # TODO(@Artturin): remove before release 23.05 and only have __spliced.
-      (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
-        crossDrv = overrideDerivation drv.crossDrv f;
-        nativeDrv = overrideDerivation drv.nativeDrv f;
-      }) // lib.optionalAttrs (drv ? __spliced) {
-        __spliced = { }
-          // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
+      }
+      // (drv.passthru or { })
+      //
+        # TODO(@Artturin): remove before release 23.05 and only have __spliced.
+        (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
+          crossDrv = overrideDerivation drv.crossDrv f;
+          nativeDrv = overrideDerivation drv.nativeDrv f;
+        })
+      // lib.optionalAttrs (drv ? __spliced) {
+        __spliced =
+          { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
       }
     )
   ;
@@ -95,7 +98,8 @@ rec {
       overrideResult = g: makeOverridable (copyArgs (args: g (f args))) origArgs;
     in
     if builtins.isAttrs result then
-      result // {
+      result
+      // {
         override = overrideArgs;
         overrideDerivation = fdrv: overrideResult (x: overrideDerivation x fdrv);
         ${if result ? overrideAttrs then "overrideAttrs" else null} =
@@ -103,7 +107,8 @@ rec {
       }
     else if lib.isFunction result then
       # Transform the result into a functor while propagating its arguments
-      lib.setFunctionArgs result (lib.functionArgs result) // {
+      lib.setFunctionArgs result (lib.functionArgs result)
+      // {
         override = overrideArgs;
       }
     else
@@ -241,29 +246,38 @@ rec {
     let
       outputs = drv.outputs or [ "out" ];
 
-      commonAttrs = drv // (builtins.listToAttrs outputsList)
-        // ({ all = map (x: x.value) outputsList; }) // passthru;
+      commonAttrs =
+        drv
+        // (builtins.listToAttrs outputsList)
+        // ({ all = map (x: x.value) outputsList; })
+        // passthru
+      ;
 
       outputToAttrListElement = outputName: {
         name = outputName;
-        value = commonAttrs // {
-          inherit (drv.${outputName}) type outputName;
-          outputSpecified = true;
-          drvPath = assert condition; drv.${outputName}.drvPath;
-          outPath = assert condition; drv.${outputName}.outPath;
-        } //
-          # TODO: give the derivation control over the outputs.
-          #       `overrideAttrs` may not be the only attribute that needs
-          #       updating when switching outputs.
-          lib.optionalAttrs (passthru ? overrideAttrs) {
-            # TODO: also add overrideAttrs when overrideAttrs is not custom, e.g. when not splicing.
-            overrideAttrs = f: (passthru.overrideAttrs f).${outputName};
-          };
+        value =
+          commonAttrs
+          // {
+            inherit (drv.${outputName}) type outputName;
+            outputSpecified = true;
+            drvPath = assert condition; drv.${outputName}.drvPath;
+            outPath = assert condition; drv.${outputName}.outPath;
+          }
+          //
+            # TODO: give the derivation control over the outputs.
+            #       `overrideAttrs` may not be the only attribute that needs
+            #       updating when switching outputs.
+            lib.optionalAttrs (passthru ? overrideAttrs) {
+              # TODO: also add overrideAttrs when overrideAttrs is not custom, e.g. when not splicing.
+              overrideAttrs = f: (passthru.overrideAttrs f).${outputName};
+            }
+        ;
       };
 
       outputsList = map outputToAttrListElement outputs;
     in
-    commonAttrs // {
+    commonAttrs
+    // {
       drvPath = assert condition; drv.drvPath;
       outPath = assert condition; drv.outPath;
     }
@@ -279,13 +293,17 @@ rec {
     let
       outputs = drv.outputs or [ "out" ];
 
-      commonAttrs = {
-        inherit (drv) name system meta;
-        inherit outputs;
-      } // lib.optionalAttrs (drv._hydraAggregate or false) {
-        _hydraAggregate = true;
-        constituents = map hydraJob (lib.flatten drv.constituents);
-      } // (lib.listToAttrs outputsList);
+      commonAttrs =
+        {
+          inherit (drv) name system meta;
+          inherit outputs;
+        }
+        // lib.optionalAttrs (drv._hydraAggregate or false) {
+          _hydraAggregate = true;
+          constituents = map hydraJob (lib.flatten drv.constituents);
+        }
+        // (lib.listToAttrs outputsList)
+      ;
 
       makeOutput =
         outputName:

@@ -196,6 +196,7 @@ stdenv.mkDerivation rec {
         moredread
         tweber
       ];
-    } // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; }
+    }
+    // lib.optionalAttrs (stdenv.isDarwin) { mainProgram = "PrusaSlicer"; }
   ;
 }

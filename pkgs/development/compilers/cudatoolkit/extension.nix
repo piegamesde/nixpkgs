@@ -33,7 +33,9 @@ let
   cudatoolkit =
     let
       attrs = builtins.removeAttrs finalVersion [ "gcc" ];
-      attrs' = attrs // { inherit backendStdenv; };
+      attrs' = attrs // {
+        inherit backendStdenv;
+      };
     in
     buildCudaToolkitPackage attrs'
   ;

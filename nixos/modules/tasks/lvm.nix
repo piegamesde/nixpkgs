@@ -11,7 +11,9 @@ let
 in
 {
   options.services.lvm = {
-    enable = mkEnableOption (lib.mdDoc "lvm2") // { default = true; };
+    enable = mkEnableOption (lib.mdDoc "lvm2") // {
+      default = true;
+    };
 
     package = mkOption {
       type = types.package;
@@ -32,9 +34,11 @@ in
   };
 
   options.boot.initrd.services.lvm.enable =
-    (mkEnableOption (lib.mdDoc "enable booting from LVM2 in the initrd")) // {
+    (mkEnableOption (lib.mdDoc "enable booting from LVM2 in the initrd"))
+    // {
       visible = false;
-    };
+    }
+  ;
 
   config = mkMerge [
     ({

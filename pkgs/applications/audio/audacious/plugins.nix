@@ -108,6 +108,7 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  meta =
-    audacious.meta // { description = "Plugins for Audacious music player"; };
+  meta = audacious.meta // {
+    description = "Plugins for Audacious music player";
+  };
 }

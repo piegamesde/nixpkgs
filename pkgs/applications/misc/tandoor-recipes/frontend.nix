@@ -57,5 +57,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = common.meta // { description = "Tandoor Recipes frontend"; };
+  meta = common.meta // {
+    description = "Tandoor Recipes frontend";
+  };
 }

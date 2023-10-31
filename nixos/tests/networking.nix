@@ -1348,7 +1348,8 @@ let
             useNetworkd = networkd;
             useDHCP = false;
           };
-        } // (
+        }
+        // (
           if networkd then
             {
               systemd.network.links."10-custom_name" = {
@@ -1439,7 +1440,8 @@ mapAttrs
   (const (
     attrs:
     makeTest (
-      attrs // {
+      attrs
+      // {
         name = "${attrs.name}-Networking-${
             if networkd then "Networkd" else "Scripted"
           }";

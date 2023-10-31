@@ -16,7 +16,9 @@
           }
         )
       ];
-      specialArgs.lib = lib // { foo = "foo"; };
+      specialArgs.lib = lib // {
+        foo = "foo";
+      };
     };
     default = { };
   };

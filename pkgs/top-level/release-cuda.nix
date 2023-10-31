@@ -54,7 +54,8 @@ let
         python3.pkgs.pyrealsense2WithCuda = linux;
         python3.pkgs.torchWithCuda = linux;
         python3.pkgs.jaxlib = linux;
-      }) // (genAttrs packageSets evalPackageSet)
+      })
+      // (genAttrs packageSets evalPackageSet)
     );
 in
 jobs

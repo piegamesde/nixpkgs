@@ -249,10 +249,12 @@ stdenv.mkDerivation (
           platforms = platforms.unix;
           maintainers = teams.beam.members;
           license = licenses.asl20;
-        } // meta
+        }
+        // meta
       )
     ;
-  } // optionalAttrs (preUnpack != "") { inherit preUnpack; }
+  }
+  // optionalAttrs (preUnpack != "") { inherit preUnpack; }
   // optionalAttrs (postUnpack != "") { inherit postUnpack; }
   // optionalAttrs (patches != [ ]) { inherit patches; }
   // optionalAttrs (prePatch != "") { inherit prePatch; }

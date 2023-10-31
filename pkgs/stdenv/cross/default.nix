@@ -24,7 +24,8 @@ lib.init bootStages
   # Regular native packages
   (
     somePrevStage:
-    lib.last bootStages somePrevStage // {
+    lib.last bootStages somePrevStage
+    // {
       # It's OK to change the built-time dependencies
       allowCustomOverrides = true;
     }

@@ -48,19 +48,22 @@ in
       # make sure that problem (2) does not occur.
       type =
         let
-          elemType = oneOf ([
-            # `package` isn't generalized to `path` because path values
-            # are ambiguous. Are they host path strings (toString /foo/bar)
-            # or should they be added to the store? ("${/foo/bar}")
-            # The user must decide.
-            (coercedTo package toString str)
+          elemType =
+            oneOf ([
+              # `package` isn't generalized to `path` because path values
+              # are ambiguous. Are they host path strings (toString /foo/bar)
+              # or should they be added to the store? ("${/foo/bar}")
+              # The user must decide.
+              (coercedTo package toString str)
 
-            (coercedTo bool boolToString str)
-            (coercedTo int toString str)
-            (coercedTo float toString str)
-          ]) // {
-            description = "string, package, bool, int or float";
-          };
+              (coercedTo bool boolToString str)
+              (coercedTo int toString str)
+              (coercedTo float toString str)
+            ])
+            // {
+              description = "string, package, bool, int or float";
+            }
+          ;
         in
         attrsOf elemType
       ;

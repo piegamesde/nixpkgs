@@ -114,7 +114,8 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
         ''
         + postFetch
       ;
-    } // builtins.removeAttrs args [
+    }
+    // builtins.removeAttrs args [
       "relative"
       "stripLen"
       "decode"

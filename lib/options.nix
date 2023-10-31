@@ -78,9 +78,7 @@ rec {
       # Whether the option can be set only once
       readOnly ? null,
     }@attrs:
-    attrs // {
-      _type = "option";
-    }
+    attrs // { _type = "option"; }
   ;
 
   /* Creates an Option attribute set for a boolean value option i.e an
@@ -190,9 +188,7 @@ rec {
     let
       option = mkPackageOption pkgs name extra;
     in
-    option // {
-      description = lib.mdDoc option.description;
-    }
+    option // { description = lib.mdDoc option.description; }
   ;
 
   /* This option accepts anything, but it does not produce any result.
@@ -216,7 +212,8 @@ rec {
         };
         apply =
           x: throw "Option value is not readable because the option is not declared.";
-      } // attrs
+      }
+      // attrs
     )
   ;
 
@@ -328,34 +325,39 @@ rec {
         opt:
         let
           name = showOption opt.loc;
-          docOption = rec {
-            loc = opt.loc;
-            inherit name;
-            description = opt.description or null;
-            declarations = filter (x: x != unknownModule) opt.declarations;
-            internal = opt.internal or false;
-            visible =
-              if (opt ? visible && opt.visible == "shallow") then
-                true
-              else
-                opt.visible or true
-            ;
-            readOnly = opt.readOnly or false;
-            type = opt.type.description or "unspecified";
-          } // optionalAttrs (opt ? example) {
-            example =
-              builtins.addErrorContext "while evaluating the example of option `${name}`"
-                (renderOptionValue opt.example)
-            ;
-          } // optionalAttrs (opt ? default) {
-            default =
-              builtins.addErrorContext
-                "while evaluating the default value of option `${name}`"
-                (renderOptionValue (opt.defaultText or opt.default))
-            ;
-          } // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
-            inherit (opt) relatedPackages;
-          };
+          docOption =
+            rec {
+              loc = opt.loc;
+              inherit name;
+              description = opt.description or null;
+              declarations = filter (x: x != unknownModule) opt.declarations;
+              internal = opt.internal or false;
+              visible =
+                if (opt ? visible && opt.visible == "shallow") then
+                  true
+                else
+                  opt.visible or true
+              ;
+              readOnly = opt.readOnly or false;
+              type = opt.type.description or "unspecified";
+            }
+            // optionalAttrs (opt ? example) {
+              example =
+                builtins.addErrorContext "while evaluating the example of option `${name}`"
+                  (renderOptionValue opt.example)
+              ;
+            }
+            // optionalAttrs (opt ? default) {
+              default =
+                builtins.addErrorContext
+                  "while evaluating the default value of option `${name}`"
+                  (renderOptionValue (opt.defaultText or opt.default))
+              ;
+            }
+            // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
+              inherit (opt) relatedPackages;
+            }
+          ;
 
           subOptions =
             let

@@ -897,19 +897,22 @@ in
           else
             null
         ;
-      } // optionalAttrs
-        (
-          config.isoImage.makeUsbBootable
-          && config.isoImage.makeBiosBootable
-          && canx86BiosBoot
-        )
-        {
-          usbBootable = true;
-          isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
-        } // optionalAttrs config.isoImage.makeEfiBootable {
-          efiBootable = true;
-          efiBootImage = "boot/efi.img";
-        }
+      }
+      //
+        optionalAttrs
+          (
+            config.isoImage.makeUsbBootable
+            && config.isoImage.makeBiosBootable
+            && canx86BiosBoot
+          )
+          {
+            usbBootable = true;
+            isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";
+          }
+      // optionalAttrs config.isoImage.makeEfiBootable {
+        efiBootable = true;
+        efiBootImage = "boot/efi.img";
+      }
     );
 
     boot.postBootCommands = ''

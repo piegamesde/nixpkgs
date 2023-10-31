@@ -8,7 +8,8 @@
 rec {
   addRtp =
     drv:
-    drv // {
+    drv
+    // {
       rtp =
         lib.warn "`rtp` attribute is deprecated, use `outPath` instead."
           drv.outPath
@@ -34,7 +35,8 @@ rec {
     }@attrs:
     let
       drv = stdenv.mkDerivation (
-        attrs // {
+        attrs
+        // {
           name = namePrefix + name;
 
           inherit
@@ -56,7 +58,9 @@ rec {
             runHook postInstall
           '';
 
-          meta = { platforms = lib.platforms.all; } // meta;
+          meta = {
+            platforms = lib.platforms.all;
+          } // meta;
         }
       );
     in
@@ -70,7 +74,8 @@ rec {
         # vim plugins may override this
         buildPhase = ":";
         configurePhase = ":";
-      } // attrs
+      }
+      // attrs
     )
   ;
 }

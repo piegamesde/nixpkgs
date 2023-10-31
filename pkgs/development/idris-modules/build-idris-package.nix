@@ -26,19 +26,22 @@ let
   allIdrisDeps =
     idrisDeps ++ lib.optional (!noPrelude) prelude ++ lib.optional (!noBase) base;
   idris-with-packages = with-packages allIdrisDeps;
-  newAttrs = builtins.removeAttrs attrs [
-    "idrisDeps"
-    "noPrelude"
-    "noBase"
-    "pname"
-    "version"
-    "ipkgName"
-    "extraBuildInputs"
-  ] // {
-    meta = attrs.meta // {
-      platforms = attrs.meta.platforms or idris.meta.platforms;
-    };
-  };
+  newAttrs =
+    builtins.removeAttrs attrs [
+      "idrisDeps"
+      "noPrelude"
+      "noBase"
+      "pname"
+      "version"
+      "ipkgName"
+      "extraBuildInputs"
+    ]
+    // {
+      meta = attrs.meta // {
+        platforms = attrs.meta.platforms or idris.meta.platforms;
+      };
+    }
+  ;
 in
 stdenv.mkDerivation (
   {
@@ -99,5 +102,6 @@ stdenv.mkDerivation (
 
       runHook postInstall
     '';
-  } // newAttrs
+  }
+  // newAttrs
 )

@@ -41,7 +41,8 @@ let
             withPackages =
               pkgsFun:
               (
-                python // {
+                python
+                // {
                   extraEnv = ''
                     ${python.extraEnv}
                     export PYTHONHOME="${python3Packages.python.withPackages pkgsFun}"
@@ -57,7 +58,8 @@ let
             withPackages =
               pkgsFun:
               (
-                perl // {
+                perl
+                // {
                   extraEnv = ''
                     ${perl.extraEnv}
                     export PERL5LIB=${perlPackages.makeFullPerlPath (pkgsFun perlPackages)}
@@ -107,7 +109,8 @@ let
           ${lib.concatMapStringsSep "\n" (p: lib.optionalString (p ? extraEnv) p.extraEnv)
             plugins}
           exec ${weechat}/bin/${bin} "$@" --run-command ${lib.escapeShellArg init}
-        '') // {
+        '')
+        // {
           inherit (weechat) name man;
           unwrapped = weechat;
           outputs = [

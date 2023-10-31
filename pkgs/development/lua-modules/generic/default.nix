@@ -16,7 +16,8 @@ if disabled then
 else
   toLuaModule (
     lua.stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
         name = "lua${lua.luaversion}-" + attrs.pname + "-" + attrs.version;
 
         makeFlags =

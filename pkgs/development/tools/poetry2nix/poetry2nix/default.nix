@@ -287,7 +287,8 @@ lib.makeScope pkgs.newScope (
                   {
                     name = normalizedName;
                     value = self.mkPoetryDep (
-                      pkgMeta // {
+                      pkgMeta
+                      // {
                         inherit pwd preferWheels;
                         pos = poetrylockPos;
                         source = pkgMeta.source or null;
@@ -319,7 +320,9 @@ lib.makeScope pkgs.newScope (
                 nixpkgsBuildSystems
             );
           in
-          lockPkgs // buildSystems // {
+          lockPkgs
+          // buildSystems
+          // {
             # Create a dummy null package for the current project in case any dependencies depend on the root project (issue #307)
             ${pyProject.tool.poetry.name} = null;
           }
@@ -366,7 +369,8 @@ lib.makeScope pkgs.newScope (
                 poetry = poetryPkg;
 
                 __toPluginAble = toPluginAble self;
-              } // lib.optionalAttrs (!super ? setuptools-scm) {
+              }
+              // lib.optionalAttrs (!super ? setuptools-scm) {
                 # The canonical name is setuptools-scm
                 setuptools-scm = super.setuptools_scm;
               }
@@ -487,7 +491,8 @@ lib.makeScope pkgs.newScope (
         allEditablePackageSources =
           (
             (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
-            // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { })) // (
+            // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { }))
+            // (
               # Poetry>=1.2.0
               if pyProject.tool.poetry.group or { } != { } then
                 builtins.foldl'
@@ -496,7 +501,8 @@ lib.makeScope pkgs.newScope (
                   groups
               else
                 { }
-            ) // editablePackageSources
+            )
+            // editablePackageSources
           );
 
         editablePackageSources' =
@@ -601,7 +607,9 @@ lib.makeScope pkgs.newScope (
         };
 
         app = py.pkgs.buildPythonPackage (
-          passedAttrs // inputAttrs // {
+          passedAttrs
+          // inputAttrs
+          // {
             nativeBuildInputs =
               inputAttrs.nativeBuildInputs
               ++ [
@@ -609,7 +617,8 @@ lib.makeScope pkgs.newScope (
                 hooks.removeGitDependenciesHook
               ]
             ;
-          } // {
+          }
+          // {
             pname = normalizePackageName pyProject.tool.poetry.name;
             version = pyProject.tool.poetry.version;
 
@@ -630,7 +639,9 @@ lib.makeScope pkgs.newScope (
                     ...
                   }@attrs:
                   let
-                    args = builtins.removeAttrs attrs [ "app" ] // { extraLibs = [ app ]; };
+                    args = builtins.removeAttrs attrs [ "app" ] // {
+                      extraLibs = [ app ];
+                    };
                   in
                   py.buildEnv.override args
                 ))
@@ -641,14 +652,19 @@ lib.makeScope pkgs.newScope (
             # Extract position from explicitly passed attrs so meta.position won't point to poetry2nix internals
             pos = builtins.unsafeGetAttrPos (lib.elemAt (lib.attrNames attrs) 0) attrs;
 
-            meta = lib.optionalAttrs (lib.hasAttr "description" pyProject.tool.poetry) {
-              inherit (pyProject.tool.poetry) description;
-            } // lib.optionalAttrs (lib.hasAttr "homepage" pyProject.tool.poetry) {
-              inherit (pyProject.tool.poetry) homepage;
-            } // {
-              inherit (py.meta) platforms;
-              license = getLicenseBySpdxId (pyProject.tool.poetry.license or "unknown");
-            } // meta;
+            meta =
+              lib.optionalAttrs (lib.hasAttr "description" pyProject.tool.poetry) {
+                inherit (pyProject.tool.poetry) description;
+              }
+              // lib.optionalAttrs (lib.hasAttr "homepage" pyProject.tool.poetry) {
+                inherit (pyProject.tool.poetry) homepage;
+              }
+              // {
+                inherit (py.meta) platforms;
+                license = getLicenseBySpdxId (pyProject.tool.poetry.license or "unknown");
+              }
+              // meta
+            ;
           }
         );
       in

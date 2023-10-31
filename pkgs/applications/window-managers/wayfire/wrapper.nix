@@ -26,7 +26,9 @@ runCommand "${application.name}-wrapped"
   {
     nativeBuildInputs = [ makeWrapper ];
 
-    passthru = application.passthru // { unwrapped = application; };
+    passthru = application.passthru // {
+      unwrapped = application;
+    };
 
     inherit (application) meta;
   }

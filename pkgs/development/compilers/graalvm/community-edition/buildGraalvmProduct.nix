@@ -124,8 +124,10 @@ stdenv.mkDerivation (
             platforms
           ;
           description = "High-Performance Polyglot VM (Product: ${product})";
-        } // meta
+        }
+        // meta
       )
     ;
-  } // extraArgs
+  }
+  // extraArgs
 )

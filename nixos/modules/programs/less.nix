@@ -123,10 +123,13 @@ in
 
     environment.systemPackages = [ pkgs.less ];
 
-    environment.variables = {
-      LESSKEYIN_SYSTEM = toString lessKey;
-    } // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
-      // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
+    environment.variables =
+      {
+        LESSKEYIN_SYSTEM = toString lessKey;
+      }
+      // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
+      // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; }
+    ;
 
     warnings =
       optional

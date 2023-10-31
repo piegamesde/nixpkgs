@@ -22,7 +22,8 @@ buildNimPackage rec {
   ''; # test standards, please
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Nim implementation of snappy compression algorithm";
       license = [ lib.licenses.mit ];
       maintainers = [ maintainers.ehmry ];

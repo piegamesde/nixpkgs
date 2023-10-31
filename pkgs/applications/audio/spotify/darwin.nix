@@ -34,5 +34,7 @@ stdenv.mkDerivation {
     cp -r *.app $out/Applications
   '';
 
-  meta = meta // { maintainers = with lib.maintainers; [ Enzime ]; };
+  meta = meta // {
+    maintainers = with lib.maintainers; [ Enzime ];
+  };
 }

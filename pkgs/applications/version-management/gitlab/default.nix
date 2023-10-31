@@ -44,10 +44,15 @@ let
       let
         x = import (gemdir + "/gemset.nix") src;
       in
-      x // {
-        gpgme = x.gpgme // { nativeBuildInputs = [ pkg-config ]; };
+      x
+      // {
+        gpgme = x.gpgme // {
+          nativeBuildInputs = [ pkg-config ];
+        };
         # the openssl needs the openssl include files
-        openssl = x.openssl // { buildInputs = [ openssl ]; };
+        openssl = x.openssl // {
+          buildInputs = [ openssl ];
+        };
         ruby-magic = x.ruby-magic // {
           buildInputs = [ file ];
           buildFlags = [ "--enable-system-libraries" ];
@@ -260,7 +265,8 @@ stdenv.mkDerivation {
         yayayayaka
         yuka
       ];
-    } // (
+    }
+    // (
       if gitlabEnterprise then
         {
           license = licenses.unfreeRedistributable; # https://gitlab.com/gitlab-org/gitlab-ee/raw/master/LICENSE

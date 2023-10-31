@@ -15,7 +15,9 @@ let
 in
 (llvmPackages.lldb.overrideAttrs (
   oldAttrs: rec {
-    passthru = (oldAttrs.passthru or { }) // { inherit llvmSrc; };
+    passthru = (oldAttrs.passthru or { }) // {
+      inherit llvmSrc;
+    };
 
     patches =
       oldAttrs.patches

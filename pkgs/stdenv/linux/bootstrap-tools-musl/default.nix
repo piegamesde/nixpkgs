@@ -25,5 +25,6 @@ derivation (
     langCC = true;
     isGNU = true;
     hardeningUnsupportedFlags = [ "fortify3" ];
-  } // extraAttrs
+  }
+  // extraAttrs
 )

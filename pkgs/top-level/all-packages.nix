@@ -43,16 +43,17 @@ with pkgs;
       hasCC = false;
     }
 
-    // lib.optionalAttrs
-      (stdenv.hostPlatform.isDarwin && (stdenv.hostPlatform != stdenv.buildPlatform))
-      {
-        # TODO: This is a hack to use stdenvNoCC to produce a CF when cross
-        # compiling. It's not very sound. The cross stdenv has:
-        #   extraBuildInputs = [ targetPackages.darwin.apple_sdks.frameworks.CoreFoundation ]
-        # and uses stdenvNoCC. In order to make this not infinitely recursive, we
-        # need to exclude this extraBuildInput.
-        extraBuildInputs = [ ];
-      }
+    //
+      lib.optionalAttrs
+        (stdenv.hostPlatform.isDarwin && (stdenv.hostPlatform != stdenv.buildPlatform))
+        {
+          # TODO: This is a hack to use stdenvNoCC to produce a CF when cross
+          # compiling. It's not very sound. The cross stdenv has:
+          #   extraBuildInputs = [ targetPackages.darwin.apple_sdks.frameworks.CoreFoundation ]
+          # and uses stdenvNoCC. In order to make this not infinitely recursive, we
+          # need to exclude this extraBuildInput.
+          extraBuildInputs = [ ];
+        }
   );
 
   mkStdenvNoLibs =
@@ -175,19 +176,22 @@ with pkgs;
   ### Push NixOS tests inside the fixed point
 
   # See also allTestsForSystem in nixos/release.nix
-  nixosTests = import ../../nixos/tests/all-tests.nix {
-    inherit pkgs;
-    system = stdenv.hostPlatform.system;
-    callTest = config: config.test;
-  } // {
-    # for typechecking of the scripts and evaluation of
-    # the nodes, without running VMs.
-    allDrivers = import ../../nixos/tests/all-tests.nix {
+  nixosTests =
+    import ../../nixos/tests/all-tests.nix {
       inherit pkgs;
       system = stdenv.hostPlatform.system;
-      callTest = config: config.test.driver;
-    };
-  };
+      callTest = config: config.test;
+    }
+    // {
+      # for typechecking of the scripts and evaluation of
+      # the nodes, without running VMs.
+      allDrivers = import ../../nixos/tests/all-tests.nix {
+        inherit pkgs;
+        system = stdenv.hostPlatform.system;
+        callTest = config: config.test.driver;
+      };
+    }
+  ;
 
   ### BUILD SUPPORT
 
@@ -961,14 +965,17 @@ with pkgs;
 
   fetchfossil = callPackage ../build-support/fetchfossil { };
 
-  fetchgit = (callPackage ../build-support/fetchgit {
-    git = buildPackages.gitMinimal;
-    cacert = buildPackages.cacert;
-    git-lfs = buildPackages.git-lfs;
-  }) // {
-    # fetchgit is a function, so we use // instead of passthru.
-    tests = pkgs.tests.fetchgit;
-  };
+  fetchgit =
+    (callPackage ../build-support/fetchgit {
+      git = buildPackages.gitMinimal;
+      cacert = buildPackages.cacert;
+      git-lfs = buildPackages.git-lfs;
+    })
+    // {
+      # fetchgit is a function, so we use // instead of passthru.
+      tests = pkgs.tests.fetchgit;
+    }
+  ;
 
   fetchgitLocal = callPackage ../build-support/fetchgitlocal { };
 
@@ -1047,20 +1054,26 @@ with pkgs;
 
   broadlink-cli = callPackage ../tools/misc/broadlink-cli { };
 
-  fetchpatch = callPackage ../build-support/fetchpatch {
-    # 0.3.4 would change hashes: https://github.com/NixOS/nixpkgs/issues/25154
-    patchutils = buildPackages.patchutils_0_3_3;
-  } // {
-    tests = pkgs.tests.fetchpatch;
-    version = 1;
-  };
+  fetchpatch =
+    callPackage ../build-support/fetchpatch {
+      # 0.3.4 would change hashes: https://github.com/NixOS/nixpkgs/issues/25154
+      patchutils = buildPackages.patchutils_0_3_3;
+    }
+    // {
+      tests = pkgs.tests.fetchpatch;
+      version = 1;
+    }
+  ;
 
-  fetchpatch2 = callPackage ../build-support/fetchpatch {
-    patchutils = buildPackages.patchutils_0_4_2;
-  } // {
-    tests = pkgs.tests.fetchpatch2;
-    version = 2;
-  };
+  fetchpatch2 =
+    callPackage ../build-support/fetchpatch {
+      patchutils = buildPackages.patchutils_0_4_2;
+    }
+    // {
+      tests = pkgs.tests.fetchpatch2;
+      version = 2;
+    }
+  ;
 
   fetchs3 = callPackage ../build-support/fetchs3 { };
 
@@ -7489,7 +7502,8 @@ with pkgs;
     {
       idnSupport = true;
       zstdSupport = true;
-    } // lib.optionalAttrs (!stdenv.hostPlatform.isStatic) {
+    }
+    // lib.optionalAttrs (!stdenv.hostPlatform.isStatic) {
       gssSupport = true;
       brotliSupport = true;
     }
@@ -8129,7 +8143,9 @@ with pkgs;
     callPackage ./emscripten-packages.nix { }
   );
 
-  emscriptenStdenv = stdenv // { mkDerivation = buildEmscriptenPackage; };
+  emscriptenStdenv = stdenv // {
+    mkDerivation = buildEmscriptenPackage;
+  };
 
   efibootmgr = callPackage ../tools/system/efibootmgr { };
 
@@ -9200,7 +9216,8 @@ with pkgs;
   grub = pkgsi686Linux.callPackage ../tools/misc/grub (
     {
       stdenv = overrideCC stdenv buildPackages.pkgsi686Linux.gcc6;
-    } // (config.grub or { })
+    }
+    // (config.grub or { })
   );
 
   trustedGrub = pkgsi686Linux.callPackage ../tools/misc/grub/trusted.nix { };
@@ -16803,7 +16820,8 @@ with pkgs;
       cc = callPackage ../development/compilers/gnat-bootstrap {
         majorVersion = "12";
       };
-    } // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) {
+    }
+    // lib.optionalAttrs (stdenv.hostPlatform.isDarwin) {
       bintools = bintoolsDualAs;
     }
   );
@@ -16818,7 +16836,8 @@ with pkgs;
       langGo = true;
       langJit = true;
       profiledCompiler = false;
-    } // {
+    }
+    // {
       # not supported on darwin: https://github.com/golang/go/issues/463
       meta.broken = stdenv.hostPlatform.isDarwin;
     }
@@ -16832,7 +16851,8 @@ with pkgs;
       langGo = true;
       langJit = true;
       profiledCompiler = false;
-    } // {
+    }
+    // {
       # not supported on darwin: https://github.com/golang/go/issues/463
       meta.broken = stdenv.hostPlatform.isDarwin;
     }
@@ -20007,7 +20027,8 @@ with pkgs;
           buildPackages.ccacheWrapper.override (
             {
               inherit (stdenv) cc;
-            } // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) {
+            }
+            // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) {
               extraConfig = extraArgs.extraConfig;
             }
           )
@@ -26538,7 +26559,8 @@ with pkgs;
         Cocoa
         GLUT
       ;
-    } // lib.optionalAttrs stdenv.hostPlatform.isAndroid {
+    }
+    // lib.optionalAttrs stdenv.hostPlatform.isAndroid {
       # libGLU doesn’t work with Android’s SDL
       libGLU = null;
     }
@@ -28906,9 +28928,15 @@ with pkgs;
           if stdenv.isDarwin then
             darwin.apple_sdk_11_0.stdenv.override (
               old: {
-                hostPlatform = old.hostPlatform // { darwinMinVersion = "10.14"; };
-                buildPlatform = old.buildPlatform // { darwinMinVersion = "10.14"; };
-                targetPlatform = old.targetPlatform // { darwinMinVersion = "10.14"; };
+                hostPlatform = old.hostPlatform // {
+                  darwinMinVersion = "10.14";
+                };
+                buildPlatform = old.buildPlatform // {
+                  darwinMinVersion = "10.14";
+                };
+                targetPlatform = old.targetPlatform // {
+                  darwinMinVersion = "10.14";
+                };
               }
             )
           else if stdenv.cc.isClang then
@@ -29742,7 +29770,8 @@ with pkgs;
 
       # backwards compatibility
       server = server-pgsql;
-    } // lib.optionalAttrs (version != "v40") {
+    }
+    // lib.optionalAttrs (version != "v40") {
       # agent2 is not supported in v4
       agent2 = (callPackages ../servers/monitoring/zabbix/agent2.nix { }).${version};
     }
@@ -29954,7 +29983,8 @@ with pkgs;
     {
       lua = lua5_3_compat;
       inherit (linuxPackages.nvidia_x11.settings) libXNVCtrl;
-    } // config.conky or { }
+    }
+    // config.conky or { }
   );
 
   conntrack-tools = callPackage ../os-specific/linux/conntrack-tools { };
@@ -34760,7 +34790,8 @@ with pkgs;
           vmopts = config.jetbrains.vmopts or null;
           jdk = jetbrains.jdk;
         }
-      ) // {
+      )
+      // {
         jdk = callPackage ../development/compilers/jetbrains-jdk { };
         jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
       }
@@ -35516,7 +35547,11 @@ with pkgs;
   ikiwiki = callPackage ../applications/misc/ikiwiki {
     python = python3;
     inherit
-      (perlPackages.override { pkgs = pkgs // { imagemagick = imagemagickBig; }; })
+      (perlPackages.override {
+        pkgs = pkgs // {
+          imagemagick = imagemagickBig;
+        };
+      })
       ImageMagick
     ;
   };
@@ -36200,7 +36235,8 @@ with pkgs;
   libreoffice-qt = lowPrio (
     callPackage ../applications/office/libreoffice/wrapper.nix {
       unwrapped = libsForQt5.callPackage ../applications/office/libreoffice (
-        libreoffice-args // {
+        libreoffice-args
+        // {
           kdeIntegration = true;
           variant = "fresh";
         }
@@ -39344,7 +39380,8 @@ with pkgs;
   uefitool = uefitoolPackages.new-engine;
 
   ungoogled-chromium = callPackage ../applications/networking/browsers/chromium (
-    (config.chromium or { }) // {
+    (config.chromium or { })
+    // {
       ungoogled = true;
       channel = "ungoogled-chromium";
     }
@@ -43366,7 +43403,8 @@ with pkgs;
       opencv3 = opencv3WithoutCuda; # Used only for image loading.
       blas = openblas;
       inherit (darwin.apple_sdk.frameworks) Accelerate CoreGraphics CoreVideo;
-    } // (config.caffe or { })
+    }
+    // (config.caffe or { })
   );
 
   caffeWithCuda = caffe.override { cudaSupport = true; };

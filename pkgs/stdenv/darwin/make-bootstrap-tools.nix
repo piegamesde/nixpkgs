@@ -14,7 +14,9 @@ let
         stdenvStages =
           args:
           let
-            args' = args // { bootstrapFiles = bootstrapFiles; };
+            args' = args // {
+              bootstrapFiles = bootstrapFiles;
+            };
           in
           (import "${pkgspath}/pkgs/stdenv/darwin" args').stagesDarwin
         ;
@@ -347,7 +349,9 @@ rec {
     stdenvStages =
       args:
       let
-        args' = args // { inherit bootstrapLlvmVersion bootstrapFiles; };
+        args' = args // {
+          inherit bootstrapLlvmVersion bootstrapFiles;
+        };
       in
       (import (test-pkgspath + "/pkgs/stdenv/darwin") args').stagesDarwin
     ;

@@ -44,7 +44,8 @@ buildDunePackage (
       license = lib.licenses.lgpl2;
       maintainers = with lib.maintainers; [ vbgl ];
     };
-  } // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {
+  }
+  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {
     duneVersion = "1";
   }
 )

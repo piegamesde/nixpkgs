@@ -16,7 +16,8 @@ let
 in
 lib.overrideDerivation
   (buildLinux (
-    args // {
+    args
+    // {
       version = "${modDirVersion}-${tag}";
       inherit modDirVersion;
 
@@ -41,7 +42,9 @@ lib.overrideDerivation
         }
         .${toString rpiVersion};
 
-      features = { efiBootStub = false; } // (args.features or { });
+      features = {
+        efiBootStub = false;
+      } // (args.features or { });
 
       extraConfig = ''
         # ../drivers/gpu/drm/ast/ast_mode.c:851:18: error: initialization of 'void (*)(struct drm_crtc *, struct drm_atomic_state *)' from incompatible pointer type 'void (*)(struct drm_crtc *, struct drm_crtc_state *)' [-Werror=incompatible-pointer-types]
@@ -68,7 +71,8 @@ lib.overrideDerivation
             hydraPlatforms = [ "aarch64-linux" ];
           }
       ;
-    } // (args.argsOverride or { })
+    }
+    // (args.argsOverride or { })
   ))
   (
     oldAttrs: {

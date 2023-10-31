@@ -10,18 +10,22 @@ with lib;
 let
   cfg = config.services.shadowsocks;
 
-  opts = {
-    server = cfg.localAddress;
-    server_port = cfg.port;
-    method = cfg.encryptionMethod;
-    mode = cfg.mode;
-    user = "nobody";
-    fast_open = cfg.fastOpen;
-  } // optionalAttrs (cfg.plugin != null) {
-    plugin = cfg.plugin;
-    plugin_opts = cfg.pluginOpts;
-  } // optionalAttrs (cfg.password != null) { password = cfg.password; }
-    // cfg.extraConfig;
+  opts =
+    {
+      server = cfg.localAddress;
+      server_port = cfg.port;
+      method = cfg.encryptionMethod;
+      mode = cfg.mode;
+      user = "nobody";
+      fast_open = cfg.fastOpen;
+    }
+    // optionalAttrs (cfg.plugin != null) {
+      plugin = cfg.plugin;
+      plugin_opts = cfg.pluginOpts;
+    }
+    // optionalAttrs (cfg.password != null) { password = cfg.password; }
+    // cfg.extraConfig
+  ;
 
   configFile = pkgs.writeText "shadowsocks.json" (builtins.toJSON opts);
 in

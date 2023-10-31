@@ -11123,7 +11123,8 @@ let
       sources."@babel/compat-data-7.21.4"
       (sources."@babel/core-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
-        sources."@babel/eslint-parser-7.21.3" // {
+        sources."@babel/eslint-parser-7.21.3"
+        // {
           dependencies = [
             sources."eslint-visitor-keys-2.1.0"
             sources."semver-6.3.0"
@@ -11134,14 +11135,16 @@ let
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
       (
-        sources."@babel/helper-compilation-targets-7.21.4" // {
+        sources."@babel/helper-compilation-targets-7.21.4"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
       (
-        sources."@babel/helper-define-polyfill-provider-0.3.3" // {
+        sources."@babel/helper-define-polyfill-provider-0.3.3"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
@@ -11237,7 +11240,8 @@ let
       sources."@babel/plugin-transform-regenerator-7.20.5"
       sources."@babel/plugin-transform-reserved-words-7.18.6"
       (
-        sources."@babel/plugin-transform-runtime-7.21.4" // {
+        sources."@babel/plugin-transform-runtime-7.21.4"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
@@ -11250,7 +11254,8 @@ let
       sources."@babel/plugin-transform-unicode-escapes-7.18.10"
       sources."@babel/plugin-transform-unicode-regex-7.18.6"
       (
-        sources."@babel/preset-env-7.21.4" // {
+        sources."@babel/preset-env-7.21.4"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
@@ -11295,7 +11300,8 @@ let
       sources."@eslint-community/eslint-utils-4.4.0"
       sources."@eslint-community/regexpp-4.5.0"
       (
-        sources."@eslint/eslintrc-2.0.2" // {
+        sources."@eslint/eslintrc-2.0.2"
+        // {
           dependencies = [
             sources."argparse-2.0.1"
             sources."globals-13.20.0"
@@ -11308,7 +11314,8 @@ let
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-1.2.1"
       (
-        sources."@istanbuljs/load-nyc-config-1.1.0" // {
+        sources."@istanbuljs/load-nyc-config-1.1.0"
+        // {
           dependencies = [
             sources."camelcase-5.3.1"
             sources."find-up-4.1.0"
@@ -11321,7 +11328,8 @@ let
       )
       sources."@istanbuljs/schema-0.1.3"
       (
-        sources."@jest/console-27.5.1" // {
+        sources."@jest/console-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -11333,7 +11341,8 @@ let
         }
       )
       (
-        sources."@jest/core-27.5.1" // {
+        sources."@jest/core-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -11348,7 +11357,8 @@ let
       sources."@jest/fake-timers-27.5.1"
       sources."@jest/globals-27.5.1"
       (
-        sources."@jest/reporters-27.5.1" // {
+        sources."@jest/reporters-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -11362,14 +11372,16 @@ let
       )
       sources."@jest/schemas-28.1.3"
       (
-        sources."@jest/source-map-27.5.1" // {
+        sources."@jest/source-map-27.5.1"
+        // {
           dependencies = [ sources."source-map-0.6.1" ];
         }
       )
       sources."@jest/test-result-27.5.1"
       sources."@jest/test-sequencer-27.5.1"
       (
-        sources."@jest/transform-27.5.1" // {
+        sources."@jest/transform-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -11382,7 +11394,8 @@ let
         }
       )
       (
-        sources."@jest/types-27.5.1" // {
+        sources."@jest/types-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -11399,20 +11412,23 @@ let
       sources."@jridgewell/source-map-0.3.3"
       sources."@jridgewell/sourcemap-codec-1.4.15"
       (
-        sources."@jridgewell/trace-mapping-0.3.18" // {
+        sources."@jridgewell/trace-mapping-0.3.18"
+        // {
           dependencies = [ sources."@jridgewell/sourcemap-codec-1.4.14" ];
         }
       )
       sources."@leichtgewicht/ip-codec-2.0.4"
       (
-        sources."@mui/base-5.0.0-alpha.127" // {
+        sources."@mui/base-5.0.0-alpha.127"
+        // {
           dependencies = [ sources."react-is-18.2.0" ];
         }
       )
       sources."@mui/core-downloads-tracker-5.12.2"
       sources."@mui/icons-material-5.11.16"
       (
-        sources."@mui/material-5.12.2" // {
+        sources."@mui/material-5.12.2"
+        // {
           dependencies = [ sources."react-is-18.2.0" ];
         }
       )
@@ -11424,7 +11440,8 @@ let
         sources."@mui/utils-5.12.0" // { dependencies = [ sources."react-is-18.2.0" ]; }
       )
       (
-        sources."@nicolo-ribaudo/eslint-scope-5-internals-5.1.1-v1" // {
+        sources."@nicolo-ribaudo/eslint-scope-5-internals-5.1.1-v1"
+        // {
           dependencies = [
             sources."eslint-scope-5.1.1"
             sources."estraverse-4.3.0"
@@ -11435,7 +11452,8 @@ let
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       (
-        sources."@pmmmwh/react-refresh-webpack-plugin-0.5.10" // {
+        sources."@pmmmwh/react-refresh-webpack-plugin-0.5.10"
+        // {
           dependencies = [ sources."source-map-0.7.4" ];
         }
       )
@@ -11445,7 +11463,8 @@ let
       sources."@rollup/plugin-node-resolve-11.2.1"
       sources."@rollup/plugin-replace-2.4.2"
       (
-        sources."@rollup/pluginutils-3.1.0" // {
+        sources."@rollup/pluginutils-3.1.0"
+        // {
           dependencies = [ sources."@types/estree-0.0.39" ];
         }
       )
@@ -11523,7 +11542,8 @@ let
       sources."@typescript-eslint/types-5.59.1"
       sources."@typescript-eslint/typescript-estree-5.59.1"
       (
-        sources."@typescript-eslint/utils-5.59.1" // {
+        sources."@typescript-eslint/utils-5.59.1"
+        // {
           dependencies = [
             sources."eslint-scope-5.1.1"
             sources."estraverse-4.3.0"
@@ -11560,7 +11580,8 @@ let
       sources."agent-base-6.0.2"
       sources."ajv-6.12.6"
       (
-        sources."ajv-formats-2.1.1" // {
+        sources."ajv-formats-2.1.1"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."json-schema-traverse-1.0.0"
@@ -11569,7 +11590,8 @@ let
       )
       sources."ajv-keywords-3.5.2"
       (
-        sources."ansi-escapes-4.3.2" // {
+        sources."ansi-escapes-4.3.2"
+        // {
           dependencies = [ sources."type-fest-0.21.3" ];
         }
       )
@@ -11599,7 +11621,8 @@ let
       sources."axe-core-4.7.0"
       sources."axobject-query-3.1.1"
       (
-        sources."babel-jest-27.5.1" // {
+        sources."babel-jest-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -11611,7 +11634,8 @@ let
         }
       )
       (
-        sources."babel-loader-8.3.0" // {
+        sources."babel-loader-8.3.0"
+        // {
           dependencies = [ sources."schema-utils-2.7.1" ];
         }
       )
@@ -11620,7 +11644,8 @@ let
       sources."babel-plugin-macros-3.1.0"
       sources."babel-plugin-named-asset-import-0.3.8"
       (
-        sources."babel-plugin-polyfill-corejs2-0.3.3" // {
+        sources."babel-plugin-polyfill-corejs2-0.3.3"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
@@ -11637,7 +11662,8 @@ let
       sources."binary-extensions-2.2.0"
       sources."bluebird-3.7.2"
       (
-        sources."body-parser-1.20.1" // {
+        sources."body-parser-1.20.1"
+        // {
           dependencies = [
             sources."bytes-3.1.2"
             sources."debug-2.6.9"
@@ -11664,7 +11690,8 @@ let
       sources."caniuse-lite-1.0.30001481"
       sources."case-sensitive-paths-webpack-plugin-2.4.0"
       (
-        sources."chalk-2.4.2" // {
+        sources."chalk-2.4.2"
+        // {
           dependencies = [ sources."escape-string-regexp-1.0.5" ];
         }
       )
@@ -11695,7 +11722,8 @@ let
       sources."commondir-1.0.1"
       sources."compressible-2.0.18"
       (
-        sources."compression-1.7.4" // {
+        sources."compression-1.7.4"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -11724,7 +11752,8 @@ let
       sources."css-has-pseudo-3.0.4"
       sources."css-loader-6.7.3"
       (
-        sources."css-minimizer-webpack-plugin-3.4.1" // {
+        sources."css-minimizer-webpack-plugin-3.4.1"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"
@@ -11738,7 +11767,8 @@ let
       sources."css-select-2.1.0"
       sources."css-select-base-adapter-0.1.1"
       (
-        sources."css-tree-1.0.0-alpha.37" // {
+        sources."css-tree-1.0.0-alpha.37"
+        // {
           dependencies = [ sources."source-map-0.6.1" ];
         }
       )
@@ -11749,7 +11779,8 @@ let
       sources."cssnano-preset-default-5.2.14"
       sources."cssnano-utils-3.1.0"
       (
-        sources."csso-4.2.0" // {
+        sources."csso-4.2.0"
+        // {
           dependencies = [
             sources."css-tree-1.1.3"
             sources."mdn-data-2.0.14"
@@ -11762,7 +11793,8 @@ let
       sources."csstype-3.1.2"
       sources."damerau-levenshtein-1.0.8"
       (
-        sources."data-urls-2.0.0" // {
+        sources."data-urls-2.0.0"
+        // {
           dependencies = [
             sources."tr46-2.1.0"
             sources."webidl-conversions-6.1.0"
@@ -11785,7 +11817,8 @@ let
       sources."detect-newline-3.1.0"
       sources."detect-node-2.1.0"
       (
-        sources."detect-port-alt-1.1.6" // {
+        sources."detect-port-alt-1.1.6"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -11804,18 +11837,21 @@ let
       sources."dom-converter-0.2.0"
       sources."dom-helpers-5.2.1"
       (
-        sources."dom-serializer-0.2.2" // {
+        sources."dom-serializer-0.2.2"
+        // {
           dependencies = [ sources."domelementtype-2.3.0" ];
         }
       )
       sources."domelementtype-1.3.1"
       (
-        sources."domexception-2.0.1" // {
+        sources."domexception-2.0.1"
+        // {
           dependencies = [ sources."webidl-conversions-5.0.0" ];
         }
       )
       (
-        sources."domhandler-4.3.1" // {
+        sources."domhandler-4.3.1"
+        // {
           dependencies = [ sources."domelementtype-2.3.0" ];
         }
       )
@@ -11846,7 +11882,8 @@ let
       sources."escape-html-1.0.3"
       sources."escape-string-regexp-4.0.0"
       (
-        sources."escodegen-2.0.0" // {
+        sources."escodegen-2.0.0"
+        // {
           dependencies = [
             sources."levn-0.3.0"
             sources."optionator-0.8.3"
@@ -11857,7 +11894,8 @@ let
         }
       )
       (
-        sources."eslint-8.39.0" // {
+        sources."eslint-8.39.0"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."argparse-2.0.1"
@@ -11873,18 +11911,21 @@ let
       )
       sources."eslint-config-react-app-7.0.1"
       (
-        sources."eslint-import-resolver-node-0.3.7" // {
+        sources."eslint-import-resolver-node-0.3.7"
+        // {
           dependencies = [ sources."debug-3.2.7" ];
         }
       )
       (
-        sources."eslint-module-utils-2.8.0" // {
+        sources."eslint-module-utils-2.8.0"
+        // {
           dependencies = [ sources."debug-3.2.7" ];
         }
       )
       sources."eslint-plugin-flowtype-8.0.3"
       (
-        sources."eslint-plugin-import-2.27.5" // {
+        sources."eslint-plugin-import-2.27.5"
+        // {
           dependencies = [
             sources."debug-3.2.7"
             sources."doctrine-2.1.0"
@@ -11894,12 +11935,14 @@ let
       )
       sources."eslint-plugin-jest-25.7.0"
       (
-        sources."eslint-plugin-jsx-a11y-6.7.1" // {
+        sources."eslint-plugin-jsx-a11y-6.7.1"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
       (
-        sources."eslint-plugin-react-7.32.2" // {
+        sources."eslint-plugin-react-7.32.2"
+        // {
           dependencies = [
             sources."doctrine-2.1.0"
             sources."resolve-2.0.0-next.4"
@@ -11912,7 +11955,8 @@ let
       sources."eslint-scope-7.2.0"
       sources."eslint-visitor-keys-3.4.0"
       (
-        sources."eslint-webpack-plugin-3.2.0" // {
+        sources."eslint-webpack-plugin-3.2.0"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"
@@ -11938,7 +11982,8 @@ let
       sources."exit-0.1.2"
       sources."expect-27.5.1"
       (
-        sources."express-4.18.2" // {
+        sources."express-4.18.2"
+        // {
           dependencies = [
             sources."array-flatten-1.1.1"
             sources."debug-2.6.9"
@@ -11948,7 +11993,8 @@ let
       )
       sources."fast-deep-equal-3.1.3"
       (
-        sources."fast-glob-3.2.12" // {
+        sources."fast-glob-3.2.12"
+        // {
           dependencies = [ sources."glob-parent-5.1.2" ];
         }
       )
@@ -11960,7 +12006,8 @@ let
       sources."file-entry-cache-6.0.1"
       sources."file-loader-6.2.0"
       (
-        sources."filelist-1.0.4" // {
+        sources."filelist-1.0.4"
+        // {
           dependencies = [
             sources."brace-expansion-2.0.1"
             sources."minimatch-5.1.6"
@@ -11970,7 +12017,8 @@ let
       sources."filesize-8.0.7"
       sources."fill-range-7.0.1"
       (
-        sources."finalhandler-1.2.0" // {
+        sources."finalhandler-1.2.0"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."ms-2.0.0"
@@ -11985,7 +12033,8 @@ let
       sources."follow-redirects-1.15.2"
       sources."for-each-0.3.3"
       (
-        sources."fork-ts-checker-webpack-plugin-6.5.3" // {
+        sources."fork-ts-checker-webpack-plugin-6.5.3"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12043,7 +12092,8 @@ let
       sources."hoist-non-react-statics-3.3.2"
       sources."hoopy-0.1.4"
       (
-        sources."hpack.js-2.1.6" // {
+        sources."hpack.js-2.1.6"
+        // {
           dependencies = [
             sources."isarray-1.0.0"
             sources."readable-stream-2.3.8"
@@ -12055,14 +12105,16 @@ let
       sources."html-entities-2.3.3"
       sources."html-escaper-2.0.2"
       (
-        sources."html-minifier-terser-6.1.0" // {
+        sources."html-minifier-terser-6.1.0"
+        // {
           dependencies = [ sources."commander-8.3.0" ];
         }
       )
       sources."html-parse-stringify-3.0.1"
       sources."html-webpack-plugin-5.5.1"
       (
-        sources."htmlparser2-6.1.0" // {
+        sources."htmlparser2-6.1.0"
+        // {
           dependencies = [
             sources."dom-serializer-1.4.1"
             sources."domelementtype-2.3.0"
@@ -12137,12 +12189,14 @@ let
       sources."isexe-2.0.0"
       sources."istanbul-lib-coverage-3.2.0"
       (
-        sources."istanbul-lib-instrument-5.2.1" // {
+        sources."istanbul-lib-instrument-5.2.1"
+        // {
           dependencies = [ sources."semver-6.3.0" ];
         }
       )
       (
-        sources."istanbul-lib-report-3.0.0" // {
+        sources."istanbul-lib-report-3.0.0"
+        // {
           dependencies = [
             sources."has-flag-4.0.0"
             sources."supports-color-7.2.0"
@@ -12150,13 +12204,15 @@ let
         }
       )
       (
-        sources."istanbul-lib-source-maps-4.0.1" // {
+        sources."istanbul-lib-source-maps-4.0.1"
+        // {
           dependencies = [ sources."source-map-0.6.1" ];
         }
       )
       sources."istanbul-reports-3.1.5"
       (
-        sources."jake-10.8.5" // {
+        sources."jake-10.8.5"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12170,7 +12226,8 @@ let
       sources."jest-27.5.1"
       sources."jest-changed-files-27.5.1"
       (
-        sources."jest-circus-27.5.1" // {
+        sources."jest-circus-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12182,7 +12239,8 @@ let
         }
       )
       (
-        sources."jest-cli-27.5.1" // {
+        sources."jest-cli-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12194,7 +12252,8 @@ let
         }
       )
       (
-        sources."jest-config-27.5.1" // {
+        sources."jest-config-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12206,7 +12265,8 @@ let
         }
       )
       (
-        sources."jest-diff-27.5.1" // {
+        sources."jest-diff-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12219,7 +12279,8 @@ let
       )
       sources."jest-docblock-27.5.1"
       (
-        sources."jest-each-27.5.1" // {
+        sources."jest-each-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12235,7 +12296,8 @@ let
       sources."jest-get-type-27.5.1"
       sources."jest-haste-map-27.5.1"
       (
-        sources."jest-jasmine2-27.5.1" // {
+        sources."jest-jasmine2-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12248,7 +12310,8 @@ let
       )
       sources."jest-leak-detector-27.5.1"
       (
-        sources."jest-matcher-utils-27.5.1" // {
+        sources."jest-matcher-utils-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12260,7 +12323,8 @@ let
         }
       )
       (
-        sources."jest-message-util-27.5.1" // {
+        sources."jest-message-util-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12275,7 +12339,8 @@ let
       sources."jest-pnp-resolver-1.2.3"
       sources."jest-regex-util-27.5.1"
       (
-        sources."jest-resolve-27.5.1" // {
+        sources."jest-resolve-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12288,7 +12353,8 @@ let
       )
       sources."jest-resolve-dependencies-27.5.1"
       (
-        sources."jest-runner-27.5.1" // {
+        sources."jest-runner-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12300,7 +12366,8 @@ let
         }
       )
       (
-        sources."jest-runtime-27.5.1" // {
+        sources."jest-runtime-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12314,7 +12381,8 @@ let
       )
       sources."jest-serializer-27.5.1"
       (
-        sources."jest-snapshot-27.5.1" // {
+        sources."jest-snapshot-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12326,7 +12394,8 @@ let
         }
       )
       (
-        sources."jest-util-27.5.1" // {
+        sources."jest-util-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12338,7 +12407,8 @@ let
         }
       )
       (
-        sources."jest-validate-27.5.1" // {
+        sources."jest-validate-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12350,7 +12420,8 @@ let
         }
       )
       (
-        sources."jest-watch-typeahead-1.1.0" // {
+        sources."jest-watch-typeahead-1.1.0"
+        // {
           dependencies = [
             (
               sources."@jest/console-28.1.3" // { dependencies = [ sources."slash-3.0.0" ]; }
@@ -12367,14 +12438,16 @@ let
             sources."emittery-0.10.2"
             sources."has-flag-4.0.0"
             (
-              sources."jest-message-util-28.1.3" // {
+              sources."jest-message-util-28.1.3"
+              // {
                 dependencies = [ sources."slash-3.0.0" ];
               }
             )
             sources."jest-regex-util-28.0.2"
             sources."jest-util-28.1.3"
             (
-              sources."jest-watcher-28.1.3" // {
+              sources."jest-watcher-28.1.3"
+              // {
                 dependencies = [
                   sources."string-length-4.0.2"
                   sources."strip-ansi-6.0.1"
@@ -12382,7 +12455,8 @@ let
               }
             )
             (
-              sources."pretty-format-28.1.3" // {
+              sources."pretty-format-28.1.3"
+              // {
                 dependencies = [ sources."ansi-styles-5.2.0" ];
               }
             )
@@ -12395,7 +12469,8 @@ let
         }
       )
       (
-        sources."jest-watcher-27.5.1" // {
+        sources."jest-watcher-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12407,7 +12482,8 @@ let
         }
       )
       (
-        sources."jest-worker-27.5.1" // {
+        sources."jest-worker-27.5.1"
+        // {
           dependencies = [
             sources."has-flag-4.0.0"
             sources."supports-color-8.1.1"
@@ -12420,7 +12496,8 @@ let
       sources."js-tokens-4.0.0"
       sources."js-yaml-3.14.1"
       (
-        sources."jsdom-16.7.0" // {
+        sources."jsdom-16.7.0"
+        // {
           dependencies = [
             sources."tr46-2.1.0"
             sources."webidl-conversions-6.1.0"
@@ -12475,7 +12552,8 @@ let
       sources."mime-types-2.1.35"
       sources."mimic-fn-2.1.0"
       (
-        sources."mini-css-extract-plugin-2.7.5" // {
+        sources."mini-css-extract-plugin-2.7.5"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"
@@ -12547,7 +12625,8 @@ let
       sources."pify-2.3.0"
       sources."pirates-4.0.5"
       (
-        sources."pkg-dir-4.2.0" // {
+        sources."pkg-dir-4.2.0"
+        // {
           dependencies = [
             sources."find-up-4.1.0"
             sources."locate-path-5.0.0"
@@ -12557,7 +12636,8 @@ let
         }
       )
       (
-        sources."pkg-up-3.1.0" // {
+        sources."pkg-up-3.1.0"
+        // {
           dependencies = [
             sources."find-up-3.0.0"
             sources."locate-path-3.0.0"
@@ -12598,7 +12678,8 @@ let
       sources."postcss-js-4.0.1"
       sources."postcss-lab-function-4.2.1"
       (
-        sources."postcss-load-config-4.0.1" // {
+        sources."postcss-load-config-4.0.1"
+        // {
           dependencies = [ sources."yaml-2.2.2" ];
         }
       )
@@ -12640,7 +12721,8 @@ let
       sources."postcss-selector-not-6.0.1"
       sources."postcss-selector-parser-6.0.11"
       (
-        sources."postcss-svgo-5.1.0" // {
+        sources."postcss-svgo-5.1.0"
+        // {
           dependencies = [
             sources."css-select-4.3.0"
             sources."css-tree-1.1.3"
@@ -12661,7 +12743,8 @@ let
       sources."pretty-bytes-5.6.0"
       sources."pretty-error-4.0.0"
       (
-        sources."pretty-format-27.5.1" // {
+        sources."pretty-format-27.5.1"
+        // {
           dependencies = [
             sources."ansi-styles-5.2.0"
             sources."react-is-17.0.2"
@@ -12688,7 +12771,8 @@ let
       sources."react-18.2.0"
       sources."react-app-polyfill-3.0.0"
       (
-        sources."react-dev-utils-12.0.1" // {
+        sources."react-dev-utils-12.0.1"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."chalk-4.1.2"
@@ -12724,7 +12808,8 @@ let
       (sources."regjsparser-0.9.1" // { dependencies = [ sources."jsesc-0.5.0" ]; })
       sources."relateurl-0.2.7"
       (
-        sources."renderkid-3.0.0" // {
+        sources."renderkid-3.0.0"
+        // {
           dependencies = [
             sources."css-select-4.3.0"
             sources."css-what-6.1.0"
@@ -12740,13 +12825,15 @@ let
       sources."requires-port-1.0.0"
       sources."resolve-1.22.3"
       (
-        sources."resolve-cwd-3.0.0" // {
+        sources."resolve-cwd-3.0.0"
+        // {
           dependencies = [ sources."resolve-from-5.0.0" ];
         }
       )
       sources."resolve-from-4.0.0"
       (
-        sources."resolve-url-loader-4.0.0" // {
+        sources."resolve-url-loader-4.0.0"
+        // {
           dependencies = [
             sources."picocolors-0.2.1"
             sources."postcss-7.0.39"
@@ -12760,7 +12847,8 @@ let
       sources."rimraf-3.0.2"
       sources."rollup-2.79.1"
       (
-        sources."rollup-plugin-terser-7.0.2" // {
+        sources."rollup-plugin-terser-7.0.2"
+        // {
           dependencies = [
             sources."has-flag-4.0.0"
             sources."jest-worker-26.6.2"
@@ -12783,7 +12871,8 @@ let
       sources."select-hose-2.0.0"
       sources."selfsigned-2.1.1"
       (
-        sources."semver-7.5.0" // {
+        sources."semver-7.5.0"
+        // {
           dependencies = [
             sources."lru-cache-6.0.0"
             sources."yallist-4.0.0"
@@ -12791,7 +12880,8 @@ let
         }
       )
       (
-        sources."send-0.18.0" // {
+        sources."send-0.18.0"
+        // {
           dependencies = [
             (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
             sources."ms-2.1.3"
@@ -12800,7 +12890,8 @@ let
       )
       sources."serialize-javascript-6.0.1"
       (
-        sources."serve-index-1.9.1" // {
+        sources."serve-index-1.9.1"
+        // {
           dependencies = [
             sources."debug-2.6.9"
             sources."depd-1.1.2"
@@ -12826,12 +12917,14 @@ let
       sources."source-map-0.5.7"
       sources."source-map-js-1.0.2"
       (
-        sources."source-map-loader-3.0.2" // {
+        sources."source-map-loader-3.0.2"
+        // {
           dependencies = [ sources."iconv-lite-0.6.3" ];
         }
       )
       (
-        sources."source-map-support-0.5.21" // {
+        sources."source-map-support-0.5.21"
+        // {
           dependencies = [ sources."source-map-0.6.1" ];
         }
       )
@@ -12842,13 +12935,15 @@ let
       sources."stable-0.1.8"
       sources."stack-generator-2.0.10"
       (
-        sources."stack-utils-2.0.6" // {
+        sources."stack-utils-2.0.6"
+        // {
           dependencies = [ sources."escape-string-regexp-2.0.0" ];
         }
       )
       sources."stackframe-1.3.4"
       (
-        sources."stacktrace-gps-3.1.2" // {
+        sources."stacktrace-gps-3.1.2"
+        // {
           dependencies = [ sources."source-map-0.5.6" ];
         }
       )
@@ -12858,7 +12953,8 @@ let
       sources."string-length-4.0.2"
       sources."string-natural-compare-3.0.1"
       (
-        sources."string-width-4.2.3" // {
+        sources."string-width-4.2.3"
+        // {
           dependencies = [ sources."emoji-regex-8.0.0" ];
         }
       )
@@ -12867,7 +12963,8 @@ let
       sources."string.prototype.trimend-1.0.6"
       sources."string.prototype.trimstart-1.0.6"
       (
-        sources."string_decoder-1.1.1" // {
+        sources."string_decoder-1.1.1"
+        // {
           dependencies = [ sources."safe-buffer-5.1.2" ];
         }
       )
@@ -12881,7 +12978,8 @@ let
       sources."stylehacks-5.1.1"
       sources."stylis-4.1.3"
       (
-        sources."sucrase-3.32.0" // {
+        sources."sucrase-3.32.0"
+        // {
           dependencies = [
             sources."commander-4.1.1"
             sources."glob-7.1.6"
@@ -12890,7 +12988,8 @@ let
       )
       sources."supports-color-5.5.0"
       (
-        sources."supports-hyperlinks-2.3.0" // {
+        sources."supports-hyperlinks-2.3.0"
+        // {
           dependencies = [
             sources."has-flag-4.0.0"
             sources."supports-color-7.2.0"
@@ -12920,7 +13019,8 @@ let
       sources."to-regex-range-5.0.1"
       sources."toidentifier-1.0.1"
       (
-        sources."tough-cookie-4.1.2" // {
+        sources."tough-cookie-4.1.2"
+        // {
           dependencies = [ sources."universalify-0.2.0" ];
         }
       )
@@ -12957,7 +13057,8 @@ let
       sources."utils-merge-1.0.1"
       sources."uuid-8.3.2"
       (
-        sources."v8-to-istanbul-8.1.1" // {
+        sources."v8-to-istanbul-8.1.1"
+        // {
           dependencies = [ sources."source-map-0.7.4" ];
         }
       )
@@ -12970,7 +13071,8 @@ let
       sources."wbuf-1.7.3"
       sources."webidl-conversions-3.0.1"
       (
-        sources."webpack-5.81.0" // {
+        sources."webpack-5.81.0"
+        // {
           dependencies = [
             sources."eslint-scope-5.1.1"
             sources."estraverse-4.3.0"
@@ -12978,7 +13080,8 @@ let
         }
       )
       (
-        sources."webpack-dev-middleware-5.3.3" // {
+        sources."webpack-dev-middleware-5.3.3"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"
@@ -12988,7 +13091,8 @@ let
         }
       )
       (
-        sources."webpack-dev-server-4.13.3" // {
+        sources."webpack-dev-server-4.13.3"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."ajv-keywords-5.1.0"
@@ -12999,7 +13103,8 @@ let
         }
       )
       (
-        sources."webpack-manifest-plugin-4.1.1" // {
+        sources."webpack-manifest-plugin-4.1.1"
+        // {
           dependencies = [
             sources."source-map-0.6.1"
             sources."webpack-sources-2.3.1"
@@ -13021,7 +13126,8 @@ let
       sources."workbox-background-sync-6.5.4"
       sources."workbox-broadcast-update-6.5.4"
       (
-        sources."workbox-build-6.5.4" // {
+        sources."workbox-build-6.5.4"
+        // {
           dependencies = [
             sources."ajv-8.12.0"
             sources."fs-extra-9.1.0"
@@ -13046,7 +13152,8 @@ let
       sources."workbox-streams-6.5.4"
       sources."workbox-sw-6.5.4"
       (
-        sources."workbox-webpack-plugin-6.5.4" // {
+        sources."workbox-webpack-plugin-6.5.4"
+        // {
           dependencies = [
             sources."source-map-0.6.1"
             sources."webpack-sources-1.4.3"
@@ -13055,7 +13162,8 @@ let
       )
       sources."workbox-window-6.5.4"
       (
-        sources."wrap-ansi-7.0.0" // {
+        sources."wrap-ansi-7.0.0"
+        // {
           dependencies = [
             sources."ansi-styles-4.3.0"
             sources."color-convert-2.0.1"

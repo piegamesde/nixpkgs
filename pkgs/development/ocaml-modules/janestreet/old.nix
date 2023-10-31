@@ -60,7 +60,8 @@ with self;
         ocaml-migrate-parsetree
       ];
       meta.description = "OCaml AST used by Jane Street ppx rewriters";
-    } // (
+    }
+    // (
       if lib.versionAtLeast ocaml.version "4.06" then
         {
           version = "0.9.2";

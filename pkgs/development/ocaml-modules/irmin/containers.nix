@@ -33,5 +33,7 @@ buildDunePackage {
     cacert
   ];
 
-  meta = ppx_irmin.meta // { description = "Mergeable Irmin data structures"; };
+  meta = ppx_irmin.meta // {
+    description = "Mergeable Irmin data structures";
+  };
 }

@@ -71,7 +71,8 @@ in
     expectFailure = true;
     dir = ./read-file;
   };
-}) // {
+})
+// {
   version = testers.testVersion {
     package = deno;
     command = "deno --version";

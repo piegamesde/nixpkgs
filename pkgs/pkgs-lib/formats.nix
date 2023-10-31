@@ -42,19 +42,22 @@ rec {
       type =
         with lib.types;
         let
-          valueType = nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-              path
-              (attrsOf valueType)
-              (listOf valueType)
-            ]
-          ) // {
-            description = "JSON value";
-          };
+          valueType =
+            nullOr (
+              oneOf [
+                bool
+                int
+                float
+                str
+                path
+                (attrsOf valueType)
+                (listOf valueType)
+              ]
+            )
+            // {
+              description = "JSON value";
+            }
+          ;
         in
         valueType
       ;
@@ -110,19 +113,22 @@ rec {
       type =
         with lib.types;
         let
-          valueType = nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-              path
-              (attrsOf valueType)
-              (listOf valueType)
-            ]
-          ) // {
-            description = "YAML value";
-          };
+          valueType =
+            nullOr (
+              oneOf [
+                bool
+                int
+                float
+                str
+                path
+                (attrsOf valueType)
+                (listOf valueType)
+              ]
+            )
+            // {
+              description = "YAML value";
+            }
+          ;
         in
         valueType
       ;
@@ -144,25 +150,30 @@ rec {
         with lib.types;
         let
 
-          singleIniAtom = nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-            ]
-          ) // {
-            description = "INI atom (null, bool, int, float or string)";
-          };
+          singleIniAtom =
+            nullOr (
+              oneOf [
+                bool
+                int
+                float
+                str
+              ]
+            )
+            // {
+              description = "INI atom (null, bool, int, float or string)";
+            }
+          ;
 
           iniAtom =
             if listsAsDuplicateKeys then
-              coercedTo singleIniAtom lib.singleton (listOf singleIniAtom) // {
+              coercedTo singleIniAtom lib.singleton (listOf singleIniAtom)
+              // {
                 description =
                   singleIniAtom.description + " or a list of them for duplicate keys";
               }
             else if listToValue != null then
-              coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom) // {
+              coercedTo singleIniAtom lib.singleton (nonEmptyListOf singleIniAtom)
+              // {
                 description = singleIniAtom.description + " or a non-empty list of them";
               }
             else
@@ -209,24 +220,29 @@ rec {
         with lib.types;
         let
 
-          singleAtom = nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-            ]
-          ) // {
-            description = "atom (null, bool, int, float or string)";
-          };
+          singleAtom =
+            nullOr (
+              oneOf [
+                bool
+                int
+                float
+                str
+              ]
+            )
+            // {
+              description = "atom (null, bool, int, float or string)";
+            }
+          ;
 
           atom =
             if listsAsDuplicateKeys then
-              coercedTo singleAtom lib.singleton (listOf singleAtom) // {
+              coercedTo singleAtom lib.singleton (listOf singleAtom)
+              // {
                 description = singleAtom.description + " or a list of them for duplicate keys";
               }
             else if listToValue != null then
-              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom) // {
+              coercedTo singleAtom lib.singleton (nonEmptyListOf singleAtom)
+              // {
                 description = singleAtom.description + " or a non-empty list of them";
               }
             else
@@ -278,21 +294,25 @@ rec {
 
   toml =
     { }:
-    json { } // {
+    json { }
+    // {
       type =
         with lib.types;
         let
-          valueType = oneOf [
-            bool
-            int
-            float
-            str
-            path
-            (attrsOf valueType)
-            (listOf valueType)
-          ] // {
-            description = "TOML value";
-          };
+          valueType =
+            oneOf [
+              bool
+              int
+              float
+              str
+              path
+              (attrsOf valueType)
+              (listOf valueType)
+            ]
+            // {
+              description = "TOML value";
+            }
+          ;
         in
         valueType
       ;
@@ -451,18 +471,21 @@ rec {
       type =
         with lib.types;
         let
-          valueType = nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-              (attrsOf valueType)
-              (listOf valueType)
-            ]
-          ) // {
-            description = "Elixir value";
-          };
+          valueType =
+            nullOr (
+              oneOf [
+                bool
+                int
+                float
+                str
+                (attrsOf valueType)
+                (listOf valueType)
+              ]
+            )
+            // {
+              description = "Elixir value";
+            }
+          ;
         in
         attrsOf (attrsOf (valueType))
       ;
@@ -554,7 +577,8 @@ rec {
               );
               # Wrap standard types, since anything in the Elixir configuration
               # can be raw Elixir
-            } // lib.mapAttrs (_name: type: elixirOr type) lib.types
+            }
+            // lib.mapAttrs (_name: type: elixirOr type) lib.types
           ;
         }
       ;
@@ -583,19 +607,22 @@ rec {
       type =
         with lib.types;
         let
-          valueType = nullOr (
-            oneOf [
-              bool
-              float
-              int
-              path
-              str
-              (attrsOf valueType)
-              (listOf valueType)
-            ]
-          ) // {
-            description = "Python value";
-          };
+          valueType =
+            nullOr (
+              oneOf [
+                bool
+                float
+                int
+                path
+                str
+                (attrsOf valueType)
+                (listOf valueType)
+              ]
+            )
+            // {
+              description = "Python value";
+            }
+          ;
         in
         attrsOf valueType
       ;

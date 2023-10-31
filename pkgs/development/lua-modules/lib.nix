@@ -23,10 +23,12 @@ let
     drv: f:
     (drv.override (
       args:
-      args // {
+      args
+      // {
         buildLuarocksPackage = drv: (args.buildLuarocksPackage drv).override f;
       }
-    )) // {
+    ))
+    // {
       overrideScope = scope: overrideLuarocks (drv.overrideScope scope) f;
     }
   ;
@@ -158,7 +160,8 @@ rec {
             } ]
             ++ rocksTrees
           );
-      } // lib.optionalAttrs lua.pkgs.isLuaJIT {
+      }
+      // lib.optionalAttrs lua.pkgs.isLuaJIT {
         # Luajit provides some additional functionality built-in; this exposes
         # that to luarock's dependency system
         rocks_provided = {
@@ -167,7 +170,8 @@ rec {
           luaffi = "${lua.luaversion}-1";
           bit = "${lua.luaversion}-1";
         };
-      } // {
+      }
+      // {
         # For single-output external dependencies
         external_deps_dirs = externalDepsDirs;
         # Some needed machinery to handle multiple-output external dependencies,

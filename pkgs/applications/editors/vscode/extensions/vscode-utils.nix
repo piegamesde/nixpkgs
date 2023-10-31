@@ -33,7 +33,8 @@ let
       ...
     }:
     stdenv.mkDerivation (
-      (removeAttrs a [ "vscodeExtUniqueId" ]) // {
+      (removeAttrs a [ "vscodeExtUniqueId" ])
+      // {
 
         name = "vscode-extension-${name}";
 
@@ -82,7 +83,8 @@ let
       (removeAttrs a [
         "mktplcRef"
         "vsix"
-      ]) // {
+      ])
+      // {
         name = "${mktplcRef.publisher}-${mktplcRef.name}-${mktplcRef.version}";
         version = mktplcRef.version;
         src = if (vsix != null) then vsix else fetchVsixFromVscodeMarketplace mktplcRef;
@@ -104,7 +106,8 @@ let
   mktplcExtRefToExtDrv =
     ext:
     buildVscodeMarketplaceExtension (
-      removeAttrs ext mktplcRefAttrList // {
+      removeAttrs ext mktplcRefAttrList
+      // {
         mktplcRef =
           builtins.intersectAttrs (lib.genAttrs mktplcRefAttrList (_: null))
             ext

@@ -22,7 +22,8 @@ buildNpmPackage rec {
       buildGoModule =
         args:
         buildGoModule (
-          args // rec {
+          args
+          // rec {
             version = "0.15.18";
             src = fetchFromGitHub {
               owner = "evanw";

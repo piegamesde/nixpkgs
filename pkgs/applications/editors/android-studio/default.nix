@@ -30,28 +30,32 @@ in
   # Attributes are named by their corresponding release channels
 
   stable = mkStudio (
-    stableVersion // {
+    stableVersion
+    // {
       channel = "stable";
       pname = "android-studio";
     }
   );
 
   beta = mkStudio (
-    betaVersion // {
+    betaVersion
+    // {
       channel = "beta";
       pname = "android-studio-beta";
     }
   );
 
   dev = mkStudio (
-    latestVersion // {
+    latestVersion
+    // {
       channel = "dev";
       pname = "android-studio-dev";
     }
   );
 
   canary = mkStudio (
-    latestVersion // {
+    latestVersion
+    // {
       channel = "canary";
       pname = "android-studio-canary";
     }

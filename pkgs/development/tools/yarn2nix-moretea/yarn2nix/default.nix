@@ -323,7 +323,8 @@ rec {
             {
               inherit name;
               value = mkYarnPackage (
-                builtins.removeAttrs attrs [ "packageOverrides" ] // {
+                builtins.removeAttrs attrs [ "packageOverrides" ]
+                // {
                   inherit
                     src
                     packageJSON
@@ -333,7 +334,8 @@ rec {
                     packageResolutions
                     workspaceDependencies
                   ;
-                } // lib.attrByPath [ name ] { } packageOverrides
+                }
+                // lib.attrByPath [ name ] { } packageOverrides
               );
             }
           )
@@ -435,7 +437,8 @@ rec {
         "pkgConfig"
         "workspaceDependencies"
         "packageResolutions"
-      ] // {
+      ]
+      // {
         inherit src version pname;
 
         name = baseName;
@@ -524,14 +527,17 @@ rec {
           workspaceDependencies = workspaceDependenciesTransitive;
         } // (attrs.passthru or { });
 
-        meta = {
-          inherit (nodejs.meta) platforms;
-        } // lib.optionalAttrs (package ? description) {
-          inherit (package) description;
-        } // lib.optionalAttrs (package ? homepage) { inherit (package) homepage; }
+        meta =
+          {
+            inherit (nodejs.meta) platforms;
+          }
+          // lib.optionalAttrs (package ? description) { inherit (package) description; }
+          // lib.optionalAttrs (package ? homepage) { inherit (package) homepage; }
           // lib.optionalAttrs (package ? license) {
             license = getLicenseFromSpdxId package.license;
-          } // (attrs.meta or { });
+          }
+          // (attrs.meta or { })
+        ;
       }
     )
   ;
@@ -629,7 +635,8 @@ rec {
         patchShebangs $out
       ''
   ;
-} // lib.optionalAttrs allowAliases {
+}
+// lib.optionalAttrs allowAliases {
   # Aliases
   spdxLicense = getLicenseFromSpdxId; # added 2021-12-01
 }

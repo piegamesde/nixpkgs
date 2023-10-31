@@ -23,7 +23,8 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check // {
+    types.addCheck elemType check
+    // {
       description = "${elemType.description} (with check: ${desc})";
     }
   ;

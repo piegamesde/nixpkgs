@@ -101,6 +101,7 @@ buildDunePackage rec {
     ++ lib.optional (lib.versionOlder version "1.7.0") stdlib-shims
   ;
 
-  meta =
-    jsonrpc.meta // { description = "LSP protocol implementation in OCaml"; };
+  meta = jsonrpc.meta // {
+    description = "LSP protocol implementation in OCaml";
+  };
 }

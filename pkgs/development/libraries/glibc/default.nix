@@ -201,9 +201,12 @@ in
 
       separateDebugInfo = true;
 
-      passthru = (previousAttrs.passthru or { })
+      passthru =
+        (previousAttrs.passthru or { })
         // lib.optionalAttrs (stdenv.cc.cc ? libgcc) { inherit (stdenv.cc.cc) libgcc; };
 
-      meta = (previousAttrs.meta or { }) // { description = "The GNU C Library"; };
+      meta = (previousAttrs.meta or { }) // {
+        description = "The GNU C Library";
+      };
     }
   )

@@ -153,17 +153,20 @@ buildGoModule rec {
     }":$RPATH $out/bin/.podman-wrapped
   '';
 
-  passthru.tests = {
-    version = testers.testVersion {
-      package = podman;
-      command = "HOME=$TMPDIR podman --version";
-    };
-  } // lib.optionalAttrs stdenv.isLinux {
-    inherit (nixosTests) podman;
-    # related modules
-    inherit (nixosTests) podman-tls-ghostunnel;
-    oci-containers-podman = nixosTests.oci-containers.podman;
-  };
+  passthru.tests =
+    {
+      version = testers.testVersion {
+        package = podman;
+        command = "HOME=$TMPDIR podman --version";
+      };
+    }
+    // lib.optionalAttrs stdenv.isLinux {
+      inherit (nixosTests) podman;
+      # related modules
+      inherit (nixosTests) podman-tls-ghostunnel;
+      oci-containers-podman = nixosTests.oci-containers.podman;
+    }
+  ;
 
   meta = with lib; {
     homepage = "https://podman.io/";

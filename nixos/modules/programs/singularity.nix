@@ -74,7 +74,8 @@ in
         optionalAttrs cfg.enableFakeroot {
           newuidmapPath = "/run/wrappers/bin/newuidmap";
           newgidmapPath = "/run/wrappers/bin/newgidmap";
-        } // optionalAttrs cfg.enableSuid {
+        }
+        // optionalAttrs cfg.enableSuid {
           enableSuid = true;
           starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
         }

@@ -46,7 +46,8 @@ buildPythonPackage rec {
           src = ./paths.patch;
           exiftool = "${exiftool}/bin/exiftool";
           ffmpeg = "${ffmpeg}/bin/ffmpeg";
-        } // lib.optionalAttrs dolphinIntegration {
+        }
+        // lib.optionalAttrs dolphinIntegration {
           kdialog = "${plasma5Packages.kdialog}/bin/kdialog";
         }
       ))

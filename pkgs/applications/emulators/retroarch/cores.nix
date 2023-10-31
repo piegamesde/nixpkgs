@@ -66,7 +66,8 @@ let
           retroarch
           zlib
         ;
-      } // args
+      }
+      // args
     )
   ;
 in

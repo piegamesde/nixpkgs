@@ -190,7 +190,8 @@ let
   mkClient =
     version:
     generic (
-      version // {
+      version
+      // {
         buildClient = true;
         buildServer = false;
       }
@@ -199,7 +200,8 @@ let
   mkServer =
     version:
     generic (
-      version // {
+      version
+      // {
         buildClient = false;
         buildServer = true;
       }

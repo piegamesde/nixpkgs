@@ -84,17 +84,23 @@ let
         httponly = cookie.httpOnly;
       };
       set-xauthrequest = setXauthrequest;
-    } // lib.optionalAttrs (cfg.email.addresses != null) {
+    }
+    // lib.optionalAttrs (cfg.email.addresses != null) {
       authenticated-emails-file = authenticatedEmailsFile;
-    } // lib.optionalAttrs (cfg.passBasicAuth) {
+    }
+    // lib.optionalAttrs (cfg.passBasicAuth) {
       basic-auth-password = cfg.basicAuthPassword;
-    } // lib.optionalAttrs (cfg.htpasswd.file != null) {
+    }
+    // lib.optionalAttrs (cfg.htpasswd.file != null) {
       display-htpasswd-file = cfg.htpasswd.displayForm;
-    } // lib.optionalAttrs tls.enable {
+    }
+    // lib.optionalAttrs tls.enable {
       tls-cert-file = tls.certificate;
       tls-key-file = tls.key;
       https-address = tls.httpsAddress;
-    } // (getProviderOptions cfg cfg.provider) // cfg.extraConfig
+    }
+    // (getProviderOptions cfg cfg.provider)
+    // cfg.extraConfig
   ;
 
   mapConfig =

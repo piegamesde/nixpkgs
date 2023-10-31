@@ -26,7 +26,8 @@ then
 else
 
   stdenv.mkDerivation (
-    args // {
+    args
+    // {
       name = "ocaml${ocaml.version}-${pname}-${version}";
 
       nativeBuildInputs =

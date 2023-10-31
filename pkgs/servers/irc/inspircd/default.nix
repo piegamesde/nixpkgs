@@ -91,7 +91,8 @@ let
     # GPLv2 compatible
     argon2 = [
       (
-        libargon2 // {
+        libargon2
+        // {
           meta = libargon2.meta // {
             # use libargon2 as CC0 since ASL20 is GPLv2-incompatible
             # updating this here is important that meta.license is accurate
@@ -215,30 +216,33 @@ stdenv.mkDerivation rec {
     nixos-test = nixosTests.inspircd;
   };
 
-  meta = {
-    description = "A modular C++ IRC server";
-    license =
-      [ lib.licenses.gpl2Only ]
-      ++ lib.concatMap getLicenses extraInputs
-      ++ lib.optionals (anyMembers extraModules libcModules) (
-        getLicenses stdenv.cc.libc
-      )
-      # FIXME(sternenseemann): get license of used lib(std)c++ somehow
-      ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
-      # Hack: Definitely prevent a hydra from building this package on
-      # a GPL 2 incompatibility even if it is not in a top-level attribute,
-      # but pulled in indirectly somehow.
-      ++ lib.optional gpl2Conflict lib.licenses.unfree
-    ;
-    maintainers = [ lib.maintainers.sternenseemann ];
-    # windows is theoretically possible, but requires extra work
-    # which I am not willing to do and can't test.
-    # https://github.com/inspircd/inspircd/blob/master/win/README.txt
-    platforms = lib.platforms.unix;
-    homepage = "https://www.inspircd.org/";
-  } // lib.optionalAttrs gpl2Conflict {
-    # make sure we never distribute a GPLv2-violating module
-    # in binary form. They can be built locally of course.
-    hydraPlatforms = [ ];
-  };
+  meta =
+    {
+      description = "A modular C++ IRC server";
+      license =
+        [ lib.licenses.gpl2Only ]
+        ++ lib.concatMap getLicenses extraInputs
+        ++ lib.optionals (anyMembers extraModules libcModules) (
+          getLicenses stdenv.cc.libc
+        )
+        # FIXME(sternenseemann): get license of used lib(std)c++ somehow
+        ++ lib.optional (anyMembers extraModules libcxxModules) "Unknown"
+        # Hack: Definitely prevent a hydra from building this package on
+        # a GPL 2 incompatibility even if it is not in a top-level attribute,
+        # but pulled in indirectly somehow.
+        ++ lib.optional gpl2Conflict lib.licenses.unfree
+      ;
+      maintainers = [ lib.maintainers.sternenseemann ];
+      # windows is theoretically possible, but requires extra work
+      # which I am not willing to do and can't test.
+      # https://github.com/inspircd/inspircd/blob/master/win/README.txt
+      platforms = lib.platforms.unix;
+      homepage = "https://www.inspircd.org/";
+    }
+    // lib.optionalAttrs gpl2Conflict {
+      # make sure we never distribute a GPLv2-violating module
+      # in binary form. They can be built locally of course.
+      hydraPlatforms = [ ];
+    }
+  ;
 }

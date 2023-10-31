@@ -80,7 +80,8 @@ in
             "activemq.data" = "${cfg.baseDir}/data";
             "activemq.conf" = "${cfg.configurationDir}";
             "activemq.home" = "${activemq}";
-          } // attrs
+          }
+          // attrs
         ;
         description = lib.mdDoc ''
           Specifies Java properties that are sent to the ActiveMQ

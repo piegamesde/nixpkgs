@@ -569,7 +569,9 @@ in
           heads:
           let
             hasPrimary = any (x: x.primary) heads;
-            firstPrimary = head heads // { primary = true; };
+            firstPrimary = head heads // {
+              primary = true;
+            };
             newHeads = singleton firstPrimary ++ tail heads;
           in
           if heads != [ ] && !hasPrimary then newHeads else heads
@@ -807,7 +809,8 @@ in
           modules = [ ];
           driverName = name;
           display = true;
-        } // driver
+        }
+        // driver
       )
     );
 
@@ -832,11 +835,12 @@ in
       }
     ];
 
-    environment.etc = (optionalAttrs cfg.exportConfiguration {
-      "X11/xorg.conf".source = "${configFile}";
-      # -xkbdir command line option does not seems to be passed to xkbcomp.
-      "X11/xkb".source = "${cfg.xkbDir}";
-    })
+    environment.etc =
+      (optionalAttrs cfg.exportConfiguration {
+        "X11/xorg.conf".source = "${configFile}";
+        # -xkbdir command line option does not seems to be passed to xkbcomp.
+        "X11/xkb".source = "${cfg.xkbDir}";
+      })
       # localectl looks into 00-keyboard.conf
       // {
         "X11/xorg.conf.d/00-keyboard.conf".text = ''
@@ -858,7 +862,8 @@ in
         {
           ${cfgPath}.source = xorg.xf86inputevdev.out + "/share" + cfgPath;
         }
-      );
+      )
+    ;
 
     environment.systemPackages =
       utils.removePackagesByName
@@ -911,9 +916,12 @@ in
 
       restartIfChanged = false;
 
-      environment = optionalAttrs config.hardware.opengl.setLdLibraryPath {
-        LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ];
-      } // cfg.displayManager.job.environment;
+      environment =
+        optionalAttrs config.hardware.opengl.setLdLibraryPath {
+          LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ];
+        }
+        // cfg.displayManager.job.environment
+      ;
 
       preStart = ''
         ${cfg.displayManager.job.preStart}

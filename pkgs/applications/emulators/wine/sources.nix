@@ -32,7 +32,8 @@ let
         rev
         hash
       ;
-    } // args
+    }
+    // args
   ;
   fetchFromGitLab =
     args@{
@@ -51,7 +52,8 @@ let
         rev
         hash
       ;
-    } // args
+    }
+    // args
   ;
 
   updateScriptPreamble = ''

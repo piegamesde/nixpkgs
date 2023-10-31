@@ -614,7 +614,8 @@ rec {
         pkgs.bash
         symlink
       ];
-    } // {
+    }
+    // {
       passthru = {
         inherit symlink;
       };

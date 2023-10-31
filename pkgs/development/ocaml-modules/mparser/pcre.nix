@@ -16,5 +16,7 @@ buildDunePackage rec {
     mparser
   ];
 
-  meta = mparser.meta // { description = "PCRE-based regular expressions"; };
+  meta = mparser.meta // {
+    description = "PCRE-based regular expressions";
+  };
 }

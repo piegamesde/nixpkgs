@@ -19,7 +19,8 @@ stdenv.mkDerivation (
       {
         owner = "qca";
         repo = "open-ath9k-htc-firmware";
-      } // (
+      }
+      // (
         if enableUnstable then
           {
             rev = "d856466a068afe4069335257c0d28295ff777d92";

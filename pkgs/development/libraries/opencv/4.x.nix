@@ -543,9 +543,11 @@ stdenv.mkDerivation {
   ;
 
   passthru = {
-    tests = {
-      inherit (gst_all_1) gst-plugins-bad;
-    } // lib.optionalAttrs (!stdenv.isDarwin) { inherit qimgv; }
+    tests =
+      {
+        inherit (gst_all_1) gst-plugins-bad;
+      }
+      // lib.optionalAttrs (!stdenv.isDarwin) { inherit qimgv; }
       // lib.optionalAttrs (!enablePython) { pythonEnabled = pythonPackages.opencv4; }
       // lib.optionalAttrs (stdenv.buildPlatform != "x86_64-darwin") {
         opencv4-tests = callPackage ./tests.nix {
@@ -559,7 +561,8 @@ stdenv.mkDerivation {
           ;
           inherit opencv4;
         };
-      };
+      }
+    ;
   } // lib.optionalAttrs enablePython { pythonPath = [ ]; };
 
   meta = with lib; {

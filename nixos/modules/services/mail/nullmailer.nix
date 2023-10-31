@@ -206,7 +206,8 @@ with lib;
           (foldl' (as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; })
             { }
             (attrNames validAttrs)
-          ) // optionalAttrs (cfg.remotesFile != null) {
+          )
+          // optionalAttrs (cfg.remotesFile != null) {
             "nullmailer/remotes".source = cfg.remotesFile;
           }
         ;

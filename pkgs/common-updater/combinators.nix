@@ -132,7 +132,8 @@ rec {
     {
       command = lib.toList (updateScript.command or updateScript);
       supportedFeatures = updateScript.supportedFeatures or [ ];
-    } // lib.optionalAttrs (updateScript ? attrPath) {
+    }
+    // lib.optionalAttrs (updateScript ? attrPath) {
       inherit (updateScript) attrPath;
     }
   ;

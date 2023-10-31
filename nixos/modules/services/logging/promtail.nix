@@ -58,47 +58,50 @@ in
       wantedBy = [ "multi-user.target" ];
       stopIfChanged = false;
 
-      serviceConfig = {
-        Restart = "on-failure";
-        TimeoutStopSec = 10;
+      serviceConfig =
+        {
+          Restart = "on-failure";
+          TimeoutStopSec = 10;
 
-        ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${
-            prettyJSON cfg.configuration
-          } ${escapeShellArgs cfg.extraFlags}";
+          ExecStart = "${pkgs.promtail}/bin/promtail -config.file=${
+              prettyJSON cfg.configuration
+            } ${escapeShellArgs cfg.extraFlags}";
 
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectKernelTunables = true;
-        ProtectControlGroups = true;
-        RestrictSUIDSGID = true;
-        PrivateMounts = true;
-        CacheDirectory = "promtail";
-        ReadWritePaths = lib.optional allowPositionsFile (builtins.dirOf positionsFile);
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectKernelTunables = true;
+          ProtectControlGroups = true;
+          RestrictSUIDSGID = true;
+          PrivateMounts = true;
+          CacheDirectory = "promtail";
+          ReadWritePaths = lib.optional allowPositionsFile (builtins.dirOf positionsFile);
 
-        User = "promtail";
-        Group = "promtail";
+          User = "promtail";
+          Group = "promtail";
 
-        CapabilityBoundingSet = "";
-        NoNewPrivileges = true;
+          CapabilityBoundingSet = "";
+          NoNewPrivileges = true;
 
-        ProtectKernelModules = true;
-        SystemCallArchitectures = "native";
-        ProtectKernelLogs = true;
-        ProtectClock = true;
+          ProtectKernelModules = true;
+          SystemCallArchitectures = "native";
+          ProtectKernelLogs = true;
+          ProtectClock = true;
 
-        LockPersonality = true;
-        ProtectHostname = true;
-        RestrictRealtime = true;
-        MemoryDenyWriteExecute = true;
-        PrivateUsers = true;
+          LockPersonality = true;
+          ProtectHostname = true;
+          RestrictRealtime = true;
+          MemoryDenyWriteExecute = true;
+          PrivateUsers = true;
 
-        SupplementaryGroups = lib.optional (allowSystemdJournal) "systemd-journal";
-      } // (optionalAttrs (!pkgs.stdenv.isAarch64) {
-        # FIXME: figure out why this breaks on aarch64
-        SystemCallFilter = "@system-service";
-      });
+          SupplementaryGroups = lib.optional (allowSystemdJournal) "systemd-journal";
+        }
+        // (optionalAttrs (!pkgs.stdenv.isAarch64) {
+          # FIXME: figure out why this breaks on aarch64
+          SystemCallFilter = "@system-service";
+        })
+      ;
     };
 
     users.groups.promtail = { };

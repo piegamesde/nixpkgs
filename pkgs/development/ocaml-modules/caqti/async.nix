@@ -20,5 +20,7 @@ buildDunePackage {
     core_kernel
   ];
 
-  meta = caqti.meta // { description = "Async support for Caqti"; };
+  meta = caqti.meta // {
+    description = "Async support for Caqti";
+  };
 }

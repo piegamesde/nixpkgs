@@ -139,7 +139,8 @@ in
             settings = "";
             config = "";
             dm_file = "";
-          } // cfg.configFiles
+          }
+          // cfg.configFiles
         )
     ;
 

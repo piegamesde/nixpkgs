@@ -61,7 +61,8 @@ stdenv.mkDerivation (
       rm loader/wine64-preloader
       make loader/wine64-preloader NIX_LDFLAGS="" NIX_LDFLAGS_${stdenv.cc.suffixSalt}=""
     '';
-  }) // rec {
+  })
+  // rec {
     inherit version src;
 
     pname = prevName + lib.optionalString supportFlags.waylandSupport "-wayland";

@@ -170,8 +170,8 @@ builder rec {
 
 //
 
-(lib.optionalAttrs (!stdenv.isLinux) {
-  # Work around <https://bugs.gnu.org/14201>.
-  SHELL = stdenv.shell;
-  CONFIG_SHELL = stdenv.shell;
-})
+  (lib.optionalAttrs (!stdenv.isLinux) {
+    # Work around <https://bugs.gnu.org/14201>.
+    SHELL = stdenv.shell;
+    CONFIG_SHELL = stdenv.shell;
+  })

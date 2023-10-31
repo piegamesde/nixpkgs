@@ -45,7 +45,8 @@ let
       cp wrapper.c $out
     ''
   ;
-  tests = lib.genAttrs
+  tests =
+    lib.genAttrs
       [
         "add-flags"
         "argv0"
@@ -59,7 +60,8 @@ let
         "prefix"
         "suffix"
       ]
-      makeGoldenTest // lib.optionalAttrs (!stdenv.isDarwin) {
+      makeGoldenTest
+    // lib.optionalAttrs (!stdenv.isDarwin) {
       cross =
         pkgsCross.${
           if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"
@@ -72,4 +74,5 @@ in
 
 writeText "make-binary-wrapper-tests" ''
   ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
-'' // tests
+''
+// tests

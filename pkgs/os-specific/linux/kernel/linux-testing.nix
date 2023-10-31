@@ -11,7 +11,8 @@
 with lib;
 
 buildLinux (
-  args // rec {
+  args
+  // rec {
     version = "6.3-rc7";
     extraMeta.branch = lib.versions.majorMinor version;
 
@@ -25,5 +26,6 @@ buildLinux (
 
     # Should the testing kernels ever be built on Hydra?
     extraMeta.hydraPlatforms = [ ];
-  } // (args.argsOverride or { })
+  }
+  // (args.argsOverride or { })
 )

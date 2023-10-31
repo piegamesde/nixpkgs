@@ -15,7 +15,8 @@
 
 # NOTE: bcachefs-tools should be updated simultaneously to preserve compatibility
 (kernel.override (
-  args // {
+  args
+  // {
     version = "${kernel.version}-bcachefs-unstable-${commitDate}";
 
     extraMeta = {

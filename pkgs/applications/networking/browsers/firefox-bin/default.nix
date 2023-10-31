@@ -79,7 +79,9 @@ let
   sourceMatches =
     locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
 
-  policies = { DisableAppUpdate = true; } // config.firefox.policies or { };
+  policies = {
+    DisableAppUpdate = true;
+  } // config.firefox.policies or { };
 
   policiesJson = writeText "firefox-policies.json" (
     builtins.toJSON { inherit policies; }

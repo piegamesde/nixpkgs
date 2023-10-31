@@ -127,7 +127,8 @@ let
     tools:
     let
       callPackage = newScope (
-        tools // {
+        tools
+        // {
           inherit
             stdenv
             cmake
@@ -324,7 +325,9 @@ let
     libraries:
     let
       callPackage = newScope (
-        libraries // buildLlvmTools // {
+        libraries
+        // buildLlvmTools
+        // {
           inherit
             stdenv
             cmake
@@ -430,6 +433,4 @@ let
     }
   );
 in
-{
-  inherit tools libraries release_version;
-} // libraries // tools
+{ inherit tools libraries release_version; } // libraries // tools

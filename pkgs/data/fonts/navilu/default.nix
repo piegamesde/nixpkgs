@@ -26,7 +26,8 @@ stdenv.mkDerivation rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "A Kannada handwriting font";
       license = licenses.gpl3Plus;
       platforms = platforms.all;

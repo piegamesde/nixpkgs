@@ -23,7 +23,8 @@ let
 in
 
 mkDerivation (
-  args // {
+  args
+  // {
     inherit pname version src;
     patches = (args.patches or [ ]) ++ (patches.${pname} or [ ]);
 

@@ -12,7 +12,8 @@ let
 
   addAttributeName = mapAttrs (
     a: v:
-    v // {
+    v
+    // {
       text = ''
         #### Activation script snippet ${a}:
         _localstatus=0
@@ -48,7 +49,8 @@ let
           (
             a: v:
             if onlyDry && !v.supportsDryActivation then
-              v // {
+              v
+              // {
                 text = "#### Activation script snippet ${a} does not support dry activation.";
               }
             else
@@ -109,33 +111,36 @@ let
     withDry:
     with types;
     let
-      scriptOptions = {
-        deps = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-          description =
-            lib.mdDoc
-              "List of dependencies. The script will run after these."
-          ;
-        };
-        text = mkOption {
-          type = types.lines;
-          description = lib.mdDoc "The content of the script.";
-        };
-      } // optionalAttrs withDry {
-        supportsDryActivation = mkOption {
-          type = types.bool;
-          default = false;
-          description = lib.mdDoc ''
-            Whether this activation script supports being dry-activated.
-            These activation scripts will also be executed on dry-activate
-            activations with the environment variable
-            `NIXOS_ACTION` being set to `dry-activate`.
-            it's important that these activation scripts  don't
-            modify anything about the system when the variable is set.
-          '';
-        };
-      };
+      scriptOptions =
+        {
+          deps = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description =
+              lib.mdDoc
+                "List of dependencies. The script will run after these."
+            ;
+          };
+          text = mkOption {
+            type = types.lines;
+            description = lib.mdDoc "The content of the script.";
+          };
+        }
+        // optionalAttrs withDry {
+          supportsDryActivation = mkOption {
+            type = types.bool;
+            default = false;
+            description = lib.mdDoc ''
+              Whether this activation script supports being dry-activated.
+              These activation scripts will also be executed on dry-activate
+              activations with the environment variable
+              `NIXOS_ACTION` being set to `dry-activate`.
+              it's important that these activation scripts  don't
+              modify anything about the system when the variable is set.
+            '';
+          };
+        }
+      ;
     in
     either str (submodule { options = scriptOptions; })
   ;

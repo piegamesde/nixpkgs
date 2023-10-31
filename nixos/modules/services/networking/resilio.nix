@@ -40,15 +40,21 @@ let
         download_limit = cfg.downloadLimit;
         upload_limit = cfg.uploadLimit;
         lan_encrypt_data = cfg.encryptLAN;
-      } // optionalAttrs (cfg.directoryRoot != "") {
+      }
+      // optionalAttrs (cfg.directoryRoot != "") {
         directory_root = cfg.directoryRoot;
-      } // optionalAttrs cfg.enableWebUI {
-        webui = {
-          listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
-        } // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
+      }
+      // optionalAttrs cfg.enableWebUI {
+        webui =
+          {
+            listen = "${cfg.httpListenAddr}:${toString cfg.httpListenPort}";
+          }
+          // (optionalAttrs (cfg.httpLogin != "") { login = cfg.httpLogin; })
           // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
-          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
-      } // optionalAttrs (sharedFoldersRecord != [ ]) {
+          // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; })
+        ;
+      }
+      // optionalAttrs (sharedFoldersRecord != [ ]) {
         shared_folders = sharedFoldersRecord;
       }
     )

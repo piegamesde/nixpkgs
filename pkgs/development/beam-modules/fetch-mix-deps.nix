@@ -24,7 +24,8 @@
 }@attrs:
 
 stdenvNoCC.mkDerivation (
-  attrs // {
+  attrs
+  // {
     nativeBuildInputs = [
       elixir
       hex

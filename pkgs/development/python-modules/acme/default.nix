@@ -39,6 +39,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source/${pname}";
 
-  meta =
-    certbot.meta // { description = "ACME protocol implementation in Python"; };
+  meta = certbot.meta // {
+    description = "ACME protocol implementation in Python";
+  };
 }

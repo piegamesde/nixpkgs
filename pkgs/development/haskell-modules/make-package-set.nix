@@ -88,7 +88,8 @@ let
               mkDerivation =
                 drv:
                 super.mkDerivation (
-                  drv // {
+                  drv
+                  // {
                     enableSharedExecutables = false;
                     enableSharedLibraries = false;
                     doHaddock = false;
@@ -128,7 +129,8 @@ let
       # this wraps the `drv` function to add `scope` and `overrideScope` to the result.
       drvScope =
         allArgs:
-        ensureAttrs (drv allArgs) // {
+        ensureAttrs (drv allArgs)
+        // {
           inherit scope;
           overrideScope =
             f:
@@ -152,21 +154,22 @@ let
     scope:
     let
       ps = pkgs.__splicedPackages;
-      scopeSpliced = pkgs.splicePackages {
-        pkgsBuildBuild = scope.buildHaskellPackages.buildHaskellPackages;
-        pkgsBuildHost = scope.buildHaskellPackages;
-        pkgsBuildTarget = { };
-        pkgsHostHost = { };
-        pkgsHostTarget = scope;
-        pkgsTargetTarget = { };
-      } // {
-        # Don't splice these
-        inherit (scope) ghc buildHaskellPackages;
-      };
+      scopeSpliced =
+        pkgs.splicePackages {
+          pkgsBuildBuild = scope.buildHaskellPackages.buildHaskellPackages;
+          pkgsBuildHost = scope.buildHaskellPackages;
+          pkgsBuildTarget = { };
+          pkgsHostHost = { };
+          pkgsHostTarget = scope;
+          pkgsTargetTarget = { };
+        }
+        // {
+          # Don't splice these
+          inherit (scope) ghc buildHaskellPackages;
+        }
+      ;
     in
-    ps // ps.xorg // ps.gnome2 // {
-      inherit stdenv;
-    } // scopeSpliced
+    ps // ps.xorg // ps.gnome2 // { inherit stdenv; } // scopeSpliced
   ;
   defaultScope = mkScope self;
   callPackage = drv: args: callPackageWithScope defaultScope drv args;
@@ -252,7 +255,8 @@ let
       (self.callPackage src args)
   ;
 in
-package-set { inherit pkgs lib callPackage; } self // {
+package-set { inherit pkgs lib callPackage; } self
+// {
 
   inherit
     mkDerivation
@@ -613,19 +617,23 @@ package-set { inherit pkgs lib callPackage; } self // {
       #
       # The important thing to note here is that all the fields from
       # packageInputs are set correctly.
-      genericBuilderArgs = {
-        pname =
-          if pkgs.lib.length selected == 1 then
-            (pkgs.lib.head selected).name
-          else
-            "packages"
-        ;
-        version = "0";
-        license = null;
-      } // packageInputs // pkgs.lib.optionalAttrs doBenchmark {
-        # `doBenchmark` needs to explicitly be set here because haskellPackages.mkDerivation defaults it to `false`.  If the user wants benchmark dependencies included in their development shell, it has to be explicitly enabled here.
-        doBenchmark = true;
-      };
+      genericBuilderArgs =
+        {
+          pname =
+            if pkgs.lib.length selected == 1 then
+              (pkgs.lib.head selected).name
+            else
+              "packages"
+          ;
+          version = "0";
+          license = null;
+        }
+        // packageInputs
+        // pkgs.lib.optionalAttrs doBenchmark {
+          # `doBenchmark` needs to explicitly be set here because haskellPackages.mkDerivation defaults it to `false`.  If the user wants benchmark dependencies included in their development shell, it has to be explicitly enabled here.
+          doBenchmark = true;
+        }
+      ;
 
       # This is a pseudo Haskell package derivation that contains all the
       # dependencies for the packages in `selected`.
@@ -659,7 +667,8 @@ package-set { inherit pkgs lib callPackage; } self // {
     in
     pkgWithCombinedDepsDevDrv.overrideAttrs (
       old:
-      mkDerivationArgs // {
+      mkDerivationArgs
+      // {
         nativeBuildInputs =
           old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
         buildInputs = old.buildInputs ++ mkDerivationArgs.buildInputs or [ ];

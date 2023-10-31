@@ -63,5 +63,7 @@ stdenvNoCC.mkDerivation rec {
     inherit generator;
   };
 
-  meta = generator.meta // { inherit (clash-geoip.meta) license; };
+  meta = generator.meta // {
+    inherit (clash-geoip.meta) license;
+  };
 }

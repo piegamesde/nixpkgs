@@ -20,7 +20,8 @@ let
   cfg = config.security.apparmor;
   mkDisableOption =
     name:
-    mkEnableOption (lib.mdDoc name) // {
+    mkEnableOption (lib.mdDoc name)
+    // {
       default = true;
       example = false;
     }

@@ -35,5 +35,7 @@ buildFHSEnv rec {
   passthru = space-station-14-launcher.passthru // {
     unwrapped = space-station-14-launcher;
   };
-  meta = space-station-14-launcher.meta // { mainProgram = name; };
+  meta = space-station-14-launcher.meta // {
+    mainProgram = name;
+  };
 }

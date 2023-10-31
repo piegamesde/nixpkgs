@@ -14,7 +14,8 @@
 }@args:
 
 buildDunePackage (
-  args // {
+  args
+  // {
     inherit version buildInputs;
 
     duneVersion = "1";

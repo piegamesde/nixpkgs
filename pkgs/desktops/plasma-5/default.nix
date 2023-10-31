@@ -121,7 +121,8 @@ let
               let
                 meta = args.meta or { };
               in
-              meta // {
+              meta
+              // {
                 homepage = meta.homepage or "http://www.kde.org";
                 license = meta.license or license;
                 maintainers = (meta.maintainers or [ ]) ++ maintainers;
@@ -130,7 +131,8 @@ let
             ;
           in
           qtStdenv.mkDerivation (
-            args // {
+            args
+            // {
               inherit
                 pname
                 version
@@ -232,7 +234,8 @@ let
           parachute = callPackage ./3rdparty/kwin/scripts/parachute.nix { };
         }
       ;
-    } // lib.optionalAttrs config.allowAliases {
+    }
+    // lib.optionalAttrs config.allowAliases {
       ksysguard = throw "ksysguard has been replaced with plasma-systemmonitor";
       plasma-phone-components =
         throw

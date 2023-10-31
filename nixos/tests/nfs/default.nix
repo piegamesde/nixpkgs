@@ -5,7 +5,8 @@
 }:
 {
   simple = import ./simple.nix { inherit version system pkgs; };
-} // pkgs.lib.optionalAttrs (version == 4) {
+}
+// pkgs.lib.optionalAttrs (version == 4) {
   # TODO: Test kerberos + nfsv3
   kerberos = import ./kerberos.nix { inherit version system pkgs; };
 }

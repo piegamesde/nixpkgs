@@ -41,25 +41,31 @@ let
       data_file_directories = [ "${cfg.homeDir}/data" ];
       commitlog_directory = "${cfg.homeDir}/commitlog";
       saved_caches_directory = "${cfg.homeDir}/saved_caches";
-    } // optionalAttrs (cfg.seedAddresses != [ ]) {
+    }
+    // optionalAttrs (cfg.seedAddresses != [ ]) {
       seed_provider = [ {
         class_name = "org.apache.cassandra.locator.SimpleSeedProvider";
         parameters = [ { seeds = concatStringsSep "," cfg.seedAddresses; } ];
       } ];
-    } // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; }
+    }
+    // optionalAttrs atLeast3 { hints_directory = "${cfg.homeDir}/hints"; }
   );
 
-  cassandraConfigWithAddresses = cassandraConfig // (
-    if cfg.listenAddress == null then
-      { listen_interface = cfg.listenInterface; }
-    else
-      { listen_address = cfg.listenAddress; }
-  ) // (
-    if cfg.rpcAddress == null then
-      { rpc_interface = cfg.rpcInterface; }
-    else
-      { rpc_address = cfg.rpcAddress; }
-  );
+  cassandraConfigWithAddresses =
+    cassandraConfig
+    // (
+      if cfg.listenAddress == null then
+        { listen_interface = cfg.listenInterface; }
+      else
+        { listen_address = cfg.listenAddress; }
+    )
+    // (
+      if cfg.rpcAddress == null then
+        { rpc_interface = cfg.rpcInterface; }
+      else
+        { rpc_address = cfg.rpcAddress; }
+    )
+  ;
 
   cassandraEtc = pkgs.stdenv.mkDerivation {
     name = "cassandra-etc";

@@ -175,7 +175,9 @@ in
               packageRequires = lib.optionals (deps != null) (
                 map (dep: pkgargs.${dep} or self.${dep} or null) deps
               );
-              meta = (sourceArgs.meta or { }) // { inherit broken; };
+              meta = (sourceArgs.meta or { }) // {
+                inherit broken;
+              };
             }
           )
           { }

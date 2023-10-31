@@ -117,7 +117,8 @@ let
     xs:
     flip map xs (
       o:
-      o // {
+      o
+      // {
         dtboFile =
           if o.dtboFile == null then
             if o.dtsFile != null then

@@ -27,11 +27,13 @@ let
   genericSection = {
     generic =
       (
-        cfg.server.extraOptions // {
+        cfg.server.extraOptions
+        // {
           user = "root";
           group = "root";
           port = cfg.server.listenPort;
-        } // (optionalAttrs (cfg.server.listenAddress != null) {
+        }
+        // (optionalAttrs (cfg.server.listenAddress != null) {
           listenaddr = cfg.server.listenAddress;
         })
       );
@@ -45,9 +47,11 @@ let
           allowAddresses,
           extraOptions,
         }:
-        extraOptions // {
+        extraOptions
+        // {
           exportname = path;
-        } // (optionalAttrs (allowAddresses != null) {
+        }
+        // (optionalAttrs (allowAddresses != null) {
           authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
         })
       )

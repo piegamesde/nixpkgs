@@ -112,5 +112,7 @@ buildPythonApplication rec {
     updateScript = ./update.sh;
   };
 
-  meta = common.meta // { description = common.meta.description + " - cli"; };
+  meta = common.meta // {
+    description = common.meta.description + " - cli";
+  };
 }

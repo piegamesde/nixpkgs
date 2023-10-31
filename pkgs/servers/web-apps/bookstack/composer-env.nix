@@ -290,7 +290,8 @@ let
           # Execute post install hook
           runHook postInstall
         '';
-      } // extraArgs
+      }
+      // extraArgs
     )
   ;
 in

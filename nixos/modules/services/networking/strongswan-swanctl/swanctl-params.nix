@@ -66,7 +66,8 @@ in
           ocsp_uris = mkCommaSepListParam [ ] ''
             List of OCSP URIs.
           '';
-        } // certParams
+        }
+        // certParams
       )
       ''
         Section defining complementary attributes of certification authorities, each

@@ -154,7 +154,8 @@ let
 in
 stdenv.mkDerivation (
   finalAttrs:
-  attrs // {
+  attrs
+  // {
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   }
 )

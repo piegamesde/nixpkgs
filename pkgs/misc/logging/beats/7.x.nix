@@ -38,7 +38,8 @@ let
           ];
           platforms = platforms.linux;
         };
-      } // extraArgs
+      }
+      // extraArgs
     )
   ;
 in

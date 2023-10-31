@@ -34,7 +34,9 @@ rec {
   fix' =
     f:
     let
-      x = f x // { __unfix__ = f; };
+      x = f x // {
+        __unfix__ = f;
+      };
     in
     x
   ;
@@ -135,7 +137,8 @@ rec {
     extenderName: rattrs:
     fix' (
       self:
-      (rattrs self) // {
+      (rattrs self)
+      // {
         ${extenderName} =
           f: makeExtensibleWithCustomName extenderName (extends f rattrs);
       }

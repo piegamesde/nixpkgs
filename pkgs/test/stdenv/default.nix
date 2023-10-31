@@ -56,7 +56,8 @@ let
               touch $out
             ''
           ;
-        } // extraAttrs
+        }
+        // extraAttrs
       )
     )
   ;
@@ -82,7 +83,8 @@ let
           [[ "$(declare -p string)" == 'declare -x string="testing-string"' ]] || (echo "'\$string' was not exported" && false)
           touch $out
         '';
-      } // extraAttrs
+      }
+      // extraAttrs
     )
   ;
 
@@ -129,7 +131,8 @@ let
 
           touch $out
         '';
-      } // extraAttrs
+      }
+      // extraAttrs
     )
   ;
 in

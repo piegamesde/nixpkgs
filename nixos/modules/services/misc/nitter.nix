@@ -32,7 +32,9 @@ let
           {
             Server = cfg.server;
             Cache = cfg.cache;
-            Config = cfg.config // { hmacKey = "@hmac@"; };
+            Config = cfg.config // {
+              hmacKey = "@hmac@";
+            };
             Preferences = cfg.preferences;
           }
           cfg.settings

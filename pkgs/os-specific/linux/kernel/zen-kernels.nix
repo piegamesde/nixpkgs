@@ -29,7 +29,8 @@ let
       isLqx,
     }:
     buildLinux (
-      args // {
+      args
+      // {
         inherit version;
         modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
         isZen = true;
@@ -56,7 +57,8 @@ let
                 " (Same as linux_zen but less aggressive release schedule)"
           ;
         };
-      } // (args.argsOverride or { })
+      }
+      // (args.argsOverride or { })
     )
   ;
 in

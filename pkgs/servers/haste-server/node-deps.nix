@@ -1372,7 +1372,8 @@ let
       sources."base64-js-1.5.1"
       sources."binary-extensions-2.2.0"
       (
-        sources."bl-4.1.0" // {
+        sources."bl-4.1.0"
+        // {
           dependencies = [
             sources."readable-stream-3.6.1"
             sources."string_decoder-1.3.0"
@@ -1391,7 +1392,8 @@ let
       )
       sources."chokidar-3.5.1"
       (
-        sources."cliui-7.0.4" // {
+        sources."cliui-7.0.4"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"
@@ -1455,7 +1457,8 @@ let
       sources."mime-2.6.0"
       sources."minimatch-3.0.4"
       (
-        sources."mocha-8.4.0" // {
+        sources."mocha-8.4.0"
+        // {
           dependencies = [
             (sources."debug-4.3.1" // { dependencies = [ sources."ms-2.1.2" ]; })
             sources."ms-2.1.3"
@@ -1516,7 +1519,8 @@ let
       sources."winston-2.4.7"
       sources."workerpool-6.1.0"
       (
-        sources."wrap-ansi-7.0.0" // {
+        sources."wrap-ansi-7.0.0"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"
@@ -1530,7 +1534,8 @@ let
       sources."y18n-5.0.8"
       sources."yallist-2.1.2"
       (
-        sources."yargs-16.2.0" // {
+        sources."yargs-16.2.0"
+        // {
           dependencies = [
             sources."ansi-regex-5.0.1"
             sources."is-fullwidth-code-point-3.0.0"

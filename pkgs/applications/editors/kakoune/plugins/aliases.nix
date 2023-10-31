@@ -56,5 +56,6 @@ mapAliases (
     kak-powerline = powerline-kak; # backwards compat, added 2021-01-04
     kak-prelude = prelude-kak; # backwards compat, added 2021-01-04
     kak-vertical-selection = kakoune-vertical-selection; # backwards compat, added 2021-01-04
-  } // deprecations
+  }
+  // deprecations
 )

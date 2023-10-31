@@ -161,9 +161,7 @@ let
         '';
       } // def;
     in
-    base // {
-      unit = makeUnit name base;
-    }
+    base // { unit = makeUnit name base; }
   ;
 in
 {

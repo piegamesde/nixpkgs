@@ -47,7 +47,8 @@ in
 
 {
   cublas = backendStdenv.mkDerivation (
-    commonAttrs // {
+    commonAttrs
+    // {
       pname = "cuda-library-samples-cublas";
 
       src = "${src}/cuBLASLt";
@@ -55,7 +56,8 @@ in
   );
 
   cusolver = backendStdenv.mkDerivation (
-    commonAttrs // {
+    commonAttrs
+    // {
       pname = "cuda-library-samples-cusolver";
 
       src = "${src}/cuSOLVER";
@@ -65,7 +67,8 @@ in
   );
 
   cutensor = backendStdenv.mkDerivation (
-    commonAttrs // {
+    commonAttrs
+    // {
       pname = "cuda-library-samples-cutensor";
 
       src = "${src}/cuTENSOR";

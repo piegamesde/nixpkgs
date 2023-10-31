@@ -40,7 +40,8 @@ let
 
   baseDerivation = llvmPackages_13.stdenv.mkDerivation (
     finalAttrs:
-    args // {
+    args
+    // {
       inherit flutterBuildFlags runtimeDependencies;
 
       outputs = [
@@ -154,7 +155,8 @@ let
 
   packageOverrideRepository =
     (callPackage ../../development/compilers/flutter/package-overrides { })
-    // customPackageOverrides;
+    // customPackageOverrides
+  ;
   productPackages = builtins.filter (package: package.kind != "dev") (
     if autoDepsList then
       builtins.fromJSON (builtins.readFile deps.depsListFile)

@@ -53,5 +53,6 @@ stdenv.mkDerivation (
       platforms = platforms.linux;
       maintainers = with lib.maintainers; [ bendlas ];
     };
-  } // drvParams
+  }
+  // drvParams
 )

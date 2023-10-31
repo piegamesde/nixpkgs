@@ -18,8 +18,16 @@ let
     pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
   addToPropagatedBuildInputsWithPkgConfig =
     pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);
-  broken = old: { meta = old.meta // { broken = true; }; };
-  brokenOnDarwin = old: { meta = old.meta // { broken = stdenv.isDarwin; }; };
+  broken = old: {
+    meta = old.meta // {
+      broken = true;
+    };
+  };
+  brokenOnDarwin = old: {
+    meta = old.meta // {
+      broken = stdenv.isDarwin;
+    };
+  };
 in
 {
   allegro = addToBuildInputsWithPkgConfig (
@@ -34,7 +42,8 @@ in
   blosc = addToBuildInputs pkgs.c-blosc;
   cairo =
     old:
-    (addToBuildInputsWithPkgConfig pkgs.cairo old) // (addToPropagatedBuildInputs
+    (addToBuildInputsWithPkgConfig pkgs.cairo old)
+    // (addToPropagatedBuildInputs
       (
         with chickenEggs; [
           srfi-1
@@ -80,7 +89,8 @@ in
   opengl =
     old:
     # csc: invalid option `-framework OpenGL'
-    (brokenOnDarwin old) // (addToBuildInputsWithPkgConfig
+    (brokenOnDarwin old)
+    // (addToBuildInputsWithPkgConfig
       [
         pkgs.libGL
         pkgs.libGLU
@@ -107,7 +117,8 @@ in
   stfl =
     old:
     # Undefined symbols for architecture arm64: "_clearok"
-    (brokenOnDarwin old) // (addToBuildInputs
+    (brokenOnDarwin old)
+    // (addToBuildInputs
       [
         pkgs.ncurses
         pkgs.stfl
@@ -128,8 +139,16 @@ in
   zstd = addToBuildInputs pkgs.zstd;
 
   # platform changes
-  pledge = old: { meta = old.meta // { platforms = lib.platforms.openbsd; }; };
-  unveil = old: { meta = old.meta // { platforms = lib.platforms.openbsd; }; };
+  pledge = old: {
+    meta = old.meta // {
+      platforms = lib.platforms.openbsd;
+    };
+  };
+  unveil = old: {
+    meta = old.meta // {
+      platforms = lib.platforms.openbsd;
+    };
+  };
 
   # mark broken
   "ephem-v1.1" = broken;

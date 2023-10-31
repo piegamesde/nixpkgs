@@ -54,7 +54,8 @@ assert lib.getVersion wineUnstable == patch.version;
       ''
     ;
   }
-)) // {
+))
+// {
   meta = wineUnstable.meta // {
     description = wineUnstable.meta.description + " (with staging patches)";
   };

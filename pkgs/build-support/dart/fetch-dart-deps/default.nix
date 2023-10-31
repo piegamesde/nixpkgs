@@ -164,7 +164,8 @@ let
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
       outputHash = if vendorHash != "" then vendorHash else lib.fakeSha256;
-    } // (removeAttrs drvArgs [
+    }
+    // (removeAttrs drvArgs [
       "name"
       "pname"
     ])
@@ -190,7 +191,8 @@ let
         dart pub deps --json | jq .packages > $out
         runHook postBuild
       '';
-    } // buildDrvInheritArgs
+    }
+    // buildDrvInheritArgs
   );
 
   hook =

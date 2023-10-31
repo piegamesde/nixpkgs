@@ -46,4 +46,7 @@ rec {
   sdk_3_0 = throw "Dotnet SDK 3.0 is EOL, please use 6.0 (LTS) or 7.0 (Current)";
   sdk_3_1 = throw "Dotnet SDK 3.1 is EOL, please use 6.0 (LTS) or 7.0 (Current)";
   sdk_5_0 = throw "Dotnet SDK 5.0 is EOL, please use 6.0 (LTS) or 7.0 (Current)";
-} // dotnet_6_0 // dotnet_7_0 // dotnet_8_0
+}
+// dotnet_6_0
+// dotnet_7_0
+// dotnet_8_0

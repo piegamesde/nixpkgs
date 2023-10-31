@@ -52,7 +52,8 @@ rec {
       ...
     }:
     buildFHSEnv (
-      defaultFhsEnvArgs // {
+      defaultFhsEnvArgs
+      // {
         inherit name;
 
         targetPkgs =
@@ -63,7 +64,8 @@ rec {
         meta = {
           sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
         } // meta;
-      } // (removeAttrs args (
+      }
+      // (removeAttrs args (
         [
           "pname"
           "version"
@@ -81,17 +83,21 @@ rec {
       ...
     }:
     wrapAppImage (
-      args // {
+      args
+      // {
         inherit name extraPkgs;
         src = extract { inherit name src; };
 
         # passthru src to make nix-update work
         # hack to keep the origin position (unsafeGetAttrPos)
-        passthru = lib.pipe args [
-          lib.attrNames
-          (lib.remove "src")
-          (removeAttrs args)
-        ] // args.passthru or { };
+        passthru =
+          lib.pipe args [
+            lib.attrNames
+            (lib.remove "src")
+            (removeAttrs args)
+          ]
+          // args.passthru or { }
+        ;
       }
     )
   ;

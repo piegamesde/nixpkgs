@@ -18,12 +18,15 @@ rec {
       ...
     }@attrs:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
         name = "eclipse-plugin-" + name;
 
         buildInputs = buildInputs ++ [ unzip ];
 
-        passthru = { isEclipsePlugin = true; } // passthru;
+        passthru = {
+          isEclipsePlugin = true;
+        } // passthru;
       }
     )
   ;
@@ -47,7 +50,8 @@ rec {
     in
 
     buildEclipsePluginBase (
-      attrs // {
+      attrs
+      // {
         srcs = [ srcFeature ] ++ pSrcs;
 
         buildCommand = ''
@@ -75,7 +79,8 @@ rec {
       ...
     }@attrs:
     buildEclipsePluginBase (
-      attrs // {
+      attrs
+      // {
         dontBuild = true;
         doCheck = false;
 

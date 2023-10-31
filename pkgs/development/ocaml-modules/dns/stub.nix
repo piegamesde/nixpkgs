@@ -41,5 +41,7 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = dns.meta // { description = "DNS stub resolver"; };
+  meta = dns.meta // {
+    description = "DNS stub resolver";
+  };
 }

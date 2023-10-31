@@ -42,7 +42,8 @@ rec {
         outputHashAlgo = "sha256";
         outputHash = all;
       };
-    } // (lib.mapAttrs languageFile languages)
+    }
+    // (lib.mapAttrs languageFile languages)
   ;
 
   v3 = makeLanguages {

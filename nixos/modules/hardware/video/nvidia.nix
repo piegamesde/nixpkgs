@@ -538,29 +538,33 @@ in
 
           nvidiaService =
             sleepState:
-            (baseNvidiaService sleepState) // {
+            (baseNvidiaService sleepState)
+            // {
               before = [ "systemd-${sleepState}.service" ];
               requiredBy = [ "systemd-${sleepState}.service" ];
             }
           ;
 
-          services = (builtins.listToAttrs (
-            map (t: nameValuePair "nvidia-${t}" (nvidiaService t)) [
-              "hibernate"
-              "suspend"
-            ]
-          )) // {
-            nvidia-resume = (baseNvidiaService "resume") // {
-              after = [
-                "systemd-suspend.service"
-                "systemd-hibernate.service"
-              ];
-              requiredBy = [
-                "systemd-suspend.service"
-                "systemd-hibernate.service"
-              ];
-            };
-          };
+          services =
+            (builtins.listToAttrs (
+              map (t: nameValuePair "nvidia-${t}" (nvidiaService t)) [
+                "hibernate"
+                "suspend"
+              ]
+            ))
+            // {
+              nvidia-resume = (baseNvidiaService "resume") // {
+                after = [
+                  "systemd-suspend.service"
+                  "systemd-hibernate.service"
+                ];
+                requiredBy = [
+                  "systemd-suspend.service"
+                  "systemd-hibernate.service"
+                ];
+              };
+            }
+          ;
         in
         optionalAttrs cfg.powerManagement.enable services
         // optionalAttrs nvidiaPersistencedEnabled {

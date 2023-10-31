@@ -257,7 +257,8 @@ in
                         rpc_pass = "${cfg.rpc.password}";
                         rpc_url = "${cfg.rpc.url}:${toString cfg.rpc.port}";
                         message_queue_binding = "${cfg.messageQueueBinding}";
-                      } // cfg.extraConfig
+                      }
+                      // cfg.extraConfig
                     )
                   )
               ;

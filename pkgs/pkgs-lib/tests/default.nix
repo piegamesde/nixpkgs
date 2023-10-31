@@ -61,4 +61,5 @@ pkgs.linkFarm "pkgs-lib-formats-tests" (
       path = v;
     })
     (flatten "" structured)
-) // structured
+)
+// structured

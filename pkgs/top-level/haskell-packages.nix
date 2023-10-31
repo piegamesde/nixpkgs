@@ -69,7 +69,8 @@ let
     mkDerivation =
       drv:
       super.mkDerivation (
-        drv // {
+        drv
+        // {
           doCheck = false;
           doHaddock = false;
           enableExecutableProfiling = false;

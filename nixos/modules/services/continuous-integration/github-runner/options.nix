@@ -98,7 +98,8 @@ with lib;
         Changing this option triggers a new runner registration.
       '';
       example = "nixos";
-    } // (
+    }
+    // (
       if includeNameDefault then
         {
           default = config.networking.hostName;

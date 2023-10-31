@@ -46,19 +46,22 @@ args@{
 }:
 
 let
-  fArgs = removeAttrs args [
-    "buildAttrs"
-    "fetchAttrs"
-    "removeRulesCC"
-  ] // {
-    name = name;
-    bazelFlags = bazelFlags;
-    bazelBuildFlags = bazelBuildFlags;
-    bazelTestFlags = bazelTestFlags;
-    bazelFetchFlags = bazelFetchFlags;
-    bazelTestTargets = bazelTestTargets;
-    dontAddBazelOpts = dontAddBazelOpts;
-  };
+  fArgs =
+    removeAttrs args [
+      "buildAttrs"
+      "fetchAttrs"
+      "removeRulesCC"
+    ]
+    // {
+      name = name;
+      bazelFlags = bazelFlags;
+      bazelBuildFlags = bazelBuildFlags;
+      bazelTestFlags = bazelTestFlags;
+      bazelFetchFlags = bazelFetchFlags;
+      bazelTestTargets = bazelTestTargets;
+      dontAddBazelOpts = dontAddBazelOpts;
+    }
+  ;
   fBuildAttrs = fArgs // buildAttrs;
   fFetchAttrs = fArgs // removeAttrs fetchAttrs [ "sha256" ];
   bazelCmd =
@@ -111,10 +114,12 @@ let
   '';
 in
 stdenv.mkDerivation (
-  fBuildAttrs // {
+  fBuildAttrs
+  // {
 
     deps = stdenv.mkDerivation (
-      fFetchAttrs // {
+      fFetchAttrs
+      // {
         name = "${name}-deps.tar.gz";
 
         impureEnvVars =

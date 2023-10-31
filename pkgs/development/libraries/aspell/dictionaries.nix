@@ -68,7 +68,8 @@ let
           description = "Aspell dictionary for ${fullName}";
           platforms = lib.platforms.all;
         } // (args.meta or { });
-      } // removeAttrs args [ "meta" ]
+      }
+      // removeAttrs args [ "meta" ]
     )
   ;
 
@@ -82,52 +83,54 @@ let
       ...
     }@args:
     let
-      buildArgs = {
-        shortName = "${language}-${version}";
+      buildArgs =
+        {
+          shortName = "${language}-${version}";
 
-        src = fetchurl {
-          url = "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
-          inherit sha256;
-        };
+          src = fetchurl {
+            url = "mirror://gnu/aspell/dict/${language}/${filename}-${language}-${version}.tar.bz2";
+            inherit sha256;
+          };
 
-        /* Remove any instances of u-deva.cmap and u-deva.cset since
-           they are included in the main aspell package and can
-           cause conflicts otherwise.
-        */
-        postInstall = ''
-          rm -f $out/lib/aspell/u-deva.{cmap,cset}
-        '';
+          /* Remove any instances of u-deva.cmap and u-deva.cset since
+             they are included in the main aspell package and can
+             cause conflicts otherwise.
+          */
+          postInstall = ''
+            rm -f $out/lib/aspell/u-deva.{cmap,cset}
+          '';
 
-        passthru.updateScript = writeScript "update-aspellDict-${language}" ''
-          #!/usr/bin/env nix-shell
-          #!nix-shell -i bash -p nix curl gnused common-updater-scripts
-          set -eu -o pipefail
+          passthru.updateScript = writeScript "update-aspellDict-${language}" ''
+            #!/usr/bin/env nix-shell
+            #!nix-shell -i bash -p nix curl gnused common-updater-scripts
+            set -eu -o pipefail
 
-          # List tarballs in the dictionary's subdirectory via HTTPS and
-          # the simple list method of Apache's mod_autoindex.
-          #
-          # Catalan dictionary has an exception where an earlier version
-          # compares as newer because the versioning scheme has changed.
-          versions=$(
-              echo '[';
-              curl -s 'https://ftp.gnu.org/gnu/aspell/dict/${language}/?F=0' | \
-                  sed -r 's/.* href="${filename}-${language}-([A-Za-z0-9_+.-]+)\.tar\.bz2".*/"\1"/;t;d' | \
-                  if [ '${language}' = "ca" ]; then grep -v 20040130-1; else cat; fi; \
-              echo ']')
+            # List tarballs in the dictionary's subdirectory via HTTPS and
+            # the simple list method of Apache's mod_autoindex.
+            #
+            # Catalan dictionary has an exception where an earlier version
+            # compares as newer because the versioning scheme has changed.
+            versions=$(
+                echo '[';
+                curl -s 'https://ftp.gnu.org/gnu/aspell/dict/${language}/?F=0' | \
+                    sed -r 's/.* href="${filename}-${language}-([A-Za-z0-9_+.-]+)\.tar\.bz2".*/"\1"/;t;d' | \
+                    if [ '${language}' = "ca" ]; then grep -v 20040130-1; else cat; fi; \
+                echo ']')
 
-          # Sort versions in descending order using Nix's and take the first as the latest.
-          sortVersions="(with builtins; head (sort (a: b: compareVersions a b > 0) $versions))"
-          # nix-instantiate outputs Nix strings (with quotes), so remove them to get
-          # a result similar to `nix eval --raw`.
-          latestVersion=$(nix-instantiate --eval --expr "$sortVersions" | tr -d '"')
+            # Sort versions in descending order using Nix's and take the first as the latest.
+            sortVersions="(with builtins; head (sort (a: b: compareVersions a b > 0) $versions))"
+            # nix-instantiate outputs Nix strings (with quotes), so remove them to get
+            # a result similar to `nix eval --raw`.
+            latestVersion=$(nix-instantiate --eval --expr "$sortVersions" | tr -d '"')
 
-          update-source-version aspellDicts.${language} "$latestVersion"
-        '';
+            update-source-version aspellDicts.${language} "$latestVersion"
+          '';
 
-        meta = {
-          homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
-        } // (args.meta or { });
-      } // lib.optionalAttrs
+          meta = {
+            homepage = "http://ftp.gnu.org/gnu/aspell/dict/0index.html";
+          } // (args.meta or { });
+        }
+        // lib.optionalAttrs
           (
             stdenv.isDarwin
             && lib.elem language [
@@ -155,12 +158,14 @@ let
                 sed -i 's/ bokm.l\.alias/ bokmål.alias/g' Makefile.pre
               '';
             };
-          } // removeAttrs args [
-            "language"
-            "filename"
-            "sha256"
-            "meta"
-          ];
+          }
+        // removeAttrs args [
+          "language"
+          "filename"
+          "sha256"
+          "meta"
+        ]
+      ;
     in
     buildDict buildArgs
   ;
@@ -221,7 +226,8 @@ let
         '';
 
         dontUnpack = true;
-      } // args
+      }
+      // args
     )
   ;
 in

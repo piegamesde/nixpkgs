@@ -143,5 +143,6 @@ stdenv.mkDerivation (
     passthru = passthru';
 
     inherit meta;
-  } // attrs'
+  }
+  // attrs'
 )

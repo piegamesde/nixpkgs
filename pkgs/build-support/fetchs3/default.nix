@@ -45,7 +45,8 @@ runCommand name
       preferLocalBuild = true;
 
       AWS_DEFAULT_REGION = region;
-    } // credentialAttrs
+    }
+    // credentialAttrs
   )
   (
     if postFetch != null then

@@ -4,7 +4,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     pname = "vm";
     version = "0.14.0";
 

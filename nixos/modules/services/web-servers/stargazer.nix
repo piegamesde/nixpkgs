@@ -155,7 +155,8 @@ in
                   float
                   str
                 ]
-              ) // {
+              )
+              // {
                 description = "INI atom (null, bool, int, float or string)";
               }
             )

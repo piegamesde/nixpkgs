@@ -47,7 +47,8 @@ let
             meta.description = synopsis;
             meta.license =
               (
-                licenses // {
+                licenses
+                // {
                   "bsd-2-clause" = licenses.bsd2;
                   "bsd-3-clause" = licenses.bsd3;
                   "public-domain" = licenses.publicDomain;

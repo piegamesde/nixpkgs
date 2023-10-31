@@ -33,5 +33,7 @@ buildDunePackage {
     base64
   ];
 
-  meta = dns.meta // { description = "DNSSec support for OCaml-DNS"; };
+  meta = dns.meta // {
+    description = "DNSSec support for OCaml-DNS";
+  };
 }

@@ -103,7 +103,8 @@ let
     }@args:
     let
       rubyEnv = bundlerEnv (
-        bundlerEnvArgs // {
+        bundlerEnvArgs
+        // {
           inherit
             name
             pname
@@ -114,7 +115,8 @@ let
       );
     in
     stdenv.mkDerivation (
-      builtins.removeAttrs args [ "bundlerEnvArgs" ] // {
+      builtins.removeAttrs args [ "bundlerEnvArgs" ]
+      // {
         pluginName = if name != null then name else "${pname}-${version}";
         dontConfigure = true;
         dontBuild = true;
@@ -168,7 +170,8 @@ let
       let
         gems = import ./rubyEnv/gemset.nix;
       in
-      gems // {
+      gems
+      // {
         mini_racer = gems.mini_racer // {
           buildInputs = [ icu ];
           dontBuild = false;
@@ -189,7 +192,8 @@ let
               echo '--- !ruby/object:Libv8::Node::Location::Vendor {}' >ext/libv8-node/.location.yml
             '';
           in
-          gems.libv8-node // {
+          gems.libv8-node
+          // {
             dontBuild = false;
             postPatch = ''
               cp ${noopScript} libexec/build-libv8

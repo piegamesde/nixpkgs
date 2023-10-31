@@ -18,7 +18,8 @@ stdenv.mkDerivation (
       homepage = "https://github.com/c-cube/seq";
       inherit (ocaml.meta) platforms;
     };
-  } // (
+  }
+  // (
     if lib.versionOlder ocaml.version "4.07" then
       {
 

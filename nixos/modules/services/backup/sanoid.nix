@@ -21,7 +21,8 @@ let
           (listOf str)
         ]
       )
-    )) // {
+    ))
+    // {
       description = "dataset/template options";
     }
   ;
@@ -68,7 +69,8 @@ let
     use_template = mkOption {
       description = lib.mdDoc "Names of the templates to use for this dataset.";
       type = types.listOf (
-        types.str // {
+        types.str
+        // {
           check = (types.enum (attrNames cfg.templates)).check;
           description = "configured template name";
         }

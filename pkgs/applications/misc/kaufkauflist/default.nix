@@ -13,7 +13,8 @@ let
     buildGoModule =
       args:
       buildPackages.buildGoModule (
-        args // rec {
+        args
+        // rec {
           version = "0.16.15";
           src = fetchFromGitHub {
             owner = "evanw";

@@ -95,7 +95,8 @@ in
         '';
         apply = map (
           d:
-          d // {
+          d
+          // {
             manage = "desktop";
             start =
               d.start

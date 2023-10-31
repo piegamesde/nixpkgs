@@ -262,7 +262,8 @@ in
         ShamrockLee
       ];
       mainProgram = projectName;
-    } // extraMeta
+    }
+    // extraMeta
   ;
 }).overrideAttrs
   (

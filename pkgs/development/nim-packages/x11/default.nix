@@ -19,7 +19,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "X11 library for nim";
       license = [ licenses.mit ];
       maintainers = [ maintainers.marcusramberg ];

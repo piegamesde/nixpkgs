@@ -12,6 +12,7 @@ buildDunePackage {
 
   propagatedBuildInputs = [ qcheck-ounit ];
 
-  meta =
-    qcheck-ounit.meta // { description = "Compatibility package for qcheck"; };
+  meta = qcheck-ounit.meta // {
+    description = "Compatibility package for qcheck";
+  };
 }

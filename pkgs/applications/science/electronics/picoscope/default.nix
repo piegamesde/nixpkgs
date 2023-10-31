@@ -74,7 +74,8 @@ let
           '';
           meta =
             with lib;
-            shared_meta lib // {
+            shared_meta lib
+            // {
               sourceProvenance = with sourceTypes; [ binaryNativeCode ];
               description = "library for picotech oscilloscope software";
             }
@@ -114,7 +115,8 @@ let
       '';
       meta =
         with lib;
-        shared_meta lib // {
+        shared_meta lib
+        // {
           description = "library for picotech oscilloscope ${name} series";
         }
       ;
@@ -182,7 +184,8 @@ stdenv.mkDerivation rec {
 
   meta =
     with lib;
-    shared_meta lib // {
+    shared_meta lib
+    // {
       description = "Oscilloscope application that works with all PicoScope models";
       longDescription = ''
         PicoScope for Linux is a powerful oscilloscope application that works

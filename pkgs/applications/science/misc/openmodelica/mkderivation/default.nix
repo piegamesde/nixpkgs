@@ -107,7 +107,8 @@ let
   installFlags = "-i " + appendByAttr "installFlags" " " pkg;
 in
 stdenv.mkDerivation (
-  pkg // {
+  pkg
+  // {
     inherit
       omtarget
       postPatch

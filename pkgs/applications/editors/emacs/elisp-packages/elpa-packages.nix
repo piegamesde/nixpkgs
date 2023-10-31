@@ -37,7 +37,14 @@ let
     pkg.override {
       elpaBuild =
         args:
-        self.elpaBuild (args // { meta = (args.meta or { }) // { broken = true; }; })
+        self.elpaBuild (
+          args
+          // {
+            meta = (args.meta or { }) // {
+              broken = true;
+            };
+          }
+        )
       ;
     }
   ;
@@ -120,7 +127,9 @@ let
               ''
             ;
 
-            meta = old.meta // { maintainers = [ lib.maintainers.sternenseemann ]; };
+            meta = old.meta // {
+              maintainers = [ lib.maintainers.sternenseemann ];
+            };
           }
         );
 
@@ -151,7 +160,9 @@ let
               ''
             ;
 
-            meta = old.meta // { maintainers = [ lib.maintainers.DamienCassou ]; };
+            meta = old.meta // {
+              maintainers = [ lib.maintainers.DamienCassou ];
+            };
           }
         );
 
@@ -175,9 +186,7 @@ let
 
       elpaPackages = super // overrides;
     in
-    elpaPackages // {
-      inherit elpaBuild;
-    }
+    elpaPackages // { inherit elpaBuild; }
   );
 in
 generateElpa { }

@@ -57,7 +57,8 @@ let
       ...
     }@args:
     python.pkgs.buildPythonPackage (
-      args // {
+      args
+      // {
         inherit src version;
         name = "datadog-integration-${pname}-${version}";
 
@@ -137,7 +138,8 @@ let
       integrations
   ;
 in
-builtIntegrations // {
+builtIntegrations
+// {
   inherit datadog_checks_base;
   python = python.withPackages (_: (attrValues builtIntegrations));
 }

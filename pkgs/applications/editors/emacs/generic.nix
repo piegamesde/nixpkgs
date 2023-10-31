@@ -141,7 +141,8 @@ in
     lib.optionalAttrs nativeComp {
       NATIVE_FULL_AOT = "1";
       LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
-    } // {
+    }
+    // {
       pname =
         pname
         +

@@ -198,7 +198,9 @@ let
                 };
                 inherit (php-packages) extensions buildPecl mkExtension;
                 packages = php-packages.tools;
-                meta = php.meta // { outputsToInstall = [ "out" ]; };
+                meta = php.meta // {
+                  outputsToInstall = [ "out" ];
+                };
               };
               paths = [ php ];
               postBuild = ''

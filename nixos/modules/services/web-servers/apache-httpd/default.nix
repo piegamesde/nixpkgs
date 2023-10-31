@@ -44,7 +44,8 @@ let
     map
       (
         hostOpts:
-        hostOpts // {
+        hostOpts
+        // {
           certName =
             if hostOpts.useACMEHost != null then hostOpts.useACMEHost else hostOpts.hostName
           ;
@@ -1108,7 +1109,8 @@ in
         pkgs.gnugrep
       ];
 
-      environment = optionalAttrs cfg.enablePHP { PHPRC = phpIni; }
+      environment =
+        optionalAttrs cfg.enablePHP { PHPRC = phpIni; }
         // optionalAttrs cfg.enableMellon { LD_LIBRARY_PATH = "${pkgs.xmlsec}/lib"; };
 
       preStart = ''

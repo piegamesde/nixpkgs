@@ -69,19 +69,24 @@ in
                     unfilteredKernel
                 ;
                 config = builtins.toJSON (
-                  kernel // {
+                  kernel
+                  // {
                     display_name =
                       if (kernel.displayName != "") then kernel.displayName else kernelName;
-                  } // (optionalAttrs (kernel ? interruptMode) {
+                  }
+                  // (optionalAttrs (kernel ? interruptMode) {
                     interrupt_mode = kernel.interruptMode;
                   })
                 );
-                extraPaths = kernel.extraPaths or { }
+                extraPaths =
+                  kernel.extraPaths or { }
                   // lib.optionalAttrs (kernel.logo32 != null) {
                     "logo-32x32.png" = kernel.logo32;
-                  } // lib.optionalAttrs (kernel.logo64 != null) {
+                  }
+                  // lib.optionalAttrs (kernel.logo64 != null) {
                     "logo-64x64.png" = kernel.logo64;
-                  };
+                  }
+                ;
                 linkExtraPaths =
                   lib.mapAttrsToList
                     (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")

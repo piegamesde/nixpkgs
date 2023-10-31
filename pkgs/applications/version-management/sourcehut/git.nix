@@ -25,7 +25,8 @@ let
       pname = "gitsrht-api";
       modRoot = "api";
       vendorSha256 = "sha256-cCs9FUBusaAou9w4TDOg8GKxhRcsPbSNcQpxvFH/+so=";
-    } // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    }
+    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
   );
 
   gitDispatch = buildGoModule {

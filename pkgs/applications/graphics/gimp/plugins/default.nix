@@ -48,7 +48,9 @@ lib.makeScope pkgs.newScope (
               install -Dt "$pluginDir" "$@"
             }
           '';
-        } // attrs // {
+        }
+        // attrs
+        // {
           name = "${gimp.pname}-plugin-${name}";
           buildInputs =
             [
@@ -90,7 +92,8 @@ lib.makeScope pkgs.newScope (
             installScripts ${src}
             runHook postInstall
           '';
-        } // attrs
+        }
+        // attrs
       )
     ;
   in

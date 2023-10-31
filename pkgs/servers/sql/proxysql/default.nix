@@ -111,7 +111,9 @@ stdenv.mkDerivation rec {
           map
             (x: {
               inherit (x) f;
-              p = x.p // { src = applyPatches { inherit (x.p) src patches; }; };
+              p = x.p // {
+                src = applyPatches { inherit (x.p) src patches; };
+              };
             })
             [
               {

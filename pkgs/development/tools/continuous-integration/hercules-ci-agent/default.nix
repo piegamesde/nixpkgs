@@ -44,7 +44,9 @@ let
 in
 pkg.overrideAttrs (
   o: {
-    meta = o.meta // { position = toString ./default.nix + ":1"; };
+    meta = o.meta // {
+      position = toString ./default.nix + ":1";
+    };
     passthru = o.passthru // {
       # Does not test the package, but evaluation of the related NixOS module.
       tests.nixos-minimal-config = nixos {

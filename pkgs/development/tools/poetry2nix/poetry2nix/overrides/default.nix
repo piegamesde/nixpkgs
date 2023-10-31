@@ -82,7 +82,8 @@ lib.composeManyExtensions [
           attr = "poetry";
         }
       )
-      (lib.filterAttrs (n: _: lib.strings.hasPrefix "nixops" n) super) // {
+      (lib.filterAttrs (n: _: lib.strings.hasPrefix "nixops" n) super)
+    // {
       # NixOps >=2 dependency
       nixos-modules-contrib = addBuildSystem {
         inherit self;
@@ -173,7 +174,8 @@ lib.composeManyExtensions [
                 install -vD $m -t $out/share/man/man1
             done
           '';
-        } // lib.optionalAttrs (lib.versionOlder old.version "2.4") {
+        }
+        // lib.optionalAttrs (lib.versionOlder old.version "2.4") {
           prePatch = ''sed -i "s,/usr/,$out," lib/ansible/constants.py'';
         }
       );
@@ -262,7 +264,8 @@ lib.composeManyExtensions [
                 ]
               )
             ;
-          } // lib.optionalAttrs (lib.versionAtLeast old.version "4") {
+          }
+          // lib.optionalAttrs (lib.versionAtLeast old.version "4") {
             cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
               src = old.src;
               sourceRoot = "${old.pname}-${old.version}/src/_bcrypt";
@@ -489,19 +492,20 @@ lib.composeManyExtensions [
               ]
             ;
             propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [ self.cffi ];
-          } // lib.optionalAttrs
-            (lib.versionAtLeast old.version "3.4" && lib.versionOlder old.version "3.5")
-            { CRYPTOGRAPHY_DONT_BUILD_RUST = "1"; } // lib.optionalAttrs
-            (lib.versionAtLeast old.version "3.5" && !isWheel)
-            rec {
-              cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
-                src = old.src;
-                sourceRoot = "${old.pname}-${old.version}/${cargoRoot}";
-                name = "${old.pname}-${old.version}";
-                inherit sha256;
-              };
-              cargoRoot = "src/rust";
-            }
+          }
+          //
+            lib.optionalAttrs
+              (lib.versionAtLeast old.version "3.4" && lib.versionOlder old.version "3.5")
+              { CRYPTOGRAPHY_DONT_BUILD_RUST = "1"; }
+          // lib.optionalAttrs (lib.versionAtLeast old.version "3.5" && !isWheel) rec {
+            cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
+              src = old.src;
+              sourceRoot = "${old.pname}-${old.version}/${cargoRoot}";
+              name = "${old.pname}-${old.version}";
+              inherit sha256;
+            };
+            cargoRoot = "src/rust";
+          }
         )
       ;
 
@@ -1374,7 +1378,9 @@ lib.composeManyExtensions [
 
           __impureHostDeps = lib.optionals pkgs.stdenv.isDarwin [ "/usr/lib/libm.dylib" ];
 
-          passthru = old.passthru // { llvm = llvm; };
+          passthru = old.passthru // {
+            llvm = llvm;
+          };
         }
       );
 
@@ -1442,13 +1448,16 @@ lib.composeManyExtensions [
               directories = {
                 basedirlist = ".";
               };
-              libs = {
-                system_freetype = true;
-                system_qhull = true;
-              } // lib.optionalAttrs stdenv.isDarwin {
-                # LTO not working in darwin stdenv, see Nixpkgs #19312
-                enable_lto = false;
-              };
+              libs =
+                {
+                  system_freetype = true;
+                  system_qhull = true;
+                }
+                // lib.optionalAttrs stdenv.isDarwin {
+                  # LTO not working in darwin stdenv, see Nixpkgs #19312
+                  enable_lto = false;
+                }
+              ;
             };
           };
 
@@ -1659,7 +1668,8 @@ lib.composeManyExtensions [
           # when testing reduce optimisation level to drastically reduce build time
           # (default is 3)
           # MYPYC_OPT_LEVEL = 1;
-        } // lib.optionalAttrs (old.format != "wheel") {
+        }
+        // lib.optionalAttrs (old.format != "wheel") {
           # FIXME: Remove patch after upstream has decided the proper solution.
           #        https://github.com/python/mypy/pull/11143
           patches =
@@ -1742,13 +1752,16 @@ lib.composeManyExtensions [
             name = "site.cfg";
             text =
               (lib.generators.toINI { } {
-                ${blasImplementation} = {
-                  include_dirs = "${blas}/include";
-                  library_dirs = "${blas}/lib";
-                } // lib.optionalAttrs (blasImplementation == "mkl") {
-                  mkl_libs = "mkl_rt";
-                  lapack_libs = "";
-                };
+                ${blasImplementation} =
+                  {
+                    include_dirs = "${blas}/include";
+                    library_dirs = "${blas}/lib";
+                  }
+                  // lib.optionalAttrs (blasImplementation == "mkl") {
+                    mkl_libs = "mkl_rt";
+                    lapack_libs = "";
+                  }
+                ;
               });
           };
         in
@@ -3500,11 +3513,13 @@ lib.composeManyExtensions [
         old:
         {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.ncurses ];
-        } // lib.optionalAttrs
-          (
-            lib.versionAtLeast old.version "2.0.19" && lib.versionOlder old.version "2.0.20"
-          )
-          { sourceRoot = "."; }
+        }
+        //
+          lib.optionalAttrs
+            (
+              lib.versionAtLeast old.version "2.0.19" && lib.versionOlder old.version "2.0.20"
+            )
+            { sourceRoot = "."; }
       );
 
       wcwidth = super.wcwidth.overridePythonAttrs (

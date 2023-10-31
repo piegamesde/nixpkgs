@@ -146,7 +146,8 @@ let
               mv -v Build/*/* $out
               runHook postInstall
             '';
-          } // removeAttrs attrs [
+          }
+          // removeAttrs attrs [
             "nativeBuildInputs"
             "depsBuildBuild"
           ]

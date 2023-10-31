@@ -16,7 +16,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     pname = "synthpod";
     version = "unstable-2021-10-22";
 

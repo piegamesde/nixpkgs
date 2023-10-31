@@ -38,7 +38,8 @@ let
 in
 
 stdenv.mkDerivation (
-  drvAttrs // {
+  drvAttrs
+  // {
     inherit name;
     inherit unpackPhase configurePhase buildPhase;
 

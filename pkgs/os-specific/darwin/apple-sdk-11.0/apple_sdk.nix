@@ -417,18 +417,21 @@ rec {
       };
 
       # Merge extraDeps into generatedDeps.
-      deps = generatedDeps
-        // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
+      deps =
+        generatedDeps
+        // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps)
+      ;
 
       # Create derivations, and add private frameworks.
-      bareFrameworks = (lib.mapAttrs framework deps) // (lib.mapAttrs privateFramework
-        (
+      bareFrameworks =
+        (lib.mapAttrs framework deps)
+        // (lib.mapAttrs privateFramework (
           import ./private-frameworks.nix {
             inherit frameworks;
             libobjc = pkgs.darwin.apple_sdk_11_0.objc4;
           }
-        )
-      );
+        ))
+      ;
     in
     # Apply derivation overrides.
     bareFrameworks // overrides bareFrameworks

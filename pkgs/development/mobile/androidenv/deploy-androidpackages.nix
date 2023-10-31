@@ -176,5 +176,6 @@ stdenv.mkDerivation (
           packages
       ;
     } // meta;
-  } // extraParams
+  }
+  // extraParams
 )

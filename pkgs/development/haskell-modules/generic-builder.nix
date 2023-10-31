@@ -768,43 +768,47 @@ lib.fix (
 
         # All this information is intended just for `shellFor`.  It should be
         # considered unstable and indeed we knew how to keep it private we would.
-        getCabalDeps = {
-          inherit
-            buildDepends
-            buildTools
-            executableFrameworkDepends
-            executableHaskellDepends
-            executablePkgconfigDepends
-            executableSystemDepends
-            executableToolDepends
-            extraLibraries
-            libraryFrameworkDepends
-            libraryHaskellDepends
-            libraryPkgconfigDepends
-            librarySystemDepends
-            libraryToolDepends
-            pkg-configDepends
-            setupHaskellDepends
-          ;
-        } // lib.optionalAttrs doCheck {
-          inherit
-            testDepends
-            testFrameworkDepends
-            testHaskellDepends
-            testPkgconfigDepends
-            testSystemDepends
-            testToolDepends
-          ;
-        } // lib.optionalAttrs doBenchmark {
-          inherit
-            benchmarkDepends
-            benchmarkFrameworkDepends
-            benchmarkHaskellDepends
-            benchmarkPkgconfigDepends
-            benchmarkSystemDepends
-            benchmarkToolDepends
-          ;
-        };
+        getCabalDeps =
+          {
+            inherit
+              buildDepends
+              buildTools
+              executableFrameworkDepends
+              executableHaskellDepends
+              executablePkgconfigDepends
+              executableSystemDepends
+              executableToolDepends
+              extraLibraries
+              libraryFrameworkDepends
+              libraryHaskellDepends
+              libraryPkgconfigDepends
+              librarySystemDepends
+              libraryToolDepends
+              pkg-configDepends
+              setupHaskellDepends
+            ;
+          }
+          // lib.optionalAttrs doCheck {
+            inherit
+              testDepends
+              testFrameworkDepends
+              testHaskellDepends
+              testPkgconfigDepends
+              testSystemDepends
+              testToolDepends
+            ;
+          }
+          // lib.optionalAttrs doBenchmark {
+            inherit
+              benchmarkDepends
+              benchmarkFrameworkDepends
+              benchmarkHaskellDepends
+              benchmarkPkgconfigDepends
+              benchmarkSystemDepends
+              benchmarkToolDepends
+            ;
+          }
+        ;
 
         # Attributes for the old definition of `shellFor`. Should be removed but
         # this predates the warning at the top of `getCabalDeps`.
@@ -900,20 +904,26 @@ lib.fix (
         env = envFunc { };
       };
 
-      meta = {
-        inherit homepage license platforms;
-      } // optionalAttrs (args ? broken) { inherit broken; }
+      meta =
+        {
+          inherit homepage license platforms;
+        }
+        // optionalAttrs (args ? broken) { inherit broken; }
         // optionalAttrs (args ? description) { inherit description; }
         // optionalAttrs (args ? maintainers) { inherit maintainers; }
         // optionalAttrs (args ? hydraPlatforms) { inherit hydraPlatforms; }
         // optionalAttrs (args ? badPlatforms) { inherit badPlatforms; }
         // optionalAttrs (args ? changelog) { inherit changelog; }
-        // optionalAttrs (args ? mainProgram) { inherit mainProgram; };
-    } // optionalAttrs (args ? preCompileBuildDriver) {
+        // optionalAttrs (args ? mainProgram) { inherit mainProgram; }
+      ;
+    }
+    // optionalAttrs (args ? preCompileBuildDriver) {
       inherit preCompileBuildDriver;
-    } // optionalAttrs (args ? postCompileBuildDriver) {
+    }
+    // optionalAttrs (args ? postCompileBuildDriver) {
       inherit postCompileBuildDriver;
-    } // optionalAttrs (args ? preUnpack) { inherit preUnpack; }
+    }
+    // optionalAttrs (args ? preUnpack) { inherit preUnpack; }
     // optionalAttrs (args ? postUnpack) { inherit postUnpack; }
     // optionalAttrs (args ? patches) { inherit patches; }
     // optionalAttrs (args ? patchPhase) { inherit patchPhase; }

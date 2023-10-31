@@ -83,57 +83,58 @@ stdenv.mkDerivation (
   }
 
   # Then, the caller-supplied attributes.
-  // args //
+  // args
+  //
 
-  # And finally, our own stuff.
-  {
-    name = name + "-" + version + versionSuffix;
+    # And finally, our own stuff.
+    {
+      name = name + "-" + version + versionSuffix;
 
-    buildInputs = buildInputs ++ bootstrapBuildInputs;
+      buildInputs = buildInputs ++ bootstrapBuildInputs;
 
-    preUnpack = ''
-      mkdir -p $out/nix-support
-    '';
+      preUnpack = ''
+        mkdir -p $out/nix-support
+      '';
 
-    postUnpack = ''
-      # Set all source files to the current date.  This is because Nix
-      # resets the timestamp on all files to 0 (1/1/1970), which some
-      # people don't like (in particular GNU tar prints harmless but
-      # frightening warnings about it).
-      touch now
-      touch -d "1970-01-01 00:00:00 UTC" then
-      find $sourceRoot ! -newer then -print0 | xargs -0r touch --reference now
-      rm now then
-      eval "$nextPostUnpack"
-    '';
+      postUnpack = ''
+        # Set all source files to the current date.  This is because Nix
+        # resets the timestamp on all files to 0 (1/1/1970), which some
+        # people don't like (in particular GNU tar prints harmless but
+        # frightening warnings about it).
+        touch now
+        touch -d "1970-01-01 00:00:00 UTC" then
+        find $sourceRoot ! -newer then -print0 | xargs -0r touch --reference now
+        rm now then
+        eval "$nextPostUnpack"
+      '';
 
-    nextPostUnpack = if args ? postUnpack then args.postUnpack else "";
+      nextPostUnpack = if args ? postUnpack then args.postUnpack else "";
 
-    # Cause distPhase to copy tar.bz2 in addition to tar.gz.
-    tarballs = "*.tar.gz *.tar.bz2 *.tar.xz";
+      # Cause distPhase to copy tar.bz2 in addition to tar.gz.
+      tarballs = "*.tar.gz *.tar.bz2 *.tar.xz";
 
-    finalPhase = ''
-      for i in "$out/tarballs/"*; do
-          echo "file source-dist $i" >> $out/nix-support/hydra-build-products
-      done
+      finalPhase = ''
+        for i in "$out/tarballs/"*; do
+            echo "file source-dist $i" >> $out/nix-support/hydra-build-products
+        done
 
-      # Try to figure out the release name.
-      releaseName=$( (cd $out/tarballs && ls) | head -n 1 | sed -e 's^\.[a-z].*^^')
-      test -n "$releaseName" && (echo "$releaseName" >> $out/nix-support/hydra-release-name)
-    '';
+        # Try to figure out the release name.
+        releaseName=$( (cd $out/tarballs && ls) | head -n 1 | sed -e 's^\.[a-z].*^^')
+        test -n "$releaseName" && (echo "$releaseName" >> $out/nix-support/hydra-release-name)
+      '';
 
-    passthru = {
-      inherit src;
-      version = version + versionSuffix;
-    };
+      passthru = {
+        inherit src;
+        version = version + versionSuffix;
+      };
 
-    meta = (if args ? meta then args.meta else { }) // {
-      description = "Source distribution";
+      meta = (if args ? meta then args.meta else { }) // {
+        description = "Source distribution";
 
-      # Tarball builds are generally important, so give them a high
-      # default priority.
-      schedulingPriority = 200;
-    };
-  }
+        # Tarball builds are generally important, so give them a high
+        # default priority.
+        schedulingPriority = 200;
+      };
+    }
 
 )

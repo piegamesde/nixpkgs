@@ -29,5 +29,6 @@ stdenv.mkDerivation (
     '';
     preferLocalBuild = true;
     allowSubstitutes = false;
-  } // args
+  }
+  // args
 )

@@ -212,9 +212,7 @@ in
               config.environment.sessionVariables
           ;
         in
-        selectedSessionVars // {
-          NIX_REMOTE = "daemon";
-        } // cfg.environment
+        selectedSessionVars // { NIX_REMOTE = "daemon"; } // cfg.environment
       ;
 
       path = cfg.packages;

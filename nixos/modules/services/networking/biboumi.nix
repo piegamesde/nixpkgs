@@ -44,7 +44,8 @@ in
                   bool
                 ]
               )
-            )) // {
+            ))
+            // {
               description = "settings option";
             }
           ;

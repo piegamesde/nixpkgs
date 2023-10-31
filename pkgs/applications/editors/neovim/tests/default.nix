@@ -65,13 +65,16 @@ let
   # this plugin checks that it's ftplugin/vim.tex is loaded before $VIMRUNTIME/ftplugin/vim.tex
   # $VIMRUNTIME/ftplugin/vim.tex sources $VIMRUNTIME/ftplugin/initex.vim which sets b:did_ftplugin
   # we save b:did_ftplugin's value in a `plugin_was_loaded_too_late` file
-  texFtplugin = (pkgs.runCommandLocal "tex-ftplugin" { } ''
-    mkdir -p $out/ftplugin
-    echo 'call system("echo ". exists("b:did_ftplugin") . " > plugin_was_loaded_too_late")' >> $out/ftplugin/tex.vim
-    echo ':q!' >> $out/ftplugin/tex.vim
-  '') // {
-    pname = "test-ftplugin";
-  };
+  texFtplugin =
+    (pkgs.runCommandLocal "tex-ftplugin" { } ''
+      mkdir -p $out/ftplugin
+      echo 'call system("echo ". exists("b:did_ftplugin") . " > plugin_was_loaded_too_late")' >> $out/ftplugin/tex.vim
+      echo ':q!' >> $out/ftplugin/tex.vim
+    '')
+    // {
+      pname = "test-ftplugin";
+    }
+  ;
 
   # neovim-drv must be a wrapped neovim
   runTest =

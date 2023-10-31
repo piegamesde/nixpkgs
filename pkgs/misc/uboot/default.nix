@@ -148,9 +148,11 @@ let
               samueldr
               lopsided98
             ];
-          } // extraMeta
+          }
+          // extraMeta
         ;
-      } // removeAttrs args [ "extraMeta" ]
+      }
+      // removeAttrs args [ "extraMeta" ]
     )
   );
 in

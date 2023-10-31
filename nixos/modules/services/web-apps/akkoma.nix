@@ -74,7 +74,8 @@ let
             (attrsOf elixirValue')
             (listOf elixirValue')
           ]
-        ) // {
+        )
+        // {
           description = "Elixir value";
         }
       ;

@@ -93,7 +93,9 @@ let
 
   tesseract =
     (if enableLanguages == [ ] then tesseractBase else tesseractWithData)
-    // passthru // test;
+    // passthru
+    // test
+  ;
 in
 if enableLanguagesHash == null then
   tesseract

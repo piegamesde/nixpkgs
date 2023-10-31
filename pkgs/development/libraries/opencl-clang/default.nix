@@ -11,7 +11,9 @@
 }:
 
 let
-  llvmPkgs = llvmPackages_11 // { inherit spirv-llvm-translator; };
+  llvmPkgs = llvmPackages_11 // {
+    inherit spirv-llvm-translator;
+  };
 
   addPatches =
     component: pkg:

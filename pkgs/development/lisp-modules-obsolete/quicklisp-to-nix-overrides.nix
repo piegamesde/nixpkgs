@@ -25,7 +25,8 @@ in
   stumpwm = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         linkedSystems = [ ];
         preConfigure = ''
           export configureFlags="$configureFlags --with-$NIX_LISP=common-lisp.sh";
@@ -54,7 +55,8 @@ in
     propagatedBuildInputs = [ pkgs.fuse ];
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         configurePhase = ''
           export makeFlags="$makeFlags LISP=common-lisp.sh"
         '';
@@ -80,7 +82,8 @@ in
     ;
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         prePatch = ''
           sed 's|default \"libfixposix\"|default \"${pkgs.libfixposix}/lib/libfixposix\"|' -i src/syscalls/ffi-functions-unix.lisp
           # Socket tests don't work because they try to access the internet
@@ -101,7 +104,8 @@ in
     propagatedBuildInputs = [ pkgs.openssl ];
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         prePatch = ''
           sed 's|libssl.so|${
             pkgs.lib.getLib pkgs.openssl
@@ -127,7 +131,8 @@ in
       ];
       overrides =
         y:
-        (x.overrides y) // {
+        (x.overrides y)
+        // {
           preConfigure =
             ((x.overrides y).preConfigure or "")
             + ''
@@ -151,7 +156,8 @@ in
           ;
           overrides =
             y:
-            (x.overrides y) // {
+            (x.overrides y)
+            // {
               postUnpack = ''
                 sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql.asd"
               '';
@@ -175,7 +181,8 @@ in
           ;
           overrides =
             y:
-            (x.overrides y) // {
+            (x.overrides y)
+            // {
               postUnpack = ''
                 sed -e '1i(cl:push :clsql-cffi cl:*features*)' -i "$sourceRoot/clsql-postgresql-socket.asd"
               '';
@@ -188,7 +195,8 @@ in
   query-fs = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         linkedSystems = [ ];
         postInstall =
           ((x.overrides y).postInstall or "")
@@ -210,7 +218,8 @@ in
     propagatedBuildInputs = [ pkgs.libmysqlclient ];
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         prePatch =
           ((x.overrides y).prePatch or "")
           + ''
@@ -223,7 +232,8 @@ in
   cl-ppcre-template = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         postPatch = ''
           ln -s lib-dependent/*.asd .
         '';
@@ -234,7 +244,8 @@ in
     propagatedBuildInputs = [ pkgs.sqlite ];
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         prePatch =
           ((x.overrides y).preConfigure or "")
           + ''
@@ -247,7 +258,8 @@ in
   swank = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         postPatch = ''
           patch <<EOD
           --- swank-loader.lisp	2017-08-30 16:46:16.554076684 -0700
@@ -283,7 +295,8 @@ in
   uiop = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         postInstall =
           ((x.overrides y).postInstall or "")
           + ''
@@ -360,7 +373,8 @@ in
   split-sequence = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         preConfigure = ''
           sed -i -e '/:components/i:serial t' split-sequence.asd
         '';
@@ -370,7 +384,8 @@ in
   cl-store = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         postPatch = ''
           sed -i -e 's/:initform "Unknown" /:initform #:|Unknown| /' backends.lisp
         '';
@@ -404,7 +419,8 @@ in
   clfswm = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         postInstall = ''
           export NIX_LISP_PRELAUNCH_HOOK="nix_lisp_build_system clfswm '(function clfswm:main)'"
           "$out/bin/clfswm-lisp-launcher.sh"
@@ -425,7 +441,8 @@ in
   cl-syslog = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         postUnpack = ''
           sed -e '1a:serial t' -i $sourceRoot/cl-syslog.asd
         '';
@@ -459,7 +476,8 @@ in
   static-dispatch = x: {
     overrides =
       y:
-      (x.overrides y) // {
+      (x.overrides y)
+      // {
         parasites = [ ];
         # workaround for https://github.com/alex-gutev/static-dispatch/issues/12
         postUnpack = ''

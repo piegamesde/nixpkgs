@@ -90,7 +90,8 @@ let
           ;
           name = cargoDepsName;
           patches = cargoPatches;
-        } // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
+        }
+        // lib.optionalAttrs (args ? cargoHash) { hash = args.cargoHash; }
         // lib.optionalAttrs (args ? cargoSha256) { sha256 = args.cargoSha256; }
         // depsExtraArgs
       )
@@ -125,9 +126,11 @@ stdenv.mkDerivation (
     "depsExtraArgs"
     "cargoUpdateHook"
     "cargoLock"
-  ]) // lib.optionalAttrs useSysroot {
+  ])
+  // lib.optionalAttrs useSysroot {
     RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");
-  } // {
+  }
+  // {
     inherit buildAndTestSubdir cargoDeps;
 
     cargoBuildType = buildType;

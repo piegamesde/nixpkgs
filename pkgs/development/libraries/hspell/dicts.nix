@@ -16,11 +16,16 @@ let
         ;
         buildFlags = [ variant ];
 
-        meta = hspell.meta // {
-          broken = true;
-          description = "${variant} Hebrew dictionary";
-        } // (if a ? meta then a.meta else { });
-      } // (removeAttrs a [ "meta" ])
+        meta =
+          hspell.meta
+          // {
+            broken = true;
+            description = "${variant} Hebrew dictionary";
+          }
+          // (if a ? meta then a.meta else { })
+        ;
+      }
+      // (removeAttrs a [ "meta" ])
     )
   ;
 in

@@ -83,9 +83,11 @@ let
           i:
           nameValuePair "40-${i.name}" {
             matchConfig.OriginalName = i.name;
-            linkConfig = optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
+            linkConfig =
+              optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
               // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; }
-              // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; };
+              // optionalAttrs (i.wakeOnLan.enable == true) { WakeOnLan = "magic"; }
+            ;
           }
         ;
       in
@@ -592,8 +594,10 @@ let
                 echo "Creating new bond ${n}..."
                 ip link add name "${n}" type bond \
                 ${let
-                  opts = (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
-                    // v.driverOptions;
+                  opts =
+                    (mapAttrs (const toString) (bondDeprecation.filterDeprecated v))
+                    // v.driverOptions
+                  ;
                 in
                 concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
                 }
@@ -811,14 +815,16 @@ let
       listToAttrs (
         map configureAddrs interfaces
         ++ map createTunDevice (filter (i: i.virtual) interfaces)
-      ) // mapAttrs' createBridgeDevice cfg.bridges
+      )
+      // mapAttrs' createBridgeDevice cfg.bridges
       // mapAttrs' createVswitchDevice cfg.vswitches
       // mapAttrs' createBondDevice cfg.bonds
       // mapAttrs' createMacvlanDevice cfg.macvlans
       // mapAttrs' createFouEncapsulation cfg.fooOverUDP
       // mapAttrs' createSitDevice cfg.sits
       // mapAttrs' createGreDevice cfg.greTunnels
-      // mapAttrs' createVlanDevice cfg.vlans // {
+      // mapAttrs' createVlanDevice cfg.vlans
+      // {
         network-setup = networkSetup;
         network-local-commands = networkLocalCommands;
       }

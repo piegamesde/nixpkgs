@@ -112,7 +112,9 @@ in
             '';
 
             outputHashMode = "recursive";
-          } // hash_ // (removeAttrs args [
+          }
+          // hash_
+          // (removeAttrs args [
             "src"
             "name"
             "hash"
@@ -121,7 +123,8 @@ in
         )
       ;
     in
-    lib.setFunctionArgs f (lib.functionArgs f) // {
+    lib.setFunctionArgs f (lib.functionArgs f)
+    // {
       tests = callPackage ./tests { };
     }
   ;

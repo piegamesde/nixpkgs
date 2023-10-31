@@ -11,7 +11,8 @@
 with lib;
 
 buildLinux (
-  args // rec {
+  args
+  // rec {
     version = "4.19.282";
 
     # modDirVersion needs to be x.y.z, will automatically add .0 if needed
@@ -24,5 +25,6 @@ buildLinux (
       url = "mirror://kernel/linux/kernel/v4.x/linux-${version}.tar.xz";
       sha256 = "02z20879xl4ya957by1p35vi1a7myzxwiqd9cnvm541sgnci99a3";
     };
-  } // (args.argsOverride or { })
+  }
+  // (args.argsOverride or { })
 )

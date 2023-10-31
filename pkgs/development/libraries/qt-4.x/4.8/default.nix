@@ -160,7 +160,8 @@ stdenv.mkDerivation rec {
           src = ./dlopen-gtkstyle.diff;
           # substituteAll ignores env vars starting with capital letter
           gtk = gtk2.out;
-        } // lib.optionalAttrs gnomeStyle {
+        }
+        // lib.optionalAttrs gnomeStyle {
           gconf = GConf.out;
           libgnomeui = libgnomeui.out;
           gnome_vfs = gnome_vfs.out;

@@ -78,10 +78,12 @@ in
     );
 
     enableSeparateMonitoringService =
-      mkEnableOption (lib.mdDoc "the uptime monitoring service") // {
+      mkEnableOption (lib.mdDoc "the uptime monitoring service")
+      // {
         default = cfg.enableWebService;
         defaultText = literalExpression "config.${opt.enableWebService}";
-      };
+      }
+    ;
 
     nodeEnv = mkOption {
       description =

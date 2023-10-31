@@ -226,7 +226,8 @@ let
     trakt = callPackage ../applications/video/kodi/addons/trakt { };
   };
 in
-self // lib.optionalAttrs config.allowAliases {
+self
+// lib.optionalAttrs config.allowAliases {
   # deprecated or renamed packages
 
   controllers =

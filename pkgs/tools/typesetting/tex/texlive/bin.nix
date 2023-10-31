@@ -706,48 +706,49 @@ rec {
   };
 } # un-indented
 
-// lib.optionalAttrs (!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
-  {
+//
+  lib.optionalAttrs (!clisp.meta.broken) # broken on aarch64 and darwin (#20062)
+    {
 
-    xindy = stdenv.mkDerivation {
-      pname = "texlive-xindy.bin";
-      inherit version;
+      xindy = stdenv.mkDerivation {
+        pname = "texlive-xindy.bin";
+        inherit version;
 
-      inherit (common) src;
+        inherit (common) src;
 
-      # If unset, xindy will try to mkdir /homeless-shelter
-      HOME = ".";
+        # If unset, xindy will try to mkdir /homeless-shelter
+        HOME = ".";
 
-      prePatch = "cd utils/xindy";
-      # hardcode clisp location
-      postPatch = ''
-        substituteInPlace xindy-*/user-commands/xindy.in \
-          --replace "our \$clisp = ( \$is_windows ? 'clisp.exe' : 'clisp' ) ;" \
-                    "our \$clisp = '$(type -P clisp)';"
-      '';
+        prePatch = "cd utils/xindy";
+        # hardcode clisp location
+        postPatch = ''
+          substituteInPlace xindy-*/user-commands/xindy.in \
+            --replace "our \$clisp = ( \$is_windows ? 'clisp.exe' : 'clisp' ) ;" \
+                      "our \$clisp = '$(type -P clisp)';"
+        '';
 
-      nativeBuildInputs = [
-        pkg-config
-        perl
-        (texlive.combine { inherit (texlive) scheme-basic cyrillic ec; })
-      ];
-      buildInputs = [
-        clisp
-        libiconv
-        perl
-      ];
+        nativeBuildInputs = [
+          pkg-config
+          perl
+          (texlive.combine { inherit (texlive) scheme-basic cyrillic ec; })
+        ];
+        buildInputs = [
+          clisp
+          libiconv
+          perl
+        ];
 
-      configureFlags = [
-        "--with-clisp-runtime=system"
-        "--disable-xindy-docs"
-      ];
+        configureFlags = [
+          "--with-clisp-runtime=system"
+          "--disable-xindy-docs"
+        ];
 
-      preInstall = ''mkdir -p "$out/bin" '';
-      # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
-      postInstall = ''
-        mkdir -p "$out/lib/xindy"
-        mv "$out"/{bin/xindy.mem,lib/xindy/}
-        ln -s ../../share/texmf-dist/xindy/modules "$out/lib/xindy/"
-      '';
-    };
-  }
+        preInstall = ''mkdir -p "$out/bin" '';
+        # fixup various file-location errors of: lib/xindy/{xindy.mem,modules/}
+        postInstall = ''
+          mkdir -p "$out/lib/xindy"
+          mv "$out"/{bin/xindy.mem,lib/xindy/}
+          ln -s ../../share/texmf-dist/xindy/modules "$out/lib/xindy/"
+        '';
+      };
+    }

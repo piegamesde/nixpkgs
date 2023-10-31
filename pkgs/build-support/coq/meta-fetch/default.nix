@@ -105,7 +105,9 @@ switch arg
         let
           given-sha256 = release.${v}.sha256 or "";
           sha256 = if given-sha256 == "" then lib.fakeSha256 else given-sha256;
-          rv = release.${v} // { inherit sha256; };
+          rv = release.${v} // {
+            inherit sha256;
+          };
         in
         {
           version = rv.version or v;
@@ -125,9 +127,11 @@ switch arg
         {
           inherit version;
           src = fetcher (
-            location // {
+            location
+            // {
               inherit rev;
-            } // (optionalAttrs has-owner { owner = head splitted; })
+            }
+            // (optionalAttrs has-owner { owner = head splitted; })
           );
         }
       ;

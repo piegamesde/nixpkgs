@@ -46,60 +46,63 @@ let
     name:
     types.submodule {
       freeformType = types.attrsOf settingsFormat.type;
-      options = {
-        type = mkOption {
-          type = types.enum [
-            "hwmon"
-            "atasmart"
-            "tpacpi"
-            "nvml"
-          ];
-          description = lib.mdDoc ''
-            The ${name} type, can be
-            `hwmon` for standard ${name}s,
+      options =
+        {
+          type = mkOption {
+            type = types.enum [
+              "hwmon"
+              "atasmart"
+              "tpacpi"
+              "nvml"
+            ];
+            description = lib.mdDoc ''
+              The ${name} type, can be
+              `hwmon` for standard ${name}s,
 
-            `atasmart` to read the temperature via
-            S.M.A.R.T (requires smartSupport to be enabled),
+              `atasmart` to read the temperature via
+              S.M.A.R.T (requires smartSupport to be enabled),
 
-            `tpacpi` for the legacy thinkpac_acpi driver, or
+              `tpacpi` for the legacy thinkpac_acpi driver, or
 
-            `nvml` for the (proprietary) nVidia driver.
-          '';
-        };
-        query = mkOption {
-          type = types.str;
-          description = lib.mdDoc ''
-            The query string used to match one or more ${name}s: can be
-            a fullpath to the temperature file (single ${name}) or a fullpath
-            to a driver directory (multiple ${name}s).
+              `nvml` for the (proprietary) nVidia driver.
+            '';
+          };
+          query = mkOption {
+            type = types.str;
+            description = lib.mdDoc ''
+              The query string used to match one or more ${name}s: can be
+              a fullpath to the temperature file (single ${name}) or a fullpath
+              to a driver directory (multiple ${name}s).
 
-            ::: {.note}
-            When multiple ${name}s match, the query can be restricted using the
-            {option}`name` or {option}`indices` options.
-            :::
-          '';
-        };
-        indices = mkOption {
-          type = with types; nullOr (listOf ints.unsigned);
-          default = null;
-          description = lib.mdDoc ''
-            A list of ${name}s to pick in case multiple ${name}s match the query.
+              ::: {.note}
+              When multiple ${name}s match, the query can be restricted using the
+              {option}`name` or {option}`indices` options.
+              :::
+            '';
+          };
+          indices = mkOption {
+            type = with types; nullOr (listOf ints.unsigned);
+            default = null;
+            description = lib.mdDoc ''
+              A list of ${name}s to pick in case multiple ${name}s match the query.
 
-            ::: {.note}
-            Indices start from 0.
-            :::
-          '';
-        };
-      } // optionalAttrs (name == "sensor") {
-        correction = mkOption {
-          type = with types; nullOr (listOf int);
-          default = null;
-          description = lib.mdDoc ''
-            A list of values to be added to the temperature of each sensor,
-            can be used to equalize small discrepancies in temperature ratings.
-          '';
-        };
-      };
+              ::: {.note}
+              Indices start from 0.
+              :::
+            '';
+          };
+        }
+        // optionalAttrs (name == "sensor") {
+          correction = mkOption {
+            type = with types; nullOr (listOf int);
+            default = null;
+            description = lib.mdDoc ''
+              A list of values to be added to the temperature of each sensor,
+              can be used to equalize small discrepancies in temperature ratings.
+            '';
+          };
+        }
+      ;
     }
   ;
 
@@ -120,7 +123,8 @@ let
         ])
       )
       args
-    ) // {
+    )
+    // {
       "${type}" = query;
     }
   ;

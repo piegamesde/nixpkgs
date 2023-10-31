@@ -187,12 +187,15 @@ let
     }
   ;
 
-  pjproject_2_13 = fetchurl {
-    url = "https://raw.githubusercontent.com/asterisk/third-party/master/pjproject/2.13/pjproject-2.13.tar.bz2";
-    hash = "sha256-Zj93PUAct13KVR5taOWEbQdKq76wicaBTNHpHC0rICY=";
-  } // {
-    pjsip_patches = pjsip_2_13_patches;
-  };
+  pjproject_2_13 =
+    fetchurl {
+      url = "https://raw.githubusercontent.com/asterisk/third-party/master/pjproject/2.13/pjproject-2.13.tar.bz2";
+      hash = "sha256-Zj93PUAct13KVR5taOWEbQdKq76wicaBTNHpHC0rICY=";
+    }
+    // {
+      pjsip_patches = pjsip_2_13_patches;
+    }
+  ;
 
   mp3-202 = fetchsvn {
     url = "http://svn.digium.com/svn/thirdparty/mp3/trunk";
@@ -260,6 +263,11 @@ in
   asterisk-lts = versions.asterisk_18;
   asterisk-stable = versions.asterisk_20;
   asterisk = versions.asterisk_20.overrideAttrs (
-    o: { passthru = (o.passthru or { }) // { inherit updateScript; }; }
+    o: {
+      passthru = (o.passthru or { }) // {
+        inherit updateScript;
+      };
+    }
   );
-} // versions
+}
+// versions

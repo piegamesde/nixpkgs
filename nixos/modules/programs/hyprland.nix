@@ -46,7 +46,9 @@ in
     };
 
     xwayland = {
-      enable = mkEnableOption (mdDoc "XWayland") // { default = true; };
+      enable = mkEnableOption (mdDoc "XWayland") // {
+        default = true;
+      };
       hidpi = mkEnableOption null // {
         description = mdDoc ''
           Enable HiDPI XWayland, based on [XWayland MR 733](https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/733).

@@ -16,7 +16,8 @@ buildNimPackage rec {
   doCheck = true;
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Concise Binary Object Representation decoder and encoder (RFC8949)";
       license = licenses.unlicense;
       maintainers = [ maintainers.ehmry ];

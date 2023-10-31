@@ -19,7 +19,8 @@ lib.makeExtensible (
 
     withPlugins =
       selector:
-      self // {
+      self
+      // {
         wayfire = wrapWayfireApplication wayfire selector;
         wcm = wrapWayfireApplication wcm selector;
       }

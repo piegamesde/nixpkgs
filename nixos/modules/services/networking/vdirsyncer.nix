@@ -26,27 +26,34 @@ let
       pkgs.writeText "vdirsyncer-${name}.conf" (
         toIniJson (
           {
-            general = cfg'.config.general
+            general =
+              cfg'.config.general
               // (lib.optionalAttrs (cfg'.config.statusPath == null) {
                 status_path = "/var/lib/vdirsyncer/${name}";
-              });
-          } // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
+              })
+            ;
+          }
+          // (mapAttrs' (name: nameValuePair "pair ${name}") cfg'.config.pairs)
           // (mapAttrs' (name: nameValuePair "storage ${name}") cfg'.config.storages)
         )
       )
   ;
 
   userUnitConfig = name: cfg': {
-    serviceConfig = {
-      User = if cfg'.user == null then "vdirsyncer" else cfg'.user;
-      Group = if cfg'.group == null then "vdirsyncer" else cfg'.group;
-    } // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
+    serviceConfig =
+      {
+        User = if cfg'.user == null then "vdirsyncer" else cfg'.user;
+        Group = if cfg'.group == null then "vdirsyncer" else cfg'.group;
+      }
+      // (optionalAttrs (cfg'.user == null) { DynamicUser = true; })
       // (optionalAttrs (cfg'.additionalGroups != [ ]) {
         SupplementaryGroups = cfg'.additionalGroups;
-      }) // (optionalAttrs (cfg'.config.statusPath == null) {
+      })
+      // (optionalAttrs (cfg'.config.statusPath == null) {
         StateDirectory = "vdirsyncer/${name}";
         StateDirectoryMode = "0700";
-      });
+      })
+    ;
   };
 
   commonUnitConfig = {

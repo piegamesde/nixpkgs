@@ -17,7 +17,8 @@
 }@args:
 
 callPackage ./generic.nix (
-  args // rec {
+  args
+  // rec {
     inherit (officeVersion) version edition;
 
     pname = "softmaker-office";

@@ -45,7 +45,8 @@ let
         {
           qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
           qemuFlags = "-m 768";
-        } // extraConfig
+        }
+        // extraConfig
       );
     in
     makeTest {
@@ -91,7 +92,8 @@ let
           qemuBinary = qemu-common.qemuBinary pkgs.qemu_test;
           qemuFlags = "-boot order=n -m 2000";
           netBackendArgs = "tftp=${ipxeBootDir},bootfile=netboot.ipxe";
-        } // extraConfig
+        }
+        // extraConfig
       );
     in
     makeTest {
@@ -128,7 +130,8 @@ in
     # Custom ROM is needed for EFI PXE boot. I failed to understand exactly why, because QEMU should still use iPXE for EFI.
     netFrontendArgs = "romfile=${pkgs.ipxe}/ipxe.efirom";
   };
-} // optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
+}
+// optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
   biosCdrom = makeBootTest "bios-cdrom" { cdrom = "${iso}/iso/${iso.isoName}"; };
 
   biosUsb = makeBootTest "bios-usb" { usb = "${iso}/iso/${iso.isoName}"; };

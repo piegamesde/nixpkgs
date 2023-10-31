@@ -71,5 +71,6 @@ import ./generic.nix (
         SuperSandro2000
       ];
     };
-  } // args
+  }
+  // args
 )

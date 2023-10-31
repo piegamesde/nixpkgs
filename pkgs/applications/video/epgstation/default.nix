@@ -26,7 +26,9 @@ let
       # dependencies are pruned afterwards.
       production = false;
 
-      meta = drv.meta // { inherit (nodejs.meta) platforms; };
+      meta = drv.meta // {
+        inherit (nodejs.meta) platforms;
+      };
     }
   );
 
@@ -119,16 +121,20 @@ let
       # the rest of nixpkgs while still allowing us to heavily customize the
       # build. It also allows us to provide devDependencies for the epgstation
       # build process without doing the same for all the other node packages.
-      meta = drv.meta // { inherit (nodejs.meta) platforms; };
+      meta = drv.meta // {
+        inherit (nodejs.meta) platforms;
+      };
     }
   );
 in
-server // {
+server
+// {
   name = "${pname}-${version}";
 
   meta =
     with lib;
-    server.meta // {
+    server.meta
+    // {
       maintainers = with maintainers; [ midchildan ];
 
       # NOTE: updateScript relies on this being correct

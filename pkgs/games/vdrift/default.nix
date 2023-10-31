@@ -75,7 +75,9 @@ in
   (
     _: {
       name = wrappedName;
-      meta = bin.meta // { hydraPlatforms = [ ]; };
+      meta = bin.meta // {
+        hydraPlatforms = [ ];
+      };
       unwrapped = bin;
       inherit bin data;
     }

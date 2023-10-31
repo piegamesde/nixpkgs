@@ -41,7 +41,8 @@ rec {
     f: drv:
     (drv.override (
       args: args // { mkDerivation = drv: (args.mkDerivation drv).override f; }
-    )) // {
+    ))
+    // {
       overrideScope = scope: overrideCabal f (drv.overrideScope scope);
     }
   ;

@@ -45,7 +45,8 @@ let
         '';
         description = mdDoc "Environment variables passed to ${name}.";
       };
-    } // extraOpts
+    }
+    // extraOpts
   ;
   # generic hbase role configs
   hbaseRoleConfig =
@@ -150,70 +151,73 @@ in
       '';
     };
 
-    hbase = {
+    hbase =
+      {
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.hbase;
-        defaultText = literalExpression "pkgs.hbase";
-        description = mdDoc "HBase package";
-      };
-
-      rootdir = mkOption {
-        description = mdDoc ''
-          This option will set "hbase.rootdir" in hbase-site.xml and determine
-          the directory shared by region servers and into which HBase persists.
-          The URL should be 'fully-qualified' to include the filesystem scheme.
-          If a core-site.xml is provided, the FS scheme defaults to the value
-          of "fs.defaultFS".
-
-          Filesystems other than HDFS (like S3, QFS, Swift) are also supported.
-        '';
-        type = types.str;
-        example = "hdfs://nameservice1/hbase";
-        default = "/hbase";
-      };
-      zookeeperQuorum = mkOption {
-        description = mdDoc ''
-          This option will set "hbase.zookeeper.quorum" in hbase-site.xml.
-          Comma separated list of servers in the ZooKeeper ensemble.
-        '';
-        type = with types; nullOr commas;
-        example = "zk1.internal,zk2.internal,zk3.internal";
-        default = null;
-      };
-    } // (
-      let
-        ports = port: infoPort: {
-          port = mkOption {
-            type = types.int;
-            default = port;
-            description = mdDoc "RPC port";
-          };
-          infoPort = mkOption {
-            type = types.int;
-            default = infoPort;
-            description = mdDoc "web UI port";
-          };
+        package = mkOption {
+          type = types.package;
+          default = pkgs.hbase;
+          defaultText = literalExpression "pkgs.hbase";
+          description = mdDoc "HBase package";
         };
-      in
-      mapAttrs hbaseRoleOption {
-        master.initHDFS = mkEnableOption (
-          mdDoc "initialization of the hbase directory on HDFS"
-        );
-        regionServer.overrideHosts = mkOption {
-          type = types.bool;
-          default = true;
+
+        rootdir = mkOption {
           description = mdDoc ''
-            Remove /etc/hosts entries for "127.0.0.2" and "::1" defined in nixos/modules/config/networking.nix
-            Regionservers must be able to resolve their hostnames to their IP addresses, through PTR records
-            or /etc/hosts entries.
+            This option will set "hbase.rootdir" in hbase-site.xml and determine
+            the directory shared by region servers and into which HBase persists.
+            The URL should be 'fully-qualified' to include the filesystem scheme.
+            If a core-site.xml is provided, the FS scheme defaults to the value
+            of "fs.defaultFS".
+
+            Filesystems other than HDFS (like S3, QFS, Swift) are also supported.
           '';
+          type = types.str;
+          example = "hdfs://nameservice1/hbase";
+          default = "/hbase";
         };
-        thrift = ports 9090 9095;
-        rest = ports 8080 8085;
+        zookeeperQuorum = mkOption {
+          description = mdDoc ''
+            This option will set "hbase.zookeeper.quorum" in hbase-site.xml.
+            Comma separated list of servers in the ZooKeeper ensemble.
+          '';
+          type = with types; nullOr commas;
+          example = "zk1.internal,zk2.internal,zk3.internal";
+          default = null;
+        };
       }
-    );
+      // (
+        let
+          ports = port: infoPort: {
+            port = mkOption {
+              type = types.int;
+              default = port;
+              description = mdDoc "RPC port";
+            };
+            infoPort = mkOption {
+              type = types.int;
+              default = infoPort;
+              description = mdDoc "web UI port";
+            };
+          };
+        in
+        mapAttrs hbaseRoleOption {
+          master.initHDFS = mkEnableOption (
+            mdDoc "initialization of the hbase directory on HDFS"
+          );
+          regionServer.overrideHosts = mkOption {
+            type = types.bool;
+            default = true;
+            description = mdDoc ''
+              Remove /etc/hosts entries for "127.0.0.2" and "::1" defined in nixos/modules/config/networking.nix
+              Regionservers must be able to resolve their hostnames to their IP addresses, through PTR records
+              or /etc/hosts entries.
+            '';
+          };
+          thrift = ports 9090 9095;
+          rest = ports 8080 8085;
+        }
+      )
+    ;
   };
 
   config = mkMerge (

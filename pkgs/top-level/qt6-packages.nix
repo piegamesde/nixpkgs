@@ -30,7 +30,8 @@
   in
 
   (
-    qt6 // {
+    qt6
+    // {
       inherit stdenv;
 
       # LIBRARIES

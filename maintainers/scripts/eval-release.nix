@@ -27,15 +27,17 @@ let
       else
         {
           recurseForDerivations = true;
-        } // mapAttrs
-          (
-            n: v:
-            let
-              path' = path ++ [ n ];
-            in
-            trace path' (recurse path' v)
-          )
-          attrs
+        }
+        //
+          mapAttrs
+            (
+              n: v:
+              let
+                path' = path ++ [ n ];
+              in
+              trace path' (recurse path' v)
+            )
+            attrs
     else
       { }
   ;

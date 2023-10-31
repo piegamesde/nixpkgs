@@ -15,21 +15,25 @@ let
   kdeConfigurationType =
     with types;
     let
-      valueTypes = (oneOf [
-        bool
-        float
-        int
-        str
-      ]) // {
-        description = "KDE Configuration value";
-        emptyValue.value = "";
-      };
+      valueTypes =
+        (oneOf [
+          bool
+          float
+          int
+          str
+        ])
+        // {
+          description = "KDE Configuration value";
+          emptyValue.value = "";
+        }
+      ;
       set = (nullOr (lazyAttrsOf valueTypes)) // {
         description = "KDE Configuration set";
         emptyValue.value = { };
       };
     in
-    (lazyAttrsOf set) // {
+    (lazyAttrsOf set)
+    // {
       description = "KDE Configuration file";
       emptyValue.value = { };
     }

@@ -51,7 +51,9 @@ in
   ###### interface
 
   options.console = {
-    enable = mkEnableOption (lib.mdDoc "virtual console") // { default = true; };
+    enable = mkEnableOption (lib.mdDoc "virtual console") // {
+      default = true;
+    };
 
     font = mkOption {
       type = with types; nullOr (either str path);

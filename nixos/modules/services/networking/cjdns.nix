@@ -69,7 +69,8 @@ let
 
   parseModules =
     x:
-    x // {
+    x
+    // {
       connectTo =
         mapAttrs (name: value: { inherit (value) password publicKey; })
           x.connectTo

@@ -365,56 +365,59 @@ in
 
   config = mkIf cfg.enable {
 
-    services.mailman.settings = {
-      mailman.site_owner = lib.mkDefault cfg.siteOwner;
-      mailman.layout = "fhs";
+    services.mailman.settings =
+      {
+        mailman.site_owner = lib.mkDefault cfg.siteOwner;
+        mailman.layout = "fhs";
 
-      "paths.fhs" = {
-        bin_dir = "${pkgs.mailmanPackages.mailman}/bin";
-        var_dir = "/var/lib/mailman";
-        queue_dir = "$var_dir/queue";
-        template_dir = "$var_dir/templates";
-        log_dir = "/var/log/mailman";
-        lock_dir = "$var_dir/lock";
-        etc_dir = "/etc";
-        pid_file = "/run/mailman/master.pid";
-      };
+        "paths.fhs" = {
+          bin_dir = "${pkgs.mailmanPackages.mailman}/bin";
+          var_dir = "/var/lib/mailman";
+          queue_dir = "$var_dir/queue";
+          template_dir = "$var_dir/templates";
+          log_dir = "/var/log/mailman";
+          lock_dir = "$var_dir/lock";
+          etc_dir = "/etc";
+          pid_file = "/run/mailman/master.pid";
+        };
 
-      mta.configuration = lib.mkDefault (
-        if cfg.enablePostfix then
-          "${postfixMtaConfig}"
-        else
-          throw
-            "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
-      );
+        mta.configuration = lib.mkDefault (
+          if cfg.enablePostfix then
+            "${postfixMtaConfig}"
+          else
+            throw
+              "When Mailman Postfix integration is disabled, set `services.mailman.settings.mta.configuration` to the path of the config file required to integrate with your MTA."
+        );
 
-      "archiver.hyperkitty" = lib.mkIf cfg.hyperkitty.enable {
-        class = "mailman_hyperkitty.Archiver";
-        enable = "yes";
-        configuration = "/var/lib/mailman/mailman-hyperkitty.cfg";
-      };
-    } // (
-      let
-        loggerNames = [
-          "root"
-          "archiver"
-          "bounce"
-          "config"
-          "database"
-          "debug"
-          "error"
-          "fromusenet"
-          "http"
-          "locks"
-          "mischief"
-          "plugins"
-          "runner"
-          "smtp"
-        ];
-        loggerSectionNames = map (n: "logging.${n}") loggerNames;
-      in
-      lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
-    );
+        "archiver.hyperkitty" = lib.mkIf cfg.hyperkitty.enable {
+          class = "mailman_hyperkitty.Archiver";
+          enable = "yes";
+          configuration = "/var/lib/mailman/mailman-hyperkitty.cfg";
+        };
+      }
+      // (
+        let
+          loggerNames = [
+            "root"
+            "archiver"
+            "bounce"
+            "config"
+            "database"
+            "debug"
+            "error"
+            "fromusenet"
+            "http"
+            "locks"
+            "mischief"
+            "plugins"
+            "runner"
+            "smtp"
+          ];
+          loggerSectionNames = map (n: "logging.${n}") loggerNames;
+        in
+        lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
+      )
+    ;
 
     assertions =
       let
@@ -590,180 +593,185 @@ in
       before = [ "nginx.service" ];
       socketConfig.ListenStream = "/run/mailman-web.socket";
     };
-    systemd.services = {
-      mailman = {
-        description = "GNU Mailman Master Process";
-        before = lib.optional cfg.enablePostfix "postfix.service";
-        after =
-          [ "network.target" ]
-          ++ lib.optional cfg.enablePostfix "postfix-setup.service"
-          ++ lib.optional withPostgresql "postgresql.service"
-        ;
-        restartTriggers = [ mailmanCfgFile ];
-        requires = optional withPostgresql "postgresql.service";
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          ExecStart = "${mailmanEnv}/bin/mailman start";
-          ExecStop = "${mailmanEnv}/bin/mailman stop";
-          User = "mailman";
-          Group = "mailman";
-          Type = "forking";
-          RuntimeDirectory = "mailman";
-          LogsDirectory = "mailman";
-          PIDFile = "/run/mailman/master.pid";
-        };
-      };
-
-      mailman-settings = {
-        description = "Generate settings files (including secrets) for Mailman";
-        before = [
-          "mailman.service"
-          "mailman-web-setup.service"
-          "mailman-uwsgi.service"
-          "hyperkitty.service"
-        ];
-        requiredBy = [
-          "mailman.service"
-          "mailman-web-setup.service"
-          "mailman-uwsgi.service"
-          "hyperkitty.service"
-        ];
-        path = with pkgs; [ jq ];
-        after = optional withPostgresql "postgresql.service";
-        requires = optional withPostgresql "postgresql.service";
-        serviceConfig.Type = "oneshot";
-        script = ''
-          install -m0750 -o mailman -g mailman ${mailmanCfgFile} /etc/mailman.cfg
-          ${optionalString (cfg.restApiPassFile != null) ''
-            ${pkgs.replace-secret}/bin/replace-secret \
-              '#NIXOS_MAILMAN_REST_API_PASS_SECRET#' \
-              ${cfg.restApiPassFile} \
-              /etc/mailman.cfg
-          ''}
-
-          mailmanDir=/var/lib/mailman
-          mailmanWebDir=/var/lib/mailman-web
-
-          mailmanCfg=$mailmanDir/mailman-hyperkitty.cfg
-          mailmanWebCfg=$mailmanWebDir/settings_local.json
-
-          install -m 0775 -o mailman -g mailman -d /var/lib/mailman-web-static
-          install -m 0770 -o mailman -g mailman -d $mailmanDir
-          install -m 0770 -o ${cfg.webUser} -g mailman -d $mailmanWebDir
-
-          if [ ! -e $mailmanWebCfg ]; then
-              hyperkittyApiKey=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 64)
-              secretKey=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 64)
-
-              mailmanWebCfgTmp=$(mktemp)
-              jq -n '.MAILMAN_ARCHIVER_KEY=$archiver_key | .SECRET_KEY=$secret_key' \
-                  --arg archiver_key "$hyperkittyApiKey" \
-                  --arg secret_key "$secretKey" \
-                  >"$mailmanWebCfgTmp"
-              chown root:mailman "$mailmanWebCfgTmp"
-              chmod 440 "$mailmanWebCfgTmp"
-              mv -n "$mailmanWebCfgTmp" "$mailmanWebCfg"
-          fi
-
-          hyperkittyApiKey="$(jq -r .MAILMAN_ARCHIVER_KEY "$mailmanWebCfg")"
-          mailmanCfgTmp=$(mktemp)
-          sed "s/@API_KEY@/$hyperkittyApiKey/g" ${mailmanHyperkittyCfg} >"$mailmanCfgTmp"
-          chown mailman:mailman "$mailmanCfgTmp"
-          mv "$mailmanCfgTmp" "$mailmanCfg"
-        '';
-      };
-
-      mailman-web-setup = {
-        description = "Prepare mailman-web files and database";
-        before = [ "mailman-uwsgi.service" ];
-        requiredBy = [ "mailman-uwsgi.service" ];
-        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
-        script = ''
-          [[ -e "${webSettings.STATIC_ROOT}" ]] && find "${webSettings.STATIC_ROOT}/" -mindepth 1 -delete
-          ${webEnv}/bin/mailman-web migrate
-          ${webEnv}/bin/mailman-web collectstatic
-          ${webEnv}/bin/mailman-web compress
-        '';
-        serviceConfig = {
-          User = cfg.webUser;
-          Group = "mailman";
-          Type = "oneshot";
-          WorkingDirectory = "/var/lib/mailman-web";
-        };
-      };
-
-      mailman-uwsgi = mkIf cfg.serve.enable (
-        let
-          uwsgiConfig.uwsgi = {
-            type = "normal";
-            plugins = [ "python3" ];
-            home = webEnv;
-            http = "127.0.0.1:18507";
-          } // (
-            if cfg.serve.virtualRoot == "/" then
-              { module = "mailman_web.wsgi:application"; }
-            else
-              {
-                mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";
-                manage-script-name = true;
-              }
-          );
-          uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
-            builtins.toJSON uwsgiConfig
-          );
-        in
-        {
-          wantedBy = [ "multi-user.target" ];
-          after = optional withPostgresql "postgresql.service";
-          requires =
-            [
-              "mailman-uwsgi.socket"
-              "mailman-web-setup.service"
-            ]
-            ++ optional withPostgresql "postgresql.service"
+    systemd.services =
+      {
+        mailman = {
+          description = "GNU Mailman Master Process";
+          before = lib.optional cfg.enablePostfix "postfix.service";
+          after =
+            [ "network.target" ]
+            ++ lib.optional cfg.enablePostfix "postfix-setup.service"
+            ++ lib.optional withPostgresql "postgresql.service"
           ;
-          restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+          restartTriggers = [ mailmanCfgFile ];
+          requires = optional withPostgresql "postgresql.service";
+          wantedBy = [ "multi-user.target" ];
           serviceConfig = {
-            # Since the mailman-web settings.py obstinately creates a logs
-            # dir in the cwd, change to the (writable) runtime directory before
-            # starting uwsgi.
-            ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
-                pkgs.uwsgi.override { plugins = [ "python3" ]; }
-              }/bin/uwsgi --json ${uwsgiConfigFile}";
+            ExecStart = "${mailmanEnv}/bin/mailman start";
+            ExecStop = "${mailmanEnv}/bin/mailman stop";
+            User = "mailman";
+            Group = "mailman";
+            Type = "forking";
+            RuntimeDirectory = "mailman";
+            LogsDirectory = "mailman";
+            PIDFile = "/run/mailman/master.pid";
+          };
+        };
+
+        mailman-settings = {
+          description = "Generate settings files (including secrets) for Mailman";
+          before = [
+            "mailman.service"
+            "mailman-web-setup.service"
+            "mailman-uwsgi.service"
+            "hyperkitty.service"
+          ];
+          requiredBy = [
+            "mailman.service"
+            "mailman-web-setup.service"
+            "mailman-uwsgi.service"
+            "hyperkitty.service"
+          ];
+          path = with pkgs; [ jq ];
+          after = optional withPostgresql "postgresql.service";
+          requires = optional withPostgresql "postgresql.service";
+          serviceConfig.Type = "oneshot";
+          script = ''
+            install -m0750 -o mailman -g mailman ${mailmanCfgFile} /etc/mailman.cfg
+            ${optionalString (cfg.restApiPassFile != null) ''
+              ${pkgs.replace-secret}/bin/replace-secret \
+                '#NIXOS_MAILMAN_REST_API_PASS_SECRET#' \
+                ${cfg.restApiPassFile} \
+                /etc/mailman.cfg
+            ''}
+
+            mailmanDir=/var/lib/mailman
+            mailmanWebDir=/var/lib/mailman-web
+
+            mailmanCfg=$mailmanDir/mailman-hyperkitty.cfg
+            mailmanWebCfg=$mailmanWebDir/settings_local.json
+
+            install -m 0775 -o mailman -g mailman -d /var/lib/mailman-web-static
+            install -m 0770 -o mailman -g mailman -d $mailmanDir
+            install -m 0770 -o ${cfg.webUser} -g mailman -d $mailmanWebDir
+
+            if [ ! -e $mailmanWebCfg ]; then
+                hyperkittyApiKey=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 64)
+                secretKey=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 64)
+
+                mailmanWebCfgTmp=$(mktemp)
+                jq -n '.MAILMAN_ARCHIVER_KEY=$archiver_key | .SECRET_KEY=$secret_key' \
+                    --arg archiver_key "$hyperkittyApiKey" \
+                    --arg secret_key "$secretKey" \
+                    >"$mailmanWebCfgTmp"
+                chown root:mailman "$mailmanWebCfgTmp"
+                chmod 440 "$mailmanWebCfgTmp"
+                mv -n "$mailmanWebCfgTmp" "$mailmanWebCfg"
+            fi
+
+            hyperkittyApiKey="$(jq -r .MAILMAN_ARCHIVER_KEY "$mailmanWebCfg")"
+            mailmanCfgTmp=$(mktemp)
+            sed "s/@API_KEY@/$hyperkittyApiKey/g" ${mailmanHyperkittyCfg} >"$mailmanCfgTmp"
+            chown mailman:mailman "$mailmanCfgTmp"
+            mv "$mailmanCfgTmp" "$mailmanCfg"
+          '';
+        };
+
+        mailman-web-setup = {
+          description = "Prepare mailman-web files and database";
+          before = [ "mailman-uwsgi.service" ];
+          requiredBy = [ "mailman-uwsgi.service" ];
+          restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+          script = ''
+            [[ -e "${webSettings.STATIC_ROOT}" ]] && find "${webSettings.STATIC_ROOT}/" -mindepth 1 -delete
+            ${webEnv}/bin/mailman-web migrate
+            ${webEnv}/bin/mailman-web collectstatic
+            ${webEnv}/bin/mailman-web compress
+          '';
+          serviceConfig = {
             User = cfg.webUser;
             Group = "mailman";
-            RuntimeDirectory = "mailman-uwsgi";
+            Type = "oneshot";
+            WorkingDirectory = "/var/lib/mailman-web";
           };
-        }
-      );
-
-      mailman-daily = {
-        description = "Trigger daily Mailman events";
-        startAt = "daily";
-        restartTriggers = [ mailmanCfgFile ];
-        serviceConfig = {
-          ExecStart = "${mailmanEnv}/bin/mailman digests --send";
-          User = "mailman";
-          Group = "mailman";
         };
-      };
 
-      hyperkitty = lib.mkIf cfg.hyperkitty.enable {
-        description = "GNU Hyperkitty QCluster Process";
-        after = [ "network.target" ];
-        restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
-        wantedBy = [
-          "mailman.service"
-          "multi-user.target"
-        ];
-        serviceConfig = {
-          ExecStart = "${webEnv}/bin/mailman-web qcluster";
-          User = cfg.webUser;
-          Group = "mailman";
-          WorkingDirectory = "/var/lib/mailman-web";
+        mailman-uwsgi = mkIf cfg.serve.enable (
+          let
+            uwsgiConfig.uwsgi =
+              {
+                type = "normal";
+                plugins = [ "python3" ];
+                home = webEnv;
+                http = "127.0.0.1:18507";
+              }
+              // (
+                if cfg.serve.virtualRoot == "/" then
+                  { module = "mailman_web.wsgi:application"; }
+                else
+                  {
+                    mount = "${cfg.serve.virtualRoot}=mailman_web.wsgi:application";
+                    manage-script-name = true;
+                  }
+              )
+            ;
+            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
+              builtins.toJSON uwsgiConfig
+            );
+          in
+          {
+            wantedBy = [ "multi-user.target" ];
+            after = optional withPostgresql "postgresql.service";
+            requires =
+              [
+                "mailman-uwsgi.socket"
+                "mailman-web-setup.service"
+              ]
+              ++ optional withPostgresql "postgresql.service"
+            ;
+            restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+            serviceConfig = {
+              # Since the mailman-web settings.py obstinately creates a logs
+              # dir in the cwd, change to the (writable) runtime directory before
+              # starting uwsgi.
+              ExecStart = "${pkgs.coreutils}/bin/env -C $RUNTIME_DIRECTORY ${
+                  pkgs.uwsgi.override { plugins = [ "python3" ]; }
+                }/bin/uwsgi --json ${uwsgiConfigFile}";
+              User = cfg.webUser;
+              Group = "mailman";
+              RuntimeDirectory = "mailman-uwsgi";
+            };
+          }
+        );
+
+        mailman-daily = {
+          description = "Trigger daily Mailman events";
+          startAt = "daily";
+          restartTriggers = [ mailmanCfgFile ];
+          serviceConfig = {
+            ExecStart = "${mailmanEnv}/bin/mailman digests --send";
+            User = "mailman";
+            Group = "mailman";
+          };
         };
-      };
-    } // flip lib.mapAttrs'
+
+        hyperkitty = lib.mkIf cfg.hyperkitty.enable {
+          description = "GNU Hyperkitty QCluster Process";
+          after = [ "network.target" ];
+          restartTriggers = [ config.environment.etc."mailman3/settings.py".source ];
+          wantedBy = [
+            "mailman.service"
+            "multi-user.target"
+          ];
+          serviceConfig = {
+            ExecStart = "${webEnv}/bin/mailman-web qcluster";
+            User = cfg.webUser;
+            Group = "mailman";
+            WorkingDirectory = "/var/lib/mailman-web";
+          };
+        };
+      }
+      // flip lib.mapAttrs'
         {
           "minutely" = "minutely";
           "quarter_hourly" = "*:00/15";
@@ -787,7 +795,8 @@ in
               };
             }
           )
-        );
+        )
+    ;
   };
 
   meta = {

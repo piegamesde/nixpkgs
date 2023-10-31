@@ -34,7 +34,8 @@ import ./make-test-python.nix (
           lib,
           ...
         }:
-        client_base // {
+        client_base
+        // {
           virtualisation.vlans = [ 1 ];
 
           networking.bridges.br0 = {
@@ -55,7 +56,8 @@ import ./make-test-python.nix (
           lib,
           ...
         }:
-        client_base // {
+        client_base
+        // {
           networking.bridges.br0 = {
             interfaces = [ "eth1" ];
             rstp = false;
@@ -74,7 +76,8 @@ import ./make-test-python.nix (
           lib,
           ...
         }:
-        client_base // {
+        client_base
+        // {
           networking.bridges.br0 = {
             interfaces = [ "eth1" ];
             rstp = true;

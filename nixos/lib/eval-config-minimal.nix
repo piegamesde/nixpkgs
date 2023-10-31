@@ -38,7 +38,9 @@ let
     #       is experimental.
     lib.evalModules {
       inherit prefix modules;
-      specialArgs = { modulesPath = builtins.toString ../modules; } // specialArgs;
+      specialArgs = {
+        modulesPath = builtins.toString ../modules;
+      } // specialArgs;
     }
   ;
 in

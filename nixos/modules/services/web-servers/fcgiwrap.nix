@@ -68,22 +68,25 @@ in
       after = [ "nss-user-lookup.target" ];
       wantedBy = optional (cfg.socketType != "unix") "multi-user.target";
 
-      serviceConfig = {
-        ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
-            builtins.toString cfg.preforkProcesses
-          } ${
-            optionalString (cfg.socketType != "unix")
-              "-s ${cfg.socketType}:${cfg.socketAddress}"
-          }";
-      } // (
-        if cfg.user != null && cfg.group != null then
-          {
-            User = cfg.user;
-            Group = cfg.group;
-          }
-        else
-          { }
-      );
+      serviceConfig =
+        {
+          ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
+              builtins.toString cfg.preforkProcesses
+            } ${
+              optionalString (cfg.socketType != "unix")
+                "-s ${cfg.socketType}:${cfg.socketAddress}"
+            }";
+        }
+        // (
+          if cfg.user != null && cfg.group != null then
+            {
+              User = cfg.user;
+              Group = cfg.group;
+            }
+          else
+            { }
+        )
+      ;
     };
 
     systemd.sockets =

@@ -207,7 +207,8 @@ rec {
           patchesInstructions = {
             "${package.name}" = patchInstructions;
           };
-        } // extraParams
+        }
+        // extraParams
       )
     );
 

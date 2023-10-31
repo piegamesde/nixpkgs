@@ -111,7 +111,8 @@ let
           needsCifsUtils = true;
           netfilterRPFilter = true;
           ia32Emulation = true;
-        } // features
+        }
+        // features
       )
       kernelPatches
   ;
@@ -281,7 +282,8 @@ let
   kernel =
     (callPackage ./manual-config.nix { inherit lib stdenv buildPackages; })
       (
-        basicArgs // {
+        basicArgs
+        // {
           inherit
             kernelPatches
             randstructSeed
@@ -295,7 +297,8 @@ let
             CONFIG_MODULES = "y";
             CONFIG_FW_LOADER = "m";
           };
-        } // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
+        }
+        // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
       )
   ;
 

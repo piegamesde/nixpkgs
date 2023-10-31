@@ -44,7 +44,8 @@ let
   pkg =
     self:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
         app_name = name;
         name = "${name}-${version}";
         inherit version;

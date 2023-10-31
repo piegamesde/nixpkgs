@@ -9,27 +9,32 @@ args@{
   ...
 }:
 let
-  pkgSet = removeAttrs args [
-    "pkgFilter"
-    "extraName"
-    "extraVersion"
-  ] // {
-    # include a fake "core" package
-    core.pkgs = [
-      (
-        bin.core.out // {
-          pname = "core";
-          tlType = "bin";
-        }
-      )
-      (
-        bin.core.doc // {
-          pname = "core";
-          tlType = "doc";
-        }
-      )
-    ];
-  };
+  pkgSet =
+    removeAttrs args [
+      "pkgFilter"
+      "extraName"
+      "extraVersion"
+    ]
+    // {
+      # include a fake "core" package
+      core.pkgs = [
+        (
+          bin.core.out
+          // {
+            pname = "core";
+            tlType = "bin";
+          }
+        )
+        (
+          bin.core.doc
+          // {
+            pname = "core";
+            tlType = "doc";
+          }
+        )
+      ];
+    }
+  ;
   pkgList = rec {
     all = lib.filter pkgFilter (combinePkgs (lib.attrValues pkgSet));
     splitBin = builtins.partition (p: p.tlType == "bin") all;

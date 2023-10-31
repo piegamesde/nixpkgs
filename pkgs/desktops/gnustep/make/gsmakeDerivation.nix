@@ -10,7 +10,8 @@
   ...
 }@args:
 stdenv.mkDerivation (
-  args // {
+  args
+  // {
     nativeBuildInputs =
       [
         makeWrapper

@@ -22,7 +22,8 @@ buildNimPackage rec {
 
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "2d collision library";
       license = [ licenses.mit ];
       maintainers = [ maintainers.ehmry ];

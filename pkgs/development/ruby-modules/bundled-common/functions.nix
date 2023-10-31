@@ -149,7 +149,8 @@ rec {
   composeGemAttrs =
     ruby: gems: name: attrs:
     (
-      (removeAttrs attrs [ "platforms" ]) // {
+      (removeAttrs attrs [ "platforms" ])
+      // {
         inherit ruby;
         inherit (attrs.source) type;
         source = removeAttrs attrs.source [ "type" ];

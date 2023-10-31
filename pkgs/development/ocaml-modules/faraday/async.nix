@@ -19,5 +19,7 @@ buildDunePackage rec {
     async
   ];
 
-  meta = faraday.meta // { description = "Async support for Faraday"; };
+  meta = faraday.meta // {
+    description = "Async support for Faraday";
+  };
 }

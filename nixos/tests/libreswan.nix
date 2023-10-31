@@ -72,7 +72,8 @@ import ./make-test-python.nix (
       {
         virtualisation.vlans = [ 1 ];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
-      } // tunnelConfig
+      }
+      // tunnelConfig
     ;
 
     # Her best friend
@@ -83,7 +84,8 @@ import ./make-test-python.nix (
       {
         virtualisation.vlans = [ 2 ];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
-      } // tunnelConfig
+      }
+      // tunnelConfig
     ;
 
     # The malicious network operator

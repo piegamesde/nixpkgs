@@ -1657,31 +1657,35 @@ in
       # from being created.
       optionalString hasBonds "options bonding max_bonds=0";
 
-    boot.kernel.sysctl = {
-      "net.ipv4.conf.all.forwarding" = mkDefault (any (i: i.proxyARP) interfaces);
-      "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
-      "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
-      # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
-      "net.ipv6.conf.default.use_tempaddr" =
-        tempaddrValues.${cfg.tempAddresses}.sysctl;
-    } // listToAttrs (
-      forEach interfaces (
-        i:
-        nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
-          i.proxyARP
+    boot.kernel.sysctl =
+      {
+        "net.ipv4.conf.all.forwarding" = mkDefault (any (i: i.proxyARP) interfaces);
+        "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
+        "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
+        # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
+        "net.ipv6.conf.default.use_tempaddr" =
+          tempaddrValues.${cfg.tempAddresses}.sysctl;
+      }
+      // listToAttrs (
+        forEach interfaces (
+          i:
+          nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
+            i.proxyARP
+        )
       )
-    ) // listToAttrs (
-      forEach interfaces (
-        i:
-        let
-          opt = i.tempAddress;
-          val = tempaddrValues.${opt}.sysctl;
-        in
-        nameValuePair
-          "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
-          val
+      // listToAttrs (
+        forEach interfaces (
+          i:
+          let
+            opt = i.tempAddress;
+            val = tempaddrValues.${opt}.sysctl;
+          in
+          nameValuePair
+            "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
+            val
+        )
       )
-    );
+    ;
 
     security.wrappers = {
       ping = {

@@ -151,7 +151,8 @@ in
                     ;
                     compression-algorithm = cfg.algorithm;
                     swap-priority = cfg.priority;
-                  } // lib.optionalAttrs (cfg.writebackDevice != null) {
+                  }
+                  // lib.optionalAttrs (cfg.writebackDevice != null) {
                     writeback-device = cfg.writebackDevice;
                   }
                 ;

@@ -34,7 +34,8 @@ let
       inherit system;
       pkgs = import ./.. { inherit system; };
       callTest = config: { ${system} = hydraJob config.test; };
-    } // {
+    }
+    // {
       # for typechecking of the scripts and evaluation of
       # the nodes, without running VMs.
       allDrivers = import ./tests/all-tests.nix {
@@ -117,7 +118,8 @@ let
 
       tarball = config.system.build.tarball;
     in
-    tarball // {
+    tarball
+    // {
       meta = {
         description = "NixOS system tarball for ${system} - ${stdenv.hostPlatform.linux-kernel.name}";
         maintainers = map (x: lib.maintainers.${x}) maintainers;

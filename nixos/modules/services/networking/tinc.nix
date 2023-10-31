@@ -413,7 +413,8 @@ in
               user = "tinc.${network}";
               inherit text;
             })
-          ) // {
+          )
+          // {
             "tinc/${network}/tinc.conf" = {
               mode = "0444";
               text = ''

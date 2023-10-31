@@ -116,7 +116,8 @@ let
               let
                 meta = args.meta or { };
               in
-              meta // {
+              meta
+              // {
                 homepage = meta.homepage or "https://kde.org";
                 license = meta.license or license;
                 maintainers = (meta.maintainers or [ ]) ++ maintainers;
@@ -125,7 +126,8 @@ let
             ;
           in
           mkDerivation (
-            args // {
+            args
+            // {
               inherit
                 pname
                 meta

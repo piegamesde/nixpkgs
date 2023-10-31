@@ -184,29 +184,33 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
 
-      environment = (filterAttrs (n: v: v != null) {
-        ETCD_NAME = cfg.name;
-        ETCD_DISCOVERY = cfg.discovery;
-        ETCD_DATA_DIR = cfg.dataDir;
-        ETCD_ADVERTISE_CLIENT_URLS = concatStringsSep "," cfg.advertiseClientUrls;
-        ETCD_LISTEN_CLIENT_URLS = concatStringsSep "," cfg.listenClientUrls;
-        ETCD_LISTEN_PEER_URLS = concatStringsSep "," cfg.listenPeerUrls;
-        ETCD_INITIAL_ADVERTISE_PEER_URLS =
-          concatStringsSep ","
-            cfg.initialAdvertisePeerUrls
-        ;
-        ETCD_PEER_TRUSTED_CA_FILE = cfg.peerTrustedCaFile;
-        ETCD_PEER_CERT_FILE = cfg.peerCertFile;
-        ETCD_PEER_KEY_FILE = cfg.peerKeyFile;
-        ETCD_CLIENT_CERT_AUTH = toString cfg.peerClientCertAuth;
-        ETCD_TRUSTED_CA_FILE = cfg.trustedCaFile;
-        ETCD_CERT_FILE = cfg.certFile;
-        ETCD_KEY_FILE = cfg.keyFile;
-      }) // (optionalAttrs (cfg.discovery == "") {
-        ETCD_INITIAL_CLUSTER = concatStringsSep "," cfg.initialCluster;
-        ETCD_INITIAL_CLUSTER_STATE = cfg.initialClusterState;
-        ETCD_INITIAL_CLUSTER_TOKEN = cfg.initialClusterToken;
-      }) // (mapAttrs' (n: v: nameValuePair "ETCD_${n}" v) cfg.extraConf);
+      environment =
+        (filterAttrs (n: v: v != null) {
+          ETCD_NAME = cfg.name;
+          ETCD_DISCOVERY = cfg.discovery;
+          ETCD_DATA_DIR = cfg.dataDir;
+          ETCD_ADVERTISE_CLIENT_URLS = concatStringsSep "," cfg.advertiseClientUrls;
+          ETCD_LISTEN_CLIENT_URLS = concatStringsSep "," cfg.listenClientUrls;
+          ETCD_LISTEN_PEER_URLS = concatStringsSep "," cfg.listenPeerUrls;
+          ETCD_INITIAL_ADVERTISE_PEER_URLS =
+            concatStringsSep ","
+              cfg.initialAdvertisePeerUrls
+          ;
+          ETCD_PEER_TRUSTED_CA_FILE = cfg.peerTrustedCaFile;
+          ETCD_PEER_CERT_FILE = cfg.peerCertFile;
+          ETCD_PEER_KEY_FILE = cfg.peerKeyFile;
+          ETCD_CLIENT_CERT_AUTH = toString cfg.peerClientCertAuth;
+          ETCD_TRUSTED_CA_FILE = cfg.trustedCaFile;
+          ETCD_CERT_FILE = cfg.certFile;
+          ETCD_KEY_FILE = cfg.keyFile;
+        })
+        // (optionalAttrs (cfg.discovery == "") {
+          ETCD_INITIAL_CLUSTER = concatStringsSep "," cfg.initialCluster;
+          ETCD_INITIAL_CLUSTER_STATE = cfg.initialClusterState;
+          ETCD_INITIAL_CLUSTER_TOKEN = cfg.initialClusterToken;
+        })
+        // (mapAttrs' (n: v: nameValuePair "ETCD_${n}" v) cfg.extraConf)
+      ;
 
       unitConfig = {
         Documentation = "https://github.com/coreos/etcd";

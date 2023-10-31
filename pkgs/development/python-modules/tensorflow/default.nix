@@ -569,7 +569,8 @@ let
         maintainers = with maintainers; [ abbradar ];
         platforms = with platforms; linux ++ darwin;
         broken = !(xlaSupport -> cudaSupport);
-      } // lib.optionalAttrs stdenv.isDarwin {
+      }
+      // lib.optionalAttrs stdenv.isDarwin {
         timeout = 86400; # 24 hours
         maxSilent = 14400; # 4h, double the default of 7200s
       }

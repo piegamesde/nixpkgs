@@ -510,7 +510,8 @@ in
           User = "xtreemfs";
           ExecStart = "${startupScript "org.xtreemfs.mrc.MRC" mrcConfig}";
         };
-      } // systemdOptionalDependencies
+      }
+      // systemdOptionalDependencies
     );
 
     systemd.services.xtreemfs-osd = mkIf cfg.osd.enable (
@@ -520,7 +521,8 @@ in
           User = "xtreemfs";
           ExecStart = "${startupScript "org.xtreemfs.osd.OSD" osdConfig}";
         };
-      } // systemdOptionalDependencies
+      }
+      // systemdOptionalDependencies
     );
   };
 }

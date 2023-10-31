@@ -14,7 +14,8 @@ let
   bowerPackages = import generated { inherit (pkgs) buildEnv fetchbower; };
 in
 pkgs.stdenv.mkDerivation (
-  attrs // {
+  attrs
+  // {
     name = "bower_components-" + attrs.name;
 
     inherit bowerPackages;

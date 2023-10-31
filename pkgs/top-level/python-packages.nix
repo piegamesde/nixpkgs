@@ -7123,7 +7123,11 @@ with self; {
     (
       p:
       p.overrideAttrs (
-        super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; }
+        super: {
+          meta = super.meta // {
+            outputsToInstall = [ "py" ];
+          };
+        }
       )
     )
     (
@@ -7148,7 +7152,11 @@ with self; {
     (
       p:
       p.overrideAttrs (
-        super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; }
+        super: {
+          meta = super.meta // {
+            outputsToInstall = [ "py" ];
+          };
+        }
       )
     )
     (p: p.override { inherit python; })

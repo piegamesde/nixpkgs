@@ -19,11 +19,14 @@ in
         lib.mdDoc "GameMode to optimise system performance on demand"
       );
 
-      enableRenice = mkEnableOption (
-        lib.mdDoc "CAP_SYS_NICE on gamemoded to support lowering process niceness"
-      ) // {
-        default = true;
-      };
+      enableRenice =
+        mkEnableOption (
+          lib.mdDoc "CAP_SYS_NICE on gamemoded to support lowering process niceness"
+        )
+        // {
+          default = true;
+        }
+      ;
 
       settings = mkOption {
         type = settingsFormat.type;

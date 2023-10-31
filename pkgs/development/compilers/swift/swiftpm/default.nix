@@ -83,7 +83,8 @@ let
   mkBootstrapDerivation =
     attrs:
     stdenv.mkDerivation (
-      attrs // {
+      attrs
+      // {
         nativeBuildInputs =
           (attrs.nativeBuildInputs or [ ])
           ++ [
@@ -350,7 +351,8 @@ let
 
   # Build a bootrapping swiftpm using CMake.
   swiftpm-bootstrap = mkBootstrapDerivation (
-    commonAttrs // {
+    commonAttrs
+    // {
       pname = "swiftpm-bootstrap";
 
       buildInputs = [
@@ -375,7 +377,8 @@ let
 in
 # Build the final swiftpm with the bootstrapping swiftpm.
 stdenv.mkDerivation (
-  commonAttrs // {
+  commonAttrs
+  // {
     pname = "swiftpm";
 
     nativeBuildInputs =

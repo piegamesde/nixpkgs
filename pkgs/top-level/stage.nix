@@ -81,7 +81,8 @@ let
     # uncommented in a separate PR, in case it breaks the build.
     #(x: lib.trivial.pipe x [ (x: builtins.removeAttrs x [ "_type" ]) lib.systems.parse.mkSystem ])
     (
-      parsed // {
+      parsed
+      // {
         abi =
           {
             gnu = lib.systems.parse.abis.musl;
@@ -110,9 +111,7 @@ let
         pkgs = self;
       };
     in
-    res // {
-      stdenvAdapters = res;
-    }
+    res // { stdenvAdapters = res; }
   ;
 
   trivialBuilders =
@@ -135,7 +134,8 @@ let
     let
       withFallback =
         thisPkgs:
-        (if adjacentPackages == null then self else thisPkgs) // {
+        (if adjacentPackages == null then self else thisPkgs)
+        // {
           recurseForDerivations = false;
         }
       ;
@@ -152,7 +152,9 @@ let
       pkgsBuildHost = withFallback adjacentPackages.pkgsBuildHost;
       pkgsBuildTarget = withFallback adjacentPackages.pkgsBuildTarget;
       pkgsHostHost = withFallback adjacentPackages.pkgsHostHost;
-      pkgsHostTarget = self // { recurseForDerivations = false; }; # always `self`
+      pkgsHostTarget = self // {
+        recurseForDerivations = false;
+      }; # always `self`
       pkgsTargetTarget = withFallback adjacentPackages.pkgsTargetTarget;
 
       # Older names for package sets. Use these when only the host platform of the
@@ -325,13 +327,17 @@ let
     pkgsStatic = nixpkgsFun (
       {
         overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
-      } // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-        crossSystem = {
-          isStatic = true;
-          parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-        } // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
-          gcc.abi = "elfv2";
-        };
+      }
+      // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+        crossSystem =
+          {
+            isStatic = true;
+            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+          }
+          // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
+            gcc.abi = "elfv2";
+          }
+        ;
       }
     );
   };

@@ -158,5 +158,6 @@ mapAliases (
     Yankring = YankRing-vim;
     xterm-color-table = xterm-color-table-vim;
     zeavim = zeavim-vim;
-  } // deprecations
+  }
+  // deprecations
 )

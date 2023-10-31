@@ -74,7 +74,8 @@ let
       "classifier"
       "repos"
       "url"
-    ] // {
+    ]
+    // {
       urls = urls_;
       name = "${pname}-${version}.jar";
     }

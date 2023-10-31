@@ -73,6 +73,7 @@ stdenv.mkDerivation rec {
         fpletz
       ];
       platforms = platforms.unix;
-    } // meta_
+    }
+    // meta_
   ;
 }

@@ -89,7 +89,8 @@ let
       location = {
         inherit domain owner repo;
       };
-    } // optionalAttrs (args ? fetcher) { inherit fetcher; }
+    }
+    // optionalAttrs (args ? fetcher) { inherit fetcher; }
   );
   fetched = fetch (if version != null then version else defaultVersion);
   display-pkg =
@@ -179,26 +180,33 @@ stdenv.mkDerivation (
             or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
         inherit enableParallelBuilding;
 
-        meta = (
-          {
-            platforms = coq.meta.platforms;
-          } // (switch domain
-            [ {
-              case = pred.union isGitHubDomain isGitLabDomain;
-              out = {
-                homepage = "https://${domain}/${owner}/${repo}";
-              };
-            } ]
-            { }
-          ) // optionalAttrs (fetched.broken or false) {
-            coqFilter = true;
-            broken = true;
-          }
-        ) // (args.meta or { });
-      } // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
+        meta =
+          (
+            {
+              platforms = coq.meta.platforms;
+            }
+            // (switch domain
+              [ {
+                case = pred.union isGitHubDomain isGitLabDomain;
+                out = {
+                  homepage = "https://${domain}/${owner}/${repo}";
+                };
+              } ]
+              { }
+            )
+            // optionalAttrs (fetched.broken or false) {
+              coqFilter = true;
+              broken = true;
+            }
+          )
+          // (args.meta or { })
+        ;
+      }
+      // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
       // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
         installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;
-      }) // (optionalAttrs useDune {
+      })
+      // (optionalAttrs useDune {
         buildPhase = ''
           runHook preBuild
           dune build -p ${opam-name} ''${enableParallelBuilding:+-j $NIX_BUILD_CORES}
@@ -212,7 +220,8 @@ stdenv.mkDerivation (
           mv $out/lib/TEMPORARY $out/lib/coq/${coq.coq-version}
           runHook postInstall
         '';
-      }) // (optionalAttrs (args ? useMelquiondRemake) rec {
+      })
+      // (optionalAttrs (args ? useMelquiondRemake) rec {
         COQUSERCONTRIB = "$out/lib/coq/${coq.coq-version}/user-contrib";
         preConfigurePhases = "autoconf";
         configureFlags = [
@@ -220,7 +229,8 @@ stdenv.mkDerivation (
         ];
         buildPhase = "./remake -j$NIX_BUILD_CORES";
         installPhase = "./remake install";
-      }) // (removeAttrs args args-to-remove)
+      })
+      // (removeAttrs args args-to-remove)
     )
     dropDerivationAttrs
 )

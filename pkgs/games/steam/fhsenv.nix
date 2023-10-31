@@ -303,9 +303,11 @@ buildFHSEnv rec {
     exec steam ${extraArgs} "$@"
   '';
 
-  meta = steam.meta // lib.optionalAttrs (!withGameSpecificLibraries) {
-    description = steam.meta.description + " (without game specific libraries)";
-  };
+  meta =
+    steam.meta
+    // lib.optionalAttrs (!withGameSpecificLibraries) {
+      description = steam.meta.description + " (without game specific libraries)";
+    };
 
   # allows for some gui applications to share IPC
   # this fixes certain issues where they don't render correctly

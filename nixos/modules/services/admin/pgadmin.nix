@@ -160,10 +160,12 @@ in
   config = mkIf (cfg.enable) {
     networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.port ];
 
-    services.pgadmin.settings = {
-      DEFAULT_SERVER_PORT = cfg.port;
-      SERVER_MODE = true;
-    } // (optionalAttrs cfg.openFirewall { DEFAULT_SERVER = mkDefault "::"; })
+    services.pgadmin.settings =
+      {
+        DEFAULT_SERVER_PORT = cfg.port;
+        SERVER_MODE = true;
+      }
+      // (optionalAttrs cfg.openFirewall { DEFAULT_SERVER = mkDefault "::"; })
       // (optionalAttrs cfg.emailServer.enable {
         MAIL_SERVER = cfg.emailServer.address;
         MAIL_PORT = cfg.emailServer.port;
@@ -171,7 +173,8 @@ in
         MAIL_USE_TLS = cfg.emailServer.useTLS;
         MAIL_USERNAME = cfg.emailServer.username;
         SECURITY_EMAIL_SENDER = cfg.emailServer.sender;
-      });
+      })
+    ;
 
     systemd.services.pgadmin = {
       wantedBy = [ "multi-user.target" ];

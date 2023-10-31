@@ -180,10 +180,12 @@ in
       # server references the dejavu fonts
       systemPackages = [ pkgs.dejavu_fonts ] ++ optional cfg.withCLI cfg.package;
 
-      variables = { } // optionalAttrs cfg.withCLI {
-        # Make it more convenient to use the `jenkins-cli`.
-        JENKINS_URL = jenkinsUrl;
-      };
+      variables =
+        { }
+        // optionalAttrs cfg.withCLI {
+          # Make it more convenient to use the `jenkins-cli`.
+          JENKINS_URL = jenkinsUrl;
+        };
     };
 
     users.groups = optionalAttrs (cfg.group == "jenkins") {
@@ -214,10 +216,12 @@ in
               config.environment.sessionVariables
           ;
         in
-        selectedSessionVars // {
+        selectedSessionVars
+        // {
           JENKINS_HOME = cfg.home;
           NIX_REMOTE = "daemon";
-        } // cfg.environment
+        }
+        // cfg.environment
       ;
 
       path = cfg.packages;

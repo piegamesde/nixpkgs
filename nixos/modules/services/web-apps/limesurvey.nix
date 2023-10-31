@@ -39,7 +39,8 @@ let
       str
       int
       bool
-    ] // {
+    ]
+    // {
       description = "limesurvey config type (str, int, bool or attribute set thereof)";
     }
   ;

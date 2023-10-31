@@ -72,7 +72,8 @@ rec {
 
   # irods: libs and server package
   irods = stdenv.mkDerivation (
-    common // rec {
+    common
+    // rec {
       version = "4.2.11";
       pname = "irods";
 
@@ -126,7 +127,8 @@ rec {
 
   # icommands (CLI) package, depends on the irods package
   irods-icommands = stdenv.mkDerivation (
-    common // rec {
+    common
+    // rec {
       version = "4.2.11";
       pname = "irods-icommands";
 

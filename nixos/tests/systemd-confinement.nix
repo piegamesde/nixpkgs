@@ -38,17 +38,22 @@ import ./make-test-python.nix {
             socketConfig.Accept = true;
           };
 
-          systemd.services."${serviceName}@" = {
-            description = "Confined Test Service ${toString num}";
-            confinement = (config.confinement or { }) // { enable = true; };
-            serviceConfig = (config.serviceConfig or { }) // {
-              ExecStart = testServer;
-              StandardInput = "socket";
-            };
-          } // removeAttrs config [
-            "confinement"
-            "serviceConfig"
-          ];
+          systemd.services."${serviceName}@" =
+            {
+              description = "Confined Test Service ${toString num}";
+              confinement = (config.confinement or { }) // {
+                enable = true;
+              };
+              serviceConfig = (config.serviceConfig or { }) // {
+                ExecStart = testServer;
+                StandardInput = "socket";
+              };
+            }
+            // removeAttrs config [
+              "confinement"
+              "serviceConfig"
+            ]
+          ;
 
           __testSteps = lib.mkOrder num (
             ''

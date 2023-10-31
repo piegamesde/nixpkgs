@@ -252,7 +252,8 @@ in
         inherit (nixosTests) rstudio-server;
       };
     };
-  } // lib.optionalAttrs (!server) {
+  }
+  // lib.optionalAttrs (!server) {
     qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ gnumake ]}" ];
 
     desktopItems = [

@@ -229,41 +229,44 @@ in
       mapAttrsToList
         (_: cfg: {
           ${cfg.nginx.virtualHost} = {
-            locations = (genAttrs'
-              [
-                "cgit.css"
-                "cgit.png"
-                "favicon.ico"
-                "robots.txt"
-              ]
-              (
-                name:
-                nameValuePair "= ${stripLocation cfg}/${name}" {
-                  extraConfig = ''
-                    alias ${cfg.package}/cgit/${name};
-                  '';
-                }
+            locations =
+              (genAttrs'
+                [
+                  "cgit.css"
+                  "cgit.png"
+                  "favicon.ico"
+                  "robots.txt"
+                ]
+                (
+                  name:
+                  nameValuePair "= ${stripLocation cfg}/${name}" {
+                    extraConfig = ''
+                      alias ${cfg.package}/cgit/${name};
+                    '';
+                  }
+                )
               )
-            ) // {
-              "~ ${regexLocation cfg}/.+/(info/refs|git-upload-pack)" = {
-                fastcgiParams = rec {
-                  SCRIPT_FILENAME = "${pkgs.git}/libexec/git-core/git-http-backend";
-                  GIT_HTTP_EXPORT_ALL = "1";
-                  GIT_PROJECT_ROOT = mkCgitReposDir cfg;
-                  HOME = GIT_PROJECT_ROOT;
+              // {
+                "~ ${regexLocation cfg}/.+/(info/refs|git-upload-pack)" = {
+                  fastcgiParams = rec {
+                    SCRIPT_FILENAME = "${pkgs.git}/libexec/git-core/git-http-backend";
+                    GIT_HTTP_EXPORT_ALL = "1";
+                    GIT_PROJECT_ROOT = mkCgitReposDir cfg;
+                    HOME = GIT_PROJECT_ROOT;
+                  };
+                  extraConfig = mkFastcgiPass cfg;
                 };
-                extraConfig = mkFastcgiPass cfg;
-              };
-              "${stripLocation cfg}/" = {
-                fastcgiParams = {
-                  SCRIPT_FILENAME = "${cfg.package}/cgit/cgit.cgi";
-                  QUERY_STRING = "$args";
-                  HTTP_HOST = "$server_name";
-                  CGIT_CONFIG = mkCgitrc cfg;
+                "${stripLocation cfg}/" = {
+                  fastcgiParams = {
+                    SCRIPT_FILENAME = "${cfg.package}/cgit/cgit.cgi";
+                    QUERY_STRING = "$args";
+                    HTTP_HOST = "$server_name";
+                    CGIT_CONFIG = mkCgitrc cfg;
+                  };
+                  extraConfig = mkFastcgiPass cfg;
                 };
-                extraConfig = mkFastcgiPass cfg;
-              };
-            };
+              }
+            ;
           };
         })
         cfgs

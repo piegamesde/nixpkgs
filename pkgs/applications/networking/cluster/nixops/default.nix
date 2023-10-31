@@ -101,24 +101,27 @@ let
       ];
     }).python;
 
-  pkg = interpreter.pkgs.nixops.withPlugins (
-    ps: [
-      ps.nixops-aws
-      ps.nixops-digitalocean
-      ps.nixops-encrypted-links
-      ps.nixops-gcp
-      ps.nixops-hercules-ci
-      ps.nixops-hetzner
-      ps.nixopsvbox
-      ps.nixops-virtd
-      ps.nixops-hetznercloud
-    ]
-  ) // rec {
-    # Workaround for https://github.com/NixOS/nixpkgs/issues/119407
-    # TODO after #1199407: Use .overrideAttrs(pkg: old: { passthru.tests = .....; })
-    tests = nixosTests.nixops.unstable.override { nixopsPkg = pkg; };
-    # Not strictly necessary, but probably expected somewhere; part of the workaround:
-    passthru.tests = tests;
-  };
+  pkg =
+    interpreter.pkgs.nixops.withPlugins (
+      ps: [
+        ps.nixops-aws
+        ps.nixops-digitalocean
+        ps.nixops-encrypted-links
+        ps.nixops-gcp
+        ps.nixops-hercules-ci
+        ps.nixops-hetzner
+        ps.nixopsvbox
+        ps.nixops-virtd
+        ps.nixops-hetznercloud
+      ]
+    )
+    // rec {
+      # Workaround for https://github.com/NixOS/nixpkgs/issues/119407
+      # TODO after #1199407: Use .overrideAttrs(pkg: old: { passthru.tests = .....; })
+      tests = nixosTests.nixops.unstable.override { nixopsPkg = pkg; };
+      # Not strictly necessary, but probably expected somewhere; part of the workaround:
+      passthru.tests = tests;
+    }
+  ;
 in
 pkg

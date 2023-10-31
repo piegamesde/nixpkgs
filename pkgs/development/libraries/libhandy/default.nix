@@ -121,23 +121,26 @@ stdenv.mkDerivation rec {
     moveToOutput "share/doc" "$devdoc"
   '';
 
-  passthru = {
-    updateScript = gnome.updateScript {
-      packageName = pname;
-      versionPolicy = "odd-unstable";
-    };
-  } // lib.optionalAttrs (!enableGlade) {
-    glade =
-      let
-        libhandyWithGlade = libhandy.override { enableGlade = true; };
-      in
-      runCommand "${libhandy.name}-glade" { } ''
-        cp -r "${libhandyWithGlade.glade}" "$out"
-        chmod -R +w "$out"
-        sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
-      ''
-    ;
-  };
+  passthru =
+    {
+      updateScript = gnome.updateScript {
+        packageName = pname;
+        versionPolicy = "odd-unstable";
+      };
+    }
+    // lib.optionalAttrs (!enableGlade) {
+      glade =
+        let
+          libhandyWithGlade = libhandy.override { enableGlade = true; };
+        in
+        runCommand "${libhandy.name}-glade" { } ''
+          cp -r "${libhandyWithGlade.glade}" "$out"
+          chmod -R +w "$out"
+          sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
+        ''
+      ;
+    }
+  ;
 
   meta = with lib; {
     changelog = "https://gitlab.gnome.org/GNOME/libhandy/-/tags/${version}";

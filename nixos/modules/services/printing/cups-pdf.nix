@@ -107,15 +107,18 @@ let
         enable = (lib.mkEnableOption (lib.mdDoc "this cups-pdf instance")) // {
           default = true;
         };
-        installPrinter = (lib.mkEnableOption (
-          lib.mdDoc ''
-            a CUPS printer queue for this instance.
-            The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
-            If this is disabled, you need to add the queue yourself to use the instance
-          ''
-        )) // {
-          default = true;
-        };
+        installPrinter =
+          (lib.mkEnableOption (
+            lib.mdDoc ''
+              a CUPS printer queue for this instance.
+              The queue will be named after the instance and will use the {file}`CUPS-PDF_opt.ppd` ppd file.
+              If this is disabled, you need to add the queue yourself to use the instance
+            ''
+          ))
+          // {
+            default = true;
+          }
+        ;
         confFileText = lib.mkOption {
           type = lib.types.lines;
           description = lib.mdDoc ''

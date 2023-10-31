@@ -153,95 +153,98 @@ let
   ;
 in
 {
-  options.services.sourcehut.${srv} = {
-    enable = mkEnableOption (lib.mdDoc "${srv} service");
+  options.services.sourcehut.${srv} =
+    {
+      enable = mkEnableOption (lib.mdDoc "${srv} service");
 
-    user = mkOption {
-      type = types.str;
-      default = srvsrht;
-      description = lib.mdDoc ''
-        User for ${srv}.sr.ht.
-      '';
-    };
-
-    group = mkOption {
-      type = types.str;
-      default = srvsrht;
-      description = lib.mdDoc ''
-        Group for ${srv}.sr.ht.
-        Membership grants access to the Git/Mercurial repositories by default,
-        but not to the config.ini file (where secrets are).
-      '';
-    };
-
-    port = mkOption {
-      type = types.port;
-      default = port;
-      description = lib.mdDoc ''
-        Port on which the "${srv}" backend should listen.
-      '';
-    };
-
-    redis = {
-      host = mkOption {
+      user = mkOption {
         type = types.str;
-        default = "unix:///run/redis-sourcehut-${srvsrht}/redis.sock?db=0";
-        example = "redis://shared.wireguard:6379/0";
+        default = srvsrht;
         description = lib.mdDoc ''
-          The redis host URL. This is used for caching and temporary storage, and must
-          be shared between nodes (e.g. git1.sr.ht and git2.sr.ht), but need not be
-          shared between services. It may be shared between services, however, with no
-          ill effect, if this better suits your infrastructure.
+          User for ${srv}.sr.ht.
         '';
       };
-    };
 
-    postgresql = {
-      database = mkOption {
+      group = mkOption {
         type = types.str;
-        default = "${srv}.sr.ht";
+        default = srvsrht;
         description = lib.mdDoc ''
-          PostgreSQL database name for the ${srv}.sr.ht service,
-          used if [](#opt-services.sourcehut.postgresql.enable) is `true`.
+          Group for ${srv}.sr.ht.
+          Membership grants access to the Git/Mercurial repositories by default,
+          but not to the config.ini file (where secrets are).
         '';
       };
-    };
 
-    gunicorn = {
-      extraArgs = mkOption {
-        type = with types; listOf str;
-        default = [
-          "--timeout 120"
-          "--workers 1"
-          "--log-level=info"
-        ];
-        description = lib.mdDoc "Extra arguments passed to Gunicorn.";
+      port = mkOption {
+        type = types.port;
+        default = port;
+        description = lib.mdDoc ''
+          Port on which the "${srv}" backend should listen.
+        '';
       };
-    };
-  } // optionalAttrs webhooks {
-    webhooks = {
-      extraArgs = mkOption {
-        type = with types; listOf str;
-        default = [
-          "--loglevel DEBUG"
-          "--pool eventlet"
-          "--without-heartbeat"
-        ];
-        description =
-          lib.mdDoc
-            "Extra arguments passed to the Celery responsible for webhooks."
-        ;
+
+      redis = {
+        host = mkOption {
+          type = types.str;
+          default = "unix:///run/redis-sourcehut-${srvsrht}/redis.sock?db=0";
+          example = "redis://shared.wireguard:6379/0";
+          description = lib.mdDoc ''
+            The redis host URL. This is used for caching and temporary storage, and must
+            be shared between nodes (e.g. git1.sr.ht and git2.sr.ht), but need not be
+            shared between services. It may be shared between services, however, with no
+            ill effect, if this better suits your infrastructure.
+          '';
+        };
       };
-      celeryConfig = mkOption {
-        type = types.lines;
-        default = "";
-        description =
-          lib.mdDoc
-            "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
-        ;
+
+      postgresql = {
+        database = mkOption {
+          type = types.str;
+          default = "${srv}.sr.ht";
+          description = lib.mdDoc ''
+            PostgreSQL database name for the ${srv}.sr.ht service,
+            used if [](#opt-services.sourcehut.postgresql.enable) is `true`.
+          '';
+        };
       };
-    };
-  };
+
+      gunicorn = {
+        extraArgs = mkOption {
+          type = with types; listOf str;
+          default = [
+            "--timeout 120"
+            "--workers 1"
+            "--log-level=info"
+          ];
+          description = lib.mdDoc "Extra arguments passed to Gunicorn.";
+        };
+      };
+    }
+    // optionalAttrs webhooks {
+      webhooks = {
+        extraArgs = mkOption {
+          type = with types; listOf str;
+          default = [
+            "--loglevel DEBUG"
+            "--pool eventlet"
+            "--without-heartbeat"
+          ];
+          description =
+            lib.mdDoc
+              "Extra arguments passed to the Celery responsible for webhooks."
+          ;
+        };
+        celeryConfig = mkOption {
+          type = types.lines;
+          default = "";
+          description =
+            lib.mdDoc
+              "Content of the `celeryconfig.py` used by the Celery responsible for webhooks."
+          ;
+        };
+      };
+    }
+  ;
 
   config = lib.mkIf (cfg.enable && srvCfg.enable) (
     mkMerge [
@@ -255,16 +258,21 @@ in
               description = mkDefault "sourcehut user for ${srv}.sr.ht";
             };
           };
-          groups = {
-            "${srvCfg.group}" = { };
-          } // optionalAttrs
+          groups =
+            {
+              "${srvCfg.group}" = { };
+            }
+            // optionalAttrs
               (
                 cfg.postgresql.enable
                 && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")
               )
-              { "postgres".members = [ srvCfg.user ]; } // optionalAttrs
-              (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or ""))
-              { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; };
+              { "postgres".members = [ srvCfg.user ]; }
+            //
+              optionalAttrs
+                (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or ""))
+                { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; }
+          ;
         };
 
         services.nginx = mkIf cfg.nginx.enable {

@@ -114,13 +114,15 @@ symlinkJoin {
   name = "bottles";
   paths = [
     (buildFHSEnv (
-      fhsEnv // {
+      fhsEnv
+      // {
         name = "bottles";
         runScript = "bottles";
       }
     ))
     (buildFHSEnv (
-      fhsEnv // {
+      fhsEnv
+      // {
         name = "bottles-cli";
         runScript = "bottles-cli";
       }

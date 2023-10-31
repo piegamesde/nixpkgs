@@ -27,7 +27,8 @@ let
       compressImage = config.sdImage.compressImage;
       populateImageCommands = config.sdImage.populateRootCommands;
       volumeLabel = "NIXOS_SD";
-    } // optionalAttrs (config.sdImage.rootPartitionUUID != null) {
+    }
+    // optionalAttrs (config.sdImage.rootPartitionUUID != null) {
       uuid = config.sdImage.rootPartitionUUID;
     }
   );

@@ -42,7 +42,8 @@ let
   '';
 
   tamarin-prover-utils = mkDerivation (
-    common "tamarin-prover-utils" (src + "/lib/utils") // {
+    common "tamarin-prover-utils" (src + "/lib/utils")
+    // {
       postPatch = replaceSymlinks;
       libraryHaskellDepends = with haskellPackages; [
         base64-bytestring
@@ -58,7 +59,8 @@ let
   );
 
   tamarin-prover-term = mkDerivation (
-    common "tamarin-prover-term" (src + "/lib/term") // {
+    common "tamarin-prover-term" (src + "/lib/term")
+    // {
       postPatch = replaceSymlinks;
       libraryHaskellDepends =
         (
@@ -73,7 +75,8 @@ let
   );
 
   tamarin-prover-theory = mkDerivation (
-    common "tamarin-prover-theory" (src + "/lib/theory") // {
+    common "tamarin-prover-theory" (src + "/lib/theory")
+    // {
       postPatch = replaceSymlinks;
       doHaddock = false; # broken
       libraryHaskellDepends =
@@ -94,7 +97,8 @@ let
   );
 
   tamarin-prover-sapic = mkDerivation (
-    common "tamarin-prover-sapic" (src + "/lib/sapic") // {
+    common "tamarin-prover-sapic" (src + "/lib/sapic")
+    // {
       postPatch = "cp --remove-destination ${src}/LICENSE .";
       doHaddock = false; # broken
       libraryHaskellDepends =
@@ -103,7 +107,8 @@ let
   );
 in
 mkDerivation (
-  common "tamarin-prover" src // {
+  common "tamarin-prover" src
+  // {
     isLibrary = false;
     isExecutable = true;
 

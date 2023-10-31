@@ -30,9 +30,14 @@ let
     let
       mash =
         # Other pkgs sets
-        pkgsBuildBuild // pkgsBuildTarget // pkgsHostHost // pkgsTargetTarget
+        pkgsBuildBuild
+        // pkgsBuildTarget
+        // pkgsHostHost
+        // pkgsTargetTarget
         # The same pkgs sets one probably intends
-        // pkgsBuildHost // pkgsHostTarget;
+        // pkgsBuildHost
+        // pkgsHostTarget
+      ;
       merge = name: {
         inherit name;
         value =
@@ -45,32 +50,38 @@ let
             valueHostHost = pkgsHostHost.${name} or { };
             valueHostTarget = pkgsHostTarget.${name} or { };
             valueTargetTarget = pkgsTargetTarget.${name} or { };
-            augmentedValue = defaultValue
+            augmentedValue =
+              defaultValue
               # TODO(@Artturin): remove before release 23.05 and only have __spliced.
               // (lib.optionalAttrs (pkgsBuildHost ? ${name}) {
                 nativeDrv =
                   lib.warn "use ${name}.__spliced.buildHost instead of ${name}.nativeDrv"
                     valueBuildHost
                 ;
-              }) // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
+              })
+              // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
                 crossDrv =
                   lib.warn "use ${name}.__spliced.hostTarget instead of ${name}.crossDrv"
                     valueHostTarget
                 ;
-              }) // {
-                __spliced = (lib.optionalAttrs (pkgsBuildBuild ? ${name}) {
-                  buildBuild = valueBuildBuild;
-                }) // (lib.optionalAttrs (pkgsBuildHost ? ${name}) {
-                  buildHost = valueBuildHost;
-                }) // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) {
-                  buildTarget = valueBuildTarget;
-                }) // (lib.optionalAttrs (pkgsHostHost ? ${name}) { hostHost = valueHostHost; })
+              })
+              // {
+                __spliced =
+                  (lib.optionalAttrs (pkgsBuildBuild ? ${name}) { buildBuild = valueBuildBuild; })
+                  // (lib.optionalAttrs (pkgsBuildHost ? ${name}) { buildHost = valueBuildHost; })
+                  // (lib.optionalAttrs (pkgsBuildTarget ? ${name}) {
+                    buildTarget = valueBuildTarget;
+                  })
+                  // (lib.optionalAttrs (pkgsHostHost ? ${name}) { hostHost = valueHostHost; })
                   // (lib.optionalAttrs (pkgsHostTarget ? ${name}) {
                     hostTarget = valueHostTarget;
-                  }) // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
+                  })
+                  // (lib.optionalAttrs (pkgsTargetTarget ? ${name}) {
                     targetTarget = valueTargetTarget;
-                  });
-              };
+                  })
+                ;
+              }
+            ;
             # Get the set of outputs of a derivation. If one derivation fails to
             # evaluate we don't want to diverge the entire splice, so we fall back
             # on {}
@@ -91,7 +102,8 @@ let
           # The derivation along with its outputs, which we recur
           # on to splice them together.
           if lib.isDerivation defaultValue then
-            augmentedValue // spliceReal {
+            augmentedValue
+            // spliceReal {
               pkgsBuildBuild = tryGetOutputs valueBuildBuild;
               pkgsBuildHost = tryGetOutputs valueBuildHost;
               pkgsBuildTarget = tryGetOutputs valueBuildTarget;
@@ -131,32 +143,36 @@ let
     if actuallySplice then spliceReal args else pkgsHostTarget
   ;
 
-  splicedPackages = splicePackages {
-    inherit (pkgs)
-      pkgsBuildBuild
-      pkgsBuildHost
-      pkgsBuildTarget
-      pkgsHostHost
-      pkgsHostTarget
-      pkgsTargetTarget
-    ;
-  } // {
-    # These should never be spliced under any circumstances
-    inherit (pkgs)
-      pkgsBuildBuild
-      pkgsBuildHost
-      pkgsBuildTarget
-      pkgsHostHost
-      pkgsHostTarget
-      pkgsTargetTarget
-      buildPackages
-      pkgs
-      targetPackages
-    ;
-    inherit (pkgs.stdenv) buildPlatform targetPlatform hostPlatform;
-  };
+  splicedPackages =
+    splicePackages {
+      inherit (pkgs)
+        pkgsBuildBuild
+        pkgsBuildHost
+        pkgsBuildTarget
+        pkgsHostHost
+        pkgsHostTarget
+        pkgsTargetTarget
+      ;
+    }
+    // {
+      # These should never be spliced under any circumstances
+      inherit (pkgs)
+        pkgsBuildBuild
+        pkgsBuildHost
+        pkgsBuildTarget
+        pkgsHostHost
+        pkgsHostTarget
+        pkgsTargetTarget
+        buildPackages
+        pkgs
+        targetPackages
+      ;
+      inherit (pkgs.stdenv) buildPlatform targetPlatform hostPlatform;
+    }
+  ;
 
-  splicedPackagesWithXorg = splicedPackages
+  splicedPackagesWithXorg =
+    splicedPackages
     // builtins.removeAttrs splicedPackages.xorg [
       "callPackage"
       "newScope"
@@ -199,5 +215,7 @@ in
 
   # Haskell package sets need this because they reimplement their own
   # `newScope`.
-  __splicedPackages = splicedPackages // { recurseForDerivations = false; };
+  __splicedPackages = splicedPackages // {
+    recurseForDerivations = false;
+  };
 }

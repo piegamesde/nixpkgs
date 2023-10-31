@@ -26,7 +26,8 @@ let
       f = import ./common.nix;
     in
     f (
-      builtins.intersectAttrs (functionArgs f) pkgs // {
+      builtins.intersectAttrs (functionArgs f) pkgs
+      // {
         lua = pkgs.lua5_1;
         # It is not necessary to run the game, but it is nicer to be given an error dialog in the case of failure,
         # rather than having to look to the logs why it is not starting.
@@ -59,7 +60,8 @@ let
               sed -i 's/curl/curl --insecure/g' $out/thirdparty/{fetch-thirdparty-deps,noget}.sh
               $out/thirdparty/fetch-thirdparty-deps.sh
             '';
-          } // args
+          }
+          // args
         )
       )
     )
@@ -82,7 +84,12 @@ pkgs.recurseIntoAttrs rec {
       builder =
         name:
         pkgs.callPackage ./engine.nix (
-          common // { engine = engine // { inherit name; }; }
+          common
+          // {
+            engine = engine // {
+              inherit name;
+            };
+          }
         )
       ;
     in
@@ -111,9 +118,14 @@ pkgs.recurseIntoAttrs rec {
         builder =
           name:
           pkgs.callPackage ./mod.nix (
-            common // {
-              mod = mod // { inherit name assetsError; };
-              engine = engine // { inherit mods; };
+            common
+            // {
+              mod = mod // {
+                inherit name assetsError;
+              };
+              engine = engine // {
+                inherit mods;
+              };
             }
           )
         ;

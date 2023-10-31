@@ -95,7 +95,9 @@ stdenv.mkDerivation (
         inherit (retroarch.meta) platforms;
         homepage = "https://www.libretro.com/";
         maintainers = with maintainers; teams.libretro.members ++ [ hrdinka ];
-      } // (args.meta or { })
+      }
+      // (args.meta or { })
     ;
-  } // extraArgs
+  }
+  // extraArgs
 )

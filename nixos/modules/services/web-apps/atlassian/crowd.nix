@@ -11,13 +11,16 @@ let
 
   cfg = config.services.crowd;
 
-  pkg = cfg.package.override {
-    home = cfg.home;
-    port = cfg.listenPort;
-    openidPassword = cfg.openidPassword;
-  } // (optionalAttrs cfg.proxy.enable {
-    proxyUrl = "${cfg.proxy.scheme}://${cfg.proxy.name}:${toString cfg.proxy.port}";
-  });
+  pkg =
+    cfg.package.override {
+      home = cfg.home;
+      port = cfg.listenPort;
+      openidPassword = cfg.openidPassword;
+    }
+    // (optionalAttrs cfg.proxy.enable {
+      proxyUrl = "${cfg.proxy.scheme}://${cfg.proxy.name}:${toString cfg.proxy.port}";
+    })
+  ;
 
   crowdPropertiesFile = pkgs.writeText "crowd.properties" ''
     application.name                        crowd-openid-server

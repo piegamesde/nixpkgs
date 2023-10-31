@@ -22,13 +22,15 @@ let
       lhs = optCall lhs_ { inherit pkgs; };
       rhs = optCall rhs_ { inherit pkgs; };
     in
-    recursiveUpdate lhs rhs // optionalAttrs (lhs ? packageOverrides) {
+    recursiveUpdate lhs rhs
+    // optionalAttrs (lhs ? packageOverrides) {
       packageOverrides =
         pkgs:
         optCall lhs.packageOverrides pkgs
         // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs
       ;
-    } // optionalAttrs (lhs ? perlPackageOverrides) {
+    }
+    // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
         pkgs:
         optCall lhs.perlPackageOverrides pkgs

@@ -36,7 +36,8 @@ let
                 {
                   inherit ruby;
                   gemName = name;
-                } // initialAttrs
+                }
+                // initialAttrs
               );
             in
             buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)

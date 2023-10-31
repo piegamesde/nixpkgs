@@ -9,8 +9,8 @@ let
     callPackage ./examples/shell-with-emulator.nix
       { }
   ;
-  all-tests = examples-shell.passthru.tests
-    // examples-shell-with-emulator.passthru.tests;
+  all-tests =
+    examples-shell.passthru.tests // examples-shell-with-emulator.passthru.tests;
 in
 stdenv.mkDerivation {
   name = "androidenv-test-suite";

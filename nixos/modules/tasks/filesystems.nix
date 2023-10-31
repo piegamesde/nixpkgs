@@ -13,7 +13,8 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check // {
+    types.addCheck elemType check
+    // {
       description = "${elemType.description} (with check: ${desc})";
     }
   ;
@@ -557,7 +558,8 @@ in
         map formatDevice (
           filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems
         )
-      ) // {
+      )
+      // {
         # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.
         # This cannot be done with the other special filesystems because the pstore module (which creates the mount point) is not loaded then.
         "mount-pstore" = {
@@ -599,76 +601,79 @@ in
     ];
 
     # Sync mount options with systemd's src/core/mount-setup.c: mount_table.
-    boot.specialFileSystems = {
-      "/proc" = {
-        fsType = "proc";
-        options = [
-          "nosuid"
-          "noexec"
-          "nodev"
-        ];
-      };
-      "/run" = {
-        fsType = "tmpfs";
-        options = [
-          "nosuid"
-          "nodev"
-          "strictatime"
-          "mode=755"
-          "size=${config.boot.runSize}"
-        ];
-      };
-      "/dev" = {
-        fsType = "devtmpfs";
-        options = [
-          "nosuid"
-          "strictatime"
-          "mode=755"
-          "size=${config.boot.devSize}"
-        ];
-      };
-      "/dev/shm" = {
-        fsType = "tmpfs";
-        options = [
-          "nosuid"
-          "nodev"
-          "strictatime"
-          "mode=1777"
-          "size=${config.boot.devShmSize}"
-        ];
-      };
-      "/dev/pts" = {
-        fsType = "devpts";
-        options = [
-          "nosuid"
-          "noexec"
-          "mode=620"
-          "ptmxmode=0666"
-          "gid=${toString config.ids.gids.tty}"
-        ];
-      };
+    boot.specialFileSystems =
+      {
+        "/proc" = {
+          fsType = "proc";
+          options = [
+            "nosuid"
+            "noexec"
+            "nodev"
+          ];
+        };
+        "/run" = {
+          fsType = "tmpfs";
+          options = [
+            "nosuid"
+            "nodev"
+            "strictatime"
+            "mode=755"
+            "size=${config.boot.runSize}"
+          ];
+        };
+        "/dev" = {
+          fsType = "devtmpfs";
+          options = [
+            "nosuid"
+            "strictatime"
+            "mode=755"
+            "size=${config.boot.devSize}"
+          ];
+        };
+        "/dev/shm" = {
+          fsType = "tmpfs";
+          options = [
+            "nosuid"
+            "nodev"
+            "strictatime"
+            "mode=1777"
+            "size=${config.boot.devShmSize}"
+          ];
+        };
+        "/dev/pts" = {
+          fsType = "devpts";
+          options = [
+            "nosuid"
+            "noexec"
+            "mode=620"
+            "ptmxmode=0666"
+            "gid=${toString config.ids.gids.tty}"
+          ];
+        };
 
-      # To hold secrets that shouldn't be written to disk
-      "/run/keys" = {
-        fsType = "ramfs";
-        options = [
-          "nosuid"
-          "nodev"
-          "mode=750"
-        ];
-      };
-    } // optionalAttrs (!config.boot.isContainer) {
-      # systemd-nspawn populates /sys by itself, and remounting it causes all
-      # kinds of weird issues (most noticeably, waiting for host disk device
-      # nodes).
-      "/sys" = {
-        fsType = "sysfs";
-        options = [
-          "nosuid"
-          "noexec"
-          "nodev"
-        ];
-      };
-    };
+        # To hold secrets that shouldn't be written to disk
+        "/run/keys" = {
+          fsType = "ramfs";
+          options = [
+            "nosuid"
+            "nodev"
+            "mode=750"
+          ];
+        };
+      }
+      // optionalAttrs (!config.boot.isContainer) {
+        # systemd-nspawn populates /sys by itself, and remounting it causes all
+        # kinds of weird issues (most noticeably, waiting for host disk device
+        # nodes).
+        "/sys" = {
+          fsType = "sysfs";
+          options = [
+            "nosuid"
+            "noexec"
+            "nodev"
+          ];
+        };
+      }
+    ;
   };
 }

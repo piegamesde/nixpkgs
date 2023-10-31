@@ -107,7 +107,8 @@ let
       ...
     }@args:
 
-    args // {
+    args
+    // {
       name = "${baseName}-${version}";
 
       inherit src;
@@ -165,7 +166,8 @@ let
     }@args:
 
     stdenv.mkDerivation (
-      (faust2ApplBase args) // {
+      (faust2ApplBase args)
+      // {
 
         nativeBuildInputs = [
           pkg-config
@@ -209,7 +211,8 @@ let
       );
     in
     stdenv.mkDerivation (
-      (faust2ApplBase args) // {
+      (faust2ApplBase args)
+      // {
 
         nativeBuildInputs = [ makeWrapper ];
 

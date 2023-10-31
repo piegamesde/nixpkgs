@@ -102,7 +102,8 @@ let
       zncAttr
     ];
     zncConf = attrsOf (
-      zncAll // {
+      zncAll
+      // {
         # Since this is a recursive type and the description by default contains
         # the description of its subtypes, infinite recursion would occur without
         # explicitly breaking this cycle

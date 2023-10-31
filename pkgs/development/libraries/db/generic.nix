@@ -64,5 +64,6 @@ stdenv.mkDerivation (
       license = license;
       platforms = platforms.unix;
     };
-  } // drvArgs
+  }
+  // drvArgs
 )

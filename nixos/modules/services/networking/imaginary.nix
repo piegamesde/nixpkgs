@@ -93,7 +93,8 @@ in
                   "-" + key + "=" + lib.concatStringsSep "," (map toString (lib.toList val))
                 )
                 (
-                  cfg.settings // {
+                  cfg.settings
+                  // {
                     a = cfg.address;
                     p = cfg.port;
                   }

@@ -143,7 +143,9 @@ let
             ip = "192.168.1.2";
           };
         };
-      } // attrs // {
+      }
+      // attrs
+      // {
         name = "kubernetes-${attrs.name}-multinode";
       }
     )
@@ -162,7 +164,9 @@ let
             ip = "192.168.1.1";
           };
         };
-      } // attrs // {
+      }
+      // attrs
+      // {
         name = "kubernetes-${attrs.name}-singlenode";
       }
     )

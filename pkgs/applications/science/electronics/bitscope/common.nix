@@ -37,7 +37,8 @@ let
         license = licenses.unfree;
         platforms = [ "x86_64-linux" ];
         maintainers = with maintainers; [ vidbina ];
-      } // (attrs.meta or { })
+      }
+      // (attrs.meta or { })
     ;
 
     nativeBuildInputs = [
@@ -74,6 +75,7 @@ in
 buildFHSEnv {
   name = "${attrs.toolName}-${attrs.version}";
   runScript = "${pkg.outPath}/bin/${attrs.toolName}";
-} // {
+}
+// {
   inherit (pkg) meta name;
 }

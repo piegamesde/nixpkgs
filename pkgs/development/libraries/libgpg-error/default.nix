@@ -90,5 +90,6 @@ stdenv.mkDerivation (
       platforms = platforms.all;
       maintainers = [ maintainers.vrthra ];
     };
-  } // genPosixLockObjOnlyAttrs
+  }
+  // genPosixLockObjOnlyAttrs
 )

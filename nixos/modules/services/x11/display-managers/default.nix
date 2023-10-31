@@ -223,7 +223,8 @@ in
         type =
           with types;
           listOf (
-            package // {
+            package
+            // {
               description = "package with provided sessions";
               check =
                 p:
@@ -307,7 +308,8 @@ in
       defaultSession = mkOption {
         type =
           with types;
-          nullOr str // {
+          nullOr str
+          // {
             description = "session name";
             check =
               d:
@@ -574,7 +576,8 @@ in
                   Name=${sessionName}
                   DesktopNames=${desktopNames}
                 '';
-              } // {
+              }
+              // {
                 providedSessions = [ sessionName ];
               }
             )

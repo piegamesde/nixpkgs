@@ -13,7 +13,8 @@ let
   };
 in
 stdenv.mkDerivation (
-  common // {
+  common
+  // {
     pname = "openrazer";
     version = "${common.version}-${kernel.version}";
 

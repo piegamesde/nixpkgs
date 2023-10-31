@@ -40,7 +40,9 @@ let
   generic =
     overrides: source:
     stdenv.mkDerivation (
-      source // overrides // {
+      source
+      // overrides
+      // {
         pname = overrides.type;
         version = source.version;
 

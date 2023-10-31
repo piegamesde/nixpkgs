@@ -135,7 +135,8 @@ let
       attrs = toSourceAttributes src;
     in
     fromSourceAttributes (
-      attrs // {
+      attrs
+      // {
         filter =
           path: type:
           let
@@ -144,7 +145,8 @@ let
           builtins.trace "${attrs.name}.filter ${path} = ${boolToString r}" r
         ;
       }
-    ) // {
+    )
+    // {
       satisfiesSubpathInvariant =
         src ? satisfiesSubpathInvariant && src.satisfiesSubpathInvariant;
     }

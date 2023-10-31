@@ -17,7 +17,8 @@ buildNimPackage rec {
   };
   meta =
     with lib;
-    src.meta // {
+    src.meta
+    // {
       description = "Tool to translate Ansi C code to Nim";
       license = licenses.mit;
       maintainers = [ maintainers.ehmry ];

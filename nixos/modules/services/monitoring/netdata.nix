@@ -286,47 +286,50 @@ in
 
     systemd.enableCgroupAccounting = true;
 
-    security.wrappers = {
-      "apps.plugin" = {
-        source = "${cfg.package}/libexec/netdata/plugins.d/apps.plugin.org";
-        capabilities = "cap_dac_read_search,cap_sys_ptrace+ep";
-        owner = cfg.user;
-        group = cfg.group;
-        permissions = "u+rx,g+x,o-rwx";
-      };
+    security.wrappers =
+      {
+        "apps.plugin" = {
+          source = "${cfg.package}/libexec/netdata/plugins.d/apps.plugin.org";
+          capabilities = "cap_dac_read_search,cap_sys_ptrace+ep";
+          owner = cfg.user;
+          group = cfg.group;
+          permissions = "u+rx,g+x,o-rwx";
+        };
 
-      "cgroup-network" = {
-        source = "${cfg.package}/libexec/netdata/plugins.d/cgroup-network.org";
-        capabilities = "cap_setuid+ep";
-        owner = cfg.user;
-        group = cfg.group;
-        permissions = "u+rx,g+x,o-rwx";
-      };
+        "cgroup-network" = {
+          source = "${cfg.package}/libexec/netdata/plugins.d/cgroup-network.org";
+          capabilities = "cap_setuid+ep";
+          owner = cfg.user;
+          group = cfg.group;
+          permissions = "u+rx,g+x,o-rwx";
+        };
 
-      "perf.plugin" = {
-        source = "${cfg.package}/libexec/netdata/plugins.d/perf.plugin.org";
-        capabilities = "cap_sys_admin+ep";
-        owner = cfg.user;
-        group = cfg.group;
-        permissions = "u+rx,g+x,o-rwx";
-      };
+        "perf.plugin" = {
+          source = "${cfg.package}/libexec/netdata/plugins.d/perf.plugin.org";
+          capabilities = "cap_sys_admin+ep";
+          owner = cfg.user;
+          group = cfg.group;
+          permissions = "u+rx,g+x,o-rwx";
+        };
 
-      "slabinfo.plugin" = {
-        source = "${cfg.package}/libexec/netdata/plugins.d/slabinfo.plugin.org";
-        capabilities = "cap_dac_override+ep";
-        owner = cfg.user;
-        group = cfg.group;
-        permissions = "u+rx,g+x,o-rwx";
-      };
-    } // optionalAttrs (cfg.package.withIpmi) {
-      "freeipmi.plugin" = {
-        source = "${cfg.package}/libexec/netdata/plugins.d/freeipmi.plugin.org";
-        capabilities = "cap_dac_override,cap_fowner+ep";
-        owner = cfg.user;
-        group = cfg.group;
-        permissions = "u+rx,g+x,o-rwx";
-      };
-    };
+        "slabinfo.plugin" = {
+          source = "${cfg.package}/libexec/netdata/plugins.d/slabinfo.plugin.org";
+          capabilities = "cap_dac_override+ep";
+          owner = cfg.user;
+          group = cfg.group;
+          permissions = "u+rx,g+x,o-rwx";
+        };
+      }
+      // optionalAttrs (cfg.package.withIpmi) {
+        "freeipmi.plugin" = {
+          source = "${cfg.package}/libexec/netdata/plugins.d/freeipmi.plugin.org";
+          capabilities = "cap_dac_override,cap_fowner+ep";
+          owner = cfg.user;
+          group = cfg.group;
+          permissions = "u+rx,g+x,o-rwx";
+        };
+      }
+    ;
 
     security.pam.loginLimits = [
       {

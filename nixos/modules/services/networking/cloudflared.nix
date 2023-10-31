@@ -333,9 +333,7 @@ in
                 (map
                   (
                     key:
-                    {
-                      hostname = key;
-                    } // getAttr key (filterConfig (filterConfig ingressesSet))
+                    { hostname = key; } // getAttr key (filterConfig (filterConfig ingressesSet))
                   )
                   (attrNames ingressesSet)
                 )

@@ -19,7 +19,8 @@
 }@attrs:
 
 stdenv.mkDerivation (
-  attrs // {
+  attrs
+  // {
     inherit strictDeps enableParallelBuilding;
     depsBuildBuild = [ nim_builder ] ++ depsBuildBuild;
     nativeBuildInputs = [ nim ] ++ nativeBuildInputs;

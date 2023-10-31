@@ -18,7 +18,8 @@ builtins.mapAttrs
   (
     pname: attrs:
     buildGoModule (
-      attrs // rec {
+      attrs
+      // rec {
         inherit pname;
         version = "3.10.15";
 

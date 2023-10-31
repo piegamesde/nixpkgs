@@ -143,7 +143,8 @@ let
               license = licenses.mit;
               maintainers = with maintainers; [ cohencyril ];
             };
-          } // optionalAttrs (package != "single") {
+          }
+          // optionalAttrs (package != "single") {
             passthru = genAttrs packages metacoq_;
           }
         )).overrideAttrs

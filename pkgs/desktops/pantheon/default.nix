@@ -300,7 +300,8 @@ lib.makeScope pkgs.newScope (
     # Please call these packages in pkgs/top-level/all-packages.nix instead of this file.
     # https://github.com/NixOS/nixpkgs/issues/115222#issuecomment-906868654
   }
-) // lib.optionalAttrs config.allowAliases {
+)
+// lib.optionalAttrs config.allowAliases {
 
   ### ALIASES
 

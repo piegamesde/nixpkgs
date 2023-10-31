@@ -1846,7 +1846,8 @@ self: super:
       '';
     }
   );
-} // (
+}
+// (
   let
     nodePackageNames = [
       "coc-clangd"

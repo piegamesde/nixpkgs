@@ -27,34 +27,40 @@ let
   ;
 
   versionMap = rec {
-    "11" = {
-      gccVersion = "11.2.0";
-      alireRevision = "4";
-    } // {
-      x86_64-darwin = {
-        hash = "sha256-FmBgD20PPQlX/ddhJliCTb/PRmKxe9z7TFPa2/SK4GY=";
-        upstreamTriplet = "x86_64-apple-darwin19.6.0";
-      };
-      x86_64-linux = {
-        hash = "sha256-8fMBJp6igH+Md5jE4LMubDmC4GLt4A+bZG/Xcz2LAJQ=";
-        upstreamTriplet = "x86_64-pc-linux-gnu";
-      };
-    }
-      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
-    "12" = {
-      gccVersion = "12.1.0";
-      alireRevision = "2";
-    } // {
-      x86_64-darwin = {
-        hash = "sha256-zrcVFvFZMlGUtkG0p1wST6kGInRI64Icdsvkcf25yVs=";
-        upstreamTriplet = "x86_64-apple-darwin19.6.0";
-      };
-      x86_64-linux = {
-        hash = "sha256-EPDPOOjWJnJsUM7GGxj20/PXumjfLoMIEFX1EDtvWVY=";
-        upstreamTriplet = "x86_64-pc-linux-gnu";
-      };
-    }
-      .${stdenv.hostPlatform.system} or throwUnsupportedSystem;
+    "11" =
+      {
+        gccVersion = "11.2.0";
+        alireRevision = "4";
+      }
+      // {
+        x86_64-darwin = {
+          hash = "sha256-FmBgD20PPQlX/ddhJliCTb/PRmKxe9z7TFPa2/SK4GY=";
+          upstreamTriplet = "x86_64-apple-darwin19.6.0";
+        };
+        x86_64-linux = {
+          hash = "sha256-8fMBJp6igH+Md5jE4LMubDmC4GLt4A+bZG/Xcz2LAJQ=";
+          upstreamTriplet = "x86_64-pc-linux-gnu";
+        };
+      }
+      .${stdenv.hostPlatform.system} or throwUnsupportedSystem
+    ;
+    "12" =
+      {
+        gccVersion = "12.1.0";
+        alireRevision = "2";
+      }
+      // {
+        x86_64-darwin = {
+          hash = "sha256-zrcVFvFZMlGUtkG0p1wST6kGInRI64Icdsvkcf25yVs=";
+          upstreamTriplet = "x86_64-apple-darwin19.6.0";
+        };
+        x86_64-linux = {
+          hash = "sha256-EPDPOOjWJnJsUM7GGxj20/PXumjfLoMIEFX1EDtvWVY=";
+          upstreamTriplet = "x86_64-pc-linux-gnu";
+        };
+      }
+      .${stdenv.hostPlatform.system} or throwUnsupportedSystem
+    ;
   };
 in
 with versionMap.${majorVersion};

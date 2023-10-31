@@ -60,7 +60,8 @@ let
         ];
 
         meta = commonMeta // args.meta;
-      } // (removeAttrs args [ "meta" ])
+      }
+      // (removeAttrs args [ "meta" ])
     )
   ;
 
@@ -176,13 +177,17 @@ let
     };
   };
 in
-utils // {
-  coreboot-utils = (buildEnv {
-    name = "coreboot-utils-${version}";
-    paths = lib.attrValues utils;
-    postBuild = "rm -rf $out/sbin";
-  }) // {
-    inherit version;
-    meta = commonMeta;
-  };
+utils
+// {
+  coreboot-utils =
+    (buildEnv {
+      name = "coreboot-utils-${version}";
+      paths = lib.attrValues utils;
+      postBuild = "rm -rf $out/sbin";
+    })
+    // {
+      inherit version;
+      meta = commonMeta;
+    }
+  ;
 }

@@ -418,15 +418,18 @@ let
         # To fix the build as we don't provide libffi_pic.a
         # (ld.lld: error: unable to find library -l:libffi_pic.a):
         use_system_libffi = true;
-      } // lib.optionalAttrs proprietaryCodecs {
+      }
+      // lib.optionalAttrs proprietaryCodecs {
         # enable support for the H.264 codec
         proprietary_codecs = true;
         enable_hangout_services_extension = true;
         ffmpeg_branding = "Chrome";
-      } // lib.optionalAttrs pulseSupport {
+      }
+      // lib.optionalAttrs pulseSupport {
         use_pulseaudio = true;
         link_pulseaudio = true;
-      } // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
+      }
+      // lib.optionalAttrs ungoogled (lib.importTOML ./ungoogled-flags.toml)
       // (extraAttrs.gnFlags or { })
     );
 
@@ -496,11 +499,13 @@ let
 in
 # Remove some extraAttrs we supplied to the base attributes already.
 stdenv.mkDerivation (
-  base // removeAttrs extraAttrs [
+  base
+  // removeAttrs extraAttrs [
     "name"
     "gnFlags"
     "buildTargets"
-  ] // {
+  ]
+  // {
     passthru = base.passthru // (extraAttrs.passthru or { });
   }
 )

@@ -34,7 +34,8 @@ in
       '';
     };
 
-    enableExtensionPack = mkEnableOption (lib.mdDoc "VirtualBox extension pack")
+    enableExtensionPack =
+      mkEnableOption (lib.mdDoc "VirtualBox extension pack")
       // {
         description = lib.mdDoc ''
           Whether to install the Oracle Extension Pack for VirtualBox.
@@ -44,7 +45,8 @@ in
           order to use this.  This requires you accept the VirtualBox PUEL.
           :::
         '';
-      };
+      }
+    ;
 
     package = mkOption {
       type = types.package;

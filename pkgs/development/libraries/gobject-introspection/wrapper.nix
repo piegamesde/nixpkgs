@@ -43,7 +43,9 @@ then
     previousAttrs: {
 
       pname = "gobject-introspection-wrapped";
-      passthru = previousAttrs.passthru // { unwrapped = overriddenUnwrappedGir; };
+      passthru = previousAttrs.passthru // {
+        unwrapped = overriddenUnwrappedGir;
+      };
       dontStrip = true;
       depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
       buildCommand =
@@ -109,7 +111,9 @@ else
   overriddenUnwrappedGir.overrideAttrs (
     previousAttrs: {
       pname = "gobject-introspection-wrapped";
-      passthru = previousAttrs.passthru // { unwrapped = overriddenUnwrappedGir; };
+      passthru = previousAttrs.passthru // {
+        unwrapped = overriddenUnwrappedGir;
+      };
       dontStrip = true;
       depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
       buildCommand = ''

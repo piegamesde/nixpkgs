@@ -72,7 +72,8 @@ stdenv.mkDerivation (
       fi
       runHook postInstall
     '';
-  } // removeAttrs args [
+  }
+  // removeAttrs args [
     "language"
     "location"
     "generate"
