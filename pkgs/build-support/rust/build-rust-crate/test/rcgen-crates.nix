@@ -1746,9 +1746,7 @@ rec {
               (
                 (target."arch" == "x86")
                 || (target."arch" == "x86_64")
-                || (
-                  ((target."arch" == "aarch64") || (target."arch" == "arm")) && ((target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux"))
-                )
+                || (((target."arch" == "aarch64") || (target."arch" == "arm")) && ((target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux")))
               );
           }
           {

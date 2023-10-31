@@ -222,9 +222,7 @@ stdenv.mkDerivation {
         if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then
           ''
             patchelf --set-soname libblas${canonicalExtension} $out/lib/libblas${canonicalExtension}
-            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${
-              lib.getLib blasProvider'
-            }/lib" $out/lib/libblas${canonicalExtension}
+            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libblas${canonicalExtension}
           ''
         else
           lib.optionalString (stdenv.hostPlatform.isDarwin) ''
@@ -263,9 +261,7 @@ stdenv.mkDerivation {
         if stdenv.hostPlatform.parsed.kernel.execFormat.name == "elf" then
           ''
             patchelf --set-soname libcblas${canonicalExtension} $out/lib/libcblas${canonicalExtension}
-            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${
-              lib.getLib blasProvider'
-            }/lib" $out/lib/libcblas${canonicalExtension}
+            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libcblas${canonicalExtension}
           ''
         else
           lib.optionalString stdenv.hostPlatform.isDarwin ''

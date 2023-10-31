@@ -239,8 +239,7 @@ in
       }
       {
         assertion =
-          !cfg.enableServer
-          || (cfg.serverSettings.domain == null -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI");
+          !cfg.enableServer || (cfg.serverSettings.domain == null -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI");
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
           is not a ReadOnlyReplica. Otherwise the db would inherit it from

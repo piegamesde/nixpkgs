@@ -185,9 +185,7 @@ let
       );
       config = mkMerge [
         {
-          warnings =
-            optional fromOpt.isDefined
-              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
+          warnings = optional fromOpt.isDefined "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
@@ -605,9 +603,7 @@ in
                 "d ${cfg.stateDir}/tmp 0750 ${user} ${webserver.group} - -"
               ]
               ++ lib.optional (cfg.aclFile != null) "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
-              ++
-                lib.optional (cfg.usersFile != null)
-                  "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"
+              ++ lib.optional (cfg.usersFile != null) "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"
             )
             eachSite
         );

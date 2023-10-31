@@ -40,9 +40,7 @@ let
           if old ? format && old.format == "wheel" then
             { }
           else
-            {
-              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optionals (!(builtins.isNull buildSystem)) [ buildSystem ] ++ map (a: self.${a}) extraAttrs;
-            }
+            { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optionals (!(builtins.isNull buildSystem)) [ buildSystem ] ++ map (a: self.${a}) extraAttrs; }
         )
     );
 in
@@ -100,9 +98,7 @@ lib.composeManyExtensions [
         old: lib.optionalAttrs (lib.versionOlder old.version "22.10.0") { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.m2r ]; }
       );
 
-      aiohttp-swagger3 = super.aiohttp-swagger3.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      aiohttp-swagger3 = super.aiohttp-swagger3.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       ansible = super.ansible.overridePythonAttrs (
         old: {
@@ -483,9 +479,7 @@ lib.composeManyExtensions [
 
       dcli = super.dcli.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.setuptools ]; });
 
-      ddtrace = super.ddtrace.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]); }
-      );
+      ddtrace = super.ddtrace.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ (lib.optionals pkgs.stdenv.isDarwin [ pkgs.darwin.IOKit ]); });
 
       dictdiffer = super.dictdiffer.overridePythonAttrs (
         old: {
@@ -516,15 +510,11 @@ lib.composeManyExtensions [
         }
       );
 
-      django-cors-headers = super.django-cors-headers.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      django-cors-headers = super.django-cors-headers.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       django-hijack = super.django-hijack.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
-      django-prometheus = super.django-prometheus.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      django-prometheus = super.django-prometheus.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       django-rosetta = super.django-rosetta.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
@@ -2116,9 +2106,7 @@ lib.composeManyExtensions [
         }
       );
 
-      pytest-randomly = super.pytest-randomly.overrideAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-metadata ]; }
-      );
+      pytest-randomly = super.pytest-randomly.overrideAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.importlib-metadata ]; });
 
       pytest-runner = super.pytest-runner or super.pytestrunner;
 
@@ -2244,9 +2232,7 @@ lib.composeManyExtensions [
 
       rasterio = super.rasterio.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.gdal ]; });
 
-      rfc3986-validator = super.rfc3986-validator.overridePythonAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
-      );
+      rfc3986-validator = super.rfc3986-validator.overridePythonAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; });
 
       rlp = super.rlp.overridePythonAttrs {
         preConfigure = ''
@@ -2267,9 +2253,7 @@ lib.composeManyExtensions [
         }
       );
 
-      ruamel-yaml = super.ruamel-yaml.overridePythonAttrs (
-        old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.ruamel-yaml-clib ]; }
-      );
+      ruamel-yaml = super.ruamel-yaml.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.ruamel-yaml-clib ]; });
 
       scipy = super.scipy.overridePythonAttrs (
         old:
@@ -2660,13 +2644,10 @@ lib.composeManyExtensions [
         '';
       };
 
-      weblate-language-data = super.weblate-language-data.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.translate-toolkit ]; }
-      );
+      weblate-language-data = super.weblate-language-data.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.translate-toolkit ]; });
 
       wheel =
-        ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override { inherit (self) buildPythonPackage bootstrapped-pip setuptools; })
-        .overrideAttrs
+        ((pkgs.python3.pkgs.override { python = self.python; }).wheel.override { inherit (self) buildPythonPackage bootstrapped-pip setuptools; }).overrideAttrs
           (
             old: {
               inherit (super.wheel)
@@ -2679,10 +2660,7 @@ lib.composeManyExtensions [
           );
 
       zipp =
-        if super.zipp == null then
-          null
-        else
-          super.zipp.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toml ]; });
+        if super.zipp == null then null else super.zipp.overridePythonAttrs (old: { propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ self.toml ]; });
 
       packaging =
         let
@@ -2715,9 +2693,7 @@ lib.composeManyExtensions [
         }
       );
 
-      sentence-transformers = super.sentence-transformers.overridePythonAttrs (
-        old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.typing-extensions ]; }
-      );
+      sentence-transformers = super.sentence-transformers.overridePythonAttrs (old: { buildInputs = (old.buildInputs or [ ]) ++ [ self.typing-extensions ]; });
 
       supervisor = super.supervisor.overridePythonAttrs (
         old: {

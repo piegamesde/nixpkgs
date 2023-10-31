@@ -49,9 +49,7 @@ in
         default = true;
         example = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "When true, execute the runs via the flexget-runner.timer. If false, you have to specify the settings yourself in the YML file.";
+        description = lib.mdDoc "When true, execute the runs via the flexget-runner.timer. If false, you have to specify the settings yourself in the YML file.";
       };
 
       config = mkOption {

@@ -261,10 +261,9 @@ lib.makeScope pkgs.newScope (
                         pythonPackages = self;
 
                         sourceSpec =
-                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
-                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
-                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
-                                or { }
+                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName} or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { })
+                            .${normalizedName} or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
+                              or { }
                           );
                       }
                     );
@@ -297,9 +296,7 @@ lib.makeScope pkgs.newScope (
 
             (
               self: super:
-              lib.attrsets.mapAttrs
-                (name: value: if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value)
-                super
+              lib.attrsets.mapAttrs (name: value: if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then null else value) super
             )
 
             (
@@ -330,10 +327,7 @@ lib.makeScope pkgs.newScope (
             (
               self: super:
               lib.mapAttrs
-                (
-                  name: value:
-                  (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value)
-                )
+                (name: value: (if lib.isDerivation value && lib.hasAttr "overridePythonAttrs" value then value.overridePythonAttrs (_: { doCheck = false; }) else value))
                 super
             )
 
@@ -414,8 +408,7 @@ lib.makeScope pkgs.newScope (
         pyProject = readTOML pyproject;
 
         # Automatically add dependencies with develop = true as editable packages, but only if path dependencies
-        getEditableDeps =
-          set: lib.mapAttrs (name: value: projectDir + "/${value.path}") (lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set);
+        getEditableDeps = set: lib.mapAttrs (name: value: projectDir + "/${value.path}") (lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set);
 
         excludedEditablePackageNames = builtins.filter (pkg: editablePackageSources."${pkg}" == null) (builtins.attrNames editablePackageSources);
 

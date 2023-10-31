@@ -75,8 +75,7 @@ let
   parseExpressions =
     exprs:
     let
-      splitCond =
-        (s: builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (builtins.split " (and|or) " (s + " ")));
+      splitCond = (s: builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (builtins.split " (and|or) " (s + " ")));
       mapfn =
         expr:
         (

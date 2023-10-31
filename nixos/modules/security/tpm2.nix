@@ -155,12 +155,7 @@ in
               "TPM2TOOLS_TCTI"
               "TPM2_PKCS11_TCTI"
             ]
-            (
-              _:
-              "${cfg.tctiEnvironment.interface}:${
-                if cfg.tctiEnvironment.interface == "tabrmd" then cfg.tctiEnvironment.tabrmdConf else cfg.tctiEnvironment.deviceConf
-              }"
-            )
+            (_: "${cfg.tctiEnvironment.interface}:${if cfg.tctiEnvironment.interface == "tabrmd" then cfg.tctiEnvironment.tabrmdConf else cfg.tctiEnvironment.deviceConf}")
         );
       }
 

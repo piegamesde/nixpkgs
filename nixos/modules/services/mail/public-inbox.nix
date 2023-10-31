@@ -421,9 +421,7 @@ in
         '';
       }
     ];
-    services.public-inbox.settings = filterAttrsRecursive (n: v: v != null) {
-      publicinbox = mapAttrs (n: filterAttrs (n: v: n != "description")) cfg.inboxes;
-    };
+    services.public-inbox.settings = filterAttrsRecursive (n: v: v != null) { publicinbox = mapAttrs (n: filterAttrs (n: v: n != "description")) cfg.inboxes; };
     users = {
       users.public-inbox = {
         home = stateDir;

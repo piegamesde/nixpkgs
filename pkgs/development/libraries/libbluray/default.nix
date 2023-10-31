@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ] ++ lib.optionals withJava [ ant ];
 
-  buildInputs =
-    [ fontconfig ]
-    ++ lib.optional withJava jdk ++ lib.optional withMetadata libxml2 ++ lib.optional withFonts freetype ++ lib.optional stdenv.isDarwin DiskArbitration;
+  buildInputs = [
+    fontconfig
+  ] ++ lib.optional withJava jdk ++ lib.optional withMetadata libxml2 ++ lib.optional withFonts freetype ++ lib.optional stdenv.isDarwin DiskArbitration;
 
   propagatedBuildInputs = lib.optional withAACS libaacs;
 

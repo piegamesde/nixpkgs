@@ -53,11 +53,7 @@ stdenv.mkDerivation rec {
     lib.optionals (!libOnly) [
       "--with-audio=${
         lib.strings.concatStringsSep "," (
-          lib.optional withJack "jack"
-          ++ lib.optional withPulse "pulse"
-          ++ lib.optional withAlsa "alsa"
-          ++ lib.optional withCoreAudio "coreaudio"
-          ++ [ "dummy" ]
+          lib.optional withJack "jack" ++ lib.optional withPulse "pulse" ++ lib.optional withAlsa "alsa" ++ lib.optional withCoreAudio "coreaudio" ++ [ "dummy" ]
         )
       }"
     ]

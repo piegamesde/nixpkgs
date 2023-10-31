@@ -207,9 +207,7 @@ stdenv.mkDerivation (
         map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
         # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.pulseaudioSupport (map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])))
-        ++ lib.optionals supportFlags.waylandSupport (
-          map (x: "${lib.getLib x}/share/wayland-protocols") (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ]))
-        )
+        ++ lib.optionals supportFlags.waylandSupport (map (x: "${lib.getLib x}/share/wayland-protocols") (toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])))
       )
     );
 

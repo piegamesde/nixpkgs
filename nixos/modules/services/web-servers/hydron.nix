@@ -139,11 +139,7 @@ with lib; {
         User = "hydron";
         Group = "hydron";
         ExecStart =
-          "${pkgs.hydron}/bin/hydron import "
-          + optionalString cfg.fetchTags "-f "
-          + (escapeShellArg cfg.dataDir)
-          + "/images "
-          + (escapeShellArgs cfg.importPaths);
+          "${pkgs.hydron}/bin/hydron import " + optionalString cfg.fetchTags "-f " + (escapeShellArg cfg.dataDir) + "/images " + (escapeShellArgs cfg.importPaths);
       };
     };
 

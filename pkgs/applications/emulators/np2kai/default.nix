@@ -66,9 +66,7 @@ let
       "mac"
     else
       "unix";
-  sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (
-    optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]
-  );
+  sdlMakefiles = concatMapStringsSep " " (x: x + "." + sdlMakefileSuffix) (optionals enable16Bit [ "Makefile" ] ++ optionals enable32Bit [ "Makefile21" ]);
   sdlBuildFlags = concatStringsSep " " (optionals enableSDL [ "SDL_VERSION=${withSDLVersion}" ]);
   sdlBins = concatStringsSep " " (optionals enable16Bit [ "np2kai" ] ++ optionals enable32Bit [ "np21kai" ]);
   x11ConfigureFlags = concatStringsSep " " (
@@ -98,9 +96,7 @@ let
     ''SDL_CFLAGS="$(sdl${sdlInfix}-config --cflags)"''
     ''SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
   ];
-  x11Bins = concatStringsSep " " (
-    optionals enable16Bit [ "xnp2kai" ] ++ optionals enable32Bit [ "xnp21kai" ] ++ optionals enableHAXM [ "xnp21kai_haxm" ]
-  );
+  x11Bins = concatStringsSep " " (optionals enable16Bit [ "xnp2kai" ] ++ optionals enable32Bit [ "xnp21kai" ] ++ optionals enableHAXM [ "xnp21kai_haxm" ]);
 in
 stdenv.mkDerivation rec {
   pname = "np2kai";

@@ -132,10 +132,7 @@ let
             lib.optionalString
               (
                 hostPlatform.isDarwin
-                || (
-                  hostPlatform.parsed.kernel.execFormat != lib.systems.parse.execFormats.elf
-                  && hostPlatform.parsed.kernel.execFormat != lib.systems.parse.execFormats.macho
-                )
+                || (hostPlatform.parsed.kernel.execFormat != lib.systems.parse.execFormats.elf && hostPlatform.parsed.kernel.execFormat != lib.systems.parse.execFormats.macho)
               )
               ''
                 export NIX_DONT_SET_RPATH=1

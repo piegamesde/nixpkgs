@@ -164,9 +164,7 @@ in
         };
       };
 
-    environment.etc."schleuder/schleuder.yml" = lib.mkIf (cfg.extraSettingsFile == null) {
-      source = settingsFormat.generate "schleuder.yml" cfg.settings;
-    };
+    environment.etc."schleuder/schleuder.yml" = lib.mkIf (cfg.extraSettingsFile == null) { source = settingsFormat.generate "schleuder.yml" cfg.settings; };
     environment.etc."schleuder/list-defaults.yml".source = settingsFormat.generate "list-defaults.yml" cfg.listDefaults;
 
     services.schleuder = {

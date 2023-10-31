@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.programs.yabar;
 
-  mapExtra =
-    v: lib.concatStringsSep "\n" (mapAttrsToList (key: val: "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};") v);
+  mapExtra = v: lib.concatStringsSep "\n" (mapAttrsToList (key: val: "${key} = ${if (isString val) then ''"${val}"'' else "${builtins.toString val}"};") v);
 
   listKeys = r: concatStringsSep "," (map (n: ''"${n}"'') (attrNames r));
 

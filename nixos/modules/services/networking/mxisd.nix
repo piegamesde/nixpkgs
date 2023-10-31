@@ -15,9 +15,7 @@ let
 
   cfg = config.services.mxisd;
 
-  server =
-    optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; }
-    // optionalAttrs (cfg.server.port != null) { inherit (cfg.server) port; };
+  server = optionalAttrs (cfg.server.name != null) { inherit (cfg.server) name; } // optionalAttrs (cfg.server.port != null) { inherit (cfg.server) port; };
 
   baseConfig = {
     matrix.domain = cfg.matrix.domain;

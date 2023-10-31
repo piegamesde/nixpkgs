@@ -21,13 +21,11 @@ stdenv.mkDerivation rec {
     openssl
   ];
   nativeBuildInputs = [ cmake ];
-  makeFlags =
-    [
-      "USE_ZLIB=1"
-      "USE_OPENSSL=1"
-      "PREFIX=$(out)"
-    ]
-    ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}" ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${lib.getDev stdenv.cc.libc}";
+  makeFlags = [
+    "USE_ZLIB=1"
+    "USE_OPENSSL=1"
+    "PREFIX=$(out)"
+  ] ++ lib.optional (stdenv.cc.cc != null) "SYSROOT_ALT=${stdenv.cc.cc}" ++ lib.optional (stdenv.cc.libc != null) "SYSROOT=${lib.getDev stdenv.cc.libc}";
   enableParallelBuilding = true;
   meta = {
     description = "A library for real-time communications with async IO support and a complete SIP stack";

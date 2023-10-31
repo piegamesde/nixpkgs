@@ -221,9 +221,7 @@ let
       tlName = urlName + "-${version}";
       fixedHash = fixedHashes.${tlName} or null; # be graceful about missing hashes
 
-      urls =
-        args.urls
-          or (if args ? url then [ args.url ] else map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes));
+      urls = args.urls or (if args ? url then [ args.url ] else map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes));
     in
     runCommand "texlive-${tlName}"
       (

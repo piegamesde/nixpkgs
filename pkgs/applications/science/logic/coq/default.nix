@@ -162,9 +162,7 @@ let
           (coq-prog-args))
         (mapc (lambda (arg)
           (when (file-directory-p (concat arg "/lib/coq/${coq-version}/user-contrib"))
-            (setenv "COQPATH" (concat (getenv "COQPATH") ":" arg "/lib/coq/${coq-version}/user-contrib")))) '(${
-              concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)
-            }))
+            (setenv "COQPATH" (concat (getenv "COQPATH") ":" arg "/lib/coq/${coq-version}/user-contrib")))) '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
         ; TODO Abstract this pattern from here and nixBufferBuilders.withPackages!
         (defvar nixpkgs--coq-buffer-count 0)
         (when (eq nixpkgs--coq-buffer-count 0)

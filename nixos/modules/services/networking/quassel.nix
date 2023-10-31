@@ -121,9 +121,7 @@ in
       description = "Quassel IRC client daemon";
 
       wantedBy = [ "multi-user.target" ];
-      after = [
-        "network.target"
-      ] ++ optional config.services.postgresql.enable "postgresql.service" ++ optional config.services.mysql.enable "mysql.service";
+      after = [ "network.target" ] ++ optional config.services.postgresql.enable "postgresql.service" ++ optional config.services.mysql.enable "mysql.service";
 
       serviceConfig = {
         ExecStart = concatStringsSep " " (

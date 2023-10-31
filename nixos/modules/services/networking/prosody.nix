@@ -95,9 +95,7 @@ let
     cloud_notify = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online";
+      description = lib.mdDoc "Push notifications to inform users of new messages or other pertinent information even when they have no XMPP clients online";
     };
 
     pep = mkOption {

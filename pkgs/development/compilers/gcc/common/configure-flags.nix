@@ -100,12 +100,7 @@ let
         ]
       else
         [
-          (
-            if crossDarwin then
-              "--with-sysroot=${lib.getLib libcCross}/share/sysroot"
-            else
-              "--with-headers=${lib.getDev libcCross}${libcCross.incdir or "/include"}"
-          )
+          (if crossDarwin then "--with-sysroot=${lib.getLib libcCross}/share/sysroot" else "--with-headers=${lib.getDev libcCross}${libcCross.incdir or "/include"}")
           "--enable-__cxa_atexit"
           "--enable-long-long"
           "--enable-threads=${

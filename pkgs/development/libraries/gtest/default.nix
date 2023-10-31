@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [ "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}" ]
-    ++ lib.optionals
-      ((stdenv.cc.isGNU && (lib.versionOlder stdenv.cc.version "11.0")) || (stdenv.cc.isClang && (lib.versionOlder stdenv.cc.version "16.0")))
+    ++ lib.optionals ((stdenv.cc.isGNU && (lib.versionOlder stdenv.cc.version "11.0")) || (stdenv.cc.isClang && (lib.versionOlder stdenv.cc.version "16.0")))
       [
         # Enable C++17 support
         # https://github.com/google/googletest/issues/3081

@@ -124,17 +124,13 @@ in
       };
 
       properties = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
+        description = lib.mdDoc "An attribute set in which each attribute represents a machine property. Optionally, these values can be shell substitutions.";
         default = { };
         type = types.attrs;
       };
 
       containers = mkOption {
-        description =
-          lib.mdDoc
-            "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
+        description = lib.mdDoc "An attribute set in which each key represents a container and each value an attribute set providing its configuration properties";
         default = { };
         type = types.attrsOf types.attrs;
       };

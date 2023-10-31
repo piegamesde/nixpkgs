@@ -7,8 +7,7 @@
     else
       (test.failed ("expected '${toString expected}'(${builtins.typeOf expected})" + " !=  " + "actual '${toString actual}'(${builtins.typeOf actual})"));
 
-  beASet =
-    actual: if builtins.isAttrs actual then (test.passed "is a set") else (test.failed "is not a set, was ${builtins.typeOf actual}: ${toString actual}");
+  beASet = actual: if builtins.isAttrs actual then (test.passed "is a set") else (test.failed "is not a set, was ${builtins.typeOf actual}: ${toString actual}");
 
   haveKeys =
     expected: actual:

@@ -211,9 +211,7 @@ in
       initialScript = mkOption {
         type = types.nullOr types.path;
         default = null;
-        description =
-          lib.mdDoc
-            "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database.";
+        description = lib.mdDoc "A file containing SQL statements to be executed on the first startup. Can be used for granting certain permissions on the database.";
       };
 
       ensureDatabases = mkOption {

@@ -42,28 +42,24 @@ buildPythonApplication rec {
 
   nativeBuildInputs = [ pdm-backend ];
 
-  propagatedBuildInputs =
-    [
-      blinker
-      cachecontrol
-      certifi
-      findpython
-      installer
-      packaging
-      platformdirs
-      pyproject-hooks
-      python-dotenv
-      requests-toolbelt
-      resolvelib
-      rich
-      shellingham
-      tomlkit
-      unearth
-      virtualenv
-    ]
-    ++ cachecontrol.optional-dependencies.filecache
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = [
+    blinker
+    cachecontrol
+    certifi
+    findpython
+    installer
+    packaging
+    platformdirs
+    pyproject-hooks
+    python-dotenv
+    requests-toolbelt
+    resolvelib
+    rich
+    shellingham
+    tomlkit
+    unearth
+    virtualenv
+  ] ++ cachecontrol.optional-dependencies.filecache ++ lib.optionals (pythonOlder "3.11") [ tomli ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
 
   nativeCheckInputs = [
     pytestCheckHook

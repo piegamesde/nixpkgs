@@ -536,9 +536,7 @@ let
       # commands to run right before we mount our device
       ${dev.preOpenCommands}
 
-      ${if
-        (luks.yubikeySupport && (dev.yubikey != null)) || (luks.gpgSupport && (dev.gpgCard != null)) || (luks.fido2Support && fido2luksCredentials != [ ])
-      then
+      ${if (luks.yubikeySupport && (dev.yubikey != null)) || (luks.gpgSupport && (dev.gpgCard != null)) || (luks.fido2Support && fido2luksCredentials != [ ]) then
         ''
           open_with_hardware
         ''

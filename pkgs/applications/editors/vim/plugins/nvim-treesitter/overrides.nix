@@ -62,8 +62,7 @@ let
   # pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.java ... ])
   # or for all grammars:
   # pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-  withPlugins =
-    f: self.nvim-treesitter.overrideAttrs (_: { passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars)); });
+  withPlugins = f: self.nvim-treesitter.overrideAttrs (_: { passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars)); });
 
   withAllGrammars = withPlugins (_: allGrammars);
 in

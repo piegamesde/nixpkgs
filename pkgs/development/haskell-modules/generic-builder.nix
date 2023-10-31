@@ -333,9 +333,7 @@ let
     removeReferencesTo
   ] ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
   propagatedBuildInputs = buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
-  otherBuildInputsHaskell =
-    optionals doCheck (testDepends ++ testHaskellDepends)
-    ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends);
+  otherBuildInputsHaskell = optionals doCheck (testDepends ++ testHaskellDepends) ++ optionals doBenchmark (benchmarkDepends ++ benchmarkHaskellDepends);
   otherBuildInputsSystem =
     extraLibraries
     ++ librarySystemDepends
@@ -390,9 +388,7 @@ lib.fix (
     {
       inherit pname version;
 
-      outputs = [
-        "out"
-      ] ++ (optional enableSeparateDataOutput "data") ++ (optional enableSeparateDocOutput "doc") ++ (optional enableSeparateBinOutput "bin");
+      outputs = [ "out" ] ++ (optional enableSeparateDataOutput "data") ++ (optional enableSeparateDocOutput "doc") ++ (optional enableSeparateBinOutput "bin");
       setOutputFlags = false;
 
       pos = builtins.unsafeGetAttrPos "pname" args;

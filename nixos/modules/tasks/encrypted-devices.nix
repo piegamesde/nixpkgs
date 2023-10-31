@@ -29,9 +29,7 @@ let
         default = null;
         example = "rootfs";
         type = types.nullOr types.str;
-        description =
-          lib.mdDoc
-            "Label of the unlocked encrypted device. Set `fileSystems.<name?>.device` to `/dev/mapper/<label>` to mount the unlocked device.";
+        description = lib.mdDoc "Label of the unlocked encrypted device. Set `fileSystems.<name?>.device` to `/dev/mapper/<label>` to mount the unlocked device.";
       };
 
       keyFile = mkOption {

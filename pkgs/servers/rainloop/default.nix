@@ -25,9 +25,7 @@ let
       '';
 
       src = fetchurl {
-        url = "https://github.com/RainLoop/rainloop-webmail/releases/download/v${version}/rainloop-${edition}${
-            lib.optionalString (edition != "") "-"
-          }${version}.zip";
+        url = "https://github.com/RainLoop/rainloop-webmail/releases/download/v${version}/rainloop-${edition}${lib.optionalString (edition != "") "-"}${version}.zip";
         sha256 = sha256;
       };
 

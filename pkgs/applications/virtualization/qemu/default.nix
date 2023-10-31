@@ -103,8 +103,7 @@ let
 in
 
 stdenv.mkDerivation rec {
-  pname =
-    "qemu" + lib.optionalString xenSupport "-xen" + lib.optionalString hostCpuOnly "-host-cpu-only" + lib.optionalString nixosTestRunner "-for-vm-tests";
+  pname = "qemu" + lib.optionalString xenSupport "-xen" + lib.optionalString hostCpuOnly "-host-cpu-only" + lib.optionalString nixosTestRunner "-for-vm-tests";
   version = "8.0.0";
 
   src = fetchurl {

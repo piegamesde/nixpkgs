@@ -113,8 +113,7 @@ let
     let
       # Use the latest stable Chrome version if necessary:
       version = if chromium.upstream-info.sha256bin64 != null then chromium.upstream-info.version else (lib.importJSON ./upstream-info.json).stable.version;
-      sha256 =
-        if chromium.upstream-info.sha256bin64 != null then chromium.upstream-info.sha256bin64 else (lib.importJSON ./upstream-info.json).stable.sha256bin64;
+      sha256 = if chromium.upstream-info.sha256bin64 != null then chromium.upstream-info.sha256bin64 else (lib.importJSON ./upstream-info.json).stable.sha256bin64;
     in
     fetchurl {
       urls = map (repo: "${repo}/${pkgName}/${pkgName}_${version}-1_amd64.deb") [

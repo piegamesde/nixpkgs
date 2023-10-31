@@ -115,8 +115,7 @@ in
         HASHED_PASSWORD = cfg.hashedPassword;
       } // cfg.extraEnvironment;
       serviceConfig = {
-        ExecStart =
-          "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${toString cfg.port} --auth ${cfg.auth} " + lib.escapeShellArgs cfg.extraArguments;
+        ExecStart = "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${toString cfg.port} --auth ${cfg.auth} " + lib.escapeShellArgs cfg.extraArguments;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         RuntimeDirectory = cfg.user;
         User = cfg.user;

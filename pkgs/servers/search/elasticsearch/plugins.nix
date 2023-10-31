@@ -64,11 +64,7 @@ in
     version = esVersion;
     src = fetchurl {
       url = "https://artifacts.elastic.co/downloads/elasticsearch-plugins/${pluginName}/${pluginName}-${version}.zip";
-      sha256 =
-        if version == "7.17.4" then
-          "sha256-O6GCTwuxRrFFht9pQGg8G0O8wrFP2YnSaG02yy7NZ6I="
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+      sha256 = if version == "7.17.4" then "sha256-O6GCTwuxRrFFht9pQGg8G0O8wrFP2YnSaG02yy7NZ6I=" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/elastic/elasticsearch/tree/master/plugins/analysis-kuromoji";
@@ -82,11 +78,7 @@ in
     version = esVersion;
     src = fetchurl {
       url = "https://github.com/vhyza/elasticsearch-${pluginName}/releases/download/v${version}/elasticsearch-${pluginName}-${version}-plugin.zip";
-      sha256 =
-        if version == "7.17.4" then
-          "sha256-5tg4Lts++kL3QEnP+TM7NGR3EQH17H3KmhGHuhIGVqU="
-        else
-          throw "unsupported version ${version} for plugin ${pluginName}";
+      sha256 = if version == "7.17.4" then "sha256-5tg4Lts++kL3QEnP+TM7NGR3EQH17H3KmhGHuhIGVqU=" else throw "unsupported version ${version} for plugin ${pluginName}";
     };
     meta = with lib; {
       homepage = "https://github.com/vhyza/elasticsearch-analysis-lemmagen";

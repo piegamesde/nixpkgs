@@ -257,8 +257,7 @@ let
           supportedHardeningFlags'
         else
           lib.remove "pie" supportedHardeningFlags';
-      enabledHardeningOptions =
-        if builtins.elem "all" hardeningDisable' then [ ] else lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable);
+      enabledHardeningOptions = if builtins.elem "all" hardeningDisable' then [ ] else lib.subtractLists hardeningDisable' (defaultHardeningFlags ++ hardeningEnable);
       # hardeningDisable additionally supports "all".
       erroneousHardeningFlags = lib.subtractLists supportedHardeningFlags (hardeningEnable ++ lib.remove "all" hardeningDisable);
 
@@ -273,9 +272,7 @@ let
             checkDependencyList' ([ index ] ++ positions) name dep
           else
             throw
-              "Dependency is not of a valid type: ${lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)}${name} for ${
-                attrs.name or attrs.pname
-              }"
+              "Dependency is not of a valid type: ${lib.concatMapStrings (ix: "element ${toString ix} of ") ([ index ] ++ positions)}${name} for ${attrs.name or attrs.pname}"
         );
     in
     if builtins.length erroneousHardeningFlags != 0 then
@@ -338,14 +335,10 @@ let
         computedPropagatedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (lib.concatLists propagatedDependencies);
 
         computedImpureHostDeps = lib.unique (
-          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
-            stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ lib.concatLists dependencies
-          )
+          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ lib.concatLists dependencies)
         );
 
-        computedPropagatedImpureHostDeps = lib.unique (
-          lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (lib.concatLists propagatedDependencies)
-        );
+        computedPropagatedImpureHostDeps = lib.unique (lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (lib.concatLists propagatedDependencies));
 
         envIsExportable = lib.isAttrs env && !lib.isDerivation env;
 
@@ -548,9 +541,7 @@ let
             enableParallelChecking = attrs.enableParallelChecking or true;
             enableParallelInstalling = attrs.enableParallelInstalling or true;
           }
-          // lib.optionalAttrs (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl) {
-            NIX_HARDENING_ENABLE = enabledHardeningOptions;
-          }
+          // lib.optionalAttrs (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl) { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
           // lib.optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
             requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [ "gccarch-${stdenv.hostPlatform.gcc.arch}" ];
           }

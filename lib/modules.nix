@@ -52,8 +52,7 @@ let
   showDeclPrefix =
     loc: decl: prefix:
     " - option(s) with prefix `${showOption (loc ++ [ prefix ])}' in module `${decl._file}'";
-  showRawDecls =
-    loc: decls: concatStringsSep "\n" (sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls));
+  showRawDecls = loc: decls: concatStringsSep "\n" (sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls));
 in
 
 rec {
@@ -928,9 +927,7 @@ rec {
 
       warnDeprecation =
         warnIf (opt.type.deprecationMessage != null)
-          "The type `types.${opt.type.name}' of option `${showOption loc}' defined in ${
-            showFiles opt.declarations
-          } is deprecated. ${opt.type.deprecationMessage}";
+          "The type `types.${opt.type.name}' of option `${showOption loc}' defined in ${showFiles opt.declarations} is deprecated. ${opt.type.deprecationMessage}";
     in
     warnDeprecation opt
     // {
@@ -1151,9 +1148,7 @@ rec {
     lib.warnIf (lib.isInOldestRelease 2305) "lib.modules.defaultPriority is deprecated, please use lib.modules.defaultOverridePriority instead."
       defaultOverridePriority;
 
-  mkFixStrictness =
-    lib.warn "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls."
-      id;
+  mkFixStrictness = lib.warn "lib.mkFixStrictness has no effect and will be removed. It returns its argument unmodified, so you can just remove any calls." id;
 
   mkOrder = priority: content: {
     _type = "order";
@@ -1449,9 +1444,7 @@ rec {
       );
       config = mkMerge [
         (optionalAttrs (options ? warnings) {
-          warnings =
-            optional (warn && fromOpt.isDefined)
-              "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption to}'.";
+          warnings = optional (warn && fromOpt.isDefined) "The option `${showOption from}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption to}'.";
         })
         (if withPriority then mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt else mkAliasAndWrapDefinitions (setAttrByPath to) fromOpt)
       ];

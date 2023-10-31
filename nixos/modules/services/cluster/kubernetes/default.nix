@@ -325,39 +325,34 @@ in
       };
     })
 
-    (mkIf
-      (cfg.apiserver.enable || cfg.scheduler.enable || cfg.controllerManager.enable || cfg.kubelet.enable || cfg.proxy.enable || cfg.addonManager.enable)
-      {
-        systemd.targets.kubernetes = {
-          description = "Kubernetes";
-          wantedBy = [ "multi-user.target" ];
-        };
+    (mkIf (cfg.apiserver.enable || cfg.scheduler.enable || cfg.controllerManager.enable || cfg.kubelet.enable || cfg.proxy.enable || cfg.addonManager.enable) {
+      systemd.targets.kubernetes = {
+        description = "Kubernetes";
+        wantedBy = [ "multi-user.target" ];
+      };
 
-        systemd.tmpfiles.rules = [
-          "d /opt/cni/bin 0755 root root -"
-          "d /run/kubernetes 0755 kubernetes kubernetes -"
-          "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
-        ];
+      systemd.tmpfiles.rules = [
+        "d /opt/cni/bin 0755 root root -"
+        "d /run/kubernetes 0755 kubernetes kubernetes -"
+        "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
+      ];
 
-        users.users.kubernetes = {
-          uid = config.ids.uids.kubernetes;
-          description = "Kubernetes user";
-          group = "kubernetes";
-          home = cfg.dataDir;
-          createHome = true;
-        };
-        users.groups.kubernetes.gid = config.ids.gids.kubernetes;
+      users.users.kubernetes = {
+        uid = config.ids.uids.kubernetes;
+        description = "Kubernetes user";
+        group = "kubernetes";
+        home = cfg.dataDir;
+        createHome = true;
+      };
+      users.groups.kubernetes.gid = config.ids.gids.kubernetes;
 
-        # dns addon is enabled by default
-        services.kubernetes.addons.dns.enable = mkDefault true;
+      # dns addon is enabled by default
+      services.kubernetes.addons.dns.enable = mkDefault true;
 
-        services.kubernetes.apiserverAddress = mkDefault (
-          "https://${
-            if cfg.apiserver.advertiseAddress != null then cfg.apiserver.advertiseAddress else "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
-          }"
-        );
-      }
-    )
+      services.kubernetes.apiserverAddress = mkDefault (
+        "https://${if cfg.apiserver.advertiseAddress != null then cfg.apiserver.advertiseAddress else "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"}"
+      );
+    })
   ];
 
   meta.buildDocsInSandbox = false;

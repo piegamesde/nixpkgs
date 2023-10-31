@@ -746,9 +746,7 @@ in
 
     # Closures to be copied to the Nix store on the CD, namely the init
     # script and the top-level system configuration directory.
-    isoImage.storeContents = [
-      config.system.build.toplevel
-    ] ++ optional config.isoImage.includeSystemBuildDependencies config.system.build.toplevel.drvPath;
+    isoImage.storeContents = [ config.system.build.toplevel ] ++ optional config.isoImage.includeSystemBuildDependencies config.system.build.toplevel.drvPath;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {

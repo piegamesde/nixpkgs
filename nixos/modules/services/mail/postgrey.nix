@@ -115,9 +115,7 @@ in
       greylistText = mkOption {
         type = str;
         default = "Greylisted for %%s seconds";
-        description =
-          lib.mdDoc
-            "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
+        description = lib.mdDoc "Response status text for greylisted messages; use %%s for seconds left until greylisting is over and %%r for mail domain of recipient";
       };
       greylistAction = mkOption {
         type = str;

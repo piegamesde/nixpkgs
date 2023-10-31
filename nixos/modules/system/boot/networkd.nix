@@ -2271,8 +2271,7 @@ let
     # in 247 in favor of systemd.network.networks.*.ipv6SendRAConfig.
     ipv6PrefixDelegationConfig = mkOption {
       visible = false;
-      apply =
-        _: throw "The option `systemd.network.networks.*.ipv6PrefixDelegationConfig` has been replaced by `systemd.network.networks.*.ipv6SendRAConfig`.";
+      apply = _: throw "The option `systemd.network.networks.*.ipv6PrefixDelegationConfig` has been replaced by `systemd.network.networks.*.ipv6SendRAConfig`.";
     };
 
     ipv6SendRAConfig = mkOption {
@@ -3002,9 +3001,7 @@ let
       };
 
       config = {
-        networkConfig = optionalAttrs (config.routeTables != { }) {
-          RouteTable = mapAttrsToList (name: number: "${name}:${toString number}") config.routeTables;
-        };
+        networkConfig = optionalAttrs (config.routeTables != { }) { RouteTable = mapAttrsToList (name: number: "${name}:${toString number}") config.routeTables; };
       };
     };
 

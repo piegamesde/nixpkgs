@@ -368,9 +368,7 @@ rec {
           with lib;
           let
             args = concatStringsSep " " (
-              optional ignoreEmptyImports "--ignore-empty-imports"
-              ++ optional ignoreMainModule "--ignore-main-module"
-              ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
+              optional ignoreEmptyImports "--ignore-empty-imports" ++ optional ignoreMainModule "--ignore-main-module" ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
             );
           in
           "${pkgs.haskellPackages.packunused}/bin/packunused" + optionalString (args != "") " ${args}";

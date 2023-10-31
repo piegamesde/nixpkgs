@@ -54,8 +54,7 @@ let
       # nftables maps for port forward
       # l4proto . dport : addr . port
       toFwdMap =
-        forwardPorts:
-        toNftSet (map (fwd: with (splitIPPorts fwd.destination); "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}") forwardPorts);
+        forwardPorts: toNftSet (map (fwd: with (splitIPPorts fwd.destination); "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}") forwardPorts);
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
 
@@ -65,11 +64,7 @@ let
         forwardPorts:
         toNftSet (
           concatMap
-            (
-              fwd:
-              map (loopbackip: with (splitIPPorts fwd.destination); "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}")
-                fwd.loopbackIPs
-            )
+            (fwd: map (loopbackip: with (splitIPPorts fwd.destination); "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}") fwd.loopbackIPs)
             forwardPorts
         );
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;

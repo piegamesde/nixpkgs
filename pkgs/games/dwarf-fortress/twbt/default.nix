@@ -44,8 +44,7 @@ let
     };
   };
 
-  release =
-    if hasAttr dfVersion twbt-releases then getAttr dfVersion twbt-releases else throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}";
+  release = if hasAttr dfVersion twbt-releases then getAttr dfVersion twbt-releases else throw "[TWBT] Unsupported Dwarf Fortress version: ${dfVersion}";
 in
 
 stdenvNoCC.mkDerivation rec {

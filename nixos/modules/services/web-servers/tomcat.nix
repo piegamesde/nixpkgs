@@ -126,9 +126,7 @@ in
       commonLibs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
+        description = lib.mdDoc "List containing JAR files or directories with JAR files which are libraries shared by the web applications and the servlet container";
       };
 
       webapps = mkOption {

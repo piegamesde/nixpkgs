@@ -364,12 +364,8 @@ in
           '';
         };
         locations."=/external_api.js" = mkDefault { alias = "${pkgs.jitsi-meet}/libs/external_api.min.js"; };
-        locations."=/config.js" = mkDefault {
-          alias = overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config) cfg.extraConfig;
-        };
-        locations."=/interface_config.js" = mkDefault {
-          alias = overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig "";
-        };
+        locations."=/config.js" = mkDefault { alias = overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config) cfg.extraConfig; };
+        locations."=/interface_config.js" = mkDefault { alias = overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig ""; };
       };
     };
 

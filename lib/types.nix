@@ -235,10 +235,7 @@ let
             # don't have the same type
             commonType =
               foldl'
-                (
-                  type: def:
-                  if getType def.value == type then type else throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
-                )
+                (type: def: if getType def.value == type then type else throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}")
                 (getType (head defs).value)
                 defs;
 
@@ -249,10 +246,7 @@ let
                 # Safe and deterministic behavior for lists is to only accept one definition
                 # listOf only used to apply mkIf and co.
                 list =
-                  if length defs > 1 then
-                    throw "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}."
-                  else
-                    (listOf anything).merge;
+                  if length defs > 1 then throw "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}." else (listOf anything).merge;
                 # This is the type of packages, only accept a single definition
                 stringCoercibleSet = mergeOneOption;
                 lambda =

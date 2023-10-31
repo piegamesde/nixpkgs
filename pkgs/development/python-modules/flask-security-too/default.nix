@@ -103,10 +103,7 @@ buildPythonPackage rec {
       python-dateutil
       zxcvbn
     ]
-    ++ passthru.optional-dependencies.babel
-    ++ passthru.optional-dependencies.common
-    ++ passthru.optional-dependencies.fsqla
-    ++ passthru.optional-dependencies.mfa;
+    ++ passthru.optional-dependencies.babel ++ passthru.optional-dependencies.common ++ passthru.optional-dependencies.fsqla ++ passthru.optional-dependencies.mfa;
 
   pythonImportsCheck = [ "flask_security" ];
 

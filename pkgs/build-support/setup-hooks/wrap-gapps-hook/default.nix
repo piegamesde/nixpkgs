@@ -96,10 +96,8 @@ makeSetupHook
             in
             testLib.runTest "basic-contains-gdk-pixbuf" (
               testLib.skip stdenv.isDarwin ''
-                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GDK_PIXBUF_MODULE_FILE"
-                  "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
-                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GDK_PIXBUF_MODULE_FILE"
-                  "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GDK_PIXBUF_MODULE_FILE" "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+                ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GDK_PIXBUF_MODULE_FILE" "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
               ''
             );
 

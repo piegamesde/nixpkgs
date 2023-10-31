@@ -42,10 +42,7 @@ let
               extern;
           opts = lib.optionalString (dep.stdlib or false) "noprelude:";
           filename =
-            if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
-              "${dep.metadata}.rlib"
-            else
-              "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
+            if lib.any (x: x == "lib" || x == "rlib") dep.crateType then "${dep.metadata}.rlib" else "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
         in
         " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
       )
@@ -316,15 +313,7 @@ lib.makeOverridable
           let
             depsMetadata = lib.foldl' (str: dep: str + dep.metadata) "" (dependencies ++ buildDependencies);
             hashedMetadata = builtins.hashString "sha256" (
-              crateName
-              + "-"
-              + crateVersion
-              + "___"
-              + toString (mkRustcFeatureArgs crateFeatures)
-              + "___"
-              + depsMetadata
-              + "___"
-              + rustAttrs.toRustTarget stdenv.hostPlatform
+              crateName + "-" + crateVersion + "___" + toString (mkRustcFeatureArgs crateFeatures) + "___" + depsMetadata + "___" + rustAttrs.toRustTarget stdenv.hostPlatform
             );
           in
           lib.substring 0 10 hashedMetadata;
@@ -348,8 +337,7 @@ lib.makeOverridable
         extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
         edition = crate.edition or null;
         codegenUnits = if crate ? codegenUnits then crate.codegenUnits else 1;
-        extraRustcOpts =
-          lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts ++ extraRustcOpts_ ++ (lib.optional (edition != null) "--edition ${edition}");
+        extraRustcOpts = lib.optionals (crate ? extraRustcOpts) crate.extraRustcOpts ++ extraRustcOpts_ ++ (lib.optional (edition != null) "--edition ${edition}");
         extraRustcOptsForBuildRs =
           lib.optionals (crate ? extraRustcOptsForBuildRs) crate.extraRustcOptsForBuildRs
           ++ extraRustcOptsForBuildRs_

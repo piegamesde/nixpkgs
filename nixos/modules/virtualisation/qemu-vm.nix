@@ -273,10 +273,7 @@ let
 
   bootConfiguration =
     if cfg.useDefaultFilesystems then
-      if cfg.useBootLoader then
-        if cfg.useEFIBoot then "efi_bootloading_with_default_fs" else "legacy_bootloading_with_default_fs"
-      else
-        "direct_boot_with_default_fs"
+      if cfg.useBootLoader then if cfg.useEFIBoot then "efi_bootloading_with_default_fs" else "legacy_bootloading_with_default_fs" else "direct_boot_with_default_fs"
     else
       "custom";
   suggestedRootDevice =

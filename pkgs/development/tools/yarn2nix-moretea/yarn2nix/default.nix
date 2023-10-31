@@ -323,9 +323,7 @@ rec {
       version = attrs.version or package.version;
       baseName = unlessNull name "${safeName}-${version}";
 
-      workspaceDependenciesTransitive = lib.unique (
-        (lib.flatten (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies)) ++ workspaceDependencies
-      );
+      workspaceDependenciesTransitive = lib.unique ((lib.flatten (builtins.map (dep: dep.workspaceDependencies) workspaceDependencies)) ++ workspaceDependencies);
 
       deps = mkYarnModules {
         name = "${safeName}-modules-${version}";

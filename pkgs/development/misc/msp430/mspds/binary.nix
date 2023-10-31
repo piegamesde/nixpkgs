@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = ".";
 
-  libname =
-    if stdenv.hostPlatform.isWindows then "MSP430${archPostfix}.dll" else "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}";
+  libname = if stdenv.hostPlatform.isWindows then "MSP430${archPostfix}.dll" else "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}";
 
   nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
   buildInputs = [ stdenv.cc.cc ];

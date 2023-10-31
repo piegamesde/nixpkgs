@@ -816,9 +816,7 @@ in
             machine:
             (concatStringsSep " " (
               [
-                "${optionalString (machine.protocol != null) "${machine.protocol}://"}${
-                  optionalString (machine.sshUser != null) "${machine.sshUser}@"
-                }${machine.hostName}"
+                "${optionalString (machine.protocol != null) "${machine.protocol}://"}${optionalString (machine.sshUser != null) "${machine.sshUser}@"}${machine.hostName}"
                 (
                   if machine.system != null then
                     machine.system
@@ -981,8 +979,7 @@ in
           ]
           ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
             # a builder can run code for `gcc.arch` and inferior architectures
-            [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
-            ++ map (x: "gccarch-${x}") (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])
+            [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ] ++ map (x: "gccarch-${x}") (systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ])
           )
         );
       }

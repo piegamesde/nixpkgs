@@ -46,9 +46,7 @@ let
         };
         extraMeta = {
           broken =
-            kernel.meta.broken
-            || lib.versions.majorMinor version == "4.14"
-            || (stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5");
+            kernel.meta.broken || lib.versions.majorMinor version == "4.14" || (stdenv.isx86_64 && lib.versionAtLeast version "4.19" && lib.versionOlder version "5.5");
         };
       };
       kernelPatches = kernel.kernelPatches ++ [ kernelPatches.hardened.${kernel.meta.branch} ];

@@ -57,9 +57,7 @@ in
     };
 
     environment.systemPackages =
-      pkgs.lxqt.preRequisitePackages
-      ++ pkgs.lxqt.corePackages
-      ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages config.environment.lxqt.excludePackages);
+      pkgs.lxqt.preRequisitePackages ++ pkgs.lxqt.corePackages ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages config.environment.lxqt.excludePackages);
 
     # Link some extra directories in /run/current-system/software/share
     environment.pathsToLink = [ "/share" ];

@@ -749,9 +749,7 @@ self: super:
     old:
     let
       # We only need its dependencies `node-modules`.
-      nodeDep = nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs (
-        old: { dontNpmInstall = true; }
-      );
+      nodeDep = nodePackages."markdown-preview-nvim-../../applications/editors/vim/plugins/markdown-preview-nvim".overrideAttrs (old: { dontNpmInstall = true; });
     in
     {
       patches = [

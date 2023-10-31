@@ -25,9 +25,7 @@ let
       extraUmpvWrapperArgs ? [ ],
     }:
     let
-      binPath = lib.makeBinPath (
-        [ mpv.luaEnv ] ++ lib.optionals youtubeSupport [ yt-dlp ] ++ lib.optionals mpv.vapoursynthSupport [ mpv.vapoursynth.python3 ]
-      );
+      binPath = lib.makeBinPath ([ mpv.luaEnv ] ++ lib.optionals youtubeSupport [ yt-dlp ] ++ lib.optionals mpv.vapoursynthSupport [ mpv.vapoursynth.python3 ]);
       # All arguments besides the input and output binaries (${mpv}/bin/mpv and
       # $out/bin/mpv). These are used by the darwin specific makeWrapper call
       # used to wrap $out/Applications/mpv.app/Contents/MacOS/mpv as well.

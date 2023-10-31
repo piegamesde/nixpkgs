@@ -223,8 +223,7 @@ let
         ruby = withRuby;
       };
 
-      genProviderCommand =
-        prog: withProg: if withProg then "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'" else "vim.g.loaded_${prog}_provider=0";
+      genProviderCommand = prog: withProg: if withProg then "vim.g.${prog}_host_prog='${placeholder "out"}/bin/nvim-${prog}'" else "vim.g.loaded_${prog}_provider=0";
 
       hostProviderLua = lib.mapAttrsToList genProviderCommand hostprog_check_table;
     in

@@ -787,8 +787,7 @@ in
           ] ++ lib.optional databaseActuallyCreateLocally "postgresql.service" ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
           wantedBy = [ "mastodon.target" ];
           description = "Mastodon streaming";
-          environment =
-            env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-streaming/streaming.socket"; } else { PORT = toString (cfg.streamingPort); });
+          environment = env // (if cfg.enableUnixSocket then { SOCKET = "/run/mastodon-streaming/streaming.socket"; } else { PORT = toString (cfg.streamingPort); });
           serviceConfig = {
             ExecStart = "${cfg.package}/run-streaming.sh";
             Restart = "always";
@@ -890,8 +889,7 @@ in
             };
 
             locations."/api/v1/streaming/" = {
-              proxyPass =
-                (if cfg.enableUnixSocket then "http://unix:/run/mastodon-streaming/streaming.socket" else "http://127.0.0.1:${toString (cfg.streamingPort)}/");
+              proxyPass = (if cfg.enableUnixSocket then "http://unix:/run/mastodon-streaming/streaming.socket" else "http://127.0.0.1:${toString (cfg.streamingPort)}/");
               proxyWebsockets = true;
             };
           };

@@ -118,9 +118,7 @@ in
             {
               DEFAULT = cfg.config;
             }
-            //
-              lib.mapAttrs' (name: feed: nameValuePair "feed.${name}" ({ inherit (feed) url; } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; }))
-                cfg.feeds
+            // lib.mapAttrs' (name: feed: nameValuePair "feed.${name}" ({ inherit (feed) url; } // lib.optionalAttrs (feed.to != null) { inherit (feed) to; })) cfg.feeds
           )
         );
       in

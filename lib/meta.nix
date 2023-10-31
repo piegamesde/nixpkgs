@@ -102,8 +102,7 @@ rec {
   */
   availableOn =
     platform: pkg:
-    ((!pkg ? meta.platforms) || lib.any (platformMatch platform) pkg.meta.platforms)
-    && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or [ ]);
+    ((!pkg ? meta.platforms) || lib.any (platformMatch platform) pkg.meta.platforms) && lib.all (elem: !platformMatch platform elem) (pkg.meta.badPlatforms or [ ]);
 
   /* Get the corresponding attribute in lib.licenses
      from the SPDX ID.

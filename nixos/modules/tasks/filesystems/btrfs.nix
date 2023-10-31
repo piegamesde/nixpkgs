@@ -99,9 +99,7 @@ in
       # or additionally mounts subvolumes, but going the other way around via devices would
       # yield duplicated units when a filesystem spans multiple devices.
       # This way around seems like the more sensible default.
-      services.btrfs.autoScrub.fileSystems = mkDefault (
-        mapAttrsToList (name: fs: fs.mountPoint) (filterAttrs (name: fs: fs.fsType == "btrfs") config.fileSystems)
-      );
+      services.btrfs.autoScrub.fileSystems = mkDefault (mapAttrsToList (name: fs: fs.mountPoint) (filterAttrs (name: fs: fs.fsType == "btrfs") config.fileSystems));
 
       # TODO: Did not manage to do it via the usual btrfs-scrub@.timer/.service
       # template units due to problems enabling the parameterized units,

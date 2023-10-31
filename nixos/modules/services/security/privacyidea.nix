@@ -69,9 +69,7 @@ let
     else
       x;
 
-  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
-    generators.toINI { } (flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue))))
-  );
+  ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (generators.toINI { } (flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue)))));
 
   privacyidea-token-janitor = pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
     exec -a privacyidea-token-janitor \

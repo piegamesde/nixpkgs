@@ -28,8 +28,7 @@ let
         // (optionalAttrs (vhostConfig.enableACME || vhostConfig.useACMEHost != null) {
           sslCertificate = "${certs.${certName}.directory}/fullchain.pem";
           sslCertificateKey = "${certs.${certName}.directory}/key.pem";
-          sslTrustedCertificate =
-            if vhostConfig.sslTrustedCertificate != null then vhostConfig.sslTrustedCertificate else "${certs.${certName}.directory}/chain.pem";
+          sslTrustedCertificate = if vhostConfig.sslTrustedCertificate != null then vhostConfig.sslTrustedCertificate else "${certs.${certName}.directory}/chain.pem";
         })
       )
       cfg.virtualHosts;
@@ -1387,9 +1386,7 @@ in
         SystemCallArchitectures = "native";
         SystemCallFilter =
           [ "~@cpu-emulation @debug @keyring @mount @obsolete @privileged @setuid" ]
-          ++ optionals ((cfg.package != pkgs.tengine) && (cfg.package != pkgs.openresty) && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)) [
-            "~@ipc"
-          ];
+          ++ optionals ((cfg.package != pkgs.tengine) && (cfg.package != pkgs.openresty) && (!lib.any (mod: (mod.disableIPC or false)) cfg.package.modules)) [ "~@ipc" ];
       };
     };
 

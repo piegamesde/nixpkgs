@@ -12,11 +12,9 @@ with lib;
   ###### interface
 
   options = {
-    boot.modprobeConfig.enable =
-      mkEnableOption (lib.mdDoc "modprobe config. This is useful for systems like containers which do not require a kernel")
-      // {
-        default = true;
-      };
+    boot.modprobeConfig.enable = mkEnableOption (lib.mdDoc "modprobe config. This is useful for systems like containers which do not require a kernel") // {
+      default = true;
+    };
 
     boot.blacklistedKernelModules = mkOption {
       type = types.listOf types.str;

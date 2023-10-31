@@ -28,8 +28,7 @@ let
     builtins.deepSeq f (lib.lists.foldl' (features: fun: fun features) (lib.attrsets.recursiveUpdate f up) functions);
   mapFeatures = features: map (fun: fun { features = features; });
   mkFeatures =
-    feat:
-    lib.lists.foldl (features: featureName: if feat.${featureName} or false then [ featureName ] ++ features else features) [ ] (builtins.attrNames feat);
+    feat: lib.lists.foldl (features: featureName: if feat.${featureName} or false then [ featureName ] ++ features else features) [ ] (builtins.attrNames feat);
 in
 rec {
   alloc_no_stdlib_1_3_0_ =
@@ -101,8 +100,7 @@ rec {
     f:
     updateFeatures f
       (rec {
-        alloc_no_stdlib_1_3_0.no-stdlib =
-          (f.alloc_no_stdlib_1_3_0.no-stdlib or false) || (brotli_2_5_0.no-stdlib or false) || (f.brotli_2_5_0.no-stdlib or false);
+        alloc_no_stdlib_1_3_0.no-stdlib = (f.alloc_no_stdlib_1_3_0.no-stdlib or false) || (brotli_2_5_0.no-stdlib or false) || (f.brotli_2_5_0.no-stdlib or false);
         alloc_no_stdlib_1_3_0.default = true;
         brotli_2_5_0.default = (f.brotli_2_5_0.default or true);
         brotli_decompressor_1_3_1.disable-timer =
@@ -112,8 +110,7 @@ rec {
         brotli_decompressor_1_3_1.benchmark =
           (f.brotli_decompressor_1_3_1.benchmark or false) || (brotli_2_5_0.benchmark or false) || (f.brotli_2_5_0.benchmark or false);
         brotli_decompressor_1_3_1.default = true;
-        brotli_decompressor_1_3_1.seccomp =
-          (f.brotli_decompressor_1_3_1.seccomp or false) || (brotli_2_5_0.seccomp or false) || (f.brotli_2_5_0.seccomp or false);
+        brotli_decompressor_1_3_1.seccomp = (f.brotli_decompressor_1_3_1.seccomp or false) || (brotli_2_5_0.seccomp or false) || (f.brotli_2_5_0.seccomp or false);
       })
       [
         alloc_no_stdlib_1_3_0_features

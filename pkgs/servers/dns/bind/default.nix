@@ -47,16 +47,14 @@ stdenv.mkDerivation rec {
     perl
     pkg-config
   ];
-  buildInputs =
-    [
-      libtool
-      libxml2
-      openssl
-      libuv
-      nghttp2
-      jemalloc
-    ]
-    ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5 ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
+  buildInputs = [
+    libtool
+    libxml2
+    openssl
+    libuv
+    nghttp2
+    jemalloc
+  ] ++ lib.optional stdenv.isLinux libcap ++ lib.optional enableGSSAPI libkrb5 ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
 
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 

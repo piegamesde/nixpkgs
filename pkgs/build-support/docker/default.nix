@@ -1223,10 +1223,7 @@ rec {
             let
               str = stringValue value;
             in
-            if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
-              lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
-            else
-              lib.nameValuePair name str
+            if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str) else lib.nameValuePair name str
           )
           drv.drvAttrs
         # A mapping from output name to the nix store path where they should end up

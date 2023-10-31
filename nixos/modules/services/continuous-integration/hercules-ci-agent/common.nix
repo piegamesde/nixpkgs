@@ -297,10 +297,7 @@ in
 
       settings.labels = {
         agent.source =
-          if options.services.hercules-ci-agent.package.highestPrio == (lib.modules.mkOptionDefault { }).priority then
-            "nixpkgs"
-          else
-            lib.mkOptionDefault "override";
+          if options.services.hercules-ci-agent.package.highestPrio == (lib.modules.mkOptionDefault { }).priority then "nixpkgs" else lib.mkOptionDefault "override";
         pkgs.version = pkgs.lib.version;
         lib.version = lib.version;
       };

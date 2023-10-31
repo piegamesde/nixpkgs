@@ -18,10 +18,7 @@ let
   serviceName =
     iface:
     "supplicant-${
-      if (iface == "WLAN") then
-        "wlan@"
-      else
-        (if (iface == "LAN") then "lan@" else (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface)))
+      if (iface == "WLAN") then "wlan@" else (if (iface == "LAN") then "lan@" else (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface)))
     }";
 
   # TODO: Use proper privilege separation for wpa_supplicant

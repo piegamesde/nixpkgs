@@ -233,8 +233,7 @@ let
     { pythonPackages, pyProject }:
     let
       missingBuildBackendError =
-        "No build-system.build-backend section in pyproject.toml. "
-        + "Add such a section as described in https://python-poetry.org/docs/pyproject/#poetry-and-pep-517";
+        "No build-system.build-backend section in pyproject.toml. " + "Add such a section as described in https://python-poetry.org/docs/pyproject/#poetry-and-pep-517";
       requires =
         lib.attrByPath
           [
@@ -269,8 +268,7 @@ let
     { src }:
     let
       gitIgnores = findGitIgnores src;
-      pycacheFilter =
-        name: type: (type == "directory" && !lib.strings.hasInfix "__pycache__" name) || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
+      pycacheFilter = name: type: (type == "directory" && !lib.strings.hasInfix "__pycache__" name) || (type == "regular" && !lib.strings.hasSuffix ".pyc" name);
     in
     lib.cleanSourceWith {
       filter = lib.cleanSourceFilter;

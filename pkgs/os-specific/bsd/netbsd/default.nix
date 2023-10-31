@@ -33,9 +33,7 @@ let
 
   netbsdSetupHook = makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh;
 
-  defaultMakeFlags = [
-    "MKSOFTFLOAT=${if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft" then "yes" else "no"}"
-  ];
+  defaultMakeFlags = [ "MKSOFTFLOAT=${if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft" then "yes" else "no"}" ];
 in
 makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
   self:

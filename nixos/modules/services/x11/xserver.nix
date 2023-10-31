@@ -697,8 +697,7 @@ in
     services.xserver.displayManager.lightdm.enable =
       let
         dmConf = cfg.displayManager;
-        default =
-          !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable || config.services.greetd.enable);
+        default = !(dmConf.gdm.enable || dmConf.sddm.enable || dmConf.xpra.enable || dmConf.sx.enable || dmConf.startx.enable || config.services.greetd.enable);
       in
       mkIf (default) (mkDefault true);
 
@@ -888,8 +887,7 @@ in
           preferLocalBuild = true;
         }
         ''
-          ${optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
-            "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
+          ${optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT) "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
           xkbvalidate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions"
           touch "$out"
         ''

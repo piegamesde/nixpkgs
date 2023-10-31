@@ -85,11 +85,7 @@ in
             #   testScript (ad infinitum)
             # If we don't need to build an image, we can break this
             # cycle by short-circuiting when useNixStoreImage is false.
-            (
-              config.virtualisation.useNixStoreImage
-              && builtins.hasContext testModuleArgs.config.testScriptString
-              && testModuleArgs.config.includeTestScriptReferences
-            )
+            (config.virtualisation.useNixStoreImage && builtins.hasContext testModuleArgs.config.testScriptString && testModuleArgs.config.includeTestScriptReferences)
             (hostPkgs.writeStringReferencesToFile testModuleArgs.config.testScriptString);
       };
   };

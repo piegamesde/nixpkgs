@@ -304,9 +304,7 @@ rec {
               readOnly = opt.readOnly or false;
               type = opt.type.description or "unspecified";
             }
-            // optionalAttrs (opt ? example) {
-              example = builtins.addErrorContext "while evaluating the example of option `${name}`" (renderOptionValue opt.example);
-            }
+            // optionalAttrs (opt ? example) { example = builtins.addErrorContext "while evaluating the example of option `${name}`" (renderOptionValue opt.example); }
             // optionalAttrs (opt ? default) {
               default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (renderOptionValue (opt.defaultText or opt.default));
             }
@@ -384,9 +382,7 @@ rec {
         inherit text;
       };
 
-  literalExample =
-    lib.warn "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description."
-      literalExpression;
+  literalExample = lib.warn "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description." literalExpression;
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
      given DocBook text to be inserted verbatim in the documentation, for when

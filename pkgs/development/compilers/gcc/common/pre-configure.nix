@@ -17,8 +17,7 @@ assert langJava -> lib.versionOlder version "7";
 assert langAda -> gnat-bootstrap != null;
 let
   needsLib =
-    (lib.versionOlder version "7" && (langJava || langGo))
-    || (lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin);
+    (lib.versionOlder version "7" && (langJava || langGo)) || (lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin);
 in
 lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
   export NIX_LDFLAGS=`echo $NIX_LDFLAGS | sed -e s~$prefix/lib~$prefix/lib/amd64~g`
@@ -47,12 +46,10 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # gnat-bootstrap, the former is provided as `as`, while the latter is provided as
 # `gas`.
 #
-+
-  lib.optionalString (langAda && buildPlatform == hostPlatform && hostPlatform == targetPlatform && targetPlatform.isx86_64 && targetPlatform.isDarwin)
-    ''
-      export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
-      export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
-    ''
++ lib.optionalString (langAda && buildPlatform == hostPlatform && hostPlatform == targetPlatform && targetPlatform.isx86_64 && targetPlatform.isDarwin) ''
+  export AS_FOR_BUILD=${gnat-bootstrap}/bin/as
+  export AS_FOR_TARGET=${gnat-bootstrap}/bin/gas
+''
 
 # NOTE 2020/3/18: This environment variable prevents configure scripts from
 # detecting the presence of aligned_alloc on Darwin.  There are many facts that

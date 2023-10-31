@@ -82,16 +82,13 @@ stdenv.mkDerivation rec {
       sed -i 's,"libpcsclite\.so[^"]*","${lib.getLib pcsclite}/lib/libpcsclite.so",g' scd/scdaemon.c
     '';
 
-  configureFlags =
-    [
-      "--with-libgpg-error-prefix=${libgpg-error.dev}"
-      "--with-libgcrypt-prefix=${libgcrypt.dev}"
-      "--with-libassuan-prefix=${libassuan.dev}"
-      "--with-ksba-prefix=${libksba.dev}"
-      "--with-npth-prefix=${npth}"
-    ]
-    ++ lib.optional guiSupport "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}"
-    ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
+  configureFlags = [
+    "--with-libgpg-error-prefix=${libgpg-error.dev}"
+    "--with-libgcrypt-prefix=${libgcrypt.dev}"
+    "--with-libassuan-prefix=${libassuan.dev}"
+    "--with-ksba-prefix=${libksba.dev}"
+    "--with-npth-prefix=${npth}"
+  ] ++ lib.optional guiSupport "--with-pinentry-pgm=${pinentry}/${pinentry.binaryPath or "bin/pinentry"}" ++ lib.optional stdenv.isDarwin "--disable-ccid-driver";
 
   postInstall =
     if enableMinimal then

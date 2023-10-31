@@ -14,8 +14,7 @@ let
   inherit (phpPackages) composer;
 
   filterSrc =
-    src:
-    builtins.filterSource (path: type: type != "directory" || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")) src;
+    src: builtins.filterSource (path: type: type != "directory" || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")) src;
 
   buildZipPackage =
     { name, src }:

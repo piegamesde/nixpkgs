@@ -28,8 +28,6 @@ bootStages
   (vanillaPackages: {
     inherit config overlays;
     stdenv =
-      assert vanillaPackages.hostPlatform == localSystem;
-      assert vanillaPackages.targetPlatform == localSystem;
-      config.replaceStdenv { pkgs = vanillaPackages; };
+      assert vanillaPackages.hostPlatform == localSystem; assert vanillaPackages.targetPlatform == localSystem; config.replaceStdenv { pkgs = vanillaPackages; };
   })
 ]

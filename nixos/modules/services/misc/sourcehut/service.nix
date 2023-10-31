@@ -243,12 +243,8 @@ in
             {
               "${srvCfg.group}" = { };
             }
-            // optionalAttrs (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")) {
-              "postgres".members = [ srvCfg.user ];
-            }
-            // optionalAttrs (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
-              "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
-            };
+            // optionalAttrs (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")) { "postgres".members = [ srvCfg.user ]; }
+            // optionalAttrs (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or "")) { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; };
         };
 
         services.nginx = mkIf cfg.nginx.enable {
@@ -404,8 +400,7 @@ in
               serviceConfig = {
                 Type = "simple";
                 Restart = "always";
-                ExecStart =
-                  "${cfg.python}/bin/celery --app ${srvsrht}.webhooks worker --hostname ${srvsrht}-webhooks@%%h " + concatStringsSep " " srvCfg.webhooks.extraArgs;
+                ExecStart = "${cfg.python}/bin/celery --app ${srvsrht}.webhooks worker --hostname ${srvsrht}-webhooks@%%h " + concatStringsSep " " srvCfg.webhooks.extraArgs;
                 # Avoid crashing: os.getloadavg()
                 ProcSubset = mkForce "all";
               };

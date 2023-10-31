@@ -266,9 +266,7 @@ rec {
         # <unit-name>.d/overrides.conf, which makes them extend the
         # upstream unit.
         for i in ${
-          toString (
-            mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units)
-          )
+          toString (mapAttrsToList (n: v: v.unit) (lib.filterAttrs (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists") units))
         }; do
           fn=$(basename $i/*)
           if [ -e $out/$fn ]; then
@@ -412,10 +410,7 @@ rec {
     };
 
   serviceConfig =
-    { config, ... }:
-    {
-      config.environment.PATH = mkIf (config.path != [ ]) "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}";
-    };
+    { config, ... }: { config.environment.PATH = mkIf (config.path != [ ]) "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}"; };
 
   stage2ServiceConfig = {
     imports = [ serviceConfig ];

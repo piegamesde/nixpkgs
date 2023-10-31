@@ -85,9 +85,7 @@ rec {
         arc-menu = gnomeExtensions.arcmenu; # added 2021-02-14
         disable-unredirect = gnomeExtensions.disable-unredirect-fullscreen-windows; # added 2021-11-20
 
-        nohotcorner =
-          throw
-            "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks.";
+        nohotcorner = throw "gnomeExtensions.nohotcorner removed since 2019-10-09: Since 3.34, it is a part of GNOME Shell configurable through GNOME Tweaks.";
         mediaplayer =
           throw
             "gnomeExtensions.mediaplayer deprecated since 2019-09-23: retired upstream https://github.com/JasonLG1979/gnome-shell-extensions-mediaplayer/blob/master/README.md";

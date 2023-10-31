@@ -21,10 +21,8 @@ lib.recurseIntoAttrs rec {
     touch $out
   '';
 
-  localHasNoDirectReference =
-    runCommand "localHasNoDirectReference" { drvPath = builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath; }
-      ''
-        grep -v ${./local} $drvPath >/dev/null
-        touch $out
-      '';
+  localHasNoDirectReference = runCommand "localHasNoDirectReference" { drvPath = builtins.unsafeDiscardOutputDependency localFromCabalSdist.drvPath; } ''
+    grep -v ${./local} $drvPath >/dev/null
+    touch $out
+  '';
 }

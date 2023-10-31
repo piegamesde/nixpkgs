@@ -321,9 +321,7 @@ rec {
         drv: { __propagatedImpureHostDeps = drv.__propagatedImpureHostDeps or [ ] ++ [ "/System/Library/PrivateFrameworks/" ]; }
       );
 
-      Carbon = lib.overrideDerivation super.Carbon (
-        drv: { extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ]; }
-      );
+      Carbon = lib.overrideDerivation super.Carbon (drv: { extraTBDFiles = [ "Versions/A/Frameworks/HTMLRendering.framework/Versions/A/HTMLRendering.tbd" ]; });
 
       CoreFoundation = lib.overrideDerivation super.CoreFoundation (drv: { setupHook = ./cf-setup-hook.sh; });
 

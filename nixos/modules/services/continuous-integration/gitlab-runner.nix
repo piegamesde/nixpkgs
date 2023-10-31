@@ -554,10 +554,7 @@ in
   config = mkIf cfg.enable {
     warnings =
       mapAttrsToList
-        (
-          n: v:
-          "services.gitlab-runner.services.${n}.`registrationConfigFile` points to a file in Nix Store. You should use quoted absolute path to prevent this."
-        )
+        (n: v: "services.gitlab-runner.services.${n}.`registrationConfigFile` points to a file in Nix Store. You should use quoted absolute path to prevent this.")
         (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services);
 
     environment.systemPackages = [ cfg.package ];
@@ -603,26 +600,24 @@ in
         };
     };
     # Enable periodic clear-docker-cache script
-    systemd.services.gitlab-runner-clear-docker-cache =
-      mkIf (cfg.clear-docker-cache.enable && (any (s: s.executor == "docker") (attrValues cfg.services)))
-        {
-          description = "Prune gitlab-runner docker resources";
-          restartIfChanged = false;
-          unitConfig.X-StopOnRemoval = false;
+    systemd.services.gitlab-runner-clear-docker-cache = mkIf (cfg.clear-docker-cache.enable && (any (s: s.executor == "docker") (attrValues cfg.services))) {
+      description = "Prune gitlab-runner docker resources";
+      restartIfChanged = false;
+      unitConfig.X-StopOnRemoval = false;
 
-          serviceConfig.Type = "oneshot";
+      serviceConfig.Type = "oneshot";
 
-          path = [
-            cfg.clear-docker-cache.package
-            pkgs.gawk
-          ];
+      path = [
+        cfg.clear-docker-cache.package
+        pkgs.gawk
+      ];
 
-          script = ''
-            ${pkgs.gitlab-runner}/bin/clear-docker-cache ${toString cfg.clear-docker-cache.flags}
-          '';
+      script = ''
+        ${pkgs.gitlab-runner}/bin/clear-docker-cache ${toString cfg.clear-docker-cache.flags}
+      '';
 
-          startAt = cfg.clear-docker-cache.dates;
-        };
+      startAt = cfg.clear-docker-cache.dates;
+    };
     # Enable docker if `docker` executor is used in any service
     virtualisation.docker.enable = mkIf (any (s: s.executor == "docker") (attrValues cfg.services)) (mkDefault true);
   };

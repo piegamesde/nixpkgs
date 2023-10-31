@@ -508,8 +508,7 @@ in
 
     assertions = [
       {
-        assertion =
-          (cfg.sslServerCert == null) == (cfg.sslServerKey == null) && (cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
+        assertion = (cfg.sslServerCert == null) == (cfg.sslServerKey == null) && (cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
         message = "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
       {

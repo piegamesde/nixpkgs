@@ -459,10 +459,7 @@ runTests {
     ("Hello%20World" == strings.escapeURL "Hello World")
     ("Hello%2FWorld" == strings.escapeURL "Hello/World")
     ("42%25" == strings.escapeURL "42%")
-    (
-      "%20%3F%26%3D%23%2B%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%09%3A%2F%40%24%27%28%29%2A%2C%3B"
-      == strings.escapeURL " ?&=#+%!<>#\"{}|\\^[]`	:/@$'()*,;"
-    )
+    ("%20%3F%26%3D%23%2B%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%09%3A%2F%40%24%27%28%29%2A%2C%3B" == strings.escapeURL " ?&=#+%!<>#\"{}|\\^[]`	:/@$'()*,;")
   ];
 
   testToInt = testAllTrue [

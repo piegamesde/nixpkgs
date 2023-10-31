@@ -157,8 +157,7 @@ in
     assertions = [
       {
         assertion = !hasPrefix "/" cfg.stateDir;
-        message =
-          "The option services.prometheus.pushgateway.stateDir" + " shouldn't be an absolute directory." + " It should be a directory relative to /var/lib.";
+        message = "The option services.prometheus.pushgateway.stateDir" + " shouldn't be an absolute directory." + " It should be a directory relative to /var/lib.";
       }
     ];
     systemd.services.pushgateway = {

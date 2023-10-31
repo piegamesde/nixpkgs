@@ -399,8 +399,7 @@ let
             #
             # Restart if the service exits (e.g. when wireguard gives up after "Name or service not known" dns failures):
             Restart = "always";
-            RestartSec =
-              if null != peer.dynamicEndpointRefreshRestartSeconds then peer.dynamicEndpointRefreshRestartSeconds else peer.dynamicEndpointRefreshSeconds;
+            RestartSec = if null != peer.dynamicEndpointRefreshRestartSeconds then peer.dynamicEndpointRefreshRestartSeconds else peer.dynamicEndpointRefreshSeconds;
           };
       unitConfig = lib.optionalAttrs dynamicRefreshEnabled { StartLimitIntervalSec = 0; };
 
@@ -493,8 +492,7 @@ let
         ${values.preSetup}
 
         ${ipPreMove} link add dev "${name}" type wireguard
-        ${optionalString (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace)
-          ''${ipPreMove} link set "${name}" netns "${ns}"''}
+        ${optionalString (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace) ''${ipPreMove} link set "${name}" netns "${ns}"''}
         ${optionalString (values.mtu != null) ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
         ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'') values.ips}
@@ -582,9 +580,7 @@ in
 
   config = mkIf cfg.enable (
     let
-      all_peers = flatten (
-        mapAttrsToList (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers) cfg.interfaces
-      );
+      all_peers = flatten (mapAttrsToList (interfaceName: interfaceCfg: map (peer: { inherit interfaceName interfaceCfg peer; }) interfaceCfg.peers) cfg.interfaces);
     in
     {
 

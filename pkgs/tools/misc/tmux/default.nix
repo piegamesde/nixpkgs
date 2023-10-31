@@ -60,9 +60,7 @@ stdenv.mkDerivation rec {
       "--sysconfdir=/etc"
       "--localstatedir=/var"
     ]
-    ++ lib.optionals withSystemd [ "--enable-systemd" ]
-    ++ lib.optionals withUtempter [ "--enable-utempter" ]
-    ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
+    ++ lib.optionals withSystemd [ "--enable-systemd" ] ++ lib.optionals withUtempter [ "--enable-utempter" ] ++ lib.optionals withUtf8proc [ "--enable-utf8proc" ];
 
   enableParallelBuilding = true;
 

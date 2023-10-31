@@ -371,9 +371,7 @@ in
         };
     })
 
-    (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay) {
-      environment.systemPackages = [ pkgs.python3Packages.carbon ];
-    })
+    (mkIf (cfg.carbon.enableCache || cfg.carbon.enableAggregator || cfg.carbon.enableRelay) { environment.systemPackages = [ pkgs.python3Packages.carbon ]; })
 
     (mkIf cfg.web.enable ({
       systemd.services.graphiteWeb = {

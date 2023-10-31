@@ -362,9 +362,7 @@ lib.makeScope pkgs.newScope (
 
       lamdera = callPackage ./packages/lamdera.nix { };
 
-      elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ]; }
-      );
+      elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ]; });
 
       inherit (nodePkgs)
         elm-live

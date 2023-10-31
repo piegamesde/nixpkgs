@@ -968,23 +968,21 @@ in
                 proxy_set_header X-Accel-Mapping ${cfg.package}/share/discourse/public/=/downloads/;
               '';
             };
-            "~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker)" =
-              proxy
-                {
-                  extraConfig = ''
-                    # if Set-Cookie is in the response nothing gets cached
-                    # this is double bad cause we are not passing last modified in
-                    proxy_ignore_headers "Set-Cookie";
-                    proxy_hide_header "Set-Cookie";
-                    proxy_hide_header "X-Discourse-Username";
-                    proxy_hide_header "X-Runtime";
+            "~ ^/(svg-sprite/|letter_avatar/|letter_avatar_proxy/|user_avatar|highlight-js|stylesheets|theme-javascripts|favicon/proxied|service-worker)" = proxy {
+              extraConfig = ''
+                # if Set-Cookie is in the response nothing gets cached
+                # this is double bad cause we are not passing last modified in
+                proxy_ignore_headers "Set-Cookie";
+                proxy_hide_header "Set-Cookie";
+                proxy_hide_header "X-Discourse-Username";
+                proxy_hide_header "X-Runtime";
 
-                    # note x-accel-redirect can not be used with proxy_cache
-                    proxy_cache discourse;
-                    proxy_cache_key "$scheme,$host,$request_uri";
-                    proxy_cache_valid 200 301 302 7d;
-                  '';
-                };
+                # note x-accel-redirect can not be used with proxy_cache
+                proxy_cache discourse;
+                proxy_cache_key "$scheme,$host,$request_uri";
+                proxy_cache_valid 200 301 302 7d;
+              '';
+            };
             "/message-bus/" = proxy {
               extraConfig = ''
                 proxy_http_version 1.1;

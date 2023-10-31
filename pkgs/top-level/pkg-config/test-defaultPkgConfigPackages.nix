@@ -46,9 +46,7 @@ let
 
     else if !pkg ? meta.broken then
       throw
-        "pkg-config module `${
-          escapeNixIdentifier moduleName
-        }` does not have a `meta.broken` attribute. This can't be right. Please check the attribute value for `${
+        "pkg-config module `${escapeNixIdentifier moduleName}` does not have a `meta.broken` attribute. This can't be right. Please check the attribute value for `${
           escapeNixIdentifier moduleName
         }` in `pkgs/top-level/pkg-config.packages.nix` in Nixpkgs."
 

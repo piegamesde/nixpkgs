@@ -226,8 +226,7 @@ runCommand drvName
         Android Studio is the official IDE for Android app development, based on
         IntelliJ IDEA.
       '';
-      homepage =
-        if channel == "stable" then "https://developer.android.com/studio/index.html" else "https://developer.android.com/studio/preview/index.html";
+      homepage = if channel == "stable" then "https://developer.android.com/studio/index.html" else "https://developer.android.com/studio/preview/index.html";
       license = with licenses; [
         asl20
         unfree

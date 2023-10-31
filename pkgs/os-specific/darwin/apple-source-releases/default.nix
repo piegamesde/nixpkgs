@@ -318,9 +318,7 @@ developerToolsPackages_11_3_1
   adv_cmds = applePackage "adv_cmds" "osx-10.11.6" "sha256-Ztp8ALWcviEpthoiY8ttWzGI8OcsLzsULjlqe8GIzw8=" { };
   basic_cmds = applePackage "basic_cmds" "osx-10.11.6" "sha256-BYPPTg4/7x6RPs0WwwQlkNiZxxArV+7EVe6bM+a/I6Q=" { };
   developer_cmds = applePackage "developer_cmds" "osx-10.11.6" "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo=" { };
-  diskdev_cmds = applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" {
-    macosPackages_11_0_1 = macosPackages_11_0_1;
-  };
+  diskdev_cmds = applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q=" { macosPackages_11_0_1 = macosPackages_11_0_1; };
   network_cmds =
     if stdenv.isx86_64 then
       applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }

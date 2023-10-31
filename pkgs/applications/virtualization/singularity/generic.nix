@@ -219,11 +219,9 @@ in
       done
     ''}
     ${lib.optionalString enableSuid (
-      lib.warnIf (starterSuidPath == null)
-        "${projectName}: Null starterSuidPath when enableSuid produces non-SUID-ed starter-suid and run-time permission denial."
-        ''
-          chmod +x $out/libexec/${projectName}/bin/starter-suid
-        ''
+      lib.warnIf (starterSuidPath == null) "${projectName}: Null starterSuidPath when enableSuid produces non-SUID-ed starter-suid and run-time permission denial." ''
+        chmod +x $out/libexec/${projectName}/bin/starter-suid
+      ''
     )}
     ${lib.optionalString (enableSuid && (starterSuidPath != null)) ''
       mv "$out"/libexec/${projectName}/bin/starter-suid{,.orig}

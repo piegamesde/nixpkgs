@@ -186,8 +186,7 @@ in
       {
         assertion = ge7 -> cfg.elasticsearch.url == null;
         message =
-          "The option services.kibana.elasticsearch.url has been removed when using kibana >= 7.0.0. "
-          + "Please use option services.kibana.elasticsearch.hosts instead.";
+          "The option services.kibana.elasticsearch.url has been removed when using kibana >= 7.0.0. " + "Please use option services.kibana.elasticsearch.hosts instead.";
       }
       {
         assertion = lt6_6 -> cfg.elasticsearch.hosts == null;

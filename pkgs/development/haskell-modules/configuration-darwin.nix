@@ -134,9 +134,7 @@ self: super:
 
     hmatrix = addBuildDepend darwin.apple_sdk.frameworks.Accelerate super.hmatrix;
 
-    blas-hs =
-      overrideCabal (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]); })
-        super.blas-hs;
+    blas-hs = overrideCabal (drv: { libraryFrameworkDepends = [ darwin.apple_sdk.frameworks.Accelerate ] ++ (drv.libraryFrameworkDepends or [ ]); }) super.blas-hs;
 
     # Ensure the necessary frameworks are propagatedBuildInputs on darwin
     OpenGLRaw =
@@ -365,12 +363,8 @@ self: super:
 
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
-    ormolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
-      disableCabalFlag "fixity-th" super.ormolu
-    );
-    fourmolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (
-      disableCabalFlag "fixity-th" super.fourmolu
-    );
+    ormolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (disableCabalFlag "fixity-th" super.ormolu);
+    fourmolu = overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; }) (disableCabalFlag "fixity-th" super.fourmolu);
 
     # https://github.com/NixOS/nixpkgs/issues/149692
     Agda = removeConfigureFlag "-foptimise-heavily" super.Agda;

@@ -102,9 +102,7 @@ let
       map
         (drv: {
           name = discard (toString drv);
-          value = rewriteHashes (builtins.storePath drv) (
-            filterAttrs (n: v: builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv)) rewriteMemo
-          );
+          value = rewriteHashes (builtins.storePath drv) (filterAttrs (n: v: builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv)) rewriteMemo);
         })
         (filter dependsOnOld (builtins.attrNames references))
     )

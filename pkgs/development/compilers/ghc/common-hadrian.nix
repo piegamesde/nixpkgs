@@ -53,8 +53,7 @@
   ,
   # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
-  enableNativeBignum ?
-    !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp) || stdenv.targetPlatform.isGhcjs,
+  enableNativeBignum ? !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp) || stdenv.targetPlatform.isGhcjs,
   gmp
 
   ,
@@ -229,8 +228,7 @@ let
   # Use gold either following the default, or to avoid the BFD linker due to some bugs / perf issues.
   # But we cannot avoid BFD when using musl libc due to https://sourceware.org/bugzilla/show_bug.cgi?id=23856
   # see #84670 and #49071 for more background.
-  useLdGold =
-    targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd" && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
+  useLdGold = targetPlatform.linker == "gold" || (targetPlatform.linker == "bfd" && (targetCC.bintools.bintools.hasGold or false) && !targetPlatform.isMusl);
 
   # Makes debugging easier to see which variant is at play in `nix-store -q --tree`.
   variantSuffix = lib.concatStrings [

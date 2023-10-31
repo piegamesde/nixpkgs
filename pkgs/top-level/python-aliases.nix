@@ -31,9 +31,7 @@ mapAliases ({
   awkward0 = throw "awkward0 has been removed, use awkward instead"; # added 2022-12-13
   Babel = babel; # added 2022-05-06
   bedup = throw "bedup was removed because it was broken and abandoned upstream"; # added 2023-02-04
-  bitcoin-price-api =
-    throw
-      "bitcoin-price-api has been removed, it was using setuptools 2to3 translation feautre, which has been removed in setuptools 58"; # added 2022-02-15
+  bitcoin-price-api = throw "bitcoin-price-api has been removed, it was using setuptools 2to3 translation feautre, which has been removed in setuptools 58"; # added 2022-02-15
   BlinkStick = blinkstick; # added 2023-02-19
   blockdiagcontrib-cisco = throw "blockdiagcontrib-cisco is not compatible with blockdiag 2.0.0 and has been removed."; # added 2020-11-29
   bsblan = python-bsblan; # added 2022-11-04
@@ -155,9 +153,7 @@ mapAliases ({
   mutmut = throw "mutmut has been promoted to a top-level attribute"; # added 2022-10-02
   net2grid = gridnet; # add 2022-04-22
   nose-cover3 = throw "nose-cover3 has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-02-16
-  nose_progressive =
-    throw
-      "nose_progressive has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2023-02-21
+  nose_progressive = throw "nose_progressive has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2023-02-21
   notifymuch = throw "notifymuch has been promoted to a top-level attribute"; # added 2022-10-02
   Nuitka = nuitka; # added 2023-02-19
   ntlm-auth = throw "ntlm-auth has been removed, because it relies on the md4 implementation provided by openssl. Use pyspnego instead.";

@@ -190,9 +190,7 @@ stdenv.mkDerivation (
       platforms = platforms.linux;
       # Tests require GPU, also include issues
       broken =
-        versions.minor finalAttrs.version != versions.minor hip-common.version
-        || versions.minor finalAttrs.version != versions.minor hipcc.version
-        || buildTests;
+        versions.minor finalAttrs.version != versions.minor hip-common.version || versions.minor finalAttrs.version != versions.minor hipcc.version || buildTests;
     };
   }
 )

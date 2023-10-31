@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
       }
     else
       fetchurl {
-        url = "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${
-            lib.last (lib.splitString "." version)
-          }/wps-office_${version}.XA_amd64.deb";
+        url = "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${lib.last (lib.splitString "." version)}/wps-office_${version}.XA_amd64.deb";
         sha256 = "sha256-spqxQK/xTE8yFPmGbSbrDY1vSxkan2kwAWpCWIExhgs=";
       };
 

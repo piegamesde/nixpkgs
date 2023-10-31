@@ -146,8 +146,7 @@ rec {
   injectUnresholved = solutions: unresholved: (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
 
   # Build resholve invocation for each solution.
-  phraseCommands =
-    solutions: unresholved: builtins.concatStringsSep "\n" (lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved));
+  phraseCommands = solutions: unresholved: builtins.concatStringsSep "\n" (lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved));
 
   /* subshell/PS4/set -x and : command to output resholve envs
      and invocation. Extra context makes it clearer what the

@@ -139,9 +139,7 @@ let
   # package set will be emitted.
   packages =
     builtins.filter
-      (
-        v: lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (v != null && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success))
-      )
+      (v: lib.warnIf (v.meta.broken or false) "${v.pname} is marked as broken" (v != null && (skipEvalErrors -> (builtins.tryEval (v.outPath or v)).success)))
       (
         lib.concatMap
           (

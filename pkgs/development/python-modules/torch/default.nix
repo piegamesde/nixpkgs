@@ -151,8 +151,7 @@ let
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
-    trivial.throwIf (supported == [ ]) ("No supported GPU targets specified. Requested GPU targets: " + strings.concatStringsSep ", " unsupported)
-      supported;
+    trivial.throwIf (supported == [ ]) ("No supported GPU targets specified. Requested GPU targets: " + strings.concatStringsSep ", " unsupported) supported;
 
   # Create the gpuTargetString.
   gpuTargetString = strings.concatStringsSep ";" (

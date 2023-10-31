@@ -378,8 +378,7 @@ in
                   ExecStartPre =
                     (map (buildAllowCommand c.localSourceAllow) (localDatasetName c.source)) ++ (map (buildAllowCommand c.localTargetAllow) (localDatasetName c.target));
                   ExecStopPost =
-                    (map (buildUnallowCommand c.localSourceAllow) (localDatasetName c.source))
-                    ++ (map (buildUnallowCommand c.localTargetAllow) (localDatasetName c.target));
+                    (map (buildUnallowCommand c.localSourceAllow) (localDatasetName c.source)) ++ (map (buildUnallowCommand c.localTargetAllow) (localDatasetName c.target));
                   ExecStart = lib.escapeShellArgs (
                     [ "${cfg.package}/bin/syncoid" ]
                     ++ optionals c.useCommonArgs cfg.commonArgs

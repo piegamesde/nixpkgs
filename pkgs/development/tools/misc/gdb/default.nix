@@ -77,22 +77,18 @@ stdenv.mkDerivation rec {
     setupDebugInfoDirs
   ];
 
-  buildInputs =
-    [
-      ncurses
-      readline
-      gmp
-      mpfr
-      expat
-      libipt
-      zlib
-      zstd
-      guile
-      sourceHighlight
-    ]
-    ++ lib.optional pythonSupport python3
-    ++ lib.optional doCheck dejagnu
-    ++ lib.optional enableDebuginfod (elfutils.override { enableDebuginfod = true; });
+  buildInputs = [
+    ncurses
+    readline
+    gmp
+    mpfr
+    expat
+    libipt
+    zlib
+    zstd
+    guile
+    sourceHighlight
+  ] ++ lib.optional pythonSupport python3 ++ lib.optional doCheck dejagnu ++ lib.optional enableDebuginfod (elfutils.override { enableDebuginfod = true; });
 
   propagatedNativeBuildInputs = [ setupDebugInfoDirs ];
 

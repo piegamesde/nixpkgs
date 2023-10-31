@@ -205,11 +205,7 @@ rec {
       mkAttrOverridable = name: _: makeOverridable (newArgs: (f newArgs).${name}) origArgs;
     in
     if lib.isDerivation pkgs then
-      throw (
-        "function `callPackages` was called on a *single* derivation "
-        + ''"${pkgs.name or "<unknown-name>"}";''
-        + " did you mean to use `callPackage` instead?"
-      )
+      throw ("function `callPackages` was called on a *single* derivation " + ''"${pkgs.name or "<unknown-name>"}";'' + " did you mean to use `callPackage` instead?")
     else
       lib.mapAttrs mkAttrOverridable pkgs;
 

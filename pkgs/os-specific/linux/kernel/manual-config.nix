@@ -282,9 +282,7 @@ lib.makeOverridable (
           "HOSTLD=${buildPackages.stdenv.cc.bintools}/bin/${buildPackages.stdenv.cc.targetPrefix}ld"
           "ARCH=${stdenv.hostPlatform.linuxArch}"
         ]
-        ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ]
-        ++ (kernelConf.makeFlags or [ ])
-        ++ extraMakeFlags;
+        ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "CROSS_COMPILE=${stdenv.cc.targetPrefix}" ] ++ (kernelConf.makeFlags or [ ]) ++ extraMakeFlags;
 
       karch = stdenv.hostPlatform.linuxArch;
 
@@ -476,8 +474,7 @@ lib.makeOverridable (
       requiredSystemFeatures = [ "big-parallel" ];
 
       meta = {
-        description =
-          "The Linux kernel" + (if kernelPatches == [ ] then "" else " (with patches: " + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")");
+        description = "The Linux kernel" + (if kernelPatches == [ ] then "" else " (with patches: " + lib.concatStringsSep ", " (map (x: x.name) kernelPatches) + ")");
         license = lib.licenses.gpl2Only;
         homepage = "https://www.kernel.org/";
         maintainers = lib.teams.linux-kernel.members ++ [ maintainers.thoughtpolice ];

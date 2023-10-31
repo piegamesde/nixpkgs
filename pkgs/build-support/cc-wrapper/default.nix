@@ -351,9 +351,7 @@ stdenv.mkDerivation {
   propagatedBuildInputs = [ bintools ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
   depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
-  setupHooks = [
-    ../setup-hooks/role.bash
-  ] ++ lib.optional (cc.langC or true) ./setup-hook.sh ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
+  setupHooks = [ ../setup-hooks/role.bash ] ++ lib.optional (cc.langC or true) ./setup-hook.sh ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
 
   postFixup =
     # Ensure flags files exists, as some other programs cat them. (That these
@@ -398,13 +396,7 @@ stdenv.mkDerivation {
     # break `useLLVM` into.)
     +
       optionalString
-        (
-          isClang
-          && targetPlatform.isLinux
-          && !(stdenv.targetPlatform.useAndroidPrebuilt or false)
-          && !(stdenv.targetPlatform.useLLVM or false)
-          && gccForLibs != null
-        )
+        (isClang && targetPlatform.isLinux && !(stdenv.targetPlatform.useAndroidPrebuilt or false) && !(stdenv.targetPlatform.useLLVM or false) && gccForLibs != null)
         (
           ''
             echo "--gcc-toolchain=${gccForLibs}" >> $out/nix-support/cc-cflags

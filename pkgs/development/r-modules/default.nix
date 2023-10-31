@@ -146,8 +146,7 @@ let
   #   });
   # }
   overrideBuildInputs =
-    overrides: old:
-    lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
+    overrides: old: lib.mapAttrs (name: value: (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })) overrides;
 
   # Overrides package definitions with maintainers.
   # For example,
@@ -1339,9 +1338,7 @@ let
       attrs: {
         postPatch = ''
           substituteInPlace "R/quarto.R" \
-            --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${
-              lib.getBin pkgs.quarto
-            }/bin/quarto')"
+            --replace "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = NA)" "path_env <- Sys.getenv(\"QUARTO_PATH\", unset = '${lib.getBin pkgs.quarto}/bin/quarto')"
         '';
       }
     );

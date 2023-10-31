@@ -152,9 +152,7 @@ in
           cfg = config.services.${flavour};
         in
         mkIf (cfg.instances != { }) {
-          systemd.services =
-            mapAttrs' (name: instance: nameValuePair "${flavour}-${name}" (createAgentInstance { inherit name instance flavour; }))
-              cfg.instances;
+          systemd.services = mapAttrs' (name: instance: nameValuePair "${flavour}-${name}" (createAgentInstance { inherit name instance flavour; })) cfg.instances;
         }
       )
       [

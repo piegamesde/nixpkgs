@@ -278,9 +278,7 @@ stdenv.mkDerivation (
 
     targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
-      if profiledCompiler then "profiledbootstrap" else "bootstrap"
-    );
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (if profiledCompiler then "profiledbootstrap" else "bootstrap");
 
     inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 

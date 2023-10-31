@@ -594,9 +594,7 @@ in
                   appendOnly = mkOption {
                     type = types.bool;
                     default = false;
-                    description =
-                      lib.mdDoc
-                        "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
+                    description = lib.mdDoc "By default data is only periodically persisted to disk, enable this option to use an append-only file for improved persistence.";
                   };
 
                   appendFsync = mkOption {

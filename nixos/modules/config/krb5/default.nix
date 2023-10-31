@@ -57,8 +57,7 @@ let
       ;
     });
 
-  filterEmbeddedMetadata =
-    value: if isAttrs value then (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null) value) else value;
+  filterEmbeddedMetadata = value: if isAttrs value then (filterAttrs (attrName: attrValue: attrName != "_module" && attrValue != null) value) else value;
 
   indent = "  ";
 

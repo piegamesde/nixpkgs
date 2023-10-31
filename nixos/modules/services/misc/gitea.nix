@@ -219,9 +219,7 @@ in
       useWizard = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator.";
+        description = lib.mdDoc "Do not generate a configuration and use gitea' installation wizard instead. The first registered user will be administrator.";
       };
 
       stateDir = mkOption {
@@ -510,9 +508,7 @@ in
               ROOT_URL = mkOption {
                 type = types.str;
                 default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
-                defaultText =
-                  literalExpression
-                    ''"http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
+                defaultText = literalExpression ''"http://''${config.services.gitea.settings.server.DOMAIN}:''${toString config.services.gitea.settings.server.HTTP_PORT}/"'';
                 description = lib.mdDoc "Full public URL of gitea server.";
               };
 

@@ -10,9 +10,7 @@ with lib;
 let
   cfg = config.services.udisks2;
   settingsFormat = pkgs.formats.ini { listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { }); };
-  configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (
-    mapAttrs' (name: value: nameValuePair name value) config.services.udisks2.settings
-  );
+  configFiles = mapAttrs (name: value: (settingsFormat.generate name value)) (mapAttrs' (name: value: nameValuePair name value) config.services.udisks2.settings);
 in
 
 {

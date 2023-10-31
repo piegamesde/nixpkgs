@@ -89,9 +89,7 @@ python3.pkgs.buildPythonApplication rec {
   pythonImportsCheck = [ "trackma" ];
 
   postDist =
-    lib.optional (!withQT) "rm $out/bin/trackma-qt"
-    ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk"
-    ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses";
+    lib.optional (!withQT) "rm $out/bin/trackma-qt" ++ lib.optional (!withGTK) "rm $out/bin/trackma-gtk" ++ lib.optional (!withCurses) "rm $out/bin/trackma-curses";
 
   passthru.updateScript = ./update.sh;
 

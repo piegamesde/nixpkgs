@@ -34,9 +34,9 @@ let
 
   url = "https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-${
       lib.versions.major version
-    }-x-x/${lib.versions.major version}-${lib.versions.minor version}-${lib.versions.patch version}/nrf-command-line-tools-${
-      lib.versions.major version
-    }.${lib.versions.minor version}.${lib.versions.patch version}_${platform.name}.tar.gz";
+    }-x-x/${lib.versions.major version}-${lib.versions.minor version}-${lib.versions.patch version}/nrf-command-line-tools-${lib.versions.major version}.${
+      lib.versions.minor version
+    }.${lib.versions.patch version}_${platform.name}.tar.gz";
 in
 stdenv.mkDerivation {
   pname = "nrf-command-line-tools";

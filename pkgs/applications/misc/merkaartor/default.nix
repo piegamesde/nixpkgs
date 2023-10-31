@@ -47,15 +47,10 @@ mkDerivation rec {
     lrelease src/src.pro
   '';
 
-  qmakeFlags =
-    [
-      "TRANSDIR_SYSTEM=${qttranslations}/translations"
-      "USEWEBENGINE=1"
-    ]
-    ++ lib.optional withGeoimage "GEOIMAGE=1"
-    ++ lib.optional withGpsdlib "GPSDLIB=1"
-    ++ lib.optional withLibproxy "LIBPROXY=1"
-    ++ lib.optional withZbar "ZBAR=1";
+  qmakeFlags = [
+    "TRANSDIR_SYSTEM=${qttranslations}/translations"
+    "USEWEBENGINE=1"
+  ] ++ lib.optional withGeoimage "GEOIMAGE=1" ++ lib.optional withGpsdlib "GPSDLIB=1" ++ lib.optional withLibproxy "LIBPROXY=1" ++ lib.optional withZbar "ZBAR=1";
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

@@ -63,9 +63,7 @@ let
     # trick taken from https://src.fedoraproject.org/rpms/edk2/blob/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/edk2.spec#_319
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
-    makeFlags = [
-      "-C BaseTools"
-    ] ++ lib.optionals (stdenv.cc.isClang) [ "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld" ];
+    makeFlags = [ "-C BaseTools" ] ++ lib.optionals (stdenv.cc.isClang) [ "CXX=llvm BUILD_AR=ar BUILD_CC=clang BUILD_CXX=clang++ BUILD_AS=clang BUILD_LD=ld" ];
 
     env.NIX_CFLAGS_COMPILE = "-Wno-return-type" + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation";
 

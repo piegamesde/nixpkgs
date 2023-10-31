@@ -123,8 +123,7 @@ in
   config = mkIf (jenkinsCfg.enable && cfg.enable) {
     assertions = [
       {
-        assertion =
-          if cfg.accessUser != "" then (cfg.accessToken != "" && cfg.accessTokenFile == "") || (cfg.accessToken == "" && cfg.accessTokenFile != "") else true;
+        assertion = if cfg.accessUser != "" then (cfg.accessToken != "" && cfg.accessTokenFile == "") || (cfg.accessToken == "" && cfg.accessTokenFile != "") else true;
         message = ''
           One of accessToken and accessTokenFile options must be non-empty
           strings, but not both. Current values:

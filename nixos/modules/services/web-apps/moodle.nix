@@ -57,9 +57,7 @@ let
       'dbcollation' => 'utf8mb4_unicode_ci',
     );
 
-    $CFG->wwwroot   = '${
-      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then "https" else "http"
-    }://${cfg.virtualHost.hostName}';
+    $CFG->wwwroot   = '${if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then "https" else "http"}://${cfg.virtualHost.hostName}';
     $CFG->dataroot  = '${stateDir}';
     $CFG->admin     = 'admin';
 

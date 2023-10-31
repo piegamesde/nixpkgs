@@ -424,9 +424,7 @@ in
         )
       );
 
-      systemd.services = lib.mkMerge (
-        map (instance: lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; }) instances
-      );
+      systemd.services = lib.mkMerge (map (instance: lib.mkIf instance.enable { "authelia-${instance.name}" = mkInstanceServiceConfig instance; }) instances);
       users = lib.mkMerge (map (instance: lib.mkIf instance.enable (mkInstanceUsersConfig instance)) instances);
     };
 }

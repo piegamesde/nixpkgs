@@ -59,8 +59,7 @@ in
               pkgs:
               let
                 prevLibs = if prev ? extraLibraries then prev.extraLibraries pkgs else [ ];
-                additionalLibs =
-                  with config.hardware.opengl; if pkgs.stdenv.hostPlatform.is64bit then [ package ] ++ extraPackages else [ package32 ] ++ extraPackages32;
+                additionalLibs = with config.hardware.opengl; if pkgs.stdenv.hostPlatform.is64bit then [ package ] ++ extraPackages else [ package32 ] ++ extraPackages32;
               in
               prevLibs ++ additionalLibs;
           }

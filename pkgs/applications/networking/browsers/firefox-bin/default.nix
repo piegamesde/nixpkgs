@@ -214,8 +214,7 @@ stdenv.mkDerivation {
       curl
       runtimeShell
     ;
-    baseUrl =
-      if channel == "devedition" then "https://archive.mozilla.org/pub/devedition/releases/" else "https://archive.mozilla.org/pub/firefox/releases/";
+    baseUrl = if channel == "devedition" then "https://archive.mozilla.org/pub/devedition/releases/" else "https://archive.mozilla.org/pub/firefox/releases/";
   };
   meta = with lib; {
     changelog = "https://www.mozilla.org/en-US/firefox/${version}/releasenotes/";

@@ -9651,9 +9651,7 @@ with self; {
 
   python-roborock = callPackage ../development/python-modules/python-roborock { };
 
-  python-rtmidi = callPackage ../development/python-modules/python-rtmidi {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreAudio CoreMIDI CoreServices;
-  };
+  python-rtmidi = callPackage ../development/python-modules/python-rtmidi { inherit (pkgs.darwin.apple_sdk.frameworks) CoreAudio CoreMIDI CoreServices; };
 
   python-sat = callPackage ../development/python-modules/python-sat { };
 
@@ -10404,9 +10402,7 @@ with self; {
 
   rstcheck-core = callPackage ../development/python-modules/rstcheck-core { };
 
-  rtmidi-python = callPackage ../development/python-modules/rtmidi-python {
-    inherit (pkgs.darwin.apple_sdk.frameworks) CoreAudio CoreMIDI CoreServices;
-  };
+  rtmidi-python = callPackage ../development/python-modules/rtmidi-python { inherit (pkgs.darwin.apple_sdk.frameworks) CoreAudio CoreMIDI CoreServices; };
 
   rtoml = callPackage ../development/python-modules/rtoml { };
 

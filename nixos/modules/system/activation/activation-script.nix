@@ -38,8 +38,7 @@ let
       # an activation script that does not, the dependency cannot be resolved and the eval
       # fails.
       withDrySnippets =
-        mapAttrs
-          (a: v: if onlyDry && !v.supportsDryActivation then v // { text = "#### Activation script snippet ${a} does not support dry activation."; } else v)
+        mapAttrs (a: v: if onlyDry && !v.supportsDryActivation then v // { text = "#### Activation script snippet ${a} does not support dry activation."; } else v)
           withHeadlines;
     in
     ''

@@ -27,8 +27,7 @@
   ...
 }@args:
 
-assert release
-  -> certificateFile != null && certificatePassword != null && provisioningProfile != null && signMethod != null && codeSignIdentity != null;
+assert release -> certificateFile != null && certificatePassword != null && provisioningProfile != null && signMethod != null && codeSignIdentity != null;
 assert enableWirelessDistribution -> installURL != null && bundleId != null && appVersion != null;
 
 let
@@ -157,9 +156,7 @@ stdenv.mkDerivation (
           ${lib.optionalString enableWirelessDistribution ''
             # Add another hacky build product that enables wireless adhoc installations
             appname="$(basename "$(echo $out/*.ipa)" .ipa)"
-            sed -e "s|@INSTALL_URL@|${installURL}?bundleId=${bundleId}\&amp;version=${appVersion}\&amp;title=$appname|" ${
-              ./install.html.template
-            } > $out/''${appname}.html
+            sed -e "s|@INSTALL_URL@|${installURL}?bundleId=${bundleId}\&amp;version=${appVersion}\&amp;title=$appname|" ${./install.html.template} > $out/''${appname}.html
             echo "doc install \"$out/''${appname}.html\"" >> $out/nix-support/hydra-build-products
           ''}
         ''}

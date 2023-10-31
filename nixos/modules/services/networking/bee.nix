@@ -85,9 +85,7 @@ in
       }
     ];
 
-    warnings =
-      optional (!config.services.bee-clef.enable)
-        "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true";
+    warnings = optional (!config.services.bee-clef.enable) "The bee service requires an external signer. Consider setting `config.services.bee-clef.enable` = true";
 
     services.bee.settings = {
       data-dir = lib.mkDefault "/var/lib/bee";

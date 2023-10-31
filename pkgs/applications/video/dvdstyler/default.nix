@@ -78,10 +78,7 @@ stdenv.mkDerivation rec {
       wxGTK32
       xine-ui
     ]
-    ++ optionals dvdisasterSupport [ dvdisaster ]
-    ++ optionals udevSupport [ udev ]
-    ++ optionals dbusSupport [ dbus ]
-    ++ optionals thumbnailSupport [ libgnomeui ];
+    ++ optionals dvdisasterSupport [ dvdisaster ] ++ optionals udevSupport [ udev ] ++ optionals dbusSupport [ dbus ] ++ optionals thumbnailSupport [ libgnomeui ];
 
   enableParallelBuilding = true;
 

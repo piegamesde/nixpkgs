@@ -415,9 +415,7 @@ rec {
             + introSpace
             + libStr.concatStringsSep introSpace (
               libAttr.mapAttrsToList
-                (
-                  name: value: "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};"
-                )
+                (name: value: "${libStr.escapeNixIdentifier name} = ${builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)};")
                 v
             )
             + outroSpace

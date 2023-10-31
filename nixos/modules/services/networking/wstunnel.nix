@@ -253,9 +253,7 @@ let
         };
 
         tlsVerifyCertificate = mkOption {
-          description =
-            mdDoc
-              "Whether to verify the TLS certificate of the server. It might be useful to set this to `false` when working with the `tlsSNI` option.";
+          description = mdDoc "Whether to verify the TLS certificate of the server. It might be useful to set this to `false` when working with the `tlsSNI` option.";
           type = types.bool;
           default = true;
         };
@@ -447,8 +445,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services =
-      (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers))
-      // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
+      (mapAttrs' generateServerUnit (filterAttrs (n: v: v.enable) cfg.servers)) // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
 
     assertions =
       (mapAttrsToList

@@ -37,8 +37,7 @@ in
     };
 
     meta = with lib; {
-      description = ''
-        Changes the "Motors off" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources'';
+      description = ''Changes the "Motors off" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources'';
       homepage = "https://github.com/ntoff/OctoPrint-M84MotOff";
       license = licenses.agpl3Only;
       maintainers = with maintainers; [ stunkymonkey ];

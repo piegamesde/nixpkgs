@@ -72,11 +72,7 @@ in
 
   config = mkIf cfg.enable (
     mkMerge [
-      {
-        services.cron.systemCronJobs =
-          mapAttrsToList (interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}")
-            cfg.cronIntervals;
-      }
+      { services.cron.systemCronJobs = mapAttrsToList (interval: time: "${time} root ${pkgs.rsnapshot}/bin/rsnapshot -c ${cfgfile} ${interval}") cfg.cronIntervals; }
       (mkIf cfg.enableManualRsnapshot {
         environment.systemPackages = [ pkgs.rsnapshot ];
         environment.etc."rsnapshot.conf".source = cfgfile;

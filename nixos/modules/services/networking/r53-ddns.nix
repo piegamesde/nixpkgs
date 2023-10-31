@@ -65,8 +65,7 @@ in
     systemd.services.r53-ddns = {
       description = "r53-ddns service";
       serviceConfig = {
-        ExecStart =
-          "${pkg}/bin/r53-ddns -zone-id ${cfg.zoneID} -domain ${cfg.domain}" + lib.optionalString (cfg.hostname != null) " -hostname ${cfg.hostname}";
+        ExecStart = "${pkg}/bin/r53-ddns -zone-id ${cfg.zoneID} -domain ${cfg.domain}" + lib.optionalString (cfg.hostname != null) " -hostname ${cfg.hostname}";
         EnvironmentFile = "${cfg.environmentFile}";
         DynamicUser = true;
       };

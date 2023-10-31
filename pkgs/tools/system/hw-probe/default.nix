@@ -121,10 +121,7 @@ stdenv.mkDerivation rec {
         # pnputils # (lspnp)
       ];
       programs =
-        requiredPrograms
-        ++ conditionallyRecommendedPrograms
-        ++ lib.optionals withRecommended recommendedPrograms
-        ++ lib.optionals withSuggested suggestedPrograms;
+        requiredPrograms ++ conditionallyRecommendedPrograms ++ lib.optionals withRecommended recommendedPrograms ++ lib.optionals withSuggested suggestedPrograms;
     in
     [
       "--set"

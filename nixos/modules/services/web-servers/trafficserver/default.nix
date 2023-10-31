@@ -17,8 +17,7 @@ let
   yaml = pkgs.formats.yaml { };
 
   mkYamlConf =
-    name: cfg:
-    if cfg != null then { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; } else { "trafficserver/${name}.yaml".text = ""; };
+    name: cfg: if cfg != null then { "trafficserver/${name}.yaml".source = yaml.generate "${name}.yaml" cfg; } else { "trafficserver/${name}.yaml".text = ""; };
 
   mkRecordLines =
     path: value:
@@ -274,23 +273,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc =
-      {
-        "trafficserver/cache.config".text = cfg.cache;
-        "trafficserver/hosting.config".text = cfg.hosting;
-        "trafficserver/parent.config".text = cfg.parent;
-        "trafficserver/plugin.config".text = mkPluginConfig cfg.plugins;
-        "trafficserver/records.config".text = mkRecordsConfig cfg.records;
-        "trafficserver/remap.config".text = cfg.remap;
-        "trafficserver/splitdns.config".text = cfg.splitDns;
-        "trafficserver/ssl_multicert.config".text = cfg.sslMulticert;
-        "trafficserver/storage.config".text = cfg.storage;
-        "trafficserver/volume.config".text = cfg.volume;
-      }
-      // (mkYamlConf "ip_allow" cfg.ipAllow)
-      // (mkYamlConf "logging" cfg.logging)
-      // (mkYamlConf "sni" cfg.sni)
-      // (mkYamlConf "strategies" cfg.strategies);
+    environment.etc = {
+      "trafficserver/cache.config".text = cfg.cache;
+      "trafficserver/hosting.config".text = cfg.hosting;
+      "trafficserver/parent.config".text = cfg.parent;
+      "trafficserver/plugin.config".text = mkPluginConfig cfg.plugins;
+      "trafficserver/records.config".text = mkRecordsConfig cfg.records;
+      "trafficserver/remap.config".text = cfg.remap;
+      "trafficserver/splitdns.config".text = cfg.splitDns;
+      "trafficserver/ssl_multicert.config".text = cfg.sslMulticert;
+      "trafficserver/storage.config".text = cfg.storage;
+      "trafficserver/volume.config".text = cfg.volume;
+    } // (mkYamlConf "ip_allow" cfg.ipAllow) // (mkYamlConf "logging" cfg.logging) // (mkYamlConf "sni" cfg.sni) // (mkYamlConf "strategies" cfg.strategies);
 
     environment.systemPackages = [ pkgs.trafficserver ];
     systemd.packages = [ pkgs.trafficserver ];

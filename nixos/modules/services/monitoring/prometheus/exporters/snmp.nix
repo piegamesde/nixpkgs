@@ -64,8 +64,7 @@ in
   };
   serviceOpts =
     let
-      configFile =
-        if cfg.configurationPath != null then cfg.configurationPath else "${pkgs.writeText "snmp-exporter-conf.yml" (builtins.toJSON cfg.configuration)}";
+      configFile = if cfg.configurationPath != null then cfg.configurationPath else "${pkgs.writeText "snmp-exporter-conf.yml" (builtins.toJSON cfg.configuration)}";
     in
     {
       serviceConfig = {

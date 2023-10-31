@@ -237,9 +237,7 @@ in
       components = {
         db = {
           connectionString =
-            "${cfg.database.type}:dbname=${cfg.database.name};host=${if pgsqlLocal then cfg.database.socket else cfg.database.host};port=${
-              toString cfg.database.port
-            }"
+            "${cfg.database.type}:dbname=${cfg.database.name};host=${if pgsqlLocal then cfg.database.socket else cfg.database.host};port=${toString cfg.database.port}"
             + optionalString mysqlLocal ";socket=${cfg.database.socket}";
           username = cfg.database.user;
           password = mkIf (cfg.database.passwordFile != null) ''file_get_contents("${toString cfg.database.passwordFile}");'';

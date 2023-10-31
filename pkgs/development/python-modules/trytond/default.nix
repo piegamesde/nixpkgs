@@ -57,10 +57,7 @@ buildPythonPackage rec {
       gevent
       pillow
     ]
-    ++ relatorio.optional-dependencies.fodt
-    ++ passlib.optional-dependencies.bcrypt
-    ++ passlib.optional-dependencies.argon2
-    ++ lib.optional withPostgresql psycopg2;
+    ++ relatorio.optional-dependencies.fodt ++ passlib.optional-dependencies.bcrypt ++ passlib.optional-dependencies.argon2 ++ lib.optional withPostgresql psycopg2;
 
   nativeCheckInputs = [ unittestCheckHook ];
 

@@ -37,10 +37,7 @@ let
         if !(matchCredentials -> openBinary) then
           throw "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
         else
-          optionalString preserveArgvZero "P"
-          + optionalString (openBinary && !matchCredentials) "O"
-          + optionalString matchCredentials "C"
-          + optionalString fixBinary "F";
+          optionalString preserveArgvZero "P" + optionalString (openBinary && !matchCredentials) "O" + optionalString matchCredentials "C" + optionalString fixBinary "F";
     in
     ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 

@@ -98,8 +98,7 @@ let
             optional (dev != null && dev != "lo" && !config.boot.isContainer) (subsystemDevice dev);
 
         hasDefaultGatewaySet =
-          (cfg.defaultGateway != null && cfg.defaultGateway.address != "")
-          || (cfg.enableIPv6 && cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "");
+          (cfg.defaultGateway != null && cfg.defaultGateway.address != "") || (cfg.enableIPv6 && cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "");
 
         needNetworkSetup = cfg.resolvconf.enable || cfg.defaultGateway != null || cfg.defaultGateway6 != null;
 
@@ -443,13 +442,9 @@ let
               script = ''
                 echo "Configuring Open vSwitch ${n}..."
                 ovs-vsctl ${
-                  concatStrings (
-                    mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}") v.interfaces
-                  )
+                  concatStrings (mapAttrsToList (name: config: " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}") v.interfaces)
                 } \
-                  ${
-                    concatStrings (mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces)
-                  } \
+                  ${concatStrings (mapAttrsToList (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}") v.interfaces)} \
                   ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
                   ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}
 

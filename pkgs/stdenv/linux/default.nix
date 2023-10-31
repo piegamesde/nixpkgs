@@ -101,8 +101,7 @@
 
     archLookupTable = table.${localSystem.libc} or (abort "unsupported libc for the pure Linux stdenv");
     files =
-      archLookupTable.${localSystem.system}
-        or (if getCompatibleTools != null then getCompatibleTools else (abort "unsupported platform for the pure Linux stdenv"));
+      archLookupTable.${localSystem.system} or (if getCompatibleTools != null then getCompatibleTools else (abort "unsupported platform for the pure Linux stdenv"));
   in
   files,
 }:
@@ -541,8 +540,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         # TODO(amjoseph): It is not yet entirely clear why this is necessary.
         # Something strange is going on with xgcc and libstdc++ on pkgsMusl.
         patchelf = super.patchelf.overrideAttrs (
-          previousAttrs:
-          lib.optionalAttrs super.stdenv.hostPlatform.isMusl { NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++"; }
+          previousAttrs: lib.optionalAttrs super.stdenv.hostPlatform.isMusl { NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or "") + " -static-libstdc++"; }
         );
       };
 

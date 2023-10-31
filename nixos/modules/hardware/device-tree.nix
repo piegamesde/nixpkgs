@@ -115,10 +115,7 @@ let
       o
       // {
         dtboFile =
-          if o.dtboFile == null then
-            if o.dtsFile != null then compileDTS o.name o.dtsFile else compileDTS o.name (pkgs.writeText "dts" o.dtsText)
-          else
-            o.dtboFile;
+          if o.dtboFile == null then if o.dtsFile != null then compileDTS o.name o.dtsFile else compileDTS o.name (pkgs.writeText "dts" o.dtsText) else o.dtboFile;
       }
     );
 in

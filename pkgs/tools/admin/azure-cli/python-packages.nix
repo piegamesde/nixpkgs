@@ -120,9 +120,7 @@ let
 
       azure-data-tables = overrideAzureMgmtPackage super.azure-data-tables "12.4.0" "zip" "sha256-3V/I3pHi+JCO+kxkyn9jz4OzBoqbpCYpjeO1QTnpZlw=";
 
-      azure-mgmt-apimanagement =
-        overrideAzureMgmtPackage super.azure-mgmt-apimanagement "3.0.0" "zip"
-          "sha256-kmL1TtOH6wg9ja5m0yqN81ZHMZuQK9SYzcN29QoS0VQ=";
+      azure-mgmt-apimanagement = overrideAzureMgmtPackage super.azure-mgmt-apimanagement "3.0.0" "zip" "sha256-kmL1TtOH6wg9ja5m0yqN81ZHMZuQK9SYzcN29QoS0VQ=";
 
       azure-mgmt-batch = overrideAzureMgmtPackage super.azure-mgmt-batch "17.0.0" "zip" "sha256-hkM4WVLuwxj4qgXsY8Ya7zu7/v37gKdP0Xbf2EqrsWo=";
 
@@ -132,19 +130,13 @@ let
 
       azure-mgmt-botservice = overrideAzureMgmtPackage super.azure-mgmt-botservice "2.0.0b3" "zip" "sha256-XZGQOeMw8usyQ1tl8j57fZ3uqLshomHY9jO/rbpQOvM=";
 
-      azure-mgmt-extendedlocation =
-        overrideAzureMgmtPackage super.azure-mgmt-extendedlocation "1.0.0b2" "zip"
-          "sha256-mjfH35T81JQ97jVgElWmZ8P5MwXVxZQv/QJKNLS3T8A=";
+      azure-mgmt-extendedlocation = overrideAzureMgmtPackage super.azure-mgmt-extendedlocation "1.0.0b2" "zip" "sha256-mjfH35T81JQ97jVgElWmZ8P5MwXVxZQv/QJKNLS3T8A=";
 
-      azure-mgmt-policyinsights =
-        overrideAzureMgmtPackage super.azure-mgmt-policyinsights "1.1.0b2" "zip"
-          "sha256-e+I5MdbbX7WhxHCj1Ery3z2WUrJtpWGD1bhLbqReb58=";
+      azure-mgmt-policyinsights = overrideAzureMgmtPackage super.azure-mgmt-policyinsights "1.1.0b2" "zip" "sha256-e+I5MdbbX7WhxHCj1Ery3z2WUrJtpWGD1bhLbqReb58=";
 
       azure-mgmt-rdbms = overrideAzureMgmtPackage super.azure-mgmt-rdbms "10.2.0b5" "zip" "sha256-YaokPCleAiwM893QFU+tbhL+8UngvGGshdeEBDCVTu4=";
 
-      azure-mgmt-recoveryservices =
-        overrideAzureMgmtPackage super.azure-mgmt-recoveryservices "2.1.0" "zip"
-          "sha256-2DeOemVpkjeI/hUdG04IuHU2h3cmk3oG4kr1wIDvdbM=";
+      azure-mgmt-recoveryservices = overrideAzureMgmtPackage super.azure-mgmt-recoveryservices "2.1.0" "zip" "sha256-2DeOemVpkjeI/hUdG04IuHU2h3cmk3oG4kr1wIDvdbM=";
 
       azure-mgmt-recoveryservicesbackup =
         overrideAzureMgmtPackage super.azure-mgmt-recoveryservicesbackup "5.1.0b1" "zip"
@@ -152,33 +144,23 @@ let
 
       azure-mgmt-resource = overrideAzureMgmtPackage super.azure-mgmt-resource "21.1.0b1" "zip" "sha256-oiC5k+Mg9KJn940jMxG4AB9Pom+t/DWRA5KRv8HO0HI=";
 
-      azure-mgmt-appconfiguration =
-        overrideAzureMgmtPackage super.azure-mgmt-appconfiguration "2.2.0" "zip"
-          "sha256-R2COS22pCtFp3oV98LLn/X2LkPOVUCasEONhFIhEdBQ=";
+      azure-mgmt-appconfiguration = overrideAzureMgmtPackage super.azure-mgmt-appconfiguration "2.2.0" "zip" "sha256-R2COS22pCtFp3oV98LLn/X2LkPOVUCasEONhFIhEdBQ=";
 
-      azure-mgmt-cognitiveservices =
-        overrideAzureMgmtPackage super.azure-mgmt-cognitiveservices "13.3.0" "zip"
-          "sha256-v1pTNPH0ujRm4VMt95Uw6d07lF8bgM3XIa3NJIbNLFI=";
+      azure-mgmt-cognitiveservices = overrideAzureMgmtPackage super.azure-mgmt-cognitiveservices "13.3.0" "zip" "sha256-v1pTNPH0ujRm4VMt95Uw6d07lF8bgM3XIa3NJIbNLFI=";
 
       azure-mgmt-compute = overrideAzureMgmtPackage super.azure-mgmt-compute "29.0.0" "zip" "sha256-wkRmH/3MMxeTZr7KQMZQbjPHs2GSxAjJFZlSp75pUPI=";
 
       azure-mgmt-consumption = overrideAzureMgmtPackage super.azure-mgmt-consumption "2.0.0" "zip" "sha256-moWonzDyJNJhdJviC0YWoOuJSFhvfw8gVzuOoy8mUYk=";
 
-      azure-mgmt-containerinstance =
-        overrideAzureMgmtPackage super.azure-mgmt-containerinstance "9.1.0" "zip"
-          "sha256-IhZLDFkTize8SLptR2v2NRUrxCjctCC1IaFLjCXHl60=";
+      azure-mgmt-containerinstance = overrideAzureMgmtPackage super.azure-mgmt-containerinstance "9.1.0" "zip" "sha256-IhZLDFkTize8SLptR2v2NRUrxCjctCC1IaFLjCXHl60=";
 
-      azure-mgmt-containerservice =
-        overrideAzureMgmtPackage super.azure-mgmt-containerservice "21.1.0" "zip"
-          "sha256-5EOythXO7spLzzlqDWrwcdkkJAMH9W8OBv96rYaWxAY=";
+      azure-mgmt-containerservice = overrideAzureMgmtPackage super.azure-mgmt-containerservice "21.1.0" "zip" "sha256-5EOythXO7spLzzlqDWrwcdkkJAMH9W8OBv96rYaWxAY=";
 
       azure-mgmt-cosmosdb = overrideAzureMgmtPackage super.azure-mgmt-cosmosdb "8.0.0" "zip" "sha256-/6ySVfCjr1YiiZIZJElrd1EfirV+TJvE/FvKs7UhoKo=";
 
       azure-mgmt-databoxedge = overrideAzureMgmtPackage super.azure-mgmt-databoxedge "1.0.0" "zip" "sha256-BAkAYrwejwDC9FMVo7zrD7OzR57BR01xuINC4TSZsIc=";
 
-      azure-mgmt-deploymentmanager =
-        overrideAzureMgmtPackage super.azure-mgmt-deploymentmanager "0.2.0" "zip"
-          "sha256-RuNCInmT/JrKsd2kLy61ZrUiqMlFq50O6lYna0b21zA=";
+      azure-mgmt-deploymentmanager = overrideAzureMgmtPackage super.azure-mgmt-deploymentmanager "0.2.0" "zip" "sha256-RuNCInmT/JrKsd2kLy61ZrUiqMlFq50O6lYna0b21zA=";
 
       azure-mgmt-eventgrid = overrideAzureMgmtPackage super.azure-mgmt-eventgrid "10.2.0b2" "zip" "sha256-QcHY1wCwQyVOEdUi06/wEa4dqJH5Ccd33gJ1Sju0qZA=";
 
@@ -200,21 +182,15 @@ let
 
       azure-mgmt-dns = overrideAzureMgmtPackage super.azure-mgmt-dns "8.0.0" "zip" "sha256-QHwtrLM1E/++nKS+Wt216dS64Mt++mE8P31THve/jeg=";
 
-      azure-mgmt-loganalytics =
-        overrideAzureMgmtPackage super.azure-mgmt-loganalytics "13.0.0b4" "zip"
-          "sha256-Jm1t7v5vyFjNNM/evVaEI9sXJKNwJk6XAXuJSRSnKHk=";
+      azure-mgmt-loganalytics = overrideAzureMgmtPackage super.azure-mgmt-loganalytics "13.0.0b4" "zip" "sha256-Jm1t7v5vyFjNNM/evVaEI9sXJKNwJk6XAXuJSRSnKHk=";
 
       azure-mgmt-network = overrideAzureMgmtPackage super.azure-mgmt-network "21.0.1" "zip" "sha256-7PduPg0JK4f/3q/b5pq58TjqVk+Iu+vxa+aJKDnScy8=";
 
       azure-mgmt-maps = overrideAzureMgmtPackage super.azure-mgmt-maps "2.0.0" "zip" "sha256-OE4X92potwCk+YhHiUXDqXIXEcBAByWv38tjz4ToXw4=";
 
-      azure-mgmt-managedservices =
-        overrideAzureMgmtPackage super.azure-mgmt-managedservices "1.0.0" "zip"
-          "sha256-/tg5n8Z3Oq2jfB0ElqRvWUENd8lJTQyllnxTHDN2rRk=";
+      azure-mgmt-managedservices = overrideAzureMgmtPackage super.azure-mgmt-managedservices "1.0.0" "zip" "sha256-/tg5n8Z3Oq2jfB0ElqRvWUENd8lJTQyllnxTHDN2rRk=";
 
-      azure-mgmt-managementgroups =
-        overrideAzureMgmtPackage super.azure-mgmt-managementgroups "1.0.0" "zip"
-          "sha256-urm9UyocNFV/Wwq5lQ5DHj8Au5boo85m3w9s4q4ZzXM=";
+      azure-mgmt-managementgroups = overrideAzureMgmtPackage super.azure-mgmt-managementgroups "1.0.0" "zip" "sha256-urm9UyocNFV/Wwq5lQ5DHj8Au5boo85m3w9s4q4ZzXM=";
 
       azure-mgmt-marketplaceordering =
         overrideAzureMgmtPackage super.azure-mgmt-marketplaceordering "1.1.0" "zip"
@@ -236,9 +212,7 @@ let
 
       azure-mgmt-web = overrideAzureMgmtPackage super.azure-mgmt-web "7.0.0" "zip" "sha256-WvyNgfiliEt6qawqy8Le8eifhxusMkoZbf6YcyY1SBA=";
 
-      azure-mgmt-redhatopenshift =
-        overrideAzureMgmtPackage super.azure-mgmt-redhatopenshift "1.1.0" "zip"
-          "sha256-Tq8h3fvajxIG2QjtCyHCQDE2deBDioxLLaQQek/O24U=";
+      azure-mgmt-redhatopenshift = overrideAzureMgmtPackage super.azure-mgmt-redhatopenshift "1.1.0" "zip" "sha256-Tq8h3fvajxIG2QjtCyHCQDE2deBDioxLLaQQek/O24U=";
 
       azure-mgmt-redis = overrideAzureMgmtPackage super.azure-mgmt-redis "14.1.0" "zip" "sha256-LO92Wc2+VvsEKiOjVSHXw2o3D69NQlL58m+YqWl6+ig=";
 
@@ -258,9 +232,7 @@ let
 
       azure-mgmt-synapse = overrideAzureMgmtPackage super.azure-mgmt-synapse "2.1.0b5" "zip" "sha256-5E6Yf1GgNyNVjd+SeFDbhDxnOA6fOAG6oojxtCP4m+k=";
 
-      azure-mgmt-datamigration =
-        overrideAzureMgmtPackage super.azure-mgmt-datamigration "10.0.0" "zip"
-          "sha256-XO5w+X/joJPDy3DCoZDC35Nrdy6UoJ73496x7Rd8nzI=";
+      azure-mgmt-datamigration = overrideAzureMgmtPackage super.azure-mgmt-datamigration "10.0.0" "zip" "sha256-XO5w+X/joJPDy3DCoZDC35Nrdy6UoJ73496x7Rd8nzI=";
 
       azure-mgmt-relay = overrideAzureMgmtPackage super.azure-mgmt-relay "0.1.0" "zip" "sha256-2fmHzymYuKNU8zGypxCCwEkZPx4c00WBLhS5uCE2Wss=";
 
@@ -270,9 +242,7 @@ let
 
       azure-mgmt-cdn = overrideAzureMgmtPackage super.azure-mgmt-cdn "12.0.0" "zip" "sha256-t8PuIYkjS0r1Gs4pJJJ8X9cz8950imQtbVBABnyMnd0=";
 
-      azure-mgmt-containerregistry =
-        overrideAzureMgmtPackage super.azure-mgmt-containerregistry "10.0.0" "zip"
-          "sha256-HjejK28Em5AeoQ20o4fucnXTlAwADF/SEpVfHn9anZk=";
+      azure-mgmt-containerregistry = overrideAzureMgmtPackage super.azure-mgmt-containerregistry "10.0.0" "zip" "sha256-HjejK28Em5AeoQ20o4fucnXTlAwADF/SEpVfHn9anZk=";
 
       azure-mgmt-monitor = overrideAzureMgmtPackage super.azure-mgmt-monitor "5.0.0" "zip" "sha256-eL9KJowxTF7hZJQQQCNJZ7l+rKPFM8wP5vEigt3ZFGE=";
 
@@ -282,21 +252,15 @@ let
         overrideAzureMgmtPackage super.azure-mgmt-applicationinsights "1.0.0" "zip"
           "sha256-woeix9703hn5LAwxugKGf6xvW433G129qxkoi7RV/Fs=";
 
-      azure-mgmt-authorization =
-        overrideAzureMgmtPackage super.azure-mgmt-authorization "0.61.0" "zip"
-          "sha256-9czuo63QTpRF6ohJLxXuz2wSbwQG2WfJX25It5vo23U=";
+      azure-mgmt-authorization = overrideAzureMgmtPackage super.azure-mgmt-authorization "0.61.0" "zip" "sha256-9czuo63QTpRF6ohJLxXuz2wSbwQG2WfJX25It5vo23U=";
 
       azure-mgmt-storage = overrideAzureMgmtPackage super.azure-mgmt-storage "21.0.0" "zip" "sha256-brE+7s+JGVsrX0e+Bnnj8niI79e9ITLux+vLznXLE3c=";
 
       azure-mgmt-servicebus = overrideAzureMgmtPackage super.azure-mgmt-servicebus "8.1.0" "zip" "sha256-R8Narn7eC7j59tDjsgbk9lF0PcOgOwSnzoMp3Qu0rmg=";
 
-      azure-mgmt-servicefabric =
-        overrideAzureMgmtPackage super.azure-mgmt-servicefabric "1.0.0" "zip"
-          "sha256-3jXhF5EoMsGp6TEJqNJMq5T1VwOpCHsuscWwZVs7GRM=";
+      azure-mgmt-servicefabric = overrideAzureMgmtPackage super.azure-mgmt-servicefabric "1.0.0" "zip" "sha256-3jXhF5EoMsGp6TEJqNJMq5T1VwOpCHsuscWwZVs7GRM=";
 
-      azure-mgmt-servicelinker =
-        overrideAzureMgmtPackage super.azure-mgmt-servicelinker "1.2.0b1" "zip"
-          "sha256-RK1Q51Q0wAG55oKrFmv65/2AUKl+gRdp27t/EcuMONk=";
+      azure-mgmt-servicelinker = overrideAzureMgmtPackage super.azure-mgmt-servicelinker "1.2.0b1" "zip" "sha256-RK1Q51Q0wAG55oKrFmv65/2AUKl+gRdp27t/EcuMONk=";
 
       azure-mgmt-hdinsight = overrideAzureMgmtPackage super.azure-mgmt-hdinsight "9.0.0" "zip" "sha256-QevcacDR+B0l3TBDjBT/9DMfZmOfVYBbkYuWSer/54o=";
 

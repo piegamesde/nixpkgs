@@ -307,8 +307,7 @@ in
 
   config = {
     warnings =
-      mapAttrsToList
-        (n: v: "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead.")
+      mapAttrsToList (n: v: "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead.")
         (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups);
     assertions =
       mapAttrsToList
@@ -324,14 +323,10 @@ in
           let
             extraOptions = concatMapStrings (arg: " -o ${arg}") backup.extraOptions;
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
-            excludeFlags =
-              if (backup.exclude != [ ]) then [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ] else [ ];
+            excludeFlags = if (backup.exclude != [ ]) then [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ] else [ ];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
             backupPaths =
-              if (backup.dynamicFilesFrom == null) then
-                optionalString (backup.paths != null) (concatStringsSep " " backup.paths)
-              else
-                "--files-from ${filesFromTmpFile}";
+              if (backup.dynamicFilesFrom == null) then optionalString (backup.paths != null) (concatStringsSep " " backup.paths) else "--files-from ${filesFromTmpFile}";
             pruneCmd = optionals (builtins.length backup.pruneOpts > 0) [
               (resticCmd + " forget --prune " + (concatStringsSep " " backup.pruneOpts))
               (resticCmd + " check " + (concatStringsSep " " backup.checkOpts))
@@ -351,13 +346,9 @@ in
                   RESTIC_REPOSITORY = backup.repository;
                   RESTIC_REPOSITORY_FILE = backup.repositoryFile;
                 }
-                // optionalAttrs (backup.rcloneOptions != null) (
-                  mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)) backup.rcloneOptions
-                )
+                // optionalAttrs (backup.rcloneOptions != null) (mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)) backup.rcloneOptions)
                 // optionalAttrs (backup.rcloneConfigFile != null) { RCLONE_CONFIG = backup.rcloneConfigFile; }
-                // optionalAttrs (backup.rcloneConfig != null) (
-                  mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value)) backup.rcloneConfig
-                );
+                // optionalAttrs (backup.rcloneConfig != null) (mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value)) backup.rcloneConfig);
               path = [ pkgs.openssh ];
               restartIfChanged = false;
               serviceConfig = {

@@ -19,9 +19,7 @@ let
     tcp_connect_time_out ${builtins.toString cfg.tcpConnectTimeOut}
     localnet ${cfg.localnet}
     [ProxyList]
-    ${builtins.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "${v.type} ${v.host} ${builtins.toString v.port}") (lib.filterAttrs (k: v: v.enable) cfg.proxies)
-    )}
+    ${builtins.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "${v.type} ${v.host} ${builtins.toString v.port}") (lib.filterAttrs (k: v: v.enable) cfg.proxies))}
   '';
 
   proxyOptions = {

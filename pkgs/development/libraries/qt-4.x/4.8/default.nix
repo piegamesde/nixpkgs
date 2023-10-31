@@ -64,9 +64,7 @@ stdenv.mkDerivation rec {
   version = "4.8.7";
 
   src = fetchurl {
-    url =
-      "http://download.qt-project.org/official_releases/qt/"
-      + "${lib.versions.majorMinor version}/${version}/qt-everywhere-opensource-src-${version}.tar.gz";
+    url = "http://download.qt-project.org/official_releases/qt/" + "${lib.versions.majorMinor version}/${version}/qt-everywhere-opensource-src-${version}.tar.gz";
     sha256 = "183fca7n7439nlhxyg1z7aky0izgbyll3iwakw4gwivy16aj5272";
   };
 
@@ -115,8 +113,7 @@ stdenv.mkDerivation rec {
       })
       (fetchpatch {
         name = "fix-medium-font.patch";
-        url =
-          "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/" + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff";
+        url = "https://salsa.debian.org/qt-kde-team/qt/qt4-x11/raw/" + "21b342d71c19e6d68b649947f913410fe6129ea4/debian/patches/kubuntu_39_fix_medium_font.diff";
         sha256 = "0bli44chn03c2y70w1n8l7ss4ya0b40jqqav8yxrykayi01yf95j";
       })
       # Patches are no longer available from here, so vendoring it for now.

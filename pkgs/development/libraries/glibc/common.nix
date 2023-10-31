@@ -61,49 +61,46 @@ stdenv.mkDerivation (
 
     enableParallelBuilding = true;
 
-    patches =
-      [
-        /* No tarballs for stable upstream branch, only https://sourceware.org/git/glibc.git and using git would complicate bootstrapping.
-            $ git fetch --all -p && git checkout origin/release/2.36/master && git describe
-            glibc-2.37-8-g590d0e089b
-            $ git show --minimal --reverse glibc-2.37.. | gzip -9n --rsyncable - > 2.37-master.patch.gz
+    patches = [
+      /* No tarballs for stable upstream branch, only https://sourceware.org/git/glibc.git and using git would complicate bootstrapping.
+          $ git fetch --all -p && git checkout origin/release/2.36/master && git describe
+          glibc-2.37-8-g590d0e089b
+          $ git show --minimal --reverse glibc-2.37.. | gzip -9n --rsyncable - > 2.37-master.patch.gz
 
-           To compare the archive contents zdiff can be used.
-            $ zdiff -u 2.37-master.patch.gz ../nixpkgs/pkgs/development/libraries/glibc/2.37-master.patch.gz
-        */
-        ./2.37-master.patch.gz
+         To compare the archive contents zdiff can be used.
+          $ zdiff -u 2.37-master.patch.gz ../nixpkgs/pkgs/development/libraries/glibc/2.37-master.patch.gz
+      */
+      ./2.37-master.patch.gz
 
-        # Allow NixOS and Nix to handle the locale-archive.
-        ./nix-locale-archive.patch
+      # Allow NixOS and Nix to handle the locale-archive.
+      ./nix-locale-archive.patch
 
-        # Don't use /etc/ld.so.cache, for non-NixOS systems.
-        ./dont-use-system-ld-so-cache.patch
+      # Don't use /etc/ld.so.cache, for non-NixOS systems.
+      ./dont-use-system-ld-so-cache.patch
 
-        # Don't use /etc/ld.so.preload, but /etc/ld-nix.so.preload.
-        ./dont-use-system-ld-so-preload.patch
+      # Don't use /etc/ld.so.preload, but /etc/ld-nix.so.preload.
+      ./dont-use-system-ld-so-preload.patch
 
-        /* The command "getconf CS_PATH" returns the default search path
-           "/bin:/usr/bin", which is inappropriate on NixOS machines. This
-           patch extends the search path by "/run/current-system/sw/bin".
-        */
-        ./fix_path_attribute_in_getconf.patch
+      /* The command "getconf CS_PATH" returns the default search path
+         "/bin:/usr/bin", which is inappropriate on NixOS machines. This
+         patch extends the search path by "/run/current-system/sw/bin".
+      */
+      ./fix_path_attribute_in_getconf.patch
 
-        ./fix-x64-abi.patch
+      ./fix-x64-abi.patch
 
-        # https://github.com/NixOS/nixpkgs/pull/137601
-        ./nix-nss-open-files.patch
+      # https://github.com/NixOS/nixpkgs/pull/137601
+      ./nix-nss-open-files.patch
 
-        ./0001-Revert-Remove-all-usage-of-BASH-or-BASH-in-installed.patch
+      ./0001-Revert-Remove-all-usage-of-BASH-or-BASH-in-installed.patch
 
-        /* Patch derived from archlinux (at the time of adding they're at 2.37),
-            https://github.com/archlinux/svntogit-packages/blob/packages/glibc/trunk/reenable_DT_HASH.patch
+      /* Patch derived from archlinux (at the time of adding they're at 2.37),
+          https://github.com/archlinux/svntogit-packages/blob/packages/glibc/trunk/reenable_DT_HASH.patch
 
-           See https://github.com/NixOS/nixpkgs/pull/188492#issuecomment-1233802991 for context.
-        */
-        ./reenable_DT_HASH.patch
-      ]
-      ++ lib.optional stdenv.hostPlatform.isMusl ./fix-rpc-types-musl-conflicts.patch
-      ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch;
+         See https://github.com/NixOS/nixpkgs/pull/188492#issuecomment-1233802991 for context.
+      */
+      ./reenable_DT_HASH.patch
+    ] ++ lib.optional stdenv.hostPlatform.isMusl ./fix-rpc-types-musl-conflicts.patch ++ lib.optional stdenv.buildPlatform.isDarwin ./darwin-cross-build.patch;
 
     postPatch =
       ''

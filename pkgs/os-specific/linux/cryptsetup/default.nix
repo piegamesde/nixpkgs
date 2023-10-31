@@ -83,9 +83,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux (
-        lib.recurseIntoAttrs (lib.filterAttrs (name: _value: lib.hasPrefix "luks" name) nixosTests.installer)
-      );
+      nixos = lib.optionalAttrs stdenv.hostPlatform.isLinux (lib.recurseIntoAttrs (lib.filterAttrs (name: _value: lib.hasPrefix "luks" name) nixosTests.installer));
     };
   };
 

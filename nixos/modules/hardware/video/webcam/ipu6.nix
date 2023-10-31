@@ -51,8 +51,7 @@ in
 
       cardLabel = mkDefault "Intel MIPI Camera";
 
-      extraPackages =
-        with pkgs.gst_all_1; [ ] ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6 ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep;
+      extraPackages = with pkgs.gst_all_1; [ ] ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6 ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep;
 
       input = {
         pipeline = "icamerasrc";

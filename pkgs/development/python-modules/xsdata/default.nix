@@ -55,9 +55,7 @@ buildPythonPackage rec {
     soap = [ requests ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ passthru.optional-dependencies.cli ++ passthru.optional-dependencies.lxml ++ passthru.optional-dependencies.soap;
+  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.cli ++ passthru.optional-dependencies.lxml ++ passthru.optional-dependencies.soap;
 
   disabledTestPaths = [ "tests/integration/benchmarks" ];
 

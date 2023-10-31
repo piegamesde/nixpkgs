@@ -276,10 +276,7 @@ in
     mavenMonitor_2_2_1
   ;
 
-  inherit (callPackage ../development/java-modules/maven/plugin-annotations.nix { inherit fetchMaven; })
-    mavenPluginAnnotations_3_1
-    mavenPluginAnnotations_3_2
-  ;
+  inherit (callPackage ../development/java-modules/maven/plugin-annotations.nix { inherit fetchMaven; }) mavenPluginAnnotations_3_1 mavenPluginAnnotations_3_2;
 
   inherit (callPackage ../development/java-modules/maven/plugin-api.nix { inherit fetchMaven; })
     mavenPluginApi_2_0_1
@@ -354,23 +351,13 @@ in
 
   inherit (callPackage ../development/java-modules/maven/surefire-api.nix { inherit fetchMaven; }) mavenSurefireApi_2_12_4 mavenSurefireApi_2_17;
 
-  inherit (callPackage ../development/java-modules/maven/surefire-booter.nix { inherit fetchMaven; })
-    mavenSurefireBooter_2_12_4
-    mavenSurefireBooter_2_17
-  ;
+  inherit (callPackage ../development/java-modules/maven/surefire-booter.nix { inherit fetchMaven; }) mavenSurefireBooter_2_12_4 mavenSurefireBooter_2_17;
 
-  inherit (callPackage ../development/java-modules/maven/surefire-common.nix { inherit fetchMaven; })
-    mavenSurefireCommon_2_12_4
-    mavenSurefireCommon_2_17
-  ;
+  inherit (callPackage ../development/java-modules/maven/surefire-common.nix { inherit fetchMaven; }) mavenSurefireCommon_2_12_4 mavenSurefireCommon_2_17;
 
   inherit (callPackage ../development/java-modules/maven/surefire-junit4.nix { inherit fetchMaven; }) mavenSurefireJunit4_2_12_4;
 
-  inherit (callPackage ../development/java-modules/maven/toolchain.nix { inherit fetchMaven; })
-    mavenToolchain_1_0
-    mavenToolchain_2_0_9
-    mavenToolchain_2_2_1
-  ;
+  inherit (callPackage ../development/java-modules/maven/toolchain.nix { inherit fetchMaven; }) mavenToolchain_1_0 mavenToolchain_2_0_9 mavenToolchain_2_2_1;
 
   inherit (callPackage ../development/java-modules/mojo/animal-sniffer.nix { inherit fetchMaven; }) mojoAnimalSniffer_1_11;
 
@@ -388,10 +375,7 @@ in
 
   inherit (callPackage ../development/java-modules/plexus/compiler-javac.nix { inherit fetchMaven; }) plexusCompilerJavac_2_2 plexusCompilerJavac_2_4;
 
-  inherit (callPackage ../development/java-modules/plexus/compiler-manager.nix { inherit fetchMaven; })
-    plexusCompilerManager_2_2
-    plexusCompilerManager_2_4
-  ;
+  inherit (callPackage ../development/java-modules/plexus/compiler-manager.nix { inherit fetchMaven; }) plexusCompilerManager_2_2 plexusCompilerManager_2_4;
 
   inherit (callPackage ../development/java-modules/plexus/component-annotations.nix { inherit fetchMaven; }) plexusComponentAnnotations_1_5_5;
 

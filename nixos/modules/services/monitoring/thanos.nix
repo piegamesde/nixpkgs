@@ -741,9 +741,7 @@ in
 
     rule = paramsToOptions params.rule // {
       enable = mkEnableOption (
-        lib.mdDoc (
-          "the Thanos ruler service which evaluates Prometheus rules against" + " given Query nodes, exposing Store API and storing old blocks in bucket"
-        )
+        lib.mdDoc ("the Thanos ruler service which evaluates Prometheus rules against" + " given Query nodes, exposing Store API and storing old blocks in bucket")
       );
       arguments = mkArgumentsOption "rule";
     };
@@ -761,8 +759,7 @@ in
     receive = paramsToOptions params.receive // {
       enable = mkEnableOption (
         lib.mdDoc (
-          "the Thanos receiver which accept Prometheus remote write API requests "
-          + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"
+          "the Thanos receiver which accept Prometheus remote write API requests " + "and write to local tsdb (EXPERIMENTAL, this may change drastically without notice)"
         )
       );
       arguments = mkArgumentsOption "receive";

@@ -311,9 +311,7 @@ in
 
   config = {
 
-    programs.ssh.setXAuthLocation = mkDefault (
-      config.services.xserver.enable || config.programs.ssh.forwardX11 || config.services.openssh.settings.X11Forwarding
-    );
+    programs.ssh.setXAuthLocation = mkDefault (config.services.xserver.enable || config.programs.ssh.forwardX11 || config.services.openssh.settings.X11Forwarding);
 
     assertions =
       [
