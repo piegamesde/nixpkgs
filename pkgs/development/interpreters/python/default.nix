@@ -48,8 +48,7 @@
                     ]
                     false;
                 valid =
-                  value:
-                  pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
+                  value: pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
                 func =
                   name: value:
                   if lib.isDerivation value then
@@ -106,9 +105,7 @@
                   );
                   aliases =
                     self: super:
-                    lib.optionalAttrs config.allowAliases (
-                      import ../../../top-level/python-aliases.nix lib self super
-                    );
+                    lib.optionalAttrs config.allowAliases (import ../../../top-level/python-aliases.nix lib self super);
                 in
                 makeScopeWithSplicing otherSplices keep extra (
                   lib.extends (lib.composeExtensions aliases extensions) keep
@@ -334,9 +331,7 @@
       hash = "sha256-TWdpv8pzc06GZv1wUDt86wam4lkRDmFzMbs4mcpOYFg=";
     };
 
-    pypy37 =
-      throw
-        "pypy37 has been removed from nixpkgs since it is no longer supported upstream"; # Added 2023-01-04
+    pypy37 = throw "pypy37 has been removed from nixpkgs since it is no longer supported upstream"; # Added 2023-01-04
 
     pypy27_prebuilt = callPackage ./pypy/prebuilt_2_7.nix {
       # Not included at top-level

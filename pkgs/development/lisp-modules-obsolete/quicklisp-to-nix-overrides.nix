@@ -274,13 +274,9 @@ in
           '';
       };
   };
-  cl-containers = x: {
-    overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; };
-  };
+  cl-containers = x: { overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; }; };
   mssql = addNativeLibs [ pkgs.freetds ];
-  cl-unification = x: {
-    asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ];
-  };
+  cl-unification = x: { asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ]; };
   simple-date = x: {
     deps = with quicklisp-to-nix-packages; [
       fiveam

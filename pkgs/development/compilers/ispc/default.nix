@@ -13,8 +13,7 @@
   ncurses,
 
   # the default test target is sse4, but that is not supported by all Hydra agents
-  testedTargets ?
-    if stdenv.isAarch64 || stdenv.isAarch32 then [ "neon-i32x4" ] else [ "sse2-i32x4" ],
+  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then [ "neon-i32x4" ] else [ "sse2-i32x4" ],
 }:
 
 stdenv.mkDerivation rec {

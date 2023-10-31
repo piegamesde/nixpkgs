@@ -188,9 +188,7 @@
 
       phonon = callPackage ../development/libraries/phonon { };
 
-      phonon-backend-gstreamer =
-        callPackage ../development/libraries/phonon/backends/gstreamer.nix
-          { };
+      phonon-backend-gstreamer = callPackage ../development/libraries/phonon/backends/gstreamer.nix { };
 
       phonon-backend-vlc = callPackage ../development/libraries/phonon/backends/vlc.nix { };
 

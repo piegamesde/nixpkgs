@@ -68,9 +68,7 @@ let
 
         packages = mkOption {
           type = types.listOf types.package;
-          description =
-            lib.mdDoc
-              "The list of packages you want to make available to the zope2 instance.";
+          description = lib.mdDoc "The list of packages you want to make available to the zope2 instance.";
         };
       };
     };

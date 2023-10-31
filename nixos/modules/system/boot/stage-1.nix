@@ -661,9 +661,7 @@ in
 
     boot.initrd.compressor = mkOption {
       default =
-        (
-          if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then "zstd" else "gzip"
-        );
+        (if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then "zstd" else "gzip");
       defaultText = literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
       description = lib.mdDoc ''
@@ -775,10 +773,7 @@ in
           !config.boot.loader.supportsInitrdSecrets
           ->
             all
-              (
-                source:
-                builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source)
-              )
+              (source: builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source))
               (attrValues config.boot.initrd.secrets);
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when

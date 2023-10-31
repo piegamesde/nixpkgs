@@ -160,8 +160,7 @@ let
             (
               a:
               if !(builtins.hasAttr "extid" a) then
-                throw
-                  "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
+                throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
               else
                 a
             )

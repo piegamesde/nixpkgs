@@ -24,8 +24,7 @@ let
   # https://docs.npmjs.com/files/package.json#license
   # TODO: support expression syntax (OR, AND, etc)
   getLicenseFromSpdxId =
-    licstr:
-    if licstr == "UNLICENSED" then lib.licenses.unfree else lib.getLicenseFromSpdxId licstr;
+    licstr: if licstr == "UNLICENSED" then lib.licenses.unfree else lib.getLicenseFromSpdxId licstr;
 in
 rec {
   # Export yarn again to make it easier to find out which yarn was used.
@@ -186,9 +185,7 @@ rec {
         ${workspaceDependencyLinks}
 
         yarn install ${
-          lib.escapeShellArgs (
-            defaultYarnFlags ++ lib.optional ignoreScripts "--ignore-scripts" ++ yarnFlags
-          )
+          lib.escapeShellArgs (defaultYarnFlags ++ lib.optional ignoreScripts "--ignore-scripts" ++ yarnFlags)
         }
 
         ${lib.concatStringsSep "\n" postInstall}

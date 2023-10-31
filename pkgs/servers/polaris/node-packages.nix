@@ -3719,12 +3719,7 @@ let
           ];
         }
       )
-      (
-        sources."@parcel/package-manager-2.3.2"
-        // {
-          dependencies = [ sources."@parcel/types-2.3.2" ];
-        }
-      )
+      (sources."@parcel/package-manager-2.3.2" // { dependencies = [ sources."@parcel/types-2.3.2" ]; })
       (
         sources."@parcel/packager-css-2.3.2"
         // {

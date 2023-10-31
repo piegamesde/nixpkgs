@@ -62,9 +62,7 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
-    targetPlatform.config + "-"
-  );
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (targetPlatform.config + "-");
 
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
@@ -135,9 +133,7 @@ let
 
   expand-response-params =
     lib.optionalString
-      (
-        buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null"
-      )
+      (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
       (import ../expand-response-params { inherit (buildPackages) stdenv; });
 in
 

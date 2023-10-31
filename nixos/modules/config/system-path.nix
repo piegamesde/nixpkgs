@@ -120,9 +120,7 @@ in
         # to work.
         default = [ ];
         example = [ "/" ];
-        description =
-          lib.mdDoc
-            "List of directories to be symlinked in {file}`/run/current-system/sw`.";
+        description = lib.mdDoc "List of directories to be symlinked in {file}`/run/current-system/sw`.";
       };
 
       extraOutputsToInstall = mkOption {

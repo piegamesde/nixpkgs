@@ -509,8 +509,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.database.createLocally
-          -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
+          cfg.database.createLocally -> (cfg.database.type == "mysql" || cfg.database.type == "postgres");
         message = "services.mediawiki.createLocally is currently only supported for database type 'mysql' and 'postgres'";
       }
       {
@@ -625,8 +624,7 @@ in
       before = [ "phpfpm-mediawiki.service" ];
       after =
         optional (cfg.database.type == "mysql" && cfg.database.createLocally) "mysql.service"
-        ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally)
-          "postgresql.service";
+        ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally) "postgresql.service";
       script = ''
         if ! test -e "${stateDir}/secret.key"; then
           tr -dc A-Za-z0-9 </dev/urandom 2>/dev/null | head -c 64 > ${stateDir}/secret.key
@@ -640,9 +638,7 @@ in
           --dbserver "${dbAddr}" \
           --dbport ${toString cfg.database.port} \
           --dbname ${cfg.database.name} \
-          ${
-            optionalString (cfg.database.tablePrefix != null) "--dbprefix ${cfg.database.tablePrefix}"
-          } \
+          ${optionalString (cfg.database.tablePrefix != null) "--dbprefix ${cfg.database.tablePrefix}"} \
           --dbuser ${cfg.database.user} \
           ${
             optionalString (cfg.database.passwordFile != null) "--dbpassfile ${cfg.database.passwordFile}"
@@ -664,8 +660,7 @@ in
     };
 
     systemd.services.httpd.after =
-      optional
-        (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
+      optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
         "mysql.service"
       ++ optional
         (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")

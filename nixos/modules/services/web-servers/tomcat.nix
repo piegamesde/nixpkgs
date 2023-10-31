@@ -99,9 +99,7 @@ in
       javaOpts = mkOption {
         type = types.either (types.listOf types.str) types.str;
         default = "";
-        description =
-          lib.mdDoc
-            "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
+        description = lib.mdDoc "Parameters to pass to the Java Virtual Machine which spawns Apache Tomcat";
       };
 
       catalinaOpts = mkOption {

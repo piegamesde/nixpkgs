@@ -119,9 +119,7 @@ rec {
           slightFix = replaceStrings [ "\\]" ] [ "]" ];
         in
         concatStringsSep "" (
-          map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (
-            split "(\\[([^\\\\]|\\\\.)+])" r
-          )
+          map (rl: if isList rl then slightFix (elemAt rl 0) else f rl) (split "(\\[([^\\\\]|\\\\.)+])" r)
         );
 
       # regex -> regex
@@ -152,10 +150,7 @@ rec {
       (
         l: # `l' for "line"
         mapPat
-          (
-            l:
-            handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l)))
-          )
+          (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))))
           (computeNegation l)
       )
       (filter (l: !isList l && !isComment l) (split "\n" gitignore));
@@ -221,8 +216,7 @@ rec {
       ''
     );
 
-  withGitignoreFile =
-    patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
+  withGitignoreFile = patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (root + "/.gitignore") ];
 
   withRecursiveGitignoreFile =
     patterns: root: lib.toList patterns ++ [ ".git" ] ++ [ (compileRecursiveGitignore root) ];

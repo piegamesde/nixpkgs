@@ -116,8 +116,7 @@ let
   envFile = pkgs.writeText "mastodon.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList
-          (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
           env
       ))
     )
@@ -154,9 +153,7 @@ let
           let
             jobClassArgs = toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
             jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
-            threads = toString (
-              if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads
-            );
+            threads = toString (if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads);
           in
           {
             after =

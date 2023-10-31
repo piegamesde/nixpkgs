@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.22";
 
   src = fetchurl {
-    url = "http://abagames.sakura.ne.jp/windows/tt${
-        lib.replaceStrings [ "." ] [ "_" ] version
-      }.zip";
+    url = "http://abagames.sakura.ne.jp/windows/tt${lib.replaceStrings [ "." ] [ "_" ] version}.zip";
     sha256 = "1yhki1fdp3fi4y2iq12vca69f6k38dqjaw9z4lwcxky5kbgb7jvg";
   };
 
@@ -39,13 +37,9 @@ stdenv.mkDerivation rec {
     (debianPatch "window-resizing" "1n64gbhabl6vis7s294wxlj2k8s3ypxljpdg71icwz1m9jjx59df")
     (debianPatch "save-score-444372" "1skny6s3hjxkh8w4fq86vp51j7z40fvn80b8myl4i1zzlwag3x17")
     (debianPatch "level-select-444948" "008248s55188plggg2kg01nimjgc7w0sqd3c22sl6lzd1fjsflv8")
-    (debianPatch "avoid-segfault-when-sdl-fails"
-      "1yp758gi4i15gqk6wiqp815rqcmlyqx62ir1sw20hn6zb3j97bmc"
-    )
+    (debianPatch "avoid-segfault-when-sdl-fails" "1yp758gi4i15gqk6wiqp815rqcmlyqx62ir1sw20hn6zb3j97bmc")
     (debianPatch "dlang_v2" "1lxsbckhvl8a8j43pw2dyl5nlavvdbgxb5zlb2450a0vml55nswd")
-    (debianPatch "lowest-level-position-602808"
-      "19r48wirc9zssjmv57drn2fd0f56dcgyqqaz3j49cvv6yd74qf20"
-    )
+    (debianPatch "lowest-level-position-602808" "19r48wirc9zssjmv57drn2fd0f56dcgyqqaz3j49cvv6yd74qf20")
     (debianPatch "libbulletml0v5-segfault" "0pad2daz60hswkhkdpssxaqc9p9ca0sw1nraqzr453x0zdwwq0hn")
     (debianPatch "std.math.fabs" "18xnnqlj20bxv2h9fa8dn4rmxwi3k6y3g50kwvh8i8p3b4hgag3r")
     (debianPatch "gdc-8" "10z702y75c48hjcnvv8m7f3ka52cj3r3jqafdbby85nb0p2lbssx")

@@ -14,8 +14,7 @@ in
   options = {
     services.input-remapper = {
       enable = mkEnableOption (
-        lib.mdDoc
-          "input-remapper, an easy to use tool to change the mapping of your input device buttons"
+        lib.mdDoc "input-remapper, an easy to use tool to change the mapping of your input device buttons"
       );
       package = mkPackageOptionMD pkgs "input-remapper" { };
       enableUdevRules = mkEnableOption (

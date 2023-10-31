@@ -90,12 +90,10 @@ rec {
   and = x: y: x && y;
 
   # bitwise “and”
-  bitAnd =
-    builtins.bitAnd or (import ./zip-int-bits.nix (a: b: if a == 1 && b == 1 then 1 else 0));
+  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix (a: b: if a == 1 && b == 1 then 1 else 0));
 
   # bitwise “or”
-  bitOr =
-    builtins.bitOr or (import ./zip-int-bits.nix (a: b: if a == 1 || b == 1 then 1 else 0));
+  bitOr = builtins.bitOr or (import ./zip-int-bits.nix (a: b: if a == 1 || b == 1 then 1 else 0));
 
   # bitwise “xor”
   bitXor = builtins.bitXor or (import ./zip-int-bits.nix (a: b: if a != b then 1 else 0));
@@ -433,9 +431,7 @@ rec {
     lib.throwIfNot (unexpected == [ ])
       "${msg}: ${
         builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)
-      } unexpected; valid ones: ${
-        builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
-      }";
+      } unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
 
   info = msg: builtins.trace "INFO: ${msg}";
 

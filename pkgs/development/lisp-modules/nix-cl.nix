@@ -266,8 +266,7 @@ let
             else
               args.src;
           patches = [ ];
-          propagatedBuildInputs =
-            args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
+          propagatedBuildInputs = args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
           meta = (args.meta or { }) // {
             maintainers = args.meta.maintainers or lib.teams.lisp.members;
           };

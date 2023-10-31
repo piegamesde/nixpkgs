@@ -12345,9 +12345,7 @@ let
       )
       (sources."@typescript-eslint/parser-5.15.0" // { dependencies = [ sources."debug-4.3.3" ]; })
       sources."@typescript-eslint/scope-manager-5.15.0"
-      (
-        sources."@typescript-eslint/type-utils-5.15.0" // { dependencies = [ sources."debug-4.3.3" ]; }
-      )
+      (sources."@typescript-eslint/type-utils-5.15.0" // { dependencies = [ sources."debug-4.3.3" ]; })
       sources."@typescript-eslint/types-5.15.0"
       (
         sources."@typescript-eslint/typescript-estree-5.15.0"
@@ -13316,10 +13314,7 @@ let
         }
       )
       (
-        sources."postcss-env-function-4.0.5"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."postcss-env-function-4.0.5" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       sources."postcss-focus-visible-6.0.4"
       sources."postcss-focus-within-5.0.4"
@@ -13345,10 +13340,7 @@ let
       sources."postcss-initial-4.0.1"
       sources."postcss-jsx-0.36.4"
       (
-        sources."postcss-lab-function-4.1.2"
-        // {
-          dependencies = [ sources."postcss-value-parser-4.2.0" ];
-        }
+        sources."postcss-lab-function-4.1.2" // { dependencies = [ sources."postcss-value-parser-4.2.0" ]; }
       )
       (
         sources."postcss-less-3.1.4"
@@ -14127,12 +14119,7 @@ let
       sources."unist-util-remove-position-1.1.4"
       sources."unist-util-stringify-position-2.0.3"
       sources."unist-util-visit-1.4.1"
-      (
-        sources."unist-util-visit-parents-2.1.2"
-        // {
-          dependencies = [ sources."unist-util-is-3.0.0" ];
-        }
-      )
+      (sources."unist-util-visit-parents-2.1.2" // { dependencies = [ sources."unist-util-is-3.0.0" ]; })
       sources."universalify-2.0.0"
       sources."unpipe-1.0.0"
       (
@@ -14221,15 +14208,8 @@ let
       sources."which-boxed-primitive-1.0.2"
       sources."wildcard-2.0.0"
       sources."word-wrap-1.2.3"
-      (
-        sources."workbox-background-sync-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; }
-      )
-      (
-        sources."workbox-broadcast-update-6.5.1"
-        // {
-          dependencies = [ sources."workbox-core-6.5.1" ];
-        }
-      )
+      (sources."workbox-background-sync-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
+      (sources."workbox-broadcast-update-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       (
         sources."workbox-build-6.5.1"
         // {
@@ -14242,26 +14222,11 @@ let
           ];
         }
       )
-      (
-        sources."workbox-cacheable-response-6.5.1"
-        // {
-          dependencies = [ sources."workbox-core-6.5.1" ];
-        }
-      )
+      (sources."workbox-cacheable-response-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       sources."workbox-core-6.2.4"
       (sources."workbox-expiration-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
-      (
-        sources."workbox-google-analytics-6.5.1"
-        // {
-          dependencies = [ sources."workbox-core-6.5.1" ];
-        }
-      )
-      (
-        sources."workbox-navigation-preload-6.5.1"
-        // {
-          dependencies = [ sources."workbox-core-6.5.1" ];
-        }
-      )
+      (sources."workbox-google-analytics-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
+      (sources."workbox-navigation-preload-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       (
         sources."workbox-precaching-6.2.4"
         // {
@@ -14272,9 +14237,7 @@ let
           ];
         }
       )
-      (
-        sources."workbox-range-requests-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; }
-      )
+      (sources."workbox-range-requests-6.5.1" // { dependencies = [ sources."workbox-core-6.5.1" ]; })
       (
         sources."workbox-recipes-6.5.1"
         // {

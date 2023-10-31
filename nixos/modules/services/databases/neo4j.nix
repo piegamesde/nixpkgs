@@ -708,9 +708,7 @@ in
       defaultDirectoriesToCreate = map (opt: opt.value) (
         filter isDefaultPathOption (attrValues options.services.neo4j.directories)
       );
-      policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (
-        attrValues cfg.ssl.policies
-      );
+      policyDirectoriesToCreate = concatMap (pol: pol.directoriesToCreate) (attrValues cfg.ssl.policies);
     in
 
     mkIf cfg.enable {

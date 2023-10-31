@@ -75,16 +75,14 @@ let
       print Test.a
     '';
 
-    python3 =
-      writePython3Bin "test-writers-python3-bin" { libraries = [ python3Packages.pyyaml ]; }
-        ''
-          import yaml
+    python3 = writePython3Bin "test-writers-python3-bin" { libraries = [ python3Packages.pyyaml ]; } ''
+      import yaml
 
-          y = yaml.load("""
-            - test: success
-          """)
-          print(y[0]['test'])
-        '';
+      y = yaml.load("""
+        - test: success
+      """)
+      print(y[0]['test'])
+    '';
 
     pypy3 = writePyPy3Bin "test-writers-pypy3-bin" { libraries = [ pypy3Packages.pyyaml ]; } ''
       import yaml
@@ -111,19 +109,17 @@ let
       end
     '';
 
-    haskell =
-      writeHaskell "test-writers-haskell" { libraries = [ haskellPackages.acme-default ]; }
-        ''
-          import Data.Default
+    haskell = writeHaskell "test-writers-haskell" { libraries = [ haskellPackages.acme-default ]; } ''
+      import Data.Default
 
-          int :: Int
-          int = def
+      int :: Int
+      int = def
 
-          main :: IO ()
-          main = case int of
-            18871 -> putStrLn $ id "success"
-            _ -> print "fail"
-        '';
+      main :: IO ()
+      main = case int of
+        18871 -> putStrLn $ id "success"
+        _ -> print "fail"
+    '';
 
     js = writeJS "test-writers-js" { libraries = [ nodePackages.semver ]; } ''
       var semver = require('semver');
@@ -264,14 +260,11 @@ runCommand "test-writers"
     meta.platforms = lib.platforms.all;
   }
   ''
-    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name "${test}/bin/${test.name}")
-      (lib.attrValues bin)}
-    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test) (
-      lib.attrValues simple
+    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name "${test}/bin/${test.name}") (
+      lib.attrValues bin
     )}
-    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test) (
-      lib.attrValues path
-    )}
+    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test) (lib.attrValues simple)}
+    ${lib.concatMapStringsSep "\n" (test: writeTest "success" test.name test) (lib.attrValues path)}
 
     echo 'nix-writers successfully tested' >&2
     touch $out

@@ -35,9 +35,7 @@ let
     ))
     + "\n";
 
-  knownHostsFiles = [
-    "/etc/ssh/ssh_known_hosts"
-  ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
+  knownHostsFiles = [ "/etc/ssh/ssh_known_hosts" ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 in
 {
   ###### interface

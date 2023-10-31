@@ -32,9 +32,7 @@ rustPlatform.buildRustPackage rec {
     "firefoxManifest"
     "chromeManifest"
   ];
-  firefoxManifest = builtins.toJSON (
-    manifest // { allowed_extensions = [ "bukubrow@samhh.com" ]; }
-  );
+  firefoxManifest = builtins.toJSON (manifest // { allowed_extensions = [ "bukubrow@samhh.com" ]; });
   chromeManifest = builtins.toJSON (
     manifest // { allowed_origins = [ "chrome-extension://ghniladkapjacfajiooekgkfopkjblpn/" ]; }
   );

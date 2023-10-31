@@ -59,8 +59,7 @@ let
       systemd.services."hbase-${toLower name}" = {
         description = "HBase ${name}";
         wantedBy = [ "multi-user.target" ];
-        path =
-          with cfg; [ hbase.package ] ++ optional (with cfg.hbase.master; enable && initHDFS) package;
+        path = with cfg; [ hbase.package ] ++ optional (with cfg.hbase.master; enable && initHDFS) package;
         preStart = mkIf (with cfg.hbase.master; enable && initHDFS) (
           concatStringsSep "\n" (
             map (x: "HADOOP_USER_NAME=hdfs hdfs --config /etc/hadoop-conf ${x}") [

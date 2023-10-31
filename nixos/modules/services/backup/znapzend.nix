@@ -39,9 +39,7 @@ let
     description = "string of the form number{b|k|M|G}";
   };
 
-  enabledFeatures = concatLists (
-    mapAttrsToList (name: enabled: optional enabled name) cfg.features
-  );
+  enabledFeatures = concatLists (mapAttrsToList (name: enabled: optional enabled name) cfg.features);
 
   # Type for a string that must contain certain other strings (the list parameter).
   # Note that these would need regex escaping.

@@ -183,9 +183,7 @@ let
       };
     in
     ''
-      node ${pinpointDependenciesFromPackageJSON} ${
-        if production then "production" else "development"
-      }
+      node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
       ${lib.optionalString (dependencies != [ ]) ''
         if [ -d node_modules ]

@@ -88,9 +88,7 @@ stdenv.mkDerivation (
 
     makeFlags = [
       "installed_testdir=${placeholder "installedTests"}/libexec/installed-tests/xdg-desktop-portal"
-      "installed_test_metadir=${
-        placeholder "installedTests"
-      }/share/installed-tests/xdg-desktop-portal"
+      "installed_test_metadir=${placeholder "installedTests"}/share/installed-tests/xdg-desktop-portal"
     ];
 
     passthru = {

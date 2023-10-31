@@ -27,9 +27,7 @@ let
       };
       connections = mkOption {
         type = listOf str;
-        description =
-          lib.mdDoc
-            "A list of connection strings of the SQL servers to scrape metrics from";
+        description = lib.mdDoc "A list of connection strings of the SQL servers to scrape metrics from";
       };
       startupSql = mkOption {
         type = listOf str;

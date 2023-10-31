@@ -132,8 +132,7 @@ let
         toString p.wakeup-granularity
       } bandwidth-size=${toString p.bandwidth-size} preempt="${p.preempt}"'';
 
-  prioToString =
-    class: prio: if prio == null then ''"${class}"'' else "(${class})${toString prio}";
+  prioToString = class: prio: if prio == null then ''"${class}"'' else "(${class})${toString prio}";
 
   schedulerProfileToString =
     name: a: indent:
@@ -366,9 +365,7 @@ in
             assignments {
           ''
           + (concatStringsSep "\n" (
-            map (name: schedulerProfileToString name cfg.assignments.${name} "  ") (
-              attrNames cfg.assignments
-            )
+            map (name: schedulerProfileToString name cfg.assignments.${name} "  ") (attrNames cfg.assignments)
           ))
           + ''
 

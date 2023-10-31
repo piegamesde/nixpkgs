@@ -10,8 +10,7 @@
   mbqn-source ? null,
   enableReplxx ? false,
   enableSingeli ? stdenv.hostPlatform.avx2Support,
-  enableLibcbqn ?
-    ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx),
+  enableLibcbqn ? ((stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin) && !enableReplxx),
   libffi,
   pkg-config,
 }:
@@ -36,9 +35,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-M9GTsm65DySLcMk9QDEhImHnUvWtYGPwiG657wHg3KA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [ libffi ];
 

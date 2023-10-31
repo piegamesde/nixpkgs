@@ -205,9 +205,7 @@ in
       virtualHost = mkOption {
         type = types.attrs;
         default = { };
-        description =
-          lib.mdDoc
-            "Virtual-host configuration merged with all Sourcehut's virtual-hosts.";
+        description = lib.mdDoc "Virtual-host configuration merged with all Sourcehut's virtual-hosts.";
       };
     };
 
@@ -588,9 +586,7 @@ in
               type = types.str;
               default = "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
             };
-            welcome-emails = mkEnableOption (
-              lib.mdDoc "sending stock sourcehut welcome emails after signup"
-            );
+            welcome-emails = mkEnableOption (lib.mdDoc "sending stock sourcehut welcome emails after signup");
           };
         options."meta.sr.ht::api" = {
           internal-ipnet = mkOption {
@@ -813,9 +809,7 @@ in
             "--pool eventlet"
             "--without-heartbeat"
           ];
-          description =
-            lib.mdDoc
-              "Extra arguments passed to the Celery responsible for processing mails.";
+          description = lib.mdDoc "Extra arguments passed to the Celery responsible for processing mails.";
         };
         celeryConfig = mkOption {
           type = types.lines;
@@ -1139,9 +1133,7 @@ in
       let
         baseService = {
           path = [ cfg.git.package ];
-          serviceConfig.BindPaths = [
-            "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
-          ];
+          serviceConfig.BindPaths = [ "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos" ];
         };
       in
       {
@@ -1263,9 +1255,7 @@ in
       let
         baseService = {
           path = [ cfg.hg.package ];
-          serviceConfig.BindPaths = [
-            "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
-          ];
+          serviceConfig.BindPaths = [ "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos" ];
         };
       in
       {
@@ -1441,12 +1431,11 @@ in
                     srv = head srvMatch;
                   in
                   # Configure client(s) as "preauthorized"
-                  optionalString (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null))
-                    ''
-                      # Configure ${srv}'s OAuth client as "preauthorized"
-                      ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \
-                        -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-                    ''
+                  optionalString (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null)) ''
+                    # Configure ${srv}'s OAuth client as "preauthorized"
+                    ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \
+                      -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+                  ''
                 )
                 cfg.settings
             )
@@ -1538,9 +1527,7 @@ in
             ${optionalString cfg.settings.${iniKey}.migrate-on-upgrade ''
               # Just try all the migrations because they're not linked to the version
               for sql in ${pkgs.sourcehut.pagessrht}/share/sql/migrations/*.sql; do
-                ${postgresql.package}/bin/psql '${
-                  cfg.settings.${iniKey}.connection-string
-                }' -f "$sql" || true
+                ${postgresql.package}/bin/psql '${cfg.settings.${iniKey}.connection-string}' -f "$sql" || true
               done
             ''}
 
@@ -1550,9 +1537,7 @@ in
           serviceConfig = {
             ExecStart =
               mkForce
-                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${
-                  toString cfg.pages.port
-                }";
+                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${toString cfg.pages.port}";
           };
         };
     })

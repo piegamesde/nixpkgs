@@ -11,10 +11,7 @@ with lib;
 
 let
   package =
-    if cfg.allowAuxiliaryImperativeNetworks then
-      pkgs.wpa_supplicant_ro_ssids
-    else
-      pkgs.wpa_supplicant;
+    if cfg.allowAuxiliaryImperativeNetworks then pkgs.wpa_supplicant_ro_ssids else pkgs.wpa_supplicant;
 
   cfg = config.networking.wireless;
   opt = options.networking.wireless;
@@ -40,8 +37,7 @@ let
     };
 
   # Creates a WPA2 fallback network
-  mkWPA2Fallback =
-    opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
+  mkWPA2Fallback = opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
 
   # Networks attrset as a list
   networkList = mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
@@ -124,8 +120,7 @@ let
           "-c ${finalConfig}";
     in
     {
-      description =
-        "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";
+      description = "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";
 
       after = deviceUnit;
       before = [ "network.target" ];

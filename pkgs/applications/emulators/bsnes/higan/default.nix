@@ -124,8 +124,7 @@ stdenv.mkDerivation rec {
       # we create a first-run script to populate
       # $HOME with all the stuff needed at runtime
       let
-        dest =
-          if stdenv.isDarwin then "\\$HOME/Library/Application Support/higan" else "\\$HOME/higan";
+        dest = if stdenv.isDarwin then "\\$HOME/Library/Application Support/higan" else "\\$HOME/higan";
       in
       ''
         mkdir -p ${placeholder "out"}/bin

@@ -23,9 +23,7 @@ let
     (_src "macOS-BigSur" "tar.gz" "sha256-VZWFf1AHum2xDJPMZrBmcyVrrmYGKwCdXOPATw7myOA=")
     (_src "macOS-BigSur-Windows" "zip" "sha256-lp28ACsK8BXe6rSDELL4GdXb1QEdOVC8Y6eLofctkR4=")
     (_src "macOS-Monterey-White" "tar.gz" "sha256-IfFYUbDW6mBe209iU1sBhFzolZd6YDVdJf+DPe9AQDM=")
-    (_src "macOS-Monterey-White-Windows" "zip"
-      "sha256-gUuBFOi0nDBoX9TWPg4eQhCAhwYeEhfDEbYpc+XsQNE="
-    )
+    (_src "macOS-Monterey-White-Windows" "zip" "sha256-gUuBFOi0nDBoX9TWPg4eQhCAhwYeEhfDEbYpc+XsQNE=")
     (_src "macOS-Monterey" "tar.gz" "sha256-MHmaZs56Q1NbjkecvfcG1zAW85BCZDn5kXmxqVzPc7M=")
     (_src "macOS-Monterey-Windows" "zip" "sha256-ajxEgq7besaRajLn0gTPpp4euOWVqbzc78u720PWlyE=")
   ];

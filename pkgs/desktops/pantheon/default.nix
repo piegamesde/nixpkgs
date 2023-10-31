@@ -109,9 +109,7 @@ lib.makeScope pkgs.newScope (
 
     elementary-shortcut-overlay = callPackage ./desktop/elementary-shortcut-overlay { };
 
-    file-roller-contract = callPackage ./desktop/file-roller-contract {
-      inherit (gnome) file-roller;
-    };
+    file-roller-contract = callPackage ./desktop/file-roller-contract { inherit (gnome) file-roller; };
 
     gala = callPackage ./desktop/gala { };
 
@@ -161,9 +159,7 @@ lib.makeScope pkgs.newScope (
 
     wingpanel-indicator-nightlight = callPackage ./desktop/wingpanel-indicators/nightlight { };
 
-    wingpanel-indicator-notifications =
-      callPackage ./desktop/wingpanel-indicators/notifications
-        { };
+    wingpanel-indicator-notifications = callPackage ./desktop/wingpanel-indicators/notifications { };
 
     wingpanel-indicator-power = callPackage ./desktop/wingpanel-indicators/power {
       inherit (gnome) gnome-power-manager;

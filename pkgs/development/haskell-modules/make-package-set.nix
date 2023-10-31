@@ -292,8 +292,7 @@ package-set { inherit pkgs lib callPackage; } self
       filter = path: type: pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
       expr = self.haskellSrc2nix {
         inherit name extraCabal2nixOptions;
-        src =
-          if pkgs.lib.canCleanSource src then pkgs.lib.cleanSourceWith { inherit src filter; } else src;
+        src = if pkgs.lib.canCleanSource src then pkgs.lib.cleanSourceWith { inherit src filter; } else src;
       };
     in
     overrideCabal (orig: { inherit src; }) (callPackageKeepDeriver expr args);
@@ -552,8 +551,7 @@ package-set { inherit pkgs lib callPackage; } self
       # `backend`, then zipperCombinedPkgs needs to be careful to filter out
       # `common`, because cabal will end up ignoring that built version,
       # assuming new-style commands.
-      zipperCombinedPkgs =
-        vals: pkgs.lib.concatMap (drvList: pkgs.lib.filter isNotSelected drvList) vals;
+      zipperCombinedPkgs = vals: pkgs.lib.concatMap (drvList: pkgs.lib.filter isNotSelected drvList) vals;
 
       # Zip `cabalDepsForSelected` into a single attribute list, combining
       # the derivations in all the individual attributes.

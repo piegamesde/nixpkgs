@@ -68,9 +68,7 @@ import ./make-test-python.nix (
 
       withoutSudo.wait_for_unit("miniflux.service")
       withoutSudo.wait_for_open_port(${toString defaultPort})
-      withoutSudo.succeed("curl --fail 'http://localhost:${
-        toString defaultPort
-      }/healthcheck' | grep OK")
+      withoutSudo.succeed("curl --fail 'http://localhost:${toString defaultPort}/healthcheck' | grep OK")
       withoutSudo.succeed(
           "curl 'http://localhost:${
             toString defaultPort

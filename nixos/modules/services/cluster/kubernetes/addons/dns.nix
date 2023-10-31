@@ -119,9 +119,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.kubernetes.kubelet.seedDockerImages = singleton (
-      pkgs.dockerTools.pullImage cfg.coredns
-    );
+    services.kubernetes.kubelet.seedDockerImages = singleton (pkgs.dockerTools.pullImage cfg.coredns);
 
     services.kubernetes.addonManager.bootstrapAddons = {
       coredns-cr = {

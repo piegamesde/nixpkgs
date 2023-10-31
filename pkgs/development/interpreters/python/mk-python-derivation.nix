@@ -174,8 +174,7 @@ let
           ${optionalLocation}
         '';
 
-      checkDrv =
-        drv: if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
+      checkDrv = drv: if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
     in
     inputs:
     builtins.map (checkDrv) inputs;
@@ -274,9 +273,9 @@ let
           + attrs.postFixup or "";
 
         # Python packages built through cross-compilation are always for the host platform.
-        disallowedReferences =
-          lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
-            [ python.pythonForBuild ];
+        disallowedReferences = lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform) [
+          python.pythonForBuild
+        ];
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 

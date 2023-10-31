@@ -42,9 +42,7 @@ in
 {
   meta.maintainers = [ lib.maintainers.mic92 ];
   options.programs.nix-ld = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "nix-ld, Documentation: <https://github.com/Mic92/nix-ld>"
-    );
+    enable = lib.mkEnableOption (lib.mdDoc "nix-ld, Documentation: <https://github.com/Mic92/nix-ld>");
     package = lib.mkOption {
       type = lib.types.package;
       description = lib.mdDoc "Which package to use for the nix-ld.";

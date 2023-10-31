@@ -103,9 +103,9 @@ stdenv.mkDerivation (
       libffi
     ] ++ optional enablePFM libpfm; # exegesis
 
-    propagatedBuildInputs =
-      optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ]
-      ++ [ zlib ];
+    propagatedBuildInputs = optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ ncurses ] ++ [
+      zlib
+    ];
 
     patches = [
       # When cross-compiling we configure llvm-config-native with an approximation

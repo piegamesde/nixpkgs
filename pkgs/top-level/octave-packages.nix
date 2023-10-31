@@ -48,9 +48,7 @@ makeScope newScope (
 
     inherit callPackage buildOctavePackage computeRequiredOctavePackages;
 
-    inherit (callPackage ../development/interpreters/octave/hooks { })
-      writeRequiredOctavePackagesHook
-    ;
+    inherit (callPackage ../development/interpreters/octave/hooks { }) writeRequiredOctavePackagesHook;
 
     arduino = callPackage ../development/octave-modules/arduino {
       inherit (pkgs) arduino-core-unwrapped;
@@ -205,8 +203,6 @@ makeScope newScope (
 
     windows = callPackage ../development/octave-modules/windows { };
 
-    zeromq = callPackage ../development/octave-modules/zeromq {
-      inherit (pkgs) zeromq autoreconfHook;
-    };
+    zeromq = callPackage ../development/octave-modules/zeromq { inherit (pkgs) zeromq autoreconfHook; };
   }
 )

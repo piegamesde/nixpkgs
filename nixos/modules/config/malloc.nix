@@ -94,8 +94,7 @@ in
 
         - `libc`: the standard allocator provided by libc
         ${concatStringsSep "\n" (
-          mapAttrsToList
-            (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
+          mapAttrsToList (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
             providers
         )}
 

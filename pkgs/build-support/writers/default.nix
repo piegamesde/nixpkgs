@@ -223,9 +223,9 @@ let
         {
           compileScript = ''
             cp "$contentPath" tmp.rs
-            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${
-              lib.escapeShellArgs rustcArgs
-            } ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
+            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${
+              lib.escapeShellArgs darwinArgs
+            } -o "$out" tmp.rs
           '';
           inherit strip;
         }
@@ -362,9 +362,7 @@ let
     #   """)
     #   print(y[0]['test'])
     # ''
-    writePython3 =
-      makePythonWriter pkgs.python3 pkgs.python3Packages
-        buildPackages.python3Packages;
+    writePython3 = makePythonWriter pkgs.python3 pkgs.python3Packages buildPackages.python3Packages;
 
     # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)
     writePython3Bin = name: writePython3 "/bin/${name}";

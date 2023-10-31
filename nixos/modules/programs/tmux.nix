@@ -148,9 +148,7 @@ in
       newSession = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Automatically spawn a session if trying to attach and none are running.";
+        description = lib.mdDoc "Automatically spawn a session if trying to attach and none are running.";
       };
 
       reverseSplit = mkOption {

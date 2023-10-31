@@ -12,10 +12,8 @@ let
   # the tssGroup is only allowed to access the kernel resource manager
   # Therefore, if either of the two are null, the respective part isn't generated
   udevRules = tssUser: tssGroup: ''
-    ${lib.optionalString (tssUser != null)
-      ''KERNEL=="tpm[0-9]*", MODE="0660", OWNER="${tssUser}"''}
-    ${lib.optionalString (tssUser != null || tssGroup != null)
-      ''KERNEL=="tpmrm[0-9]*", MODE="0660"''
+    ${lib.optionalString (tssUser != null) ''KERNEL=="tpm[0-9]*", MODE="0660", OWNER="${tssUser}"''}
+    ${lib.optionalString (tssUser != null || tssGroup != null) ''KERNEL=="tpmrm[0-9]*", MODE="0660"''
     + lib.optionalString (tssUser != null) '', OWNER="${tssUser}"''
     + lib.optionalString (tssGroup != null) '', GROUP="${tssGroup}"''}
   '';
@@ -31,9 +29,7 @@ in
       '';
       type = lib.types.nullOr lib.types.str;
       default = if cfg.abrmd.enable then "tss" else "root";
-      defaultText =
-        lib.literalExpression
-          ''if config.security.tpm2.abrmd.enable then "tss" else "root"'';
+      defaultText = lib.literalExpression ''if config.security.tpm2.abrmd.enable then "tss" else "root"'';
     };
 
     tssGroup = lib.mkOption {

@@ -39,9 +39,7 @@ let
           default = "";
           example = "foobar.hype";
           type = types.str;
-          description =
-            lib.mdDoc
-              "Optional hostname to add to /etc/hosts; prevents reverse lookup failures.";
+          description = lib.mdDoc "Optional hostname to add to /etc/hosts; prevents reverse lookup failures.";
         };
       };
     };
@@ -62,10 +60,7 @@ let
 
   parseModules =
     x:
-    x
-    // {
-      connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo;
-    };
+    x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
 
   cjdrouteConf = builtins.toJSON (
     recursiveUpdate
@@ -76,10 +71,8 @@ let
         };
         authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
         interfaces = {
-          ETHInterface =
-            if (cfg.ETHInterface.bind != "") then [ (parseModules cfg.ETHInterface) ] else [ ];
-          UDPInterface =
-            if (cfg.UDPInterface.bind != "") then [ (parseModules cfg.UDPInterface) ] else [ ];
+          ETHInterface = if (cfg.ETHInterface.bind != "") then [ (parseModules cfg.ETHInterface) ] else [ ];
+          UDPInterface = if (cfg.UDPInterface.bind != "") then [ (parseModules cfg.UDPInterface) ] else [ ];
         };
 
         privateKey = "@CJDNS_PRIVATE_KEY@";
@@ -329,8 +322,7 @@ in
 
     assertions = [
       {
-        assertion =
-          (cfg.ETHInterface.bind != "" || cfg.UDPInterface.bind != "" || cfg.confFile != null);
+        assertion = (cfg.ETHInterface.bind != "" || cfg.UDPInterface.bind != "" || cfg.confFile != null);
         message = "Neither cjdns.ETHInterface.bind nor cjdns.UDPInterface.bind defined.";
       }
       {

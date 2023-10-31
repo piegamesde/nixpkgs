@@ -31,9 +31,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags =
-    lib.optional mklSupport "-DUSE_MKL=On"
-    ++ lib.optional mklSupport "-DMKLROOT=${mkl}";
+  cmakeFlags = lib.optional mklSupport "-DUSE_MKL=On" ++ lib.optional mklSupport "-DMKLROOT=${mkl}";
 
   env.CXXFLAGS = lib.optionalString stdenv.isLinux "-include cstring";
 

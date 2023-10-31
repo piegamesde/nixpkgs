@@ -17,10 +17,7 @@ let
   upstreamPostgresqlVersion = lib.getVersion pkgs.postgresql_13;
 
   postgresqlPackage =
-    if config.services.postgresql.enable then
-      config.services.postgresql.package
-    else
-      pkgs.postgresql;
+    if config.services.postgresql.enable then config.services.postgresql.package else pkgs.postgresql;
 
   postgresqlVersion = lib.getVersion postgresqlPackage;
 

@@ -230,9 +230,7 @@ in
 
                 mask = mkOption {
                   default = null;
-                  description =
-                    lib.mdDoc
-                      "A mask to be ANDed with the byte sequence of the file before matching";
+                  description = lib.mdDoc "A mask to be ANDed with the byte sequence of the file before matching";
                   type = types.nullOr types.str;
                 };
 
@@ -387,9 +385,7 @@ in
     );
     system.activationScripts.binfmt = stringAfter [ "specialfs" ] ''
       mkdir -p -m 0755 /run/binfmt
-      ${lib.concatStringsSep "\n" (
-        lib.mapAttrsToList activationSnippet config.boot.binfmt.registrations
-      )}
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList activationSnippet config.boot.binfmt.registrations)}
     '';
     systemd = lib.mkIf (config.boot.binfmt.registrations != { }) {
       additionalUpstreamSystemUnits = [
@@ -397,9 +393,7 @@ in
         "proc-sys-fs-binfmt_misc.mount"
         "systemd-binfmt.service"
       ];
-      services.systemd-binfmt.restartTriggers = [
-        (builtins.toJSON config.boot.binfmt.registrations)
-      ];
+      services.systemd-binfmt.restartTriggers = [ (builtins.toJSON config.boot.binfmt.registrations) ];
     };
   };
 }

@@ -43,9 +43,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = ''
-          ${cfg.package}/bin/navidrome --configfile ${
-            settingsFormat.generate "navidrome.json" cfg.settings
-          }
+          ${cfg.package}/bin/navidrome --configfile ${settingsFormat.generate "navidrome.json" cfg.settings}
         '';
         DynamicUser = true;
         StateDirectory = "navidrome";

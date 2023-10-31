@@ -280,9 +280,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional smartcardSupport "--enable-smartcard"
     ++ lib.optional spiceSupport "--enable-spice"
     ++ lib.optional usbredirSupport "--enable-usb-redir"
-    ++
-      lib.optional (hostCpuTargets != null)
-        "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
+    ++ lib.optional (hostCpuTargets != null) "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
     ++ lib.optionals stdenv.isDarwin [
       "--enable-cocoa"
       "--enable-hvf"

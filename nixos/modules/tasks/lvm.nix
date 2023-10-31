@@ -54,9 +54,7 @@ in
         cfg.package
       ];
       # The device-mapper rules want to call tools from lvm2
-      boot.initrd.systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [
-        cfg.package
-      ];
+      boot.initrd.systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ cfg.package ];
       boot.initrd.services.udev.binPackages = lib.mkIf config.boot.initrd.services.lvm.enable [
         cfg.package
       ];

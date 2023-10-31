@@ -6,9 +6,7 @@ let
     let
       majorMinorPatchGroup = "([0-9]+\\.[0-9]+\\.[0-9]+)";
       splittedVersions = builtins.split ''href="${majorMinorPatchGroup}'' htmlString;
-      stableVersions = builtins.concatLists (
-        builtins.filter (e: builtins.isList e) splittedVersions
-      );
+      stableVersions = builtins.concatLists (builtins.filter (e: builtins.isList e) splittedVersions);
     in
     if stableVersions == [ ] then
       abort "Failed to extract versions from html."

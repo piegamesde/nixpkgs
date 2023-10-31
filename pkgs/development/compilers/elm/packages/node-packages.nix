@@ -14709,10 +14709,7 @@ in
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
       (
-        sources."@babel/helper-compilation-targets-7.21.4"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/helper-compilation-targets-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
@@ -14915,9 +14912,7 @@ in
       )
       sources."babel-plugin-syntax-object-rest-spread-6.13.0"
       sources."babel-plugin-transform-object-rest-spread-6.26.0"
-      (
-        sources."babel-runtime-6.26.0" // { dependencies = [ sources."regenerator-runtime-0.11.1" ]; }
-      )
+      (sources."babel-runtime-6.26.0" // { dependencies = [ sources."regenerator-runtime-0.11.1" ]; })
       sources."babylon-6.18.0"
       sources."balanced-match-1.0.2"
       (sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; })
@@ -15600,12 +15595,7 @@ in
       sources."mime-db-1.52.0"
       sources."mime-types-2.1.35"
       sources."mimic-fn-1.2.0"
-      (
-        sources."mini-css-extract-plugin-0.12.0"
-        // {
-          dependencies = [ sources."schema-utils-1.0.0" ];
-        }
-      )
+      (sources."mini-css-extract-plugin-0.12.0" // { dependencies = [ sources."schema-utils-1.0.0" ]; })
       sources."minimalistic-assert-1.0.1"
       sources."minimalistic-crypto-utils-1.0.1"
       sources."minimatch-3.1.2"

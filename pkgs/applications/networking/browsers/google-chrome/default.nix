@@ -266,7 +266,6 @@ stdenv.mkDerivation {
     # will try to merge PRs and respond to issues but I'm not actually using
     # Google Chrome.
     platforms = [ "x86_64-linux" ];
-    mainProgram =
-      if (channel == "dev") then "google-chrome-unstable" else "google-chrome-${channel}";
+    mainProgram = if (channel == "dev") then "google-chrome-unstable" else "google-chrome-${channel}";
   };
 }

@@ -67,9 +67,7 @@ lib.checkListOfEnum "${pname}: theme tweaks" validTweaks tweaks
       bash install.sh -d $out/share/themes -t all \
         ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
         ${
-          lib.optionalString (border-radius != null) (
-            "--round " + builtins.toString border-radius + "px"
-          )
+          lib.optionalString (border-radius != null) ("--round " + builtins.toString border-radius + "px")
         }
       ${lib.optionalString withWallpapers ''
         mkdir -p $out/share/backgrounds

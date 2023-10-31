@@ -50,9 +50,7 @@ in
     };
 
     initialAdvertisePeerUrls = mkOption {
-      description =
-        lib.mdDoc
-          "Etcd list of this member's peer URLs to advertise to rest of the cluster.";
+      description = lib.mdDoc "Etcd list of this member's peer URLs to advertise to rest of the cluster.";
       default = cfg.listenPeerUrls;
       defaultText = literalExpression "config.${opt.listenPeerUrls}";
       type = types.listOf types.str;

@@ -109,9 +109,7 @@ in
           "no"
         ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Whether to enable inotify monitoring to automatically discover new files.";
+        description = lib.mdDoc "Whether to enable inotify monitoring to automatically discover new files.";
       };
       options.enable_tivo = mkOption {
         type = types.enum [

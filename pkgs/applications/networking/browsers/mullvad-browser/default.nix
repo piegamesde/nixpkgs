@@ -100,17 +100,14 @@ let
     }
   );
 
-  policiesJson = writeText "policies.json" (
-    builtins.toJSON { policies.DisableAppUpdate = true; }
-  );
+  policiesJson = writeText "policies.json" (builtins.toJSON { policies.DisableAppUpdate = true; });
 in
 stdenv.mkDerivation rec {
   pname = "mullvad-browser";
   inherit version;
 
   src =
-    srcs.${stdenv.hostPlatform.system}
-      or (throw "unsupported system: ${stdenv.hostPlatform.system}");
+    srcs.${stdenv.hostPlatform.system} or (throw "unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [
     copyDesktopItems

@@ -223,9 +223,7 @@ in
       remote-control =
         {
           control-enable = mkDefault false;
-          control-interface = mkDefault (
-            [ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1")
-          );
+          control-interface = mkDefault ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
           server-key-file = mkDefault "${cfg.stateDir}/unbound_server.key";
           server-cert-file = mkDefault "${cfg.stateDir}/unbound_server.pem";
           control-key-file = mkDefault "${cfg.stateDir}/unbound_control.key";

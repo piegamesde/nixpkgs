@@ -98,8 +98,6 @@ in
       "gnome-welcome-tour.service"
     ];
 
-    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [
-      "gnome-initial-setup.service"
-    ];
+    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [ "gnome-initial-setup.service" ];
   };
 }

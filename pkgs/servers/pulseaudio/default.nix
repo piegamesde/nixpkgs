@@ -187,10 +187,7 @@ stdenv.mkDerivation rec {
       "-Delogind=disabled"
       # gsettings does not support cross-compilation
       "-Dgsettings=${
-        if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then
-          "enabled"
-        else
-          "disabled"
+        if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
       }"
       "-Dgstreamer=disabled"
       "-Dgtk=disabled"

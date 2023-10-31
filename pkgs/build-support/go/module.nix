@@ -211,9 +211,7 @@ let
             else
               { outputHash = vendorHash; }
           )
-          // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {
-            outputHashAlgo = "sha256";
-          })
+          // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") { outputHashAlgo = "sha256"; })
         )
         // overrideModAttrs modArgs
       )

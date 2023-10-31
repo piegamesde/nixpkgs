@@ -19,9 +19,7 @@ let
   needsLib =
     (lib.versionOlder version "7" && (langJava || langGo))
     || (
-      lib.versions.major version == "4"
-      && lib.versions.minor version == "9"
-      && targetPlatform.isDarwin
+      lib.versions.major version == "4" && lib.versions.minor version == "9" && targetPlatform.isDarwin
     );
 in
 lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
@@ -109,8 +107,7 @@ lib.optionalString (hostPlatform.isSunOS && hostPlatform.is64bit) ''
 # actually different we need to convince the configure script that it
 # is in fact building a cross compiler although it doesn't believe it.
 +
-  lib.optionalString
-    (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform)
+  lib.optionalString (targetPlatform.config == hostPlatform.config && targetPlatform != hostPlatform)
     ''
       substituteInPlace configure --replace is_cross_compiler=no is_cross_compiler=yes
     ''

@@ -22,8 +22,7 @@ let
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
         paths =
-          imap
-            (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry))
+          imap (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry))
             cfg.cni.config;
       });
 
@@ -140,9 +139,7 @@ in
     clusterDomain = mkOption {
       description = lib.mdDoc "Use alternative domain.";
       default = config.services.kubernetes.addons.dns.clusterDomain;
-      defaultText =
-        literalExpression
-          "config.${options.services.kubernetes.addons.dns.clusterDomain}";
+      defaultText = literalExpression "config.${options.services.kubernetes.addons.dns.clusterDomain}";
       type = str;
     };
 
@@ -377,13 +374,9 @@ in
                         --authentication-token-webhook \
                         --authentication-token-webhook-cache-ttl="10s" \
                         --authorization-mode=Webhook \
-                        ${
-                          optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
-                        } \
+                        ${optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"} \
                         ${optionalString (cfg.clusterDns != "") "--cluster-dns=${cfg.clusterDns}"} \
-                        ${
-                          optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"
-                        } \
+                        ${optionalString (cfg.clusterDomain != "") "--cluster-domain=${cfg.clusterDomain}"} \
                         ${
                           optionalString (cfg.featureGates != [ ])
                             "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
@@ -395,17 +388,13 @@ in
                         --kubeconfig=${kubeconfig} \
                         ${optionalString (cfg.nodeIp != null) "--node-ip=${cfg.nodeIp}"} \
                         --pod-infra-container-image=pause \
-                        ${
-                          optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"
-                        } \
+                        ${optionalString (cfg.manifests != { }) "--pod-manifest-path=/etc/${manifestPath}"} \
                         --port=${toString cfg.port} \
                         --register-node=${boolToString cfg.registerNode} \
                         ${optionalString (taints != "") "--register-with-taints=${taints}"} \
                         --root-dir=${top.dataDir} \
                         ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
-                        ${
-                          optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
-                        } \
+                        ${optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"} \
                         ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                         --container-runtime-endpoint=${cfg.containerRuntimeEndpoint} \
                         --cgroup-driver=systemd \

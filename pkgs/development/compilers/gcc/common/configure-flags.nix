@@ -66,10 +66,7 @@ let
     # Ensure that -print-prog-name is able to find the correct programs.
     [
       "--with-as=${
-        if targetPackages.stdenv.cc.bintools.isLLVM then
-          binutils
-        else
-          targetPackages.stdenv.cc.bintools
+        if targetPackages.stdenv.cc.bintools.isLLVM then binutils else targetPackages.stdenv.cc.bintools
       }/bin/${targetPlatform.config}-as"
       "--with-ld=${targetPackages.stdenv.cc.bintools}/bin/${targetPlatform.config}-ld"
     ]
@@ -229,9 +226,7 @@ let
     ++ lib.optional disableGdbPlugin "--disable-libcc1"
 
     # Support -m32 on powerpc64le/be
-    ++
-      lib.optional (targetPlatform.system == "powerpc64le-linux")
-        "--enable-targets=powerpcle-linux"
+    ++ lib.optional (targetPlatform.system == "powerpc64le-linux") "--enable-targets=powerpcle-linux"
     ++ lib.optional (targetPlatform.system == "powerpc64-linux") "--enable-targets=powerpc-linux"
 
     # Fix "unknown long double size, cannot define BFP_FMT"

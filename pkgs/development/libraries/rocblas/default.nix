@@ -88,9 +88,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [
-        "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
-      ];
+      ++ lib.optionals (buildTests || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
 
     # Tensile REALLY wants to write to the nix directory if we include it normally
     postPatch = lib.optionalString buildTensile ''

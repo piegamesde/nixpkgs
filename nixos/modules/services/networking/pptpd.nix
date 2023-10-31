@@ -60,9 +60,7 @@ with lib;
           pidfile /run/pptpd.pid
           localip ${cfg.serverIp}
           remoteip ${cfg.clientIpRange}
-          connections ${
-            toString cfg.maxClients
-          } # (Will get harmless warning if inconsistent with IP range)
+          connections ${toString cfg.maxClients} # (Will get harmless warning if inconsistent with IP range)
 
           # Extra
           ${cfg.extraPptpdOptions}

@@ -51,8 +51,7 @@ let
         untarDir
         openssl
       ;
-      version =
-        platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
+      version = platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
       src = fetchurl {
         url =
           "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"
@@ -62,9 +61,9 @@ let
       };
       doCheck = true;
 
-      nativeBuildInputs =
-        [ makeWrapper ]
-        ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
+      nativeBuildInputs = [
+        makeWrapper
+      ] ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
       buildInputs = [ openssl ] ++ nativeLibs;
 
       installPhase =

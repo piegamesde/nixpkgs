@@ -73,9 +73,7 @@ with lib;
     extraPaths = mkOption {
       type = types.attrsOf types.path;
       default = { };
-      example =
-        literalExpression
-          ''"{ examples = ''${env.sitePack}/IRkernel/kernelspec/kernel.js"; }'';
+      example = literalExpression ''"{ examples = ''${env.sitePack}/IRkernel/kernelspec/kernel.js"; }'';
       description = lib.mdDoc ''
         Extra paths to link in kernel directory
       '';

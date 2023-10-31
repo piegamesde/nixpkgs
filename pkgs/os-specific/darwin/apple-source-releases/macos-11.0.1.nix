@@ -11,8 +11,7 @@
     applePackage' "Csu" "88" "macos-11.0.1" "1lzp9x8iv60c2h12q2s89nf49b5hvpqq4a9li44zr2fxszn8lqxh"
       { };
   ICU =
-    applePackage' "ICU" "66108" "macos-11.0.1"
-      "0mclizp99daihghqy2sgzjkid8i93dsn5pi8q9p7b3156chrhw57"
+    applePackage' "ICU" "66108" "macos-11.0.1" "0mclizp99daihghqy2sgzjkid8i93dsn5pi8q9p7b3156chrhw57"
       { };
   Libc =
     applePackage' "Libc" "1439.40.11" "macos-11.0.1"
@@ -27,8 +26,7 @@
       "1vr11s0c42ssjs29shy1m8rj008np7aswdzjpimsfzyav47jb6y7"
       { };
   Librpcsvc =
-    applePackage' "Librpcsvc" "26" "macos-11.0.1"
-      "0wf6srbw28664wa0dckldbhrl9ydg70fms06rj6i7mvlrz1ccxk0"
+    applePackage' "Librpcsvc" "26" "macos-11.0.1" "0wf6srbw28664wa0dckldbhrl9ydg70fms06rj6i7mvlrz1ccxk0"
       { };
   Libsystem =
     applePackage' "Libsystem" "1292.50.1" "macos-11.0.1"
@@ -43,8 +41,7 @@
       "0jq70mnwkvrrhws64ipx0i68pi3n0sk95jlhacxxikdj9f4hpbsw"
       { };
   adv_cmds =
-    applePackage' "adv_cmds" "176" "macos-11.0.1"
-      "0sskwl3jc7llbrlyd1i7qlb03yhm1xkbxd1k9xhh7f9wqhlzq31j"
+    applePackage' "adv_cmds" "176" "macos-11.0.1" "0sskwl3jc7llbrlyd1i7qlb03yhm1xkbxd1k9xhh7f9wqhlzq31j"
       { };
   architecture =
     applePackage' "architecture" "279" "macos-11.0.1"
@@ -75,8 +72,7 @@
       "1qj74mix1x3drffr1qpafm57aby42bc61kynba5q0ppbcf0lrbp1"
       { };
   dyld =
-    applePackage' "dyld" "832.7.1" "macos-11.0.1"
-      "01q7fsibr6xp94l3w22sh8qfjgwzzf1v82mhgq39ivkxwwc4jdy0"
+    applePackage' "dyld" "832.7.1" "macos-11.0.1" "01q7fsibr6xp94l3w22sh8qfjgwzzf1v82mhgq39ivkxwwc4jdy0"
       { };
   eap8021x =
     applePackage' "eap8021x" "304.40.1" "macos-11.0.1"
@@ -87,8 +83,7 @@
       "0p077lnbcy8266m03a0fssj4214bjxh88y3qkspnzcvi0g84k43q"
       { };
   hfs =
-    applePackage' "hfs" "556.41.1" "macos-11.0.1"
-      "0a0s6b12b0q07wslfifna0bj51dml9v098i4crr2m1vivnx4xj75"
+    applePackage' "hfs" "556.41.1" "macos-11.0.1" "0a0s6b12b0q07wslfifna0bj51dml9v098i4crr2m1vivnx4xj75"
       { };
   libclosure =
     applePackage' "libclosure" "78" "macos-11.0.1"
@@ -99,8 +94,7 @@
       "1ck5srcjapg18vqb8wl08gacs7ndc6xr067qjn3ngx39q1jdcywz"
       { };
   libiconv =
-    applePackage' "libiconv" "59" "macos-11.0.1"
-      "0lwa4brdwm4lvrdnxylzsn1yph4m7csgri2zkc4xb4xiisz32pwp"
+    applePackage' "libiconv" "59" "macos-11.0.1" "0lwa4brdwm4lvrdnxylzsn1yph4m7csgri2zkc4xb4xiisz32pwp"
       { };
   libplatform =
     applePackage' "libplatform" "254.40.4" "macos-11.0.1"
@@ -111,8 +105,7 @@
       "0zljbw8mpb80n1if65hhi9lkgwbgjr8vc9wvf7q1nl3mzyl35f8p"
       { };
   libresolv =
-    applePackage' "libresolv" "68" "macos-11.0.1"
-      "045ahh8nvaam9whryc2f5g5xagwp7d187r80kcff82snp5p66aq1"
+    applePackage' "libresolv" "68" "macos-11.0.1" "045ahh8nvaam9whryc2f5g5xagwp7d187r80kcff82snp5p66aq1"
       { };
   libunwind =
     applePackage' "libunwind" "200.10" "macos-11.0.1"
@@ -131,12 +124,10 @@
       "1jsy13nraarafq6wmgh3wyir8wrwfra148xsjns7cw7q5xn40a1w"
       { };
   objc4 =
-    applePackage' "objc4" "818.2" "macos-11.0.1"
-      "0m8mk1qd18wqjfn2jsq2lx6fxvllhmadmvz11jzg8vjw8pq91nw2"
+    applePackage' "objc4" "818.2" "macos-11.0.1" "0m8mk1qd18wqjfn2jsq2lx6fxvllhmadmvz11jzg8vjw8pq91nw2"
       { };
   ppp =
-    applePackage' "ppp" "877.40.2" "macos-11.0.1"
-      "06xznc77j45zzi12m4cmr3jj853qlc8dbmynbg1z6m9qf5phdbgk"
+    applePackage' "ppp" "877.40.2" "macos-11.0.1" "06xznc77j45zzi12m4cmr3jj853qlc8dbmynbg1z6m9qf5phdbgk"
       { };
   removefile =
     applePackage' "removefile" "49.40.3" "macos-11.0.1"

@@ -76,9 +76,7 @@ let
       if f.name != f'.name then
         null
       # simple types
-      else if
-        (f.wrapped == null && f'.wrapped == null) && (f.payload == null && f'.payload == null)
-      then
+      else if (f.wrapped == null && f'.wrapped == null) && (f.payload == null && f'.payload == null) then
         f.type
       # composed types
       else if (f.wrapped != null && f'.wrapped != null) && (wrapped != null) then
@@ -234,8 +232,7 @@ let
           loc: defs:
           let
             getType =
-              value:
-              if isAttrs value && isStringLike value then "stringCoercibleSet" else builtins.typeOf value;
+              value: if isAttrs value && isStringLike value then "stringCoercibleSet" else builtins.typeOf value;
 
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
@@ -246,8 +243,7 @@ let
                   if getType def.value == type then
                     type
                   else
-                    throw
-                      "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
+                    throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
                 )
                 (getType (head defs).value)
                 defs;
@@ -260,8 +256,7 @@ let
                 # listOf only used to apply mkIf and co.
                 list =
                   if length defs > 1 then
-                    throw
-                      "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}."
+                    throw "The option `${showOption loc}' has conflicting definitions, in ${showFiles (getFiles defs)}."
                   else
                     (listOf anything).merge;
                 # This is the type of packages, only accept a single definition
@@ -325,8 +320,7 @@ let
               description = docStart + "; between ${betweenDesc lowest highest}";
             };
           unsign =
-            bit: range:
-            ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
+            bit: range: ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
           sign =
             bit: range:
             ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
@@ -385,8 +379,7 @@ let
         {
           between =
             lowest: highest:
-            assert lib.assertMsg (lowest <= highest)
-                "numbers.between: lowest must be smaller than highest";
+            assert lib.assertMsg (lowest <= highest) "numbers.between: lowest must be smaller than highest";
             addCheck number (x: x >= lowest && x <= highest)
             // {
               name = "numberBetween";
@@ -756,9 +749,7 @@ let
               null
             else if nrNulls != 0 then
               throw
-                "The option `${showOption loc}` is defined both null and not null, in ${
-                  showFiles (getFiles defs)
-                }."
+                "The option `${showOption loc}` is defined both null and not null, in ${showFiles (getFiles defs)}."
             else
               elemType.merge loc defs;
           emptyValue = {
@@ -827,8 +818,7 @@ let
           merge = loc: defs: {
             imports =
               staticModules
-              ++ map
-                (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value)
+              ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value)
                 defs;
           };
           inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
@@ -1049,8 +1039,7 @@ let
           description = "${
               optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1
             } or ${
-              optionDescriptionPhrase
-                (class: class == "noun" || class == "conjunction" || class == "composite")
+              optionDescriptionPhrase (class: class == "noun" || class == "conjunction" || class == "composite")
                 t2
             }";
           descriptionClass = "conjunction";
@@ -1088,10 +1077,7 @@ let
         ts:
         let
           head' =
-            if ts == [ ] then
-              throw "types.oneOf needs to get at least one type in its argument"
-            else
-              head ts;
+            if ts == [ ] then throw "types.oneOf needs to get at least one type in its argument" else head ts;
           tail' = tail ts;
         in
         foldl' either head' tail';

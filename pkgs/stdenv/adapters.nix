@@ -204,9 +204,7 @@ rec {
   */
   addAttrsToDerivation =
     extraAttrs: stdenv:
-    stdenv.override (
-      old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); }
-    );
+    stdenv.override (old: { mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs); });
 
   /* Use the trace output to report all processed derivations with their
      license name.
@@ -350,8 +348,7 @@ rec {
         mkDerivationFromStdenv = extendMkDerivationArgs old (
           args: {
             env = (args.env or { }) // {
-              NIX_CFLAGS_COMPILE =
-                toString (args.env.NIX_CFLAGS_COMPILE or "") + " ${toString compilerFlags}";
+              NIX_CFLAGS_COMPILE = toString (args.env.NIX_CFLAGS_COMPILE or "") + " ${toString compilerFlags}";
             };
           }
         );

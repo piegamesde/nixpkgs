@@ -98,9 +98,7 @@ let
           port = mkOption {
             type = types.nullOr types.port;
             default = null;
-            description =
-              lib.mdDoc
-                "Override the default port on which to listen for JSON-RPC connections.";
+            description = lib.mdDoc "Override the default port on which to listen for JSON-RPC connections.";
           };
           users = mkOption {
             default = { };
@@ -273,8 +271,7 @@ in
         eachBitcoind;
 
     systemd.tmpfiles.rules = flatten (
-      mapAttrsToList
-        (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
+      mapAttrsToList (bitcoindName: cfg: [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ])
         eachBitcoind
     );
 

@@ -20,8 +20,7 @@
   # This is the default binutils, but with *this* version of LLD rather
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
-  bootBintoolsNoLibc ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
+  bootBintoolsNoLibc ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
   bootBintools ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
 }:
@@ -91,8 +90,7 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         '';
 
-      bintoolsNoLibc' =
-        if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
+      bintoolsNoLibc' = if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -195,11 +193,9 @@ let
           + lib.optionalString (!stdenv.targetPlatform.isWasm) ''
             echo "--unwindlib=libunwind" >> $out/nix-support/cc-cflags
           ''
-          +
-            lib.optionalString (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
-              ''
-                echo "-lunwind" >> $out/nix-support/cc-ldflags
-              ''
+          + lib.optionalString (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false) ''
+            echo "-lunwind" >> $out/nix-support/cc-ldflags
+          ''
           + lib.optionalString stdenv.targetPlatform.isWasm ''
             echo "-fno-exceptions" >> $out/nix-support/cc-cflags
           ''
@@ -297,10 +293,7 @@ let
 
       # N.B. condition is safe because without useLLVM both are the same.
       compiler-rt =
-        if stdenv.hostPlatform.isAndroid then
-          libraries.compiler-rt-libc
-        else
-          libraries.compiler-rt-no-libc;
+        if stdenv.hostPlatform.isAndroid then libraries.compiler-rt-libc else libraries.compiler-rt-no-libc;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 

@@ -69,8 +69,7 @@ let
   envFile = pkgs.writeText "peertube.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList
-          (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
           env
       ))
     )
@@ -314,8 +313,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.serviceEnvironmentFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
+          cfg.serviceEnvironmentFile == null || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
         message = ''
           <option>services.peertube.serviceEnvironmentFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -329,8 +327,7 @@ in
         '';
       }
       {
-        assertion =
-          !(cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null));
+        assertion = !(cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null));
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
         '';
@@ -352,8 +349,7 @@ in
       }
       {
         assertion =
-          cfg.database.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
+          cfg.database.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
         message = ''
           <option>services.peertube.database.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -361,8 +357,7 @@ in
         '';
       }
       {
-        assertion =
-          cfg.smtp.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
+        assertion = cfg.smtp.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
         message = ''
           <option>services.peertube.smtp.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to

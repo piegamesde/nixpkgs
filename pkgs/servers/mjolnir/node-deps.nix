@@ -4126,12 +4126,7 @@ let
       sources."jest-diff-27.5.1"
       sources."jest-get-type-27.5.1"
       sources."jest-matcher-utils-27.5.1"
-      (
-        sources."jest-message-util-27.5.1"
-        // {
-          dependencies = [ sources."@babel/code-frame-7.18.6" ];
-        }
-      )
+      (sources."jest-message-util-27.5.1" // { dependencies = [ sources."@babel/code-frame-7.18.6" ]; })
       sources."js-tokens-4.0.0"
       sources."js-yaml-4.1.0"
       sources."jsbn-0.1.1"

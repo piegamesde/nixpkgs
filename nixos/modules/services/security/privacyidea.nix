@@ -70,9 +70,7 @@ let
       x;
 
   ldapProxyConfig = pkgs.writeText "ldap-proxy.ini" (
-    generators.toINI { } (
-      flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue)))
-    )
+    generators.toINI { } (flip mapAttrs cfg.ldap-proxy.settings (const (mapAttrs (const renderValue))))
   );
 
   privacyidea-token-janitor = pkgs.writeShellScriptBin "privacyidea-token-janitor" ''
@@ -305,8 +303,7 @@ in
 
       assertions = [
         {
-          assertion =
-            cfg.tokenjanitor.enable -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
+          assertion = cfg.tokenjanitor.enable -> (cfg.tokenjanitor.orphaned || cfg.tokenjanitor.unassigned);
           message = ''
             privacyidea-token-janitor has no effect if neither orphaned nor unassigned tokens
             are to be searched.
@@ -468,9 +465,7 @@ in
             User = cfg.ldap-proxy.user;
             Group = cfg.ldap-proxy.group;
             StateDirectory = "privacyidea-ldap-proxy";
-            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [
-              cfg.ldap-proxy.environmentFile
-            ];
+            EnvironmentFile = mkIf (cfg.ldap-proxy.environmentFile != null) [ cfg.ldap-proxy.environmentFile ];
             ExecStartPre = "${pkgs.writeShellScript "substitute-secrets-ldap-proxy" ''
               umask 0077
               ${pkgs.envsubst}/bin/envsubst \

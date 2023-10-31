@@ -66,9 +66,7 @@ import ./make-test-python.nix (
           server.succeed("test -p /run/snapserver/bluetooth")
 
       with subtest("test tcp json-rpc"):
-          server.succeed(f"echo '{json.dumps(get_rpc_version)}' | nc -w 1 localhost ${
-            toString tcpPort
-          }")
+          server.succeed(f"echo '{json.dumps(get_rpc_version)}' | nc -w 1 localhost ${toString tcpPort}")
 
       with subtest("test http json-rpc"):
           server.succeed(
@@ -78,9 +76,7 @@ import ./make-test-python.nix (
           )
 
       with subtest("test a ipv6 connection"):
-          server.execute("systemd-run --unit=snapcast-local-client snapclient -h ::1 -p ${
-            toString port
-          }")
+          server.execute("systemd-run --unit=snapcast-local-client snapclient -h ::1 -p ${toString port}")
           server.wait_until_succeeds(
               "journalctl -o cat -u snapserver.service | grep -q 'Hello from'"
           )
@@ -89,9 +85,7 @@ import ./make-test-python.nix (
           }'")
 
       with subtest("test a connection"):
-          client.execute("systemd-run --unit=snapcast-client snapclient -h server -p ${
-            toString port
-          }")
+          client.execute("systemd-run --unit=snapcast-client snapclient -h server -p ${toString port}")
           server.wait_until_succeeds(
               "journalctl -o cat -u snapserver.service | grep -q 'Hello from'"
           )

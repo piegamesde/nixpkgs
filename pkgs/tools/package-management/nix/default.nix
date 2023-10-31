@@ -77,9 +77,7 @@ let
               rm aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
             '';
 
-          patches = (args.patches or [ ]) ++ [
-            ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch
-          ];
+          patches = (args.patches or [ ]) ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ];
 
           # only a stripped down version is build which takes a lot less resources to build
           requiredSystemFeatures = [ ];

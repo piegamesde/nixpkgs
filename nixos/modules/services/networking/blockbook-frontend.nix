@@ -89,9 +89,7 @@ let
         debug = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Debug mode, return more verbose errors, reload templates on each request.";
+          description = lib.mdDoc "Debug mode, return more verbose errors, reload templates on each request.";
         };
 
         internal = mkOption {

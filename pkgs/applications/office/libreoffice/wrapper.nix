@@ -62,9 +62,7 @@ let
       "--prefix"
       "QML2_IMPORT_PATH"
       ":"
-      "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix (
-        builtins.map lib.getBin unwrapped.qmlPackages
-      )}"
+      "${lib.makeSearchPath unwrapped.qtbase.qtQmlPrefix (builtins.map lib.getBin unwrapped.qmlPackages)}"
     ]
     ++ [
       # Add dictionaries from all NIX_PROFILES
@@ -118,8 +116,7 @@ runCommand "${unwrapped.name}-wrapped"
       inherit unwrapped;
       # For backwards compatibility:
       libreoffice =
-        lib.warn
-          "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated."
+        lib.warn "libreoffice: Use the unwrapped attributed, using libreoffice.libreoffice is deprecated."
           unwrapped;
       inherit (unwrapped) kdeIntegration;
     };

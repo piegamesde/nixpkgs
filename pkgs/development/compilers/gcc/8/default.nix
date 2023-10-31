@@ -274,11 +274,7 @@ stdenv.mkDerivation (
       if profiledCompiler then "profiledbootstrap" else "bootstrap"
     );
 
-    inherit (callFile ../common/strip-attributes.nix { })
-      stripDebugList
-      stripDebugListTarget
-      preFixup
-    ;
+    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
     # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
     ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";

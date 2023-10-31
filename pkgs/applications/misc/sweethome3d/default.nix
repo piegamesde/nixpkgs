@@ -20,8 +20,7 @@ let
 
   # TODO: Should we move this to `lib`? Seems like its would be useful in many cases.
   extensionOf =
-    filePath:
-    lib.concatStringsSep "." (lib.tail (lib.splitString "." (builtins.baseNameOf filePath)));
+    filePath: lib.concatStringsSep "." (lib.tail (lib.splitString "." (builtins.baseNameOf filePath)));
 
   installIcons =
     iconName: icons:
@@ -29,9 +28,7 @@ let
       lib.mapAttrsToList
         (size: iconFile: ''
           mkdir -p "$out/share/icons/hicolor/${size}/apps"
-          ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${
-            extensionOf iconFile
-          }"
+          ln -s -T "${iconFile}" "$out/share/icons/hicolor/${size}/apps/${iconName}.${extensionOf iconFile}"
         '')
         icons
     );

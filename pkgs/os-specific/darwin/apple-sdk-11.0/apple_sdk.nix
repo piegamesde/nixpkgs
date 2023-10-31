@@ -107,9 +107,7 @@ let
 
         passthru = {
           tbdRewrites = {
-            prefix."${
-              standardFrameworkPath name private
-            }/" = "${self}/Library/Frameworks/${name}.framework/";
+            prefix."${standardFrameworkPath name private}/" = "${self}/Library/Frameworks/${name}.framework/";
           };
         };
 

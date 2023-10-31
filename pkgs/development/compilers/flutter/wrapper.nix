@@ -67,9 +67,7 @@ let
       # https://discourse.nixos.org/t/handling-transitive-c-dependencies/5942/3
       deps =
         pkg:
-        builtins.filter lib.isDerivation (
-          (pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ])
-        );
+        builtins.filter lib.isDerivation ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]));
       collect = pkg: lib.unique ([ pkg ] ++ deps pkg ++ builtins.concatMap collect (deps pkg));
     in
     builtins.concatMap collect appRuntimeDeps;
@@ -139,8 +137,6 @@ in
         --prefix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
         --prefix CXXFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)}' \
         --prefix CFLAGS "	" '${builtins.concatStringsSep " " (includeFlags ++ extraCFlags)}' \
-        --prefix LDFLAGS "	" '${
-          builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)
-        }'
+        --prefix LDFLAGS "	" '${builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)}'
     ''
 )

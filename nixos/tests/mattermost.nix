@@ -107,9 +107,7 @@ import ./make-test-python.nix (
 
         # Edit the config
         mutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
-        mutable.succeed("${
-          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
-        }")
+        mutable.succeed("${setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''}")
         mutable.systemctl("restart mattermost.service")
         mutable.wait_for_open_port(8065)
 
@@ -136,8 +134,7 @@ import ./make-test-python.nix (
 
         # AboutLink should be overridden by NixOS configuration; HelpLink should be what we set above
         mostlyMutable.succeed("${
-          expectConfig
-            ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''
+          expectConfig ''.AboutLink == "https://nixos.org" and .HelpLink == "https://nixos.org/nixos/manual"''
         }")
 
         ## Immutable node tests ##
@@ -151,9 +148,7 @@ import ./make-test-python.nix (
 
         # Edit the config
         immutable.succeed("${setConfig ''.SupportSettings.AboutLink = "https://mattermost.com"''}")
-        immutable.succeed("${
-          setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''
-        }")
+        immutable.succeed("${setConfig ''.SupportSettings.HelpLink = "https://nixos.org/nixos/manual"''}")
         immutable.systemctl("restart mattermost.service")
         immutable.wait_for_open_port(8065)
 

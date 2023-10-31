@@ -211,9 +211,7 @@ stdenv.mkDerivation (
         map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
         # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.pulseaudioSupport (
-          map (x: "${lib.getLib x}/lib/pulseaudio") (
-            toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ])
-          )
+          map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ]))
         )
         ++ lib.optionals supportFlags.waylandSupport (
           map (x: "${lib.getLib x}/share/wayland-protocols") (
@@ -297,10 +295,7 @@ stdenv.mkDerivation (
         else
           "An Open Source implementation of the Windows API on top of X, OpenGL, and Unix";
       platforms =
-        if supportFlags.waylandSupport then
-          (lib.remove "x86_64-darwin" prevPlatforms)
-        else
-          prevPlatforms;
+        if supportFlags.waylandSupport then (lib.remove "x86_64-darwin" prevPlatforms) else prevPlatforms;
       maintainers = with lib.maintainers; [
         avnik
         raskin

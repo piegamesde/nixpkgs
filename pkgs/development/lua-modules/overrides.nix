@@ -277,9 +277,7 @@ with prev; {
     }
   );
 
-  lrexlib-gnu = prev.lrexlib-gnu.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ gnulib ]; }
-  );
+  lrexlib-gnu = prev.lrexlib-gnu.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ gnulib ]; });
 
   lrexlib-pcre = prev.lrexlib-pcre.overrideAttrs (
     oa: {
@@ -298,9 +296,7 @@ with prev; {
 
   lua-curl = prev.lua-curl.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ curl.dev ]; });
 
-  lua-iconv = prev.lua-iconv.overrideAttrs (
-    oa: { buildInputs = oa.buildInputs ++ [ libiconv ]; }
-  );
+  lua-iconv = prev.lua-iconv.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [ libiconv ]; });
 
   lua-lsp = prev.lua-lsp.overrideAttrs (
     oa: {
@@ -627,9 +623,7 @@ with prev; {
     }
   );
 
-  vstruct = prev.vstruct.overrideAttrs (
-    _: { meta.broken = (luaOlder "5.1" || luaAtLeast "5.3"); }
-  );
+  vstruct = prev.vstruct.overrideAttrs (_: { meta.broken = (luaOlder "5.1" || luaAtLeast "5.3"); });
 
   vusted = prev.vusted.overrideAttrs (
     _: {

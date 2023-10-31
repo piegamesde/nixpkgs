@@ -151,9 +151,9 @@ in
 
     systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
     systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire-pulse.wantedBy =
-      lib.mkIf (cfg.socketActivation && cfg.pulse.enable)
-        [ "sockets.target" ];
+    systemd.user.sockets.pipewire-pulse.wantedBy = lib.mkIf (cfg.socketActivation && cfg.pulse.enable) [
+      "sockets.target"
+    ];
 
     services.udev.packages = [ cfg.package ];
 

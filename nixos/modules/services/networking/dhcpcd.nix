@@ -9,8 +9,7 @@ with lib;
 
 let
 
-  dhcpcd =
-    if !config.boot.isContainer then pkgs.dhcpcd else pkgs.dhcpcd.override { udev = null; };
+  dhcpcd = if !config.boot.isContainer then pkgs.dhcpcd else pkgs.dhcpcd.override { udev = null; };
 
   cfg = config.networking.dhcpcd;
 
@@ -110,8 +109,7 @@ let
       noipv6
     ''}
 
-    ${optionalString
-      (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ])
+    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ])
       noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs

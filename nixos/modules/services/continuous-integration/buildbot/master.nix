@@ -119,9 +119,7 @@ in
       builders = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Builders.";
-        default = [
-          "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)"
-        ];
+        default = [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ];
       };
 
       workers = mkOption {
@@ -133,9 +131,7 @@ in
       reporters = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        description =
-          lib.mdDoc
-            "List of reporter objects used to present build status to various users.";
+        description = lib.mdDoc "List of reporter objects used to present build status to various users.";
       };
 
       user = mkOption {
@@ -188,9 +184,7 @@ in
       listenAddress = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Specifies the bind address on which the buildbot HTTP interface listens.";
+        description = lib.mdDoc "Specifies the bind address on which the buildbot HTTP interface listens.";
       };
 
       buildbotUrl = mkOption {

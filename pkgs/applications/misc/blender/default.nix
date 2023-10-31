@@ -246,9 +246,7 @@ stdenv.mkDerivation rec {
 
   blenderExecutable =
     placeholder "out"
-    + (
-      if stdenv.isDarwin then "/Applications/Blender.app/Contents/MacOS/Blender" else "/bin/blender"
-    );
+    + (if stdenv.isDarwin then "/Applications/Blender.app/Contents/MacOS/Blender" else "/bin/blender");
   postInstall =
     lib.optionalString stdenv.isDarwin ''
       mkdir $out/Applications

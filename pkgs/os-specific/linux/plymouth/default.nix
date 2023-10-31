@@ -77,9 +77,7 @@ stdenv.mkDerivation rec {
     "--with-systemdunitdir=${placeholder "out"}/etc/systemd/system"
     "--without-rhgb-compat-link"
     "--without-system-root-install"
-    "ac_cv_path_SYSTEMD_ASK_PASSWORD_AGENT=${
-      lib.getBin systemd
-    }/bin/systemd-tty-ask-password-agent"
+    "ac_cv_path_SYSTEMD_ASK_PASSWORD_AGENT=${lib.getBin systemd}/bin/systemd-tty-ask-password-agent"
   ];
 
   installFlags = [

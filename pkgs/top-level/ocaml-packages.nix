@@ -171,9 +171,7 @@ let
 
         caqti-driver-mariadb = callPackage ../development/ocaml-modules/caqti/driver-mariadb.nix { };
 
-        caqti-driver-postgresql =
-          callPackage ../development/ocaml-modules/caqti/driver-postgresql.nix
-            { };
+        caqti-driver-postgresql = callPackage ../development/ocaml-modules/caqti/driver-postgresql.nix { };
 
         caqti-driver-sqlite3 = callPackage ../development/ocaml-modules/caqti/driver-sqlite3.nix { };
 
@@ -187,9 +185,7 @@ let
 
         carton-git = callPackage ../development/ocaml-modules/carton/git.nix { };
 
-        carton-lwt = callPackage ../development/ocaml-modules/carton/lwt.nix {
-          git-binary = pkgs.git;
-        };
+        carton-lwt = callPackage ../development/ocaml-modules/carton/lwt.nix { git-binary = pkgs.git; };
 
         cfstream = callPackage ../development/ocaml-modules/cfstream { };
 
@@ -550,9 +546,7 @@ let
 
         fmt = callPackage ../development/ocaml-modules/fmt { };
 
-        fontconfig = callPackage ../development/ocaml-modules/fontconfig {
-          inherit (pkgs) fontconfig;
-        };
+        fontconfig = callPackage ../development/ocaml-modules/fontconfig { inherit (pkgs) fontconfig; };
 
         fpath = callPackage ../development/ocaml-modules/fpath { };
 
@@ -804,9 +798,7 @@ let
 
         json-data-encoding = callPackage ../development/ocaml-modules/json-data-encoding { };
 
-        json-data-encoding-bson =
-          callPackage ../development/ocaml-modules/json-data-encoding/bson.nix
-            { };
+        json-data-encoding-bson = callPackage ../development/ocaml-modules/json-data-encoding/bson.nix { };
 
         jsonm = callPackage ../development/ocaml-modules/jsonm { };
 
@@ -888,9 +880,7 @@ let
 
         linol-lwt = callPackage ../development/ocaml-modules/linol/lwt.nix { };
 
-        llvm = callPackage ../development/ocaml-modules/llvm {
-          libllvm = pkgs.llvmPackages_10.libllvm;
-        };
+        llvm = callPackage ../development/ocaml-modules/llvm { libllvm = pkgs.llvmPackages_10.libllvm; };
 
         lo = callPackage ../development/ocaml-modules/lo { };
 
@@ -1038,9 +1028,7 @@ let
 
         mirage-crypto-rng = callPackage ../development/ocaml-modules/mirage-crypto/rng.nix { };
 
-        mirage-crypto-rng-async =
-          callPackage ../development/ocaml-modules/mirage-crypto/rng-async.nix
-            { };
+        mirage-crypto-rng-async = callPackage ../development/ocaml-modules/mirage-crypto/rng-async.nix { };
 
         mirage-crypto-rng-lwt = callPackage ../development/ocaml-modules/mirage-crypto/rng-lwt.nix { };
 
@@ -1052,9 +1040,7 @@ let
 
         mirage-flow = callPackage ../development/ocaml-modules/mirage-flow { };
 
-        mirage-flow-combinators =
-          callPackage ../development/ocaml-modules/mirage-flow/combinators.nix
-            { };
+        mirage-flow-combinators = callPackage ../development/ocaml-modules/mirage-flow/combinators.nix { };
 
         mirage-flow-unix = callPackage ../development/ocaml-modules/mirage-flow/unix.nix { };
 
@@ -1365,9 +1351,7 @@ let
 
         posix-types = callPackage ../development/ocaml-modules/posix/types.nix { };
 
-        postgresql = callPackage ../development/ocaml-modules/postgresql {
-          inherit (pkgs) postgresql;
-        };
+        postgresql = callPackage ../development/ocaml-modules/postgresql { inherit (pkgs) postgresql; };
 
         pp = callPackage ../development/ocaml-modules/pp { };
 
@@ -1447,9 +1431,7 @@ let
 
         ptset = callPackage ../development/ocaml-modules/ptset { };
 
-        pulseaudio = callPackage ../development/ocaml-modules/pulseaudio {
-          inherit (pkgs) pulseaudio;
-        };
+        pulseaudio = callPackage ../development/ocaml-modules/pulseaudio { inherit (pkgs) pulseaudio; };
 
         pure-splitmix = callPackage ../development/ocaml-modules/pure-splitmix { };
 
@@ -1481,9 +1463,7 @@ let
 
         reason = callPackage ../development/compilers/reason { };
 
-        reason-native = lib.recurseIntoAttrs (
-          callPackage ../development/ocaml-modules/reason-native { }
-        );
+        reason-native = lib.recurseIntoAttrs (callPackage ../development/ocaml-modules/reason-native { });
 
         rebez = callPackage ../development/ocaml-modules/rebez { };
 
@@ -1552,9 +1532,7 @@ let
 
         shared-memory-ring = callPackage ../development/ocaml-modules/shared-memory-ring { };
 
-        shared-memory-ring-lwt =
-          callPackage ../development/ocaml-modules/shared-memory-ring/lwt.nix
-            { };
+        shared-memory-ring-lwt = callPackage ../development/ocaml-modules/shared-memory-ring/lwt.nix { };
 
         shine = callPackage ../development/ocaml-modules/shine { inherit (pkgs) shine; };
 
@@ -1566,9 +1544,7 @@ let
 
         sosa = callPackage ../development/ocaml-modules/sosa { };
 
-        soundtouch = callPackage ../development/ocaml-modules/soundtouch {
-          inherit (pkgs) soundtouch;
-        };
+        soundtouch = callPackage ../development/ocaml-modules/soundtouch { inherit (pkgs) soundtouch; };
 
         spacetime_lib = callPackage ../development/ocaml-modules/spacetime_lib { };
 
@@ -1624,9 +1600,7 @@ let
           callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial/plompiler.nix
             { };
 
-        tezos-plonk =
-          callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial/plonk.nix
-            { };
+        tezos-plonk = callPackage ../development/ocaml-modules/tezos-bls12-381-polynomial/plonk.nix { };
 
         theora = callPackage ../development/ocaml-modules/theora { };
 
@@ -1646,9 +1620,7 @@ let
 
         topkg = callPackage ../development/ocaml-modules/topkg { };
 
-        torch = callPackage ../development/ocaml-modules/torch {
-          inherit (pkgs.python3Packages) torch;
-        };
+        torch = callPackage ../development/ocaml-modules/torch { inherit (pkgs.python3Packages) torch; };
 
         trie = callPackage ../development/ocaml-modules/trie { };
 
@@ -1815,13 +1787,9 @@ in
 rec {
   inherit mkOcamlPackages;
 
-  ocamlPackages_4_00_1 = mkOcamlPackages (
-    callPackage ../development/compilers/ocaml/4.00.1.nix { }
-  );
+  ocamlPackages_4_00_1 = mkOcamlPackages (callPackage ../development/compilers/ocaml/4.00.1.nix { });
 
-  ocamlPackages_4_01_0 = mkOcamlPackages (
-    callPackage ../development/compilers/ocaml/4.01.0.nix { }
-  );
+  ocamlPackages_4_01_0 = mkOcamlPackages (callPackage ../development/compilers/ocaml/4.01.0.nix { });
 
   ocamlPackages_4_02 = mkOcamlPackages (callPackage ../development/compilers/ocaml/4.02.nix { });
 

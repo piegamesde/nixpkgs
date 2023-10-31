@@ -652,9 +652,7 @@ in
           type = types.bool;
           default = cfg.registry.enable;
           defaultText = literalExpression "config.${opt.registry.enable}";
-          description =
-            lib.mdDoc
-              "If GitLab container registry should be enabled by default for projects.";
+          description = lib.mdDoc "If GitLab container registry should be enabled by default for projects.";
         };
         issuer = mkOption {
           type = types.str;
@@ -873,9 +871,7 @@ in
             pages-root = mkOption {
               type = types.str;
               default = "${gitlabConfig.production.shared.path}/pages";
-              defaultText =
-                literalExpression
-                  ''config.${opt.extraConfig}.production.shared.path + "/pages"'';
+              defaultText = literalExpression ''config.${opt.extraConfig}.production.shared.path + "/pages"'';
               description = lib.mdDoc ''
                 The directory where pages are stored.
               '';
@@ -1725,30 +1721,28 @@ in
       };
     };
 
-    systemd.services.gitlab-mailroom =
-      mkIf (gitlabConfig.production.incoming_email.enabled or false)
-        {
-          description = "GitLab incoming mail daemon";
-          after = [
-            "network.target"
-            "redis-gitlab.service"
-            "gitlab-config.service"
-          ];
-          bindsTo = [ "gitlab-config.service" ];
-          wantedBy = [ "gitlab.target" ];
-          partOf = [ "gitlab.target" ];
-          environment = gitlabEnv;
-          serviceConfig = {
-            Type = "simple";
-            TimeoutSec = "infinity";
-            Restart = "on-failure";
+    systemd.services.gitlab-mailroom = mkIf (gitlabConfig.production.incoming_email.enabled or false) {
+      description = "GitLab incoming mail daemon";
+      after = [
+        "network.target"
+        "redis-gitlab.service"
+        "gitlab-config.service"
+      ];
+      bindsTo = [ "gitlab-config.service" ];
+      wantedBy = [ "gitlab.target" ];
+      partOf = [ "gitlab.target" ];
+      environment = gitlabEnv;
+      serviceConfig = {
+        Type = "simple";
+        TimeoutSec = "infinity";
+        Restart = "on-failure";
 
-            User = cfg.user;
-            Group = cfg.group;
-            ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
-            WorkingDirectory = gitlabEnv.HOME;
-          };
-        };
+        User = cfg.user;
+        Group = cfg.group;
+        ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
+        WorkingDirectory = gitlabEnv.HOME;
+      };
+    };
 
     systemd.services.gitlab = {
       after = [

@@ -550,9 +550,7 @@ rec {
 
           rm /mnt/.debug
 
-          ${util-linux}/bin/umount /mnt${storeDir} /mnt/tmp ${
-            lib.optionalString unifiedSystemDir "/mnt/proc"
-          }
+          ${util-linux}/bin/umount /mnt${storeDir} /mnt/tmp ${lib.optionalString unifiedSystemDir "/mnt/proc"}
           ${util-linux}/bin/umount /mnt
         '';
 

@@ -164,13 +164,11 @@ let
             ${optionalString (cfg.defaultGateway != null && cfg.defaultGateway.address != "") ''
               ${optionalString (cfg.defaultGateway.interface != null) ''
                 ip route replace ${cfg.defaultGateway.address} dev ${cfg.defaultGateway.interface} ${
-                  optionalString (cfg.defaultGateway.metric != null)
-                    "metric ${toString cfg.defaultGateway.metric}"
+                  optionalString (cfg.defaultGateway.metric != null) "metric ${toString cfg.defaultGateway.metric}"
                 } proto static
               ''}
               ip route replace default ${
-                optionalString (cfg.defaultGateway.metric != null)
-                  "metric ${toString cfg.defaultGateway.metric}"
+                optionalString (cfg.defaultGateway.metric != null) "metric ${toString cfg.defaultGateway.metric}"
               } via "${cfg.defaultGateway.address}" ${
                 optionalString (cfg.defaultGatewayWindowSize != null)
                   "window ${toString cfg.defaultGatewayWindowSize}"
@@ -181,13 +179,11 @@ let
             ${optionalString (cfg.defaultGateway6 != null && cfg.defaultGateway6.address != "") ''
               ${optionalString (cfg.defaultGateway6.interface != null) ''
                 ip -6 route replace ${cfg.defaultGateway6.address} dev ${cfg.defaultGateway6.interface} ${
-                  optionalString (cfg.defaultGateway6.metric != null)
-                    "metric ${toString cfg.defaultGateway6.metric}"
+                  optionalString (cfg.defaultGateway6.metric != null) "metric ${toString cfg.defaultGateway6.metric}"
                 } proto static
               ''}
               ip -6 route replace default ${
-                optionalString (cfg.defaultGateway6.metric != null)
-                  "metric ${toString cfg.defaultGateway6.metric}"
+                optionalString (cfg.defaultGateway6.metric != null) "metric ${toString cfg.defaultGateway6.metric}"
               } via "${cfg.defaultGateway6.address}" ${
                 optionalString (cfg.defaultGatewayWindowSize != null)
                   "window ${toString cfg.defaultGatewayWindowSize}"
@@ -430,9 +426,7 @@ let
           nameValuePair "${n}-netdev" (
             let
               deps = concatLists (
-                map deviceDependency (
-                  attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)
-                )
+                map deviceDependency (attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces))
               );
               internalConfigs = map (i: "network-addresses-${i}.service") (
                 attrNames (filterAttrs (_: config: config.type == "internal") v.interfaces)
@@ -474,8 +468,7 @@ let
                     mapAttrsToList
                       (
                         name: config:
-                        " -- add-port ${n} ${name}"
-                        + optionalString (config.vlan != null) " tag=${toString config.vlan}"
+                        " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
                       )
                       v.interfaces
                   )
@@ -483,10 +476,7 @@ let
                   ${
                     concatStrings (
                       mapAttrsToList
-                        (
-                          name: config:
-                          optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
-                        )
+                        (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
                         v.interfaces
                     )
                   } \
@@ -523,9 +513,7 @@ let
               ];
               bindsTo = deps;
               partOf = [ "network-setup.service" ];
-              after = [
-                "network-pre.target"
-              ] ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
+              after = [ "network-pre.target" ] ++ deps ++ map (i: "network-addresses-${i}.service") v.interfaces;
               before = [ "network-setup.service" ];
               serviceConfig.Type = "oneshot";
               serviceConfig.RemainAfterExit = true;

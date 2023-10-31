@@ -307,8 +307,7 @@ in
                   ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
               '';
           };
-        default =
-          if dmDefault != null || wmDefault != null then defaultSessionFromLegacyOptions else null;
+        default = if dmDefault != null || wmDefault != null then defaultSessionFromLegacyOptions else null;
         defaultText = literalMD ''
           Taken from display manager settings or window manager settings, if either is set.
         '';
@@ -538,9 +537,7 @@ in
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS
     # as some programs have behavior that depends on them being present
-    environment.sessionVariables.XDG_DATA_DIRS = [
-      "${cfg.displayManager.sessionData.desktops}/share"
-    ];
+    environment.sessionVariables.XDG_DATA_DIRS = [ "${cfg.displayManager.sessionData.desktops}/share" ];
   };
 
   imports = [

@@ -108,9 +108,7 @@ in
     responderKey = mkOption {
       default = null;
       type = types.nullOr types.str;
-      description =
-        lib.mdDoc
-          "Private key for OCSP responder certificate. Do not put this in nix-store.";
+      description = lib.mdDoc "Private key for OCSP responder certificate. Do not put this in nix-store.";
     };
 
     tlsKey = mkOption {

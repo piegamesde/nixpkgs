@@ -17,8 +17,7 @@ let
 
   # Used to make unique paths for each cert/account config set
   mkHash = with builtins; val: substring 0 20 (hashString "sha256" val);
-  mkAccountHash =
-    acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
+  mkAccountHash = acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
   accountDirRoot = "/var/lib/acme/.lego/accounts/";
 
   # There are many services required to make cert renewals work.
@@ -255,9 +254,7 @@ let
       # We need to collect all the ACME webroots to grant them write
       # access in the systemd service.
       webroots = lib.remove null (
-        lib.unique (
-          builtins.map (certAttrs: certAttrs.webroot) (lib.attrValues config.security.acme.certs)
-        )
+        lib.unique (builtins.map (certAttrs: certAttrs.webroot) (lib.attrValues config.security.acme.certs))
       );
     in
     {
@@ -406,8 +403,7 @@ let
               '');
           }
           //
-            optionalAttrs
-              (data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024)
+            optionalAttrs (data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024)
               {
                 CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
                 AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
@@ -1113,9 +1109,7 @@ in
           )
         ));
 
-      systemd.timers =
-        mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
-          certConfigs;
+      systemd.timers = mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer) certConfigs;
 
       systemd.targets =
         let

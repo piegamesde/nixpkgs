@@ -96,9 +96,7 @@ in
     };
 
     pkiTrustOnBootstrap = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to always trust remote cfssl server upon initial PKI bootstrap.";
+      description = lib.mdDoc "Whether to always trust remote cfssl server upon initial PKI bootstrap.";
       default = true;
       type = bool;
     };

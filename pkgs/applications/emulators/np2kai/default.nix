@@ -37,14 +37,12 @@
 
 assert lib.assertMsg (enable16Bit || enable32Bit)
     "Must enable 16-Bit and/or 32-Bit system variant.";
-assert lib.assertMsg (enableSDL || enableX11)
-    "Must enable SDL and/or X11 graphics interfaces.";
+assert lib.assertMsg (enableSDL || enableX11) "Must enable SDL and/or X11 graphics interfaces.";
 assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "1"
   "2"
 ];
-assert enableHAXM
-  -> (lib.assertMsg enableX11 "Must enable X11 graphics interface for HAXM build.");
+assert enableHAXM -> (lib.assertMsg enableX11 "Must enable X11 graphics interface for HAXM build.");
 let
   inherit (lib) optional optionals optionalString;
   inherit (lib.strings) concatStringsSep concatMapStringsSep;

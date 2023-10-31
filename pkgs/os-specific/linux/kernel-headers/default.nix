@@ -73,9 +73,9 @@ let
           darwin-byteswap-h
         ];
 
-      extraIncludeDirs =
-        lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian)
-          [ "ppc" ];
+      extraIncludeDirs = lib.optionals (with stdenvNoCC.hostPlatform; isPower && is32bit && isBigEndian) [
+        "ppc"
+      ];
 
       inherit patches;
 

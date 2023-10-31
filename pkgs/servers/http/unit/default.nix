@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
       "--user=unit"
       "--group=unit"
     ]
-    ++ optional withSSL "--openssl"
-    ++ optional (!withIPv6) "--no-ipv6"
-    ++ optional withDebug "--debug";
+    ++ optional withSSL "--openssl" ++ optional (!withIPv6) "--no-ipv6" ++ optional withDebug "--debug";
 
   # Optionally add the PHP derivations used so they can be addressed in the configs
   usedPhp81 = optionals withPHP81 php81-unit;
@@ -97,14 +95,10 @@ stdenv.mkDerivation rec {
       "./configure php    --module=php81    --config=${php82-unit.unwrapped.dev}/bin/php-config --lib-path=${php82-unit}/lib"}
     ${optionalString withPerl534 "./configure perl   --module=perl534  --perl=${perl534}/bin/perl"}
     ${optionalString withPerl536 "./configure perl   --module=perl536  --perl=${perl536}/bin/perl"}
-    ${optionalString withPerldevel
-      "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}
-    ${optionalString withRuby_2_7
-      "./configure ruby   --module=ruby27   --ruby=${ruby_2_7}/bin/ruby"}
-    ${optionalString withRuby_3_0
-      "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}
-    ${optionalString withRuby_3_1
-      "./configure ruby   --module=ruby31   --ruby=${ruby_3_1}/bin/ruby"}
+    ${optionalString withPerldevel "./configure perl   --module=perldev  --perl=${perldevel}/bin/perl"}
+    ${optionalString withRuby_2_7 "./configure ruby   --module=ruby27   --ruby=${ruby_2_7}/bin/ruby"}
+    ${optionalString withRuby_3_0 "./configure ruby   --module=ruby30   --ruby=${ruby_3_0}/bin/ruby"}
+    ${optionalString withRuby_3_1 "./configure ruby   --module=ruby31   --ruby=${ruby_3_1}/bin/ruby"}
   '';
 
   postInstall = ''

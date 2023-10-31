@@ -125,10 +125,7 @@ let
       pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
       pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
       pythonOnTargetForTarget =
-        if lib.hasAttr pythonAttr pkgsTargetTarget then
-          (override pkgsTargetTarget.${pythonAttr})
-        else
-          { };
+        if lib.hasAttr pythonAttr pkgsTargetTarget then (override pkgsTargetTarget.${pythonAttr}) else { };
     };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
@@ -255,8 +252,7 @@ let
           parsed.abi.name
         else
           "gnu";
-      multiarch =
-        if isDarwin then "darwin" else "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}";
+      multiarch = if isDarwin then "darwin" else "${multiarchCpu}-${parsed.kernel.name}-${pythonAbiName}";
 
       abiFlags = optionalString isPy37 "m";
 

@@ -49,9 +49,7 @@ stdenv.mkDerivation rec {
 
   buildFlags = [ "opt" ];
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.cc.isClang
-      "-Wno-reserved-user-defined-literal";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-reserved-user-defined-literal";
 
   preInstall = "mkdir -p $out/bin";
 

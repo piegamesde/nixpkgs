@@ -39,8 +39,7 @@ let
           (_: origArgs)
       );
       result = f args;
-      overrideWith =
-        newArgs: args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs);
+      overrideWith = newArgs: args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs);
     in
     if builtins.isAttrs result then
       result
@@ -124,9 +123,7 @@ let
   disabled =
     drv:
     throw
-      "${
-        removePythonPrefix (drv.pname or drv.name)
-      } not supported for interpreter ${python.executable}";
+      "${removePythonPrefix (drv.pname or drv.name)} not supported for interpreter ${python.executable}";
 
   disabledIf = x: drv: if x then disabled drv else drv;
 in

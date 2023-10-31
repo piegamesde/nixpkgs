@@ -166,9 +166,7 @@ in
             ${lib.optionalString (cfg.cleanup.maxFull != null)
               "${dup} remove-all-but-n-full ${toString cfg.cleanup.maxFull} ${target} --force ${extra}"}
             ${lib.optionalString (cfg.cleanup.maxIncr != null)
-              "${dup} remove-all-inc-of-but-n-full ${
-                toString cfg.cleanup.maxIncr
-              } ${target} --force ${extra}"}
+              "${dup} remove-all-inc-of-but-n-full ${toString cfg.cleanup.maxIncr} ${target} --force ${extra}"}
             exec ${dup} ${if cfg.fullIfOlderThan == "always" then "full" else "incr"} ${
               lib.escapeShellArgs (
                 [

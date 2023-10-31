@@ -52,9 +52,7 @@ let
       ;
     };
 
-  basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a) (
-    import ./builtin-plugins.nix inputs
-  );
+  basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a) (import ./builtin-plugins.nix inputs);
   allPlugins = lib.mapAttrs (_: mkPlugin) (lib.recursiveUpdate basePlugins pluginOverrides);
   builtinPlugins = lib.filterAttrs (_: p: p.builtin) allPlugins;
   enabledPlugins = lib.filterAttrs (_: p: p.enable) allPlugins;

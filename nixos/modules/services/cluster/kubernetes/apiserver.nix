@@ -320,9 +320,7 @@ in
     };
 
     preferredAddressTypes = mkOption {
-      description =
-        lib.mdDoc
-          "List of the preferred NodeAddressTypes to use for kubelet connections.";
+      description = lib.mdDoc "List of the preferred NodeAddressTypes to use for kubelet connections.";
       type = nullOr str;
       default = null;
     };
@@ -481,19 +479,13 @@ in
                           ${
                             optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"
                           } \
-                          ${
-                            optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"
-                          } \
+                          ${optionalString (cfg.clientCaFile != null) "--client-ca-file=${cfg.clientCaFile}"} \
                           --disable-admission-plugins=${concatStringsSep "," cfg.disableAdmissionPlugins} \
                           --enable-admission-plugins=${concatStringsSep "," cfg.enableAdmissionPlugins} \
                           --etcd-servers=${concatStringsSep "," cfg.etcd.servers} \
                           ${optionalString (cfg.etcd.caFile != null) "--etcd-cafile=${cfg.etcd.caFile}"} \
-                          ${
-                            optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"
-                          } \
-                          ${
-                            optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"
-                          } \
+                          ${optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"} \
+                          ${optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"} \
                           ${
                             optionalString (cfg.featureGates != [ ])
                               "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
@@ -510,8 +502,7 @@ in
                               "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientKeyFile != null)
-                              "--kubelet-client-key=${cfg.kubeletClientKeyFile}"
+                            optionalString (cfg.kubeletClientKeyFile != null) "--kubelet-client-key=${cfg.kubeletClientKeyFile}"
                           } \
                           ${
                             optionalString (cfg.preferredAddressTypes != null)
@@ -522,12 +513,9 @@ in
                               "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
                           } \
                           ${
-                            optionalString (cfg.proxyClientKeyFile != null)
-                              "--proxy-client-key-file=${cfg.proxyClientKeyFile}"
+                            optionalString (cfg.proxyClientKeyFile != null) "--proxy-client-key-file=${cfg.proxyClientKeyFile}"
                           } \
-                          ${
-                            optionalString (cfg.runtimeConfig != "") "--runtime-config=${cfg.runtimeConfig}"
-                          } \
+                          ${optionalString (cfg.runtimeConfig != "") "--runtime-config=${cfg.runtimeConfig}"} \
                           --secure-port=${toString cfg.securePort} \
                           --api-audiences=${toString cfg.apiAudiences} \
                           --service-account-issuer=${toString cfg.serviceAccountIssuer} \
@@ -535,9 +523,7 @@ in
                           --service-account-key-file=${cfg.serviceAccountKeyFile} \
                           --service-cluster-ip-range=${cfg.serviceClusterIpRange} \
                           --storage-backend=${cfg.storageBackend} \
-                          ${
-                            optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
-                          } \
+                          ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
                           ${
                             optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
                           } \

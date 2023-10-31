@@ -94,8 +94,7 @@ lib.makeOverridable (
         else
           throw ''buildRubyGem: don't know how to build a gem of type "${type}"''
       );
-    documentFlag =
-      if document == [ ] then "-N" else "--document ${lib.concatStringsSep "," document}";
+    documentFlag = if document == [ ] then "-N" else "--document ${lib.concatStringsSep "," document}";
   in
 
   stdenv.mkDerivation (

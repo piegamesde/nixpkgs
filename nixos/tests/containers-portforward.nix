@@ -64,9 +64,7 @@ import ./make-test-python.nix (
 
       # Stop the container.
       machine.succeed("nixos-container stop webserver")
-      machine.fail("curl --fail --connect-timeout 2 http://${hostIp}:${
-        toString hostPort
-      }/ > /dev/null")
+      machine.fail("curl --fail --connect-timeout 2 http://${hostIp}:${toString hostPort}/ > /dev/null")
 
       # Destroying a declarative container should fail.
       machine.fail("nixos-container destroy webserver")

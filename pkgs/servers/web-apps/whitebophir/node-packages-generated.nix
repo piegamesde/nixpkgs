@@ -843,142 +843,140 @@ let
   };
 in
 {
-  "whitebophir-git+https://github.com/lovasoa/whitebophir.git#v1.19.1" =
-    nodeEnv.buildNodePackage
-      {
-        name = "whitebophir";
-        packageName = "whitebophir";
-        version = "1.19.1";
-        src = fetchgit {
-          url = "https://github.com/lovasoa/whitebophir.git";
-          rev = "8a42a787a05c974e910c2d87736e0af0a1108a48";
-          sha256 = "e13eecf56ae9c8754f730d106340b4b1ccc32582b30386c001f12ff2ada93b2e";
-        };
-        dependencies = [
-          (
-            sources."@financial-times/polyfill-useragent-normaliser-1.10.2"
-            // {
-              dependencies = [ sources."semver-7.3.8" ];
-            }
-          )
-          sources."@financial-times/useragent_parser-1.6.3"
-          sources."@socket.io/component-emitter-3.1.0"
-          sources."@types/cookie-0.4.1"
-          sources."@types/cors-2.8.12"
-          sources."@types/node-18.11.4"
-          sources."accept-language-parser-1.5.0"
-          sources."accepts-1.3.8"
-          sources."async-mutex-0.3.2"
-          sources."base64id-2.0.0"
-          sources."buffer-equal-constant-time-1.0.1"
-          sources."bufferutil-4.0.7"
-          sources."cookie-0.4.2"
-          sources."core-util-is-1.0.3"
-          sources."cors-2.8.5"
-          (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
-          sources."depd-2.0.0"
-          sources."destroy-1.2.0"
-          sources."ecdsa-sig-formatter-1.0.11"
-          sources."ee-first-1.1.1"
-          sources."encodeurl-1.0.2"
-          (
-            sources."engine.io-6.2.0"
-            // {
-              dependencies = [
-                sources."debug-4.3.4"
-                sources."ms-2.1.2"
-              ];
-            }
-          )
-          sources."engine.io-parser-5.0.4"
-          sources."escape-html-1.0.3"
-          sources."etag-1.8.1"
-          sources."fresh-0.5.2"
-          sources."from2-2.3.0"
-          sources."from2-string-1.1.0"
-          sources."graceful-fs-4.2.10"
-          sources."handlebars-4.7.7"
-          sources."http-errors-2.0.0"
-          sources."inherits-2.0.4"
-          sources."isarray-1.0.0"
-          sources."jsonwebtoken-8.5.1"
-          sources."jwa-1.4.1"
-          sources."jws-3.2.2"
-          sources."lodash.includes-4.3.0"
-          sources."lodash.isboolean-3.0.3"
-          sources."lodash.isinteger-4.0.4"
-          sources."lodash.isnumber-3.0.3"
-          sources."lodash.isplainobject-4.0.6"
-          sources."lodash.isstring-4.0.1"
-          sources."lodash.once-4.1.1"
-          sources."lru-cache-6.0.0"
-          sources."merge2-1.4.1"
-          sources."mime-1.6.0"
-          sources."mime-db-1.52.0"
-          sources."mime-types-2.1.35"
-          sources."minimist-1.2.7"
-          sources."mnemonist-0.38.5"
-          sources."ms-2.1.3"
-          sources."negotiator-0.6.3"
-          sources."neo-async-2.6.2"
-          sources."node-gyp-build-4.5.0"
-          sources."object-assign-4.1.1"
-          sources."obliterator-2.0.4"
-          sources."on-finished-2.4.1"
-          sources."parseurl-1.3.3"
-          sources."polyfill-library-3.111.0"
-          sources."process-nextick-args-2.0.1"
-          sources."promise-polyfill-1.1.6"
-          sources."range-parser-1.2.1"
-          (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
-          sources."safe-buffer-5.2.1"
-          sources."semver-5.7.1"
-          sources."send-0.18.0"
-          sources."serve-static-1.15.0"
-          sources."setprototypeof-1.2.0"
-          (
-            sources."socket.io-4.5.3"
-            // {
-              dependencies = [
-                sources."debug-4.3.4"
-                sources."ms-2.1.2"
-              ];
-            }
-          )
-          sources."socket.io-adapter-2.4.0"
-          (
-            sources."socket.io-parser-4.2.1"
-            // {
-              dependencies = [
-                sources."debug-4.3.4"
-                sources."ms-2.1.2"
-              ];
-            }
-          )
-          sources."source-map-0.6.1"
-          sources."statsd-client-0.4.7"
-          sources."statuses-2.0.1"
-          sources."stream-from-promise-1.0.0"
-          sources."stream-to-string-1.2.0"
-          (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
-          sources."toidentifier-1.0.1"
-          sources."toposort-2.0.2"
-          sources."tslib-2.4.0"
-          sources."uglify-js-3.17.4"
-          sources."utf-8-validate-5.0.10"
-          sources."util-deprecate-1.0.2"
-          sources."vary-1.1.2"
-          sources."wordwrap-1.0.0"
-          sources."ws-8.2.3"
-          sources."yallist-4.0.0"
-        ];
-        buildInputs = globalBuildInputs;
-        meta = {
-          description = "Online collaborative whiteboard";
-          license = "AGPL-3.0-or-later";
-        };
-        production = true;
-        bypassCache = true;
-        reconstructLock = true;
-      };
+  "whitebophir-git+https://github.com/lovasoa/whitebophir.git#v1.19.1" = nodeEnv.buildNodePackage {
+    name = "whitebophir";
+    packageName = "whitebophir";
+    version = "1.19.1";
+    src = fetchgit {
+      url = "https://github.com/lovasoa/whitebophir.git";
+      rev = "8a42a787a05c974e910c2d87736e0af0a1108a48";
+      sha256 = "e13eecf56ae9c8754f730d106340b4b1ccc32582b30386c001f12ff2ada93b2e";
+    };
+    dependencies = [
+      (
+        sources."@financial-times/polyfill-useragent-normaliser-1.10.2"
+        // {
+          dependencies = [ sources."semver-7.3.8" ];
+        }
+      )
+      sources."@financial-times/useragent_parser-1.6.3"
+      sources."@socket.io/component-emitter-3.1.0"
+      sources."@types/cookie-0.4.1"
+      sources."@types/cors-2.8.12"
+      sources."@types/node-18.11.4"
+      sources."accept-language-parser-1.5.0"
+      sources."accepts-1.3.8"
+      sources."async-mutex-0.3.2"
+      sources."base64id-2.0.0"
+      sources."buffer-equal-constant-time-1.0.1"
+      sources."bufferutil-4.0.7"
+      sources."cookie-0.4.2"
+      sources."core-util-is-1.0.3"
+      sources."cors-2.8.5"
+      (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
+      sources."depd-2.0.0"
+      sources."destroy-1.2.0"
+      sources."ecdsa-sig-formatter-1.0.11"
+      sources."ee-first-1.1.1"
+      sources."encodeurl-1.0.2"
+      (
+        sources."engine.io-6.2.0"
+        // {
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
+        }
+      )
+      sources."engine.io-parser-5.0.4"
+      sources."escape-html-1.0.3"
+      sources."etag-1.8.1"
+      sources."fresh-0.5.2"
+      sources."from2-2.3.0"
+      sources."from2-string-1.1.0"
+      sources."graceful-fs-4.2.10"
+      sources."handlebars-4.7.7"
+      sources."http-errors-2.0.0"
+      sources."inherits-2.0.4"
+      sources."isarray-1.0.0"
+      sources."jsonwebtoken-8.5.1"
+      sources."jwa-1.4.1"
+      sources."jws-3.2.2"
+      sources."lodash.includes-4.3.0"
+      sources."lodash.isboolean-3.0.3"
+      sources."lodash.isinteger-4.0.4"
+      sources."lodash.isnumber-3.0.3"
+      sources."lodash.isplainobject-4.0.6"
+      sources."lodash.isstring-4.0.1"
+      sources."lodash.once-4.1.1"
+      sources."lru-cache-6.0.0"
+      sources."merge2-1.4.1"
+      sources."mime-1.6.0"
+      sources."mime-db-1.52.0"
+      sources."mime-types-2.1.35"
+      sources."minimist-1.2.7"
+      sources."mnemonist-0.38.5"
+      sources."ms-2.1.3"
+      sources."negotiator-0.6.3"
+      sources."neo-async-2.6.2"
+      sources."node-gyp-build-4.5.0"
+      sources."object-assign-4.1.1"
+      sources."obliterator-2.0.4"
+      sources."on-finished-2.4.1"
+      sources."parseurl-1.3.3"
+      sources."polyfill-library-3.111.0"
+      sources."process-nextick-args-2.0.1"
+      sources."promise-polyfill-1.1.6"
+      sources."range-parser-1.2.1"
+      (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      sources."safe-buffer-5.2.1"
+      sources."semver-5.7.1"
+      sources."send-0.18.0"
+      sources."serve-static-1.15.0"
+      sources."setprototypeof-1.2.0"
+      (
+        sources."socket.io-4.5.3"
+        // {
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
+        }
+      )
+      sources."socket.io-adapter-2.4.0"
+      (
+        sources."socket.io-parser-4.2.1"
+        // {
+          dependencies = [
+            sources."debug-4.3.4"
+            sources."ms-2.1.2"
+          ];
+        }
+      )
+      sources."source-map-0.6.1"
+      sources."statsd-client-0.4.7"
+      sources."statuses-2.0.1"
+      sources."stream-from-promise-1.0.0"
+      sources."stream-to-string-1.2.0"
+      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      sources."toidentifier-1.0.1"
+      sources."toposort-2.0.2"
+      sources."tslib-2.4.0"
+      sources."uglify-js-3.17.4"
+      sources."utf-8-validate-5.0.10"
+      sources."util-deprecate-1.0.2"
+      sources."vary-1.1.2"
+      sources."wordwrap-1.0.0"
+      sources."ws-8.2.3"
+      sources."yallist-4.0.0"
+    ];
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Online collaborative whiteboard";
+      license = "AGPL-3.0-or-later";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
 }

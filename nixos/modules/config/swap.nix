@@ -116,9 +116,7 @@ let
             cipher = "serpent-xts-plain64";
             source = "/dev/random";
           };
-          type = types.coercedTo types.bool randomEncryptionCoerce (
-            types.submodule randomEncryptionOpts
-          );
+          type = types.coercedTo types.bool randomEncryptionCoerce (types.submodule randomEncryptionOpts);
           description = lib.mdDoc ''
             Encrypt swap device with a random key. This way you won't have a persistent swap device.
 
@@ -176,8 +174,7 @@ let
       config = rec {
         device = mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
         deviceName = lib.replaceStrings [ "\\" ] [ "" ] (escapeSystemdPath config.device);
-        realDevice =
-          if config.randomEncryption.enable then "/dev/mapper/${deviceName}" else config.device;
+        realDevice = if config.randomEncryption.enable then "/dev/mapper/${deviceName}" else config.device;
       };
     };
 in
@@ -288,9 +285,7 @@ in
           };
       in
       listToAttrs (
-        map createSwapDevice (
-          filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices
-        )
+        map createSwapDevice (filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices)
       );
   };
 }

@@ -27,9 +27,7 @@ let
       inherit coq lib;
       coqPackages = self;
 
-      metaFetch = import ../build-support/coq/meta-fetch/default.nix {
-        inherit lib stdenv fetchzip;
-      };
+      metaFetch = import ../build-support/coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; };
       mkCoqDerivation = lib.makeOverridable (callPackage ../build-support/coq { });
 
       contribs = recurseIntoAttrs (callPackage ../development/coq-modules/contribs { });

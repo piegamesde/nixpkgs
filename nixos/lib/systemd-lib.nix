@@ -100,9 +100,7 @@ rec {
   isMacAddress =
     s:
     stringLength s == 17
-    && flip all (splitString ":" s) (
-      bytes: all (byte: elem byte hexChars) (stringToCharacters bytes)
-    );
+    && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
 
   assertMacAddress =
     name: group: attr:
@@ -431,9 +429,7 @@ rec {
             X-Reload-Triggers = toString config.reloadTriggers;
           }
           // optionalAttrs (config.description != "") { Description = config.description; }
-          // optionalAttrs (config.documentation != [ ]) {
-            Documentation = toString config.documentation;
-          }
+          // optionalAttrs (config.documentation != [ ]) { Documentation = toString config.documentation; }
           // optionalAttrs (config.onFailure != [ ]) { OnFailure = toString config.onFailure; }
           // optionalAttrs (config.onSuccess != [ ]) { OnSuccess = toString config.onSuccess; }
           // optionalAttrs (options.startLimitIntervalSec.isDefined) {

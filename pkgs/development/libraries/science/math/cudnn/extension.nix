@@ -30,8 +30,7 @@ let
 
   # Compute versioned attribute name to be used in this package set
   # computeName :: String -> String
-  computeName =
-    version: "cudnn_${strings.replaceStrings [ "." ] [ "_" ] (majorMinorPatch version)}";
+  computeName = version: "cudnn_${strings.replaceStrings [ "." ] [ "_" ] (majorMinorPatch version)}";
 
   # Check whether a CUDNN release supports our CUDA version
   # Thankfully we're able to do lexicographic comparison on the version strings

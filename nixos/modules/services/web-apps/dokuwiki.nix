@@ -197,9 +197,9 @@ let
         {
           warnings =
             optional fromOpt.isDefined
-              "The option `${showOption fromPath}' defined in ${
-                showFiles fromOpt.files
-              } has been renamed to `${showOption toPath}'.";
+              "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${
+                showOption toPath
+              }'.";
         }
         (lib.modules.mkAliasAndWrapDefsWithPriority (setAttrByPath to) fromOpt)
       ];
@@ -241,9 +241,7 @@ let
                 ]
                 ++ suffix
               );
-            replaceExtraConfig = "Please use `${
-                showPath [ "settings" ]
-              }' to pass structured settings instead.";
+            replaceExtraConfig = "Please use `${showPath [ "settings" ]}' to pass structured settings instead.";
             ecOpt = options.extraConfig;
             ecPath = showPath [ "extraConfig" ];
           in
@@ -283,9 +281,7 @@ let
                     ]
                   } is required when ${
                     showPath [ "usersFile" ]
-                  } is set (Currently defiend as `${config.usersFile}' in ${
-                    showFiles options.usersFile.files
-                  }).";
+                  } is set (Currently defiend as `${config.usersFile}' in ${showFiles options.usersFile.files}).";
               }
             ];
           }
@@ -366,8 +362,7 @@ let
 
         usersFile = mkOption {
           type = with types; nullOr str;
-          default =
-            if config.mergedConfig.useacl then "/var/lib/dokuwiki/${name}/users.auth.php" else null;
+          default = if config.mergedConfig.useacl then "/var/lib/dokuwiki/${name}/users.auth.php" else null;
           description = lib.mdDoc ''
             Location of the dokuwiki users file. List of users. Format:
 
@@ -600,10 +595,7 @@ in
                   optionalAttrs (cfg.usersFile != null) { DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}"; }
                   // optionalAttrs (cfg.mergedConfig.useacl) {
                     DOKUWIKI_ACL_AUTH_CONFIG =
-                      if (cfg.acl != null) then
-                        "${dokuwikiAclAuthConfig hostName cfg}"
-                      else
-                        "${toString cfg.aclFile}";
+                      if (cfg.acl != null) then "${dokuwikiAclAuthConfig hostName cfg}" else "${toString cfg.aclFile}";
                   };
 
                 settings = {

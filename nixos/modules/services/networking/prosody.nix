@@ -107,9 +107,7 @@ let
     pep = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Enables users to publish their mood, activity, playing music and more";
+      description = lib.mdDoc "Enables users to publish their mood, activity, playing music and more";
     };
 
     private = mkOption {
@@ -186,18 +184,14 @@ let
     smacks = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allow a client to resume a disconnected session, and prevent message loss";
+      description = lib.mdDoc "Allow a client to resume a disconnected session, and prevent message loss";
     };
 
     # Admin interfaces
     admin_adhoc = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Allows administration via an XMPP client that supports ad-hoc commands";
+      description = lib.mdDoc "Allows administration via an XMPP client that supports ad-hoc commands";
     };
 
     http_files = mkOption {
@@ -209,9 +203,7 @@ let
     proxy65 = mkOption {
       type = types.bool;
       default = true;
-      description =
-        lib.mdDoc
-          "Enables a file transfer proxy service which clients behind NAT can use";
+      description = lib.mdDoc "Enables a file transfer proxy service which clients behind NAT can use";
     };
 
     admin_telnet = mkOption {
@@ -302,9 +294,7 @@ let
       key = "${o.key}";
       certificate = "${o.cert}";
       ${
-        concatStringsSep "\n" (
-          mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
-        )
+        concatStringsSep "\n" (mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions)
       }
     };
   '';
@@ -398,9 +388,7 @@ let
         roomDefaultMembersOnly = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "If set, the MUC rooms will only be accessible to the members by default.";
+          description = lib.mdDoc "If set, the MUC rooms will only be accessible to the members by default.";
         };
         roomDefaultModerated = mkOption {
           type = types.bool;
@@ -877,9 +865,7 @@ in
         };
 
         disco_items = {
-        ${lib.concatStringsSep "\n" (
-          builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems
-        )}
+        ${lib.concatStringsSep "\n" (builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems)}
         };
 
         allow_registration = ${toLua cfg.allowRegistration}

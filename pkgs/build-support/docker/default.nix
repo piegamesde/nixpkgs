@@ -677,10 +677,7 @@ rec {
             passthru.buildArgs = args;
             passthru.layer = layer;
             passthru.imageTag =
-              if tag != null then
-                tag
-              else
-                lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
+              if tag != null then tag else lib.head (lib.strings.splitString "-" (baseNameOf result.outPath));
           }
           ''
             ${lib.optionalString (tag == null) ''
@@ -1065,9 +1062,7 @@ rec {
             fi
 
             paths() {
-              cat $paths ${
-                lib.concatMapStringsSep " " (path: "| (grep -v ${path} || true)") unnecessaryDrvs
-              }
+              cat $paths ${lib.concatMapStringsSep " " (path: "| (grep -v ${path} || true)") unnecessaryDrvs}
             }
 
             # Compute the number of layers that are already used by a potential
@@ -1245,9 +1240,7 @@ rec {
           drv.drvAttrs
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
-        // lib.genAttrs drv.outputs (
-          output: builtins.unsafeDiscardStringContext drv.${output}.outPath
-        );
+        // lib.genAttrs drv.outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
 
       # Environment variables set in the image
       envVars =

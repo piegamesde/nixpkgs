@@ -39,8 +39,7 @@ let
   # Builds the default options.
   buildMenuGrub2 = buildMenuAdditionalParamsGrub2 "";
 
-  targetArch =
-    if config.boot.loader.grub.forcei686 then "ia32" else pkgs.stdenv.hostPlatform.efiArch;
+  targetArch = if config.boot.loader.grub.forcei686 then "ia32" else pkgs.stdenv.hostPlatform.efiArch;
 
   #
   # Given params to add to `params`, build a set of default options.
@@ -131,9 +130,7 @@ let
     LABEL boot-debug
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (debug)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } loglevel=7
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} loglevel=7
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with a serial console enabled
@@ -757,10 +754,9 @@ in
 
     # Closures to be copied to the Nix store on the CD, namely the init
     # script and the top-level system configuration directory.
-    isoImage.storeContents =
-      [ config.system.build.toplevel ]
-      ++ optional config.isoImage.includeSystemBuildDependencies
-        config.system.build.toplevel.drvPath;
+    isoImage.storeContents = [
+      config.system.build.toplevel
+    ] ++ optional config.isoImage.includeSystemBuildDependencies config.system.build.toplevel.drvPath;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {
@@ -827,9 +823,7 @@ in
       ]
       ++
         optionals
-          (
-            config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot
-          )
+          (config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot)
           [
             {
               source = "${pkgs.memtest86plus}/memtest.bin";

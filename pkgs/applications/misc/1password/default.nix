@@ -24,9 +24,7 @@ let
   pname = "1password-cli";
   version = "2.17.0";
   sources = rec {
-    aarch64-linux =
-      fetch "linux_arm64" "sha256-pnLAFCKhQKOIqp0qDv3DfAqF4fDXjFdw7Jl9WgDf7C0="
-        "zip";
+    aarch64-linux = fetch "linux_arm64" "sha256-pnLAFCKhQKOIqp0qDv3DfAqF4fDXjFdw7Jl9WgDf7C0=" "zip";
     i686-linux = fetch "linux_386" "sha256-o+pSWUOSzDKA5m+Riu3QOi9gQMyEmbIGcE/yUjKu9p8=" "zip";
     x86_64-linux = fetch "linux_amd64" "sha256-aukQSeC+5p6ioTE6QlzEAM+9VOI34GfzzjaGt/N0klY=" "zip";
     aarch64-darwin =

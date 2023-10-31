@@ -158,8 +158,7 @@ let
   graphToDot = graph: ''
     digraph "Option Usages" {
       ${
-        concatMapStrings
-          ({ option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
+        concatMapStrings ({ option, usedBy }: concatMapStrings (user: ''"${option}" -> "${user}"'') usedBy)
           displayOptionsGraph
       }
     }

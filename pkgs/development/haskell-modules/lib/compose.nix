@@ -129,9 +129,7 @@ rec {
   doDistribute = overrideCabal (
     drv: {
       # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
-      hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (
-        drv.platforms or lib.platforms.all
-      );
+      hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (drv.platforms or lib.platforms.all);
     }
   );
   /* dontDistribute disables the distribution of binaries for the package
@@ -249,9 +247,9 @@ rec {
     # -g: enables debugging symbols
     # --disable-*-stripping: tell GHC not to strip resulting binaries
     # dontStrip: see above
-    appendConfigureFlag
-      "--ghc-options=-g --disable-executable-stripping --disable-library-stripping"
-      (dontStrip drv);
+    appendConfigureFlag "--ghc-options=-g --disable-executable-stripping --disable-library-stripping" (
+      dontStrip drv
+    );
 
   /* Create a source distribution tarball like those found on hackage,
      instead of building the package.

@@ -496,8 +496,6 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "redmine") {
-      redmine.gid = config.ids.gids.redmine;
-    };
+    users.groups = optionalAttrs (cfg.group == "redmine") { redmine.gid = config.ids.gids.redmine; };
   };
 }

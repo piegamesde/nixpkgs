@@ -9460,12 +9460,7 @@ let
       sources."@jest/test-sequencer-24.9.0"
       (sources."@jest/transform-24.9.0" // { dependencies = [ sources."slash-2.0.0" ]; })
       sources."@jest/types-24.9.0"
-      (
-        sources."@kubernetes/client-node-0.10.1"
-        // {
-          dependencies = [ sources."@types/node-10.14.19" ];
-        }
-      )
+      (sources."@kubernetes/client-node-0.10.1" // { dependencies = [ sources."@types/node-10.14.19" ]; })
       sources."@types/accepts-1.3.5"
       sources."@types/axios-0.14.0"
       sources."@types/babel-types-7.0.7"

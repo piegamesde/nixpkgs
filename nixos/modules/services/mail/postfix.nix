@@ -24,9 +24,7 @@ let
     optional (cfg.dnsBlacklistOverrides != "")
       "check_client_access hash:/etc/postfix/client_access";
 
-  dnsBl = optionals (cfg.dnsBlacklists != [ ]) (
-    map (s: "reject_rbl_client " + s) cfg.dnsBlacklists
-  );
+  dnsBl = optionals (cfg.dnsBlacklists != [ ]) (map (s: "reject_rbl_client " + s) cfg.dnsBlacklists);
 
   clientRestrictions = concatStringsSep ", " (clientAccess ++ dnsBl);
 
@@ -276,11 +274,7 @@ let
         in
         concatStringsSep "\n" lines;
     in
-    formattedLabels
-    + "\n"
-    + concatMapStringsSep "\n" formatLine masterCf
-    + "\n"
-    + cfg.extraMasterConf;
+    formattedLabels + "\n" + concatMapStringsSep "\n" formatLine masterCf + "\n" + cfg.extraMasterConf;
 
   headerCheckOptions =
     { ... }:
@@ -738,9 +732,7 @@ in
       aliasFiles = mkOption {
         type = types.attrsOf types.path;
         default = { };
-        description =
-          lib.mdDoc
-            "Aliases' tables to be compiled and placed into /var/lib/postfix/conf.";
+        description = lib.mdDoc "Aliases' tables to be compiled and placed into /var/lib/postfix/conf.";
       };
 
       mapFiles = mkOption {
@@ -818,9 +810,7 @@ in
 
         users.groups =
           optionalAttrs (group == "postfix") { ${group}.gid = config.ids.gids.postfix; }
-          // optionalAttrs (setgidGroup == "postdrop") {
-            ${setgidGroup}.gid = config.ids.gids.postdrop;
-          };
+          // optionalAttrs (setgidGroup == "postdrop") { ${setgidGroup}.gid = config.ids.gids.postdrop; };
 
         systemd.services.postfix-setup = {
           description = "Setup for Postfix mail server";
@@ -933,9 +923,7 @@ in
           // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
           // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
           // optionalAttrs (cfg.relayDomains != null) { relay_domains = cfg.relayDomains; }
-          // optionalAttrs (cfg.recipientDelimiter != "") {
-            recipient_delimiter = cfg.recipientDelimiter;
-          }
+          // optionalAttrs (cfg.recipientDelimiter != "") { recipient_delimiter = cfg.recipientDelimiter; }
           // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
           // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
           // optionalAttrs haveVirtual {
@@ -953,9 +941,7 @@ in
             recipient_canonical_maps = [ "tcp:127.0.0.1:10002" ];
             recipient_canonical_classes = [ "envelope_recipient" ];
           }
-          // optionalAttrs cfg.enableHeaderChecks {
-            header_checks = [ "regexp:/etc/postfix/header_checks" ];
-          }
+          // optionalAttrs cfg.enableHeaderChecks { header_checks = [ "regexp:/etc/postfix/header_checks" ]; }
           // optionalAttrs (cfg.tlsTrustedAuthorities != "") {
             smtp_tls_CAfile = cfg.tlsTrustedAuthorities;
             smtp_tls_security_level = mkDefault "may";
@@ -1107,9 +1093,7 @@ in
       (mkIf haveCanonical { services.postfix.mapFiles.canonical = canonicalFile; })
       (mkIf haveTransport { services.postfix.mapFiles.transport = transportFile; })
       (mkIf haveVirtual { services.postfix.mapFiles.virtual = virtualFile; })
-      (mkIf haveLocalRecipients {
-        services.postfix.mapFiles.local_recipients = localRecipientMapFile;
-      })
+      (mkIf haveLocalRecipients { services.postfix.mapFiles.local_recipients = localRecipientMapFile; })
       (mkIf cfg.enableHeaderChecks { services.postfix.mapFiles.header_checks = headerChecksFile; })
       (mkIf (cfg.dnsBlacklists != [ ]) {
         services.postfix.mapFiles.client_access = checkClientAccessFile;

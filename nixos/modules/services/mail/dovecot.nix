@@ -210,11 +210,9 @@ in
 
     enablePop3 = mkEnableOption (lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)");
 
-    enableImap =
-      mkEnableOption (lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)")
-      // {
-        default = true;
-      };
+    enableImap = mkEnableOption (lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)") // {
+      default = true;
+    };
 
     enableLmtp = mkEnableOption (lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)");
 
@@ -265,9 +263,7 @@ in
           submodule {
             options = {
               globally = mkOption {
-                description =
-                  lib.mdDoc
-                    "Additional entries to add to the mail_plugins variable for all protocols";
+                description = lib.mdDoc "Additional entries to add to the mail_plugins variable for all protocols";
                 type = plugins "top-level";
                 example = {
                   enable = [ "virtual" ];
@@ -430,9 +426,7 @@ in
       type = types.str;
       default = "100G";
       example = "10G";
-      description =
-        lib.mdDoc
-          "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %.";
+      description = lib.mdDoc "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %.";
     };
   };
 
@@ -444,9 +438,7 @@ in
       params.dovecot2 = { };
     };
     services.dovecot2.protocols =
-      optional cfg.enableImap "imap"
-      ++ optional cfg.enablePop3 "pop3"
-      ++ optional cfg.enableLmtp "lmtp";
+      optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3" ++ optional cfg.enableLmtp "lmtp";
 
     services.dovecot2.mailPlugins = mkIf cfg.enableQuota {
       globally.enable = [ "quota" ];

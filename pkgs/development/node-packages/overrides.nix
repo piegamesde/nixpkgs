@@ -79,9 +79,7 @@ final: prev: {
         --prefix NODE_PATH : ${final.postcss}/lib/node_modules
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/autoprefixer.nix {
-        inherit (final) autoprefixer;
-      };
+      simple-execution = callPackage ./package-tests/autoprefixer.nix { inherit (final) autoprefixer; };
     };
   };
 
@@ -114,8 +112,7 @@ final: prev: {
   bitwarden-cli = prev."@bitwarden/cli".override {
     name = "bitwarden-cli";
     nativeBuildInputs =
-      with pkgs;
-      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      with pkgs; [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
     buildInputs = with pkgs; [
       pixman
       cairo
@@ -191,24 +188,20 @@ final: prev: {
 
   # NOTE: this is a stub package to fetch npm dependencies for
   # ../../applications/video/epgstation/client
-  epgstation-client =
-    prev."epgstation-client-../../applications/video/epgstation/client".override
-      (
-        oldAttrs: {
-          meta = oldAttrs.meta // {
-            platforms = lib.platforms.none;
-          };
-        }
-      );
+  epgstation-client = prev."epgstation-client-../../applications/video/epgstation/client".override (
+    oldAttrs: {
+      meta = oldAttrs.meta // {
+        platforms = lib.platforms.none;
+      };
+    }
+  );
 
   expo-cli = prev."expo-cli".override (
     oldAttrs: {
       # The traveling-fastlane-darwin optional dependency aborts build on Linux.
       dependencies =
         builtins.filter
-          (
-            d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
-          )
+          (d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}")
           oldAttrs.dependencies;
     }
   );
@@ -498,9 +491,7 @@ final: prev: {
         ln -s '${final.postcss}/lib/node_modules/postcss' "$out/lib/node_modules/postcss"
       '';
       passthru.tests = {
-        simple-execution = callPackage ./package-tests/postcss-cli.nix {
-          inherit (final) postcss-cli;
-        };
+        simple-execution = callPackage ./package-tests/postcss-cli.nix { inherit (final) postcss-cli; };
       };
       meta = oldAttrs.meta // {
         maintainers = with lib.maintainers; [ Luflosi ];
@@ -616,9 +607,7 @@ final: prev: {
       unset nodePath
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/tailwindcss.nix {
-        inherit (final) tailwindcss;
-      };
+      simple-execution = callPackage ./package-tests/tailwindcss.nix { inherit (final) tailwindcss; };
     };
   };
 

@@ -82,9 +82,7 @@ in
               type filter hook prerouting priority mangle + 10; policy drop;
 
               meta nfproto ipv4 udp sport . udp dport { 67 . 68, 68 . 67 } accept comment "DHCPv4 client/server"
-              fib saddr . mark ${
-                optionalString (cfg.checkReversePath != "loose") ". iif"
-              } oif exists accept
+              fib saddr . mark ${optionalString (cfg.checkReversePath != "loose") ". iif"} oif exists accept
 
               ${
                 optionalString cfg.logReversePathDrops ''

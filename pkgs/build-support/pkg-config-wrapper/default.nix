@@ -22,9 +22,7 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
-    targetPlatform.config + "-"
-  );
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (targetPlatform.config + "-");
 
   # See description in cc-wrapper.
   suffixSalt =

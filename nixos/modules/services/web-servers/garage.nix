@@ -51,9 +51,7 @@ in
           metadata_dir = mkOption {
             default = "/var/lib/garage/meta";
             type = types.path;
-            description =
-              lib.mdDoc
-                "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
+            description = lib.mdDoc "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
           };
 
           data_dir = mkOption {

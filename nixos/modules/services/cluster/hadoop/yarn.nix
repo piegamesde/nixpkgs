@@ -63,9 +63,7 @@ in
           default = null;
         };
         memoryMB = mkOption {
-          description =
-            lib.mdDoc
-              "Amount of physical memory, in MB, that can be allocated for containers.";
+          description = lib.mdDoc "Amount of physical memory, in MB, that can be allocated for containers.";
           type = with types; nullOr ints.positive;
           default = null;
         };

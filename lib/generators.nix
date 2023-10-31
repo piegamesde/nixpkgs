@@ -33,8 +33,7 @@ rec {
     v:
     with builtins;
     let
-      err =
-        t: v: abort ("generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}");
+      err = t: v: abort ("generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}");
     in
     if isInt v then
       toString v
@@ -415,11 +414,7 @@ rec {
           if v == [ ] then
             "[ ]"
           else
-            "["
-            + introSpace
-            + libStr.concatMapStringsSep introSpace (go (indent + "  ")) v
-            + outroSpace
-            + "]"
+            "[" + introSpace + libStr.concatMapStringsSep introSpace (go (indent + "  ")) v + outroSpace + "]"
         else if isFunction v then
           let
             fna = lib.functionArgs v;
@@ -547,9 +542,7 @@ rec {
       concatItems = lib.strings.concatStringsSep ", ";
     in
     if isAttrs v then
-      "{ ${
-        concatItems (lib.attrsets.mapAttrsToList (key: value: "${key} = ${toDhall args value}") v)
-      } }"
+      "{ ${concatItems (lib.attrsets.mapAttrsToList (key: value: "${key} = ${toDhall args value}") v)} }"
     else if isList v then
       "[ ${concatItems (map (toDhall args) v)} ]"
     else if isInt v then
@@ -671,8 +664,7 @@ rec {
         else
           "{${introSpace}${
             concatItems (
-              lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}")
-                v
+              lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}") v
             )
           }${outroSpace}}"
       )

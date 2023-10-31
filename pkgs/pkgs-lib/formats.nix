@@ -165,15 +165,12 @@ rec {
         let
           transformedValue =
             if listToValue != null then
-              lib.mapAttrs
-                (section: lib.mapAttrs (key: val: if lib.isList val then listToValue val else val))
+              lib.mapAttrs (section: lib.mapAttrs (key: val: if lib.isList val then listToValue val else val))
                 value
             else
               value;
         in
-        pkgs.writeText name (
-          lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue
-        );
+        pkgs.writeText name (lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue);
     };
 
   keyValue =

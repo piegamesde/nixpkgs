@@ -10173,12 +10173,7 @@ let
         // {
           dependencies = [
             sources."@babel/parser-7.16.8"
-            (
-              sources."@netlify/zip-it-and-ship-it-7.1.2"
-              // {
-                dependencies = [ sources."path-exists-4.0.0" ];
-              }
-            )
+            (sources."@netlify/zip-it-and-ship-it-7.1.2" // { dependencies = [ sources."path-exists-4.0.0" ]; })
             sources."brace-expansion-2.0.1"
             sources."cp-file-9.1.0"
             sources."glob-8.0.3"
@@ -10660,12 +10655,7 @@ let
       (sources."detective-sass-4.0.1" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       (sources."detective-scss-3.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."detective-stylus-2.0.1"
-      (
-        sources."detective-typescript-9.0.0"
-        // {
-          dependencies = [ sources."node-source-walk-5.0.0" ];
-        }
-      )
+      (sources."detective-typescript-9.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."dir-glob-3.0.1"
       sources."dot-prop-6.0.1"
       sources."dotenv-16.0.3"
@@ -10858,9 +10848,7 @@ let
       sources."function-bind-1.1.1"
       sources."fuzzy-0.1.3"
       sources."gauge-3.0.2"
-      (
-        sources."get-amd-module-type-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; }
-      )
+      (sources."get-amd-module-type-4.0.0" // { dependencies = [ sources."node-source-walk-5.0.0" ]; })
       sources."get-caller-file-2.0.5"
       sources."get-intrinsic-1.1.1"
       sources."get-port-5.1.1"
@@ -11544,9 +11532,7 @@ let
       sources."statuses-2.0.1"
       sources."strict-uri-encode-1.1.0"
       sources."string-similarity-4.0.4"
-      (
-        sources."string-width-4.2.3" // { dependencies = [ sources."is-fullwidth-code-point-3.0.0" ]; }
-      )
+      (sources."string-width-4.2.3" // { dependencies = [ sources."is-fullwidth-code-point-3.0.0" ]; })
       sources."string_decoder-1.1.1"
       sources."strip-ansi-6.0.1"
       sources."strip-ansi-control-characters-2.0.0"

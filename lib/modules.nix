@@ -55,9 +55,7 @@ let
   showRawDecls =
     loc: decls:
     concatStringsSep "\n" (
-      sort (a: b: a < b) (
-        concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls
-      )
+      sort (a: b: a < b) (concatMap (decl: map (showDeclPrefix loc decl) (attrNames decl.options)) decls)
     );
 in
 
@@ -266,19 +264,17 @@ rec {
 
       merged =
         let
-          collected =
-            collectModules (specialArgs.modulesPath or "") (regularModules ++ [ internalModule ])
-              (
-                {
-                  inherit
-                    lib
-                    options
-                    config
-                    specialArgs
-                  ;
-                }
-                // specialArgs
-              );
+          collected = collectModules (specialArgs.modulesPath or "") (regularModules ++ [ internalModule ]) (
+            {
+              inherit
+                lib
+                options
+                config
+                specialArgs
+              ;
+            }
+            // specialArgs
+          );
         in
         mergeModules prefix (reverseList collected);
 
@@ -312,9 +308,7 @@ rec {
           recursiveUpdate freeformConfig declaredConfig;
 
       checkUnmatched =
-        if
-          config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [ ]
-        then
+        if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [ ] then
           let
             firstDef = head merged.unmatchedDefns;
             baseMsg =
@@ -626,9 +620,7 @@ rec {
         context = name: ''while evaluating the module argument `${name}' in "${key}":'';
         extraArgs =
           builtins.mapAttrs
-            (
-              name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name})
-            )
+            (name: _: builtins.addErrorContext (context name) (args.${name} or config._module.args.${name}))
             (lib.functionArgs f);
       in
       # Note: we append in the opposite order such that we can add an error
@@ -1127,12 +1119,10 @@ rec {
     defs:
     let
       getPrio =
-        def:
-        if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
+        def: if def.value._type or "" == "override" then def.value.priority else defaultOverridePriority;
       highestPrio = foldl' (prio: def: min (getPrio def) prio) 9999 defs;
       strip =
-        def:
-        if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
+        def: if def.value._type or "" == "override" then def // { value = def.value.content; } else def;
     in
     {
       values = concatMap (def: if getPrio def == highestPrio then [ (strip def) ] else [ ]) defs;
@@ -1251,8 +1241,7 @@ rec {
   # mkDefault properties of the previous option.
   #
   mkAliasDefinitions = mkAliasAndWrapDefinitions id;
-  mkAliasAndWrapDefinitions =
-    wrap: option: mkAliasIfDef option (wrap (mkMerge option.definitions));
+  mkAliasAndWrapDefinitions = wrap: option: mkAliasIfDef option (wrap (mkMerge option.definitions));
 
   # Similar to mkAliasAndWrapDefinitions but copies over the priority from the
   # option as well.
@@ -1503,8 +1492,7 @@ rec {
   # to all messages that report option locations "this value was derived from <full option name>
   # which was defined in <locations>". It can provide a trace of options that contributed
   # to definitions.
-  mkDerivedConfig =
-    opt: f: mkOverride (opt.highestPrio or defaultOverridePriority) (f opt.value);
+  mkDerivedConfig = opt: f: mkOverride (opt.highestPrio or defaultOverridePriority) (f opt.value);
 
   doRename =
     {

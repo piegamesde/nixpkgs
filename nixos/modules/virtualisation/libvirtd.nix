@@ -51,9 +51,7 @@ let
         type = types.listOf types.package;
         default = [ pkgs.OVMF.fd ];
         defaultText = literalExpression "[ pkgs.OVMF.fd ]";
-        example =
-          literalExpression
-            "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
+        example = literalExpression "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
         description = lib.mdDoc ''
           List of OVMF packages to use. Each listed package must contain files names FV/OVMF_CODE.fd and FV/OVMF_VARS.fd or FV/AAVMF_CODE.fd and FV/AAVMF_VARS.fd
         '';
@@ -344,9 +342,7 @@ in
 
     environment = {
       # this file is expected in /etc/qemu and not sysconfdir (/var/lib)
-      etc."qemu/bridge.conf".text =
-        lib.concatMapStringsSep "\n" (e: "allow ${e}")
-          cfg.allowedBridges;
+      etc."qemu/bridge.conf".text = lib.concatMapStringsSep "\n" (e: "allow ${e}") cfg.allowedBridges;
       systemPackages = with pkgs; [
         libressl.nc
         iptables
@@ -448,8 +444,7 @@ in
 
       path =
         [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
-        ++ optional vswitch.enable vswitch.package
-        ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
+        ++ optional vswitch.enable vswitch.package ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
 
       serviceConfig = {
         Type = "notify";

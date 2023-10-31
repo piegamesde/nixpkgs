@@ -388,9 +388,7 @@ in
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";
-          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${
-              escapeShellArgs cfg.matterircd.parameters
-            }";
+          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${escapeShellArgs cfg.matterircd.parameters}";
           WorkingDirectory = "/tmp";
           PrivateTmp = true;
           Restart = "always";

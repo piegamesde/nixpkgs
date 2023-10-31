@@ -92,8 +92,7 @@ in
               "@{PAM_USER}"
             ];
 
-        pamVariable =
-          n: v: ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"'';
+        pamVariable = n: v: ''${n}   DEFAULT="${concatStringsSep ":" (map replaceEnvVars (toList v))}"'';
 
         pamVariables = concatStringsSep "\n" (
           mapAttrsToList pamVariable (

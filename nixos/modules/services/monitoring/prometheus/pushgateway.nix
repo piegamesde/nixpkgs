@@ -171,9 +171,7 @@ in
         DynamicUser = true;
         ExecStart =
           "${cfg.package}/bin/pushgateway"
-          + optionalString (length cmdlineArgs != 0) (
-            " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-          );
+          + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
         StateDirectory = if cfg.persistMetrics then cfg.stateDir else null;
       };
     };

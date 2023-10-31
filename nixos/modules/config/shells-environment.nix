@@ -29,9 +29,7 @@ let
         suffixedVariables
       ];
 
-      exportVariables =
-        mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'')
-          allVariables;
+      exportVariables = mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'') allVariables;
     in
     concatStringsSep "\n" exportVariables;
 in

@@ -208,39 +208,21 @@ let
 
   IOKitSpecs = {
     IOAudioFamily = fetchApple "osx-10.10.5" "sha256-frs2pm2OpGUOz68ZXsjktlyHlgn5oXM+ltbmAf//Cio=";
-    IOFireWireFamily =
-      fetchApple "osx-10.10.5"
-        "sha256-V9fNeo/Wj9dm1/XM4hkOInnMk01M6c9QSjJs5zJKB60=";
-    IOFWDVComponents =
-      fetchApple "osx-10.10.5"
-        "sha256-KenCX9C/Z2ErUK8tpKpm65gEmhn2NsXFxlzK7NKomaI=";
+    IOFireWireFamily = fetchApple "osx-10.10.5" "sha256-V9fNeo/Wj9dm1/XM4hkOInnMk01M6c9QSjJs5zJKB60=";
+    IOFWDVComponents = fetchApple "osx-10.10.5" "sha256-KenCX9C/Z2ErUK8tpKpm65gEmhn2NsXFxlzK7NKomaI=";
     IOFireWireAVC = fetchApple "osx-10.10.5" "sha256-Gd8+PK/mk+xEXgF8dGAx+3jsXv4NX1GiBFyjyrf6sTo=";
-    IOFireWireSBP2 =
-      fetchApple "osx-10.10.5"
-        "sha256-Z3nP8pX1YG4Fbt7MrnqO06ihE9aYOex5Eib/rqOpoPk=";
+    IOFireWireSBP2 = fetchApple "osx-10.10.5" "sha256-Z3nP8pX1YG4Fbt7MrnqO06ihE9aYOex5Eib/rqOpoPk=";
     IOFireWireSerialBusProtocolTransport =
       fetchApple "osx-10.10.5"
         "sha256-zdYE0UCKiVhDRGdWaH8L51ArbYTnsQOmcN/OMmpNdFA=";
     IOGraphics = fetchApple "osx-10.10.5" "sha256-lXoW4sx3pyl5fg5Qde3sQi2i8rTLnpeCdDaTHjbfaMI=";
     IOHIDFamily = fetchApple "osx-10.10.5" "sha256-b+S1p3p5d8olYE18VrBns4euerVINaQSFEp34sko5rM=";
-    IONetworkingFamily =
-      fetchApple "osx-10.10.5"
-        "sha256-NOpFOBKS6iwFj9DJxduZYZfZJuhDyBQw2QMKHbu7j40=";
-    IOSerialFamily =
-      fetchApple "osx-10.10.5"
-        "sha256-hpYrgXsuTul4CYoYIjQjerfvQRqISM2tCcfVXlnjbZo=";
-    IOStorageFamily =
-      fetchApple "osx-10.9.5"
-        "sha256-CeA4rHUrBKHsDeJU9ssIY9LQwDw09a+vQUyruosaLKA=";
-    IOBDStorageFamily =
-      fetchApple "osx-10.10.5"
-        "sha256-gD52RKXGKWGga/QGlutxsgsPNSN6gcRfFQRT8v51N3E=";
-    IOCDStorageFamily =
-      fetchApple "osx-10.10.5"
-        "sha256-+nyqH6lMPmIkDLYXNVSeR4vBYS165oyJx+DkCkKOGRg=";
-    IODVDStorageFamily =
-      fetchApple "osx-10.10.5"
-        "sha256-Jy3UuRzdd0bBdhJgI/f8vLXh2GdGs1RVN3G2iEs86kQ=";
+    IONetworkingFamily = fetchApple "osx-10.10.5" "sha256-NOpFOBKS6iwFj9DJxduZYZfZJuhDyBQw2QMKHbu7j40=";
+    IOSerialFamily = fetchApple "osx-10.10.5" "sha256-hpYrgXsuTul4CYoYIjQjerfvQRqISM2tCcfVXlnjbZo=";
+    IOStorageFamily = fetchApple "osx-10.9.5" "sha256-CeA4rHUrBKHsDeJU9ssIY9LQwDw09a+vQUyruosaLKA=";
+    IOBDStorageFamily = fetchApple "osx-10.10.5" "sha256-gD52RKXGKWGga/QGlutxsgsPNSN6gcRfFQRT8v51N3E=";
+    IOCDStorageFamily = fetchApple "osx-10.10.5" "sha256-+nyqH6lMPmIkDLYXNVSeR4vBYS165oyJx+DkCkKOGRg=";
+    IODVDStorageFamily = fetchApple "osx-10.10.5" "sha256-Jy3UuRzdd0bBdhJgI/f8vLXh2GdGs1RVN3G2iEs86kQ=";
     # There should be an IOStreamFamily project here, but they haven't released it :(
     IOUSBFamily = fetchApple "osx-10.8.5" "sha256-FwgGoP97Sj47VGXMxbY0oUugKf7jtxAL1RzL6+315cU="; # This is from 10.8 :(
     IOUSBFamily_older =
@@ -282,8 +264,7 @@ let
 
   # Only used for bootstrapping. It’s convenient because it was the last version to come with a real makefile.
   adv_cmds-boot =
-    applePackage "adv_cmds/boot.nix" "osx-10.5.8"
-      "sha256-/OJLNpATyS31W5nWfJgSVO5itp8j55TRwG57/QLT5Fg="
+    applePackage "adv_cmds/boot.nix" "osx-10.5.8" "sha256-/OJLNpATyS31W5nWfJgSVO5itp8j55TRwG57/QLT5Fg="
       { };
 in
 
@@ -309,22 +290,17 @@ developerToolsPackages_11_3_1
     applePackage "configd" "osx-10.8.5" "sha256-6I3FWNjTgds5abEcZrD++s9b+P9a2+qUf8KFAb72DwI="
       {
         Security =
-          applePackage "Security/boot.nix" "osx-10.9.5"
-            "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
+          applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
             { };
       };
   copyfile =
     applePackage "copyfile" "osx-10.12.6" "sha256-uHqLFOIpXK+n0RHyOZzVsP2DDZcFDivKCnqHBaXvHns="
       { };
-  Csu =
-    applePackage "Csu" "osx-10.11.6" "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY="
-      { };
+  Csu = applePackage "Csu" "osx-10.11.6" "sha256-h6a/sQMEVeFxKNWAPgKBXjWhyL2L2nvX9BQUMaTQ6sY=" { };
   dtrace =
     applePackage "dtrace" "osx-10.12.6" "sha256-Icr22ozixHquI0kRB2XZ+LlxD6V46sJHsHy4L/tDXZg="
       { };
-  dyld =
-    applePackage "dyld" "osx-10.12.6" "sha256-JmKnOZtBPf96zEx7vhYHLBSTOPyKN71IdYE3R0IeJww="
-      { };
+  dyld = applePackage "dyld" "osx-10.12.6" "sha256-JmKnOZtBPf96zEx7vhYHLBSTOPyKN71IdYE3R0IeJww=" { };
   eap8021x =
     applePackage "eap8021x" "osx-10.11.6" "sha256-54P3+YhVhOanoZQoqswDnr/GbR/AdEERse135nyuIQo="
       { };
@@ -335,20 +311,17 @@ developerToolsPackages_11_3_1
   libauto =
     applePackage "libauto" "osx-10.9.5" "sha256-GnRcKq8jRbEsI/PSDphwUjWtpEIEcnLlQL9yxYLgSsU="
       { };
-  Libc =
-    applePackage "Libc" "osx-10.12.6" "sha256-LSsL7S3KFgGU9qjK4atu/4wBh8ftgfsk6JOvg+ZTZOY="
-      {
-        Libc_10-9 = fetchFromGitHub {
-          owner = "apple-oss-distributions";
-          repo = "Libc";
-          rev = "Libc-997.90.3";
-          hash = "sha256-B18RNO+Rai5XE52TKdJV7eknosTZ+bRERkiU12d/kPU=";
-        };
-        Libc_old =
-          applePackage "Libc/825_40_1.nix" "osx-10.8.5"
-            "sha256-JvPSY7FzraGpqF/jYLfhU2o/2195NuKrXsryYfVtx3s="
-            { };
-      };
+  Libc = applePackage "Libc" "osx-10.12.6" "sha256-LSsL7S3KFgGU9qjK4atu/4wBh8ftgfsk6JOvg+ZTZOY=" {
+    Libc_10-9 = fetchFromGitHub {
+      owner = "apple-oss-distributions";
+      repo = "Libc";
+      rev = "Libc-997.90.3";
+      hash = "sha256-B18RNO+Rai5XE52TKdJV7eknosTZ+bRERkiU12d/kPU=";
+    };
+    Libc_old =
+      applePackage "Libc/825_40_1.nix" "osx-10.8.5" "sha256-JvPSY7FzraGpqF/jYLfhU2o/2195NuKrXsryYfVtx3s="
+        { };
+  };
   libclosure =
     applePackage "libclosure" "osx-10.11.6" "sha256-L5rQ+UBpf3B+W1U+gZKk7fXulslHsc8lxnCsplV+nr0="
       { };
@@ -361,9 +334,7 @@ developerToolsPackages_11_3_1
   Libinfo =
     applePackage "Libinfo" "osx-10.11.6" "sha256-6F7wiwerv4nz/xXHtp1qCHSaFzZgzcRN+jbmXA5oWOQ="
       { };
-  Libm =
-    applePackage "Libm" "osx-10.7.4" "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es="
-      { };
+  Libm = applePackage "Libm" "osx-10.7.4" "sha256-KjMETfT4qJm0m0Ux/F6Rq8bI4Q4UVnFx6IKbKxXd+Es=" { };
   Libnotify =
     applePackage "Libnotify" "osx-10.12.6" "sha256-6wvMBxAUfiYcQtmlfYCj1d3kFmFM/jdboTd7hRvi3e4="
       { };
@@ -386,15 +357,12 @@ developerToolsPackages_11_3_1
     applePackage "libunwind" "osx-10.12.6" "sha256-CC0sndP/mKYe3dZu3v7fjuDASV4V4w7dAcnWMvpoquE="
       { };
   mDNSResponder =
-    applePackage "mDNSResponder" "osx-10.12.6"
-      "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY="
+    applePackage "mDNSResponder" "osx-10.12.6" "sha256-ddZr6tropkpdMJhq/kUlm3OwO8b0yxtkrMpwec8R4FY="
       { };
   objc4 =
     applePackage "objc4" "osx-10.12.6" "sha256-ZsxRpdsfv3Dxs7yBBCkjbKXKR6aXwkEpxc1XYXz7ueM="
       { };
-  ppp =
-    applePackage "ppp" "osx-10.12.6" "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0="
-      { };
+  ppp = applePackage "ppp" "osx-10.12.6" "sha256-M1zoEjjeKIDUEP6ACbpUJk3OXjobw4g/qzUmxGdX1J0=" { };
   removefile =
     applePackage "removefile" "osx-10.12.6" "sha256-UpNk27kGXnZss1ZXWVJU9jLz/NW63ZAZEDLhyCYoi9M="
       { };
@@ -405,9 +373,7 @@ developerToolsPackages_11_3_1
       }
     else
       macosPackages_11_0_1.xnu;
-  hfs =
-    applePackage "hfs" "osx-10.12.6" "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4="
-      { };
+  hfs = applePackage "hfs" "osx-10.12.6" "sha256-eGi18HQFJrU5UHoBOE0LqO5gQ0xOf8+OJuAWQljfKE4=" { };
   Librpcsvc =
     applePackage "Librpcsvc" "osx-10.11.6" "sha256-YHbGws901xONzAbo6sB5zSea4Wp0sgYUJ8YgwVfWxnE="
       { };
@@ -418,16 +384,14 @@ developerToolsPackages_11_3_1
     applePackage "basic_cmds" "osx-10.11.6" "sha256-BYPPTg4/7x6RPs0WwwQlkNiZxxArV+7EVe6bM+a/I6Q="
       { };
   developer_cmds =
-    applePackage "developer_cmds" "osx-10.11.6"
-      "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo="
+    applePackage "developer_cmds" "osx-10.11.6" "sha256-h0wMVlS6QdRvKOVJ74W9ziHYGApjvnk77AIR6ukYBRo="
       { };
   diskdev_cmds =
     applePackage "diskdev_cmds" "osx-10.11.6" "sha256-VX+hcZ7JhOA8EhwLloPlM3Yx79RXp9OYHV9Mi10uw3Q="
       { macosPackages_11_0_1 = macosPackages_11_0_1; };
   network_cmds =
     if stdenv.isx86_64 then
-      applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M="
-        { }
+      applePackage "network_cmds" "osx-10.11.6" "sha256-I89CLIswGheewOjiNZwQTgWvWbhm0qtB5+KUqzxnQ5M=" { }
     else
       macosPackages_11_0_1.network_cmds;
   file_cmds =
@@ -442,12 +406,9 @@ developerToolsPackages_11_3_1
   text_cmds =
     applePackage "text_cmds" "osx-10.11.6" "sha256-KSebU7ZyUsPeqn51nzuGNaNxs9pvmlIQQdkWXIVzDxw="
       { };
-  top =
-    applePackage "top" "osx-10.11.6" "sha256-jbz64ODogtpNyLpXGSZj1jCBdFPVXcVcBkL1vc7g5qQ="
-      { };
+  top = applePackage "top" "osx-10.11.6" "sha256-jbz64ODogtpNyLpXGSZj1jCBdFPVXcVcBkL1vc7g5qQ=" { };
   PowerManagement =
-    applePackage "PowerManagement" "osx-10.11.6"
-      "sha256-bYGtYnBOcE5W03AZzfVTJXPZ6GgryGAMt/LgLPxFkVk="
+    applePackage "PowerManagement" "osx-10.11.6" "sha256-bYGtYnBOcE5W03AZzfVTJXPZ6GgryGAMt/LgLPxFkVk="
       { };
 
   # `configdHeaders` can’t use an override because `pkgs.darwin.configd` on aarch64-darwin will
@@ -465,7 +426,6 @@ developerToolsPackages_11_3_1
   # TODO(matthewbauer):
   # To be removed, once I figure out how to build a newer Security version.
   Security =
-    applePackage "Security/boot.nix" "osx-10.9.5"
-      "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
+    applePackage "Security/boot.nix" "osx-10.9.5" "sha256-7qr0IamjCXCobIJ6V9KtvbMBkJDfRCy4C5eqpHJlQLI="
       { };
 }

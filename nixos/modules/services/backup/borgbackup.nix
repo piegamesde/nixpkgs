@@ -83,8 +83,7 @@ let
         borg prune $extraArgs \
           ${mkKeepArgs cfg} \
           ${
-            optionalString (cfg.prune.prefix != null)
-              "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
+            optionalString (cfg.prune.prefix != null) "--glob-archives ${escapeShellArg "${cfg.prune.prefix}*"}"
           } \
           $extraPruneArgs
         borg compact $extraArgs $extraCompactArgs

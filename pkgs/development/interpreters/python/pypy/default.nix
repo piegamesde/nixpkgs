@@ -162,9 +162,7 @@ stdenv.mkDerivation rec {
 
     # other packages expect to find stuff according to libPrefix
     ln -s $out/${executable}-c/include $out/include/${libPrefix}
-    ln -s $out/${executable}-c/lib-python/${
-      if isPy3k then "3" else pythonVersion
-    } $out/lib/${libPrefix}
+    ln -s $out/${executable}-c/lib-python/${if isPy3k then "3" else pythonVersion} $out/lib/${libPrefix}
 
     # Include a sitecustomize.py file
     cp ${../sitecustomize.py} $out/${

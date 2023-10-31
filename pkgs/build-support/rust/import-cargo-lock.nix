@@ -53,8 +53,7 @@ let
       // lib.optionalAttrs (type != null) { inherit type value; };
 
   # shadows args.lockFileContents
-  lockFileContents =
-    if lockFile != null then builtins.readFile lockFile else args.lockFileContents;
+  lockFileContents = if lockFile != null then builtins.readFile lockFile else args.lockFileContents;
 
   parsedLockFile = builtins.fromTOML lockFileContents;
 

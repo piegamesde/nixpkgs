@@ -283,9 +283,7 @@ let
           "--name=${escapedName}"
           "--log-driver=${container.log-driver}"
         ]
-        ++
-          optional (container.entrypoint != null)
-            "--entrypoint=${escapeShellArg container.entrypoint}"
+        ++ optional (container.entrypoint != null) "--entrypoint=${escapeShellArg container.entrypoint}"
         ++ lib.optionals (cfg.backend == "podman") [
           "--cidfile=/run/podman-${escapedName}.ctr-id"
           "--cgroups=no-conmon"
@@ -358,9 +356,7 @@ in
             lib.mapAttrs
               (
                 n: v:
-                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [
-                  "extraDockerOptions"
-                ]
+                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
               )
               oldcfg.docker-containers;
         }

@@ -117,8 +117,7 @@ rec {
         '';
 
       meta = common.meta // {
-        longDescription =
-          common.meta.longDescription + "This package provides the servers and libraries.";
+        longDescription = common.meta.longDescription + "This package provides the servers and libraries.";
       };
     }
   );

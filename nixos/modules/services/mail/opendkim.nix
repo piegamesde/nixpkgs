@@ -123,9 +123,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "opendkim") {
-      opendkim.gid = config.ids.gids.opendkim;
-    };
+    users.groups = optionalAttrs (cfg.group == "opendkim") { opendkim.gid = config.ids.gids.opendkim; };
 
     environment.systemPackages = [ pkgs.opendkim ];
 

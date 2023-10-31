@@ -103,8 +103,7 @@ in
       };
 
       banaction = mkOption {
-        default =
-          if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
+        default = if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
         defaultText =
           literalExpression
             ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
@@ -303,8 +302,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          (cfg.bantime-increment.formula == null || cfg.bantime-increment.multipliers == null);
+        assertion = (cfg.bantime-increment.formula == null || cfg.bantime-increment.multipliers == null);
         message = ''
           Options `services.fail2ban.bantime-increment.formula` and `services.fail2ban.bantime-increment.multipliers` cannot be both specified.
         '';

@@ -32,12 +32,8 @@ import ./make-test-python.nix (
       {
         environment = {
           enableAllTerminfo = true;
-          etc."terminfo-missing".text = builtins.concatStringsSep "\n" (
-            builtins.attrNames excludedTerminfos
-          );
-          etc."terminfo-extra-outs".text = builtins.concatStringsSep "\n" (
-            builtins.attrNames includedOuts
-          );
+          etc."terminfo-missing".text = builtins.concatStringsSep "\n" (builtins.attrNames excludedTerminfos);
+          etc."terminfo-extra-outs".text = builtins.concatStringsSep "\n" (builtins.attrNames includedOuts);
         };
       };
 

@@ -87,9 +87,7 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
-    targetPlatform.config + "-"
-  );
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (targetPlatform.config + "-");
 
   ccVersion = lib.getVersion cc;
   ccName = lib.removePrefix targetPrefix (lib.getName cc);
@@ -97,8 +95,7 @@ let
   libc_bin = if libc == null then "" else getBin libc;
   libc_dev = if libc == null then "" else getDev libc;
   libc_lib = if libc == null then "" else getLib libc;
-  cc_solib =
-    getLib cc + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
+  cc_solib = getLib cc + optionalString (targetPlatform != hostPlatform) "/${targetPlatform.config}";
 
   # The wrapper scripts use 'cat' and 'grep', so we may need coreutils.
   coreutils_bin = if nativeTools then "" else getBin coreutils;
@@ -121,8 +118,7 @@ let
       targetPlatform.config;
 
   expand-response-params =
-    lib.optionalString
-      ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null")
+    lib.optionalString ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null")
       (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
   useGccForLibs =
@@ -479,11 +475,7 @@ stdenv.mkDerivation {
     # bundled with the C compiler because it is GCC
     +
       optionalString
-        (
-          libcxx != null
-          || (useGccForLibs && gccForLibs.langCC or false)
-          || (isGNU && cc.langCC or false)
-        )
+        (libcxx != null || (useGccForLibs && gccForLibs.langCC or false) || (isGNU && cc.langCC or false))
         ''
           touch "$out/nix-support/libcxx-cxxflags"
           touch "$out/nix-support/libcxx-ldflags"
@@ -492,20 +484,18 @@ stdenv.mkDerivation {
     # already knows how to find its own libstdc++, and adding
     # additional -isystem flags will confuse gfortran (see
     # https://github.com/NixOS/nixpkgs/pull/209870#issuecomment-1500550903)
-    +
-      optionalString (libcxx == null && isClang && (useGccForLibs && gccForLibs.langCC or false))
-        ''
-          for dir in ${gccForLibs}${
-            lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
-          }/include/c++/*; do
-            echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
-          done
-          for dir in ${gccForLibs}${
-            lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
-          }/include/c++/*/${targetPlatform.config}; do
-            echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
-          done
-        ''
+    + optionalString (libcxx == null && isClang && (useGccForLibs && gccForLibs.langCC or false)) ''
+      for dir in ${gccForLibs}${
+        lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
+      }/include/c++/*; do
+        echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
+      done
+      for dir in ${gccForLibs}${
+        lib.optionalString (hostPlatform != targetPlatform) "/${targetPlatform.config}"
+      }/include/c++/*/${targetPlatform.config}; do
+        echo "-isystem $dir" >> $out/nix-support/libcxx-cxxflags
+      done
+    ''
     + optionalString (libcxx.isLLVM or false) ''
       echo "-isystem ${lib.getDev libcxx}/include/c++/v1" >> $out/nix-support/libcxx-cxxflags
       echo "-stdlib=libc++" >> $out/nix-support/libcxx-ldflags
@@ -591,8 +581,7 @@ stdenv.mkDerivation {
     # and march instead.
     # TODO: aarch64-darwin has mcpu incompatible with gcc
     +
-      optionalString
-        ((targetPlatform ? gcc.cpu) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)))
+      optionalString ((targetPlatform ? gcc.cpu) && (isClang || !(stdenv.isDarwin && stdenv.isAarch64)))
         ''
           echo "-mcpu=${targetPlatform.gcc.cpu}" >> $out/nix-support/cc-cflags-before
         ''
@@ -610,9 +599,7 @@ stdenv.mkDerivation {
       echo "-mmode=${targetPlatform.gcc.mode}" >> $out/nix-support/cc-cflags-before
     ''
     + optionalString (targetPlatform ? gcc.thumb) ''
-      echo "-m${
-        if targetPlatform.gcc.thumb then "thumb" else "arm"
-      }" >> $out/nix-support/cc-cflags-before
+      echo "-m${if targetPlatform.gcc.thumb then "thumb" else "arm"}" >> $out/nix-support/cc-cflags-before
     ''
     + optionalString (targetPlatform ? gcc.tune && isGccArchSupported targetPlatform.gcc.tune) ''
       echo "-mtune=${targetPlatform.gcc.tune}" >> $out/nix-support/cc-cflags-before

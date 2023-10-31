@@ -11,10 +11,7 @@
 
   # A list of files or a directory containing files
   tessdata ? (
-    if enableLanguages == null then
-      languages.all
-    else
-      map (lang: languages.${lang}) enableLanguages
+    if enableLanguages == null then languages.all else map (lang: languages.${lang}) enableLanguages
   ),
 
   # This argument is obsolete

@@ -43,9 +43,7 @@ stdenv.mkDerivation rec {
         s,/etc/pcmcia,$out&,;
       " src/{startup.c,pcmcia-check-broken-cis.c} # fix-color */
     ''
-    + (lib.optionalString (firmware == [ ])
-      ''sed -i "s,STARTUP = true,STARTUP = false," Makefile''
-    )
+    + (lib.optionalString (firmware == [ ]) ''sed -i "s,STARTUP = true,STARTUP = false," Makefile'')
     + (lib.optionalString (configOpts != null) "ln -sf ${configOpts} ./config/config.opts");
 
   makeFlags = [ "LEX=flex" ];

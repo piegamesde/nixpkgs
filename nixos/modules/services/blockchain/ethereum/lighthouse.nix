@@ -244,9 +244,7 @@ in
 
         ${pkgs.lighthouse}/bin/lighthouse beacon_node \
           --disable-upnp \
-          ${
-            lib.optionalString cfg.beacon.disableDepositContractSync "--disable-deposit-contract-sync"
-          } \
+          ${lib.optionalString cfg.beacon.disableDepositContractSync "--disable-deposit-contract-sync"} \
           --port ${toString cfg.beacon.port} \
           --listen-address ${cfg.beacon.address} \
           --network ${cfg.network} \

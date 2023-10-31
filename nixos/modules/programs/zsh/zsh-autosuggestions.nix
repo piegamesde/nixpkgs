@@ -88,9 +88,7 @@ in
       export ZSH_AUTOSUGGEST_STRATEGY=(${concatStringsSep " " cfg.strategy})
       ${optionalString (!cfg.async) "unset ZSH_AUTOSUGGEST_USE_ASYNC"}
 
-      ${concatStringsSep "\n" (
-        mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList (key: value: ''export ${key}="${value}"'') cfg.extraConfig)}
     '';
   };
 }

@@ -167,9 +167,7 @@ let
   licenseNames = lib.lists.unique ([ "android-sdk-license" ] ++ extraLicenses);
 in
 rec {
-  deployAndroidPackages = callPackage ./deploy-androidpackages.nix {
-    inherit stdenv lib mkLicenses;
-  };
+  deployAndroidPackages = callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
   deployAndroidPackage =
     (
       {
@@ -300,22 +298,20 @@ rec {
             # null
             # ```
             let
-              availablePackages =
-                map (abiVersion: system-images-packages.${apiVersion}.${type}.${abiVersion})
+              availablePackages = map (abiVersion: system-images-packages.${apiVersion}.${type}.${abiVersion}) (
+                builtins.filter
                   (
-                    builtins.filter
-                      (
-                        abiVersion:
-                        lib.hasAttrByPath
-                          [
-                            apiVersion
-                            type
-                            abiVersion
-                          ]
-                          system-images-packages
-                      )
-                      abiVersions
-                  );
+                    abiVersion:
+                    lib.hasAttrByPath
+                      [
+                        apiVersion
+                        type
+                        abiVersion
+                      ]
+                      system-images-packages
+                  )
+                  abiVersions
+              );
 
               instructions = builtins.listToAttrs (
                 map

@@ -180,8 +180,7 @@ in
           };
         in
         mapListToAttrs (if builtins.elem provider blas64Providers then blas64Users else blasUsers) (
-          attr:
-          if builtins.isList attr then lib.getAttrFromPath attr pkgs else builtins.getAttr attr pkgs
+          attr: if builtins.isList attr then lib.getAttrFromPath attr pkgs else builtins.getAttr attr pkgs
         )
 
         // {

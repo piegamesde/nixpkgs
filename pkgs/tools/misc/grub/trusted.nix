@@ -120,9 +120,7 @@ stdenv.mkDerivation rec {
   ];
 
   # save target that grub is compiled for
-  grubTarget =
-    lib.optionalString inPCSystems
-      "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
+  grubTarget = lib.optionalString inPCSystems "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
 
   doCheck = false;
   # On -j16 races with early header creation:

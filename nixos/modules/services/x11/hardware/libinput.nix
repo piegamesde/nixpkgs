@@ -46,9 +46,7 @@ let
       type = types.nullOr types.str;
       default = null;
       example = "-0.5";
-      description =
-        lib.mdDoc
-          "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
+      description = lib.mdDoc "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
     };
 
     buttonMapping = mkOption {
@@ -232,8 +230,7 @@ let
     Identifier "libinput ${deviceType} configuration"
     MatchDriver "libinput"
     MatchIs${matchIs} "${xorgBool true}"
-    ${optionalString (cfg.${deviceType}.dev != null)
-      ''MatchDevicePath "${cfg.${deviceType}.dev}"''}
+    ${optionalString (cfg.${deviceType}.dev != null) ''MatchDevicePath "${cfg.${deviceType}.dev}"''}
     Option "AccelProfile" "${cfg.${deviceType}.accelProfile}"
     ${optionalString (cfg.${deviceType}.accelSpeed != null)
       ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}

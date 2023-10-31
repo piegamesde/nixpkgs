@@ -16,8 +16,7 @@ with lib;
     services.system-config-printer = {
 
       enable = mkEnableOption (
-        lib.mdDoc
-          "system-config-printer, a service for CUPS administration used by printing interfaces"
+        lib.mdDoc "system-config-printer, a service for CUPS administration used by printing interfaces"
       );
     };
   };

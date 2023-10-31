@@ -110,9 +110,7 @@ in
       let
         capabilityString =
           with cfg.capabilities;
-          concatStringsSep "," (
-            (optional view "view") ++ (optional add "add") ++ (optional manage "manage")
-          );
+          concatStringsSep "," ((optional view "view") ++ (optional add "add") ++ (optional manage "manage"));
         serverArgs =
           with cfg;
           escapeShellArgs (

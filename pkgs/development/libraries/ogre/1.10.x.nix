@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
   version = "1.10.11";
 
   src = fetchurl {
-    url = "https://bitbucket.org/sinbad/ogre/get/v${
-        lib.replaceStrings [ "." ] [ "-" ] version
-      }.tar.gz";
+    url = "https://bitbucket.org/sinbad/ogre/get/v${lib.replaceStrings [ "." ] [ "-" ] version}.tar.gz";
     sha256 = "1zwvlx5dz9nwjazhnrhzb0w8ilpa84r0hrxrmmy69pgr1p1yif5a";
   };
 

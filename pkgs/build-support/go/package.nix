@@ -88,8 +88,7 @@ let
 
   importGodeps = { depsFile }: map dep2src (import depsFile);
 
-  goPath =
-    if goDeps != null then importGodeps { depsFile = goDeps; } ++ extraSrcs else extraSrcs;
+  goPath = if goDeps != null then importGodeps { depsFile = goDeps; } ++ extraSrcs else extraSrcs;
   package = stdenv.mkDerivation (
     (builtins.removeAttrs args [
       "goPackageAliases"
@@ -317,9 +316,7 @@ let
             goPath
         )
         + ''
-          export GOPATH=${
-            lib.concatStringsSep ":" ([ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths)
-          }
+          export GOPATH=${lib.concatStringsSep ":" ([ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths)}
         ''
         + shellHook;
 

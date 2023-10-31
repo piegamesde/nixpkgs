@@ -124,16 +124,10 @@ stdenv.mkDerivation rec {
       "-DCMAKE_C_FLAGS=-fPIC"
       "-DCMAKE_CXX_FLAGS=-fPIC"
       "-D${
-        if lib.versionOlder version "9.0" then
-          "VTK_USE_SYSTEM_PNG"
-        else
-          "VTK_MODULE_USE_EXTERNAL_vtkpng"
+        if lib.versionOlder version "9.0" then "VTK_USE_SYSTEM_PNG" else "VTK_MODULE_USE_EXTERNAL_vtkpng"
       }=ON"
       "-D${
-        if lib.versionOlder version "9.0" then
-          "VTK_USE_SYSTEM_TIFF"
-        else
-          "VTK_MODULE_USE_EXTERNAL_vtktiff"
+        if lib.versionOlder version "9.0" then "VTK_USE_SYSTEM_TIFF" else "VTK_MODULE_USE_EXTERNAL_vtktiff"
       }=1"
       "-DOPENGL_INCLUDE_DIR=${libGL}/include"
       "-DCMAKE_INSTALL_LIBDIR=lib"
@@ -143,10 +137,7 @@ stdenv.mkDerivation rec {
     ]
     ++ optionals enableQt [
       "-D${
-        if lib.versionOlder version "9.0" then
-          "VTK_Group_Qt:BOOL=ON"
-        else
-          "VTK_GROUP_ENABLE_Qt:STRING=YES"
+        if lib.versionOlder version "9.0" then "VTK_Group_Qt:BOOL=ON" else "VTK_GROUP_ENABLE_Qt:STRING=YES"
       }"
     ]
     ++ optionals (enableQt && lib.versionOlder version "8.0") [ "-DVTK_QT_VERSION=5" ]

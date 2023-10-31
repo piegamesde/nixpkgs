@@ -184,8 +184,7 @@ let
   # Same as our GHC, unless we're cross, in which case it is native GHC with the
   # same version, or ghcjs, in which case its the ghc used to build ghcjs.
   nativeGhc = buildHaskellPackages.ghc;
-  nativePackageDbFlag =
-    if versionOlder "7.6" nativeGhc.version then "package-db" else "package-conf";
+  nativePackageDbFlag = if versionOlder "7.6" nativeGhc.version then "package-db" else "package-conf";
 
   # the target dir for haddock documentation
   docdir = docoutput: docoutput + "/share/doc/" + pname + "-" + version;
@@ -255,16 +254,11 @@ let
       "--hsc2hs-option=--cross-compile"
       (optionalString enableHsc2hsViaAsm "--hsc2hs-option=--via-asm")
     ]
-    ++
-      optional (allPkgconfigDepends != [ ])
-        "--with-pkg-config=${pkg-config.targetPrefix}pkg-config";
+    ++ optional (allPkgconfigDepends != [ ]) "--with-pkg-config=${pkg-config.targetPrefix}pkg-config";
 
-  parallelBuildingFlags =
-    "-j$NIX_BUILD_CORES" + optionalString stdenv.isLinux " +RTS -A64M -RTS";
+  parallelBuildingFlags = "-j$NIX_BUILD_CORES" + optionalString stdenv.isLinux " +RTS -A64M -RTS";
 
-  crossCabalFlagsString = lib.optionalString isCross (
-    " " + lib.concatStringsSep " " crossCabalFlags
-  );
+  crossCabalFlagsString = lib.optionalString isCross (" " + lib.concatStringsSep " " crossCabalFlags);
 
   buildFlagsString = optionalString (buildFlags != [ ]) (" " + concatStringsSep " " buildFlags);
 
@@ -312,9 +306,7 @@ let
       ))
       (enableFeature enableSharedLibraries "shared")
       (optionalString (versionAtLeast ghc.version "7.10") (enableFeature doCoverage "coverage"))
-      (optionalString (versionOlder "8.4" ghc.version) (
-        enableFeature enableStaticLibraries "static"
-      ))
+      (optionalString (versionOlder "8.4" ghc.version) (enableFeature enableStaticLibraries "static"))
       (optionalString (isGhcjs || versionOlder "7.4" ghc.version) (
         enableFeature enableSharedExecutables "executable-dynamic"
       ))
@@ -369,9 +361,7 @@ let
       ghc
       removeReferencesTo
     ]
-    ++ optional (allPkgconfigDepends != [ ]) pkg-config
-    ++ setupHaskellDepends
-    ++ collectedToolDepends;
+    ++ optional (allPkgconfigDepends != [ ]) pkg-config ++ setupHaskellDepends ++ collectedToolDepends;
   propagatedBuildInputs =
     buildDepends ++ libraryHaskellDepends ++ executableHaskellDepends ++ libraryFrameworkDepends;
   otherBuildInputsHaskell =
@@ -396,10 +386,7 @@ let
       testDepends ++ testHaskellDepends ++ testSystemDepends ++ testFrameworkDepends
     )
     ++ optionals doBenchmark (
-      benchmarkDepends
-      ++ benchmarkHaskellDepends
-      ++ benchmarkSystemDepends
-      ++ benchmarkFrameworkDepends
+      benchmarkDepends ++ benchmarkHaskellDepends ++ benchmarkSystemDepends ++ benchmarkFrameworkDepends
     );
 
   setupCommand = "./Setup";
@@ -410,8 +397,7 @@ let
   ghcNameWithPrefix = "${ghc.targetPrefix}${ghc.haskellCompilerName}";
   mkGhcLibdir =
     ghc:
-    "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}"
-    + lib.optionalString (ghc ? hadrian) "/lib";
+    "lib/${ghc.targetPrefix}${ghc.haskellCompilerName}" + lib.optionalString (ghc ? hadrian) "/lib";
   ghcLibdir = mkGhcLibdir ghc;
 
   nativeGhcCommand = "${nativeGhc.targetPrefix}ghc";
@@ -813,10 +799,7 @@ lib.fix (
             ghcEnvForBuild = assert isCross; buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
 
             ghcEnv = withPackages (
-              _:
-              otherBuildInputsHaskell
-              ++ propagatedBuildInputs
-              ++ lib.optionals (!isCross) setupHaskellDepends
+              _: otherBuildInputsHaskell ++ propagatedBuildInputs ++ lib.optionals (!isCross) setupHaskellDepends
             );
 
             ghcCommandCaps = lib.toUpper ghcCommand';
@@ -840,10 +823,7 @@ lib.fix (
             # TODO: is this still valid?
             "NIX_${ghcCommandCaps}_DOCDIR" = "${ghcEnv}/share/doc/ghc/html";
             "NIX_${ghcCommandCaps}_LIBDIR" =
-              if ghc.isHaLVM or false then
-                "${ghcEnv}/lib/HaLVM-${ghc.version}"
-              else
-                "${ghcEnv}/${ghcLibdir}";
+              if ghc.isHaLVM or false then "${ghcEnv}/lib/HaLVM-${ghc.version}" else "${ghcEnv}/${ghcLibdir}";
           });
 
         env = envFunc { };

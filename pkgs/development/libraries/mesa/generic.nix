@@ -140,8 +140,7 @@ let
 
   haveWayland = lib.elem "wayland" eglPlatforms;
   haveZink = lib.elem "zink" galliumDrivers;
-  haveDozen =
-    (lib.elem "d3d12" galliumDrivers) || (lib.elem "microsoft-experimental" vulkanDrivers);
+  haveDozen = (lib.elem "d3d12" galliumDrivers) || (lib.elem "microsoft-experimental" vulkanDrivers);
   self = stdenv.mkDerivation {
     pname = "mesa";
     inherit version;
@@ -254,9 +253,7 @@ let
         "-Drust_std=2021"
         "-Dclang-libdir=${llvmPackages.clang-unwrapped.lib}/lib"
       ]
-      ++
-        lib.optional enablePatentEncumberedCodecs
-          "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
+      ++ lib.optional enablePatentEncumberedCodecs "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec"
       ++
         lib.optional (vulkanLayers != [ ])
           "-D vulkan-layers=${builtins.concatStringsSep "," vulkanLayers}";

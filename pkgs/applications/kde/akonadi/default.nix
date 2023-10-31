@@ -70,10 +70,7 @@ mkDerivation {
     "dev"
   ];
   CXXFLAGS = [
-    ''
-      -DNIXPKGS_MYSQL_MYSQLD=\"${
-        lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqld"
-      }\"''
+    ''-DNIXPKGS_MYSQL_MYSQLD=\"${lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqld"}\"''
     ''
       -DNIXPKGS_MYSQL_MYSQLADMIN=\"${
         lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqladmin"

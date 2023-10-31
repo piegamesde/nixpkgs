@@ -169,8 +169,7 @@ in
     largeDicts = with lib; filter (d: hasInfix "-large-wordlist" d.name) hunspellDictionaries;
     otherDicts =
       with lib;
-      filter
-        (d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts)))
+      filter (d: !(hasAttr "dictFileName" d && elem d.dictFileName (map (d: d.dictFileName) largeDicts)))
         hunspellDictionaries;
     dictionaries = largeDicts ++ otherDicts;
 

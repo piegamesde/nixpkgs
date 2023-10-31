@@ -47,9 +47,7 @@ let
     #version=${pkg.version}
     # DONT'T REMOVE THE PREVIOUS VERSION LINE!
     #
-    ${concatStringsSep "\n" (
-      mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config
-    )}
+    ${concatStringsSep "\n" (mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config)}
   '';
 in
 {

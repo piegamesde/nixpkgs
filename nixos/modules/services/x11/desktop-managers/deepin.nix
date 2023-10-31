@@ -82,9 +82,7 @@ in
 
     environment.sessionVariables = {
       NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-      DDE_POLKIT_AGENT_PLUGINS_DIRS = [
-        "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins"
-      ];
+      DDE_POLKIT_AGENT_PLUGINS_DIRS = [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
     };
 
     environment.pathsToLink = [

@@ -130,8 +130,7 @@ let
         --set-rpath "${atomEnv.libPath}:${electronLibPath}:$out/lib/electron" \
         $out/lib/electron/electron \
         ${
-          lib.optionalString (lib.versionAtLeast version "15.0.0")
-            "$out/lib/electron/chrome_crashpad_handler"
+          lib.optionalString (lib.versionAtLeast version "15.0.0") "$out/lib/electron/chrome_crashpad_handler"
         }
 
       wrapProgram $out/lib/electron/electron "''${gappsWrapperArgs[@]}"
@@ -153,6 +152,4 @@ let
     '';
   };
 in
-stdenv.mkDerivation (
-  (common stdenv.hostPlatform) // (if stdenv.isDarwin then darwin else linux)
-)
+stdenv.mkDerivation ((common stdenv.hostPlatform) // (if stdenv.isDarwin then darwin else linux))

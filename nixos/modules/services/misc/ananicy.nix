@@ -12,10 +12,7 @@ let
   configFile = pkgs.writeText "ananicy.conf" (generators.toKeyValue { } cfg.settings);
   extraRules = pkgs.writeText "extraRules" cfg.extraRules;
   servicename =
-    if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then
-      "ananicy-cpp"
-    else
-      "ananicy";
+    if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then "ananicy-cpp" else "ananicy";
 in
 {
   options = {

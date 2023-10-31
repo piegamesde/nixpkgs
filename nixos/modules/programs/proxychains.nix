@@ -11,8 +11,7 @@ let
 
   configFile = ''
     ${cfg.chain.type}_chain
-    ${optionalString (cfg.chain.type == "random")
-      "chain_len = ${builtins.toString cfg.chain.length}"}
+    ${optionalString (cfg.chain.type == "random") "chain_len = ${builtins.toString cfg.chain.length}"}
     ${optionalString cfg.proxyDNS "proxy_dns"}
     ${optionalString cfg.quietMode "quiet_mode"}
     remote_dns_subnet ${builtins.toString cfg.remoteDNSSubnet}

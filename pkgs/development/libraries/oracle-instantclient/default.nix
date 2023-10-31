@@ -110,9 +110,7 @@ let
     map
       (
         component:
-        (fetcher (srcFilename component arch version rels.${component} or "")
-          hashes.${component} or ""
-        )
+        (fetcher (srcFilename component arch version rels.${component} or "") hashes.${component} or "")
       )
       components;
 

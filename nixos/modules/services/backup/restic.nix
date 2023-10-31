@@ -331,9 +331,7 @@ in
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags =
               if (backup.exclude != [ ]) then
-                [
-                  "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}"
-                ]
+                [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ]
               else
                 [ ];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
@@ -372,25 +370,21 @@ in
                 );
               path = [ pkgs.openssh ];
               restartIfChanged = false;
-              serviceConfig =
-                {
-                  Type = "oneshot";
-                  ExecStart =
-                    (optionals (backupPaths != "") [
-                      "${resticCmd} backup ${
-                        concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-                      } ${backupPaths}"
-                    ])
-                    ++ pruneCmd;
-                  User = backup.user;
-                  RuntimeDirectory = "restic-backups-${name}";
-                  CacheDirectory = "restic-backups-${name}";
-                  CacheDirectoryMode = "0700";
-                  PrivateTmp = true;
-                }
-                // optionalAttrs (backup.environmentFile != null) {
-                  EnvironmentFile = backup.environmentFile;
-                };
+              serviceConfig = {
+                Type = "oneshot";
+                ExecStart =
+                  (optionals (backupPaths != "") [
+                    "${resticCmd} backup ${
+                      concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
+                    } ${backupPaths}"
+                  ])
+                  ++ pruneCmd;
+                User = backup.user;
+                RuntimeDirectory = "restic-backups-${name}";
+                CacheDirectory = "restic-backups-${name}";
+                CacheDirectoryMode = "0700";
+                PrivateTmp = true;
+              } // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
             }
             //
               optionalAttrs

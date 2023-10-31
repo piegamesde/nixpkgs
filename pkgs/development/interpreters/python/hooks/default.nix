@@ -257,8 +257,7 @@ in
     callPackage
       (
         { makePythonHook }:
-        makePythonHook { name = "python-remove-bin-bytecode-hook"; }
-          ./python-remove-bin-bytecode-hook.sh
+        makePythonHook { name = "python-remove-bin-bytecode-hook"; } ./python-remove-bin-bytecode-hook.sh
       )
       { };
 

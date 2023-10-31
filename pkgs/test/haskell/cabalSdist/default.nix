@@ -12,9 +12,7 @@ lib.recurseIntoAttrs rec {
   helloFromCabalSdist = haskellPackages.buildFromCabalSdist haskellPackages.hello;
 
   # A more complicated example with a cabal hook.
-  hercules-ci-cnix-store =
-    haskellPackages.buildFromCabalSdist
-      haskellPackages.hercules-ci-cnix-store;
+  hercules-ci-cnix-store = haskellPackages.buildFromCabalSdist haskellPackages.hercules-ci-cnix-store;
 
   localFromCabalSdist = haskellPackages.buildFromCabalSdist localRaw;
 

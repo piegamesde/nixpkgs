@@ -50,9 +50,7 @@ buildDunePackage rec {
   pname = "elpi";
   inherit (fetched) version src;
 
-  patches =
-    lib.optional (lib.versionAtLeast version "1.16" || version == "dev")
-      ./atd_2_10.patch;
+  patches = lib.optional (lib.versionAtLeast version "1.16" || version == "dev") ./atd_2_10.patch;
 
   minimalOCamlVersion = "4.04";
   duneVersion = "3";
@@ -71,9 +69,7 @@ buildDunePackage rec {
       re
       stdlib-shims
     ]
-    ++ (
-      if lib.versionAtLeast version "1.15" || version == "dev" then [ menhirLib ] else [ camlp5 ]
-    )
+    ++ (if lib.versionAtLeast version "1.15" || version == "dev" then [ menhirLib ] else [ camlp5 ])
     ++ (
       if lib.versionAtLeast version "1.13" || version == "dev" then
         [

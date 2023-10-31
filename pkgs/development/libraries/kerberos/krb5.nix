@@ -41,9 +41,7 @@ stdenv.mkDerivation rec {
   version = "1.20.1";
 
   src = fetchurl {
-    url = "https://kerberos.org/dist/krb5/${
-        lib.versions.majorMinor version
-      }/krb5-${version}.tar.gz";
+    url = "https://kerberos.org/dist/krb5/${lib.versions.majorMinor version}/krb5-${version}.tar.gz";
     sha256 = "sha256-cErtSbGetacXizSyhzYg7CmdsIdS1qhXT5XUGHmriFE=";
   };
 

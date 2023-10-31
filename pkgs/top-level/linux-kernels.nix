@@ -23,8 +23,7 @@
 with linuxKernel;
 
 let
-  deblobKernel =
-    kernel: callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; };
+  deblobKernel = kernel: callPackage ../os-specific/linux/kernel/linux-libre.nix { linux = kernel; };
 
   # Hardened Linux
   hardenedKernelFor =
@@ -289,9 +288,7 @@ in
         linux_5_19 = throw "linux 5.19 was removed because it has reached its end of life upstream";
         linux_6_0 = throw "linux 6.0 was removed because it has reached its end of life upstream";
 
-        linux_xanmod_tt =
-          throw
-            "linux_xanmod_tt was removed because upstream no longer offers this option";
+        linux_xanmod_tt = throw "linux_xanmod_tt was removed because upstream no longer offers this option";
 
         linux_5_18_hardened =
           throw
@@ -299,9 +296,7 @@ in
         linux_5_19_hardened =
           throw
             "linux 5.19 was removed because it has reached its end of life upstream";
-        linux_6_0_hardened =
-          throw
-            "linux 6.0 was removed because it has reached its end of life upstream";
+        linux_6_0_hardened = throw "linux 6.0 was removed because it has reached its end of life upstream";
       }
     )
   );
@@ -379,10 +374,7 @@ in
         dpdk = pkgs.dpdk.override { inherit kernel; };
 
         exfat-nofuse =
-          if lib.versionOlder kernel.version "5.8" then
-            callPackage ../os-specific/linux/exfat { }
-          else
-            null;
+          if lib.versionOlder kernel.version "5.8" then callPackage ../os-specific/linux/exfat { } else null;
 
         evdi = callPackage ../os-specific/linux/evdi { };
 
@@ -496,10 +488,7 @@ in
         rtlwifi_new = rtw88;
 
         rtw89 =
-          if lib.versionOlder kernel.version "5.16" then
-            callPackage ../os-specific/linux/rtw89 { }
-          else
-            null;
+          if lib.versionOlder kernel.version "5.16" then callPackage ../os-specific/linux/rtw89 { } else null;
 
         openafs_1_8 = callPackage ../servers/openafs/1.8/module.nix { };
         # Current stable release; don't backport release updates!
@@ -576,13 +565,11 @@ in
 
         virtio_vmmci = callPackage ../os-specific/linux/virtio_vmmci { };
 
-        virtualbox = callPackage ../os-specific/linux/virtualbox {
+        virtualbox = callPackage ../os-specific/linux/virtualbox { virtualbox = pkgs.virtualboxHardened; };
+
+        virtualboxGuestAdditions = callPackage ../applications/virtualization/virtualbox/guest-additions {
           virtualbox = pkgs.virtualboxHardened;
         };
-
-        virtualboxGuestAdditions =
-          callPackage ../applications/virtualization/virtualbox/guest-additions
-            { virtualbox = pkgs.virtualboxHardened; };
 
         vm-tools = callPackage ../os-specific/linux/vm-tools { };
 
@@ -599,10 +586,7 @@ in
         x86_energy_perf_policy = callPackage ../os-specific/linux/x86_energy_perf_policy { };
 
         xone =
-          if lib.versionAtLeast kernel.version "5.4" then
-            callPackage ../os-specific/linux/xone { }
-          else
-            null;
+          if lib.versionAtLeast kernel.version "5.4" then callPackage ../os-specific/linux/xone { } else null;
 
         xpadneo = callPackage ../os-specific/linux/xpadneo { };
 
@@ -680,9 +664,7 @@ in
       linux_testing = packagesFor kernels.linux_testing;
       linux_testing_bcachefs = recurseIntoAttrs (packagesFor kernels.linux_testing_bcachefs);
 
-      linux_hardened = recurseIntoAttrs (
-        hardenedPackagesFor packageAliases.linux_default.kernel { }
-      );
+      linux_hardened = recurseIntoAttrs (hardenedPackagesFor packageAliases.linux_default.kernel { });
 
       linux_4_14_hardened = recurseIntoAttrs (
         hardenedPackagesFor kernels.linux_4_14 {
@@ -731,12 +713,8 @@ in
       linux_5_19_hardened =
         throw
           "linux 5.19 was removed because it has reached its end of life upstream";
-      linux_6_0_hardened =
-        throw
-          "linux 6.0 was removed because it has reached its end of life upstream";
-      linux_xanmod_tt =
-        throw
-          "linux_xanmod_tt was removed because upstream no longer offers this option";
+      linux_6_0_hardened = throw "linux 6.0 was removed because it has reached its end of life upstream";
+      linux_xanmod_tt = throw "linux_xanmod_tt was removed because upstream no longer offers this option";
     }
   );
 

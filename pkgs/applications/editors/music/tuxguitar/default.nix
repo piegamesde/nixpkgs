@@ -13,8 +13,7 @@
 
 let
   metadata =
-    assert stdenv.hostPlatform.system == "i686-linux"
-      || stdenv.hostPlatform.system == "x86_64-linux";
+    assert stdenv.hostPlatform.system == "i686-linux" || stdenv.hostPlatform.system == "x86_64-linux";
     if stdenv.hostPlatform.system == "i686-linux" then
       {
         arch = "x86";

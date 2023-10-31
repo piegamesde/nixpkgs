@@ -9,16 +9,12 @@ with lib;
 
 let
 
-  configurationPrefix =
-    optionalString (versionAtLeast config.system.stateVersion "22.05")
-      "nixos-";
+  configurationPrefix = optionalString (versionAtLeast config.system.stateVersion "22.05") "nixos-";
   configurationDirectoryName = "${configurationPrefix}containers";
   configurationDirectory = "/etc/${configurationDirectoryName}";
   stateDirectory = "/var/lib/${configurationPrefix}containers";
 
-  nixos-container = pkgs.nixos-container.override {
-    inherit stateDirectory configurationDirectory;
-  };
+  nixos-container = pkgs.nixos-container.override { inherit stateDirectory configurationDirectory; };
 
   # The container's init script, a small wrapper around the regular
   # NixOS stage-2 init script.
@@ -319,9 +315,7 @@ let
         isReadOnly = mkOption {
           default = true;
           type = types.bool;
-          description =
-            lib.mdDoc
-              "Determine whether the mounted path will be accessed in read-only mode.";
+          description = lib.mdDoc "Determine whether the mounted path will be accessed in read-only mode.";
         };
       };
 
@@ -380,9 +374,7 @@ let
             protocol = mkOption {
               type = types.str;
               default = "tcp";
-              description =
-                lib.mdDoc
-                  "The protocol specifier for port forwarding between host and container";
+              description = lib.mdDoc "The protocol specifier for port forwarding between host and container";
             };
             hostPort = mkOption {
               type = types.int;
@@ -887,9 +879,7 @@ in
                   script = startScript containerConfig;
                   postStart = postStartScript containerConfig;
                   serviceConfig = serviceDirectives containerConfig;
-                  unitConfig.RequiresMountsFor =
-                    lib.optional (!containerConfig.ephemeral)
-                      "${stateDirectory}/%i";
+                  unitConfig.RequiresMountsFor = lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
                   environment.root =
                     if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
                 }

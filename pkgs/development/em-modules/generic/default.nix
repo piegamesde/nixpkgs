@@ -8,8 +8,7 @@
 argsFun:
 
 let
-  wrapDerivation =
-    f: pkgs.stdenv.mkDerivation (finalAttrs: f (lib.toFunction argsFun finalAttrs));
+  wrapDerivation = f: pkgs.stdenv.mkDerivation (finalAttrs: f (lib.toFunction argsFun finalAttrs));
 in
 wrapDerivation (
   {

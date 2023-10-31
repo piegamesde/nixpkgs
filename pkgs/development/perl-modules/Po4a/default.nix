@@ -48,9 +48,7 @@ buildPerlPackage rec {
     # shellscript that suffices for the tests in t/fmt/tex/, i.e. it looks up
     # article.cls to an existing file, but doesn't find article-wrong.cls.
     let
-      kpsewhich-stub =
-        writeShellScriptBin "kpsewhich"
-          ''[[ $1 = "article.cls" ]] && echo /dev/null'';
+      kpsewhich-stub = writeShellScriptBin "kpsewhich" ''[[ $1 = "article.cls" ]] && echo /dev/null'';
     in
     [
       gettext

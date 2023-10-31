@@ -260,9 +260,7 @@ let
     additionalPaths = [ regInfo ];
     format = "qcow2";
     onlyNixStore = false;
-    partitionTableType = selectPartitionTableLayout {
-      inherit (cfg) useDefaultFilesystems useEFIBoot;
-    };
+    partitionTableType = selectPartitionTableLayout { inherit (cfg) useDefaultFilesystems useEFIBoot; };
     # Bootloader should be installed on the system image only if we are booting through bootloaders.
     # Though, if a user is not using our default filesystems, it is possible to not have any ESP
     # or a strange partition table that's incompatible with GRUB configuration.
@@ -295,10 +293,7 @@ let
   bootConfiguration =
     if cfg.useDefaultFilesystems then
       if cfg.useBootLoader then
-        if cfg.useEFIBoot then
-          "efi_bootloading_with_default_fs"
-        else
-          "legacy_bootloading_with_default_fs"
+        if cfg.useEFIBoot then "efi_bootloading_with_default_fs" else "legacy_bootloading_with_default_fs"
       else
         "direct_boot_with_default_fs"
     else
@@ -411,9 +406,7 @@ in
     virtualisation.bootPartition = mkOption {
       type = types.nullOr types.path;
       default = if cfg.useEFIBoot then "${cfg.bootLoaderDevice}1" else null;
-      defaultText =
-        literalExpression
-          ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
+      defaultText = literalExpression ''if cfg.useEFIBoot then "''${cfg.bootLoaderDevice}1" else null'';
       example = "/dev/vda1";
       description = lib.mdDoc ''
         The boot partition to be used to mount /boot filesystem.
@@ -923,9 +916,7 @@ in
     # legacy and UEFI. In order to avoid this, we have to put "nodev" to force UEFI-only installs.
     # Otherwise, we set the proper bootloader device for this.
     # FIXME: make a sense of this mess wrt to multiple ESP present in the system, probably use boot.efiSysMountpoint?
-    boot.loader.grub.device = mkVMOverride (
-      if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice
-    );
+    boot.loader.grub.device = mkVMOverride (if cfg.useEFIBoot then "nodev" else cfg.bootLoaderDevice);
     boot.loader.grub.gfxmodeBios = with cfg.resolution; "${toString x}x${toString y}";
     virtualisation.rootDevice = mkDefault suggestedRootDevice;
 
@@ -1051,9 +1042,7 @@ in
           # Replace all non-alphanumeric characters with underscores
           sanitizeShellIdent =
             s:
-            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (
-              stringToCharacters s
-            );
+            concatMapStrings (c: if builtins.elem c alphaNumericChars then c else "_") (stringToCharacters s);
         in
         mkIf (!cfg.useBootLoader) [
           "-kernel \${NIXPKGS_QEMU_KERNEL_${

@@ -168,9 +168,7 @@ in
       description = lib.mdDoc "The shell script that is to be run when dry-activating a system.";
       readOnly = true;
       internal = true;
-      default =
-        systemActivationScript (removeAttrs config.system.activationScripts [ "script" ])
-          true;
+      default = systemActivationScript (removeAttrs config.system.activationScripts [ "script" ]) true;
       defaultText = literalMD "generated activation script";
     };
 

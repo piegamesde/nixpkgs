@@ -94,10 +94,7 @@ let
 
           # upstream issue: missing file header
           abridge-diff =
-            if super.abridge-diff.version == "0.1" then
-              markBroken super.abridge-diff
-            else
-              super.abridge-diff;
+            if super.abridge-diff.version == "0.1" then markBroken super.abridge-diff else super.abridge-diff;
 
           # upstream issue: missing file header
           bufshow = markBroken super.bufshow;
@@ -135,10 +132,7 @@ let
 
           # upstream issue: missing file header
           gl-conf-mode =
-            if super.gl-conf-mode.version == "0.3" then
-              markBroken super.gl-conf-mode
-            else
-              super.gl-conf-mode;
+            if super.gl-conf-mode.version == "0.3" then markBroken super.gl-conf-mode else super.gl-conf-mode;
 
           # upstream issue: missing file header
           ligo-mode = if super.ligo-mode.version == "0.3" then markBroken super.ligo-mode else null; # auto-updater is failing; use manual one
@@ -258,9 +252,7 @@ let
             }
           );
 
-          ess-R-data-view = super.ess-R-data-view.override {
-            inherit (self.melpaPackages) ess ctable popup;
-          };
+          ess-R-data-view = super.ess-R-data-view.override { inherit (self.melpaPackages) ess ctable popup; };
 
           flycheck-rtags = fix-rtags super.flycheck-rtags;
 

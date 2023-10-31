@@ -315,9 +315,7 @@ in
             "${pkgs.dendrite}/bin/dendrite"
             "--config /run/dendrite/dendrite.yaml"
           ]
-          ++ lib.optionals (cfg.httpPort != null) [
-            "--http-bind-address :${builtins.toString cfg.httpPort}"
-          ]
+          ++ lib.optionals (cfg.httpPort != null) [ "--http-bind-address :${builtins.toString cfg.httpPort}" ]
           ++ lib.optionals (cfg.httpsPort != null) [
             "--https-bind-address :${builtins.toString cfg.httpsPort}"
             "--tls-cert ${cfg.tlsCert}"

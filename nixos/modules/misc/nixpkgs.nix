@@ -25,8 +25,7 @@ let
     recursiveUpdate lhs rhs
     // optionalAttrs (lhs ? packageOverrides) {
       packageOverrides =
-        pkgs:
-        optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
+        pkgs: optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
@@ -71,9 +70,7 @@ let
 
   # Context for messages
   hostPlatformLine = optionalString hasHostPlatform "${showOptionWithDefLocs opt.hostPlatform}";
-  buildPlatformLine =
-    optionalString hasBuildPlatform
-      "${showOptionWithDefLocs opt.buildPlatform}";
+  buildPlatformLine = optionalString hasBuildPlatform "${showOptionWithDefLocs opt.buildPlatform}";
 
   legacyOptionsDefined =
     optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
@@ -389,9 +386,7 @@ in
       {
         assertion = constructedByMe -> hasPlatform -> legacyOptionsDefined == [ ];
         message = ''
-          Your system configures nixpkgs with the platform parameter${
-            optionalString hasBuildPlatform "s"
-          }:
+          Your system configures nixpkgs with the platform parameter${optionalString hasBuildPlatform "s"}:
           ${hostPlatformLine}${buildPlatformLine}
           However, it also defines the legacy options:
           ${concatMapStrings showOptionWithDefLocs legacyOptionsDefined}

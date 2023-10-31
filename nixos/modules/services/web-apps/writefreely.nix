@@ -301,9 +301,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
+        description = lib.mdDoc "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
       };
 
       forceSSL = mkOption {

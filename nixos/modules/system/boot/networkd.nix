@@ -2516,9 +2516,7 @@ let
         Parent = "ingress";
         PerturbPeriodSec = "30";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionStochasticFairnessQueueing;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionStochasticFairnessQueueing;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[StochasticFairnessQueueing]` section of the unit.  See
@@ -2615,9 +2613,7 @@ let
       example = {
         Parent = "root";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionDeficitRoundRobinScheduler;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDeficitRoundRobinScheduler;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DeficitRoundRobinScheduler]` section of the unit.  See
@@ -2649,9 +2645,7 @@ let
         Bands = 3;
         PriorityMap = "100 200 300";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionEnhancedTransmissionSelection;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionEnhancedTransmissionSelection;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[EnhancedTransmissionSelection]` section of the unit.  See
@@ -2666,9 +2660,7 @@ let
         VirtualQueues = 5;
         DefaultVirtualQueue = 3;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionGenericRandomEarlyDetection;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionGenericRandomEarlyDetection;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[GenericRandomEarlyDetection]` section of the unit.  See
@@ -2682,9 +2674,7 @@ let
         Parent = "root";
         Flows = 5;
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionFairQueueingControlledDelay;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionFairQueueingControlledDelay;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[FairQueueingControlledDelay]` section of the unit.  See
@@ -2739,9 +2729,7 @@ let
         Parent = "root";
         Rate = "10M";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionHierarchyTokenBucketClass;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionHierarchyTokenBucketClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[HierarchyTokenBucketClass]` section of the unit.  See
@@ -3603,18 +3591,16 @@ let
           aliases = [ "dbus-org.freedesktop.network1.service" ];
         };
 
-        networking.iproute2 =
-          mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { })
-            {
-              enable = mkDefault true;
-              rttablesExtraConfig = ''
+        networking.iproute2 = mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { }) {
+          enable = mkDefault true;
+          rttablesExtraConfig = ''
 
-                # Extra tables defined in NixOS systemd.networkd.config.routeTables.
-                ${concatStringsSep "\n" (
-                  mapAttrsToList (name: number: "${toString number} ${name}") cfg.config.routeTables
-                )}
-              '';
-            };
+            # Extra tables defined in NixOS systemd.networkd.config.routeTables.
+            ${concatStringsSep "\n" (
+              mapAttrsToList (name: number: "${toString number} ${name}") cfg.config.routeTables
+            )}
+          '';
+        };
 
         services.resolved.enable = mkDefault true;
       })
@@ -3634,9 +3620,7 @@ let
         # Networkd link files are used early by udev to set up interfaces early.
         # This must be done in stage 1 to avoid race conditions between udev and
         # network daemons.
-        systemd.network.units =
-          lib.filterAttrs (n: _: hasSuffix ".link" n)
-            config.systemd.network.units;
+        systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n) config.systemd.network.units;
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
         ];

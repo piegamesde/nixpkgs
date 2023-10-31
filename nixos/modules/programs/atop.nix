@@ -109,8 +109,7 @@ in
 
   config = mkIf cfg.enable (
     let
-      atop =
-        if cfg.atopgpu.enable then (cfg.package.override { withAtopgpu = true; }) else cfg.package;
+      atop = if cfg.atopgpu.enable then (cfg.package.override { withAtopgpu = true; }) else cfg.package;
     in
     {
       environment.etc = mkIf (cfg.settings != { }) {

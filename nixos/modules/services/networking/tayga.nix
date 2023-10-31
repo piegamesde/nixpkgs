@@ -59,9 +59,7 @@ let
 
       pool = mkOption {
         type = with types; nullOr (submodule (addrOpts v));
-        description =
-          lib.mdDoc
-            "The pool of IPv${toString v} addresses which are used for translation.";
+        description = lib.mdDoc "The pool of IPv${toString v} addresses which are used for translation.";
       };
     };
   };

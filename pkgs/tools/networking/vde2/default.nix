@@ -26,11 +26,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  preConfigure =
-    lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-      ''
-        MACOSX_DEPLOYMENT_TARGET=10.16
-      '';
+  preConfigure = lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+    MACOSX_DEPLOYMENT_TARGET=10.16
+  '';
 
   nativeBuildInputs = [ autoreconfHook ];
 

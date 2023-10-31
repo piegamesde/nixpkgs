@@ -43,8 +43,7 @@
       actual,
       expected,
     }:
-    runCommand "equal-contents-${lib.strings.toLower assertion}"
-      { inherit assertion actual expected; }
+    runCommand "equal-contents-${lib.strings.toLower assertion}" { inherit assertion actual expected; }
       ''
         echo "Checking:"
         echo "$assertion"

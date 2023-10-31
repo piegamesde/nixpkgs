@@ -8180,12 +8180,7 @@ in
           ];
         }
       )
-      (
-        sources."@octokit/request-error-1.2.1"
-        // {
-          dependencies = [ sources."@octokit/types-2.16.2" ];
-        }
-      )
+      (sources."@octokit/request-error-1.2.1" // { dependencies = [ sources."@octokit/types-2.16.2" ]; })
       sources."@octokit/rest-16.43.2"
       sources."@octokit/types-6.34.0"
       (
@@ -8412,9 +8407,7 @@ in
       )
       sources."conventional-changelog-angular-5.0.13"
       sources."conventional-changelog-conventionalcommits-4.4.0"
-      (
-        sources."conventional-changelog-writer-4.1.0" // { dependencies = [ sources."split-1.0.1" ]; }
-      )
+      (sources."conventional-changelog-writer-4.1.0" // { dependencies = [ sources."split-1.0.1" ]; })
       sources."conventional-commit-types-3.0.0"
       sources."conventional-commits-filter-2.0.7"
       sources."conventional-commits-parser-3.2.2"

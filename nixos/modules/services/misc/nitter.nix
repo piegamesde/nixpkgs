@@ -196,18 +196,14 @@ in
           type = types.str;
           default = "";
           example = "nitter.net";
-          description =
-            lib.mdDoc
-              "Replace Twitter links with links to this instance (blank to disable).";
+          description = lib.mdDoc "Replace Twitter links with links to this instance (blank to disable).";
         };
 
         replaceYouTube = mkOption {
           type = types.str;
           default = "";
           example = "piped.kavin.rocks";
-          description =
-            lib.mdDoc
-              "Replace YouTube links with links to this instance (blank to disable).";
+          description = lib.mdDoc "Replace YouTube links with links to this instance (blank to disable).";
         };
 
         replaceReddit = mkOption {
@@ -220,9 +216,7 @@ in
         replaceInstagram = mkOption {
           type = types.str;
           default = "";
-          description =
-            lib.mdDoc
-              "Replace Instagram links with links to this instance (blank to disable).";
+          description = lib.mdDoc "Replace Instagram links with links to this instance (blank to disable).";
         };
 
         mp4Playback = mkOption {
@@ -355,8 +349,7 @@ in
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
-        CapabilityBoundingSet =
-          if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet = if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

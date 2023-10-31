@@ -129,9 +129,7 @@ in
     users.users.systemd-journal-gateway.group = "systemd-journal-gateway";
     users.groups.systemd-journal-gateway.gid = config.ids.gids.systemd-journal-gateway;
 
-    systemd.sockets.systemd-journal-gatewayd.wantedBy =
-      optional cfg.enableHttpGateway
-        "sockets.target";
+    systemd.sockets.systemd-journal-gatewayd.wantedBy = optional cfg.enableHttpGateway "sockets.target";
 
     systemd.services.systemd-journal-flush.restartIfChanged = false;
     systemd.services.systemd-journald.restartTriggers = [

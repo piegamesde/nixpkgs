@@ -299,9 +299,7 @@ in
 
         if [ `${config.services.postgresql.package}/bin/psql \
                   --host ${cfg.database.host} \
-                  ${
-                    optionalString (cfg.database.port != null) "--port ${toString cfg.database.port}"
-                  } \
+                  ${optionalString (cfg.database.port != null) "--port ${toString cfg.database.port}"} \
                   --username ${cfg.database.user} \
                   --dbname ${cfg.database.name} \
                   --command "SELECT COUNT(*) FROM pg_class c \

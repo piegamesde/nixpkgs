@@ -12,8 +12,7 @@
 
 let
   pythonPackages = python3Packages;
-  pyqt5 =
-    if enablePlayback then pythonPackages.pyqt5_with_qtmultimedia else pythonPackages.pyqt5;
+  pyqt5 = if enablePlayback then pythonPackages.pyqt5_with_qtmultimedia else pythonPackages.pyqt5;
 in
 pythonPackages.buildPythonApplication rec {
   pname = "picard";

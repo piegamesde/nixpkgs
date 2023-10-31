@@ -22,9 +22,7 @@ import ./make-test-python.nix (
     nodes.machine =
       { pkgs, ... }:
       {
-        environment.systemPackages = [
-          (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; })
-        ];
+        environment.systemPackages = [ (pkgs.agda.withPackages { pkgs = p: [ p.standard-library ]; }) ];
         virtualisation.memorySize = 2000; # Agda uses a lot of memory
       };
 

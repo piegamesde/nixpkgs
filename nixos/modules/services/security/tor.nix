@@ -850,9 +850,7 @@ in
           example = {
             "example.org/www" = {
               map = [ 80 ];
-              authorizedClients = [
-                "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-              ];
+              authorizedClients = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
             };
           };
           type = types.attrsOf (
@@ -1221,9 +1219,7 @@ in
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
           options.ExtORPortCookieAuthFile = optionPath "ExtORPortCookieAuthFile";
-          options.ExtORPortCookieAuthFileGroupReadable =
-            optionBool
-              "ExtORPortCookieAuthFileGroupReadable";
+          options.ExtORPortCookieAuthFileGroupReadable = optionBool "ExtORPortCookieAuthFileGroupReadable";
           options.ExtendAllowPrivateAddresses = optionBool "ExtendAllowPrivateAddresses";
           options.ExtraInfoStatistics = optionBool "ExtraInfoStatistics";
           options.FascistFirewall = optionBool "FascistFirewall";
@@ -1363,8 +1359,7 @@ in
           };
           options.SOCKSPort = mkOption {
             description = lib.mdDoc (descriptionGeneric "SOCKSPort");
-            default =
-              if cfg.settings.HiddenServiceNonAnonymousMode == true then [ { port = 0; } ] else [ ];
+            default = if cfg.settings.HiddenServiceNonAnonymousMode == true then [ { port = 0; } ] else [ ];
             defaultText = literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]
@@ -1409,10 +1404,7 @@ in
     # sends a lot of stats
     warnings =
       optional
-        (
-          cfg.settings.BridgeRelay
-          && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
-        )
+        (cfg.settings.BridgeRelay && flatten (mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ])
         ''
           Running Tor hidden services on a public relay makes the
           presence of hidden services visible through simple statistical

@@ -43,16 +43,14 @@ let
     });
 
   configFile = settingsFormat.generate "config" cfg.settings;
-  sshconf =
-    pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; }
-      ''
-        cat ${configFile} - >$out <<EOL
-        ${cfg.extraConfig}
-        EOL
+  sshconf = pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; } ''
+    cat ${configFile} - >$out <<EOL
+    ${cfg.extraConfig}
+    EOL
 
-        ssh-keygen -q -f mock-hostkey -N ""
-        sshd -t -f $out -h mock-hostkey
-      '';
+    ssh-keygen -q -f mock-hostkey -N ""
+    sshd -t -f $out -h mock-hostkey
+  '';
 
   cfg = config.services.openssh;
   cfgc = config.programs.ssh;
@@ -107,8 +105,7 @@ let
         };
       usersWithKeys = attrValues (
         flip filterAttrs config.users.users (
-          n: u:
-          length u.openssh.authorizedKeys.keys != 0 || length u.openssh.authorizedKeys.keyFiles != 0
+          n: u: length u.openssh.authorizedKeys.keys != 0 || length u.openssh.authorizedKeys.keyFiles != 0
         )
       );
     in

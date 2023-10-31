@@ -83,10 +83,7 @@ let
 
   # If we don't have a platform available, put a dummy version here, so at
   # least evaluation succeeds.
-  sources =
-    (lib.importJSON ./sources.json).${stdenv.system} or {
-      picoscope.version = "unknown";
-    };
+  sources = (lib.importJSON ./sources.json).${stdenv.system} or { picoscope.version = "unknown"; };
 
   scopePkg =
     name:
@@ -110,8 +107,7 @@ let
          runHook postInstall
       '';
       meta =
-        with lib;
-        shared_meta lib // { description = "library for picotech oscilloscope ${name} series"; };
+        with lib; shared_meta lib // { description = "library for picotech oscilloscope ${name} series"; };
     };
 
   scopePkgs = lib.mapAttrs scopePkg sources;

@@ -22,9 +22,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/pachyderm/pachyderm/v${
-      lib.versions.major version
-    }/src/version.AppVersion=${version}"
+    "-X github.com/pachyderm/pachyderm/v${lib.versions.major version}/src/version.AppVersion=${version}"
   ];
 
   meta = with lib; {

@@ -61,8 +61,7 @@ let
     );
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
-  robotConfig =
-    fqdn: domain: pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
+  robotConfig = fqdn: domain: pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);
 
   transport = pkgs.writeText "transport.sympa" (
     concatStringsSep "\n" (
@@ -180,9 +179,7 @@ in
             };
 
             config.settings = mkIf (cfg.web.enable && config.webHost != null) {
-              wwsympa_url =
-                mkDefault
-                  "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}";
+              wwsympa_url = mkDefault "https://${config.webHost}${strings.removeSuffix "/" config.webLocation}";
             };
           }
         )

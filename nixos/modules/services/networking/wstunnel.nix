@@ -351,8 +351,7 @@ let
                 ${optionalString verboseLogging "--verbose"} \
                 ${attrsToArgs extraArgs} \
                 ${
-                  utils.escapeSystemdExecArg
-                    "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
+                  utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
                 }
             '';
           EnvironmentFile = optional (serverCfg.environmentFile != null) serverCfg.environmentFile;
@@ -391,13 +390,9 @@ let
         ExecStart = with clientCfg; ''
           ${package}/bin/wstunnel \
             ${
-              concatStringsSep " " (
-                builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote
-              )
+              concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)
             } \
-            ${
-              concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)
-            } \
+            ${concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)} \
             ${
               optionalString (dynamicToRemote != null)
                 "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
@@ -418,8 +413,7 @@ let
             ${optionalString verboseLogging "--verbose"} \
             ${attrsToArgs extraArgs} \
             ${
-              utils.escapeSystemdExecArg
-                "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
+              utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
             }
         '';
         EnvironmentFile = optional (clientCfg.environmentFile != null) clientCfg.environmentFile;
@@ -505,9 +499,7 @@ in
       (mapAttrsToList
         (name: serverCfg: {
           assertion =
-            !(
-              serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
-            );
+            !(serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null));
           message = ''
             Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
           '';

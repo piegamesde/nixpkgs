@@ -21,8 +21,7 @@ let
   # Make sure that we are not shadowing something from
   # all-packages.nix.
   checkInPkgs =
-    n: alias:
-    if builtins.hasAttr n prev then throw "Alias ${n} is still in vim-plugins" else alias;
+    n: alias: if builtins.hasAttr n prev then throw "Alias ${n} is still in vim-plugins" else alias;
 
   mapAliases =
     aliases:
@@ -32,8 +31,7 @@ let
   deprecations =
     lib.mapAttrs
       (
-        old: info:
-        throw "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
+        old: info: throw "${old} was renamed to ${info.new} on ${info.date}. Please update to ${info.new}."
       )
       (lib.importJSON ./deprecated.json);
 in

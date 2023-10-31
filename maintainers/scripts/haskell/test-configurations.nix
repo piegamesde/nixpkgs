@@ -62,9 +62,7 @@ let
   inherit (pkgs) lib;
 
   # see usage explanation for the input format `files` allows
-  files' = builtins.map builtins.baseNameOf (
-    if !builtins.isList files then [ files ] else files
-  );
+  files' = builtins.map builtins.baseNameOf (if !builtins.isList files then [ files ] else files);
 
   packageSetsWithVersionedHead =
     pkgs.haskell.packages
@@ -102,8 +100,7 @@ let
         builtins.filter
           (
             setName:
-            lib.hasPrefix "ghc${configVersion}" setName
-            && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
+            lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
           )
           (builtins.attrNames packageSetsWithVersionedHead)
       );

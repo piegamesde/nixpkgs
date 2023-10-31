@@ -712,9 +712,7 @@ in
 
   config =
     let
-      cryptSchemeIdPatternGroup = "(${
-          lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds
-        })";
+      cryptSchemeIdPatternGroup = "(${lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds})";
     in
     {
 
@@ -929,8 +927,7 @@ in
             name: user:
             [
               {
-                assertion =
-                  (user.hashedPassword != null) -> (builtins.match ".*:.*" user.hashedPassword == null);
+                assertion = (user.hashedPassword != null) -> (builtins.match ".*:.*" user.hashedPassword == null);
                 message = ''
                   The password hash of user "${user.name}" contains a ":" character.
                   This is invalid and would break the login system because the fields

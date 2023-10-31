@@ -26,9 +26,7 @@ let
 
   setTypes =
     type:
-    mapAttrs (
-      name: value: assert type.check value; setType type.name ({ inherit name; } // value)
-    );
+    mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
 in
 
 rec {
@@ -68,9 +66,7 @@ rec {
     check =
       x:
       types.bitWidth.check x.bits
-      && (
-        if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte)
-      );
+      && (if 8 < x.bits then types.significantByte.check x.significantByte else !(x ? significantByte));
   };
 
   types.cpuType = enum (attrValues cpuTypes);
@@ -746,8 +742,7 @@ rec {
 
   isSystem = isType "system";
 
-  mkSystem =
-    components: assert types.parsedPlatform.check components; setType "system" components;
+  mkSystem = components: assert types.parsedPlatform.check components; setType "system" components;
 
   mkSkeletonFromList =
     l:
@@ -923,8 +918,7 @@ rec {
     assert isSystem sys;
     let
       optExecFormat =
-        lib.optionalString
-          (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
+        lib.optionalString (kernel.name == "netbsd" && gnuNetBSDDefaultExecFormat cpu != kernel.execFormat)
           kernel.execFormat.name;
       optAbi = lib.optionalString (abi != abis.unknown) "-${abi.name}";
     in

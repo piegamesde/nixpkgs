@@ -118,9 +118,7 @@ in
 
       type = types.bool;
 
-      description =
-        lib.mdDoc
-          "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
+      description = lib.mdDoc "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
     };
 
     editor = mkOption {
@@ -291,8 +289,7 @@ in
     assertions =
       [
         {
-          assertion =
-            (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
+          assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
           message = "This kernel does not support the EFI boot stub";
         }
       ]
@@ -344,9 +341,7 @@ in
       # TODO: This is hard-coded to use the 64-bit EFI app, but it could probably
       # be updated to use the 32-bit EFI app on 32-bit systems.  The 32-bit EFI
       # app filename is BOOTIA32.efi.
-      (mkIf cfg.memtest86.enable {
-        "efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi";
-      })
+      (mkIf cfg.memtest86.enable { "efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi"; })
       (mkIf cfg.netbootxyz.enable { "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}"; })
     ];
 

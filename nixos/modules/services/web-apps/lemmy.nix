@@ -163,8 +163,7 @@ in
       {
         assertion =
           cfg.database.createLocally
-          ->
-            cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
+          -> cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
         message = "if you want to create the database locally, you need to use a local database";
       }
     ];
@@ -186,9 +185,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      after = [
-        "pict-rs.service"
-      ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = [ "pict-rs.service" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
       requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 

@@ -8,8 +8,7 @@ let
   cfg = config.services.schleuder;
   settingsFormat = pkgs.formats.yaml { };
   postfixMap =
-    entries:
-    lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") entries);
+    entries: lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") entries);
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
   configScript = pkgs.writeScript "schleuder-cfg" ''
     #!${pkgs.runtimeShell}
@@ -114,9 +113,7 @@ in
         schleuder  unix  -       n       n       -       -       pipe
           flags=DRhu user=schleuder argv=/${pkgs.schleuder}/bin/schleuder work ''${recipient}
       '';
-      transport = lib.mkIf (cfg.lists != [ ]) (
-        postfixMap (lib.genAttrs cfg.lists (_: "schleuder:"))
-      );
+      transport = lib.mkIf (cfg.lists != [ ]) (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
       extraConfig = ''
         schleuder_destination_recipient_limit = 1
       '';

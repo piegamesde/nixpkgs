@@ -7,8 +7,7 @@
   buildInputs ? [ ],
   name ? "source-tarball",
   version ? "0",
-  versionSuffix ?
-    if officialRelease then "" else "pre${toString (src.rev or src.revCount or "")}",
+  versionSuffix ? if officialRelease then "" else "pre${toString (src.rev or src.revCount or "")}",
   src,
   stdenv,
   autoconf,

@@ -26,9 +26,7 @@ in
       enableMultiUser = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to support multi-user mode by enabling the Disnix D-Bus service";
+        description = lib.mdDoc "Whether to support multi-user mode by enabling the Disnix D-Bus service";
       };
 
       useWebServiceInterface = mkEnableOption (
@@ -42,9 +40,7 @@ in
         defaultText = literalExpression "pkgs.disnix";
       };
 
-      enableProfilePath = mkEnableOption (
-        lib.mdDoc "exposing the Disnix profiles in the system's PATH"
-      );
+      enableProfilePath = mkEnableOption (lib.mdDoc "exposing the Disnix profiles in the system's PATH");
 
       profiles = mkOption {
         type = types.listOf types.str;

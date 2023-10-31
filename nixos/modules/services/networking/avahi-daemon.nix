@@ -27,8 +27,7 @@ let
       use-ipv6=${yesNo ipv6}
       ${optionalString (allowInterfaces != null)
         "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
-      ${optionalString (denyInterfaces != null)
-        "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
+      ${optionalString (denyInterfaces != null) "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
       ${optionalString (cacheEntriesMax != null) "cache-entries-max=${toString cacheEntriesMax}"}

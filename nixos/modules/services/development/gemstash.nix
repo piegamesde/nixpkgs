@@ -95,9 +95,7 @@ in
       groups.gemstash = { };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      (parseBindPort cfg.settings.bind)
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ (parseBindPort cfg.settings.bind) ];
 
     systemd.services.gemstash = {
       wantedBy = [ "multi-user.target" ];

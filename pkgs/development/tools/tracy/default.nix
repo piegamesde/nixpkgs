@@ -27,8 +27,7 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    lib.optionals
-      (stdenv.isDarwin && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"))
+    lib.optionals (stdenv.isDarwin && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"))
       [ ./0001-remove-unifiedtypeidentifiers-framework ];
 
   nativeBuildInputs = [ pkg-config ];
@@ -48,9 +47,9 @@ stdenv.mkDerivation rec {
       darwin.apple_sdk.frameworks.AppKit
       darwin.apple_sdk.frameworks.Carbon
     ]
-    ++
-      lib.optionals (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-        [ darwin.apple_sdk.frameworks.UniformTypeIdentifiers ];
+    ++ lib.optionals (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") [
+      darwin.apple_sdk.frameworks.UniformTypeIdentifiers
+    ];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [ ]

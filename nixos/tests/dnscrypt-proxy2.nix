@@ -34,9 +34,7 @@ import ./make-test-python.nix (
     testScript = ''
       client.wait_for_unit("dnsmasq")
       client.wait_for_unit("dnscrypt-proxy2")
-      client.wait_until_succeeds("ss --numeric --udp --listening | grep -q ${
-        toString localProxyPort
-      }")
+      client.wait_until_succeeds("ss --numeric --udp --listening | grep -q ${toString localProxyPort}")
     '';
   }
 )

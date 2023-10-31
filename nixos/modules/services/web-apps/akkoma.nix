@@ -1196,9 +1196,7 @@ in
           ExecStart = "${envWrapper}/bin/pleroma start";
           ExecStartPost = socketScript;
           ExecStop = "${envWrapper}/bin/pleroma stop";
-          ExecStopPost =
-            mkIf (isAbsolutePath web.http.ip)
-              "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
+          ExecStopPost = mkIf (isAbsolutePath web.http.ip) "${pkgs.coreutils}/bin/rm -f '${web.http.ip}'";
 
           ProtectProc = "noaccess";
           ProcSubset = "pid";

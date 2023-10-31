@@ -14,8 +14,7 @@ let
   # to see the result once the module transformed the lose structured config
   getConfig =
     structuredConfig:
-    (lts_kernel.override { structuredExtraConfig = structuredConfig; })
-    .configfile.structuredConfig;
+    (lts_kernel.override { structuredExtraConfig = structuredConfig; }).configfile.structuredConfig;
 
   mandatoryVsOptionalConfig = mkMerge [
     { NIXOS_FAKE_USB_DEBUG = yes; }

@@ -55,9 +55,7 @@ in
     ;
     version = "${year}.2.1";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
-          dot2dash version
-        }_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
       sha256 = "sha256-yELpza2C3HJJIP+ZQP7x3Tfez0Nl6ctCbHCmTmpX3jo=";
     };
     extraBuildInputs = [
@@ -76,9 +74,7 @@ in
     ;
     version = "${year}.2.4";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
-          dot2dash version
-        }_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
       sha256 = "sha256-bti+WI8JdOmUsHq8ijfxGC4ZsWXwbwwM26kuBgPDUMQ=";
     };
     extraBuildInputs = [

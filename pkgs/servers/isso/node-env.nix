@@ -186,9 +186,7 @@ let
       };
     in
     ''
-      node ${pinpointDependenciesFromPackageJSON} ${
-        if production then "production" else "development"
-      }
+      node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
       ${lib.optionalString (dependencies != [ ]) ''
         if [ -d node_modules ]
@@ -460,9 +458,7 @@ let
             python
             nodejs
           ]
-          ++ lib.optional (stdenv.isLinux) utillinux
-          ++ lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs;
+          ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit nodejs;
 
@@ -569,9 +565,7 @@ let
             python
             nodejs
           ]
-          ++ lib.optional (stdenv.isLinux) utillinux
-          ++ lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs;
+          ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit dontStrip; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall unpackPhase buildPhase;

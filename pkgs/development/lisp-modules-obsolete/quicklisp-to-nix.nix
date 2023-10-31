@@ -39,20 +39,18 @@ let
     );
 
     "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" = buildLispPackage (
-      (f: x: (x // (f x)))
-        (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" or (x: { }))
-        (
-          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def.nix {
-            inherit fetchurl;
-            "alexandria" = quicklisp-to-nix-packages."alexandria";
-            "anaphora" = quicklisp-to-nix-packages."anaphora";
-            "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-            "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-            "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-            "iterate" = quicklisp-to-nix-packages."iterate";
-            "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
-          }
-        )
+      (f: x: (x // (f x))) (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" or (x: { })) (
+        import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def.nix {
+          inherit fetchurl;
+          "alexandria" = quicklisp-to-nix-packages."alexandria";
+          "anaphora" = quicklisp-to-nix-packages."anaphora";
+          "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+          "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
+          "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
+          "iterate" = quicklisp-to-nix-packages."iterate";
+          "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
+        }
+      )
     );
 
     "hu_dot_dwim_dot_def_plus_swank" = buildLispPackage (
@@ -330,8 +328,7 @@ let
           "esrap" = quicklisp-to-nix-packages."esrap";
           "html-encode" = quicklisp-to-nix-packages."html-encode";
           "split-sequence" = quicklisp-to-nix-packages."split-sequence";
-          "trivial-with-current-source-form" =
-            quicklisp-to-nix-packages."trivial-with-current-source-form";
+          "trivial-with-current-source-form" = quicklisp-to-nix-packages."trivial-with-current-source-form";
         }
       )
     );
@@ -490,23 +487,21 @@ let
       (f: x: (x // (f x)))
         (qlOverrides."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank" or (x: { }))
         (
-          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix
-            {
-              inherit fetchurl;
-              "alexandria" = quicklisp-to-nix-packages."alexandria";
-              "anaphora" = quicklisp-to-nix-packages."anaphora";
-              "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
-              "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
-              "hu_dot_dwim_dot_def_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
-              "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
-              "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
-                quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
-              "hu_dot_dwim_dot_stefil_plus_swank" =
-                quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
-              "iterate" = quicklisp-to-nix-packages."iterate";
-              "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
-              "swank" = quicklisp-to-nix-packages."swank";
-            }
+          import ./quicklisp-to-nix-output/hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def_plus_swank.nix {
+            inherit fetchurl;
+            "alexandria" = quicklisp-to-nix-packages."alexandria";
+            "anaphora" = quicklisp-to-nix-packages."anaphora";
+            "hu_dot_dwim_dot_asdf" = quicklisp-to-nix-packages."hu_dot_dwim_dot_asdf";
+            "hu_dot_dwim_dot_def" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def";
+            "hu_dot_dwim_dot_def_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_def_plus_swank";
+            "hu_dot_dwim_dot_stefil" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil";
+            "hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def" =
+              quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_hu_dot_dwim_dot_def";
+            "hu_dot_dwim_dot_stefil_plus_swank" = quicklisp-to-nix-packages."hu_dot_dwim_dot_stefil_plus_swank";
+            "iterate" = quicklisp-to-nix-packages."iterate";
+            "metabang-bind" = quicklisp-to-nix-packages."metabang-bind";
+            "swank" = quicklisp-to-nix-packages."swank";
+          }
         )
     );
 
@@ -1221,8 +1216,7 @@ let
           "ironclad" = quicklisp-to-nix-packages."ironclad";
           "md5" = quicklisp-to-nix-packages."md5";
           "simple-date" = quicklisp-to-nix-packages."simple-date";
-          "simple-date_slash_postgres-glue" =
-            quicklisp-to-nix-packages."simple-date_slash_postgres-glue";
+          "simple-date_slash_postgres-glue" = quicklisp-to-nix-packages."simple-date_slash_postgres-glue";
           "split-sequence" = quicklisp-to-nix-packages."split-sequence";
           "uax-15" = quicklisp-to-nix-packages."uax-15";
           "uiop" = quicklisp-to-nix-packages."uiop";
@@ -2494,8 +2488,7 @@ let
           "s-sql" = quicklisp-to-nix-packages."s-sql";
           "s-sql_slash_tests" = quicklisp-to-nix-packages."s-sql_slash_tests";
           "simple-date" = quicklisp-to-nix-packages."simple-date";
-          "simple-date_slash_postgres-glue" =
-            quicklisp-to-nix-packages."simple-date_slash_postgres-glue";
+          "simple-date_slash_postgres-glue" = quicklisp-to-nix-packages."simple-date_slash_postgres-glue";
           "split-sequence" = quicklisp-to-nix-packages."split-sequence";
           "uax-15" = quicklisp-to-nix-packages."uax-15";
           "uiop" = quicklisp-to-nix-packages."uiop";
@@ -2546,8 +2539,7 @@ let
           "fiveam" = quicklisp-to-nix-packages."fiveam";
           "let-plus" = quicklisp-to-nix-packages."let-plus";
           "split-sequence" = quicklisp-to-nix-packages."split-sequence";
-          "trivial-with-current-source-form" =
-            quicklisp-to-nix-packages."trivial-with-current-source-form";
+          "trivial-with-current-source-form" = quicklisp-to-nix-packages."trivial-with-current-source-form";
         }
       )
     );
@@ -3302,8 +3294,7 @@ let
         import ./quicklisp-to-nix-output/fiveam.nix {
           inherit fetchurl;
           "alexandria" = quicklisp-to-nix-packages."alexandria";
-          "net_dot_didierverna_dot_asdf-flv" =
-            quicklisp-to-nix-packages."net_dot_didierverna_dot_asdf-flv";
+          "net_dot_didierverna_dot_asdf-flv" = quicklisp-to-nix-packages."net_dot_didierverna_dot_asdf-flv";
           "trivial-backtrace" = quicklisp-to-nix-packages."trivial-backtrace";
         }
       )
@@ -3408,8 +3399,7 @@ let
           "cl-unification" = quicklisp-to-nix-packages."cl-unification";
           "esrap" = quicklisp-to-nix-packages."esrap";
           "iterate" = quicklisp-to-nix-packages."iterate";
-          "trivial-with-current-source-form" =
-            quicklisp-to-nix-packages."trivial-with-current-source-form";
+          "trivial-with-current-source-form" = quicklisp-to-nix-packages."trivial-with-current-source-form";
         }
       )
     );
@@ -3420,8 +3410,7 @@ let
           inherit fetchurl;
           "alexandria" = quicklisp-to-nix-packages."alexandria";
           "fiveam" = quicklisp-to-nix-packages."fiveam";
-          "trivial-with-current-source-form" =
-            quicklisp-to-nix-packages."trivial-with-current-source-form";
+          "trivial-with-current-source-form" = quicklisp-to-nix-packages."trivial-with-current-source-form";
         }
       )
     );
@@ -5077,8 +5066,7 @@ let
           "alexandria" = quicklisp-to-nix-packages."alexandria";
           "esrap" = quicklisp-to-nix-packages."esrap";
           "split-sequence" = quicklisp-to-nix-packages."split-sequence";
-          "trivial-with-current-source-form" =
-            quicklisp-to-nix-packages."trivial-with-current-source-form";
+          "trivial-with-current-source-form" = quicklisp-to-nix-packages."trivial-with-current-source-form";
         }
       )
     );

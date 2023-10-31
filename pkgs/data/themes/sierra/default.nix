@@ -81,9 +81,7 @@ lib.checkListOfEnum "${pname}: button variants"
       name= ./install.sh --dest $out/share/themes \
         ${lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants} \
         ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${
-          lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants
-        } \
+        ${lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants} \
         ${lib.optionalString (sizeVariants != [ ]) "--flat " + builtins.toString sizeVariants}
 
       # Replace duplicate files with hardlinks to the first file in each

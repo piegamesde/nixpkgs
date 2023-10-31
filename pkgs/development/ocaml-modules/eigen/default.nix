@@ -22,9 +22,7 @@ buildDunePackage rec {
 
   minimumOCamlVersion = "4.02";
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin
-      "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
   propagatedBuildInputs = [ ctypes ];
 

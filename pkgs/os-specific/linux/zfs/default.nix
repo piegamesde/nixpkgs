@@ -312,10 +312,8 @@ in
   # to be adapted
   zfsStable = common {
     # check the release notes for compatible kernels
-    kernelCompatible =
-      if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
-    latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
+    kernelCompatible = if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
+    latestCompatibleLinuxPackages = if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
     # this package should point to the latest release.
     version = "2.1.11";
@@ -328,10 +326,8 @@ in
     # NOTE:
     #   zfs-2.1.9<=x<=2.1.10 is broken with aarch64-linux-6.2
     #   for future releases, please delete this condition.
-    kernelCompatible =
-      if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
-    latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
+    kernelCompatible = if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
+    latestCompatibleLinuxPackages = if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
     # this package should point to a version / git revision compatible with the latest kernel release
     # IMPORTANT: Always use a tagged release candidate or commits from the

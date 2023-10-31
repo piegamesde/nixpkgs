@@ -78,8 +78,7 @@ in
         '';
       }
       {
-        assertion =
-          (hasAttr "swap-endpoint" cfg.settings) || (cfg.settings.swap-enable or true == false);
+        assertion = (hasAttr "swap-endpoint" cfg.settings) || (cfg.settings.swap-enable or true == false);
         message = ''
           In a swap-enabled network a working Ethereum blockchain node is required. You must specify one using `services.bee.settings.swap-endpoint`, or disable `services.bee.settings.swap-enable` = false.
         '';

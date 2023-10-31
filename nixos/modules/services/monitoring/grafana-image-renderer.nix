@@ -27,9 +27,7 @@ in
 
     verbose = mkEnableOption (lib.mdDoc "verbosity for the service");
 
-    provisionGrafana = mkEnableOption (
-      lib.mdDoc "Grafana configuration for grafana-image-renderer"
-    );
+    provisionGrafana = mkEnableOption (lib.mdDoc "Grafana configuration for grafana-image-renderer");
 
     settings = mkOption {
       type = types.submodule {
@@ -126,9 +124,7 @@ in
 
     services.grafana.settings.rendering = mkIf cfg.provisionGrafana {
       server_url = "http://localhost:${toString cfg.settings.service.port}/render";
-      callback_url = "http://localhost:${
-          toString config.services.grafana.settings.server.http_port
-        }";
+      callback_url = "http://localhost:${toString config.services.grafana.settings.server.http_port}";
     };
 
     services.grafana-image-renderer.chromium = mkDefault pkgs.chromium;

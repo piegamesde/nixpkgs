@@ -11135,10 +11135,7 @@ let
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
       (
-        sources."@babel/helper-compilation-targets-7.21.4"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/helper-compilation-targets-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/helper-create-class-features-plugin-7.21.4"
       sources."@babel/helper-create-regexp-features-plugin-7.21.4"
@@ -11239,12 +11236,7 @@ let
       sources."@babel/plugin-transform-react-pure-annotations-7.18.6"
       sources."@babel/plugin-transform-regenerator-7.20.5"
       sources."@babel/plugin-transform-reserved-words-7.18.6"
-      (
-        sources."@babel/plugin-transform-runtime-7.21.4"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."@babel/plugin-transform-runtime-7.21.4" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/plugin-transform-shorthand-properties-7.18.6"
       sources."@babel/plugin-transform-spread-7.20.7"
       sources."@babel/plugin-transform-sticky-regex-7.18.6"
@@ -11606,9 +11598,7 @@ let
       sources."babel-plugin-jest-hoist-27.5.1"
       sources."babel-plugin-macros-3.1.0"
       sources."babel-plugin-named-asset-import-0.3.8"
-      (
-        sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
       sources."babel-plugin-transform-react-remove-prop-types-0.4.24"
@@ -12104,9 +12094,7 @@ let
           ];
         }
       )
-      (
-        sources."istanbul-lib-source-maps-4.0.1" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."istanbul-lib-source-maps-4.0.1" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."istanbul-reports-3.1.5"
       (
         sources."jake-10.8.5"

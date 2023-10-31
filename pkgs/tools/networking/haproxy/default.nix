@@ -28,15 +28,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0PicsyRPx72Ttqbpqr/FZPIThoZyiLXdkxYJE+bMS4k=";
   };
 
-  buildInputs =
-    [
-      openssl
-      zlib
-      libxcrypt
-    ]
-    ++ lib.optional useLua lua5_3
-    ++ lib.optional usePcre pcre
-    ++ lib.optional stdenv.isLinux systemd;
+  buildInputs = [
+    openssl
+    zlib
+    libxcrypt
+  ] ++ lib.optional useLua lua5_3 ++ lib.optional usePcre pcre ++ lib.optional stdenv.isLinux systemd;
 
   # TODO: make it work on bsd as well
   makeFlags = [
@@ -93,9 +89,7 @@ stdenv.mkDerivation rec {
       hardware.
     '';
     homepage = "https://haproxy.org";
-    changelog = "https://www.haproxy.org/download/${
-        lib.versions.majorMinor version
-      }/src/CHANGELOG";
+    changelog = "https://www.haproxy.org/download/${lib.versions.majorMinor version}/src/CHANGELOG";
     license = with licenses; [
       gpl2Plus
       lgpl21Only

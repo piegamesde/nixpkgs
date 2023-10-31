@@ -363,8 +363,7 @@ let
               vhost.listen
             else
               let
-                addrs =
-                  if vhost.listenAddresses != [ ] then vhost.listenAddresses else cfg.defaultListenAddresses;
+                addrs = if vhost.listenAddresses != [ ] then vhost.listenAddresses else cfg.defaultListenAddresses;
               in
               optionals (hasSSL || vhost.rejectSSL) (
                 map
@@ -1251,9 +1250,7 @@ in
       in
       [
         {
-          assertion = all (host: all hostOrAliasIsNull (attrValues host.locations)) (
-            attrValues virtualHosts
-          );
+          assertion = all (host: all hostOrAliasIsNull (attrValues host.locations)) (attrValues virtualHosts);
           message = "Only one of nginx root or alias can be specified on a location.";
         }
 
@@ -1281,8 +1278,7 @@ in
 
         {
           assertion =
-            any (host: host.rejectSSL) (attrValues virtualHosts)
-            -> versionAtLeast cfg.package.version "1.19.4";
+            any (host: host.rejectSSL) (attrValues virtualHosts) -> versionAtLeast cfg.package.version "1.19.4";
           message = ''
             services.nginx.virtualHosts.<name>.rejectSSL requires nginx version
             1.19.4 or above; see the documentation for services.nginx.package.
@@ -1299,9 +1295,7 @@ in
         }
 
         {
-          assertion = all (host: !(host.enableACME && host.useACMEHost != null)) (
-            attrValues virtualHosts
-          );
+          assertion = all (host: !(host.enableACME && host.useACMEHost != null)) (attrValues virtualHosts);
           message = ''
             Options services.nginx.service.virtualHosts.<name>.enableACME and
             services.nginx.virtualHosts.<name>.useACMEHost are mutually exclusive.
@@ -1309,8 +1303,7 @@ in
         }
 
         {
-          assertion =
-            cfg.package.pname != "nginxQuic" -> all (host: !host.quic) (attrValues virtualHosts);
+          assertion = cfg.package.pname != "nginxQuic" -> all (host: !host.quic) (attrValues virtualHosts);
           message = ''
             services.nginx.service.virtualHosts.<name>.quic requires using nginxQuic package,
             which can be achieved by setting `services.nginx.package = pkgs.nginxQuic;`.
@@ -1336,9 +1329,7 @@ in
     systemd.services.nginx = {
       description = "Nginx Web Server";
       wantedBy = [ "multi-user.target" ];
-      wants = concatLists (
-        map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
-      );
+      wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
       after = [
         "network.target"
       ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;

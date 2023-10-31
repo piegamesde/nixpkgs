@@ -131,16 +131,12 @@ stdenv.mkDerivation {
           $out/bin/${libPrefix}
       install_name_tool \
         -change \
-          /opt/homebrew${
-            lib.optionalString stdenv.isx86_64 "_x86_64"
-          }/opt/tcl-tk/lib/libtcl8.6.dylib \
+          /opt/homebrew${lib.optionalString stdenv.isx86_64 "_x86_64"}/opt/tcl-tk/lib/libtcl8.6.dylib \
           ${tcl-8_6}/lib/libtcl8.6.dylib \
           $out/lib/${libPrefix}/_tkinter/*.so
       install_name_tool \
         -change \
-          /opt/homebrew${
-            lib.optionalString stdenv.isx86_64 "_x86_64"
-          }/opt/tcl-tk/lib/libtk8.6.dylib \
+          /opt/homebrew${lib.optionalString stdenv.isx86_64 "_x86_64"}/opt/tcl-tk/lib/libtk8.6.dylib \
           ${tk-8_6}/lib/libtk8.6.dylib \
           $out/lib/${libPrefix}/_tkinter/*.so
     '';

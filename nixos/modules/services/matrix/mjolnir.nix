@@ -15,9 +15,7 @@ let
     accessToken = "@ACCESS_TOKEN@"; # will be replaced in "generateConfig"
     homeserverUrl =
       if cfg.pantalaimon.enable then
-        "http://${cfg.pantalaimon.options.listenAddress}:${
-          toString cfg.pantalaimon.options.listenPort
-        }"
+        "http://${cfg.pantalaimon.options.listenAddress}:${toString cfg.pantalaimon.options.listenPort}"
       else
         cfg.homeserverUrl;
 

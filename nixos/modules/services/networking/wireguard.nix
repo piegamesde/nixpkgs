@@ -469,8 +469,7 @@ let
     let
       mkPeerUnit =
         peer:
-        (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0))
-        + ".service";
+        (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -525,8 +524,7 @@ let
         ${optionalString (values.mtu != null)
           ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
-        ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'')
-          values.ips}
+        ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'') values.ips}
 
         ${concatStringsSep " " (
           [ ''${wg} set "${name}" private-key "${privKey}"'' ]
@@ -650,9 +648,7 @@ in
             )
             all_peers;
 
-      boot.extraModulePackages =
-        optional (versionOlder kernel.kernel.version "5.6")
-          kernel.wireguard;
+      boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
       environment.systemPackages = [ pkgs.wireguard-tools ];
 
       systemd.services =

@@ -41,9 +41,7 @@ let
               let
                 choices = crateRenames.${dep.crateName};
               in
-              normalizeName (
-                if builtins.isList choices then (findMatchOrUseExtern choices).rename else choices
-              )
+              normalizeName (if builtins.isList choices then (findMatchOrUseExtern choices).rename else choices)
             else
               extern;
           opts = lib.optionalString (dep.stdlib or false) "noprelude:";
@@ -320,9 +318,7 @@ lib.makeOverridable
         # and dep: features, since they're internal-only and do nothing except
         # enable optional dependencies.
         crateFeatures = lib.optionals (crate ? features) (
-          builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (
-            crate.features ++ features
-          )
+          builtins.filter (f: !(lib.hasInfix "/" f || lib.hasPrefix "dep:" f)) (crate.features ++ features)
         );
 
         libName = if crate ? libName then crate.libName else crate.crateName;
@@ -332,9 +328,7 @@ lib.makeOverridable
         # https://doc.rust-lang.org/1.0.0/rustc/metadata/loader/index.html#frobbing-symbols
         metadata =
           let
-            depsMetadata = lib.foldl' (str: dep: str + dep.metadata) "" (
-              dependencies ++ buildDependencies
-            );
+            depsMetadata = lib.foldl' (str: dep: str + dep.metadata) "" (dependencies ++ buildDependencies);
             hashedMetadata = builtins.hashString "sha256" (
               crateName
               + "-"

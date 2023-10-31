@@ -330,8 +330,7 @@ rec {
        catAttrs :: String -> [AttrSet] -> [Any]
   */
   catAttrs =
-    builtins.catAttrs
-      or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
+    builtins.catAttrs or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
 
   /* Filter an attribute set by removing all attributes for which the
      given predicate return false.
@@ -463,8 +462,7 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr
-      (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
+    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
       { }
       list_of_attrs;
 
@@ -514,8 +512,7 @@ rec {
     foldl'
       (
         listOfAttrs: attrName:
-        concatMap
-          (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
+        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
           listOfAttrs
       )
       [ { } ]
@@ -960,10 +957,7 @@ rec {
   showAttrPath =
     # Attribute path to render to a string
     path:
-    if path == [ ] then
-      "<root attribute path>"
-    else
-      concatMapStringsSep "." escapeNixIdentifier path;
+    if path == [ ] then "<root attribute path>" else concatMapStringsSep "." escapeNixIdentifier path;
 
   /* Get a package output.
      If no output is found, fallback to `.out` and then to the default.
@@ -977,10 +971,7 @@ rec {
   */
   getOutput =
     output: pkg:
-    if !pkg ? outputSpecified || !pkg.outputSpecified then
-      pkg.${output} or pkg.out or pkg
-    else
-      pkg;
+    if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
 
   /* Get a package's `bin` output.
      If the output does not exist, fallback to `.out` and then to the default.
@@ -1082,10 +1073,7 @@ rec {
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
       mask =
         builtins.mapAttrs
-          (
-            name: value:
-            builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
-          )
+          (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
           intersection;
     in
     (x // y) // mask;

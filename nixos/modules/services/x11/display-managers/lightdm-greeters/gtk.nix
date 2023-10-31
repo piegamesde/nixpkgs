@@ -28,8 +28,7 @@ let
     cursor-theme-size = ${toString cfg.cursorTheme.size}
     background = ${ldmcfg.background}
     ${optionalString (cfg.clock-format != null) "clock-format = ${cfg.clock-format}"}
-    ${optionalString (cfg.indicators != null)
-      "indicators = ${concatStringsSep ";" cfg.indicators}"}
+    ${optionalString (cfg.indicators != null) "indicators = ${concatStringsSep ";" cfg.indicators}"}
     ${optionalString (xcfg.dpi != null) "xft-dpi=${toString xcfg.dpi}"}
     ${cfg.extraConfig}
   '';

@@ -102,8 +102,7 @@ stdenv.mkDerivation rec {
       useLLVMAndOldCC =
         (stdenv.hostPlatform.useLLVM or false) && lib.versionOlder stdenv.cc.cc.version "11.0";
       # With GCC 9 (current aarch64-linux) it fails with c++17 but OK with c++14.
-      useOldGCC =
-        !(stdenv.hostPlatform.useLLVM or false) && lib.versionOlder stdenv.cc.cc.version "10";
+      useOldGCC = !(stdenv.hostPlatform.useLLVM or false) && lib.versionOlder stdenv.cc.cc.version "10";
     in
     (
       if useLLVMAndOldCC then

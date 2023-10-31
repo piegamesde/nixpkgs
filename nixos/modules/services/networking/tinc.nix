@@ -154,9 +154,7 @@ let
       };
 
       config.settings = {
-        Address = mkDefault (
-          map (address: "${address.address} ${toString address.port}") config.addresses
-        );
+        Address = mkDefault (map (address: "${address.address} ${toString address.port}") config.addresses);
 
         Subnet = mkDefault (
           map
@@ -425,9 +423,7 @@ in
               Type = "simple";
               Restart = "always";
               RestartSec = "3";
-              ExecReload =
-                mkIf (versionAtLeast version "1.1pre")
-                  "${data.package}/bin/tinc -n ${network} reload";
+              ExecReload = mkIf (versionAtLeast version "1.1pre") "${data.package}/bin/tinc -n ${network} reload";
               ExecStart = "${data.package}/bin/tincd -D -U tinc.${network} -n ${network} ${
                   optionalString (data.chroot) "-R"
                 } --pidfile /run/tinc.${network}.pid -d ${toString data.debugLevel}";

@@ -210,12 +210,7 @@ stdenv.mkDerivation rec {
       )
       (if speexSupport then "--enable-speex" else "--disable-speex")
       (if theoraSupport then "--enable-theora" else "--disable-theora")
-      (
-        if x264Support then
-          "--enable-x264 --disable-x264-lavc"
-        else
-          "--disable-x264 --enable-x264-lavc"
-      )
+      (if x264Support then "--enable-x264 --disable-x264-lavc" else "--disable-x264 --enable-x264-lavc")
       (if jackaudioSupport then "" else "--disable-jack")
       (if pulseSupport then "--enable-pulse" else "--disable-pulse")
       (if v4lSupport then "--enable-v4l2 --enable-tv-v4l2" else "--disable-v4l2 --disable-tv-v4l2")

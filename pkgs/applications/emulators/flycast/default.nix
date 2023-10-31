@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/flycast --prefix LD_LIBRARY_PATH : ${
-      lib.makeLibraryPath [ vulkan-loader ]
-    }
+    wrapProgram $out/bin/flycast --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
   '';
 
   meta = with lib; {

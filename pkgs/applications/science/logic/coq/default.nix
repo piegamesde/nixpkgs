@@ -87,8 +87,7 @@ let
       }
       args.version;
   version = fetched.version;
-  coq-version =
-    args.coq-version or (if version != "dev" then versions.majorMinor version else "dev");
+  coq-version = args.coq-version or (if version != "dev" then versions.majorMinor version else "dev");
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
   buildIde = args.buildIde or (!coqAtLeast "8.14");
   ideFlags =

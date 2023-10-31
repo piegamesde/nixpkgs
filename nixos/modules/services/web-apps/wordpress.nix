@@ -44,8 +44,7 @@ let
             cfg.themes
         )}
         ${concatStringsSep "\n" (
-          mapAttrsToList
-            (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
+          mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
             cfg.plugins
         )}
         ${concatMapStringsSep "\n"
@@ -221,9 +220,7 @@ let
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
-          defaultText =
-            literalExpression
-              "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
+          defaultText = literalExpression "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
           description = lib.mdDoc ''
             Path(s) to respective theme(s) which are copied from the 'theme' directory.
 

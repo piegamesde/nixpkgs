@@ -147,8 +147,7 @@ let
   );
 
   packageOverrideRepository =
-    (callPackage ../../development/compilers/flutter/package-overrides { })
-    // customPackageOverrides;
+    (callPackage ../../development/compilers/flutter/package-overrides { }) // customPackageOverrides;
   productPackages = builtins.filter (package: package.kind != "dev") (
     if autoDepsList then
       builtins.fromJSON (builtins.readFile deps.depsListFile)

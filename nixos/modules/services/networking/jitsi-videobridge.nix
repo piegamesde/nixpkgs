@@ -32,8 +32,7 @@ let
   # from an attribute name, which may not be a valid bash identifier.
   toVarName =
     s:
-    "XMPP_PASSWORD_"
-    + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
+    "XMPP_PASSWORD_" + stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
 
   defaultJvbConfig = {
     videobridge = {
@@ -309,12 +308,8 @@ in
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 10485760;
     boot.kernel.sysctl."net.core.netdev_max_backlog" = mkDefault 100000;
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      jvbConfig.videobridge.ice.tcp.port
-    ];
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [
-      jvbConfig.videobridge.ice.udp.port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.tcp.port ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ jvbConfig.videobridge.ice.udp.port ];
 
     assertions = [
       {

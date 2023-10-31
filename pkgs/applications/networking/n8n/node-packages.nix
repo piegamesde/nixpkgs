@@ -11908,12 +11908,7 @@ in
       sources."@authenio/xml-encryption-2.0.2"
       sources."@azure/abort-controller-1.1.0"
       sources."@azure/core-auth-1.4.0"
-      (
-        sources."@azure/core-client-1.7.2"
-        // {
-          dependencies = [ sources."@azure/core-tracing-1.0.1" ];
-        }
-      )
+      (sources."@azure/core-client-1.7.2" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; })
       (
         sources."@azure/core-http-3.0.0"
         // {
@@ -11945,10 +11940,7 @@ in
         }
       )
       (
-        sources."@azure/keyvault-keys-4.6.0"
-        // {
-          dependencies = [ sources."@azure/core-tracing-1.0.1" ];
-        }
+        sources."@azure/keyvault-keys-4.6.0" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; }
       )
       sources."@azure/logger-1.0.4"
       sources."@azure/ms-rest-azure-env-2.0.0"
@@ -11963,10 +11955,7 @@ in
       )
       sources."@azure/ms-rest-nodeauth-3.1.1"
       (
-        sources."@azure/msal-browser-2.33.0"
-        // {
-          dependencies = [ sources."@azure/msal-common-10.0.0" ];
-        }
+        sources."@azure/msal-browser-2.33.0" // { dependencies = [ sources."@azure/msal-common-10.0.0" ]; }
       )
       sources."@azure/msal-common-4.5.1"
       (
@@ -13112,12 +13101,7 @@ in
             sources."@azure/core-tracing-1.0.1"
             sources."@azure/identity-2.1.0"
             sources."@azure/msal-common-7.6.0"
-            (
-              sources."@azure/msal-node-1.15.0"
-              // {
-                dependencies = [ sources."@azure/msal-common-10.0.0" ];
-              }
-            )
+            (sources."@azure/msal-node-1.15.0" // { dependencies = [ sources."@azure/msal-common-10.0.0" ]; })
             sources."@js-joda/core-5.5.2"
             (sources."bl-5.1.0" // { dependencies = [ sources."buffer-6.0.3" ]; })
             sources."bson-4.7.2"
@@ -13224,12 +13208,7 @@ in
       sources."parse-passwd-1.0.0"
       sources."parse-srcset-1.0.2"
       sources."parse5-5.1.1"
-      (
-        sources."parse5-htmlparser2-tree-adapter-6.0.1"
-        // {
-          dependencies = [ sources."parse5-6.0.1" ];
-        }
-      )
+      (sources."parse5-htmlparser2-tree-adapter-6.0.1" // { dependencies = [ sources."parse5-6.0.1" ]; })
       sources."parseley-0.11.0"
       sources."parseurl-1.3.3"
       sources."pascal-case-3.1.2"
@@ -13371,9 +13350,7 @@ in
         }
       )
       sources."request-promise-core-1.1.4"
-      (
-        sources."request-promise-native-1.0.9" // { dependencies = [ sources."tough-cookie-2.5.0" ]; }
-      )
+      (sources."request-promise-native-1.0.9" // { dependencies = [ sources."tough-cookie-2.5.0" ]; })
       sources."require-at-1.0.6"
       sources."require-directory-2.1.1"
       sources."requires-port-1.0.0"

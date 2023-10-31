@@ -66,9 +66,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url =
       "http://download.qt-project.org/official_releases/qt/"
-      + "${
-          lib.versions.majorMinor version
-        }/${version}/qt-everywhere-opensource-src-${version}.tar.gz";
+      + "${lib.versions.majorMinor version}/${version}/qt-everywhere-opensource-src-${version}.tar.gz";
     sha256 = "183fca7n7439nlhxyg1z7aky0izgbyll3iwakw4gwivy16aj5272";
   };
 
@@ -209,8 +207,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     let
       mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
-      platformFlag =
-        if stdenv.hostPlatform != stdenv.buildPlatform then "-xplatform" else "-platform";
+      platformFlag = if stdenv.hostPlatform != stdenv.buildPlatform then "-xplatform" else "-platform";
     in
     (
       if stdenv.hostPlatform != stdenv.buildPlatform then

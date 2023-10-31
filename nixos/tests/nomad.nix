@@ -15,12 +15,10 @@ import ./make-test-python.nix (
             ];
           };
 
-          environment.etc."nomad.custom.json".source =
-            (pkgs.formats.json { }).generate "nomad.custom.json"
-              {
-                region = "universe";
-                datacenter = "earth";
-              };
+          environment.etc."nomad.custom.json".source = (pkgs.formats.json { }).generate "nomad.custom.json" {
+            region = "universe";
+            datacenter = "earth";
+          };
 
           services.nomad = {
             enable = true;
@@ -49,12 +47,10 @@ import ./make-test-python.nix (
             ];
           };
 
-          environment.etc."nomad.custom.json".source =
-            (pkgs.formats.json { }).generate "nomad.custom.json"
-              {
-                region = "universe";
-                datacenter = "earth";
-              };
+          environment.etc."nomad.custom.json".source = (pkgs.formats.json { }).generate "nomad.custom.json" {
+            region = "universe";
+            datacenter = "earth";
+          };
 
           services.nomad = {
             enable = true;

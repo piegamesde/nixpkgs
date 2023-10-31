@@ -9692,12 +9692,7 @@ let
       sources."lodash.keys-3.1.2"
       sources."lodash.memoize-3.0.4"
       sources."lodash.restparam-3.6.1"
-      (
-        sources."lodash.template-4.5.0"
-        // {
-          dependencies = [ sources."lodash.templatesettings-4.2.0" ];
-        }
-      )
+      (sources."lodash.template-4.5.0" // { dependencies = [ sources."lodash.templatesettings-4.2.0" ]; })
       sources."lodash.templatesettings-3.1.1"
       sources."lodash.uniq-4.5.0"
       sources."lower-case-1.1.4"

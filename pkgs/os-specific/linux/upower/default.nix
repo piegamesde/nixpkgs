@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
     "-Dsystemdsystemunitdir=${placeholder "out"}/etc/systemd/system"
     "-Dudevrulesdir=${placeholder "out"}/lib/udev/rules.d"
     "-Dudevhwdbdir=${placeholder "out"}/lib/udev/hwdb.d"
-    "-Dintrospection=${
-      if (stdenv.buildPlatform == stdenv.hostPlatform) then "auto" else "disabled"
-    }"
+    "-Dintrospection=${if (stdenv.buildPlatform == stdenv.hostPlatform) then "auto" else "disabled"}"
     "-Dgtk-doc=${lib.boolToString withDocs}"
   ];
 

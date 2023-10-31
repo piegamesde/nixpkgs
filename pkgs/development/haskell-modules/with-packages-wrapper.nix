@@ -68,8 +68,9 @@ let
   docDir = "$out/share/doc/ghc/html";
   packageCfgDir = "${libDir}/package.conf.d";
   paths = lib.concatLists (
-    builtins.map (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ])
-      (lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages))
+    builtins.map (pkg: [ pkg ] ++ lib.optionals installDocumentation [ (lib.getOutput "doc" pkg) ]) (
+      lib.filter (x: x ? isHaskellLibrary) (lib.closePropagation packages)
+    )
   );
   hasLibraries = lib.any (x: x.isHaskellLibrary) paths;
   # CLang is needed on Darwin for -fllvm to work:
@@ -105,8 +106,7 @@ else
               --set "NIX_${ghcCommandCaps}_DOCDIR" "${docDir}"                  \
               --set "NIX_${ghcCommandCaps}_LIBDIR" "${libDir}"                  \
               ${
-                lib.optionalString (ghc.isGhcjs or false)
-                  ''--set NODE_PATH "${ghc.socket-io}/lib/node_modules"''
+                lib.optionalString (ghc.isGhcjs or false) ''--set NODE_PATH "${ghc.socket-io}/lib/node_modules"''
               } \
               ${lib.optionalString useLLVM ''--prefix "PATH" ":" "${llvm}"''}
           fi
@@ -140,8 +140,7 @@ else
         fi
 
       ''
-      + (lib.optionalString
-        (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS)
+      + (lib.optionalString (stdenv.targetPlatform.isDarwin && !isGhcjs && !stdenv.targetPlatform.isiOS)
         ''
           # Work around a linker limit in macOS Sierra (see generic-builder.nix):
           local packageConfDir="${packageCfgDir}";

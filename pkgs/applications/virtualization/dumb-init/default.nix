@@ -20,9 +20,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "-static" ""
   '';
 
-  buildInputs =
-    lib.optional (stdenv.hostPlatform.isGnu && stdenv.hostPlatform.isStatic)
-      glibc.static;
+  buildInputs = lib.optional (stdenv.hostPlatform.isGnu && stdenv.hostPlatform.isStatic) glibc.static;
 
   installPhase = ''
     runHook preInstall

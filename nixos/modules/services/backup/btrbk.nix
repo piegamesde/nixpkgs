@@ -125,9 +125,7 @@ in
         default = "best-effort";
       };
       instances = mkOption {
-        description =
-          lib.mdDoc
-            "Set of btrbk instances. The instance named `btrbk` is the default one.";
+        description = lib.mdDoc "Set of btrbk instances. The instance named `btrbk` is the default one.";
         type =
           with types;
           attrsOf (
@@ -185,9 +183,7 @@ in
               options = {
                 key = mkOption {
                   type = str;
-                  description =
-                    lib.mdDoc
-                      "SSH public key allowed to login as user `btrbk` to run remote backups.";
+                  description = lib.mdDoc "SSH public key allowed to login as user `btrbk` to run remote backups.";
                 };
                 roles = mkOption {
                   type = listOf (

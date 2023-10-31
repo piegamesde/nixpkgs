@@ -279,9 +279,7 @@
             patchRcPathFish sample_source_patched.fish "$PWD/delta:$PWD/foxtrot"
             echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
             HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-            HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${
-              ./sample_source.fish
-            } sample_source_patched.fish
+            HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${./sample_source.fish} sample_source_patched.fish
             rm -r "$HOME_TEMP"
 
 
@@ -292,9 +290,7 @@
 
             echo "Testing in Fish if sample_source.fish and sample_source_patched.fish modifies PATH the same way"
             HOME_TEMP="$(mktemp -d temporary_home_XXXXXX)"
-            HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${
-              ./sample_source.fish
-            } sample_source_patched.fish
+            HOME="$HOME_TEMP" fish ${./test-sourcing-fish} ${./sample_source.fish} sample_source_patched.fish
             rm -r "$HOME_TEMP"
 
 

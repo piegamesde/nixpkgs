@@ -59,8 +59,7 @@ let
     [ ]
     # Emulating wrapGAppsHook & wrapQtAppsHook working together
     ++
-      lib.optionals
-        ((unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui"))
+      lib.optionals ((unwrapped.hasFeature "gnuradio-companion") || (unwrapped.hasFeature "gr-qtgui"))
         [
           "--prefix"
           "XDG_DATA_DIRS"

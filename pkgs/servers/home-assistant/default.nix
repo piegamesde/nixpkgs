@@ -353,9 +353,7 @@ let
 
   getPackages = component: componentPackages.components.${component};
 
-  componentBuildInputs =
-    lib.concatMap (component: getPackages component python.pkgs)
-      extraComponents;
+  componentBuildInputs = lib.concatMap (component: getPackages component python.pkgs) extraComponents;
 
   # Ensure that we are using a consistent package set
   extraBuildInputs = extraPackages python.pkgs;

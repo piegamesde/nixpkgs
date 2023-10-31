@@ -21,8 +21,7 @@
 let
   defaultTargetArchitecture = if gcc10Stdenv.targetPlatform.isx86 then "haswell" else "core";
 
-  targetArch =
-    if targetArchitecture == null then defaultTargetArchitecture else targetArchitecture;
+  targetArch = if targetArchitecture == null then defaultTargetArchitecture else targetArchitecture;
 in
 
 gcc10Stdenv.mkDerivation rec {

@@ -2009,8 +2009,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."generate-object-property"."^1.1.0" =
-    self.by-version."generate-object-property"."1.1.1";
+  by-spec."generate-object-property"."^1.1.0" = self.by-version."generate-object-property"."1.1.1";
   by-version."generate-object-property"."1.1.1" = self.buildNodePackage {
     name = "generate-object-property-1.1.1";
     version = "1.1.1";
@@ -2647,8 +2646,7 @@
     cpu = [ ];
   };
   "jayschema" = self.by-version."jayschema"."0.3.1";
-  by-spec."jayschema-error-messages"."^1.0.2" =
-    self.by-version."jayschema-error-messages"."1.0.3";
+  by-spec."jayschema-error-messages"."^1.0.2" = self.by-version."jayschema-error-messages"."1.0.3";
   by-version."jayschema-error-messages"."1.0.3" = self.buildNodePackage {
     name = "jayschema-error-messages-1.0.3";
     version = "1.0.3";

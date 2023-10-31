@@ -262,14 +262,11 @@ in
               rule:
               if (length rule.commands != 0) then
                 [
-                  (map
-                    (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
+                  (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
                     rule.users
                   )
                   (map
-                    (
-                      group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}"
-                    )
+                    (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
                     rule.groups
                   )
                 ]

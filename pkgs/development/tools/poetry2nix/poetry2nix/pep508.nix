@@ -157,8 +157,7 @@ let
         # extra = "";
       };
       substituteVar =
-        value:
-        if builtins.hasAttr value variables then (builtins.toJSON variables."${value}") else value;
+        value: if builtins.hasAttr value variables then (builtins.toJSON variables."${value}") else value;
       processVar =
         value:
         builtins.foldl' (acc: v: v acc) value [
@@ -232,9 +231,7 @@ let
           let
             parts = builtins.splitVersion c;
             pruned = lib.take ((builtins.length parts) - 1) parts;
-            upper = builtins.toString (
-              (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1
-            );
+            upper = builtins.toString ((lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1);
             upperConstraint = builtins.concatStringsSep "." (
               ireplace (builtins.length pruned - 1) upper pruned
             );

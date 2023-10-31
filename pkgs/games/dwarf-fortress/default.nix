@@ -124,9 +124,7 @@ let
     dwarf-therapist = dwarf-fortress.dwarf-therapist;
     dwarf-fortress-original = dwarf-fortress.dwarf-fortress;
 
-    dwarf-fortress-full = callPackage ./lazy-pack.nix {
-      inherit df-games versionToName latestVersion;
-    };
+    dwarf-fortress-full = callPackage ./lazy-pack.nix { inherit df-games versionToName latestVersion; };
 
     soundSense = callPackage ./soundsense.nix { };
 

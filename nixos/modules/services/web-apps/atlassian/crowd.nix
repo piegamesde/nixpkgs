@@ -24,19 +24,13 @@ let
   crowdPropertiesFile = pkgs.writeText "crowd.properties" ''
     application.name                        crowd-openid-server
     application.password @NIXOS_CROWD_OPENID_PW@
-    application.base.url                    http://localhost:${
-      toString cfg.listenPort
-    }/openidserver
-    application.login.url                   http://localhost:${
-      toString cfg.listenPort
-    }/openidserver
+    application.base.url                    http://localhost:${toString cfg.listenPort}/openidserver
+    application.login.url                   http://localhost:${toString cfg.listenPort}/openidserver
     application.login.url.template          http://localhost:${
       toString cfg.listenPort
     }/openidserver?returnToUrl=''${RETURN_TO_URL}
 
-    crowd.server.url                        http://localhost:${
-      toString cfg.listenPort
-    }/crowd/services/
+    crowd.server.url                        http://localhost:${toString cfg.listenPort}/crowd/services/
 
     session.isauthenticated                 session.isauthenticated
     session.tokenkey                        session.tokenkey
@@ -89,9 +83,7 @@ in
       openidPasswordFile = mkOption {
         type = types.nullOr types.str;
         default = null;
-        description =
-          lib.mdDoc
-            "Path to the file containing the application password for OpenID server.";
+        description = lib.mdDoc "Path to the file containing the application password for OpenID server.";
       };
 
       catalinaOptions = mkOption {
@@ -181,9 +173,7 @@ in
         JAVA_HOME = "${cfg.jrePackage}";
         CATALINA_OPTS = concatStringsSep " " cfg.catalinaOptions;
         CATALINA_TMPDIR = "/tmp";
-        JAVA_OPTS =
-          mkIf (cfg.openidPasswordFile != null)
-            "-Dcrowd.properties=${cfg.home}/crowd.properties";
+        JAVA_OPTS = mkIf (cfg.openidPasswordFile != null) "-Dcrowd.properties=${cfg.home}/crowd.properties";
       };
 
       preStart =

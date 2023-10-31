@@ -12,16 +12,10 @@ let
   overrides =
     (self: super: {
       cl_plus_ssl = super.cl_plus_ssl.overrideLispAttrs (o: { nativeLibs = [ pkgs.openssl ]; });
-      cl-cffi-gtk-glib = super.cl-cffi-gtk-glib.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.glib ]; }
-      );
-      cl-cffi-gtk-cairo = super.cl-cffi-gtk-cairo.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.cairo ]; }
-      );
+      cl-cffi-gtk-glib = super.cl-cffi-gtk-glib.overrideLispAttrs (o: { nativeLibs = [ pkgs.glib ]; });
+      cl-cffi-gtk-cairo = super.cl-cffi-gtk-cairo.overrideLispAttrs (o: { nativeLibs = [ pkgs.cairo ]; });
       cl-cairo2 = super.cl-cairo2.overrideLispAttrs (o: { nativeLibs = [ pkgs.cairo ]; });
-      cl-cairo2-xlib = super.cl-cairo2-xlib.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.gtk2-x11 ]; }
-      );
+      cl-cairo2-xlib = super.cl-cairo2-xlib.overrideLispAttrs (o: { nativeLibs = [ pkgs.gtk2-x11 ]; });
       cl-freeimage = super.cl-freeimage.overrideLispAttrs (o: { nativeLibs = [ pkgs.freeimage ]; });
       cl-freetype2 = super.cl-freetype2.overrideLispAttrs (
         o: {
@@ -39,9 +33,7 @@ let
       cl-cffi-gtk-gdk-pixbuf = super.cl-cffi-gtk-gdk-pixbuf.overrideLispAttrs (
         o: { nativeLibs = [ pkgs.gdk-pixbuf ]; }
       );
-      cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs (
-        o: { nativeLibs = [ pkgs.pango ]; }
-      );
+      cl-cffi-gtk-pango = super.cl-cffi-gtk-pango.overrideLispAttrs (o: { nativeLibs = [ pkgs.pango ]; });
       cl-gobject-introspection = super.cl-gobject-introspection.overrideLispAttrs (
         o: {
           nativeLibs = [

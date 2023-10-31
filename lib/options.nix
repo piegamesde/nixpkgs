@@ -163,9 +163,7 @@ rec {
       defaultText = literalExpression ("pkgs." + defaultPath);
       type = lib.types.package;
       description =
-        "The ${name'} package to use."
-        + (if extraDescription == "" then "" else " ")
-        + extraDescription;
+        "The ${name'} package to use." + (if extraDescription == "" then "" else " ") + extraDescription;
       ${if default != null then "default" else null} = defaultValue;
       ${if example != null then "example" else null} = literalExpression (
         if isList example then "pkgs." + concatStringsSep "." example else example

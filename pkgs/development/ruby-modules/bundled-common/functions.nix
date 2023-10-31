@@ -24,8 +24,7 @@ rec {
 
       gemfile = if gemfile == null then assert gemdir != null; gemdir + "/Gemfile" else gemfile;
 
-      lockfile =
-        if lockfile == null then assert gemdir != null; gemdir + "/Gemfile.lock" else lockfile;
+      lockfile = if lockfile == null then assert gemdir != null; gemdir + "/Gemfile.lock" else lockfile;
 
       gemset = if gemset == null then assert gemdir != null; gemdir + "/gemset.nix" else gemset;
     };
@@ -69,8 +68,7 @@ rec {
     || (intersectLists (groups ++ [ "default" ]) attrs.groups) != [ ];
 
   applyGemConfigs =
-    attrs:
-    (if gemConfig ? ${attrs.gemName} then attrs // gemConfig.${attrs.gemName} attrs else attrs);
+    attrs: (if gemConfig ? ${attrs.gemName} then attrs // gemConfig.${attrs.gemName} attrs else attrs);
 
   genStubsScript =
     {

@@ -44,8 +44,7 @@ let
 
   pname = if enableNpm then "nodejs" else "nodejs-slim";
 
-  useSharedHttpParser =
-    !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
+  useSharedHttpParser = !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
@@ -152,9 +151,7 @@ let
             throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
         }"
       ])
-      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [
-        "--with-arm-fpu=${gcc.fpu}"
-      ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
         "--with-arm-float-abi=${gcc.float-abi}"
       ])

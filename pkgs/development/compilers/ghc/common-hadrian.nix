@@ -56,9 +56,8 @@
   ,
   # If enabled, GHC will be built with the GPL-free but slightly slower native
   # bignum backend instead of the faster but GPLed gmp backend.
-  enableNativeBignum ? !(
-    lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp
-  )
+  enableNativeBignum ?
+    !(lib.meta.availableOn stdenv.hostPlatform gmp && lib.meta.availableOn stdenv.targetPlatform gmp)
     || stdenv.targetPlatform.isGhcjs,
   gmp
 
@@ -72,8 +71,7 @@
   ,
   # Whether to build dynamic libs for the standard library (on the target
   # platform). Static libs are always built.
-  enableShared ? with stdenv.targetPlatform;
-    !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
+  enableShared ? with stdenv.targetPlatform; !isWindows && !useiOSPrebuilt && !isStatic && !isGhcjs
 
   ,
   # Whether to build terminfo.
@@ -81,9 +79,8 @@
 
   ,
   # Libdw.c only supports x86_64, i686 and s390x as of 2022-08-04
-  enableDwarf ? (
-    stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit)
-  )
+  enableDwarf ?
+    (stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isS390 && stdenv.targetPlatform.is64bit))
     && lib.meta.availableOn stdenv.hostPlatform elfutils
     && lib.meta.availableOn stdenv.targetPlatform elfutils
     &&

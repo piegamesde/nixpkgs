@@ -277,14 +277,10 @@ builtins.intersectAttrs super {
       super.jni;
 
   # Won't find it's header files without help.
-  sfml-audio =
-    appendConfigureFlag "--extra-include-dirs=${pkgs.openal}/include/AL"
-      super.sfml-audio;
+  sfml-audio = appendConfigureFlag "--extra-include-dirs=${pkgs.openal}/include/AL" super.sfml-audio;
 
   # avoid compiling twice by providing executable as a separate output (with small closure size)
-  niv = enableSeparateBinOutput (
-    self.generateOptparseApplicativeCompletions [ "niv" ] super.niv
-  );
+  niv = enableSeparateBinOutput (self.generateOptparseApplicativeCompletions [ "niv" ] super.niv);
   ghcid = enableSeparateBinOutput super.ghcid;
   ormolu = self.generateOptparseApplicativeCompletions [ "ormolu" ] (
     enableSeparateBinOutput super.ormolu
@@ -307,9 +303,7 @@ builtins.intersectAttrs super {
       })
       super.arbtt;
 
-  hzk =
-    appendConfigureFlag "--extra-include-dirs=${pkgs.zookeeper_mt}/include/zookeeper"
-      super.hzk;
+  hzk = appendConfigureFlag "--extra-include-dirs=${pkgs.zookeeper_mt}/include/zookeeper" super.hzk;
 
   # Foreign dependency name clashes with another Haskell package.
   libarchive-conduit = super.libarchive-conduit.override { archive = pkgs.libarchive; };
@@ -341,9 +335,7 @@ builtins.intersectAttrs super {
     ))
   ];
   glib = disableHardening [ "fortify" ] (
-    addPkgconfigDepend pkgs.glib (
-      addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.glib
-    )
+    addPkgconfigDepend pkgs.glib (addBuildTool self.buildHaskellPackages.gtk2hs-buildtools super.glib)
   );
   gtk3 = disableHardening [ "fortify" ] (super.gtk3.override { inherit (pkgs) gtk3; });
   gtk = lib.pipe super.gtk (
@@ -470,9 +462,7 @@ builtins.intersectAttrs super {
       super.mime-mail;
 
   # Help the test suite find system timezone data.
-  tz =
-    overrideCabal (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; })
-      super.tz;
+  tz = overrideCabal (drv: { preConfigure = "export TZDIR=${pkgs.tzdata}/share/zoneinfo"; }) super.tz;
 
   # https://hydra.nixos.org/build/128665302/nixlog/3
   # Disable tests because they require a running dbus session
@@ -1184,8 +1174,7 @@ builtins.intersectAttrs super {
       super.hlint;
 
   taglib =
-    overrideCabal
-      (drv: { librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]); })
+    overrideCabal (drv: { librarySystemDepends = [ pkgs.zlib ] ++ (drv.librarySystemDepends or [ ]); })
       super.taglib;
 
   # random 1.2.0 has tests that indirectly depend on
@@ -1322,9 +1311,8 @@ builtins.intersectAttrs super {
     super.hercules-ci-cnix-expr.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; }
   );
   hercules-ci-cnix-store =
-    (super.hercules-ci-cnix-store.override {
-      nix = self.hercules-ci-cnix-store.passthru.nixPackage;
-    }).overrideAttrs
+    (super.hercules-ci-cnix-store.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; })
+    .overrideAttrs
       (_: { passthru.nixPackage = pkgs.nixVersions.nix_2_14; });
 
   # the testsuite fails because of not finding tsc without some help
@@ -1382,8 +1370,7 @@ builtins.intersectAttrs super {
   # Some hash implementations are x86 only, but part of the test suite.
   # So executing and building it on non-x86 platforms will always fail.
   hashes =
-    overrideCabal
-      { doCheck = with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86; }
+    overrideCabal { doCheck = with pkgs.stdenv; hostPlatform == buildPlatform && buildPlatform.isx86; }
       super.hashes;
 
   # Tries to access network

@@ -26,8 +26,7 @@ let
       extraHosts = ''
         ${master.ip}  etcd.${domain}
         ${master.ip}  api.${domain}
-        ${concatMapStringsSep "\n"
-          (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
+        ${concatMapStringsSep "\n" (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
           (attrNames machines)}
       '';
       wrapKubectl =

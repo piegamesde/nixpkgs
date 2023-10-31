@@ -16,9 +16,7 @@ self: super:
     # see: https://github.com/psibi/shell-conduit/issues/12
     shell-conduit = dontCheck super.shell-conduit;
 
-    conduit-extra = super.conduit-extra.overrideAttrs (
-      drv: { __darwinAllowLocalNetworking = true; }
-    );
+    conduit-extra = super.conduit-extra.overrideAttrs (drv: { __darwinAllowLocalNetworking = true; });
 
     streaming-commons = super.streaming-commons.overrideAttrs (
       _: { __darwinAllowLocalNetworking = true; }
@@ -387,12 +385,10 @@ self: super:
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
     ormolu =
-      overrideCabal
-        (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.ormolu);
     fourmolu =
-      overrideCabal
-        (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.fourmolu);
 
     # https://github.com/NixOS/nixpkgs/issues/149692

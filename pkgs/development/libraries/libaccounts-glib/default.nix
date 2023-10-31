@@ -41,20 +41,18 @@ stdenv.mkDerivation rec {
   # See: https://gitlab.com/accounts-sso/libaccounts-glib/merge_requests/22
   patches = [ ./py-override.patch ];
 
-  nativeBuildInputs =
-    [
-      check
-      docbook_xml_dtd_43
-      docbook_xsl
-      glibcLocales
-      gobject-introspection
-      gtk-doc
-      meson
-      ninja
-      pkg-config
-      vala
-    ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs = [
+    check
+    docbook_xml_dtd_43
+    docbook_xsl
+    glibcLocales
+    gobject-introspection
+    gtk-doc
+    meson
+    ninja
+    pkg-config
+    vala
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     glib

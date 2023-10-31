@@ -16,10 +16,7 @@ lib: pythonPackages:
 }:
 let
   build =
-    if application then
-      pythonPackages.buildPythonApplication
-    else
-      pythonPackages.buildPythonPackage;
+    if application then pythonPackages.buildPythonApplication else pythonPackages.buildPythonPackage;
 in
 build {
   inherit (info) pname version;

@@ -98,12 +98,10 @@ stdenv.mkDerivation {
     ocaml
     curl
   ];
-  buildInputs =
-    [
-      ncurses
-      getconf
-    ]
-    ++ lib.optionals stdenv.isLinux [ bubblewrap ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  buildInputs = [
+    ncurses
+    getconf
+  ] ++ lib.optionals stdenv.isLinux [ bubblewrap ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
   src = srcs.opam;
 

@@ -17,9 +17,7 @@ let
     else
       ''
         #command
-        ${concatStringsSep "\n" (
-          mapAttrsToList (command: action: "${command} ${action}") cfg.commands
-        )}
+        ${concatStringsSep "\n" (mapAttrsToList (command: action: "${command} ${action}") cfg.commands)}
         ${optionalString cfg.clearDefaultCommands "#stop"}
 
         #line-edit

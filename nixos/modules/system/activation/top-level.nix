@@ -10,10 +10,8 @@ with lib;
 let
   systemBuilder =
     let
-      kernelPath =
-        "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
-      initrdPath =
-        "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
+      kernelPath = "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
+      initrdPath = "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
     in
     ''
       mkdir $out
@@ -68,9 +66,7 @@ let
       ln -s ${config.system.path} $out/sw
       ln -s "$systemd" $out/systemd
 
-      echo -n "systemd ${
-        toString config.systemd.package.interfaceVersion
-      }" > $out/init-interface-version
+      echo -n "systemd ${toString config.systemd.package.interfaceVersion}" > $out/init-interface-version
       echo -n "$nixosLabel" > $out/nixos-version
       echo -n "${config.boot.kernelPackages.stdenv.hostPlatform.system}" > $out/system
 

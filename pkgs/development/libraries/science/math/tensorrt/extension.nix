@@ -35,9 +35,7 @@ let
         mapAttrs'
           (
             version: file:
-            nameValuePair (computeName version) (
-              buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ])
-            )
+            nameValuePair (computeName version) (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ]))
           )
           supportedVersions;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;

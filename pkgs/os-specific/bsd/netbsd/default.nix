@@ -35,9 +35,7 @@ let
 
   defaultMakeFlags = [
     "MKSOFTFLOAT=${
-      if
-        stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft"
-      then
+      if stdenv.hostPlatform.gcc.float or (stdenv.hostPlatform.parsed.abi.float or "hard") == "soft" then
         "yes"
       else
         "no"
@@ -636,9 +634,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
       extraPaths = with self; [
         libterminfo.src
         (fetchNetBSD "usr.bin/tic" "9.2" "1mwdfg7yx1g43ss378qsgl5rqhsxskqvsd2mqvrn38qw54i8v5i1")
-        (fetchNetBSD "tools/Makefile.host" "9.2"
-          "15b4ab0n36lqj00j5lz2xs83g7l8isk3wx1wcapbrn66qmzz2sxy"
-        )
+        (fetchNetBSD "tools/Makefile.host" "9.2" "15b4ab0n36lqj00j5lz2xs83g7l8isk3wx1wcapbrn66qmzz2sxy")
       ];
     };
 
@@ -1108,9 +1104,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         with self;
         _mainLibcExtraPaths
         ++ [
-          (fetchNetBSD "external/bsd/jemalloc" "9.2"
-            "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb"
-          )
+          (fetchNetBSD "external/bsd/jemalloc" "9.2" "0cq704swa0h2yxv4gc79z2lwxibk9k7pxh3q5qfs7axx3jx3n8kb")
         ];
       nativeBuildInputs = with buildPackages.netbsd; [
         bsdSetupHook

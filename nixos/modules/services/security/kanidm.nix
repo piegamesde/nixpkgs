@@ -11,9 +11,7 @@ let
   # Remove null values, so we can document optional values that don't end up in the generated TOML file.
   filterConfig = lib.converge (lib.filterAttrsRecursive (_: v: v != null));
   serverConfigFile = settingsFormat.generate "server.toml" (filterConfig cfg.serverSettings);
-  clientConfigFile = settingsFormat.generate "kanidm-config.toml" (
-    filterConfig cfg.clientSettings
-  );
+  clientConfigFile = settingsFormat.generate "kanidm-config.toml" (filterConfig cfg.clientSettings);
   unixConfigFile = settingsFormat.generate "kanidm-unixd.toml" (filterConfig cfg.unixSettings);
   certPaths = builtins.map builtins.dirOf [
     cfg.serverSettings.tls_chain

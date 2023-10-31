@@ -544,9 +544,9 @@ let
               u2f = config.security.pam.u2f;
             in
             optionalString cfg.u2fAuth (
-              "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${
-                optionalString u2f.debug "debug"
-              } ${optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"} "
+              "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${optionalString u2f.debug "debug"} ${
+                optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"
+              } "
               + ''
                 ${optionalString u2f.interactive "interactive"} ${optionalString u2f.cue "cue"} ${
                   optionalString (u2f.appId != null) "appid=${u2f.appId}"
@@ -588,11 +588,8 @@ let
               yubi = config.security.pam.yubico;
             in
             optionalString cfg.yubicoAuth ''
-              auth ${yubi.control} ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=${
-                toString yubi.mode
-              } ${
-                optionalString (yubi.challengeResponsePath != null)
-                  "chalresp_path=${yubi.challengeResponsePath}"
+              auth ${yubi.control} ${pkgs.yubico-pam}/lib/security/pam_yubico.so mode=${toString yubi.mode} ${
+                optionalString (yubi.challengeResponsePath != null) "chalresp_path=${yubi.challengeResponsePath}"
               } ${optionalString (yubi.mode == "client") "id=${toString yubi.id}"} ${
                 optionalString yubi.debug "debug"
               }
@@ -790,11 +787,9 @@ let
           + optionalString (cfg.limits != [ ]) ''
             session required ${pkgs.pam}/lib/security/pam_limits.so conf=${makeLimitsConf cfg.limits}
           ''
-          +
-            optionalString (cfg.showMotd && (config.users.motd != null || config.users.motdFile != null))
-              ''
-                session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
-              ''
+          + optionalString (cfg.showMotd && (config.users.motd != null || config.users.motdFile != null)) ''
+            session optional ${pkgs.pam}/lib/security/pam_motd.so motd=${motd}
+          ''
           + optionalString (cfg.enableAppArmor && config.security.apparmor.enable) ''
             session optional ${pkgs.apparmor-pam}/lib/security/pam_apparmor.so order=user,group,default debug
           ''
@@ -1369,9 +1364,7 @@ in
       default = null;
       example = "/etc/motd";
       type = types.nullOr types.path;
-      description =
-        lib.mdDoc
-          "A file containing the message of the day shown to users when they log in.";
+      description = lib.mdDoc "A file containing the message of the day shown to users when they log in.";
     };
   };
 
@@ -1486,11 +1479,9 @@ in
       + optionalString (isEnabled (cfg: cfg.googleOsLoginAuthentication)) ''
         mr ${pkgs.google-guest-oslogin}/lib/security/pam_oslogin_login.so,
       ''
-      +
-        optionalString (config.security.pam.enableSSHAgentAuth && isEnabled (cfg: cfg.sshAgentAuth))
-          ''
-            mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
-          ''
+      + optionalString (config.security.pam.enableSSHAgentAuth && isEnabled (cfg: cfg.sshAgentAuth)) ''
+        mr ${pkgs.pam_ssh_agent_auth}/libexec/pam_ssh_agent_auth.so,
+      ''
       + optionalString (isEnabled (cfg: cfg.fprintAuth)) ''
         mr ${pkgs.fprintd}/lib/security/pam_fprintd.so,
       ''

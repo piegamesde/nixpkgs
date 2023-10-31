@@ -119,9 +119,7 @@ in
       zeyple    unix  -       n       n       -       -       pipe
         user=${cfg.user} argv=${pkgs.zeyple}/bin/zeyple ''${recipient}
 
-      localhost:${
-        toString cfg.settings.relay.port
-      } inet  n       -       n       -       10      smtpd
+      localhost:${toString cfg.settings.relay.port} inet  n       -       n       -       10      smtpd
         -o content_filter=
         -o receive_override_options=no_unknown_recipient_checks,no_header_body_checks,no_milters
         -o smtpd_helo_restrictions=

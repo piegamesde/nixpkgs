@@ -64,9 +64,7 @@ stdenv.mkDerivation (
         "-DUA_BUILD_UNIT_TESTS=${if finalAttrs.doCheck then "ON" else "OFF"}"
       ]
       ++ lib.optional withExamples "-DUA_BUILD_EXAMPLES=ON"
-      ++
-        lib.optional (withEncryption != false)
-          "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
+      ++ lib.optional (withEncryption != false) "-DUA_ENABLE_ENCRYPTION=${lib.toUpper withEncryption}"
       ++ lib.optional withPubSub "-DUA_ENABLE_PUBSUB=ON";
 
     nativeBuildInputs =

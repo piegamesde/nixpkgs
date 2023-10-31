@@ -142,8 +142,7 @@ let
         if component.platform == { } then
           lib.platforms.all
         else
-          builtins.concatMap (arch: builtins.map (os: toNixPlatform arch os) operating_systems)
-            architectures;
+          builtins.concatMap (arch: builtins.map (os: toNixPlatform arch os) operating_systems) architectures;
       snapshot = snapshotFromComponent attrs;
     };
 

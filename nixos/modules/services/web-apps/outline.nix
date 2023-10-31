@@ -555,9 +555,7 @@ in
       '';
     };
 
-    rateLimiter.enable = lib.mkEnableOption (
-      lib.mdDoc "rate limiter for the application web server"
-    );
+    rateLimiter.enable = lib.mkEnableOption (lib.mdDoc "rate limiter for the application web server");
     rateLimiter.requests = lib.mkOption {
       type = lib.types.int;
       default = 5000;
@@ -666,9 +664,7 @@ in
             RATE_LIMITER_DURATION_WINDOW = builtins.toString cfg.rateLimiter.durationWindow;
           }
 
-          (lib.mkIf (cfg.slackAuthentication != null) {
-            SLACK_CLIENT_ID = cfg.slackAuthentication.clientId;
-          })
+          (lib.mkIf (cfg.slackAuthentication != null) { SLACK_CLIENT_ID = cfg.slackAuthentication.clientId; })
 
           (lib.mkIf (cfg.googleAuthentication != null) {
             GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId;
@@ -761,9 +757,7 @@ in
           export UTILS_SECRET="$(head -n1 ${lib.escapeShellArg cfg.utilsSecretFile})"
           export AWS_SECRET_ACCESS_KEY="$(head -n1 ${lib.escapeShellArg cfg.storage.secretKeyFile})"
           ${lib.optionalString (cfg.slackAuthentication != null) ''
-            export SLACK_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.slackAuthentication.secretFile
-            })"
+            export SLACK_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.slackAuthentication.secretFile})"
           ''}
           ${lib.optionalString (cfg.googleAuthentication != null) ''
             export GOOGLE_CLIENT_SECRET="$(head -n1 ${

@@ -13,9 +13,7 @@ in
     # https://src.fedoraproject.org/rpms/systemd/tree/acb90c49c42276b06375a66c73673ac351025597
     enableRootSlice = lib.mkEnableOption (lib.mdDoc "oomd on the root slice (`-.slice`)");
     enableSystemSlice = lib.mkEnableOption (lib.mdDoc "oomd on the system slice (`system.slice`)");
-    enableUserServices = lib.mkEnableOption (
-      lib.mdDoc "oomd on all user services (`user@.service`)"
-    );
+    enableUserServices = lib.mkEnableOption (lib.mdDoc "oomd on all user services (`user@.service`)");
 
     extraConfig = lib.mkOption {
       type =
@@ -55,9 +53,7 @@ in
     users.groups.systemd-oom = { };
 
     systemd.slices."-".sliceConfig = lib.mkIf cfg.enableRootSlice { ManagedOOMSwap = "kill"; };
-    systemd.slices."system".sliceConfig = lib.mkIf cfg.enableSystemSlice {
-      ManagedOOMSwap = "kill";
-    };
+    systemd.slices."system".sliceConfig = lib.mkIf cfg.enableSystemSlice { ManagedOOMSwap = "kill"; };
     systemd.services."user@".serviceConfig = lib.mkIf cfg.enableUserServices {
       ManagedOOMMemoryPressure = "kill";
       ManagedOOMMemoryPressureLimit = "50%";

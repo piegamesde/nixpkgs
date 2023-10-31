@@ -94,10 +94,7 @@ let
       );
 
       allRawDeps =
-        if extras == [ "*" ] then
-          rawDeps
-        else
-          rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
+        if extras == [ "*" ] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
       checkInputs' =
         getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
@@ -315,9 +312,7 @@ lib.makeScope pkgs.newScope (
               lib.attrsets.mapAttrs
                 (
                   name: value:
-                  if
-                    lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name
-                  then
+                  if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then
                     null
                   else
                     value
@@ -413,9 +408,7 @@ lib.makeScope pkgs.newScope (
       {
         python = py;
         poetryPackages =
-          storePackages
-          ++ lib.optional hasScripts scriptsPackage
-          ++ lib.optional hasEditable editablePackage;
+          storePackages ++ lib.optional hasScripts scriptsPackage ++ lib.optional hasEditable editablePackage;
         poetryLock = poetryLock;
         inherit pyProject;
       };
@@ -464,8 +457,7 @@ lib.makeScope pkgs.newScope (
             // (
               # Poetry>=1.2.0
               if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies)
-                  { }
+                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { }
                   groups
               else
                 { }
@@ -514,10 +506,7 @@ lib.makeScope pkgs.newScope (
         projectDir ? null,
         src ? (
           # Assume that a project which is the result of a derivation is already adequately filtered
-          if lib.isDerivation projectDir then
-            projectDir
-          else
-            self.cleanPythonSources { src = projectDir; }
+          if lib.isDerivation projectDir then projectDir else self.cleanPythonSources { src = projectDir; }
         ),
         pyproject ? projectDir + "/pyproject.toml",
         poetrylock ? projectDir + "/poetry.lock",
@@ -666,9 +655,7 @@ lib.makeScope pkgs.newScope (
 
        Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
     */
-    defaultPoetryOverrides = self.mkDefaultPoetryOverrides (
-      import ./overrides { inherit pkgs lib; }
-    );
+    defaultPoetryOverrides = self.mkDefaultPoetryOverrides (import ./overrides { inherit pkgs lib; });
 
     # Convenience functions for specifying overlays with or without the poerty2nix default overrides
     overrides = {

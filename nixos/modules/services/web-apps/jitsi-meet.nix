@@ -52,9 +52,7 @@ let
 in
 {
   options.services.jitsi-meet = with types; {
-    enable = mkEnableOption (
-      lib.mdDoc "Jitsi Meet - Secure, Simple and Scalable Video Conferences"
-    );
+    enable = mkEnableOption (lib.mdDoc "Jitsi Meet - Secure, Simple and Scalable Video Conferences");
 
     hostName = mkOption {
       type = str;

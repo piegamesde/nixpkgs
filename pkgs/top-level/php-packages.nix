@@ -237,9 +237,7 @@ lib.makeScope pkgs.newScope (
 
         ast = callPackage ../development/php-packages/ast { };
 
-        blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix {
-          inherit php;
-        };
+        blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix { inherit php; };
 
         couchbase = callPackage ../development/php-packages/couchbase { };
 

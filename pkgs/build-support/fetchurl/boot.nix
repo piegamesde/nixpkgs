@@ -30,8 +30,5 @@ import <nix/fetchurl.nix> {
     let
       m = builtins.match "mirror://([a-z]+)/(.*)" url;
     in
-    if m == null then
-      url
-    else
-      builtins.head (mirrors.${builtins.elemAt m 0}) + (builtins.elemAt m 1);
+    if m == null then url else builtins.head (mirrors.${builtins.elemAt m 0}) + (builtins.elemAt m 1);
 }

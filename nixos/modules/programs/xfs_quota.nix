@@ -86,9 +86,7 @@ in
   config = mkIf (cfg.projects != { }) {
 
     environment.etc.projects.source = pkgs.writeText "etc-project" (
-      concatStringsSep "\n" (
-        mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}") cfg.projects
-      )
+      concatStringsSep "\n" (mapAttrsToList (name: opts: "${toString opts.id}:${opts.path}") cfg.projects)
     );
 
     environment.etc.projid.source = pkgs.writeText "etc-projid" (
@@ -103,9 +101,7 @@ in
             description = "Setup xfs_quota for project ${name}";
             script = ''
               ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'project -s ${name}' ${opts.fileSystem}
-              ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${
-                limitOptions opts
-              } ${name}' ${opts.fileSystem}
+              ${pkgs.xfsprogs.bin}/bin/xfs_quota -x -c 'limit -p ${limitOptions opts} ${name}' ${opts.fileSystem}
             '';
 
             wantedBy = [ "multi-user.target" ];

@@ -15,8 +15,7 @@ let
   cfg = config.networking.nat;
 
   mkDest =
-    externalIP:
-    if externalIP == null then "-j MASQUERADE" else "-j SNAT --to-source ${externalIP}";
+    externalIP: if externalIP == null then "-j MASQUERADE" else "-j SNAT --to-source ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 

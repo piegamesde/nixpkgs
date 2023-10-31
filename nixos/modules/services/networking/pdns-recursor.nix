@@ -39,9 +39,7 @@ let
       "";
 
   configDir = pkgs.writeTextDir "recursor.conf" (
-    concatStringsSep "\n" (
-      flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}")
-    )
+    concatStringsSep "\n" (flip mapAttrsToList cfg.settings (name: val: "${name}=${serialize val}"))
   );
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);

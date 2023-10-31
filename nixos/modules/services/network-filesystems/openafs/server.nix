@@ -63,9 +63,7 @@ let
       (cfg.roles.database.enable && cfg.roles.backup.enable && cfg.roles.backup.enableFabs)
       ''
         bnode simple buserver 1
-        parm ${
-          lib.getBin pkgs.fabs
-        }/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
+        parm ${lib.getBin pkgs.fabs}/bin/fabsys server --config ${fabsConfFile} ${cfg.roles.backup.fabsArgs}
         end
       ''
     )

@@ -86,9 +86,7 @@ in
   constraints = doJailbreak super.constraints;
   cpphs =
     overrideCabal
-      (drv: {
-        postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";
-      })
+      (drv: { postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal"; })
       super.cpphs;
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
@@ -110,9 +108,9 @@ in
   lzma-conduit = doJailbreak super.lzma-conduit;
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
-  polyparse =
-    overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
-      (doJailbreak super.polyparse);
+  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (
+    doJailbreak super.polyparse
+  );
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
@@ -239,8 +237,7 @@ in
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
   fourmolu =
-    overrideCabal
-      (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
+    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
       (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455

@@ -4836,16 +4836,10 @@ in
         }
       )
       (
-        sources."@babel/generator-7.20.5"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
-        }
+        sources."@babel/generator-7.20.5" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
       )
       (
-        sources."@babel/helper-compilation-targets-7.20.0"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/helper-compilation-targets-7.20.0" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/helper-environment-visitor-7.18.9"
       sources."@babel/helper-function-name-7.19.0"
@@ -4868,9 +4862,7 @@ in
         }
       )
       sources."@babel/parser-7.20.5"
-      (
-        sources."@babel/template-7.18.10" // { dependencies = [ sources."@babel/code-frame-7.18.6" ]; }
-      )
+      (sources."@babel/template-7.18.10" // { dependencies = [ sources."@babel/code-frame-7.18.6" ]; })
       (
         sources."@babel/traverse-7.20.5"
         // {
@@ -5323,12 +5315,7 @@ in
         // {
           dependencies = [
             sources."@sinonjs/commons-2.0.0"
-            (
-              sources."@sinonjs/fake-timers-7.1.2"
-              // {
-                dependencies = [ sources."@sinonjs/commons-1.8.6" ];
-              }
-            )
+            (sources."@sinonjs/fake-timers-7.1.2" // { dependencies = [ sources."@sinonjs/commons-1.8.6" ]; })
           ];
         }
       )
@@ -5416,10 +5403,7 @@ in
       )
       sources."postman-collection-4.1.1"
       (
-        sources."postman-collection-transformer-4.1.6"
-        // {
-          dependencies = [ sources."commander-8.3.0" ];
-        }
+        sources."postman-collection-transformer-4.1.6" // { dependencies = [ sources."commander-8.3.0" ]; }
       )
       sources."postman-jsdoc-theme-0.0.3"
       (

@@ -54,9 +54,7 @@ let
     PRETTY_NAME = "${cfg.distroName} ${cfg.release} (${cfg.codeName})";
     LOGO = "nix-snowflake";
     HOME_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/";
-    DOCUMENTATION_URL =
-      lib.optionalString (cfg.distroId == "nixos")
-        "https://nixos.org/learn.html";
+    DOCUMENTATION_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/learn.html";
     SUPPORT_URL = lib.optionalString (cfg.distroId == "nixos") "https://nixos.org/community.html";
     BUG_REPORT_URL =
       lib.optionalString (cfg.distroId == "nixos")

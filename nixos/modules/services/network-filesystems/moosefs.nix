@@ -43,9 +43,7 @@ let
       generate =
         name: value:
         pkgs.writeText name (
-          lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value
-          )
+          lib.concatStringsSep "\n" (lib.mapAttrsToList (key: val: "${key} = ${valueToString val}") value)
         );
     };
 
@@ -203,8 +201,7 @@ in
   ###### implementation
 
   config =
-    mkIf
-      (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
+    mkIf (cfg.client.enable || cfg.master.enable || cfg.metalogger.enable || cfg.chunkserver.enable)
       {
 
         warnings = [ (mkIf (!cfg.runAsUser) "Running moosefs services as root is not recommended.") ];

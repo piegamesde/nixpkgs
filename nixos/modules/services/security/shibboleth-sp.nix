@@ -27,9 +27,7 @@ in
       fastcgi.enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to include the shibauthorizer and shibresponder FastCGI processes";
+        description = lib.mdDoc "Whether to include the shibauthorizer and shibresponder FastCGI processes";
       };
 
       fastcgi.shibAuthorizerPort = mkOption {

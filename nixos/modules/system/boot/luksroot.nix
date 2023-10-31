@@ -255,12 +255,8 @@ let
               ''
                 if wait_target "key file" ${dev.keyFile}; then
                     ${csopen} --key-file=${dev.keyFile} \
-                      ${
-                        optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"
-                      } \
-                      ${
-                        optionalString (dev.keyFileOffset != null) "--keyfile-offset=${toString dev.keyFileOffset}"
-                      }
+                      ${optionalString (dev.keyFileSize != null) "--keyfile-size=${toString dev.keyFileSize}"} \
+                      ${optionalString (dev.keyFileOffset != null) "--keyfile-offset=${toString dev.keyFileOffset}"}
                     cs_status=$?
                     if [ $cs_status -ne 0 ]; then
                       echo "Key File ${dev.keyFile} failed!"
@@ -541,9 +537,9 @@ let
               echo "Waiting for your FIDO2 device..."
               fido2luks open${
                 optionalString dev.allowDiscards " --allow-discards"
-              } ${dev.device} ${dev.name} "${
-                builtins.concatStringsSep "," fido2luksCredentials
-              }" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
+              } ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${
+                toString dev.fido2.gracePeriod
+              } --salt string:$passphrase
             if [ $? -ne 0 ]; then
               echo "No FIDO2 key found, falling back to normal open procedure"
               open_normally
@@ -611,9 +607,7 @@ let
               ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
               ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
           in
-          "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${
-            lib.concatStringsSep "," opts
-          }"
+          "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${lib.concatStringsSep "," opts}"
         )
         luks.devices
     )
@@ -1087,20 +1081,17 @@ in
 
       {
         assertion =
-          !config.boot.initrd.systemd.enable
-          -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
+          !config.boot.initrd.systemd.enable -> all (x: x.keyFileTimeout == null) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.keyFileTimeout is only supported for systemd initrd";
       }
 
       {
         assertion =
-          config.boot.initrd.systemd.enable
-          -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
+          config.boot.initrd.systemd.enable -> all (dev: !dev.fallbackToPassword) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.fallbackToPassword is implied by systemd stage 1.";
       }
       {
-        assertion =
-          config.boot.initrd.systemd.enable -> all (dev: dev.preLVM) (attrValues luks.devices);
+        assertion = config.boot.initrd.systemd.enable -> all (dev: dev.preLVM) (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.preLVM is not used by systemd stage 1.";
       }
       {
@@ -1112,9 +1103,7 @@ in
       {
         assertion =
           config.boot.initrd.systemd.enable
-          -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (
-            attrValues luks.devices
-          );
+          -> all (dev: dev.preOpenCommands == "" && dev.postOpenCommands == "") (attrValues luks.devices);
         message = "boot.initrd.luks.devices.<name>.preOpenCommands and postOpenCommands is not supported by systemd stage 1. Please bind a service to cryptsetup.target or cryptsetup-pre.target instead.";
       }
       # TODO
@@ -1248,16 +1237,10 @@ in
 
     boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) postCommands;
     boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      commonFunctions
-      + preCommands
-      + concatStrings (mapAttrsToList openCommand preLVM)
-      + postCommands
+      commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand preLVM) + postCommands
     );
     boot.initrd.postDeviceCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      commonFunctions
-      + preCommands
-      + concatStrings (mapAttrsToList openCommand postLVM)
-      + postCommands
+      commonFunctions + preCommands + concatStrings (mapAttrsToList openCommand postLVM) + postCommands
     );
 
     environment.systemPackages = [ pkgs.cryptsetup ];

@@ -1184,9 +1184,7 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections = [
-            "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable"
-          ];
+          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
           queries = {
             points = {
               labels = [ "name" ];

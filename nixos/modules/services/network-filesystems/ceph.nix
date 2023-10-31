@@ -20,9 +20,7 @@ let
       mkMerge (
         map
           (daemonId: {
-            "ceph-${daemonType}-${daemonId}" =
-              makeService daemonType daemonId cfg.global.clusterName
-                pkgs.ceph;
+            "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
           })
           daemonIds
       )
@@ -38,9 +36,7 @@ let
       in
       {
         enable = true;
-        description = "Ceph ${
-            builtins.replaceStrings lowerChars upperChars daemonType
-          } daemon ${daemonId}";
+        description = "Ceph ${builtins.replaceStrings lowerChars upperChars daemonType} daemon ${daemonId}";
         after = [
           "network-online.target"
           "time-sync.target"

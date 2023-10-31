@@ -48,10 +48,8 @@ let
       # This works good enough as-is, but should really only be targetPlatform-specific
       # but we don't support targeting DOS, OS/2, 16-bit Windows etc Nixpkgs-wide so this needs extra logic
       includeDirs =
-        with stdenv.hostPlatform;
-        [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
-      listToDirs =
-        list: lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
+        with stdenv.hostPlatform; [ "h" ] ++ lib.optional isWindows "h/nt" ++ lib.optional isLinux "lh";
+      listToDirs = list: lib.strings.concatMapStringsSep ":" (dir: "${placeholder "out"}/${dir}") list;
       name = "${open-watcom.passthru.prettyName}-${open-watcom.version}";
     in
     symlinkJoin {
@@ -98,8 +96,7 @@ let
               cat test.c
               wcl386 -fe=test_c test.c
               # Only test execution if hostPlatform is targetable
-              ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
-                "./test_c"}
+              ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch) "./test_c"}
 
               cat <<EOF >test.cpp
               #include <string>
@@ -119,8 +116,7 @@ let
               cat test.cpp
               wcl386 -fe=test_cpp test.cpp
               # Only test execution if hostPlatform is targetable
-              ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch)
-                "./test_cpp"}
+              ${lib.optionalString (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isAarch) "./test_cpp"}
               touch $out
             '';
             cross =

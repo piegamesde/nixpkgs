@@ -194,8 +194,7 @@ let
     };
   };
 
-  suffix =
-    if (channel == "stable" || channel == "ungoogled-chromium") then "" else "-" + channel;
+  suffix = if (channel == "stable" || channel == "ungoogled-chromium") then "" else "-" + channel;
 
   sandboxExecutableName = chromium.browser.passthru.sandboxExecutableName;
 

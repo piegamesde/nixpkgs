@@ -16,8 +16,7 @@ let
   # Get the basename of the actual compression program from the whole
   # compression command, for the purpose of guessing the u-boot
   # compression type and filename extension.
-  compressorName =
-    fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+  compressorName = fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
 in
 {
   stdenvNoCC,
@@ -83,9 +82,7 @@ in
 let
   # !!! Move this into a public lib function, it is probably useful for others
   toValidStoreName =
-    x:
-    with builtins;
-    lib.concatStringsSep "-" (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x));
+    x: with builtins; lib.concatStringsSep "-" (filter (x: !(isList x)) (split "[^a-zA-Z0-9_=.?-]+" x));
 in
 stdenvNoCC.mkDerivation rec {
   inherit

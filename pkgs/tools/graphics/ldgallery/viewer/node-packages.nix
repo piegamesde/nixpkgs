@@ -8260,18 +8260,12 @@ let
       sources."@babel/compat-data-7.19.1"
       (sources."@babel/core-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       (
-        sources."@babel/generator-7.19.0"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
-        }
+        sources."@babel/generator-7.19.0" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
       )
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
       (
-        sources."@babel/helper-compilation-targets-7.19.1"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/helper-compilation-targets-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/helper-create-class-features-plugin-7.19.0"
       sources."@babel/helper-create-regexp-features-plugin-7.19.0"
@@ -8362,12 +8356,7 @@ let
       sources."@babel/plugin-transform-property-literals-7.18.6"
       sources."@babel/plugin-transform-regenerator-7.18.6"
       sources."@babel/plugin-transform-reserved-words-7.18.6"
-      (
-        sources."@babel/plugin-transform-runtime-7.19.1"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."@babel/plugin-transform-runtime-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/plugin-transform-shorthand-properties-7.18.6"
       sources."@babel/plugin-transform-spread-7.19.0"
       sources."@babel/plugin-transform-sticky-regex-7.18.6"
@@ -8612,9 +8601,7 @@ let
       sources."autoprefixer-10.4.11"
       sources."babel-loader-8.2.5"
       sources."babel-plugin-dynamic-import-node-2.3.3"
-      (
-        sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
       sources."balanced-match-1.0.2"
@@ -9194,12 +9181,7 @@ let
       sources."parent-module-1.0.1"
       sources."parse-json-5.2.0"
       sources."parse5-5.1.1"
-      (
-        sources."parse5-htmlparser2-tree-adapter-6.0.1"
-        // {
-          dependencies = [ sources."parse5-6.0.1" ];
-        }
-      )
+      (sources."parse5-htmlparser2-tree-adapter-6.0.1" // { dependencies = [ sources."parse5-6.0.1" ]; })
       sources."parseurl-1.3.3"
       (sources."pascal-case-3.1.2" // { dependencies = [ sources."tslib-2.4.0" ]; })
       sources."path-exists-4.0.0"

@@ -74,9 +74,7 @@ stdenv.mkDerivation {
       echo "STATICLIB_TOO = N" >> config.mk
 
       # Enable cross-compilation
-      echo 'AR = ${
-        lib.getBin stdenv.cc.bintools.bintools
-      }/bin/${stdenv.cc.targetPrefix}ar' >> config.mk
+      echo 'AR = ${lib.getBin stdenv.cc.bintools.bintools}/bin/${stdenv.cc.targetPrefix}ar' >> config.mk
       echo 'CC = ${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc' >> config.mk
       echo 'CC_FOR_BUILD = ${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc' >> config.mk
       echo 'LD_FOR_BUILD = $(CC_FOR_BUILD)' >> config.mk

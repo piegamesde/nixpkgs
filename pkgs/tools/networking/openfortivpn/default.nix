@@ -37,8 +37,7 @@ stdenv.mkDerivation rec {
 
   configureFlags =
     [ "--sysconfdir=/etc" ]
-    ++ lib.optional withSystemd
-      "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
+    ++ lib.optional withSystemd "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     ++ lib.optional withPpp "--with-pppd=${ppp}/bin/pppd";
 
   enableParallelBuilding = true;

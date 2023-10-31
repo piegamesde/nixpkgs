@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "marvin-${version}.deb";
-    url = "http://dl.chemaxon.com/marvin/${version}/marvin_linux_${
-        versions.majorMinor version
-      }.deb";
+    url = "http://dl.chemaxon.com/marvin/${version}/marvin_linux_${versions.majorMinor version}.deb";
     sha256 = "sha256-cZ9SFdKNURhcInM6zZNwoi+WyHAsGCeAgkfpAVi7GYE=";
   };
 

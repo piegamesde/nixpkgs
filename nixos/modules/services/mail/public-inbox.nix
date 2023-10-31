@@ -28,9 +28,7 @@ let
     args = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description =
-        lib.mdDoc
-          "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`.";
+      description = lib.mdDoc "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`.";
     };
     port = mkOption {
       type = with types; nullOr (either str port);
@@ -443,9 +441,7 @@ in
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = mkMerge (
         map
-          (
-            proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ])
-          )
+          (proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ]))
           [
             "imap"
             "http"
@@ -459,18 +455,14 @@ in
 
       # Register the addresses as existing
       virtual = concatStringsSep "\n" (
-        mapAttrsToList
-          (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address)
+        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address)
           cfg.inboxes
       );
 
       # Deliver the addresses with the public-inbox transport
       transport = concatStringsSep "\n" (
         mapAttrsToList
-          (
-            _: inbox:
-            concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address
-          )
+          (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address)
           cfg.inboxes
       );
 

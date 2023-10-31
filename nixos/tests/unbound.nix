@@ -231,12 +231,8 @@ import ./make-test-python.nix (
             "unbound-extra1.conf".text = ''
               forward-zone:
               name: "example.local."
-              forward-addr: ${
-                (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address
-              }
-              forward-addr: ${
-                (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address
-              }
+              forward-addr: ${(lib.head nodes.resolver.config.networking.interfaces.eth1.ipv6.addresses).address}
+              forward-addr: ${(lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses).address}
             '';
             "unbound-extra2.conf".text = ''
               auth-zone:

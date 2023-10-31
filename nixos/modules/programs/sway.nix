@@ -170,9 +170,7 @@ in
     fonts.enableDefaultFonts = mkDefault true;
     programs.dconf.enable = mkDefault true;
     # To make a Sway session available if a display manager like SDDM is enabled:
-    services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [
-      cfg.package
-    ];
+    services.xserver.displayManager.sessionPackages = optionals (cfg.package != null) [ cfg.package ];
     programs.xwayland.enable = mkDefault true;
     # For screen sharing (this option only has an effect with xdg.portal.enable):
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];

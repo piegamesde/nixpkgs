@@ -128,9 +128,9 @@ let
       }
     );
 
-  bootDeviceCounters =
-    foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
-      (concatMap (args: args.devices) cfg.mirroredBoots);
+  bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (
+    concatMap (args: args.devices) cfg.mirroredBoots
+  );
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (
@@ -380,9 +380,7 @@ in
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example = [
-          "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2"
-        ];
+        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -947,8 +945,7 @@ in
               message = "Boot paths must be absolute, not ${args.path}";
             }
             {
-              assertion =
-                if args.efiSysMountPoint == null then true else hasPrefix "/" args.efiSysMountPoint;
+              assertion = if args.efiSysMountPoint == null then true else hasPrefix "/" args.efiSysMountPoint;
               message = "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
           ]

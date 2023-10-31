@@ -83,8 +83,7 @@ rec {
       # Creates a functor with the same arguments as f
       copyArgs = g: lib.setFunctionArgs g (lib.functionArgs f);
       # Changes the original arguments with (potentially a function that returns) a set of new attributes
-      overrideWith =
-        newArgs: origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
+      overrideWith = newArgs: origArgs // (if lib.isFunction newArgs then newArgs origArgs else newArgs);
 
       # Re-call the function but with different arguments
       overrideArgs = copyArgs (newArgs: makeOverridable f (overrideWith newArgs));
@@ -172,9 +171,7 @@ rec {
         else if lib.length suggestions == 1 then
           ", did you mean ${lib.elemAt suggestions 0}?"
         else
-          ", did you mean ${lib.concatStringsSep ", " (lib.init suggestions)} or ${
-            lib.last suggestions
-          }?";
+          ", did you mean ${lib.concatStringsSep ", " (lib.init suggestions)} or ${lib.last suggestions}?";
 
       errorForArg =
         arg:
@@ -229,10 +226,7 @@ rec {
       outputs = drv.outputs or [ "out" ];
 
       commonAttrs =
-        drv
-        // (builtins.listToAttrs outputsList)
-        // ({ all = map (x: x.value) outputsList; })
-        // passthru;
+        drv // (builtins.listToAttrs outputsList) // ({ all = map (x: x.value) outputsList; }) // passthru;
 
       outputToAttrListElement = outputName: {
         name = outputName;
@@ -353,9 +347,7 @@ rec {
         # overridden.
         overrideScope =
           g:
-          makeScopeWithSplicing splicePackages newScope otherSplices keep extra (
-            lib.fixedPoints.extends g f
-          );
+          makeScopeWithSplicing splicePackages newScope otherSplices keep extra (lib.fixedPoints.extends g f);
         packages = f;
       };
     in

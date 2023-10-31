@@ -79,9 +79,7 @@ let
     # abandoned
     "tree-sitter-fluent"
   ];
-  ignoredTreeSitterOrgReposJson =
-    jsonFile "ignored-tree-sitter-org-repos"
-      ignoredTreeSitterOrgRepos;
+  ignoredTreeSitterOrgReposJson = jsonFile "ignored-tree-sitter-org-repos" ignoredTreeSitterOrgRepos;
 
   # Additional grammars that are not in the official github orga.
   # If you need a grammar that already exists in the official orga,
@@ -449,9 +447,7 @@ let
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
          allGrammars =
-           (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; })
-             allGrammars
-           );
+           (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; }) allGrammars);
          inherit outputDir;
        }
      })"

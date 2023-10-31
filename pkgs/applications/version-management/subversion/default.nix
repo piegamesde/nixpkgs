@@ -53,9 +53,7 @@ let
     stdenv.mkDerivation (
       rec {
         inherit version;
-        pname = "subversion${
-            lib.optionalString (!bdbSupport && perlBindings && pythonBindings) "-client"
-          }";
+        pname = "subversion${lib.optionalString (!bdbSupport && perlBindings && pythonBindings) "-client"}";
 
         src = fetchurl {
           url = "mirror://apache/subversion/subversion-${version}.tar.bz2";

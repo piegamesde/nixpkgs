@@ -603,12 +603,10 @@ in
         };
       };
 
-    users.users.${cfg.provision.localMail.recipientName} =
-      lib.mkIf cfg.provision.localMail.enable
-        {
-          isNormalUser = true;
-          description = "DMARC mail recipient";
-        };
+    users.users.${cfg.provision.localMail.recipientName} = lib.mkIf cfg.provision.localMail.enable {
+      isNormalUser = true;
+      description = "DMARC mail recipient";
+    };
   };
 
   meta.doc = ./parsedmarc.md;

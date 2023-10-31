@@ -174,9 +174,7 @@ in
     # pkg.opensnitch is referred to elsewhere in the module so we don't need to worry about it being garbage collected
     services.opensnitch.settings = mapAttrs (_: v: mkDefault v) (
       builtins.fromJSON (
-        builtins.unsafeDiscardStringContext (
-          builtins.readFile "${pkgs.opensnitch}/etc/default-config.json"
-        )
+        builtins.unsafeDiscardStringContext (builtins.readFile "${pkgs.opensnitch}/etc/default-config.json")
       )
     );
 
@@ -200,9 +198,7 @@ in
         # `cfg.rules`).
         find /var/lib/opensnitch/rules -type l -lname '${builtins.storeDir}/*' ${
           optionalString (rules != { }) ''
-            -not \( ${
-              concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules
-            } \) \
+            -not \( ${concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules} \) \
           ''
         } -delete
         ${concatMapStrings

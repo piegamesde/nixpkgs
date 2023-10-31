@@ -84,13 +84,9 @@ let
     cfg.extraFlags
     ++ [
       "--storage.tsdb.path=${workingDir}/data/"
-      "--config.file=${
-        if cfg.enableReload then "/etc/prometheus/prometheus.yaml" else prometheusYml
-      }"
+      "--config.file=${if cfg.enableReload then "/etc/prometheus/prometheus.yaml" else prometheusYml}"
       "--web.listen-address=${cfg.listenAddress}:${builtins.toString cfg.port}"
-      "--alertmanager.notification-queue-capacity=${
-        toString cfg.alertmanagerNotificationQueueCapacity
-      }"
+      "--alertmanager.notification-queue-capacity=${toString cfg.alertmanagerNotificationQueueCapacity}"
     ]
     ++ optional (cfg.webExternalUrl != null) "--web.external-url=${cfg.webExternalUrl}"
     ++ optional (cfg.retentionTime != null) "--storage.tsdb.retention.time=${cfg.retentionTime}"
@@ -1918,18 +1914,14 @@ in
       uid = config.ids.uids.prometheus;
       group = "prometheus";
     };
-    environment.etc."prometheus/prometheus.yaml" = mkIf cfg.enableReload {
-      source = prometheusYml;
-    };
+    environment.etc."prometheus/prometheus.yaml" = mkIf cfg.enableReload { source = prometheusYml; };
     systemd.services.prometheus = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/prometheus"
-          + optionalString (length cmdlineArgs != 0) (
-            " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-          );
+          + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";
         Restart = "always";

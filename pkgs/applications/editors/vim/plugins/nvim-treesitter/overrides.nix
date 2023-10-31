@@ -65,9 +65,7 @@ let
   withPlugins =
     f:
     self.nvim-treesitter.overrideAttrs (
-      _: {
-        passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));
-      }
+      _: { passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars)); }
     );
 
   withAllGrammars = withPlugins (_: allGrammars);

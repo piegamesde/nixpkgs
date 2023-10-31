@@ -51,9 +51,7 @@ rec {
       patchelf --set-rpath ${lib.makeLibraryPath [ (lib.getLib systemd) ]} "$out/bin/filebeat"
     '';
   };
-  heartbeat7 = beat "heartbeat" {
-    meta.description = "Lightweight shipper for uptime monitoring";
-  };
+  heartbeat7 = beat "heartbeat" { meta.description = "Lightweight shipper for uptime monitoring"; };
   metricbeat7 = beat "metricbeat" {
     meta.description = "Lightweight shipper for metrics";
     passthru.tests = lib.optionalAttrs config.allowUnfree (

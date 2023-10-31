@@ -73,9 +73,7 @@ in
       excludeDomains = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Origin domains to exclude from rewriting in addition to primary domain";
+        description = lib.mdDoc "Origin domains to exclude from rewriting in addition to primary domain";
       };
 
       user = mkOption {
@@ -105,9 +103,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "postsrsd") {
-      postsrsd.gid = config.ids.gids.postsrsd;
-    };
+    users.groups = optionalAttrs (cfg.group == "postsrsd") { postsrsd.gid = config.ids.gids.postsrsd; };
 
     systemd.services.postsrsd = {
       description = "PostSRSd SRS rewriting server";

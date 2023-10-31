@@ -24,8 +24,7 @@ import ./make-test-python.nix (
         environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
 
         # breitbandmessung is unfree
-        nixpkgs.config.allowUnfreePredicate =
-          pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
       };
 
     enableOCR = true;

@@ -133,9 +133,7 @@ let
                   // optionalAttrs (route.options ? initrwnd) {
                     InitialAdvertisedReceiveWindow = route.options.initrwnd;
                   }
-                  // optionalAttrs (route.options ? initcwnd) {
-                    InitialCongestionWindow = route.options.initcwnd;
-                  }
+                  // optionalAttrs (route.options ? initcwnd) { InitialCongestionWindow = route.options.initcwnd; }
                   // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
                   // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
                   // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
@@ -400,8 +398,7 @@ in
                   // (optionalAttrs (sit.encapsulation != null) (
                     {
                       FooOverUDP = true;
-                      Encapsulation =
-                        if sit.encapsulation.type == "fou" then "FooOverUDP" else "GenericUDPEncapsulation";
+                      Encapsulation = if sit.encapsulation.type == "fou" then "FooOverUDP" else "GenericUDPEncapsulation";
                       FOUDestinationPort = sit.encapsulation.port;
                     }
                     // (optionalAttrs (sit.encapsulation.sourcePort != null) {
@@ -516,8 +513,7 @@ in
                       mapAttrsToList
                         (
                           name: config:
-                          " -- add-port ${n} ${name}"
-                          + optionalString (config.vlan != null) " tag=${toString config.vlan}"
+                          " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
                         )
                         v.interfaces
                     )
@@ -525,10 +521,7 @@ in
                     ${
                       concatStrings (
                         mapAttrsToList
-                          (
-                            name: config:
-                            optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
-                          )
+                          (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
                           v.interfaces
                       )
                     } \

@@ -93,9 +93,7 @@ import ./make-test-python.nix (
       client.fail("nbd-client server ${toString listenPort} /dev/nbd0 -name vault-priv -persist")
 
       # Server: Successfully connect to the private disk
-      server.succeed("nbd-client localhost ${
-        toString listenPort
-      } /dev/nbd0 -name vault-priv -persist")
+      server.succeed("nbd-client localhost ${toString listenPort} /dev/nbd0 -name vault-priv -persist")
       server.succeed(f"echo '{testString}' | dd of=/dev/nbd0 conv=notrunc")
       foundString = server.succeed(f"dd status=none if=/dev/loop0 count={len(testString)}")[:len(testString)]
       if foundString != testString:

@@ -90,10 +90,7 @@ let
     if netcdf-forced != null then netcdf-forced else netcdf.override { hdf5 = hdf5-custom; };
   enablePlplotDrivers = enableWX || enableXWin;
   plplot-with-drivers =
-    if plplot-forced != null then
-      plplot-forced
-    else
-      plplot.override { inherit enableWX enableXWin; };
+    if plplot-forced != null then plplot-forced else plplot.override { inherit enableWX enableXWin; };
 in
 stdenv.mkDerivation rec {
   pname = "gnudatalanguage";

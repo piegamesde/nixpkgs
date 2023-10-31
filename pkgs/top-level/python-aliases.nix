@@ -158,9 +158,7 @@ mapAliases ({
   intreehook =
     throw
       "intreehooks has been removed because it is obsolete as a backend-path key was added to PEP 517"; # added 2023-04-11
-  ipaddress =
-    throw
-      "ipaddress has been removed because it is no longer required since python 2.7."; # added 2022-05-30
+  ipaddress = throw "ipaddress has been removed because it is no longer required since python 2.7."; # added 2022-05-30
   influxgraph = throw "influxgraph has been removed because it is no longer maintained"; # added 2022-07-10
   itanium_demangler = itanium-demangler; # added 2022-1017
   JayDeBeApi = jaydebeapi; # added 2023-02-19
@@ -252,22 +250,16 @@ mapAliases ({
   pymc3 = pymc; # added 2022-06-05, module was rename starting with 4.0.0
   pymssql = throw "pymssql has been abandoned upstream."; # added 2020-05-04
   PyMVGLive = pymvglive; # added 2023-02-19
-  pyramid_hawkauth =
-    throw
-      "pyramid_hawkauth has been removed because it is no longer maintained"; # added 2023-02-2
+  pyramid_hawkauth = throw "pyramid_hawkauth has been removed because it is no longer maintained"; # added 2023-02-2
   pyreadability = readability-lxml; # added 2022-05-24
   pyroute2-core = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-ethtool = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-ipdb = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-ipset = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-ndb = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-nftables =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-nftables = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   pyroute2-nslink = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
-  pyroute2-protocols =
-    throw
-      "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
+  pyroute2-protocols = throw "pyroute2 migrated back to a single package scheme in version 0.7.1"; # added 2022-07-16
   Pyro4 = pyro4; # added 2023-02-19
   Pyro5 = pyro5; # added 2023-02-19
   PyRSS2Gen = pyrss2gen; # added 2023-02-19
@@ -281,9 +273,7 @@ mapAliases ({
   pytest-pep257 =
     throw
       "pytest-pep257 was removed, as the pep257 package was migrated into pycodestyle"; # added 2022-04-12
-  pytest-pythonpath =
-    throw
-      "pytest-pythonpath is obsolete as of pytest 7.0.0 and has been removed"; # added 2022-03-09
+  pytest-pythonpath = throw "pytest-pythonpath is obsolete as of pytest 7.0.0 and has been removed"; # added 2022-03-09
   pytestpep8 =
     throw
       "pytestpep8 was removed because it is abandoned and no longer compatible with pytest v6.0"; # added 2020-12-10
@@ -341,9 +331,7 @@ mapAliases ({
   sharkiqpy = sharkiq; # added 2022-05-21
   smart_open = smart-open; # added 2021-03-14
   smmap2 = throw "smmap2 has been deprecated, use smmap instead."; # added 2020-03-14
-  somecomfort =
-    throw
-      "somecomfort was removed because Home Assistant switched to aiosomecomfort"; # added 2023-02-01
+  somecomfort = throw "somecomfort was removed because Home Assistant switched to aiosomecomfort"; # added 2023-02-01
   SPARQLWrapper = sparqlwrapper;
   sphinx-jquery = sphinxcontrib-jquery; # added 2023-02-24
   sphinx_rtd_theme = sphinx-rtd-theme; # added 2022-08-03

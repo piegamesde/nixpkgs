@@ -54,9 +54,7 @@ let
       zkconfigconnect = concatStringsSep "," cfg.zkConfigConnect;
       zkconfigexhibitorpath = cfg.zkConfigExhibitorPath;
       zkconfigpollms = toString cfg.zkConfigPollMs;
-      zkconfigretry = "${toString cfg.zkConfigRetry.sleepMs}:${
-          toString cfg.zkConfigRetry.retryQuantity
-        }";
+      zkconfigretry = "${toString cfg.zkConfigRetry.sleepMs}:${toString cfg.zkConfigRetry.retryQuantity}";
       zkconfigzpath = cfg.zkConfigZPath;
       zkconfigexhibitorport = toString cfg.zkConfigExhibitorPort; # NB: This might be null
     };

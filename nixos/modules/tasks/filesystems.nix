@@ -13,10 +13,7 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check
-    // {
-      description = "${elemType.description} (with check: ${desc})";
-    };
+    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
 
   isNonEmpty =
     s:
@@ -232,8 +229,7 @@ let
         ];
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
-        fs:
-        fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
+        fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:

@@ -56,9 +56,7 @@ in
       accelFactor = mkOption {
         type = types.nullOr types.str;
         default = "0.001";
-        description =
-          lib.mdDoc
-            "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
+        description = lib.mdDoc "Cursor acceleration (how fast speed increases from minSpeed to maxSpeed).";
       };
 
       minSpeed = mkOption {
@@ -222,13 +220,11 @@ in
         Option "HorizEdgeScroll" "${if cfg.horizEdgeScroll then "1" else "0"}"
         ${optionalString cfg.palmDetect ''Option "PalmDetect" "1"''}
         ${
-          optionalString (cfg.palmMinWidth != null)
-            ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''
+          optionalString (cfg.palmMinWidth != null) ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''
         }
         ${optionalString (cfg.palmMinZ != null) ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''}
         ${
-          optionalString (cfg.scrollDelta != null)
-            ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''
+          optionalString (cfg.scrollDelta != null) ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''
         }
         ${
           if !cfg.horizontalScroll then

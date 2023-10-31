@@ -40,9 +40,7 @@ in
           "${pkgs.prometheus-ipmi-exporter}/bin/ipmi_exporter"
           "--web.listen-address ${listenAddress}:${toString port}"
         ]
-        ++ optionals (cfg.webConfigFile != null) [
-          "--web.config.file ${escapeShellArg cfg.webConfigFile}"
-        ]
+        ++ optionals (cfg.webConfigFile != null) [ "--web.config.file ${escapeShellArg cfg.webConfigFile}" ]
         ++ optionals (cfg.configFile != null) [ "--config.file ${escapeShellArg cfg.configFile}" ]
         ++ extraFlags
       );

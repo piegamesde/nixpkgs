@@ -51,8 +51,7 @@ let
         ];
         license = licenses.agpl3Plus;
         platforms = with platforms; unix;
-        knownVulnerabilities =
-          extraVulnerabilities ++ (optional eol "Nextcloud version ${version} is EOL");
+        knownVulnerabilities = extraVulnerabilities ++ (optional eol "Nextcloud version ${version} is EOL");
       };
     };
 in

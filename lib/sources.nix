@@ -228,10 +228,7 @@ let
             let
               gitDir = absolutePath (dirOf path) (lib.head m);
               commonDir'' =
-                if pathIsRegularFile "${gitDir}/commondir" then
-                  lib.fileContents "${gitDir}/commondir"
-                else
-                  gitDir;
+                if pathIsRegularFile "${gitDir}/commondir" then lib.fileContents "${gitDir}/commondir" else gitDir;
               commonDir' = lib.removeSuffix "/" commonDir'';
               commonDir = absolutePath gitDir commonDir';
               refFile = lib.removePrefix "${commonDir}/" "${gitDir}/${file}";
@@ -247,10 +244,7 @@ let
             fileContent = lib.fileContents fileName;
             matchRef = match "^ref: (.*)$" fileContent;
           in
-          if matchRef == null then
-            { value = fileContent; }
-          else
-            readCommitFromFile (lib.head matchRef) path
+          if matchRef == null then { value = fileContent; } else readCommitFromFile (lib.head matchRef) path
 
         else if
           pathIsRegularFile packedRefsName

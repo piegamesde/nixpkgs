@@ -231,9 +231,7 @@ rec {
             This function also copies the path to the Nix store and returns the store path, the same as "''${path}" will, which may not be what you want.
             This behavior is deprecated and will throw an error in the future.''
       (
-        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (
-          stringToCharacters s
-        )
+        builtins.foldl' (x: y: if y == "/" && hasSuffix "/" x then x else x + y) "" (stringToCharacters s)
       );
 
   /* Depending on the boolean `cond', return either the given string
@@ -409,8 +407,7 @@ rec {
        escapeC [" "] "foo bar"
        => "foo\\x20bar"
   */
-  escapeC =
-    list: replaceStrings list (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list);
+  escapeC = list: replaceStrings list (map (c: "\\x${toLower (lib.toHexString (charToInt c))}") list);
 
   /* Escape the string so it can be safely placed inside a URL
      query.
@@ -549,19 +546,16 @@ rec {
   */
   toShellVar =
     name: value:
-    lib.throwIfNot (isValidPosixName name) "toShellVar: ${name} is not a valid shell variable name"
-      (
-        if isAttrs value && !isStringLike value then
-          "declare -A ${name}=(${
-            concatStringsSep " " (
-              lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value
-            )
-          })"
-        else if isList value then
-          "declare -a ${name}=(${escapeShellArgs value})"
-        else
-          "${name}=${escapeShellArg value}"
-      );
+    lib.throwIfNot (isValidPosixName name) "toShellVar: ${name} is not a valid shell variable name" (
+      if isAttrs value && !isStringLike value then
+        "declare -A ${name}=(${
+          concatStringsSep " " (lib.mapAttrsToList (n: v: "[${escapeShellArg n}]=${escapeShellArg v}") value)
+        })"
+      else if isList value then
+        "declare -a ${name}=(${escapeShellArgs value})"
+      else
+        "${name}=${escapeShellArg value}"
+    );
 
   /* Translate an attribute set into corresponding shell variable declarations
      using `toShellVar`.
@@ -860,10 +854,7 @@ rec {
         => "-Dengine=opengl"
   */
   mesonOption =
-    feature: value:
-    assert (lib.isString feature);
-    assert (lib.isString value);
-    "-D${feature}=${value}";
+    feature: value: assert (lib.isString feature); assert (lib.isString value); "-D${feature}=${value}";
 
   /* Create a -D<condition>={true,false} string that can be passed to typical
       Meson invocations.

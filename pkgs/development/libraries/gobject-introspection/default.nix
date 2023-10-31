@@ -94,9 +94,7 @@ stdenv.mkDerivation (
         finalAttrs.setupHook # move .gir files
         # can't use canExecute, we need prebuilt when cross
       ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        gobject-introspection-unwrapped
-      ];
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ gobject-introspection-unwrapped ];
 
     buildInputs = [ (python3.withPackages pythonModules) ];
 

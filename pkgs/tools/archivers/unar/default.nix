@@ -60,10 +60,9 @@ stdenv.mkDerivation rec {
       AppKit
     ];
 
-  nativeBuildInputs =
-    [ installShellFiles ]
-    ++ lib.optionals stdenv.isLinux [ gnustep.make ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
+  nativeBuildInputs = [
+    installShellFiles
+  ] ++ lib.optionals stdenv.isLinux [ gnustep.make ] ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
 
   xcbuildFlags = lib.optionals stdenv.isDarwin [
     "-target unar"

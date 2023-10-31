@@ -9,9 +9,7 @@ let
   addToPropagatedBuildInputs = pkg: old: {
     propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ lib.toList pkg;
   };
-  addPkgConfig = old: {
-    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
-  };
+  addPkgConfig = old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ]; };
   addToBuildInputsWithPkgConfig = pkg: old: (addPkgConfig old) // (addToBuildInputs pkg old);
   addToPropagatedBuildInputsWithPkgConfig =
     pkg: old: (addPkgConfig old) // (addToPropagatedBuildInputs pkg old);

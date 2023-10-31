@@ -64,16 +64,12 @@ rustPlatform.buildRustPackage rec {
 
   postBuild = ''
     ${setEnvVars} \
-    cargo cbuild --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo cbuild --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
   '';
 
   postInstall = ''
     ${setEnvVars} \
-    cargo cinstall --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo cinstall --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
   '';
 
   meta = with lib; {

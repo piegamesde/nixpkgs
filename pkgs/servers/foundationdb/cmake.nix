@@ -182,9 +182,7 @@ let
         license = licenses.asl20;
         platforms =
           [ "x86_64-linux" ]
-          ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [
-            "aarch64-linux"
-          ];
+          ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [ "aarch64-linux" ];
         maintainers = with maintainers; [
           thoughtpolice
           lostnet

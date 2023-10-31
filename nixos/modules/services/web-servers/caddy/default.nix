@@ -22,8 +22,7 @@ let
       ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
         bind ${concatStringsSep " " hostOpts.listenAddresses}
         ${
-          optionalString (hostOpts.useACMEHost != null)
-            "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
+          optionalString (hostOpts.useACMEHost != null) "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
         }
         log {
           ${hostOpts.logFormat}
@@ -51,10 +50,7 @@ let
           '';
     in
     "${
-      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
-        Caddyfile-formatted
-      else
-        Caddyfile
+      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile
     }/Caddyfile";
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);

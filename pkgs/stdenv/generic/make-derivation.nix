@@ -309,9 +309,7 @@ let
         doCheck = doCheck';
         doInstallCheck = doInstallCheck';
         buildInputs' =
-          buildInputs
-          ++ lib.optionals doCheck checkInputs
-          ++ lib.optionals doInstallCheck installCheckInputs;
+          buildInputs ++ lib.optionals doCheck checkInputs ++ lib.optionals doInstallCheck installCheckInputs;
         nativeBuildInputs' =
           nativeBuildInputs
           ++ lib.optional separateDebugInfo' ../../build-support/setup-hooks/separate-debug-info.sh
@@ -326,9 +324,7 @@ let
 
         dependencies = map (map lib.chooseDevOutputs) [
           [
-            (map (drv: drv.__spliced.buildBuild or drv) (
-              checkDependencyList "depsBuildBuild" depsBuildBuild
-            ))
+            (map (drv: drv.__spliced.buildBuild or drv) (checkDependencyList "depsBuildBuild" depsBuildBuild))
             (map (drv: drv.__spliced.buildHost or drv) (
               checkDependencyList "nativeBuildInputs" nativeBuildInputs'
             ))
@@ -377,9 +373,9 @@ let
           stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ lib.concatLists dependencies
         );
 
-        computedPropagatedSandboxProfile =
-          lib.concatMap (input: input.__propagatedSandboxProfile or [ ])
-            (lib.concatLists propagatedDependencies);
+        computedPropagatedSandboxProfile = lib.concatMap (input: input.__propagatedSandboxProfile or [ ]) (
+          lib.concatLists propagatedDependencies
+        );
 
         computedImpureHostDeps = lib.unique (
           lib.concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
@@ -618,8 +614,7 @@ let
             enableParallelInstalling = attrs.enableParallelInstalling or true;
           }
           //
-            lib.optionalAttrs
-              (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl)
+            lib.optionalAttrs (hardeningDisable != [ ] || hardeningEnable != [ ] || stdenv.hostPlatform.isMusl)
               { NIX_HARDENING_ENABLE = enabledHardeningOptions; }
           // lib.optionalAttrs (stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform ? gcc.arch) {
             requiredSystemFeatures = attrs.requiredSystemFeatures or [ ] ++ [

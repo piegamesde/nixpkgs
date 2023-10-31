@@ -253,8 +253,7 @@ let
           writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp)
         else
           null;
-      preDownFile =
-        if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
+      preDownFile = if values.preDown != "" then writeScriptFile "preDown.sh" values.preDown else null;
       postDownFile =
         if values.postDown != "" then writeScriptFile "postDown.sh" values.postDown else null;
       configDir = pkgs.writeTextFile {
@@ -393,9 +392,7 @@ in
   ###### implementation
 
   config = mkIf (cfg.interfaces != { }) {
-    boot.extraModulePackages =
-      optional (versionOlder kernel.kernel.version "5.6")
-        kernel.wireguard;
+    boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
     environment.systemPackages = [ pkgs.wireguard-tools ];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 

@@ -123,8 +123,6 @@ in
       };
     };
 
-    systemd = lib.mkIf cfg.enable {
-      additionalUpstreamSystemUnits = [ "systemd-repart.service" ];
-    };
+    systemd = lib.mkIf cfg.enable { additionalUpstreamSystemUnits = [ "systemd-repart.service" ]; };
   };
 }

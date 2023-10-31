@@ -51,11 +51,7 @@ in
             "AF_UNIX"
           ]
         ++ optionals
-          (
-            collectorIsEnabled "network_route"
-            || collectorIsEnabled "wifi"
-            || !collectorIsDisabled "netdev"
-          )
+          (collectorIsEnabled "network_route" || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev")
           [
             # needs netlink sockets for wireless collector
             "AF_NETLINK"

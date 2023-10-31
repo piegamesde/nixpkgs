@@ -131,9 +131,7 @@ in
 
       script = concatStringsSep "\n" [
         (concatMapStrings ensurePrinter cfg.ensurePrinters)
-        (optionalString (cfg.ensureDefaultPrinter != null) (
-          ensureDefaultPrinter cfg.ensureDefaultPrinter
-        ))
+        (optionalString (cfg.ensureDefaultPrinter != null) (ensureDefaultPrinter cfg.ensureDefaultPrinter))
         # Note: if cupsd is "stateless" the service can't be stopped,
         # otherwise the configuration will be wiped on the next start.
         (optionalString (with config.services.printing; startWhenNeeded && !stateless)

@@ -606,9 +606,7 @@ in
                   appendFsync = mkOption {
                     type = types.str;
                     default = "everysec"; # no, always, everysec
-                    description =
-                      lib.mdDoc
-                        "How often to fsync the append-only log, options: no, always, everysec.";
+                    description = lib.mdDoc "How often to fsync the append-only log, options: no, always, everysec.";
                   };
 
                   slowLogLogSlowerThan = mkOption {

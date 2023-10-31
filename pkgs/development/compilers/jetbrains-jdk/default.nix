@@ -74,9 +74,7 @@ openjdk17.overrideAttrs (
           -i jb/project/tools/linux/scripts/mkimages_x64.sh
 
       patchShebangs .
-      ./jb/project/tools/linux/scripts/mkimages_x64.sh ${build} ${
-        if debugBuild then "fd" else "jcef"
-      }
+      ./jb/project/tools/linux/scripts/mkimages_x64.sh ${build} ${if debugBuild then "fd" else "jcef"}
 
       runHook postBuild
     '';

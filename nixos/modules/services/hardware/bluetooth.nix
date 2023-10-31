@@ -102,9 +102,7 @@ in
             ControllerMode = "bredr";
           };
         };
-        description =
-          lib.mdDoc
-            "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf).";
+        description = lib.mdDoc "Set configuration for system-wide bluetooth (/etc/bluetooth/main.conf).";
       };
 
       input = mkOption {
@@ -127,9 +125,7 @@ in
             DisableSecurity = true;
           };
         };
-        description =
-          lib.mdDoc
-            "Set configuration for the network service (/etc/bluetooth/network.conf).";
+        description = lib.mdDoc "Set configuration for the network service (/etc/bluetooth/network.conf).";
       };
     };
   };

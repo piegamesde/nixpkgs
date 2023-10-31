@@ -17627,12 +17627,7 @@ let
         }
       )
       sources."@mdx-js/util-1.6.22"
-      (
-        sources."@mrmlnc/readdir-enhanced-2.2.1"
-        // {
-          dependencies = [ sources."glob-to-regexp-0.3.0" ];
-        }
-      )
+      (sources."@mrmlnc/readdir-enhanced-2.2.1" // { dependencies = [ sources."glob-to-regexp-0.3.0" ]; })
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
@@ -17711,19 +17706,12 @@ let
             sources."estraverse-4.3.0"
             (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             sources."find-cache-dir-3.3.2"
-            (
-              sources."fork-ts-checker-webpack-plugin-4.1.6"
-              // {
-                dependencies = [ sources."semver-5.7.1" ];
-              }
-            )
+            (sources."fork-ts-checker-webpack-plugin-4.1.6" // { dependencies = [ sources."semver-5.7.1" ]; })
             sources."has-flag-4.0.0"
             (
               sources."html-minifier-terser-5.1.1"
               // {
-                dependencies = [
-                  (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; })
-                ];
+                dependencies = [ (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; }) ];
               }
             )
             (sources."html-webpack-plugin-4.5.2" // { dependencies = [ sources."loader-utils-1.4.0" ]; })
@@ -17982,9 +17970,7 @@ let
             (
               sources."html-minifier-terser-5.1.1"
               // {
-                dependencies = [
-                  (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; })
-                ];
+                dependencies = [ (sources."terser-4.8.1" // { dependencies = [ sources."commander-2.20.3" ]; }) ];
               }
             )
             (sources."html-webpack-plugin-4.5.2" // { dependencies = [ sources."loader-utils-1.4.0" ]; })
@@ -18080,10 +18066,7 @@ let
         }
       )
       (
-        sources."@storybook/preset-create-react-app-4.1.2"
-        // {
-          dependencies = [ sources."semver-7.3.7" ];
-        }
+        sources."@storybook/preset-create-react-app-4.1.2" // { dependencies = [ sources."semver-7.3.7" ]; }
       )
       sources."@storybook/preview-web-6.5.10"
       (sources."@storybook/react-6.5.10" // { dependencies = [ sources."react-refresh-0.11.0" ]; })
@@ -18261,10 +18244,7 @@ let
       sources."@types/yargs-parser-21.0.0"
       sources."@types/yauzl-2.10.0"
       (
-        sources."@typescript-eslint/eslint-plugin-5.35.1"
-        // {
-          dependencies = [ sources."semver-7.3.7" ];
-        }
+        sources."@typescript-eslint/eslint-plugin-5.35.1" // { dependencies = [ sources."semver-7.3.7" ]; }
       )
       sources."@typescript-eslint/experimental-utils-5.35.1"
       sources."@typescript-eslint/parser-5.35.1"
@@ -19368,9 +19348,7 @@ let
           ];
         }
       )
-      (
-        sources."istanbul-lib-source-maps-4.0.1" // { dependencies = [ sources."source-map-0.6.1" ]; }
-      )
+      (sources."istanbul-lib-source-maps-4.0.1" // { dependencies = [ sources."source-map-0.6.1" ]; })
       sources."istanbul-reports-3.1.5"
       sources."iterate-iterator-1.0.2"
       sources."iterate-value-1.0.2"
@@ -19914,9 +19892,7 @@ let
       sources."mimic-fn-2.1.0"
       sources."min-document-2.19.0"
       sources."min-indent-1.0.1"
-      (
-        sources."mini-css-extract-plugin-2.6.1" // { dependencies = [ sources."schema-utils-4.0.0" ]; }
-      )
+      (sources."mini-css-extract-plugin-2.6.1" // { dependencies = [ sources."schema-utils-4.0.0" ]; })
       sources."minimalistic-assert-1.0.1"
       sources."minimalistic-crypto-utils-1.0.1"
       sources."minimatch-3.1.2"

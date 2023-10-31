@@ -54,11 +54,9 @@ let
       tls_verify_peers     = ${cfg.tls.allowedPeers}
     ''}
 
-    ${optionalString (cfg.locality.machineId != null)
-      "locality_machineid=${cfg.locality.machineId}"}
+    ${optionalString (cfg.locality.machineId != null) "locality_machineid=${cfg.locality.machineId}"}
     ${optionalString (cfg.locality.zoneId != null) "locality_zoneid=${cfg.locality.zoneId}"}
-    ${optionalString (cfg.locality.datacenterId != null)
-      "locality_dcid=${cfg.locality.datacenterId}"}
+    ${optionalString (cfg.locality.datacenterId != null) "locality_dcid=${cfg.locality.datacenterId}"}
     ${optionalString (cfg.locality.dataHall != null) "locality_data_hall=${cfg.locality.dataHall}"}
 
     ${fdbServers cfg.serverProcesses}

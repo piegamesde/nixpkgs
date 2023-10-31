@@ -135,9 +135,7 @@ self: super:
         ./imake-cc-wrapper-uberhack.patch
       ];
       setupHook = ./imake-setup-hook.sh;
-      CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${
-          if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"
-        }\"'";
+      CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"}\"'";
 
       configureFlags = attrs.configureFlags or [ ] ++ [
         "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp"
@@ -424,9 +422,7 @@ self: super:
         xorg.libXext
       ];
       configureFlags =
-        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-          "xorg_cv_malloc0_returns_null=no"
-        ]
+        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "xorg_cv_malloc0_returns_null=no" ]
         ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared";
     }
   );
@@ -947,9 +943,7 @@ self: super:
     }
   );
 
-  xdriinfo = super.xdriinfo.overrideAttrs (
-    attrs: { buildInputs = attrs.buildInputs ++ [ libGL ]; }
-  );
+  xdriinfo = super.xdriinfo.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ libGL ]; });
 
   xvinfo = super.xvinfo.overrideAttrs (
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.libXext ]; }
@@ -1485,9 +1479,7 @@ self: super:
     }
   );
 
-  xrdb = super.xrdb.overrideAttrs (
-    attrs: { configureFlags = [ "--with-cpp=${mcpp}/bin/mcpp" ]; }
-  );
+  xrdb = super.xrdb.overrideAttrs (attrs: { configureFlags = [ "--with-cpp=${mcpp}/bin/mcpp" ]; });
 
   sessreg = super.sessreg.overrideAttrs (
     attrs: { preBuild = "sed -i 's|gcc -E|gcc -E -P|' man/Makefile"; }
@@ -1562,8 +1554,7 @@ self: super:
           };
         }
       );
-    mapNamesToAttrs =
-      f: names: with lib; listToAttrs (zipListsWith nameValuePair names (map f names));
+    mapNamesToAttrs = f: names: with lib; listToAttrs (zipListsWith nameValuePair names (map f names));
   in
   mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
   // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree

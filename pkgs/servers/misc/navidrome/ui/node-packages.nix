@@ -12850,18 +12850,12 @@ let
         }
       )
       (
-        sources."@babel/generator-7.19.3"
-        // {
-          dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ];
-        }
+        sources."@babel/generator-7.19.3" // { dependencies = [ sources."@jridgewell/gen-mapping-0.3.2" ]; }
       )
       sources."@babel/helper-annotate-as-pure-7.18.6"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.18.9"
       (
-        sources."@babel/helper-compilation-targets-7.19.3"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
+        sources."@babel/helper-compilation-targets-7.19.3" // { dependencies = [ sources."semver-6.3.0" ]; }
       )
       sources."@babel/helper-create-class-features-plugin-7.19.0"
       sources."@babel/helper-create-regexp-features-plugin-7.19.0"
@@ -12974,12 +12968,7 @@ let
       sources."@babel/plugin-transform-react-pure-annotations-7.18.6"
       sources."@babel/plugin-transform-regenerator-7.18.6"
       sources."@babel/plugin-transform-reserved-words-7.18.6"
-      (
-        sources."@babel/plugin-transform-runtime-7.19.1"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."@babel/plugin-transform-runtime-7.19.1" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."@babel/plugin-transform-shorthand-properties-7.18.6"
       sources."@babel/plugin-transform-spread-7.19.0"
       sources."@babel/plugin-transform-sticky-regex-7.18.6"
@@ -13202,12 +13191,7 @@ let
           ];
         }
       )
-      (
-        sources."@testing-library/jest-dom-5.16.5"
-        // {
-          dependencies = [ sources."aria-query-5.0.2" ];
-        }
-      )
+      (sources."@testing-library/jest-dom-5.16.5" // { dependencies = [ sources."aria-query-5.0.2" ]; })
       sources."@testing-library/react-12.1.5"
       sources."@testing-library/react-hooks-7.0.2"
       sources."@testing-library/user-event-13.5.0"
@@ -13371,9 +13355,7 @@ let
       sources."babel-plugin-jest-hoist-27.5.1"
       sources."babel-plugin-macros-3.1.0"
       sources."babel-plugin-named-asset-import-0.3.8"
-      (
-        sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; }
-      )
+      (sources."babel-plugin-polyfill-corejs2-0.3.3" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."babel-plugin-polyfill-corejs3-0.6.0"
       sources."babel-plugin-polyfill-regenerator-0.4.1"
       sources."babel-plugin-transform-react-remove-prop-types-0.4.24"
@@ -13912,9 +13894,7 @@ let
       sources."is-generator-fn-2.1.0"
       sources."is-glob-4.0.3"
       sources."is-in-browser-1.1.3"
-      (
-        sources."is-installed-globally-0.3.2" // { dependencies = [ sources."is-path-inside-3.0.3" ]; }
-      )
+      (sources."is-installed-globally-0.3.2" // { dependencies = [ sources."is-path-inside-3.0.3" ]; })
       sources."is-interactive-1.0.0"
       sources."is-mobile-2.2.2"
       sources."is-module-1.0.0"
@@ -14642,10 +14622,7 @@ let
       sources."rimraf-3.0.2"
       sources."rollup-2.79.1"
       (
-        sources."rollup-plugin-terser-7.0.2"
-        // {
-          dependencies = [ sources."serialize-javascript-4.0.0" ];
-        }
+        sources."rollup-plugin-terser-7.0.2" // { dependencies = [ sources."serialize-javascript-4.0.0" ]; }
       )
       sources."run-async-2.4.1"
       sources."run-parallel-1.2.0"
@@ -14891,12 +14868,7 @@ let
           ];
         }
       )
-      (
-        sources."webpack-manifest-plugin-4.1.1"
-        // {
-          dependencies = [ sources."webpack-sources-2.3.1" ];
-        }
-      )
+      (sources."webpack-manifest-plugin-4.1.1" // { dependencies = [ sources."webpack-sources-2.3.1" ]; })
       sources."webpack-sources-3.2.3"
       sources."websocket-driver-0.7.4"
       sources."websocket-extensions-0.1.4"
@@ -14941,12 +14913,7 @@ let
       sources."workbox-strategies-6.5.4"
       sources."workbox-streams-6.5.4"
       sources."workbox-sw-6.5.4"
-      (
-        sources."workbox-webpack-plugin-6.5.4"
-        // {
-          dependencies = [ sources."webpack-sources-1.4.3" ];
-        }
-      )
+      (sources."workbox-webpack-plugin-6.5.4" // { dependencies = [ sources."webpack-sources-1.4.3" ]; })
       sources."workbox-window-6.5.4"
       sources."wrap-ansi-7.0.0"
       sources."wrappy-1.0.2"

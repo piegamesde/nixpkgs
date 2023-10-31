@@ -29,15 +29,13 @@ stdenv.mkDerivation {
       fetchDebianPatch =
         name: commit: hash:
         fetchurl {
-          url =
-            "https://salsa.debian.org/images-team/syslinux/raw/" + commit + "/debian/patches/" + name;
+          url = "https://salsa.debian.org/images-team/syslinux/raw/" + commit + "/debian/patches/" + name;
           inherit name hash;
         };
       fetchArchlinuxPatch =
         name: commit: hash:
         fetchurl {
-          url =
-            "https://raw.githubusercontent.com/archlinux/svntogit-packages/" + commit + "/trunk/" + name;
+          url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/" + commit + "/trunk/" + name;
           inherit name hash;
         };
     in

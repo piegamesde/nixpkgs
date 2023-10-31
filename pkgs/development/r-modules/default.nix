@@ -159,9 +159,7 @@ let
     lib.mapAttrs
       (
         name: value:
-        (builtins.getAttr name old).overrideAttrs (
-          attrs: { buildInputs = attrs.buildInputs ++ value; }
-        )
+        (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
       )
       overrides;
 
@@ -181,8 +179,7 @@ let
   # }
   overrideMaintainers =
     overrides: old:
-    lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; })
-      overrides;
+    lib.mapAttrs (name: value: (builtins.getAttr name old).override { maintainers = value; }) overrides;
 
   # Overrides package definitions with new R dependencies.
   # For example,
@@ -1315,8 +1312,7 @@ let
     ModelMetrics = old.ModelMetrics.overrideAttrs (
       attrs: {
         env = (attrs.env or { }) // {
-          NIX_CFLAGS_COMPILE =
-            attrs.env.NIX_CFLAGS_COMPILE + lib.optionalString stdenv.isDarwin " -fopenmp";
+          NIX_CFLAGS_COMPILE = attrs.env.NIX_CFLAGS_COMPILE + lib.optionalString stdenv.isDarwin " -fopenmp";
         };
       }
     );
@@ -1565,9 +1561,7 @@ let
       }
     );
 
-    geojsonio = old.geojsonio.overrideAttrs (
-      attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; }
-    );
+    geojsonio = old.geojsonio.overrideAttrs (attrs: { buildInputs = [ cacert ] ++ attrs.buildInputs; });
 
     rstan = old.rstan.overrideAttrs (
       attrs: {
@@ -1593,9 +1587,7 @@ let
 
     rlang = old.rlang.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
-    systemfonts = old.systemfonts.overrideAttrs (
-      attrs: { preConfigure = "patchShebangs configure"; }
-    );
+    systemfonts = old.systemfonts.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     littler = old.littler.overrideAttrs (
       attrs:
@@ -1749,17 +1741,14 @@ let
     rhdf5filters = old.rhdf5filters.overrideAttrs (
       attrs: {
         propagatedBuildInputs =
-          with pkgs;
-          attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+          with pkgs; attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
         patches = [ ./patches/rhdf5filters.patch ];
       }
     );
 
     rhdf5 = old.rhdf5.overrideAttrs (attrs: { patches = [ ./patches/rhdf5.patch ]; });
 
-    textshaping = old.textshaping.overrideAttrs (
-      attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; }
-    );
+    textshaping = old.textshaping.overrideAttrs (attrs: { env.NIX_LDFLAGS = "-lfribidi -lharfbuzz"; });
   };
 in
 self

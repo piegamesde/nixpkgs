@@ -44,6 +44,5 @@ in
           )
         );
     in
-    mkFlags libcCross
-    ++ lib.optionals (!crossStageStatic) (mkFlags (threadsCross.package or null));
+    mkFlags libcCross ++ lib.optionals (!crossStageStatic) (mkFlags (threadsCross.package or null));
 }

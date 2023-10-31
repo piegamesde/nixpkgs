@@ -263,9 +263,7 @@ stdenv.mkDerivation rec {
         --replace "ggrep" "grep"
 
       substituteInPlace src/util/virpolkit.h \
-        --replace '"/usr/bin/pkttyagent"' '"${
-          if isLinux then polkit.bin else "/usr"
-        }/bin/pkttyagent"'
+        --replace '"/usr/bin/pkttyagent"' '"${if isLinux then polkit.bin else "/usr"}/bin/pkttyagent"'
 
       patchShebangs .
     ''

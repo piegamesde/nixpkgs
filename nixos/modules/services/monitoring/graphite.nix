@@ -190,9 +190,7 @@ in
       };
 
       blacklist = mkOption {
-        description =
-          lib.mdDoc
-            "Any metrics received which match one of the expressions will be dropped.";
+        description = lib.mdDoc "Any metrics received which match one of the expressions will be dropped.";
         default = null;
         type = types.nullOr types.str;
         example = "^some\\.noisy\\.metric\\.prefix\\..*";
@@ -272,9 +270,7 @@ in
 
       seyrenUrl = mkOption {
         default = "http://localhost:${toString cfg.seyren.port}/";
-        defaultText =
-          literalExpression
-            ''"http://localhost:''${toString config.${opt.seyren.port}}/"'';
+        defaultText = literalExpression ''"http://localhost:''${toString config.${opt.seyren.port}}/"'';
         description = lib.mdDoc "Host where seyren is accessible.";
         type = types.str;
       };
@@ -290,9 +286,7 @@ in
 
       mongoUrl = mkOption {
         default = "mongodb://${config.services.mongodb.bind_ip}:27017/seyren";
-        defaultText =
-          literalExpression
-            ''"mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
+        defaultText = literalExpression ''"mongodb://''${config.services.mongodb.bind_ip}:27017/seyren"'';
         description = lib.mdDoc "Mongodb connection string.";
         type = types.str;
       };

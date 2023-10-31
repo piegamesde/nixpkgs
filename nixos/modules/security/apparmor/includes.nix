@@ -19,8 +19,7 @@ let
           mode ? "r",
           trail ? "",
         }:
-        lib.optionalString (hasAttr path etc)
-          "${mode} ${config.environment.etc.${path}.source}${trail},";
+        lib.optionalString (hasAttr path etc) "${mode} ${config.environment.etc.${path}.source}${trail},";
     in
     if isAttrs arg then go arg else go { path = arg; };
 in

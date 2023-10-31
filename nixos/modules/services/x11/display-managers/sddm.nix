@@ -42,9 +42,7 @@ let
         Numlock = if cfg.autoNumlock then "on" else "none"; # on, off none
 
         # Implementation is done via pkgs/applications/display-managers/sddm/sddm-default-session.patch
-        DefaultSession =
-          optionalString (dmcfg.defaultSession != null)
-            "${dmcfg.defaultSession}.desktop";
+        DefaultSession = optionalString (dmcfg.defaultSession != null) "${dmcfg.defaultSession}.desktop";
       };
 
       Theme = {

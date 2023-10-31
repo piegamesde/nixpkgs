@@ -94,9 +94,7 @@ in
           port = mkOption {
             type = types.port;
             default = 9052;
-            description =
-              lib.mdDoc
-                "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
+            description = lib.mdDoc "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
           };
         };
       };

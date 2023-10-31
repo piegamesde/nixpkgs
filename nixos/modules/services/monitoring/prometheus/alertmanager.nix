@@ -21,10 +21,7 @@ let
   alertmanagerYml =
     let
       yml =
-        if cfg.configText != null then
-          pkgs.writeText "alertmanager.yml" cfg.configText
-        else
-          mkConfigFile;
+        if cfg.configText != null then pkgs.writeText "alertmanager.yml" cfg.configText else mkConfigFile;
     in
     checkedConfig yml;
 
@@ -220,9 +217,7 @@ in
           WorkingDirectory = "/tmp";
           ExecStart =
             "${cfg.package}/bin/alertmanager"
-            + optionalString (length cmdlineArgs != 0) (
-              " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-            );
+            + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         };
       };

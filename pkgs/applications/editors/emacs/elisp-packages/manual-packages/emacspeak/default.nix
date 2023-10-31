@@ -48,9 +48,7 @@ stdenv.mkDerivation rec {
     makeWrapper ${emacs}/bin/emacs $out/bin/emacspeak \
         --set DTK_PROGRAM "${placeholder "out"}/share/emacs/site-lisp/emacspeak/servers/espeak" \
         --set TCLLIBPATH "${tclx}/lib" \
-        --add-flags '-l "${
-          placeholder "out"
-        }/share/emacs/site-lisp/emacspeak/lisp/emacspeak-setup.elc"'
+        --add-flags '-l "${placeholder "out"}/share/emacs/site-lisp/emacspeak/lisp/emacspeak-setup.elc"'
   '';
 
   meta = with lib; {

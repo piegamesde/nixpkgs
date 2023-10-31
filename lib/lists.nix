@@ -571,10 +571,7 @@ rec {
           right = [ ];
         };
       in
-      if len < 2 then
-        list
-      else
-        (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
+      if len < 2 then list else (sort strictLess pivot.left) ++ [ first ] ++ (sort strictLess pivot.right)
     );
 
   /* Compare two lists element-by-element.
@@ -615,8 +612,7 @@ rec {
   naturalSort =
     lst:
     let
-      vectorise =
-        s: map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
+      vectorise = s: map (x: if isList x then toInt (head x) else x) (builtins.split "(0|[1-9][0-9]*)" s);
       prepared =
         map
           (x: [
@@ -725,9 +721,9 @@ rec {
        crossLists (x:y: "${toString x}${toString y}") [[1 2] [3 4]]
        => [ "13" "14" "23" "24" ]
   */
-  crossLists =
-    builtins.trace "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead"
-      (f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]);
+  crossLists = builtins.trace "lib.crossLists is deprecated, use lib.cartesianProductOfSets instead" (
+    f: foldl (fs: args: concatMap (f: map f args) fs) [ f ]
+  );
 
   /* Remove duplicate elements from the list. O(n^2) complexity.
 

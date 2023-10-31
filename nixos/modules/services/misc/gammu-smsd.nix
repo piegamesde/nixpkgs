@@ -92,9 +92,7 @@ in
         synchronizeTime = mkOption {
           type = types.bool;
           default = true;
-          description =
-            lib.mdDoc
-              "Whether to set time from computer to the phone during starting connection";
+          description = lib.mdDoc "Whether to set time from computer to the phone during starting connection";
         };
 
         pin = mkOption {

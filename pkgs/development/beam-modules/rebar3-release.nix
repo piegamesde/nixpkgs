@@ -82,9 +82,7 @@ let
 
         buildPhase = ''
           runHook preBuild
-          HOME=. DEBUG=1 rebar3 as ${profile} ${
-            if releaseType == "escript" then "escriptize" else "release"
-          }
+          HOME=. DEBUG=1 rebar3 as ${profile} ${if releaseType == "escript" then "escriptize" else "release"}
           runHook postBuild
         '';
 

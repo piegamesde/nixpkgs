@@ -32,9 +32,7 @@ in
         type = types.listOf types.str;
         default = [ ];
         example = [ "ssh-dss AAAAB3NzaC1k... alice@example.org" ];
-        description =
-          lib.mdDoc
-            "A list of SSH public keys allowed to access the binary cache via SSH.";
+        description = lib.mdDoc "A list of SSH public keys allowed to access the binary cache via SSH.";
       };
 
       protocol = mkOption {

@@ -182,8 +182,7 @@ let
     in
     res;
 
-  aliases =
-    self: super: lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
+  aliases = self: super: lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
 
   # stdenvOverrides is used to avoid having multiple of versions
   # of certain dependencies that were used in bootstrapping the
@@ -214,9 +213,7 @@ let
     # that target system. For instance, pkgsCross.raspberryPi.hello,
     # will refer to the "hello" package built for the ARM6-based
     # Raspberry Pi.
-    pkgsCross =
-      lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
-        lib.systems.examples;
+    pkgsCross = lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; }) lib.systems.examples;
 
     pkgsLLVM = nixpkgsFun {
       overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
@@ -277,10 +274,7 @@ let
     # in one go when calling Nixpkgs, for performance and simplicity.
     appendOverlays =
       extraOverlays:
-      if extraOverlays == [ ] then
-        self
-      else
-        nixpkgsFun { overlays = args.overlays ++ extraOverlays; };
+      if extraOverlays == [ ] then self else nixpkgsFun { overlays = args.overlays ++ extraOverlays; };
 
     # NOTE: each call to extend causes a full nixpkgs rebuild, adding ~130MB
     #       of allocations. DO NOT USE THIS IN NIXPKGS.
@@ -298,12 +292,10 @@ let
         overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
       }
       // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-        crossSystem =
-          {
-            isStatic = true;
-            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          }
-          // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") { gcc.abi = "elfv2"; };
+        crossSystem = {
+          isStatic = true;
+          parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+        } // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") { gcc.abi = "elfv2"; };
       }
     );
   };

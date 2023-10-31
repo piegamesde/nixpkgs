@@ -216,8 +216,7 @@ in
         };
       in
       listToAttrs (
-        mapAttrsToList
-          (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value))
+        mapAttrsToList (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value))
           cfg.clients
       )
       // {
@@ -226,8 +225,7 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           script = "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
-              optionalString (cfg.server.passwordFile != "")
-                ''< "${builtins.toString cfg.server.passwordFile}"''
+              optionalString (cfg.server.passwordFile != "") ''< "${builtins.toString cfg.server.passwordFile}"''
             } ${cfg.server.ip} ${cfg.server.domain}";
           serviceConfig = {
             # Filesystem access

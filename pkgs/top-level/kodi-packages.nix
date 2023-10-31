@@ -82,9 +82,7 @@ let
 
     libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba { inherit mgba; };
 
-    libretro-snes9x = callPackage ../applications/video/kodi/addons/libretro-snes9x {
-      inherit snes9x;
-    };
+    libretro-snes9x = callPackage ../applications/video/kodi/addons/libretro-snes9x { inherit snes9x; };
 
     jellyfin = callPackage ../applications/video/kodi/addons/jellyfin { };
 
@@ -118,9 +116,7 @@ let
 
     vfs-libarchive = callPackage ../applications/video/kodi/addons/vfs-libarchive { };
 
-    visualization-waveform =
-      callPackage ../applications/video/kodi/addons/visualization-waveform
-        { };
+    visualization-waveform = callPackage ../applications/video/kodi/addons/visualization-waveform { };
 
     youtube = callPackage ../applications/video/kodi/addons/youtube { };
 

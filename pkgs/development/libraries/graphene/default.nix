@@ -52,19 +52,17 @@ stdenv.mkDerivation rec {
 
   depsBuildBuild = [ pkg-config ];
 
-  nativeBuildInputs =
-    [
-      docbook_xml_dtd_43
-      docbook_xsl
-      gtk-doc
-      meson
-      ninja
-      pkg-config
-      gobject-introspection
-      python3
-      makeWrapper
-    ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs = [
+    docbook_xml_dtd_43
+    docbook_xsl
+    gtk-doc
+    meson
+    ninja
+    pkg-config
+    gobject-introspection
+    python3
+    makeWrapper
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [ glib ];
 

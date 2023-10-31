@@ -115,9 +115,7 @@ in
           };
         };
       };
-      openFirewall = mkEnableOption (
-        lib.mdDoc "opening the firewall for the port listening for clients"
-      );
+      openFirewall = mkEnableOption (lib.mdDoc "opening the firewall for the port listening for clients");
     };
   };
   config = mkIf cfg.enable {

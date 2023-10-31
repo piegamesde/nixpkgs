@@ -91,12 +91,8 @@ let
   };
 
   timers = mkMerge [
-    (mkIf (cfg.faxcron.enable.frequency != null) {
-      hylafax-faxcron.timerConfig.Persistent = true;
-    })
-    (mkIf (cfg.faxqclean.enable.frequency != null) {
-      hylafax-faxqclean.timerConfig.Persistent = true;
-    })
+    (mkIf (cfg.faxcron.enable.frequency != null) { hylafax-faxcron.timerConfig.Persistent = true; })
+    (mkIf (cfg.faxqclean.enable.frequency != null) { hylafax-faxqclean.timerConfig.Persistent = true; })
   ];
 
   hardenService =
@@ -178,8 +174,7 @@ let
     requires = [ "hylafax-faxq.service" ];
     serviceConfig.StandardInput = "socket";
     serviceConfig.StandardOutput = "socket";
-    serviceConfig.ExecStart = ''
-      ${pkgs.hylafaxplus}/spool/bin/hfaxd -q "${cfg.spoolAreaPath}" -d -I'';
+    serviceConfig.ExecStart = ''${pkgs.hylafaxplus}/spool/bin/hfaxd -q "${cfg.spoolAreaPath}" -d -I'';
     unitConfig.RequiresMountsFor = [ cfg.userAccessFile ];
     # disable some systemd hardening settings
     serviceConfig.PrivateDevices = null;
@@ -243,8 +238,7 @@ let
         -${pkgs.hylafaxplus}/spool/bin/faxgetty -q "${cfg.spoolAreaPath}" /dev/%I'';
       # faxquit fails if the pipe is already gone
       # (e.g. the service is already stopping)
-      serviceConfig.ExecStop = ''
-        -${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}" %I'';
+      serviceConfig.ExecStop = ''-${pkgs.hylafaxplus}/spool/bin/faxquit -q "${cfg.spoolAreaPath}" %I'';
       # disable some systemd hardening settings
       serviceConfig.PrivateDevices = null;
       serviceConfig.RestrictRealtime = null;

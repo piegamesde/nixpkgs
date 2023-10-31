@@ -49,9 +49,7 @@ let
             in
             types.attrsOf (types.submodule { options = hiddenOptions; });
           default = { };
-          description =
-            lib.mdDoc
-              "Child entries of the current entry, with recursively the same structure.";
+          description = lib.mdDoc "Child entries of the current entry, with recursively the same structure.";
           example = lib.literalExpression ''
             {
                 "cn=schema" = {
@@ -87,10 +85,7 @@ let
       (
         value:
         if lib.isAttrs value then
-          if lib.hasAttr "path" value then
-            "${attr}:< file://${value.path}"
-          else
-            "${attr}:: ${value.base64}"
+          if lib.hasAttr "path" value then "${attr}:< file://${value.path}" else "${attr}:: ${value.base64}"
         else
           "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
       )
@@ -116,9 +111,7 @@ let
       '')
       includes
     )
-    ++ (lib.flatten (
-      lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value) children
-    ));
+    ++ (lib.flatten (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value) children));
 in
 {
   options = {
@@ -331,9 +324,7 @@ in
               # directories with `declarativeContents`.
               assertion =
                 (olcDbDirectory != null)
-                -> (
-                  (hasPrefix "/var/lib/openldap/" olcDbDirectory) && (olcDbDirectory != "/var/lib/openldap/")
-                );
+                -> ((hasPrefix "/var/lib/openldap/" olcDbDirectory) && (olcDbDirectory != "/var/lib/openldap/"));
               message = ''
                 Database ${dn} has `olcDbDirectory` (${olcDbDirectory}) that is not a subdirectory of
                 `/var/lib/openldap/`.
@@ -404,9 +395,7 @@ in
           RuntimeDirectory = "openldap";
           StateDirectory =
             [ "openldap" ]
-            ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (
-              attrValues dbSettings
-            ));
+            ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
           StateDirectoryMode = "700";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

@@ -64,8 +64,7 @@
 
 assert cargoVendorDir == null && cargoLock == null
   ->
-    !(args ? cargoSha256 && args.cargoSha256 != null)
-    && !(args ? cargoHash && args.cargoHash != null)
+    !(args ? cargoSha256 && args.cargoSha256 != null) && !(args ? cargoHash && args.cargoHash != null)
   -> throw "cargoSha256, cargoHash, cargoVendorDir, or cargoLock must be set";
 assert buildType == "release" || buildType == "debug";
 
@@ -122,9 +121,7 @@ stdenv.mkDerivation (
     "cargoUpdateHook"
     "cargoLock"
   ])
-  // lib.optionalAttrs useSysroot {
-    RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or "");
-  }
+  // lib.optionalAttrs useSysroot { RUSTFLAGS = "--sysroot ${sysroot} " + (args.RUSTFLAGS or ""); }
   // {
     inherit buildAndTestSubdir cargoDeps;
 

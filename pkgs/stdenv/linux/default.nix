@@ -104,8 +104,7 @@
         null
         (lib.attrNames archLookupTable);
 
-    archLookupTable =
-      table.${localSystem.libc} or (abort "unsupported libc for the pure Linux stdenv");
+    archLookupTable = table.${localSystem.libc} or (abort "unsupported libc for the pure Linux stdenv");
     files =
       archLookupTable.${localSystem.system} or (
         if getCompatibleTools != null then
@@ -125,8 +124,7 @@ let
   isFromNixpkgs = pkg: !(isFromBootstrapFiles pkg);
   isFromBootstrapFiles = pkg: pkg.passthru.isFromBootstrapFiles or false;
   isBuiltByNixpkgsCompiler = pkg: isFromNixpkgs pkg && isFromNixpkgs pkg.stdenv.cc.cc;
-  isBuiltByBootstrapFilesCompiler =
-    pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
+  isBuiltByBootstrapFilesCompiler = pkg: isFromNixpkgs pkg && isFromBootstrapFiles pkg.stdenv.cc.cc;
 
   commonGccOverrides = {
     # Use a deterministically built compiler
@@ -620,8 +618,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         // {
           ${localSystem.libc} = getLibc prevStage;
           gcc-unwrapped =
-            (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; }))
-            .overrideAttrs
+            (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; })).overrideAttrs
               (
                 a: {
                   # so we can add them to allowedRequisites below

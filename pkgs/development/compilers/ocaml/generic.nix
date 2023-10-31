@@ -32,10 +32,8 @@ in
 assert useX11 -> safeX11 stdenv;
 assert aflSupport -> lib.versionAtLeast version "4.05";
 assert flambdaSupport -> lib.versionAtLeast version "4.03";
-assert spaceTimeSupport
-  -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12";
-assert unsafeStringSupport
-  -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0";
+assert spaceTimeSupport -> lib.versionAtLeast version "4.04" && lib.versionOlder version "4.12";
+assert unsafeStringSupport -> lib.versionAtLeast version "4.06" && lib.versionOlder version "5.0";
 assert framePointerSupport -> lib.versionAtLeast version "4.01";
 
 let
@@ -115,9 +113,7 @@ stdenv.mkDerivation (
         "--disable-force-safe-string"
         "DEFAULT_STRING=unsafe"
       ]
-      ++
-        optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08"))
-          "-no-shared-libs"
+      ++ optional (stdenv.hostPlatform.isStatic && (lib.versionOlder version "4.08")) "-no-shared-libs"
       ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && lib.versionOlder version "4.08") [
         "-host ${stdenv.hostPlatform.config}"
         "-target ${stdenv.targetPlatform.config}"
@@ -213,8 +209,7 @@ stdenv.mkDerivation (
       '';
 
       platforms = with platforms; linux ++ darwin;
-      broken =
-        stdenv.isAarch64 && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
+      broken = stdenv.isAarch64 && lib.versionOlder version (if stdenv.isDarwin then "4.10" else "4.02");
     };
   }
 )

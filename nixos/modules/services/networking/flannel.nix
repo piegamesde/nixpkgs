@@ -178,9 +178,7 @@ in
       path = [ pkgs.iptables ];
       preStart = optionalString (cfg.storageBackend == "etcd") ''
         echo "setting network configuration"
-        until ${pkgs.etcd}/bin/etcdctl put /coreos.com/network/config '${
-          builtins.toJSON networkConfig
-        }'
+        until ${pkgs.etcd}/bin/etcdctl put /coreos.com/network/config '${builtins.toJSON networkConfig}'
         do
           echo "setting network configuration, retry"
           sleep 1

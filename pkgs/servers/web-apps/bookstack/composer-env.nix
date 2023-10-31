@@ -230,9 +230,7 @@ let
           composer dump-autoload --optimize ${lib.optionalString noDev "--no-dev"} ${composerExtraArgs}
 
           # Run the install step as a validation to confirm that everything works out as expected
-          composer install --optimize-autoloader ${
-            lib.optionalString noDev "--no-dev"
-          } ${composerExtraArgs}
+          composer install --optimize-autoloader ${lib.optionalString noDev "--no-dev"} ${composerExtraArgs}
 
           ${lib.optionalString executable ''
             # Reconstruct the bin/ folder if we deploy an executable project

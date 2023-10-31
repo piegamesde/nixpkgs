@@ -49,8 +49,7 @@ let
               }': At least one of `email`, `github` or `matrix` must be specified, so that users know how to reach you.'
             ''
         ++
-          lib.optional
-            (checkedAttrs.email != null && lib.hasSuffix "noreply.github.com" checkedAttrs.email)
+          lib.optional (checkedAttrs.email != null && lib.hasSuffix "noreply.github.com" checkedAttrs.email)
             ''
               echo ${
                 lib.escapeShellArg (lib.showOption prefix)

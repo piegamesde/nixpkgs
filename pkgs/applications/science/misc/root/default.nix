@@ -170,8 +170,7 @@ stdenv.mkDerivation rec {
         --replace "-F/System/Library/PrivateFrameworks" ""
     ''
     +
-      lib.optionalString
-        (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
+      lib.optionalString (stdenv.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
         ''
           MACOSX_DEPLOYMENT_TARGET=10.16
         '';
@@ -222,8 +221,7 @@ stdenv.mkDerivation rec {
       "-Dxml=ON"
       "-Dxrootd=ON"
     ]
-    ++ lib.optional (stdenv.cc.libc != null)
-      "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
+    ++ lib.optional (stdenv.cc.libc != null) "-DC_INCLUDE_DIRS=${lib.getDev stdenv.cc.libc}/include"
     ++ lib.optionals stdenv.isDarwin [
       "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
       "-DCMAKE_DISABLE_FIND_PACKAGE_Python2=TRUE"

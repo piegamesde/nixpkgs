@@ -461,19 +461,17 @@ let
         }
       );
 
-      azure-synapse-managedprivateendpoints =
-        super.azure-synapse-managedprivateendpoints.overrideAttrs
-          (
-            oldAttrs: rec {
-              version = "0.3.0";
-              src = super.fetchPypi {
-                inherit (oldAttrs) pname;
-                inherit version;
-                hash = "sha256-fN1IuZ9fjxgRZv6qh9gg6v6KYpnKlXfnoLqfZCDXoRY=";
-                extension = "zip";
-              };
-            }
-          );
+      azure-synapse-managedprivateendpoints = super.azure-synapse-managedprivateendpoints.overrideAttrs (
+        oldAttrs: rec {
+          version = "0.3.0";
+          src = super.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-fN1IuZ9fjxgRZv6qh9gg6v6KYpnKlXfnoLqfZCDXoRY=";
+            extension = "zip";
+          };
+        }
+      );
 
       azure-synapse-spark = super.azure-synapse-spark.overrideAttrs (
         oldAttrs: rec {

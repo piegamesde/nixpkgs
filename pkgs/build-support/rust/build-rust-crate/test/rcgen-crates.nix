@@ -26,10 +26,8 @@
   # Whether to perform release builds: longer compile times, faster binaries.
   release ? true,
   # Additional crate2nix configuration if it exists.
-  crateConfig ? if builtins.pathExists ./crate-config.nix then
-    pkgs.callPackage ./crate-config.nix { }
-  else
-    { },
+  crateConfig ?
+    if builtins.pathExists ./crate-config.nix then pkgs.callPackage ./crate-config.nix { } else { },
 }:
 
 rec {
@@ -4152,10 +4150,7 @@ rec {
       family = "unix";
       env = "gnu";
       endian =
-        if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
-          "little"
-        else
-          "big";
+        if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big";
       pointer_width = toString stdenv.hostPlatform.parsed.cpu.bits;
       vendor = stdenv.hostPlatform.parsed.vendor.name;
       debug_assertions = false;
@@ -4288,8 +4283,7 @@ rec {
         }
         ''
           echo tested by ${test}
-          ${lib.concatMapStringsSep "\n" (output: "ln -s ${crate.${output}} ${"$"}${output}")
-            crate.outputs}
+          ${lib.concatMapStringsSep "\n" (output: "ln -s ${crate.${output}} ${"$"}${output}") crate.outputs}
         '';
 
     # A restricted overridable version of builtRustCratesWithFeatures.
@@ -4633,8 +4627,7 @@ rec {
       assert (builtins.isAttrs target);
       assert (builtins.isBool runTests);
       let
-        crateConfig =
-          crateConfigs."${packageId}" or (builtins.throw "Package not found: ${packageId}");
+        crateConfig = crateConfigs."${packageId}" or (builtins.throw "Package not found: ${packageId}");
         expandedFeatures = expandFeatures (crateConfig.features or { }) features;
         enabledFeatures = enableFeatures (crateConfig.dependencies or [ ]) expandedFeatures;
         depWithResolvedFeatures =

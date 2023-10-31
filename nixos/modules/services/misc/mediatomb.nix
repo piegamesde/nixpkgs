@@ -391,9 +391,7 @@ in
     let
       binaryCommand = "${pkg}/bin/${name}";
       interfaceFlag = optionalString (cfg.interface != "") "--interface ${cfg.interface}";
-      configFlag =
-        optionalString (!cfg.customCfg)
-          "--config ${pkgs.writeText "config.xml" configText}";
+      configFlag = optionalString (!cfg.customCfg) "--config ${pkgs.writeText "config.xml" configText}";
     in
     mkIf cfg.enable {
       systemd.services.mediatomb = {

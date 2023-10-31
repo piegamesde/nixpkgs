@@ -22,8 +22,7 @@ let
       libkrb5,
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
-      enableSystemd ?
-        lib.meta.availableOn stdenv.hostPlatform systemd && !stdenv.hostPlatform.isStatic,
+      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd && !stdenv.hostPlatform.isStatic,
       gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs
@@ -146,9 +145,7 @@ let
           ./patches/findstring.patch
         ]
         ++ lib.optionals stdenv'.isLinux [
-          (
-            if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch
-          )
+          (if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch)
         ];
 
       installTargets = [ "install-world" ];

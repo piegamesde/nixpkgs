@@ -676,8 +676,7 @@ in
                 ''
                   ${optionalString (cfg.database.password != null) "PGPASSWORD=${cfg.database.password}"} \
                   ${
-                    optionalString (cfg.database.passwordFile != null)
-                      "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
+                    optionalString (cfg.database.passwordFile != null) "PGPASSWORD=$(cat ${cfg.database.passwordFile})"
                   } \
                   ${config.services.postgresql.package}/bin/psql \
                     -U ${cfg.database.user} \
@@ -692,9 +691,7 @@ in
                   echo '${e}' | ${config.services.mysql.package}/bin/mysql \
                     -u ${cfg.database.user} \
                     ${optionalString (cfg.database.password != null) "-p${cfg.database.password}"} \
-                    ${
-                      optionalString (cfg.database.host != null) "-h ${cfg.database.host} -P ${toString dbPort}"
-                    } \
+                    ${optionalString (cfg.database.host != null) "-h ${cfg.database.host} -P ${toString dbPort}"} \
                     ${cfg.database.name}''
 
               else

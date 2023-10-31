@@ -29,8 +29,7 @@ let
         (
           i:
           attrNames (
-            filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces))
-              i.interfaces
+            filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces
           )
         )
         (attrValues cfg.vswitches);
@@ -507,8 +506,7 @@ let
     };
   };
   tempaddrDoc = concatStringsSep "\n" (
-    mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'')
-      tempaddrValues
+    mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'') tempaddrValues
   );
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
@@ -1405,9 +1403,7 @@ in
               device = mkOption {
                 type = types.str;
                 example = "wlp6s0";
-                description =
-                  lib.mdDoc
-                    "The name of the underlying hardware WLAN device as assigned by `udev`.";
+                description = lib.mdDoc "The name of the underlying hardware WLAN device as assigned by `udev`.";
               };
 
               type = mkOption {
@@ -1646,9 +1642,7 @@ in
     '';
 
     environment.etc.hostid = mkIf (cfg.hostId != null) { source = hostidFile; };
-    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) {
-      source = hostidFile;
-    };
+    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) { source = hostidFile; };
 
     # static hostname configuration needed for hostnamectl and the
     # org.freedesktop.hostname1 dbus service (both provided by systemd)

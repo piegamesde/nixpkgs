@@ -166,10 +166,7 @@ let
         option = mkOption {
           type = with types; nullOr str;
           default =
-            if cfg.tracing.config == null then
-              null
-            else
-              toString (toYAML "tracing.yaml" cfg.tracing.config);
+            if cfg.tracing.config == null then null else toString (toYAML "tracing.yaml" cfg.tracing.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.tracing.config == null then null
             else toString (toYAML "tracing.yaml" config.services.thanos.<cmd>.tracing.config);
@@ -237,10 +234,7 @@ let
         option = mkOption {
           type = with types; nullOr str;
           default =
-            if cfg.objstore.config == null then
-              null
-            else
-              toString (toYAML "objstore.yaml" cfg.objstore.config);
+            if cfg.objstore.config == null then null else toString (toYAML "objstore.yaml" cfg.objstore.config);
           defaultText = literalExpression ''
             if config.services.thanos.<cmd>.objstore.config == null then null
             else toString (toYAML "objstore.yaml" config.services.thanos.<cmd>.objstore.config);
@@ -775,8 +769,7 @@ in
 
     downsample = paramsToOptions params.downsample // {
       enable = mkEnableOption (
-        lib.mdDoc
-          "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
+        lib.mdDoc "the Thanos downsampler which continuously downsamples blocks in an object store bucket"
       );
       arguments = mkArgumentsOption "downsample";
     };

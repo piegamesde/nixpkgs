@@ -534,9 +534,7 @@ self: super:
 
   # 2020-06-05: HACK: does not pass own build suite - `dontCheck`
   # 2022-11-24: jailbreak as it has too strict bounds on a bunch of things
-  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
-    dontCheck (doJailbreak super.hnix)
-  );
+  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (dontCheck (doJailbreak super.hnix));
   # Too strict bounds on algebraic-graphs and bytestring
   # https://github.com/haskell-nix/hnix-store/issues/180
   hnix-store-core = doJailbreak super.hnix-store-core;
@@ -781,9 +779,7 @@ self: super:
   CHXHtml = dontDistribute super.CHXHtml;
 
   # https://github.com/NixOS/nixpkgs/issues/6350
-  paypal-adaptive-hoops =
-    overrideCabal (drv: { testTarget = "local"; })
-      super.paypal-adaptive-hoops;
+  paypal-adaptive-hoops = overrideCabal (drv: { testTarget = "local"; }) super.paypal-adaptive-hoops;
 
   # Avoid "QuickCheck >=2.3 && <2.10" dependency we cannot fulfill in lts-11.x.
   test-framework = dontCheck super.test-framework;
@@ -830,8 +826,7 @@ self: super:
   # Test suite is missing an import from hspec
   # https://github.com/haskell-works/tasty-discover/issues/9
   # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
-  tasty-discover =
-    assert super.tasty-discover.version == "4.2.2"; dontCheck super.tasty-discover;
+  tasty-discover = assert super.tasty-discover.version == "4.2.2"; dontCheck super.tasty-discover;
 
   # Known issue with nondeterministic test suite failure
   # https://github.com/nomeata/tasty-expected-failure/issues/21
@@ -871,9 +866,7 @@ self: super:
   Southpaw = dontDistribute super.Southpaw;
 
   # https://ghc.haskell.org/trac/ghc/ticket/9825
-  vimus =
-    overrideCabal (drv: { broken = pkgs.stdenv.isLinux && pkgs.stdenv.isi686; })
-      super.vimus;
+  vimus = overrideCabal (drv: { broken = pkgs.stdenv.isLinux && pkgs.stdenv.isi686; }) super.vimus;
 
   # https://github.com/kazu-yamamoto/logger/issues/42
   logger = dontCheck super.logger;
@@ -1400,8 +1393,7 @@ self: super:
 
   # musl fixes
   # dontCheck: use of non-standard strptime "%s" which musl doesn't support; only used in test
-  unix-time =
-    if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.unix-time else super.unix-time;
+  unix-time = if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.unix-time else super.unix-time;
 
   # Workaround for https://github.com/sol/hpack/issues/528
   # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
@@ -2506,9 +2498,7 @@ self: super:
 
   # BSON defaults to requiring network instead of network-bsd which is
   # required nowadays: https://github.com/mongodb-haskell/bson/issues/26
-  bson = appendConfigureFlag "-f-_old_network" (
-    super.bson.override { network = self.network-bsd; }
-  );
+  bson = appendConfigureFlag "-f-_old_network" (super.bson.override { network = self.network-bsd; });
 
   # Disable flaky tests
   # https://github.com/DavidEichmann/alpaca-netcode/issues/2
@@ -2941,9 +2931,7 @@ self: super:
 
   # 2022-11-15: Needs newer witch package and brick 1.3 which in turn works with text-zipper 0.12
   # Other dependencies are resolved with doJailbreak for both swarm and brick_1_3
-  swarm = doJailbreak (
-    super.swarm.override { brick = doJailbreak (dontCheck super.brick_1_7); }
-  );
+  swarm = doJailbreak (super.swarm.override { brick = doJailbreak (dontCheck super.brick_1_7); });
 
   # Too strict upper bound on bytestring
   # https://github.com/TravisWhitaker/rdf/issues/8
@@ -3013,8 +3001,7 @@ self: super:
 
   # Too strict lower bound on hspec
   wai-token-bucket-ratelimiter =
-    assert lib.versionOlder self.hspec.version "2.10";
-    doJailbreak super.wai-token-bucket-ratelimiter;
+    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.wai-token-bucket-ratelimiter;
 
   # doctest <0.19
   polysemy = doJailbreak super.polysemy;

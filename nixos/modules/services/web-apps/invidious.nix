@@ -29,9 +29,7 @@ let
                 ''[0].db.password = "'"'"$(cat ${lib.escapeShellArg cfg.database.passwordFile})"'"'"''
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
-          jqFiles = [
-            settingsFile
-          ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
+          jqFiles = [ settingsFile ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
         in
         ''
           export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${lib.escapeShellArgs jqFiles})"

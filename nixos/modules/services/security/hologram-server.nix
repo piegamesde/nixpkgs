@@ -85,9 +85,7 @@ in
       enableLdapRoles = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to assign user roles based on the user's LDAP group memberships";
+        description = lib.mdDoc "Whether to assign user roles based on the user's LDAP group memberships";
       };
 
       groupClassAttr = mkOption {

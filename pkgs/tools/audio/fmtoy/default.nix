@@ -55,9 +55,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/vampirefrog/fmtoy.git";
-  };
+  passthru.updateScript = unstableGitUpdater { url = "https://github.com/vampirefrog/fmtoy.git"; };
 
   meta = with lib; {
     homepage = "https://github.com/vampirefrog/fmtoy";

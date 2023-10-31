@@ -47,18 +47,16 @@ let
     upower
     pciutils
   ];
-  recommendedDisplayInformationPrograms =
-    lib.optionals withRecommendedDisplayInformationPrograms
-      (
-        [ glxinfo ]
-        ++ (
-          with xorg; [
-            xdpyinfo
-            xprop
-            xrandr
-          ]
-        )
-      );
+  recommendedDisplayInformationPrograms = lib.optionals withRecommendedDisplayInformationPrograms (
+    [ glxinfo ]
+    ++ (
+      with xorg; [
+        xdpyinfo
+        xprop
+        xrandr
+      ]
+    )
+  );
   programs =
     [
       ps

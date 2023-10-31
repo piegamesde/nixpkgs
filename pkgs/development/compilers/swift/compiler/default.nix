@@ -75,15 +75,13 @@ let
         #watchos
         #watchsimulator
       }
-      .${targetPlatform.darwinPlatform} or (throw
-        "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'"
-      )
+      .${targetPlatform.darwinPlatform}
+        or (throw "Cannot build Swift for target Darwin platform '${targetPlatform.darwinPlatform}'")
     else
       targetPlatform.parsed.kernel.name;
 
   # Apple Silicon uses a different CPU name in the target triple.
-  swiftArch =
-    if stdenv.isDarwin && stdenv.isAarch64 then "arm64" else targetPlatform.parsed.cpu.name;
+  swiftArch = if stdenv.isDarwin && stdenv.isAarch64 then "arm64" else targetPlatform.parsed.cpu.name;
 
   # On Darwin, a `.swiftmodule` is a subdirectory in `lib/swift/<OS>`,
   # containing binaries for supported archs. On other platforms, binaries are
@@ -290,9 +288,7 @@ stdenv.mkDerivation {
     # Just patch all the things for now, we can focus this later.
     # TODO: eliminate use of env.
     find -type f -print0 | xargs -0 sed -i \
-    ${
-      lib.optionalString stdenv.isDarwin "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"
-    } \
+    ${lib.optionalString stdenv.isDarwin "-e 's|/usr/libexec/PlistBuddy|${xcbuild}/bin/PlistBuddy|g'"} \
       -e 's|/usr/bin/env|${coreutils}/bin/env|g' \
       -e 's|/usr/bin/make|${gnumake}/bin/make|g' \
       -e 's|/bin/mkdir|${coreutils}/bin/mkdir|g' \

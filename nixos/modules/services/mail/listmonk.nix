@@ -59,9 +59,7 @@ let
           "campaign_views"
           "link_clicks"
         ];
-        description =
-          lib.mdDoc
-            "List of fields which can be exported through an automatic export request";
+        description = lib.mdDoc "List of fields which can be exported through an automatic export request";
       };
 
       "privacy.domain_blocklist" = mkOption {

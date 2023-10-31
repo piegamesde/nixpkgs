@@ -34,9 +34,7 @@ stdenv.mkDerivation (
       hip
     ];
 
-    buildInputs =
-      lib.optionals buildTests [ gtest ]
-      ++ lib.optionals buildBenchmarks [ gbenchmark ];
+    buildInputs = lib.optionals buildTests [ gtest ] ++ lib.optionals buildBenchmarks [ gbenchmark ];
 
     cmakeFlags =
       [

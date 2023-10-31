@@ -28,10 +28,7 @@ let
   callPackageCase =
     case:
     callPackage
-      (
-        { writeShellScript }:
-        writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
-      )
+      ({ writeShellScript }: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript)
       { };
 
   binCase = case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;

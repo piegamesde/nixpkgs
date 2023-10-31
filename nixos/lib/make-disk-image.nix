@@ -232,15 +232,12 @@ assert (lib.assertMsg
   (
     touchEFIVars
     ->
-      partitionTableType == "hybrid"
-      || partitionTableType == "efi"
-      || partitionTableType == "legacy+gpt"
+      partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
   )
   "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
-assert (lib.assertMsg
-  (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
+assert (lib.assertMsg (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
   "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed."
 );
 # Either both or none of {user,group} need to be set

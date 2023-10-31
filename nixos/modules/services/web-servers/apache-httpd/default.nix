@@ -223,9 +223,7 @@ let
       '';
     in
     optionalString (listen != [ ]) ''
-      <VirtualHost ${
-        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen
-      }>
+      <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen}>
           ServerName ${hostOpts.hostName}
           ${
             concatMapStrings
@@ -255,9 +253,7 @@ let
       </VirtualHost>
     ''
     + optionalString (listenSSL != [ ]) ''
-      <VirtualHost ${
-        concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listenSSL
-      }>
+      <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listenSSL}>
           ServerName ${hostOpts.hostName}
           ${
             concatMapStrings
@@ -280,8 +276,7 @@ let
   mkVHostCommonConf =
     hostOpts:
     let
-      documentRoot =
-        if hostOpts.documentRoot != null then hostOpts.documentRoot else pkgs.emptyDirectory;
+      documentRoot = if hostOpts.documentRoot != null then hostOpts.documentRoot else pkgs.emptyDirectory;
 
       mkLocations =
         locations:
@@ -390,8 +385,7 @@ let
 
     ${let
       toStr =
-        listen:
-        "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
+        listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
       uniqueListen = uniqList { inputList = map toStr listenInfo; };
     in
     concatStringsSep "\n" uniqueListen}
@@ -864,11 +858,7 @@ in
         {
           assertion =
             all
-              (
-                hostOpts:
-                with hostOpts;
-                !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL)
-              )
+              (hostOpts: with hostOpts; !(addSSL && onlySSL) && !(forceSSL && onlySSL) && !(addSSL && forceSSL))
               vhosts;
           message = ''
             Options `services.httpd.virtualHosts.<name>.addSSL`,
@@ -939,9 +929,7 @@ in
                 extraDomainNames = hostOpts.serverAliases;
                 # Use the vhost-specific email address if provided, otherwise let
                 # security.acme.email or security.acme.certs.<cert>.email be used.
-                email = mkOverride 2000 (
-                  if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr
-                );
+                email = mkOverride 2000 (if hostOpts.adminAddr != null then hostOpts.adminAddr else cfg.adminAddr);
                 # Filter for enableACME-only vhosts. Don't want to create dud certs
               }
             )
@@ -1036,9 +1024,7 @@ in
     systemd.services.httpd = {
       description = "Apache HTTPD";
       wantedBy = [ "multi-user.target" ];
-      wants = concatLists (
-        map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
-      );
+      wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
       after = [
         "network.target"
       ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;

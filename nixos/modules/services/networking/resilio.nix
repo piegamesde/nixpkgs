@@ -79,8 +79,7 @@ let
         ${pkgs.jq}/bin/jq \
           '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
           ${
-            lib.concatMapStringsSep " \\\n  "
-              (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
+            lib.concatMapStringsSep " \\\n  " (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
               sharedFoldersSecretFiles
           } \
           <${configFile} \

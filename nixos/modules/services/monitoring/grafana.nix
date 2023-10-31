@@ -170,9 +170,7 @@ let
           "direct"
         ];
         default = "proxy";
-        description =
-          lib.mdDoc
-            "Access mode. proxy or direct (Server or Browser in the UI). Required.";
+        description = lib.mdDoc "Access mode. proxy or direct (Server or Browser in the UI). Required.";
       };
       uid = mkOption {
         type = types.nullOr types.str;
@@ -1069,12 +1067,10 @@ in
           paths = {
             plugins = mkOption {
               description = lib.mdDoc "Directory where grafana will automatically scan and look for plugins";
-              default =
-                if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
+              default = if (cfg.declarativePlugins == null) then "${cfg.dataDir}/plugins" else declarativePlugins;
               defaultText =
                 literalExpression
-                  ''
-                    if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
+                  ''if (cfg.declarativePlugins == null) then "''${cfg.dataDir}/plugins" else declarativePlugins'';
               type = types.path;
             };
 
@@ -2007,8 +2003,7 @@ in
 
     assertions = [
       {
-        assertion =
-          cfg.provision.datasources.settings == null || cfg.provision.datasources.path == null;
+        assertion = cfg.provision.datasources.settings == null || cfg.provision.datasources.path == null;
         message = "Cannot set both datasources settings and datasources path";
       }
       {
@@ -2038,14 +2033,12 @@ in
       }
       {
         assertion =
-          cfg.provision.alerting.policies.settings == null
-          || cfg.provision.alerting.policies.path == null;
+          cfg.provision.alerting.policies.settings == null || cfg.provision.alerting.policies.path == null;
         message = "Cannot set both policies settings and policies path";
       }
       {
         assertion =
-          cfg.provision.alerting.templates.settings == null
-          || cfg.provision.alerting.templates.path == null;
+          cfg.provision.alerting.templates.settings == null || cfg.provision.alerting.templates.path == null;
         message = "Cannot set both templates settings and templates path";
       }
       {
@@ -2074,9 +2067,7 @@ in
         RuntimeDirectory = "grafana";
         RuntimeDirectoryMode = "0755";
         # Hardening
-        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [
-          "CAP_NET_BIND_SERVICE"
-        ];
+        AmbientCapabilities = lib.mkIf (cfg.settings.server.http_port < 1024) [ "CAP_NET_BIND_SERVICE" ];
         CapabilityBoundingSet =
           if (cfg.settings.server.http_port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "" ];

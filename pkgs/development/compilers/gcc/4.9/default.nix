@@ -60,8 +60,7 @@
   buildPackages,
 }:
 
-assert langJava
-  -> zip != null && unzip != null && zlib != null && boehmgc != null && perl != null; # for `--enable-java-home'
+assert langJava -> zip != null && unzip != null && zlib != null && boehmgc != null && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -406,11 +405,7 @@ stdenv.mkDerivation (
       if profiledCompiler then "profiledbootstrap" else "bootstrap"
     );
 
-    inherit (callFile ../common/strip-attributes.nix { })
-      stripDebugList
-      stripDebugListTarget
-      preFixup
-    ;
+    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 

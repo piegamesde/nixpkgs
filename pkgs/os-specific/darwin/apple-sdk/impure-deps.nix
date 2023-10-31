@@ -183,9 +183,7 @@ rec {
   ServiceManagement = [ "/System/Library/Frameworks/ServiceManagement.framework" ];
   OpenCL = [ "/System/Library/Frameworks/OpenCL.framework" ];
   CoreWLAN = [ "/System/Library/Frameworks/CoreWLAN.framework" ];
-  IOBluetooth = [
-    "/System/Library/Frameworks/IOBluetooth.framework"
-  ] ++ AudioUnit ++ CoreBluetooth;
+  IOBluetooth = [ "/System/Library/Frameworks/IOBluetooth.framework" ] ++ AudioUnit ++ CoreBluetooth;
   CoreBluetooth = [ "/System/Library/Frameworks/CoreBluetooth.framework" ];
   SecurityFoundation = [ "/System/Library/Frameworks/SecurityFoundation.framework" ];
   Kernel = [ "/System/Library/Frameworks/Kernel.framework" ];

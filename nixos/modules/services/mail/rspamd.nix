@@ -47,8 +47,7 @@ let
       };
       config.rawEntry =
         let
-          maybeOption =
-            option: optionalString options.${option}.isDefined " ${option}=${config.${option}}";
+          maybeOption = option: optionalString options.${option}.isDefined " ${option}=${config.${option}}";
         in
         if (!(hasPrefix "/" config.socket)) then
           "${config.socket}"
@@ -163,9 +162,7 @@ let
         mkIf (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy")
           {
             type = mkDefault name;
-            includes = mkDefault [
-              "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc"
-            ];
+            includes = mkDefault [ "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc" ];
             bindSockets =
               let
                 unixSocket = name: {
@@ -223,8 +220,7 @@ let
             worker "${value.type}" {
               type = "${value.type}";
               ${
-                optionalString (value.enable != null)
-                  "enabled = ${if value.enable != false then "yes" else "no"};"
+                optionalString (value.enable != null) "enabled = ${if value.enable != false then "yes" else "no"};"
               }
               ${mkBindSockets value.enable value.bindSockets}
               ${optionalString (value.count != null) "count = ${toString value.count};"}
@@ -309,9 +305,7 @@ let
     (mapAttrs'
       (
         n: v:
-        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" {
-          text = v.extraConfig;
-        }
+        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }
       )
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )

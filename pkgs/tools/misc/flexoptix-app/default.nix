@@ -37,8 +37,7 @@ appimageTools.wrapAppImage {
   src = appimageContents;
 
   multiPkgs = null; # no 32bit needed
-  extraPkgs =
-    { pkgs, ... }@args: [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
+  extraPkgs = { pkgs, ... }@args: [ pkgs.hidapi ] ++ appimageTools.defaultFhsEnvArgs.multiPkgs args;
 
   extraInstallCommands = ''
     # Add desktop convencience stuff

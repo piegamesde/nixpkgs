@@ -27,8 +27,7 @@ let
     $sudo ${pkgs.php}/bin/php artisan $*
   '';
 
-  tlsEnabled =
-    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
+  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
 in
 {
   imports = [

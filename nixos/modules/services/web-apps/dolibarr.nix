@@ -24,9 +24,7 @@ let
   package = pkgs.dolibarr.override { inherit (cfg) stateDir; };
 
   cfg = config.services.dolibarr;
-  vhostCfg =
-    lib.optionalAttrs (cfg.nginx != null)
-      config.services.nginx.virtualHosts."${cfg.domain}";
+  vhostCfg = lib.optionalAttrs (cfg.nginx != null) config.services.nginx.virtualHosts."${cfg.domain}";
 
   mkConfigFile =
     filename: settings:
@@ -375,9 +373,7 @@ in
         users.groups = optionalAttrs (cfg.group == "dolibarr") { dolibarr = { }; };
       }
       (mkIf (cfg.nginx != null) {
-        users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [
-          cfg.group
-        ];
+        users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ];
       })
     ]
   );

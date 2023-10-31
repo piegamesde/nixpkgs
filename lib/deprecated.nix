@@ -280,8 +280,7 @@ rec {
       }
     );
 
-  closePropagation =
-    if builtins ? genericClosure then closePropagationFast else closePropagationSlow;
+  closePropagation = if builtins ? genericClosure then closePropagationFast else closePropagationSlow;
 
   # calls a function (f attr value ) for each record item. returns a list
   mapAttrsFlatten = f: r: map (attr: f attr r.${attr}) (attrNames r);
@@ -305,8 +304,9 @@ rec {
   # exists in both sets
   mergeAttrsWithFunc =
     f: set1: set2:
-    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set) (set2 // set1)
-      (attrNames set2);
+    foldr (n: set: if set ? ${n} then setAttr set n (f set.${n} set2.${n}) else set) (set2 // set1) (
+      attrNames set2
+    );
 
   # merging two attribute set concatenating the values of same attribute names
   # eg { a = 7; } {  a = [ 2 3 ]; } becomes { a = [ 7 2 3 ]; }
@@ -340,8 +340,7 @@ rec {
             else if elem n overrideSnd then
               attrs1.${n}
             else
-              throw
-                "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
+              throw "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
           else
             attrs2.${n} # add attribute not existing in attr1
         )
@@ -391,8 +390,7 @@ rec {
       )
     ];
   mergeAttrsByFuncDefaults = foldl mergeAttrByFunc { inherit mergeAttrBy; };
-  mergeAttrsByFuncDefaultsClean =
-    list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
+  mergeAttrsByFuncDefaultsClean = list: removeAttrs (mergeAttrsByFuncDefaults list) [ "mergeAttrBy" ];
 
   # sane defaults (same name as attr name so that inherit can be used)
   mergeAttrBy = # { buildInputs = concatList; [...]; passthru = mergeAttr; [..]; }

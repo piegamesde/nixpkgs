@@ -80,9 +80,7 @@ in
       // mapAttrs'
         (
           name: value:
-          nameValuePair "borgmatic.d/${name}.yaml" {
-            source = settingsFormat.generate "${name}.yaml" value;
-          }
+          nameValuePair "borgmatic.d/${name}.yaml" { source = settingsFormat.generate "${name}.yaml" value; }
         )
         cfg.configurations;
 

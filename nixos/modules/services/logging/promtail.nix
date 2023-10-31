@@ -15,8 +15,7 @@ let
     '';
 
   allowSystemdJournal =
-    cfg.configuration ? scrape_configs
-    && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
+    cfg.configuration ? scrape_configs && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
 
   allowPositionsFile = !lib.hasPrefix "/var/cache/promtail" positionsFile;
   positionsFile = cfg.configuration.positions.filename;
@@ -44,9 +43,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.promtail.configuration.positions.filename =
-      mkDefault
-        "/var/cache/promtail/positions.yaml";
+    services.promtail.configuration.positions.filename = mkDefault "/var/cache/promtail/positions.yaml";
 
     systemd.services.promtail = {
       description = "Promtail log ingress";

@@ -109,9 +109,7 @@ let
           ''
             runHook preInstall
             mkdir -p $out
-            find -not \( -path ${everythingFile} -or -path ${
-              lib.interfaceFile everythingFile
-            } \) -and \( ${
+            find -not \( -path ${everythingFile} -or -path ${lib.interfaceFile everythingFile} \) -and \( ${
               concatMapStringsSep " -or " (p: "-name '*.${p}'") (extensions ++ extraExtensions)
             } \) -exec cp -p --parents -t "$out" {} +
             runHook postInstall
@@ -130,10 +128,7 @@ let
       passthru.tests =
         with builtins;
         lib.filterAttrs
-          (
-            name: pkg:
-            self.lib.isUnbrokenAgdaPackage pkg && elem pname (map (pkg: pkg.pname) pkg.buildInputs)
-          )
+          (name: pkg: self.lib.isUnbrokenAgdaPackage pkg && elem pname (map (pkg: pkg.pname) pkg.buildInputs))
           self;
     };
 in

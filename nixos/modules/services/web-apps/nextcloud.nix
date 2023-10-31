@@ -936,16 +936,12 @@ in
                   ${optionalString cfg.caching.apcu "'memcache.local' => '\\OC\\Memcache\\APCu',"}
                   'log_type' => '${cfg.logType}',
                   'loglevel' => '${builtins.toString cfg.logLevel}',
-                  ${
-                    optionalString (c.overwriteProtocol != null) "'overwriteprotocol' => '${c.overwriteProtocol}',"
-                  }
+                  ${optionalString (c.overwriteProtocol != null) "'overwriteprotocol' => '${c.overwriteProtocol}',"}
                   ${optionalString (c.dbname != null) "'dbname' => '${c.dbname}',"}
                   ${optionalString (c.dbhost != null) "'dbhost' => '${c.dbhost}',"}
                   ${optionalString (c.dbport != null) "'dbport' => '${toString c.dbport}',"}
                   ${optionalString (c.dbuser != null) "'dbuser' => '${c.dbuser}',"}
-                  ${
-                    optionalString (c.dbtableprefix != null) "'dbtableprefix' => '${toString c.dbtableprefix}',"
-                  }
+                  ${optionalString (c.dbtableprefix != null) "'dbtableprefix' => '${toString c.dbtableprefix}',"}
                   ${
                     optionalString (c.dbpassFile != null) ''
                       'dbpassword' => nix_read_secret(
@@ -957,8 +953,7 @@ in
                   'trusted_domains' => ${writePhpArray ([ cfg.hostName ] ++ c.extraTrustedDomains)},
                   'trusted_proxies' => ${writePhpArray (c.trustedProxies)},
                   ${
-                    optionalString (c.defaultPhoneRegion != null)
-                      "'default_phone_region' => '${c.defaultPhoneRegion}',"
+                    optionalString (c.defaultPhoneRegion != null) "'default_phone_region' => '${c.defaultPhoneRegion}',"
                   }
                   ${
                     optionalString (nextcloudGreaterOrEqualThan "23")
@@ -1052,9 +1047,7 @@ in
 
                 # Install extra apps
                 ln -sfT \
-                  ${
-                    pkgs.linkFarm "nix-apps" (mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps)
-                  } \
+                  ${pkgs.linkFarm "nix-apps" (mapAttrsToList (name: path: { inherit name path; }) cfg.extraApps)} \
                   ${cfg.home}/nix-apps
 
                 # create nextcloud directories.

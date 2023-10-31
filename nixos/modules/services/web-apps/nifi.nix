@@ -20,8 +20,7 @@ let
   envFile = pkgs.writeText "nifi.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList
-          (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
           env
       ))
     )
@@ -119,9 +118,7 @@ in
         type = lib.types.nullOr lib.types.path;
         default = null;
         example = "/run/keys/nifi/password-nifi";
-        description =
-          lib.mdDoc
-            "nitial password for Apache NiFi. Password must be at least 12 characters.";
+        description = lib.mdDoc "nitial password for Apache NiFi. Password must be at least 12 characters.";
       };
 
       initJavaHeapSize = lib.mkOption {
@@ -252,9 +249,7 @@ in
             ((cfg.enableHTTPS == true) && (cfg.proxyHost != null) && (cfg.proxyPort != null))
             ''
               sed -i /var/lib/nifi/conf/nifi.properties \
-                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${
-                  (toString cfg.proxyPort)
-                }|g'
+                -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${(toString cfg.proxyPort)}|g'
             ''}
           ${lib.optionalString
             ((cfg.enableHTTPS == false) || (cfg.proxyHost == null) && (cfg.proxyPort == null))

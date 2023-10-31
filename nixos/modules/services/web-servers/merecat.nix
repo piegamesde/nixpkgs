@@ -16,10 +16,7 @@ let
           mkValueString =
             v:
             # In merecat.conf, booleans are "true" and "false"
-            if builtins.isBool v then
-              if v then "true" else "false"
-            else
-              generators.mkValueStringDefault { } v;
+            if builtins.isBool v then if v then "true" else "false" else generators.mkValueStringDefault { } v;
         }
         "=";
   };

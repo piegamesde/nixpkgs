@@ -39,10 +39,7 @@ let
       isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
       listener =
         lib.findFirst
-          (
-            listener:
-            lib.any (resource: lib.any (name: name == "client") resource.names) listener.resources
-          )
+          (listener: lib.any (resource: lib.any (name: name == "client") resource.names) listener.resources)
           (lib.last cfg.settings.listeners)
           cfg.settings.listeners;
       # FIXME: Handle cases with missing client listener properly,
@@ -56,9 +53,9 @@ let
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
         ${lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)} \
-        "${listenerProtocol}://${
-          if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
-        }:${builtins.toString listener.port}/"
+        "${listenerProtocol}://${if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"}:${
+          builtins.toString listener.port
+        }/"
     '';
 in
 {
@@ -1218,9 +1215,7 @@ in
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
             ${
-              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") (
-                [ configFile ] ++ cfg.extraConfigFiles
-              )
+              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([ configFile ] ++ cfg.extraConfigFiles)
             }
             --keys-directory ${cfg.dataDir}
         '';

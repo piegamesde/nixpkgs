@@ -51,8 +51,6 @@ qtModule {
     ]
     ++ lib.optionals stdenv.isDarwin [ VideoToolbox ];
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin
-      "-include AudioToolbox/AudioToolbox.h";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-include AudioToolbox/AudioToolbox.h";
   NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-framework AudioToolbox";
 }

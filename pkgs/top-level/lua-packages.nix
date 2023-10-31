@@ -30,8 +30,7 @@ let
   buildLuaPackage = callPackage ../development/lua-modules/generic { };
 
   getPath =
-    drv: pathListForVersion:
-    lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
+    drv: pathListForVersion: lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
 in
 rec {
 

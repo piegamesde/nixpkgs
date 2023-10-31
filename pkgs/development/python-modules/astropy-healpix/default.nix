@@ -38,9 +38,7 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  disabledTests =
-    lib.optional (!stdenv.hostPlatform.isDarwin)
-      "test_interpolate_bilinear_skycoord";
+  disabledTests = lib.optional (!stdenv.hostPlatform.isDarwin) "test_interpolate_bilinear_skycoord";
 
   # tests must be run in the build directory
   preCheck = ''

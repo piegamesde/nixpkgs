@@ -214,8 +214,7 @@ in
     services.zabbixWeb.extraConfig =
       optionalString
         (
-          (versionAtLeast config.system.stateVersion "20.09")
-          && (versionAtLeast cfg.package.version "5.0.0")
+          (versionAtLeast config.system.stateVersion "20.09") && (versionAtLeast cfg.package.version "5.0.0")
         )
         ''
           $DB['DOUBLE_IEEE754'] = 'true';

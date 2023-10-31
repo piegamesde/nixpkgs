@@ -309,8 +309,7 @@ in
       script =
         if isMorPLocate then
           let
-            toFlags =
-              x: optional (cfg.${x} != [ ]) "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
+            toFlags = x: optional (cfg.${x} != [ ]) "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
             args = concatLists (
               map toFlags [
                 "pruneFS"

@@ -172,8 +172,7 @@ in
     # For aa-logprof
     environment.etc."apparmor/apparmor.conf".text = "";
     # For aa-logprof
-    environment.etc."apparmor/severity.db".source =
-      pkgs.apparmor-utils + "/etc/apparmor/severity.db";
+    environment.etc."apparmor/severity.db".source = pkgs.apparmor-utils + "/etc/apparmor/severity.db";
     environment.etc."apparmor/logprof.conf".source =
       pkgs.runCommand "logprof.conf"
         {
@@ -247,8 +246,7 @@ in
             xargs --verbose --no-run-if-empty --delimiter='\n' \
             kill
           '';
-          commonOpts =
-            p: "--verbose --show-cache ${optionalString (!p.enforce) "--complain "}${p.profile}";
+          commonOpts = p: "--verbose --show-cache ${optionalString (!p.enforce) "--complain "}${p.profile}";
         in
         {
           Type = "oneshot";

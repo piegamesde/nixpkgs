@@ -459,10 +459,7 @@ in
             else
               igpuDriver;
           providerCmdParams =
-            if syncCfg.enable then
-              ''"${gpuProviderName}" NVIDIA-0''
-            else
-              ''NVIDIA-G0 "${gpuProviderName}"'';
+            if syncCfg.enable then ''"${gpuProviderName}" NVIDIA-0'' else ''NVIDIA-G0 "${gpuProviderName}"'';
         in
         optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
           # Added by nvidia configuration module for Optimus/PRIME.

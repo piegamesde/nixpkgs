@@ -21,9 +21,7 @@ let
     in
     z.publish.enable || z.discovery.enable;
 
-  overriddenPackage = cfg.package.override (
-    optionalAttrs hasZeroconf { zeroconfSupport = true; }
-  );
+  overriddenPackage = cfg.package.override (optionalAttrs hasZeroconf { zeroconfSupport = true; });
   binary = "${getBin overriddenPackage}/bin/pulseaudio";
   binaryNoDaemon = "${binary} --daemonize=no";
 
@@ -208,12 +206,8 @@ in
       };
 
       zeroconf = {
-        discovery.enable = mkEnableOption (
-          lib.mdDoc "discovery of pulseaudio sinks in the local network"
-        );
-        publish.enable = mkEnableOption (
-          lib.mdDoc "publishing the pulseaudio sink in the local network"
-        );
+        discovery.enable = mkEnableOption (lib.mdDoc "discovery of pulseaudio sinks in the local network");
+        publish.enable = mkEnableOption (lib.mdDoc "publishing the pulseaudio sink in the local network");
       };
 
       # TODO: enable by default?

@@ -16,8 +16,7 @@ let
   user = cfg.user;
   group = cfg.group;
 
-  tlsEnabled =
-    cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
+  tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
 
   # shell script for local administration
   artisan = pkgs.writeScriptBin "snipe-it" ''
@@ -397,8 +396,7 @@ in
         {
           root = mkForce "${snipe-it}/public";
           extraConfig =
-            optionalString
-              (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME)
+            optionalString (cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME)
               "fastcgi_param HTTPS on;";
           locations = {
             "/" = {

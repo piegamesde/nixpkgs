@@ -89,8 +89,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       };
 
       binutils = pkgs.wrapBintoolsWith {
-        libc =
-          if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
+        libc = if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
         bintools = self.binutils-unwrapped;
       };
 
@@ -101,8 +100,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       };
 
       binutilsDualAs = pkgs.wrapBintoolsWith {
-        libc =
-          if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
+        libc = if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
         bintools = self.binutilsDualAs-unwrapped;
       };
 

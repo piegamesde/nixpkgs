@@ -178,9 +178,7 @@ lib.makeOverridable (
         ++
           optional
             (
-              lib.versionAtLeast version "5.12"
-              && lib.versionOlder version "5.19"
-              && stdenv.hostPlatform.isPower
+              lib.versionAtLeast version "5.12" && lib.versionOlder version "5.19" && stdenv.hostPlatform.isPower
             )
             (
               fetchpatch {

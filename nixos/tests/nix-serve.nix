@@ -10,9 +10,7 @@ import ./make-test-python.nix (
       };
     testScript =
       let
-        pkgHash = builtins.head (
-          builtins.match "${builtins.storeDir}/([^-]+).+" (toString pkgs.hello)
-        );
+        pkgHash = builtins.head (builtins.match "${builtins.storeDir}/([^-]+).+" (toString pkgs.hello));
       in
       ''
         start_all()

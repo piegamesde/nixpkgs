@@ -213,9 +213,7 @@ self: super:
     old: { dependencies = with self; [ nvim-cmp ]; }
   );
 
-  cmp-digraphs = super.cmp-digraphs.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-digraphs = super.cmp-digraphs.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
   cmp-fish = super.cmp-fish.overrideAttrs (
     old: {
@@ -851,9 +849,7 @@ self: super:
     old: { dependencies = with self; [ neosnippet-vim ]; }
   );
 
-  ncm2-syntax = super.ncm2-syntax.overrideAttrs (
-    old: { dependencies = with self; [ neco-syntax ]; }
-  );
+  ncm2-syntax = super.ncm2-syntax.overrideAttrs (old: { dependencies = with self; [ neco-syntax ]; });
 
   ncm2-ultisnips = super.ncm2-ultisnips.overrideAttrs (
     old: { dependencies = with self; [ ultisnips ]; }
@@ -880,9 +876,7 @@ self: super:
     old: { dependencies = with self; [ nvim-dap ]; }
   );
 
-  nvim-lsputils = super.nvim-lsputils.overrideAttrs (
-    old: { dependencies = with self; [ popfix ]; }
-  );
+  nvim-lsputils = super.nvim-lsputils.overrideAttrs (old: { dependencies = with self; [ popfix ]; });
 
   nvim-metals = super.nvim-metals.overrideAttrs (old: { dontBuild = true; });
 
@@ -908,9 +902,7 @@ self: super:
     old: callPackage ./nvim-treesitter/overrides.nix { } self super
   );
 
-  nvim-ufo = super.nvim-ufo.overrideAttrs (
-    old: { dependencies = with self; [ promise-async ]; }
-  );
+  nvim-ufo = super.nvim-ufo.overrideAttrs (old: { dependencies = with self; [ promise-async ]; });
 
   octo-nvim = super.octo-nvim.overrideAttrs (
     old: {
@@ -1026,9 +1018,7 @@ self: super:
 
         nativeBuildInputs = [ pkg-config ];
 
-        buildInputs = [
-          openssl
-        ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+        buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
         cargoBuildFlags = [ "--workspace" ];
 
@@ -1435,9 +1425,7 @@ self: super:
     }
   );
 
-  vim-bazel = super.vim-bazel.overrideAttrs (
-    old: { dependencies = with self; [ vim-maktaba ]; }
-  );
+  vim-bazel = super.vim-bazel.overrideAttrs (old: { dependencies = with self; [ vim-maktaba ]; });
 
   vim-beancount = super.vim-beancount.overrideAttrs (
     old: { passthru.python3Dependencies = ps: with ps; [ beancount ]; }
@@ -1445,9 +1433,7 @@ self: super:
 
   vim-clap = callPackage ./vim-clap { };
 
-  vim-codefmt = super.vim-codefmt.overrideAttrs (
-    old: { dependencies = with self; [ vim-maktaba ]; }
-  );
+  vim-codefmt = super.vim-codefmt.overrideAttrs (old: { dependencies = with self; [ vim-maktaba ]; });
 
   # Due to case-sensitivety issues, the hash differs on Darwin systems, see:
   # https://github.com/NixOS/nixpkgs/issues/157609

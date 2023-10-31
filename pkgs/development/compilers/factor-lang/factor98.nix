@@ -161,9 +161,7 @@ stdenv.mkDerivation {
     # out of known libraries. The side effect is that find-lib
     # will work only on the known libraries. There does not seem
     # to be a generic solution here.
-    find $(echo ${
-      lib.makeLibraryPath runtimeLibs
-    } | sed -e 's#:# #g') -name \*.so.\* > $TMPDIR/so.lst
+    find $(echo ${lib.makeLibraryPath runtimeLibs} | sed -e 's#:# #g') -name \*.so.\* > $TMPDIR/so.lst
     (echo $(cat $TMPDIR/so.lst | wc -l) "libs found in cache \`/etc/ld.so.cache'";
       for l in $(<$TMPDIR/so.lst); do
         echo " $(basename $l) (libc6,x86-64) => $l";

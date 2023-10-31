@@ -78,9 +78,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p "${placeholder "out"}/share/cups/model"
-    foomatic-compiledb -j "$NIX_BUILD_CORES" -d "${
-      placeholder "out"
-    }/share/cups/model/foomatic-db-ppds"
+    foomatic-compiledb -j "$NIX_BUILD_CORES" -d "${placeholder "out"}/share/cups/model/foomatic-db-ppds"
     runHook postInstall
   '';
 
@@ -105,9 +103,7 @@ stdenv.mkDerivation {
   # compress ppd files
   postFixup = ''
     echo 'compressing ppd files'
-    find -H "${
-      placeholder "out"
-    }/share/cups/model/foomatic-db-ppds" -type f -iname '*.ppd' -print0  \
+    find -H "${placeholder "out"}/share/cups/model/foomatic-db-ppds" -type f -iname '*.ppd' -print0  \
       | xargs -0r -n 64 -P "$NIX_BUILD_CORES" gzip -9n
   '';
 

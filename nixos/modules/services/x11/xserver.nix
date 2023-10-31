@@ -478,18 +478,14 @@ in
         type = types.lines;
         default = "";
         example = ''FontPath "/path/to/my/fonts"'';
-        description =
-          lib.mdDoc
-            "Contents of the first `Files` section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the first `Files` section of the X server configuration file.";
       };
 
       deviceSection = mkOption {
         type = types.lines;
         default = "";
         example = "VideoRAM 131072";
-        description =
-          lib.mdDoc
-            "Contents of the first Device section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the first Device section of the X server configuration file.";
       };
 
       screenSection = mkOption {
@@ -498,18 +494,14 @@ in
         example = ''
           Option "RandRRotation" "on"
         '';
-        description =
-          lib.mdDoc
-            "Contents of the first Screen section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the first Screen section of the X server configuration file.";
       };
 
       monitorSection = mkOption {
         type = types.lines;
         default = "";
         example = "HorizSync 28-49";
-        description =
-          lib.mdDoc
-            "Contents of the first Monitor section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the first Monitor section of the X server configuration file.";
       };
 
       extraConfig = mkOption {
@@ -583,9 +575,7 @@ in
           Option "SuspendTime" "0"
           Option "OffTime" "0"
         '';
-        description =
-          lib.mdDoc
-            "Contents of the ServerFlags section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the ServerFlags section of the X server configuration file.";
       };
 
       moduleSection = mkOption {
@@ -604,9 +594,7 @@ in
         example = ''
           Option "AIGLX" "true"
         '';
-        description =
-          lib.mdDoc
-            "Contents of the ServerLayout section of the X server configuration file.";
+        description = lib.mdDoc "Contents of the ServerLayout section of the X server configuration file.";
       };
 
       extraDisplaySettings = mkOption {

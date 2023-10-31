@@ -144,10 +144,7 @@ in
                   in
                   {
                     zram-size =
-                      if cfg.memoryMax != null then
-                        "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
-                      else
-                        size;
+                      if cfg.memoryMax != null then "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)" else size;
                     compression-algorithm = cfg.algorithm;
                     swap-priority = cfg.priority;
                   }

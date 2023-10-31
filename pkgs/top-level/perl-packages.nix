@@ -43,9 +43,7 @@ with self;
     let
       modules = lib.filter hasPerlModule drvs;
     in
-    lib.unique (
-      [ perl ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules)
-    );
+    lib.unique ([ perl ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules));
 
   # Convert derivation to a perl module.
   toPerlModule =
@@ -36390,9 +36388,7 @@ with self;
       url = "mirror://cpan/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz";
       hash = "sha256-0zEzJJHFHMz7TLlP/ET5zXM3jmGEmNSjffngQ2YcUV0=";
     };
-    patches = [
-      ../development/perl-modules/xml-parser-0001-HACK-Assumes-Expat-paths-are-good.patch
-    ];
+    patches = [ ../development/perl-modules/xml-parser-0001-HACK-Assumes-Expat-paths-are-good.patch ];
     postPatch =
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         substituteInPlace Expat/Makefile.PL --replace 'use English;' '#'

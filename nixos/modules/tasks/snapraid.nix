@@ -80,9 +80,7 @@ in
       plan = mkOption {
         default = 8;
         example = 5;
-        description =
-          lib.mdDoc
-            "Percent of the array that should be checked by {command}`snapraid scrub`.";
+        description = lib.mdDoc "Percent of the array that should be checked by {command}`snapraid scrub`.";
         type = int;
       };
       olderThan = mkOption {
@@ -221,8 +219,7 @@ in
             SystemCallArchitectures = "native";
             SystemCallFilter = "@system-service";
             SystemCallErrorNumber = "EPERM";
-            CapabilityBoundingSet =
-              "CAP_DAC_OVERRIDE" + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER";
+            CapabilityBoundingSet = "CAP_DAC_OVERRIDE" + lib.optionalString cfg.touchBeforeSync " CAP_FOWNER";
 
             ProtectSystem = "strict";
             ProtectHome = "read-only";

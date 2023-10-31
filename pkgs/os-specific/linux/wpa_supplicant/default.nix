@@ -124,14 +124,10 @@ stdenv.mkDerivation rec {
       ${optionalString withPcsclite "-I${lib.getDev pcsclite}/include/PCSC/"}"
   '';
 
-  buildInputs =
-    [
-      openssl
-      libnl
-    ]
-    ++ optional dbusSupport dbus
-    ++ optional withReadline readline
-    ++ optional withPcsclite pcsclite;
+  buildInputs = [
+    openssl
+    libnl
+  ] ++ optional dbusSupport dbus ++ optional withReadline readline ++ optional withPcsclite pcsclite;
 
   nativeBuildInputs = [ pkg-config ];
 

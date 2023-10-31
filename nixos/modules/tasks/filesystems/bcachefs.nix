@@ -55,9 +55,7 @@ in
         # because we provide the unwrapped version of mount.bcachefs
         # through the extraBin option, which will make it available for use.
         system.fsPackages = lib.optional (!config.boot.initrd.systemd.enable) pkgs.bcachefs-tools;
-        environment.systemPackages =
-          lib.optional (config.boot.initrd.systemd.enable)
-            pkgs.bcachefs-tools;
+        environment.systemPackages = lib.optional (config.boot.initrd.systemd.enable) pkgs.bcachefs-tools;
 
         # use kernel package with bcachefs support until it's in mainline
         boot.kernelPackages = pkgs.linuxPackages_testing_bcachefs;

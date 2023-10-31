@@ -70,23 +70,21 @@ stdenv.mkDerivation rec {
     "-Ddaemon_user=colord"
   ];
 
-  nativeBuildInputs =
-    [
-      docbook_xml_dtd_412
-      docbook_xsl
-      docbook_xsl_ns
-      gettext
-      gobject-introspection
-      gtk-doc
-      libxslt
-      meson
-      ninja
-      pkg-config
-      shared-mime-info
-      vala
-      wrapGAppsNoGuiHook
-    ]
-    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs = [
+    docbook_xml_dtd_412
+    docbook_xsl
+    docbook_xsl_ns
+    gettext
+    gobject-introspection
+    gtk-doc
+    libxslt
+    meson
+    ninja
+    pkg-config
+    shared-mime-info
+    vala
+    wrapGAppsNoGuiHook
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
 
   buildInputs = [
     argyllcms

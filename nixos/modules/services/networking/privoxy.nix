@@ -167,9 +167,7 @@ in
           # This must come after all other entries, in order to override the
           # other actions/filters installed by Privoxy or the user.
           apply =
-            x:
-            x
-            ++ optional (cfg.userActions != "") (toString (pkgs.writeText "user.actions" cfg.userActions));
+            x: x ++ optional (cfg.userActions != "") (toString (pkgs.writeText "user.actions" cfg.userActions));
           default = [
             "match-all.action"
             "default.action"
@@ -184,9 +182,7 @@ in
           type = types.listOf types.str;
           default = [ "default.filter" ];
           apply =
-            x:
-            x
-            ++ optional (cfg.userFilters != "") (toString (pkgs.writeText "user.filter" cfg.userFilters));
+            x: x ++ optional (cfg.userFilters != "") (toString (pkgs.writeText "user.filter" cfg.userFilters));
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
             absolute or relative to the privoxy configuration directory.

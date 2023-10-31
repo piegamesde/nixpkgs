@@ -139,8 +139,7 @@ in
     }
     // {
       pname =
-        pname
-        + lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
+        pname + lib.optionalString (!withX && !withNS && !withMacport && !withGTK2 && !withGTK3) "-nox";
       inherit version;
 
       patches =

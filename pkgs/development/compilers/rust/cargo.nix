@@ -146,7 +146,6 @@ rustPlatform.buildRustPackage.override { cargo-auditable = cargo-auditable.boots
     };
   }
   //
-    lib.optionalAttrs
-      (rust.toRustTarget stdenv.buildPlatform != rust.toRustTarget stdenv.hostPlatform)
+    lib.optionalAttrs (rust.toRustTarget stdenv.buildPlatform != rust.toRustTarget stdenv.hostPlatform)
       { HOST_PKG_CONFIG_PATH = "${pkgsBuildBuild.pkg-config}/bin/pkg-config"; }
 )

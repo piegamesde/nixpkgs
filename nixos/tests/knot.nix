@@ -195,10 +195,8 @@ import ./make-test-python.nix (
         primary4 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
         primary6 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;
 
-        secondary4 =
-          (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;
-        secondary6 =
-          (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address;
+        secondary4 = (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv4.addresses).address;
+        secondary6 = (lib.head nodes.secondary.config.networking.interfaces.eth1.ipv6.addresses).address;
       in
       ''
         import re

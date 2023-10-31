@@ -55,8 +55,7 @@ let
     let
       parts = lib.splitString "-" pkg.name;
       # remove python3.8-
-      stripped_parts =
-        if (builtins.head parts) == python3.libPrefix then builtins.tail parts else parts;
+      stripped_parts = if (builtins.head parts) == python3.libPrefix then builtins.tail parts else parts;
       version = lib.last stripped_parts;
       orig_pkgname = lib.init stripped_parts;
       pkgname = patch_names (lib.concatStringsSep "_" orig_pkgname);

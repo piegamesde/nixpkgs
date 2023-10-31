@@ -125,9 +125,7 @@ let
 
   vrrpScripts = mapAttrsToList (name: config: { inherit name; } // config) cfg.vrrpScripts;
 
-  vrrpInstances =
-    mapAttrsToList (iName: iConfig: { name = iName; } // iConfig)
-      cfg.vrrpInstances;
+  vrrpInstances = mapAttrsToList (iName: iConfig: { name = iName; } // iConfig) cfg.vrrpInstances;
 
   vrrpInstanceAssertions =
     i:

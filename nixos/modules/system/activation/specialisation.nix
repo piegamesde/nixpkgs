@@ -50,8 +50,7 @@ in
         types.submodule (
           local@{ ... }:
           let
-            extend =
-              if local.config.inheritParentConfig then extendModules else noUserModules.extendModules;
+            extend = if local.config.inheritParentConfig then extendModules else noUserModules.extendModules;
           in
           {
             options.inheritParentConfig = mkOption {

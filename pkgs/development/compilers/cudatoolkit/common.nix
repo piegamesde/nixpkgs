@@ -233,9 +233,7 @@ backendStdenv.mkDerivation rec {
             # we only ship libtiff.so.6, so let's use qt plugins built by Nix.
             # TODO: don't copy, come up with a symlink-based "merge"
             ''
-              rsync ${
-                lib.getLib qt6Packages.qtimageformats
-              }/lib/qt-6/plugins/ $out/host-linux-x64/Plugins/ -aP
+              rsync ${lib.getLib qt6Packages.qtimageformats}/lib/qt-6/plugins/ $out/host-linux-x64/Plugins/ -aP
             ''
         }
 

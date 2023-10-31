@@ -94,8 +94,7 @@ let
             php = generic filteredArgs;
 
             php-packages =
-              (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; })
-              .overrideScope'
+              (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; }).overrideScope'
                 packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
@@ -171,9 +170,7 @@ let
                 tests = {
                   nixos =
                     lib.recurseIntoAttrs
-                      nixosTests."php${
-                        lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)
-                      }";
+                      nixosTests."php${lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)}";
                   package = tests.php;
                 };
                 inherit (php-packages) extensions buildPecl mkExtension;

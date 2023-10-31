@@ -226,9 +226,7 @@ let
           if args ? url then
             [ args.url ]
           else
-            map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (
-              args.urlPrefixes or urlPrefixes
-            )
+            map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes)
         );
     in
     runCommand "texlive-${tlName}"

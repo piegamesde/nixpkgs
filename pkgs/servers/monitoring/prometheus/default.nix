@@ -81,24 +81,18 @@ buildGoModule rec {
     ${lib.optionalString enableKubernetes
       "echo - github.com/prometheus/prometheus/discovery/kubernetes"}
     ${lib.optionalString enableLinode "echo - github.com/prometheus/prometheus/discovery/linode"}
-    ${lib.optionalString enableMarathon
-      "echo - github.com/prometheus/prometheus/discovery/marathon"}
+    ${lib.optionalString enableMarathon "echo - github.com/prometheus/prometheus/discovery/marathon"}
     ${lib.optionalString enableMoby "echo - github.com/prometheus/prometheus/discovery/moby"}
     ${lib.optionalString enableNomad "echo - github.com/prometheus/prometheus/discovery/nomad"}
-    ${lib.optionalString enableOpenstack
-      "echo - github.com/prometheus/prometheus/discovery/openstack"}
-    ${lib.optionalString enableOVHCloud
-      "echo - github.com/prometheus/prometheus/discovery/ovhcloud"}
-    ${lib.optionalString enablePuppetDB
-      "echo - github.com/prometheus/prometheus/discovery/puppetdb"}
-    ${lib.optionalString enableScaleway
-      "echo - github.com/prometheus/prometheus/discovery/scaleway"}
+    ${lib.optionalString enableOpenstack "echo - github.com/prometheus/prometheus/discovery/openstack"}
+    ${lib.optionalString enableOVHCloud "echo - github.com/prometheus/prometheus/discovery/ovhcloud"}
+    ${lib.optionalString enablePuppetDB "echo - github.com/prometheus/prometheus/discovery/puppetdb"}
+    ${lib.optionalString enableScaleway "echo - github.com/prometheus/prometheus/discovery/scaleway"}
     ${lib.optionalString enableTriton "echo - github.com/prometheus/prometheus/discovery/triton"}
     ${lib.optionalString enableUyuni "echo - github.com/prometheus/prometheus/discovery/uyuni"}
     ${lib.optionalString enableVultr "echo - github.com/prometheus/prometheus/discovery/vultr"}
     ${lib.optionalString enableXDS "echo - github.com/prometheus/prometheus/discovery/xds"}
-    ${lib.optionalString enableZookeeper
-      "echo - github.com/prometheus/prometheus/discovery/zookeeper"}
+    ${lib.optionalString enableZookeeper "echo - github.com/prometheus/prometheus/discovery/zookeeper"}
     ) > plugins.yml
   '';
 

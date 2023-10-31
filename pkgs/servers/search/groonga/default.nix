@@ -56,8 +56,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags =
-    with lib; optional zlibSupport "--with-zlib" ++ optional lz4Support "--with-lz4";
+  configureFlags = with lib; optional zlibSupport "--with-zlib" ++ optional lz4Support "--with-lz4";
 
   doInstallCheck = true;
   installCheckPhase = "$out/bin/groonga --version";

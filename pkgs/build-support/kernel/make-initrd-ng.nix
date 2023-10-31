@@ -6,8 +6,7 @@ let
   # Get the basename of the actual compression program from the whole
   # compression command, for the purpose of guessing the u-boot
   # compression type and filename extension.
-  compressorName =
-    fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
+  compressorName = fullCommand: builtins.elemAt (builtins.match "([^ ]*/)?([^ ]+).*" fullCommand) 1;
 in
 {
   stdenvNoCC,

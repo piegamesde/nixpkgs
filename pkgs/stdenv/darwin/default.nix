@@ -908,9 +908,9 @@ rec {
               let
                 tools = super."${finalLlvmPackages}".tools.extend (
                   llvmSelf: _: {
-                    clang-unwrapped-all-outputs =
-                      pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override
-                        { llvm = llvmSelf.llvm; };
+                    clang-unwrapped-all-outputs = pkgs."${finalLlvmPackages}".clang-unwrapped-all-outputs.override {
+                      llvm = llvmSelf.llvm;
+                    };
                     libllvm = pkgs."${finalLlvmPackages}".libllvm.override { inherit libxml2; };
                   }
                 );

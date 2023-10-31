@@ -357,9 +357,7 @@ in
       debug = mkEnableOption (lib.mdDoc "gnome-session debug messages");
 
       flashback = {
-        enableMetacity = mkEnableOption (
-          lib.mdDoc "the standard GNOME Flashback session with Metacity"
-        );
+        enableMetacity = mkEnableOption (lib.mdDoc "the standard GNOME Flashback session with Metacity");
 
         customSessions = mkOption {
           type = types.listOf (
@@ -570,8 +568,7 @@ in
       services.gnome.gnome-user-share.enable = mkDefault true;
       services.gnome.rygel.enable = mkDefault true;
       services.gvfs.enable = true;
-      services.system-config-printer.enable =
-        (mkIf config.services.printing.enable (mkDefault true));
+      services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
 
       systemd.packages = with pkgs.gnome; [
         gnome-session

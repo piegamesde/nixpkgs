@@ -214,9 +214,7 @@ let
 
         passthru.tests =
           let
-            testVersion = "mariadb_${
-                builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)
-              }";
+            testVersion = "mariadb_${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
           in
           {
             mariadb-galera-rsync = nixosTests.mariadb-galera.${testVersion};
@@ -351,13 +349,11 @@ let
             + lib.optionalString withStorageMroonga ''
               mv "$out"/share/{groonga,groonga-normalizer-mysql} "$out"/share/doc/mysql
             ''
-            +
-              lib.optionalString (!stdenv.hostPlatform.isDarwin && lib.versionAtLeast common.version "10.4")
-                ''
-                  mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
-                  mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
-                  rm -r "$out"/OFF
-                '';
+            + lib.optionalString (!stdenv.hostPlatform.isDarwin && lib.versionAtLeast common.version "10.4") ''
+              mv "$out"/OFF/suite/plugins/pam/pam_mariadb_mtr.so "$out"/share/pam/lib/security
+              mv "$out"/OFF/suite/plugins/pam/mariadb_mtr "$out"/share/pam/etc/security
+              rm -r "$out"/OFF
+            '';
 
           CXXFLAGS = lib.optionalString stdenv.hostPlatform.isi686 "-fpermissive";
           NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";

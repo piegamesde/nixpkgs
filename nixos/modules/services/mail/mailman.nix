@@ -326,9 +326,7 @@ in
       };
 
       extraPythonPackages = mkOption {
-        description =
-          lib.mdDoc
-            "Packages to add to the python environment used by mailman and mailman-web";
+        description = lib.mdDoc "Packages to add to the python environment used by mailman and mailman-web";
         type = types.listOf types.package;
         default = [ ];
       };

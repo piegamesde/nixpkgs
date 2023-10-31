@@ -86,8 +86,7 @@ let
               || evaluatedPathContent.recurseForRelease or false
             then
               dedupResults (
-                lib.mapAttrsToList (name: elem: packagesWithPathInner (path ++ [ name ]) elem)
-                  evaluatedPathContent
+                lib.mapAttrsToList (name: elem: packagesWithPathInner (path ++ [ name ]) elem) evaluatedPathContent
               )
             else
               [ ]

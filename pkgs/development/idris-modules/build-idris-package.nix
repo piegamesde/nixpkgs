@@ -78,9 +78,7 @@ stdenv.mkDerivation (
     installPhase = ''
       runHook preInstall
 
-      idris --install ${ipkgName}.ipkg --ibcsubdir $out/libs ${
-        lib.escapeShellArgs idrisInstallOptions
-      }
+      idris --install ${ipkgName}.ipkg --ibcsubdir $out/libs ${lib.escapeShellArgs idrisInstallOptions}
 
       IDRIS_DOC_PATH=$out/doc idris --installdoc ${ipkgName}.ipkg ${
         lib.escapeShellArgs idrisDocOptions

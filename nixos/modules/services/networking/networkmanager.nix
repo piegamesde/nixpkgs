@@ -43,8 +43,7 @@ let
         firewall-backend = cfg.firewallBackend;
       })
       (mkSection "keyfile" {
-        unmanaged-devices =
-          if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
+        unmanaged-devices = if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
       })
       (mkSection "logging" {
         audit = config.security.audit.enable;

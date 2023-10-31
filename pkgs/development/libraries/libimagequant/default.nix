@@ -37,17 +37,13 @@ rustPlatform.buildRustPackage rec {
 
   postBuild = ''
     pushd imagequant-sys
-    cargo cbuild --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo cbuild --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
     popd
   '';
 
   postInstall = ''
     pushd imagequant-sys
-    cargo cinstall --release --frozen --prefix=${
-      placeholder "out"
-    } --target ${rustTargetPlatformSpec}
+    cargo cinstall --release --frozen --prefix=${placeholder "out"} --target ${rustTargetPlatformSpec}
     popd
   '';
 

@@ -86,9 +86,9 @@ in
     # This way services are restarted when tzdata changes.
     systemd.globalEnvironment.TZDIR = tzdir;
 
-    systemd.services.systemd-timedated.environment =
-      lib.optionalAttrs (config.time.timeZone != null)
-        { NIXOS_STATIC_TIMEZONE = "1"; };
+    systemd.services.systemd-timedated.environment = lib.optionalAttrs (config.time.timeZone != null) {
+      NIXOS_STATIC_TIMEZONE = "1";
+    };
 
     environment.etc =
       {

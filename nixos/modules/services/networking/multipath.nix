@@ -20,10 +20,7 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check
-    // {
-      description = "${elemType.description} (with check: ${desc})";
-    };
+    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
   hexChars = stringToCharacters "0123456789abcdef";
   isHexString = s: all (c: elem c hexChars) (stringToCharacters (toLower s));
   hexStr = addCheckDesc "hexadecimal string" types.str isHexString;
@@ -97,9 +94,7 @@ in
             vpd_vendor = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "The vendor specific vpd page information, using the vpd page abbreviation";
+              description = lib.mdDoc "The vendor specific vpd page information, using the vpd page abbreviation";
             };
 
             hardware_handler = mkOption {
@@ -237,9 +232,7 @@ in
             no_path_retry = mkOption {
               type = nullOr str;
               default = null; # real default: "fail"
-              description =
-                lib.mdDoc
-                  "Specify what to do when all paths are down. Quote integers as strings";
+              description = lib.mdDoc "Specify what to do when all paths are down. Quote integers as strings";
             };
 
             rr_min_io = mkOption {
@@ -480,9 +473,7 @@ in
             all_tg_pt = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Set the 'all targets ports' flag when registering keys with mpathpersist";
+              description = lib.mdDoc "Set the 'all targets ports' flag when registering keys with mpathpersist";
             };
           };
         }

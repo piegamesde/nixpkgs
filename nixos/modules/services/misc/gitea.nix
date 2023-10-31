@@ -495,10 +495,7 @@ in
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
                 default =
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then
-                    "/run/gitea/gitea.sock"
-                  else
-                    "0.0.0.0";
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
                 defaultText =
                   literalExpression
                     ''
@@ -585,9 +582,7 @@ in
       extraConfig = mkOption {
         type = with types; nullOr str;
         default = null;
-        description =
-          lib.mdDoc
-            "Configuration lines appended to the generated gitea configuration file.";
+        description = lib.mdDoc "Configuration lines appended to the generated gitea configuration file.";
       };
     };
   };
