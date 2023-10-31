@@ -91,9 +91,12 @@ in
     dataDir = mkOption {
       type = types.path;
       default = "/var/lib/asf";
-      description = lib.mdDoc ''
-        The ASF home directory used to store all data.
-        If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.'';
+      description =
+        lib.mdDoc
+          ''
+            The ASF home directory used to store all data.
+            If left as the default value this directory will automatically be created before the ASF server starts, otherwise the sysadmin is responsible for ensuring the directory exists with appropriate ownership and permissions.''
+      ;
     };
 
     settings = mkOption {
