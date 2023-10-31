@@ -174,13 +174,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
-      message = ''
-        Unable to automatically activate the admin-user if no locally managed DB for
-        postgres (`services.plausible.database.postgres.setup') is enabled!
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.adminUser.activate -> cfg.database.postgres.setup;
+        message = ''
+          Unable to automatically activate the admin-user if no locally managed DB for
+          postgres (`services.plausible.database.postgres.setup') is enabled!
+        '';
+      }
+    ];
 
     services.postgresql = mkIf cfg.database.postgres.setup { enable = true; };
 
@@ -245,9 +247,9 @@ in
               SMTP_USER_NAME = cfg.mail.smtp.user;
             });
 
-          path =
-            [ cfg.package ]
-            ++ optional cfg.database.postgres.setup config.services.postgresql.package;
+          path = [
+            cfg.package
+          ] ++ optional cfg.database.postgres.setup config.services.postgresql.package;
           script = ''
             export CONFIG_DIR=$CREDENTIALS_DIRECTORY
 

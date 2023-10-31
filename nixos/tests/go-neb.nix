@@ -16,20 +16,24 @@ import ./make-test-python.nix (
           baseUrl = "http://localhost";
           secretFile = pkgs.writeText "secrets" "ACCESS_TOKEN=changeme";
           config = {
-            clients = [ {
-              UserId = "@test:localhost";
-              AccessToken = "$ACCESS_TOKEN";
-              HomeServerUrl = "http://localhost";
-              Sync = false;
-              AutoJoinRooms = false;
-              DisplayName = "neverbeseen";
-            } ];
-            services = [ {
-              ID = "wikipedia_service";
-              Type = "wikipedia";
-              UserID = "@test:localhost";
-              Config = { };
-            } ];
+            clients = [
+              {
+                UserId = "@test:localhost";
+                AccessToken = "$ACCESS_TOKEN";
+                HomeServerUrl = "http://localhost";
+                Sync = false;
+                AutoJoinRooms = false;
+                DisplayName = "neverbeseen";
+              }
+            ];
+            services = [
+              {
+                ID = "wikipedia_service";
+                Type = "wikipedia";
+                UserID = "@test:localhost";
+                Config = { };
+              }
+            ];
           };
         };
       };

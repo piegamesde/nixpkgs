@@ -136,17 +136,21 @@ in
       virtualType = "tun";
       virtualOwner = mkIf config.networking.useNetworkd "";
       ipv4 = {
-        addresses = [ {
-          address = cfg.ipv4.router.address;
-          prefixLength = 32;
-        } ];
+        addresses = [
+          {
+            address = cfg.ipv4.router.address;
+            prefixLength = 32;
+          }
+        ];
         routes = [ cfg.ipv4.pool ];
       };
       ipv6 = {
-        addresses = [ {
-          address = cfg.ipv6.router.address;
-          prefixLength = 128;
-        } ];
+        addresses = [
+          {
+            address = cfg.ipv6.router.address;
+            prefixLength = 128;
+          }
+        ];
         routes = [ cfg.ipv6.pool ];
       };
     };

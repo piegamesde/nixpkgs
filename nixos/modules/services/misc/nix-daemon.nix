@@ -868,20 +868,22 @@ in
       let
         badMachine = m: m.system == null && m.systems == [ ];
       in
-      [ {
-        assertion = !(any badMachine cfg.buildMachines);
-        message =
-          ''
-            At least one system type (via <varname>system</varname> or
-              <varname>systems</varname>) must be set for every build machine.
-              Invalid machine specifications:
-          ''
-          + "      "
-          + (concatStringsSep "\n      " (
-            map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
-          ))
-        ;
-      } ];
+      [
+        {
+          assertion = !(any badMachine cfg.buildMachines);
+          message =
+            ''
+              At least one system type (via <varname>system</varname> or
+                <varname>systems</varname>) must be set for every build machine.
+                Invalid machine specifications:
+            ''
+            + "      "
+            + (concatStringsSep "\n      " (
+              map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
+            ))
+          ;
+        }
+      ];
 
     systemd.packages = [ nixPackage ];
 

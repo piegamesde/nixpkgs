@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!interactive) "man";
 
   # no-pma fix
-  nativeBuildInputs =
-    [ autoreconfHook ]
-    ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
+  nativeBuildInputs = [
+    autoreconfHook
+  ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
   buildInputs =
     lib.optional withSigsegv libsigsegv

@@ -144,9 +144,11 @@ stdenv.mkDerivation rec {
     ];
     platforms = [ "x86_64-linux" ];
 
-    knownVulnerabilities = [ ''
-      Trusts a Russian government issued CA certificate for some websites.
-      See https://habr.com/en/company/yandex/blog/655185/ (Russian) for details.
-    '' ];
+    knownVulnerabilities = [
+      ''
+        Trusts a Russian government issued CA certificate for some websites.
+        See https://habr.com/en/company/yandex/blog/655185/ (Russian) for details.
+      ''
+    ];
   };
 }

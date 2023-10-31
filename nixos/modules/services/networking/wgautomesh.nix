@@ -162,10 +162,12 @@ in
           "gossip_secret:${cfg.gossipSecretFile}"
         ];
 
-        ExecStartPre = mkIf cfg.enableGossipEncryption [ ''
-          ${pkgs.envsubst}/bin/envsubst \
-                        -i ${configFile} \
-                        -o ${runtimeConfigFile}'' ];
+        ExecStartPre = mkIf cfg.enableGossipEncryption [
+          ''
+            ${pkgs.envsubst}/bin/envsubst \
+                          -i ${configFile} \
+                          -o ${runtimeConfigFile}''
+        ];
 
         DynamicUser = true;
         StateDirectory = "wgautomesh";

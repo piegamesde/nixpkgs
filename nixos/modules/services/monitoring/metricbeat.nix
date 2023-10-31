@@ -138,11 +138,13 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      # empty modules would cause a failure at runtime
-      assertion = cfg.settings.metricbeat.modules != [ ];
-      message = "services.metricbeat: You must configure one or more modules.";
-    } ];
+    assertions = [
+      {
+        # empty modules would cause a failure at runtime
+        assertion = cfg.settings.metricbeat.modules != [ ];
+        message = "services.metricbeat: You must configure one or more modules.";
+      }
+    ];
 
     services.metricbeat.settings.metricbeat.modules = attrValues cfg.modules;
 

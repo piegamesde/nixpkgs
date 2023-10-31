@@ -171,10 +171,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings = mkIf (cfg.interface != null && cfg.network != null) [ ''
-      The options services.ndppd.interface and services.ndppd.network will probably be removed soon,
-      please use services.ndppd.proxies.<interface>.rules.<network> instead.
-    '' ];
+    warnings = mkIf (cfg.interface != null && cfg.network != null) [
+      ''
+        The options services.ndppd.interface and services.ndppd.network will probably be removed soon,
+        please use services.ndppd.proxies.<interface>.rules.<network> instead.
+      ''
+    ];
 
     services.ndppd.proxies = mkIf (cfg.interface != null && cfg.network != null) {
       ${cfg.interface}.rules.${cfg.network} = { };

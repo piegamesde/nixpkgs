@@ -85,10 +85,12 @@ rec {
             f
               (
                 done
-                // listToAttrs [ {
-                  name = entry;
-                  value = 1;
-                } ]
+                // listToAttrs [
+                  {
+                    name = entry;
+                    value = 1;
+                  }
+                ]
               )
               ([ predefined.${entry} ] ++ tail todo)
       ;

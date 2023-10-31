@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-Jy0c1I3kLgJAeGWzcgl5qVAWesf4EXaMIOW03B+1yWE=";
   };
 
-  nativeBuildInputs =
-    [ setuptools ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  nativeBuildInputs = [
+    setuptools
+  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   passthru.optional-dependencies = {
     toml = lib.optionals (pythonOlder "3.11") [ tomli ];

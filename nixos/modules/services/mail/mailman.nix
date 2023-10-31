@@ -433,13 +433,15 @@ in
             '';
           };
       in
-      [ {
-        assertion = cfg.webHosts != [ ];
-        message = ''
-          services.mailman.serve.enable requires there to be at least one entry
-          in services.mailman.webHosts.
-        '';
-      } ]
+      [
+        {
+          assertion = cfg.webHosts != [ ];
+          message = ''
+            services.mailman.serve.enable requires there to be at least one entry
+            in services.mailman.webHosts.
+          '';
+        }
+      ]
       ++ (lib.optionals cfg.enablePostfix [
         {
           assertion = postfix.enable;

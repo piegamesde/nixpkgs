@@ -99,9 +99,9 @@ let
           string = "testing-string";
         };
 
-        passAsFile =
-          [ "buildCommand" ]
-          ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
+        passAsFile = [
+          "buildCommand"
+        ] ++ lib.optionals (extraAttrs ? extraTest) [ "extraTest" ];
         buildCommand = ''
           declare -p string
           appendToVar string hello

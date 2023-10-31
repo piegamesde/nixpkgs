@@ -22,10 +22,12 @@ let
 
   # We do not have access to /run/opengl-driver/lib in the sandbox,
   # so use a stub instead.
-  cudaStub = linkFarm "cuda-stub" [ {
-    name = "libcuda.so.1";
-    path = "${cudatoolkit}/lib/stubs/libcuda.so";
-  } ];
+  cudaStub = linkFarm "cuda-stub" [
+    {
+      name = "libcuda.so.1";
+      path = "${cudatoolkit}/lib/stubs/libcuda.so";
+    }
+  ];
 in
 stdenv.mkDerivation {
   pname = "libtorch-test";

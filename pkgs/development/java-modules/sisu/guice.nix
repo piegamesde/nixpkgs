@@ -14,8 +14,10 @@
           type = obj.type;
         }
       )
-      [ {
-        type = "jar";
-        sha512 = "1529vg4r0gy3ss68lprkdf13r79r0lng4iyx68gj94cf806li9kayi9p2byl6axbx174cvam9w3l90qcdsdz14vrvm163b2r8sq927m";
-      } ];
+      [
+        {
+          type = "jar";
+          sha512 = "1529vg4r0gy3ss68lprkdf13r79r0lng4iyx68gj94cf806li9kayi9p2byl6axbx174cvam9w3l90qcdsdz14vrvm163b2r8sq927m";
+        }
+      ];
 }

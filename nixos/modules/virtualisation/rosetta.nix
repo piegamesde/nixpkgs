@@ -48,10 +48,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [ {
-      assertion = pkgs.stdenv.hostPlatform.isAarch64;
-      message = "Rosetta is only supported on aarch64 systems";
-    } ];
+    assertions = [
+      {
+        assertion = pkgs.stdenv.hostPlatform.isAarch64;
+        message = "Rosetta is only supported on aarch64 systems";
+      }
+    ];
 
     fileSystems."${cfg.mountPoint}" = {
       device = cfg.mountTag;

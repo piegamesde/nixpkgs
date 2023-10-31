@@ -498,11 +498,13 @@ in
     (mkIf cfg.enable {
 
       # Seed our configuration into nixos-generate-config
-      system.nixos-generate-config.desktopConfiguration = [ ''
-        # Enable the Plasma 5 Desktop Environment.
-        services.xserver.displayManager.sddm.enable = true;
-        services.xserver.desktopManager.plasma5.enable = true;
-      '' ];
+      system.nixos-generate-config.desktopConfiguration = [
+        ''
+          # Enable the Plasma 5 Desktop Environment.
+          services.xserver.displayManager.sddm.enable = true;
+          services.xserver.desktopManager.plasma5.enable = true;
+        ''
+      ];
 
       services.xserver.displayManager.sessionPackages = [
         pkgs.libsForQt5.plasma5.plasma-workspace

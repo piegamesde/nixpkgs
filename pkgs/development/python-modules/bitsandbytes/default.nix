@@ -88,9 +88,9 @@ buildPythonPackage {
       "make CUDA_VERSION=CPU cpuonly"
   ;
 
-  nativeBuildInputs =
-    [ setuptools ]
-    ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
+  nativeBuildInputs = [
+    setuptools
+  ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
   buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];
 
   propagatedBuildInputs = [ torch ];

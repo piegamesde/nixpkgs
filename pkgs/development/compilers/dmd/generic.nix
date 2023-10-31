@@ -168,9 +168,9 @@ stdenv.mkDerivation rec {
     tzdata
   ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
-  nativeCheckInputs =
-    [ gdb ]
-    ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
+  nativeCheckInputs = [
+    gdb
+  ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
 
   buildFlags = [
     "BUILD=release"

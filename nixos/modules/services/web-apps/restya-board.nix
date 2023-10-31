@@ -207,10 +207,12 @@ in
 
     services.nginx.enable = true;
     services.nginx.virtualHosts.${cfg.virtualHost.serverName} = {
-      listen = [ {
-        addr = cfg.virtualHost.listenHost;
-        port = cfg.virtualHost.listenPort;
-      } ];
+      listen = [
+        {
+          addr = cfg.virtualHost.listenHost;
+          port = cfg.virtualHost.listenPort;
+        }
+      ];
       serverName = cfg.virtualHost.serverName;
       root = runDir;
       extraConfig = ''
@@ -268,9 +270,9 @@ in
 
       wantedBy = [ "multi-user.target" ];
       requires = if cfg.database.host == null then [ ] else [ "postgresql.service" ];
-      after =
-        [ "network.target" ]
-        ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ]);
+      after = [
+        "network.target"
+      ] ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ]);
 
       script = ''
         rm -rf "${runDir}"

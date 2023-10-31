@@ -100,10 +100,12 @@ in
       type = types.submodule { freeformType = jsonType; };
 
       default = {
-        users = [ {
-          regex = "@irc_.*";
-          exclusive = true;
-        } ];
+        users = [
+          {
+            regex = "@irc_.*";
+            exclusive = true;
+          }
+        ];
         aliases = [ ];
         rooms = [ ];
       };

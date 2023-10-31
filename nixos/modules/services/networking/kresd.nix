@@ -194,9 +194,9 @@ in
     systemd.targets.kresd = {
       # configure units started by default
       wantedBy = [ "multi-user.target" ];
-      wants =
-        [ "kres-cache-gc.service" ]
-        ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
+      wants = [
+        "kres-cache-gc.service"
+      ] ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
     };
     systemd.services."kresd@".serviceConfig = {
       ExecStart =

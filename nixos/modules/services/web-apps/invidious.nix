@@ -33,9 +33,9 @@ let
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]"
           ;
-          jqFiles =
-            [ settingsFile ]
-            ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
+          jqFiles = [
+            settingsFile
+          ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
         in
         ''
           export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
@@ -87,10 +87,12 @@ let
       };
     } // (lib.optionalAttrs (cfg.domain != null) { inherit (cfg) domain; });
 
-    assertions = [ {
-      assertion = cfg.database.host != null -> cfg.database.passwordFile != null;
-      message = "If database host isn't null, database password needs to be set";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.database.host != null -> cfg.database.passwordFile != null;
+        message = "If database host isn't null, database password needs to be set";
+      }
+    ];
   };
 
   # Settings necessary for running with an automatically managed local database
@@ -163,10 +165,12 @@ let
       };
     };
 
-    assertions = [ {
-      assertion = cfg.domain != null;
-      message = "To use services.invidious.nginx, you need to set services.invidious.domain";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.domain != null;
+        message = "To use services.invidious.nginx, you need to set services.invidious.domain";
+      }
+    ];
   };
 in
 {

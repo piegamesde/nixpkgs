@@ -434,9 +434,9 @@ in
     systemd.services.libvirtd = {
       wantedBy = [ "multi-user.target" ];
       requires = [ "libvirtd-config.service" ];
-      after =
-        [ "libvirtd-config.service" ]
-        ++ optional vswitch.enable "ovs-vswitchd.service";
+      after = [
+        "libvirtd-config.service"
+      ] ++ optional vswitch.enable "ovs-vswitchd.service";
 
       environment.LIBVIRTD_ARGS = escapeShellArgs (
         [

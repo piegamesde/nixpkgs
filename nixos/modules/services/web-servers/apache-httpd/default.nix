@@ -1078,9 +1078,9 @@ in
       wants = concatLists (
         map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames
       );
-      after =
-        [ "network.target" ]
-        ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
+      after = [
+        "network.target"
+      ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
       restartTriggers = [ cfg.configFile ];
 

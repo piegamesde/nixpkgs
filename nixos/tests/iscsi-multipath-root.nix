@@ -27,46 +27,60 @@ import ./make-test-python.nix (
             enable = true;
             config = {
               fabric_modules = [ ];
-              storage_objects = [ {
-                dev = "/dev/vdb";
-                name = "test";
-                plugin = "block";
-                write_back = true;
-                wwn = "92b17c3f-6b40-4168-b082-ceeb7b495522";
-              } ];
-              targets = [ {
-                fabric = "iscsi";
-                tpgs = [ {
-                  enable = true;
-                  attributes = {
-                    authentication = 0;
-                    generate_node_acls = 1;
-                  };
-                  luns = [ {
-                    alias = "94dfe06967";
-                    alua_tg_pt_gp_name = "default_tg_pt_gp";
-                    index = 0;
-                    storage_object = "/backstores/block/test";
-                  } ];
-                  node_acls = [ {
-                    mapped_luns = [ {
-                      alias = "d42f5bdf8a";
-                      index = 0;
-                      tpg_lun = 0;
-                      write_protect = false;
-                    } ];
-                    node_wwn = initiatorName;
-                  } ];
-                  portals = [ {
-                    ip_address = "0.0.0.0";
-                    iser = false;
-                    offload = false;
-                    port = 3260;
-                  } ];
-                  tag = 1;
-                } ];
-                wwn = targetName;
-              } ];
+              storage_objects = [
+                {
+                  dev = "/dev/vdb";
+                  name = "test";
+                  plugin = "block";
+                  write_back = true;
+                  wwn = "92b17c3f-6b40-4168-b082-ceeb7b495522";
+                }
+              ];
+              targets = [
+                {
+                  fabric = "iscsi";
+                  tpgs = [
+                    {
+                      enable = true;
+                      attributes = {
+                        authentication = 0;
+                        generate_node_acls = 1;
+                      };
+                      luns = [
+                        {
+                          alias = "94dfe06967";
+                          alua_tg_pt_gp_name = "default_tg_pt_gp";
+                          index = 0;
+                          storage_object = "/backstores/block/test";
+                        }
+                      ];
+                      node_acls = [
+                        {
+                          mapped_luns = [
+                            {
+                              alias = "d42f5bdf8a";
+                              index = 0;
+                              tpg_lun = 0;
+                              write_protect = false;
+                            }
+                          ];
+                          node_wwn = initiatorName;
+                        }
+                      ];
+                      portals = [
+                        {
+                          ip_address = "0.0.0.0";
+                          iser = false;
+                          offload = false;
+                          port = 3260;
+                        }
+                      ];
+                      tag = 1;
+                    }
+                  ];
+                  wwn = targetName;
+                }
+              ];
             };
           };
 
@@ -96,10 +110,12 @@ import ./make-test-python.nix (
               find_multipaths yes
               user_friendly_names yes
             '';
-            pathGroups = [ {
-              alias = 123456;
-              wwid = "3600140592b17c3f6b404168b082ceeb7";
-            } ];
+            pathGroups = [
+              {
+                alias = 123456;
+                wwid = "3600140592b17c3f6b404168b082ceeb7";
+              }
+            ];
           };
 
           services.openiscsi = {
@@ -153,10 +169,12 @@ import ./make-test-python.nix (
               find_multipaths yes
               user_friendly_names yes
             '';
-            pathGroups = [ {
-              alias = 123456;
-              wwid = "3600140592b17c3f6b404168b082ceeb7";
-            } ];
+            pathGroups = [
+              {
+                alias = 123456;
+                wwid = "3600140592b17c3f6b404168b082ceeb7";
+              }
+            ];
           };
 
           fileSystems = lib.mkOverride 5 {

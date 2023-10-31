@@ -122,9 +122,9 @@ in
           service = "service1";
         };
 
-        http.services.service1.loadBalancer.servers = [ {
-          url = "http://localhost:8080";
-        } ];
+        http.services.service1.loadBalancer.servers = [
+          { url = "http://localhost:8080"; }
+        ];
       };
     };
 

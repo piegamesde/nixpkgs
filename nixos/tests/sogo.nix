@@ -19,12 +19,14 @@ import ./make-test-python.nix (
             enable = true;
             package = pkgs.mariadb;
             ensureDatabases = [ "sogo" ];
-            ensureUsers = [ {
-              name = "sogo";
-              ensurePermissions = {
-                "sogo.*" = "ALL PRIVILEGES";
-              };
-            } ];
+            ensureUsers = [
+              {
+                name = "sogo";
+                ensurePermissions = {
+                  "sogo.*" = "ALL PRIVILEGES";
+                };
+              }
+            ];
           };
 
           services.sogo = {

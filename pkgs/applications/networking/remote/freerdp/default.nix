@@ -67,10 +67,12 @@ let
         file = "Test_x509_cert_info.c";
       }
     ]
-    ++ lib.optionals stdenv.isDarwin [ {
-      dir = "winpr/libwinpr/sysinfo/test";
-      file = "TestGetComputerName.c";
-    } ];
+    ++ lib.optionals stdenv.isDarwin [
+      {
+        dir = "winpr/libwinpr/sysinfo/test";
+        file = "TestGetComputerName.c";
+      }
+    ];
 
   inherit (lib) optionals;
 in

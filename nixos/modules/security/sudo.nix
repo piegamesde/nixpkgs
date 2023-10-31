@@ -225,22 +225,26 @@ in
 
     # We `mkOrder 600` so that the default rule shows up first, but there is
     # still enough room for a user to `mkBefore` it.
-    security.sudo.extraRules = mkOrder 600 [ {
-      groups = [ "wheel" ];
-      commands = [ {
-        command = "ALL";
-        options =
-          (
-            if cfg.wheelNeedsPassword then
-              [ "SETENV" ]
-            else
-              [
-                "NOPASSWD"
-                "SETENV"
-              ]
-          );
-      } ];
-    } ];
+    security.sudo.extraRules = mkOrder 600 [
+      {
+        groups = [ "wheel" ];
+        commands = [
+          {
+            command = "ALL";
+            options =
+              (
+                if cfg.wheelNeedsPassword then
+                  [ "SETENV" ]
+                else
+                  [
+                    "NOPASSWD"
+                    "SETENV"
+                  ]
+              );
+          }
+        ];
+      }
+    ];
 
     security.sudo.configFile = ''
       # Don't edit this file. Set the NixOS options ‘security.sudo.configFile’

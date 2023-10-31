@@ -14,11 +14,13 @@ import ./make-test-python.nix (
           opt = { };
           noopt.installPrinter = false;
         };
-        hardware.printers.ensurePrinters = [ {
-          name = "noopt";
-          model = "CUPS-PDF_noopt.ppd";
-          deviceUri = "cups-pdf:/noopt";
-        } ];
+        hardware.printers.ensurePrinters = [
+          {
+            name = "noopt";
+            model = "CUPS-PDF_noopt.ppd";
+            deviceUri = "cups-pdf:/noopt";
+          }
+        ];
       };
 
     # we cannot check the files with pdftotext, due to

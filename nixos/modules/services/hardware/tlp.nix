@@ -75,13 +75,15 @@ in
       Using config.services.tlp.extraConfig is deprecated and will become unsupported in a future release. Use config.services.tlp.settings instead.
     '';
 
-    assertions = [ {
-      assertion = cfg.enable -> config.powerManagement.scsiLinkPolicy == null;
-      message = ''
-        `services.tlp.enable` and `config.powerManagement.scsiLinkPolicy` cannot be set both.
-        Set `services.tlp.settings.SATA_LINKPWR_ON_AC` and `services.tlp.settings.SATA_LINKPWR_ON_BAT` instead.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.enable -> config.powerManagement.scsiLinkPolicy == null;
+        message = ''
+          `services.tlp.enable` and `config.powerManagement.scsiLinkPolicy` cannot be set both.
+          Set `services.tlp.settings.SATA_LINKPWR_ON_AC` and `services.tlp.settings.SATA_LINKPWR_ON_BAT` instead.
+        '';
+      }
+    ];
 
     environment.etc =
       {

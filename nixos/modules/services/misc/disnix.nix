@@ -61,9 +61,9 @@ in
   config = mkIf cfg.enable {
     dysnomia.enable = true;
 
-    environment.systemPackages =
-      [ pkgs.disnix ]
-      ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService;
+    environment.systemPackages = [
+      pkgs.disnix
+    ] ++ optional cfg.useWebServiceInterface pkgs.DisnixWebService;
     environment.variables.PATH = lib.optionals cfg.enableProfilePath (
       map (profileName: "/nix/var/nix/profiles/disnix/${profileName}/bin")
         cfg.profiles

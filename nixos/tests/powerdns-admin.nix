@@ -27,19 +27,21 @@ let
       nodes.server =
         { pkgs, config, ... }:
         mkMerge (
-          [ {
-            services.powerdns-admin = {
-              enable = true;
-              secretKeyFile = "/etc/powerdns-admin/secret";
-              saltFile = "/etc/powerdns-admin/salt";
-            };
-            # It's insecure to have secrets in the world-readable nix store, but this is just a test
-            environment.etc."powerdns-admin/secret".text = "secret key";
-            environment.etc."powerdns-admin/salt".text = "salt";
-            environment.systemPackages = [
-              (pkgs.writeShellScriptBin "run-test" config.system.build.testScript)
-            ];
-          } ]
+          [
+            {
+              services.powerdns-admin = {
+                enable = true;
+                secretKeyFile = "/etc/powerdns-admin/secret";
+                saltFile = "/etc/powerdns-admin/salt";
+              };
+              # It's insecure to have secrets in the world-readable nix store, but this is just a test
+              environment.etc."powerdns-admin/secret".text = "secret key";
+              environment.etc."powerdns-admin/salt".text = "salt";
+              environment.systemPackages = [
+                (pkgs.writeShellScriptBin "run-test" config.system.build.testScript)
+              ];
+            }
+          ]
           ++ configs
         );
 
@@ -67,12 +69,14 @@ let
           enable = true;
           package = pkgs.mariadb;
           ensureDatabases = [ "powerdnsadmin" ];
-          ensureUsers = [ {
-            name = "powerdnsadmin";
-            ensurePermissions = {
-              "powerdnsadmin.*" = "ALL PRIVILEGES";
-            };
-          } ];
+          ensureUsers = [
+            {
+              name = "powerdnsadmin";
+              ensurePermissions = {
+                "powerdnsadmin.*" = "ALL PRIVILEGES";
+              };
+            }
+          ];
         };
       };
       postgresql = {
@@ -90,12 +94,14 @@ let
         services.postgresql = {
           enable = true;
           ensureDatabases = [ "powerdnsadmin" ];
-          ensureUsers = [ {
-            name = "powerdnsadmin";
-            ensurePermissions = {
-              "DATABASE powerdnsadmin" = "ALL PRIVILEGES";
-            };
-          } ];
+          ensureUsers = [
+            {
+              name = "powerdnsadmin";
+              ensurePermissions = {
+                "DATABASE powerdnsadmin" = "ALL PRIVILEGES";
+              };
+            }
+          ];
         };
       };
     };

@@ -70,10 +70,12 @@ import ./make-test-python.nix (
                         cp key.pem cert.pem $out
                       '';
                 in
-                [ {
-                  certFile = "${certDir}/cert.pem";
-                  keyFile = "${certDir}/key.pem";
-                } ];
+                [
+                  {
+                    certFile = "${certDir}/cert.pem";
+                    keyFile = "${certDir}/key.pem";
+                  }
+                ];
               http.middlewares.authelia.forwardAuth = {
                 address = "http://localhost:9091/api/verify?rd=https%3A%2F%2Fauth.example.com%2F";
                 trustForwardHeader = true;

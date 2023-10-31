@@ -28,10 +28,12 @@ in
 
   services.openssh.enable = true;
   users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
-  security.pam.services.sshd.limits = [ {
-    domain = "*";
-    item = "memlock";
-    type = "-";
-    value = 1024;
-  } ];
+  security.pam.services.sshd.limits = [
+    {
+      domain = "*";
+      item = "memlock";
+      type = "-";
+      value = 1024;
+    }
+  ];
 }

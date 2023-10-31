@@ -8,16 +8,18 @@
       description = lib.mdDoc ''
         A list of frontend listener specifications.
       '';
-      example = [ {
-        server = {
-          host = "*";
-          port = 80;
-        };
+      example = [
+        {
+          server = {
+            host = "*";
+            port = 80;
+          };
 
-        params = {
-          tls = "no-tls";
-        };
-      } ];
+          params = {
+            tls = "no-tls";
+          };
+        }
+      ];
     };
 
     backends = lib.mkOption {
@@ -25,17 +27,19 @@
       description = lib.mdDoc ''
         A list of backend specifications.
       '';
-      example = [ {
-        server = {
-          host = "172.16.0.22";
-          port = 8443;
-        };
-        patterns = [ "/" ];
-        params = {
-          proto = "http/1.1";
-          redirect-if-not-tls = true;
-        };
-      } ];
+      example = [
+        {
+          server = {
+            host = "172.16.0.22";
+            port = 8443;
+          };
+          patterns = [ "/" ];
+          params = {
+            proto = "http/1.1";
+            redirect-if-not-tls = true;
+          };
+        }
+      ];
     };
 
     tls = lib.mkOption {

@@ -96,10 +96,12 @@ import ../make-test-python.nix (
               enable = true;
               internalInterfaces = [ "tun0" ];
               externalInterface = "eth2";
-              forwardPorts = [ {
-                destination = "10.8.0.2:1234";
-                sourcePort = 12345;
-              } ];
+              forwardPorts = [
+                {
+                  destination = "10.8.0.2:1234";
+                  sourcePort = 12345;
+                }
+              ];
             };
 
             # Trust tun0 and allow the VPN Server to be reached

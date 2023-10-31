@@ -109,10 +109,12 @@ let
           };
         };
 
-        security = [ {
-          exemptAngel = 1;
-          setuser = "nobody";
-        } ];
+        security = [
+          {
+            exemptAngel = 1;
+            setuser = "nobody";
+          }
+        ];
       }
       cfg.extraConfig
   );

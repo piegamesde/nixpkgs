@@ -29,12 +29,14 @@ in
 
   config = mkMerge [
     {
-      services.xserver.desktopManager.session = [ {
-        name = "none";
-        start = optionalString runXdgAutostart ''
-          /run/current-system/systemd/bin/systemctl --user start xdg-autostart-if-no-desktop-manager.target
-        '';
-      } ];
+      services.xserver.desktopManager.session = [
+        {
+          name = "none";
+          start = optionalString runXdgAutostart ''
+            /run/current-system/systemd/bin/systemctl --user start xdg-autostart-if-no-desktop-manager.target
+          '';
+        }
+      ];
     }
     (mkIf runXdgAutostart {
       systemd.user.targets.xdg-autostart-if-no-desktop-manager = {

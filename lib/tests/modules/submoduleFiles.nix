@@ -16,8 +16,10 @@
     };
   };
 
-  imports = [ {
-    _file = "the-file.nix";
-    submodule.value = 10;
-  } ];
+  imports = [
+    {
+      _file = "the-file.nix";
+      submodule.value = 10;
+    }
+  ];
 }

@@ -1401,12 +1401,14 @@ in
   ###### implementation
 
   config = {
-    assertions = [ {
-      assertion = config.users.motd == null || config.users.motdFile == null;
-      message = ''
-        Only one of users.motd and users.motdFile can be set.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = config.users.motd == null || config.users.motdFile == null;
+        message = ''
+          Only one of users.motd and users.motdFile can be set.
+        '';
+      }
+    ];
 
     environment.systemPackages =
       # Include the PAM modules in the system path mostly for the manpages.

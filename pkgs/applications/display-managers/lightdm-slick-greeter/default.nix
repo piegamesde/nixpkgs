@@ -97,10 +97,12 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-slick-greeter-xgreeters" [ {
-    path = "${lightdm-slick-greeter}/share/xgreeters/slick-greeter.desktop";
-    name = "lightdm-slick-greeter.desktop";
-  } ];
+  passthru.xgreeters = linkFarm "lightdm-slick-greeter-xgreeters" [
+    {
+      path = "${lightdm-slick-greeter}/share/xgreeters/slick-greeter.desktop";
+      name = "lightdm-slick-greeter.desktop";
+    }
+  ];
 
   meta = with lib; {
     description = "A slick-looking LightDM greeter";

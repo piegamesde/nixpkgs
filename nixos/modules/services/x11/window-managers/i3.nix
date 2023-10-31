@@ -62,17 +62,19 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.session = [ {
-      name = "i3";
-      start = ''
-        ${cfg.extraSessionCommands}
+    services.xserver.windowManager.session = [
+      {
+        name = "i3";
+        start = ''
+          ${cfg.extraSessionCommands}
 
-        ${cfg.package}/bin/i3 ${
-          optionalString (cfg.configFile != null) "-c /etc/i3/config"
-        } &
-        waitPID=$!
-      '';
-    } ];
+          ${cfg.package}/bin/i3 ${
+            optionalString (cfg.configFile != null) "-c /etc/i3/config"
+          } &
+          waitPID=$!
+        '';
+      }
+    ];
     environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
     environment.etc."i3/config" = mkIf (cfg.configFile != null) {
       source = cfg.configFile;

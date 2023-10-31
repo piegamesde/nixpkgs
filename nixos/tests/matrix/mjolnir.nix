@@ -46,24 +46,26 @@ import ../make-test-python.nix (
               enable_registration_without_verification = true;
               registration_shared_secret = "supersecret-registration";
 
-              listeners = [ {
-                # The default but tls=false
-                bind_addresses = [ "0.0.0.0" ];
-                port = 8448;
-                resources = [
-                  {
-                    compress = true;
-                    names = [ "client" ];
-                  }
-                  {
-                    compress = false;
-                    names = [ "federation" ];
-                  }
-                ];
-                tls = false;
-                type = "http";
-                x_forwarded = false;
-              } ];
+              listeners = [
+                {
+                  # The default but tls=false
+                  bind_addresses = [ "0.0.0.0" ];
+                  port = 8448;
+                  resources = [
+                    {
+                      compress = true;
+                      names = [ "client" ];
+                    }
+                    {
+                      compress = false;
+                      names = [ "federation" ];
+                    }
+                  ];
+                  tls = false;
+                  type = "http";
+                  x_forwarded = false;
+                }
+              ];
             };
           };
 

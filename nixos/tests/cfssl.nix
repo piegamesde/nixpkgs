@@ -33,13 +33,15 @@ import ./make-test-python.nix (
                     algo = "rsa";
                     size = 4096;
                   };
-                  names = [ {
-                    C = "US";
-                    L = "San Francisco";
-                    O = "Internet Widgets, LLC";
-                    OU = "Certificate Authority";
-                    ST = "California";
-                  } ];
+                  names = [
+                    {
+                      C = "US";
+                      L = "San Francisco";
+                      O = "Internet Widgets, LLC";
+                      OU = "Certificate Authority";
+                      ST = "California";
+                    }
+                  ];
                 }
               )
             } | ${cfssl}/bin/cfssljson -bare ca
@@ -66,13 +68,15 @@ import ./make-test-python.nix (
               algo = "rsa";
               size = 2048;
             };
-            names = [ {
-              C = "US";
-              L = "San Francisco";
-              O = "Example Company, LLC";
-              OU = "Operations";
-              ST = "California";
-            } ];
+            names = [
+              {
+                C = "US";
+                L = "San Francisco";
+                O = "Example Company, LLC";
+                OU = "Operations";
+                ST = "California";
+              }
+            ];
           }
         );
       in

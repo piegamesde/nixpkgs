@@ -294,12 +294,14 @@ in
 
   config = mkIf cfg.enable {
     assertions =
-      [ {
-        assertion =
-          (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
-          ? efiBootStub;
-        message = "This kernel does not support the EFI boot stub";
-      } ]
+      [
+        {
+          assertion =
+            (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
+            ? efiBootStub;
+          message = "This kernel does not support the EFI boot stub";
+        }
+      ]
       ++ concatMap
         (filename: [
           {

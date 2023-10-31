@@ -60,9 +60,9 @@ stdenv.mkDerivation (
     pname = "miopen";
     version = "5.4.2";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";

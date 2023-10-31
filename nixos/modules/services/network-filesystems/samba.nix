@@ -229,10 +229,12 @@ in
 
   config = mkMerge [
     {
-      assertions = [ {
-        assertion = cfg.nsswins -> cfg.enableWinbindd;
-        message = "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
-      } ];
+      assertions = [
+        {
+          assertion = cfg.nsswins -> cfg.enableWinbindd;
+          message = "If samba.nsswins is enabled, then samba.enableWinbindd must also be enabled";
+        }
+      ];
       # Always provide a smb.conf to shut up programs like smbclient and smbspool.
       environment.etc."samba/smb.conf".source = mkOptionDefault (
         if cfg.enable then

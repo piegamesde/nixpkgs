@@ -25,9 +25,9 @@ lib.fix (
       sha256 = "sha256-Us7UlD81vX0IGKOCmMFSjKSsilRED9cRNKB9LRNwomI=";
     };
 
-    patches =
-      [ ./lt_dladdsearchdir.patch ]
-      ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ];
+    patches = [
+      ./lt_dladdsearchdir.patch
+    ] ++ lib.optionals stdenv.isDarwin [ ./remove_bsd_base64_decode_flag.patch ];
     postPatch = ''
       substituteAllInPlace src/dl.c
     '';

@@ -20,13 +20,17 @@ import ./make-test-python.nix (
           };
 
           acl = {
-            rule_sets = [ {
-              rules = [ {
-                field = "x-application";
-                equals = "MyApp";
-              } ];
-              allow = [ "myuser" ];
-            } ];
+            rule_sets = [
+              {
+                rules = [
+                  {
+                    field = "x-application";
+                    equals = "MyApp";
+                  }
+                ];
+                allow = [ "myuser" ];
+              }
+            ];
           };
         };
       };

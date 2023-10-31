@@ -33,9 +33,9 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies.asymmetric_crypto = [ cryptography ];
 
-  nativeCheckInputs =
-    [ pytestCheckHook ]
-    ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  nativeCheckInputs = [
+    pytestCheckHook
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
   pythonImportsCheck = [ "flask_jwt_extended" ];
 

@@ -50,10 +50,12 @@ import ./make-test-python.nix (
       {
         environment.systemPackages = [ pkgs.consul ];
 
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-          address = ip;
-          prefixLength = 16;
-        } ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = ip;
+            prefixLength = 16;
+          }
+        ];
         networking.firewall = firewallSettings;
 
         services.consul = {
@@ -76,10 +78,12 @@ import ./make-test-python.nix (
         ip = thisConsensusServerHost; # since we already use IPs to identify servers
       in
       {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-          address = ip;
-          prefixLength = 16;
-        } ];
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = ip;
+            prefixLength = 16;
+          }
+        ];
         networking.firewall = firewallSettings;
 
         services.consul =

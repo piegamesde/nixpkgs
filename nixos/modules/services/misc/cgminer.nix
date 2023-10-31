@@ -83,11 +83,13 @@ in
         default = [ ]; # Run benchmark
         type = types.listOf (types.attrsOf types.str);
         description = lib.mdDoc "List of pools where to mine";
-        example = [ {
-          url = "http://p2pool.org:9332";
-          username = "17EUZxTvs9uRmPsjPZSYUU3zCz9iwstudk";
-          password = "X";
-        } ];
+        example = [
+          {
+            url = "http://p2pool.org:9332";
+            username = "17EUZxTvs9uRmPsjPZSYUU3zCz9iwstudk";
+            password = "X";
+          }
+        ];
       };
 
       hardware = mkOption {

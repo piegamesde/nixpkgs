@@ -36,9 +36,9 @@ let
     + "\n"
   ;
 
-  knownHostsFiles =
-    [ "/etc/ssh/ssh_known_hosts" ]
-    ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
+  knownHostsFiles = [
+    "/etc/ssh/ssh_known_hosts"
+  ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 in
 {
   ###### interface
@@ -325,10 +325,12 @@ in
     );
 
     assertions =
-      [ {
-        assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
-        message = "cannot enable X11 forwarding without setting XAuth location";
-      } ]
+      [
+        {
+          assertion = cfg.forwardX11 -> cfg.setXAuthLocation;
+          message = "cannot enable X11 forwarding without setting XAuth location";
+        }
+      ]
       ++ flip mapAttrsToList cfg.knownHosts (
         name: data: {
           assertion =

@@ -240,17 +240,19 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = all (x: elem x allKnownModules) cfg.enableModules;
-      message = ''
-        One (or more) modules in services.lighttpd.enableModules are
-        unrecognized.
+    assertions = [
+      {
+        assertion = all (x: elem x allKnownModules) cfg.enableModules;
+        message = ''
+          One (or more) modules in services.lighttpd.enableModules are
+          unrecognized.
 
-        Known modules: ${toString allKnownModules}
+          Known modules: ${toString allKnownModules}
 
-        services.lighttpd.enableModules: ${toString cfg.enableModules}
-      '';
-    } ];
+          services.lighttpd.enableModules: ${toString cfg.enableModules}
+        '';
+      }
+    ];
 
     services.lighttpd.enableModules = mkMerge [
       (mkIf cfg.mod_status [ "mod_status" ])

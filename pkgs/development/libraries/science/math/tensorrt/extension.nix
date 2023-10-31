@@ -66,23 +66,25 @@ let
   ;
 
   tensorRTVersions = {
-    "8.6.0" = [ rec {
-      fileVersionCuda = "11.8";
-      fullVersion = "8.6.0.12";
-      sha256 = "sha256-wXMqEJPFerefoLaH8GG+Np5EnJwXeStmDzZj7Nj6e2M=";
-      tarball = tarballURL { inherit fileVersionCuda fullVersion; };
-      supportedCudaVersions = [
-        "11.0"
-        "11.1"
-        "11.2"
-        "11.3"
-        "11.4"
-        "11.5"
-        "11.6"
-        "11.7"
-        "11.8"
-      ];
-    } ];
+    "8.6.0" = [
+      rec {
+        fileVersionCuda = "11.8";
+        fullVersion = "8.6.0.12";
+        sha256 = "sha256-wXMqEJPFerefoLaH8GG+Np5EnJwXeStmDzZj7Nj6e2M=";
+        tarball = tarballURL { inherit fileVersionCuda fullVersion; };
+        supportedCudaVersions = [
+          "11.0"
+          "11.1"
+          "11.2"
+          "11.3"
+          "11.4"
+          "11.5"
+          "11.6"
+          "11.7"
+          "11.8"
+        ];
+      }
+    ];
     "8.5.3" = [
       rec {
         fileVersionCuda = "11.8";

@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  configureFlags =
-    [ "--with-syscmd-shell=${stdenv.shell}" ]
-    ++ lib.optional stdenv.hostPlatform.isMinGW "CFLAGS=-fno-stack-protector";
+  configureFlags = [
+    "--with-syscmd-shell=${stdenv.shell}"
+  ] ++ lib.optional stdenv.hostPlatform.isMinGW "CFLAGS=-fno-stack-protector";
 
   meta = {
     description = "GNU M4, a macro processor";

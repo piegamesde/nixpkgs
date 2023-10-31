@@ -104,12 +104,14 @@ in
     services.mysql = mkIf cfg.createDatabase {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureUsers = [ {
-        name = "engelsystem";
-        ensurePermissions = {
-          "engelsystem.*" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = "engelsystem";
+          ensurePermissions = {
+            "engelsystem.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
       ensureDatabases = [ "engelsystem" ];
     };
 

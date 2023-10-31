@@ -324,10 +324,12 @@ in
       jvbConfig.videobridge.ice.udp.port
     ];
 
-    assertions = [ {
-      message = "publicAddress must be set if and only if localAddress is set";
-      assertion = (cfg.nat.publicAddress == null) == (cfg.nat.localAddress == null);
-    } ];
+    assertions = [
+      {
+        message = "publicAddress must be set if and only if localAddress is set";
+        assertion = (cfg.nat.publicAddress == null) == (cfg.nat.localAddress == null);
+      }
+    ];
   };
 
   meta.maintainers = lib.teams.jitsi.members;

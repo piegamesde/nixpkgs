@@ -45,12 +45,14 @@ let
           algo = "rsa";
           size = 2048;
         };
-        names = [ {
-          C = "US";
-          L = "San Francisco";
-          O = "Example, LLC";
-          ST = "CA";
-        } ];
+        names = [
+          {
+            C = "US";
+            L = "San Francisco";
+            O = "Example, LLC";
+            ST = "CA";
+          }
+        ];
       };
       inherit service;
     };
@@ -103,13 +105,15 @@ let
                         algo = "rsa";
                         size = 4096;
                       };
-                      names = [ {
-                        C = "US";
-                        L = "San Francisco";
-                        O = "Internet Widgets, LLC";
-                        OU = "Certificate Authority";
-                        ST = "California";
-                      } ];
+                      names = [
+                        {
+                          C = "US";
+                          L = "San Francisco";
+                          O = "Internet Widgets, LLC";
+                          OU = "Certificate Authority";
+                          ST = "California";
+                        }
+                      ];
                     }
                   )
                 } | ${pkgs.cfssl}/bin/cfssljson -bare ca

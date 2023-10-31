@@ -55,9 +55,11 @@ let
       # to parse the options in order of appearance, so this must come first.
       # Nix however doesn't preserve the order in attrsets, so we have to
       # hardcode confdir here.
-      [ ''
-        confdir ${pkgs.privoxy}/etc
-      '' ]
+      [
+        ''
+          confdir ${pkgs.privoxy}/etc
+        ''
+      ]
       ++ mapAttrsToList serialise cfg.settings
     )
   );

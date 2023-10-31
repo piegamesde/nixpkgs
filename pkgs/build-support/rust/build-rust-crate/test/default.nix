@@ -251,10 +251,12 @@ rec {
           src = mkLib "src/best-lib.rs";
         };
         crateBinWithPath = {
-          crateBin = [ {
-            name = "test_binary1";
-            path = "src/foobar.rs";
-          } ];
+          crateBin = [
+            {
+              name = "test_binary1";
+              path = "src/foobar.rs";
+            }
+          ];
           src = mkBin "src/foobar.rs";
         };
         crateBinNoPath1 = {
@@ -690,10 +692,12 @@ rec {
       crateBinWithPathOutputs = assertOutputs {
         name = "crateBinWithPath";
         crateArgs = {
-          crateBin = [ {
-            name = "test_binary1";
-            path = "src/foobar.rs";
-          } ];
+          crateBin = [
+            {
+              name = "test_binary1";
+              path = "src/foobar.rs";
+            }
+          ];
           src = mkBin "src/foobar.rs";
         };
         expectedFiles = [ "./bin/test_binary1" ];
@@ -703,10 +707,12 @@ rec {
         name = "crateBinWithPath";
         crateArgs = {
           release = false;
-          crateBin = [ {
-            name = "test_binary1";
-            path = "src/foobar.rs";
-          } ];
+          crateBin = [
+            {
+              name = "test_binary1";
+              path = "src/foobar.rs";
+            }
+          ];
           src = mkBin "src/foobar.rs";
         };
         expectedFiles =

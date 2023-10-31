@@ -80,11 +80,13 @@ let
                 user
                 // {
                   enabled = true;
-                  credentials = [ {
-                    type = "password";
-                    temporary = false;
-                    value = password;
-                  } ];
+                  credentials = [
+                    {
+                      type = "password";
+                      temporary = false;
+                      value = password;
+                    }
+                  ];
                 }
               )
             ];

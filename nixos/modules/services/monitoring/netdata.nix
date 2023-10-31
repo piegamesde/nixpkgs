@@ -190,10 +190,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.config != { } -> cfg.configText == null;
-      message = "Cannot specify both config and configText";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.config != { } -> cfg.configText == null;
+        message = "Cannot specify both config and configText";
+      }
+    ];
 
     environment.etc."netdata/netdata.conf".source = configFile;
     environment.etc."netdata/conf.d".source = configDirectory;

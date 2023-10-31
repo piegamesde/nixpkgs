@@ -635,9 +635,11 @@ in
           $out/bin/zpool --help >/dev/null 2>&1
         '';
         postDeviceCommands = concatStringsSep "\n" (
-          [ ''
-            ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
-          '' ]
+          [
+            ''
+              ZFS_FORCE="${optionalString cfgZfs.forceImportRoot "-f"}"
+            ''
+          ]
           ++ [
             (importLib {
               # See comments at importLib definition.
@@ -749,9 +751,9 @@ in
         };
 
       system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
-      environment.systemPackages =
-        [ cfgZfs.package ]
-        ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
+      environment.systemPackages = [
+        cfgZfs.package
+      ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];

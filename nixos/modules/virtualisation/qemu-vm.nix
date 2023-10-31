@@ -1102,19 +1102,23 @@ in
     ];
 
     virtualisation.qemu.drives = mkMerge [
-      (mkIf (cfg.diskImage != null) [ {
-        name = "root";
-        file = ''"$NIX_DISK_IMAGE"'';
-        driveExtraOpts.cache = "writeback";
-        driveExtraOpts.werror = "report";
-        deviceExtraOpts.bootindex = "1";
-      } ])
-      (mkIf cfg.useNixStoreImage [ {
-        name = "nix-store";
-        file = ''"$TMPDIR"/store.img'';
-        deviceExtraOpts.bootindex = "2";
-        driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
-      } ])
+      (mkIf (cfg.diskImage != null) [
+        {
+          name = "root";
+          file = ''"$NIX_DISK_IMAGE"'';
+          driveExtraOpts.cache = "writeback";
+          driveExtraOpts.werror = "report";
+          deviceExtraOpts.bootindex = "1";
+        }
+      ])
+      (mkIf cfg.useNixStoreImage [
+        {
+          name = "nix-store";
+          file = ''"$TMPDIR"/store.img'';
+          deviceExtraOpts.bootindex = "2";
+          driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
+        }
+      ])
       (imap0
         (idx: _: {
           file = "$(pwd)/empty${toString idx}.qcow2";
@@ -1203,17 +1207,19 @@ in
     boot.initrd.systemd =
       lib.mkIf (config.boot.initrd.systemd.enable && cfg.writableStore)
         {
-          mounts = [ {
-            where = "/sysroot/nix/store";
-            what = "overlay";
-            type = "overlay";
-            options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
-            wantedBy = [ "initrd-fs.target" ];
-            before = [ "initrd-fs.target" ];
-            requires = [ "rw-store.service" ];
-            after = [ "rw-store.service" ];
-            unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
-          } ];
+          mounts = [
+            {
+              where = "/sysroot/nix/store";
+              what = "overlay";
+              type = "overlay";
+              options = "lowerdir=/sysroot/nix/.ro-store,upperdir=/sysroot/nix/.rw-store/store,workdir=/sysroot/nix/.rw-store/work";
+              wantedBy = [ "initrd-fs.target" ];
+              before = [ "initrd-fs.target" ];
+              requires = [ "rw-store.service" ];
+              after = [ "rw-store.service" ];
+              unitConfig.RequiresMountsFor = "/sysroot/nix/.ro-store";
+            }
+          ];
           services.rw-store = {
             unitConfig = {
               DefaultDependencies = false;

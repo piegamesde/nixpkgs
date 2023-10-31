@@ -64,26 +64,28 @@ let
           "total_learns"
         ]
       )
-      ++ [ {
-        name = "rspamd_statfiles";
-        type = "object";
-        path = "{.statfiles[*]}";
-        labels =
-          recursiveUpdate
-            {
-              symbol = "{.symbol}";
-              type = "{.type}";
-            }
-            extraLabels;
-        values = {
-          revision = "{.revision}";
-          size = "{.size}";
-          total = "{.total}";
-          used = "{.used}";
-          languages = "{.languages}";
-          users = "{.users}";
-        };
-      } ];
+      ++ [
+        {
+          name = "rspamd_statfiles";
+          type = "object";
+          path = "{.statfiles[*]}";
+          labels =
+            recursiveUpdate
+              {
+                symbol = "{.symbol}";
+                type = "{.type}";
+              }
+              extraLabels;
+          values = {
+            revision = "{.revision}";
+            size = "{.size}";
+            total = "{.total}";
+            used = "{.used}";
+            languages = "{.languages}";
+            users = "{.users}";
+          };
+        }
+      ];
   };
 in
 {

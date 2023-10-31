@@ -442,28 +442,30 @@ in
       }
     ];
 
-    warnings = mkIf (dmDefault != null || wmDefault != null) [ ''
-      The following options are deprecated:
-        ${
-          concatStringsSep "\n  " (
-            map ({ c, t }: t) (
-              filter ({ c, t }: c != null) [
-                {
-                  c = dmDefault;
-                  t = "- services.xserver.desktopManager.default";
-                }
-                {
-                  c = wmDefault;
-                  t = "- services.xserver.windowManager.default";
-                }
-              ]
+    warnings = mkIf (dmDefault != null || wmDefault != null) [
+      ''
+        The following options are deprecated:
+          ${
+            concatStringsSep "\n  " (
+              map ({ c, t }: t) (
+                filter ({ c, t }: c != null) [
+                  {
+                    c = dmDefault;
+                    t = "- services.xserver.desktopManager.default";
+                  }
+                  {
+                    c = wmDefault;
+                    t = "- services.xserver.windowManager.default";
+                  }
+                ]
+              )
             )
-          )
-        }
-      Please use
-        services.xserver.displayManager.defaultSession = "${defaultSessionFromLegacyOptions}";
-      instead.
-    '' ];
+          }
+        Please use
+          services.xserver.displayManager.defaultSession = "${defaultSessionFromLegacyOptions}";
+        instead.
+      ''
+    ];
 
     services.xserver.displayManager.xserverBin = "${xorg.xorgserver.out}/bin/X";
 

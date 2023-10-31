@@ -10,10 +10,12 @@ import ./make-test-python.nix ({
             "net.ipv6.conf.all.forwarding" = true;
           };
           networking.interfaces.eth1 = {
-            ipv6.addresses = [ {
-              address = "fd00:dead:beef:dead::1";
-              prefixLength = 64;
-            } ];
+            ipv6.addresses = [
+              {
+                address = "fd00:dead:beef:dead::1";
+                prefixLength = 64;
+              }
+            ];
           };
           services.corerad = {
             enable = true;

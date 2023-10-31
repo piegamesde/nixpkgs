@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DQT_TRANSLATIONS_DIR=share/qt/translations" ];
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optionals (!stdenv.isDarwin) [ pkg-config ] # for finding libsecret
   ;
 
   buildInputs =

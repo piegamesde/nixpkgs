@@ -160,11 +160,13 @@ stdenv.mkDerivation (
             (lib.attrNames crystalBinaries)
         )
         ++ lib.optional (format == "shards") "install -Dm555 bin/* -t $out/bin"
-        ++ [ ''
-          for f in README* *.md LICENSE; do
-            test -f $f && install -Dm444 $f -t $out/share/doc/${args.pname}
-          done
-        '' ]
+        ++ [
+          ''
+            for f in README* *.md LICENSE; do
+              test -f $f && install -Dm444 $f -t $out/share/doc/${args.pname}
+            done
+          ''
+        ]
         ++ (lib.optional installManPages ''
           if [ -d man ]; then
             installManPage man/*.?

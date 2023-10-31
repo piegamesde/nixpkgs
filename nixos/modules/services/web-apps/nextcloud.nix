@@ -840,24 +840,26 @@ in
       }
 
       {
-        assertions = [ {
-          assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
-          message = ''
-            Using `services.nextcloud.database.createLocally` (that now defaults
-            to true) with database password authentication is no longer
-            supported.
+        assertions = [
+          {
+            assertion = cfg.database.createLocally -> cfg.config.dbpassFile == null;
+            message = ''
+              Using `services.nextcloud.database.createLocally` (that now defaults
+              to true) with database password authentication is no longer
+              supported.
 
-            If you use an external database (or want to use password auth for any
-            other reason), set `services.nextcloud.database.createLocally` to
-            `false`. The database won't be managed for you (use `services.mysql`
-            if you want to set it up).
+              If you use an external database (or want to use password auth for any
+              other reason), set `services.nextcloud.database.createLocally` to
+              `false`. The database won't be managed for you (use `services.mysql`
+              if you want to set it up).
 
-            If you want this module to manage your nextcloud database for you,
-            unset `services.nextcloud.config.dbpassFile` and
-            `services.nextcloud.config.dbhost` to use socket authentication
-            instead of password.
-          '';
-        } ];
+              If you want this module to manage your nextcloud database for you,
+              unset `services.nextcloud.config.dbpassFile` and
+              `services.nextcloud.config.dbhost` to use socket authentication
+              instead of password.
+            '';
+          }
+        ];
       }
 
       {
@@ -1186,23 +1188,27 @@ in
           enable = true;
           package = lib.mkDefault pkgs.mariadb;
           ensureDatabases = [ cfg.config.dbname ];
-          ensureUsers = [ {
-            name = cfg.config.dbuser;
-            ensurePermissions = {
-              "${cfg.config.dbname}.*" = "ALL PRIVILEGES";
-            };
-          } ];
+          ensureUsers = [
+            {
+              name = cfg.config.dbuser;
+              ensurePermissions = {
+                "${cfg.config.dbname}.*" = "ALL PRIVILEGES";
+              };
+            }
+          ];
         };
 
         services.postgresql = mkIf pgsqlLocal {
           enable = true;
           ensureDatabases = [ cfg.config.dbname ];
-          ensureUsers = [ {
-            name = cfg.config.dbuser;
-            ensurePermissions = {
-              "DATABASE ${cfg.config.dbname}" = "ALL PRIVILEGES";
-            };
-          } ];
+          ensureUsers = [
+            {
+              name = cfg.config.dbuser;
+              ensurePermissions = {
+                "DATABASE ${cfg.config.dbname}" = "ALL PRIVILEGES";
+              };
+            }
+          ];
         };
 
         services.nginx.enable = mkDefault true;

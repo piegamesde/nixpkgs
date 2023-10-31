@@ -10,13 +10,15 @@ let
     InterfacePeers = {
       eth1 = [ "tcp://192.168.1.200:12345" ];
     };
-    MulticastInterfaces = [ {
-      Regex = ".*";
-      Beacon = true;
-      Listen = true;
-      Port = 54321;
-      Priority = 0;
-    } ];
+    MulticastInterfaces = [
+      {
+        Regex = ".*";
+        Beacon = true;
+        Listen = true;
+        Port = 54321;
+        Priority = 0;
+      }
+    ];
     PublicKey = "2b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
     PrivateKey = "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
   };
@@ -36,10 +38,12 @@ import ./make-test-python.nix (
         { ... }:
         {
           networking = {
-            interfaces.eth1.ipv4.addresses = [ {
-              address = "192.168.1.200";
-              prefixLength = 24;
-            } ];
+            interfaces.eth1.ipv4.addresses = [
+              {
+                address = "192.168.1.200";
+                prefixLength = 24;
+              }
+            ];
             firewall.allowedTCPPorts = [
               80
               12345
@@ -85,10 +89,12 @@ import ./make-test-python.nix (
           networking = {
             bridges.br0.interfaces = [ ];
             interfaces.br0 = {
-              ipv6.addresses = [ {
-                address = bobPrefix + "::1";
-                prefixLength = 64;
-              } ];
+              ipv6.addresses = [
+                {
+                  address = bobPrefix + "::1";
+                  prefixLength = 64;
+                }
+              ];
             };
           };
 
@@ -101,15 +107,19 @@ import ./make-test-python.nix (
               { config, pkgs, ... }:
               {
                 networking.interfaces.eth0.ipv6 = {
-                  addresses = [ {
-                    address = bobPrefix + "::2";
-                    prefixLength = 64;
-                  } ];
-                  routes = [ {
-                    address = "200::";
-                    prefixLength = 7;
-                    via = bobPrefix + "::1";
-                  } ];
+                  addresses = [
+                    {
+                      address = bobPrefix + "::2";
+                      prefixLength = 64;
+                    }
+                  ];
+                  routes = [
+                    {
+                      address = "200::";
+                      prefixLength = 7;
+                      via = bobPrefix + "::1";
+                    }
+                  ];
                 };
                 services.httpd.enable = true;
                 services.httpd.adminAddr = "foo@example.org";

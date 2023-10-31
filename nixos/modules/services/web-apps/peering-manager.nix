@@ -165,12 +165,14 @@ in
     services.postgresql = {
       enable = true;
       ensureDatabases = [ "peering-manager" ];
-      ensureUsers = [ {
-        name = "peering-manager";
-        ensurePermissions = {
-          "DATABASE \"peering-manager\"" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = "peering-manager";
+          ensurePermissions = {
+            "DATABASE \"peering-manager\"" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     environment.systemPackages = [ peeringManagerManageScript ];

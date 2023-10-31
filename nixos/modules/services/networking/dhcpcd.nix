@@ -258,23 +258,25 @@ in
 
   config = mkIf enableDHCP {
 
-    assertions = [ {
-      # dhcpcd doesn't start properly with malloc ∉ [ libc scudo ]
-      # see https://github.com/NixOS/nixpkgs/issues/151696
-      assertion =
-        dhcpcd.enablePrivSep
-        -> elem config.environment.memoryAllocator.provider [
-          "libc"
-          "scudo"
-        ]
-      ;
-      message = ''
-        dhcpcd with privilege separation is incompatible with chosen system malloc.
-          Currently only the `libc` and `scudo` allocators are known to work.
-          To disable dhcpcd's privilege separation, overlay Nixpkgs and override dhcpcd
-          to set `enablePrivSep = false`.
-      '';
-    } ];
+    assertions = [
+      {
+        # dhcpcd doesn't start properly with malloc ∉ [ libc scudo ]
+        # see https://github.com/NixOS/nixpkgs/issues/151696
+        assertion =
+          dhcpcd.enablePrivSep
+          -> elem config.environment.memoryAllocator.provider [
+            "libc"
+            "scudo"
+          ]
+        ;
+        message = ''
+          dhcpcd with privilege separation is incompatible with chosen system malloc.
+            Currently only the `libc` and `scudo` allocators are known to work.
+            To disable dhcpcd's privilege separation, overlay Nixpkgs and override dhcpcd
+            to set `enablePrivSep = false`.
+        '';
+      }
+    ];
 
     systemd.services.dhcpcd =
       let
@@ -290,9 +292,9 @@ in
       {
         description = "DHCP Client";
 
-        wantedBy =
-          [ "multi-user.target" ]
-          ++ optional (!hasDefaultGatewaySet) "network-online.target";
+        wantedBy = [
+          "multi-user.target"
+        ] ++ optional (!hasDefaultGatewaySet) "network-online.target";
         wants = [ "network.target" ];
         before = [ "network-online.target" ];
 

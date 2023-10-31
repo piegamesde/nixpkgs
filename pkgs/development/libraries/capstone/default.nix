@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     + "PREFIX=$out ./make.sh install"
   ;
 
-  nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
   enableParallelBuilding = true;
 

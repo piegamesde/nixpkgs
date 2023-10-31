@@ -728,18 +728,20 @@ in
   };
 
   config = {
-    assertions = [ {
-      assertion = !(stringLength config.isoImage.volumeID > 32);
-      # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
-      # Volume Identifier can only be 32 bytes
-      message =
-        let
-          length = stringLength config.isoImage.volumeID;
-          howmany = toString length;
-          toomany = toString (length - 32);
-        in
-        "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
-    } ];
+    assertions = [
+      {
+        assertion = !(stringLength config.isoImage.volumeID > 32);
+        # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
+        # Volume Identifier can only be 32 bytes
+        message =
+          let
+            length = stringLength config.isoImage.volumeID;
+            howmany = toString length;
+            toomany = toString (length - 32);
+          in
+          "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
+      }
+    ];
 
     boot.loader.grub.version = 2;
 
@@ -861,14 +863,18 @@ in
             && config.isoImage.makeBiosBootable
             && canx86BiosBoot
           )
-          [ {
-            source = "${pkgs.memtest86plus}/memtest.bin";
-            target = "/boot/memtest.bin";
-          } ]
-      ++ optionals (config.isoImage.grubTheme != null) [ {
-        source = config.isoImage.grubTheme;
-        target = "/EFI/boot/grub-theme";
-      } ]
+          [
+            {
+              source = "${pkgs.memtest86plus}/memtest.bin";
+              target = "/boot/memtest.bin";
+            }
+          ]
+      ++ optionals (config.isoImage.grubTheme != null) [
+        {
+          source = config.isoImage.grubTheme;
+          target = "/EFI/boot/grub-theme";
+        }
+      ]
     ;
 
     boot.loader.timeout = 10;

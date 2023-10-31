@@ -57,14 +57,18 @@ import ./make-test-python.nix (
         }:
         {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
-            address = "192.168.0.1";
-            prefixLength = 24;
-          } ];
-          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [ {
-            address = "fd21::1";
-            prefixLength = 64;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
+            {
+              address = "192.168.0.1";
+              prefixLength = 24;
+            }
+          ];
+          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [
+            {
+              address = "fd21::1";
+              prefixLength = 64;
+            }
+          ];
           networking.firewall.allowedTCPPorts = [ 53 ];
           networking.firewall.allowedUDPPorts = [ 53 ];
 
@@ -99,14 +103,18 @@ import ./make-test-python.nix (
         { lib, nodes, ... }:
         {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
-            address = "192.168.0.2";
-            prefixLength = 24;
-          } ];
-          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [ {
-            address = "fd21::2";
-            prefixLength = 64;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
+            {
+              address = "192.168.0.2";
+              prefixLength = 24;
+            }
+          ];
+          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [
+            {
+              address = "fd21::2";
+              prefixLength = 64;
+            }
+          ];
           networking.firewall.allowedTCPPorts = [
             53 # regular DNS
             853 # DNS over TLS
@@ -141,15 +149,17 @@ import ./make-test-python.nix (
                 tls-service-pem = "${cert}/cert.pem";
                 tls-service-key = "${cert}/key.pem";
               };
-              forward-zone = [ {
-                name = ".";
-                forward-addr = [
-                  (lib.head nodes.authoritative.config.networking.interfaces.eth1.ipv6.addresses)
-                  .address
-                  (lib.head nodes.authoritative.config.networking.interfaces.eth1.ipv4.addresses)
-                  .address
-                ];
-              } ];
+              forward-zone = [
+                {
+                  name = ".";
+                  forward-addr = [
+                    (lib.head nodes.authoritative.config.networking.interfaces.eth1.ipv6.addresses)
+                    .address
+                    (lib.head nodes.authoritative.config.networking.interfaces.eth1.ipv4.addresses)
+                    .address
+                  ];
+                }
+              ];
             };
           };
         };
@@ -164,14 +174,18 @@ import ./make-test-python.nix (
         }:
         {
           imports = [ common ];
-          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [ {
-            address = "192.168.0.3";
-            prefixLength = 24;
-          } ];
-          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [ {
-            address = "fd21::3";
-            prefixLength = 64;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
+            {
+              address = "192.168.0.3";
+              prefixLength = 24;
+            }
+          ];
+          networking.interfaces.eth1.ipv6.addresses = lib.mkForce [
+            {
+              address = "fd21::3";
+              prefixLength = 64;
+            }
+          ];
           networking.firewall.allowedTCPPorts = [
             53 # regular DNS
           ];
@@ -252,14 +266,18 @@ import ./make-test-python.nix (
             (lib.head nodes.resolver.config.networking.interfaces.eth1.ipv4.addresses)
             .address
           ];
-          networking.interfaces.eth1.ipv4.addresses = [ {
-            address = "192.168.0.10";
-            prefixLength = 24;
-          } ];
-          networking.interfaces.eth1.ipv6.addresses = [ {
-            address = "fd21::10";
-            prefixLength = 64;
-          } ];
+          networking.interfaces.eth1.ipv4.addresses = [
+            {
+              address = "192.168.0.10";
+              prefixLength = 24;
+            }
+          ];
+          networking.interfaces.eth1.ipv6.addresses = [
+            {
+              address = "fd21::10";
+              prefixLength = 64;
+            }
+          ];
         };
     };
 

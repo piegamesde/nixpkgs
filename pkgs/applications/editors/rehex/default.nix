@@ -62,9 +62,9 @@ stdenv.mkDerivation rec {
     ]
   ;
 
-  makeFlags =
-    [ "prefix=${placeholder "out"}" ]
-    ++ lib.optionals stdenv.isDarwin [ "-f Makefile.osx" ];
+  makeFlags = [
+    "prefix=${placeholder "out"}"
+  ] ++ lib.optionals stdenv.isDarwin [ "-f Makefile.osx" ];
 
   enableParallelBuilding = true;
 

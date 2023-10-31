@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     sed -i -e '/seteuid/d' -e '/setegid/d' app/main.c
   '';
 
-  configureFlags =
-    [ "--with-graphics-backend=gdk" ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ];
+  configureFlags = [
+    "--with-graphics-backend=gdk"
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ];
 
   enableParallelBuilding = true;
 

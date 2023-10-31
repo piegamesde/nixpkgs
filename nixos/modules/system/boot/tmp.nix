@@ -81,19 +81,21 @@ in
 
   config = {
     # When changing remember to update /tmp mount in virtualisation/qemu-vm.nix
-    systemd.mounts = mkIf cfg.useTmpfs [ {
-      what = "tmpfs";
-      where = "/tmp";
-      type = "tmpfs";
-      mountConfig.Options = concatStringsSep "," [
-        "mode=1777"
-        "strictatime"
-        "rw"
-        "nosuid"
-        "nodev"
-        "size=${toString cfg.tmpfsSize}"
-      ];
-    } ];
+    systemd.mounts = mkIf cfg.useTmpfs [
+      {
+        what = "tmpfs";
+        where = "/tmp";
+        type = "tmpfs";
+        mountConfig.Options = concatStringsSep "," [
+          "mode=1777"
+          "strictatime"
+          "rw"
+          "nosuid"
+          "nodev"
+          "size=${toString cfg.tmpfsSize}"
+        ];
+      }
+    ];
 
     systemd.tmpfiles.rules = optional cfg.cleanOnBoot "D! /tmp 1777 root root";
   };

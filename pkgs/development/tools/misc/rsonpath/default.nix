@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-WY6wXnPh0rgjSkNMWOeOCl//kHlDk0z6Gvnjax33nvE=";
 
   buildNoDefaultFeatures = true;
-  buildFeatures =
-    [ "default-optimizations" ]
-    ++ lib.optionals withSimd [ "simd" ];
+  buildFeatures = [
+    "default-optimizations"
+  ] ++ lib.optionals withSimd [ "simd" ];
 
   meta = with lib; {
     description = "Blazing fast Rust JSONPath query engine";

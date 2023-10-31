@@ -64,10 +64,12 @@ python27.pkgs.buildPythonApplication {
     license = with licenses; [ mit ];
     maintainers = with maintainers; [ abathur ];
     platforms = platforms.all;
-    knownVulnerabilities = [ ''
-      resholve depends on python27 (EOL). While it's safe to
-      run on trusted input in the build sandbox, you should
-      avoid running it on untrusted input.
-    '' ];
+    knownVulnerabilities = [
+      ''
+        resholve depends on python27 (EOL). While it's safe to
+        run on trusted input in the build sandbox, you should
+        avoid running it on untrusted input.
+      ''
+    ];
   };
 }

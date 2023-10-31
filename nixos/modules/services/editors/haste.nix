@@ -45,11 +45,13 @@ in
         staticMaxAge = mkDefault 86400;
         recompressStaticAssets = mkDefault false;
 
-        logging = mkDefault [ {
-          level = "verbose";
-          type = "Console";
-          colorize = true;
-        } ];
+        logging = mkDefault [
+          {
+            level = "verbose";
+            type = "Console";
+            colorize = true;
+          }
+        ];
 
         keyGenerator = mkDefault { type = "phonetic"; };
 

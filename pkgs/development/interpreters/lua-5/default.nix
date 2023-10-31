@@ -156,9 +156,9 @@ rec {
     hash = "0jwznq0l8qg9wh5grwg07b5cy3lzngvl5m2nl1ikp6vqssmf9qmr";
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
-    patches =
-      [ ./CVE-2022-28805.patch ]
-      ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
+    patches = [
+      ./CVE-2022-28805.patch
+    ] ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
   };
 
   lua5_2_compat = lua5_2.override ({

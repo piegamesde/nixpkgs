@@ -38,10 +38,12 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = !config.services.strongswan.enable;
-      message = "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
-    } ];
+    assertions = [
+      {
+        assertion = !config.services.strongswan.enable;
+        message = "cannot enable both services.strongswan and services.strongswan-swanctl. Choose either one.";
+      }
+    ];
 
     environment.etc."swanctl/swanctl.conf".text =
       paramsToConf cfg.swanctl

@@ -48,10 +48,12 @@ let
 
               networking = {
                 interfaces.eth1 = {
-                  ipv4.addresses = [ {
-                    inherit address;
-                    prefixLength = 24;
-                  } ];
+                  ipv4.addresses = [
+                    {
+                      inherit address;
+                      prefixLength = 24;
+                    }
+                  ];
                 };
                 extraHosts =
                   lib.concatMapStringsSep "\n"
@@ -86,12 +88,14 @@ let
                 enable = true;
                 package = mariadbPackage;
                 ensureDatabases = lib.mkIf isFirstClusterNode [ "testdb" ];
-                ensureUsers = lib.mkIf isFirstClusterNode [ {
-                  name = "testuser";
-                  ensurePermissions = {
-                    "testdb.*" = "ALL PRIVILEGES";
-                  };
-                } ];
+                ensureUsers = lib.mkIf isFirstClusterNode [
+                  {
+                    name = "testuser";
+                    ensurePermissions = {
+                      "testdb.*" = "ALL PRIVILEGES";
+                    };
+                  }
+                ];
                 initialScript = lib.mkIf isFirstClusterNode (
                   pkgs.writeText "mariadb-init.sql" ''
                     GRANT ALL PRIVILEGES ON *.* TO 'check_repl'@'localhost' IDENTIFIED BY 'check_pass' WITH GRANT OPTION;

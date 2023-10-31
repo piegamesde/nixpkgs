@@ -209,12 +209,14 @@ in
       postgresql = {
         enable = lib.mkDefault true;
         ensureDatabases = [ "onlyoffice" ];
-        ensureUsers = [ {
-          name = "onlyoffice";
-          ensurePermissions = {
-            "DATABASE \"onlyoffice\"" = "ALL PRIVILEGES";
-          };
-        } ];
+        ensureUsers = [
+          {
+            name = "onlyoffice";
+            ensurePermissions = {
+              "DATABASE \"onlyoffice\"" = "ALL PRIVILEGES";
+            };
+          }
+        ];
       };
     };
 

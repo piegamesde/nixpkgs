@@ -54,10 +54,12 @@ import ./make-test-python.nix (
                 dhcpcd.enable = false;
                 defaultGateway.address = "10.0.2.2";
                 usePredictableInterfaceNames = false;
-                interfaces."eth0".ipv4.addresses = [ {
-                  address = "10.0.2.15";
-                  prefixLength = 25;
-                } ];
+                interfaces."eth0".ipv4.addresses = [
+                  {
+                    address = "10.0.2.15";
+                    prefixLength = 25;
+                  }
+                ];
                 enableIPv6 = false;
                 nameservers = [
                   # OpenNIC anycast
@@ -112,17 +114,19 @@ import ./make-test-python.nix (
           inherit pkgs lib config;
           diskSize = 16000;
           format = "qcow2-compressed";
-          contents = [ {
-            source = pkgs.writeText "gitconfig" ''
-              [user]
-                name = builds.sr.ht
-                email = build@sr.ht
-            '';
-            target = "/home/build/.gitconfig";
-            user = "build";
-            group = "users";
-            mode = "644";
-          } ];
+          contents = [
+            {
+              source = pkgs.writeText "gitconfig" ''
+                [user]
+                  name = builds.sr.ht
+                  email = build@sr.ht
+              '';
+              target = "/home/build/.gitconfig";
+              user = "build";
+              group = "users";
+              mode = "644";
+            }
+          ];
         };
     };
   in

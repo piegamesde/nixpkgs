@@ -182,14 +182,18 @@ in
     users.groups.lxd = { };
 
     users.users.root = {
-      subUidRanges = [ {
-        startUid = 1000000;
-        count = 65536;
-      } ];
-      subGidRanges = [ {
-        startGid = 1000000;
-        count = 65536;
-      } ];
+      subUidRanges = [
+        {
+          startUid = 1000000;
+          count = 65536;
+        }
+      ];
+      subGidRanges = [
+        {
+          startGid = 1000000;
+          count = 65536;
+        }
+      ];
     };
 
     boot.kernel.sysctl = mkIf cfg.recommendedSysctlSettings {

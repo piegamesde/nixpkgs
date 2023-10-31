@@ -41,9 +41,9 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs =
-    [ pkg-config ]
-    ++ (with python3Packages; [ setuptools-scm ]);
+  nativeBuildInputs = [
+    pkg-config
+  ] ++ (with python3Packages; [ setuptools-scm ]);
 
   propagatedBuildInputs = with python3Packages; [
     xcffib

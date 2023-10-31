@@ -67,17 +67,19 @@ in
         "nmi_watchdog=panic"
         "softlockup_panic=1"
       ];
-      kernelPatches = [ {
-        name = "crashdump-config";
-        patch = null;
-        extraConfig = ''
-          CRASH_DUMP y
-          DEBUG_INFO y
-          PROC_VMCORE y
-          LOCKUP_DETECTOR y
-          HARDLOCKUP_DETECTOR y
-        '';
-      } ];
+      kernelPatches = [
+        {
+          name = "crashdump-config";
+          patch = null;
+          extraConfig = ''
+            CRASH_DUMP y
+            DEBUG_INFO y
+            PROC_VMCORE y
+            LOCKUP_DETECTOR y
+            HARDLOCKUP_DETECTOR y
+          '';
+        }
+      ];
     };
   };
 }

@@ -343,15 +343,17 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [ ];
-      message = ''
-        If maddy is configured to use TLS, tls.certificates with attribute sets
-        of certPath and keyPath must be provided.
-        Read more about obtaining TLS certificates here:
-        https://maddy.email/tutorials/setting-up/#tls-certificates
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [ ];
+        message = ''
+          If maddy is configured to use TLS, tls.certificates with attribute sets
+          of certPath and keyPath must be provided.
+          Read more about obtaining TLS certificates here:
+          https://maddy.email/tutorials/setting-up/#tls-certificates
+        '';
+      }
+    ];
 
     systemd = {
 

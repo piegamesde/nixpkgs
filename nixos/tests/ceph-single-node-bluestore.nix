@@ -70,10 +70,12 @@ import ./make-test-python.nix (
 
     networkMonA = {
       dhcpcd.enable = false;
-      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [ {
-        address = cfg.monA.ip;
-        prefixLength = 24;
-      } ];
+      interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+        {
+          address = cfg.monA.ip;
+          prefixLength = 24;
+        }
+      ];
     };
     cephConfigMonA = generateCephConfig {
       daemonConfig = {

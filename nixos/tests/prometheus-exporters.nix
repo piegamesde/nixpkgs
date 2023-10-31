@@ -366,10 +366,12 @@ let
         url = "http://localhost";
         configFile = pkgs.writeText "json-exporter-conf.json" (
           builtins.toJSON {
-            metrics = [ {
-              name = "json_test_metric";
-              path = "{ .test }";
-            } ];
+            metrics = [
+              {
+                name = "json_test_metric";
+                path = "{ .test }";
+              }
+            ];
           }
         );
       };
@@ -589,14 +591,16 @@ let
         configuration = {
           monitoringInterval = "2s";
           mailCheckTimeout = "10s";
-          servers = [ {
-            name = "testserver";
-            server = "localhost";
-            port = 25;
-            from = "mail-exporter@localhost";
-            to = "mail-exporter@localhost";
-            detectionDir = "/var/spool/mail/mail-exporter/new";
-          } ];
+          servers = [
+            {
+              name = "testserver";
+              server = "localhost";
+              port = 25;
+              from = "mail-exporter@localhost";
+              to = "mail-exporter@localhost";
+              detectionDir = "/var/spool/mail/mail-exporter/new";
+            }
+          ];
         };
       };
       metricProvider = {
@@ -637,12 +641,14 @@ let
         enable = true;
         extraFlags = [ "-timeout=1s" ];
         configuration = {
-          devices = [ {
-            name = "router";
-            address = "192.168.42.48";
-            user = "prometheus";
-            password = "shh";
-          } ];
+          devices = [
+            {
+              name = "router";
+              address = "192.168.42.48";
+              user = "prometheus";
+              password = "shh";
+            }
+          ];
           features = {
             bgp = true;
             dhcp = true;
@@ -1110,10 +1116,12 @@ let
     script = {
       exporterConfig = {
         enable = true;
-        settings.scripts = [ {
-          name = "success";
-          script = "sleep 1";
-        } ];
+        settings.scripts = [
+          {
+            name = "success";
+            script = "sleep 1";
+          }
+        ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-script-exporter.service")
@@ -1378,11 +1386,13 @@ let
             routing = {
               strategy = "rules";
               settings = {
-                rules = [ {
-                  inboundTag = [ "api" ];
-                  outboundTag = "api";
-                  type = "field";
-                } ];
+                rules = [
+                  {
+                    inboundTag = [ "api" ];
+                    outboundTag = "api";
+                    type = "field";
+                  }
+                ];
               };
             };
           };

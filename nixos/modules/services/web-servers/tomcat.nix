@@ -302,9 +302,11 @@ in
                 cfg.virtualHosts;
             hostElementsSedString =
               replaceStrings [ "\n" ]
-                [ ''
-                  \
-                '' ]
+                [
+                  ''
+                    \
+                  ''
+                ]
                 hostElementsString;
           in
           ''

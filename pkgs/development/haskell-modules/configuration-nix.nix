@@ -1434,9 +1434,9 @@ builtins.intersectAttrs super {
             + (drv.preCompileBuildDriver or "")
           ;
           # install man page
-          buildTools =
-            [ pkgs.buildPackages.installShellFiles ]
-            ++ (drv.buildTools or [ ]);
+          buildTools = [
+            pkgs.buildPackages.installShellFiles
+          ] ++ (drv.buildTools or [ ]);
           postInstall =
             ''
               installManPage man/atsfmt.1

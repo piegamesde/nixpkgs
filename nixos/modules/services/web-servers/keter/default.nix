@@ -38,10 +38,12 @@ in
       type = lib.types.attrs;
       default = {
         ip-from-header = true;
-        listeners = [ {
-          host = "*4";
-          port = 6981;
-        } ];
+        listeners = [
+          {
+            host = "*4";
+            port = 6981;
+          }
+        ];
       };
       # You want that ip-from-header in the nginx setup case
       # so it's not set to 127.0.0.1.

@@ -61,14 +61,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.windowManager.session = [ {
-      name = "qtile";
-      start = ''
-        ${pyEnv}/bin/qtile start -b ${cfg.backend} \
-        ${optionalString (cfg.configFile != null) ''--config "${cfg.configFile}"''} &
-        waitPID=$!
-      '';
-    } ];
+    services.xserver.windowManager.session = [
+      {
+        name = "qtile";
+        start = ''
+          ${pyEnv}/bin/qtile start -b ${cfg.backend} \
+          ${optionalString (cfg.configFile != null) ''--config "${cfg.configFile}"''} &
+          waitPID=$!
+        '';
+      }
+    ];
 
     environment.systemPackages =
       [

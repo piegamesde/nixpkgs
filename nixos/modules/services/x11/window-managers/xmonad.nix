@@ -215,15 +215,17 @@ in
   };
   config = mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [ {
-        name = "xmonad";
-        start = ''
-          systemd-cat -t xmonad -- ${xmonad}/bin/xmonad ${
-            lib.escapeShellArgs cfg.xmonadCliArgs
-          } &
-          waitPID=$!
-        '';
-      } ];
+      session = [
+        {
+          name = "xmonad";
+          start = ''
+            systemd-cat -t xmonad -- ${xmonad}/bin/xmonad ${
+              lib.escapeShellArgs cfg.xmonadCliArgs
+            } &
+            waitPID=$!
+          '';
+        }
+      ];
     };
 
     environment.systemPackages = [ xmonad ];

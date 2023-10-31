@@ -1298,10 +1298,12 @@ in
                   })
                 ]
               );
-            example = [ {
-              onion = "xxxxxxxxxxxxxxxx.onion";
-              auth = "xxxxxxxxxxxxxxxxxxxxxx";
-            } ];
+            example = [
+              {
+                onion = "xxxxxxxxxxxxxxxx.onion";
+                auth = "xxxxxxxxxxxxxxxxxxxxxx";
+              }
+            ];
           };
           options.HiddenServiceNonAnonymousMode =
             optionBool
@@ -1508,11 +1510,13 @@ in
         GeoIPv6File = "${cfg.package.geoip}/share/tor/geoip6";
       })
       (mkIf cfg.controlSocket.enable {
-        ControlPort = [ {
-          unix = runDir + "/control";
-          GroupWritable = true;
-          RelaxDirModeCheck = true;
-        } ];
+        ControlPort = [
+          {
+            unix = runDir + "/control";
+            GroupWritable = true;
+            RelaxDirModeCheck = true;
+          }
+        ];
       })
       (mkIf cfg.relay.enable (
         optionalAttrs (cfg.relay.role != "exit") {
@@ -1555,16 +1559,20 @@ in
           SOCKSPort = [ cfg.client.socksListenAddress ];
         }
         // optionalAttrs cfg.client.transparentProxy.enable {
-          TransPort = [ {
-            addr = "127.0.0.1";
-            port = 9040;
-          } ];
+          TransPort = [
+            {
+              addr = "127.0.0.1";
+              port = 9040;
+            }
+          ];
         }
         // optionalAttrs cfg.client.dns.enable {
-          DNSPort = [ {
-            addr = "127.0.0.1";
-            port = 9053;
-          } ];
+          DNSPort = [
+            {
+              addr = "127.0.0.1";
+              port = 9053;
+            }
+          ];
           AutomapHostsOnResolve = true;
         }
         //
@@ -1717,12 +1725,12 @@ in
             "/run/systemd/resolve/stub-resolv.conf"
             "/run/systemd/resolve/resolv.conf"
           ];
-        AmbientCapabilities =
-          [ "" ]
-          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
-        CapabilityBoundingSet =
-          [ "" ]
-          ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        AmbientCapabilities = [
+          ""
+        ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = [
+          ""
+        ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;

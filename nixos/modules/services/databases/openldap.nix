@@ -105,12 +105,14 @@ let
       includes,
       ...
     }:
-    [ ''
-      dn: ${dn}
-      ${lib.concatStringsSep "\n" (
-        lib.flatten (lib.mapAttrsToList valueToLdif attrs)
-      )}
-    '' ]
+    [
+      ''
+        dn: ${dn}
+        ${lib.concatStringsSep "\n" (
+          lib.flatten (lib.mapAttrsToList valueToLdif attrs)
+        )}
+      ''
+    ]
     ++ (map
       (path: ''
         include: file://${path}
@@ -306,13 +308,15 @@ in
     in
     mkIf cfg.enable {
       assertions =
-        [ {
-          assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
-          message = ''
-            Declarative DB contents (${attrNames cfg.declarativeContents}) are not
-            supported with user-managed configuration.
-          '';
-        } ]
+        [
+          {
+            assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
+            message = ''
+              Declarative DB contents (${attrNames cfg.declarativeContents}) are not
+              supported with user-managed configuration.
+            '';
+          }
+        ]
         ++ (map
           (dn: {
             assertion = (getAttr dn dbSettings) ? "olcDbDirectory";

@@ -24,12 +24,14 @@ in
 
   # implementation
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = config.services.corosync.enable;
-      message = ''
-        Enabling services.pacemaker requires a services.corosync configuration.
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = config.services.corosync.enable;
+        message = ''
+          Enabling services.pacemaker requires a services.corosync configuration.
+        '';
+      }
+    ];
 
     environment.systemPackages = [ cfg.package ];
 

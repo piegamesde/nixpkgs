@@ -191,10 +191,12 @@ in
       "If services.matomo.nginx is set, services.matomo.nginx.webServerUser is ignored and should be removed."
     ];
 
-    assertions = [ {
-      assertion = cfg.nginx != null || cfg.webServerUser != null;
-      message = "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.nginx != null || cfg.webServerUser != null;
+        message = "Either services.matomo.nginx or services.matomo.nginx.webServerUser is mandatory";
+      }
+    ];
 
     users.users.${user} = {
       isSystemUser = true;

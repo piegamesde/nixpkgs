@@ -107,16 +107,18 @@ with lib;
   ];
 
   config = {
-    assertions = [ {
-      assertion = config.system.nssModules.path != "" -> config.services.nscd.enable;
-      message = ''
-        Loading NSS modules from system.nssModules (${config.system.nssModules.path}),
-        requires services.nscd.enable being set to true.
+    assertions = [
+      {
+        assertion = config.system.nssModules.path != "" -> config.services.nscd.enable;
+        message = ''
+          Loading NSS modules from system.nssModules (${config.system.nssModules.path}),
+          requires services.nscd.enable being set to true.
 
-        If disabling nscd is really necessary, it is possible to disable loading NSS modules
-        by setting `system.nssModules = lib.mkForce [];` in your configuration.nix.
-      '';
-    } ];
+          If disabling nscd is really necessary, it is possible to disable loading NSS modules
+          by setting `system.nssModules = lib.mkForce [];` in your configuration.nix.
+        '';
+      }
+    ];
 
     # Name Service Switch configuration file.  Required by the C
     # library.

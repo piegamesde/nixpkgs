@@ -7,10 +7,12 @@ import ./make-test-python.nix (
         { pkgs, lib, ... }:
         {
           networking = {
-            interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [ {
-              address = "192.168.1.1";
-              prefixLength = 16;
-            } ];
+            interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [
+              {
+                address = "192.168.1.1";
+                prefixLength = 16;
+              }
+            ];
           };
 
           environment.etc."nomad.custom.json".source =
@@ -39,10 +41,12 @@ import ./make-test-python.nix (
         { pkgs, lib, ... }:
         {
           networking = {
-            interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [ {
-              address = "192.168.1.1";
-              prefixLength = 16;
-            } ];
+            interfaces.eth1.ipv4.addresses = lib.mkOverride 0 [
+              {
+                address = "192.168.1.1";
+                prefixLength = 16;
+              }
+            ];
           };
 
           environment.etc."nomad.custom.json".source =

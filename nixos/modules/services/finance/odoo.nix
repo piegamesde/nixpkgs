@@ -125,12 +125,14 @@ in
       services.postgresql = {
         enable = true;
 
-        ensureUsers = [ {
-          name = "odoo";
-          ensurePermissions = {
-            "DATABASE odoo" = "ALL PRIVILEGES";
-          };
-        } ];
+        ensureUsers = [
+          {
+            name = "odoo";
+            ensurePermissions = {
+              "DATABASE odoo" = "ALL PRIVILEGES";
+            };
+          }
+        ];
         ensureDatabases = [ "odoo" ];
       };
     }

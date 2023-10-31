@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
     chmod +x check/fnlo-tk-stattest.pl.in
   '';
 
-  configureFlags =
-    [ "--with-yoda=${yoda}" ]
-    ++ lib.optional withPython "--enable-pyext";
+  configureFlags = [
+    "--with-yoda=${yoda}"
+  ] ++ lib.optional withPython "--enable-pyext";
 
   enableParallelBuilding = true;
 

@@ -123,21 +123,23 @@ in
   };
 
   config = mkIf (jenkinsCfg.enable && cfg.enable) {
-    assertions = [ {
-      assertion =
-        if cfg.accessUser != "" then
-          (cfg.accessToken != "" && cfg.accessTokenFile == "")
-          || (cfg.accessToken == "" && cfg.accessTokenFile != "")
-        else
-          true
-      ;
-      message = ''
-        One of accessToken and accessTokenFile options must be non-empty
-        strings, but not both. Current values:
-          services.jenkins.jobBuilder.accessToken = "${cfg.accessToken}"
-          services.jenkins.jobBuilder.accessTokenFile = "${cfg.accessTokenFile}"
-      '';
-    } ];
+    assertions = [
+      {
+        assertion =
+          if cfg.accessUser != "" then
+            (cfg.accessToken != "" && cfg.accessTokenFile == "")
+            || (cfg.accessToken == "" && cfg.accessTokenFile != "")
+          else
+            true
+        ;
+        message = ''
+          One of accessToken and accessTokenFile options must be non-empty
+          strings, but not both. Current values:
+            services.jenkins.jobBuilder.accessToken = "${cfg.accessToken}"
+            services.jenkins.jobBuilder.accessTokenFile = "${cfg.accessTokenFile}"
+        '';
+      }
+    ];
 
     systemd.services.jenkins-job-builder = {
       description = "Jenkins Job Builder Service";

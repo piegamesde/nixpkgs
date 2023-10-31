@@ -329,13 +329,15 @@ in
         }
     );
 
-    assertions = [ {
-      assertion = cfg.eula;
-      message =
-        "You must agree to Mojangs EULA to run minecraft-server."
-        + " Read https://account.mojang.com/documents/minecraft_eula and"
-        + " set `services.minecraft-server.eula` to `true` if you agree."
-      ;
-    } ];
+    assertions = [
+      {
+        assertion = cfg.eula;
+        message =
+          "You must agree to Mojangs EULA to run minecraft-server."
+          + " Read https://account.mojang.com/documents/minecraft_eula and"
+          + " set `services.minecraft-server.eula` to `true` if you agree."
+        ;
+      }
+    ];
   };
 }

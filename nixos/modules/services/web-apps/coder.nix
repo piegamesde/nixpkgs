@@ -155,10 +155,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.database.createLocally -> cfg.database.username == name;
-      message = "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.database.createLocally -> cfg.database.username == name;
+        message = "services.coder.database.username must be set to ${user} if services.coder.database.createLocally is set true";
+      }
+    ];
 
     systemd.services.coder = {
       description = "Coder - Self-hosted developer workspaces on your infra";
@@ -201,12 +203,14 @@ in
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
       ensureDatabases = [ cfg.database.database ];
-      ensureUsers = [ {
-        name = cfg.database.username;
-        ensurePermissions = {
-          "DATABASE \"${cfg.database.database}\"" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.database.username;
+          ensurePermissions = {
+            "DATABASE \"${cfg.database.database}\"" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     users.groups = optionalAttrs (cfg.group == name) { "${cfg.group}" = { }; };

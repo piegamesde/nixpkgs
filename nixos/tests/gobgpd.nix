@@ -26,12 +26,14 @@ import ./make-test-python.nix (
                   router-id = "192.168.255.1";
                 };
               };
-              neighbors = [ {
-                config = {
-                  neighbor-address = ifAddr nodes.node2 "eth1";
-                  peer-as = 64513;
-                };
-              } ];
+              neighbors = [
+                {
+                  config = {
+                    neighbor-address = ifAddr nodes.node2 "eth1";
+                    peer-as = 64513;
+                  };
+                }
+              ];
             };
           };
         };
@@ -49,12 +51,14 @@ import ./make-test-python.nix (
                   router-id = "192.168.255.2";
                 };
               };
-              neighbors = [ {
-                config = {
-                  neighbor-address = ifAddr nodes.node1 "eth1";
-                  peer-as = 64512;
-                };
-              } ];
+              neighbors = [
+                {
+                  config = {
+                    neighbor-address = ifAddr nodes.node1 "eth1";
+                    peer-as = 64512;
+                  };
+                }
+              ];
             };
           };
         };

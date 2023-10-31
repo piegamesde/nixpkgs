@@ -114,10 +114,12 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = !config.networking.useHostResolvConf;
-      message = "Using host resolv.conf is not supported with systemd-resolved";
-    } ];
+    assertions = [
+      {
+        assertion = !config.networking.useHostResolvConf;
+        message = "Using host resolv.conf is not supported with systemd-resolved";
+      }
+    ];
 
     users.users.systemd-resolve.group = "systemd-resolve";
 

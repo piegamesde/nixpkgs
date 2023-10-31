@@ -590,10 +590,12 @@ in
 
     services.postgresql = lib.mkIf (cfg.databaseUrl == "local") {
       enable = true;
-      ensureUsers = [ {
-        name = "outline";
-        ensurePermissions."DATABASE outline" = "ALL PRIVILEGES";
-      } ];
+      ensureUsers = [
+        {
+          name = "outline";
+          ensurePermissions."DATABASE outline" = "ALL PRIVILEGES";
+        }
+      ];
       ensureDatabases = [ "outline" ];
     };
 

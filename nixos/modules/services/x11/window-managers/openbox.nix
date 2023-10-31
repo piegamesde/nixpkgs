@@ -19,10 +19,12 @@ in
 
   config = mkIf cfg.enable {
     services.xserver.windowManager = {
-      session = [ {
-        name = "openbox";
-        start = "\n          ${pkgs.openbox}/bin/openbox-session\n        ";
-      } ];
+      session = [
+        {
+          name = "openbox";
+          start = "\n          ${pkgs.openbox}/bin/openbox-session\n        ";
+        }
+      ];
     };
     environment.systemPackages = [ pkgs.openbox ];
   };

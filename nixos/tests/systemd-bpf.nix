@@ -10,10 +10,12 @@ import ./make-test-python.nix (
           useNetworkd = true;
           useDHCP = false;
           firewall.enable = false;
-          interfaces.eth1.ipv4.addresses = [ {
-            address = "192.168.1.1";
-            prefixLength = 24;
-          } ];
+          interfaces.eth1.ipv4.addresses = [
+            {
+              address = "192.168.1.1";
+              prefixLength = 24;
+            }
+          ];
         };
       };
 
@@ -23,10 +25,12 @@ import ./make-test-python.nix (
           useNetworkd = true;
           useDHCP = false;
           firewall.enable = false;
-          interfaces.eth1.ipv4.addresses = [ {
-            address = "192.168.1.2";
-            prefixLength = 24;
-          } ];
+          interfaces.eth1.ipv4.addresses = [
+            {
+              address = "192.168.1.2";
+              prefixLength = 24;
+            }
+          ];
         };
       };
     };

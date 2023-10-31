@@ -1956,10 +1956,12 @@ runTests {
   testUpdateManyAttrsByPathSingleIncrement = {
     expr =
       updateManyAttrsByPath
-        [ {
-          path = [ ];
-          update = old: old + 1;
-        } ]
+        [
+          {
+            path = [ ];
+            update = old: old + 1;
+          }
+        ]
         0;
     expected = 1;
   };
@@ -2008,14 +2010,16 @@ runTests {
   testUpdateManyAttrsByPathDeep = {
     expr =
       updateManyAttrsByPath
-        [ {
-          path = [
-            "a"
-            "b"
-            "c"
-          ];
-          update = old: old + 1;
-        } ]
+        [
+          {
+            path = [
+              "a"
+              "b"
+              "c"
+            ];
+            update = old: old + 1;
+          }
+        ]
         {
           a.b.c = 0;
 

@@ -132,10 +132,12 @@ in
 
   config = mkIf cfg.enable {
 
-    services.lshd.subsystems = [ [
-      "sftp"
-      "${pkgs.lsh}/sbin/sftp-server"
-    ] ];
+    services.lshd.subsystems = [
+      [
+        "sftp"
+        "${pkgs.lsh}/sbin/sftp-server"
+      ]
+    ];
 
     systemd.services.lshd = {
       description = "GNU lshd SSH2 daemon";

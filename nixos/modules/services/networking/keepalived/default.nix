@@ -160,10 +160,12 @@ let
     ++ flatten (map (vrrpScriptAssertion i.name) i.trackScripts)
   ;
 
-  virtualIpAssertions = vrrpName: ip: [ {
-    assertion = ip.addr != "";
-    message = "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
-  } ];
+  virtualIpAssertions = vrrpName: ip: [
+    {
+      assertion = ip.addr != "";
+      message = "The 'addr' option for an services.keepalived.vrrpInstances.${vrrpName}.virtualIps entry cannot be empty.";
+    }
+  ];
 
   vrrpScriptAssertion = vrrpName: scriptName: {
     assertion = builtins.hasAttr scriptName cfg.vrrpScripts;

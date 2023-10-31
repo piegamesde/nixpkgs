@@ -30,9 +30,9 @@ buildDunePackage rec {
 
   buildInputs = [ dune-configurator ];
   nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs =
-    [ optint ]
-    ++ lib.optionals withFreestanding [ ocaml-freestanding ];
+  propagatedBuildInputs = [
+    optint
+  ] ++ lib.optionals withFreestanding [ ocaml-freestanding ];
 
   checkInputs = [
     alcotest

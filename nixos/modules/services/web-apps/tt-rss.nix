@@ -605,10 +605,12 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = cfg.database.password != null -> cfg.database.passwordFile == null;
-      message = "Cannot set both password and passwordFile";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.database.password != null -> cfg.database.passwordFile == null;
+        message = "Cannot set both password and passwordFile";
+      }
+    ];
 
     services.phpfpm.pools = mkIf (cfg.pool == "${poolName}") {
       ${poolName} = {
@@ -767,23 +769,27 @@ in
       enable = true;
       package = mkDefault pkgs.mariadb;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.user;
-        ensurePermissions = {
-          "${cfg.database.name}.*" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.user;
+          ensurePermissions = {
+            "${cfg.database.name}.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     services.postgresql = mkIf pgsqlLocal {
       enable = mkDefault true;
       ensureDatabases = [ cfg.database.name ];
-      ensureUsers = [ {
-        name = cfg.user;
-        ensurePermissions = {
-          "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = cfg.user;
+          ensurePermissions = {
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
 
     users.users.tt_rss = optionalAttrs (cfg.user == "tt_rss") {

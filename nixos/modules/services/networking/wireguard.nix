@@ -618,11 +618,13 @@ in
           wg0 = {
             ips = [ "192.168.20.4/24" ];
             privateKey = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
-            peers = [ {
-              allowedIPs = [ "192.168.20.1/32" ];
-              publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
-              endpoint = "demo.wireguard.io:12913";
-            } ];
+            peers = [
+              {
+                allowedIPs = [ "192.168.20.1/32" ];
+                publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
+                endpoint = "demo.wireguard.io:12913";
+              }
+            ];
           };
         };
         type = with types; attrsOf (submodule interfaceOpts);

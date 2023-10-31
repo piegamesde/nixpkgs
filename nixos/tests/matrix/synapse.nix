@@ -32,26 +32,28 @@ import ../make-test-python.nix (
     testPassword = "alicealice";
     testEmail = "alice@example.com";
 
-    listeners = [ {
-      port = 8448;
-      bind_addresses = [
-        "127.0.0.1"
-        "::1"
-      ];
-      type = "http";
-      tls = true;
-      x_forwarded = false;
-      resources = [
-        {
-          names = [ "client" ];
-          compress = true;
-        }
-        {
-          names = [ "federation" ];
-          compress = false;
-        }
-      ];
-    } ];
+    listeners = [
+      {
+        port = 8448;
+        bind_addresses = [
+          "127.0.0.1"
+          "::1"
+        ];
+        type = "http";
+        tls = true;
+        x_forwarded = false;
+        resources = [
+          {
+            names = [ "client" ];
+            compress = true;
+          }
+          {
+            names = [ "federation" ];
+            compress = false;
+          }
+        ];
+      }
+    ];
   in
   {
 

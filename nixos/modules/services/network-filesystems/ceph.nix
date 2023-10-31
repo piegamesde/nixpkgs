@@ -478,13 +478,15 @@ in
     systemd.targets =
       let
         targets =
-          [ {
-            ceph = {
-              description = "Ceph target allowing to start/stop all ceph service instances at once";
-              wantedBy = [ "multi-user.target" ];
-              unitConfig.StopWhenUnneeded = true;
-            };
-          } ]
+          [
+            {
+              ceph = {
+                description = "Ceph target allowing to start/stop all ceph service instances at once";
+                wantedBy = [ "multi-user.target" ];
+                unitConfig.StopWhenUnneeded = true;
+              };
+            }
+          ]
           ++ optional cfg.mon.enable (makeTarget "mon")
           ++ optional cfg.mds.enable (makeTarget "mds")
           ++ optional cfg.osd.enable (makeTarget "osd")

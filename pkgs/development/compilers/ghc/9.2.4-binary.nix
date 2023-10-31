@@ -170,10 +170,12 @@ let
         isHadrian = true;
         # We can't check the RPATH for statically linked executable
         exePathForLibraryCheck = null;
-        archSpecificLibraries = [ {
-          nixPackage = gmp.override { withStatic = true; };
-          fileToCheckFor = null;
-        } ];
+        archSpecificLibraries = [
+          {
+            nixPackage = gmp.override { withStatic = true; };
+            fileToCheckFor = null;
+          }
+        ];
       };
     };
   };

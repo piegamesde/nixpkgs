@@ -565,9 +565,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "freebsd") (_: { }) (_: { }) (
       postInstall = ''
         make -C $BSDSRCDIR/share/mk FILESDIR=$out/share/mk install
       '';
-      extraPaths =
-        [ "share/mk" ]
-        ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
+      extraPaths = [
+        "share/mk"
+      ] ++ lib.optional (!stdenv.hostPlatform.isFreeBSD) "tools/build/mk";
     };
     mtree = mkDerivation {
       path = "contrib/mtree";

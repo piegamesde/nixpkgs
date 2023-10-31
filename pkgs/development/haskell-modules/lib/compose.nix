@@ -617,10 +617,12 @@ rec {
                     if !lib.isDerivation drv then
                       [ ]
                     else
-                      [ {
-                        key = drv.outPath;
-                        val = drv;
-                      } ]
+                      [
+                        {
+                          key = drv.outPath;
+                          val = drv;
+                        }
+                      ]
                   )
                   (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ])
             ;

@@ -114,13 +114,15 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.provisionGrafana -> config.services.grafana.enable;
-      message = ''
-        To provision a Grafana instance to use grafana-image-renderer,
-        `services.grafana.enable` must be set to `true`!
-      '';
-    } ];
+    assertions = [
+      {
+        assertion = cfg.provisionGrafana -> config.services.grafana.enable;
+        message = ''
+          To provision a Grafana instance to use grafana-image-renderer,
+          `services.grafana.enable` must be set to `true`!
+        '';
+      }
+    ];
 
     services.grafana.settings.rendering = mkIf cfg.provisionGrafana {
       server_url = "http://localhost:${toString cfg.settings.service.port}/render";

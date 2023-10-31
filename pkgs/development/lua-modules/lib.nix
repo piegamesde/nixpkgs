@@ -147,11 +147,13 @@ rec {
         # any other trees in the list are treated as additional sources of installed rocks for matching dependencies.
         rocks_trees =
           (
-            [ {
-              name = "current";
-              root = "${placeholder "out"}";
-              rocks_dir = "current";
-            } ]
+            [
+              {
+                name = "current";
+                root = "${placeholder "out"}";
+                rocks_dir = "current";
+              }
+            ]
             ++ rocksTrees
           );
       }

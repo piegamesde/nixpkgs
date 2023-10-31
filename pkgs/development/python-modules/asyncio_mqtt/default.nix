@@ -32,9 +32,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs =
-    [ paho-mqtt ]
-    ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [
+    paho-mqtt
+  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeCheckInputs = [
     anyio

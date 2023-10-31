@@ -156,18 +156,20 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion =
-        let
-          hooknames = builtins.attrNames cfg.hooks;
-        in
-        all (x: elem x eventList) hooknames;
-      message = ''
-        One (or more) attribute names in services.apcupsd.hooks are invalid.
-        Current attribute names: ${toString (builtins.attrNames cfg.hooks)}
-        Valid attribute names  : ${toString eventList}
-      '';
-    } ];
+    assertions = [
+      {
+        assertion =
+          let
+            hooknames = builtins.attrNames cfg.hooks;
+          in
+          all (x: elem x eventList) hooknames;
+        message = ''
+          One (or more) attribute names in services.apcupsd.hooks are invalid.
+          Current attribute names: ${toString (builtins.attrNames cfg.hooks)}
+          Valid attribute names  : ${toString eventList}
+        '';
+      }
+    ];
 
     # Give users access to the "apcaccess" tool
     environment.systemPackages = [ apcupsdWrapped ];

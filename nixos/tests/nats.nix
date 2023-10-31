@@ -26,10 +26,12 @@ import ./make-test-python.nix (
               enable = true;
               settings = {
                 authorization = {
-                  users = [ {
-                    user = username;
-                    inherit password;
-                  } ];
+                  users = [
+                    {
+                      user = username;
+                      inherit password;
+                    }
+                  ];
                 };
               };
             };

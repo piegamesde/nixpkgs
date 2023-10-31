@@ -25,10 +25,12 @@ import ../make-test-python.nix (
             };
             tls = {
               loader = "file";
-              certificates = [ {
-                certPath = "${certs.${domain}.cert}";
-                keyPath = "${certs.${domain}.key}";
-              } ];
+              certificates = [
+                {
+                  certPath = "${certs.${domain}.cert}";
+                  keyPath = "${certs.${domain}.key}";
+                }
+              ];
             };
             # Enable TLS listeners. Configuring this via the module is not yet
             # implemented.

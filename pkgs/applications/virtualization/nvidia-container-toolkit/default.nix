@@ -11,10 +11,12 @@
   libnvidia-container,
 }:
 let
-  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [ {
-    name = "runc";
-    path = containerRuntimePath;
-  } ];
+  isolatedContainerRuntimePath = linkFarm "isolated_container_runtime_path" [
+    {
+      name = "runc";
+      path = containerRuntimePath;
+    }
+  ];
   warnIfXdgConfigHomeIsSet = writeShellScript "warn_if_xdg_config_home_is_set" ''
     set -eo pipefail
 

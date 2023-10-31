@@ -89,10 +89,12 @@ in
         # This uses a link farm to make sure other wrapped executables
         # aren't included in PATH.
         environment.PATH = mkForce (
-          pkgs.linkFarm "pkexec" [ {
-            name = "pkexec";
-            path = "${config.security.wrapperDir}/pkexec";
-          } ]
+          pkgs.linkFarm "pkexec" [
+            {
+              name = "pkexec";
+              path = "${config.security.wrapperDir}/pkexec";
+            }
+          ]
         );
 
         serviceConfig.ExecStart = mkIf cfg.enableRenice [

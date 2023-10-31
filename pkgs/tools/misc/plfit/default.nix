@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
       swig
     ];
 
-  cmakeFlags =
-    [ "-DPLFIT_USE_OPENMP=ON" ]
-    ++ lib.optionals (python != null) [ "-DPLFIT_COMPILE_PYTHON_MODULE=ON" ];
+  cmakeFlags = [
+    "-DPLFIT_USE_OPENMP=ON"
+  ] ++ lib.optionals (python != null) [ "-DPLFIT_COMPILE_PYTHON_MODULE=ON" ];
 
   buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
 

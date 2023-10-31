@@ -898,23 +898,25 @@ in
                     };
                   }
                 );
-                default = [ {
-                  port = 8008;
-                  bind_addresses = [ "127.0.0.1" ];
-                  type = "http";
-                  tls = false;
-                  x_forwarded = true;
-                  resources = [
-                    {
-                      names = [ "client" ];
-                      compress = true;
-                    }
-                    {
-                      names = [ "federation" ];
-                      compress = false;
-                    }
-                  ];
-                } ];
+                default = [
+                  {
+                    port = 8008;
+                    bind_addresses = [ "127.0.0.1" ];
+                    type = "http";
+                    tls = false;
+                    x_forwarded = true;
+                    resources = [
+                      {
+                        names = [ "client" ];
+                        compress = true;
+                      }
+                      {
+                        names = [ "federation" ];
+                        compress = false;
+                      }
+                    ];
+                  }
+                ];
                 description = lib.mdDoc ''
                   List of ports that Synapse should listen on, their purpose and their configuration.
                 '';
@@ -1126,12 +1128,14 @@ in
                     };
                   }
                 );
-                default = [ {
-                  server_name = "matrix.org";
-                  verify_keys = {
-                    "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
-                  };
-                } ];
+                default = [
+                  {
+                    server_name = "matrix.org";
+                    verify_keys = {
+                      "ed25519:auto" = "Noi6WqcDj0QmPxCNQqgezwTlBKrfqehY1u2FyWP9uYw";
+                    };
+                  }
+                ];
                 description = lib.mdDoc ''
                   The trusted servers to download signing keys from.
                 '';
@@ -1164,23 +1168,25 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = hasLocalPostgresDB -> config.services.postgresql.enable;
-      message = ''
-        Cannot deploy matrix-synapse with a configuration for a local postgresql database
-          and a missing postgresql service. Since 20.03 it's mandatory to manually configure the
-          database (please read the thread in https://github.com/NixOS/nixpkgs/pull/80447 for
-          further reference).
+    assertions = [
+      {
+        assertion = hasLocalPostgresDB -> config.services.postgresql.enable;
+        message = ''
+          Cannot deploy matrix-synapse with a configuration for a local postgresql database
+            and a missing postgresql service. Since 20.03 it's mandatory to manually configure the
+            database (please read the thread in https://github.com/NixOS/nixpkgs/pull/80447 for
+            further reference).
 
-          If you
-          - try to deploy a fresh synapse, you need to configure the database yourself. An example
-            for this can be found in <nixpkgs/nixos/tests/matrix/synapse.nix>
-          - update your existing matrix-synapse instance, you simply need to add `services.postgresql.enable = true`
-            to your configuration.
+            If you
+            - try to deploy a fresh synapse, you need to configure the database yourself. An example
+              for this can be found in <nixpkgs/nixos/tests/matrix/synapse.nix>
+            - update your existing matrix-synapse instance, you simply need to add `services.postgresql.enable = true`
+              to your configuration.
 
-        For further information about this update, please read the release-notes of 20.03 carefully.
-      '';
-    } ];
+          For further information about this update, please read the release-notes of 20.03 carefully.
+        '';
+      }
+    ];
 
     services.matrix-synapse.configFile = configFile;
 
@@ -1198,9 +1204,9 @@ in
 
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";
-      after =
-        [ "network.target" ]
-        ++ optional hasLocalPostgresDB "postgresql.service";
+      after = [
+        "network.target"
+      ] ++ optional hasLocalPostgresDB "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \

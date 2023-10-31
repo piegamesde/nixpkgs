@@ -87,14 +87,16 @@ in
       );
     in
     {
-      assertions = [ {
-        assertion = !lib.isStorePath cfg.intermediatePasswordFile;
-        message = ''
-          <option>services.step-ca.intermediatePasswordFile</option> points to
-          a file in the Nix store. You should use a quoted absolute path to
-          prevent this.
-        '';
-      } ];
+      assertions = [
+        {
+          assertion = !lib.isStorePath cfg.intermediatePasswordFile;
+          message = ''
+            <option>services.step-ca.intermediatePasswordFile</option> points to
+            a file in the Nix store. You should use a quoted absolute path to
+            prevent this.
+          '';
+        }
+      ];
 
       systemd.packages = [ cfg.package ];
 

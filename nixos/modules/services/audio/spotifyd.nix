@@ -53,10 +53,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.config == "" || cfg.settings == { };
-      message = "At most one of the .config attribute and the .settings attribute may be set";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.config == "" || cfg.settings == { };
+        message = "At most one of the .config attribute and the .settings attribute may be set";
+      }
+    ];
 
     systemd.services.spotifyd = {
       wantedBy = [ "multi-user.target" ];

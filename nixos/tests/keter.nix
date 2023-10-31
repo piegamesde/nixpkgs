@@ -14,10 +14,12 @@ import ./make-test-python.nix (
           enable = true;
 
           globalKeterConfig = {
-            listeners = [ {
-              host = "*4";
-              inherit port;
-            } ];
+            listeners = [
+              {
+                host = "*4";
+                inherit port;
+              }
+            ];
           };
           bundle = {
             appName = "test-bundle";

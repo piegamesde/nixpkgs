@@ -116,9 +116,9 @@ stdenv.mkDerivation (
 
     nativeCheckInputs = [ which ];
 
-    patches =
-      [ ./gnu-install-dirs.patch ]
-      ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
+    patches = [
+      ./gnu-install-dirs.patch
+    ] ++ lib.optional enablePolly ./gnu-install-dirs-polly.patch;
 
     postPatch =
       optionalString stdenv.isDarwin ''

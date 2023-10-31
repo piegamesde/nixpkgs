@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs =
-    [ sqlite ]
-    ++ lib.optional httpSupport curl ++ lib.optional linenoiseSupport linenoise;
+  buildInputs = [
+    sqlite
+  ] ++ lib.optional httpSupport curl ++ lib.optional linenoiseSupport linenoise;
 
   patches = [ ./0001-force-sqlite-to-be-found.patch ];
 

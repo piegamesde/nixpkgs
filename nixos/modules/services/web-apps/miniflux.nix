@@ -76,12 +76,14 @@ in
 
     services.postgresql = {
       enable = true;
-      ensureUsers = [ {
-        name = dbUser;
-        ensurePermissions = {
-          "DATABASE ${dbName}" = "ALL PRIVILEGES";
-        };
-      } ];
+      ensureUsers = [
+        {
+          name = dbUser;
+          ensurePermissions = {
+            "DATABASE ${dbName}" = "ALL PRIVILEGES";
+          };
+        }
+      ];
       ensureDatabases = [ dbName ];
     };
 

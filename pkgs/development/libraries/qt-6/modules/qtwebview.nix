@@ -9,8 +9,8 @@
 
 qtModule {
   pname = "qtwebview";
-  qtInputs =
-    [ qtdeclarative ]
-    ++ lib.optionals (!stdenv.isDarwin) [ qtwebengine ];
+  qtInputs = [
+    qtdeclarative
+  ] ++ lib.optionals (!stdenv.isDarwin) [ qtwebengine ];
   propagatedBuildInputs = lib.optionals stdenv.isDarwin [ WebKit ];
 }

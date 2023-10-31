@@ -29,11 +29,13 @@ let
         kind = "Role";
         name = "pod-reader";
       };
-      subjects = [ {
-        kind = "ServiceAccount";
-        name = "read-only";
-        namespace = "default";
-      } ];
+      subjects = [
+        {
+          kind = "ServiceAccount";
+          name = "read-only";
+          namespace = "default";
+        }
+      ];
     }
   );
 
@@ -45,15 +47,17 @@ let
         name = "pod-reader";
         namespace = "default";
       };
-      rules = [ {
-        apiGroups = [ "" ];
-        resources = [ "pods" ];
-        verbs = [
-          "get"
-          "list"
-          "watch"
-        ];
-      } ];
+      rules = [
+        {
+          apiGroups = [ "" ];
+          resources = [ "pods" ];
+          verbs = [
+            "get"
+            "list"
+            "watch"
+          ];
+        }
+      ];
     }
   );
 
@@ -65,16 +69,18 @@ let
       metadata.namespace = "default";
       metadata.labels.name = "kubectl";
       spec.serviceAccountName = "read-only";
-      spec.containers = [ {
-        name = "kubectl";
-        image = "kubectl:latest";
-        command = [
-          "/bin/tail"
-          "-f"
-        ];
-        imagePullPolicy = "Never";
-        tty = true;
-      } ];
+      spec.containers = [
+        {
+          name = "kubectl";
+          image = "kubectl:latest";
+          command = [
+            "/bin/tail"
+            "-f"
+          ];
+          imagePullPolicy = "Never";
+          tty = true;
+        }
+      ];
     }
   );
 
@@ -86,16 +92,18 @@ let
       metadata.namespace = "default";
       metadata.labels.name = "kubectl-2";
       spec.serviceAccountName = "read-only";
-      spec.containers = [ {
-        name = "kubectl-2";
-        image = "kubectl:latest";
-        command = [
-          "/bin/tail"
-          "-f"
-        ];
-        imagePullPolicy = "Never";
-        tty = true;
-      } ];
+      spec.containers = [
+        {
+          name = "kubectl-2";
+          image = "kubectl:latest";
+          command = [
+            "/bin/tail"
+            "-f"
+          ];
+          imagePullPolicy = "Never";
+          tty = true;
+        }
+      ];
     }
   );
 

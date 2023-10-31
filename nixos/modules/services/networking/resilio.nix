@@ -243,19 +243,21 @@ in
       sharedFolders = mkOption {
         default = [ ];
         type = types.listOf (types.attrsOf types.anything);
-        example = [ {
-          secretFile = "/run/resilio-secret";
-          directory = "/home/user/sync_test";
-          useRelayServer = true;
-          useTracker = true;
-          useDHT = false;
-          searchLAN = true;
-          useSyncTrash = true;
-          knownHosts = [
-            "192.168.1.2:4444"
-            "192.168.1.3:4444"
-          ];
-        } ];
+        example = [
+          {
+            secretFile = "/run/resilio-secret";
+            directory = "/home/user/sync_test";
+            useRelayServer = true;
+            useTracker = true;
+            useDHT = false;
+            searchLAN = true;
+            useSyncTrash = true;
+            knownHosts = [
+              "192.168.1.2:4444"
+              "192.168.1.3:4444"
+            ];
+          }
+        ];
         description = lib.mdDoc ''
           Shared folder list. If enabled, web UI must be
           disabled. Secrets can be generated using `rslsync --generate-secret`.

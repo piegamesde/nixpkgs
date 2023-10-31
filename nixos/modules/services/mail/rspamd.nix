@@ -275,10 +275,12 @@ let
       name = "rspamd.local.lua";
       path = cfg.localLuaRules;
     })
-    ++ [ {
-      name = "rspamd.conf";
-      path = rspamdConfFile;
-    } ]
+    ++ [
+      {
+        name = "rspamd.conf";
+        path = rspamdConfFile;
+      }
+    ]
   );
 
   configFileModule =
@@ -474,12 +476,14 @@ in
     services.rspamd.workers = mkIf cfg.postfix.enable {
       controller = { };
       rspamd_proxy = {
-        bindSockets = [ {
-          mode = "0660";
-          socket = "/run/rspamd/rspamd-milter.sock";
-          owner = cfg.user;
-          group = postfixCfg.group;
-        } ];
+        bindSockets = [
+          {
+            mode = "0660";
+            socket = "/run/rspamd/rspamd-milter.sock";
+            owner = cfg.user;
+            group = postfixCfg.group;
+          }
+        ];
         extraConfig = ''
           upstream "local" {
             default = yes; # Self-scan upstreams are always default

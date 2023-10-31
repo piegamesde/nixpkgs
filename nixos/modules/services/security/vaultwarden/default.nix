@@ -234,10 +234,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.backupDir != null -> cfg.dbBackend == "sqlite";
-      message = "Backups for database backends other than sqlite will need customization";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.backupDir != null -> cfg.dbBackend == "sqlite";
+        message = "Backups for database backends other than sqlite will need customization";
+      }
+    ];
 
     users.users.vaultwarden = {
       inherit group;
@@ -252,9 +254,9 @@ in
       serviceConfig = {
         User = user;
         Group = group;
-        EnvironmentFile =
-          [ configFile ]
-          ++ optional (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile = [
+          configFile
+        ] ++ optional (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${vaultwarden}/bin/vaultwarden";
         LimitNOFILE = "1048576";
         PrivateTmp = "true";

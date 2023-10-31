@@ -11,10 +11,12 @@ let
     builtins.concatMap
       (
         name:
-        [ {
-          name = builtins.concatStringsSep "." (prefix ++ [ name ]);
-          location = builtins.unsafeGetAttrPos name set;
-        } ]
+        [
+          {
+            name = builtins.concatStringsSep "." (prefix ++ [ name ]);
+            location = builtins.unsafeGetAttrPos name set;
+          }
+        ]
         ++
           nixpkgsLib.optionals
             (builtins.length prefix == 0 && builtins.isAttrs set.${name})

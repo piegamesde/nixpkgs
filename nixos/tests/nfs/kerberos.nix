@@ -72,10 +72,12 @@ import ../make-test-python.nix (
 
           services.kerberos_server.enable = true;
           services.kerberos_server.realms = {
-            "NFS.TEST".acl = [ {
-              access = "all";
-              principal = "admin/admin";
-            } ];
+            "NFS.TEST".acl = [
+              {
+                access = "all";
+                principal = "admin/admin";
+              }
+            ];
           };
 
           services.nfs.server.enable = true;

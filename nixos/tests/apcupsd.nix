@@ -21,10 +21,12 @@ import ./make-test-python.nix (
           '';
         };
         networking.interfaces.eth1 = {
-          ipv4.addresses = [ {
-            address = ipAddr;
-            prefixLength = 24;
-          } ];
+          ipv4.addresses = [
+            {
+              address = ipAddr;
+              prefixLength = 24;
+            }
+          ];
         };
       };
     };

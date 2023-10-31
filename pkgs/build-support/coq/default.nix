@@ -135,20 +135,24 @@ let
   useDune = args.useDune or (useDuneifVersion fetched.version);
   coqlib-flags =
     switch coq.coq-version
-      [ {
-        case = v: versions.isLe "8.6" v && v != "dev";
-        out = [ "COQLIB=$(out)/lib/coq/${coq.coq-version}/" ];
-      } ]
+      [
+        {
+          case = v: versions.isLe "8.6" v && v != "dev";
+          out = [ "COQLIB=$(out)/lib/coq/${coq.coq-version}/" ];
+        }
+      ]
       [
         "COQLIBINSTALL=$(out)/lib/coq/${coq.coq-version}/user-contrib"
         "COQPLUGININSTALL=$(OCAMLFIND_DESTDIR)"
       ];
   docdir-flags =
     switch coq.coq-version
-      [ {
-        case = v: versions.isLe "8.6" v && v != "dev";
-        out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
-      } ]
+      [
+        {
+          case = v: versions.isLe "8.6" v && v != "dev";
+          out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
+        }
+      ]
       [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
 in
 
@@ -183,12 +187,14 @@ stdenv.mkDerivation (
               platforms = coq.meta.platforms;
             }
             // (switch domain
-              [ {
-                case = pred.union isGitHubDomain isGitLabDomain;
-                out = {
-                  homepage = "https://${domain}/${owner}/${repo}";
-                };
-              } ]
+              [
+                {
+                  case = pred.union isGitHubDomain isGitLabDomain;
+                  out = {
+                    homepage = "https://${domain}/${owner}/${repo}";
+                  };
+                }
+              ]
               { }
             )
             // optionalAttrs (fetched.broken or false) {

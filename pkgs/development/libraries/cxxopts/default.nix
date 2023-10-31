@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
   patches = [ ./fix-install-path.patch ];
 
   buildInputs = lib.optionals enableUnicodeHelp [ icu.dev ];
-  cmakeFlags =
-    [ "-DCXXOPTS_BUILD_EXAMPLES=OFF" ]
-    ++ lib.optional enableUnicodeHelp "-DCXXOPTS_USE_UNICODE_HELP=TRUE";
+  cmakeFlags = [
+    "-DCXXOPTS_BUILD_EXAMPLES=OFF"
+  ] ++ lib.optional enableUnicodeHelp "-DCXXOPTS_USE_UNICODE_HELP=TRUE";
   nativeBuildInputs = [ cmake ] ++ lib.optionals enableUnicodeHelp [ pkg-config ];
 
   doCheck = true;

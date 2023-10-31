@@ -151,9 +151,9 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs =
-    [ "out" ]
-    ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
+  outputs = [
+    "out"
+  ] ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
 
   passthru = {
     inherit targetPrefix suffixSalt;

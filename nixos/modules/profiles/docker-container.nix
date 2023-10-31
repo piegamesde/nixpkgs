@@ -26,10 +26,12 @@ in
 
   # Create the tarball
   system.build.tarball = pkgs.callPackage ../../lib/make-system-tarball.nix {
-    contents = [ {
-      source = "${config.system.build.toplevel}/.";
-      target = "./";
-    } ];
+    contents = [
+      {
+        source = "${config.system.build.toplevel}/.";
+        target = "./";
+      }
+    ];
     extraArgs = "--owner=0";
 
     # Add init script to image

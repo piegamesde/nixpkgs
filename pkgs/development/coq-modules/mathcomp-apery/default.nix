@@ -23,13 +23,15 @@ mkCoqDerivation {
         coq.version
         mathcomp.version
       ]
-      [ {
-        cases = [
-          (range "8.13" "8.16")
-          (isGe "1.12.0")
-        ];
-        out = "1.0.2";
-      } ]
+      [
+        {
+          cases = [
+            (range "8.13" "8.16")
+            (isGe "1.12.0")
+          ];
+          out = "1.0.2";
+        }
+      ]
       null;
 
   release."1.0.2".sha256 = "sha256-llxyMKYvWUA7fyroG1S/jtpioAoArmarR1edi3cikcY=";

@@ -21,16 +21,20 @@ import ./make-test-python.nix (
               grpc_listen_port = 0;
             };
             clients = [ { url = "http://localhost:3100/loki/api/v1/push"; } ];
-            scrape_configs = [ {
-              job_name = "system";
-              static_configs = [ {
-                targets = [ "localhost" ];
-                labels = {
-                  job = "varlogs";
-                  __path__ = "/var/log/*log";
-                };
-              } ];
-            } ];
+            scrape_configs = [
+              {
+                job_name = "system";
+                static_configs = [
+                  {
+                    targets = [ "localhost" ];
+                    labels = {
+                      job = "varlogs";
+                      __path__ = "/var/log/*log";
+                    };
+                  }
+                ];
+              }
+            ];
           };
         };
       };

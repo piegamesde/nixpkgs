@@ -358,9 +358,9 @@ in
       description = "CUPS printing services";
     };
 
-    environment.systemPackages =
-      [ cups.out ]
-      ++ optional polkitEnabled cups-pk-helper;
+    environment.systemPackages = [
+      cups.out
+    ] ++ optional polkitEnabled cups-pk-helper;
     environment.etc.cups.source = "/var/lib/cups";
 
     services.dbus.packages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
@@ -458,18 +458,18 @@ in
       description = "CUPS Remote Printer Discovery";
 
       wantedBy = [ "multi-user.target" ];
-      wants =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
-      bindsTo =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
-      partOf =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
-      after =
-        [ "avahi-daemon.service" ]
-        ++ optional (!cfg.startWhenNeeded) "cups.service";
+      wants = [
+        "avahi-daemon.service"
+      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      bindsTo = [
+        "avahi-daemon.service"
+      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      partOf = [
+        "avahi-daemon.service"
+      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      after = [
+        "avahi-daemon.service"
+      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
 
       path = [ cups ];
 

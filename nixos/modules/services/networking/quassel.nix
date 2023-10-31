@@ -92,10 +92,12 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = cfg.requireSSL -> cfg.certificateFile != null;
-      message = "Quassel needs a certificate file in order to require SSL";
-    } ];
+    assertions = [
+      {
+        assertion = cfg.requireSSL -> cfg.certificateFile != null;
+        message = "Quassel needs a certificate file in order to require SSL";
+      }
+    ];
 
     users.users = optionalAttrs (cfg.user == null) {
       quassel = {

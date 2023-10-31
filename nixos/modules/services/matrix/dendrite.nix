@@ -280,15 +280,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [ {
-      assertion =
-        cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
-      message = ''
-        If Dendrite is configured to use https, tlsCert and tlsKey must be provided.
+    assertions = [
+      {
+        assertion =
+          cfg.httpsPort != null -> (cfg.tlsCert != null && cfg.tlsKey != null);
+        message = ''
+          If Dendrite is configured to use https, tlsCert and tlsKey must be provided.
 
-        nix-shell -p dendrite --command "generate-keys --tls-cert server.crt --tls-key server.key"
-      '';
-    } ];
+          nix-shell -p dendrite --command "generate-keys --tls-cert server.crt --tls-key server.key"
+        '';
+      }
+    ];
 
     systemd.services.dendrite = {
       description = "Dendrite Matrix homeserver";
@@ -304,11 +306,13 @@ in
         LimitNOFILE = 65535;
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         LoadCredential = cfg.loadCredential;
-        ExecStartPre = [ ''
-          ${pkgs.envsubst}/bin/envsubst \
-            -i ${configurationYaml} \
-            -o /run/dendrite/dendrite.yaml
-        '' ];
+        ExecStartPre = [
+          ''
+            ${pkgs.envsubst}/bin/envsubst \
+              -i ${configurationYaml} \
+              -o /run/dendrite/dendrite.yaml
+          ''
+        ];
         ExecStart = lib.strings.concatStringsSep " " (
           [
             "${pkgs.dendrite}/bin/dendrite"

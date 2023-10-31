@@ -60,9 +60,9 @@ stdenv.mkDerivation rec {
     inherit rev sha256;
   };
 
-  outputs =
-    [ "out" ]
-    ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
+  outputs = [
+    "out"
+  ] ++ lib.optional withExamples "bin" ++ lib.optional withDocs "doc";
 
   # Manually move example & test binaries to $bin to avoid cyclic dependencies on dev binaries
   outputBin = lib.optionalString withExamples "out";

@@ -18,15 +18,17 @@ let
     logging = {
       level = "info";
     };
-    services = [ {
-      module = "lib/index.js";
-      entrypoint = "apiServiceWorker";
-      conf = {
-        mwApis = map (x: if isAttrs x then x else { uri = x; }) cfg.wikis;
-        serverInterface = cfg.interface;
-        serverPort = cfg.port;
-      };
-    } ];
+    services = [
+      {
+        module = "lib/index.js";
+        entrypoint = "apiServiceWorker";
+        conf = {
+          mwApis = map (x: if isAttrs x then x else { uri = x; }) cfg.wikis;
+          serverInterface = cfg.interface;
+          serverPort = cfg.port;
+        };
+      }
+    ];
   };
 
   confFile = pkgs.writeText "config.yml" (

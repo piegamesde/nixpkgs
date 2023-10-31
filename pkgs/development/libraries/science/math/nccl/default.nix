@@ -35,9 +35,9 @@ backendStdenv.mkDerivation rec {
     cuda_nvcc
   ];
 
-  buildInputs =
-    [ cuda_cudart ]
-    ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [ cuda_cccl ];
+  buildInputs = [
+    cuda_cudart
+  ] ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [ cuda_cccl ];
 
   preConfigure = ''
     patchShebangs src/collectives/device/gen_rules.sh

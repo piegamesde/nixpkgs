@@ -24,14 +24,18 @@ import ./make-test-python.nix (
                 group_interval = "15s";
                 repeat_interval = "24h";
               };
-              receivers = [ {
-                name = "test";
-                webhook_configs = [ {
-                  url = "http://localhost:1234";
-                  send_resolved = true;
-                  max_alerts = 0;
-                } ];
-              } ];
+              receivers = [
+                {
+                  name = "test";
+                  webhook_configs = [
+                    {
+                      url = "http://localhost:1234";
+                      send_resolved = true;
+                      max_alerts = 0;
+                    }
+                  ];
+                }
+              ];
             };
           };
           services.karma = {
@@ -43,10 +47,12 @@ import ./make-test-python.nix (
                 port = 8081;
               };
               alertmanager = {
-                servers = [ {
-                  name = "alertmanager";
-                  uri = "https://127.0.0.1:9093";
-                } ];
+                servers = [
+                  {
+                    name = "alertmanager";
+                    uri = "https://127.0.0.1:9093";
+                  }
+                ];
               };
               karma.name = "test-dashboard";
               log.config = true;

@@ -11,9 +11,9 @@ picom.overrideAttrs (
   oldAttrs: rec {
     pname = "picom-next";
     version = "unstable-2023-01-29";
-    buildInputs =
-      [ pcre2 ]
-      ++ lib.remove libXinerama (lib.remove pcre oldAttrs.buildInputs);
+    buildInputs = [
+      pcre2
+    ] ++ lib.remove libXinerama (lib.remove pcre oldAttrs.buildInputs);
     src = fetchFromGitHub {
       owner = "yshui";
       repo = "picom";

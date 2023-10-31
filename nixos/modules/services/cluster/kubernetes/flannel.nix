@@ -31,15 +31,17 @@ in
     };
 
     services.kubernetes.kubelet = {
-      cni.config = mkDefault [ {
-        name = "mynet";
-        type = "flannel";
-        cniVersion = "0.3.1";
-        delegate = {
-          isDefaultGateway = true;
-          bridge = "mynet";
-        };
-      } ];
+      cni.config = mkDefault [
+        {
+          name = "mynet";
+          type = "flannel";
+          cniVersion = "0.3.1";
+          delegate = {
+            isDefaultGateway = true;
+            bridge = "mynet";
+          };
+        }
+      ];
     };
 
     networking = {
@@ -109,10 +111,12 @@ in
               kind = "ClusterRole";
               name = "flannel";
             };
-            subjects = [ {
-              kind = "User";
-              name = "flannel-client";
-            } ];
+            subjects = [
+              {
+                kind = "User";
+                name = "flannel-client";
+              }
+            ];
           };
         };
   };

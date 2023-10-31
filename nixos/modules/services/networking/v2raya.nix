@@ -20,9 +20,9 @@ with lib;
     systemd.services.v2raya =
       let
         nftablesEnabled = config.networking.nftables.enable;
-        iptablesServices =
-          [ "iptables.service" ]
-          ++ optional config.networking.enableIPv6 "ip6tables.service";
+        iptablesServices = [
+          "iptables.service"
+        ] ++ optional config.networking.enableIPv6 "ip6tables.service";
         tableServices =
           if nftablesEnabled then [ "nftables.service" ] else iptablesServices;
       in

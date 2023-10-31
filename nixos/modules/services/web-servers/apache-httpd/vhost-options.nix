@@ -210,10 +210,12 @@ in
     servedDirs = mkOption {
       type = types.listOf types.attrs;
       default = [ ];
-      example = [ {
-        urlPath = "/nix";
-        dir = "/home/eelco/Dev/nix-homepage";
-      } ];
+      example = [
+        {
+          urlPath = "/nix";
+          dir = "/home/eelco/Dev/nix-homepage";
+        }
+      ];
       description = lib.mdDoc ''
         This option provides a simple way to serve static directories.
       '';
@@ -222,10 +224,12 @@ in
     servedFiles = mkOption {
       type = types.listOf types.attrs;
       default = [ ];
-      example = [ {
-        urlPath = "/foo/bar.png";
-        file = "/home/eelco/some-file.png";
-      } ];
+      example = [
+        {
+          urlPath = "/foo/bar.png";
+          file = "/home/eelco/some-file.png";
+        }
+      ];
       description = lib.mdDoc ''
         This option provides a simple way to serve individual, static files.
 

@@ -410,10 +410,12 @@ rec {
           )
         else if isList m then
           let
-            defs = [ {
-              file = fallbackFile;
-              value = m;
-            } ];
+            defs = [
+              {
+                file = fallbackFile;
+                value = m;
+              }
+            ];
           in
           throw
             "Module imports can't be nested lists. Perhaps you meant to remove one level of lists? Definitions: ${
@@ -474,10 +476,12 @@ rec {
                 disabled =
                   (
                     if module.disabledModules != [ ] then
-                      [ {
-                        file = module._file;
-                        disabled = module.disabledModules;
-                      } ]
+                      [
+                        {
+                          file = module._file;
+                          disabled = module.disabledModules;
+                        }
+                      ]
                     else
                       [ ]
                   )
@@ -763,10 +767,12 @@ rec {
       # an attrset 'name' => list of submodules that declare ‘name’.
       declsByName =
         byName "options"
-          (module: option: [ {
-            inherit (module) _file;
-            options = option;
-          } ])
+          (module: option: [
+            {
+              inherit (module) _file;
+              options = option;
+            }
+          ])
           options;
       # an attrset 'name' => list of submodules that define ‘name’.
       defnsByName =
@@ -784,10 +790,12 @@ rec {
       # extract the definitions for each loc
       defnsByName' =
         byName "config"
-          (module: value: [ {
-            inherit (module) file;
-            inherit value;
-          } ])
+          (module: value: [
+            {
+              inherit (module) file;
+              inherit value;
+            }
+          ])
           configs;
 
       # Convert an option tree decl to a submodule option decl
@@ -1365,15 +1373,17 @@ rec {
         let
           opt = getAttrFromPath optionName options;
         in
-        [ {
-          assertion = !opt.isDefined;
-          message = ''
-            The option definition `${showOption optionName}' in ${
-              showFiles opt.files
-            } no longer has any effect; please remove it.
-            ${replacementInstructions}
-          '';
-        } ];
+        [
+          {
+            assertion = !opt.isDefined;
+            message = ''
+              The option definition `${showOption optionName}' in ${
+                showFiles opt.files
+              } no longer has any effect; please remove it.
+              ${replacementInstructions}
+            '';
+          }
+        ];
     };
 
   /* Return a module that causes a warning to be shown if the

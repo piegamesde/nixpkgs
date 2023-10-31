@@ -47,11 +47,13 @@ with lib;
         type = types.nullOr (types.attrsOf types.unspecified);
         default = null;
         example = {
-          inbounds = [ {
-            port = 1080;
-            listen = "127.0.0.1";
-            protocol = "http";
-          } ];
+          inbounds = [
+            {
+              port = 1080;
+              listen = "127.0.0.1";
+              protocol = "http";
+            }
+          ];
           outbounds = [ { protocol = "freedom"; } ];
         };
         description = lib.mdDoc ''
@@ -82,10 +84,12 @@ with lib;
       ;
     in
     mkIf cfg.enable {
-      assertions = [ {
-        assertion = (cfg.configFile == null) != (cfg.config == null);
-        message = "Either but not both `configFile` and `config` should be specified for v2ray.";
-      } ];
+      assertions = [
+        {
+          assertion = (cfg.configFile == null) != (cfg.config == null);
+          message = "Either but not both `configFile` and `config` should be specified for v2ray.";
+        }
+      ];
 
       environment.etc."v2ray/config.json".source = configFile;
 

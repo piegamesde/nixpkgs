@@ -31,14 +31,18 @@ import ./make-test-python.nix (
         };
         networking.interfaces = {
           br0 = {
-            ipv4.addresses = [ {
-              address = hostIp;
-              prefixLength = 24;
-            } ];
-            ipv6.addresses = [ {
-              address = hostIp6;
-              prefixLength = 7;
-            } ];
+            ipv4.addresses = [
+              {
+                address = hostIp;
+                prefixLength = 24;
+              }
+            ];
+            ipv6.addresses = [
+              {
+                address = hostIp6;
+                prefixLength = 7;
+              }
+            ];
           };
         };
 

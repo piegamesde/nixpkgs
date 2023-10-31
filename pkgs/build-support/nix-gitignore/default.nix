@@ -32,10 +32,12 @@ rec {
       in
       last (
         last (
-          [ [
-            true
-            true
-          ] ]
+          [
+            [
+              true
+              true
+            ]
+          ]
           ++ (filter head matched)
         )
       )

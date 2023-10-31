@@ -190,10 +190,12 @@ let
   # LD_LIBRARY_PATH=/run/opengl-driver/lib.  We only use the stub
   # libcuda.so from cudatoolkit for running tests, so that we don’t have
   # to recompile pytorch on every update to nvidia-x11 or the kernel.
-  cudaStub = linkFarm "cuda-stub" [ {
-    name = "libcuda.so.1";
-    path = "${cudatoolkit}/lib/stubs/libcuda.so";
-  } ];
+  cudaStub = linkFarm "cuda-stub" [
+    {
+      name = "libcuda.so.1";
+      path = "${cudatoolkit}/lib/stubs/libcuda.so";
+    }
+  ];
   cudaStubEnv =
     lib.optionalString cudaSupport
       "LD_LIBRARY_PATH=${cudaStub}\${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH ";

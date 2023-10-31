@@ -99,10 +99,12 @@ builtins.concatLists [
     let
       gemSet = {
         test = {
-          platforms = [ {
-            engine = ruby.rubyEngine;
-            version = ruby.version.majMin;
-          } ];
+          platforms = [
+            {
+              engine = ruby.rubyEngine;
+              version = ruby.version.majMin;
+            }
+          ];
         };
       };
     in

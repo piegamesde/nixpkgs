@@ -147,10 +147,12 @@ in
   };
 
   config = mkIf cfg.server.enable {
-    assertions = [ {
-      assertion = !(cfg.server.exports ? "generic");
-      message = "services.nbd.server exports must not be named 'generic'";
-    } ];
+    assertions = [
+      {
+        assertion = !(cfg.server.exports ? "generic");
+        message = "services.nbd.server exports must not be named 'generic'";
+      }
+    ];
 
     boot.kernelModules = [ "nbd" ];
 

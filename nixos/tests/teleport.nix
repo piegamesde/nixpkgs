@@ -42,10 +42,12 @@ let
         auth_service.enabled = false;
       };
     };
-    networking.interfaces.eth1.ipv4.addresses = [ {
-      address = "192.168.1.20";
-      prefixLength = 24;
-    } ];
+    networking.interfaces.eth1.ipv4.addresses = [
+      {
+        address = "192.168.1.20";
+        prefixLength = 24;
+      }
+    ];
   };
 
   server = package: {
@@ -69,10 +71,12 @@ let
     };
     networking = {
       firewall.allowedTCPPorts = [ 3025 ];
-      interfaces.eth1.ipv4.addresses = [ {
-        address = "192.168.1.10";
-        prefixLength = 24;
-      } ];
+      interfaces.eth1.ipv4.addresses = [
+        {
+          address = "192.168.1.10";
+          prefixLength = 24;
+        }
+      ];
     };
   };
 in

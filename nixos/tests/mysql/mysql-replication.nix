@@ -36,10 +36,12 @@ let
             replication.slaveHost = "%";
             replication.masterUser = replicateUser;
             replication.masterPassword = replicatePassword;
-            initialDatabases = [ {
-              name = "testdb";
-              schema = ./testdb.sql;
-            } ];
+            initialDatabases = [
+              {
+                name = "testdb";
+                schema = ./testdb.sql;
+              }
+            ];
           };
           networking.firewall.allowedTCPPorts = [ 3306 ];
         };

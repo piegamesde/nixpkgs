@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
     "-DLIBDEFLATE_BUILD_SHARED_LIB=OFF"
   ];
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   passthru.tests.static = pkgsStatic.libdeflate;
 

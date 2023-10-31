@@ -133,22 +133,26 @@ in
                 type = types.listOf types.attrs;
                 default = [ ];
                 description = lib.mdDoc "Firewall rules for outbound traffic.";
-                example = [ {
-                  port = "any";
-                  proto = "any";
-                  host = "any";
-                } ];
+                example = [
+                  {
+                    port = "any";
+                    proto = "any";
+                    host = "any";
+                  }
+                ];
               };
 
               firewall.inbound = mkOption {
                 type = types.listOf types.attrs;
                 default = [ ];
                 description = lib.mdDoc "Firewall rules for inbound traffic.";
-                example = [ {
-                  port = "any";
-                  proto = "any";
-                  host = "any";
-                } ];
+                example = [
+                  {
+                    port = "any";
+                    proto = "any";
+                    host = "any";
+                  }
+                ];
               };
 
               settings = mkOption {

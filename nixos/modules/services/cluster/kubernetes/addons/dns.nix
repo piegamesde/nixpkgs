@@ -189,11 +189,13 @@ in
           kind = "ClusterRole";
           name = "system:coredns";
         };
-        subjects = [ {
-          kind = "ServiceAccount";
-          name = "coredns";
-          namespace = "kube-system";
-        } ];
+        subjects = [
+          {
+            kind = "ServiceAccount";
+            name = "coredns";
+            namespace = "kube-system";
+          }
+        ];
       };
     };
 
@@ -262,64 +264,68 @@ in
               };
             };
             spec = {
-              containers = [ {
-                args = [
-                  "-conf"
-                  "/etc/coredns/Corefile"
-                ];
-                image = with cfg.coredns; "${imageName}:${finalImageTag}";
-                imagePullPolicy = "Never";
-                livenessProbe = {
-                  failureThreshold = 5;
-                  httpGet = {
-                    path = "/health";
-                    port = ports.health;
-                    scheme = "HTTP";
+              containers = [
+                {
+                  args = [
+                    "-conf"
+                    "/etc/coredns/Corefile"
+                  ];
+                  image = with cfg.coredns; "${imageName}:${finalImageTag}";
+                  imagePullPolicy = "Never";
+                  livenessProbe = {
+                    failureThreshold = 5;
+                    httpGet = {
+                      path = "/health";
+                      port = ports.health;
+                      scheme = "HTTP";
+                    };
+                    initialDelaySeconds = 60;
+                    successThreshold = 1;
+                    timeoutSeconds = 5;
                   };
-                  initialDelaySeconds = 60;
-                  successThreshold = 1;
-                  timeoutSeconds = 5;
-                };
-                name = "coredns";
-                ports = [
-                  {
-                    containerPort = ports.dns;
-                    name = "dns";
-                    protocol = "UDP";
-                  }
-                  {
-                    containerPort = ports.dns;
-                    name = "dns-tcp";
-                    protocol = "TCP";
-                  }
-                  {
-                    containerPort = ports.metrics;
-                    name = "metrics";
-                    protocol = "TCP";
-                  }
-                ];
-                resources = {
-                  limits = {
-                    memory = "170Mi";
+                  name = "coredns";
+                  ports = [
+                    {
+                      containerPort = ports.dns;
+                      name = "dns";
+                      protocol = "UDP";
+                    }
+                    {
+                      containerPort = ports.dns;
+                      name = "dns-tcp";
+                      protocol = "TCP";
+                    }
+                    {
+                      containerPort = ports.metrics;
+                      name = "metrics";
+                      protocol = "TCP";
+                    }
+                  ];
+                  resources = {
+                    limits = {
+                      memory = "170Mi";
+                    };
+                    requests = {
+                      cpu = "100m";
+                      memory = "70Mi";
+                    };
                   };
-                  requests = {
-                    cpu = "100m";
-                    memory = "70Mi";
+                  securityContext = {
+                    allowPrivilegeEscalation = false;
+                    capabilities = {
+                      drop = [ "all" ];
+                    };
+                    readOnlyRootFilesystem = true;
                   };
-                };
-                securityContext = {
-                  allowPrivilegeEscalation = false;
-                  capabilities = {
-                    drop = [ "all" ];
-                  };
-                  readOnlyRootFilesystem = true;
-                };
-                volumeMounts = [ {
-                  mountPath = "/etc/coredns";
-                  name = "config-volume";
-                  readOnly = true;
-                } ];
-              } ];
+                  volumeMounts = [
+                    {
+                      mountPath = "/etc/coredns";
+                      name = "config-volume";
+                      readOnly = true;
+                    }
+                  ];
+                }
+              ];
               dnsPolicy = "Default";
               nodeSelector = {
                 "beta.kubernetes.io/os" = "linux";
@@ -335,16 +341,20 @@ in
                   operator = "Exists";
                 }
               ];
-              volumes = [ {
-                configMap = {
-                  items = [ {
-                    key = "Corefile";
-                    path = "Corefile";
-                  } ];
-                  name = "coredns";
-                };
-                name = "config-volume";
-              } ];
+              volumes = [
+                {
+                  configMap = {
+                    items = [
+                      {
+                        key = "Corefile";
+                        path = "Corefile";
+                      }
+                    ];
+                    name = "coredns";
+                  };
+                  name = "config-volume";
+                }
+              ];
             };
           };
         };

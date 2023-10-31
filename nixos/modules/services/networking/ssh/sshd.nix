@@ -832,10 +832,12 @@ in
     '';
 
     assertions =
-      [ {
-        assertion = if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
-        message = "cannot enable X11 forwarding without setting xauth location";
-      } ]
+      [
+        {
+          assertion = if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
+          message = "cannot enable X11 forwarding without setting xauth location";
+        }
+      ]
       ++ forEach cfg.listenAddresses (
         { addr, ... }:
         {

@@ -28,7 +28,7 @@ in
 callPackage ./indi-with-drivers.nix {
   pname = "indi-full";
   version = indi-version;
-  extraDrivers =
-    [ indi-3rdparty ]
-    ++ lib.optionals stdenv.isx86_64 [ indi-firmware ];
+  extraDrivers = [
+    indi-3rdparty
+  ] ++ lib.optionals stdenv.isx86_64 [ indi-firmware ];
 }

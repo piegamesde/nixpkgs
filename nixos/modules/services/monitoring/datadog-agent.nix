@@ -220,11 +220,13 @@ in
       example = {
         http_check = {
           init_config = null; # sic!
-          instances = [ {
-            name = "some-service";
-            url = "http://localhost:1337/healthz";
-            tags = [ "some-service" ];
-          } ];
+          instances = [
+            {
+              name = "some-service";
+              url = "http://localhost:1337/healthz";
+              tags = [ "some-service" ];
+            }
+          ];
         };
       };
 
@@ -250,13 +252,15 @@ in
       default = {
         init_config = { };
         # Network check only supports one configured instance
-        instances = [ {
-          collect_connection_state = false;
-          excluded_interfaces = [
-            "lo"
-            "lo0"
-          ];
-        } ];
+        instances = [
+          {
+            collect_connection_state = false;
+            excluded_interfaces = [
+              "lo"
+              "lo0"
+            ];
+          }
+        ];
       };
     };
   };

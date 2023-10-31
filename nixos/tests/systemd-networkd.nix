@@ -38,17 +38,19 @@ let
               ListenPort = 51820;
               FirewallMark = 42;
             };
-            wireguardPeers = [ {
-              wireguardPeerConfig = {
-                Endpoint = "192.168.1.${peerId}:51820";
-                PublicKey = pubk;
-                PresharedKeyFile =
-                  pkgs.writeText "psk.key"
-                    "yTL3sCOL33Wzi6yCnf9uZQl/Z8laSE+zwpqOHC4HhFU=";
-                AllowedIPs = [ "10.0.0.${peerId}/32" ];
-                PersistentKeepalive = 15;
-              };
-            } ];
+            wireguardPeers = [
+              {
+                wireguardPeerConfig = {
+                  Endpoint = "192.168.1.${peerId}:51820";
+                  PublicKey = pubk;
+                  PresharedKeyFile =
+                    pkgs.writeText "psk.key"
+                      "yTL3sCOL33Wzi6yCnf9uZQl/Z8laSE+zwpqOHC4HhFU=";
+                  AllowedIPs = [ "10.0.0.${peerId}/32" ];
+                  PersistentKeepalive = 15;
+                };
+              }
+            ];
           };
         };
         networks = {

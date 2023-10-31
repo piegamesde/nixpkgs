@@ -26,23 +26,25 @@ import ../make-test-python.nix (
                 # don't use this in production, always use some form of verification
                 enable_registration_without_verification = true;
 
-                listeners = [ {
-                  # The default but tls=false
-                  bind_addresses = [ "0.0.0.0" ];
-                  port = 8008;
-                  resources = [
-                    {
-                      "compress" = true;
-                      "names" = [ "client" ];
-                    }
-                    {
-                      "compress" = false;
-                      "names" = [ "federation" ];
-                    }
-                  ];
-                  tls = false;
-                  type = "http";
-                } ];
+                listeners = [
+                  {
+                    # The default but tls=false
+                    bind_addresses = [ "0.0.0.0" ];
+                    port = 8008;
+                    resources = [
+                      {
+                        "compress" = true;
+                        "names" = [ "client" ];
+                      }
+                      {
+                        "compress" = false;
+                        "names" = [ "federation" ];
+                      }
+                    ];
+                    tls = false;
+                    type = "http";
+                  }
+                ];
               };
             };
 

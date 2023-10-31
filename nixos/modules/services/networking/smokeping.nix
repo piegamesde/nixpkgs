@@ -308,10 +308,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [ {
-      assertion = !(cfg.sendmail != null && cfg.mailHost != "");
-      message = "services.smokeping: sendmail and Mailhost cannot both be enabled.";
-    } ];
+    assertions = [
+      {
+        assertion = !(cfg.sendmail != null && cfg.mailHost != "");
+        message = "services.smokeping: sendmail and Mailhost cannot both be enabled.";
+      }
+    ];
     security.wrappers = {
       fping = {
         setuid = true;

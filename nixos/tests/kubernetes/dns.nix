@@ -12,19 +12,23 @@ let
       apiVersion = "v1";
       metadata.name = "redis";
       metadata.labels.name = "redis";
-      spec.containers = [ {
-        name = "redis";
-        image = "redis";
-        args = [
-          "--bind"
-          "0.0.0.0"
-        ];
-        imagePullPolicy = "Never";
-        ports = [ {
-          name = "redis-server";
-          containerPort = 6379;
-        } ];
-      } ];
+      spec.containers = [
+        {
+          name = "redis";
+          image = "redis";
+          args = [
+            "--bind"
+            "0.0.0.0"
+          ];
+          imagePullPolicy = "Never";
+          ports = [
+            {
+              name = "redis-server";
+              containerPort = 6379;
+            }
+          ];
+        }
+      ];
     }
   );
 
@@ -34,10 +38,12 @@ let
       apiVersion = "v1";
       metadata.name = "redis";
       spec = {
-        ports = [ {
-          port = 6379;
-          targetPort = 6379;
-        } ];
+        ports = [
+          {
+            port = 6379;
+            targetPort = 6379;
+          }
+        ];
         selector = {
           name = "redis";
         };
@@ -65,13 +71,15 @@ let
       apiVersion = "v1";
       metadata.name = "probe";
       metadata.labels.name = "probe";
-      spec.containers = [ {
-        name = "probe";
-        image = "probe";
-        args = [ "-f" ];
-        tty = true;
-        imagePullPolicy = "Never";
-      } ];
+      spec.containers = [
+        {
+          name = "probe";
+          image = "probe";
+          args = [ "-f" ];
+          tty = true;
+          imagePullPolicy = "Never";
+        }
+      ];
     }
   );
 

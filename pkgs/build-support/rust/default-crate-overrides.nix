@@ -247,10 +247,12 @@ in
 
   rink = attrs: {
     buildInputs = [ gmp ];
-    crateBin = [ {
-      name = "rink";
-      path = "src/bin/rink.rs";
-    } ];
+    crateBin = [
+      {
+        name = "rink";
+        path = "src/bin/rink.rs";
+      }
+    ];
   };
 
   security-framework-sys = attr: {

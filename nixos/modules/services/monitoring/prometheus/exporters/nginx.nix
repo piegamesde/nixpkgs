@@ -48,19 +48,21 @@ in
     };
   };
   serviceOpts = mkMerge (
-    [ {
-      serviceConfig = {
-        ExecStart = ''
-          ${pkgs.prometheus-nginx-exporter}/bin/nginx-prometheus-exporter \
-            --nginx.scrape-uri='${cfg.scrapeUri}' \
-            --nginx.ssl-verify=${boolToString cfg.sslVerify} \
-            --web.listen-address=${cfg.listenAddress}:${toString cfg.port} \
-            --web.telemetry-path=${cfg.telemetryPath} \
-            --prometheus.const-labels=${concatStringsSep "," cfg.constLabels} \
-            ${concatStringsSep " \\\n  " cfg.extraFlags}
-        '';
-      };
-    } ]
+    [
+      {
+        serviceConfig = {
+          ExecStart = ''
+            ${pkgs.prometheus-nginx-exporter}/bin/nginx-prometheus-exporter \
+              --nginx.scrape-uri='${cfg.scrapeUri}' \
+              --nginx.ssl-verify=${boolToString cfg.sslVerify} \
+              --web.listen-address=${cfg.listenAddress}:${toString cfg.port} \
+              --web.telemetry-path=${cfg.telemetryPath} \
+              --prometheus.const-labels=${concatStringsSep "," cfg.constLabels} \
+              ${concatStringsSep " \\\n  " cfg.extraFlags}
+          '';
+        };
+      }
+    ]
     ++ [
       (mkIf config.services.nginx.enable {
         after = [ "nginx.service" ];

@@ -27,15 +27,17 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.windowManager.session = [ {
-      name = "mlvwm";
-      start = ''
-        ${pkgs.mlvwm}/bin/mlvwm ${
-          optionalString (cfg.configFile != null) "-f /etc/mlvwm/mlvwmrc"
-        } &
-        waitPID=$!
-      '';
-    } ];
+    services.xserver.windowManager.session = [
+      {
+        name = "mlvwm";
+        start = ''
+          ${pkgs.mlvwm}/bin/mlvwm ${
+            optionalString (cfg.configFile != null) "-f /etc/mlvwm/mlvwmrc"
+          } &
+          waitPID=$!
+        '';
+      }
+    ];
 
     environment.etc."mlvwm/mlvwmrc" = mkIf (cfg.configFile != null) {
       source = cfg.configFile;

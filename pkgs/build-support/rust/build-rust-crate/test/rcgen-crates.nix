@@ -303,15 +303,19 @@ rec {
         edition = "2015";
         sha256 = "1m11zblxfanrhl97j7z3ap7n17rr8j0rg91sr7f9j6y2bsniaz1x";
         authors = [ "Jack Lloyd <jack@randombit.net>" ];
-        dependencies = [ {
-          name = "cty";
-          packageId = "cty";
-        } ];
-        buildDependencies = [ {
-          name = "botan-src";
-          packageId = "botan-src";
-          optional = true;
-        } ];
+        dependencies = [
+          {
+            name = "cty";
+            packageId = "cty";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "botan-src";
+            packageId = "botan-src";
+            optional = true;
+          }
+        ];
         features = {
           "botan-src" = [ "dep:botan-src" ];
           "vendored" = [ "botan-src" ];
@@ -531,10 +535,12 @@ rec {
         edition = "2018";
         sha256 = "0rmhvk33rgvd6ll71z8sng91a52rw14p0drjn1da0mqa138n1pfk";
         authors = [ "RustCrypto Developers" ];
-        dependencies = [ {
-          name = "generic-array";
-          packageId = "generic-array";
-        } ];
+        dependencies = [
+          {
+            name = "generic-array";
+            packageId = "generic-array";
+          }
+        ];
         features = {
           "blobby" = [ "dep:blobby" ];
           "dev" = [ "blobby" ];
@@ -580,10 +586,12 @@ rec {
         edition = "2015";
         sha256 = "1cgk0vyd7r45cj769jym4a6s7vwshvd0z4bqrb92q1fwibmkkwzn";
         authors = [ "Steven Fackler <sfackler@gmail.com>" ];
-        dependencies = [ {
-          name = "foreign-types-shared";
-          packageId = "foreign-types-shared";
-        } ];
+        dependencies = [
+          {
+            name = "foreign-types-shared";
+            packageId = "foreign-types-shared";
+          }
+        ];
       };
       "foreign-types-shared" = rec {
         crateName = "foreign-types-shared";
@@ -602,14 +610,18 @@ rec {
           "Bartłomiej Kamiński <fizyk20@gmail.com>"
           "Aaron Trent <novacrazy@gmail.com>"
         ];
-        dependencies = [ {
-          name = "typenum";
-          packageId = "typenum";
-        } ];
-        buildDependencies = [ {
-          name = "version_check";
-          packageId = "version_check";
-        } ];
+        dependencies = [
+          {
+            name = "typenum";
+            packageId = "typenum";
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "version_check";
+            packageId = "version_check";
+          }
+        ];
         features = {
           "serde" = [ "dep:serde" ];
         };
@@ -668,10 +680,12 @@ rec {
         edition = "2018";
         sha256 = "010g8jkj5avy3xd77i3cprjzzpfa6z9z2ay0fkllqmpx617c53x3";
         authors = [ "The wasm-bindgen Developers" ];
-        dependencies = [ {
-          name = "wasm-bindgen";
-          packageId = "wasm-bindgen";
-        } ];
+        dependencies = [
+          {
+            name = "wasm-bindgen";
+            packageId = "wasm-bindgen";
+          }
+        ];
       };
       "lazy_static" = rec {
         crateName = "lazy_static";
@@ -679,11 +693,13 @@ rec {
         edition = "2015";
         sha256 = "0in6ikhw8mgl33wjv6q6xfrb5b9jr16q8ygjy803fay4zcisvaz2";
         authors = [ "Marvin Löbel <loebel.marvin@gmail.com>" ];
-        dependencies = [ {
-          name = "spin";
-          packageId = "spin";
-          optional = true;
-        } ];
+        dependencies = [
+          {
+            name = "spin";
+            packageId = "spin";
+            optional = true;
+          }
+        ];
         features = {
           "spin" = [ "dep:spin" ];
           "spin_no_std" = [ "spin" ];
@@ -731,10 +747,12 @@ rec {
         edition = "2015";
         sha256 = "04175hv0v62shd82qydq58a48k3bjijmk54v38zgqlbxqkkbpfai";
         authors = [ "The Rust Project Developers" ];
-        dependencies = [ {
-          name = "cfg-if";
-          packageId = "cfg-if";
-        } ];
+        dependencies = [
+          {
+            name = "cfg-if";
+            packageId = "cfg-if";
+          }
+        ];
         features = {
           "kv_unstable" = [ "value-bag" ];
           "kv_unstable_serde" = [
@@ -808,10 +826,12 @@ rec {
             usesDefaultFeatures = false;
           }
         ];
-        buildDependencies = [ {
-          name = "version_check";
-          packageId = "version_check";
-        } ];
+        buildDependencies = [
+          {
+            name = "version_check";
+            packageId = "version_check";
+          }
+        ];
         features = {
           "default" = [ "std" ];
           "std" = [
@@ -846,10 +866,12 @@ rec {
             features = [ "i128" ];
           }
         ];
-        buildDependencies = [ {
-          name = "autocfg";
-          packageId = "autocfg 1.0.1";
-        } ];
+        buildDependencies = [
+          {
+            name = "autocfg";
+            packageId = "autocfg 1.0.1";
+          }
+        ];
         features = {
           "arbitrary" = [ "dep:arbitrary" ];
           "default" = [ "std" ];
@@ -925,15 +947,19 @@ rec {
             features = [ "zeroize_derive" ];
           }
         ];
-        buildDependencies = [ {
-          name = "autocfg";
-          packageId = "autocfg 0.1.7";
-        } ];
-        devDependencies = [ {
-          name = "rand";
-          packageId = "rand";
-          features = [ "small_rng" ];
-        } ];
+        buildDependencies = [
+          {
+            name = "autocfg";
+            packageId = "autocfg 0.1.7";
+          }
+        ];
+        devDependencies = [
+          {
+            name = "rand";
+            packageId = "rand";
+            features = [ "small_rng" ];
+          }
+        ];
         features = {
           "default" = [
             "std"
@@ -970,15 +996,19 @@ rec {
         edition = "2015";
         sha256 = "1nq152y3304as1iai95hqz8prqnc94lks1s7q05sfjdmcf56kk6j";
         authors = [ "The Rust Project Developers" ];
-        dependencies = [ {
-          name = "num-traits";
-          packageId = "num-traits";
-          usesDefaultFeatures = false;
-        } ];
-        buildDependencies = [ {
-          name = "autocfg";
-          packageId = "autocfg 1.0.1";
-        } ];
+        dependencies = [
+          {
+            name = "num-traits";
+            packageId = "num-traits";
+            usesDefaultFeatures = false;
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "autocfg";
+            packageId = "autocfg 1.0.1";
+          }
+        ];
         features = {
           "default" = [ "std" ];
           "i128" = [ "num-traits/i128" ];
@@ -1007,10 +1037,12 @@ rec {
             usesDefaultFeatures = false;
           }
         ];
-        buildDependencies = [ {
-          name = "autocfg";
-          packageId = "autocfg 1.0.1";
-        } ];
+        buildDependencies = [
+          {
+            name = "autocfg";
+            packageId = "autocfg 1.0.1";
+          }
+        ];
         features = {
           "default" = [ "std" ];
           "i128" = [
@@ -1029,15 +1061,19 @@ rec {
         edition = "2015";
         sha256 = "144j176s2p76azy2ngk2vkdzgwdc0bc8c93jhki8c9fsbknb2r4s";
         authors = [ "The Rust Project Developers" ];
-        dependencies = [ {
-          name = "libm";
-          packageId = "libm";
-          optional = true;
-        } ];
-        buildDependencies = [ {
-          name = "autocfg";
-          packageId = "autocfg 1.0.1";
-        } ];
+        dependencies = [
+          {
+            name = "libm";
+            packageId = "libm";
+            optional = true;
+          }
+        ];
+        buildDependencies = [
+          {
+            name = "autocfg";
+            packageId = "autocfg 1.0.1";
+          }
+        ];
         features = {
           "default" = [ "std" ];
           "libm" = [ "dep:libm" ];
@@ -1055,12 +1091,14 @@ rec {
         edition = "2015";
         sha256 = "05gvsnv4k6d69iksz47i7fq1r61dj1k1nh4i8xrw7qlkcfx9kflp";
         authors = [ "Jacob Pratt <open-source@jhpratt.dev>" ];
-        dependencies = [ {
-          name = "libc";
-          packageId = "libc";
-          target =
-            { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
-        } ];
+        dependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+            target =
+              { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
+          }
+        ];
       };
       "oid-registry" = rec {
         crateName = "oid-registry";
@@ -1068,10 +1106,12 @@ rec {
         edition = "2018";
         sha256 = "0akbah3j8231ayrp2l1y5d9zmvbvqcsj0sa6s6dz6h85z8bhgqiq";
         authors = [ "Pierre Chifflier <chifflier@wzdftpd.net>" ];
-        dependencies = [ {
-          name = "asn1-rs";
-          packageId = "asn1-rs";
-        } ];
+        dependencies = [
+          {
+            name = "asn1-rs";
+            packageId = "asn1-rs";
+          }
+        ];
         features = {
           "crypto" = [
             "kdf"
@@ -1165,10 +1205,12 @@ rec {
           "Alex Crichton <alex@alexcrichton.com>"
           "Steven Fackler <sfackler@gmail.com>"
         ];
-        dependencies = [ {
-          name = "libc";
-          packageId = "libc";
-        } ];
+        dependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+          }
+        ];
         buildDependencies = [
           {
             name = "autocfg";
@@ -1199,10 +1241,12 @@ rec {
         edition = "2018";
         sha256 = "0iqrvfnm71x9pvff39d5ajwn3gc9glxlv4d4h22max7342db18z9";
         authors = [ "Jonathan Creekmore <jonathan@thecreekmores.org>" ];
-        dependencies = [ {
-          name = "base64";
-          packageId = "base64";
-        } ];
+        dependencies = [
+          {
+            name = "base64";
+            packageId = "base64";
+          }
+        ];
       };
       "pem-rfc7468" = rec {
         crateName = "pem-rfc7468";
@@ -1210,10 +1254,12 @@ rec {
         edition = "2018";
         sha256 = "1m1c9jypydzabg4yscplmvff7pdcc8gg4cqg081hnlf03hxkmsc4";
         authors = [ "RustCrypto Developers" ];
-        dependencies = [ {
-          name = "base64ct";
-          packageId = "base64ct";
-        } ];
+        dependencies = [
+          {
+            name = "base64ct";
+            packageId = "base64ct";
+          }
+        ];
         features = {
           "std" = [ "alloc" ];
         };
@@ -1378,10 +1424,12 @@ rec {
           "David Tolnay <dtolnay@gmail.com>"
           "Alex Crichton <alex@alexcrichton.com>"
         ];
-        dependencies = [ {
-          name = "unicode-xid";
-          packageId = "unicode-xid";
-        } ];
+        dependencies = [
+          {
+            name = "unicode-xid";
+            packageId = "unicode-xid";
+          }
+        ];
         features = {
           "default" = [ "proc-macro" ];
         };
@@ -1396,11 +1444,13 @@ rec {
         edition = "2018";
         sha256 = "0id1q0875pvhkg0mlb5z8gzdm2g2rbbz76bfzhv331lrm2b3wkc6";
         authors = [ "David Tolnay <dtolnay@gmail.com>" ];
-        dependencies = [ {
-          name = "proc-macro2";
-          packageId = "proc-macro2";
-          usesDefaultFeatures = false;
-        } ];
+        dependencies = [
+          {
+            name = "proc-macro2";
+            packageId = "proc-macro2";
+            usesDefaultFeatures = false;
+          }
+        ];
         features = {
           "default" = [ "proc-macro" ];
           "proc-macro" = [ "proc-macro2/proc-macro" ];
@@ -1445,10 +1495,12 @@ rec {
             target = { target, features }: (target."os" == "emscripten");
           }
         ];
-        devDependencies = [ {
-          name = "rand_hc";
-          packageId = "rand_hc";
-        } ];
+        devDependencies = [
+          {
+            name = "rand_hc";
+            packageId = "rand_hc";
+          }
+        ];
         features = {
           "alloc" = [ "rand_core/alloc" ];
           "default" = [
@@ -1529,11 +1581,13 @@ rec {
           "The Rand Project Developers"
           "The Rust Project Developers"
         ];
-        dependencies = [ {
-          name = "getrandom";
-          packageId = "getrandom";
-          optional = true;
-        } ];
+        dependencies = [
+          {
+            name = "getrandom";
+            packageId = "getrandom";
+            optional = true;
+          }
+        ];
         features = {
           "getrandom" = [ "dep:getrandom" ];
           "serde" = [ "dep:serde" ];
@@ -1556,19 +1610,23 @@ rec {
         edition = "2018";
         sha256 = "1rwpykyvhkxs4jvqdja3mzp9dqaqamzn113cxaigs9z2dmcry7nm";
         authors = [ "The Rand Project Developers" ];
-        dependencies = [ {
-          name = "rand_core";
-          packageId = "rand_core";
-        } ];
+        dependencies = [
+          {
+            name = "rand_core";
+            packageId = "rand_core";
+          }
+        ];
       };
       "rcgen" = rec {
         crateName = "rcgen";
         version = "0.9.2";
         edition = "2018";
-        crateBin = [ {
-          name = "rcgen";
-          path = "src/main.rs";
-        } ];
+        crateBin = [
+          {
+            name = "rcgen";
+            path = "src/main.rs";
+          }
+        ];
         sha256 = "0ppwfl9g504x2qwk7m7mag8c3l70w9mcfha93013nlzqdlw2vynp";
         authors = [ "est31 <MTest31@outlook.com>" ];
         dependencies = [
@@ -1738,18 +1796,22 @@ rec {
             ];
           }
         ];
-        buildDependencies = [ {
-          name = "cc";
-          packageId = "cc";
-          usesDefaultFeatures = false;
-        } ];
-        devDependencies = [ {
-          name = "libc";
-          packageId = "libc";
-          usesDefaultFeatures = false;
-          target =
-            { target, features }: ((target."unix" or false) || (target."windows" or false));
-        } ];
+        buildDependencies = [
+          {
+            name = "cc";
+            packageId = "cc";
+            usesDefaultFeatures = false;
+          }
+        ];
+        devDependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target =
+              { target, features }: ((target."unix" or false) || (target."windows" or false));
+          }
+        ];
         features = {
           "default" = [
             "alloc"
@@ -1896,12 +1958,14 @@ rec {
         edition = "2018";
         sha256 = "03dmfxhgwzpm1360iwcpcg3y18ddgya0i0hc599am212pdvj7ib5";
         authors = [ "Pierre Chifflier <chifflier@wzdftpd.net>" ];
-        dependencies = [ {
-          name = "nom";
-          packageId = "nom";
-          usesDefaultFeatures = false;
-          features = [ "std" ];
-        } ];
+        dependencies = [
+          {
+            name = "nom";
+            packageId = "nom";
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+        ];
       };
       "smallvec" = rec {
         crateName = "smallvec";
@@ -1931,11 +1995,13 @@ rec {
         edition = "2018";
         sha256 = "0ckgkcg6db5y94dqhmyikgn8yrsah6pyf4j197hv1c51bp0s00aw";
         authors = [ "RustCrypto Developers" ];
-        dependencies = [ {
-          name = "der";
-          packageId = "der";
-          features = [ "oid" ];
-        } ];
+        dependencies = [
+          {
+            name = "der";
+            packageId = "der";
+            features = [ "oid" ];
+          }
+        ];
         features = {
           "std" = [ "der/std" ];
         };
@@ -2062,10 +2128,12 @@ rec {
         edition = "2018";
         sha256 = "05y4wm29ck8flwq5k1q6nhwh00a3b30cz3xr0qvnbwad5vjsnjw5";
         authors = [ "David Tolnay <dtolnay@gmail.com>" ];
-        dependencies = [ {
-          name = "thiserror-impl";
-          packageId = "thiserror-impl";
-        } ];
+        dependencies = [
+          {
+            name = "thiserror-impl";
+            packageId = "thiserror-impl";
+          }
+        ];
       };
       "thiserror-impl" = rec {
         crateName = "thiserror-impl";
@@ -4005,13 +4073,15 @@ rec {
         edition = "2018";
         sha256 = "0k1gk11hq4rwlppv9f50bz8bnmgr73r66idpp7rybly96si38v9l";
         authors = [ "Masaki Hara <ackie.h.gmai@gmail.com>" ];
-        dependencies = [ {
-          name = "time";
-          packageId = "time";
-          optional = true;
-          usesDefaultFeatures = false;
-          features = [ "std" ];
-        } ];
+        dependencies = [
+          {
+            name = "time";
+            packageId = "time";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "std" ];
+          }
+        ];
         features = {
           "bit-vec" = [ "dep:bit-vec" ];
           "num-bigint" = [ "dep:num-bigint" ];
@@ -4029,11 +4099,13 @@ rec {
         edition = "2018";
         sha256 = "068nvl3n5hk6lfn5y24grf2c7anzzqfzjjccscq3md7rqp79v3fn";
         authors = [ "The RustCrypto Project Developers" ];
-        dependencies = [ {
-          name = "zeroize_derive";
-          packageId = "zeroize_derive";
-          optional = true;
-        } ];
+        dependencies = [
+          {
+            name = "zeroize_derive";
+            packageId = "zeroize_derive";
+            optional = true;
+          }
+        ];
         features = {
           "default" = [ "alloc" ];
           "zeroize_derive" = [ "dep:zeroize_derive" ];

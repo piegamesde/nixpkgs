@@ -10,10 +10,12 @@ in
     webhookMachine =
       { pkgs, ... }:
       {
-        virtualisation.forwardPorts = [ {
-          host.port = forwardedPort;
-          guest.port = internalPort;
-        } ];
+        virtualisation.forwardPorts = [
+          {
+            host.port = forwardedPort;
+            guest.port = internalPort;
+          }
+        ];
         services.webhook = {
           enable = true;
           port = internalPort;

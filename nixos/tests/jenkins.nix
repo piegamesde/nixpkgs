@@ -30,11 +30,13 @@ import ./make-test-python.nix (
                 {
                   job = {
                     name = "job-1";
-                    builders = [ {
-                      shell = ''
-                        echo "Running job-1"
-                      '';
-                    } ];
+                    builders = [
+                      {
+                        shell = ''
+                          echo "Running job-1"
+                        '';
+                      }
+                    ];
                   };
                 }
 
@@ -48,11 +50,13 @@ import ./make-test-python.nix (
                 {
                   job = {
                     name = "folder-1/job-2";
-                    builders = [ {
-                      shell = ''
-                        echo "Running job-2"
-                      '';
-                    } ];
+                    builders = [
+                      {
+                        shell = ''
+                          echo "Running job-2"
+                        '';
+                      }
+                    ];
                   };
                 }
               ];

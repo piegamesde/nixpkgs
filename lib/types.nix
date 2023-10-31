@@ -594,10 +594,12 @@ let
                           m: def':
                           (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ])
                             elemType
-                            [ {
-                              inherit (def) file;
-                              value = def';
-                            } ]
+                            [
+                              {
+                                inherit (def) file;
+                                value = def';
+                              }
+                            ]
                           ).optionalValue
                         )
                         def.value
@@ -957,24 +959,26 @@ let
 
           base = evalModules {
             inherit specialArgs;
-            modules = [ {
-              # This is a work-around for the fact that some sub-modules,
-              # such as the one included in an attribute set, expects an "args"
-              # attribute to be given to the sub-module. As the option
-              # evaluation does not have any specific attribute name yet, we
-              # provide a default for the documentation and the freeform type.
-              #
-              # This is necessary as some option declaration might use the
-              # "name" attribute given as argument of the submodule and use it
-              # as the default of option declarations.
-              #
-              # We use lookalike unicode single angle quotation marks because
-              # of the docbook transformation the options receive. In all uses
-              # &gt; and &lt; wouldn't be encoded correctly so the encoded values
-              # would be used, and use of `<` and `>` would break the XML document.
-              # It shouldn't cause an issue since this is cosmetic for the manual.
-              _module.args.name = lib.mkOptionDefault "‹name›";
-            } ] ++ modules;
+            modules = [
+              {
+                # This is a work-around for the fact that some sub-modules,
+                # such as the one included in an attribute set, expects an "args"
+                # attribute to be given to the sub-module. As the option
+                # evaluation does not have any specific attribute name yet, we
+                # provide a default for the documentation and the freeform type.
+                #
+                # This is necessary as some option declaration might use the
+                # "name" attribute given as argument of the submodule and use it
+                # as the default of option declarations.
+                #
+                # We use lookalike unicode single angle quotation marks because
+                # of the docbook transformation the options receive. In all uses
+                # &gt; and &lt; wouldn't be encoded correctly so the encoded values
+                # would be used, and use of `<` and `>` would break the XML document.
+                # It shouldn't cause an issue since this is cosmetic for the manual.
+                _module.args.name = lib.mkOptionDefault "‹name›";
+              }
+            ] ++ modules;
           };
 
           freeformType = base._module.freeformType;

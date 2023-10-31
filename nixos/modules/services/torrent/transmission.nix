@@ -474,14 +474,18 @@ in
       (mkIf cfg.openPeerPorts (
         if cfg.settings.peer-port-random-on-start then
           {
-            allowedTCPPortRanges = [ {
-              from = cfg.settings.peer-port-random-low;
-              to = cfg.settings.peer-port-random-high;
-            } ];
-            allowedUDPPortRanges = [ {
-              from = cfg.settings.peer-port-random-low;
-              to = cfg.settings.peer-port-random-high;
-            } ];
+            allowedTCPPortRanges = [
+              {
+                from = cfg.settings.peer-port-random-low;
+                to = cfg.settings.peer-port-random-high;
+              }
+            ];
+            allowedUDPPortRanges = [
+              {
+                from = cfg.settings.peer-port-random-low;
+                to = cfg.settings.peer-port-random-high;
+              }
+            ];
           }
         else
           {

@@ -13,27 +13,33 @@ import ./make-test-python.nix ({
           enable = true;
           settings = {
             # Enable Prometheus output for status assertions.
-            global.monitoring = [ {
-              type = "prometheus";
-              listen = ":9811";
-            } ];
+            global.monitoring = [
+              {
+                type = "prometheus";
+                listen = ":9811";
+              }
+            ];
             # Create a periodic snapshot job for an ephemeral zpool.
-            jobs = [ {
-              name = "snap_test";
-              type = "snap";
+            jobs = [
+              {
+                name = "snap_test";
+                type = "snap";
 
-              filesystems."test" = true;
-              snapshotting = {
-                type = "periodic";
-                prefix = "zrepl_";
-                interval = "1s";
-              };
+                filesystems."test" = true;
+                snapshotting = {
+                  type = "periodic";
+                  prefix = "zrepl_";
+                  interval = "1s";
+                };
 
-              pruning.keep = [ {
-                type = "last_n";
-                count = 8;
-              } ];
-            } ];
+                pruning.keep = [
+                  {
+                    type = "last_n";
+                    count = 8;
+                  }
+                ];
+              }
+            ];
           };
         };
       };

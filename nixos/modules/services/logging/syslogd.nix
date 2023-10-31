@@ -102,10 +102,12 @@ in
 
   config = mkIf cfg.enable {
 
-    assertions = [ {
-      assertion = !config.services.rsyslogd.enable;
-      message = "rsyslogd conflicts with syslogd";
-    } ];
+    assertions = [
+      {
+        assertion = !config.services.rsyslogd.enable;
+        message = "rsyslogd conflicts with syslogd";
+      }
+    ];
 
     environment.systemPackages = [ pkgs.sysklogd ];
 

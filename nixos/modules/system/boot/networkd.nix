@@ -1892,13 +1892,15 @@ let
 
     l2tpSessions = mkOption {
       default = [ ];
-      example = [ {
-        l2tpSessionConfig = {
-          SessionId = 25;
-          PeerSessionId = 26;
-          Name = "l2tp-sess";
-        };
-      } ];
+      example = [
+        {
+          l2tpSessionConfig = {
+            SessionId = 25;
+            PeerSessionId = 26;
+            Name = "l2tp-sess";
+          };
+        }
+      ];
       type = with types; listOf (submodule l2tpSessionOptions);
       description = lib.mdDoc ''
         Each item in this array specifies an option in the
@@ -1927,15 +1929,17 @@ let
 
     wireguardPeers = mkOption {
       default = [ ];
-      example = [ {
-        wireguardPeerConfig = {
-          Endpoint = "192.168.1.1:51820";
-          PublicKey = "27s0OvaBBdHoJYkH9osZpjpgSOVNw+RaKfboT/Sfq0g=";
-          PresharedKeyFile = "/etc/wireguard/psk.key";
-          AllowedIPs = [ "10.0.0.1/32" ];
-          PersistentKeepalive = 15;
-        };
-      } ];
+      example = [
+        {
+          wireguardPeerConfig = {
+            Endpoint = "192.168.1.1:51820";
+            PublicKey = "27s0OvaBBdHoJYkH9osZpjpgSOVNw+RaKfboT/Sfq0g=";
+            PresharedKeyFile = "/etc/wireguard/psk.key";
+            AllowedIPs = [ "10.0.0.1/32" ];
+            PersistentKeepalive = 15;
+          };
+        }
+      ];
       type = with types; listOf (submodule wireguardPeerOptions);
       description = lib.mdDoc ''
         Each item in this array specifies an option in the
@@ -2326,12 +2330,14 @@ let
 
     dhcpServerStaticLeases = mkOption {
       default = [ ];
-      example = [ {
-        dhcpServerStaticLeaseConfig = {
-          MACAddress = "65:43:4a:5b:d8:5f";
-          Address = "192.168.1.42";
-        };
-      } ];
+      example = [
+        {
+          dhcpServerStaticLeaseConfig = {
+            MACAddress = "65:43:4a:5b:d8:5f";
+            Address = "192.168.1.42";
+          };
+        }
+      ];
       type = with types; listOf (submodule dhcpServerStaticLeaseOptions);
       description = lib.mdDoc ''
         A list of DHCPServerStaticLease sections to be added to the unit.  See
@@ -2341,12 +2347,14 @@ let
 
     ipv6Prefixes = mkOption {
       default = [ ];
-      example = [ {
-        ipv6PrefixConfig = {
-          AddressAutoconfiguration = true;
-          OnLink = true;
-        };
-      } ];
+      example = [
+        {
+          ipv6PrefixConfig = {
+            AddressAutoconfiguration = true;
+            OnLink = true;
+          };
+        }
+      ];
       type = with types; listOf (submodule ipv6PrefixOptions);
       description = lib.mdDoc ''
         A list of ipv6Prefix sections to be added to the unit.  See
@@ -2356,12 +2364,14 @@ let
 
     ipv6RoutePrefixes = mkOption {
       default = [ ];
-      example = [ {
-        ipv6RoutePrefixConfig = {
-          Route = "fd00::/64";
-          LifetimeSec = 3600;
-        };
-      } ];
+      example = [
+        {
+          ipv6RoutePrefixConfig = {
+            Route = "fd00::/64";
+            LifetimeSec = 3600;
+          };
+        }
+      ];
       type = with types; listOf (submodule ipv6RoutePrefixOptions);
       description = lib.mdDoc ''
         A list of ipv6RoutePrefix sections to be added to the unit.  See
@@ -2385,13 +2395,15 @@ let
 
     bridgeFDBs = mkOption {
       default = [ ];
-      example = [ {
-        bridgeFDBConfig = {
-          MACAddress = "90:e2:ba:43:fc:71";
-          Destination = "192.168.100.4";
-          VNI = 3600;
-        };
-      } ];
+      example = [
+        {
+          bridgeFDBConfig = {
+            MACAddress = "90:e2:ba:43:fc:71";
+            Destination = "192.168.100.4";
+            VNI = 3600;
+          };
+        }
+      ];
       type = with types; listOf (submodule bridgeFDBOptions);
       description = lib.mdDoc ''
         A list of BridgeFDB sections to be added to the unit.  See
@@ -2401,12 +2413,14 @@ let
 
     bridgeMDBs = mkOption {
       default = [ ];
-      example = [ {
-        bridgeMDBConfig = {
-          MulticastGroupAddress = "ff02::1:2:3:4";
-          VLANId = 10;
-        };
-      } ];
+      example = [
+        {
+          bridgeMDBConfig = {
+            MulticastGroupAddress = "ff02::1:2:3:4";
+            VLANId = 10;
+          };
+        }
+      ];
       type = with types; listOf (submodule bridgeMDBOptions);
       description = lib.mdDoc ''
         A list of BridgeMDB sections to be added to the unit.  See
@@ -2853,11 +2867,13 @@ let
 
     bridgeVLANs = mkOption {
       default = [ ];
-      example = [ {
-        bridgeVLANConfig = {
-          VLAN = "10-20";
-        };
-      } ];
+      example = [
+        {
+          bridgeVLANConfig = {
+            VLAN = "10-20";
+          };
+        }
+      ];
       type = with types; listOf (submodule bridgeVLANOptions);
       description = lib.mdDoc ''
         A list of BridgeVLAN sections to be added to the unit.  See
@@ -3793,13 +3809,15 @@ in
   config = mkMerge [
     stage2Config
     (mkIf config.boot.initrd.systemd.enable {
-      assertions = [ {
-        assertion = config.boot.initrd.network.udhcpc.extraArgs == [ ];
-        message = ''
-          boot.initrd.network.udhcpc.extraArgs is not supported when
-          boot.initrd.systemd.enable is enabled
-        '';
-      } ];
+      assertions = [
+        {
+          assertion = config.boot.initrd.network.udhcpc.extraArgs == [ ];
+          message = ''
+            boot.initrd.network.udhcpc.extraArgs is not supported when
+            boot.initrd.systemd.enable is enabled
+          '';
+        }
+      ];
 
       boot.initrd = stage1Config;
     })

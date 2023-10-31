@@ -45,22 +45,26 @@ import ./make-test-python.nix (
             networks."10-vrf1" = {
               matchConfig.Name = "vrf1";
               networkConfig.IPForward = "yes";
-              routes = [ {
-                routeConfig = {
-                  Destination = "192.168.1.2";
-                  Metric = 100;
-                };
-              } ];
+              routes = [
+                {
+                  routeConfig = {
+                    Destination = "192.168.1.2";
+                    Metric = 100;
+                  };
+                }
+              ];
             };
             networks."10-vrf2" = {
               matchConfig.Name = "vrf2";
               networkConfig.IPForward = "yes";
-              routes = [ {
-                routeConfig = {
-                  Destination = "192.168.2.3";
-                  Metric = 100;
-                };
-              } ];
+              routes = [
+                {
+                  routeConfig = {
+                    Destination = "192.168.2.3";
+                    Metric = 100;
+                  };
+                }
+              ];
             };
 
             networks."10-eth1" = {
