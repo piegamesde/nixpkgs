@@ -19,9 +19,7 @@ let
   };
 
   clamdConfigFile = pkgs.writeText "clamd.conf" (toKeyValue cfg.daemon.settings);
-  freshclamConfigFile = pkgs.writeText "freshclam.conf" (
-    toKeyValue cfg.updater.settings
-  );
+  freshclamConfigFile = pkgs.writeText "freshclam.conf" (toKeyValue cfg.updater.settings);
 in
 {
   imports = [

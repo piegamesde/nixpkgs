@@ -45,9 +45,7 @@ python3.pkgs.buildPythonApplication rec {
   version = "1.6.1";
 
   src = fetchurl {
-    url = "https://gajim.org/downloads/${
-        lib.versions.majorMinor version
-      }/gajim-${version}.tar.gz";
+    url = "https://gajim.org/downloads/${lib.versions.majorMinor version}/gajim-${version}.tar.gz";
     hash = "sha256-3D87Ou/842WqbaUiJV1hRZFVkZzQ12GXCpRc8F3rKPQ=";
   };
 

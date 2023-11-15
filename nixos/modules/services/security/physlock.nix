@@ -124,17 +124,13 @@ in
           before =
             optional cfg.lockOn.suspend "systemd-suspend.service"
             ++ optional cfg.lockOn.hibernate "systemd-hibernate.service"
-            ++
-              optional (cfg.lockOn.hibernate || cfg.lockOn.suspend)
-                "systemd-suspend-then-hibernate.service"
+            ++ optional (cfg.lockOn.hibernate || cfg.lockOn.suspend) "systemd-suspend-then-hibernate.service"
             ++ cfg.lockOn.extraTargets;
           serviceConfig = {
             Type = "forking";
-            ExecStart = "${pkgs.physlock}/bin/physlock -d${
-                optionalString cfg.muteKernelMessages "m"
-              }${optionalString cfg.disableSysRq "s"}${
-                optionalString (cfg.lockMessage != "") " -p \"${cfg.lockMessage}\""
-              }";
+            ExecStart = "${pkgs.physlock}/bin/physlock -d${optionalString cfg.muteKernelMessages "m"}${
+                optionalString cfg.disableSysRq "s"
+              }${optionalString (cfg.lockMessage != "") " -p \"${cfg.lockMessage}\""}";
           };
         };
 

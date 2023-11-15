@@ -394,9 +394,7 @@ stdenv.mkDerivation {
 
   preConfigure =
     ''
-      cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${
-        lib.concatStringsSep " " kodi_platforms
-      }")
+      cmakeFlagsArray+=("-DCORE_PLATFORM_NAME=${lib.concatStringsSep " " kodi_platforms}")
     ''
     + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
       # Need these tools on the build system when cross compiling,

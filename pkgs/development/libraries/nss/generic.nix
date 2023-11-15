@@ -122,10 +122,7 @@ stdenv.mkDerivation rec {
         -j $NIX_BUILD_CORES \
         ${lib.optionalString enableFIPS "--enable-fips"} \
         ${lib.optionalString stdenv.isDarwin "--clang"} \
-        ${
-          lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-            "--disable-tests"
-        }
+        ${lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "--disable-tests"}
 
       runHook postBuild
     '';
@@ -216,9 +213,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   passthru.tests =
-    lib.optionalAttrs (lib.versionOlder version "3.69") {
-      inherit (nixosTests) firefox-esr-91;
-    }
+    lib.optionalAttrs (lib.versionOlder version "3.69") { inherit (nixosTests) firefox-esr-91; }
     // lib.optionalAttrs (lib.versionAtLeast version "3.69") {
       inherit (nixosTests) firefox firefox-esr-102;
     };

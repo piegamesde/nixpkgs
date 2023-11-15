@@ -337,9 +337,7 @@ let
         enable = true;
       };
       metricProvider = {
-        systemd.services.prometheus-jitsi-exporter.after = [
-          "jitsi-videobridge2.service"
-        ];
+        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ];
         services.jitsi-videobridge = {
           enable = true;
           apis = [
@@ -1186,9 +1184,7 @@ let
       exporterConfig = {
         configuration.jobs.points = {
           interval = "1m";
-          connections = [
-            "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable"
-          ];
+          connections = [ "postgres://prometheus-sql-exporter@/data?host=/run/postgresql&sslmode=disable" ];
           queries = {
             points = {
               labels = [ "name" ];
@@ -1457,9 +1453,7 @@ let
               inherit (snakeoil.peer1) publicKey;
             };
           };
-          systemd.services.prometheus-wireguard-exporter.after = [
-            "wireguard-wg0.service"
-          ];
+          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ];
         };
         exporterTest = ''
           wait_for_unit("prometheus-wireguard-exporter.service")
@@ -1508,9 +1502,7 @@ mapAttrs
             map
               (
                 line:
-                if
-                  (builtins.substring 0 1 line == " " || builtins.substring 0 1 line == ")")
-                then
+                if (builtins.substring 0 1 line == " " || builtins.substring 0 1 line == ")") then
                   line
                 else
                   "${nodeName}.${line}"

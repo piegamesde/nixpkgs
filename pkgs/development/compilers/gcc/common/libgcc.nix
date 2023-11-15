@@ -18,9 +18,7 @@ in
   pkg.overrideAttrs (
     previousAttrs:
     lib.optionalAttrs ((!langC) || langJit || enableLibGccOutput) {
-      outputs =
-        previousAttrs.outputs
-        ++ lib.optionals enableLibGccOutput [ "libgcc" ];
+      outputs = previousAttrs.outputs ++ lib.optionals enableLibGccOutput [ "libgcc" ];
       # This is a separate phase because gcc assembles its phase scripts
       # in bash instead of nix (we should fix that).
       preFixupPhases =

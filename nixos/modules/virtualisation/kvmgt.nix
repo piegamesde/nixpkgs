@@ -15,9 +15,7 @@ let
   vgpuOptions = {
     uuid = mkOption {
       type = with types; listOf str;
-      description =
-        lib.mdDoc
-          "UUID(s) of VGPU device. You can generate one with `libossp_uuid`.";
+      description = lib.mdDoc "UUID(s) of VGPU device. You can generate one with `libossp_uuid`.";
     };
   };
 in

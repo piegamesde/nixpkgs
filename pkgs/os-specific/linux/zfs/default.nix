@@ -80,9 +80,7 @@ let
     }:
 
     stdenv'.mkDerivation {
-      name = "zfs-${configFile}-${version}${
-          optionalString buildKernel "-${kernel.version}"
-        }";
+      name = "zfs-${configFile}-${version}${optionalString buildKernel "-${kernel.version}"}";
 
       src = fetchFromGitHub {
         owner = "openzfs";
@@ -112,9 +110,7 @@ let
             # We don't *need* python support, but we set it like this to minimize closure size:
             # If it's disabled by default, no need to enable it, even if we have python enabled
             # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
-            nfs-utils.override (
-              old: { enablePython = old.enablePython or true && enablePython; }
-            )
+            nfs-utils.override (old: { enablePython = old.enablePython or true && enablePython; })
           }/bin/exportfs"
           substituteInPlace ./lib/libshare/smb.h        --replace "/usr/bin/net"            "${samba}/bin/net"
           # Disable dynamic loading of libcurl
@@ -316,10 +312,8 @@ in
   # to be adapted
   zfsStable = common {
     # check the release notes for compatible kernels
-    kernelCompatible =
-      if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
-    latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
+    kernelCompatible = if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
+    latestCompatibleLinuxPackages = if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
     # this package should point to the latest release.
     version = "2.1.11";
@@ -332,10 +326,8 @@ in
     # NOTE:
     #   zfs-2.1.9<=x<=2.1.10 is broken with aarch64-linux-6.2
     #   for future releases, please delete this condition.
-    kernelCompatible =
-      if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
-    latestCompatibleLinuxPackages =
-      if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
+    kernelCompatible = if stdenv'.isx86_64 then kernel.kernelOlder "6.3" else kernel.kernelOlder "6.2";
+    latestCompatibleLinuxPackages = if stdenv'.isx86_64 then linuxPackages_6_2 else linuxPackages_6_1;
 
     # this package should point to a version / git revision compatible with the latest kernel release
     # IMPORTANT: Always use a tagged release candidate or commits from the

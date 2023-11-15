@@ -62,9 +62,7 @@ let
         setPrio ((pkg.meta.priority or 5) + 3) pkg
       )
       defaultPackageNames;
-  defaultPackagesText = "[ ${
-      concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames
-    } ]";
+  defaultPackagesText = "[ ${concatMapStringsSep " " (n: "pkgs.${n}") defaultPackageNames} ]";
 in
 
 {
@@ -122,9 +120,7 @@ in
         # to work.
         default = [ ];
         example = [ "/" ];
-        description =
-          lib.mdDoc
-            "List of directories to be symlinked in {file}`/run/current-system/sw`.";
+        description = lib.mdDoc "List of directories to be symlinked in {file}`/run/current-system/sw`.";
       };
 
       extraOutputsToInstall = mkOption {
@@ -162,8 +158,7 @@ in
 
   config = {
 
-    environment.systemPackages =
-      requiredPackages ++ config.environment.defaultPackages;
+    environment.systemPackages = requiredPackages ++ config.environment.defaultPackages;
 
     environment.pathsToLink = [
       "/bin"

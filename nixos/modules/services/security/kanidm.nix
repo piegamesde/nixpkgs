@@ -10,15 +10,9 @@ let
   settingsFormat = pkgs.formats.toml { };
   # Remove null values, so we can document optional values that don't end up in the generated TOML file.
   filterConfig = lib.converge (lib.filterAttrsRecursive (_: v: v != null));
-  serverConfigFile = settingsFormat.generate "server.toml" (
-    filterConfig cfg.serverSettings
-  );
-  clientConfigFile = settingsFormat.generate "kanidm-config.toml" (
-    filterConfig cfg.clientSettings
-  );
-  unixConfigFile = settingsFormat.generate "kanidm-unixd.toml" (
-    filterConfig cfg.unixSettings
-  );
+  serverConfigFile = settingsFormat.generate "server.toml" (filterConfig cfg.serverSettings);
+  clientConfigFile = settingsFormat.generate "kanidm-config.toml" (filterConfig cfg.clientSettings);
+  unixConfigFile = settingsFormat.generate "kanidm-unixd.toml" (filterConfig cfg.unixSettings);
   certPaths = builtins.map builtins.dirOf [
     cfg.serverSettings.tls_chain
     cfg.serverSettings.tls_key
@@ -29,9 +23,7 @@ let
   # paths, no new bind mount is added. Adding subpaths caused problems on ofborg.
   hasPrefixInList =
     list: newPath:
-    lib.any
-      (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath))
-      list;
+    lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath)) list;
   mergePaths =
     lib.foldl'
       (
@@ -42,8 +34,7 @@ let
             lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
               merged;
           # If a prefix of the new path is already in the list, do not add it
-          filteredNew =
-            if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+          filteredNew = if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
         in
         filteredPaths ++ filteredNew
       )
@@ -120,9 +111,7 @@ in
             type = lib.types.nullOr lib.types.str;
           };
           origin = lib.mkOption {
-            description =
-              lib.mdDoc
-                "The origin of your Kanidm instance. Must have https as protocol.";
+            description = lib.mdDoc "The origin of your Kanidm instance. Must have https as protocol.";
             example = "https://idm.example.org";
             type = lib.types.strMatching "^https://.*";
           };
@@ -247,8 +236,7 @@ in
         '';
       }
       {
-        assertion =
-          !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
+        assertion = !cfg.enableClient || options.services.kanidm.clientSettings.isDefined;
         message = ''
           <option>services.kanidm.clientSettings</option> needs to be configured
           if the client is enabled.
@@ -266,9 +254,7 @@ in
           !cfg.enableServer
           || (
             cfg.serverSettings.domain == null
-            ->
-              cfg.serverSettings.role == "WriteReplica"
-              || cfg.serverSettings.role == "WriteReplicaNoUI"
+            -> cfg.serverSettings.role == "WriteReplica" || cfg.serverSettings.role == "WriteReplicaNoUI"
           );
         message = ''
           <option>services.kanidm.serverSettings.domain</option> can only be set if this instance
@@ -289,9 +275,7 @@ in
         (
           defaultServiceConfig
           // {
-            BindReadOnlyPaths = mergePaths (
-              defaultServiceConfig.BindReadOnlyPaths ++ certPaths
-            );
+            BindReadOnlyPaths = mergePaths (defaultServiceConfig.BindReadOnlyPaths ++ certPaths);
           }
         )
         {

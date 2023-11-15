@@ -11,9 +11,8 @@
 
 let
   hashes =
-    (import ./hashes.nix).${engineVersion} or (throw
-      "There are no known artifact hashes for Flutter engine version ${engineVersion}."
-    );
+    (import ./hashes.nix).${engineVersion}
+      or (throw "There are no known artifact hashes for Flutter engine version ${engineVersion}.");
 
   artifacts = {
     common = {
@@ -122,9 +121,7 @@ let
           null
         else
           "${platform}${lib.optionalString (variant != null) "-${variant}"}";
-      archiveBasename =
-        lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}"
-          archive;
+      archiveBasename = lib.removeSuffix ".${(lib.last (lib.splitString "." archive))}" archive;
     in
     stdenv.mkDerivation (
       {
@@ -138,9 +135,7 @@ let
               lib.optionalString (platform != null) "/${artifactDirectory}"
             }/${archive}";
           stripRoot = false;
-          hash =
-            (if artifactDirectory == null then hashes else hashes.${artifactDirectory})
-            .${archive};
+          hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
         };
 
         nativeBuildInputs = [ autoPatchelfHook ];
@@ -159,8 +154,7 @@ let
           builtins.mapAttrs
             (architecture: variants: {
               base =
-                map
-                  (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
+                map (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
                   variants.base;
               variants =
                 builtins.mapAttrs

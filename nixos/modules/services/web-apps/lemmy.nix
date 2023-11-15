@@ -26,27 +26,19 @@ in
 
   options.services.lemmy = {
 
-    enable = mkEnableOption (
-      lib.mdDoc "lemmy a federated alternative to reddit in rust"
-    );
+    enable = mkEnableOption (lib.mdDoc "lemmy a federated alternative to reddit in rust");
 
     ui = {
       port = mkOption {
         type = types.port;
         default = 1234;
-        description =
-          lib.mdDoc
-            "Port where lemmy-ui should listen for incoming requests.";
+        description = lib.mdDoc "Port where lemmy-ui should listen for incoming requests.";
       };
     };
 
-    caddy.enable = mkEnableOption (
-      lib.mdDoc "exposing lemmy with the caddy reverse proxy"
-    );
+    caddy.enable = mkEnableOption (lib.mdDoc "exposing lemmy with the caddy reverse proxy");
 
-    database.createLocally = mkEnableOption (
-      lib.mdDoc "creation of database on the instance"
-    );
+    database.createLocally = mkEnableOption (lib.mdDoc "creation of database on the instance");
 
     settings = mkOption {
       default = { };
@@ -171,9 +163,7 @@ in
       {
         assertion =
           cfg.database.createLocally
-          ->
-            cfg.settings.database.host == "localhost"
-            || cfg.settings.database.host == "/run/postgresql";
+          -> cfg.settings.database.host == "localhost" || cfg.settings.database.host == "/run/postgresql";
         message = "if you want to create the database locally, you need to use a local database";
       }
     ];
@@ -185,8 +175,7 @@ in
         LEMMY_CONFIG_LOCATION = "/run/lemmy/config.hjson";
 
         # Verify how this is used, and don't put the password in the nix store
-        LEMMY_DATABASE_URL =
-          with cfg.settings.database; "postgres:///${database}?host=${host}";
+        LEMMY_DATABASE_URL = with cfg.settings.database; "postgres:///${database}?host=${host}";
       };
 
       documentation = [
@@ -196,9 +185,7 @@ in
 
       wantedBy = [ "multi-user.target" ];
 
-      after = [
-        "pict-rs.service"
-      ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = [ "pict-rs.service" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 
       requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
 

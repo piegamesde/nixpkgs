@@ -70,9 +70,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${
-      placeholder "out"
-    }/lib/systemd/system";
+  PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
 
   passthru = {
     updateScript = nix-update-script { };

@@ -92,9 +92,7 @@ self: super:
       in
       {
         cabal-install = super.cabal-install.overrideScope cabalInstallOverlay;
-        cabal-install-solver =
-          super.cabal-install-solver.overrideScope
-            cabalInstallOverlay;
+        cabal-install-solver = super.cabal-install-solver.overrideScope cabalInstallOverlay;
 
         guardian =
           lib.pipe
@@ -147,11 +145,9 @@ self: super:
   # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
   # There will probably be a new revision soon.
   hls-tactics-plugin =
-    assert super.hls-tactics-plugin.version == "1.8.0.0";
-    doJailbreak super.hls-tactics-plugin;
+    assert super.hls-tactics-plugin.version == "1.8.0.0"; doJailbreak super.hls-tactics-plugin;
   hls-brittany-plugin =
-    assert super.hls-brittany-plugin.version == "1.1.0.0";
-    doJailbreak super.hls-brittany-plugin;
+    assert super.hls-brittany-plugin.version == "1.1.0.0"; doJailbreak super.hls-brittany-plugin;
 
   hls-hlint-plugin = super.hls-hlint-plugin.override {
     # For "ghc-lib" flag see https://github.com/haskell/haskell-language-server/issues/3185#issuecomment-1250264515
@@ -366,8 +362,7 @@ self: super:
   numerals = doJailbreak (dontCheck super.numerals);
 
   # This test keeps being aborted because it runs too quietly for too long
-  Lazy-Pbkdf2 =
-    if pkgs.stdenv.isi686 then dontCheck super.Lazy-Pbkdf2 else super.Lazy-Pbkdf2;
+  Lazy-Pbkdf2 = if pkgs.stdenv.isi686 then dontCheck super.Lazy-Pbkdf2 else super.Lazy-Pbkdf2;
 
   # check requires mysql server
   mysql-simple = dontCheck super.mysql-simple;
@@ -539,9 +534,7 @@ self: super:
 
   # 2020-06-05: HACK: does not pass own build suite - `dontCheck`
   # 2022-11-24: jailbreak as it has too strict bounds on a bunch of things
-  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (
-    dontCheck (doJailbreak super.hnix)
-  );
+  hnix = self.generateOptparseApplicativeCompletions [ "hnix" ] (dontCheck (doJailbreak super.hnix));
   # Too strict bounds on algebraic-graphs and bytestring
   # https://github.com/haskell-nix/hnix-store/issues/180
   hnix-store-core = doJailbreak super.hnix-store-core;
@@ -552,13 +545,10 @@ self: super:
 
   # see https://github.com/LumiGuide/haskell-opencv/commit/cd613e200aa20887ded83256cf67d6903c207a60
   opencv = dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv);
-  opencv-extra = dontCheck (
-    appendPatch ./patches/opencv-fix-116.patch super.opencv-extra
-  );
+  opencv-extra = dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv-extra);
 
   # Too strict lower bound on hspec
-  graphql =
-    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.graphql;
+  graphql = assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.graphql;
 
   # https://github.com/ekmett/structures/issues/3
   structures = dontCheck super.structures;
@@ -789,9 +779,7 @@ self: super:
   CHXHtml = dontDistribute super.CHXHtml;
 
   # https://github.com/NixOS/nixpkgs/issues/6350
-  paypal-adaptive-hoops =
-    overrideCabal (drv: { testTarget = "local"; })
-      super.paypal-adaptive-hoops;
+  paypal-adaptive-hoops = overrideCabal (drv: { testTarget = "local"; }) super.paypal-adaptive-hoops;
 
   # Avoid "QuickCheck >=2.3 && <2.10" dependency we cannot fulfill in lts-11.x.
   test-framework = dontCheck super.test-framework;
@@ -838,8 +826,7 @@ self: super:
   # Test suite is missing an import from hspec
   # https://github.com/haskell-works/tasty-discover/issues/9
   # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
-  tasty-discover =
-    assert super.tasty-discover.version == "4.2.2"; dontCheck super.tasty-discover;
+  tasty-discover = assert super.tasty-discover.version == "4.2.2"; dontCheck super.tasty-discover;
 
   # Known issue with nondeterministic test suite failure
   # https://github.com/nomeata/tasty-expected-failure/issues/21
@@ -862,9 +849,7 @@ self: super:
   # because the wrappers in curlc.c don't use static values for the different
   # arguments to curl_easy_getinfo, it complains and needs to be disabled.
   # https://github.com/GaloisInc/curl/issues/28
-  curl =
-    appendConfigureFlags [ "--ghc-option=-DCURL_DISABLE_TYPECHECK" ]
-      super.curl;
+  curl = appendConfigureFlags [ "--ghc-option=-DCURL_DISABLE_TYPECHECK" ] super.curl;
 
   # https://github.com/hvr/token-bucket/issues/3
   token-bucket = dontCheck super.token-bucket;
@@ -881,9 +866,7 @@ self: super:
   Southpaw = dontDistribute super.Southpaw;
 
   # https://ghc.haskell.org/trac/ghc/ticket/9825
-  vimus =
-    overrideCabal (drv: { broken = pkgs.stdenv.isLinux && pkgs.stdenv.isi686; })
-      super.vimus;
+  vimus = overrideCabal (drv: { broken = pkgs.stdenv.isLinux && pkgs.stdenv.isi686; }) super.vimus;
 
   # https://github.com/kazu-yamamoto/logger/issues/42
   logger = dontCheck super.logger;
@@ -943,9 +926,7 @@ self: super:
         preCheck = "export HOME=$TMPDIR";
         testToolDepends = drv.testToolDepends or [ ] ++ [ self.cabal-install ];
         doCheck = false; # https://github.com/kazu-yamamoto/ghc-mod/issues/335
-        executableToolDepends = drv.executableToolDepends or [ ] ++ [
-          pkgs.buildPackages.emacs
-        ];
+        executableToolDepends = drv.executableToolDepends or [ ] ++ [ pkgs.buildPackages.emacs ];
         postInstall = ''
           local lispdir=( "$data/share/${self.ghc.targetPrefix}${self.ghc.haskellCompilerName}/*/${drv.pname}-${drv.version}/elisp" )
           make -C $lispdir
@@ -1192,18 +1173,14 @@ self: super:
   sensei =
     overrideCabal
       (drv: {
-        testHaskellDepends = drv.testHaskellDepends or [ ] ++ [
-          self.hspec-meta_2_10_5
-        ];
+        testHaskellDepends = drv.testHaskellDepends or [ ] ++ [ self.hspec-meta_2_10_5 ];
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.git ];
       })
       (
         super.sensei.override {
           hspec = self.hspec_2_11_0;
           hspec-wai = self.hspec-wai.override { hspec = self.hspec_2_11_0; };
-          hspec-contrib = self.hspec-contrib.override {
-            hspec-core = self.hspec-core_2_11_0;
-          };
+          hspec-contrib = self.hspec-contrib.override { hspec-core = self.hspec-core_2_11_0; };
           fsnotify = self.fsnotify_0_4_1_0;
         }
       );
@@ -1227,9 +1204,7 @@ self: super:
             export HOME="$TMPDIR"
           ''
           + (drv.preCheck or "");
-        libraryToolDepends = drv.libraryToolDepends or [ ] ++ [
-          pkgs.buildPackages.postgresql
-        ];
+        libraryToolDepends = drv.libraryToolDepends or [ ] ++ [ pkgs.buildPackages.postgresql ];
         testToolDepends = drv.testToolDepends or [ ] ++ [ pkgs.procps ];
       })
       super.tmp-postgres;
@@ -1329,18 +1304,12 @@ self: super:
   vulkan = super.vulkan.override { vulkan = pkgs.vulkan-loader; };
 
   # Compiles some C or C++ source which requires these headers
-  VulkanMemoryAllocator =
-    addExtraLibrary pkgs.vulkan-headers
-      super.VulkanMemoryAllocator;
+  VulkanMemoryAllocator = addExtraLibrary pkgs.vulkan-headers super.VulkanMemoryAllocator;
   # dontCheck can be removed on the next package set bump
-  vulkan-utils = dontCheck (
-    addExtraLibrary pkgs.vulkan-headers super.vulkan-utils
-  );
+  vulkan-utils = dontCheck (addExtraLibrary pkgs.vulkan-headers super.vulkan-utils);
 
   # https://github.com/dmwit/encoding/pull/3
-  encoding = doJailbreak (
-    appendPatch ./patches/encoding-Cabal-2.0.patch super.encoding
-  );
+  encoding = doJailbreak (appendPatch ./patches/encoding-Cabal-2.0.patch super.encoding);
 
   # Work around overspecified constraint on github ==0.18.
   github-backup = doJailbreak super.github-backup;
@@ -1396,17 +1365,15 @@ self: super:
         "yaml-to-dhall"
       ]
       super.dhall-yaml;
-  dhall-nixpkgs =
-    self.generateOptparseApplicativeCompletions [ "dhall-to-nixpkgs" ]
-      (
-        overrideCabal
-          (drv: {
-            # Allow hnix 0.16, needs unreleased bounds change
-            # https://github.com/dhall-lang/dhall-haskell/pull/2474
-            jailbreak = assert drv.version == "1.0.9" && drv.revision == "1"; true;
-          })
-          super.dhall-nixpkgs
-      );
+  dhall-nixpkgs = self.generateOptparseApplicativeCompletions [ "dhall-to-nixpkgs" ] (
+    overrideCabal
+      (drv: {
+        # Allow hnix 0.16, needs unreleased bounds change
+        # https://github.com/dhall-lang/dhall-haskell/pull/2474
+        jailbreak = assert drv.version == "1.0.9" && drv.revision == "1"; true;
+      })
+      super.dhall-nixpkgs
+  );
 
   stack = self.generateOptparseApplicativeCompletions [ "stack" ] (
     super.stack.override {
@@ -1426,11 +1393,7 @@ self: super:
 
   # musl fixes
   # dontCheck: use of non-standard strptime "%s" which musl doesn't support; only used in test
-  unix-time =
-    if pkgs.stdenv.hostPlatform.isMusl then
-      dontCheck super.unix-time
-    else
-      super.unix-time;
+  unix-time = if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.unix-time else super.unix-time;
 
   # Workaround for https://github.com/sol/hpack/issues/528
   # The hpack test suite can't deal with the CRLF line endings hackage revisions insert
@@ -1448,10 +1411,7 @@ self: super:
   # hslua has tests that break when using musl.
   # https://github.com/hslua/hslua/issues/106
   hslua-core =
-    if pkgs.stdenv.hostPlatform.isMusl then
-      dontCheck super.hslua-core
-    else
-      super.hslua-core;
+    if pkgs.stdenv.hostPlatform.isMusl then dontCheck super.hslua-core else super.hslua-core;
 
   # Missing files required by the test suite.
   # https://github.com/deemp/flakes/issues/4
@@ -1655,11 +1615,7 @@ self: super:
   # 2022-08-31: Jailbreak is done to allow aeson 2.0.*:
   # https://github.com/haskell-CI/haskell-ci/commit/6ad0d5d701cbe101013335d597acaf5feadd3ab9#r82681900
   cabal-install-parsers = doJailbreak (
-    dontCheck (
-      super.cabal-install-parsers.override {
-        Cabal-syntax = self.Cabal-syntax_3_10_1_0;
-      }
-    )
+    dontCheck (super.cabal-install-parsers.override { Cabal-syntax = self.Cabal-syntax_3_10_1_0; })
   );
 
   # 2022-03-12: Pick patches from master for compat with Stackage Nightly
@@ -1725,9 +1681,7 @@ self: super:
   # 2022-09-20: We have overridden lsp to not be the stackage version.
   # dhall-lsp-server needs the older 1.4.0.0 lsp
   dhall-lsp-server = super.dhall-lsp-server.override {
-    lsp = dontCheck (
-      super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; }
-    );
+    lsp = dontCheck (super.lsp_1_4_0_0.override { lsp-types = super.lsp-types_1_4_0_1; });
   };
 
   # 2023-04-16: https://github.com/ghcjs/jsaddle/pull/137
@@ -1817,9 +1771,7 @@ self: super:
   libsodium =
     overrideCabal
       (drv: {
-        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [
-          self.buildHaskellPackages.c2hs
-        ];
+        libraryToolDepends = (drv.libraryToolDepends or [ ]) ++ [ self.buildHaskellPackages.c2hs ];
       })
       super.libsodium;
 
@@ -1902,9 +1854,7 @@ self: super:
           ekg-json = self.hasura-ekg-json;
         }
       );
-  hasura-ekg-json = super.hasura-ekg-json.override {
-    ekg-core = self.hasura-ekg-core;
-  };
+  hasura-ekg-json = super.hasura-ekg-json.override { ekg-core = self.hasura-ekg-core; };
   pg-client =
     overrideCabal
       (drv: {
@@ -1982,9 +1932,7 @@ self: super:
           postInstall =
             drv.postInstall or ""
             + ''
-              wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${
-                lib.makeBinPath deps
-              }"
+              wrapProgram "$out/bin/update-nix-fetchgit" --prefix 'PATH' ':' "${lib.makeBinPath deps}"
             '';
         })
         (addTestToolDepends deps super.update-nix-fetchgit)
@@ -2051,9 +1999,7 @@ self: super:
   # Need to disable tests to prevent an infinite recursion if hspec-core_2_11_0
   # is overlayed to hspec-core.
   hspec-core_2_11_0 = doDistribute (
-    dontCheck (
-      super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; }
-    )
+    dontCheck (super.hspec-core_2_11_0.override { hspec-meta = self.hspec-meta_2_10_5; })
   );
 
   # Point hspec 2.7.10 to correct dependencies
@@ -2076,9 +2022,7 @@ self: super:
 
   hercules-ci-cli = lib.pipe super.hercules-ci-cli [
     unmarkBroken
-    (overrideCabal (
-      drv: { hydraPlatforms = super.hercules-ci-cli.meta.platforms; }
-    ))
+    (overrideCabal (drv: { hydraPlatforms = super.hercules-ci-cli.meta.platforms; }))
     # See hercules-ci-optparse-applicative in non-hackage-packages.nix.
     (addBuildDepend super.hercules-ci-optparse-applicative)
     (self.generateOptparseApplicativeCompletions [ "hci" ])
@@ -2211,9 +2155,7 @@ self: super:
   spacecookie =
     overrideCabal
       (old: {
-        buildTools = (old.buildTools or [ ]) ++ [
-          pkgs.buildPackages.installShellFiles
-        ];
+        buildTools = (old.buildTools or [ ]) ++ [ pkgs.buildPackages.installShellFiles ];
         # let testsuite discover the resulting binary
         preCheck =
           ''
@@ -2452,8 +2394,7 @@ self: super:
       (doJailbreak super.jsaddle);
 
   # 2022-03-22: Jailbreak for base bound: https://github.com/reflex-frp/reflex-dom/pull/433
-  reflex-dom =
-    assert super.reflex-dom.version == "0.6.1.1"; doJailbreak super.reflex-dom;
+  reflex-dom = assert super.reflex-dom.version == "0.6.1.1"; doJailbreak super.reflex-dom;
 
   # Tests need to lookup target triple x86_64-unknown-linux
   # https://github.com/llvm-hs/llvm-hs/issues/334
@@ -2541,9 +2482,7 @@ self: super:
               self.cryptonite
               self.memory
             ];
-            testHaskellDepends = drv.testHaskellDepends or [ ] ++ [
-              self.inspection-testing
-            ];
+            testHaskellDepends = drv.testHaskellDepends or [ ] ++ [ self.inspection-testing ];
           }
         ))
         # https://github.com/factisresearch/large-hashable/issues/24
@@ -2559,9 +2498,7 @@ self: super:
 
   # BSON defaults to requiring network instead of network-bsd which is
   # required nowadays: https://github.com/mongodb-haskell/bson/issues/26
-  bson = appendConfigureFlag "-f-_old_network" (
-    super.bson.override { network = self.network-bsd; }
-  );
+  bson = appendConfigureFlag "-f-_old_network" (super.bson.override { network = self.network-bsd; });
 
   # Disable flaky tests
   # https://github.com/DavidEichmann/alpaca-netcode/issues/2
@@ -2624,9 +2561,7 @@ self: super:
   gogol-core = appendPatch ./patches/gogol-core-144.patch super.gogol-core;
 
   # Stackage LTS 19 still has 10.*
-  hadolint = super.hadolint.override {
-    language-docker = self.language-docker_11_0_0;
-  };
+  hadolint = super.hadolint.override { language-docker = self.language-docker_11_0_0; };
 
   nix-tree = super.nix-tree;
 
@@ -2781,17 +2716,15 @@ self: super:
 
   # Fixes compilation with GHC 9.0 and above
   # https://hub.darcs.net/shelarcy/regex-compat-tdfa/issue/3
-  regex-compat-tdfa =
-    appendPatches [ ./patches/regex-compat-tdfa-ghc-9.0.patch ]
-      (
-        overrideCabal
-          {
-            # Revision introduces bound base < 4.15
-            revision = null;
-            editedCabalFile = null;
-          }
-          super.regex-compat-tdfa
-      );
+  regex-compat-tdfa = appendPatches [ ./patches/regex-compat-tdfa-ghc-9.0.patch ] (
+    overrideCabal
+      {
+        # Revision introduces bound base < 4.15
+        revision = null;
+        editedCabalFile = null;
+      }
+      super.regex-compat-tdfa
+  );
 
   # https://github.com/kowainik/validation-selective/issues/64
   validation-selective = doJailbreak super.validation-selective;
@@ -2852,14 +2785,11 @@ self: super:
   system-fileio = doJailbreak super.system-fileio;
 
   # Bounds too strict on base and ghc-prim: https://github.com/tibbe/ekg-core/pull/43 (merged); waiting on hackage release
-  ekg-core =
-    assert super.ekg-core.version == "0.1.1.7"; doJailbreak super.ekg-core;
+  ekg-core = assert super.ekg-core.version == "0.1.1.7"; doJailbreak super.ekg-core;
   hasura-ekg-core = doJailbreak super.hasura-ekg-core;
 
   # https://github.com/Synthetica9/nix-linter/issues/65
-  nix-linter = super.nix-linter.overrideScope (
-    self: super: { aeson = self.aeson_1_5_6_0; }
-  );
+  nix-linter = super.nix-linter.overrideScope (self: super: { aeson = self.aeson_1_5_6_0; });
 
   # Test suite doesn't support hspec 2.8
   # https://github.com/zellige/hs-geojson/issues/29
@@ -2931,8 +2861,7 @@ self: super:
   clash-prelude = dontCheck super.clash-prelude;
 
   # Too strict upper bound on th-desugar, fixed in 3.1.1
-  singletons-th =
-    assert super.singletons-th.version == "3.1"; doJailbreak super.singletons-th;
+  singletons-th = assert super.singletons-th.version == "3.1"; doJailbreak super.singletons-th;
   singletons-base = doJailbreak super.singletons-base;
 
   # Ships a broken Setup.hs
@@ -2950,9 +2879,7 @@ self: super:
       super.conduit-aeson;
 
   # Disabling doctests.
-  regex-tdfa =
-    overrideCabal { testTarget = "regex-tdfa-unittest"; }
-      super.regex-tdfa;
+  regex-tdfa = overrideCabal { testTarget = "regex-tdfa-unittest"; } super.regex-tdfa;
 
   # Missing test files https://github.com/kephas/xdg-basedir-compliant/issues/1
   xdg-basedir-compliant = dontCheck super.xdg-basedir-compliant;
@@ -3004,9 +2931,7 @@ self: super:
 
   # 2022-11-15: Needs newer witch package and brick 1.3 which in turn works with text-zipper 0.12
   # Other dependencies are resolved with doJailbreak for both swarm and brick_1_3
-  swarm = doJailbreak (
-    super.swarm.override { brick = doJailbreak (dontCheck super.brick_1_7); }
-  );
+  swarm = doJailbreak (super.swarm.override { brick = doJailbreak (dontCheck super.brick_1_7); });
 
   # Too strict upper bound on bytestring
   # https://github.com/TravisWhitaker/rdf/issues/8
@@ -3076,8 +3001,7 @@ self: super:
 
   # Too strict lower bound on hspec
   wai-token-bucket-ratelimiter =
-    assert lib.versionOlder self.hspec.version "2.10";
-    doJailbreak super.wai-token-bucket-ratelimiter;
+    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.wai-token-bucket-ratelimiter;
 
   # doctest <0.19
   polysemy = doJailbreak super.polysemy;
@@ -3149,8 +3073,7 @@ self: super:
   # 2023-04-05: The last version to support libsoup-2.4, required for
   # compatability with other gi- packages.
   # Take another look when gi-webkit2 updates as it may have become compatible with libsoup-3
-  gi-soup =
-    assert versions.major self.gi-webkit2.version == "4"; self.gi-soup_2_4_28;
+  gi-soup = assert versions.major self.gi-webkit2.version == "4"; self.gi-soup_2_4_28;
 
   llvm-ffi = super.llvm-ffi.override { LLVM = pkgs.llvmPackages_13.libllvm; };
 

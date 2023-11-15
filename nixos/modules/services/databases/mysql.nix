@@ -346,10 +346,7 @@ in
   config = mkIf cfg.enable {
 
     services.mysql.dataDir = mkDefault (
-      if versionAtLeast config.system.stateVersion "17.09" then
-        "/var/lib/mysql"
-      else
-        "/var/mysql"
+      if versionAtLeast config.system.stateVersion "17.09" then "/var/lib/mysql" else "/var/mysql"
     );
 
     services.mysql.settings.mysqld = mkMerge [
@@ -379,9 +376,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "mysql") {
-      mysql.gid = config.ids.gids.mysql;
-    };
+    users.groups = optionalAttrs (cfg.group == "mysql") { mysql.gid = config.ids.gids.mysql; };
 
     environment.systemPackages = [ cfg.package ];
 

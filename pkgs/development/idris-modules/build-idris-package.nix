@@ -23,8 +23,7 @@
   ...
 }@attrs:
 let
-  allIdrisDeps =
-    idrisDeps ++ lib.optional (!noPrelude) prelude ++ lib.optional (!noBase) base;
+  allIdrisDeps = idrisDeps ++ lib.optional (!noPrelude) prelude ++ lib.optional (!noBase) base;
   idris-with-packages = with-packages allIdrisDeps;
   newAttrs =
     builtins.removeAttrs attrs [
@@ -79,9 +78,7 @@ stdenv.mkDerivation (
     installPhase = ''
       runHook preInstall
 
-      idris --install ${ipkgName}.ipkg --ibcsubdir $out/libs ${
-        lib.escapeShellArgs idrisInstallOptions
-      }
+      idris --install ${ipkgName}.ipkg --ibcsubdir $out/libs ${lib.escapeShellArgs idrisInstallOptions}
 
       IDRIS_DOC_PATH=$out/doc idris --installdoc ${ipkgName}.ipkg ${
         lib.escapeShellArgs idrisDocOptions

@@ -141,19 +141,15 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    [
-      libiconv
-      libupnp'
-      libuuid
-      pugixml
-      spdlog
-      sqlite
-      zlib
-    ]
-    ++ flatten (
-      builtins.catAttrs "packages" (builtins.filter (e: e.enable) options)
-    );
+  buildInputs = [
+    libiconv
+    libupnp'
+    libuuid
+    pugixml
+    spdlog
+    sqlite
+    zlib
+  ] ++ flatten (builtins.catAttrs "packages" (builtins.filter (e: e.enable) options));
 
   passthru.tests = {
     inherit (nixosTests) mediatomb;

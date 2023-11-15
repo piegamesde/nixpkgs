@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
   version = "44.1";
 
   src = fetchurl {
-    url = "mirror://gnome/sources/${pname}/${
-        lib.versions.major version
-      }/${pname}-${version}.tar.xz";
+    url = "mirror://gnome/sources/${pname}/${lib.versions.major version}/${pname}-${version}.tar.xz";
     hash = "sha256-0RB+r47hNai/8Yqv1dDtTomLEoQdBLmZxUHZ1LJO9iM=";
   };
 
@@ -77,9 +75,7 @@ stdenv.mkDerivation rec {
     dbus # for dbus-run-session
   ];
 
-  mesonFlags = [
-    "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user"
-  ];
+  mesonFlags = [ "-Dsystemd_user_unit_dir=${placeholder "out"}/lib/systemd/user" ];
 
   # Too deep of a rabbit hole.
   doCheck = false;

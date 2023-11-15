@@ -18,9 +18,7 @@ let
 
   standardFrameworkPath =
     name: private:
-    "/System/Library/${
-      lib.optionalString private "Private"
-    }Frameworks/${name}.framework";
+    "/System/Library/${lib.optionalString private "Private"}Frameworks/${name}.framework";
 
   mkDepsRewrites =
     deps:
@@ -97,9 +95,7 @@ let
           find $out -name '*.tbd' -type f | while read tbd; do
             echo "Fixing re-exports in $tbd"
             rewrite-tbd \
-              -p ${
-                standardFrameworkPath name private
-              }/:$out/Library/Frameworks/${name}.framework/ \
+              -p ${standardFrameworkPath name private}/:$out/Library/Frameworks/${name}.framework/ \
               -p /usr/lib/swift/:$out/lib/swift/ \
               ${mkDepsRewrites deps} \
               -r ${builtins.storeDir} \
@@ -111,9 +107,7 @@ let
 
         passthru = {
           tbdRewrites = {
-            prefix."${
-              standardFrameworkPath name private
-            }/" = "${self}/Library/Frameworks/${name}.framework/";
+            prefix."${standardFrameworkPath name private}/" = "${self}/Library/Frameworks/${name}.framework/";
           };
         };
 
@@ -407,9 +401,7 @@ rec {
       };
 
       # Merge extraDeps into generatedDeps.
-      deps =
-        generatedDeps
-        // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
+      deps = generatedDeps // (lib.mapAttrs (name: deps: generatedDeps.${name} // deps) extraDeps);
 
       # Create derivations, and add private frameworks.
       bareFrameworks =

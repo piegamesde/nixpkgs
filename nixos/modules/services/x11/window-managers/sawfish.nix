@@ -13,9 +13,7 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.sawfish.enable = mkEnableOption (
-      lib.mdDoc "sawfish"
-    );
+    services.xserver.windowManager.sawfish.enable = mkEnableOption (lib.mdDoc "sawfish");
   };
 
   ###### implementation

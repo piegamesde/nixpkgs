@@ -166,9 +166,7 @@ in
         };
       };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listen.port ]; };
 
     users.users = mkIf (cfg.user == "calibre-web") {
       calibre-web = {

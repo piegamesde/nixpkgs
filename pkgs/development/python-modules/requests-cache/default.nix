@@ -64,15 +64,12 @@ buildPythonPackage rec {
     yaml = [ pyyaml ];
   };
 
-  nativeCheckInputs =
-    [
-      pytestCheckHook
-      requests-mock
-      rich
-      timeout-decorator
-    ]
-    ++ passthru.optional-dependencies.json
-    ++ passthru.optional-dependencies.security;
+  nativeCheckInputs = [
+    pytestCheckHook
+    requests-mock
+    rich
+    timeout-decorator
+  ] ++ passthru.optional-dependencies.json ++ passthru.optional-dependencies.security;
 
   preCheck = ''
     export HOME=$(mktemp -d);

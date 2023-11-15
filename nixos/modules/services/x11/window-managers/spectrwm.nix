@@ -13,9 +13,7 @@ in
 
 {
   options = {
-    services.xserver.windowManager.spectrwm.enable = mkEnableOption (
-      lib.mdDoc "spectrwm"
-    );
+    services.xserver.windowManager.spectrwm.enable = mkEnableOption (lib.mdDoc "spectrwm");
   };
 
   config = mkIf cfg.enable {

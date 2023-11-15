@@ -38,8 +38,7 @@ rec {
         if builtins.isList f then f else [ f ]
       )
     else
-      lib.optional platform.isUnix "unix"
-      ++ lib.optional platform.isWindows "windows";
+      lib.optional platform.isUnix "unix" ++ lib.optional platform.isWindows "windows";
 
   # https://doc.rust-lang.org/reference/conditional-compilation.html#target_vendor
   toTargetVendor =
@@ -78,9 +77,7 @@ rec {
   toRustTargetSpec =
     platform:
     if platform ? rustc.platform then
-      builtins.toFile (toRustTarget platform + ".json") (
-        builtins.toJSON platform.rustc.platform
-      )
+      builtins.toFile (toRustTarget platform + ".json") (builtins.toJSON platform.rustc.platform)
     else
       toRustTarget platform;
 

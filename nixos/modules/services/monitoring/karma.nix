@@ -128,8 +128,6 @@ in
           }";
       };
     };
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      cfg.settings.listen.port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.listen.port ];
   };
 }

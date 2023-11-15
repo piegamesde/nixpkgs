@@ -171,10 +171,7 @@ let
 
   blasImplementation = lib.getName blasProvider;
   blasProvider' =
-    if blasImplementation == "mkl" then
-      blasProvider
-    else
-      blasProvider.override { blas64 = isILP64; };
+    if blasImplementation == "mkl" then blasProvider else blasProvider.override { blas64 = isILP64; };
 in
 
 assert isILP64 -> blasImplementation == "mkl" || blasProvider'.blas64;
@@ -189,9 +186,7 @@ stdenv.mkDerivation {
   ];
 
   meta = (blasProvider'.meta or { }) // {
-    description = "${
-        lib.getName blasProvider
-      } with just the BLAS C and FORTRAN ABI";
+    description = "${lib.getName blasProvider} with just the BLAS C and FORTRAN ABI";
   };
 
   passthru = {

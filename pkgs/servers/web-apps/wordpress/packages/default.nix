@@ -199,7 +199,5 @@ let
 in
 # This creates an extensible scope.
 lib.recursiveUpdate
-  ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (
-    selfWP: superWP: { }
-  ))
+  ((lib.makeExtensible (_: (lib.makeScope newScope packages))).extend (selfWP: superWP: { }))
   (callPackage ./thirdparty.nix { })

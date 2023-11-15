@@ -239,9 +239,7 @@ let
           inherit (conf) group;
         });
       users.groups =
-        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) {
-          "${name}-exporter" = { };
-        });
+        (mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; });
       networking.firewall.extraCommands = mkIf conf.openFirewall (
         concatStrings [
           "ip46tables -A nixos-fw ${conf.firewallFilter} "
@@ -347,9 +345,7 @@ in
           [
             {
               assertion =
-                cfg.ipmi.enable
-                -> (cfg.ipmi.configFile != null)
-                -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
+                cfg.ipmi.enable -> (cfg.ipmi.configFile != null) -> (!(lib.hasPrefix "/tmp/" cfg.ipmi.configFile));
               message = ''
                 Config file specified in `services.prometheus.exporters.ipmi.configFile' must
                   not reside within /tmp - it won't be visible to the systemd service.
@@ -367,8 +363,7 @@ in
             }
             {
               assertion =
-                cfg.snmp.enable
-                -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
+                cfg.snmp.enable -> ((cfg.snmp.configurationPath == null) != (cfg.snmp.configuration == null));
               message = ''
                 Please ensure you have either `services.prometheus.exporters.snmp.configuration'
                   or `services.prometheus.exporters.snmp.configurationPath' set!
@@ -376,26 +371,21 @@ in
             }
             {
               assertion =
-                cfg.mikrotik.enable
-                -> ((cfg.mikrotik.configFile == null) != (cfg.mikrotik.configuration == null));
+                cfg.mikrotik.enable -> ((cfg.mikrotik.configFile == null) != (cfg.mikrotik.configuration == null));
               message = ''
                 Please specify either `services.prometheus.exporters.mikrotik.configuration'
                   or `services.prometheus.exporters.mikrotik.configFile'.
               '';
             }
             {
-              assertion =
-                cfg.mail.enable
-                -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null));
+              assertion = cfg.mail.enable -> ((cfg.mail.configFile == null) != (cfg.mail.configuration == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.mail.configuration'
                   or 'services.prometheus.exporters.mail.configFile'.
               '';
             }
             {
-              assertion =
-                cfg.sql.enable
-                -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
+              assertion = cfg.sql.enable -> ((cfg.sql.configFile == null) != (cfg.sql.configuration == null));
               message = ''
                 Please specify either 'services.prometheus.exporters.sql.configuration' or
                   'services.prometheus.exporters.sql.configFile'
@@ -404,8 +394,7 @@ in
           ]
           ++ (flip map (attrNames exporterOpts) (
             exporter: {
-              assertion =
-                cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
+              assertion = cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
               message = ''
                 The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
                 `openFirewall' is set to `true'!
@@ -418,15 +407,9 @@ in
     ]
     ++ [
       (mkIf config.services.minio.enable {
-        services.prometheus.exporters.minio.minioAddress =
-          mkDefault
-            "http://localhost:9000";
-        services.prometheus.exporters.minio.minioAccessKey =
-          mkDefault
-            config.services.minio.accessKey;
-        services.prometheus.exporters.minio.minioAccessSecret =
-          mkDefault
-            config.services.minio.secretKey;
+        services.prometheus.exporters.minio.minioAddress = mkDefault "http://localhost:9000";
+        services.prometheus.exporters.minio.minioAccessKey = mkDefault config.services.minio.accessKey;
+        services.prometheus.exporters.minio.minioAccessSecret = mkDefault config.services.minio.secretKey;
       })
     ]
     ++ [
@@ -436,9 +419,7 @@ in
     ]
     ++ [
       (mkIf config.services.postfix.enable {
-        services.prometheus.exporters.postfix.group =
-          mkDefault
-            config.services.postfix.setgidGroup;
+        services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup;
       })
     ]
     ++ (mapAttrsToList

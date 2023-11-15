@@ -22,8 +22,7 @@ let
       ${hostOpts.hostName} ${concatStringsSep " " hostOpts.serverAliases} {
         bind ${concatStringsSep " " hostOpts.listenAddresses}
         ${
-          optionalString (hostOpts.useACMEHost != null)
-            "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
+          optionalString (hostOpts.useACMEHost != null) "tls ${sslCertDir}/cert.pem ${sslCertDir}/key.pem"
         }
         log {
           ${hostOpts.logFormat}
@@ -51,17 +50,12 @@ let
           '';
     in
     "${
-      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
-        Caddyfile-formatted
-      else
-        Caddyfile
+      if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile
     }/Caddyfile";
 
   acmeHosts = unique (catAttrs "useACMEHost" acmeVHosts);
 
-  mkCertOwnershipAssertion =
-    import
-      ../../../security/acme/mk-cert-ownership-assertion.nix;
+  mkCertOwnershipAssertion = import ../../../security/acme/mk-cert-ownership-assertion.nix;
 in
 {
   imports = [
@@ -273,8 +267,7 @@ in
     };
 
     virtualHosts = mkOption {
-      type =
-        with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
+      type = with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
       default = { };
       example = literalExpression ''
         {
@@ -322,9 +315,7 @@ in
     assertions =
       [
         {
-          assertion =
-            cfg.configFile == configFile
-            -> cfg.adapter == "caddyfile" || cfg.adapter == null;
+          assertion = cfg.configFile == configFile -> cfg.adapter == "caddyfile" || cfg.adapter == null;
           message = "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
         }
       ]
@@ -353,12 +344,8 @@ in
 
     systemd.packages = [ cfg.package ];
     systemd.services.caddy = {
-      wants =
-        map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target")
-          acmeVHosts;
-      after =
-        map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service")
-          acmeVHosts;
+      wants = map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target") acmeVHosts;
+      after = map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service") acmeVHosts;
       before = map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
 
       wantedBy = [ "multi-user.target" ];
@@ -405,9 +392,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "caddy") {
-      caddy.gid = config.ids.gids.caddy;
-    };
+    users.groups = optionalAttrs (cfg.group == "caddy") { caddy.gid = config.ids.gids.caddy; };
 
     security.acme.certs =
       let

@@ -294,10 +294,7 @@ in
           ''
             sed -i "s/^.*'R_DB_HOST'.*$/define('R_DB_HOST', '${cfg.database.host}');/g" "${runDir}/server/php/config.inc.php"
             sed -i "s/^.*'R_DB_PASSWORD'.*$/define('R_DB_PASSWORD', ${
-              if cfg.database.passwordFile == null then
-                "''"
-              else
-                "'$(cat ${cfg.database.passwordFile})');/g"
+              if cfg.database.passwordFile == null then "''" else "'$(cat ${cfg.database.passwordFile})');/g"
             }" "${runDir}/server/php/config.inc.php"
           ''}
         sed -i "s/^.*'R_DB_PORT'.*$/define('R_DB_PORT', '${
@@ -386,10 +383,8 @@ in
       restya-board-users restya-board restya_board
     '';
 
-    services.postgresql.authentication =
-      optionalString (cfg.database.host == null)
-        ''
-          local restya_board all ident map=restya-board-users
-        '';
+    services.postgresql.authentication = optionalString (cfg.database.host == null) ''
+      local restya_board all ident map=restya-board-users
+    '';
   };
 }

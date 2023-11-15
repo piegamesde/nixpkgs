@@ -92,10 +92,7 @@ let
 
   # PGO only makes sense if we are not cross compiling and
   # using a compiler which foot's PGO build supports (clang or gcc)
-  doPgo =
-    allowPgo
-    && (stdenv.hostPlatform == stdenv.buildPlatform)
-    && compilerName != "unknown";
+  doPgo = allowPgo && (stdenv.hostPlatform == stdenv.buildPlatform) && compilerName != "unknown";
 
   terminfoDir = "${placeholder "terminfo"}/share/terminfo";
 in
@@ -193,9 +190,7 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     clang-default-compilation = foot.override { inherit (llvmPackages) stdenv; };
 
-    clang-latest-compilation = foot.override {
-      inherit (llvmPackages_latest) stdenv;
-    };
+    clang-latest-compilation = foot.override { inherit (llvmPackages_latest) stdenv; };
 
     noPgo = foot.override { allowPgo = false; };
 

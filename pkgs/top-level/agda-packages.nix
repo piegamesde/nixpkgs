@@ -23,9 +23,7 @@ let
     {
       inherit mkDerivation;
 
-      lib = lib.extend (
-        final: prev: import ../build-support/agda/lib.nix { lib = prev; }
-      );
+      lib = lib.extend (final: prev: import ../build-support/agda/lib.nix { lib = prev; });
 
       agda = withPackages [ ];
 
@@ -41,9 +39,7 @@ let
 
       cubical = callPackage ../development/libraries/agda/cubical { };
 
-      functional-linear-algebra =
-        callPackage ../development/libraries/agda/functional-linear-algebra
-          { };
+      functional-linear-algebra = callPackage ../development/libraries/agda/functional-linear-algebra { };
 
       generic = callPackage ../development/libraries/agda/generic { };
 

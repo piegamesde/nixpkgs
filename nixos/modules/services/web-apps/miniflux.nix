@@ -24,9 +24,7 @@ in
 {
   options = {
     services.miniflux = {
-      enable = mkEnableOption (
-        lib.mdDoc "miniflux and creates a local postgres database for it"
-      );
+      enable = mkEnableOption (lib.mdDoc "miniflux and creates a local postgres database for it");
 
       package = mkOption {
         type = types.package;

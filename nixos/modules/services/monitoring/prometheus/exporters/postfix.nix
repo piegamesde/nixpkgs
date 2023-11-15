@@ -104,9 +104,7 @@ in
               ++
                 optional (cfg.systemd.enable && (cfg.systemd.journalPath != null))
                   "--systemd.journal_path ${escapeShellArg cfg.systemd.journalPath}"
-              ++
-                optional (!cfg.systemd.enable)
-                  "--postfix.logfile_path ${escapeShellArg cfg.logfilePath}"
+              ++ optional (!cfg.systemd.enable) "--postfix.logfile_path ${escapeShellArg cfg.logfilePath}"
             )
           }
       '';

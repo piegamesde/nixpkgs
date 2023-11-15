@@ -76,9 +76,7 @@ let
             variant ? null,
           }:
           let
-            artifactDirectory = "${os}-${architecture}${
-                lib.optionalString (variant != null) "-${variant}"
-              }";
+            artifactDirectory = "${os}-${architecture}${lib.optionalString (variant != null) "-${variant}"}";
           in
           ''
             mkdir -p $out/${artifactDirectory}
@@ -87,14 +85,9 @@ let
       in
       ''
         ${builtins.concatStringsSep "\n" (
-          (map
-            (
-              name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }
-            )
-            (
-              if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ]
-            )
-          )
+          (map (name: mkCommonArtifactLinkCommand { artifact = engineArtifacts.common.${name}; }) (
+            if includedEngineArtifacts ? common then includedEngineArtifacts.common else [ ]
+          ))
           ++ (builtins.foldl'
             (
               commands: os:
@@ -122,8 +115,7 @@ let
                         engineArtifacts.platform.${os}.${architecture}.variants.${variant}
                       )
                     )
-                    (map
-                      (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
+                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
                       engineArtifacts.platform.${os}.${architecture}.base
                     )
                     includedEngineArtifacts.platform.${os}.${architecture}
@@ -136,10 +128,7 @@ let
             [ ]
             (
               builtins.attrNames (
-                if includedEngineArtifacts ? platform then
-                  includedEngineArtifacts.platform
-                else
-                  { }
+                if includedEngineArtifacts ? platform then includedEngineArtifacts.platform else { }
               )
             )
           )

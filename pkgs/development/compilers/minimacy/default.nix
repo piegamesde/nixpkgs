@@ -56,9 +56,7 @@ stdenv.mkDerivation rec {
   checkPhase = ''
     runHook preCheck
 
-    bin/${
-      if stdenv.isDarwin then "minimacyMac" else "minimacy"
-    } system/demo/demo.fun.mandelbrot.mcy
+    bin/${if stdenv.isDarwin then "minimacyMac" else "minimacy"} system/demo/demo.fun.mandelbrot.mcy
 
     runHook postCheck
   '';

@@ -34,8 +34,7 @@ let
   versionPre = if lib.tail version_ == [ ] then "" else lib.elemAt version_ 1;
   version = lib.splitVersion (lib.head version_);
   rustcOpts =
-    lib.foldl' (opts: opt: opts + " " + opt)
-      (if release then "-C opt-level=3" else "-C debuginfo=2")
+    lib.foldl' (opts: opt: opts + " " + opt) (if release then "-C opt-level=3" else "-C debuginfo=2")
       ([ "-C codegen-units=${toString codegenUnits}" ] ++ extraRustcOptsForBuildRs);
   buildDeps = mkRustcDepArgs buildDependencies crateRenames;
   authors = lib.concatStringsSep ":" crateAuthors;
@@ -142,10 +141,7 @@ in
   export CARGO_CFG_UNIX=1
   export CARGO_CFG_TARGET_ENV="gnu"
   export CARGO_CFG_TARGET_ENDIAN=${
-    if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
-      "little"
-    else
-      "big"
+    if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big"
   }
   export CARGO_CFG_TARGET_POINTER_WIDTH=${
     with stdenv.hostPlatform; toString (if isILP32 then 32 else parsed.cpu.bits)
@@ -184,9 +180,7 @@ in
        EXTRA_BUILD_FLAGS="$EXTRA_BUILD_FLAGS $(tr '\n' ' ' < target/link.build)"
      fi
      noisily rustc --crate-name build_script_build $BUILD --crate-type bin ${rustcOpts} \
-       ${
-         mkRustcFeatureArgs crateFeatures
-       } --out-dir target/build/${crateName} --emit=dep-info,link \
+       ${mkRustcFeatureArgs crateFeatures} --out-dir target/build/${crateName} --emit=dep-info,link \
        -L dependency=target/buildDeps ${buildDeps} --cap-lints allow $EXTRA_BUILD_FLAGS --color ${colors}
 
      mkdir -p target/build/${crateName}.out

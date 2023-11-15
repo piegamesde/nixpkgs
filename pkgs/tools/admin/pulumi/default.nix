@@ -43,9 +43,7 @@ buildGoModule rec {
     "-w"
   ] ++ importpathFlags;
 
-  importpathFlags = [
-    "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"
-  ];
+  importpathFlags = [ "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}" ];
 
   doCheck = true;
 
@@ -101,13 +99,11 @@ buildGoModule rec {
     pkgs = pulumiPackages;
     withPackages =
       f:
-      runCommand "${pulumi.name}-with-packages"
-        { nativeBuildInputs = [ makeWrapper ]; }
-        ''
-          mkdir -p $out/bin
-          makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
-            --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}
-        '';
+      runCommand "${pulumi.name}-with-packages" { nativeBuildInputs = [ makeWrapper ]; } ''
+        mkdir -p $out/bin
+        makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
+          --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}
+      '';
   };
 
   meta = with lib; {

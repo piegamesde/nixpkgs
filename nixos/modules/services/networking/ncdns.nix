@@ -54,9 +54,7 @@ let
   };
 
   # if all keys are the default value
-  needsKeygen = all id (
-    flip mapAttrsToList cfg.dnssec.keys (n: v: v == getAttr n defaultFiles)
-  );
+  needsKeygen = all id (flip mapAttrsToList cfg.dnssec.keys (n: v: v == getAttr n defaultFiles));
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 in
@@ -240,9 +238,7 @@ in
       ncdns =
         {
           # Namecoin RPC
-          namecoinrpcaddress = "${cfgs.namecoind.rpc.address}:${
-              toString cfgs.namecoind.rpc.port
-            }";
+          namecoinrpcaddress = "${cfgs.namecoind.rpc.address}:${toString cfgs.namecoind.rpc.port}";
           namecoinrpcusername = cfgs.namecoind.rpc.user;
           namecoinrpcpassword = cfgs.namecoind.rpc.password;
 

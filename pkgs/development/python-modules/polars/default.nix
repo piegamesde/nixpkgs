@@ -43,9 +43,7 @@ buildPythonPackage {
   # Revisit this whenever package or Rust is upgraded
   RUSTC_BOOTSTRAP = 1;
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [
-    typing-extensions
-  ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
 
   nativeBuildInputs = with rustPlatform; [
     cargoSetupHook

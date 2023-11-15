@@ -164,9 +164,7 @@ let
                 }",
                 "/mnt/etc/nixos/configuration.nix",
             )
-            machine.copy_from_host("${
-              pkgs.writeText "secret" "secret"
-            }", "/mnt/etc/nixos/secret")
+            machine.copy_from_host("${pkgs.writeText "secret" "secret"}", "/mnt/etc/nixos/secret")
 
         with subtest("Perform the installation"):
             machine.succeed("nixos-install < /dev/null >&2")
@@ -382,13 +380,9 @@ let
             # the same during and after installation.
             virtualisation.emptyDiskImages = [ 512 ];
             virtualisation.rootDevice =
-              if grubVersion == 1 then
-                "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2"
-              else
-                "/dev/vdb";
+              if grubVersion == 1 then "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive2" else "/dev/vdb";
             virtualisation.bootLoaderDevice = "/dev/vda";
-            virtualisation.qemu.diskInterface =
-              if grubVersion == 1 then "scsi" else "virtio";
+            virtualisation.qemu.diskInterface = if grubVersion == 1 then "scsi" else "virtio";
 
             # We don't want to have any networking in the guest whatsoever.
             # Also, if any vlans are enabled, the guest will reboot
@@ -447,9 +441,7 @@ let
               ++ optional (bootLoader == "grub" && grubVersion == 1) pkgs.grub
               ++ optionals (bootLoader == "grub" && grubVersion == 2) (
                 let
-                  zfsSupport = lib.any (x: x == "zfs") (
-                    extraInstallerConfig.boot.supportedFilesystems or [ ]
-                  );
+                  zfsSupport = lib.any (x: x == "zfs") (extraInstallerConfig.boot.supportedFilesystems or [ ]);
                 in
                 [
                   (pkgs.grub2.override { inherit zfsSupport; })
@@ -573,9 +565,7 @@ let
   # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
-      (final: super: {
-        zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; });
-      })
+      (final: super: { zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; }); })
     ];
   };
 in
@@ -617,9 +607,9 @@ in
   simpleUefiGrub = makeInstallerTest "simpleUefiGrub" simple-uefi-grub-config;
 
   # Test cloned configurations with the uefi grub configuration
-  simpleUefiGrubSpecialisation =
-    makeInstallerTest "simpleUefiGrubSpecialisation"
-      (simple-uefi-grub-config // specialisation-test-extraconfig);
+  simpleUefiGrubSpecialisation = makeInstallerTest "simpleUefiGrubSpecialisation" (
+    simple-uefi-grub-config // specialisation-test-extraconfig
+  );
 
   # Same as the previous, but now with a separate /boot partition.
   separateBoot = makeInstallerTest "separateBoot" {

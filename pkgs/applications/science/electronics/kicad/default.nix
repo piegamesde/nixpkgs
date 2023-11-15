@@ -132,8 +132,7 @@ stdenv.mkDerivation rec {
   };
 
   inherit pname;
-  version =
-    if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
+  version = if (stable) then kicadVersion else builtins.substring 0 10 src.src.rev;
 
   src = base;
   dontUnpack = true;
@@ -147,9 +146,7 @@ stdenv.mkDerivation rec {
     python.pkgs.requests
   ];
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
+  nativeBuildInputs = [ makeWrapper ] ++ optionals (withScripting) [ python.pkgs.wrapPython ];
 
   # We are emulating wrapGAppsHook, along with other variables to the wrapper
   makeWrapperArgs =
@@ -171,15 +168,11 @@ stdenv.mkDerivation rec {
       "--prefix KICAD7_TEMPLATE_DIR : ${symbols}/share/kicad/template"
       "--prefix KICAD7_TEMPLATE_DIR : ${footprints}/share/kicad/template"
     ]
-    ++ optionals (with3d) [
-      "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels"
-    ]
+    ++ optionals (with3d) [ "--set-default KICAD7_3DMODEL_DIR ${packages3d}/share/kicad/3dmodels" ]
     ++ optionals (withNgspice) [ "--prefix LD_LIBRARY_PATH : ${libngspice}/lib" ]
 
     # infinisil's workaround for #39493
-    ++ [
-      "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
-    ];
+    ++ [ "--set GDK_PIXBUF_MODULE_FILE ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache" ];
 
   # why does $makeWrapperArgs have to be added explicitly?
   # $out and $program_PYTHONPATH don't exist when makeWrapperArgs gets set?

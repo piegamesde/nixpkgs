@@ -51,9 +51,7 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     lib.optionals standalone [ "-DLLVM_ENABLE_LIBCXX=ON" ]
-    ++ lib.optionals (standalone && withLibunwind) [
-      "-DLIBCXXABI_USE_LLVM_UNWINDER=ON"
-    ]
+    ++ lib.optionals (standalone && withLibunwind) [ "-DLIBCXXABI_USE_LLVM_UNWINDER=ON" ]
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
@@ -84,9 +82,7 @@ stdenv.mkDerivation {
 
   postInstall = ''
     mkdir -p "$dev/include"
-    install -m 644 ../include/${
-      if stdenv.isDarwin then "*" else "cxxabi.h"
-    } "$dev/include"
+    install -m 644 ../include/${if stdenv.isDarwin then "*" else "cxxabi.h"} "$dev/include"
   '';
 
   passthru = {

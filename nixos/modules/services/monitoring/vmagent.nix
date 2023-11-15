@@ -86,9 +86,7 @@ in
 
     systemd.services.vmagent =
       let
-        prometheusConfig =
-          settingsFormat.generate "prometheusConfig.yaml"
-            cfg.prometheusConfig;
+        prometheusConfig = settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig;
       in
       {
         wantedBy = [ "multi-user.target" ];
@@ -104,8 +102,6 @@ in
         };
       };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} -" ];
   };
 }

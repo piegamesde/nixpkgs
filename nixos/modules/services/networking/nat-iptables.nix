@@ -15,11 +15,7 @@ let
   cfg = config.networking.nat;
 
   mkDest =
-    externalIP:
-    if externalIP == null then
-      "-j MASQUERADE"
-    else
-      "-j SNAT --to-source ${externalIP}";
+    externalIP: if externalIP == null then "-j MASQUERADE" else "-j SNAT --to-source ${externalIP}";
   dest = mkDest cfg.externalIP;
   destIPv6 = mkDest cfg.externalIPv6;
 
@@ -63,9 +59,7 @@ let
       # NAT the marked packets.
       ${optionalString (cfg.internalInterfaces != [ ]) ''
         ${iptables} -w -t nat -A nixos-nat-post -m mark --mark 1 \
-          ${
-            optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"
-          } ${dest}
+          ${optionalString (cfg.externalInterface != null) "-o ${cfg.externalInterface}"} ${dest}
       ''}
 
       # NAT packets coming from the internal IPs.
@@ -90,11 +84,9 @@ let
             (
               loopbackip:
               let
-                matchIP =
-                  if isIPv6 fwd.destination then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
+                matchIP = if isIPv6 fwd.destination then "[[]([0-9a-fA-F:]+)[]]" else "([0-9.]+)";
                 m = builtins.match "${matchIP}:([0-9-]+)" fwd.destination;
-                destinationIP =
-                  if m == null then throw "bad ip:ports `${fwd.destination}'" else elemAt m 0;
+                destinationIP = if m == null then throw "bad ip:ports `${fwd.destination}'" else elemAt m 0;
                 destinationPorts =
                   if m == null then
                     throw "bad ip:ports `${fwd.destination}'"
@@ -102,17 +94,13 @@ let
                     builtins.replaceStrings [ "-" ] [ ":" ] (elemAt m 1);
               in
               ''
-                # Allow connections to ${loopbackip}:${
-                  toString fwd.sourcePort
-                } from the host itself
+                # Allow connections to ${loopbackip}:${toString fwd.sourcePort} from the host itself
                 ${iptables} -w -t nat -A nixos-nat-out \
                   -d ${loopbackip} -p ${fwd.proto} \
                   --dport ${builtins.toString fwd.sourcePort} \
                   -j DNAT --to-destination ${fwd.destination}
 
-                # Allow connections to ${loopbackip}:${
-                  toString fwd.sourcePort
-                } from other hosts behind NAT
+                # Allow connections to ${loopbackip}:${toString fwd.sourcePort} from other hosts behind NAT
                 ${iptables} -w -t nat -A nixos-nat-pre \
                   -d ${loopbackip} -p ${fwd.proto} \
                   --dport ${builtins.toString fwd.sourcePort} \

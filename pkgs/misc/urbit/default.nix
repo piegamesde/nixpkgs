@@ -22,8 +22,7 @@ stdenv.mkDerivation rec {
         x86_64-darwin = "sha256-JuMjYwmcArPEjcUapdkSu9FEFKK4ZfxJxmvRVOJ3w34=";
         aarch64-darwin = "sha256-5lpBhmdDpNVFHZ7P6TRBoFWFWKvwbJNO6ohiuoKMc6E=";
       }
-      .${stdenv.hostPlatform.system}
-        or (throw "unsupported system ${stdenv.hostPlatform.system}");
+      .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
   };
 
   postInstall = ''

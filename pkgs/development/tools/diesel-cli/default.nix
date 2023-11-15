@@ -17,8 +17,7 @@
   zlib,
 }:
 
-assert lib.assertMsg
-    (sqliteSupport == true || postgresqlSupport == true || mysqlSupport == true)
+assert lib.assertMsg (sqliteSupport == true || postgresqlSupport == true || mysqlSupport == true)
     "support for at least one database must be enabled";
 
 let

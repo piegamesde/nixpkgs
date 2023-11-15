@@ -65,9 +65,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withLua lua5_3;
 
   src = fetchurl {
-    url = "https://dovecot.org/releases/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.gz";
+    url = "https://dovecot.org/releases/${lib.versions.majorMinor version}/${pname}-${version}.tar.gz";
     hash = "sha256-yqgy65aBSKvfNe6dD1NLd5+nMsDOSpE9mrjDRpshhVI=";
   };
 

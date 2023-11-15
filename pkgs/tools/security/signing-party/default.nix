@@ -210,10 +210,7 @@ stdenv.mkDerivation rec {
           }"
 
         wrapProgram $out/bin/gpgdir --set PERL5LIB \
-          ${
-            with perlPackages;
-            makePerlPath ([ TermReadKey ] ++ GnuPGInterfaceRuntimeDependencies)
-          } \
+          ${with perlPackages; makePerlPath ([ TermReadKey ] ++ GnuPGInterfaceRuntimeDependencies)} \
           --prefix PATH ":" \
           "${lib.makeBinPath [ gnupg ]}"
 

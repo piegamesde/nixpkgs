@@ -62,9 +62,7 @@ let
   inherit (pkgs) lib;
 
   # see usage explanation for the input format `files` allows
-  files' = builtins.map builtins.baseNameOf (
-    if !builtins.isList files then [ files ] else files
-  );
+  files' = builtins.map builtins.baseNameOf (if !builtins.isList files then [ files ] else files);
 
   packageSetsWithVersionedHead =
     pkgs.haskell.packages
@@ -96,16 +94,13 @@ let
       # extract the unique part of the config's file name
       configName = builtins.head (builtins.match "configuration-(.+).nix" fileName);
       # match the major and minor version of the GHC the config is intended for, if any
-      configVersion = lib.concatStrings (
-        builtins.match "ghc-([0-9]+).([0-9]+).x" configName
-      );
+      configVersion = lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
       # return all package sets under haskell.packages matching the version components
       setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name}) (
         builtins.filter
           (
             setName:
-            lib.hasPrefix "ghc${configVersion}" setName
-            && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
+            lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
           )
           (builtins.attrNames packageSetsWithVersionedHead)
       );
@@ -124,9 +119,7 @@ let
 
   # attribute set that has all the attributes of haskellPackages set to null
   availableHaskellPackages = builtins.listToAttrs (
-    builtins.map (attr: lib.nameValuePair attr null) (
-      builtins.attrNames pkgs.haskellPackages
-    )
+    builtins.map (attr: lib.nameValuePair attr null) (builtins.attrNames pkgs.haskellPackages)
   );
 
   # evaluate a configuration and only return the attributes changed by it,

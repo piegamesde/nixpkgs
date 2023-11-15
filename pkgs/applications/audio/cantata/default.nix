@@ -176,15 +176,11 @@ mkDerivation rec {
     patchShebangs playlists
   '';
 
-  buildInputs =
-    [
-      qtbase
-      qtsvg
-      (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
-    ]
-    ++ lib.flatten (
-      builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options)
-    );
+  buildInputs = [
+    qtbase
+    qtsvg
+    (perl.withPackages (ppkgs: with ppkgs; [ URI ]))
+  ] ++ lib.flatten (builtins.catAttrs "pkgs" (builtins.filter (e: e.enable) options));
 
   nativeBuildInputs = [
     cmake

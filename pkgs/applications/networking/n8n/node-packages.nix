@@ -11895,12 +11895,7 @@ in
       sha512 = "U8BRKXk1rQxF8QwPJfZwNJ9K0uTdxPXzulN1EQokOwm12MzRCBIocTYzTzGu9I8pHvyQMhcev8T4zLmZd5bvhw==";
     };
     dependencies = [
-      (
-        sources."@acuminous/bitsyntax-0.1.2"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."@acuminous/bitsyntax-0.1.2" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       (
         sources."@apidevtools/json-schema-ref-parser-9.0.9"
         // {
@@ -11913,12 +11908,7 @@ in
       sources."@authenio/xml-encryption-2.0.2"
       sources."@azure/abort-controller-1.1.0"
       sources."@azure/core-auth-1.4.0"
-      (
-        sources."@azure/core-client-1.7.2"
-        // {
-          dependencies = [ sources."@azure/core-tracing-1.0.1" ];
-        }
-      )
+      (sources."@azure/core-client-1.7.2" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; })
       (
         sources."@azure/core-http-3.0.0"
         // {
@@ -11950,10 +11940,7 @@ in
         }
       )
       (
-        sources."@azure/keyvault-keys-4.6.0"
-        // {
-          dependencies = [ sources."@azure/core-tracing-1.0.1" ];
-        }
+        sources."@azure/keyvault-keys-4.6.0" // { dependencies = [ sources."@azure/core-tracing-1.0.1" ]; }
       )
       sources."@azure/logger-1.0.4"
       sources."@azure/ms-rest-azure-env-2.0.0"
@@ -11968,10 +11955,7 @@ in
       )
       sources."@azure/ms-rest-nodeauth-3.1.1"
       (
-        sources."@azure/msal-browser-2.33.0"
-        // {
-          dependencies = [ sources."@azure/msal-common-10.0.0" ];
-        }
+        sources."@azure/msal-browser-2.33.0" // { dependencies = [ sources."@azure/msal-common-10.0.0" ]; }
       )
       sources."@azure/msal-common-4.5.1"
       (
@@ -12037,12 +12021,7 @@ in
           ];
         }
       )
-      (
-        sources."@grpc/proto-loader-0.6.13"
-        // {
-          dependencies = [ sources."yargs-16.2.0" ];
-        }
-      )
+      (sources."@grpc/proto-loader-0.6.13" // { dependencies = [ sources."yargs-16.2.0" ]; })
       (
         sources."@icetee/ftp-0.3.15"
         // {
@@ -12074,23 +12053,13 @@ in
       sources."@lezer/javascript-1.4.1"
       sources."@lezer/lr-1.3.3"
       sources."@mapbox/node-pre-gyp-1.0.10"
-      (
-        sources."@n8n_io/license-sdk-1.8.0"
-        // {
-          dependencies = [ sources."axios-1.1.3" ];
-        }
-      )
+      (sources."@n8n_io/license-sdk-1.8.0" // { dependencies = [ sources."axios-1.1.3" ]; })
       sources."@n8n_io/riot-tmpl-2.0.0"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       sources."@npmcli/fs-1.1.1"
-      (
-        sources."@npmcli/move-file-1.1.2"
-        // {
-          dependencies = [ sources."mkdirp-1.0.4" ];
-        }
-      )
+      (sources."@npmcli/move-file-1.1.2" // { dependencies = [ sources."mkdirp-1.0.4" ]; })
       sources."@oclif/command-1.8.22"
       sources."@oclif/config-1.18.8"
       (
@@ -12113,12 +12082,7 @@ in
           ];
         }
       )
-      (
-        sources."@oclif/help-1.0.5"
-        // {
-          dependencies = [ sources."@oclif/config-1.18.6" ];
-        }
-      )
+      (sources."@oclif/help-1.0.5" // { dependencies = [ sources."@oclif/config-1.18.6" ]; })
       sources."@oclif/linewrap-1.0.0"
       sources."@oclif/parser-3.8.10"
       sources."@oclif/screen-3.0.4"
@@ -12134,9 +12098,7 @@ in
       sources."@protobufjs/pool-1.1.0"
       sources."@protobufjs/utf8-1.1.0"
       sources."@redis/bloom-1.2.0"
-      (
-        sources."@redis/client-1.5.6" // { dependencies = [ sources."yallist-4.0.0" ]; }
-      )
+      (sources."@redis/client-1.5.6" // { dependencies = [ sources."yallist-4.0.0" ]; })
       sources."@redis/graph-1.1.0"
       sources."@redis/json-1.0.4"
       sources."@redis/search-1.1.2"
@@ -12161,22 +12123,11 @@ in
       )
       sources."@segment/loosely-validate-event-2.0.0"
       sources."@selderee/plugin-htmlparser2-0.10.0"
-      (
-        sources."@sentry/core-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; }
-      )
-      (
-        sources."@sentry/integrations-7.40.0"
-        // {
-          dependencies = [ sources."tslib-1.14.1" ];
-        }
-      )
-      (
-        sources."@sentry/node-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; }
-      )
+      (sources."@sentry/core-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
+      (sources."@sentry/integrations-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
+      (sources."@sentry/node-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
       sources."@sentry/types-7.40.0"
-      (
-        sources."@sentry/utils-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; }
-      )
+      (sources."@sentry/utils-7.40.0" // { dependencies = [ sources."tslib-1.14.1" ]; })
       sources."@servie/events-1.0.0"
       sources."@sqltools/formatter-1.2.5"
       sources."@swc/core-1.3.37"
@@ -12205,12 +12156,7 @@ in
       sources."@types/mime-3.0.1"
       sources."@types/multer-1.4.7"
       sources."@types/node-18.14.6"
-      (
-        sources."@types/node-fetch-2.6.2"
-        // {
-          dependencies = [ sources."form-data-3.0.1" ];
-        }
-      )
+      (sources."@types/node-fetch-2.6.2" // { dependencies = [ sources."form-data-3.0.1" ]; })
       sources."@types/pumpify-1.4.1"
       sources."@types/qs-6.9.7"
       sources."@types/range-parser-1.2.4"
@@ -12225,12 +12171,7 @@ in
       sources."@types/webidl-conversions-7.0.0"
       sources."@types/whatwg-url-8.2.2"
       sources."@vue/compiler-sfc-2.7.14"
-      (
-        sources."@vue/composition-api-1.7.1"
-        // {
-          dependencies = [ sources."vue-2.6.14" ];
-        }
-      )
+      (sources."@vue/composition-api-1.7.1" // { dependencies = [ sources."vue-2.6.14" ]; })
       sources."@vue/devtools-api-6.5.0"
       sources."@xmldom/xmldom-0.8.6"
       sources."a-sync-waterfall-1.0.1"
@@ -12251,12 +12192,7 @@ in
       sources."adler-32-1.2.0"
       sources."agent-base-6.0.2"
       sources."agentkeepalive-4.3.0"
-      (
-        sources."aggregate-error-3.1.0"
-        // {
-          dependencies = [ sources."clean-stack-2.2.0" ];
-        }
-      )
+      (sources."aggregate-error-3.1.0" // { dependencies = [ sources."clean-stack-2.2.0" ]; })
       sources."ajv-6.12.6"
       (
         sources."amqplib-0.10.3"
@@ -12277,12 +12213,7 @@ in
       sources."app-root-path-3.1.0"
       sources."append-field-1.0.0"
       sources."aproba-2.0.0"
-      (
-        sources."are-we-there-yet-2.0.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."are-we-there-yet-2.0.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."arg-4.1.3"
       sources."argparse-1.0.10"
       sources."array-flatten-1.1.1"
@@ -12303,12 +12234,7 @@ in
       sources."async-validator-1.8.5"
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
-      (
-        sources."auto-changelog-1.16.4"
-        // {
-          dependencies = [ sources."semver-6.3.0" ];
-        }
-      )
+      (sources."auto-changelog-1.16.4" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."available-typed-arrays-1.0.5"
       sources."avsc-5.7.7"
       (
@@ -12341,12 +12267,7 @@ in
       )
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
-      (
-        sources."basic-auth-2.0.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."basic-auth-2.0.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."bcrypt-pbkdf-1.0.2"
       sources."bcryptjs-2.4.3"
       sources."better-sqlite3-8.1.0"
@@ -12460,9 +12381,7 @@ in
       sources."clean-stack-3.0.1"
       sources."cli-color-0.1.7"
       sources."cli-cursor-3.1.0"
-      (
-        sources."cli-highlight-2.1.11" // { dependencies = [ sources."yargs-16.2.0" ]; }
-      )
+      (sources."cli-highlight-2.1.11" // { dependencies = [ sources."yargs-16.2.0" ]; })
       sources."cli-progress-3.12.0"
       sources."cli-width-3.0.0"
       sources."client-oauth2-4.3.3"
@@ -12512,9 +12431,7 @@ in
       sources."content-type-1.0.5"
       sources."convict-6.2.4"
       sources."cookie-0.4.2"
-      (
-        sources."cookie-parser-1.4.6" // { dependencies = [ sources."cookie-0.4.1" ]; }
-      )
+      (sources."cookie-parser-1.4.6" // { dependencies = [ sources."cookie-0.4.1" ]; })
       sources."cookie-signature-1.0.6"
       sources."copy-to-2.0.1"
       sources."core-js-3.29.0"
@@ -12573,24 +12490,14 @@ in
       sources."digest-header-1.0.0"
       sources."dir-glob-3.0.1"
       sources."dom-iterator-1.0.0"
-      (
-        sources."dom-serializer-2.0.0"
-        // {
-          dependencies = [ sources."entities-4.4.0" ];
-        }
-      )
+      (sources."dom-serializer-2.0.0" // { dependencies = [ sources."entities-4.4.0" ]; })
       sources."domelementtype-2.3.0"
       sources."domhandler-5.0.3"
       sources."domutils-3.0.1"
       sources."dot-case-3.0.4"
       sources."dotenv-8.6.0"
       sources."dreamopt-0.6.0"
-      (
-        sources."duplexify-4.1.2"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."duplexify-4.1.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."ecc-jsbn-0.1.2"
       sources."ecdsa-sig-formatter-1.0.11"
       sources."ee-first-1.1.1"
@@ -12609,12 +12516,7 @@ in
       sources."es-abstract-1.21.1"
       sources."es-aggregate-error-1.0.9"
       sources."es-array-method-boxes-properly-1.0.0"
-      (
-        sources."es-get-iterator-1.1.3"
-        // {
-          dependencies = [ sources."isarray-2.0.5" ];
-        }
-      )
+      (sources."es-get-iterator-1.1.3" // { dependencies = [ sources."isarray-2.0.5" ]; })
       sources."es-set-tostringtag-2.0.1"
       sources."es-to-primitive-1.2.1"
       sources."es5-ext-0.8.2"
@@ -12662,12 +12564,7 @@ in
       sources."express-prom-bundle-6.6.0"
       sources."extend-3.0.2"
       sources."extend-shallow-2.0.1"
-      (
-        sources."external-editor-3.1.0"
-        // {
-          dependencies = [ sources."iconv-lite-0.4.24" ];
-        }
-      )
+      (sources."external-editor-3.1.0" // { dependencies = [ sources."iconv-lite-0.4.24" ]; })
       sources."extsprintf-1.3.0"
       sources."fast-deep-equal-3.1.3"
       sources."fast-glob-3.2.12"
@@ -12677,12 +12574,7 @@ in
       sources."fastq-1.15.0"
       sources."fecha-4.2.3"
       sources."fflate-0.7.4"
-      (
-        sources."figures-3.2.0"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."figures-3.2.0" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       sources."file-saver-2.0.5"
       sources."file-type-16.5.4"
       sources."file-uri-to-path-1.0.0"
@@ -12825,15 +12717,8 @@ in
       (sources."help-me-1.1.0" // { dependencies = [ sources."through2-2.0.5" ]; })
       sources."highlight.js-10.7.3"
       sources."homedir-polyfill-1.0.3"
-      (
-        sources."html-to-text-9.0.4"
-        // {
-          dependencies = [ sources."deepmerge-4.3.0" ];
-        }
-      )
-      (
-        sources."htmlparser2-8.0.1" // { dependencies = [ sources."entities-4.4.0" ]; }
-      )
+      (sources."html-to-text-9.0.4" // { dependencies = [ sources."deepmerge-4.3.0" ]; })
+      (sources."htmlparser2-8.0.1" // { dependencies = [ sources."entities-4.4.0" ]; })
       sources."http-cache-semantics-4.1.1"
       sources."http-errors-2.0.0"
       sources."http-proxy-agent-4.0.1"
@@ -12856,12 +12741,7 @@ in
           ];
         }
       )
-      (
-        sources."imap-simple-4.3.0"
-        // {
-          dependencies = [ sources."iconv-lite-0.4.24" ];
-        }
-      )
+      (sources."imap-simple-4.3.0" // { dependencies = [ sources."iconv-lite-0.4.24" ]; })
       sources."immediate-3.0.6"
       sources."imurmurhash-0.1.4"
       sources."indent-string-4.0.0"
@@ -13046,9 +12926,7 @@ in
       sources."lru-memoizer-2.2.0"
       sources."lru_map-0.3.3"
       sources."luxon-3.3.0"
-      (
-        sources."mailparser-3.6.4" // { dependencies = [ sources."linkify-it-4.0.1" ]; }
-      )
+      (sources."mailparser-3.6.4" // { dependencies = [ sources."linkify-it-4.0.1" ]; })
       (sources."mailsplit-5.4.0" // { dependencies = [ sources."libmime-5.2.0" ]; })
       (sources."make-dir-3.1.0" // { dependencies = [ sources."semver-6.3.0" ]; })
       sources."make-error-1.3.6"
@@ -13083,12 +12961,7 @@ in
       sources."mimic-fn-2.1.0"
       sources."mimic-response-3.1.0"
       sources."minimalistic-assert-1.0.1"
-      (
-        sources."minimatch-3.1.2"
-        // {
-          dependencies = [ sources."brace-expansion-1.1.11" ];
-        }
-      )
+      (sources."minimatch-3.1.2" // { dependencies = [ sources."brace-expansion-1.1.11" ]; })
       sources."minimist-1.2.8"
       sources."minipass-4.2.4"
       (
@@ -13228,12 +13101,7 @@ in
             sources."@azure/core-tracing-1.0.1"
             sources."@azure/identity-2.1.0"
             sources."@azure/msal-common-7.6.0"
-            (
-              sources."@azure/msal-node-1.15.0"
-              // {
-                dependencies = [ sources."@azure/msal-common-10.0.0" ];
-              }
-            )
+            (sources."@azure/msal-node-1.15.0" // { dependencies = [ sources."@azure/msal-common-10.0.0" ]; })
             sources."@js-joda/core-5.5.2"
             (sources."bl-5.1.0" // { dependencies = [ sources."buffer-6.0.3" ]; })
             sources."bson-4.7.2"
@@ -13254,18 +13122,8 @@ in
           ];
         }
       )
-      (
-        sources."n8n-workflow-0.139.0"
-        // {
-          dependencies = [ sources."ast-types-0.15.2" ];
-        }
-      )
-      (
-        sources."named-placeholders-1.1.3"
-        // {
-          dependencies = [ sources."lru-cache-7.18.3" ];
-        }
-      )
+      (sources."n8n-workflow-0.139.0" // { dependencies = [ sources."ast-types-0.15.2" ]; })
+      (sources."named-placeholders-1.1.3" // { dependencies = [ sources."lru-cache-7.18.3" ]; })
       sources."nan-2.17.0"
       sources."nanoclone-0.2.1"
       sources."nanoid-3.3.4"
@@ -13297,12 +13155,7 @@ in
       )
       sources."node-gyp-build-4.6.0"
       sources."node-html-markdown-1.3.0"
-      (
-        sources."node-html-parser-6.1.5"
-        // {
-          dependencies = [ sources."css-select-5.1.0" ];
-        }
-      )
+      (sources."node-html-parser-6.1.5" // { dependencies = [ sources."css-select-5.1.0" ]; })
       sources."node-machine-id-1.1.12"
       sources."node-rsa-1.1.1"
       sources."node-ssh-12.0.5"
@@ -13346,12 +13199,7 @@ in
       sources."p-map-2.1.0"
       sources."p-queue-6.6.2"
       sources."p-timeout-3.2.0"
-      (
-        sources."pac-proxy-agent-5.0.0"
-        // {
-          dependencies = [ sources."socks-proxy-agent-5.0.1" ];
-        }
-      )
+      (sources."pac-proxy-agent-5.0.0" // { dependencies = [ sources."socks-proxy-agent-5.0.1" ]; })
       (sources."pac-resolver-5.0.1" // { dependencies = [ sources."ip-1.1.8" ]; })
       sources."packet-reader-1.0.0"
       sources."pako-1.0.11"
@@ -13360,12 +13208,7 @@ in
       sources."parse-passwd-1.0.0"
       sources."parse-srcset-1.0.2"
       sources."parse5-5.1.1"
-      (
-        sources."parse5-htmlparser2-tree-adapter-6.0.1"
-        // {
-          dependencies = [ sources."parse5-6.0.1" ];
-        }
-      )
+      (sources."parse5-htmlparser2-tree-adapter-6.0.1" // { dependencies = [ sources."parse5-6.0.1" ]; })
       sources."parseley-0.11.0"
       sources."parseurl-1.3.3"
       sources."pascal-case-3.1.2"
@@ -13373,12 +13216,7 @@ in
       sources."passport-cookie-1.0.9"
       sources."passport-jwt-4.0.1"
       sources."passport-strategy-1.0.0"
-      (
-        sources."password-prompt-1.1.2"
-        // {
-          dependencies = [ sources."ansi-escapes-3.2.0" ];
-        }
-      )
+      (sources."password-prompt-1.1.2" // { dependencies = [ sources."ansi-escapes-3.2.0" ]; })
       sources."path-case-3.0.4"
       sources."path-dirname-1.0.2"
       sources."path-is-absolute-1.0.1"
@@ -13431,9 +13269,7 @@ in
       sources."postgres-date-1.0.7"
       sources."postgres-interval-1.2.0"
       (sources."posthog-node-2.5.4" // { dependencies = [ sources."axios-0.27.2" ]; })
-      (
-        sources."prebuild-install-7.1.1" // { dependencies = [ sources."pump-3.0.0" ]; }
-      )
+      (sources."prebuild-install-7.1.1" // { dependencies = [ sources."pump-3.0.0" ]; })
       sources."prelude-ls-1.1.2"
       sources."prettier-2.8.4"
       sources."pretty-bytes-5.6.0"
@@ -13478,16 +13314,9 @@ in
       sources."random-bytes-1.0.0"
       sources."randombytes-2.1.0"
       sources."range-parser-1.2.1"
-      (
-        sources."raw-body-2.5.2" // { dependencies = [ sources."iconv-lite-0.4.24" ]; }
-      )
+      (sources."raw-body-2.5.2" // { dependencies = [ sources."iconv-lite-0.4.24" ]; })
       sources."rc-1.2.8"
-      (
-        sources."readable-stream-2.3.8"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."readable-stream-2.3.8" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       (
         sources."readable-web-to-node-stream-3.0.2"
         // {
@@ -13508,12 +13337,7 @@ in
       sources."reinterval-1.1.0"
       sources."remove-trailing-separator-1.1.0"
       sources."remove-trailing-slash-0.1.1"
-      (
-        sources."replacestream-4.0.3"
-        // {
-          dependencies = [ sources."escape-string-regexp-1.0.5" ];
-        }
-      )
+      (sources."replacestream-4.0.3" // { dependencies = [ sources."escape-string-regexp-1.0.5" ]; })
       (
         sources."request-2.88.2"
         // {
@@ -13526,12 +13350,7 @@ in
         }
       )
       sources."request-promise-core-1.1.4"
-      (
-        sources."request-promise-native-1.0.9"
-        // {
-          dependencies = [ sources."tough-cookie-2.5.0" ];
-        }
-      )
+      (sources."request-promise-native-1.0.9" // { dependencies = [ sources."tough-cookie-2.5.0" ]; })
       sources."require-at-1.0.6"
       sources."require-directory-2.1.1"
       sources."requires-port-1.0.0"
@@ -13554,12 +13373,7 @@ in
       sources."safe-stable-stringify-2.4.2"
       sources."safer-buffer-2.1.2"
       sources."samlify-2.8.10"
-      (
-        sources."sanitize-html-2.9.0"
-        // {
-          dependencies = [ sources."deepmerge-4.3.0" ];
-        }
-      )
+      (sources."sanitize-html-2.9.0" // { dependencies = [ sources."deepmerge-4.3.0" ]; })
       sources."sax-1.2.4"
       sources."sb-promise-queue-2.1.0"
       sources."sb-scandir-3.1.0"
@@ -13660,12 +13474,7 @@ in
       sources."stealthy-require-1.1.1"
       sources."stop-iteration-iterator-1.0.0"
       sources."stoppable-1.1.0"
-      (
-        sources."stream-browserify-3.0.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."stream-browserify-3.0.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."stream-events-1.0.5"
       sources."stream-shift-1.0.1"
       sources."streamsearch-1.1.0"
@@ -13676,12 +13485,7 @@ in
       sources."string.prototype.startswith-1.0.0"
       sources."string.prototype.trimend-1.0.6"
       sources."string.prototype.trimstart-1.0.6"
-      (
-        sources."string_decoder-1.1.1"
-        // {
-          dependencies = [ sources."safe-buffer-5.1.2" ];
-        }
-      )
+      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
       sources."strip-ansi-6.0.1"
       sources."strip-json-comments-2.0.1"
       sources."strtok3-6.3.0"
@@ -13711,12 +13515,7 @@ in
           ];
         }
       )
-      (
-        sources."tar-stream-2.2.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."tarn-3.0.2"
       sources."tdigest-0.1.2"
       (
@@ -13744,18 +13543,8 @@ in
       sources."thenify-all-1.6.0"
       sources."throttle-debounce-1.1.0"
       sources."through-2.3.8"
-      (
-        sources."through2-4.0.2"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
-      (
-        sources."through2-filter-3.0.0"
-        // {
-          dependencies = [ sources."through2-2.0.5" ];
-        }
-      )
+      (sources."through2-4.0.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
+      (sources."through2-filter-3.0.0" // { dependencies = [ sources."through2-2.0.5" ]; })
       sources."throwback-4.1.0"
       sources."timeago.js-4.0.2"
       sources."tinycolor2-1.6.0"
@@ -13859,9 +13648,7 @@ in
       sources."v8-compile-cache-lib-3.0.1"
       sources."validator-13.7.0"
       sources."vary-1.1.2"
-      (
-        sources."verror-1.10.0" // { dependencies = [ sources."core-util-is-1.0.2" ]; }
-      )
+      (sources."verror-1.10.0" // { dependencies = [ sources."core-util-is-1.0.2" ]; })
       sources."vm2-3.9.14"
       sources."vue-2.7.14"
       sources."vue-agile-2.0.0"
@@ -13888,18 +13675,8 @@ in
       sources."wide-align-1.1.5"
       sources."widest-line-3.1.0"
       (sources."win-release-1.1.1" // { dependencies = [ sources."semver-5.7.1" ]; })
-      (
-        sources."winston-3.8.2"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
-      (
-        sources."winston-transport-4.5.0"
-        // {
-          dependencies = [ sources."readable-stream-3.6.1" ];
-        }
-      )
+      (sources."winston-3.8.2" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
+      (sources."winston-transport-4.5.0" // { dependencies = [ sources."readable-stream-3.6.1" ]; })
       sources."wmf-1.0.2"
       sources."word-0.3.0"
       sources."word-wrap-1.2.3"

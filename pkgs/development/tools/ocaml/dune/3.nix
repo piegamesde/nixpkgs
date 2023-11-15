@@ -26,9 +26,7 @@ else
       findlib
     ];
 
-    buildInputs = lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.CoreServices
-    ];
+    buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
     strictDeps = true;
 

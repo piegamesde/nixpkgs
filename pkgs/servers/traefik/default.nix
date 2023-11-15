@@ -26,12 +26,8 @@ buildGoModule rec {
     CODENAME=$(awk -F "=" '/CODENAME=/ { print $2}' script/binary)
 
     buildFlagsArray+=("-ldflags= -s -w \
-      -X github.com/traefik/traefik/v${
-        lib.versions.major version
-      }/pkg/version.Version=${version} \
-      -X github.com/traefik/traefik/v${
-        lib.versions.major version
-      }/pkg/version.Codename=$CODENAME")
+      -X github.com/traefik/traefik/v${lib.versions.major version}/pkg/version.Version=${version} \
+      -X github.com/traefik/traefik/v${lib.versions.major version}/pkg/version.Codename=$CODENAME")
   '';
 
   doCheck = false;

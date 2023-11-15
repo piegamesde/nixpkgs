@@ -31,16 +31,13 @@ let
       pname = "rocfft";
       version = "5.4.3";
 
-      outputs =
-        [
-          "out"
-          "libzero"
-          "libone"
-          "libtwo"
-          "libthree"
-        ]
-        ++ lib.optionals buildTests [ "test" ]
-        ++ lib.optionals buildBenchmarks [ "benchmark" ];
+      outputs = [
+        "out"
+        "libzero"
+        "libone"
+        "libtwo"
+        "libthree"
+      ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
       src = fetchFromGitHub {
         owner = "ROCmSoftwarePlatform";
@@ -164,10 +161,9 @@ stdenv.mkDerivation {
     meta
   ;
 
-  outputs =
-    [ "out" ]
-    ++ lib.optionals buildTests [ "test" ]
-    ++ lib.optionals buildBenchmarks [ "benchmark" ];
+  outputs = [
+    "out"
+  ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
   dontUnpack = true;
   dontPatch = true;

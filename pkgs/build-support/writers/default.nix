@@ -113,15 +113,12 @@ let
             else
               { contentPath = content; }
           )
-          //
-            lib.optionalAttrs
-              (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)
-              {
-                # post-link-hook expects codesign_allocate to be in PATH
-                # https://github.com/NixOS/nixpkgs/issues/154203
-                # https://github.com/NixOS/nixpkgs/issues/148189
-                nativeBuildInputs = [ stdenv.cc.bintools ];
-              }
+          // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) {
+            # post-link-hook expects codesign_allocate to be in PATH
+            # https://github.com/NixOS/nixpkgs/issues/154203
+            # https://github.com/NixOS/nixpkgs/issues/148189
+            nativeBuildInputs = [ stdenv.cc.bintools ];
+          }
         )
         ''
           ${compileScript}
@@ -196,16 +193,13 @@ let
       }:
       let
         appendIfNotSet = el: list: if elem el list then list else list ++ [ el ];
-        ghcArgs' =
-          if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
+        ghcArgs' = if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
       in
       makeBinWriter
         {
           compileScript = ''
             cp $contentPath tmp.hs
-            ${ghc.withPackages (_: libraries)}/bin/ghc ${
-              lib.escapeShellArgs ghcArgs'
-            } tmp.hs
+            ${ghc.withPackages (_: libraries)}/bin/ghc ${lib.escapeShellArgs ghcArgs'} tmp.hs
             mv tmp $out
           '';
           inherit strip;
@@ -229,9 +223,9 @@ let
         {
           compileScript = ''
             cp "$contentPath" tmp.rs
-            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${
-              lib.escapeShellArgs rustcArgs
-            } ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
+            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${
+              lib.escapeShellArgs darwinArgs
+            } -o "$out" tmp.rs
           '';
           inherit strip;
         }
@@ -305,9 +299,7 @@ let
       {
         libraries ? [ ],
       }:
-      makeScriptWriter
-        { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; }
-        name;
+      makeScriptWriter { interpreter = "${pkgs.perl.withPackages (p: libraries)}/bin/perl"; } name;
 
     # writePerlBin takes the same arguments as writePerl but outputs a directory (like writeScriptBin)
     writePerlBin = name: writePerl "/bin/${name}";
@@ -353,9 +345,7 @@ let
     #
     #   print Test.a
     # ''
-    writePyPy2 =
-      makePythonWriter pkgs.pypy2 pkgs.pypy2Packages
-        buildPackages.pypy2Packages;
+    writePyPy2 = makePythonWriter pkgs.pypy2 pkgs.pypy2Packages buildPackages.pypy2Packages;
 
     # writePyPy2Bin takes the same arguments as writePyPy2 but outputs a directory (like writeScriptBin)
     writePyPy2Bin = name: writePyPy2 "/bin/${name}";
@@ -372,9 +362,7 @@ let
     #   """)
     #   print(y[0]['test'])
     # ''
-    writePython3 =
-      makePythonWriter pkgs.python3 pkgs.python3Packages
-        buildPackages.python3Packages;
+    writePython3 = makePythonWriter pkgs.python3 pkgs.python3Packages buildPackages.python3Packages;
 
     # writePython3Bin takes the same arguments as writePython3 but outputs a directory (like writeScriptBin)
     writePython3Bin = name: writePython3 "/bin/${name}";
@@ -391,9 +379,7 @@ let
     #   """)
     #   print(y[0]['test'])
     # ''
-    writePyPy3 =
-      makePythonWriter pkgs.pypy3 pkgs.pypy3Packages
-        buildPackages.pypy3Packages;
+    writePyPy3 = makePythonWriter pkgs.pypy3 pkgs.pypy3Packages buildPackages.pypy3Packages;
 
     # writePyPy3Bin takes the same arguments as writePyPy3 but outputs a directory (like writeScriptBin)
     writePyPy3Bin = name: writePyPy3 "/bin/${name}";
@@ -407,8 +393,7 @@ let
       nameOrPath:
       let
         fname = last (builtins.split "/" nameOrPath);
-        path =
-          if strings.hasSuffix ".fsx" nameOrPath then nameOrPath else "${nameOrPath}.fsx";
+        path = if strings.hasSuffix ".fsx" nameOrPath then nameOrPath else "${nameOrPath}.fsx";
         _nugetDeps = mkNugetDeps {
           name = "${fname}-nuget-deps";
           nugetDeps = libraries;

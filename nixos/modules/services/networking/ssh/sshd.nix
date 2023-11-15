@@ -34,29 +34,23 @@ let
     else if isList v then
       concatStringsSep "," v
     else
-      throw
-        "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+      throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
 
   # dont use the "=" operator
   settingsFormat =
     (pkgs.formats.keyValue {
-      mkKeyValue =
-        lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; }
-          " ";
+      mkKeyValue = lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; } " ";
     });
 
   configFile = settingsFormat.generate "config" cfg.settings;
-  sshconf =
-    pkgs.runCommand "sshd.conf-validated"
-      { nativeBuildInputs = [ validationPackage ]; }
-      ''
-        cat ${configFile} - >$out <<EOL
-        ${cfg.extraConfig}
-        EOL
+  sshconf = pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; } ''
+    cat ${configFile} - >$out <<EOL
+    ${cfg.extraConfig}
+    EOL
 
-        ssh-keygen -q -f mock-hostkey -N ""
-        sshd -t -f $out -h mock-hostkey
-      '';
+    ssh-keygen -q -f mock-hostkey -N ""
+    sshd -t -f $out -h mock-hostkey
+  '';
 
   cfg = config.services.openssh;
   cfgc = config.programs.ssh;
@@ -111,9 +105,7 @@ let
         };
       usersWithKeys = attrValues (
         flip filterAttrs config.users.users (
-          n: u:
-          length u.openssh.authorizedKeys.keys != 0
-          || length u.openssh.authorizedKeys.keyFiles != 0
+          n: u: length u.openssh.authorizedKeys.keys != 0 || length u.openssh.authorizedKeys.keyFiles != 0
         )
       );
     in
@@ -664,9 +656,7 @@ in
     users.groups.sshd = { };
 
     services.openssh.moduliFile = mkDefault "${cfgc.package}/etc/ssh/moduli";
-    services.openssh.sftpServerExecutable =
-      mkDefault
-        "${cfgc.package}/libexec/sftp-server";
+    services.openssh.sftpServerExecutable = mkDefault "${cfgc.package}/libexec/sftp-server";
 
     environment.etc = authKeysFiles // {
       "ssh/moduli".source = cfg.moduliFile;
@@ -749,8 +739,7 @@ in
             wantedBy = [ "sockets.target" ];
             socketConfig.ListenStream =
               if cfg.listenAddresses != [ ] then
-                map (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}")
-                  cfg.listenAddresses
+                map (l: "${l.addr}:${toString (if l.port != null then l.port else 22)}") cfg.listenAddresses
               else
                 cfg.ports;
             socketConfig.Accept = true;
@@ -766,8 +755,7 @@ in
           services.sshd = service;
         };
 
-    networking.firewall.allowedTCPPorts =
-      if cfg.openFirewall then cfg.ports else [ ];
+    networking.firewall.allowedTCPPorts = if cfg.openFirewall then cfg.ports else [ ];
 
     security.pam.services.sshd = {
       startSession = true;
@@ -786,9 +774,7 @@ in
     services.openssh.extraConfig = mkOrder 0 ''
       UsePAM yes
 
-      Banner ${
-        if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner
-      }
+      Banner ${if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner}
 
       AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
       ${concatMapStrings

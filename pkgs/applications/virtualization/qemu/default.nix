@@ -44,8 +44,7 @@
   numactl,
   seccompSupport ? stdenv.isLinux,
   libseccomp,
-  alsaSupport ?
-    lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner,
+  alsaSupport ? lib.hasSuffix "linux" stdenv.hostPlatform.system && !nixosTestRunner,
   pulseSupport ? !stdenv.isDarwin && !nixosTestRunner,
   libpulseaudio,
   sdlSupport ? !stdenv.isDarwin && !nixosTestRunner,
@@ -96,10 +95,7 @@
   hostCpuOnly ? false,
   hostCpuTargets ? (
     if hostCpuOnly then
-      (
-        lib.optional stdenv.isx86_64 "i386-softmmu"
-        ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ]
-      )
+      (lib.optional stdenv.isx86_64 "i386-softmmu" ++ [ "${stdenv.hostPlatform.qemuArch}-softmmu" ])
     else
       null
   ),
@@ -125,9 +121,7 @@ stdenv.mkDerivation rec {
     sha256 = "u2DwNBUxGB1sw5ad0ZoBPQQnqH+RgZOXDZrbkRMeVtA=";
   };
 
-  depsBuildBuild = [
-    buildPackages.stdenv.cc
-  ] ++ lib.optionals hexagonSupport [ pkg-config ];
+  depsBuildBuild = [ buildPackages.stdenv.cc ] ++ lib.optionals hexagonSupport [ pkg-config ];
 
   nativeBuildInputs =
     [
@@ -286,9 +280,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional smartcardSupport "--enable-smartcard"
     ++ lib.optional spiceSupport "--enable-spice"
     ++ lib.optional usbredirSupport "--enable-usb-redir"
-    ++
-      lib.optional (hostCpuTargets != null)
-        "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
+    ++ lib.optional (hostCpuTargets != null) "--target-list=${lib.concatStringsSep "," hostCpuTargets}"
     ++ lib.optionals stdenv.isDarwin [
       "--enable-cocoa"
       "--enable-hvf"

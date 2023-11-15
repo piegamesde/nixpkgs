@@ -50,8 +50,7 @@ let
         pkgs.libsForQt5.systemsettings
       ]
     else
-      throw
-        "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible.";
+      throw "`qt.platformTheme` ${cfg.platformTheme} and `qt.style` ${cfg.style} are not compatible.";
 in
 
 {

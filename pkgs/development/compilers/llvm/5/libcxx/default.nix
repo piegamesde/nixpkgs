@@ -30,11 +30,9 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  patches =
-    [ ./gnu-install-dirs.patch ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [
-      ../../libcxx-0001-musl-hacks.patch
-    ];
+  patches = [
+    ./gnu-install-dirs.patch
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
 
   prePatch = ''
     substituteInPlace lib/CMakeLists.txt --replace "/usr/lib/libc++" "\''${LIBCXX_LIBCXXABI_LIB_PATH}/libc++"
@@ -61,9 +59,7 @@ stdenv.mkDerivation {
       "-DLIBCXX_CXX_ABI=${cxxabi.pname}"
     ]
     ++ lib.optional stdenv.hostPlatform.isMusl "-DLIBCXX_HAS_MUSL_LIBC=1"
-    ++
-      lib.optional (cxxabi.pname == "libcxxabi")
-        "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib";
+    ++ lib.optional (cxxabi.pname == "libcxxabi") "-DLIBCXX_LIBCXXABI_LIB_PATH=${cxxabi}/lib";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

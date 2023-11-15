@@ -47,9 +47,7 @@ buildPythonPackage {
 
   # A cyclic dependency in: integrations/test_lightning.py
   doCheck = false;
-  passthru.tests.check = torchmetrics.overridePythonAttrs (
-    _: { doCheck = true; }
-  );
+  passthru.tests.check = torchmetrics.overridePythonAttrs (_: { doCheck = true; });
 
   disabledTestPaths = [
     # These require too many "leftpad-level" dependencies

@@ -42,8 +42,7 @@ let
     };
 
   ageType = types.str // {
-    check =
-      x: isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null);
+    check = x: isString x && (builtins.match "([0-9]+([smhdw]|min|ms|us)*)+" x != null);
     description = "tmpfiles.d(5) age format";
   };
 
@@ -154,17 +153,13 @@ in
         options.listen-address = mkOption {
           type = types.str;
           default = "127.0.0.1:8118";
-          description =
-            lib.mdDoc
-              "Pair of address:port the proxy server is listening to.";
+          description = lib.mdDoc "Pair of address:port the proxy server is listening to.";
         };
 
         options.enable-edit-actions = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Whether the web-based actions file editor may be used.";
+          description = lib.mdDoc "Whether the web-based actions file editor may be used.";
         };
 
         options.actionsfile = mkOption {
@@ -172,11 +167,7 @@ in
           # This must come after all other entries, in order to override the
           # other actions/filters installed by Privoxy or the user.
           apply =
-            x:
-            x
-            ++ optional (cfg.userActions != "") (
-              toString (pkgs.writeText "user.actions" cfg.userActions)
-            );
+            x: x ++ optional (cfg.userActions != "") (toString (pkgs.writeText "user.actions" cfg.userActions));
           default = [
             "match-all.action"
             "default.action"
@@ -191,11 +182,7 @@ in
           type = types.listOf types.str;
           default = [ "default.filter" ];
           apply =
-            x:
-            x
-            ++ optional (cfg.userFilters != "") (
-              toString (pkgs.writeText "user.filter" cfg.userFilters)
-            );
+            x: x ++ optional (cfg.userFilters != "") (toString (pkgs.writeText "user.filter" cfg.userFilters));
           description = lib.mdDoc ''
             List of paths to Privoxy filter files. These paths may either be
             absolute or relative to the privoxy configuration directory.
@@ -323,9 +310,7 @@ in
       ];
     in
     [
-      (mkRenamedOptionModule (top "enableEditActions") (
-        setting "enable-edit-actions"
-      ))
+      (mkRenamedOptionModule (top "enableEditActions") (setting "enable-edit-actions"))
       (mkRenamedOptionModule (top "listenAddress") (setting "listen-address"))
       (mkRenamedOptionModule (top "actionsFiles") (setting "actionsfile"))
       (mkRenamedOptionModule (top "filterFiles") (setting "filterfile"))

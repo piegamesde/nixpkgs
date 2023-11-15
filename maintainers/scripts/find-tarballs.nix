@@ -37,9 +37,7 @@ let
     filter
       (
         drv:
-        drv.outputHash or "" != ""
-        && drv.outputHashMode or "flat" == "flat"
-        && (drv ? url || drv ? urls)
+        drv.outputHash or "" != "" && drv.outputHashMode or "flat" == "flat" && (drv ? url || drv ? urls)
       )
       dependencies;
 
@@ -60,9 +58,7 @@ let
       concatLists (map derivationsIn' x)
     else if isAttrs x then
       concatLists (
-        mapAttrsToList
-          (n: v: addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v))
-          x
+        mapAttrsToList (n: v: addErrorContext "while finding tarballs in '${n}':" (derivationsIn' v)) x
       )
     else
       [ ];

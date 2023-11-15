@@ -30,9 +30,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace setup.py \
-      --replace "mif = findFile(d,'ft2build.h')" "mif = findFile('${
-        lib.getDev ft
-      }','ft2build.h')"
+      --replace "mif = findFile(d,'ft2build.h')" "mif = findFile('${lib.getDev ft}','ft2build.h')"
 
     # Remove all the test files that require access to the internet to pass.
     rm tests/test_lib_utils.py

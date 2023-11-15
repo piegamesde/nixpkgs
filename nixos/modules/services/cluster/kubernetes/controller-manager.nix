@@ -44,9 +44,7 @@ in
   options.services.kubernetes.controllerManager = with lib.types; {
 
     allocateNodeCIDRs = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to automatically allocate CIDR ranges for cluster nodes.";
+      description = lib.mdDoc "Whether to automatically allocate CIDR ranges for cluster nodes.";
       default = true;
       type = bool;
     };
@@ -67,9 +65,7 @@ in
     enable = mkEnableOption (lib.mdDoc "Kubernetes controller manager");
 
     extraOpts = mkOption {
-      description =
-        lib.mdDoc
-          "Kubernetes controller manager extra command line options.";
+      description = lib.mdDoc "Kubernetes controller manager extra command line options.";
       default = "";
       type = separatedString " ";
     };
@@ -84,9 +80,7 @@ in
     kubeconfig = top.lib.mkKubeConfigOptions "Kubernetes controller manager";
 
     leaderElect = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to start leader election before executing main loop.";
+      description = lib.mdDoc "Whether to start leader election before executing main loop.";
       type = bool;
       default = true;
     };
@@ -152,41 +146,25 @@ in
           ${top.package}/bin/kube-controller-manager \
                     --allocate-node-cidrs=${boolToString cfg.allocateNodeCIDRs} \
                     --bind-address=${cfg.bindAddress} \
-                    ${
-                      optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"
-                    } \
+                    ${optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"} \
                     ${
                       optionalString (cfg.featureGates != [ ])
-                        "--feature-gates=${
-                          concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates
-                        }"
+                        "--feature-gates=${concatMapStringsSep "," (feature: "${feature}=true") cfg.featureGates}"
                     } \
-                    --kubeconfig=${
-                      top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig
-                    } \
+                    --kubeconfig=${top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig} \
                     --leader-elect=${boolToString cfg.leaderElect} \
-                    ${
-                      optionalString (cfg.rootCaFile != null) "--root-ca-file=${cfg.rootCaFile}"
-                    } \
+                    ${optionalString (cfg.rootCaFile != null) "--root-ca-file=${cfg.rootCaFile}"} \
                     --secure-port=${toString cfg.securePort} \
                     ${
                       optionalString (cfg.serviceAccountKeyFile != null)
                         "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
                     } \
+                    ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
+                    ${optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"} \
                     ${
-                      optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"
+                      optionalString (elem "RBAC" top.apiserver.authorizationMode) "--use-service-account-credentials"
                     } \
-                    ${
-                      optionalString (cfg.tlsKeyFile != null)
-                        "--tls-private-key-file=${cfg.tlsKeyFile}"
-                    } \
-                    ${
-                      optionalString (elem "RBAC" top.apiserver.authorizationMode)
-                        "--use-service-account-credentials"
-                    } \
-                    ${
-                      optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"
-                    } \
+                    ${optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                     ${cfg.extraOpts}
         '';
         WorkingDirectory = top.dataDir;
@@ -212,9 +190,7 @@ in
       };
     };
 
-    services.kubernetes.controllerManager.kubeconfig.server =
-      mkDefault
-        top.apiserverAddress;
+    services.kubernetes.controllerManager.kubeconfig.server = mkDefault top.apiserverAddress;
   };
 
   meta.buildDocsInSandbox = false;

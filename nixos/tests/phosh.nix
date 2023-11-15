@@ -44,9 +44,7 @@ import ./make-test-python.nix (
             x = 720;
             y = 1440;
           };
-          virtualisation.qemu.options = [
-            "-vga none -device virtio-gpu-pci,xres=720,yres=1440"
-          ];
+          virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci,xres=720,yres=1440" ];
         };
     };
 

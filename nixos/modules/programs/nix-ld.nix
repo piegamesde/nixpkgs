@@ -42,9 +42,7 @@ in
 {
   meta.maintainers = [ lib.maintainers.mic92 ];
   options.programs.nix-ld = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "nix-ld, Documentation: <https://github.com/Mic92/nix-ld>"
-    );
+    enable = lib.mkEnableOption (lib.mdDoc "nix-ld, Documentation: <https://github.com/Mic92/nix-ld>");
     package = lib.mkOption {
       type = lib.types.package;
       description = lib.mdDoc "Which package to use for the nix-ld.";
@@ -57,9 +55,7 @@ in
         lib.mdDoc
           "Libraries that automatically become available to all programs. The default set includes common libraries.";
       default = baseLibraries;
-      defaultText =
-        lib.literalExpression
-          "baseLibraries derived from systemd and nix dependencies.";
+      defaultText = lib.literalExpression "baseLibraries derived from systemd and nix dependencies.";
     };
   };
 

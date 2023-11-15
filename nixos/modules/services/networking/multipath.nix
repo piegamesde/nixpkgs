@@ -15,17 +15,12 @@ let
   indentLines =
     n: str:
     concatStringsSep "\n" (
-      map (line: "${fixedWidthString n " " " "}${line}") (
-        filter (x: x != "") (splitString "\n" str)
-      )
+      map (line: "${fixedWidthString n " " " "}${line}") (filter (x: x != "") (splitString "\n" str))
     );
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check
-    // {
-      description = "${elemType.description} (with check: ${desc})";
-    };
+    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
   hexChars = stringToCharacters "0123456789abcdef";
   isHexString = s: all (c: elem c hexChars) (stringToCharacters (toLower s));
   hexStr = addCheckDesc "hexadecimal string" types.str isHexString;
@@ -34,9 +29,7 @@ in
 
   options.services.multipath = with types; {
 
-    enable = mkEnableOption (
-      lib.mdDoc "the device mapper multipath (DM-MP) daemon"
-    );
+    enable = mkEnableOption (lib.mdDoc "the device mapper multipath (DM-MP) daemon");
 
     package = mkOption {
       type = package;
@@ -87,9 +80,7 @@ in
             product_blacklist = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Products with the given vendor matching this string are blacklisted";
+              description = lib.mdDoc "Products with the given vendor matching this string are blacklisted";
             };
 
             alias_prefix = mkOption {
@@ -103,9 +94,7 @@ in
             vpd_vendor = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "The vendor specific vpd page information, using the vpd page abbreviation";
+              description = lib.mdDoc "The vendor specific vpd page information, using the vpd page abbreviation";
             };
 
             hardware_handler = mkOption {
@@ -134,17 +123,13 @@ in
                 ]
               );
               default = null; # real default: "failover"
-              description =
-                lib.mdDoc
-                  "The default path grouping policy to apply to unspecified multipaths";
+              description = lib.mdDoc "The default path grouping policy to apply to unspecified multipaths";
             };
 
             uid_attribute = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "The udev attribute providing a unique path identifier (WWID)";
+              description = lib.mdDoc "The udev attribute providing a unique path identifier (WWID)";
             };
 
             getuid_callout = mkOption {
@@ -247,9 +232,7 @@ in
             no_path_retry = mkOption {
               type = nullOr str;
               default = null; # real default: "fail"
-              description =
-                lib.mdDoc
-                  "Specify what to do when all paths are down. Quote integers as strings";
+              description = lib.mdDoc "Specify what to do when all paths are down. Quote integers as strings";
             };
 
             rr_min_io = mkOption {
@@ -449,17 +432,13 @@ in
             delay_watch_checks = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "This option is deprecated, and mapped to san_path_err_forget_rate";
+              description = lib.mdDoc "This option is deprecated, and mapped to san_path_err_forget_rate";
             };
 
             delay_wait_checks = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "This option is deprecated, and mapped to san_path_err_recovery_time";
+              description = lib.mdDoc "This option is deprecated, and mapped to san_path_err_recovery_time";
             };
 
             skip_kpartx = mkOption {
@@ -494,9 +473,7 @@ in
             all_tg_pt = mkOption {
               type = nullOr str;
               default = null;
-              description =
-                lib.mdDoc
-                  "Set the 'all targets ports' flag when registering keys with mpathpersist";
+              description = lib.mdDoc "Set the 'all targets ports' flag when registering keys with mpathpersist";
             };
           };
         }
@@ -550,9 +527,7 @@ in
     extraConfigFile = mkOption {
       type = nullOr str;
       default = null;
-      description =
-        lib.mdDoc
-          "Append an additional file's contents to /etc/multipath.conf";
+      description = lib.mdDoc "Append an additional file's contents to /etc/multipath.conf";
     };
 
     pathGroups = mkOption {
@@ -627,9 +602,7 @@ in
           cfg:
           let
             nonNullCfg = lib.filterAttrs (k: v: v != null) cfg;
-            attrs =
-              lib.mapAttrsToList (name: value: "  ${name} ${toString value}")
-                nonNullCfg;
+            attrs = lib.mapAttrsToList (name: value: "  ${name} ${toString value}") nonNullCfg;
           in
           ''
             device {

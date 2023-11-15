@@ -40,8 +40,7 @@ assert waylandSupport -> wl-clipboard != null;
 
 assert dmenuSupport -> x11Support || waylandSupport;
 assert dmenuSupport && x11Support -> dmenu != null && xdotool != null;
-assert dmenuSupport && waylandSupport
-  -> dmenu-wayland != null && ydotool != null;
+assert dmenuSupport && waylandSupport -> dmenu-wayland != null && ydotool != null;
 
 let
   passExtensions = import ./extensions { inherit pkgs; };
@@ -49,10 +48,9 @@ let
   env =
     extensions:
     let
-      selected =
-        [ pass ]
-        ++ extensions passExtensions
-        ++ lib.optional tombPluginSupport passExtensions.tomb;
+      selected = [
+        pass
+      ] ++ extensions passExtensions ++ lib.optional tombPluginSupport passExtensions.tomb;
     in
     buildEnv {
       # lib.getExe looks for name, so we keep it the same as mainProgram

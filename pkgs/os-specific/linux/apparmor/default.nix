@@ -11,11 +11,11 @@
   bison,
   linuxHeaders ? stdenv.cc.libc.linuxHeaders,
   gawk,
-  withPerl ? stdenv.hostPlatform == stdenv.buildPlatform
-    && lib.meta.availableOn stdenv.hostPlatform perl,
+  withPerl ?
+    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform perl,
   perl,
-  withPython ? stdenv.hostPlatform == stdenv.buildPlatform
-    && lib.meta.availableOn stdenv.hostPlatform python3,
+  withPython ?
+    stdenv.hostPlatform == stdenv.buildPlatform && lib.meta.availableOn stdenv.hostPlatform python3,
   python3,
   swig,
   ncurses,
@@ -117,9 +117,7 @@ let
       perl
     ] ++ lib.optional withPython python;
 
-    buildInputs = [
-      libxcrypt
-    ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
+    buildInputs = [ libxcrypt ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
 
     # required to build apparmor-parser
     dontDisableStatic = true;
@@ -392,17 +390,14 @@ let
       name ? "",
     }:
     rootPaths:
-    runCommand
-      ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}")
-      { }
-      ''
-        touch $out
-        while read -r path
-        do printf >>$out "%s,\n" ${
-          lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)
-        }
-        done <${closureInfo { inherit rootPaths; }}/store-paths
-      '';
+    runCommand ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}") { } ''
+      touch $out
+      while read -r path
+      do printf >>$out "%s,\n" ${
+        lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)
+      }
+      done <${closureInfo { inherit rootPaths; }}/store-paths
+    '';
 in
 {
   inherit

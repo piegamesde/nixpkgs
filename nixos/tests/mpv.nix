@@ -15,9 +15,7 @@ import ./make-test-python.nix (
       {
         environment.systemPackages = [
           pkgs.curl
-          (pkgs.wrapMpv pkgs.mpv-unwrapped {
-            scripts = [ pkgs.mpvScripts.simple-mpv-webui ];
-          })
+          (pkgs.wrapMpv pkgs.mpv-unwrapped { scripts = [ pkgs.mpvScripts.simple-mpv-webui ]; })
         ];
       };
 

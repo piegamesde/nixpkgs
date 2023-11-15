@@ -116,9 +116,8 @@
   # WARNING: NEVER set any of the options below to `true` by default.
   # Set to `!privacySupport` or `false`.
 
-  crashreporterSupport ? !privacySupport
-    && !stdenv.hostPlatform.isRiscV
-    && !stdenv.hostPlatform.isMusl,
+  crashreporterSupport ?
+    !privacySupport && !stdenv.hostPlatform.isRiscV && !stdenv.hostPlatform.isMusl,
   curl,
   geolocationSupport ? !privacySupport,
   googleAPISupport ? geolocationSupport,
@@ -180,11 +179,7 @@ let
   # LTO requires LLVM bintools including ld.lld and llvm-ar.
   buildStdenv = overrideCC llvmPackages.stdenv (
     llvmPackages.stdenv.cc.override {
-      bintools =
-        if ltoSupport then
-          buildPackages.rustc.llvmPackages.bintools
-        else
-          stdenv.cc.bintools;
+      bintools = if ltoSupport then buildPackages.rustc.llvmPackages.bintools else stdenv.cc.bintools;
     }
   );
 
@@ -250,17 +245,15 @@ buildStdenv.mkDerivation ({
   ];
 
   patches =
-    lib.optionals
-      (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0")
-      [
-        (fetchpatch {
-          # Crash when desktop scaling does not divide window scale on Wayland
-          # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
-          name = "mozbz1803016.patch";
-          url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
-          hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
-        })
-      ]
+    lib.optionals (lib.versionAtLeast version "112.0" && lib.versionOlder version "113.0") [
+      (fetchpatch {
+        # Crash when desktop scaling does not divide window scale on Wayland
+        # https://bugzilla.mozilla.org/show_bug.cgi?id=1803016
+        name = "mozbz1803016.patch";
+        url = "https://hg.mozilla.org/mozilla-central/raw-rev/1068e0955cfb";
+        hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
+      })
+    ]
     ++
       lib.optionals (lib.versionOlder version "114.0")
         [
@@ -271,12 +264,8 @@ buildStdenv.mkDerivation ({
             hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
           })
         ]
-    ++
-      lib.optional (lib.versionOlder version "111")
-        ./env_var_for_system_dir-ff86.patch
-    ++
-      lib.optional (lib.versionAtLeast version "111")
-        ./env_var_for_system_dir-ff111.patch
+    ++ lib.optional (lib.versionOlder version "111") ./env_var_for_system_dir-ff86.patch
+    ++ lib.optional (lib.versionAtLeast version "111") ./env_var_for_system_dir-ff111.patch
     ++ lib.optional (lib.versionAtLeast version "96") ./no-buildconfig-ffx96.patch
     ++ extraPatches;
 
@@ -423,9 +412,7 @@ buildStdenv.mkDerivation ({
       "--disable-tests"
       "--disable-updater"
       "--enable-application=${application}"
-      "--enable-default-toolkit=cairo-gtk3${
-        lib.optionalString waylandSupport "-wayland"
-      }"
+      "--enable-default-toolkit=cairo-gtk3${lib.optionalString waylandSupport "-wayland"}"
       "--enable-system-pixman"
       "--with-distribution-id=org.nixos"
       "--with-libclang-path=${llvmPackagesBuildBuild.libclang.lib}/lib"
@@ -452,11 +439,7 @@ buildStdenv.mkDerivation ({
     # elf-hack is broken when using clang+lld:
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
     ++
-      lib.optional
-        (
-          ltoSupport
-          && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64)
-        )
+      lib.optional (ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64))
         "--disable-elf-hack"
     ++ lib.optional (!drmSupport) "--disable-eme"
     ++ [
@@ -606,9 +589,7 @@ buildStdenv.mkDerivation ({
     '';
 
   postFixup = lib.optionalString crashreporterSupport ''
-    patchelf --add-rpath "${
-      lib.makeLibraryPath [ curl ]
-    }" $out/lib/${binaryName}/crashreporter
+    patchelf --add-rpath "${lib.makeLibraryPath [ curl ]}" $out/lib/${binaryName}/crashreporter
   '';
 
   doInstallCheck = true;

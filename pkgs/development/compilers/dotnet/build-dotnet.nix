@@ -61,9 +61,7 @@ stdenv.mkDerivation (
     inherit pname version;
 
     # Some of these dependencies are `dlopen()`ed.
-    nativeBuildInputs = [
-      makeWrapper
-    ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+    nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
     buildInputs = [
       stdenv.cc.cc
@@ -74,9 +72,8 @@ stdenv.mkDerivation (
     ] ++ lib.optional stdenv.isLinux lttng-ust_2_12;
 
     src = fetchurl (
-      srcs."${stdenv.hostPlatform.system}" or (throw
-        "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}"
-      )
+      srcs."${stdenv.hostPlatform.system}"
+        or (throw "Missing source (url and hash) for host system: ${stdenv.hostPlatform.system}")
     );
 
     sourceRoot = ".";
@@ -153,8 +150,7 @@ stdenv.mkDerivation (
         version = testers.testVersion { package = finalAttrs.finalPackage; };
 
         smoke-test =
-          runCommand "dotnet-sdk-smoke-test"
-            { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+          runCommand "dotnet-sdk-smoke-test" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
             ''
               HOME=$(pwd)/fake-home
               dotnet new console

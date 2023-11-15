@@ -24,8 +24,7 @@ let
   singleBinary =
     cmd: providers:
     let
-      provider =
-        providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
+      provider = providers.${stdenv.hostPlatform.parsed.kernel.name} or providers.linux;
       bin = "${getBin provider}/bin/${cmd}";
       manpage = "${getOutput "man" provider}/share/man/man1/${cmd}.1.gz";
     in
@@ -34,8 +33,7 @@ let
         meta = {
           mainProgram = cmd;
           priority = 10;
-          platforms =
-            lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all;
+          platforms = lib.platforms.${stdenv.hostPlatform.parsed.kernel.name} or lib.platforms.all;
         };
         passthru = {
           inherit provider;
@@ -82,19 +80,11 @@ let
       linux = pkgs.util-linux;
     };
     getconf = {
-      linux =
-        if stdenv.hostPlatform.libc == "glibc" then
-          pkgs.stdenv.cc.libc
-        else
-          pkgs.netbsd.getconf;
+      linux = if stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc else pkgs.netbsd.getconf;
       darwin = pkgs.darwin.system_cmds;
     };
     getent = {
-      linux =
-        if stdenv.hostPlatform.libc == "glibc" then
-          pkgs.stdenv.cc.libc
-        else
-          pkgs.netbsd.getent;
+      linux = if stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc else pkgs.netbsd.getent;
       darwin = pkgs.netbsd.getent;
     };
     getopt = {

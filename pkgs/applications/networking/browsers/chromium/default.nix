@@ -49,8 +49,7 @@ let
   warnObsoleteVersionConditional =
     min-version: result:
     let
-      ungoogled-version =
-        (lib.importJSON ./upstream-info.json).ungoogled-chromium.version;
+      ungoogled-version = (lib.importJSON ./upstream-info.json).ungoogled-chromium.version;
     in
     lib.warnIf (lib.versionAtLeast ungoogled-version min-version)
       "chromium: ungoogled version ${ungoogled-version} is newer than a conditional bounded at ${min-version}. You can safely delete it."
@@ -65,8 +64,7 @@ let
     min-version: upto-version:
     let
       inherit (upstream-info) version;
-      result =
-        lib.versionAtLeast version min-version && lib.versionOlder version upto-version;
+      result = lib.versionAtLeast version min-version && lib.versionOlder version upto-version;
     in
     warnObsoleteVersionConditional upto-version result;
 
@@ -139,8 +137,7 @@ let
       inherit sha256;
     };
 
-  mkrpath =
-    p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
+  mkrpath = p: "${lib.makeSearchPathOutput "lib" "lib64" p}:${lib.makeLibraryPath p}";
   widevineCdm = stdenv.mkDerivation {
     name = "chrome-widevine-cdm";
 
@@ -197,11 +194,7 @@ let
     };
   };
 
-  suffix =
-    if (channel == "stable" || channel == "ungoogled-chromium") then
-      ""
-    else
-      "-" + channel;
+  suffix = if (channel == "stable" || channel == "ungoogled-chromium") then "" else "-" + channel;
 
   sandboxExecutableName = chromium.browser.passthru.sandboxExecutableName;
 

@@ -564,10 +564,7 @@ in
                   cat <(echo -n "${cfg.provision.localMail.recipientName}:") /run/parsedmarc/dmarc_user_passwd | chpasswd
                 '';
             in
-            "+${
-              pkgs.writeShellScript "parsedmarc-start-pre-full-privileges"
-                startPreFullPrivileges
-            }";
+            "+${pkgs.writeShellScript "parsedmarc-start-pre-full-privileges" startPreFullPrivileges}";
           Type = "simple";
           User = "parsedmarc";
           Group = "parsedmarc";
@@ -606,12 +603,10 @@ in
         };
       };
 
-    users.users.${cfg.provision.localMail.recipientName} =
-      lib.mkIf cfg.provision.localMail.enable
-        {
-          isNormalUser = true;
-          description = "DMARC mail recipient";
-        };
+    users.users.${cfg.provision.localMail.recipientName} = lib.mkIf cfg.provision.localMail.enable {
+      isNormalUser = true;
+      description = "DMARC mail recipient";
+    };
   };
 
   meta.doc = ./parsedmarc.md;

@@ -70,9 +70,7 @@ in
       extraArgs = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of additional arguments to pass to the MailHog process.";
+        description = lib.mdDoc "List of additional arguments to pass to the MailHog process.";
       };
     };
   };

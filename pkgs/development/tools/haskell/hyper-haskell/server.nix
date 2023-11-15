@@ -7,9 +7,7 @@
 }:
 
 let
-  hyperHaskellEnv = ghcWithPackages (
-    self: [ self.hyper-haskell-server ] ++ packages self
-  );
+  hyperHaskellEnv = ghcWithPackages (self: [ self.hyper-haskell-server ] ++ packages self);
 in
 stdenv.mkDerivation {
   pname = "hyper-haskell-server-with-packages";

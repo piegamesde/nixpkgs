@@ -82,9 +82,7 @@ edk2.mkDerivation projectDscPath (
         "-D TPM2_CONFIG_ENABLE"
       ];
 
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isClang
-        "-Qunused-arguments";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Qunused-arguments";
 
     env.PYTHON_COMMAND = "python3";
 
@@ -120,9 +118,8 @@ edk2.mkDerivation projectDscPath (
       let
         cpuName = stdenv.hostPlatform.parsed.cpu.name;
         suffix =
-          suffixes."${cpuName}" or (throw
-            "Host cpu name `${cpuName}` is not supported in this OVMF derivation!"
-          );
+          suffixes."${cpuName}"
+            or (throw "Host cpu name `${cpuName}` is not supported in this OVMF derivation!");
         prefix = "${finalAttrs.finalPackage.fd}/${suffix}";
       in
       {

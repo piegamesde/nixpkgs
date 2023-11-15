@@ -96,9 +96,7 @@ in
                 "workDir"
               ]
               cfg;
-          newConfigPath = builtins.toFile "${svcName}-config.json" (
-            builtins.toJSON runnerRegistrationConfig
-          );
+          newConfigPath = builtins.toFile "${svcName}-config.json" (builtins.toJSON runnerRegistrationConfig);
           currentConfigPath = "$STATE_DIRECTORY/.nixos-current-config.json";
           newConfigTokenPath = "$STATE_DIRECTORY/.new-token";
           currentConfigTokenPath = "$STATE_DIRECTORY/${currentConfigTokenFilename}";
@@ -163,10 +161,7 @@ in
                 --labels ${escapeShellArg (concatStringsSep "," cfg.extraLabels)}
                 --name ${escapeShellArg cfg.name}
                 ${optionalString cfg.replace "--replace"}
-                ${
-                  optionalString (cfg.runnerGroup != null)
-                    "--runnergroup ${escapeShellArg cfg.runnerGroup}"
-                }
+                ${optionalString (cfg.runnerGroup != null) "--runnergroup ${escapeShellArg cfg.runnerGroup}"}
                 ${optionalString cfg.ephemeral "--ephemeral"}
               )
               # If the token file contains a PAT (i.e., it starts with "ghp_" or "github_pat_"), we have to use the --pat option,
@@ -193,9 +188,7 @@ in
             ln -s "$LOGS_DIRECTORY" "$WORK_DIRECTORY/_diag"
 
             # Link the runner credentials to the work dir
-            ln -s "$STATE_DIRECTORY"/{${
-              lib.concatStringsSep "," runnerCredFiles
-            }} "$WORK_DIRECTORY/"
+            ln -s "$STATE_DIRECTORY"/{${lib.concatStringsSep "," runnerCredFiles}} "$WORK_DIRECTORY/"
           '';
         in
         map

@@ -19,15 +19,12 @@ let
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
 
-  modulesTree = config.system.modulesTree.override {
-    name = kernel-name + "-modules";
-  };
+  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
 
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
-    rootModules =
-      config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
+    rootModules = config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -160,12 +157,10 @@ let
         ln -sf kmod $out/bin/modprobe
 
         # Copy resize2fs if any ext* filesystems are to be resized
-        ${optionalString
-          (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems)
-          ''
-            # We need mke2fs in the initrd.
-            copy_bin_and_libs ${pkgs.e2fsprogs}/sbin/resize2fs
-          ''}
+        ${optionalString (any (fs: fs.autoResize && (lib.hasPrefix "ext" fs.fsType)) fileSystems) ''
+          # We need mke2fs in the initrd.
+          copy_bin_and_libs ${pkgs.e2fsprogs}/sbin/resize2fs
+        ''}
 
         # Copy multipath.
         ${optionalString config.services.multipath.enable ''
@@ -235,9 +230,7 @@ let
           patchelf --set-rpath $out/lib $i
         done
 
-        if [ -z "${
-          toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)
-        }" ]; then
+        if [ -z "${toString (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform)}" ]; then
         # Make sure that the patchelf'ed binaries still work.
         echo "testing patched programs..."
         $out/bin/ash -c 'echo hello world' | grep "hello world"
@@ -372,19 +365,17 @@ let
       kernelModules
     ;
 
-    resumeDevices =
-      map (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}")
+    resumeDevices = map (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}") (
+      filter
         (
-          filter
-            (
-              sd:
-              hasPrefix "/dev/" sd.device
-              && !sd.randomEncryption.enable
-              # Don't include zram devices
-              && !(hasPrefix "/dev/zram" sd.device)
-            )
-            config.swapDevices
-        );
+          sd:
+          hasPrefix "/dev/" sd.device
+          && !sd.randomEncryption.enable
+          # Don't include zram devices
+          && !(hasPrefix "/dev/zram" sd.device)
+        )
+        config.swapDevices
+    );
 
     fsInfo =
       let
@@ -395,9 +386,7 @@ let
           (builtins.concatStringsSep "," fs.options)
         ];
       in
-      pkgs.writeText "initrd-fsinfo" (
-        concatStringsSep "\n" (concatMap f fileSystems)
-      );
+      pkgs.writeText "initrd-fsinfo" (concatStringsSep "\n" (concatMap f fileSystems));
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
@@ -425,9 +414,7 @@ let
           symlink = "/init";
         }
         {
-          object =
-            pkgs.writeText "mdadm.conf"
-              config.boot.initrd.services.swraid.mdadmConf;
+          object = pkgs.writeText "mdadm.conf" config.boot.initrd.services.swraid.mdadmConf;
           symlink = "/etc/mdadm.conf";
         }
         {
@@ -674,15 +661,8 @@ in
 
     boot.initrd.compressor = mkOption {
       default =
-        (
-          if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then
-            "zstd"
-          else
-            "gzip"
-        );
-      defaultText =
-        literalMD
-          "`zstd` if the kernel supports it (5.9+), `gzip` if not";
+        (if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then "zstd" else "gzip");
+      defaultText = literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
       description = lib.mdDoc ''
         The compressor to use on the initrd image. May be any of:
@@ -724,9 +704,7 @@ in
       default = [ ];
       example = [ "btrfs" ];
       type = types.listOf types.str;
-      description =
-        lib.mdDoc
-          "Names of supported filesystem types in the initial ramdisk.";
+      description = lib.mdDoc "Names of supported filesystem types in the initial ramdisk.";
     };
 
     boot.initrd.verbose = mkOption {
@@ -787,8 +765,7 @@ in
           in
           resumeDevice == "" || builtins.substring 0 1 resumeDevice == "/";
         message =
-          "boot.resumeDevice has to be an absolute path."
-          + " Old \"x:y\" style is no longer supported.";
+          "boot.resumeDevice has to be an absolute path." + " Old \"x:y\" style is no longer supported.";
       }
       # TODO: remove when #85000 is fixed
       {
@@ -796,11 +773,7 @@ in
           !config.boot.loader.supportsInitrdSecrets
           ->
             all
-              (
-                source:
-                builtins.isPath source
-                || (builtins.isString source && hasPrefix builtins.storeDir source)
-              )
+              (source: builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source))
               (attrValues config.boot.initrd.secrets);
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when

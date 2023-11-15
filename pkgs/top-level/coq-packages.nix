@@ -27,14 +27,10 @@ let
       inherit coq lib;
       coqPackages = self;
 
-      metaFetch = import ../build-support/coq/meta-fetch/default.nix {
-        inherit lib stdenv fetchzip;
-      };
+      metaFetch = import ../build-support/coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; };
       mkCoqDerivation = lib.makeOverridable (callPackage ../build-support/coq { });
 
-      contribs = recurseIntoAttrs (
-        callPackage ../development/coq-modules/contribs { }
-      );
+      contribs = recurseIntoAttrs (callPackage ../development/coq-modules/contribs { });
 
       aac-tactics = callPackage ../development/coq-modules/aac-tactics { };
       addition-chains = callPackage ../development/coq-modules/addition-chains { };
@@ -62,9 +58,7 @@ let
       coq-ext-lib = callPackage ../development/coq-modules/coq-ext-lib { };
       coq-haskell = callPackage ../development/coq-modules/coq-haskell { };
       coq-lsp = callPackage ../development/coq-modules/coq-lsp { };
-      coq-record-update =
-        callPackage ../development/coq-modules/coq-record-update
-          { };
+      coq-record-update = callPackage ../development/coq-modules/coq-record-update { };
       coqeal = callPackage ../development/coq-modules/coqeal { };
       coqhammer = callPackage ../development/coq-modules/coqhammer { };
       coqide = callPackage ../development/coq-modules/coqide { };
@@ -85,9 +79,7 @@ let
       goedel = callPackage ../development/coq-modules/goedel { };
       graph-theory = callPackage ../development/coq-modules/graph-theory { };
       heq = callPackage ../development/coq-modules/heq { };
-      hierarchy-builder =
-        callPackage ../development/coq-modules/hierarchy-builder
-          { };
+      hierarchy-builder = callPackage ../development/coq-modules/hierarchy-builder { };
       HoTT = callPackage ../development/coq-modules/HoTT { };
       hydra-battles = callPackage ../development/coq-modules/hydra-battles { };
       interval = callPackage ../development/coq-modules/interval { };
@@ -107,21 +99,13 @@ let
       mathcomp-field = self.mathcomp.field;
       mathcomp-character = self.mathcomp.character;
       mathcomp-abel = callPackage ../development/coq-modules/mathcomp-abel { };
-      mathcomp-algebra-tactics =
-        callPackage ../development/coq-modules/mathcomp-algebra-tactics
-          { };
-      mathcomp-analysis =
-        callPackage ../development/coq-modules/mathcomp-analysis
-          { };
+      mathcomp-algebra-tactics = callPackage ../development/coq-modules/mathcomp-algebra-tactics { };
+      mathcomp-analysis = callPackage ../development/coq-modules/mathcomp-analysis { };
       mathcomp-apery = callPackage ../development/coq-modules/mathcomp-apery { };
-      mathcomp-bigenough =
-        callPackage ../development/coq-modules/mathcomp-bigenough
-          { };
+      mathcomp-bigenough = callPackage ../development/coq-modules/mathcomp-bigenough { };
       mathcomp-classical = self.mathcomp-analysis.classical;
       mathcomp-finmap = callPackage ../development/coq-modules/mathcomp-finmap { };
-      mathcomp-real-closed =
-        callPackage ../development/coq-modules/mathcomp-real-closed
-          { };
+      mathcomp-real-closed = callPackage ../development/coq-modules/mathcomp-real-closed { };
       mathcomp-tarjan = callPackage ../development/coq-modules/mathcomp-tarjan { };
       mathcomp-word = callPackage ../development/coq-modules/mathcomp-word { };
       mathcomp-zify = callPackage ../development/coq-modules/mathcomp-zify { };
@@ -161,8 +145,7 @@ let
         })
       );
       zorns-lemma = callPackage ../development/coq-modules/zorns-lemma { };
-      filterPackages =
-        doesFilter: if doesFilter then filterCoqPackages self else self;
+      filterPackages = doesFilter: if doesFilter then filterCoqPackages self else self;
     };
 
   filterCoqPackages =
@@ -176,10 +159,7 @@ let
           in
           lib.optional (!v.meta.coqFilter or false) (
             lib.nameValuePair name (
-              if lib.isAttrs v && v.recurseForDerivations or false then
-                filterCoqPackages v
-              else
-                v
+              if lib.isAttrs v && v.recurseForDerivations or false then filterCoqPackages v else v
             )
           )
         )

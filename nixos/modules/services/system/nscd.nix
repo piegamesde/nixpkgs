@@ -69,10 +69,7 @@ in
       package = mkOption {
         type = types.package;
         default =
-          if pkgs.stdenv.hostPlatform.libc == "glibc" then
-            pkgs.stdenv.cc.libc.bin
-          else
-            pkgs.glibc.bin;
+          if pkgs.stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc.bin else pkgs.glibc.bin;
         defaultText = lib.literalExpression ''
           if pkgs.stdenv.hostPlatform.libc == "glibc"
             then pkgs.stdenv.cc.libc.bin
@@ -99,8 +96,7 @@ in
     users.groups.${cfg.group} = { };
 
     systemd.services.nscd = {
-      description =
-        "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
+      description = "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
 
       before = [
         "nss-lookup.target"
@@ -140,11 +136,7 @@ in
       # sill want to read their configuration files after the privilege drop
       # and so users can set the owner of those files to the nscd user.
       serviceConfig = {
-        ExecStart =
-          if cfg.enableNsncd then
-            "${pkgs.nsncd}/bin/nsncd"
-          else
-            "!@${cfg.package}/bin/nscd nscd";
+        ExecStart = if cfg.enableNsncd then "${pkgs.nsncd}/bin/nsncd" else "!@${cfg.package}/bin/nscd nscd";
         Type = if cfg.enableNsncd then "notify" else "forking";
         User = cfg.user;
         Group = cfg.group;

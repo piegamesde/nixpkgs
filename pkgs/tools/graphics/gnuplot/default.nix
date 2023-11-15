@@ -35,8 +35,7 @@
   qtsvg,
 }:
 
-assert libX11 != null
-  -> (fontconfig != null && gnused != null && coreutils != null);
+assert libX11 != null -> (fontconfig != null && gnused != null && coreutils != null);
 let
   withX = libX11 != null && !aquaterm && !stdenv.isDarwin;
 in
@@ -64,9 +63,7 @@ in
       readline
       zlib
     ]
-    ++ lib.optional withTeXLive (
-      texlive.combine { inherit (texlive) scheme-small; }
-    )
+    ++ lib.optional withTeXLive (texlive.combine { inherit (texlive) scheme-small; })
     ++ lib.optional withLua lua
     ++ lib.optional withCaca libcaca
     ++ lib.optionals withX [

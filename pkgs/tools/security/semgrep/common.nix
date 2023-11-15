@@ -50,8 +50,7 @@ rec {
     src =
       let
         inherit (stdenv.hostPlatform) system;
-        selectSystemData =
-          data: data.${system} or (throw "Unsupported system: ${system}");
+        selectSystemData = data: data.${system} or (throw "Unsupported system: ${system}");
         inherit (selectSystemData data) suffix sha256;
       in
       fetchzip {

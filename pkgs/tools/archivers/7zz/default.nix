@@ -32,9 +32,7 @@ stdenv.mkDerivation rec {
   version = "22.01";
 
   src = fetchurl {
-    url = "https://7-zip.org/a/7z${
-        lib.replaceStrings [ "." ] [ "" ] version
-      }-src.tar.xz";
+    url = "https://7-zip.org/a/7z${lib.replaceStrings [ "." ] [ "" ] version}-src.tar.xz";
     hash =
       {
         free = "sha256-mp3cFXOEiVptkUdD1+X8XxwoJhBGs+Ns5qk3HBByfLg=";

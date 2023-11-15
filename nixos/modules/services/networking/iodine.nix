@@ -118,9 +118,7 @@ in
               relay = mkOption {
                 type = types.str;
                 default = "";
-                description =
-                  lib.mdDoc
-                    "DNS server to use as an intermediate relay to the iodined server";
+                description = lib.mdDoc "DNS server to use as an intermediate relay to the iodined server";
                 example = "8.8.8.8";
               };
 
@@ -191,8 +189,7 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           script = "exec ${pkgs.iodine}/bin/iodine -f -u ${iodinedUser} ${cfg.extraConfig} ${
-              optionalString (cfg.passwordFile != "")
-                ''< "${builtins.toString cfg.passwordFile}"''
+              optionalString (cfg.passwordFile != "") ''< "${builtins.toString cfg.passwordFile}"''
             } ${cfg.relay} ${cfg.server}";
           serviceConfig = {
             RestartSec = "30s";
@@ -219,11 +216,7 @@ in
         };
       in
       listToAttrs (
-        mapAttrsToList
-          (
-            name: value:
-            nameValuePair "iodine-${name}" (createIodineClientService name value)
-          )
+        mapAttrsToList (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value))
           cfg.clients
       )
       // {
@@ -232,14 +225,12 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
           script = "exec ${pkgs.iodine}/bin/iodined -f -u ${iodinedUser} ${cfg.server.extraConfig} ${
-              optionalString (cfg.server.passwordFile != "")
-                ''< "${builtins.toString cfg.server.passwordFile}"''
+              optionalString (cfg.server.passwordFile != "") ''< "${builtins.toString cfg.server.passwordFile}"''
             } ${cfg.server.ip} ${cfg.server.domain}";
           serviceConfig = {
             # Filesystem access
             ProtectSystem = "strict";
-            ProtectHome =
-              if isProtected cfg.server.passwordFile then "read-only" else "true";
+            ProtectHome = if isProtected cfg.server.passwordFile then "read-only" else "true";
             PrivateTmp = true;
             ReadWritePaths = "/dev/net/tun";
             PrivateDevices = false;

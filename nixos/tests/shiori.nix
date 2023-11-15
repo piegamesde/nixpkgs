@@ -22,9 +22,7 @@ import ./make-test-python.nix (
           title = "Example Bookmark";
         };
 
-        insertBookmarkJSON = pkgs.writeText "insertBookmark.json" (
-          builtins.toJSON insertBookmark
-        );
+        insertBookmarkJSON = pkgs.writeText "insertBookmark.json" (builtins.toJSON insertBookmark);
       in
       ''
         import json

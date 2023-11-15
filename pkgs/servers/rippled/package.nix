@@ -140,8 +140,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."are-we-there-yet"."~1.0.0" =
-    self.by-version."are-we-there-yet"."1.0.4";
+  by-spec."are-we-there-yet"."~1.0.0" = self.by-version."are-we-there-yet"."1.0.4";
   by-version."are-we-there-yet"."1.0.4" = self.buildNodePackage {
     name = "are-we-there-yet-1.0.4";
     version = "1.0.4";
@@ -854,8 +853,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."component-emitter"."1.1.2" =
-    self.by-version."component-emitter"."1.1.2";
+  by-spec."component-emitter"."1.1.2" = self.by-version."component-emitter"."1.1.2";
   by-version."component-emitter"."1.1.2" = self.buildNodePackage {
     name = "component-emitter-1.1.2";
     version = "1.1.2";
@@ -929,8 +927,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."content-disposition"."0.5.0" =
-    self.by-version."content-disposition"."0.5.0";
+  by-spec."content-disposition"."0.5.0" = self.by-version."content-disposition"."0.5.0";
   by-version."content-disposition"."0.5.0" = self.buildNodePackage {
     name = "content-disposition-0.5.0";
     version = "0.5.0";
@@ -1401,8 +1398,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."escape-string-regexp"."1.0.2" =
-    self.by-version."escape-string-regexp"."1.0.2";
+  by-spec."escape-string-regexp"."1.0.2" = self.by-version."escape-string-regexp"."1.0.2";
   by-version."escape-string-regexp"."1.0.2" = self.buildNodePackage {
     name = "escape-string-regexp-1.0.2";
     version = "1.0.2";
@@ -1418,8 +1414,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."escape-string-regexp"."^1.0.0" =
-    self.by-version."escape-string-regexp"."1.0.3";
+  by-spec."escape-string-regexp"."^1.0.0" = self.by-version."escape-string-regexp"."1.0.3";
   by-version."escape-string-regexp"."1.0.3" = self.buildNodePackage {
     name = "escape-string-regexp-1.0.3";
     version = "1.0.3";
@@ -1435,8 +1430,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."escape-string-regexp"."^1.0.2" =
-    self.by-version."escape-string-regexp"."1.0.3";
+  by-spec."escape-string-regexp"."^1.0.2" = self.by-version."escape-string-regexp"."1.0.3";
   by-spec."escodegen"."1.3.x" = self.by-version."escodegen"."1.3.3";
   by-version."escodegen"."1.3.3" = self.buildNodePackage {
     name = "escodegen-1.3.3";
@@ -1999,8 +1993,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."generate-function"."^2.0.0" =
-    self.by-version."generate-function"."2.0.0";
+  by-spec."generate-function"."^2.0.0" = self.by-version."generate-function"."2.0.0";
   by-version."generate-function"."2.0.0" = self.buildNodePackage {
     name = "generate-function-2.0.0";
     version = "2.0.0";
@@ -2016,8 +2009,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."generate-object-property"."^1.1.0" =
-    self.by-version."generate-object-property"."1.1.1";
+  by-spec."generate-object-property"."^1.1.0" = self.by-version."generate-object-property"."1.1.1";
   by-version."generate-object-property"."1.1.1" = self.buildNodePackage {
     name = "generate-object-property-1.1.1";
     version = "1.1.1";
@@ -2035,8 +2027,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."generic-pool-redux"."~0.1.0" =
-    self.by-version."generic-pool-redux"."0.1.0";
+  by-spec."generic-pool-redux"."~0.1.0" = self.by-version."generic-pool-redux"."0.1.0";
   by-version."generic-pool-redux"."0.1.0" = self.buildNodePackage {
     name = "generic-pool-redux-0.1.0";
     version = "0.1.0";
@@ -2178,8 +2169,7 @@
     cpu = [ ];
   };
   by-spec."graceful-fs"."~3.0.2" = self.by-version."graceful-fs"."3.0.6";
-  by-spec."graceful-readlink".">= 1.0.0" =
-    self.by-version."graceful-readlink"."1.0.1";
+  by-spec."graceful-readlink".">= 1.0.0" = self.by-version."graceful-readlink"."1.0.1";
   by-version."graceful-readlink"."1.0.1" = self.buildNodePackage {
     name = "graceful-readlink-1.0.1";
     version = "1.0.1";
@@ -2518,8 +2508,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."is-my-json-valid"."^2.10.1" =
-    self.by-version."is-my-json-valid"."2.11.0";
+  by-spec."is-my-json-valid"."^2.10.1" = self.by-version."is-my-json-valid"."2.11.0";
   by-version."is-my-json-valid"."2.11.0" = self.buildNodePackage {
     name = "is-my-json-valid-2.11.0";
     version = "2.11.0";
@@ -2531,8 +2520,7 @@
     };
     deps = {
       "generate-function-2.0.0" = self.by-version."generate-function"."2.0.0";
-      "generate-object-property-1.1.1" =
-        self.by-version."generate-object-property"."1.1.1";
+      "generate-object-property-1.1.1" = self.by-version."generate-object-property"."1.1.1";
       "jsonpointer-1.1.0" = self.by-version."jsonpointer"."1.1.0";
       "xtend-4.0.0" = self.by-version."xtend"."4.0.0";
     };
@@ -2658,8 +2646,7 @@
     cpu = [ ];
   };
   "jayschema" = self.by-version."jayschema"."0.3.1";
-  by-spec."jayschema-error-messages"."^1.0.2" =
-    self.by-version."jayschema-error-messages"."1.0.3";
+  by-spec."jayschema-error-messages"."^1.0.2" = self.by-version."jayschema-error-messages"."1.0.3";
   by-version."jayschema-error-messages"."1.0.3" = self.buildNodePackage {
     name = "jayschema-error-messages-1.0.3";
     version = "1.0.3";
@@ -2734,8 +2721,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."json-stringify-safe"."~5.0.0" =
-    self.by-version."json-stringify-safe"."5.0.0";
+  by-spec."json-stringify-safe"."~5.0.0" = self.by-version."json-stringify-safe"."5.0.0";
   by-version."json-stringify-safe"."5.0.0" = self.buildNodePackage {
     name = "json-stringify-safe-5.0.0";
     version = "5.0.0";
@@ -2872,8 +2858,7 @@
     cpu = [ ];
   };
   by-spec."lodash"."~2.4.1" = self.by-version."lodash"."2.4.2";
-  by-spec."lodash._basetostring"."^3.0.0" =
-    self.by-version."lodash._basetostring"."3.0.0";
+  by-spec."lodash._basetostring"."^3.0.0" = self.by-version."lodash._basetostring"."3.0.0";
   by-version."lodash._basetostring"."3.0.0" = self.buildNodePackage {
     name = "lodash._basetostring-3.0.0";
     version = "3.0.0";
@@ -2889,8 +2874,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."lodash._createpadding"."^3.0.0" =
-    self.by-version."lodash._createpadding"."3.6.0";
+  by-spec."lodash._createpadding"."^3.0.0" = self.by-version."lodash._createpadding"."3.6.0";
   by-version."lodash._createpadding"."3.6.0" = self.buildNodePackage {
     name = "lodash._createpadding-3.6.0";
     version = "3.6.0";
@@ -3063,8 +3047,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."merge-descriptors"."1.0.0" =
-    self.by-version."merge-descriptors"."1.0.0";
+  by-spec."merge-descriptors"."1.0.0" = self.by-version."merge-descriptors"."1.0.0";
   by-version."merge-descriptors"."1.0.0" = self.buildNodePackage {
     name = "merge-descriptors-1.0.0";
     version = "1.0.0";
@@ -4018,8 +4001,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."1.0.27-1" =
-    self.by-version."readable-stream"."1.0.27-1";
+  by-spec."readable-stream"."1.0.27-1" = self.by-version."readable-stream"."1.0.27-1";
   by-version."readable-stream"."1.0.27-1" = self.buildNodePackage {
     name = "readable-stream-1.0.27-1";
     version = "1.0.27-1";
@@ -4040,8 +4022,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."^1.1.12" =
-    self.by-version."readable-stream"."1.1.13";
+  by-spec."readable-stream"."^1.1.12" = self.by-version."readable-stream"."1.1.13";
   by-version."readable-stream"."1.1.13" = self.buildNodePackage {
     name = "readable-stream-1.1.13";
     version = "1.1.13";
@@ -4062,8 +4043,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."^1.1.13" =
-    self.by-version."readable-stream"."1.1.13";
+  by-spec."readable-stream"."^1.1.13" = self.by-version."readable-stream"."1.1.13";
   by-spec."readable-stream"."~1.0.2" = self.by-version."readable-stream"."1.0.33";
   by-version."readable-stream"."1.0.33" = self.buildNodePackage {
     name = "readable-stream-1.0.33";
@@ -4085,8 +4065,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."readable-stream"."~1.0.26" =
-    self.by-version."readable-stream"."1.0.33";
+  by-spec."readable-stream"."~1.0.26" = self.by-version."readable-stream"."1.0.33";
   by-spec."reduce-component"."1.0.1" = self.by-version."reduce-component"."1.0.1";
   by-version."reduce-component"."1.0.1" = self.buildNodePackage {
     name = "reduce-component-1.0.1";
@@ -4169,8 +4148,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."require-directory"."^1.2.0" =
-    self.by-version."require-directory"."1.2.0";
+  by-spec."require-directory"."^1.2.0" = self.by-version."require-directory"."1.2.0";
   by-version."require-directory"."1.2.0" = self.buildNodePackage {
     name = "require-directory-1.2.0";
     version = "1.2.0";
@@ -4270,8 +4248,7 @@
       "extend-1.2.1" = self.by-version."extend"."1.2.1";
       "lodash-3.8.0" = self.by-version."lodash"."3.8.0";
       "lru-cache-2.5.2" = self.by-version."lru-cache"."2.5.2";
-      "ripple-wallet-generator-1.0.3" =
-        self.by-version."ripple-wallet-generator"."1.0.3";
+      "ripple-wallet-generator-1.0.3" = self.by-version."ripple-wallet-generator"."1.0.3";
       "ws-0.7.1" = self.by-version."ws"."0.7.1";
     };
     optionalDependencies = { };
@@ -4300,10 +4277,8 @@
     os = [ ];
     cpu = [ ];
   };
-  "ripple-lib-transactionparser" =
-    self.by-version."ripple-lib-transactionparser"."0.3.2";
-  by-spec."ripple-wallet-generator"."^1.0.3" =
-    self.by-version."ripple-wallet-generator"."1.0.3";
+  "ripple-lib-transactionparser" = self.by-version."ripple-lib-transactionparser"."0.3.2";
+  by-spec."ripple-wallet-generator"."^1.0.3" = self.by-version."ripple-wallet-generator"."1.0.3";
   by-version."ripple-wallet-generator"."1.0.3" = self.buildNodePackage {
     name = "ripple-wallet-generator-1.0.3";
     version = "1.0.3";
@@ -4650,8 +4625,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."strip-json-comments"."0.1.x" =
-    self.by-version."strip-json-comments"."0.1.3";
+  by-spec."strip-json-comments"."0.1.x" = self.by-version."strip-json-comments"."0.1.3";
   by-version."strip-json-comments"."0.1.3" = self.buildNodePackage {
     name = "strip-json-comments-0.1.3";
     version = "0.1.3";
@@ -5000,8 +4974,7 @@
     os = [ ];
     cpu = [ ];
   };
-  by-spec."underscore.string"."~2.4.0" =
-    self.by-version."underscore.string"."2.4.0";
+  by-spec."underscore.string"."~2.4.0" = self.by-version."underscore.string"."2.4.0";
   by-version."underscore.string"."2.4.0" = self.buildNodePackage {
     name = "underscore.string-2.4.0";
     version = "2.4.0";

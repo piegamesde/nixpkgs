@@ -121,9 +121,7 @@ in
         };
 
         create = mkOption {
-          description =
-            lib.mdDoc
-              "Whether to create couchdb database needed by ripple data api.";
+          description = lib.mdDoc "Whether to create couchdb database needed by ripple data api.";
           type = types.bool;
           default = true;
         };
@@ -155,9 +153,7 @@ in
 
       environment = {
         NODE_ENV = "production";
-        DEPLOYMENT_ENVS_CONFIG =
-          pkgs.writeText "deployment.environment.json"
-            deployment_env_config;
+        DEPLOYMENT_ENVS_CONFIG = pkgs.writeText "deployment.environment.json" deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
       };
 
@@ -175,9 +171,7 @@ in
 
       environment = {
         NODE_ENV = "production";
-        DEPLOYMENT_ENVS_CONFIG =
-          pkgs.writeText "deployment.environment.json"
-            deployment_env_config;
+        DEPLOYMENT_ENVS_CONFIG = pkgs.writeText "deployment.environment.json" deployment_env_config;
         DB_CONFIG = pkgs.writeText "db.config.json" db_config;
         LOG_FILE = "/dev/null";
       };
@@ -199,8 +193,7 @@ in
       preStart = mkMerge [
         (mkIf (cfg.couchdb.create) ''
           HOST="http://${
-            optionalString (cfg.couchdb.pass != "")
-              "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
+            optionalString (cfg.couchdb.pass != "") "${cfg.couchdb.user}:${cfg.couchdb.pass}@"
           }${cfg.couchdb.host}:${toString cfg.couchdb.port}"
           curl -X PUT $HOST/${cfg.couchdb.db} || true
         '')

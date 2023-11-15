@@ -30,9 +30,7 @@ let
     );
 
   passthru = rec {
-    spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override {
-      llvm = llvmPackages_11.llvm;
-    };
+    spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override { llvm = llvmPackages_11.llvm; };
     llvm = addPatches "llvm" llvmPkgs.llvm;
     libclang = addPatches "clang" llvmPkgs.libclang;
 
@@ -62,10 +60,7 @@ let
   library =
     let
       inherit (llvmPackages_11) llvm;
-      inherit (if buildWithPatches then passthru else llvmPkgs)
-        libclang
-        spirv-llvm-translator
-      ;
+      inherit (if buildWithPatches then passthru else llvmPkgs) libclang spirv-llvm-translator;
     in
     stdenv.mkDerivation {
       pname = "opencl-clang";
@@ -106,9 +101,7 @@ let
 
       cmakeFlags = [
         "-DPREFERRED_LLVM_VERSION=${lib.getVersion llvm}"
-        "-DOPENCL_HEADERS_DIR=${libclang.lib}/lib/clang/${
-          lib.getVersion libclang
-        }/include/"
+        "-DOPENCL_HEADERS_DIR=${libclang.lib}/lib/clang/${lib.getVersion libclang}/include/"
 
         "-DLLVMSPIRV_INCLUDED_IN_LLVM=OFF"
         "-DSPIRV_TRANSLATOR_DIR=${spirv-llvm-translator}"

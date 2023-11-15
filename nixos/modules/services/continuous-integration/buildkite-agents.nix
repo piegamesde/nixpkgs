@@ -42,9 +42,7 @@ let
     in
     pkgs.runCommand "buildkite-agent-hooks" { preferLocalBuild = true; } ''
       mkdir $out
-      ${concatStringsSep "\n" (
-        mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks)
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList mkHookEntry (filterAttrs (n: v: v != null) cfg.hooks))}
     '';
 
   buildkiteOptions =
@@ -82,9 +80,7 @@ let
             pkgs.git
             pkgs.nix
           ];
-          defaultText =
-            literalExpression
-              "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
+          defaultText = literalExpression "[ pkgs.bash pkgs.gnutar pkgs.gzip pkgs.git pkgs.nix ]";
           description = lib.mdDoc "Add programs to the buildkite-agent environment";
           type = types.listOf types.package;
         };
@@ -224,9 +220,7 @@ let
         hooksPath = mkOption {
           type = types.path;
           default = hooksDir config;
-          defaultText =
-            literalMD
-              "generated from {option}`services.buildkite-agents.<name>.hooks`";
+          defaultText = literalMD "generated from {option}`services.buildkite-agents.<name>.hooks`";
           description = lib.mdDoc ''
             Path to the directory storing the hooks.
             Consider using {option}`services.buildkite-agents.<name>.hooks.<name>`
@@ -272,9 +266,7 @@ in
       };
     }
   );
-  config.users.groups = mapAgents (
-    name: cfg: { "buildkite-agent-${name}" = { }; }
-  );
+  config.users.groups = mapAgents (name: cfg: { "buildkite-agent-${name}" = { }; });
 
   config.systemd.services = mapAgents (
     name: cfg: {
@@ -337,8 +329,7 @@ in
   config.assertions = mapAgents (
     name: cfg: [
       {
-        assertion =
-          cfg.hooksPath == (hooksDir cfg) || all (v: v == null) (attrValues cfg.hooks);
+        assertion = cfg.hooksPath == (hooksDir cfg) || all (v: v == null) (attrValues cfg.hooks);
         message = ''
           Options `services.buildkite-agents.${name}.hooksPath' and
           `services.buildkite-agents.${name}.hooks.<name>' are mutually exclusive.

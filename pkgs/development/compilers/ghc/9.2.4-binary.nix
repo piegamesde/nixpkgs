@@ -197,8 +197,7 @@ let
   # we ship bindists for matter.
   useLLVM =
     !(
-      stdenv.targetPlatform.isx86
-      || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
+      stdenv.targetPlatform.isx86 || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
     );
 
   libPath = lib.makeLibraryPath (
@@ -206,8 +205,7 @@ let
     map ({ nixPackage, ... }: nixPackage) binDistUsed.archSpecificLibraries
   );
 
-  libEnvVar =
-    lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
+  libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
 
   runtimeDeps =
     [
@@ -296,41 +294,31 @@ stdenv.mkDerivation rec {
       # We have to patch the GMP paths for the integer-gmp package.
       ''
         find . -name ghc-bignum.buildinfo \
-            -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${
-              lib.getLib gmpUsed
-            }/lib@" {} \;
+            -exec sed -i "s@extra-lib-dirs: @extra-lib-dirs: ${lib.getLib gmpUsed}/lib@" {} \;
 
         # we need to modify the package db directly for hadrian bindists
         find . -name 'ghc-bignum*.conf' \
-            -exec sed -e '/^[a-z-]*library-dirs/a \    ${
-              lib.getLib gmpUsed
-            }/lib' -i {} \;
+            -exec sed -e '/^[a-z-]*library-dirs/a \    ${lib.getLib gmpUsed}/lib' -i {} \;
       ''
     + lib.optionalString stdenv.isDarwin ''
       # we need to modify the package db directly for hadrian bindists
       # (all darwin bindists are hadrian-based for 9.2.2)
       find . -name 'base*.conf' \
-          -exec sed -e '/^[a-z-]*library-dirs/a \    ${
-            lib.getLib libiconv
-          }/lib' -i {} \;
+          -exec sed -e '/^[a-z-]*library-dirs/a \    ${lib.getLib libiconv}/lib' -i {} \;
 
       # To link RTS in the end we also need libffi now
       find . -name 'rts*.conf' \
           -exec sed -e '/^[a-z-]*library-dirs/a \    ${lib.getLib libffi}/lib' \
-                    -e 's@/Library/Developer/.*/usr/include/ffi@${
-                      lib.getDev libffi
-                    }/include@' \
+                    -e 's@/Library/Developer/.*/usr/include/ffi@${lib.getDev libffi}/include@' \
                     -i {} \;
     ''
     +
       # aarch64 does HAVE_NUMA so -lnuma requires it in library-dirs in rts/package.conf.in
       # FFI_LIB_DIR is a good indication of places it must be needed.
-      lib.optionalString
-        (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
-        ''
-          find . -name package.conf.in \
-              -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
-        ''
+      lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) ''
+        find . -name package.conf.in \
+            -exec sed -i "s@FFI_LIB_DIR@FFI_LIB_DIR ${numactl.out}/lib@g" {} \;
+      ''
     +
       # Rename needed libraries and binaries, fix interpreter
       lib.optionalString stdenv.isLinux ''

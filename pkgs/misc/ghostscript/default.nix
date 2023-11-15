@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     # https://ghostscript.com/doc/current/Make.htm
     export CCAUX=$CC_FOR_BUILD
-    ${lib.optionalString cupsSupport
-      ''export CUPSCONFIG="${cups.dev}/bin/cups-config"''}
+    ${lib.optionalString cupsSupport ''export CUPSCONFIG="${cups.dev}/bin/cups-config"''}
 
     rm -rf jpeg libpng zlib jasper expat tiff lcms2mt jbig2dec freetype cups/libs ijs openjpeg
 

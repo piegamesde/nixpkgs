@@ -111,9 +111,7 @@ import ./make-test-python.nix (
 
             simpleServiceFailing.configuration = {
               imports = [ simpleServiceModified.configuration ];
-              systemd.services.test.serviceConfig.ExecStart =
-                lib.mkForce
-                  "${pkgs.coreutils}/bin/false";
+              systemd.services.test.serviceConfig.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/false";
             };
 
             autorestartService.configuration = {
@@ -429,9 +427,7 @@ import ./make-test-python.nix (
 
             timerModified.configuration = {
               imports = [ timer.configuration ];
-              systemd.timers.test-timer.timerConfig.OnCalendar =
-                lib.mkForce
-                  "Fri 2012-11-23 16:00:00";
+              systemd.timers.test-timer.timerConfig.OnCalendar = lib.mkForce "Fri 2012-11-23 16:00:00";
             };
 
             hybridSleepModified.configuration = {

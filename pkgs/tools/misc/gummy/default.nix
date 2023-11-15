@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
   # Setting this through cmake does not seem to work.
   postPatch = ''
     substituteInPlace src/gummy/gummy.cpp \
-      --replace "CMAKE_INSTALL_DAEMON_PATH" "\"${
-        placeholder "out"
-      }/libexec/gummyd\""
+      --replace "CMAKE_INSTALL_DAEMON_PATH" "\"${placeholder "out"}/libexec/gummyd\""
   '';
 
   preFixup = ''

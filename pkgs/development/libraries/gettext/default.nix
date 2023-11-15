@@ -88,17 +88,14 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ bash ]
     # HACK, see #10874 (and 14664)
-    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [
-      libiconv
-    ];
+    ++ lib.optionals (!stdenv.isLinux && !stdenv.hostPlatform.isCygwin) [ libiconv ];
 
   setupHooks = [
     ../../../build-support/setup-hooks/role.bash
     ./gettext-setup-hook.sh
   ];
   env = {
-    gettextNeedsLdflags =
-      stdenv.hostPlatform.libc != "glibc" && !stdenv.hostPlatform.isMusl;
+    gettextNeedsLdflags = stdenv.hostPlatform.libc != "glibc" && !stdenv.hostPlatform.isMusl;
   };
 
   enableParallelBuilding = true;
@@ -137,6 +134,4 @@ stdenv.mkDerivation rec {
   };
 }
 
-// lib.optionalAttrs stdenv.isDarwin {
-  makeFlags = [ "CFLAGS=-D_FORTIFY_SOURCE=0" ];
-}
+// lib.optionalAttrs stdenv.isDarwin { makeFlags = [ "CFLAGS=-D_FORTIFY_SOURCE=0" ]; }

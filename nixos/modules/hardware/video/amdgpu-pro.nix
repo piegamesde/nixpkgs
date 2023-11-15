@@ -16,9 +16,7 @@ let
   enabled = elem "amdgpu-pro" drivers;
 
   package = config.boot.kernelPackages.amdgpu-pro;
-  package32 = pkgs.pkgsi686Linux.linuxPackages.amdgpu-pro.override {
-    kernel = null;
-  };
+  package32 = pkgs.pkgsi686Linux.linuxPackages.amdgpu-pro.override { kernel = null; };
 
   opengl = config.hardware.opengl;
 in
@@ -61,11 +59,9 @@ in
       (isYes "KALLSYMS_ALL")
     ];
 
-    boot.initrd.extraUdevRulesCommands =
-      mkIf (!config.boot.initrd.systemd.enable)
-        ''
-          cp -v ${package}/etc/udev/rules.d/*.rules $out/
-        '';
+    boot.initrd.extraUdevRulesCommands = mkIf (!config.boot.initrd.systemd.enable) ''
+      cp -v ${package}/etc/udev/rules.d/*.rules $out/
+    '';
     boot.initrd.services.udev.packages = [ package ];
 
     environment.systemPackages =
@@ -75,8 +71,7 @@ in
       optional config.hardware.opengl.driSupport32Bit package32.vulkan;
 
     environment.etc = {
-      "modprobe.d/blacklist-radeon.conf".source =
-        package + "/etc/modprobe.d/blacklist-radeon.conf";
+      "modprobe.d/blacklist-radeon.conf".source = package + "/etc/modprobe.d/blacklist-radeon.conf";
       amd.source = package + "/etc/amd";
     };
   };

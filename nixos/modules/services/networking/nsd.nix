@@ -45,9 +45,7 @@ let
   nsdEnv = pkgs.buildEnv {
     name = "nsd-env";
 
-    paths = [
-      configFile
-    ] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
+    paths = [ configFile ] ++ mapAttrsToList (name: zone: writeZoneData name zone.data) zoneConfigs;
 
     postBuild = ''
       echo "checking zone files"
@@ -215,8 +213,7 @@ let
     # fork -> pattern
     else
       zipAttrsWith (name: head) (
-        mapAttrsToList
-          (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child)
+        mapAttrsToList (name: child: zoneConfigs' (parent // zone // { children = { }; }) name child)
           zone.children
       );
 
@@ -490,8 +487,7 @@ let
     };
   };
 
-  dnssecZones =
-    (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
+  dnssecZones = (filterAttrs (n: v: if v ? dnssec then v.dnssec else false) zoneConfigs);
 
   dnssec = dnssecZones != { };
 

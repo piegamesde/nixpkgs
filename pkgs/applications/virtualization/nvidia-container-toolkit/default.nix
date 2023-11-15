@@ -78,9 +78,7 @@ buildGoPackage rec {
     ln -s $out/bin/nvidia-container-{toolkit,runtime-hook}
 
     wrapProgram $out/bin/nvidia-container-toolkit \
-      --add-flags "-config ${
-        placeholder "out"
-      }/etc/nvidia-container-runtime/config.toml"
+      --add-flags "-config ${placeholder "out"}/etc/nvidia-container-runtime/config.toml"
   '';
 
   meta = with lib; {

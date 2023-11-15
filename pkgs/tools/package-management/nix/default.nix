@@ -19,9 +19,7 @@ let
   boehmgc-nix = boehmgc-nix_2_3.overrideAttrs (
     drv: {
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
-      patches = (drv.patches or [ ]) ++ [
-        ./patches/boehmgc-coroutine-sp-fallback.patch
-      ];
+      patches = (drv.patches or [ ]) ++ [ ./patches/boehmgc-coroutine-sp-fallback.patch ];
     }
   );
 
@@ -79,9 +77,7 @@ let
               rm aws-cpp-sdk-core-tests/aws/client/AdaptiveRetryStrategyTest.cpp
             '';
 
-          patches = (args.patches or [ ]) ++ [
-            ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch
-          ];
+          patches = (args.patches or [ ]) ++ [ ./patches/aws-sdk-cpp-TransferManager-ContentEncoding.patch ];
 
           # only a stripped down version is build which takes a lot less resources to build
           requiredSystemFeatures = [ ];
@@ -114,10 +110,7 @@ let
       ;
       boehmgc = boehmgc-nix;
       aws-sdk-cpp =
-        if lib.versionAtLeast args.version "2.12pre" then
-          aws-sdk-cpp-nix
-        else
-          aws-sdk-cpp-old-nix;
+        if lib.versionAtLeast args.version "2.12pre" then aws-sdk-cpp-nix else aws-sdk-cpp-old-nix;
     };
 
   # https://github.com/NixOS/nix/pull/7585

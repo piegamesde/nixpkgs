@@ -48,19 +48,13 @@ let
 
     # package update scripts
 
-    addonUpdateScript =
-      callPackage ../applications/video/kodi/addons/addon-update-script
-        { };
+    addonUpdateScript = callPackage ../applications/video/kodi/addons/addon-update-script { };
 
     # package builders
 
-    buildKodiAddon =
-      callPackage ../applications/video/kodi/build-kodi-addon.nix
-        { };
+    buildKodiAddon = callPackage ../applications/video/kodi/build-kodi-addon.nix { };
 
-    buildKodiBinaryAddon =
-      callPackage ../applications/video/kodi/build-kodi-binary-addon.nix
-        { };
+    buildKodiBinaryAddon = callPackage ../applications/video/kodi/build-kodi-binary-addon.nix { };
 
     # regular packages
 
@@ -82,17 +76,13 @@ let
 
     libretro = callPackage ../applications/video/kodi/addons/libretro { };
 
-    libretro-genplus =
-      callPackage ../applications/video/kodi/addons/libretro-genplus
-        { inherit genesis-plus-gx; };
-
-    libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba {
-      inherit mgba;
+    libretro-genplus = callPackage ../applications/video/kodi/addons/libretro-genplus {
+      inherit genesis-plus-gx;
     };
 
-    libretro-snes9x =
-      callPackage ../applications/video/kodi/addons/libretro-snes9x
-        { inherit snes9x; };
+    libretro-mgba = callPackage ../applications/video/kodi/addons/libretro-mgba { inherit mgba; };
+
+    libretro-snes9x = callPackage ../applications/video/kodi/addons/libretro-snes9x { inherit snes9x; };
 
     jellyfin = callPackage ../applications/video/kodi/addons/jellyfin { };
 
@@ -106,13 +96,9 @@ let
 
     svtplay = callPackage ../applications/video/kodi/addons/svtplay { };
 
-    steam-controller =
-      callPackage ../applications/video/kodi/addons/steam-controller
-        { };
+    steam-controller = callPackage ../applications/video/kodi/addons/steam-controller { };
 
-    steam-launcher =
-      callPackage ../applications/video/kodi/addons/steam-launcher
-        { };
+    steam-launcher = callPackage ../applications/video/kodi/addons/steam-launcher { };
 
     steam-library = callPackage ../applications/video/kodi/addons/steam-library { };
 
@@ -122,21 +108,15 @@ let
 
     pvr-hdhomerun = callPackage ../applications/video/kodi/addons/pvr-hdhomerun { };
 
-    pvr-iptvsimple =
-      callPackage ../applications/video/kodi/addons/pvr-iptvsimple
-        { };
+    pvr-iptvsimple = callPackage ../applications/video/kodi/addons/pvr-iptvsimple { };
 
     osmc-skin = callPackage ../applications/video/kodi/addons/osmc-skin { };
 
     vfs-sftp = callPackage ../applications/video/kodi/addons/vfs-sftp { };
 
-    vfs-libarchive =
-      callPackage ../applications/video/kodi/addons/vfs-libarchive
-        { };
+    vfs-libarchive = callPackage ../applications/video/kodi/addons/vfs-libarchive { };
 
-    visualization-waveform =
-      callPackage ../applications/video/kodi/addons/visualization-waveform
-        { };
+    visualization-waveform = callPackage ../applications/video/kodi/addons/visualization-waveform { };
 
     youtube = callPackage ../applications/video/kodi/addons/youtube { };
 
@@ -156,21 +136,15 @@ let
 
     idna = callPackage ../applications/video/kodi/addons/idna { };
 
-    inputstream-adaptive =
-      callPackage ../applications/video/kodi/addons/inputstream-adaptive
-        { };
+    inputstream-adaptive = callPackage ../applications/video/kodi/addons/inputstream-adaptive { };
 
     inputstream-ffmpegdirect =
       callPackage ../applications/video/kodi/addons/inputstream-ffmpegdirect
         { };
 
-    inputstream-rtmp =
-      callPackage ../applications/video/kodi/addons/inputstream-rtmp
-        { };
+    inputstream-rtmp = callPackage ../applications/video/kodi/addons/inputstream-rtmp { };
 
-    inputstreamhelper =
-      callPackage ../applications/video/kodi/addons/inputstreamhelper
-        { };
+    inputstreamhelper = callPackage ../applications/video/kodi/addons/inputstreamhelper { };
 
     kodi-six = callPackage ../applications/video/kodi/addons/kodi-six { };
 
@@ -178,9 +152,7 @@ let
 
     requests = callPackage ../applications/video/kodi/addons/requests { };
 
-    requests-cache =
-      callPackage ../applications/video/kodi/addons/requests-cache
-        { };
+    requests-cache = callPackage ../applications/video/kodi/addons/requests-cache { };
 
     routing = callPackage ../applications/video/kodi/addons/routing { };
 
@@ -196,9 +168,7 @@ let
 
     xbmcswift2 = callPackage ../applications/video/kodi/addons/xbmcswift2 { };
 
-    typing_extensions =
-      callPackage ../applications/video/kodi/addons/typing_extensions
-        { };
+    typing_extensions = callPackage ../applications/video/kodi/addons/typing_extensions { };
 
     arrow = callPackage ../applications/video/kodi/addons/arrow { };
 

@@ -75,8 +75,7 @@ stdenv.mkDerivation (
     doCheck = true;
 
     # Certain libs aren't being generated, try enabling tests next update
-    checkTarget =
-      if buildRockCompiler then "librockCompiler" else "check-mlir-miopen-build-only";
+    checkTarget = if buildRockCompiler then "librockCompiler" else "check-mlir-miopen-build-only";
 
     postInstall =
       let

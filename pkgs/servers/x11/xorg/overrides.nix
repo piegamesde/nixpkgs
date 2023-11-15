@@ -106,9 +106,7 @@ self: super:
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; }
   );
 
-  editres = super.editres.overrideAttrs (
-    attrs: { hardeningDisable = [ "format" ]; }
-  );
+  editres = super.editres.overrideAttrs (attrs: { hardeningDisable = [ "format" ]; });
 
   fontmiscmisc = super.fontmiscmisc.overrideAttrs (
     attrs: {
@@ -137,9 +135,7 @@ self: super:
         ./imake-cc-wrapper-uberhack.patch
       ];
       setupHook = ./imake-setup-hook.sh;
-      CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${
-          if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"
-        }\"'";
+      CFLAGS = "-DIMAKE_COMPILETIME_CPP='\"${if stdenv.isDarwin then "${tradcpp}/bin/cpp" else "gcc"}\"'";
 
       configureFlags = attrs.configureFlags or [ ] ++ [
         "ac_cv_path_RAWCPP=${stdenv.cc.targetPrefix}cpp"
@@ -187,9 +183,7 @@ self: super:
         rm -rf $out/share/doc
       '';
       CPP = lib.optionalString stdenv.isDarwin "clang -E -";
-      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [
-        xorg.xorgproto
-      ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.xorgproto ];
     }
   );
 
@@ -208,9 +202,7 @@ self: super:
         "out"
         "dev"
       ];
-      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [
-        xorg.xorgproto
-      ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.xorgproto ];
     }
   );
 
@@ -246,29 +238,19 @@ self: super:
     }
   );
   libXxf86dga = super.libXxf86dga.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libXxf86misc = super.libXxf86misc.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libdmx = super.libdmx.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libFS = super.libFS.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   libWindowsWM = super.libWindowsWM.overrideAttrs (
-    attrs: {
-      configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-    }
+    attrs: { configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag; }
   );
   xdpyinfo = super.xdpyinfo.overrideAttrs (
     attrs: {
@@ -310,8 +292,7 @@ self: super:
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
       propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.libSM ];
       depsBuildBuild = [ buildPackages.stdenv.cc ];
-      CPP =
-        if stdenv.isDarwin then "clang -E -" else "${stdenv.cc.targetPrefix}cc -E -";
+      CPP = if stdenv.isDarwin then "clang -E -" else "${stdenv.cc.targetPrefix}cc -E -";
       outputDoc = "devdoc";
       outputs = [
         "out"
@@ -347,9 +328,7 @@ self: super:
         "out"
         "dev"
       ];
-      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [
-        xorg.libXfixes
-      ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.libXfixes ];
     }
   );
 
@@ -443,9 +422,7 @@ self: super:
         xorg.libXext
       ];
       configureFlags =
-        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
-          "xorg_cv_malloc0_returns_null=no"
-        ]
+        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "xorg_cv_malloc0_returns_null=no" ]
         ++ lib.optional stdenv.hostPlatform.isStatic "--disable-shared";
     }
   );
@@ -478,9 +455,7 @@ self: super:
         "dev"
       ];
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [
-        xorg.libXrender
-      ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.libXrender ];
     }
   );
 
@@ -503,9 +478,7 @@ self: super:
         "doc"
       ];
       configureFlags = attrs.configureFlags or [ ] ++ malloc0ReturnsNullCrossFlag;
-      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [
-        xorg.xorgproto
-      ];
+      propagatedBuildInputs = attrs.propagatedBuildInputs or [ ] ++ [ xorg.xorgproto ];
     }
   );
 
@@ -880,9 +853,7 @@ self: super:
   );
 
   xf86videoamdgpu = super.xf86videoamdgpu.overrideAttrs (
-    attrs: {
-      configureFlags = [ "--with-xorg-conf-dir=$(out)/share/X11/xorg.conf.d" ];
-    }
+    attrs: { configureFlags = [ "--with-xorg-conf-dir=$(out)/share/X11/xorg.conf.d" ]; }
   );
 
   xf86videoati = super.xf86videoati.overrideAttrs (
@@ -972,20 +943,14 @@ self: super:
     }
   );
 
-  xdriinfo = super.xdriinfo.overrideAttrs (
-    attrs: { buildInputs = attrs.buildInputs ++ [ libGL ]; }
-  );
+  xdriinfo = super.xdriinfo.overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ [ libGL ]; });
 
   xvinfo = super.xvinfo.overrideAttrs (
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.libXext ]; }
   );
 
   xkbcomp = super.xkbcomp.overrideAttrs (
-    attrs: {
-      configureFlags = [
-        "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb"
-      ];
-    }
+    attrs: { configureFlags = [ "--with-xkb-config-root=${xorg.xkeyboardconfig}/share/X11/xkb" ]; }
   );
 
   xkeyboardconfig = super.xkeyboardconfig.overrideAttrs (
@@ -1019,10 +984,8 @@ self: super:
         with lib; ''
           # install layout files
           ${optionalString (compatFile != null) "cp '${compatFile}'   'compat/${name}'"}
-          ${optionalString (geometryFile != null)
-            "cp '${geometryFile}' 'geometry/${name}'"}
-          ${optionalString (keycodesFile != null)
-            "cp '${keycodesFile}' 'keycodes/${name}'"}
+          ${optionalString (geometryFile != null) "cp '${geometryFile}' 'geometry/${name}'"}
+          ${optionalString (keycodesFile != null) "cp '${keycodesFile}' 'keycodes/${name}'"}
           ${optionalString (symbolsFile != null) "cp '${symbolsFile}'  'symbols/${name}'"}
           ${optionalString (typesFile != null) "cp '${typesFile}'    'types/${name}'"}
 
@@ -1130,9 +1093,7 @@ self: super:
           if (abiCompat == null || lib.hasPrefix abiCompat version) then
             attrs_passed
             // {
-              buildInputs =
-                attrs_passed.buildInputs
-                ++ lib.optional (libdrm != null) libdrm.dev;
+              buildInputs = attrs_passed.buildInputs ++ lib.optional (libdrm != null) libdrm.dev;
               postPatch = ''
                 for i in dri3/*.c
                 do
@@ -1383,13 +1344,10 @@ self: super:
   );
 
   xinit =
-    (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; })
-    .overrideAttrs
+    (super.xinit.override { stdenv = if isDarwin then clangStdenv else stdenv; }).overrideAttrs
       (
         attrs: {
-          nativeBuildInputs =
-            attrs.nativeBuildInputs
-            ++ lib.optional isDarwin bootstrap_cmds;
+          nativeBuildInputs = attrs.nativeBuildInputs ++ lib.optional isDarwin bootstrap_cmds;
           depsBuildBuild = [ buildPackages.stdenv.cc ];
           configureFlags =
             [ "--with-xserver=${xorg.xorgserver.out}/bin/X" ]
@@ -1521,9 +1479,7 @@ self: super:
     }
   );
 
-  xrdb = super.xrdb.overrideAttrs (
-    attrs: { configureFlags = [ "--with-cpp=${mcpp}/bin/mcpp" ]; }
-  );
+  xrdb = super.xrdb.overrideAttrs (attrs: { configureFlags = [ "--with-cpp=${mcpp}/bin/mcpp" ]; });
 
   sessreg = super.sessreg.overrideAttrs (
     attrs: { preBuild = "sed -i 's|gcc -E|gcc -E -P|' man/Makefile"; }
@@ -1598,10 +1554,7 @@ self: super:
           };
         }
       );
-    mapNamesToAttrs =
-      f: names:
-      with lib;
-      listToAttrs (zipListsWith nameValuePair names (map f names));
+    mapNamesToAttrs = f: names: with lib; listToAttrs (zipListsWith nameValuePair names (map f names));
   in
   mapNamesToAttrs (setLicense lib.licenses.unfreeRedistributable) redist
   // mapNamesToAttrs (setLicense lib.licenses.unfree) unfree

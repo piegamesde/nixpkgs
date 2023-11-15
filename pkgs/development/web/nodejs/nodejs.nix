@@ -44,8 +44,7 @@ let
 
   pname = if enableNpm then "nodejs" else "nodejs-slim";
 
-  useSharedHttpParser =
-    !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
+  useSharedHttpParser = !stdenv.isDarwin && lib.versionOlder "${majorVersion}.${minorVersion}" "11.4";
 
   sharedLibDeps = {
     inherit openssl zlib libuv;
@@ -152,9 +151,7 @@ let
             throw "unsupported cpu ${stdenv.hostPlatform.uname.processor}"
         }"
       ])
-      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [
-        "--with-arm-fpu=${gcc.fpu}"
-      ])
+      ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "fpu" gcc) [ "--with-arm-fpu=${gcc.fpu}" ])
       ++ (lib.optionals (isCross && isAarch32 && lib.hasAttr "float-abi" gcc) [
         "--with-arm-float-abi=${gcc.float-abi}"
       ])
@@ -209,17 +206,16 @@ let
     postInstall = ''
       PATH=$out/bin:$PATH patchShebangs $out
 
-      ${lib.optionalString (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform)
-        ''
-          mkdir -p $out/share/bash-completion/completions/
-          HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm
-          for dir in "$out/lib/node_modules/npm/man/"*; do
-            mkdir -p $out/share/man/$(basename "$dir")
-            for page in "$dir"/*; do
-              ln -rs $page $out/share/man/$(basename "$dir")
-            done
+      ${lib.optionalString (enableNpm && stdenv.hostPlatform == stdenv.buildPlatform) ''
+        mkdir -p $out/share/bash-completion/completions/
+        HOME=$TMPDIR $out/bin/npm completion > $out/share/bash-completion/completions/npm
+        for dir in "$out/lib/node_modules/npm/man/"*; do
+          mkdir -p $out/share/man/$(basename "$dir")
+          for page in "$dir"/*; do
+            ln -rs $page $out/share/man/$(basename "$dir")
           done
-        ''}
+        done
+      ''}
 
       # install the missing headers for node-gyp
       cp -r ${lib.concatStringsSep " " copyLibHeaders} $out/include/node

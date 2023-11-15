@@ -20,9 +20,7 @@ in
 
   options = {
     services.bee-clef = {
-      enable = mkEnableOption (
-        lib.mdDoc "clef external signer instance for Ethereum Swarm Bee"
-      );
+      enable = mkEnableOption (lib.mdDoc "clef external signer instance for Ethereum Swarm Bee");
 
       dataDir = mkOption {
         type = types.nullOr types.str;

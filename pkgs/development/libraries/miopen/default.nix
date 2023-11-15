@@ -60,9 +60,7 @@ stdenv.mkDerivation (
     pname = "miopen";
     version = "5.4.2";
 
-    outputs = [
-      "out"
-    ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -171,9 +169,7 @@ stdenv.mkDerivation (
       ''
       + lib.optionalString buildDocs ''
         mv ../doc/html $out/share/doc/miopen-${if useOpenCL then "opencl" else "hip"}
-        mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${
-          if useOpenCL then "opencl" else "hip"
-        }
+        mv ../doc/pdf/miopen.pdf $out/share/doc/miopen-${if useOpenCL then "opencl" else "hip"}
       ''
       + lib.optionalString buildTests ''
         mkdir -p $test/bin

@@ -87,12 +87,8 @@ stdenv.mkDerivation rec {
 
     # Fix paths for generating drm-formats
     substituteInPlace src/platform/graphics/CMakeLists.txt \
-      --replace "/usr/include/drm/drm_fourcc.h" "${
-        lib.getDev libdrm
-      }/include/libdrm/drm_fourcc.h" \
-      --replace "/usr/include/libdrm/drm_fourcc.h" "${
-        lib.getDev libdrm
-      }/include/libdrm/drm_fourcc.h"
+      --replace "/usr/include/drm/drm_fourcc.h" "${lib.getDev libdrm}/include/libdrm/drm_fourcc.h" \
+      --replace "/usr/include/libdrm/drm_fourcc.h" "${lib.getDev libdrm}/include/libdrm/drm_fourcc.h"
 
     # Fix date in generated docs not honouring SOURCE_DATE_EPOCH
     # Install docs to correct dir

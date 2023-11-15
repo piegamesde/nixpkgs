@@ -45,8 +45,7 @@ stdenv.mkDerivation rec {
   # May have some issues with root compilation because the bootstrap tool
   # cannot be used as a login shell for now.
   FORCE_UNSAFE_CONFIGURE =
-    lib.optionalString
-      (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
+    lib.optionalString (stdenv.hostPlatform.system == "armv7l-linux" || stdenv.isSunOS)
       "1";
 
   preConfigure =

@@ -21,8 +21,7 @@ let
     ]
   );
   package =
-    lib.attrByPath (lib.splitString "." attrPath)
-      (throw "Cannot find attribute ‘${attrPath}’.")
+    lib.attrByPath (lib.splitString "." attrPath) (throw "Cannot find attribute ‘${attrPath}’.")
       pkgs;
   packageVersion = lib.getVersion package;
   upperBound =
@@ -30,12 +29,9 @@ let
       versionComponents = lib.versions.splitVersion packageVersion;
       minorVersion = lib.versions.minor packageVersion;
       minorAvailable =
-        builtins.length versionComponents > 1
-        && builtins.match "[0-9]+" minorVersion != null;
+        builtins.length versionComponents > 1 && builtins.match "[0-9]+" minorVersion != null;
       nextMinor = builtins.fromJSON minorVersion + 1;
-      upperBound = "${lib.versions.major packageVersion}.${
-          builtins.toString nextMinor
-        }";
+      upperBound = "${lib.versions.major packageVersion}.${builtins.toString nextMinor}";
     in
     if builtins.isBool freeze then
       lib.optionals (freeze && minorAvailable) [ upperBound ]

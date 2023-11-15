@@ -21,9 +21,7 @@ let
       UpdateChannel = 0;
       Headless = true;
     }
-    // lib.optionalAttrs (cfg.ipcPasswordFile != null) {
-      IPCPassword = "#ipcPassword#";
-    }
+    // lib.optionalAttrs (cfg.ipcPasswordFile != null) { IPCPassword = "#ipcPassword#"; }
   );
 
   ipc-config = format.generate "IPC.config" cfg.ipcSettings;
@@ -142,9 +140,7 @@ in
           options = {
             username = mkOption {
               type = types.str;
-              description =
-                lib.mdDoc
-                  "Name of the user to log in. Default is attribute name.";
+              description = lib.mdDoc "Name of the user to log in. Default is attribute name.";
               default = "";
             };
             passwordFile = mkOption {

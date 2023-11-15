@@ -137,9 +137,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://dev.mysql.com/doc/mysql-shell/${
-        lib.versions.majorMinor version
-      }/en/";
+    homepage = "https://dev.mysql.com/doc/mysql-shell/${lib.versions.majorMinor version}/en/";
     description = "A new command line scriptable shell for MySQL";
     license = licenses.gpl2;
     maintainers = with maintainers; [ aaronjheng ];

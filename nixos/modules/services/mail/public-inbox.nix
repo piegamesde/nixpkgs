@@ -28,9 +28,7 @@ let
     args = mkOption {
       type = with types; listOf str;
       default = [ ];
-      description =
-        lib.mdDoc
-          "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`.";
+      description = lib.mdDoc "Command-line arguments to pass to {manpage}`public-inbox-${proto}d(1)`.";
     };
     port = mkOption {
       type = with types; nullOr (either str port);
@@ -201,9 +199,7 @@ in
             options.inboxdir = mkOption {
               type = types.str;
               default = "${stateDir}/inboxes/${name}";
-              description =
-                lib.mdDoc
-                  "The absolute path to the directory which hosts the public-inbox.";
+              description = lib.mdDoc "The absolute path to the directory which hosts the public-inbox.";
             };
             options.address = mkOption {
               type = with types; listOf str;
@@ -230,9 +226,7 @@ in
             options.watch = mkOption {
               type = with types; listOf str;
               default = [ ];
-              description =
-                lib.mdDoc
-                  "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
+              description = lib.mdDoc "Paths for {manpage}`public-inbox-watch(1)` to monitor for new mail.";
               example = [ "maildir:/path/to/test.example.com.git" ];
             };
             options.watchheader = mkOption {
@@ -249,9 +243,7 @@ in
                 description = "list of coderepo names";
               };
               default = [ ];
-              description =
-                lib.mdDoc
-                  "Nicknames of a 'coderepo' section associated with the inbox.";
+              description = lib.mdDoc "Nicknames of a 'coderepo' section associated with the inbox.";
             };
           }
         )
@@ -291,9 +283,7 @@ in
       args = mkOption {
         type = with types; listOf str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`.";
+        description = lib.mdDoc "Command-line arguments to pass to {manpage}`public-inbox-mda(1)`.";
       };
     };
     postfix.enable = mkEnableOption (lib.mdDoc "the integration into Postfix");
@@ -303,9 +293,7 @@ in
     spamAssassinRules = mkOption {
       type = with types; nullOr path;
       default = "${cfg.package.sa_config}/user/.spamassassin/user_prefs";
-      defaultText =
-        literalExpression
-          "\${cfg.package.sa_config}/user/.spamassassin/user_prefs";
+      defaultText = literalExpression "\${cfg.package.sa_config}/user/.spamassassin/user_prefs";
       description = lib.mdDoc "SpamAssassin configuration specific to public-inbox.";
     };
     settings = mkOption {
@@ -334,9 +322,7 @@ in
             options.css = mkOption {
               type = with types; listOf str;
               default = [ ];
-              description =
-                lib.mdDoc
-                  "The local path name of a CSS file for the PSGI web interface.";
+              description = lib.mdDoc "The local path name of a CSS file for the PSGI web interface.";
             };
             options.nntpserver = mkOption {
               type = with types; listOf str;
@@ -417,9 +403,7 @@ in
         };
       };
     };
-    openFirewall = mkEnableOption (
-      lib.mdDoc "opening the firewall when using a port option"
-    );
+    openFirewall = mkEnableOption (lib.mdDoc "opening the firewall when using a port option");
   };
   config = mkIf cfg.enable {
     assertions = [
@@ -457,12 +441,7 @@ in
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts = mkMerge (
         map
-          (
-            proto:
-            (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [
-              cfg.${proto}.port
-            ])
-          )
+          (proto: (mkIf (cfg.${proto}.enable && types.port.check cfg.${proto}.port) [ cfg.${proto}.port ]))
           [
             "imap"
             "http"
@@ -476,22 +455,14 @@ in
 
       # Register the addresses as existing
       virtual = concatStringsSep "\n" (
-        mapAttrsToList
-          (
-            _: inbox:
-            concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address
-          )
+        mapAttrsToList (_: inbox: concatMapStringsSep "\n" (address: "${address} ${address}") inbox.address)
           cfg.inboxes
       );
 
       # Deliver the addresses with the public-inbox transport
       transport = concatStringsSep "\n" (
         mapAttrsToList
-          (
-            _: inbox:
-            concatMapStringsSep "\n" (address: "${address} public-inbox:${address}")
-              inbox.address
-          )
+          (_: inbox: concatMapStringsSep "\n" (address: "${address} public-inbox:${address}") inbox.address)
           cfg.inboxes
       );
 
@@ -502,9 +473,7 @@ in
         command = "pipe";
         args = [
           "flags=X" # Report as a final delivery
-          "user=${
-            with config.users; users."public-inbox".name + ":" + groups."public-inbox".name
-          }"
+          "user=${with config.users; users."public-inbox".name + ":" + groups."public-inbox".name}"
           # Specifying a nexthop when using the transport
           # (eg. test public-inbox:test) allows to
           # receive mails with an extension (eg. test+foo).
@@ -652,10 +621,9 @@ in
             {
               inherit (cfg) path;
               wants = [ "public-inbox-init.service" ];
-              requires =
-                [ "public-inbox-init.service" ]
-                ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc")
-                  "spamassassin.service";
+              requires = [
+                "public-inbox-init.service"
+              ] ++ optional (cfg.settings.publicinboxwatch.spamcheck == "spamc") "spamassassin.service";
               wantedBy = [ "multi-user.target" ];
               serviceConfig = {
                 ExecStart = "${cfg.package}/bin/public-inbox-watch";

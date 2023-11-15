@@ -21,8 +21,7 @@ import ./make-test-python.nix (
         ];
         allowLicenses = [ lib.licenses.unfreeRedistributable ];
       in
-      elem pkg.pname allowPackageNames
-      && elem (pkg.meta.license or null) allowLicenses;
+      elem pkg.pname allowPackageNames && elem (pkg.meta.license or null) allowLicenses;
 
     client =
       { pkgs, ... }:

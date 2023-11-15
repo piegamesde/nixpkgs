@@ -94,8 +94,7 @@ python.pkgs.buildPythonApplication rec {
     updateScript = nix-update-script { attrPath = pname; };
     tests.version = testers.testVersion {
       package = gimme-aws-creds;
-      command = ''
-        touch tmp.conf && OKTA_CONFIG="tmp.conf" gimme-aws-creds --version'';
+      command = ''touch tmp.conf && OKTA_CONFIG="tmp.conf" gimme-aws-creds --version'';
       version = "gimme-aws-creds ${version}";
     };
   };

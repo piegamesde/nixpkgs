@@ -45,11 +45,8 @@ let
     "sublime4"
   ];
   downloadUrl =
-    arch:
-    "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
-  versionUrl = "https://download.sublimetext.com/latest/${
-      if dev then "dev" else "stable"
-    }";
+    arch: "https://download.sublimetext.com/sublime_text_build_${buildVersion}_${arch}.tar.xz";
+  versionUrl = "https://download.sublimetext.com/latest/${if dev then "dev" else "stable"}";
   versionFile = builtins.toString ./packages.nix;
 
   neededLibraries = [
@@ -125,8 +122,7 @@ let
 
       # No need to patch these libraries, it works well with our own
       rm libcrypto.so.1.1 libssl.so.1.1
-      ${lib.optionalString (lib.versionAtLeast buildVersion "4145")
-        "rm libsqlite3.so"}
+      ${lib.optionalString (lib.versionAtLeast buildVersion "4145") "rm libsqlite3.so"}
 
       mkdir -p $out
       cp -r * $out/

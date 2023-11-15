@@ -25,19 +25,13 @@ let
       PAPERLESS_NLTK_DIR = nltkDir;
       GUNICORN_CMD_ARGS = "--bind=${cfg.address}:${toString cfg.port}";
     }
-    // optionalAttrs (config.time.timeZone != null) {
-      PAPERLESS_TIME_ZONE = config.time.timeZone;
-    }
-    // optionalAttrs enableRedis {
-      PAPERLESS_REDIS = "unix://${redisServer.unixSocket}";
-    }
+    // optionalAttrs (config.time.timeZone != null) { PAPERLESS_TIME_ZONE = config.time.timeZone; }
+    // optionalAttrs enableRedis { PAPERLESS_REDIS = "unix://${redisServer.unixSocket}"; }
     // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n" (
-        mapAttrsToList (name: val: ''export ${name}="${val}"'') env
-      );
+      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}
@@ -240,9 +234,7 @@ in
         if cfg.consumptionDirIsPublic then
           "d '${cfg.consumptionDir}' 777 - - - -"
         else
-          "d '${cfg.consumptionDir}' - ${cfg.user} ${
-            config.users.users.${cfg.user}.group
-          } - -"
+          "d '${cfg.consumptionDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
       )
     ];
 

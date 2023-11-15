@@ -269,9 +269,7 @@ in
                 LoadModule = mkDefault net.modules;
                 Server =
                   mkDefault
-                    "${net.server} ${optionalString net.useSSL "+"}${
-                      toString net.port
-                    } ${net.password}";
+                    "${net.server} ${optionalString net.useSSL "+"}${toString net.port} ${net.password}";
                 Chan =
                   optionalAttrs net.hasBitlbeeControlChannel { "&bitlbee" = mkDefault { }; }
                   // listToAttrs (map (n: nameValuePair "#${n}" (mkDefault { })) net.channels);

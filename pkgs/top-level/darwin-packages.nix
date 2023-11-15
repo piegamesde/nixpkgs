@@ -14,9 +14,9 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      (stdenv.targetPlatform.config + "-");
+  targetPrefix = lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform) (
+    stdenv.targetPlatform.config + "-"
+  );
 in
 
 makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
@@ -29,9 +29,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       # Must use pkgs.callPackage to avoid infinite recursion.
 
       # Open source packages that are built from source
-      appleSourcePackages =
-        pkgs.callPackage ../os-specific/darwin/apple-source-releases { }
-          self;
+      appleSourcePackages = pkgs.callPackage ../os-specific/darwin/apple-source-releases { } self;
 
       impure-cmds = pkgs.callPackage ../os-specific/darwin/impure-cmds { };
 
@@ -45,8 +43,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       apple_sdk_11_0 = pkgs.callPackage ../os-specific/darwin/apple-sdk-11.0 { };
 
       # Pick an SDK
-      apple_sdk =
-        if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
+      apple_sdk = if stdenv.hostPlatform.isAarch64 then apple_sdk_11_0 else apple_sdk_10_12;
 
       # Pick the source of libraries: either Apple's open source releases, or the
       # SDK.
@@ -55,9 +52,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       selectAttrs =
         attrs: names:
         lib.listToAttrs (
-          lib.concatMap
-            (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ])
-            names
+          lib.concatMap (n: lib.optionals (attrs ? "${n}") [ (lib.nameValuePair n attrs."${n}") ]) names
         );
 
       chooseLibs =
@@ -75,9 +70,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           ]
         )
         // {
-          inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages)
-            Security
-          ;
+          inherit (if useAppleSDKLibs then apple_sdk.frameworks else appleSourcePackages) Security;
         };
     in
 
@@ -96,11 +89,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       };
 
       binutils = pkgs.wrapBintoolsWith {
-        libc =
-          if stdenv.targetPlatform != stdenv.hostPlatform then
-            pkgs.libcCross
-          else
-            pkgs.stdenv.cc.libc;
+        libc = if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
         bintools = self.binutils-unwrapped;
       };
 
@@ -111,11 +100,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
       };
 
       binutilsDualAs = pkgs.wrapBintoolsWith {
-        libc =
-          if stdenv.targetPlatform != stdenv.hostPlatform then
-            pkgs.libcCross
-          else
-            pkgs.stdenv.cc.libc;
+        libc = if stdenv.targetPlatform != stdenv.hostPlatform then pkgs.libcCross else pkgs.stdenv.cc.libc;
         bintools = self.binutilsDualAs-unwrapped;
       };
 
@@ -191,26 +176,22 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       lsusb = callPackage ../os-specific/darwin/lsusb { };
 
-      moltenvk =
-        pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/moltenvk
-          {
-            inherit (apple_sdk_11_0.frameworks)
-              AppKit
-              Foundation
-              Metal
-              QuartzCore
-            ;
-            inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
-            inherit (pkgs.darwin) cctools sigtool;
-          };
+      moltenvk = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/moltenvk {
+        inherit (apple_sdk_11_0.frameworks)
+          AppKit
+          Foundation
+          Metal
+          QuartzCore
+        ;
+        inherit (apple_sdk_11_0) MacOSX-SDK Libsystem;
+        inherit (pkgs.darwin) cctools sigtool;
+      };
 
       opencflite = callPackage ../os-specific/darwin/opencflite { };
 
-      openwith =
-        pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith
-          {
-            inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
-          };
+      openwith = pkgs.darwin.apple_sdk_11_0.callPackage ../os-specific/darwin/openwith {
+        inherit (apple_sdk_11_0.frameworks) AppKit Foundation UniformTypeIdentifiers;
+      };
 
       stubs = pkgs.callPackages ../os-specific/darwin/stubs { };
 
@@ -276,9 +257,7 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           # This may seem unimportant, but without it packages (e.g., bacula) will
           # fail with linker errors referring ___CFConstantStringClassReference.
           # It's not clear to me why some packages need this extra setup.
-          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (
-            drv: { setupHook = null; }
-          )
+          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (drv: { setupHook = null; })
         else
           callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { };
 

@@ -13,16 +13,13 @@ in
 {
   options.services.portunus = {
     enable = mkEnableOption (
-      lib.mdDoc
-        "Portunus, a self-contained user/group management and authentication service for LDAP"
+      lib.mdDoc "Portunus, a self-contained user/group management and authentication service for LDAP"
     );
 
     domain = mkOption {
       type = types.str;
       example = "sso.example.com";
-      description =
-        lib.mdDoc
-          "Subdomain which gets reverse proxied to Portunus webserver.";
+      description = lib.mdDoc "Subdomain which gets reverse proxied to Portunus webserver.";
     };
 
     port = mkOption {
@@ -66,9 +63,7 @@ in
     group = mkOption {
       type = types.str;
       default = "portunus";
-      description =
-        lib.mdDoc
-          "Group account under which Portunus runs its webserver.";
+      description = lib.mdDoc "Group account under which Portunus runs its webserver.";
     };
 
     dex = {
@@ -161,17 +156,13 @@ in
       user = mkOption {
         type = types.str;
         default = "openldap";
-        description =
-          lib.mdDoc
-            "User account under which Portunus runs its LDAP server.";
+        description = lib.mdDoc "User account under which Portunus runs its LDAP server.";
       };
 
       group = mkOption {
         type = types.str;
         default = "openldap";
-        description =
-          lib.mdDoc
-            "Group account under which Portunus runs its LDAP server.";
+        description = lib.mdDoc "Group account under which Portunus runs its LDAP server.";
       };
     };
   };
@@ -274,9 +265,7 @@ in
             PORTUNUS_SLAPD_USER = cfg.ldap.user;
             PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
           }
-          // (optionalAttrs (cfg.seedPath != null) ({
-            PORTUNUS_SEED_PATH = cfg.seedPath;
-          }))
+          // (optionalAttrs (cfg.seedPath != null) ({ PORTUNUS_SEED_PATH = cfg.seedPath; }))
           // (optionalAttrs cfg.ldap.tls (
             let
               acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;

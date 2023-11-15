@@ -19,9 +19,7 @@ backendStdenv.mkDerivation {
   src =
     assert (lib.hasAttr arch attrs);
     fetchurl {
-      url = "https://developer.download.nvidia.com/compute/cuda/redist/${
-          attrs.${arch}.relative_path
-        }";
+      url = "https://developer.download.nvidia.com/compute/cuda/redist/${attrs.${arch}.relative_path}";
       inherit (attrs.${arch}) sha256;
     };
 

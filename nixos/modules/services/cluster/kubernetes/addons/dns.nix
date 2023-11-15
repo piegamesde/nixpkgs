@@ -27,9 +27,7 @@ in
       # this default is also what kubernetes users
       default =
         (concatStringsSep "." (
-          take 3 (
-            splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange
-          )
+          take 3 (splitString "." config.services.kubernetes.apiserver.serviceClusterIpRange)
         ))
         + ".254";
       defaultText = literalMD ''
@@ -121,9 +119,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.kubernetes.kubelet.seedDockerImages = singleton (
-      pkgs.dockerTools.pullImage cfg.coredns
-    );
+    services.kubernetes.kubelet.seedDockerImages = singleton (pkgs.dockerTools.pullImage cfg.coredns);
 
     services.kubernetes.addonManager.bootstrapAddons = {
       coredns-cr = {

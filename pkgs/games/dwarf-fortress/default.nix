@@ -55,8 +55,7 @@ let
   latestVersion = "0.47.05";
 
   # Converts a version to a package name.
-  versionToName =
-    version: "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
+  versionToName = version: "dwarf-fortress_${lib.replaceStrings [ "." ] [ "_" ] version}";
 
   dwarf-therapist-original = libsForQt5.callPackage ./dwarf-therapist {
     texlive = texlive.combine {
@@ -125,9 +124,7 @@ let
     dwarf-therapist = dwarf-fortress.dwarf-therapist;
     dwarf-fortress-original = dwarf-fortress.dwarf-fortress;
 
-    dwarf-fortress-full = callPackage ./lazy-pack.nix {
-      inherit df-games versionToName latestVersion;
-    };
+    dwarf-fortress-full = callPackage ./lazy-pack.nix { inherit df-games versionToName latestVersion; };
 
     soundSense = callPackage ./soundsense.nix { };
 

@@ -134,11 +134,7 @@ let
           "theories"
         else
           "${package}";
-      pname =
-        if package == "single" then
-          "mathcomp-analysis-single"
-        else
-          "mathcomp-${package}";
+      pname = if package == "single" then "mathcomp-analysis-single" else "mathcomp-${package}";
       derivation = mkCoqDerivation ({
         inherit
           version
@@ -214,9 +210,9 @@ let
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:
-        optionalAttrs
-          (o.version != null && (o.version == "dev" || versions.isGe "0.3.4" o.version))
-          { propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ]; }
+        optionalAttrs (o.version != null && (o.version == "dev" || versions.isGe "0.3.4" o.version)) {
+          propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ];
+        }
       );
     in
     patched-derivation;

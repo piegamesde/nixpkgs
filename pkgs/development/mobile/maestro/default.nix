@@ -30,9 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/maestro --prefix PATH : "${
-      lib.makeBinPath [ jre_headless ]
-    }"
+    wrapProgram $out/bin/maestro --prefix PATH : "${lib.makeBinPath [ jre_headless ]}"
   '';
 
   meta = with lib; {

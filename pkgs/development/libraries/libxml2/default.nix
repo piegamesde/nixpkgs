@@ -23,8 +23,7 @@
     ),
   icuSupport ? false,
   icu,
-  enableShared ?
-    stdenv.hostPlatform.libc != "msvcrt" && !stdenv.hostPlatform.isStatic,
+  enableShared ? stdenv.hostPlatform.libc != "msvcrt" && !stdenv.hostPlatform.isStatic,
   enableStatic ? !enableShared,
   gnome,
 }:
@@ -43,21 +42,16 @@ let
     pname = "libxml2";
     version = "2.10.4";
 
-    outputs =
-      [
-        "bin"
-        "dev"
-        "out"
-        "doc"
-      ]
-      ++ lib.optional pythonSupport "py"
-      ++ lib.optional (enableStatic && enableShared) "static";
+    outputs = [
+      "bin"
+      "dev"
+      "out"
+      "doc"
+    ] ++ lib.optional pythonSupport "py" ++ lib.optional (enableStatic && enableShared) "static";
     outputMan = "bin";
 
     src = fetchurl {
-      url = "mirror://gnome/sources/libxml2/${
-          lib.versions.majorMinor version
-        }/libxml2-${version}.tar.xz";
+      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
       sha256 = "7QyRxYRQCPGTZznk7uIDVTHByUdCxlQfRO5m2IWUjUU=";
     };
 
@@ -88,10 +82,7 @@ let
       lib.optionals pythonSupport [ python ]
       ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [ gettext ]
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [ ncurses ]
-      ++
-        lib.optionals
-          (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2)
-          [ libintl ]
+      ++ lib.optionals (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [ libintl ]
       ++
         lib.optionals stdenv.isFreeBSD
           [
@@ -101,13 +92,10 @@ let
             xz
           ];
 
-    propagatedBuildInputs =
-      [
-        zlib
-        findXMLCatalogs
-      ]
-      ++ lib.optionals stdenv.isDarwin [ libiconv ]
-      ++ lib.optionals icuSupport [ icu ];
+    propagatedBuildInputs = [
+      zlib
+      findXMLCatalogs
+    ] ++ lib.optionals stdenv.isDarwin [ libiconv ] ++ lib.optionals icuSupport [ icu ];
 
     configureFlags = [
       "--exec-prefix=${placeholder "dev"}"
@@ -125,19 +113,14 @@ let
 
     enableParallelBuilding = true;
 
-    doCheck =
-      (stdenv.hostPlatform == stdenv.buildPlatform)
-      && stdenv.hostPlatform.libc != "musl";
+    doCheck = (stdenv.hostPlatform == stdenv.buildPlatform) && stdenv.hostPlatform.libc != "musl";
     preCheck = lib.optional stdenv.isDarwin ''
       export DYLD_LIBRARY_PATH="$PWD/.libs:$DYLD_LIBRARY_PATH"
     '';
 
-    preConfigure =
-      lib.optionalString
-        (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11")
-        ''
-          MACOSX_DEPLOYMENT_TARGET=10.16
-        '';
+    preConfigure = lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
+      MACOSX_DEPLOYMENT_TARGET=10.16
+    '';
 
     preInstall = lib.optionalString pythonSupport ''
       substituteInPlace python/libxml2mod.la --replace "$dev/${python.sitePackages}" "$py/${python.sitePackages}"
@@ -179,9 +162,7 @@ if oldVer then
     attrs: rec {
       version = "2.10.1";
       src = fetchurl {
-        url = "mirror://gnome/sources/libxml2/${
-            lib.versions.majorMinor version
-          }/libxml2-${version}.tar.xz";
+        url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
         sha256 = "21a9e13cc7c4717a6c36268d0924f92c3f67a1ece6b7ff9d588958a6db9fb9d8";
       };
     }

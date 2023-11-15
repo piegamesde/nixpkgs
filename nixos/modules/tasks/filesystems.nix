@@ -13,10 +13,7 @@ let
 
   addCheckDesc =
     desc: elemType: check:
-    types.addCheck elemType check
-    // {
-      description = "${elemType.description} (with check: ${desc})";
-    };
+    types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
 
   isNonEmpty =
     s:
@@ -50,9 +47,9 @@ let
     "devpts"
   ];
 
-  nonEmptyWithoutTrailingSlash =
-    addCheckDesc "non-empty without trailing slash" types.str
-      (s: isNonEmpty s && (builtins.match ".+/" s) == null);
+  nonEmptyWithoutTrailingSlash = addCheckDesc "non-empty without trailing slash" types.str (
+    s: isNonEmpty s && (builtins.match ".+/" s) == null
+  );
 
   coreFileSystemOpts =
     { name, config, ... }:
@@ -178,9 +175,7 @@ let
             (mkIf config.autoResize [ "x-nixos.autoresize" ])
             (mkIf (utils.fsNeededForBoot config) [ "x-initrd.mount" ])
           ];
-          formatOptions = mkIf (defaultFormatOptions != null) (
-            mkDefault defaultFormatOptions
-          );
+          formatOptions = mkIf (defaultFormatOptions != null) (mkDefault defaultFormatOptions);
         };
     };
 
@@ -234,11 +229,7 @@ let
         ];
       isBindMount = fs: builtins.elem "bind" fs.options;
       skipCheck =
-        fs:
-        fs.noCheck
-        || fs.device == "none"
-        || builtins.elem fs.fsType fsToSkipCheck
-        || isBindMount fs;
+        fs: fs.noCheck || fs.device == "none" || builtins.elem fs.fsType fsToSkipCheck || isBindMount fs;
       # https://wiki.archlinux.org/index.php/fstab#Filepath_spaces
       escape =
         string:
@@ -293,9 +284,7 @@ let
     makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {
       rootPrefix = "/sysroot";
       extraOpts =
-        fs:
-        (optional fs.autoResize "x-systemd.growfs")
-        ++ (optional fs.autoFormat "x-systemd.makefs");
+        fs: (optional fs.autoResize "x-systemd.growfs") ++ (optional fs.autoFormat "x-systemd.makefs");
     }
   );
 in
@@ -402,8 +391,7 @@ in
     assertions =
       let
         ls = sep: concatMapStringsSep sep (x: x.mountPoint);
-        notAutoResizable =
-          fs: fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs");
+        notAutoResizable = fs: fs.autoResize && !(hasPrefix "ext" fs.fsType || fs.fsType == "f2fs");
       in
       [
         {
@@ -453,9 +441,7 @@ in
             ++ optional (sw.priority != null) "pri=${toString sw.priority}"
             ++
               optional (sw.discardPolicy != null)
-                "discard${
-                  optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"
-                }"
+                "discard${optionalString (sw.discardPolicy != "both") "=${toString sw.discardPolicy}"}"
           );
       in
       ''
@@ -479,8 +465,7 @@ in
 
     boot.initrd.systemd.storePaths = [ initrdFstab ];
     boot.initrd.systemd.managerEnvironment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
-    boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB =
-      initrdFstab;
+    boot.initrd.systemd.services.initrd-parse-etc.environment.SYSTEMD_SYSROOT_FSTAB = initrdFstab;
 
     # Provide a target that pulls in all filesystems.
     systemd.targets.fs = {
@@ -527,9 +512,7 @@ in
           };
       in
       listToAttrs (
-        map formatDevice (
-          filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems
-        )
+        map formatDevice (filter (fs: fs.autoFormat && !(utils.fsNeededForBoot fs)) fileSystems)
       )
       // {
         # Mount /sys/fs/pstore for evacuating panic logs and crashdumps from persistent storage onto the disk using systemd-pstore.

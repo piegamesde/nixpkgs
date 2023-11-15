@@ -146,17 +146,14 @@ let
     ]
 
     # Fix detection of bootstrap compiler Ada support (cctools as) on Nix Darwin
-    ++
-      optional (stdenv.isDarwin && langAda)
-        ../ada-cctools-as-detection-configure.patch
+    ++ optional (stdenv.isDarwin && langAda) ../ada-cctools-as-detection-configure.patch
 
     # Use absolute path in GNAT dylib install names on Darwin
     ++ optional (stdenv.isDarwin && langAda) ../gnat-darwin-dylib-install-name.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch;
 
   # Cross-gcc settings (build == host != target)
@@ -347,8 +344,7 @@ lib.pipe
 
       configureFlags = callFile ../common/configure-flags.nix { };
 
-      targetConfig =
-        if targetPlatform != hostPlatform then targetPlatform.config else null;
+      targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
       buildFlags =
         # we do not yet have Nix-driven profiling
@@ -358,20 +354,12 @@ lib.pipe
             lib.optionalString (profiledCompiler) "profiled"
             +
               lib.optionalString
-                (
-                  targetPlatform == hostPlatform
-                  && hostPlatform == buildPlatform
-                  && !disableBootstrap
-                )
+                (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
                 "bootstrap";
         in
         lib.optional (target != "") target;
 
-      inherit (callFile ../common/strip-attributes.nix { })
-        stripDebugList
-        stripDebugListTarget
-        preFixup
-      ;
+      inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
       # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
       ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";
@@ -430,11 +418,7 @@ lib.pipe
 
     //
       optionalAttrs
-        (
-          targetPlatform != hostPlatform
-          && targetPlatform.libc == "msvcrt"
-          && crossStageStatic
-        )
+        (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
         {
           makeFlags = [
             "all-gcc"

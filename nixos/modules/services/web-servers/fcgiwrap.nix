@@ -68,11 +68,8 @@ in
 
       serviceConfig =
         {
-          ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
-              builtins.toString cfg.preforkProcesses
-            } ${
-              optionalString (cfg.socketType != "unix")
-                "-s ${cfg.socketType}:${cfg.socketAddress}"
+          ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${builtins.toString cfg.preforkProcesses} ${
+              optionalString (cfg.socketType != "unix") "-s ${cfg.socketType}:${cfg.socketAddress}"
             }";
         }
         // (

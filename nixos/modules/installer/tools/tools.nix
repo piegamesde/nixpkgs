@@ -47,18 +47,12 @@ let
     system = pkgs.stdenv.hostPlatform.system;
     detectvirt = "${config.systemd.package}/bin/systemd-detect-virt";
     btrfs = "${pkgs.btrfs-progs}/bin/btrfs";
-    inherit (config.system.nixos-generate-config)
-      configuration
-      desktopConfiguration
-    ;
+    inherit (config.system.nixos-generate-config) configuration desktopConfiguration;
     xserverEnabled = config.services.xserver.enable;
   };
 
   nixos-option =
-    if lib.versionAtLeast (lib.getVersion config.nix.package) "2.4pre" then
-      null
-    else
-      pkgs.nixos-option;
+    if lib.versionAtLeast (lib.getVersion config.nix.package) "2.4pre" then null else pkgs.nixos-option;
 
   nixos-version = makeProg {
     name = "nixos-version";

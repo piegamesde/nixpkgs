@@ -54,8 +54,7 @@ let
       embedSupport ? false,
       ipv6Support ? true,
       systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
-      valgrindSupport ?
-        !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
+      valgrindSupport ? !stdenv.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind,
       ztsSupport ? apxs2Support,
     }@args:
 
@@ -95,9 +94,7 @@ let
             php = generic filteredArgs;
 
             php-packages =
-              (callPackage ../../../top-level/php-packages.nix {
-                phpPackage = phpWithExtensions;
-              }).overrideScope'
+              (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; }).overrideScope'
                 packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
@@ -120,9 +117,7 @@ let
             getDepsRecursively =
               extensions:
               let
-                deps =
-                  lib.concatMap (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]))
-                    extensions;
+                deps = lib.concatMap (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ])) extensions;
               in
               if !(deps == [ ]) then deps ++ (getDepsRecursively deps) else deps;
 
@@ -165,9 +160,7 @@ let
                 overrideAttrs =
                   f:
                   let
-                    newPhpAttrsOverrides =
-                      composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: { }))
-                        f;
+                    newPhpAttrsOverrides = composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: { })) f;
                     php = generic (filteredArgs // { phpAttrsOverrides = newPhpAttrsOverrides; });
                   in
                   php.buildEnv { inherit extensions extraConfig; };
@@ -177,9 +170,7 @@ let
                 tests = {
                   nixos =
                     lib.recurseIntoAttrs
-                      nixosTests."php${
-                        lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)
-                      }";
+                      nixosTests."php${lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)}";
                   package = tests.php;
                 };
                 inherit (php-packages) extensions buildPecl mkExtension;
@@ -279,12 +270,8 @@ let
             ++ lib.optional (!ipv6Support) "--disable-ipv6"
             ++ lib.optional systemdSupport "--with-fpm-systemd"
             ++ lib.optional valgrindSupport "--with-valgrind=${valgrind.dev}"
-            ++
-              lib.optional (ztsSupport && (lib.versionOlder version "8.0"))
-                "--enable-maintainer-zts"
-            ++
-              lib.optional (ztsSupport && (lib.versionAtLeast version "8.0"))
-                "--enable-zts"
+            ++ lib.optional (ztsSupport && (lib.versionOlder version "8.0")) "--enable-maintainer-zts"
+            ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0")) "--enable-zts"
 
             # Sendmail
             ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ];
@@ -345,8 +332,7 @@ let
             updateScript =
               let
                 script =
-                  writeShellScript
-                    "php${lib.versions.major version}${lib.versions.minor version}-update-script"
+                  writeShellScript "php${lib.versions.major version}${lib.versions.minor version}-update-script"
                     ''
                       set -o errexit
                       PATH=${

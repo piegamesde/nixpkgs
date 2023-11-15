@@ -32,9 +32,7 @@ let
           group = "root";
           port = cfg.server.listenPort;
         }
-        // (optionalAttrs (cfg.server.listenAddress != null) {
-          listenaddr = cfg.server.listenAddress;
-        })
+        // (optionalAttrs (cfg.server.listenAddress != null) { listenaddr = cfg.server.listenAddress; })
       );
   };
   exportSections =
@@ -74,9 +72,7 @@ in
         listenPort = mkOption {
           type = types.port;
           default = 10809;
-          description =
-            lib.mdDoc
-              "Port to listen on. The port is NOT automatically opened in the firewall.";
+          description = lib.mdDoc "Port to listen on. The port is NOT automatically opened in the firewall.";
         };
 
         extraOptions = mkOption {
@@ -91,9 +87,7 @@ in
         };
 
         exports = mkOption {
-          description =
-            lib.mdDoc
-              "Files or block devices to make available over the network.";
+          description = lib.mdDoc "Files or block devices to make available over the network.";
           default = { };
           type =
             with types;

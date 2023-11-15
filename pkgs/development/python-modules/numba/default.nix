@@ -44,9 +44,7 @@ buildPythonPackage rec {
       --replace "elif numpy_version > (1, 23):" "elif numpy_version > (1, 24):"
   '';
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString stdenv.isDarwin
-      "-I${lib.getDev libcxx}/include/c++/v1";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1";
 
   nativeBuildInputs = [ numpy ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
 

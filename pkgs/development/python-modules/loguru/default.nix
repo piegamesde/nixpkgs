@@ -37,9 +37,7 @@ buildPythonPackage rec {
     mypy
   ];
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    "tests/test_multiprocessing.py"
-  ];
+  disabledTestPaths = lib.optionals stdenv.isDarwin [ "tests/test_multiprocessing.py" ];
 
   disabledTests = lib.optionals stdenv.isDarwin [
     "test_rotation_and_retention"

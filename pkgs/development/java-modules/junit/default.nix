@@ -12,9 +12,7 @@ with pkgs.javaPackages;
 let
   poms = import (../poms.nix) { inherit fetchMaven; };
   collections = import (../collections.nix) { inherit pkgs; };
-  mavenbuild-jdk8 = mavenbuild.override {
-    maven = maven.override { jdk = jdk8; };
-  };
+  mavenbuild-jdk8 = mavenbuild.override { maven = maven.override { jdk = jdk8; }; };
 in
 rec {
   junitGen =

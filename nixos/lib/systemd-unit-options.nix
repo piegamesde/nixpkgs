@@ -326,9 +326,7 @@ rec {
             PATH = "/foo/bar/bin";
             LANG = "nl_NL.UTF-8";
           };
-          description =
-            lib.mdDoc
-              "Environment variables passed to the service's processes.";
+          description = lib.mdDoc "Environment variables passed to the service's processes.";
         };
 
         path = mkOption {
@@ -365,9 +363,7 @@ rec {
         script = mkOption {
           type = types.lines;
           default = "";
-          description =
-            lib.mdDoc
-              "Shell commands executed as the service's main process.";
+          description = lib.mdDoc "Shell commands executed as the service's main process.";
         };
 
         scriptArgs = mkOption {
@@ -661,9 +657,7 @@ rec {
       what = mkOption {
         example = "/dev/sda1";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Absolute path of device node, file or other resource. (Mandatory)";
+        description = lib.mdDoc "Absolute path of device node, file or other resource. (Mandatory)";
       };
 
       where = mkOption {

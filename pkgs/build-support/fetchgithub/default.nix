@@ -47,9 +47,7 @@ let
     "githubBase"
     "varPrefix"
   ];
-  varBase = "NIX${
-      if varPrefix == null then "" else "_${varPrefix}"
-    }_GITHUB_PRIVATE_";
+  varBase = "NIX${if varPrefix == null then "" else "_${varPrefix}"}_GITHUB_PRIVATE_";
   useFetchGit =
     fetchSubmodules
     || (leaveDotGit == true)

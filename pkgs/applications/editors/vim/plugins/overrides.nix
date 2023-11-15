@@ -213,9 +213,7 @@ self: super:
     old: { dependencies = with self; [ nvim-cmp ]; }
   );
 
-  cmp-digraphs = super.cmp-digraphs.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-digraphs = super.cmp-digraphs.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
   cmp-fish = super.cmp-fish.overrideAttrs (
     old: {
@@ -254,13 +252,9 @@ self: super:
     }
   );
 
-  cmp-greek = super.cmp-greek.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-greek = super.cmp-greek.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
-  cmp-look = super.cmp-look.overrideAttrs (
-    old: { dependencies = with self; [ nvim-cmp ]; }
-  );
+  cmp-look = super.cmp-look.overrideAttrs (old: { dependencies = with self; [ nvim-cmp ]; });
 
   cmp-neosnippet = super.cmp-neosnippet.overrideAttrs (
     old: {
@@ -367,9 +361,7 @@ self: super:
   coc-nginx = buildVimPluginFrom2Nix {
     pname = "coc-nginx";
     inherit (nodePackages."@yaegassy/coc-nginx") version meta;
-    src = "${
-        nodePackages."@yaegassy/coc-nginx"
-      }/lib/node_modules/@yaegassy/coc-nginx";
+    src = "${nodePackages."@yaegassy/coc-nginx"}/lib/node_modules/@yaegassy/coc-nginx";
   };
 
   command-t = super.command-t.overrideAttrs (
@@ -485,9 +477,7 @@ self: super:
     }
   );
 
-  defx-nvim = super.defx-nvim.overrideAttrs (
-    old: { dependencies = with self; [ nvim-yarp ]; }
-  );
+  defx-nvim = super.defx-nvim.overrideAttrs (old: { dependencies = with self; [ nvim-yarp ]; });
 
   deoplete-fish = super.deoplete-fish.overrideAttrs (
     old: {
@@ -539,9 +529,7 @@ self: super:
         + ''
           substituteInPlace $out/autoload/direnv.vim \
             --replace "let s:direnv_cmd = get(g:, 'direnv_cmd', 'direnv')" \
-              "let s:direnv_cmd = get(g:, 'direnv_cmd', '${
-                lib.getBin direnv
-              }/bin/direnv')"
+              "let s:direnv_cmd = get(g:, 'direnv_cmd', '${lib.getBin direnv}/bin/direnv')"
         '';
     }
   );
@@ -556,9 +544,7 @@ self: super:
     }
   );
 
-  flit-nvim = super.flit-nvim.overrideAttrs (
-    old: { dependencies = with self; [ leap-nvim ]; }
-  );
+  flit-nvim = super.flit-nvim.overrideAttrs (old: { dependencies = with self; [ leap-nvim ]; });
 
   forms = super.forms.overrideAttrs (old: { dependencies = [ self.self ]; });
 
@@ -627,13 +613,9 @@ self: super:
     }
   );
 
-  fzf-lua = super.fzf-lua.overrideAttrs (
-    old: { propagatedBuildInputs = [ fzf ]; }
-  );
+  fzf-lua = super.fzf-lua.overrideAttrs (old: { propagatedBuildInputs = [ fzf ]; });
 
-  fzf-vim = super.fzf-vim.overrideAttrs (
-    old: { dependencies = with self; [ fzfWrapper ]; }
-  );
+  fzf-vim = super.fzf-vim.overrideAttrs (old: { dependencies = with self; [ fzfWrapper ]; });
 
   # Mainly used as a dependency for fzf-vim. Wraps the fzf program as a vim
   # plugin, since part of the fzf vim plugin is included in the main fzf
@@ -646,9 +628,7 @@ self: super:
     '';
   };
 
-  ghcid = super.ghcid.overrideAttrs (
-    old: { configurePhase = "cd plugins/nvim"; }
-  );
+  ghcid = super.ghcid.overrideAttrs (old: { configurePhase = "cd plugins/nvim"; });
 
   gitlinker-nvim = super.gitlinker-nvim.overrideAttrs (
     old: { dependencies = with self; [ plenary-nvim ]; }
@@ -658,9 +638,7 @@ self: super:
     old: { dependencies = with self; [ plenary-nvim ]; }
   );
 
-  harpoon = super.harpoon.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  harpoon = super.harpoon.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   himalaya-vim = super.himalaya-vim.overrideAttrs (
     old: {
@@ -762,13 +740,9 @@ self: super:
     }
   );
 
-  lf-vim = super.lf-vim.overrideAttrs (
-    old: { dependencies = with self; [ vim-floaterm ]; }
-  );
+  lf-vim = super.lf-vim.overrideAttrs (old: { dependencies = with self; [ vim-floaterm ]; });
 
-  lir-nvim = super.lir-nvim.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  lir-nvim = super.lir-nvim.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   magma-nvim-goose = buildVimPluginFrom2Nix {
     pname = "magma-nvim-goose";
@@ -855,9 +829,7 @@ self: super:
     }
   );
 
-  ncm2 = super.ncm2.overrideAttrs (
-    old: { dependencies = with self; [ nvim-yarp ]; }
-  );
+  ncm2 = super.ncm2.overrideAttrs (old: { dependencies = with self; [ nvim-yarp ]; });
 
   ncm2-jedi = super.ncm2-jedi.overrideAttrs (
     old: {
@@ -877,17 +849,13 @@ self: super:
     old: { dependencies = with self; [ neosnippet-vim ]; }
   );
 
-  ncm2-syntax = super.ncm2-syntax.overrideAttrs (
-    old: { dependencies = with self; [ neco-syntax ]; }
-  );
+  ncm2-syntax = super.ncm2-syntax.overrideAttrs (old: { dependencies = with self; [ neco-syntax ]; });
 
   ncm2-ultisnips = super.ncm2-ultisnips.overrideAttrs (
     old: { dependencies = with self; [ ultisnips ]; }
   );
 
-  neogit = super.neogit.overrideAttrs (
-    old: { dependencies = with self; [ plenary-nvim ]; }
-  );
+  neogit = super.neogit.overrideAttrs (old: { dependencies = with self; [ plenary-nvim ]; });
 
   neo-tree-nvim = super.neo-tree-nvim.overrideAttrs (
     old: {
@@ -898,9 +866,7 @@ self: super:
     }
   );
 
-  noice-nvim = super.noice-nvim.overrideAttrs (
-    old: { dependencies = with self; [ nui-nvim ]; }
-  );
+  noice-nvim = super.noice-nvim.overrideAttrs (old: { dependencies = with self; [ nui-nvim ]; });
 
   null-ls-nvim = super.null-ls-nvim.overrideAttrs (
     old: { dependencies = with self; [ plenary-nvim ]; }
@@ -910,9 +876,7 @@ self: super:
     old: { dependencies = with self; [ nvim-dap ]; }
   );
 
-  nvim-lsputils = super.nvim-lsputils.overrideAttrs (
-    old: { dependencies = with self; [ popfix ]; }
-  );
+  nvim-lsputils = super.nvim-lsputils.overrideAttrs (old: { dependencies = with self; [ popfix ]; });
 
   nvim-metals = super.nvim-metals.overrideAttrs (old: { dontBuild = true; });
 
@@ -938,9 +902,7 @@ self: super:
     old: callPackage ./nvim-treesitter/overrides.nix { } self super
   );
 
-  nvim-ufo = super.nvim-ufo.overrideAttrs (
-    old: { dependencies = with self; [ promise-async ]; }
-  );
+  nvim-ufo = super.nvim-ufo.overrideAttrs (old: { dependencies = with self; [ promise-async ]; });
 
   octo-nvim = super.octo-nvim.overrideAttrs (
     old: {
@@ -976,9 +938,7 @@ self: super:
   );
 
   orgmode = super.orgmode.overrideAttrs (
-    old: {
-      dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ];
-    }
+    old: { dependencies = with self; [ (nvim-treesitter.withPlugins (p: [ p.org ])) ]; }
   );
 
   inherit parinfer-rust;
@@ -1058,9 +1018,7 @@ self: super:
 
         nativeBuildInputs = [ pkg-config ];
 
-        buildInputs = [
-          openssl
-        ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+        buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
         cargoBuildFlags = [ "--workspace" ];
 
@@ -1083,9 +1041,7 @@ self: super:
     src = skim.vim;
   };
 
-  skim-vim = super.skim-vim.overrideAttrs (
-    old: { dependencies = [ self.skim ]; }
-  );
+  skim-vim = super.skim-vim.overrideAttrs (old: { dependencies = [ self.skim ]; });
 
   sniprun =
     let
@@ -1161,9 +1117,7 @@ self: super:
     }
   );
 
-  ssr = super.ssr-nvim.overrideAttrs (
-    old: { dependencies = with self; [ nvim-treesitter ]; }
-  );
+  ssr = super.ssr-nvim.overrideAttrs (old: { dependencies = with self; [ nvim-treesitter ]; });
 
   statix = buildVimPluginFrom2Nix rec {
     inherit (statix) pname src meta;
@@ -1402,9 +1356,9 @@ self: super:
     old: { dependencies = with self; [ tlib_vim ]; }
   );
 
-  vim-addon-goto-thing-at-cursor =
-    super.vim-addon-goto-thing-at-cursor.overrideAttrs
-      (old: { dependencies = with self; [ tlib_vim ]; });
+  vim-addon-goto-thing-at-cursor = super.vim-addon-goto-thing-at-cursor.overrideAttrs (
+    old: { dependencies = with self; [ tlib_vim ]; }
+  );
 
   vim-addon-manager = super.vim-addon-manager.overrideAttrs (
     old: { buildInputs = lib.optional stdenv.isDarwin Cocoa; }
@@ -1471,9 +1425,7 @@ self: super:
     }
   );
 
-  vim-bazel = super.vim-bazel.overrideAttrs (
-    old: { dependencies = with self; [ vim-maktaba ]; }
-  );
+  vim-bazel = super.vim-bazel.overrideAttrs (old: { dependencies = with self; [ vim-maktaba ]; });
 
   vim-beancount = super.vim-beancount.overrideAttrs (
     old: { passthru.python3Dependencies = ps: with ps; [ beancount ]; }
@@ -1481,9 +1433,7 @@ self: super:
 
   vim-clap = callPackage ./vim-clap { };
 
-  vim-codefmt = super.vim-codefmt.overrideAttrs (
-    old: { dependencies = with self; [ vim-maktaba ]; }
-  );
+  vim-codefmt = super.vim-codefmt.overrideAttrs (old: { dependencies = with self; [ vim-maktaba ]; });
 
   # Due to case-sensitivety issues, the hash differs on Darwin systems, see:
   # https://github.com/NixOS/nixpkgs/issues/157609
@@ -1570,9 +1520,7 @@ self: super:
     }
   );
 
-  vim-gist = super.vim-gist.overrideAttrs (
-    old: { dependencies = with self; [ webapi-vim ]; }
-  );
+  vim-gist = super.vim-gist.overrideAttrs (old: { dependencies = with self; [ webapi-vim ]; });
 
   vim-grammarous = super.vim-grammarous.overrideAttrs (
     old: {
@@ -1638,9 +1586,7 @@ self: super:
       }
     );
 
-  vim-metamath = super.vim-metamath.overrideAttrs (
-    old: { preInstall = "cd vim"; }
-  );
+  vim-metamath = super.vim-metamath.overrideAttrs (old: { preInstall = "cd vim"; });
 
   vim-snipmate = super.vim-snipmate.overrideAttrs (
     old: {

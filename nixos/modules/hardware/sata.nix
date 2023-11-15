@@ -26,8 +26,7 @@ let
 
   devicePath = device: "/dev/disk/by-${device.idBy}/${device.name}";
 
-  unitName =
-    device: "sata-timeout-${lib.strings.sanitizeDerivationName device.name}";
+  unitName = device: "sata-timeout-${lib.strings.sanitizeDerivationName device.name}";
 
   startScript = pkgs.writeShellScript "sata-timeout.sh" ''
     set -eEuo pipefail

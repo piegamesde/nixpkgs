@@ -11,10 +11,8 @@ let
   makeZfsTest =
     name:
     {
-      kernelPackage ? if enableUnstable then
-        pkgs.zfsUnstable.latestCompatibleLinuxPackages
-      else
-        pkgs.linuxPackages,
+      kernelPackage ?
+        if enableUnstable then pkgs.zfsUnstable.latestCompatibleLinuxPackages else pkgs.linuxPackages,
       enableUnstable ? false,
       enableSystemdStage1 ? false,
       extraTest ? "",
@@ -99,9 +97,7 @@ let
           };
 
           specialisation.forcepool.configuration = {
-            systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride [
-              "forcepool.mount"
-            ];
+            systemd.services.zfs-import-forcepool.wantedBy = lib.mkVMOverride [ "forcepool.mount" ];
             systemd.targets.zfs.wantedBy = lib.mkVMOverride [ ];
             boot.zfs.forceImportAll = true;
             virtualisation.fileSystems."/forcepool" = {

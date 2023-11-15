@@ -45,9 +45,7 @@ let
       keyFile = key;
     };
 
-  remote =
-    with config.services;
-    "https://${kubernetes.masterAddress}:${toString cfssl.port}";
+  remote = with config.services; "https://${kubernetes.masterAddress}:${toString cfssl.port}";
 in
 {
   ###### interface
@@ -98,9 +96,7 @@ in
     };
 
     pkiTrustOnBootstrap = mkOption {
-      description =
-        lib.mdDoc
-          "Whether to always trust remote cfssl server upon initial PKI bootstrap.";
+      description = lib.mdDoc "Whether to always trust remote cfssl server upon initial PKI bootstrap.";
       default = true;
       type = bool;
     };
@@ -117,9 +113,7 @@ in
     };
 
     caSpec = mkOption {
-      description =
-        lib.mdDoc
-          "Certificate specification for the auto-generated CAcert.";
+      description = lib.mdDoc "Certificate specification for the auto-generated CAcert.";
       default = {
         CN = "kubernetes-cluster-ca";
         O = "NixOS";

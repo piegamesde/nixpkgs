@@ -116,9 +116,7 @@ let
             cipher = "serpent-xts-plain64";
             source = "/dev/random";
           };
-          type = types.coercedTo types.bool randomEncryptionCoerce (
-            types.submodule randomEncryptionOpts
-          );
+          type = types.coercedTo types.bool randomEncryptionCoerce (types.submodule randomEncryptionOpts);
           description = lib.mdDoc ''
             Encrypt swap device with a random key. This way you won't have a persistent swap device.
 
@@ -175,14 +173,8 @@ let
 
       config = rec {
         device = mkIf options.label.isDefined "/dev/disk/by-label/${config.label}";
-        deviceName = lib.replaceStrings [ "\\" ] [ "" ] (
-          escapeSystemdPath config.device
-        );
-        realDevice =
-          if config.randomEncryption.enable then
-            "/dev/mapper/${deviceName}"
-          else
-            config.device;
+        deviceName = lib.replaceStrings [ "\\" ] [ "" ] (escapeSystemdPath config.device);
+        realDevice = if config.randomEncryption.enable then "/dev/mapper/${deviceName}" else config.device;
       };
     };
 in
@@ -219,8 +211,7 @@ in
       map
         (sw: {
           assertion =
-            sw.randomEncryption.enable
-            -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null;
+            sw.randomEncryption.enable -> builtins.match "/dev/disk/by-(uuid|label)/.*" sw.device == null;
           message = ''
             You cannot use swap device "${sw.device}" with randomEncryption enabled.
             The UUIDs and labels will get erased on every boot when the partition is encrypted.
@@ -294,9 +285,7 @@ in
           };
       in
       listToAttrs (
-        map createSwapDevice (
-          filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices
-        )
+        map createSwapDevice (filter (sw: sw.size != null || sw.randomEncryption.enable) config.swapDevices)
       );
   };
 }

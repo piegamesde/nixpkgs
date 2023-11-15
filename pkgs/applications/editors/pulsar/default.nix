@@ -33,8 +33,7 @@ let
       aarch64-linux.tarname = "ARM.Linux.${pname}-${version}-arm64.tar.gz";
       aarch64-linux.hash = "sha256-f+s54XtLLdhTFY9caKTKngJF6zLai0F7ur9v37bwuNE=";
     }
-    .${stdenv.hostPlatform.system}
-      or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   additionalLibs = lib.makeLibraryPath [
     xorg.libxshmfence
@@ -45,9 +44,7 @@ let
   newLibpath = "${atomEnv.libPath}:${additionalLibs}";
 
   # Hunspell
-  hunspellDirs =
-    builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell")
-      languages;
+  hunspellDirs = builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
   hunspellTargetDirs = "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
   hunspellCopyCommands =
     lib.concatMapStringsSep "\n" (lang: "cp -r ${lang}/* ${hunspellTargetDirs};")

@@ -16,8 +16,7 @@ let
     proxyPort = ${toString cfg.proxyPort}
     allowedClients = ${concatStringsSep ", " cfg.allowedClients}
     ${optionalString (cfg.parentProxy != "") "parentProxy = ${cfg.parentProxy}"}
-    ${optionalString (cfg.socksParentProxy != "")
-      "socksParentProxy = ${cfg.socksParentProxy}"}
+    ${optionalString (cfg.socksParentProxy != "") "socksParentProxy = ${cfg.socksParentProxy}"}
     ${config.services.polipo.extraConfig}
   '';
 in

@@ -51,9 +51,7 @@ let
         untarDir
         openssl
       ;
-      version =
-        platformAttrs.${stdenv.system}.version
-          or (throw "Unsupported system: ${stdenv.system}");
+      version = platformAttrs.${stdenv.system}.version or (throw "Unsupported system: ${stdenv.system}");
       src = fetchurl {
         url =
           "mirror://apache/hadoop/common/hadoop-${version}/hadoop-${version}"
@@ -63,11 +61,9 @@ let
       };
       doCheck = true;
 
-      nativeBuildInputs =
-        [ makeWrapper ]
-        ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [
-          autoPatchelfHook
-        ];
+      nativeBuildInputs = [
+        makeWrapper
+      ] ++ optionals (stdenv.isLinux && (nativeLibs != [ ] || libPatches != "")) [ autoPatchelfHook ];
       buildInputs = [ openssl ] ++ nativeLibs;
 
       installPhase =
@@ -172,9 +168,7 @@ in
     ];
     libPatches =
       ''
-        ln -s ${
-          getLib cyrus_sasl
-        }/lib/libsasl2.so $out/lib/${untarDir}/lib/native/libsasl2.so.2
+        ln -s ${getLib cyrus_sasl}/lib/libsasl2.so $out/lib/${untarDir}/lib/native/libsasl2.so.2
         ln -s ${getLib openssl}/lib/libcrypto.so $out/lib/${untarDir}/lib/native/
         ln -s ${getLib zlib}/lib/libz.so.1 $out/lib/${untarDir}/lib/native/
         ln -s ${getLib zstd}/lib/libzstd.so.1 $out/lib/${untarDir}/lib/native/

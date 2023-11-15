@@ -41,17 +41,12 @@ let
               makeScopeWithSplicing,
             }:
             let
-              luaPackagesFun = callPackage ../../../top-level/lua-packages.nix {
-                lua = self;
-              };
+              luaPackagesFun = callPackage ../../../top-level/lua-packages.nix { lua = self; };
               generatedPackages =
                 if (builtins.pathExists ../../lua-modules/generated-packages.nix) then
                   (
                     final: prev:
-                    callPackage ../../lua-modules/generated-packages.nix
-                      { inherit (final) callPackage; }
-                      final
-                      prev
+                    callPackage ../../lua-modules/generated-packages.nix { inherit (final) callPackage; } final prev
                   )
                 else
                   (final: prev: { });
@@ -72,9 +67,7 @@ let
                 overrides
               ];
             in
-            makeScopeWithSplicing otherSplices keep extra (
-              lib.extends extensions luaPackagesFun
-            )
+            makeScopeWithSplicing otherSplices keep extra (lib.extends extensions luaPackagesFun)
           )
           {
             overrides = packageOverrides;
@@ -155,9 +148,7 @@ rec {
     hash = "0jwznq0l8qg9wh5grwg07b5cy3lzngvl5m2nl1ikp6vqssmf9qmr";
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
-    patches = [
-      ./CVE-2022-28805.patch
-    ] ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
+    patches = [ ./CVE-2022-28805.patch ] ++ lib.optional stdenv.isDarwin ./5.2.darwin.patch;
   };
 
   lua5_2_compat = lua5_2.override ({
@@ -171,9 +162,7 @@ rec {
     hash = "2640fc56a795f29d28ef15e13c34a47e223960b0240e8cb0a82d9b0738695333";
     makeWrapper = makeBinaryWrapper;
     inherit passthruFun;
-    patches = (lib.optional stdenv.isDarwin ./5.1.darwin.patch) ++ [
-      ./CVE-2014-5461.patch
-    ];
+    patches = (lib.optional stdenv.isDarwin ./5.1.darwin.patch) ++ [ ./CVE-2014-5461.patch ];
   };
 
   luajit_2_0 = import ../luajit/2.0.nix {

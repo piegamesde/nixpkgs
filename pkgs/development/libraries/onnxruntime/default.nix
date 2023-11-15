@@ -128,9 +128,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     inherit protobuf;
-    tests = lib.optionalAttrs pythonSupport {
-      python = python3Packages.onnxruntime;
-    };
+    tests = lib.optionalAttrs pythonSupport { python = python3Packages.onnxruntime; };
   };
 
   meta = with lib; {

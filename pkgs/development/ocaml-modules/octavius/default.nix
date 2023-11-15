@@ -28,7 +28,5 @@ buildDunePackage (
       maintainers = with maintainers; [ vbgl ];
     };
   }
-  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {
-    duneVersion = "1";
-  }
+  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") { duneVersion = "1"; }
 )

@@ -27,8 +27,7 @@ buildPythonPackage rec {
     ];
   };
 
-  checkInputs =
-    passthru.optional-dependencies.lxml ++ passthru.optional-dependencies.html5lib;
+  checkInputs = passthru.optional-dependencies.lxml ++ passthru.optional-dependencies.html5lib;
 
   checkPhase = ''
     # 2 tests in this file randomly fail because they depend on the order of

@@ -86,9 +86,7 @@ let
     pkgs.writeText "cgitrc" ''
       # global settings
       ${concatStringsSep "\n" (
-        mapAttrsToList cgitrcLine (
-          { virtual-root = cfg.nginx.location; } // cfg.settings
-        )
+        mapAttrsToList cgitrcLine ({ virtual-root = cfg.nginx.location; } // cfg.settings)
       )}
       ${optionalString (cfg.scanPath != null) (cgitrcLine "scan-path" cfg.scanPath)}
 
@@ -97,9 +95,7 @@ let
         mapAttrsToList
           (url: settings: ''
             ${cgitrcLine "repo.url" url}
-            ${concatStringsSep "\n" (
-              mapAttrsToList (name: cgitrcLine "repo.${name}") settings
-            )}
+            ${concatStringsSep "\n" (mapAttrsToList (name: cgitrcLine "repo.${name}") settings)}
           '')
           cfg.repos
       )}
@@ -144,9 +140,7 @@ in
               package = mkPackageOptionMD pkgs "cgit" { };
 
               nginx.virtualHost = mkOption {
-                description =
-                  mdDoc
-                    "VirtualHost to serve cgit on, defaults to the attribute name.";
+                description = mdDoc "VirtualHost to serve cgit on, defaults to the attribute name.";
                 type = types.str;
                 default = config._module.args.name;
                 example = "git.example.com";

@@ -21,9 +21,7 @@ let
 
   backendsToPackages =
     let
-      mkMap =
-        list: name:
-        if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
+      mkMap = list: name: if isBuiltinBackend name then list else list ++ [ pkgs.nodePackages.${name} ];
     in
     foldl mkMap [ ];
 
@@ -35,20 +33,11 @@ let
       mgmt_port: "${toString cfg.mgmt_port}",
       backends: [${
         concatMapStringsSep ","
-          (
-            name:
-            if (isBuiltinBackend name) then ''"./backends/${name}"'' else ''"${name}"''
-          )
+          (name: if (isBuiltinBackend name) then ''"./backends/${name}"'' else ''"${name}"'')
           cfg.backends
       }],
-      ${
-        optionalString (cfg.graphiteHost != null)
-          ''graphiteHost: "${cfg.graphiteHost}",''
-      }
-      ${
-        optionalString (cfg.graphitePort != null)
-          ''graphitePort: "${toString cfg.graphitePort}",''
-      }
+      ${optionalString (cfg.graphiteHost != null) ''graphiteHost: "${cfg.graphiteHost}",''}
+      ${optionalString (cfg.graphitePort != null) ''graphitePort: "${toString cfg.graphitePort}",''}
       console: {
         prettyprint: false
       },
@@ -141,8 +130,7 @@ in
     assertions =
       map
         (backend: {
-          assertion =
-            !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages;
+          assertion = !isBuiltinBackend backend -> hasAttrByPath [ backend ] pkgs.nodePackages;
           message = "Only builtin backends (graphite, console, repeater) or backends enumerated in `pkgs.nodePackages` are allowed!";
         })
         cfg.backends;

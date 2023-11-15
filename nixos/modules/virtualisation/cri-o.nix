@@ -12,8 +12,7 @@ let
   crioPackage = pkgs.cri-o.override {
     extraPackages =
       cfg.extraPackages
-      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems)
-        config.boot.zfs.package;
+      ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
   };
 
   format = pkgs.formats.toml { };
@@ -26,9 +25,7 @@ in
   };
 
   options.virtualisation.cri-o = {
-    enable = mkEnableOption (
-      lib.mdDoc "Container Runtime Interface for OCI (CRI-O)"
-    );
+    enable = mkEnableOption (lib.mdDoc "Container Runtime Interface for OCI (CRI-O)");
 
     storageDriver = mkOption {
       type = types.enum [

@@ -19,9 +19,7 @@ stdenv.mkDerivation rec {
   version = "0.10.4";
 
   src = fetchurl {
-    url = "https://www.libssh.org/files/${
-        lib.versions.majorMinor version
-      }/${pname}-${version}.tar.xz";
+    url = "https://www.libssh.org/files/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "sha256-BzksVKthR2KI0cHwp8VXtQIReXrQDDTDryu8TbxL2X0=";
   };
 

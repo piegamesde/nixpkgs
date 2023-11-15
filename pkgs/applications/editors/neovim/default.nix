@@ -151,9 +151,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/nvim/version.c --replace NVIM_VERSION_CFLAGS "";
   '';
   # check that the above patching actually works
-  disallowedReferences = [
-    stdenv.cc
-  ] ++ lib.optional (lua != codegenLua) codegenLua;
+  disallowedReferences = [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
 
   cmakeFlags =
     [

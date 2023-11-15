@@ -139,11 +139,7 @@ let
     '';
 
   mkWrappedPrograms =
-    builtins.map
-      (
-        opts:
-        if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
-      )
+    builtins.map (opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts)
       (lib.attrValues wrappers);
 in
 {
@@ -275,11 +271,7 @@ in
     '';
 
     security.apparmor.includes."nixos/security.wrappers" = ''
-      include "${
-        pkgs.apparmorRulesFromClosure { name = "security.wrappers"; } [
-          securityWrapper
-        ]
-      }"
+      include "${pkgs.apparmorRulesFromClosure { name = "security.wrappers"; } [ securityWrapper ]}"
     '';
 
     ###### wrappers activation script
@@ -323,9 +315,7 @@ in
         echo -n "Checking that Nix store paths of all wrapped programs exist... "
 
         declare -A wrappers
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (n: v: "wrappers['${n}']='${v.source}'") wrappers
-        )}
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: "wrappers['${n}']='${v.source}'") wrappers)}
 
         for name in "''${!wrappers[@]}"; do
           path="''${wrappers[$name]}"

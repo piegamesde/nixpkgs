@@ -33,23 +33,19 @@ let
         lib.extends
           (_: previousAttrs: {
             passthru = (previousAttrs.passthru or { }) // {
-              overridePythonAttrs =
-                newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
+              overridePythonAttrs = newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
             };
           })
           (_: origArgs)
       );
       result = f args;
-      overrideWith =
-        newArgs:
-        args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs);
+      overrideWith = newArgs: args // (if pkgs.lib.isFunction newArgs then newArgs args else newArgs);
     in
     if builtins.isAttrs result then
       result
     else if builtins.isFunction result then
       {
-        overridePythonAttrs =
-          newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
+        overridePythonAttrs = newArgs: makeOverridablePythonPackage f (overrideWith newArgs);
         __functor = self: result;
       }
     else
@@ -86,15 +82,12 @@ let
       modules = lib.filter hasPythonModule drvs;
     in
     lib.unique (
-      [ python ]
-      ++ modules
-      ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
+      [ python ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPythonModules" modules)
     );
 
   # Create a PYTHONPATH from a list of derivations. This function recurses into the items to find derivations
   # providing Python modules.
-  makePythonPath =
-    drvs: lib.makeSearchPath python.sitePackages (requiredPythonModules drvs);
+  makePythonPath = drvs: lib.makeSearchPath python.sitePackages (requiredPythonModules drvs);
 
   removePythonPrefix = lib.removePrefix namePrefix;
 
@@ -130,9 +123,7 @@ let
   disabled =
     drv:
     throw
-      "${
-        removePythonPrefix (drv.pname or drv.name)
-      } not supported for interpreter ${python.executable}";
+      "${removePythonPrefix (drv.pname or drv.name)} not supported for interpreter ${python.executable}";
 
   disabledIf = x: drv: if x then disabled drv else drv;
 in

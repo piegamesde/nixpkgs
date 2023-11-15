@@ -66,9 +66,7 @@ ocamlPackages.buildDunePackage rec {
   # TODO: ghostscript linked from texlive.combine will override ghostscriptX and break advi
   preInstall = ''
     make install
-    wrapProgram "$out/bin/advi" --prefix PATH : "${
-      lib.makeBinPath [ ghostscriptX ]
-    }"
+    wrapProgram "$out/bin/advi" --prefix PATH : "${lib.makeBinPath [ ghostscriptX ]}"
   '';
 
   # TODO: redirect /share/advi/tex/latex to tex output compatible with texlive.combine

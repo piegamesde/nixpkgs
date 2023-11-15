@@ -35,9 +35,7 @@
   },
 }:
 
-with import ./release-lib.nix {
-  inherit supportedSystems scrubJobs nixpkgsArgs;
-};
+with import ./release-lib.nix { inherit supportedSystems scrubJobs nixpkgsArgs; };
 
 let
 

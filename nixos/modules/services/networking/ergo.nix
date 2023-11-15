@@ -94,9 +94,7 @@ in
           port = mkOption {
             type = types.port;
             default = 9052;
-            description =
-              lib.mdDoc
-                "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
+            description = lib.mdDoc "Listen port for the API endpoint if {option}`api.keyHash` is defined.";
           };
         };
       };
@@ -104,9 +102,7 @@ in
       testnet = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Connect to testnet network instead of the default mainnet.";
+        description = lib.mdDoc "Connect to testnet network instead of the default mainnet.";
       };
 
       user = mkOption {
@@ -125,18 +121,14 @@ in
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for the Ergo node as well as the API.";
+        description = lib.mdDoc "Open ports in the firewall for the Ergo node as well as the API.";
       };
     };
   };
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
 
     systemd.services.ergo = {
       description = "ergo server";

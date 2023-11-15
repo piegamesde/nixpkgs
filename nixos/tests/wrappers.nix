@@ -65,26 +65,14 @@ import ./make-test-python.nix (
       test_as_regular('${busybox pkgs}/bin/busybox id -rg', '${toString usersGid}')
 
       test_as_regular('/run/wrappers/bin/suid_root_busybox id -u', '0')
-      test_as_regular('/run/wrappers/bin/suid_root_busybox id -ru', '${
-        toString userUid
-      }')
-      test_as_regular('/run/wrappers/bin/suid_root_busybox id -g', '${
-        toString usersGid
-      }')
-      test_as_regular('/run/wrappers/bin/suid_root_busybox id -rg', '${
-        toString usersGid
-      }')
+      test_as_regular('/run/wrappers/bin/suid_root_busybox id -ru', '${toString userUid}')
+      test_as_regular('/run/wrappers/bin/suid_root_busybox id -g', '${toString usersGid}')
+      test_as_regular('/run/wrappers/bin/suid_root_busybox id -rg', '${toString usersGid}')
 
-      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -u', '${
-        toString userUid
-      }')
-      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -ru', '${
-        toString userUid
-      }')
+      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -u', '${toString userUid}')
+      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -ru', '${toString userUid}')
       test_as_regular('/run/wrappers/bin/sgid_root_busybox id -g', '0')
-      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -rg', '${
-        toString usersGid
-      }')
+      test_as_regular('/run/wrappers/bin/sgid_root_busybox id -rg', '${toString usersGid}')
 
       # We are only testing the permitted set, because it's easiest to look at with capsh.
       machine.fail(cmd_as_regular('${pkgs.libcap}/bin/capsh --has-p=CAP_CHOWN'))

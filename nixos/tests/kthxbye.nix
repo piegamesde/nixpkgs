@@ -41,9 +41,7 @@ import ./make-test-python.nix (
             ''
           ];
 
-          alertmanagers = [
-            { static_configs = [ { targets = [ "localhost:9093" ]; } ]; }
-          ];
+          alertmanagers = [ { static_configs = [ { targets = [ "localhost:9093" ]; } ]; } ];
 
           alertmanager = {
             enable = true;

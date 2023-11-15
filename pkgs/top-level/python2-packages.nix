@@ -8,9 +8,7 @@ with self;
 with super; {
   attrs = callPackage ../development/python2-modules/attrs { };
 
-  bootstrapped-pip = toPythonModule (
-    callPackage ../development/python2-modules/bootstrapped-pip { }
-  );
+  bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip { });
 
   cffi = callPackage ../development/python2-modules/cffi { inherit cffi; };
 
@@ -28,9 +26,7 @@ with super; {
 
   hypothesis = callPackage ../development/python2-modules/hypothesis { };
 
-  importlib-metadata =
-    callPackage ../development/python2-modules/importlib-metadata
-      { };
+  importlib-metadata = callPackage ../development/python2-modules/importlib-metadata { };
 
   jinja2 = callPackage ../development/python2-modules/jinja2 { };
 

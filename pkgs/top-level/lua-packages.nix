@@ -30,8 +30,7 @@ let
   buildLuaPackage = callPackage ../development/lua-modules/generic { };
 
   getPath =
-    drv: pathListForVersion:
-    lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
+    drv: pathListForVersion: lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
 in
 rec {
 
@@ -72,9 +71,7 @@ rec {
   luarocks = callPackage ../development/tools/misc/luarocks/default.nix { };
 
   # a fork of luarocks used to generate nix lua derivations from rockspecs
-  luarocks-nix =
-    callPackage ../development/tools/misc/luarocks/luarocks-nix.nix
-      { };
+  luarocks-nix = callPackage ../development/tools/misc/luarocks/luarocks-nix.nix { };
 
   lua-resty-core =
     callPackage

@@ -83,31 +83,29 @@ stdenv.mkDerivation rec {
     python3
     perl
   ];
-  buildInputs =
-    [
-      curl
-      python3
-      munge
-      pam
-      libmysqlclient
-      ncurses
-      lz4
-      rdma-core
-      lua
-      hwloc
-      numactl
-      readline
-      freeipmi
-      shadow.su
-      pmix
-      json_c
-      libjwt
-      libyaml
-      dbus
-      libbpf
-      http-parser
-    ]
-    ++ lib.optionals enableX11 [ xorg.xauth ] ++ lib.optionals enableGtk2 [ gtk2 ];
+  buildInputs = [
+    curl
+    python3
+    munge
+    pam
+    libmysqlclient
+    ncurses
+    lz4
+    rdma-core
+    lua
+    hwloc
+    numactl
+    readline
+    freeipmi
+    shadow.su
+    pmix
+    json_c
+    libjwt
+    libyaml
+    dbus
+    libbpf
+    http-parser
+  ] ++ lib.optionals enableX11 [ xorg.xauth ] ++ lib.optionals enableGtk2 [ gtk2 ];
 
   configureFlags =
     with lib;

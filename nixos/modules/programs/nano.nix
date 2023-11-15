@@ -32,9 +32,7 @@ in
       syntaxHighlight = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to enable syntax highlight for various languages.";
+        description = lib.mdDoc "Whether to enable syntax highlight for various languages.";
       };
     };
   };
@@ -44,9 +42,7 @@ in
   config = lib.mkIf (cfg.nanorc != "" || cfg.syntaxHighlight) {
     environment.etc.nanorc.text = lib.concatStrings [
       cfg.nanorc
-      (lib.optionalString cfg.syntaxHighlight
-        ''${LF}include "${pkgs.nano}/share/nano/*.nanorc"''
-      )
+      (lib.optionalString cfg.syntaxHighlight ''${LF}include "${pkgs.nano}/share/nano/*.nanorc"'')
     ];
   };
 }

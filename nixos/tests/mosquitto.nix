@@ -68,8 +68,7 @@ import ./make-test-python.nix (
 
     nodes =
       let
-        client =
-          { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
+        client = { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
       in
       {
         server =
@@ -197,9 +196,7 @@ import ./make-test-python.nix (
 
           # mosquitto grabs *one* random address per type for bind_interface
           (has4, has6) = (False, False)
-          for line in server.succeed("ss -HlptnO sport = ${
-            toString bindTestPort
-          }").splitlines():
+          for line in server.succeed("ss -HlptnO sport = ${toString bindTestPort}").splitlines():
               items = line.split()
               if "mosquitto" not in items[5]: continue
               listener = items[3].rsplit(':', maxsplit=1)[0].strip('[]')
@@ -250,9 +247,7 @@ import ./make-test-python.nix (
                   "anonReader", port=${toString anonPort})),
               lambda: [
                   wait_uuid("fd56032c-d9cb-4813-a3b4-6be0e04c8fc3"),
-                  client2.succeed(publish("-m test", "anonWriter", port=${
-                    toString anonPort
-                  }))
+                  client2.succeed(publish("-m test", "anonWriter", port=${toString anonPort}))
               ])
     '';
   }

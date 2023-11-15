@@ -80,9 +80,7 @@ in
   in
   if pathOverlays != "" && builtins.pathExists pathOverlays then
     overlays pathOverlays
-  else if
-    builtins.pathExists homeOverlaysFile && builtins.pathExists homeOverlaysDir
-  then
+  else if builtins.pathExists homeOverlaysFile && builtins.pathExists homeOverlaysDir then
     throw ''
       Nixpkgs overlays can be specified with ${homeOverlaysFile} or ${homeOverlaysDir}, but not both.
       Please remove one of them and try again.
@@ -111,9 +109,4 @@ in
 assert args ? localSystem -> !(args ? system);
 assert args ? system -> !(args ? localSystem);
 
-import ./. (
-  builtins.removeAttrs args [ "system" ]
-  // {
-    inherit config overlays localSystem;
-  }
-)
+import ./. (builtins.removeAttrs args [ "system" ] // { inherit config overlays localSystem; })

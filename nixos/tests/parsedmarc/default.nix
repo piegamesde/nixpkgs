@@ -94,10 +94,7 @@ in
         esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
         valueObject =
           lib.optionalString
-            (lib.versionAtLeast
-              nodes.parsedmarc.config.services.elasticsearch.package.version
-              "7"
-            )
+            (lib.versionAtLeast nodes.parsedmarc.config.services.elasticsearch.package.version "7")
             ".value";
       in
       ''
@@ -205,10 +202,7 @@ in
           esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
           valueObject =
             lib.optionalString
-              (lib.versionAtLeast
-                nodes.parsedmarc.config.services.elasticsearch.package.version
-                "7"
-              )
+              (lib.versionAtLeast nodes.parsedmarc.config.services.elasticsearch.package.version "7")
               ".value";
         in
         ''

@@ -11,8 +11,7 @@ let
   yaml = pkgs.formats.yaml { };
   cfg = config.services.prometheus;
   checkConfigEnabled =
-    (lib.isBool cfg.checkConfig && cfg.checkConfig)
-    || cfg.checkConfig == "syntax-only";
+    (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig == "syntax-only";
 
   workingDir = "/var/lib/" + cfg.stateDir;
 
@@ -58,8 +57,7 @@ let
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
     rule_files = map (promtoolCheck "check rules" "rules") (
-      cfg.ruleFiles
-      ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
+      cfg.ruleFiles ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
     );
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
@@ -78,9 +76,7 @@ let
           generatedPrometheusYml;
     in
     promtoolCheck
-      "check config ${
-        lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
-      }"
+      "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
       "prometheus.yml"
       yml;
 
@@ -88,27 +84,15 @@ let
     cfg.extraFlags
     ++ [
       "--storage.tsdb.path=${workingDir}/data/"
-      "--config.file=${
-        if cfg.enableReload then "/etc/prometheus/prometheus.yaml" else prometheusYml
-      }"
+      "--config.file=${if cfg.enableReload then "/etc/prometheus/prometheus.yaml" else prometheusYml}"
       "--web.listen-address=${cfg.listenAddress}:${builtins.toString cfg.port}"
-      "--alertmanager.notification-queue-capacity=${
-        toString cfg.alertmanagerNotificationQueueCapacity
-      }"
+      "--alertmanager.notification-queue-capacity=${toString cfg.alertmanagerNotificationQueueCapacity}"
     ]
-    ++
-      optional (cfg.webExternalUrl != null)
-        "--web.external-url=${cfg.webExternalUrl}"
-    ++
-      optional (cfg.retentionTime != null)
-        "--storage.tsdb.retention.time=${cfg.retentionTime}"
-    ++
-      optional (cfg.webConfigFile != null)
-        "--web.config.file=${cfg.webConfigFile}";
+    ++ optional (cfg.webExternalUrl != null) "--web.external-url=${cfg.webExternalUrl}"
+    ++ optional (cfg.retentionTime != null) "--storage.tsdb.retention.time=${cfg.retentionTime}"
+    ++ optional (cfg.webConfigFile != null) "--web.config.file=${cfg.webConfigFile}";
 
-  filterValidPrometheus = filterAttrsListRecursive (
-    n: v: !(n == "_module" || v == null)
-  );
+  filterValidPrometheus = filterAttrsListRecursive (n: v: !(n == "_module" || v == null));
   filterAttrsListRecursive =
     pred: x:
     if isAttrs x then
@@ -119,10 +103,7 @@ let
             let
               v = x.${name};
             in
-            if pred name v then
-              [ (nameValuePair name (filterAttrsListRecursive pred v)) ]
-            else
-              [ ]
+            if pred name v then [ (nameValuePair name (filterAttrsListRecursive pred v)) ] else [ ]
           )
           (attrNames x)
       )
@@ -404,11 +385,9 @@ let
         List of Consul service discovery configurations.
       '';
 
-      digitalocean_sd_configs =
-        mkOpt (types.listOf promTypes.digitalocean_sd_config)
-          ''
-            List of DigitalOcean service discovery configurations.
-          '';
+      digitalocean_sd_configs = mkOpt (types.listOf promTypes.digitalocean_sd_config) ''
+        List of DigitalOcean service discovery configurations.
+      '';
 
       docker_sd_configs = mkOpt (types.listOf promTypes.docker_sd_config) ''
         List of Docker service discovery configurations.
@@ -1935,18 +1914,14 @@ in
       uid = config.ids.uids.prometheus;
       group = "prometheus";
     };
-    environment.etc."prometheus/prometheus.yaml" = mkIf cfg.enableReload {
-      source = prometheusYml;
-    };
+    environment.etc."prometheus/prometheus.yaml" = mkIf cfg.enableReload { source = prometheusYml; };
     systemd.services.prometheus = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/prometheus"
-          + optionalString (length cmdlineArgs != 0) (
-            " \\\n  " + concatStringsSep " \\\n  " cmdlineArgs
-          );
+          + optionalString (length cmdlineArgs != 0) (" \\\n  " + concatStringsSep " \\\n  " cmdlineArgs);
         ExecReload = mkIf cfg.enableReload "+${reload}/bin/reload-prometheus";
         User = "prometheus";
         Restart = "always";
@@ -1957,8 +1932,7 @@ in
         StateDirectoryMode = "0700";
         # Hardening
         AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet =
-          if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
+        CapabilityBoundingSet = if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
         DeviceAllow = [ "/dev/null rw" ];
         DevicePolicy = "strict";
         LockPersonality = true;

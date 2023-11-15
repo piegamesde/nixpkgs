@@ -120,8 +120,7 @@ rec {
         > $stubbyExampleJson
     '';
 
-    passthru.settingsExample =
-      with builtins; fromJSON (readFile stubby.stubbyExampleJson);
+    passthru.settingsExample = with builtins; fromJSON (readFile stubby.stubbyExampleJson);
 
     meta =
       with lib;

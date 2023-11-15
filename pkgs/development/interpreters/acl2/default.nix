@@ -26,12 +26,10 @@ let
   # ACL2 system itself; see
   # https://www.cs.utexas.edu/users/moore/acl2/current/HTML/installation/requirements.html#Obtaining-SBCL
   sbcl' = args.sbcl.override { disableImmobileSpace = true; };
-  sbcl =
-    runCommandLocal args.sbcl.name { nativeBuildInputs = [ makeWrapper ]; }
-      ''
-        makeWrapper ${sbcl'}/bin/sbcl $out/bin/sbcl \
-          --add-flags "--dynamic-space-size 2000"
-      '';
+  sbcl = runCommandLocal args.sbcl.name { nativeBuildInputs = [ makeWrapper ]; } ''
+    makeWrapper ${sbcl'}/bin/sbcl $out/bin/sbcl \
+      --add-flags "--dynamic-space-size 2000"
+  '';
 in
 stdenv.mkDerivation rec {
   pname = "acl2";
@@ -55,12 +53,8 @@ stdenv.mkDerivation rec {
     (substituteAll {
       src = ./0001-Fix-some-paths-for-Nix-build.patch;
       libipasir = "${libipasir}/lib/${libipasir.libname}";
-      libssl = "${
-          lib.getLib openssl
-        }/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
-      libcrypto = "${
-          lib.getLib openssl
-        }/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libssl = "${lib.getLib openssl}/lib/libssl${stdenv.hostPlatform.extensions.sharedLibrary}";
+      libcrypto = "${lib.getLib openssl}/lib/libcrypto${stdenv.hostPlatform.extensions.sharedLibrary}";
     })
   ];
 
@@ -129,9 +123,7 @@ stdenv.mkDerivation rec {
       ln -s $out/share/${pname}/books/build/clean.pl $out/bin/${pname}-clean
     '';
 
-  preDistPhases = [
-    (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase")
-  ];
+  preDistPhases = [ (if certifyBooks then "certifyBooksPhase" else "removeBooksPhase") ];
 
   certifyBooksPhase = ''
     # Certify the community books

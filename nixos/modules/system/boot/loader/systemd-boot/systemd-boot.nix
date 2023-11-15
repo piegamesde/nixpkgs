@@ -25,14 +25,11 @@ let
 
     nix = config.nix.package.out;
 
-    timeout =
-      optionalString (config.boot.loader.timeout != null)
-        config.boot.loader.timeout;
+    timeout = optionalString (config.boot.loader.timeout != null) config.boot.loader.timeout;
 
     editor = if cfg.editor then "True" else "False";
 
-    configurationLimit =
-      if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
+    configurationLimit = if cfg.configurationLimit == null then 0 else cfg.configurationLimit;
 
     inherit (cfg) consoleMode graceful;
 
@@ -50,9 +47,7 @@ let
       ${concatStrings (
         mapAttrsToList
           (n: v: ''
-            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${
-              escapeShellArg n
-            }
+            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
             ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${
               escapeShellArg n
             }
@@ -123,9 +118,7 @@ in
 
       type = types.bool;
 
-      description =
-        lib.mdDoc
-          "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
+      description = lib.mdDoc "Whether to enable the systemd-boot (formerly gummiboot) EFI boot manager";
     };
 
     editor = mkOption {
@@ -296,9 +289,7 @@ in
     assertions =
       [
         {
-          assertion =
-            (config.boot.kernelPackages.kernel.features or { efiBootStub = true; })
-            ? efiBootStub;
+          assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
           message = "This kernel does not support the EFI boot stub";
         }
       ]
@@ -350,12 +341,8 @@ in
       # TODO: This is hard-coded to use the 64-bit EFI app, but it could probably
       # be updated to use the 32-bit EFI app on 32-bit systems.  The 32-bit EFI
       # app filename is BOOTIA32.efi.
-      (mkIf cfg.memtest86.enable {
-        "efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi";
-      })
-      (mkIf cfg.netbootxyz.enable {
-        "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";
-      })
+      (mkIf cfg.memtest86.enable { "efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi"; })
+      (mkIf cfg.netbootxyz.enable { "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}"; })
     ];
 
     boot.loader.systemd-boot.extraEntries = mkMerge [

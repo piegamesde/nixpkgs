@@ -166,8 +166,7 @@ in
         attrsets.mapAttrsToList
           (name: config: [
             {
-              assertion =
-                config.compress > 0 -> versionAtLeast config.postgresqlPackage.version "10";
+              assertion = config.compress > 0 -> versionAtLeast config.postgresqlPackage.version "10";
               message = ''
                 Invalid configuration for WAL receiver "${name}": compress requires PostgreSQL version >= 10.'';
             }
@@ -217,9 +216,7 @@ in
                     --directory=${escapeShellArg config.directory} \
                     --status-interval=${toString config.statusInterval} \
                     --dbname=${escapeShellArg config.connection} \
-                    ${
-                      optionalString (config.compress > 0) "--compress=${toString config.compress}"
-                    } \
+                    ${optionalString (config.compress > 0) "--compress=${toString config.compress}"} \
                     ${optionalString (config.slot != "") "--slot=${escapeShellArg config.slot}"} \
                     ${optionalString config.synchronous "--synchronous"} \
                     ${concatStringsSep " " config.extraArgs}

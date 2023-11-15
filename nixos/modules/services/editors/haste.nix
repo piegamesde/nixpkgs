@@ -16,9 +16,7 @@ in
 {
   options.services.haste-server = {
     enable = mkEnableOption (lib.mdDoc "haste-server");
-    openFirewall = mkEnableOption (
-      lib.mdDoc "firewall passthrough for haste-server"
-    );
+    openFirewall = mkEnableOption (lib.mdDoc "firewall passthrough for haste-server");
 
     settings = mkOption {
       description = lib.mdDoc ''
@@ -30,9 +28,7 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [
-      cfg.settings.port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.settings.port ];
 
     services.haste-server = {
       settings = {
@@ -82,9 +78,7 @@ in
         DynamicUser = true;
         StateDirectory = "haste-server";
         WorkingDirectory = "/var/lib/haste-server";
-        ExecStart = "${pkg}/bin/haste-server ${
-            format.generate "config.json" cfg.settings
-          }";
+        ExecStart = "${pkg}/bin/haste-server ${format.generate "config.json" cfg.settings}";
       };
 
       path = with pkgs; [

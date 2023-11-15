@@ -116,9 +116,7 @@ import ./make-test-python.nix (
         # Cause a configuration change inside `configuration.yml` and verify that the process is being reloaded.
         specialisation.differentName = {
           inheritParentConfig = true;
-          configuration.services.home-assistant.config.homeassistant.name =
-            lib.mkForce
-              "Test Home";
+          configuration.services.home-assistant.config.homeassistant.name = lib.mkForce "Test Home";
         };
 
         # Cause a configuration change that requires a service restart as we added a new runtime dependency

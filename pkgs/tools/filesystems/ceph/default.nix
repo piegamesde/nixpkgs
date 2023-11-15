@@ -198,8 +198,7 @@ let
             inherit version;
             hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
           };
-          nativeCheckInputs =
-            oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
+          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
           disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
             "test/aaa_profiling"
             "test/ext/mypy"
@@ -412,11 +411,7 @@ rec {
     passthru = {
       inherit version;
       tests = {
-        inherit (nixosTests)
-          ceph-multi-node
-          ceph-single-node
-          ceph-single-node-bluestore
-        ;
+        inherit (nixosTests) ceph-multi-node ceph-single-node ceph-single-node-bluestore;
       };
     };
   };

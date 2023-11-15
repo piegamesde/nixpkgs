@@ -230,9 +230,7 @@ rec {
         }
       );
 
-      plugins =
-        lib.optional buildxSupport docker-buildx
-        ++ lib.optional composeSupport docker-compose;
+      plugins = lib.optional buildxSupport docker-buildx ++ lib.optional composeSupport docker-compose;
       pluginsRef = symlinkJoin {
         name = "docker-plugins";
         paths = plugins;

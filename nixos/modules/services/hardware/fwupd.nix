@@ -13,8 +13,7 @@ let
   cfg = config.services.fwupd;
 
   format = pkgs.formats.ini {
-    listToValue =
-      l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault { } s) l);
+    listToValue = l: lib.concatStringsSep ";" (map (s: generators.mkValueStringDefault { } s) l);
     mkKeyValue = generators.mkKeyValueDefault { } "=";
   };
 
@@ -24,9 +23,7 @@ let
     };
 
     "fwupd/uefi_capsule.conf" = {
-      source = format.generate "uefi_capsule.conf" {
-        uefi_capsule = cfg.uefiCapsuleSettings;
-      };
+      source = format.generate "uefi_capsule.conf" { uefi_capsule = cfg.uefiCapsuleSettings; };
     };
   };
 
@@ -51,8 +48,7 @@ let
     };
   };
   remotes =
-    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote))
-      { }
+    (foldl' (configFiles: remote: configFiles // (enableRemote cfg.package remote)) { }
       cfg.extraRemotes
     )
     // (
@@ -60,10 +56,7 @@ let
       # to install it because it would create a cyclic dependency between
       # the outputs. We also need to enable the remote,
       # which should not be done by default.
-      if cfg.enableTestRemote then
-        (enableRemote cfg.package.installedTests "fwupd-tests")
-      else
-        { }
+      if cfg.enableTestRemote then (enableRemote cfg.package.installedTests "fwupd-tests") else { }
     );
 in
 {

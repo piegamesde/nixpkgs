@@ -36,8 +36,7 @@ let
   dhcpdService =
     postfix: cfg:
     let
-      configFile =
-        if cfg.configFile != null then cfg.configFile else writeConfig postfix cfg;
+      configFile = if cfg.configFile != null then cfg.configFile else writeConfig postfix cfg;
       leaseFile = "/var/lib/dhcpd${postfix}/dhcpd.leases";
       args = [
         "@${pkgs.dhcp}/sbin/dhcpd"

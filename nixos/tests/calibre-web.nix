@@ -37,9 +37,7 @@ import ./make-test-python.nix (
       customized.wait_for_unit("calibre-web.service")
       customized.wait_for_open_port(${toString port})
       customized.succeed(
-          "curl --fail -H X-User:admin 'http://localhost:${
-            toString port
-          }' | grep test-book"
+          "curl --fail -H X-User:admin 'http://localhost:${toString port}' | grep test-book"
       )
     '';
   }

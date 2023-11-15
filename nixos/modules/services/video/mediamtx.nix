@@ -54,9 +54,7 @@ in
 
   config = mkIf (cfg.enable) {
     # NOTE: mediamtx watches this file and automatically reloads if it changes
-    environment.etc."mediamtx.yaml".source =
-      format.generate "mediamtx.yaml"
-        cfg.settings;
+    environment.etc."mediamtx.yaml".source = format.generate "mediamtx.yaml" cfg.settings;
 
     systemd.services.mediamtx = {
       environment = cfg.env;

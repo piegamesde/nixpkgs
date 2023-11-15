@@ -30,9 +30,7 @@ let
           extension ? "tar.gz",
         }:
         # Fetch a source tarball.
-        "mirror://pypi/${
-          builtins.substring 0 1 pname
-        }/${pname}/${pname}-${version}.${extension}";
+        "mirror://pypi/${builtins.substring 0 1 pname}/${pname}/${pname}-${version}.${extension}";
 
       compute =
         (

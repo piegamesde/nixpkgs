@@ -43,10 +43,7 @@ buildPythonPackage rec {
       }
       //
         builtins.mapAttrs
-          (
-            _: pkg:
-            "${pkg}/lib/lib${pkg.pname}${stdenv.hostPlatform.extensions.sharedLibrary}"
-          )
+          (_: pkg: "${pkg}/lib/lib${pkg.pname}${stdenv.hostPlatform.extensions.sharedLibrary}")
           {
             # substituteAll keys must start lowercase
             sdl2 = SDL2;

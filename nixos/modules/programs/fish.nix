@@ -27,9 +27,7 @@ let
 
   envLoginShellInit = pkgs.writeText "loginShellInit" cfge.loginShellInit;
 
-  envInteractiveShellInit =
-    pkgs.writeText "interactiveShellInit"
-      cfge.interactiveShellInit;
+  envInteractiveShellInit = pkgs.writeText "interactiveShellInit" cfge.interactiveShellInit;
 
   sourceEnv =
     file:
@@ -163,9 +161,7 @@ in
           babelfishTranslate config.system.build.setEnvironment
             "setEnvironment";
         etc."fish/shellInit.fish".source = babelfishTranslate envShellInit "shellInit";
-        etc."fish/loginShellInit.fish".source =
-          babelfishTranslate envLoginShellInit
-            "loginShellInit";
+        etc."fish/loginShellInit.fish".source = babelfishTranslate envLoginShellInit "loginShellInit";
         etc."fish/interactiveShellInit.fish".source =
           babelfishTranslate envInteractiveShellInit
             "interactiveShellInit";
@@ -277,9 +273,7 @@ in
                     preferLocalBuild = true;
                     allowSubstitutes = false;
                   }
-                  // optionalAttrs (package ? meta.priority) {
-                    meta.priority = package.meta.priority;
-                  }
+                  // optionalAttrs (package ? meta.priority) { meta.priority = package.meta.priority; }
                 )
                 ''
                   mkdir -p $out

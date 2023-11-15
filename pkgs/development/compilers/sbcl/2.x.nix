@@ -6,8 +6,7 @@
   writeText,
   sbclBootstrap,
   zstd,
-  sbclBootstrapHost ?
-    "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit",
+  sbclBootstrapHost ? "${sbclBootstrap}/bin/sbcl --disable-debugger --no-userinit --no-sysinit",
   threadSupport ? (
     stdenv.hostPlatform.isx86
     || "aarch64-linux" == stdenv.hostPlatform.system
@@ -135,13 +134,9 @@ stdenv.mkDerivation rec {
 
     sh make.sh --prefix=$out --xc-host="${sbclBootstrapHost}" ${
       lib.concatStringsSep " " (
-        builtins.map (x: "--with-${x}") enableFeatures
-        ++ builtins.map (x: "--without-${x}") disableFeatures
+        builtins.map (x: "--with-${x}") enableFeatures ++ builtins.map (x: "--without-${x}") disableFeatures
       )
-    } ${
-      lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin")
-        "--arch=arm64"
-    }
+    } ${lib.optionalString (stdenv.hostPlatform.system == "aarch64-darwin") "--arch=arm64"}
     (cd doc/manual ; make info)
 
     runHook postBuild

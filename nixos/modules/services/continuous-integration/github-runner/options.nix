@@ -85,9 +85,7 @@ with lib;
   name =
     let
       # Same pattern as for `networking.hostName`
-      baseType =
-        types.strMatching
-          "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
+      baseType = types.strMatching "^$|^[[:alnum:]]([[:alnum:]_-]{0,61}[[:alnum:]])?$";
     in
     mkOption {
       type = if includeNameDefault then baseType else types.nullOr baseType;

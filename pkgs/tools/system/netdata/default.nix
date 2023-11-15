@@ -119,9 +119,7 @@ stdenv.mkDerivation rec {
   disallowedReferences = if withDebug then [ ] else [ zlib.dev ];
 
   donStrip = withDebug;
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString withDebug
-      "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString withDebug "-O1 -ggdb -DNETDATA_INTERNAL_CHECKS=1";
 
   postInstall =
     ''
@@ -160,9 +158,7 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (!withCloud) [ "--disable-cloud" ];
 
   postFixup = ''
-    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${
-      lib.makeBinPath [ openssl ]
-    }
+    wrapProgram $out/bin/netdata-claim.sh --prefix PATH : ${lib.makeBinPath [ openssl ]}
     wrapProgram $out/libexec/netdata/plugins.d/cgroup-network-helper.sh --prefix PATH : ${
       lib.makeBinPath [ bash ]
     }

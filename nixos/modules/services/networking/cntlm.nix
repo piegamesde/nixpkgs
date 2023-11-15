@@ -22,15 +22,13 @@ let
         Username ${cfg.username}
         Domain ${cfg.domain}
         Password ${cfg.password}
-        ${optionalString (cfg.netbios_hostname != "")
-          "Workstation ${cfg.netbios_hostname}"}
+        ${optionalString (cfg.netbios_hostname != "") "Workstation ${cfg.netbios_hostname}"}
         ${concatMapStrings
           (entry: ''
             Proxy ${entry}
           '')
           cfg.proxy}
-        ${optionalString (cfg.noproxy != [ ])
-          "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
+        ${optionalString (cfg.noproxy != [ ]) "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
 
         ${concatMapStrings
           (port: ''

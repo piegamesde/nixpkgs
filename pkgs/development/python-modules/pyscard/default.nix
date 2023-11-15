@@ -44,9 +44,7 @@ buildPythonPackage rec {
       ''
         substituteInPlace smartcard/scard/winscarddll.c \
           --replace "libpcsclite.so.1" \
-                    "${
-                      lib.getLib pcsclite
-                    }/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
+                    "${lib.getLib pcsclite}/lib/libpcsclite${stdenv.hostPlatform.extensions.sharedLibrary}"
       '';
 
   env.NIX_CFLAGS_COMPILE =

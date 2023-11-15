@@ -126,18 +126,15 @@ in
   # apptainer/apptainer: https://github.com/apptainer/apptainer/blob/main/dist/debian/control
   # sylabs/singularity: https://github.com/sylabs/singularity/blob/main/debian/control
 
-  buildInputs =
-    [
-      bash # To patch /bin/sh shebangs.
-      conmon
-      cryptsetup
-      gpgme
-      libuuid
-      openssl
-      squashfsTools # Required at build time by SingularityCE
-    ]
-    ++ lib.optional enableNvidiaContainerCli nvidia-docker
-    ++ lib.optional enableSeccomp libseccomp;
+  buildInputs = [
+    bash # To patch /bin/sh shebangs.
+    conmon
+    cryptsetup
+    gpgme
+    libuuid
+    openssl
+    squashfsTools # Required at build time by SingularityCE
+  ] ++ lib.optional enableNvidiaContainerCli nvidia-docker ++ lib.optional enableSeccomp libseccomp;
 
   configureScript = "./mconfig";
 
@@ -232,9 +229,7 @@ in
     )}
     ${lib.optionalString (enableSuid && (starterSuidPath != null)) ''
       mv "$out"/libexec/${projectName}/bin/starter-suid{,.orig}
-      ln -s ${
-        lib.escapeShellArg starterSuidPath
-      } "$out/libexec/${projectName}/bin/starter-suid"
+      ln -s ${lib.escapeShellArg starterSuidPath} "$out/libexec/${projectName}/bin/starter-suid"
     ''}
   '';
 

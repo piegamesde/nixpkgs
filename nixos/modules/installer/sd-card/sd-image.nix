@@ -127,9 +127,7 @@ in
     };
 
     populateFirmwareCommands = mkOption {
-      example =
-        literalExpression
-          "'' cp \${pkgs.myBootLoader}/u-boot.bin firmware/ ''";
+      example = literalExpression "'' cp \${pkgs.myBootLoader}/u-boot.bin firmware/ ''";
       description = lib.mdDoc ''
         Shell commands to populate the ./firmware directory.
         All files in that directory are copied to the
@@ -247,9 +245,7 @@ in
 
               # Create the image file sized to fit /boot/firmware and /, plus slack for the gap.
               rootSizeBlocks=$(du -B 512 --apparent-size $root_fs | awk '{ print $1 }')
-              firmwareSizeBlocks=$((${
-                toString config.sdImage.firmwareSize
-              } * 1024 * 1024 / 512))
+              firmwareSizeBlocks=$((${toString config.sdImage.firmwareSize} * 1024 * 1024 / 512))
               imageSize=$((rootSizeBlocks * 512 + firmwareSizeBlocks * 512 + gap * 1024 * 1024))
               truncate -s $imageSize $img
 

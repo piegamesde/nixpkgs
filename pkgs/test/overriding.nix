@@ -7,9 +7,7 @@
 let
   tests =
     let
-      p = pkgs.python3Packages.xpybutil.overridePythonAttrs (
-        _: { dontWrapPythonPrograms = true; }
-      );
+      p = pkgs.python3Packages.xpybutil.overridePythonAttrs (_: { dontWrapPythonPrograms = true; });
     in
     [
       ({
@@ -55,9 +53,7 @@ let
 
   example = entangle pkgs.hello pkgs.figlet;
 
-  overrides1 = example.overrideAttrs (
-    _: super: { pname = "a-better-${super.pname}"; }
-  );
+  overrides1 = example.overrideAttrs (_: super: { pname = "a-better-${super.pname}"; });
 
   repeatedOverrides = overrides1.overrideAttrs (
     _: super: { pname = "${super.pname}-with-blackjack"; }

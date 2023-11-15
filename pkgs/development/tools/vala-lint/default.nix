@@ -38,9 +38,7 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   passthru = {
-    updateScript = unstableGitUpdater {
-      url = "https://github.com/vala-lang/vala-lint.git";
-    };
+    updateScript = unstableGitUpdater { url = "https://github.com/vala-lang/vala-lint.git"; };
   };
 
   meta = with lib; {

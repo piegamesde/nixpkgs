@@ -17,8 +17,7 @@ let
   javaPlatformVersion =
     javaVersion:
     "${javaVersion}-${
-      javaPlatform.${stdenv.system}
-        or (throw "Unsupported platform: ${stdenv.system}")
+      javaPlatform.${stdenv.system} or (throw "Unsupported platform: ${stdenv.system}")
     }";
   source =
     product: javaVersion:
@@ -40,9 +39,7 @@ rec {
     products = [ ];
   };
 
-  graalvm11-ce = graalvm11-ce-bare.override {
-    products = [ native-image-installable-svm-java11 ];
-  };
+  graalvm11-ce = graalvm11-ce-bare.override { products = [ native-image-installable-svm-java11 ]; };
 
   # Mostly available for testing, not to be exposed at the top level
   graalvm11-ce-full = graalvm11-ce-bare.override {
@@ -69,13 +66,11 @@ rec {
     src = fetchurl (source "llvm-installable-svm" javaVersion);
   };
 
-  native-image-installable-svm-java11 =
-    callPackage ./native-image-installable-svm.nix
-      rec {
-        javaVersion = "11";
-        version = "22.3.1";
-        src = fetchurl (source "native-image-installable-svm" javaVersion);
-      };
+  native-image-installable-svm-java11 = callPackage ./native-image-installable-svm.nix rec {
+    javaVersion = "11";
+    version = "22.3.1";
+    src = fetchurl (source "native-image-installable-svm" javaVersion);
+  };
 
   nodejs-installable-svm-java11 = callPackage ./nodejs-installable-svm.nix rec {
     javaVersion = "11";
@@ -114,9 +109,7 @@ rec {
     products = [ ];
   };
 
-  graalvm17-ce = graalvm17-ce-bare.override {
-    products = [ native-image-installable-svm-java17 ];
-  };
+  graalvm17-ce = graalvm17-ce-bare.override { products = [ native-image-installable-svm-java17 ]; };
 
   # Mostly available for testing, not to be exposed at the top level
   graalvm17-ce-full = graalvm17-ce-bare.override {
@@ -143,13 +136,11 @@ rec {
     src = fetchurl (source "llvm-installable-svm" javaVersion);
   };
 
-  native-image-installable-svm-java17 =
-    callPackage ./native-image-installable-svm.nix
-      rec {
-        javaVersion = "17";
-        version = "22.3.1";
-        src = fetchurl (source "native-image-installable-svm" javaVersion);
-      };
+  native-image-installable-svm-java17 = callPackage ./native-image-installable-svm.nix rec {
+    javaVersion = "17";
+    version = "22.3.1";
+    src = fetchurl (source "native-image-installable-svm" javaVersion);
+  };
 
   nodejs-installable-svm-java17 = callPackage ./nodejs-installable-svm.nix rec {
     javaVersion = "17";
@@ -188,9 +179,7 @@ rec {
     products = [ ];
   };
 
-  graalvm19-ce = graalvm19-ce-bare.override {
-    products = [ native-image-installable-svm-java19 ];
-  };
+  graalvm19-ce = graalvm19-ce-bare.override { products = [ native-image-installable-svm-java19 ]; };
 
   # Mostly available for testing, not to be exposed at the top level
   graalvm19-ce-full = graalvm19-ce-bare.override {
@@ -217,13 +206,11 @@ rec {
     src = fetchurl (source "llvm-installable-svm" javaVersion);
   };
 
-  native-image-installable-svm-java19 =
-    callPackage ./native-image-installable-svm.nix
-      rec {
-        javaVersion = "19";
-        version = "22.3.1";
-        src = fetchurl (source "native-image-installable-svm" javaVersion);
-      };
+  native-image-installable-svm-java19 = callPackage ./native-image-installable-svm.nix rec {
+    javaVersion = "19";
+    version = "22.3.1";
+    src = fetchurl (source "native-image-installable-svm" javaVersion);
+  };
 
   nodejs-installable-svm-java19 = callPackage ./nodejs-installable-svm.nix rec {
     javaVersion = "19";

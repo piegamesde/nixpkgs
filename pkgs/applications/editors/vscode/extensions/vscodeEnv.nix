@@ -45,9 +45,7 @@ let
         ;
       };
 
-  updateSettings = import ./updateSettings.nix {
-    inherit lib writeShellScriptBin jq;
-  };
+  updateSettings = import ./updateSettings.nix { inherit lib writeShellScriptBin jq; };
   userSettingsFolder = "${user-data-dir}/User";
 
   updateSettingsCmd = updateSettings {

@@ -11,9 +11,7 @@ with lib;
 let
   cfg = config.services.pipewire;
   enable32BitAlsaPlugins =
-    cfg.alsa.support32Bit
-    && pkgs.stdenv.isx86_64
-    && pkgs.pkgsi686Linux.pipewire != null;
+    cfg.alsa.support32Bit && pkgs.stdenv.isx86_64 && pkgs.pkgsi686Linux.pipewire != null;
 
   # The package doesn't output to $out/lib/pipewire directly so that the
   # overlays can use the outputs to replace the originals in FHS environments.
@@ -63,9 +61,7 @@ in
 
       alsa = {
         enable = mkEnableOption (lib.mdDoc "ALSA support");
-        support32Bit = mkEnableOption (
-          lib.mdDoc "32-bit ALSA support on 64-bit systems"
-        );
+        support32Bit = mkEnableOption (lib.mdDoc "32-bit ALSA support on 64-bit systems");
       };
 
       jack = {
@@ -137,13 +133,9 @@ in
       }
     ];
 
-    environment.systemPackages = [
-      cfg.package
-    ] ++ lib.optional cfg.jack.enable jack-libs;
+    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
 
-    systemd.packages = [
-      cfg.package
-    ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+    systemd.packages = [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
@@ -157,15 +149,11 @@ in
     systemd.user.sockets.pipewire.enable = !cfg.systemWide;
     systemd.user.services.pipewire.enable = !cfg.systemWide;
 
-    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [
+    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.user.sockets.pipewire-pulse.wantedBy = lib.mkIf (cfg.socketActivation && cfg.pulse.enable) [
       "sockets.target"
     ];
-    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [
-      "sockets.target"
-    ];
-    systemd.user.sockets.pipewire-pulse.wantedBy =
-      lib.mkIf (cfg.socketActivation && cfg.pulse.enable)
-        [ "sockets.target" ];
 
     services.udev.packages = [ cfg.package ];
 

@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ukjZbfGM68P/I/aXlyB64VgszmL0WWtpuuMAyjwj2zM=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [ pkg-config ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     [

@@ -162,9 +162,7 @@ in
         };
 
         environment = {
-          GST_PLUGIN_PATH = makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
-            gst ++ instance.extraPackages
-          );
+          GST_PLUGIN_PATH = makeSearchPathOutput "lib" "lib/gstreamer-1.0" (gst ++ instance.extraPackages);
           V4L2_DEVICE_FILE = "/run/v4l2-relayd-${instance.name}/device";
         };
 
@@ -212,9 +210,7 @@ in
           map
             (
               instance:
-              nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (
-                mkInstanceService instance
-              )
+              nameValuePair "v4l2-relayd-${escapeSystemdPath instance.name}" (mkInstanceService instance)
             )
             instances
         );

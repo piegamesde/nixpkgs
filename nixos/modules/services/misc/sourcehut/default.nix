@@ -83,9 +83,7 @@ let
       );
   commonServiceSettings = srv: {
     origin = mkOption {
-      description =
-        lib.mdDoc
-          "URL ${srv}.sr.ht is being served at (protocol://domain)";
+      description = lib.mdDoc "URL ${srv}.sr.ht is being served at (protocol://domain)";
       type = types.str;
       default = "https://${srv}.${domain}";
       defaultText = "https://${srv}.example.com";
@@ -105,11 +103,9 @@ let
       type = types.str;
       default = "postgresql:///localhost?user=${srv}srht&host=/run/postgresql";
     };
-    migrate-on-upgrade =
-      mkEnableOption (lib.mdDoc "automatic migrations on package upgrade")
-      // {
-        default = true;
-      };
+    migrate-on-upgrade = mkEnableOption (lib.mdDoc "automatic migrations on package upgrade") // {
+      default = true;
+    };
     oauth-client-id = mkOption {
       description = lib.mdDoc "${srv}.sr.ht's OAuth client id for meta.sr.ht.";
       type = types.str;
@@ -209,9 +205,7 @@ in
       virtualHost = mkOption {
         type = types.attrs;
         default = { };
-        description =
-          lib.mdDoc
-            "Virtual-host configuration merged with all Sourcehut's virtual-hosts.";
+        description = lib.mdDoc "Virtual-host configuration merged with all Sourcehut's virtual-hosts.";
       };
     };
 
@@ -224,9 +218,7 @@ in
     };
 
     redis = {
-      enable = mkEnableOption (
-        lib.mdDoc "local redis integration in a dedicated redis-server"
-      );
+      enable = mkEnableOption (lib.mdDoc "local redis integration in a dedicated redis-server");
     };
 
     settings = mkOption {
@@ -239,9 +231,7 @@ in
             example = "example.com";
           };
           environment = mkOption {
-            description =
-              lib.mdDoc
-                ''Values other than "production" adds a banner to each page.'';
+            description = lib.mdDoc ''Values other than "production" adds a banner to each page.'';
             type = types.enum [
               "development"
               "production"
@@ -343,9 +333,7 @@ in
             default = null;
           };
           s3-access-key = mkOption {
-            description =
-              lib.mdDoc
-                "Access key to the S3-compatible object storage service";
+            description = lib.mdDoc "Access key to the S3-compatible object storage service";
             type = with types; nullOr str;
             default = null;
           };
@@ -598,9 +586,7 @@ in
               type = types.str;
               default = "redis+socket:///run/redis-sourcehut-metasrht/redis.sock?virtual_host=1";
             };
-            welcome-emails = mkEnableOption (
-              lib.mdDoc "sending stock sourcehut welcome emails after signup"
-            );
+            welcome-emails = mkEnableOption (lib.mdDoc "sending stock sourcehut welcome emails after signup");
           };
         options."meta.sr.ht::api" = {
           internal-ipnet = mkOption {
@@ -618,9 +604,7 @@ in
           };
         };
         options."meta.sr.ht::aliases" = mkOption {
-          description =
-            lib.mdDoc
-              "Aliases for the client IDs of commonly used OAuth clients.";
+          description = lib.mdDoc "Aliases for the client IDs of commonly used OAuth clients.";
           type = with types; attrsOf int;
           default = { };
           example = {
@@ -825,9 +809,7 @@ in
             "--pool eventlet"
             "--without-heartbeat"
           ];
-          description =
-            lib.mdDoc
-              "Extra arguments passed to the Celery responsible for processing mails.";
+          description = lib.mdDoc "Extra arguments passed to the Celery responsible for processing mails.";
         };
         celeryConfig = mkOption {
           type = types.lines;
@@ -892,8 +874,7 @@ in
           # - /var/log/{build,git,hg}srht-keys
           # - /var/log/{git,hg}srht-shell
           # - /var/log/gitsrht-update-hook
-          authorizedKeysCommand = ''
-            /etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
+          authorizedKeysCommand = ''/etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
           # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
           authorizedKeysCommandUser = "root";
           extraConfig = ''
@@ -1130,9 +1111,7 @@ in
             # Allow nginx access to buildlogs
             users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [
-                cfg.settings."builds.sr.ht::worker".buildlogs
-              ];
+              serviceConfig.BindReadOnlyPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
             };
             services.nginx.virtualHosts."logs.${domain}" = mkMerge [
               {
@@ -1154,9 +1133,7 @@ in
       let
         baseService = {
           path = [ cfg.git.package ];
-          serviceConfig.BindPaths = [
-            "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
-          ];
+          serviceConfig.BindPaths = [ "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos" ];
         };
       in
       {
@@ -1193,9 +1170,7 @@ in
             # Probably could use gitsrht-shell if output is restricted to just parameters...
             users.users.${cfg.git.user}.shell = pkgs.bash;
             services.sourcehut.settings = {
-              "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" =
-                mkDefault
-                  "${cfg.git.user}:${cfg.git.group}";
+              "git.sr.ht::dispatch"."/usr/bin/gitsrht-keys" = mkDefault "${cfg.git.user}:${cfg.git.group}";
             };
             systemd.services.sshd = baseService;
           }
@@ -1248,16 +1223,12 @@ in
         extraServices.gitsrht-fcgiwrap = mkIf cfg.nginx.enable {
           serviceConfig = {
             # Socket is passed by gitsrht-fcgiwrap.socket
-            ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${
-                toString cfg.git.fcgiwrap.preforkProcess
-              }";
+            ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${toString cfg.git.fcgiwrap.preforkProcess}";
             # No need for config.ini
             ExecStartPre = mkForce [ ];
             User = null;
             DynamicUser = true;
-            BindReadOnlyPaths = [
-              "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"
-            ];
+            BindReadOnlyPaths = [ "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos" ];
             IPAddressDeny = "any";
             InaccessiblePaths = [
               "-+/run/postgresql"
@@ -1284,9 +1255,7 @@ in
       let
         baseService = {
           path = [ cfg.hg.package ];
-          serviceConfig.BindPaths = [
-            "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"
-          ];
+          serviceConfig.BindPaths = [ "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos" ];
         };
       in
       {
@@ -1324,9 +1293,7 @@ in
             services.sourcehut.settings = {
               # Note that git.sr.ht::dispatch is not a typo,
               # gitsrht-dispatch always uses this section.
-              "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" =
-                mkDefault
-                  "${cfg.hg.user}:${cfg.hg.group}";
+              "git.sr.ht::dispatch"."/usr/bin/hgsrht-keys" = mkDefault "${cfg.hg.user}:${cfg.hg.group}";
             };
             systemd.services.sshd = baseService;
           }
@@ -1404,10 +1371,7 @@ in
         extraServices.listssrht-process = {
           serviceConfig = {
             preStart = ''
-              cp ${
-                pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
-                  cfg.lists.process.celeryConfig
-              } \
+              cp ${pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" cfg.lists.process.celeryConfig} \
                  /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
             '';
             ExecStart =
@@ -1467,15 +1431,11 @@ in
                     srv = head srvMatch;
                   in
                   # Configure client(s) as "preauthorized"
-                  optionalString
-                    (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null))
-                    ''
-                      # Configure ${srv}'s OAuth client as "preauthorized"
-                      ${postgresql.package}/bin/psql '${
-                        cfg.settings."meta.sr.ht".connection-string
-                      }' \
-                        -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-                    ''
+                  optionalString (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null)) ''
+                    # Configure ${srv}'s OAuth client as "preauthorized"
+                    ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \
+                      -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+                  ''
                 )
                 cfg.settings
             )
@@ -1492,8 +1452,7 @@ in
                 let
                   s = cfg.settings."meta.sr.ht::billing";
                 in
-                s.enabled == "yes"
-                -> (s.stripe-public-key != null && s.stripe-secret-key != null);
+                s.enabled == "yes" -> (s.stripe-public-key != null && s.stripe-secret-key != null);
               message = "If meta.sr.ht::billing is enabled, the keys must be defined.";
             }
           ];
@@ -1568,9 +1527,7 @@ in
             ${optionalString cfg.settings.${iniKey}.migrate-on-upgrade ''
               # Just try all the migrations because they're not linked to the version
               for sql in ${pkgs.sourcehut.pagessrht}/share/sql/migrations/*.sql; do
-                ${postgresql.package}/bin/psql '${
-                  cfg.settings.${iniKey}.connection-string
-                }' -f "$sql" || true
+                ${postgresql.package}/bin/psql '${cfg.settings.${iniKey}.connection-string}' -f "$sql" || true
               done
             ''}
 
@@ -1580,9 +1537,7 @@ in
           serviceConfig = {
             ExecStart =
               mkForce
-                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${
-                  toString cfg.pages.port
-                }";
+                "${pkgs.sourcehut.pagessrht}/bin/pages.sr.ht -b ${cfg.listenAddress}:${toString cfg.pages.port}";
           };
         };
     })

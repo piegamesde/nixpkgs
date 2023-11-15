@@ -47,9 +47,7 @@ buildPythonPackage rec {
   ];
 
   buildPhase = ''
-    ${python.pythonForBuild.interpreter} setup.py bdist_wheel ${
-      lib.optionalString gpuSupport "--gpu"
-    }
+    ${python.pythonForBuild.interpreter} setup.py bdist_wheel ${lib.optionalString gpuSupport "--gpu"}
   '';
 
   postConfigure = ''

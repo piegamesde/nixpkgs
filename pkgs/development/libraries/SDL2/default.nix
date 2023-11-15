@@ -4,8 +4,7 @@
   config,
   fetchurl,
   pkg-config,
-  libGLSupported ?
-    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   openglSupport ? libGLSupported,
   libGL,
   alsaSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
@@ -39,8 +38,7 @@
   libdecor,
   pipewireSupport ? stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   pipewire, # NOTE: must be built with SDL2 without pipewire support
-  pulseaudioSupport ?
-    config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
+  pulseaudioSupport ? config.pulseaudio or stdenv.isLinux && !stdenv.hostPlatform.isAndroid,
   libpulseaudio,
   AudioUnit,
   Cocoa,
@@ -105,8 +103,7 @@ stdenv.mkDerivation rec {
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
     ++ lib.optionals x11Support [ libX11 ];
 
-  propagatedBuildInputs =
-    lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
+  propagatedBuildInputs = lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
 
   dlopenBuildInputs =
     lib.optionals alsaSupport [

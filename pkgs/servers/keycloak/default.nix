@@ -48,8 +48,7 @@ stdenv.mkDerivation rec {
           install -m 0500 "$1" "providers/"
         fi
       }
-      ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}")
-        plugins}
+      ${lib.concatMapStringsSep "\n" (pl: "install_plugin ${lib.escapeShellArg pl}") plugins}
     ''
     + ''
       patchShebangs bin/kc.sh

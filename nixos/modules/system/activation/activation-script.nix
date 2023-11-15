@@ -30,11 +30,7 @@ let
     set: onlyDry:
     let
       set' =
-        mapAttrs
-          (
-            _: v:
-            if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v
-          )
+        mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
           set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
@@ -48,10 +44,7 @@ let
           (
             a: v:
             if onlyDry && !v.supportsDryActivation then
-              v
-              // {
-                text = "#### Activation script snippet ${a} does not support dry activation.";
-              }
+              v // { text = "#### Activation script snippet ${a} does not support dry activation."; }
             else
               v
           )
@@ -112,9 +105,7 @@ let
           deps = mkOption {
             type = types.listOf types.str;
             default = [ ];
-            description =
-              lib.mdDoc
-                "List of dependencies. The script will run after these.";
+            description = lib.mdDoc "List of dependencies. The script will run after these.";
           };
           text = mkOption {
             type = types.lines;
@@ -174,15 +165,10 @@ in
     };
 
     system.dryActivationScript = mkOption {
-      description =
-        lib.mdDoc
-          "The shell script that is to be run when dry-activating a system.";
+      description = lib.mdDoc "The shell script that is to be run when dry-activating a system.";
       readOnly = true;
       internal = true;
-      default =
-        systemActivationScript
-          (removeAttrs config.system.activationScripts [ "script" ])
-          true;
+      default = systemActivationScript (removeAttrs config.system.activationScripts [ "script" ]) true;
       defaultText = literalMD "generated activation script";
     };
 

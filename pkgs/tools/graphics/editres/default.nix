@@ -26,9 +26,7 @@ stdenv.mkDerivation rec {
     utilmacros
   ];
 
-  configureFlags = [
-    "--with-appdefaultdir=$(out)/share/X11/app-defaults/editres"
-  ];
+  configureFlags = [ "--with-appdefaultdir=$(out)/share/X11/app-defaults/editres" ];
 
   hardeningDisable = [ "format" ];
 

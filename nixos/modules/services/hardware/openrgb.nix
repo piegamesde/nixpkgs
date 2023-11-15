@@ -29,9 +29,7 @@ in
         ]
       );
       default = null;
-      description =
-        lib.mdDoc
-          "CPU family of motherboard. Allows for addition motherboard i2c support.";
+      description = lib.mdDoc "CPU family of motherboard. Allows for addition motherboard i2c support.";
     };
 
     server.port = mkOption {
@@ -55,9 +53,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${
-            toString cfg.server.port
-          }";
+        ExecStart = "${cfg.package}/bin/openrgb --server --server-port ${toString cfg.server.port}";
         Restart = "always";
       };
     };

@@ -45,8 +45,7 @@ let
       { production = val; };
 
   # We only want to create a database if we're actually going to connect to it.
-  databaseActuallyCreateLocally =
-    cfg.databaseCreateLocally && cfg.databaseHost == "";
+  databaseActuallyCreateLocally = cfg.databaseCreateLocally && cfg.databaseHost == "";
 
   gitalyToml = pkgs.writeText "gitaly.toml" ''
     socket_path = "${lib.escape [ ''"'' ] gitalySocket}"
@@ -137,15 +136,11 @@ let
       omniauth.enabled = false;
       shared.path = "${cfg.statePath}/shared";
       gitaly.client_path = "${cfg.packages.gitaly}/bin";
-      backup =
-        {
-          gitaly_backup_path = "${cfg.packages.gitaly}/bin/gitaly-backup";
-          path = cfg.backup.path;
-          keep_time = cfg.backup.keepTime;
-        }
-        // (optionalAttrs (cfg.backup.uploadOptions != { }) {
-          upload = cfg.backup.uploadOptions;
-        });
+      backup = {
+        gitaly_backup_path = "${cfg.packages.gitaly}/bin/gitaly-backup";
+        path = cfg.backup.path;
+        keep_time = cfg.backup.keepTime;
+      } // (optionalAttrs (cfg.backup.uploadOptions != { }) { upload = cfg.backup.uploadOptions; });
       gitlab_shell = {
         path = "${cfg.packages.gitlab-shell}";
         hooks_path = "${cfg.statePath}/shell/hooks";
@@ -197,9 +192,7 @@ let
       SCHEMA = "${cfg.statePath}/db/structure.sql";
       GITLAB_UPLOADS_PATH = "${cfg.statePath}/uploads";
       GITLAB_LOG_PATH = "${cfg.statePath}/log";
-      GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (
-        builtins.toJSON redisConfig
-      );
+      GITLAB_REDIS_CONFIG_FILE = pkgs.writeText "redis.yml" (builtins.toJSON redisConfig);
       prometheus_multiproc_dir = "/run/gitlab";
       RAILS_ENV = "production";
       MALLOC_ARENA_MAX = "2";
@@ -225,11 +218,7 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rake $out/bin/gitlab-rake \
-          ${
-            concatStrings (
-              mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv
-            )
-          } \
+          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)} \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --set RAKEOPT '-f ${cfg.packages.gitlab}/share/gitlab/Rakefile' \
           --chdir '${cfg.packages.gitlab}/share/gitlab'
@@ -244,11 +233,7 @@ let
     installPhase = ''
       mkdir -p $out/bin
       makeWrapper ${cfg.packages.gitlab.rubyEnv}/bin/rails $out/bin/gitlab-rails \
-          ${
-            concatStrings (
-              mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv
-            )
-          } \
+          ${concatStrings (mapAttrsToList (name: value: "--set ${name} '${value}' ") gitlabEnv)} \
           --set PATH '${lib.makeBinPath runtimeDeps}:$PATH' \
           --chdir '${cfg.packages.gitlab}/share/gitlab'
     '';
@@ -264,17 +249,11 @@ let
       ActionMailer::Base.smtp_settings = {
         address: "${cfg.smtp.address}",
         port: ${toString cfg.smtp.port},
-        ${
-          optionalString (cfg.smtp.username != null)
-            ''user_name: "${cfg.smtp.username}",''
-        }
-        ${
-          optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''
-        }
+        ${optionalString (cfg.smtp.username != null) ''user_name: "${cfg.smtp.username}",''}
+        ${optionalString (cfg.smtp.passwordFile != null) ''password: "@smtpPassword@",''}
         domain: "${cfg.smtp.domain}",
         ${
-          optionalString (cfg.smtp.authentication != null)
-            "authentication: :${cfg.smtp.authentication},"
+          optionalString (cfg.smtp.authentication != null) "authentication: :${cfg.smtp.authentication},"
         }
         enable_starttls_auto: ${boolToString cfg.smtp.enableStartTLSAuto},
         tls: ${boolToString cfg.smtp.tls},
@@ -673,9 +652,7 @@ in
           type = types.bool;
           default = cfg.registry.enable;
           defaultText = literalExpression "config.${opt.registry.enable}";
-          description =
-            lib.mdDoc
-              "If GitLab container registry should be enabled by default for projects.";
+          description = lib.mdDoc "If GitLab container registry should be enabled by default for projects.";
         };
         issuer = mkOption {
           type = types.str;
@@ -690,15 +667,11 @@ in
         externalAddress = mkOption {
           type = types.str;
           default = "";
-          description =
-            lib.mdDoc
-              "External address used to access registry from the internet";
+          description = lib.mdDoc "External address used to access registry from the internet";
         };
         externalPort = mkOption {
           type = types.int;
-          description =
-            lib.mdDoc
-              "External port used to access registry from the internet";
+          description = lib.mdDoc "External port used to access registry from the internet";
         };
       };
 
@@ -898,9 +871,7 @@ in
             pages-root = mkOption {
               type = types.str;
               default = "${gitlabConfig.production.shared.path}/pages";
-              defaultText =
-                literalExpression
-                  ''config.${opt.extraConfig}.production.shared.path + "/pages"'';
+              defaultText = literalExpression ''config.${opt.extraConfig}.production.shared.path + "/pages"'';
               description = lib.mdDoc ''
                 The directory where pages are stored.
               '';
@@ -1351,9 +1322,7 @@ in
     };
 
     # Use postfix to send out mails.
-    services.postfix.enable = mkDefault (
-      cfg.smtp.enable && cfg.smtp.address == "localhost"
-    );
+    services.postfix.enable = mkDefault (cfg.smtp.enable && cfg.smtp.address == "localhost");
 
     users.users.${cfg.user} = {
       group = cfg.group;
@@ -1431,9 +1400,7 @@ in
               fi
             '';
           in
-          "+${
-            pkgs.writeShellScript "gitlab-pre-start-full-privileges" preStartFullPrivileges
-          }";
+          "+${pkgs.writeShellScript "gitlab-pre-start-full-privileges" preStartFullPrivileges}";
 
         ExecStart = pkgs.writeShellScript "gitlab-config" ''
           set -o errexit -o pipefail -o nounset
@@ -1498,10 +1465,7 @@ in
                 ''
             }
 
-            ${
-              utils.genJqSecretsReplacementSnippet gitlabConfig
-                "${cfg.statePath}/config/gitlab.yml"
-            }
+            ${utils.genJqSecretsReplacementSnippet gitlabConfig "${cfg.statePath}/config/gitlab.yml"}
 
             rm -f '${cfg.statePath}/config/secrets.yml'
 
@@ -1658,8 +1622,7 @@ in
               else if isSecret v then
                 builtins.hashString "sha256" v._secret
               else
-                throw
-                  "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+                throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
           };
         };
         secretPaths = lib.catAttrs "_secret" (lib.collect isSecret filteredConfig);
@@ -1673,9 +1636,7 @@ in
           }
         '';
         secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-        configFile = pkgs.writeText "gitlab-pages.conf" (
-          mkPagesKeyValue filteredConfig
-        );
+        configFile = pkgs.writeText "gitlab-pages.conf" (mkPagesKeyValue filteredConfig);
       in
       mkIf cfg.pages.enable {
         description = "GitLab static pages daemon";
@@ -1760,30 +1721,28 @@ in
       };
     };
 
-    systemd.services.gitlab-mailroom =
-      mkIf (gitlabConfig.production.incoming_email.enabled or false)
-        {
-          description = "GitLab incoming mail daemon";
-          after = [
-            "network.target"
-            "redis-gitlab.service"
-            "gitlab-config.service"
-          ];
-          bindsTo = [ "gitlab-config.service" ];
-          wantedBy = [ "gitlab.target" ];
-          partOf = [ "gitlab.target" ];
-          environment = gitlabEnv;
-          serviceConfig = {
-            Type = "simple";
-            TimeoutSec = "infinity";
-            Restart = "on-failure";
+    systemd.services.gitlab-mailroom = mkIf (gitlabConfig.production.incoming_email.enabled or false) {
+      description = "GitLab incoming mail daemon";
+      after = [
+        "network.target"
+        "redis-gitlab.service"
+        "gitlab-config.service"
+      ];
+      bindsTo = [ "gitlab-config.service" ];
+      wantedBy = [ "gitlab.target" ];
+      partOf = [ "gitlab.target" ];
+      environment = gitlabEnv;
+      serviceConfig = {
+        Type = "simple";
+        TimeoutSec = "infinity";
+        Restart = "on-failure";
 
-            User = cfg.user;
-            Group = cfg.group;
-            ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
-            WorkingDirectory = gitlabEnv.HOME;
-          };
-        };
+        User = cfg.user;
+        Group = cfg.group;
+        ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/bundle exec mail_room -c ${cfg.statePath}/config/mail_room.yml";
+        WorkingDirectory = gitlabEnv.HOME;
+      };
+    };
 
     systemd.services.gitlab = {
       after = [
@@ -1830,12 +1789,10 @@ in
       after = [ "gitlab.service" ];
       bindsTo = [ "gitlab.service" ];
       startAt = cfg.backup.startAt;
-      environment =
-        {
-          RAILS_ENV = "production";
-          CRON = "1";
-        }
-        // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; };
+      environment = {
+        RAILS_ENV = "production";
+        CRON = "1";
+      } // optionalAttrs (stringLength cfg.backup.skip > 0) { SKIP = cfg.backup.skip; };
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

@@ -33,20 +33,16 @@ rustPlatform.buildRustPackage rec {
       [
         # Pull a header that contains a definition of proc_pid_rusage().
         (runCommand "${pname}_headers" { } ''
-          install -Dm444 ${
-            lib.getDev darwin.apple_sdk.sdk
-          }/include/libproc.h $out/include/libproc.h
+          install -Dm444 ${lib.getDev darwin.apple_sdk.sdk}/include/libproc.h $out/include/libproc.h
         '')
       ];
 
   env.NIX_CFLAGS_COMPILE = "-L${libunwind}/lib";
 
   # error: linker `arm-linux-gnueabihf-gcc` not found
-  preConfigure =
-    lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-      ''
-        export RUSTFLAGS="-Clinker=$CC"
-      '';
+  preConfigure = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+    export RUSTFLAGS="-Clinker=$CC"
+  '';
 
   checkFlags =
     [

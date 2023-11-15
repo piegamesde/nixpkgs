@@ -12,9 +12,7 @@ let
 in
 {
   options.services.do-agent = {
-    enable = mkEnableOption (
-      lib.mdDoc "do-agent, the DigitalOcean droplet metrics agent"
-    );
+    enable = mkEnableOption (lib.mdDoc "do-agent, the DigitalOcean droplet metrics agent");
   };
 
   config = mkIf cfg.enable {

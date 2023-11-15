@@ -395,18 +395,12 @@ let
     TF_NEED_MPI = tfFeature cudaSupport;
 
     TF_NEED_CUDA = tfFeature cudaSupport;
-    TF_CUDA_PATHS =
-      lib.optionalString cudaSupport
-        "${cudatoolkit_joined},${cudnn},${nccl}";
+    TF_CUDA_PATHS = lib.optionalString cudaSupport "${cudatoolkit_joined},${cudnn},${nccl}";
     TF_CUDA_COMPUTE_CAPABILITIES = lib.concatStringsSep "," cudaCapabilities;
 
     # Needed even when we override stdenv: e.g. for ar
-    GCC_HOST_COMPILER_PREFIX =
-      lib.optionalString cudaSupport
-        "${cudatoolkit_cc_joined}/bin";
-    GCC_HOST_COMPILER_PATH =
-      lib.optionalString cudaSupport
-        "${cudatoolkit_cc_joined}/bin/cc";
+    GCC_HOST_COMPILER_PREFIX = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin";
+    GCC_HOST_COMPILER_PATH = lib.optionalString cudaSupport "${cudatoolkit_cc_joined}/bin/cc";
 
     postPatch =
       ''
@@ -497,8 +491,7 @@ let
           x86_64-darwin = "sha256-7O0zPs+damAjWXZn5C5SSWBp35C8QX3y4kCM7tYkM7s=";
           aarch64-darwin = "sha256-US7uunEBDo2NKI9UHvgThbQ7rA05HjQlUthw0gIINaI=";
         }
-        .${stdenv.hostPlatform.system}
-          or (throw "unsupported system ${stdenv.hostPlatform.system}");
+        .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}");
     };
 
     buildAttrs = {

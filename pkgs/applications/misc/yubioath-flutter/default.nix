@@ -20,9 +20,7 @@ flutter.buildFlutterApplication rec {
     sha256 = "sha256-N9/qwC79mG9r+zMPLHSPjNSQ+srGtnXuKsf0ijtH7CI=";
   };
 
-  passthru.helper = python3.pkgs.callPackage ./helper.nix {
-    inherit src version meta;
-  };
+  passthru.helper = python3.pkgs.callPackage ./helper.nix { inherit src version meta; };
 
   depsListFile = ./deps.json;
   vendorHash = "sha256-WfZiB7MO4wHUg81xm67BMu4zQdC9CfhN5BQol+AI2S8=";

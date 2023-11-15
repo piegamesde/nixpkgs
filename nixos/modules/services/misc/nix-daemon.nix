@@ -62,8 +62,7 @@ let
 
       mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
 
-      mkKeyValuePairs =
-        attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
+      mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
     in
     pkgs.writeTextFile {
       name = "nix.conf";
@@ -86,17 +85,10 @@ let
             set -e
             set +o pipefail
             NIX_CONF_DIR=$PWD \
-              ${cfg.package}/bin/nix show-config ${
-                optionalString (isNixAtLeast "2.3pre") "--no-net"
-              } \
-                ${
-                  optionalString (isNixAtLeast "2.4pre")
-                    "--option experimental-features nix-command"
-                } \
+              ${cfg.package}/bin/nix show-config ${optionalString (isNixAtLeast "2.3pre") "--no-net"} \
+                ${optionalString (isNixAtLeast "2.4pre") "--option experimental-features nix-command"} \
               |& sed -e 's/^warning:/error:/' \
-              | (! grep '${
-                if cfg.checkAllErrors then "^error:" else "^error: unknown setting"
-              }')
+              | (! grep '${if cfg.checkAllErrors then "^error:" else "^error: unknown setting"}')
             set -o pipefail
           ''
       );
@@ -574,8 +566,7 @@ in
                       path = config.flake.outPath;
                     }
                     //
-                      filterAttrs
-                        (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
+                      filterAttrs (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
                         config.flake
                   )
                 );
@@ -877,9 +868,7 @@ in
                 Invalid machine specifications:
             ''
             + "      "
-            + (concatStringsSep "\n      " (
-              map (m: m.hostName) (filter (badMachine) cfg.buildMachines)
-            ));
+            + (concatStringsSep "\n      " (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)));
         }
       ];
 
@@ -992,9 +981,7 @@ in
     # Legacy configuration conversion.
     nix.settings = mkMerge [
       {
-        trusted-public-keys = [
-          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        ];
+        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
         substituters = mkAfter [ "https://cache.nixos.org/" ];
 
         system-features = mkDefault (

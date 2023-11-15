@@ -33,9 +33,7 @@
   extraCMakeFlags ? [ ],
   extraPostPatch ? "",
   checkTargets ? [
-    (lib.optionalString buildTests (
-      if targetDir == "runtimes" then "check-runtimes" else "check-all"
-    ))
+    (lib.optionalString buildTests (if targetDir == "runtimes" then "check-runtimes" else "check-all"))
   ],
   extraPostInstall ? "",
   extraLicenses ? [ ],
@@ -51,9 +49,7 @@ let
     else
       throw "Unsupported ROCm LLVM platform";
   inferNativeTarget = t: if t == "NATIVE" then llvmNativeTarget else t;
-  llvmTargetsToBuild' = [
-    "AMDGPU"
-  ] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
+  llvmTargetsToBuild' = [ "AMDGPU" ] ++ builtins.map inferNativeTarget llvmTargetsToBuild;
 in
 stdenv.mkDerivation (
   finalAttrs: {
@@ -109,17 +105,12 @@ stdenv.mkDerivation (
     sourceRoot = "${finalAttrs.src.name}/${targetDir}";
 
     cmakeFlags =
-      [
-        "-DLLVM_TARGETS_TO_BUILD=${builtins.concatStringsSep ";" llvmTargetsToBuild'}"
-      ]
+      [ "-DLLVM_TARGETS_TO_BUILD=${builtins.concatStringsSep ";" llvmTargetsToBuild'}" ]
       ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
         "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
       ]
       ++
-        lib.optionals
-          (
-            (finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != [ ]
-          )
+        lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != [ ])
           [ "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}" ]
       ++ lib.optionals (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
         "-DLLVM_ENABLE_RTTI=ON"

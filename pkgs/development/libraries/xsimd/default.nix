@@ -25,9 +25,7 @@ stdenv.mkDerivation rec {
   GTEST_FILTER =
     let
       # Upstream Issue: https://github.com/xtensor-stack/xsimd/issues/456
-      filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [
-        "error_gamma_test/*"
-      ];
+      filteredTests = lib.optionals stdenv.hostPlatform.isDarwin [ "error_gamma_test/*" ];
     in
     "-${builtins.concatStringsSep ":" filteredTests}";
 

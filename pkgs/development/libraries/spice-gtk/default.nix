@@ -94,9 +94,7 @@ stdenv.mkDerivation rec {
       python3.pkgs.six
       vala
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      mesonEmulatorHook
-    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ mesonEmulatorHook ]
     ++ lib.optionals stdenv.isLinux [ wayland-scanner ];
 
   propagatedBuildInputs = [
@@ -134,9 +132,7 @@ stdenv.mkDerivation rec {
       wayland-protocols
     ];
 
-  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${
-      placeholder "out"
-    }/share/polkit-1/actions";
+  PKG_CONFIG_POLKIT_GOBJECT_1_POLICYDIR = "${placeholder "out"}/share/polkit-1/actions";
 
   mesonFlags =
     [

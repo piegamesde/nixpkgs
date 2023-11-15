@@ -13,16 +13,12 @@ in
 {
   options = {
     services.bazarr = {
-      enable = mkEnableOption (
-        lib.mdDoc "bazarr, a subtitle manager for Sonarr and Radarr"
-      );
+      enable = mkEnableOption (lib.mdDoc "bazarr, a subtitle manager for Sonarr and Radarr");
 
       openFirewall = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open ports in the firewall for the bazarr web interface.";
+        description = lib.mdDoc "Open ports in the firewall for the bazarr web interface.";
       };
 
       listenPort = mkOption {
@@ -67,9 +63,7 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listenPort ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.listenPort ]; };
 
     users.users = mkIf (cfg.user == "bazarr") {
       bazarr = {

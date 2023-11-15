@@ -20,8 +20,7 @@ let
 
   bootstrapping = versionType == "bootstrap";
 
-  installComponents =
-    "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
+  installComponents = "rustc,rust-std-${platform}" + (optionalString bootstrapping ",cargo");
 in
 
 rec {
@@ -90,13 +89,10 @@ rec {
       ];
     };
 
-    nativeBuildInputs = [
-      makeWrapper
-    ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
-    buildInputs =
-      [ bash ]
-      ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib
-      ++ lib.optional stdenv.isDarwin Security;
+    nativeBuildInputs = [ makeWrapper ] ++ lib.optional (!stdenv.isDarwin) autoPatchelfHook;
+    buildInputs = [
+      bash
+    ] ++ lib.optional (!stdenv.isDarwin) gcc.cc.lib ++ lib.optional stdenv.isDarwin Security;
 
     postPatch = ''
       patchShebangs .

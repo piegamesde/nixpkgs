@@ -211,9 +211,7 @@ lib.makeScope pkgs.newScope (
 
       php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer { };
 
-      php-parallel-lint =
-        callPackage ../development/php-packages/php-parallel-lint
-          { };
+      php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint { };
 
       phpcbf = callPackage ../development/php-packages/phpcbf { };
 
@@ -239,9 +237,7 @@ lib.makeScope pkgs.newScope (
 
         ast = callPackage ../development/php-packages/ast { };
 
-        blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix {
-          inherit php;
-        };
+        blackfire = pkgs.callPackage ../development/tools/misc/blackfire/php-probe.nix { inherit php; };
 
         couchbase = callPackage ../development/php-packages/couchbase { };
 
@@ -286,9 +282,7 @@ lib.makeScope pkgs.newScope (
           sourceRoot = "php-${version}/ext/pdo_oci";
 
           buildInputs = [ pkgs.oracle-instantclient ];
-          configureFlags = [
-            "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"
-          ];
+          configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
 
           internalDeps = [ php.extensions.pdo ];
 
@@ -403,9 +397,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "iconv";
-              configureFlags = [
-                "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}"
-              ];
+              configureFlags = [ "--with-iconv${lib.optionalString stdenv.isDarwin "=${libiconv}"}" ];
               doCheck = false;
             }
             {
@@ -503,8 +495,7 @@ lib.makeScope pkgs.newScope (
             }
             {
               name = "openssl";
-              buildInputs =
-                if (lib.versionAtLeast php.version "8.1") then [ openssl ] else [ openssl_1_1 ];
+              buildInputs = if (lib.versionAtLeast php.version "8.1") then [ openssl ] else [ openssl_1_1 ];
               configureFlags = [ "--with-openssl" ];
               doCheck = false;
             }

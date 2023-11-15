@@ -27,9 +27,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ libodb ];
   propagatedBuildInputs = [ sqlite ];
 
-  build2ConfigureFlags = [
-    "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"
-  ];
+  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
 
   doCheck = true;
 

@@ -10,9 +10,7 @@ with lib;
 {
   options = {
     services.pptpd = {
-      enable = mkEnableOption (
-        lib.mdDoc "pptpd, the Point-to-Point Tunneling Protocol daemon"
-      );
+      enable = mkEnableOption (lib.mdDoc "pptpd, the Point-to-Point Tunneling Protocol daemon");
 
       serverIp = mkOption {
         type = types.str;
@@ -62,9 +60,7 @@ with lib;
           pidfile /run/pptpd.pid
           localip ${cfg.serverIp}
           remoteip ${cfg.clientIpRange}
-          connections ${
-            toString cfg.maxClients
-          } # (Will get harmless warning if inconsistent with IP range)
+          connections ${toString cfg.maxClients} # (Will get harmless warning if inconsistent with IP range)
 
           # Extra
           ${cfg.extraPptpdOptions}

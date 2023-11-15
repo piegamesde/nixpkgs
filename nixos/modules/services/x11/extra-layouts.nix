@@ -82,9 +82,7 @@ let
     };
   };
 
-  xkb_patched = pkgs.xorg.xkeyboardconfig_custom {
-    layouts = config.services.xserver.extraLayouts;
-  };
+  xkb_patched = pkgs.xorg.xkeyboardconfig_custom { layouts = config.services.xserver.extraLayouts; };
 in
 
 {

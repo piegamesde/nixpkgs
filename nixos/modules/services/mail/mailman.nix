@@ -313,9 +313,7 @@ in
       };
 
       serve = {
-        enable = mkEnableOption (
-          lib.mdDoc "Automatic nginx and uwsgi setup for mailman-web"
-        );
+        enable = mkEnableOption (lib.mdDoc "Automatic nginx and uwsgi setup for mailman-web");
 
         virtualRoot = mkOption {
           default = "/";
@@ -328,9 +326,7 @@ in
       };
 
       extraPythonPackages = mkOption {
-        description =
-          lib.mdDoc
-            "Packages to add to the python environment used by mailman and mailman-web";
+        description = lib.mdDoc "Packages to add to the python environment used by mailman and mailman-web";
         type = types.listOf types.package;
         default = [ ];
       };
@@ -548,8 +544,7 @@ in
         webHost: {
           locations = {
             ${cfg.serve.virtualRoot}.extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
-            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias =
-              webSettings.STATIC_ROOT + "/";
+            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias = webSettings.STATIC_ROOT + "/";
           };
         }
       );
@@ -707,9 +702,7 @@ in
                     manage-script-name = true;
                   }
               );
-            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (
-              builtins.toJSON uwsgiConfig
-            );
+            uwsgiConfigFile = pkgs.writeText "uwsgi-mailman.json" (builtins.toJSON uwsgiConfig);
           in
           {
             wantedBy = [ "multi-user.target" ];

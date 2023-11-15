@@ -24,9 +24,7 @@ let
     version = lib.versions.majorMinor version;
 
     src = fetchurl {
-      url = "https://www.7kfans.com/downloads/7kaa-music-${
-          lib.versions.majorMinor version
-        }.tar.bz2";
+      url = "https://www.7kfans.com/downloads/7kaa-music-${lib.versions.majorMinor version}.tar.bz2";
       sha256 = "sha256-sNdntuJXGaFPXzSpN0SoAi17wkr2YnW+5U38eIaVwcM=";
     };
 
@@ -66,9 +64,7 @@ gccStdenv.mkDerivation rec {
     autoupdate
   '';
 
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [
-    "stackprotector"
-  ];
+  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
 
   postInstall = ''
     mkdir $out/share/7kaa/MUSIC

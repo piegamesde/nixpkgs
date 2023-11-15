@@ -23,9 +23,7 @@ in
 
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
-      description =
-        lib.mdDoc
-          "Extra environment variables to pass to the Garage server.";
+      description = lib.mdDoc "Extra environment variables to pass to the Garage server.";
       default = { };
       example = {
         RUST_BACKTRACE = "yes";
@@ -53,9 +51,7 @@ in
           metadata_dir = mkOption {
             default = "/var/lib/garage/meta";
             type = types.path;
-            description =
-              lib.mdDoc
-                "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
+            description = lib.mdDoc "The metadata directory, put this on a fast disk (e.g. SSD) if possible.";
           };
 
           data_dir = mkOption {
@@ -92,10 +88,7 @@ in
     package = mkOption {
       # TODO: when 23.05 is released and if Garage 0.9 is the default, put a stateVersion check.
       default =
-        if versionAtLeast config.system.stateVersion "23.05" then
-          pkgs.garage_0_8
-        else
-          pkgs.garage_0_7;
+        if versionAtLeast config.system.stateVersion "23.05" then pkgs.garage_0_8 else pkgs.garage_0_7;
       defaultText = literalExpression "pkgs.garage_0_7";
       type = types.package;
       description =

@@ -147,12 +147,8 @@ in
 
     services.dnsmasq.settings = {
       dhcp-leasefile = mkDefault "${stateDir}/dnsmasq.leases";
-      conf-file = mkDefault (
-        optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf"
-      );
-      resolv-file = mkDefault (
-        optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf"
-      );
+      conf-file = mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf");
+      resolv-file = mkDefault (optional cfg.resolveLocalQueries "/etc/dnsmasq-resolv.conf");
     };
 
     networking.nameservers = optional cfg.resolveLocalQueries "127.0.0.1";

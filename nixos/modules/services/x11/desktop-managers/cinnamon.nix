@@ -13,15 +13,12 @@ let
   cfg = config.services.xserver.desktopManager.cinnamon;
   serviceCfg = config.services.cinnamon;
 
-  nixos-gsettings-overrides =
-    pkgs.cinnamon.cinnamon-gsettings-overrides.override
-      {
-        extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
-        extraGSettingsOverrides = cfg.extraGSettingsOverrides;
-      };
+  nixos-gsettings-overrides = pkgs.cinnamon.cinnamon-gsettings-overrides.override {
+    extraGSettingsOverridePackages = cfg.extraGSettingsOverridePackages;
+    extraGSettingsOverrides = cfg.extraGSettingsOverrides;
+  };
 
-  notExcluded =
-    pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
+  notExcluded = pkg: (!(lib.elem pkg config.environment.cinnamon.excludePackages));
 in
 
 {
@@ -62,17 +59,13 @@ in
       default = [ ];
       example = literalExpression "[ pkgs.cinnamon.blueberry ]";
       type = types.listOf types.package;
-      description =
-        lib.mdDoc
-          "Which packages cinnamon should exclude from the default environment";
+      description = lib.mdDoc "Which packages cinnamon should exclude from the default environment";
     };
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.xserver.displayManager.sessionPackages = [
-        pkgs.cinnamon.cinnamon-common
-      ];
+      services.xserver.displayManager.sessionPackages = [ pkgs.cinnamon.cinnamon-common ];
 
       services.xserver.displayManager.lightdm.greeters.slick = {
         enable = mkDefault true;
@@ -117,8 +110,7 @@ in
       hardware.pulseaudio.enable = mkDefault true;
       security.polkit.enable = true;
       services.accounts-daemon.enable = true;
-      services.system-config-printer.enable =
-        (mkIf config.services.printing.enable (mkDefault true));
+      services.system-config-printer.enable = (mkIf config.services.printing.enable (mkDefault true));
       services.dbus.packages = with pkgs.cinnamon; [
         cinnamon-common
         cinnamon-screensaver

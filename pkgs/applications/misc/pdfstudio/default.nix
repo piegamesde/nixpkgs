@@ -23,8 +23,7 @@ let
     PDF Studio is an easy to use, full-featured PDF editing software. This is the standard/pro edition, which requires a license. For the free PDF Studio Viewer see the package pdfstudioviewer.
   '';
   pname = if (program == "pdfstudio") then "${program}${year}" else program;
-  desktopName =
-    if (program == "pdfstudio") then "PDF Studio ${year}" else "PDF Studio Viewer";
+  desktopName = if (program == "pdfstudio") then "PDF Studio ${year}" else "PDF Studio Viewer";
   dot2dash = str: builtins.replaceStrings [ "." ] [ "_" ] str;
 in
 {
@@ -56,9 +55,7 @@ in
     ;
     version = "${year}.2.1";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
-          dot2dash version
-        }_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
       sha256 = "sha256-yELpza2C3HJJIP+ZQP7x3Tfez0Nl6ctCbHCmTmpX3jo=";
     };
     extraBuildInputs = [
@@ -77,9 +74,7 @@ in
     ;
     version = "${year}.2.4";
     src = fetchurl {
-      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${
-          dot2dash version
-        }_linux64.deb";
+      url = "https://download.qoppa.com/pdfstudio/v${year}/PDFStudio_v${dot2dash version}_linux64.deb";
       sha256 = "sha256-bti+WI8JdOmUsHq8ijfxGC4ZsWXwbwwM26kuBgPDUMQ=";
     };
     extraBuildInputs = [

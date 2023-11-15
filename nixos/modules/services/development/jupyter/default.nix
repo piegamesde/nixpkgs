@@ -15,8 +15,7 @@ let
 
   kernels =
     (pkgs.jupyter-kernel.create {
-      definitions =
-        if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
+      definitions = if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
     });
 
   notebookConfig = pkgs.writeText "jupyter_config.py" ''
@@ -124,9 +123,7 @@ in
 
     kernels = mkOption {
       type = types.nullOr (
-        types.attrsOf (
-          types.submodule (import ./kernel-options.nix { inherit lib pkgs; })
-        )
+        types.attrsOf (types.submodule (import ./kernel-options.nix { inherit lib pkgs; }))
       );
 
       default = null;

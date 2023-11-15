@@ -38,9 +38,7 @@ buildPythonPackage rec {
     cloudpickle
   ];
 
-  disabledTests = [
-    "test_benchmarks"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
+  disabledTests = [ "test_benchmarks" ] ++ lib.optionals stdenv.isDarwin [ "test_multiprocessing" ];
 
   meta = with lib; {
     description = "Powerful declarative parser (and builder) for binary data";

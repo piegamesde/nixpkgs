@@ -45,13 +45,10 @@ let
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_aarch64.so";
     }
-    ++
-      lib.optional
-        (builtins.match "armv[67]l-linux" stdenv.hostPlatform.system != null)
-        {
-          jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
-          file = "libs/linux/libjSSC-2.8_armhf.so";
-        }
+    ++ lib.optional (builtins.match "armv[67]l-linux" stdenv.hostPlatform.system != null) {
+      jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
+      file = "libs/linux/libjSSC-2.8_armhf.so";
+    }
     ++ lib.optional (stdenv.hostPlatform.system == "x86_64-linux") {
       jar = "share/arduino/lib/jssc-2.8.0-arduino4.jar";
       file = "libs/linux/libjSSC-2.8_x86_64.so";
@@ -98,8 +95,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname =
-    (if withTeensyduino then "teensyduino" else "arduino")
-    + lib.optionalString (!withGui) "-core";
+    (if withTeensyduino then "teensyduino" else "arduino") + lib.optionalString (!withGui) "-core";
   version = "1.8.19";
 
   src = fetchFromGitHub {
@@ -119,8 +115,7 @@ stdenv.mkDerivation rec {
         linuxarm = "sha256-d+DbpER/4lFPcPDFeMG5f3WaUGn8pFchdIDo7Hm0XWs=";
         linuxaarch64 = "sha256-8keQzhWq7QlAGIbfHEe3lfxpJleMMvBORuPaNrLmM6Y=";
       }
-      .${teensy_architecture}
-        or (throw "No arduino binaries for ${teensy_architecture}");
+      .${teensy_architecture} or (throw "No arduino binaries for ${teensy_architecture}");
   };
   # Used because teensyduino requires jars be a specific size
   arduino_dist_src = fetchurl {
@@ -132,8 +127,7 @@ stdenv.mkDerivation rec {
         linuxarm = "sha256-lJ/R1ePq7YtDk3bvloFcn8jswrJH+L63tvH5QpTqfXs=";
         linuxaarch64 = "sha256-gm8cDjLKNfpcaeO7fw6Kyv1TnWV/ZmH4u++nun9X6jo=";
       }
-      .${teensy_architecture}
-        or (throw "No arduino binaries for ${teensy_architecture}");
+      .${teensy_architecture} or (throw "No arduino binaries for ${teensy_architecture}");
   };
 
   # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,
@@ -282,8 +276,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open-source electronics prototyping platform";
     homepage = "https://www.arduino.cc/";
-    license =
-      if withTeensyduino then licenses.unfreeRedistributable else licenses.gpl2;
+    license = if withTeensyduino then licenses.unfreeRedistributable else licenses.gpl2;
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode

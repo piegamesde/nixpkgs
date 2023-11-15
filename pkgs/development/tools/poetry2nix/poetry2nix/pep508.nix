@@ -15,8 +15,7 @@ let
     builtins.substring start (stop - start) s;
 
   # Strip leading/trailing whitespace from string
-  stripStr =
-    s: lib.elemAt (builtins.split "^ *" (lib.elemAt (builtins.split " *$" s) 0)) 2;
+  stripStr = s: lib.elemAt (builtins.split "^ *" (lib.elemAt (builtins.split " *$" s) 0)) 2;
   findSubExpressionsFun =
     acc: c:
     (
@@ -79,9 +78,9 @@ let
       splitCond =
         (
           s:
-          builtins.map
-            (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x))
-            (builtins.split " (and|or) " (s + " "))
+          builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (
+            builtins.split " (and|or) " (s + " ")
+          )
         );
       mapfn =
         expr:
@@ -104,15 +103,10 @@ let
               value = expr;
             }
         );
-      parse =
-        expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
+      parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
     builtins.foldl'
-      (
-        acc: v:
-        acc
-        ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
-      )
+      (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
       [ ]
       exprs;
 
@@ -163,11 +157,7 @@ let
         # extra = "";
       };
       substituteVar =
-        value:
-        if builtins.hasAttr value variables then
-          (builtins.toJSON variables."${value}")
-        else
-          value;
+        value: if builtins.hasAttr value variables then (builtins.toJSON variables."${value}") else value;
       processVar =
         value:
         builtins.foldl' (acc: v: v acc) value [
@@ -241,9 +231,7 @@ let
           let
             parts = builtins.splitVersion c;
             pruned = lib.take ((builtins.length parts) - 1) parts;
-            upper = builtins.toString (
-              (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1
-            );
+            upper = builtins.toString ((lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1);
             upperConstraint = builtins.concatStringsSep "." (
               ireplace (builtins.length pruned - 1) upper pruned
             );
@@ -253,9 +241,7 @@ let
         "in" =
           x: y:
           let
-            values = builtins.filter (x: builtins.typeOf x == "string") (
-              builtins.split " " (unmarshal y)
-            );
+            values = builtins.filter (x: builtins.typeOf x == "string") (builtins.split " " (unmarshal y));
           in
           builtins.elem (unmarshal x) values;
       };

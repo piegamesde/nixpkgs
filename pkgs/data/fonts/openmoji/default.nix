@@ -52,9 +52,7 @@ let
       buildInputs = old.buildInputs ++ [ libuninameslist ];
     }
   );
-  scfbuild-with-fontforge-20201107 = scfbuild.override (
-    old: { fontforge = fontforge-20201107; }
-  );
+  scfbuild-with-fontforge-20201107 = scfbuild.override (old: { fontforge = fontforge-20201107; });
 in
 stdenv.mkDerivation rec {
   pname = "openmoji";

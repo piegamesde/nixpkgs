@@ -37,9 +37,7 @@ stdenv.mkDerivation rec {
 
   dontDropIconThemeCache = true;
 
-  passthru.updateScript = httpTwoLevelsUpdater {
-    url = "https://archive.xfce.org/src/art/${pname}";
-  };
+  passthru.updateScript = httpTwoLevelsUpdater { url = "https://archive.xfce.org/src/art/${pname}"; };
 
   meta = with lib; {
     homepage = "https://www.xfce.org/";

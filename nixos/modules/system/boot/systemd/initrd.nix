@@ -86,9 +86,7 @@ let
   enabledUpstreamUnits = filter (n: !elem n cfg.suppressedUnits) upstreamUnits;
   enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedUnits) cfg.units;
   jobScripts = concatLists (
-    mapAttrsToList (_: unit: unit.jobScripts or [ ]) (
-      filterAttrs (_: v: v.enable) cfg.services
-    )
+    mapAttrsToList (_: unit: unit.jobScripts or [ ]) (filterAttrs (_: v: v.enable) cfg.services)
   );
 
   stage1Units = generateUnits {
@@ -105,14 +103,11 @@ let
   needGrowfs = lib.any (fs: fs.autoResize) fileSystems;
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
-  modulesTree = config.system.modulesTree.override {
-    name = kernel-name + "-modules";
-  };
+  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
   firmware = config.hardware.firmware;
   # Determine the set of modules that we need to mount the root FS.
   modulesClosure = pkgs.makeModulesClosure {
-    rootModules =
-      config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
+    rootModules = config.boot.initrd.availableKernelModules ++ config.boot.initrd.kernelModules;
     kernel = modulesTree;
     firmware = firmware;
     allowMissing = false;
@@ -395,14 +390,12 @@ in
       inherit initialRamdisk;
     };
 
-    boot.initrd.availableKernelModules =
-      [
-        # systemd needs this for some features
-        "autofs4"
-        # systemd-cryptenroll
-        "tpm-tis"
-      ]
-      ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
+    boot.initrd.availableKernelModules = [
+      # systemd needs this for some features
+      "autofs4"
+      # systemd-cryptenroll
+      "tpm-tis"
+    ] ++ lib.optional (pkgs.stdenv.hostPlatform.system != "riscv64-linux") "tpm-crb";
 
     boot.initrd.systemd = {
       initrdBin = [
@@ -440,9 +433,7 @@ in
           "/lib/modules".source = "${modulesClosure}/lib/modules";
           "/lib/firmware".source = "${modulesClosure}/lib/firmware";
 
-          "/etc/modules-load.d/nixos.conf".text =
-            concatStringsSep "\n"
-              config.boot.initrd.kernelModules;
+          "/etc/modules-load.d/nixos.conf".text = concatStringsSep "\n" config.boot.initrd.kernelModules;
 
           # We can use either ! or * to lock the root account in the
           # console, but some software like OpenSSH won't even allow you
@@ -459,19 +450,16 @@ in
 
           "/etc/sysctl.d/nixos.conf".text = "kernel.modprobe = /sbin/modprobe";
           "/etc/modprobe.d/systemd.conf".source = "${cfg.package}/lib/modprobe.d/systemd.conf";
-          "/etc/modprobe.d/ubuntu.conf".source =
-            pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { }
-              ''
-                ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
-              '';
+          "/etc/modprobe.d/ubuntu.conf".source = pkgs.runCommand "initrd-kmod-blacklist-ubuntu" { } ''
+            ${pkgs.buildPackages.perl}/bin/perl -0pe 's/## file: iwlwifi.conf(.+?)##/##/s;' $src > $out
+          '';
           "/etc/modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
           "/etc/os-release".source = config.boot.initrd.osRelease;
           "/etc/initrd-release".source = config.boot.initrd.osRelease;
         }
         // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
-          "/etc/modprobe.d/nixos.conf".source =
-            config.environment.etc."modprobe.d/nixos.conf".source;
+          "/etc/modprobe.d/nixos.conf".source = config.environment.etc."modprobe.d/nixos.conf".source;
         };
 
       storePaths =
@@ -517,9 +505,7 @@ in
       targets.initrd.aliases = [ "default.target" ];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit n v)) cfg.paths
-        //
-          mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v))
-            cfg.services
+        // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit n v)) cfg.services
         // mapAttrs' (n: v: nameValuePair "${n}.slice" (sliceToUnit n v)) cfg.slices
         // mapAttrs' (n: v: nameValuePair "${n}.socket" (socketToUnit n v)) cfg.sockets
         // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets

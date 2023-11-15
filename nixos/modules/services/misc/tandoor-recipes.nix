@@ -17,16 +17,12 @@ let
       DEBUG = "0";
       MEDIA_ROOT = "/var/lib/tandoor-recipes";
     }
-    // optionalAttrs (config.time.timeZone != null) {
-      TIMEZONE = config.time.timeZone;
-    }
+    // optionalAttrs (config.time.timeZone != null) { TIMEZONE = config.time.timeZone; }
     // (lib.mapAttrs (_: toString) cfg.extraConfig);
 
   manage =
     let
-      setupEnv = lib.concatStringsSep "\n" (
-        mapAttrsToList (name: val: ''export ${name}="${val}"'') env
-      );
+      setupEnv = lib.concatStringsSep "\n" (mapAttrsToList (name: val: ''export ${name}="${val}"'') env);
     in
     pkgs.writeShellScript "manage" ''
       ${setupEnv}

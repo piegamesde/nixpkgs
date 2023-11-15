@@ -40,9 +40,7 @@ buildPythonPackage rec {
         cudatoolkit.out
       ]
     )
-    ++ lib.optionals openclSupport (
-      [ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd
-    )
+    ++ lib.optionals openclSupport ([ clblas ] ++ lib.optional (!stdenv.isDarwin) ocl-icd)
   );
 
   preBuild = ''

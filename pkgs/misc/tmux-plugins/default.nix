@@ -285,9 +285,7 @@ rec {
       wrapProgram $target/scripts/$f \
         --prefix PATH : ${
           with pkgs;
-          lib.makeBinPath (
-            [ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ]
-          )
+          lib.makeBinPath ([ gawk ] ++ lib.optionals stdenv.isDarwin [ reattach-to-user-namespace ])
         }
       done
     '';

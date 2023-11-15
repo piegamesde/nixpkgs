@@ -93,10 +93,7 @@ in
     package = mkOption {
       type = types.package;
       default =
-        if versionAtLeast config.system.stateVersion "23.05" then
-          pkgs.netbox
-        else
-          pkgs.netbox_3_3;
+        if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       defaultText = literalExpression ''
         if versionAtLeast config.system.stateVersion "23.05" then pkgs.netbox else pkgs.netbox_3_3;
       '';
@@ -224,9 +221,7 @@ in
           };
         };
 
-        REMOTE_AUTH_BACKEND =
-          lib.mkIf cfg.enableLdap
-            "netbox.authentication.LDAPBackend";
+        REMOTE_AUTH_BACKEND = lib.mkIf cfg.enableLdap "netbox.authentication.LDAPBackend";
 
         LOGGING = lib.mkDefault {
           version = 1;
@@ -378,8 +373,6 @@ in
       group = "netbox";
     };
     users.groups.netbox = { };
-    users.groups."${config.services.redis.servers.netbox.user}".members = [
-      "netbox"
-    ];
+    users.groups."${config.services.redis.servers.netbox.user}".members = [ "netbox" ];
   };
 }

@@ -60,13 +60,7 @@
   buildPackages,
 }:
 
-assert langJava
-  ->
-    zip != null
-    && unzip != null
-    && zlib != null
-    && boehmgc != null
-    && perl != null; # for `--enable-java-home'
+assert langJava -> zip != null && unzip != null && zlib != null && boehmgc != null && perl != null; # for `--enable-java-home'
 
 # We enable the isl cloog backend.
 assert cloog != null -> isl != null;
@@ -405,18 +399,13 @@ stdenv.mkDerivation (
 
     configureFlags = callFile ../common/configure-flags.nix { };
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
+      if profiledCompiler then "profiledbootstrap" else "bootstrap"
+    );
 
-    inherit (callFile ../common/strip-attributes.nix { })
-      stripDebugList
-      stripDebugListTarget
-      preFixup
-    ;
+    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
@@ -500,11 +489,7 @@ stdenv.mkDerivation (
 
   //
     optionalAttrs
-      (
-        targetPlatform != hostPlatform
-        && targetPlatform.libc == "msvcrt"
-        && crossStageStatic
-      )
+      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

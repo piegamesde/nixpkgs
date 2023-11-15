@@ -35,9 +35,7 @@ stdenv.mkDerivation rec {
 
   postPatch = lib.optionalString (!enableLTO) ''
     sed -i src/CMakeLists.txt \
-        -e 's/-flto/${
-          lib.optionalString stdenv.cc.isGNU "-Wno-error=format-truncation"
-        }/'
+        -e 's/-flto/${lib.optionalString stdenv.cc.isGNU "-Wno-error=format-truncation"}/'
   '';
 
   cmakeFlags =

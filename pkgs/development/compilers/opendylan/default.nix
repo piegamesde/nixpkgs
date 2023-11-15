@@ -31,13 +31,11 @@ stdenv.mkDerivation {
     autoconf
     automake
   ];
-  buildInputs =
-    (if stdenv.hostPlatform.system == "i686-linux" then [ mps ] else [ boehmgc ])
-    ++ [
-      opendylan-bootstrap
-      boehmgc
-      perl
-    ];
+  buildInputs = (if stdenv.hostPlatform.system == "i686-linux" then [ mps ] else [ boehmgc ]) ++ [
+    opendylan-bootstrap
+    boehmgc
+    perl
+  ];
 
   preConfigure =
     if stdenv.hostPlatform.system == "i686-linux" then

@@ -17,9 +17,7 @@ let
       DATABASE_NAME = '${cfg.databaseName}'
       LOG_FILE = '${cfg.logDir}/alertad.log'
       LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-      CORS_ORIGINS = [ ${
-        concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins
-      } ];
+      CORS_ORIGINS = [ ${concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins} ];
       AUTH_REQUIRED = ${if cfg.authenticationRequired then "True" else "False"}
       SIGNUP_ENABLED = ${if cfg.signupEnabled then "True" else "False"}
       ${cfg.extraConfig}
@@ -39,9 +37,7 @@ in
     bind = mkOption {
       type = types.str;
       default = "0.0.0.0";
-      description =
-        lib.mdDoc
-          "Address to bind to. The default is to bind to all addresses";
+      description = lib.mdDoc "Address to bind to. The default is to bind to all addresses";
     };
 
     logDir = mkOption {
@@ -52,9 +48,7 @@ in
 
     databaseUrl = mkOption {
       type = types.str;
-      description =
-        lib.mdDoc
-          "URL of the MongoDB or PostgreSQL database to connect to";
+      description = lib.mdDoc "URL of the MongoDB or PostgreSQL database to connect to";
       default = "mongodb://localhost";
     };
 
@@ -85,9 +79,7 @@ in
 
     signupEnabled = mkOption {
       type = types.bool;
-      description =
-        lib.mdDoc
-          "Whether to prevent sign-up of new users via the web UI";
+      description = lib.mdDoc "Whether to prevent sign-up of new users via the web UI";
       default = true;
     };
 
@@ -109,9 +101,7 @@ in
         ALERTA_SVR_CONF_FILE = alertaConf;
       };
       serviceConfig = {
-        ExecStart = "${pkgs.alerta-server}/bin/alertad run --port ${
-            toString cfg.port
-          } --host ${cfg.bind}";
+        ExecStart = "${pkgs.alerta-server}/bin/alertad run --port ${toString cfg.port} --host ${cfg.bind}";
         User = "alerta";
         Group = "alerta";
       };

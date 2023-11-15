@@ -100,9 +100,7 @@ rec {
   isMacAddress =
     s:
     stringLength s == 17
-    && flip all (splitString ":" s) (
-      bytes: all (byte: elem byte hexChars) (stringToCharacters bytes)
-    );
+    && flip all (splitString ":" s) (bytes: all (byte: elem byte hexChars) (stringToCharacters bytes));
 
   assertMacAddress =
     name: group: attr:
@@ -119,9 +117,7 @@ rec {
   assertValueOneOf =
     name: values: group: attr:
     optional (attr ? ${name} && !elem attr.${name} values)
-      "Systemd ${group} field `${name}' cannot have value `${
-        toString attr.${name}
-      }'.";
+      "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'.";
 
   assertHasField =
     name: group: attr:
@@ -130,16 +126,12 @@ rec {
   assertRange =
     name: min: max: group: attr:
     optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
-      "Systemd ${group} field `${name}' is outside the range [${toString min},${
-        toString max
-      }]";
+      "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
 
   assertMinimum =
     name: min: group: attr:
     optional (attr ? ${name} && attr.${name} < min)
-      "Systemd ${group} field `${name}' must be greater than or equal to ${
-        toString min
-      }";
+      "Systemd ${group} field `${name}' must be greater than or equal to ${toString min}";
 
   assertOnlyFields =
     fields: group: attr:
@@ -174,10 +166,7 @@ rec {
           attrs;
       errors = concatMap (c: c group defs) checks;
     in
-    if errors == [ ] then
-      true
-    else
-      builtins.trace (concatStringsSep "\n" errors) false;
+    if errors == [ ] then true else builtins.trace (concatStringsSep "\n" errors) false;
 
   toOption =
     x:
@@ -292,10 +281,7 @@ rec {
           toString (
             mapAttrsToList (n: v: v.unit) (
               lib.filterAttrs
-                (
-                  n: v:
-                  (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists"
-                )
+                (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
                 units
             )
           )
@@ -328,8 +314,7 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin")
-                units
+              lib.filterAttrs (n: v: v ? overrideStrategy && v.overrideStrategy == "asDropin") units
             )
           )
         }; do
@@ -435,30 +420,18 @@ rec {
           // optionalAttrs (config.before != [ ]) { Before = toString config.before; }
           // optionalAttrs (config.bindsTo != [ ]) { BindsTo = toString config.bindsTo; }
           // optionalAttrs (config.partOf != [ ]) { PartOf = toString config.partOf; }
-          // optionalAttrs (config.conflicts != [ ]) {
-            Conflicts = toString config.conflicts;
-          }
-          // optionalAttrs (config.requisite != [ ]) {
-            Requisite = toString config.requisite;
-          }
+          // optionalAttrs (config.conflicts != [ ]) { Conflicts = toString config.conflicts; }
+          // optionalAttrs (config.requisite != [ ]) { Requisite = toString config.requisite; }
           // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
             X-Restart-Triggers = toString config.restartTriggers;
           }
           // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) {
             X-Reload-Triggers = toString config.reloadTriggers;
           }
-          // optionalAttrs (config.description != "") {
-            Description = config.description;
-          }
-          // optionalAttrs (config.documentation != [ ]) {
-            Documentation = toString config.documentation;
-          }
-          // optionalAttrs (config.onFailure != [ ]) {
-            OnFailure = toString config.onFailure;
-          }
-          // optionalAttrs (config.onSuccess != [ ]) {
-            OnSuccess = toString config.onSuccess;
-          }
+          // optionalAttrs (config.description != "") { Description = config.description; }
+          // optionalAttrs (config.documentation != [ ]) { Documentation = toString config.documentation; }
+          // optionalAttrs (config.onFailure != [ ]) { OnFailure = toString config.onFailure; }
+          // optionalAttrs (config.onSuccess != [ ]) { OnSuccess = toString config.onSuccess; }
           // optionalAttrs (options.startLimitIntervalSec.isDefined) {
             StartLimitIntervalSec = toString config.startLimitIntervalSec;
           }
@@ -575,8 +548,7 @@ rec {
           ''
         else
           ""}
-        ${optionalString (def ? stopIfChanged && !def.stopIfChanged)
-          "X-StopIfChanged=false"}
+        ${optionalString (def ? stopIfChanged && !def.stopIfChanged) "X-StopIfChanged=false"}
         ${attrsToSection def.serviceConfig}
       '';
   };

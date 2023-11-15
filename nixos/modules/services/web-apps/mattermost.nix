@@ -27,22 +27,16 @@ let
       if ! test -e ${escapeShellArg "${statePath}/.db-created"}; then
         ${
           lib.optionalString useSudo
-            "${pkgs.sudo}/bin/sudo -u ${
-              escapeShellArg config.services.postgresql.superUser
-            } \\"
+            "${pkgs.sudo}/bin/sudo -u ${escapeShellArg config.services.postgresql.superUser} \\"
         }
           ${postgresPackage}/bin/psql postgres -c \
             "CREATE ROLE ${localDatabaseUser} WITH LOGIN NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '${localDatabasePassword}'"
         ${
           lib.optionalString useSudo
-            "${pkgs.sudo}/bin/sudo -u ${
-              escapeShellArg config.services.postgresql.superUser
-            } \\"
+            "${pkgs.sudo}/bin/sudo -u ${escapeShellArg config.services.postgresql.superUser} \\"
         }
           ${postgresPackage}/bin/createdb \
-            --owner ${escapeShellArg localDatabaseUser} ${
-              escapeShellArg localDatabaseName
-            }
+            --owner ${escapeShellArg localDatabaseUser} ${escapeShellArg localDatabaseName}
         touch ${escapeShellArg "${statePath}/.db-created"}
       fi
     '';
@@ -79,9 +73,7 @@ let
         installPhase = ''
           mkdir -p $out/data/plugins
           plugins=(${
-            escapeShellArgs (
-              map (plugin: "${plugin}/share/plugin.tar.gz") mattermostPluginDerivations
-            )
+            escapeShellArgs (map (plugin: "${plugin}/share/plugin.tar.gz") mattermostPluginDerivations)
           })
           for plugin in "''${plugins[@]}"; do
             hash="$(sha256sum "$plugin" | cut -d' ' -f1)"
@@ -124,9 +116,7 @@ let
       }
   );
 
-  mattermostConfJSON = pkgs.writeText "mattermost-config.json" (
-    builtins.toJSON mattermostConf
-  );
+  mattermostConfJSON = pkgs.writeText "mattermost-config.json" (builtins.toJSON mattermostConf);
 in
 
 {
@@ -398,9 +388,7 @@ in
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";
-          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${
-              escapeShellArgs cfg.matterircd.parameters
-            }";
+          ExecStart = "${cfg.matterircd.package}/bin/matterircd ${escapeShellArgs cfg.matterircd.parameters}";
           WorkingDirectory = "/tmp";
           PrivateTmp = true;
           Restart = "always";

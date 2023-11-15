@@ -124,9 +124,7 @@ in
               tun.device = mkOption {
                 type = types.nullOr types.str;
                 default = null;
-                description =
-                  lib.mdDoc
-                    "Name of the tun device. Defaults to nebula.\${networkName}.";
+                description = lib.mdDoc "Name of the tun device. Defaults to nebula.\${networkName}.";
               };
 
               firewall.outbound = mkOption {
@@ -211,8 +209,7 @@ in
                   };
                   tun = {
                     disabled = netCfg.tun.disable;
-                    dev =
-                      if (netCfg.tun.device != null) then netCfg.tun.device else "nebula.${netName}";
+                    dev = if (netCfg.tun.device != null) then netCfg.tun.device else "nebula.${netName}";
                   };
                   firewall = {
                     inbound = netCfg.firewall.inbound;

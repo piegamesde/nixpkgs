@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description =
-      "Implementation of the Sender Policy Framework for SMTP "
-      + "authorization (Helsinki Systems fork)";
+      "Implementation of the Sender Policy Framework for SMTP " + "authorization (Helsinki Systems fork)";
     homepage = "https://github.com/helsinki-systems/libspf2";
     license = with licenses; [
       lgpl21Plus

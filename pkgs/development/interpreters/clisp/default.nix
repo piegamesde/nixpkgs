@@ -119,14 +119,11 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   postInstall = lib.optionalString (withModules != [ ]) (
-    ''
-      ./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
+    ''./clisp-link add "$out"/lib/clisp*/base "$(dirname "$out"/lib/clisp*/base)"/full''
     + lib.concatMapStrings (x: " " + x) withModules
   );
 
-  env.NIX_CFLAGS_COMPILE = "-O0 ${
-      lib.optionalString (!stdenv.is64bit) "-falign-functions=4"
-    }";
+  env.NIX_CFLAGS_COMPILE = "-O0 ${lib.optionalString (!stdenv.is64bit) "-falign-functions=4"}";
 
   # TODO : make mod-check fails
   doCheck = false;

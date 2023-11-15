@@ -16,21 +16,19 @@ let
   avahiEnabled = config.services.avahi.enable;
   polkitEnabled = config.security.polkit.enable;
 
-  additionalBackends =
-    pkgs.runCommand "additional-cups-backends" { preferLocalBuild = true; }
-      ''
-        mkdir -p $out
-        if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
-          mkdir -p $out/lib/cups/backend
-          ln -sv ${pkgs.samba}/bin/smbspool $out/lib/cups/backend/smb
-        fi
+  additionalBackends = pkgs.runCommand "additional-cups-backends" { preferLocalBuild = true; } ''
+    mkdir -p $out
+    if [ ! -e ${cups.out}/lib/cups/backend/smb ]; then
+      mkdir -p $out/lib/cups/backend
+      ln -sv ${pkgs.samba}/bin/smbspool $out/lib/cups/backend/smb
+    fi
 
-        # Provide support for printing via HTTPS.
-        if [ ! -e ${cups.out}/lib/cups/backend/https ]; then
-          mkdir -p $out/lib/cups/backend
-          ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
-        fi
-      '';
+    # Provide support for printing via HTTPS.
+    if [ ! -e ${cups.out}/lib/cups/backend/https ]; then
+      mkdir -p $out/lib/cups/backend
+      ln -sv ${cups.out}/lib/cups/backend/ipp $out/lib/cups/backend/https
+    fi
+  '';
 
   # Here we can enable additional backends, filters, etc. that are not
   # part of CUPS itself, e.g. the SMB backend is part of Samba.  Since
@@ -358,9 +356,7 @@ in
       description = "CUPS printing services";
     };
 
-    environment.systemPackages = [
-      cups.out
-    ] ++ optional polkitEnabled cups-pk-helper;
+    environment.systemPackages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
     environment.etc.cups.source = "/var/lib/cups";
 
     services.dbus.packages = [ cups.out ] ++ optional polkitEnabled cups-pk-helper;
@@ -457,18 +453,10 @@ in
       description = "CUPS Remote Printer Discovery";
 
       wantedBy = [ "multi-user.target" ];
-      wants = [
-        "avahi-daemon.service"
-      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      bindsTo = [
-        "avahi-daemon.service"
-      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      partOf = [
-        "avahi-daemon.service"
-      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
-      after = [
-        "avahi-daemon.service"
-      ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      wants = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      bindsTo = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      partOf = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
+      after = [ "avahi-daemon.service" ] ++ optional (!cfg.startWhenNeeded) "cups.service";
 
       path = [ cups ];
 

@@ -89,8 +89,7 @@ stdenv.mkDerivation (
     meta =
       {
         description =
-          "Stub bindings using "
-          + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
+          "Stub bindings using " + (if stdenv.hostPlatform.isDarwin then "mesa" else "libglvnd");
         pkgConfigModules = [
           "gl"
           "egl"

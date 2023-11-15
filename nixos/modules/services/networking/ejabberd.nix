@@ -83,18 +83,14 @@ in
       loadDumps = mkOption {
         type = types.listOf types.path;
         default = [ ];
-        description =
-          lib.mdDoc
-            "Configuration dumps that should be loaded on the first startup";
+        description = lib.mdDoc "Configuration dumps that should be loaded on the first startup";
         example = literalExpression "[ ./myejabberd.dump ]";
       };
 
       imagemagick = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Add ImageMagick to server's path; allows for image thumbnailing";
+        description = lib.mdDoc "Add ImageMagick to server's path; allows for image thumbnailing";
       };
     };
   };
@@ -113,9 +109,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "ejabberd") {
-      ejabberd.gid = config.ids.gids.ejabberd;
-    };
+    users.groups = optionalAttrs (cfg.group == "ejabberd") { ejabberd.gid = config.ids.gids.ejabberd; };
 
     systemd.services.ejabberd = {
       description = "ejabberd server";

@@ -39,9 +39,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ libtool ]
-    ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.ApplicationServices
-    ]
+    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.ApplicationServices ]
     ++ plugins.buildInputs;
 
   configureFlags =
@@ -50,9 +48,7 @@ stdenv.mkDerivation rec {
       "--disable-werror"
     ]
     ++ plugins.configureFlags
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "--with-fp-layout=nothing"
-    ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "--with-fp-layout=nothing" ];
 
   # do not create directories in /var during installPhase
   postConfigure = ''

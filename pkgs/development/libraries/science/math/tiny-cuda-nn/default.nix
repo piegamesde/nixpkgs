@@ -76,9 +76,7 @@ stdenv.mkDerivation (
         ]
       );
 
-    propagatedBuildInputs = lib.optionals pythonSupport (
-      with python3Packages; [ torch ]
-    );
+    propagatedBuildInputs = lib.optionals pythonSupport (with python3Packages; [ torch ]);
 
     # NOTE: We cannot use pythonImportsCheck for this module because it uses torch to immediately
     #   initailize CUDA and GPU access is not allowed in the nix build environment.
@@ -88,9 +86,7 @@ stdenv.mkDerivation (
 
     preConfigure = ''
       export TCNN_CUDA_ARCHITECTURES=${
-        strings.concatStringsSep ";" (
-          lists.map cudaFlags.dropDot cudaFlags.cudaCapabilities
-        )
+        strings.concatStringsSep ";" (lists.map cudaFlags.dropDot cudaFlags.cudaCapabilities)
       }
       export CUDA_HOME=${cuda-native-redist}
       export LIBRARY_PATH=${cuda-native-redist}/lib/stubs:$LIBRARY_PATH

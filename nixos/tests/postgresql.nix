@@ -45,8 +45,7 @@ let
       testScript =
         let
           backupName = if backup-all then "all" else "postgres";
-          backupService =
-            if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
+          backupService = if backup-all then "postgresqlBackup" else "postgresqlBackup-postgres";
           backupFileBase = "/var/backup/postgresql/${backupName}";
         in
         ''
@@ -231,7 +230,6 @@ concatMapAttrs
   postgresql-versions
 // {
   postgresql_11-backup-all =
-    make-postgresql-test "postgresql_11-backup-all"
-      postgresql-versions.postgresql_11
+    make-postgresql-test "postgresql_11-backup-all" postgresql-versions.postgresql_11
       true;
 }

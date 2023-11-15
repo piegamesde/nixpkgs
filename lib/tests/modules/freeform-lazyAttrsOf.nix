@@ -1,4 +1,1 @@
-{ lib, ... }:
-{
-  freeformType = with lib.types; lazyAttrsOf (either str (lazyAttrsOf str));
-}
+{ lib, ... }: { freeformType = with lib.types; lazyAttrsOf (either str (lazyAttrsOf str)); }

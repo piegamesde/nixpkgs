@@ -66,9 +66,7 @@ let
         cmd = mkOption {
           type = with types; listOf str;
           default = [ ];
-          description =
-            lib.mdDoc
-              "Commandline arguments to pass to the image's entrypoint.";
+          description = lib.mdDoc "Commandline arguments to pass to the image's entrypoint.";
           example = literalExpression ''
             ["--port=9000"]
           '';
@@ -189,9 +187,7 @@ let
         workdir = mkOption {
           type = with types; nullOr str;
           default = null;
-          description =
-            lib.mdDoc
-              "Override the default working directory for the container.";
+          description = lib.mdDoc "Override the default working directory for the container.";
           example = "/var/lib/hello_world";
         };
 
@@ -234,8 +230,7 @@ let
     };
 
   isValidLogin =
-    login:
-    login.username != null && login.passwordFile != null && login.registry != null;
+    login: login.username != null && login.passwordFile != null && login.registry != null;
 
   mkService =
     name: container:
@@ -288,9 +283,7 @@ let
           "--name=${escapedName}"
           "--log-driver=${container.log-driver}"
         ]
-        ++
-          optional (container.entrypoint != null)
-            "--entrypoint=${escapeShellArg container.entrypoint}"
+        ++ optional (container.entrypoint != null) "--entrypoint=${escapeShellArg container.entrypoint}"
         ++ lib.optionals (cfg.backend == "podman") [
           "--cidfile=/run/podman-${escapedName}.ctr-id"
           "--cgroups=no-conmon"
@@ -298,9 +291,7 @@ let
           "-d"
           "--replace"
         ]
-        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}")
-          container.environment
-        )
+        ++ (mapAttrsToList (k: v: "-e ${escapeShellArg k}=${escapeShellArg v}") container.environment)
         ++ map (f: "--env-file ${escapeShellArg f}") container.environmentFiles
         ++ map (p: "-p ${escapeShellArg p}") container.ports
         ++ optional (container.user != null) "-u ${escapeShellArg container.user}"
@@ -365,9 +356,7 @@ in
             lib.mapAttrs
               (
                 n: v:
-                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [
-                  "extraDockerOptions"
-                ]
+                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
               )
               oldcfg.docker-containers;
         }
@@ -382,11 +371,7 @@ in
         "podman"
         "docker"
       ];
-      default =
-        if versionAtLeast config.system.stateVersion "22.05" then
-          "podman"
-        else
-          "docker";
+      default = if versionAtLeast config.system.stateVersion "22.05" then "podman" else "docker";
       description = lib.mdDoc "The underlying Docker implementation to use.";
     };
 

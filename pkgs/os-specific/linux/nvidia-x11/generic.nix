@@ -105,9 +105,7 @@ let
               ];
           sha256 = sha256_32bit;
         }
-      else if
-        stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null
-      then
+      else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null then
         fetchurl {
           urls =
             if args ? url then

@@ -303,15 +303,11 @@ in
     hardware.nvidia.package = lib.mkOption {
       type = types.package;
       default = config.boot.kernelPackages.nvidiaPackages.stable;
-      defaultText =
-        literalExpression
-          "config.boot.kernelPackages.nvidiaPackages.stable";
+      defaultText = literalExpression "config.boot.kernelPackages.nvidiaPackages.stable";
       description = lib.mdDoc ''
         The NVIDIA X11 derivation to use.
       '';
-      example =
-        literalExpression
-          "config.boot.kernelPackages.nvidiaPackages.legacy_340";
+      example = literalExpression "config.boot.kernelPackages.nvidiaPackages.legacy_340";
     };
 
     hardware.nvidia.open = lib.mkOption {
@@ -338,8 +334,7 @@ in
         }
 
         {
-          assertion =
-            offloadCfg.enableOffloadCmd -> offloadCfg.enable || reverseSyncCfg.enable;
+          assertion = offloadCfg.enableOffloadCmd -> offloadCfg.enable || reverseSyncCfg.enable;
           message = ''
             Offload command requires offloading or reverse prime sync to be enabled.
           '';
@@ -347,8 +342,7 @@ in
 
         {
           assertion =
-            primeEnabled
-            -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
+            primeEnabled -> pCfg.nvidiaBusId != "" && (pCfg.intelBusId != "" || pCfg.amdgpuBusId != "");
           message = ''
             When NVIDIA PRIME is enabled, the GPU bus IDs must configured.
           '';
@@ -361,8 +355,7 @@ in
 
         {
           assertion =
-            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "")
-            -> versionAtLeast nvidia_x11.version "470.0";
+            (reverseSyncCfg.enable && pCfg.amdgpuBusId != "") -> versionAtLeast nvidia_x11.version "470.0";
           message = "NVIDIA PRIME render offload for AMD APUs is currently only supported on versions >= 470 beta.";
         }
 
@@ -387,8 +380,7 @@ in
         }
 
         {
-          assertion =
-            cfg.powerManagement.enable -> versionAtLeast nvidia_x11.version "430.09";
+          assertion = cfg.powerManagement.enable -> versionAtLeast nvidia_x11.version "430.09";
           message = "Required files for driver based power management only exist on versions >= 430.09.";
         }
 
@@ -422,8 +414,7 @@ in
           modules = optionals (igpuDriver == "amdgpu") [ pkgs.xorg.xf86videoamdgpu ];
           deviceSection = ''
             BusID "${igpuBusId}"
-            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu")
-              ''Option "AccelMethod" "none"''}
+            ${optionalString (syncCfg.enable && igpuDriver != "amdgpu") ''Option "AccelMethod" "none"''}
           '';
         }
         ++ singleton {
@@ -468,10 +459,7 @@ in
             else
               igpuDriver;
           providerCmdParams =
-            if syncCfg.enable then
-              ''"${gpuProviderName}" NVIDIA-0''
-            else
-              ''NVIDIA-G0 "${gpuProviderName}"'';
+            if syncCfg.enable then ''"${gpuProviderName}" NVIDIA-0'' else ''NVIDIA-G0 "${gpuProviderName}"'';
         in
         optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
           # Added by nvidia configuration module for Optimus/PRIME.
@@ -479,9 +467,9 @@ in
           ${pkgs.xorg.xrandr}/bin/xrandr --auto
         '';
 
-      environment.etc."nvidia/nvidia-application-profiles-rc" =
-        mkIf nvidia_x11.useProfiles
-          { source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc"; };
+      environment.etc."nvidia/nvidia-application-profiles-rc" = mkIf nvidia_x11.useProfiles {
+        source = "${nvidia_x11.bin}/share/nvidia/nvidia-application-profiles-rc";
+      };
 
       # 'nvidia_x11' installs it's files to /run/opengl-driver/...
       environment.etc."egl/egl_external_platform.d".source = "/run/opengl-driver/share/egl/egl_external_platform.d/";
@@ -569,12 +557,10 @@ in
       systemd.tmpfiles.rules =
         optional config.virtualisation.docker.enableNvidia
           "L+ /run/nvidia-docker/bin - - - - ${nvidia_x11.bin}/origBin"
-        ++ optional
-          (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
+        ++ optional (nvidia_x11.persistenced != null && config.virtualisation.docker.enableNvidia)
           "L+ /run/nvidia-docker/extras/bin/nvidia-persistenced - - - - ${nvidia_x11.persistenced}/origBin/nvidia-persistenced";
 
-      boot.extraModulePackages =
-        if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
+      boot.extraModulePackages = if cfg.open then [ nvidia_x11.open ] else [ nvidia_x11.bin ];
       hardware.firmware = lib.optional cfg.open nvidia_x11.firmware;
 
       # nvidia-uvm is required by CUDA applications.
@@ -589,13 +575,9 @@ in
       # If requested enable modesetting via kernel parameter.
       boot.kernelParams =
         optional (offloadCfg.enable || cfg.modesetting.enable) "nvidia-drm.modeset=1"
-        ++
-          optional cfg.powerManagement.enable
-            "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+        ++ optional cfg.powerManagement.enable "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
         ++ optional cfg.open "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
-        ++
-          optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport)
-            "ibt=off";
+        ++ optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2" && !ibtSupport) "ibt=off";
 
       services.udev.extraRules =
         ''

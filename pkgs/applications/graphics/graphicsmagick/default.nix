@@ -72,11 +72,9 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      issue-157920 =
-        runCommand "issue-157920-regression-test" { buildInputs = [ graphicsmagick ]; }
-          ''
-            gm convert ${graphviz}/share/graphviz/doc/pdf/neatoguide.pdf jpg:$out
-          '';
+      issue-157920 = runCommand "issue-157920-regression-test" { buildInputs = [ graphicsmagick ]; } ''
+        gm convert ${graphviz}/share/graphviz/doc/pdf/neatoguide.pdf jpg:$out
+      '';
     };
   };
 

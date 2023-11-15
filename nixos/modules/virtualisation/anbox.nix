@@ -22,9 +22,7 @@ let
 
     prefixLength = mkOption {
       default = pref;
-      type = types.addCheck types.int (
-        n: n >= 0 && n <= (if v == 4 then 32 else 128)
-      );
+      type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
       description = lib.mdDoc ''
         Subnet mask of the ${name} address, specified as the number of
         bits in the prefix (`${if v == 4 then "24" else "64"}`).
@@ -73,9 +71,7 @@ in
   config = mkIf cfg.enable {
 
     assertions = singleton {
-      assertion =
-        versionAtLeast (getVersion config.boot.kernelPackages.kernel)
-          "4.18";
+      assertion = versionAtLeast (getVersion config.boot.kernelPackages.kernel) "4.18";
       message = "Anbox needs user namespace support to work properly";
     };
 

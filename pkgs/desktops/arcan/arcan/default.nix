@@ -55,8 +55,7 @@
 }:
 
 let
-  cmakeFeatureFlag =
-    feature: flag: "-D${feature}=${if flag then "on" else "off"}";
+  cmakeFeatureFlag = feature: flag: "-D${feature}=${if flag then "on" else "off"}";
 in
 stdenv.mkDerivation (
   finalAttrs: {

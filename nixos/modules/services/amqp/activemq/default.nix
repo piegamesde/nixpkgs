@@ -12,15 +12,13 @@ let
 
   cfg = config.services.activemq;
 
-  activemqBroker =
-    runCommand "activemq-broker" { nativeBuildInputs = [ jdk ]; }
-      ''
-        mkdir -p $out/lib
-        source ${activemq}/lib/classpath.env
-        export CLASSPATH
-        ln -s "${./ActiveMQBroker.java}" ActiveMQBroker.java
-        javac -d $out/lib ActiveMQBroker.java
-      '';
+  activemqBroker = runCommand "activemq-broker" { nativeBuildInputs = [ jdk ]; } ''
+    mkdir -p $out/lib
+    source ${activemq}/lib/classpath.env
+    export CLASSPATH
+    ln -s "${./ActiveMQBroker.java}" ActiveMQBroker.java
+    javac -d $out/lib ActiveMQBroker.java
+  '';
 in
 {
 
@@ -131,9 +129,7 @@ in
         export CLASSPATH=${activemqBroker}/lib:${cfg.configurationDir}:$CLASSPATH
         exec java \
           ${
-            concatStringsSep " \\\n" (
-              mapAttrsToList (name: value: "-D${name}=${value}") cfg.javaProperties
-            )
+            concatStringsSep " \\\n" (mapAttrsToList (name: value: "-D${name}=${value}") cfg.javaProperties)
           } \
           ${cfg.extraJavaOptions} ActiveMQBroker "${cfg.configurationURI}"
       '';

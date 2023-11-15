@@ -62,9 +62,7 @@ buildDotnetModule rec {
       -t:GenerateConstant \
       -p:ContinuousIntegrationBuild=true \
       -p:Deterministic=true \
-      -p:PackageRuntime="${
-        dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
-      }" \
+      -p:PackageRuntime="${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system}" \
       -p:RunnerVersion="${version}" \
       src/dir.proj
   '';
@@ -75,9 +73,7 @@ buildDotnetModule rec {
       which
     ]
     ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      autoSignDarwinBinariesHook
-    ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
@@ -85,9 +81,7 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
 
   dotnetFlags = [
-    "-p:PackageRuntime=${
-      dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system
-    }"
+    "-p:PackageRuntime=${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system}"
   ];
 
   # As given here: https://github.com/actions/runner/blob/0befa62/src/dir.proj#L33-L41
@@ -109,49 +103,41 @@ buildDotnetModule rec {
   # Fully qualified name of disabled tests
   disabledTests =
     [ "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync" ]
-    ++ map
-      (
-        x: "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}"
-      )
-      [
-        "Cancel_CloneHashTask_WhenNotNeeded"
-        "CloneHash_RuntimeAndExternals"
-        "DownloadRetry"
-        "FallbackToFullPackage"
-        "NoUpdateOnOldVersion"
-        "NotUseExternalsRuntimeTrimmedPackageOnHashMismatch"
-        "UseExternalsRuntimeTrimmedPackage"
-        "UseExternalsTrimmedPackage"
-        "ValidateHash"
-      ]
-    ++
-      map (x: "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}")
-        [
-          "CompositeActionWithActionfile_CompositeContainerNested"
-          "CompositeActionWithActionfile_CompositePrestepNested"
-          "CompositeActionWithActionfile_MaxLimit"
-          "CompositeActionWithActionfile_Node"
-          "DownloadActionFromGraph"
-          "NotPullOrBuildImagesMultipleTimes"
-          "RepositoryActionWithActionYamlFile_DockerHubImage"
-          "RepositoryActionWithActionfileAndDockerfile"
-          "RepositoryActionWithActionfile_DockerHubImage"
-          "RepositoryActionWithActionfile_Dockerfile"
-          "RepositoryActionWithActionfile_DockerfileRelativePath"
-          "RepositoryActionWithActionfile_Node"
-          "RepositoryActionWithDockerfile"
-          "RepositoryActionWithDockerfileInRelativePath"
-          "RepositoryActionWithDockerfilePrepareActions_Repository"
-          "RepositoryActionWithInvalidWrapperActionfile_Node"
-          "RepositoryActionWithWrapperActionfile_PreSteps"
-        ]
+    ++ map (x: "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}") [
+      "Cancel_CloneHashTask_WhenNotNeeded"
+      "CloneHash_RuntimeAndExternals"
+      "DownloadRetry"
+      "FallbackToFullPackage"
+      "NoUpdateOnOldVersion"
+      "NotUseExternalsRuntimeTrimmedPackageOnHashMismatch"
+      "UseExternalsRuntimeTrimmedPackage"
+      "UseExternalsTrimmedPackage"
+      "ValidateHash"
+    ]
+    ++ map (x: "GitHub.Runner.Common.Tests.Worker.ActionManagerL0.PrepareActions_${x}") [
+      "CompositeActionWithActionfile_CompositeContainerNested"
+      "CompositeActionWithActionfile_CompositePrestepNested"
+      "CompositeActionWithActionfile_MaxLimit"
+      "CompositeActionWithActionfile_Node"
+      "DownloadActionFromGraph"
+      "NotPullOrBuildImagesMultipleTimes"
+      "RepositoryActionWithActionYamlFile_DockerHubImage"
+      "RepositoryActionWithActionfileAndDockerfile"
+      "RepositoryActionWithActionfile_DockerHubImage"
+      "RepositoryActionWithActionfile_Dockerfile"
+      "RepositoryActionWithActionfile_DockerfileRelativePath"
+      "RepositoryActionWithActionfile_Node"
+      "RepositoryActionWithDockerfile"
+      "RepositoryActionWithDockerfileInRelativePath"
+      "RepositoryActionWithDockerfilePrepareActions_Repository"
+      "RepositoryActionWithInvalidWrapperActionfile_Node"
+      "RepositoryActionWithWrapperActionfile_PreSteps"
+    ]
     ++ map (x: "GitHub.Runner.Common.Tests.DotnetsdkDownloadScriptL0.${x}") [
       "EnsureDotnetsdkBashDownloadScriptUpToDate"
       "EnsureDotnetsdkPowershellDownloadScriptUpToDate"
     ]
-    ++ [
-      "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage"
-    ]
+    ++ [ "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage" ]
     # Tests for trimmed runner packages which aim at reducing the update size. Not relevant for Nix.
     ++ map (x: "GitHub.Runner.Common.Tests.PackagesTrimL0.${x}") [
       "RunnerLayoutParts_CheckExternalsHash"

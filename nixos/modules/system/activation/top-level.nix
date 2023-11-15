@@ -10,12 +10,8 @@ with lib;
 let
   systemBuilder =
     let
-      kernelPath =
-        "${config.boot.kernelPackages.kernel}/"
-        + "${config.system.boot.loader.kernelFile}";
-      initrdPath =
-        "${config.system.build.initialRamdisk}/"
-        + "${config.system.boot.loader.initrdFile}";
+      kernelPath = "${config.boot.kernelPackages.kernel}/" + "${config.system.boot.loader.kernelFile}";
+      initrdPath = "${config.system.build.initialRamdisk}/" + "${config.system.boot.loader.initrdFile}";
     in
     ''
       mkdir $out
@@ -70,9 +66,7 @@ let
       ln -s ${config.system.path} $out/sw
       ln -s "$systemd" $out/systemd
 
-      echo -n "systemd ${
-        toString config.systemd.package.interfaceVersion
-      }" > $out/init-interface-version
+      echo -n "systemd ${toString config.systemd.package.interfaceVersion}" > $out/init-interface-version
       echo -n "$nixosLabel" > $out/nixos-version
       echo -n "${config.boot.kernelPackages.stdenv.hostPlatform.system}" > $out/system
 
@@ -142,9 +136,7 @@ let
 
   # Handle assertions and warnings
 
-  failedAssertions = map (x: x.message) (
-    filter (x: !x.assertion) config.assertions
-  );
+  failedAssertions = map (x: x.message) (filter (x: !x.assertion) config.assertions);
 
   baseSystemAssertWarn =
     if failedAssertions != [ ] then
@@ -357,11 +349,7 @@ in
 
     system.name = mkOption {
       type = types.str;
-      default =
-        if config.networking.hostName == "" then
-          "unnamed"
-        else
-          config.networking.hostName;
+      default = if config.networking.hostName == "" then "unnamed" else config.networking.hostName;
       defaultText = literalExpression ''
         if config.networking.hostName == ""
         then "unnamed"
@@ -419,23 +407,21 @@ in
         fi
       '';
 
-    system.systemBuilderArgs =
-      lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "")
-        {
-          inherit (config.system) forbiddenDependenciesRegex;
-          closureInfo = pkgs.closureInfo {
-            rootPaths =
-              [
-                # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
-                (config.system.build.toplevel.overrideAttrs (
-                  _: {
-                    extraDependencies = [ ];
-                    closureInfo = null;
-                  }
-                ))
-              ];
-          };
-        };
+    system.systemBuilderArgs = lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "") {
+      inherit (config.system) forbiddenDependenciesRegex;
+      closureInfo = pkgs.closureInfo {
+        rootPaths =
+          [
+            # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
+            (config.system.build.toplevel.overrideAttrs (
+              _: {
+                extraDependencies = [ ];
+                closureInfo = null;
+              }
+            ))
+          ];
+      };
+    };
 
     system.build.toplevel =
       if config.system.includeBuildDependencies then systemWithBuildDeps else system;

@@ -12,8 +12,7 @@ let
   cfg = config.services.syslogd;
 
   syslogConf = pkgs.writeText "syslog.conf" ''
-    ${optionalString (cfg.tty != "")
-      "kern.warning;*.err;authpriv.none /dev/${cfg.tty}"}
+    ${optionalString (cfg.tty != "") "kern.warning;*.err;authpriv.none /dev/${cfg.tty}"}
     ${cfg.defaultConfig}
     ${cfg.extraConfig}
   '';
@@ -122,9 +121,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${
-            toString cfg.extraParams
-          } -f ${syslogConf} -n";
+        ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${toString cfg.extraParams} -f ${syslogConf} -n";
         # Prevent syslogd output looping back through journald.
         StandardOutput = "null";
       };

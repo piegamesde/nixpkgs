@@ -28,9 +28,7 @@ let
             # Name appended to menuentry defaults to params if no specific name given.
             option.name or (optionalString (option ? params) "(${option.params})")
           }' ${optionalString (option ? class) " --class ${option.class}"} {
-            linux ${defaults.image} \''${isoboot} ${defaults.params} ${
-              option.params or ""
-            }
+            linux ${defaults.image} \''${isoboot} ${defaults.params} ${option.params or ""}
             initrd ${defaults.initrd}
           }
         '')
@@ -41,11 +39,7 @@ let
   # Builds the default options.
   buildMenuGrub2 = buildMenuAdditionalParamsGrub2 "";
 
-  targetArch =
-    if config.boot.loader.grub.forcei686 then
-      "ia32"
-    else
-      pkgs.stdenv.hostPlatform.efiArch;
+  targetArch = if config.boot.loader.grub.forcei686 then "ia32" else pkgs.stdenv.hostPlatform.efiArch;
 
   #
   # Given params to add to `params`, build a set of default options.
@@ -82,16 +76,12 @@ let
   # null means max timeout (35996, just under 1h in 1/10 seconds)
   # 0 means disable timeout
   syslinuxTimeout =
-    if config.boot.loader.timeout == null then
-      35996
-    else
-      config.boot.loader.timeout * 10;
+    if config.boot.loader.timeout == null then 35996 else config.boot.loader.timeout * 10;
 
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
   # 0 means disable timeout
-  grubEfiTimeout =
-    if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+  grubEfiTimeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
 
   # The configuration file for syslinux.
 
@@ -119,36 +109,28 @@ let
     LABEL boot
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel}
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    }
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with 'nomodeset'
     LABEL boot-nomodeset
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (nomodeset)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } nomodeset
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} nomodeset
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with 'copytoram'
     LABEL boot-copytoram
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (copytoram)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } copytoram
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} copytoram
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with verbose logging to the console
     LABEL boot-debug
     MENU LABEL ${config.system.nixos.distroName} ${config.system.nixos.label}${config.isoImage.appendToMenuLabel} (debug)
     LINUX /boot/${config.system.boot.loader.kernelFile}
-    APPEND init=${config.system.build.toplevel}/init ${
-      toString config.boot.kernelParams
-    } loglevel=7
+    APPEND init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams} loglevel=7
     INITRD /boot/${config.system.boot.loader.initrdFile}
 
     # A variant to boot with a serial console enabled
@@ -169,15 +151,11 @@ let
   '';
 
   isolinuxCfg = concatStringsSep "\n" (
-    [ baseIsolinuxCfg ]
-    ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
+    [ baseIsolinuxCfg ] ++ optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
   );
 
   refindBinary =
-    if targetArch == "x64" || targetArch == "aa64" then
-      "refind_${targetArch}.efi"
-    else
-      null;
+    if targetArch == "x64" || targetArch == "aa64" then "refind_${targetArch}.efi" else null;
 
   # Setup instructions for rEFInd.
   refind =
@@ -189,8 +167,7 @@ let
     else
       "# No refind for ${targetArch}";
 
-  grubPkgs =
-    if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
+  grubPkgs = if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
 
   grubMenuCfg = ''
     #
@@ -743,12 +720,10 @@ in
     # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
-    environment.systemPackages =
-      [
-        grubPkgs.grub2
-        grubPkgs.grub2_efi
-      ]
-      ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux;
+    environment.systemPackages = [
+      grubPkgs.grub2
+      grubPkgs.grub2_efi
+    ] ++ optional (config.isoImage.makeBiosBootable && canx86BiosBoot) pkgs.syslinux;
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
     # that we don't need to know its device.  We pass the label of the
@@ -779,10 +754,9 @@ in
 
     # Closures to be copied to the Nix store on the CD, namely the init
     # script and the top-level system configuration directory.
-    isoImage.storeContents =
-      [ config.system.build.toplevel ]
-      ++ optional config.isoImage.includeSystemBuildDependencies
-        config.system.build.toplevel.drvPath;
+    isoImage.storeContents = [
+      config.system.build.toplevel
+    ] ++ optional config.isoImage.includeSystemBuildDependencies config.system.build.toplevel.drvPath;
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {
@@ -795,13 +769,11 @@ in
     isoImage.contents =
       [
         {
-          source =
-            config.boot.kernelPackages.kernel + "/" + config.system.boot.loader.kernelFile;
+          source = config.boot.kernelPackages.kernel + "/" + config.system.boot.loader.kernelFile;
           target = "/boot/" + config.system.boot.loader.kernelFile;
         }
         {
-          source =
-            config.system.build.initialRamdisk + "/" + config.system.boot.loader.initrdFile;
+          source = config.system.build.initialRamdisk + "/" + config.system.boot.loader.initrdFile;
           target = "/boot/" + config.system.boot.loader.initrdFile;
         }
         {
@@ -841,8 +813,7 @@ in
           target = "/EFI";
         }
         {
-          source =
-            (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
+          source = (pkgs.writeTextDir "grub/loopback.cfg" "source /EFI/boot/grub.cfg") + "/grub";
           target = "/boot/grub";
         }
         {
@@ -852,11 +823,7 @@ in
       ]
       ++
         optionals
-          (
-            config.boot.loader.grub.memtest86.enable
-            && config.isoImage.makeBiosBootable
-            && canx86BiosBoot
-          )
+          (config.boot.loader.grub.memtest86.enable && config.isoImage.makeBiosBootable && canx86BiosBoot)
           [
             {
               source = "${pkgs.memtest86plus}/memtest.bin";
@@ -883,19 +850,11 @@ in
         ;
         bootable = config.isoImage.makeBiosBootable && canx86BiosBoot;
         bootImage = "/isolinux/isolinux.bin";
-        syslinux =
-          if config.isoImage.makeBiosBootable && canx86BiosBoot then
-            pkgs.syslinux
-          else
-            null;
+        syslinux = if config.isoImage.makeBiosBootable && canx86BiosBoot then pkgs.syslinux else null;
       }
       //
         optionalAttrs
-          (
-            config.isoImage.makeUsbBootable
-            && config.isoImage.makeBiosBootable
-            && canx86BiosBoot
-          )
+          (config.isoImage.makeUsbBootable && config.isoImage.makeBiosBootable && canx86BiosBoot)
           {
             usbBootable = true;
             isohybridMbrImage = "${pkgs.syslinux}/share/syslinux/isohdpfx.bin";

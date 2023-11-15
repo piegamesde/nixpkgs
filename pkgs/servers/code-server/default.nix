@@ -299,9 +299,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    prefetchYarnCache = lib.overrideDerivation yarnCache (
-      d: { outputHash = lib.fakeSha256; }
-    );
+    prefetchYarnCache = lib.overrideDerivation yarnCache (d: { outputHash = lib.fakeSha256; });
   };
 
   meta = with lib; {

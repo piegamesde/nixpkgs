@@ -28,9 +28,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [ setuptools ];
 
   propagatedBuildInputs =
-    (lib.optionals (pythonAtLeast "3.6" && pythonOlder "3.9") [
-      backports-zoneinfo
-    ])
+    (lib.optionals (pythonAtLeast "3.6" && pythonOlder "3.9") [ backports-zoneinfo ])
     ++ (lib.optionals (pythonOlder "3.6") [ python-dateutil ])
     ++ (lib.optionals (pythonAtLeast "3.6") [ tzdata ]);
 

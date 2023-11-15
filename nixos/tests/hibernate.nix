@@ -88,10 +88,7 @@ makeTest {
         machine = create_machine(
             {
                 "qemuFlags": "-cpu max ${
-                  if system == "x86_64-linux" then
-                    "-m 1024"
-                  else
-                    "-m 768 -enable-kvm -machine virt,gic-version=host"
+                  if system == "x86_64-linux" then "-m 1024" else "-m 768 -enable-kvm -machine virt,gic-version=host"
                 }",
                 "hdaInterface": "virtio",
                 "hda": "vm-state-machine/machine.qcow2",
@@ -114,9 +111,7 @@ makeTest {
         "mount LABEL=nixos /mnt",
         "mkswap /dev/vda1 -L swap",
         # Install onto /mnt
-        "nix-store --load-db < ${
-          pkgs.closureInfo { rootPaths = [ installedSystem ]; }
-        }/registration",
+        "nix-store --load-db < ${pkgs.closureInfo { rootPaths = [ installedSystem ]; }}/registration",
         "nixos-install --root /mnt --system ${installedSystem} --no-root-passwd --no-channel-copy >&2",
     )
     machine.shutdown()

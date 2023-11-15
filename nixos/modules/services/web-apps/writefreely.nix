@@ -27,10 +27,7 @@ let
       key: value:
       let
         value' = lib.optionalString (value != null) (
-          if builtins.isBool value then
-            if value == true then "true" else "false"
-          else
-            toString value
+          if builtins.isBool value then if value == true then "true" else "false" else toString value
         );
       in
       "${key} = ${value'}";
@@ -71,8 +68,7 @@ let
       bind = cfg.settings.server.bind or "localhost";
       gopher_port = cfg.settings.server.gopher_port or 0;
       autocert = !cfg.nginx.enable && cfg.acme.enable;
-      templates_parent_dir =
-        cfg.settings.server.templates_parent_dir or cfg.package.src;
+      templates_parent_dir = cfg.settings.server.templates_parent_dir or cfg.package.src;
       static_parent_dir = cfg.settings.server.static_parent_dir or assets;
       pages_parent_dir = cfg.settings.server.pages_parent_dir or cfg.package.src;
       keys_parent_dir = cfg.settings.server.keys_parent_dir or cfg.stateDir;
@@ -107,8 +103,7 @@ let
 
   withConfigFile = text: ''
     db_pass=${
-      optionalString (cfg.database.passwordFile != null)
-        "$(head -n1 ${cfg.database.passwordFile})"
+      optionalString (cfg.database.passwordFile != null) "$(head -n1 ${cfg.database.passwordFile})"
     }
 
     cp -f ${configFile} '${cfg.stateDir}/config.ini'
@@ -155,9 +150,7 @@ let
 in
 {
   options.services.writefreely = {
-    enable = lib.mkEnableOption (
-      lib.mdDoc "Writefreely, build a digital writing community"
-    );
+    enable = lib.mkEnableOption (lib.mdDoc "Writefreely, build a digital writing community");
 
     package = lib.mkOption {
       type = lib.types.package;
@@ -267,17 +260,13 @@ in
       tls = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether or not TLS should be used for the database connection.";
+        description = lib.mdDoc "Whether or not TLS should be used for the database connection.";
       };
 
       migrate = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether or not to automatically run migrations on startup.";
+        description = lib.mdDoc "Whether or not to automatically run migrations on startup.";
       };
 
       createLocally = mkOption {
@@ -312,9 +301,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
+        description = lib.mdDoc "Whether or not to enable and configure nginx as a proxy for WriteFreely.";
       };
 
       forceSSL = mkOption {
@@ -328,9 +315,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether or not to automatically fetch and configure SSL certs.";
+        description = lib.mdDoc "Whether or not to automatically fetch and configure SSL certs.";
       };
     };
   };
@@ -363,9 +348,7 @@ in
       groups = optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
     };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.writefreely = {
       after =
@@ -383,9 +366,7 @@ in
         Restart = "always";
         RestartSec = 20;
         ExecStart = "${cfg.package}/bin/writefreely -c '${cfg.stateDir}/config.ini' serve";
-        AmbientCapabilities =
-          optionalString (settings.server.port < 1024)
-            "cap_net_bind_service";
+        AmbientCapabilities = optionalString (settings.server.port < 1024) "cap_net_bind_service";
       };
 
       preStart = ''
@@ -409,9 +390,7 @@ in
         User = cfg.user;
         Group = cfg.group;
         WorkingDirectory = cfg.stateDir;
-        ReadOnlyPaths =
-          optional (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile;
+        ReadOnlyPaths = optional (cfg.admin.initialPasswordFile != null) cfg.admin.initialPasswordFile;
       };
 
       script =
@@ -450,8 +429,7 @@ in
         WorkingDirectory = cfg.stateDir;
         ReadOnlyPaths =
           optional isMysqlLocal cfg.database.passwordFile
-          ++ optional (cfg.admin.initialPasswordFile != null)
-            cfg.admin.initialPasswordFile;
+          ++ optional (cfg.admin.initialPasswordFile != null) cfg.admin.initialPasswordFile;
       };
 
       script =

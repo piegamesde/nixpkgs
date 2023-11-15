@@ -219,8 +219,7 @@ let
           "sha256-ml+koj52l5o0toAcnsGtsw0tGnO5F/LKq56ovzdmx/A=";
 
       azure-mgmt-iothubprovisioningservices =
-        overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0"
-          "zip"
+        overrideAzureMgmtPackage super.azure-mgmt-iothubprovisioningservices "1.1.0" "zip"
           "sha256-04OoJuff93L62G6IozpmHpEaUbHHHD6nKlkMHVoJvJ4=";
 
       azure-mgmt-iotcentral =
@@ -446,8 +445,7 @@ let
             hash = "sha256-Q1gGq7EZ/JvYjD7y0mp3kEy15QKZI84UQTdlIBoQLMs=";
             extension = "zip";
           };
-          propagatedBuildInputs =
-            with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
+          propagatedBuildInputs = with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
         }
       );
 
@@ -463,19 +461,17 @@ let
         }
       );
 
-      azure-synapse-managedprivateendpoints =
-        super.azure-synapse-managedprivateendpoints.overrideAttrs
-          (
-            oldAttrs: rec {
-              version = "0.3.0";
-              src = super.fetchPypi {
-                inherit (oldAttrs) pname;
-                inherit version;
-                hash = "sha256-fN1IuZ9fjxgRZv6qh9gg6v6KYpnKlXfnoLqfZCDXoRY=";
-                extension = "zip";
-              };
-            }
-          );
+      azure-synapse-managedprivateendpoints = super.azure-synapse-managedprivateendpoints.overrideAttrs (
+        oldAttrs: rec {
+          version = "0.3.0";
+          src = super.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-fN1IuZ9fjxgRZv6qh9gg6v6KYpnKlXfnoLqfZCDXoRY=";
+            extension = "zip";
+          };
+        }
+      );
 
       azure-synapse-spark = super.azure-synapse-spark.overrideAttrs (
         oldAttrs: rec {
@@ -511,19 +507,17 @@ let
         }
       );
 
-      azure-keyvault-administration =
-        super.azure-keyvault-administration.overridePythonAttrs
-          (
-            oldAttrs: rec {
-              version = "4.0.0b3";
-              src = super.fetchPypi {
-                inherit (oldAttrs) pname;
-                inherit version;
-                extension = "zip";
-                hash = "sha256-d3tJWObM3plRurzfqWmHkn5CqVL9ekQfn9AeDc/KxLQ=";
-              };
-            }
-          );
+      azure-keyvault-administration = super.azure-keyvault-administration.overridePythonAttrs (
+        oldAttrs: rec {
+          version = "4.0.0b3";
+          src = super.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            extension = "zip";
+            hash = "sha256-d3tJWObM3plRurzfqWmHkn5CqVL9ekQfn9AeDc/KxLQ=";
+          };
+        }
+      );
 
       azure-keyvault-keys = super.azure-keyvault-keys.overridePythonAttrs (
         oldAttrs: rec {
@@ -538,26 +532,24 @@ let
       );
 
       # part of azure.mgmt.datalake namespace
-      azure-mgmt-datalake-analytics =
-        super.azure-mgmt-datalake-analytics.overrideAttrs
-          (
-            oldAttrs: rec {
-              version = "0.2.1";
+      azure-mgmt-datalake-analytics = super.azure-mgmt-datalake-analytics.overrideAttrs (
+        oldAttrs: rec {
+          version = "0.2.1";
 
-              src = super.fetchPypi {
-                inherit (oldAttrs) pname;
-                inherit version;
-                hash = "sha256-THlg0JT1hH2aRWwYuKPI5gxCjjCAo5BfHJQ9gbpjUaQ=";
-                extension = "zip";
-              };
+          src = super.fetchPypi {
+            inherit (oldAttrs) pname;
+            inherit version;
+            hash = "sha256-THlg0JT1hH2aRWwYuKPI5gxCjjCAo5BfHJQ9gbpjUaQ=";
+            extension = "zip";
+          };
 
-              preBuild = ''
-                rm azure_bdist_wheel.py
-                substituteInPlace setup.cfg \
-                  --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
-              '';
-            }
-          );
+          preBuild = ''
+            rm azure_bdist_wheel.py
+            substituteInPlace setup.cfg \
+              --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
+          '';
+        }
+      );
 
       azure-mgmt-datalake-store = super.azure-mgmt-datalake-store.overrideAttrs (
         oldAttrs: rec {

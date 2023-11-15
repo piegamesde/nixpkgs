@@ -12,9 +12,7 @@ let
   attrsToArgs =
     attrs:
     utils.escapeSystemdExecArgs (
-      mapAttrsToList
-        (name: value: if value == true then "--${name}" else "--${name}=${value}")
-        attrs
+      mapAttrsToList (name: value: if value == true then "--${name}" else "--${name}=${value}") attrs
     );
   hostPortSubmodule = {
     options = {
@@ -51,8 +49,7 @@ let
   hostPortToString = { host, port }: "${host}:${builtins.toString port}";
   localRemoteToString =
     { local, remote }:
-    utils.escapeSystemdExecArg
-      "${hostPortToString local}:${hostPortToString remote}";
+    utils.escapeSystemdExecArg "${hostPortToString local}:${hostPortToString remote}";
   commonOptions = {
     enable = mkOption {
       description = mdDoc "Whether to enable this `wstunnel` instance.";
@@ -63,9 +60,7 @@ let
     package = mkPackageOptionMD pkgs "wstunnel" { };
 
     autoStart = mkOption {
-      description =
-        mdDoc
-          "Whether this tunnel server should be started automatically.";
+      description = mdDoc "Whether this tunnel server should be started automatically.";
       type = types.bool;
       default = true;
     };
@@ -285,9 +280,7 @@ let
 
         # The original argument name `websocketPingFrequency` is a misnomer, as the frequency is the inverse of the interval.
         websocketPingInterval = mkOption {
-          description =
-            mdDoc
-              "Do a heartbeat ping every N seconds to keep up the websocket connection.";
+          description = mdDoc "Do a heartbeat ping every N seconds to keep up the websocket connection.";
           type = types.nullOr types.ints.unsigned;
           default = null;
         };
@@ -338,12 +331,8 @@ let
             with serverCfg;
             let
               resolvedTlsCertificate =
-                if useACMEHost != null then
-                  "${certConfig.directory}/fullchain.pem"
-                else
-                  tlsCertificate;
-              resolvedTlsKey =
-                if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
+                if useACMEHost != null then "${certConfig.directory}/fullchain.pem" else tlsCertificate;
+              resolvedTlsKey = if useACMEHost != null then "${certConfig.directory}/key.pem" else tlsKey;
             in
             ''
               ${package}/bin/wstunnel \
@@ -357,25 +346,19 @@ let
                     "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
                 } \
                 ${
-                  optionalString (resolvedTlsKey != null)
-                    "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
+                  optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
                 } \
                 ${optionalString verboseLogging "--verbose"} \
                 ${attrsToArgs extraArgs} \
                 ${
-                  utils.escapeSystemdExecArg
-                    "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
+                  utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString listen}"
                 }
             '';
-          EnvironmentFile =
-            optional (serverCfg.environmentFile != null)
-              serverCfg.environmentFile;
+          EnvironmentFile = optional (serverCfg.environmentFile != null) serverCfg.environmentFile;
           DynamicUser = true;
           SupplementaryGroups = optional (serverCfg.useACMEHost != null) certConfig.group;
           PrivateTmp = true;
-          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [
-            "CAP_NET_BIND_SERVICE"
-          ];
+          AmbientCapabilities = optionals (serverCfg.listen.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
           NoNewPrivileges = true;
           RestrictNamespaces = "uts ipc pid user cgroup";
           ProtectSystem = "strict";
@@ -407,28 +390,17 @@ let
         ExecStart = with clientCfg; ''
           ${package}/bin/wstunnel \
             ${
-              concatStringsSep " " (
-                builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote
-              )
+              concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)
             } \
-            ${
-              concatStringsSep " " (
-                mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders
-              )
-            } \
+            ${concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)} \
             ${
               optionalString (dynamicToRemote != null)
-                "--dynamicToRemote=${
-                  utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)
-                }"
+                "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
             } \
             ${optionalString udp "--udp"} \
             ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
             ${optionalString (soMark != null) "--soMark=${toString soMark}"} \
-            ${
-              optionalString (upgradePathPrefix != null)
-                "--upgradePathPrefix=${upgradePathPrefix}"
-            } \
+            ${optionalString (upgradePathPrefix != null) "--upgradePathPrefix=${upgradePathPrefix}"} \
             ${optionalString (hostHeader != null) "--hostHeader=${hostHeader}"} \
             ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
             ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
@@ -436,21 +408,15 @@ let
               optionalString (websocketPingInterval != null)
                 "--websocketPingFrequency=${toString websocketPingInterval}"
             } \
-            ${
-              optionalString (upgradeCredentials != null)
-                "--upgradeCredentials=${upgradeCredentials}"
-            } \
+            ${optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"} \
             --udpTimeoutSec=${toString udpTimeout} \
             ${optionalString verboseLogging "--verbose"} \
             ${attrsToArgs extraArgs} \
             ${
-              utils.escapeSystemdExecArg
-                "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
+              utils.escapeSystemdExecArg "${if enableHTTPS then "wss" else "ws"}://${hostPortToString connectTo}"
             }
         '';
-        EnvironmentFile =
-          optional (clientCfg.environmentFile != null)
-            clientCfg.environmentFile;
+        EnvironmentFile = optional (clientCfg.environmentFile != null) clientCfg.environmentFile;
         DynamicUser = true;
         PrivateTmp = true;
         AmbientCapabilities =
@@ -533,10 +499,7 @@ in
       (mapAttrsToList
         (name: serverCfg: {
           assertion =
-            !(
-              serverCfg.useACMEHost != null
-              && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
-            );
+            !(serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null));
           message = ''
             Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
           '';
@@ -558,8 +521,7 @@ in
       )
       ++ (mapAttrsToList
         (name: clientCfg: {
-          assertion =
-            !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
+          assertion = !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
           message = ''
             Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
           '';

@@ -12,9 +12,7 @@ let
 
   cfg = config.services.ofono;
 
-  plugin_path =
-    lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins")
-      cfg.plugins;
+  plugin_path = lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/ofono/plugins") cfg.plugins;
 in
 
 {
@@ -40,8 +38,6 @@ in
 
     systemd.packages = [ pkgs.ofono ];
 
-    systemd.services.ofono.environment.OFONO_PLUGIN_PATH =
-      mkIf (cfg.plugins != [ ])
-        plugin_path;
+    systemd.services.ofono.environment.OFONO_PLUGIN_PATH = mkIf (cfg.plugins != [ ]) plugin_path;
   };
 }

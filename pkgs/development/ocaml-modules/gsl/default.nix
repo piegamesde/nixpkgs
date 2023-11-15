@@ -53,9 +53,7 @@ buildDunePackage rec {
     dune-configurator
     gsl
   ];
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Accelerate
-  ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Accelerate ];
 
   meta = with lib; {
     homepage = "https://mmottl.github.io/gsl-ocaml/";

@@ -35,9 +35,7 @@ let
   toPluginAble = (import ./plugins.nix { inherit pkgs lib; }).toPluginAble;
 
   # List of known build systems that are passed through from nixpkgs unmodified
-  knownBuildSystems = builtins.fromJSON (
-    builtins.readFile ./known-build-systems.json
-  );
+  knownBuildSystems = builtins.fromJSON (builtins.readFile ./known-build-systems.json);
   nixpkgsBuildSystems =
     lib.subtractLists
       [
@@ -96,30 +94,22 @@ let
       );
 
       allRawDeps =
-        if extras == [ "*" ] then
-          rawDeps
-        else
-          rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
+        if extras == [ "*" ] then rawDeps else rawRequiredDeps // lib.getAttrs desiredExtrasDeps rawDeps;
       checkInputs' =
         getDeps (pyProject.tool.poetry."dev-dependencies" or { }) # <poetry-1.2.0
         # >=poetry-1.2.0 dependency groups
         ++ lib.flatten (
-          map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { }))
-            checkGroups
+          map (g: getDeps (pyProject.tool.poetry.group.${g}.dependencies or { })) checkGroups
         );
     in
     {
-      buildInputs = mkInput "buildInputs" (
-        if includeBuildSystem then buildSystemPkgs else [ ]
-      );
+      buildInputs = mkInput "buildInputs" (if includeBuildSystem then buildSystemPkgs else [ ]);
       propagatedBuildInputs = mkInput "propagatedBuildInputs" (
         getDeps allRawDeps
         ++ (
           # >=poetry-1.2.0 dependency groups
           if pyProject.tool.poetry.group or { } != { } then
-            lib.flatten (
-              map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups
-            )
+            lib.flatten (map (g: getDeps pyProject.tool.poetry.group.${g}.dependencies) groups)
           else
             [ ]
         )
@@ -211,9 +201,7 @@ lib.makeScope pkgs.newScope (
         hasScripts = scripts != { };
         scriptsPackage = self.mkPoetryScriptsPackage { inherit python scripts; };
 
-        editablePackageSources' =
-          lib.filterAttrs (name: path: path != null)
-            editablePackageSources;
+        editablePackageSources' = lib.filterAttrs (name: path: path != null) editablePackageSources;
         hasEditable = editablePackageSources' != { };
         editablePackage = self.mkPoetryEditablePackage {
           inherit pyProject python;
@@ -252,8 +240,7 @@ lib.makeScope pkgs.newScope (
               if pkgMeta ? marker then
                 (evalPep508 pkgMeta.marker)
               else
-                true
-                && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
+                true && isCompatible (poetryLib.getPythonVersion python) pkgMeta.python-versions;
           in
           lib.partition supportsPythonVersion poetryLock.package;
         compatible = partitions.right;
@@ -286,13 +273,10 @@ lib.makeScope pkgs.newScope (
                         pythonPackages = self;
 
                         sourceSpec =
-                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { })
-                            .${normalizedName} or (normalizePackageSet
-                              pyProject.tool.poetry.dev-dependencies or { }
-                            ).${normalizedName} or (normalizePackageSet
-                              pyProject.tool.poetry.group.dev.dependencies or { }
-                            ).${normalizedName} # Poetry 1.2.0+
-                              or { }
+                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
+                            or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
+                              or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
+                                or { }
                           );
                       }
                     );
@@ -328,11 +312,7 @@ lib.makeScope pkgs.newScope (
               lib.attrsets.mapAttrs
                 (
                   name: value:
-                  if
-                    lib.isDerivation value
-                    && self.hasPythonModule value
-                    && (normalizePackageName name) != name
-                  then
+                  if lib.isDerivation value && self.hasPythonModule value && (normalizePackageName name) != name then
                     null
                   else
                     value
@@ -428,9 +408,7 @@ lib.makeScope pkgs.newScope (
       {
         python = py;
         poetryPackages =
-          storePackages
-          ++ lib.optional hasScripts scriptsPackage
-          ++ lib.optional hasEditable editablePackage;
+          storePackages ++ lib.optional hasScripts scriptsPackage ++ lib.optional hasEditable editablePackage;
         poetryLock = poetryLock;
         inherit pyProject;
       };
@@ -468,9 +446,9 @@ lib.makeScope pkgs.newScope (
             lib.filterAttrs (name: dep: dep.develop or false && hasAttr "path" dep) set
           );
 
-        excludedEditablePackageNames =
-          builtins.filter (pkg: editablePackageSources."${pkg}" == null)
-            (builtins.attrNames editablePackageSources);
+        excludedEditablePackageNames = builtins.filter (pkg: editablePackageSources."${pkg}" == null) (
+          builtins.attrNames editablePackageSources
+        );
 
         allEditablePackageSources =
           (
@@ -479,9 +457,7 @@ lib.makeScope pkgs.newScope (
             // (
               # Poetry>=1.2.0
               if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl'
-                  (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies)
-                  { }
+                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { }
                   groups
               else
                 { }
@@ -530,10 +506,7 @@ lib.makeScope pkgs.newScope (
         projectDir ? null,
         src ? (
           # Assume that a project which is the result of a derivation is already adequately filtered
-          if lib.isDerivation projectDir then
-            projectDir
-          else
-            self.cleanPythonSources { src = projectDir; }
+          if lib.isDerivation projectDir then projectDir else self.cleanPythonSources { src = projectDir; }
         ),
         pyproject ? projectDir + "/pyproject.toml",
         poetrylock ? projectDir + "/poetry.lock",
@@ -682,9 +655,7 @@ lib.makeScope pkgs.newScope (
 
        Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
     */
-    defaultPoetryOverrides = self.mkDefaultPoetryOverrides (
-      import ./overrides { inherit pkgs lib; }
-    );
+    defaultPoetryOverrides = self.mkDefaultPoetryOverrides (import ./overrides { inherit pkgs lib; });
 
     # Convenience functions for specifying overlays with or without the poerty2nix default overrides
     overrides = {

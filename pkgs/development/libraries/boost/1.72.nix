@@ -12,9 +12,7 @@ callPackage ./generic.nix (
 
     src = fetchurl {
       urls = [
-        "mirror://sourceforge/boost/boost_${
-          builtins.replaceStrings [ "." ] [ "_" ] version
-        }.tar.bz2"
+        "mirror://sourceforge/boost/boost_${builtins.replaceStrings [ "." ] [ "_" ] version}.tar.bz2"
         "https://boostorg.jfrog.io/artifactory/main/release/${version}/source/boost_${
           builtins.replaceStrings [ "." ] [ "_" ] version
         }.tar.bz2"

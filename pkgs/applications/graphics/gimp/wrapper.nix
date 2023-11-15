@@ -9,12 +9,10 @@
 
 let
   inherit (gimpPlugins) gimp;
-  allPlugins =
-    lib.filter (pkg: lib.isDerivation pkg && !pkg.meta.broken or false)
-      (lib.attrValues gimpPlugins);
-  selectedPlugins = lib.filter (pkg: pkg != gimp) (
-    if plugins == null then allPlugins else plugins
+  allPlugins = lib.filter (pkg: lib.isDerivation pkg && !pkg.meta.broken or false) (
+    lib.attrValues gimpPlugins
   );
+  selectedPlugins = lib.filter (pkg: pkg != gimp) (if plugins == null then allPlugins else plugins);
   extraArgs = map (x: x.wrapArgs or "") selectedPlugins;
   versionBranch = lib.versions.majorMinor gimp.version;
 in

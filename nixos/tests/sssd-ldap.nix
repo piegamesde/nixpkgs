@@ -74,8 +74,7 @@ import ./make-test-python.nix (
         services.sssd = {
           enable = true;
           # just for testing purposes, don't put this into the Nix store in production!
-          environmentFile = "${pkgs.writeText "ldap-root"
-              "LDAP_BIND_PW=${ldapRootPassword}"}";
+          environmentFile = "${pkgs.writeText "ldap-root" "LDAP_BIND_PW=${ldapRootPassword}"}";
           config = ''
             [sssd]
             config_file_version = 2

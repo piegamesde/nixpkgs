@@ -32,9 +32,7 @@ in
       ExecStart = ''
         ${pkgs.prometheus-influxdb-exporter}/bin/influxdb_exporter \
         --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
-        --influxdb.sample-expiry ${cfg.sampleExpiry} ${
-          concatStringsSep " " cfg.extraFlags
-        }
+        --influxdb.sample-expiry ${cfg.sampleExpiry} ${concatStringsSep " " cfg.extraFlags}
       '';
     };
   };

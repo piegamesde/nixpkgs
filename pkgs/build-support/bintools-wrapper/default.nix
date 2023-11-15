@@ -62,9 +62,7 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
-    targetPlatform.config + "-"
-  );
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (targetPlatform.config + "-");
 
   bintoolsVersion = lib.getVersion bintools;
   bintoolsName = lib.removePrefix targetPrefix (lib.getName bintools);
@@ -135,11 +133,7 @@ let
 
   expand-response-params =
     lib.optionalString
-      (
-        buildPackages ? stdenv
-        && buildPackages.stdenv.hasCC
-        && buildPackages.stdenv.cc != "/dev/null"
-      )
+      (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
       (import ../expand-response-params { inherit (buildPackages) stdenv; });
 in
 
@@ -149,9 +143,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [
-    "out"
-  ] ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
+  outputs = [ "out" ] ++ optionals propagateDoc ([ "man" ] ++ optional (bintools ? info) "info");
 
   passthru = {
     inherit targetPrefix suffixSalt;
@@ -254,9 +246,7 @@ stdenv.mkDerivation {
       else
         ''
           ldInner="${targetPrefix}ld-reexport-delegate"
-          wrap "$ldInner" ${
-            ./macos-sierra-reexport-hack.bash
-          } ''${ld:-$ldPath/${targetPrefix}ld}
+          wrap "$ldInner" ${./macos-sierra-reexport-hack.bash} ''${ld:-$ldPath/${targetPrefix}ld}
           wrap "${targetPrefix}ld" ${./ld-wrapper.sh} "$out/bin/$ldInner"
           unset ldInner
         ''
@@ -401,11 +391,9 @@ stdenv.mkDerivation {
     ###
     ### Remove LC_UUID
     ###
-    +
-      optionalString (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false))
-        ''
-          echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
-        ''
+    + optionalString (stdenv.targetPlatform.isDarwin && !(bintools.isGNU or false)) ''
+      echo "-no_uuid" >> $out/nix-support/libc-ldflags-before
+    ''
 
     + ''
       for flags in "$out/nix-support"/*flags*; do
@@ -434,9 +422,7 @@ stdenv.mkDerivation {
         export darwinMinVersion=${darwinMinVersion}
         export darwinSdkVersion=${darwinSdkVersion}
         export darwinMinVersionVariable=${darwinMinVersionVariable}
-        substituteAll ${
-          ./add-darwin-ldflags-before.sh
-        } $out/nix-support/add-local-ldflags-before.sh
+        substituteAll ${./add-darwin-ldflags-before.sh} $out/nix-support/add-local-ldflags-before.sh
       ''
     )
 

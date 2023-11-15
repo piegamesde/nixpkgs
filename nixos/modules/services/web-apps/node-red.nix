@@ -10,20 +10,17 @@ with lib;
 let
   cfg = config.services.node-red;
   defaultUser = "node-red";
-  finalPackage =
-    if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
-  node-red_withNpmAndGcc =
-    pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-      ''
-        mkdir -p $out/bin
-        makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
-          --set PATH '${
-            lib.makeBinPath [
-              pkgs.nodePackages.npm
-              pkgs.gcc
-            ]
-          }:$PATH' \
-      '';
+  finalPackage = if cfg.withNpmAndGcc then node-red_withNpmAndGcc else cfg.package;
+  node-red_withNpmAndGcc = pkgs.runCommand "node-red" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+    mkdir -p $out/bin
+    makeWrapper ${pkgs.nodePackages.node-red}/bin/node-red $out/bin/node-red \
+      --set PATH '${
+        lib.makeBinPath [
+          pkgs.nodePackages.npm
+          pkgs.gcc
+        ]
+      }:$PATH' \
+  '';
 in
 {
   options.services.node-red = {
@@ -56,9 +53,7 @@ in
     configFile = mkOption {
       type = types.path;
       default = "${cfg.package}/lib/node_modules/node-red/settings.js";
-      defaultText =
-        literalExpression
-          ''"''${package}/lib/node_modules/node-red/settings.js"'';
+      defaultText = literalExpression ''"''${package}/lib/node_modules/node-red/settings.js"'';
       description = lib.mdDoc ''
         Path to the JavaScript configuration file.
         See <https://github.com/node-red/node-red/blob/master/packages/node_modules/node-red/settings.js>
@@ -112,9 +107,7 @@ in
     define = mkOption {
       type = types.attrs;
       default = { };
-      description =
-        lib.mdDoc
-          "List of settings.js overrides to pass via -D to Node-RED.";
+      description = lib.mdDoc "List of settings.js overrides to pass via -D to Node-RED.";
       example = literalExpression ''
         {
           "logging.console.level" = "trace";
@@ -131,9 +124,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
-    };
+    users.groups = optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
 
     networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
 
@@ -150,12 +141,8 @@ in
           Group = cfg.group;
           ExecStart = "${finalPackage}/bin/node-red ${
               pkgs.lib.optionalString cfg.safe "--safe"
-            } --settings ${cfg.configFile} --port ${
-              toString cfg.port
-            } --userDir ${cfg.userDir} ${
-              concatStringsSep " " (
-                mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define
-              )
+            } --settings ${cfg.configFile} --port ${toString cfg.port} --userDir ${cfg.userDir} ${
+              concatStringsSep " " (mapAttrsToList (name: value: "-D ${name}=${value}") cfg.define)
             }";
           PrivateTmp = true;
           Restart = "always";

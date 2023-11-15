@@ -23,9 +23,7 @@
   opentype-fonts =
     runCommand "texlive-test-opentype"
       {
-        nativeBuildInputs = [
-          (with texlive; combine { inherit scheme-medium libertinus-fonts; })
-        ];
+        nativeBuildInputs = [ (with texlive; combine { inherit scheme-medium libertinus-fonts; }) ];
         input = builtins.toFile "opentype-testfile.tex" ''
           \documentclass{article}
           \usepackage{fontspec}
@@ -50,9 +48,7 @@
   chktex =
     runCommand "texlive-test-chktex"
       {
-        nativeBuildInputs = [
-          (with texlive; combine { inherit scheme-infraonly chktex; })
-        ];
+        nativeBuildInputs = [ (with texlive; combine { inherit scheme-infraonly chktex; }) ];
         input = builtins.toFile "chktex-sample.tex" ''
           \documentclass{article}
           \begin{document}

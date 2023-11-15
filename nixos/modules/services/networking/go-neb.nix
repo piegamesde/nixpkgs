@@ -54,8 +54,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.go-neb =
       let
-        finalConfigFile =
-          if cfg.secretFile == null then configFile else "/var/run/go-neb/config.yaml";
+        finalConfigFile = if cfg.secretFile == null then configFile else "/var/run/go-neb/config.yaml";
       in
       {
         description = "Extensible matrix bot written in Go";

@@ -117,9 +117,7 @@ in
       openPorts = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Open firewall ports for cluster communication by default";
+        description = lib.mdDoc "Open firewall ports for cluster communication by default";
       };
 
       cache = mkOption {

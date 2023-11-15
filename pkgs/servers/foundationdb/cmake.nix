@@ -21,9 +21,7 @@
 let
   stdenv = if useClang then llvmPackages.libcxxStdenv else gccStdenv;
 
-  tests = builtins.replaceStrings [ "\n" ] [ " " ] (
-    lib.fileContents ./test-list.txt
-  );
+  tests = builtins.replaceStrings [ "\n" ] [ " " ] (lib.fileContents ./test-list.txt);
 
   # Only even numbered versions compile on aarch64; odd numbered versions have avx enabled.
   avxEnabled =
@@ -109,15 +107,12 @@ let
           "-DLIBRESSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
           "-DLIBRESSL_TLS_LIBRARY=${ssl.out}/lib/libtls.so"
         ]
-        ++
-          lib.optionals
-            (lib.versionAtLeast version "7.1.0" && lib.versionOlder version "7.2.0")
-            [
-              # FIXME: why can't openssl be found automatically?
-              "-DOPENSSL_USE_STATIC_LIBS=FALSE"
-              "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
-              "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
-            ];
+        ++ lib.optionals (lib.versionAtLeast version "7.1.0" && lib.versionOlder version "7.2.0") [
+          # FIXME: why can't openssl be found automatically?
+          "-DOPENSSL_USE_STATIC_LIBS=FALSE"
+          "-DOPENSSL_CRYPTO_LIBRARY=${ssl.out}/lib/libcrypto.so"
+          "-DOPENSSL_SSL_LIBRARY=${ssl.out}/lib/libssl.so"
+        ];
 
       hardeningDisable = [ "fortify" ];
 
@@ -187,9 +182,7 @@ let
         license = licenses.asl20;
         platforms =
           [ "x86_64-linux" ]
-          ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [
-            "aarch64-linux"
-          ];
+          ++ lib.optionals (lib.versionAtLeast version "7.1.0" && !(avxEnabled version)) [ "aarch64-linux" ];
         maintainers = with maintainers; [
           thoughtpolice
           lostnet

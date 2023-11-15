@@ -22,9 +22,7 @@ let
 
   cfgUpdate = pkgs.writeText "octoprint-config.yaml" (builtins.toJSON fullConfig);
 
-  pluginsEnv = package.python.withPackages (
-    ps: [ ps.octoprint ] ++ (cfg.plugins ps)
-  );
+  pluginsEnv = package.python.withPackages (ps: [ ps.octoprint ] ++ (cfg.plugins ps));
 
   package = pkgs.octoprint;
 in
@@ -90,9 +88,7 @@ in
       extraConfig = mkOption {
         type = types.attrs;
         default = { };
-        description =
-          lib.mdDoc
-            "Extra options which are added to OctoPrint's YAML configuration file.";
+        description = lib.mdDoc "Extra options which are added to OctoPrint's YAML configuration file.";
       };
     };
   };

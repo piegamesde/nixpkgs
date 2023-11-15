@@ -16,9 +16,7 @@ self: super:
     # see: https://github.com/psibi/shell-conduit/issues/12
     shell-conduit = dontCheck super.shell-conduit;
 
-    conduit-extra = super.conduit-extra.overrideAttrs (
-      drv: { __darwinAllowLocalNetworking = true; }
-    );
+    conduit-extra = super.conduit-extra.overrideAttrs (drv: { __darwinAllowLocalNetworking = true; });
 
     streaming-commons = super.streaming-commons.overrideAttrs (
       _: { __darwinAllowLocalNetworking = true; }
@@ -93,9 +91,7 @@ self: super:
         })
         super.al;
 
-    proteaaudio =
-      addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox
-        super.proteaaudio;
+    proteaaudio = addExtraLibrary darwin.apple_sdk.frameworks.AudioToolbox super.proteaaudio;
 
     # the system-fileio tests use canonicalizePath, which fails in the sandbox
     system-fileio = dontCheck super.system-fileio;
@@ -163,9 +159,7 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-            darwin.apple_sdk.frameworks.OpenGL
-          ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
           preConfigure =
             ''
               frameworkPaths=($(for i in $nativeBuildInputs; do if [ -d "$i"/Library/Frameworks ]; then echo "-F$i/Library/Frameworks"; fi done))
@@ -179,9 +173,7 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-            darwin.apple_sdk.frameworks.OpenGL
-          ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenGL ];
         })
         super.GLURaw;
     bindings-GLFW =
@@ -203,9 +195,7 @@ self: super:
       overrideCabal
         (drv: {
           librarySystemDepends = [ ];
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [
-            darwin.apple_sdk.frameworks.OpenCL
-          ];
+          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ darwin.apple_sdk.frameworks.OpenCL ];
         })
         super.OpenCL;
 
@@ -215,9 +205,7 @@ self: super:
 
     # FSEvents API is very buggy and tests are unreliable. See
     # http://openradar.appspot.com/10207999 and similar issues.
-    fsnotify = addBuildDepend darwin.apple_sdk.frameworks.Cocoa (
-      dontCheck super.fsnotify
-    );
+    fsnotify = addBuildDepend darwin.apple_sdk.frameworks.Cocoa (dontCheck super.fsnotify);
 
     FractalArt =
       overrideCabal
@@ -255,9 +243,7 @@ self: super:
     # conditional dependency via a cabal flag
     cas-store =
       overrideCabal
-        (drv: {
-          libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]);
-        })
+        (drv: { libraryHaskellDepends = [ self.kqueue ] ++ (drv.libraryHaskellDepends or [ ]); })
         super.cas-store;
 
     # 2021-05-25: Tests fail and I have no way to debug them.
@@ -394,23 +380,15 @@ self: super:
         super.rio;
 
     # https://github.com/haskell-crypto/cryptonite/issues/360
-    cryptonite =
-      appendPatch ./patches/cryptonite-remove-argon2.patch
-        super.cryptonite;
+    cryptonite = appendPatch ./patches/cryptonite-remove-argon2.patch super.cryptonite;
 
     # Build segfaults unless `fixity-th` is disabled.
     # https://github.com/tweag/ormolu/issues/927
     ormolu =
-      overrideCabal
-        (drv: {
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-        })
+      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.ormolu);
     fourmolu =
-      overrideCabal
-        (drv: {
-          libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-        })
+      overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
         (disableCabalFlag "fixity-th" super.fourmolu);
 
     # https://github.com/NixOS/nixpkgs/issues/149692

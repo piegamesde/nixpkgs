@@ -20,11 +20,7 @@ let
       creds:
       let
         placeholders =
-          (imap0
-            (
-              i: c:
-              ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"''
-            )
+          (imap0 (i: c: ''password "{{password-${toString i}}}@${concatStringsSep "," c.permissions}"'')
             creds
           );
       in
@@ -46,8 +42,7 @@ let
 
     ${optionalString (cfg.network.listenAddress != "any")
       ''bind_to_address "${cfg.network.listenAddress}"''}
-    ${optionalString (cfg.network.port != 6600)
-      ''port "${toString cfg.network.port}"''}
+    ${optionalString (cfg.network.port != 6600) ''port "${toString cfg.network.port}"''}
     ${optionalString (cfg.fluidsynth) ''
       decoder {
               plugin "fluidsynth"
@@ -55,9 +50,7 @@ let
       }
     ''}
 
-    ${optionalString (cfg.credentials != [ ]) (
-      credentialsPlaceholder cfg.credentials
-    )}
+    ${optionalString (cfg.credentials != [ ]) (credentialsPlaceholder cfg.credentials)}
 
     ${cfg.extraConfig}
   '';
@@ -254,10 +247,9 @@ in
           if pkgs.lib.hasPrefix "/" cfg.network.listenAddress then
             cfg.network.listenAddress
           else
-            "${
-              optionalString (cfg.network.listenAddress != "any")
-                "${cfg.network.listenAddress}:"
-            }${toString cfg.network.port}"
+            "${optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"}${
+              toString cfg.network.port
+            }"
         )
       ];
     };

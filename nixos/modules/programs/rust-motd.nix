@@ -59,9 +59,7 @@ in
       description = "motd generator";
       serviceConfig = {
         ExecStart = "${pkgs.writeShellScript "update-motd" ''
-          ${pkgs.rust-motd}/bin/rust-motd ${
-            format.generate "motd.conf" cfg.settings
-          } > motd
+          ${pkgs.rust-motd}/bin/rust-motd ${format.generate "motd.conf" cfg.settings} > motd
         ''}";
         CapabilityBoundingSet = [ "" ];
         LockPersonality = true;
@@ -97,11 +95,9 @@ in
         ''
       )
     );
-    services.openssh.extraConfig =
-      mkIf (cfg.settings ? last_login && cfg.settings.last_login != { })
-        ''
-          PrintLastLog no
-        '';
+    services.openssh.extraConfig = mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
+      PrintLastLog no
+    '';
   };
   meta.maintainers = with maintainers; [ ma27 ];
 }

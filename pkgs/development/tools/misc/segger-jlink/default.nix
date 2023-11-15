@@ -29,8 +29,7 @@ let
     };
   };
 
-  platform =
-    supported.${stdenv.system} or (throw "unsupported platform ${stdenv.system}");
+  platform = supported.${stdenv.system} or (throw "unsupported platform ${stdenv.system}");
 
   version = "766";
 

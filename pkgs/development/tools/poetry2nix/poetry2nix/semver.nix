@@ -21,11 +21,7 @@ let
           m = matchWildCard constraint;
           hasWildcard = m != null;
           c = if hasWildcard then (elemAt m 0) else constraint;
-          v =
-            if hasWildcard then
-              (builtins.substring 0 (builtins.stringLength c) version)
-            else
-              version;
+          v = if hasWildcard then (builtins.substring 0 (builtins.stringLength c) version) else version;
         in
         f v c;
     in
@@ -46,9 +42,7 @@ let
           # Prune constraint
           parts = builtins.splitVersion c;
           pruned = lib.take ((builtins.length parts) - 1) parts;
-          upper = builtins.toString (
-            (lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1
-          );
+          upper = builtins.toString ((lib.toInt (builtins.elemAt pruned (builtins.length pruned - 1))) + 1);
           upperConstraint = builtins.concatStringsSep "." (
             ireplace (builtins.length pruned - 1) upper pruned
           );

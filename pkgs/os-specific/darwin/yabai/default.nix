@@ -138,5 +138,4 @@ in
     };
   };
 }
-.${stdenv.hostPlatform.system}
-  or (throw "Unsupported platform ${stdenv.hostPlatform.system}")
+.${stdenv.hostPlatform.system} or (throw "Unsupported platform ${stdenv.hostPlatform.system}")

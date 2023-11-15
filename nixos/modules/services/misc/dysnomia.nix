@@ -21,9 +21,7 @@ let
         if isList property then
           ''
             ${propertyName}=(${
-              lib.concatMapStrings (elem: ''"${toString elem}" '') (
-                properties.${propertyName}
-              )
+              lib.concatMapStrings (elem: ''"${toString elem}" '') (properties.${propertyName})
             })
           ''
         else
@@ -89,9 +87,9 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings
-        (containerName: linkMutableComponents { inherit containerName; })
-        (builtins.attrNames cfg.components)}
+      ${concatMapStrings (containerName: linkMutableComponents { inherit containerName; }) (
+        builtins.attrNames cfg.components
+      )}
     '';
   };
 
@@ -121,9 +119,7 @@ in
       enableAuthentication = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to publish privacy-sensitive authentication credentials";
+        description = lib.mdDoc "Whether to publish privacy-sensitive authentication credentials";
       };
 
       package = mkOption {
@@ -182,9 +178,7 @@ in
       enableLegacyModules = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether to enable Dysnomia legacy process and wrapper modules";
+        description = lib.mdDoc "Whether to enable Dysnomia legacy process and wrapper modules";
       };
     };
   };
@@ -206,8 +200,7 @@ in
     environment.variables = {
       DYSNOMIA_STATEDIR = "/var/state/dysnomia-nixos";
       DYSNOMIA_CONTAINERS_PATH = "${
-          lib.concatMapStrings (containerPath: "${containerPath}:")
-            cfg.extraContainerPaths
+          lib.concatMapStrings (containerPath: "${containerPath}:") cfg.extraContainerPaths
         }/etc/dysnomia/containers";
       DYSNOMIA_MODULES_PATH = "${
           lib.concatMapStrings (modulePath: "${modulePath}:") cfg.extraModulePaths
@@ -280,9 +273,7 @@ in
               documentRoot = config.services.httpd.virtualHosts.localhost.documentRoot;
             };
           }
-          // lib.optionalAttrs (config.services.tomcat.axis2.enable) {
-            axis2-webservice = { };
-          }
+          // lib.optionalAttrs (config.services.tomcat.axis2.enable) { axis2-webservice = { }; }
           // lib.optionalAttrs (config.services.ejabberd.enable) {
             ejabberd-dump = {
               ejabberdUser = config.services.ejabberd.user;
@@ -297,9 +288,7 @@ in
           // lib.optionalAttrs (config.services.postgresql.enable) {
             postgresql-database =
               { }
-              // lib.optionalAttrs (cfg.enableAuthentication) {
-                postgresqlUsername = "postgres";
-              };
+              // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; };
           }
           // lib.optionalAttrs (config.services.tomcat.enable) {
             tomcat-webapplication = {

@@ -20,9 +20,7 @@ in
   };
 
   options.hardware.cpu.intel.sgx.provision = {
-    enable = mkEnableOption (
-      lib.mdDoc "access to the Intel SGX provisioning device"
-    );
+    enable = mkEnableOption (lib.mdDoc "access to the Intel SGX provisioning device");
     user = mkOption {
       description = lib.mdDoc "Owner to assign to the SGX provisioning device.";
       type = types.str;
@@ -49,8 +47,7 @@ in
         }
         {
           assertion =
-            (cfg.provision.group == defaultPrvGroup)
-            || (hasAttr cfg.provision.group config.users.groups);
+            (cfg.provision.group == defaultPrvGroup) || (hasAttr cfg.provision.group config.users.groups);
           message = "Given group does not exist";
         }
       ];

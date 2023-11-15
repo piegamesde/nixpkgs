@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.services.prometheus.exporters.rspamd;
 
-  mkFile =
-    conf: pkgs.writeText "rspamd-exporter-config.yml" (builtins.toJSON conf);
+  mkFile = conf: pkgs.writeText "rspamd-exporter-config.yml" (builtins.toJSON conf);
 
   generateConfig = extraLabels: {
     modules.default.metrics =

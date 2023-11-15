@@ -175,10 +175,7 @@ in
           --password-helper="${lsh}/sbin/lsh-pam-checkpw" \
           -p ${toString portNumber} \
           ${
-            if interfaces == [ ] then
-              ""
-            else
-              (concatStrings (map (i: ''--interface="${i}"'') interfaces))
+            if interfaces == [ ] then "" else (concatStrings (map (i: ''--interface="${i}"'') interfaces))
           } \
           -h "${hostKey}" \
           ${optionalString (!syslog) "--no-syslog"} \
@@ -190,9 +187,7 @@ in
           ${if !tcpForwarding then "--no-tcpip-forward" else "--tcpip-forward"} \
           ${if x11Forwarding then "--x11-forward" else "--no-x11-forward"} \
           --subsystems=${
-            concatStringsSep "," (
-              map (pair: (head pair) + "=" + (head (tail pair))) subsystems
-            )
+            concatStringsSep "," (map (pair: (head pair) + "=" + (head (tail pair))) subsystems)
           }
       '';
     };

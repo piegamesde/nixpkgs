@@ -1,7 +1,6 @@
 with builtins;
 let
-  withIndexes =
-    list: genList (idx: (elemAt list idx) // { index = idx; }) (length list);
+  withIndexes = list: genList (idx: (elemAt list idx) // { index = idx; }) (length list);
 
   testLine =
     report:

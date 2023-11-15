@@ -2,9 +2,7 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "gnome-flashback";
-    meta = with lib; {
-      maintainers = teams.gnome.members ++ [ maintainers.chpatrick ];
-    };
+    meta = with lib; { maintainers = teams.gnome.members ++ [ maintainers.chpatrick ]; };
 
     nodes.machine =
       { nodes, ... }:

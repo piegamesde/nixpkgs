@@ -39,11 +39,7 @@ let
       isIpv6 = x: lib.length (lib.splitString ":" x) > 1;
       listener =
         lib.findFirst
-          (
-            listener:
-            lib.any (resource: lib.any (name: name == "client") resource.names)
-              listener.resources
-          )
+          (listener: lib.any (resource: lib.any (name: name == "client") resource.names) listener.resources)
           (lib.last cfg.settings.listeners)
           cfg.settings.listeners;
       # FIXME: Handle cases with missing client listener properly,
@@ -56,14 +52,10 @@ let
     pkgs.writeShellScriptBin "matrix-synapse-register_new_matrix_user" ''
       exec ${cfg.package}/bin/register_new_matrix_user \
         $@ \
-        ${
-          lib.concatMapStringsSep " " (x: "-c ${x}") (
-            [ configFile ] ++ cfg.extraConfigFiles
-          )
-        } \
-        "${listenerProtocol}://${
-          if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"
-        }:${builtins.toString listener.port}/"
+        ${lib.concatMapStringsSep " " (x: "-c ${x}") ([ configFile ] ++ cfg.extraConfigFiles)} \
+        "${listenerProtocol}://${if (isIpv6 bindAddress) then "[${bindAddress}]" else "${bindAddress}"}:${
+          builtins.toString listener.port
+        }/"
     '';
 in
 {
@@ -728,9 +720,7 @@ in
               log_config = mkOption {
                 type = types.path;
                 default = ./synapse-log_config.yaml;
-                defaultText =
-                  lib.literalExpression
-                    "nixos/modules/services/matrix/synapse-log_config.yaml";
+                defaultText = lib.literalExpression "nixos/modules/services/matrix/synapse-log_config.yaml";
                 description = lib.mdDoc ''
                   The file that holds the logging configuration.
                 '';
@@ -925,11 +915,7 @@ in
                   "sqlite3"
                   "psycopg2"
                 ];
-                default =
-                  if versionAtLeast config.system.stateVersion "18.03" then
-                    "psycopg2"
-                  else
-                    "sqlite3";
+                default = if versionAtLeast config.system.stateVersion "18.03" then "psycopg2" else "sqlite3";
                 defaultText = literalExpression ''
                   if versionAtLeast config.system.stateVersion "18.03"
                   then "psycopg2"
@@ -1201,9 +1187,7 @@ in
 
     systemd.services.matrix-synapse = {
       description = "Synapse Matrix homeserver";
-      after = [
-        "network.target"
-      ] ++ optional hasLocalPostgresDB "postgresql.service";
+      after = [ "network.target" ] ++ optional hasLocalPostgresDB "postgresql.service";
       wantedBy = [ "multi-user.target" ];
       preStart = ''
         ${cfg.package}/bin/synapse_homeserver \
@@ -1211,15 +1195,9 @@ in
           --keys-directory ${cfg.dataDir} \
           --generate-keys
       '';
-      environment =
-        {
-          PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [
-            pluginsEnv
-          ];
-        }
-        // optionalAttrs (cfg.withJemalloc) {
-          LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so";
-        };
+      environment = {
+        PYTHONPATH = makeSearchPathOutput "lib" cfg.package.python.sitePackages [ pluginsEnv ];
+      } // optionalAttrs (cfg.withJemalloc) { LD_PRELOAD = "${pkgs.jemalloc}/lib/libjemalloc.so"; };
       serviceConfig = {
         Type = "notify";
         User = "matrix-synapse";
@@ -1237,9 +1215,7 @@ in
         ExecStart = ''
           ${cfg.package}/bin/synapse_homeserver \
             ${
-              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") (
-                [ configFile ] ++ cfg.extraConfigFiles
-              )
+              concatMapStringsSep "\n  " (x: "--config-path ${x} \\") ([ configFile ] ++ cfg.extraConfigFiles)
             }
             --keys-directory ${cfg.dataDir}
         '';

@@ -47,8 +47,7 @@ let
 
       configFile = pkgs.writeText "openvpn-config-${name}" ''
         errors-to-stderr
-        ${optionalString (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf)
-          "script-security 2"}
+        ${optionalString (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf) "script-security 2"}
         ${cfg.config}
         ${optionalString (cfg.up != "" || cfg.updateResolvConf)
           "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}
@@ -188,9 +187,7 @@ in
               autoStart = mkOption {
                 default = true;
                 type = types.bool;
-                description =
-                  lib.mdDoc
-                    "Whether this OpenVPN instance should be started automatically.";
+                description = lib.mdDoc "Whether this OpenVPN instance should be started automatically.";
               };
 
               updateResolvConf = mkOption {
@@ -236,9 +233,7 @@ in
     services.openvpn.restartAfterSleep = mkOption {
       default = true;
       type = types.bool;
-      description =
-        lib.mdDoc
-          "Whether OpenVPN client should be restarted after sleep.";
+      description = lib.mdDoc "Whether OpenVPN client should be restarted after sleep.";
     };
   };
 
@@ -248,8 +243,7 @@ in
 
     systemd.services =
       (listToAttrs (
-        mapAttrsFlatten
-          (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
+        mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
           cfg.servers
       ))
       // restartService;

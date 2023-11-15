@@ -17,9 +17,7 @@ with lib;
 
     services.malcontent = {
 
-      enable = mkEnableOption (
-        lib.mdDoc "Malcontent, parental control support for applications"
-      );
+      enable = mkEnableOption (lib.mdDoc "Malcontent, parental control support for applications");
     };
   };
 

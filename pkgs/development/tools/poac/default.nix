@@ -54,9 +54,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     mkdir -p ${placeholder "out"}/share/cpm
-    cp ${cpm-cmake}/share/cpm/CPM.cmake ${
-      placeholder "out"
-    }/share/cpm/CPM_0.35.1.cmake
+    cp ${cpm-cmake}/share/cpm/CPM.cmake ${placeholder "out"}/share/cpm/CPM_0.35.1.cmake
   '';
 
   cmakeFlags = [

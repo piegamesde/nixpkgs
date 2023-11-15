@@ -81,9 +81,7 @@ stdenv.mkDerivation rec {
       ninja
       unzip
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.apple_sdk.frameworks.Foundation
-    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.Foundation ]
     ++
       lib.optionals (!stdenv.hostPlatform.isDarwin)
         [
@@ -127,9 +125,7 @@ stdenv.mkDerivation rec {
   '';
 
   # https://github.com/ldc-developers/ldc/issues/2497#issuecomment-459633746
-  additionalExceptions =
-    lib.optionalString stdenv.hostPlatform.isDarwin
-      "|druntime-test-shared";
+  additionalExceptions = lib.optionalString stdenv.hostPlatform.isDarwin "|druntime-test-shared";
 
   checkPhase = ''
     # Build default lib test runners

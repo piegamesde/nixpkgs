@@ -78,9 +78,7 @@ stdenv.mkDerivation rec {
   ];
 
   src = fetchurl {
-    url = "mirror://gnome/sources/gtk/${
-        lib.versions.majorMinor version
-      }/gtk-${version}.tar.xz";
+    url = "mirror://gnome/sources/gtk/${lib.versions.majorMinor version}/gtk-${version}.tar.xz";
     sha256 = "RUVEGteeN3624KcFAm3HpGiG5GobA020CRKQnagBzqk=";
   };
 
@@ -183,11 +181,9 @@ stdenv.mkDerivation rec {
 
   # These are the defines that'd you'd get with --enable-debug=minimum (default).
   # See: https://developer.gnome.org/gtk3/stable/gtk-building.html#extra-configuration-options
-  env =
-    {
-      NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
-    }
-    // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; };
+  env = {
+    NIX_CFLAGS_COMPILE = "-DG_ENABLE_DEBUG -DG_DISABLE_CAST_CHECKS";
+  } // lib.optionalAttrs stdenv.hostPlatform.isMusl { NIX_LDFLAGS = "-lexecinfo"; };
 
   postPatch = ''
     files=(

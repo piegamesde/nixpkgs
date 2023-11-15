@@ -55,9 +55,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.isso.settings.general.dbpath =
-      lib.mkDefault
-        "/var/lib/isso/comments.db";
+    services.isso.settings.general.dbpath = lib.mkDefault "/var/lib/isso/comments.db";
 
     systemd.services.isso = {
       description = "isso, a commenting server similar to Disqus";

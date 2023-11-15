@@ -20,8 +20,6 @@ let
 
   tap = import ./tap-support.nix;
 
-  results = builtins.concatLists (
-    map (file: callPackage file testTools) testFiles
-  );
+  results = builtins.concatLists (map (file: callPackage file testTools) testFiles);
 in
 writeText "test-results.tap" (tap.output results)

@@ -77,12 +77,7 @@ stdenv.mkDerivation rec {
     # It's important that caffe is passed the major and minor version only because that's what
     # boost_python expects
     [
-      (
-        if pythonSupport then
-          "-Dpython_version=${python.pythonVersion}"
-        else
-          "-DBUILD_python=OFF"
-      )
+      (if pythonSupport then "-Dpython_version=${python.pythonVersion}" else "-DBUILD_python=OFF")
       "-DBLAS=open"
     ]
     ++ (
@@ -174,12 +169,10 @@ stdenv.mkDerivation rec {
         'SetTotalBytesLimit(kProtoReadBytesLimit, 536870912)' \
         'SetTotalBytesLimit(kProtoReadBytesLimit)'
     ''
-    +
-      lib.optionalString (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0")
-        ''
-          # CUDA 9.0 doesn't support sm_20
-          sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
-        '';
+    + lib.optionalString (cudaSupport && lib.versionAtLeast cudatoolkit.version "9.0") ''
+      # CUDA 9.0 doesn't support sm_20
+      sed -i 's,20 21(20) ,,' cmake/Cuda.cmake
+    '';
 
   preConfigure = lib.optionalString pythonSupport ''
     # We need this when building with Python bindings

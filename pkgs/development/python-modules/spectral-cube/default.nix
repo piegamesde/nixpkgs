@@ -46,9 +46,7 @@ buildPythonPackage rec {
 
   # On x86_darwin, this test fails with "Fatal Python error: Aborted"
   # when sandbox = true.
-  disabledTestPaths = lib.optionals stdenv.isDarwin [
-    "spectral_cube/tests/test_visualization.py"
-  ];
+  disabledTestPaths = lib.optionals stdenv.isDarwin [ "spectral_cube/tests/test_visualization.py" ];
 
   meta = {
     description = "Library for reading and analyzing astrophysical spectral data cubes";

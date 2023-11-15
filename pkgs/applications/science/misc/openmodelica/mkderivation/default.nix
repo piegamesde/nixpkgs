@@ -67,8 +67,7 @@ let
     + appendByAttr "postPatch" "\n" pkg;
 
   # Update shebangs in the scripts before running configuration.
-  preAutoreconf =
-    "patchShebangs --build common" + appendByAttr "preAutoreconf" "\n" pkg;
+  preAutoreconf = "patchShebangs --build common" + appendByAttr "preAutoreconf" "\n" pkg;
 
   # Tell OpenModelica where built dependencies are located.
   configureFlags =
@@ -125,9 +124,7 @@ stdenv.mkDerivation (
       autoreconfHook
     ];
 
-    buildInputs =
-      getAttrDef "buildInputs" [ ] pkg
-      ++ lib.optional ifDeps joinedDeps;
+    buildInputs = getAttrDef "buildInputs" [ ] pkg ++ lib.optional ifDeps joinedDeps;
 
     dontUseCmakeConfigure = true;
 

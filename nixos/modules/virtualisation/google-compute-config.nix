@@ -74,9 +74,7 @@ with lib; {
   systemd.packages = [ pkgs.google-guest-agent ];
   systemd.services.google-guest-agent = {
     wantedBy = [ "multi-user.target" ];
-    restartTriggers = [
-      config.environment.etc."default/instance_configs.cfg".source
-    ];
+    restartTriggers = [ config.environment.etc."default/instance_configs.cfg".source ];
     path = lib.optional config.users.mutableUsers pkgs.shadow;
   };
   systemd.services.google-startup-scripts.wantedBy = [ "multi-user.target" ];

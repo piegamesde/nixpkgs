@@ -328,8 +328,7 @@ rec {
        command: name of an executable
            pkg: Haskell package that builds the executables
   */
-  generateOptparseApplicativeCompletion =
-    compose.generateOptparseApplicativeCompletion;
+  generateOptparseApplicativeCompletion = compose.generateOptparseApplicativeCompletion;
 
   /* Modify a Haskell package to add shell completion scripts for the
      given executables produced by it. These completion scripts will be
@@ -342,8 +341,7 @@ rec {
       commands: name of an executable
            pkg: Haskell package that builds the executables
   */
-  generateOptparseApplicativeCompletions =
-    compose.generateOptparseApplicativeCompletions;
+  generateOptparseApplicativeCompletions = compose.generateOptparseApplicativeCompletions;
 
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being

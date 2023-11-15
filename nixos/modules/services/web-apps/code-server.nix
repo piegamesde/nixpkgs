@@ -27,18 +27,14 @@ in
 
       extraPackages = mkOption {
         default = [ ];
-        description =
-          lib.mdDoc
-            "Packages that are available in the PATH of code-server.";
+        description = lib.mdDoc "Packages that are available in the PATH of code-server.";
         example = "[ pkgs.go ]";
         type = types.listOf types.package;
       };
 
       extraEnvironment = mkOption {
         type = types.attrsOf types.str;
-        description =
-          lib.mdDoc
-            "Additional environment variables to passed to code-server.";
+        description = lib.mdDoc "Additional environment variables to passed to code-server.";
         default = { };
         example = {
           PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";
@@ -103,9 +99,7 @@ in
 
       extraGroups = mkOption {
         default = [ ];
-        description =
-          lib.mdDoc
-            "An array of additional groups for the `${defaultUser}` user.";
+        description = lib.mdDoc "An array of additional groups for the `${defaultUser}` user.";
         example = [ "docker" ];
         type = types.listOf types.str;
       };
@@ -124,9 +118,7 @@ in
       } // cfg.extraEnvironment;
       serviceConfig = {
         ExecStart =
-          "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${
-            toString cfg.port
-          } --auth ${cfg.auth} "
+          "${cfg.package}/bin/code-server --bind-addr ${cfg.host}:${toString cfg.port} --auth ${cfg.auth} "
           + lib.escapeShellArgs cfg.extraArguments;
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         RuntimeDirectory = cfg.user;

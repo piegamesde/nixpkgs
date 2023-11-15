@@ -36,9 +36,7 @@ let
       f = name: handler: ''
         fn=$out/${name}
         echo "event=${handler.event}" > $fn
-        echo "action=${
-          pkgs.writeShellScriptBin "${name}.sh" handler.action
-        }/bin/${name}.sh '%e'" >> $fn
+        echo "action=${pkgs.writeShellScriptBin "${name}.sh" handler.action}/bin/${name}.sh '%e'" >> $fn
       '';
     in
     concatStringsSep "\n" (mapAttrsToList f (canonicalHandlers // cfg.handlers))}
@@ -76,9 +74,7 @@ in
 
               action = mkOption {
                 type = types.lines;
-                description =
-                  lib.mdDoc
-                    "Shell commands to execute when the event is triggered.";
+                description = lib.mdDoc "Shell commands to execute when the event is triggered.";
               };
             };
           }

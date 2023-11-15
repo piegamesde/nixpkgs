@@ -29,9 +29,7 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/bin
     mv poetry2nix $out/bin
 
-    wrapProgram $out/bin/poetry2nix --prefix PATH ":" ${
-      lib.makeBinPath [ pkgs.nix-prefetch-git ]
-    }
+    wrapProgram $out/bin/poetry2nix --prefix PATH ":" ${lib.makeBinPath [ pkgs.nix-prefetch-git ]}
 
     runHook postInstall
   '';

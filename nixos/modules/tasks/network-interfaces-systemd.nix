@@ -28,21 +28,18 @@ let
     ++ map (vlan: vlan.interface) (attrValues cfg.vlans)
     # add dependency to physical or independently created vswitch member interface
     # TODO: warn the user that any address configured on those interfaces will be useless
-    ++
-      concatMap
-        (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces))
-        (attrValues cfg.vswitches);
+    ++ concatMap (i: attrNames (filterAttrs (_: config: config.type != "internal") i.interfaces)) (
+      attrValues cfg.vswitches
+    );
 
   domains = cfg.search ++ (optional (cfg.domain != null) cfg.domain);
   genericNetwork =
     override:
     let
       gateway =
-        optional
-          (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
+        optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
           cfg.defaultGateway.address
-        ++ optional
-          (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
+        ++ optional (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
           cfg.defaultGateway6.address;
       makeGateway = gateway: {
         routeConfig = {
@@ -91,9 +88,7 @@ let
         # Like above, but this is much more likely to be correct.
         matchConfig.WLANInterfaceType = "station";
         DHCP = "yes";
-        linkConfig.RequiredForOnline =
-          lib.mkDefault
-            config.systemd.network.wait-online.anyInterface;
+        linkConfig.RequiredForOnline = lib.mkDefault config.systemd.network.wait-online.anyInterface;
         networkConfig.IPv6PrivacyExtensions = "kernel";
         # We also set the route metric to one more than the default
         # of 1024, so that Ethernet is preferred if both are
@@ -112,9 +107,7 @@ let
               Name = i.name;
               Kind = i.virtualType;
             };
-            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) {
-              User = i.virtualOwner;
-            };
+            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) { User = i.virtualOwner; };
           };
         });
         networks."40-${i.name}" = mkMerge [
@@ -122,9 +115,7 @@ let
           {
             name = mkDefault i.name;
             DHCP = mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false));
-            address = forEach (interfaceIps i) (
-              ip: "${ip.address}/${toString ip.prefixLength}"
-            );
+            address = forEach (interfaceIps i) (ip: "${ip.address}/${toString ip.prefixLength}");
             routes = forEach (interfaceRoutes i) (
               route: {
                 # Most of these route options have not been tested.
@@ -142,19 +133,13 @@ let
                   // optionalAttrs (route.options ? initrwnd) {
                     InitialAdvertisedReceiveWindow = route.options.initrwnd;
                   }
-                  // optionalAttrs (route.options ? initcwnd) {
-                    InitialCongestionWindow = route.options.initcwnd;
-                  }
+                  // optionalAttrs (route.options ? initcwnd) { InitialCongestionWindow = route.options.initcwnd; }
                   // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
                   // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
                   // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
                   // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
-                  // optionalAttrs (route.options ? protocol) {
-                    Protocol = route.options.protocol;
-                  }
-                  // optionalAttrs (route.options ? quickack) {
-                    QuickAck = route.options.quickack;
-                  }
+                  // optionalAttrs (route.options ? protocol) { Protocol = route.options.protocol; }
+                  // optionalAttrs (route.options ? quickack) { QuickAck = route.options.quickack; }
                   // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
                   // optionalAttrs (route.options ? from) { Source = route.options.from; }
                   // optionalAttrs (route.options ? table) { Table = route.options.table; }
@@ -203,8 +188,7 @@ in
             message = "networking.defaultGateway.interface is not supported by networkd.";
           }
           {
-            assertion =
-              cfg.defaultGateway6 == null || cfg.defaultGateway6.interface == null;
+            assertion = cfg.defaultGateway6 == null || cfg.defaultGateway6.interface == null;
             message = "networking.defaultGateway6.interface is not supported by networkd.";
           }
         ]
@@ -312,9 +296,7 @@ in
                     do = bond.driverOptions;
                     assertNoUnknownOption =
                       let
-                        knownOptions = flatten (
-                          mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping
-                        );
+                        knownOptions = flatten (mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping);
                         # options that apparently don’t exist in the networkd config
                         unknownOptions = [ "primary" ];
                         assertTrace = bool: msg: if bool then true else builtins.trace msg false;
@@ -328,9 +310,7 @@ in
                           (mapAttrsToList (k: _: k) do);
                       "";
                     # get those driverOptions that have been set
-                    filterSystemdOptions = filterAttrs (
-                      sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames
-                    );
+                    filterSystemdOptions = filterAttrs (sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames);
                     # build final set of systemd options to bond values
                     buildOptionSet = mapAttrs (
                       _: kOpts:
@@ -346,9 +326,7 @@ in
                       )
                     );
                   in
-                  seq assertNoUnknownOption (
-                    buildOptionSet (filterSystemdOptions driverOptionMapping)
-                  );
+                  seq assertNoUnknownOption (buildOptionSet (filterSystemdOptions driverOptionMapping));
               };
 
               networks = listToAttrs (
@@ -399,8 +377,7 @@ in
                 # in networkd.
                 fooOverUDPConfig = {
                   Port = fou.port;
-                  Encapsulation =
-                    if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
+                  Encapsulation = if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
                 } // (optionalAttrs (fou.protocol != null) { Protocol = fou.protocol; });
               };
             }
@@ -421,11 +398,7 @@ in
                   // (optionalAttrs (sit.encapsulation != null) (
                     {
                       FooOverUDP = true;
-                      Encapsulation =
-                        if sit.encapsulation.type == "fou" then
-                          "FooOverUDP"
-                        else
-                          "GenericUDPEncapsulation";
+                      Encapsulation = if sit.encapsulation.type == "fou" then "FooOverUDP" else "GenericUDPEncapsulation";
                       FOUDestinationPort = sit.encapsulation.port;
                     }
                     // (optionalAttrs (sit.encapsulation.sourcePort != null) {
@@ -493,8 +466,7 @@ in
       systemd.services =
         let
           # We must escape interfaces due to the systemd interpretation
-          subsystemDevice =
-            interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
+          subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
           # support for creating openvswitch switches
           createVswitchDevice =
             n: v:
@@ -532,9 +504,7 @@ in
                 preStart = ''
                   echo "Resetting Open vSwitch ${n}..."
                   ovs-vsctl --if-exists del-br ${n} -- add-br ${n} \
-                            -- set bridge ${n} protocols=${
-                              concatStringsSep "," v.supportedOpenFlowVersions
-                            }
+                            -- set bridge ${n} protocols=${concatStringsSep "," v.supportedOpenFlowVersions}
                 '';
                 script = ''
                   echo "Configuring Open vSwitch ${n}..."
@@ -543,8 +513,7 @@ in
                       mapAttrsToList
                         (
                           name: config:
-                          " -- add-port ${n} ${name}"
-                          + optionalString (config.vlan != null) " tag=${toString config.vlan}"
+                          " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
                         )
                         v.interfaces
                     )
@@ -552,11 +521,7 @@ in
                     ${
                       concatStrings (
                         mapAttrsToList
-                          (
-                            name: config:
-                            optionalString (config.type != null)
-                              " -- set interface ${name} type=${config.type}"
-                          )
+                          (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
                           v.interfaces
                       )
                     } \

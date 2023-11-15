@@ -462,8 +462,7 @@ in
       if efiSupport then
         "${efiSystemsInstall.${stdenv.hostPlatform.system}.target}-efi"
       else
-        lib.optionalString inPCSystems
-          "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
+        lib.optionalString inPCSystems "${pcSystems.${stdenv.hostPlatform.system}.target}-pc";
 
     doCheck = false;
     enableParallelBuilding = true;
@@ -481,8 +480,7 @@ in
       nixos-install-simple = nixosTests.installer.simple;
       nixos-install-grub1 = nixosTests.installer.grub1;
       nixos-install-grub-uefi = nixosTests.installer.simpleUefiGrub;
-      nixos-install-grub-uefi-spec =
-        nixosTests.installer.simpleUefiGrubSpecialisation;
+      nixos-install-grub-uefi-spec = nixosTests.installer.simpleUefiGrubSpecialisation;
     };
 
     meta = with lib; {

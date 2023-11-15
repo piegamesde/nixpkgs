@@ -47,9 +47,7 @@ let
     #version=${pkg.version}
     # DONT'T REMOVE THE PREVIOUS VERSION LINE!
     #
-    ${concatStringsSep "\n" (
-      mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config
-    )}
+    ${concatStringsSep "\n" (mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config)}
   '';
 in
 {
@@ -145,13 +143,10 @@ in
     };
     users.groups.${group} = { };
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -" ];
 
     services.mysql.ensureUsers =
-      optional
-        (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")
+      optional (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")
         {
           name = user;
           ensurePermissions = {

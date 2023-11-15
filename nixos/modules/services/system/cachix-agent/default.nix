@@ -14,9 +14,7 @@ in
   meta.maintainers = [ lib.maintainers.domenkozar ];
 
   options.services.cachix-agent = {
-    enable = mkEnableOption (
-      lib.mdDoc "Cachix Deploy Agent: https://docs.cachix.org/deploy/"
-    );
+    enable = mkEnableOption (lib.mdDoc "Cachix Deploy Agent: https://docs.cachix.org/deploy/");
 
     name = mkOption {
       type = types.str;

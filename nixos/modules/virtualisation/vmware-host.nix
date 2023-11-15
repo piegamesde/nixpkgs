@@ -147,9 +147,7 @@ in
       unitConfig.ConditionPathExists = "!/etc/vmware/networking";
       serviceConfig = {
         UMask = "0077";
-        ExecStart = [
-          "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1"
-        ];
+        ExecStart = [ "${cfg.package}/bin/vmware-networks --postinstall vmware-player,0,1" ];
         Type = "oneshot";
         RemainAfterExit = "yes";
       };

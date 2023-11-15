@@ -18,9 +18,8 @@ stdenv.mkDerivation (
     nativeBuildInputs = [ unzip ];
 
     src =
-      sources."${version}-${stdenv.hostPlatform.system}" or (throw
-        "unsupported version/system: ${version}/${stdenv.hostPlatform.system}"
-      );
+      sources."${version}-${stdenv.hostPlatform.system}"
+        or (throw "unsupported version/system: ${version}/${stdenv.hostPlatform.system}");
 
     installPhase =
       ''
@@ -37,17 +36,14 @@ stdenv.mkDerivation (
     passthru = {
       updateScript = ./update.sh;
       tests = {
-        testCreate =
-          runCommand "dart-test-create"
-            { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-            ''
-              PROJECTNAME="dart_test_project"
-              dart create --no-pub $PROJECTNAME
+        testCreate = runCommand "dart-test-create" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+          PROJECTNAME="dart_test_project"
+          dart create --no-pub $PROJECTNAME
 
-              [[ -d $PROJECTNAME ]]
-              [[ -f $PROJECTNAME/bin/$PROJECTNAME.dart ]]
-              touch $out
-            '';
+          [[ -d $PROJECTNAME ]]
+          [[ -f $PROJECTNAME/bin/$PROJECTNAME.dart ]]
+          touch $out
+        '';
 
         testCompile =
           runCommand "dart-test-compile"

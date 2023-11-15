@@ -79,8 +79,7 @@ let
     if (builtins.length versions == 0) then
       [ ]
     else
-      (builtins.filter (x: hasInfix v x.file) candidates)
-      ++ (findBestMatches vs candidates);
+      (builtins.filter (x: hasInfix v x.file) candidates) ++ (findBestMatches vs candidates);
 
   # x = "cpXX" | "py2" | "py3" | "py2.py3"
   isPyVersionCompatible =
@@ -92,10 +91,7 @@ let
     x:
     let
       isCompat =
-        m:
-        builtins.elem m.tag tags
-        && m.major == major
-        && builtins.compareVersions minor m.minor >= 0;
+        m: builtins.elem m.tag tags && m.major == major && builtins.compareVersions minor m.minor >= 0;
       parseMarker =
         v:
         let
@@ -139,9 +135,9 @@ let
             (
               p:
               builtins.match
-                "any|manylinux(1|2010|2014)_${
+                "any|manylinux(1|2010|2014)_${escapeRegex targetMachine}|manylinux_[0-9]+_[0-9]+_${
                   escapeRegex targetMachine
-                }|manylinux_[0-9]+_[0-9]+_${escapeRegex targetMachine}"
+                }"
                 p != null
             )
           else

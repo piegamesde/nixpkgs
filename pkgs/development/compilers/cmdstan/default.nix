@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
     ln -s ${buildPackages.stanc}/bin/stanc bin/stanc
   '';
 
-  makeFlags =
-    lib.optional stdenv.isDarwin
-      "arch=${stdenv.hostPlatform.darwinArch}";
+  makeFlags = lib.optional stdenv.isDarwin "arch=${stdenv.hostPlatform.darwinArch}";
 
   checkPhase = ''
     ./runCmdStanTests.py -j$NIX_BUILD_CORES src/test/interface

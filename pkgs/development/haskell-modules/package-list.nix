@@ -21,9 +21,7 @@ let
       ''
         "${name}","${version}","http://hydra.nixos.org/job/nixpkgs/trunk/haskellPackages.${name}.x86_64-linux"'';
   all-haskellPackages = builtins.toFile "all-haskellPackages" (
-    lib.concatStringsSep "\n" (
-      lib.filter (x: x != "") (lib.mapAttrsToList pkgLine haskellPackages)
-    )
+    lib.concatStringsSep "\n" (lib.filter (x: x != "") (lib.mapAttrsToList pkgLine haskellPackages))
   );
 in
 runCommand "hackage-package-list" { }

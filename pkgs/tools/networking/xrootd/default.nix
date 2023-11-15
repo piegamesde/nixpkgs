@@ -42,9 +42,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  passthru.tests = lib.optionalAttrs enableTests {
-    test-runner = callPackage ./test-runner.nix { };
-  };
+  passthru.tests = lib.optionalAttrs enableTests { test-runner = callPackage ./test-runner.nix { }; };
 
   nativeBuildInputs = [
     cmake

@@ -6,8 +6,7 @@
 
 let
   unsafeBuildOpenRAMod =
-    attrs: name:
-    (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; });
+    attrs: name: (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; });
 in
 {
   ca = buildOpenRAMod {

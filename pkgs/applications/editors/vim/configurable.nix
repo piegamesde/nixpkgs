@@ -115,9 +115,7 @@ stdenv.mkDerivation rec {
     default = common.src; # latest release
   };
 
-  patches = [
-    ./cflags-prune.diff
-  ] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
+  patches = [ ./cflags-prune.diff ] ++ lib.optional ftNixSupport ./ft-nix-support.patch;
 
   configureFlags =
     [
@@ -151,12 +149,8 @@ stdenv.mkDerivation rec {
       "vim_cv_stat_ignores_slash=yes"
       "vim_cv_memmove_handles_overlap=yes"
     ]
-    ++
-      lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3")
-        "--enable-gui=${guiSupport}"
-    ++ lib.optional stdenv.isDarwin (
-      if darwinSupport then "--enable-darwin" else "--disable-darwin"
-    )
+    ++ lib.optional (guiSupport == "gtk2" || guiSupport == "gtk3") "--enable-gui=${guiSupport}"
+    ++ lib.optional stdenv.isDarwin (if darwinSupport then "--enable-darwin" else "--disable-darwin")
     ++ lib.optionals luaSupport [
       "--with-lua-prefix=${lua}"
       "--enable-luainterp"

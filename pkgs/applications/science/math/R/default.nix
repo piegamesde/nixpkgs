@@ -126,9 +126,7 @@ stdenv.mkDerivation (
       ''
         configureFlagsArray=(
           --disable-lto
-          --with${
-            lib.optionalString (!withRecommendedPackages) "out"
-          }-recommended-packages
+          --with${lib.optionalString (!withRecommendedPackages) "out"}-recommended-packages
           --with-blas="-L${blas}/lib -lblas"
           --with-lapack="-L${lapack}/lib -llapack"
           --with-readline

@@ -18,8 +18,7 @@ let
 in
 
 # making sure that the versions of the compiler and viewer parts are in sync
-assert ldgallery-compiler.version
-  == versions.majorMinor ldgallery-viewer.version;
+assert ldgallery-compiler.version == versions.majorMinor ldgallery-viewer.version;
 
 justStaticExecutables (
   overrideCabal

@@ -90,8 +90,7 @@ let
   # store, with no renaming.
   # This is suitable for use with munin-node-configure --suggest, i.e.
   # munin.extraAutoPlugins.
-  internManyPlugins =
-    name: path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
+  internManyPlugins = name: path: "find '${path}' -type f -perm /a+x -exec cp -a -t . '{}' '+'";
 
   # Use the appropriate intern-fn to copy the plugins into the store and patch
   # them afterwards in an attempt to get them to run on NixOS.
@@ -110,22 +109,18 @@ let
   # TODO: write a derivation for munin-contrib, so that for contrib plugins
   # you can just refer to them by name rather than needing to include a copy
   # of munin-contrib in your nixos configuration.
-  extraPluginDir =
-    internAndFixPlugins "munin-extra-plugins.d" internOnePlugin
-      nodeCfg.extraPlugins;
+  extraPluginDir = internAndFixPlugins "munin-extra-plugins.d" internOnePlugin nodeCfg.extraPlugins;
 
-  extraAutoPluginDir =
-    internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins
-      (
-        builtins.listToAttrs (
-          map
-            (path: {
-              name = baseNameOf path;
-              value = path;
-            })
-            nodeCfg.extraAutoPlugins
-        )
-      );
+  extraAutoPluginDir = internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins (
+    builtins.listToAttrs (
+      map
+        (path: {
+          name = baseNameOf path;
+          value = path;
+        })
+        nodeCfg.extraAutoPlugins
+    )
+  );
 
   customStaticDir = pkgs.runCommand "munin-custom-static-data" { } ''
     cp -a "${pkgs.munin}/etc/opt/munin/static" "$out"

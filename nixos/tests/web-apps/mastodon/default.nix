@@ -11,7 +11,5 @@ let
 in
 {
   standard = handleTestOn supportedSystems ./standard.nix { inherit system; };
-  remote-postgresql = handleTestOn supportedSystems ./remote-postgresql.nix {
-    inherit system;
-  };
+  remote-postgresql = handleTestOn supportedSystems ./remote-postgresql.nix { inherit system; };
 }

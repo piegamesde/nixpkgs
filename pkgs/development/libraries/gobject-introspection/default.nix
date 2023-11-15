@@ -94,9 +94,7 @@ stdenv.mkDerivation (
         finalAttrs.setupHook # move .gir files
         # can't use canExecute, we need prebuilt when cross
       ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-        gobject-introspection-unwrapped
-      ];
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ gobject-introspection-unwrapped ];
 
     buildInputs = [ (python3.withPackages pythonModules) ];
 
@@ -140,15 +138,13 @@ stdenv.mkDerivation (
       patchShebangs tools/*
     '';
 
-    postInstall =
-      lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform)
-        ''
-          cp -r ${buildPackages.gobject-introspection-unwrapped.devdoc} $devdoc
-          # these are uncompiled c and header files which aren't installed when cross-compiling because
-          # code that installs them is in tests/meson.build which is only run when not cross-compiling
-          # pygobject3 needs them
-          cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests
-        '';
+    postInstall = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
+      cp -r ${buildPackages.gobject-introspection-unwrapped.devdoc} $devdoc
+      # these are uncompiled c and header files which aren't installed when cross-compiling because
+      # code that installs them is in tests/meson.build which is only run when not cross-compiling
+      # pygobject3 needs them
+      cp -r ${buildPackages.gobject-introspection-unwrapped.dev}/share/gobject-introspection-1.0/tests $dev/share/gobject-introspection-1.0/tests
+    '';
 
     preCheck = ''
       # Our gobject-introspection patches make the shared library paths absolute

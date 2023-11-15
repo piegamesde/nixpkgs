@@ -218,15 +218,12 @@ in
               [node]
               nickname = ${settings.nickname}
               tub.port = ${toString settings.tub.port}
-              ${optionalString (settings.tub.location != null)
-                "tub.location = ${settings.tub.location}"}
+              ${optionalString (settings.tub.location != null) "tub.location = ${settings.tub.location}"}
             '';
           }
         );
         # Actually require Tahoe, so that we will have it installed.
-        systemPackages = flip mapAttrsToList cfg.introducers (
-          node: settings: settings.package
-        );
+        systemPackages = flip mapAttrsToList cfg.introducers (node: settings: settings.package);
       };
       # Open up the firewall.
       # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.introducers
@@ -243,9 +240,7 @@ in
           description = "Tahoe LAFS node ${node}";
           wantedBy = [ "multi-user.target" ];
           path = [ settings.package ];
-          restartTriggers = [
-            config.environment.etc."tahoe-lafs/introducer-${node}.cfg".source
-          ];
+          restartTriggers = [ config.environment.etc."tahoe-lafs/introducer-${node}.cfg".source ];
           serviceConfig = {
             Type = "simple";
             PIDFile = pidfile;
@@ -273,9 +268,7 @@ in
             # we must do this on every prestart. Fixes welcome.
             # rm ${nodedir}/tahoe.cfg
             # ln -s /etc/tahoe-lafs/introducer-${node}.cfg ${nodedir}/tahoe.cfg
-            cp /etc/tahoe-lafs/introducer-"${node}".cfg ${
-              lib.escapeShellArg nodedir
-            }/tahoe.cfg
+            cp /etc/tahoe-lafs/introducer-"${node}".cfg ${lib.escapeShellArg nodedir}/tahoe.cfg
           '';
         }
       );
@@ -300,8 +293,7 @@ in
               [node]
               nickname = ${settings.nickname}
               tub.port = ${toString settings.tub.port}
-              ${optionalString (settings.tub.location != null)
-                "tub.location = ${settings.tub.location}"}
+              ${optionalString (settings.tub.location != null) "tub.location = ${settings.tub.location}"}
               # This is a Twisted endpoint. Twisted Web doesn't work on
               # non-TCP. ~ C.
               web.port = tcp:${toString settings.web.port}
@@ -309,8 +301,7 @@ in
               [client]
               ${optionalString (settings.client.introducer != null)
                 "introducer.furl = ${settings.client.introducer}"}
-              ${optionalString (settings.client.helper != null)
-                "helper.furl = ${settings.client.helper}"}
+              ${optionalString (settings.client.helper != null) "helper.furl = ${settings.client.helper}"}
 
               shares.needed = ${toString settings.client.shares.needed}
               shares.happy = ${toString settings.client.shares.happy}
@@ -325,8 +316,7 @@ in
 
               [sftpd]
               enabled = ${boolToString settings.sftpd.enable}
-              ${optionalString (settings.sftpd.port != null)
-                "port = ${toString settings.sftpd.port}"}
+              ${optionalString (settings.sftpd.port != null) "port = ${toString settings.sftpd.port}"}
               ${optionalString (settings.sftpd.hostPublicKeyFile != null)
                 "host_pubkey_file = ${settings.sftpd.hostPublicKeyFile}"}
               ${optionalString (settings.sftpd.hostPrivateKeyFile != null)
@@ -339,9 +329,7 @@ in
           }
         );
         # Actually require Tahoe, so that we will have it installed.
-        systemPackages = flip mapAttrsToList cfg.nodes (
-          node: settings: settings.package
-        );
+        systemPackages = flip mapAttrsToList cfg.nodes (node: settings: settings.package);
       };
       # Open up the firewall.
       # networking.firewall.allowedTCPPorts = flip mapAttrsToList cfg.nodes
@@ -383,9 +371,7 @@ in
             # we must do this on every prestart. Fixes welcome.
             # rm ${nodedir}/tahoe.cfg
             # ln -s /etc/tahoe-lafs/${lib.escapeShellArg node}.cfg ${nodedir}/tahoe.cfg
-            cp /etc/tahoe-lafs/${lib.escapeShellArg node}.cfg ${
-              lib.escapeShellArg nodedir
-            }/tahoe.cfg
+            cp /etc/tahoe-lafs/${lib.escapeShellArg node}.cfg ${lib.escapeShellArg nodedir}/tahoe.cfg
           '';
         }
       );

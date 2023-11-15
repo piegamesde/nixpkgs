@@ -23,10 +23,7 @@ let
     else if cfg.zfsSupport then
       grubPkgs.grub2.override { zfsSupport = true; }
     else if cfg.trustedBoot.enable then
-      if cfg.trustedBoot.isHPLaptop then
-        grubPkgs.trustedGrub-for-HP
-      else
-        grubPkgs.trustedGrub
+      if cfg.trustedBoot.isHPLaptop then grubPkgs.trustedGrub-for-HP else grubPkgs.trustedGrub
     else
       grubPkgs.grub2;
 
@@ -47,8 +44,7 @@ let
   grubConfig =
     args:
     let
-      efiSysMountPoint =
-        if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
+      efiSysMountPoint = if args.efiSysMountPoint == null then args.path else args.efiSysMountPoint;
       efiSysMountPoint' = replaceStrings [ "/" ] [ "-" ] efiSysMountPoint;
     in
     pkgs.writeText "grub-config.xml" (
@@ -74,8 +70,7 @@ let
             "${config.system.nixos.distroName}${efiSysMountPoint'}"
           else
             args.efiBootloaderId;
-        timeout =
-          if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+        timeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
         users =
           if cfg.users == { } || cfg.version != 1 then
             cfg.users
@@ -129,18 +124,13 @@ let
           if cfg.font == null then
             ""
           else
-            (
-              if lib.last (lib.splitString "." cfg.font) == "pf2" then
-                cfg.font
-              else
-                "${convertedFont}"
-            );
+            (if lib.last (lib.splitString "." cfg.font) == "pf2" then cfg.font else "${convertedFont}");
       }
     );
 
-  bootDeviceCounters =
-    foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { }
-      (concatMap (args: args.devices) cfg.mirroredBoots);
+  bootDeviceCounters = foldr (device: attr: attr // { ${device} = (attr.${device} or 0) + 1; }) { } (
+    concatMap (args: args.devices) cfg.mirroredBoots
+  );
 
   convertedFont =
     (pkgs.runCommand "grub-font-converted.pf2" { } (
@@ -155,8 +145,7 @@ let
       )
     ));
 
-  defaultSplash =
-    pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
+  defaultSplash = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
 in
 
 {
@@ -391,9 +380,7 @@ in
 
       extraGrubInstallArgs = mkOption {
         default = [ ];
-        example = [
-          "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2"
-        ];
+        example = [ "--modules=nativedisk ahci pata part_gpt part_msdos diskfilter mdraid1x lvm ext2" ];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Additional arguments passed to `grub-install`.
@@ -918,9 +905,7 @@ in
           {
             assertion =
               cfg.efiSupport
-              || all (c: c < 2) (
-                mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters
-              );
+              || all (c: c < 2) (mapAttrsToList (n: c: if n == "nodev" then 0 else c) bootDeviceCounters);
             message = "You cannot have duplicated devices in mirroredBoots";
           }
           {
@@ -936,9 +921,7 @@ in
             message = "Trusted GRUB does not have ZFS support";
           }
           {
-            assertion =
-              !cfg.trustedBoot.enable
-              || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
+            assertion = !cfg.trustedBoot.enable || cfg.trustedBoot.systemHasTPM == "YES_TPM_is_activated";
             message = "Trusted GRUB can break the system! Confirm that the system has an activated TPM by setting 'systemHasTPM'.";
           }
           {
@@ -946,8 +929,7 @@ in
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn on boot.loader.grub.efiSupport";
           }
           {
-            assertion =
-              cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
+            assertion = cfg.efiInstallAsRemovable -> !config.boot.loader.efi.canTouchEfiVariables;
             message = "If you wish to to use boot.loader.grub.efiInstallAsRemovable, then turn off boot.loader.efi.canTouchEfiVariables";
           }
         ]
@@ -963,11 +945,7 @@ in
               message = "Boot paths must be absolute, not ${args.path}";
             }
             {
-              assertion =
-                if args.efiSysMountPoint == null then
-                  true
-                else
-                  hasPrefix "/" args.efiSysMountPoint;
+              assertion = if args.efiSysMountPoint == null then true else hasPrefix "/" args.efiSysMountPoint;
               message = "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
           ]

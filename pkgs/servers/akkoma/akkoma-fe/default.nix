@@ -39,9 +39,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     # Build scripts assume to be used within a Git repository checkout
-    sed -E -i '/^let commitHash =/,/;$/clet commitHash = "${
-      builtins.substring 0 7 src.rev
-    }";' \
+    sed -E -i '/^let commitHash =/,/;$/clet commitHash = "${builtins.substring 0 7 src.rev}";' \
       build/webpack.prod.conf.js
   '';
 

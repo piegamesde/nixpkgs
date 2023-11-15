@@ -152,9 +152,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.peering-manager.plugins = mkIf cfg.enableLdap (
-      ps: [ ps.django-auth-ldap ]
-    );
+    services.peering-manager.plugins = mkIf cfg.enableLdap (ps: [ ps.django-auth-ldap ]);
 
     system.build.peeringManagerPkg = pkg;
 

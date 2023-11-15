@@ -17,8 +17,7 @@ in
   options = {
     services.woodpecker-server = {
       enable = lib.mkEnableOption (
-        lib.mdDoc
-          "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
+        lib.mdDoc "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
       );
       package = lib.mkPackageOptionMD pkgs "woodpecker-server" { };
       environment = lib.mkOption {
@@ -68,9 +67,7 @@ in
           StateDirectoryMode = "0700";
           UMask = "0007";
           ConfigurationDirectory = "woodpecker-server";
-          EnvironmentFile =
-            lib.optional (cfg.environmentFile != null)
-              cfg.environmentFile;
+          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
           ExecStart = "${cfg.package}/bin/woodpecker-server";
           Restart = "on-failure";
           RestartSec = 15;

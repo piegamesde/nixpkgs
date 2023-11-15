@@ -15,9 +15,7 @@ in
 
 {
   options = {
-    services.xserver.windowManager.metacity.enable = mkEnableOption (
-      lib.mdDoc "metacity"
-    );
+    services.xserver.windowManager.metacity.enable = mkEnableOption (lib.mdDoc "metacity");
   };
 
   config = mkIf cfg.enable {

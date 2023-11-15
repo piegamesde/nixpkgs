@@ -41,8 +41,7 @@ let
   inherit (lib) optional optionals optionalString;
 
   # Used when creating a version-suffixed symlink of libLLVM.dylib
-  shortVersion =
-    with lib; concatStringsSep "." (take 1 (splitString "." release_version));
+  shortVersion = with lib; concatStringsSep "." (take 1 (splitString "." release_version));
 
   # Ordinarily we would just the `doCheck` and `checkDeps` functionality
   # `mkDerivation` gives us to manage our test dependencies (instead of breaking
@@ -184,9 +183,7 @@ stdenv.mkDerivation (
         # This test tries to call `sw_vers` by absolute path (`/usr/bin/sw_vers`)
         # and thus fails under the sandbox:
         substituteInPlace unittests/Support/Host.cpp \
-          --replace '/usr/bin/sw_vers' "${
-            (builtins.toString darwin.DarwinTools) + "/bin/sw_vers"
-          }"
+          --replace '/usr/bin/sw_vers' "${(builtins.toString darwin.DarwinTools) + "/bin/sw_vers"}"
       ''
       + optionalString (stdenv.isDarwin && stdenv.hostPlatform.isx86) ''
         # This test tries to call the intrinsics `@llvm.roundeven.f32` and
@@ -316,9 +313,7 @@ stdenv.mkDerivation (
       '';
 
     # E.g. mesa.drivers use the build-id as a cache key (see #93946):
-    LDFLAGS =
-      optionalString (enableSharedLibraries && !stdenv.isDarwin)
-        "-Wl,--build-id=sha1";
+    LDFLAGS = optionalString (enableSharedLibraries && !stdenv.isDarwin) "-Wl,--build-id=sha1";
 
     cmakeFlags =
       with stdenv;
@@ -362,9 +357,7 @@ stdenv.mkDerivation (
         "-DSPHINX_OUTPUT_HTML=OFF"
         "-DSPHINX_WARNINGS_AS_ERRORS=OFF"
       ]
-      ++ optionals (enableGoldPlugin) [
-        "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include"
-      ]
+      ++ optionals (enableGoldPlugin) [ "-DLLVM_BINUTILS_INCDIR=${libbfd.dev}/include" ]
       ++ optionals isDarwin [
         "-DLLVM_ENABLE_LIBCXX=ON"
         "-DCAN_TARGET_i386=false"

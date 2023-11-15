@@ -37,11 +37,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
   nativeBuildInputs = [ dos2unix ];
-  propagatedBuildInputs =
-    [ cffi ]
-    ++ lib.optionals gurobiSupport (
-      [ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi
-    );
+  propagatedBuildInputs = [
+    cffi
+  ] ++ lib.optionals gurobiSupport ([ gurobipy ] ++ lib.optional (gurobiHome == null) gurobi);
 
   # Source files have CRLF terminators, which make patch error out when supplied
   # with diffs made on *nix machines
@@ -66,9 +64,7 @@ buildPythonPackage rec {
   # Make MIP use the Gurobi solver, if configured to do so
   makeWrapperArgs =
     lib.optional gurobiSupport
-      "--set GUROBI_HOME ${
-        if gurobiHome == null then gurobi.outPath else gurobiHome
-      }";
+      "--set GUROBI_HOME ${if gurobiHome == null then gurobi.outPath else gurobiHome}";
 
   # Tests that rely on Gurobi are activated only when Gurobi support is enabled
   disabledTests = lib.optional (!gurobiSupport) "gurobi";

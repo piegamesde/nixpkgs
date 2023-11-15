@@ -15,8 +15,7 @@
   lazyLoad ? !stdenv.isDarwin,
 }:
 
-assert lib.assertMsg (stdenv.isDarwin -> !lazyLoad)
-    "cubeb: lazyLoad is inert on Darwin";
+assert lib.assertMsg (stdenv.isDarwin -> !lazyLoad) "cubeb: lazyLoad is inert on Darwin";
 
 let
   backendLibs = [

@@ -34,9 +34,7 @@ buildPythonPackage rec {
     substituteInPlace pyzbar/zbar_library.py \
       --replace \
         "find_library('zbar')" \
-        '"${
-          lib.getLib zbar
-        }/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"'
+        '"${lib.getLib zbar}/lib/libzbar${stdenv.hostPlatform.extensions.sharedLibrary}"'
   '';
 
   disabledTests = [

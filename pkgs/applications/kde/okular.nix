@@ -95,9 +95,7 @@ mkDerivation {
       --replace InitialPreference=3 InitialPreference=1
   '';
 
-  cmakeFlags =
-    lib.optional (!withSpeech)
-      "-DFORCE_NOT_REQUIRED_DEPENDENCIES=Qt5TextToSpeech";
+  cmakeFlags = lib.optional (!withSpeech) "-DFORCE_NOT_REQUIRED_DEPENDENCIES=Qt5TextToSpeech";
 
   meta = with lib; {
     homepage = "http://www.kde.org";

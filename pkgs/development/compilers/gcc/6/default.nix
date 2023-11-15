@@ -65,13 +65,7 @@
   buildPackages,
 }:
 
-assert langJava
-  ->
-    zip != null
-    && unzip != null
-    && zlib != null
-    && boehmgc != null
-    && perl != null; # for `--enable-java-home'
+assert langJava -> zip != null && unzip != null && zlib != null && boehmgc != null && perl != null; # for `--enable-java-home'
 
 # Make sure we get GNU sed.
 assert stdenv.buildPlatform.isDarwin -> gnused != null;
@@ -115,15 +109,12 @@ let
     ++ optional langAda ../gnat-cflags.patch
     ++ optional langAda ./gnat-glibc234.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++
-      optional (targetPlatform.libc == "musl")
-        ../libgomp-dont-force-initial-exec.patch
+    ++ optional (targetPlatform.libc == "musl") ../libgomp-dont-force-initial-exec.patch
     ++ optional langGo ./gogcc-workaround-glibc-2.36.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
       fetchpatch {
@@ -388,18 +379,13 @@ stdenv.mkDerivation (
 
     configureFlags = callFile ../common/configure-flags.nix { };
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
+      if profiledCompiler then "profiledbootstrap" else "bootstrap"
+    );
 
-    inherit (callFile ../common/strip-attributes.nix { })
-      stripDebugList
-      stripDebugListTarget
-      preFixup
-    ;
+    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
@@ -484,11 +470,7 @@ stdenv.mkDerivation (
 
   //
     optionalAttrs
-      (
-        targetPlatform != hostPlatform
-        && targetPlatform.libc == "msvcrt"
-        && crossStageStatic
-      )
+      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

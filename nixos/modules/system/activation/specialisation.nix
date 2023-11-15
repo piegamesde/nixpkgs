@@ -23,8 +23,7 @@ let
   # as you use, but with another kernel
   # !!! fix this
   children =
-    mapAttrs
-      (childName: childConfig: childConfig.configuration.system.build.toplevel)
+    mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel)
       config.specialisation;
 in
 {
@@ -51,11 +50,7 @@ in
         types.submodule (
           local@{ ... }:
           let
-            extend =
-              if local.config.inheritParentConfig then
-                extendModules
-              else
-                noUserModules.extendModules;
+            extend = if local.config.inheritParentConfig then extendModules else noUserModules.extendModules;
           in
           {
             options.inheritParentConfig = mkOption {
@@ -88,8 +83,7 @@ in
     system.systemBuilderCommands = ''
       mkdir $out/specialisation
       ${concatStringsSep "\n" (
-        mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}")
-          children
+        mapAttrsToList (name: path: "ln -s ${path} $out/specialisation/${name}") children
       )}
     '';
   };

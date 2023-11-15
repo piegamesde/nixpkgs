@@ -46,9 +46,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
 
-  configureFlags = [
-    "--with-backend=${if withApplePCSC then "macscard" else "pcsc"}"
-  ];
+  configureFlags = [ "--with-backend=${if withApplePCSC then "macscard" else "pcsc"}" ];
 
   passthru = {
     updateScript = gitUpdater {

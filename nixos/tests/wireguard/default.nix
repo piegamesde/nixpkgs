@@ -19,8 +19,7 @@ let
       basic = callTest ./basic.nix;
       namespaces = callTest ./namespaces.nix;
       wg-quick = callTest ./wg-quick.nix;
-      wg-quick-nftables =
-        args: callTest ./wg-quick.nix ({ nftables = true; } // args);
+      wg-quick-nftables = args: callTest ./wg-quick.nix ({ nftables = true; } // args);
       generated = callTest ./generated.nix;
     };
 in

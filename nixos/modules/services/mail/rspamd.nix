@@ -47,16 +47,12 @@ let
       };
       config.rawEntry =
         let
-          maybeOption =
-            option:
-            optionalString options.${option}.isDefined " ${option}=${config.${option}}";
+          maybeOption = option: optionalString options.${option}.isDefined " ${option}=${config.${option}}";
         in
         if (!(hasPrefix "/" config.socket)) then
           "${config.socket}"
         else
-          "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${
-            maybeOption "group"
-          }";
+          "${config.socket}${maybeOption "mode"}${maybeOption "owner"}${maybeOption "group"}";
     };
 
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
@@ -163,18 +159,10 @@ let
         };
       };
       config =
-        mkIf
-          (
-            name == "normal"
-            || name == "controller"
-            || name == "fuzzy"
-            || name == "rspamd_proxy"
-          )
+        mkIf (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy")
           {
             type = mkDefault name;
-            includes = mkDefault [
-              "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc"
-            ];
+            includes = mkDefault [ "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc" ];
             bindSockets =
               let
                 unixSocket = name: {
@@ -197,14 +185,11 @@ let
           };
     };
 
-  isUnixSocket =
-    socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
+  isUnixSocket = socket: hasPrefix "/" (if (isString socket) then socket else socket.socket);
 
   mkBindSockets =
     enabled: socks:
-    concatStringsSep "\n  " (
-      flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks)
-    );
+    concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -235,8 +220,7 @@ let
             worker "${value.type}" {
               type = "${value.type}";
               ${
-                optionalString (value.enable != null)
-                  "enabled = ${if value.enable != false then "yes" else "no"};"
+                optionalString (value.enable != null) "enabled = ${if value.enable != false then "yes" else "no"};"
               }
               ${mkBindSockets value.enable value.bindSockets}
               ${optionalString (value.count != null) "count = ${toString value.count};"}
@@ -321,18 +305,11 @@ let
     (mapAttrs'
       (
         n: v:
-        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" {
-          text = v.extraConfig;
-        }
+        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }
       )
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )
-    // (
-      if cfg.extraConfig == "" then
-        { }
-      else
-        { "extra-config.inc".text = cfg.extraConfig; }
-    );
+    // (if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; });
 in
 
 {

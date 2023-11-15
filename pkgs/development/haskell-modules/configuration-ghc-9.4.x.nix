@@ -14,8 +14,7 @@ in
 with haskellLib;
 self: super:
 let
-  jailbreakForCurrentVersion =
-    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 {
   llvmPackages = lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
@@ -53,10 +52,7 @@ in
   template-haskell = null;
   # GHC only builds terminfo if it is a native compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
-      null
-    else
-      self.terminfo_0_4_1_6;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_6;
   text = null;
   time = null;
   transformers = null;
@@ -70,9 +66,9 @@ in
 
   # consequences of doctest breakage follow:
 
-  ghc-source-gen =
-    checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build"
-      (markBroken super.ghc-source-gen);
+  ghc-source-gen = checkAgainAfter super.ghc-source-gen "0.4.3.0" "fails to build" (
+    markBroken super.ghc-source-gen
+  );
 
   haskell-src-meta = doJailbreak super.haskell-src-meta;
 
@@ -90,9 +86,7 @@ in
   constraints = doJailbreak super.constraints;
   cpphs =
     overrideCabal
-      (drv: {
-        postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal";
-      })
+      (drv: { postPatch = "sed -i -e 's,time >=1.5 && <1.11,time >=1.5 \\&\\& <1.12,' cpphs.cabal"; })
       super.cpphs;
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
@@ -103,23 +97,20 @@ in
   ghc-lib-parser-ex = doDistribute self.ghc-lib-parser-ex_9_4_0_0;
   hackage-security = doJailbreak super.hackage-security;
   hashable-time = doJailbreak super.hashable-time;
-  HTTP =
-    overrideCabal
-      (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; })
-      (doJailbreak super.HTTP);
+  HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (
+    doJailbreak super.HTTP
+  );
   integer-logarithms =
-    overrideCabal
-      (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; })
+    overrideCabal (drv: { postPatch = "sed -i -e 's, <1.1, <1.3,' integer-logarithms.cabal"; })
       (doJailbreak super.integer-logarithms);
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   lzma-conduit = doJailbreak super.lzma-conduit;
   parallel = doJailbreak super.parallel;
   path = doJailbreak super.path;
-  polyparse =
-    overrideCabal
-      (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; })
-      (doJailbreak super.polyparse);
+  polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (
+    doJailbreak super.polyparse
+  );
   primitive = dontCheck (doJailbreak self.primitive_0_7_4_0);
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
@@ -246,10 +237,7 @@ in
   ormolu = doDistribute self.ormolu_0_5_3_0;
   # https://github.com/tweag/ormolu/issues/941
   fourmolu =
-    overrideCabal
-      (drv: {
-        libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ];
-      })
+    overrideCabal (drv: { libraryHaskellDepends = drv.libraryHaskellDepends ++ [ self.file-embed ]; })
       (disableCabalFlag "fixity-th" super.fourmolu_0_10_1_0);
 
   # Apply workaround for Cabal 3.8 bug https://github.com/haskell/cabal/issues/8455

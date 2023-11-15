@@ -11,8 +11,7 @@ let
 
   configFile = ''
     ${cfg.chain.type}_chain
-    ${optionalString (cfg.chain.type == "random")
-      "chain_len = ${builtins.toString cfg.chain.length}"}
+    ${optionalString (cfg.chain.type == "random") "chain_len = ${builtins.toString cfg.chain.length}"}
     ${optionalString cfg.proxyDNS "proxy_dns"}
     ${optionalString cfg.quietMode "quiet_mode"}
     remote_dns_subnet ${builtins.toString cfg.remoteDNSSubnet}
@@ -62,9 +61,7 @@ in
 
       enable = mkEnableOption (lib.mdDoc "installing proxychains configuration");
 
-      package = mkPackageOptionMD pkgs "proxychains" {
-        example = "pkgs.proxychains-ng";
-      };
+      package = mkPackageOptionMD pkgs "proxychains" { example = "pkgs.proxychains-ng"; };
 
       chain = {
         type = mkOption {
@@ -105,9 +102,7 @@ in
         description = lib.mdDoc "Proxy DNS requests - no leak for DNS data.";
       };
 
-      quietMode = mkEnableOption (
-        lib.mdDoc "Quiet mode (no output from the library)"
-      );
+      quietMode = mkEnableOption (lib.mdDoc "Quiet mode (no output from the library)");
 
       remoteDNSSubnet = mkOption {
         type = types.enum [
@@ -136,9 +131,7 @@ in
       localnet = mkOption {
         type = types.str;
         default = "127.0.0.0/255.0.0.0";
-        description =
-          lib.mdDoc
-            "By default enable localnet for loopback address ranges.";
+        description = lib.mdDoc "By default enable localnet for loopback address ranges.";
       };
 
       proxies = mkOption {

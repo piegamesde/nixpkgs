@@ -85,9 +85,7 @@ let
     ${cfg.extraConfig}
 
     <Aliases>
-    ${concatStringsSep "\n" (
-      mapAttrsToList (alias: url: "Alias ${alias} ${url}") cfg.servers
-    )}
+    ${concatStringsSep "\n" (mapAttrsToList (alias: url: "Alias ${alias} ${url}") cfg.servers)}
     </Aliases>
 
     ${concatStringsSep "\n" fileSystems}

@@ -12,12 +12,11 @@ let
   settingsFormat = pkgs.formats.json { };
 
   rawDefaultConfig = lib.importJSON (
-    pkgs.runCommand "kubo-default-config" { nativeBuildInputs = [ cfg.package ]; }
-      ''
-        export IPFS_PATH="$TMPDIR"
-        ipfs init --empty-repo --profile=${profile}
-        ipfs --offline config show > "$out"
-      ''
+    pkgs.runCommand "kubo-default-config" { nativeBuildInputs = [ cfg.package ]; } ''
+      export IPFS_PATH="$TMPDIR"
+      ipfs init --empty-repo --profile=${profile}
+      ipfs --offline config show > "$out"
+    ''
   );
 
   # Remove the PeerID (an attribute of "Identity") of the temporary Kubo repo.
@@ -110,8 +109,7 @@ in
     services.kubo = {
 
       enable = mkEnableOption (
-        lib.mdDoc
-          "Interplanetary File System (WARNING: may cause severe network degradation)"
+        lib.mdDoc "Interplanetary File System (WARNING: may cause severe network degradation)"
       );
 
       package = mkOption {
@@ -161,17 +159,13 @@ in
       autoMount = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether Kubo should try to mount /ipfs and /ipns at startup.";
+        description = lib.mdDoc "Whether Kubo should try to mount /ipfs and /ipns at startup.";
       };
 
       autoMigrate = mkOption {
         type = types.bool;
         default = true;
-        description =
-          lib.mdDoc
-            "Whether Kubo should try to run the fs-repo-migration at startup.";
+        description = lib.mdDoc "Whether Kubo should try to run the fs-repo-migration at startup.";
       };
 
       ipfsMountDir = mkOption {
@@ -195,9 +189,7 @@ in
       emptyRepo = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "If set to true, the repo won't be initialized with help files";
+        description = lib.mdDoc "If set to true, the repo won't be initialized with help files";
       };
 
       settings = mkOption {
@@ -288,9 +280,7 @@ in
       startWhenNeeded = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to use socket activation to start Kubo when needed.";
+        description = lib.mdDoc "Whether to use socket activation to start Kubo when needed.";
       };
     };
   };
@@ -347,10 +337,7 @@ in
 
     # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
     systemd.packages =
-      if cfg.autoMount then
-        [ cfg.package.systemd_unit ]
-      else
-        [ cfg.package.systemd_unit_hardened ];
+      if cfg.autoMount then [ cfg.package.systemd_unit ] else [ cfg.package.systemd_unit_hardened ];
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;
@@ -395,34 +382,26 @@ in
         # After an unclean shutdown the fuse mounts at cfg.ipnsMountDir and cfg.ipfsMountDir are locked
         umount --quiet '${cfg.ipnsMountDir}' '${cfg.ipfsMountDir}' || true
       '';
-      serviceConfig =
-        {
-          ExecStart = [
-            ""
-            "${cfg.package}/bin/ipfs daemon ${kuboFlags}"
-          ];
-          User = cfg.user;
-          Group = cfg.group;
-          StateDirectory = "";
-          ReadWritePaths = optionals (!cfg.autoMount) [
-            ""
-            cfg.dataDir
-          ];
-        }
-        // optionalAttrs (cfg.serviceFdlimit != null) {
-          LimitNOFILE = cfg.serviceFdlimit;
-        };
+      serviceConfig = {
+        ExecStart = [
+          ""
+          "${cfg.package}/bin/ipfs daemon ${kuboFlags}"
+        ];
+        User = cfg.user;
+        Group = cfg.group;
+        StateDirectory = "";
+        ReadWritePaths = optionals (!cfg.autoMount) [
+          ""
+          cfg.dataDir
+        ];
+      } // optionalAttrs (cfg.serviceFdlimit != null) { LimitNOFILE = cfg.serviceFdlimit; };
     } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
 
     systemd.sockets.ipfs-gateway = {
       wantedBy = [ "sockets.target" ];
       socketConfig = {
-        ListenStream = [
-          ""
-        ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
-        ListenDatagram = [
-          ""
-        ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
+        ListenStream = [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
+        ListenDatagram = [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };
     };
 

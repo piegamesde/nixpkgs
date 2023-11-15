@@ -62,17 +62,14 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ (lib.mesonBool "cli" true) ];
 
-  buildInputs =
-    [
-      glib
-      gstreamer
-      gtk4
-      libadwaita
-      libxml2
-      poppler
-    ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
+  buildInputs = [
+    glib
+    gstreamer
+    gtk4
+    libadwaita
+    libxml2
+    poppler
+  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
 
   postPatch = ''
     pushd build-aux

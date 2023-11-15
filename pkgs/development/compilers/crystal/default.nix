@@ -41,8 +41,7 @@ let
     aarch64-linux = "linux-aarch64";
   };
 
-  arch =
-    archs.${stdenv.system} or (throw "system ${stdenv.system} not supported");
+  arch = archs.${stdenv.system} or (throw "system ${stdenv.system} not supported");
   isAarch64Darwin = stdenv.system == "aarch64-darwin";
 
   nativeCheckInputs = [
@@ -182,11 +181,7 @@ let
               ''
               +
                 lib.optionalString
-                  (
-                    stdenv.isDarwin
-                    && lib.versionAtLeast version "1.3.0"
-                    && lib.versionOlder version "1.7.0"
-                  )
+                  (stdenv.isDarwin && lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.7.0")
                   ''
                     # See https://github.com/NixOS/nixpkgs/pull/195606#issuecomment-1356491277
                     substituteInPlace spec/compiler/loader/unix_spec.cr \
@@ -230,8 +225,7 @@ let
               [
                 "--single-module" # needed for deterministic builds
               ]
-              ++ lib.optionals
-                (lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.6.1")
+              ++ lib.optionals (lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.6.1")
                 [
                   # ffi is only used by the interpreter and its spec are broken on < 1.6.1
                   "-Dwithout_ffi"
@@ -290,9 +284,7 @@ let
             '';
 
             passthru.buildBinary = binary;
-            passthru.buildCrystalPackage = callPackage ./build-package.nix {
-              crystal = compiler;
-            };
+            passthru.buildCrystalPackage = callPackage ./build-package.nix { crystal = compiler; };
 
             meta = with lib; {
               inherit (binary.meta) platforms;

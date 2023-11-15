@@ -22,8 +22,7 @@ with lib;
 let
 
   defaultMeta = {
-    homepage =
-      args.src.meta.homepage or "https://elpa.gnu.org/packages/${pname}.html";
+    homepage = args.src.meta.homepage or "https://elpa.gnu.org/packages/${pname}.html";
   };
 in
 

@@ -39,9 +39,7 @@ let
 
         mkdir -p $out/bin
 
-        for bindir in ${
-          lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)
-        }; do
+        for bindir in ${lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)}; do
           for bin in $bindir/*; do
             ln -s ${env}/bin/$(basename $bin) $out/bin/
           done

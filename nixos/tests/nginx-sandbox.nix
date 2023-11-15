@@ -10,9 +10,7 @@ import ./make-test-python.nix (
       { pkgs, ... }:
       {
         nixpkgs.overlays = [
-          (self: super: {
-            nginx-lua = super.nginx.override { modules = [ pkgs.nginxModules.lua ]; };
-          })
+          (self: super: { nginx-lua = super.nginx.override { modules = [ pkgs.nginxModules.lua ]; }; })
         ];
         services.nginx.enable = true;
         services.nginx.package = pkgs.nginx-lua;

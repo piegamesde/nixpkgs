@@ -115,9 +115,7 @@ buildFHSEnvChroot rec {
       mkdir -p $out/quartus/bin $out/quartus/sopc_builder/bin $out/modelsim_ase/bin
       WRAPPER=$out/bin/${name}
       EXECUTABLES="${
-        lib.concatStringsSep " " (
-          quartusExecutables ++ qsysExecutables ++ modelsimExecutables
-        )
+        lib.concatStringsSep " " (quartusExecutables ++ qsysExecutables ++ modelsimExecutables)
       }"
       for executable in $EXECUTABLES; do
           echo "#!${stdenv.shell}" >> $out/$executable

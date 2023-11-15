@@ -32,9 +32,7 @@ mkDerivation rec {
   dontWrapQtApps = true;
 
   postInstall = ''
-    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${
-      lib.makeBinPath [ minizinc ]
-    }
+    wrapProgram $out/bin/MiniZincIDE --prefix PATH ":" ${lib.makeBinPath [ minizinc ]}
   '';
 
   meta = with lib; {

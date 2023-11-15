@@ -90,9 +90,7 @@ import ../make-test-python.nix (
         machine.succeed("k3s kubectl cluster-info")
         machine.fail("sudo -u noprivs k3s kubectl cluster-info")
       '' # Fix-Me: Tests fail for 'aarch64-linux' as: "CONFIG_CGROUP_FREEZER: missing (fail)"
-      +
-        lib.optionalString (!pkgs.stdenv.isAarch64)
-          ''machine.succeed("k3s check-config")''
+      + lib.optionalString (!pkgs.stdenv.isAarch64) ''machine.succeed("k3s check-config")''
       + ''
 
         machine.succeed(

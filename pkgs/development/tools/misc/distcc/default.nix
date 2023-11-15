@@ -52,13 +52,9 @@ let
       configureFlagsArray=( CFLAGS="-O2 -fno-strict-aliasing"
                             CXXFLAGS="-O2 -fno-strict-aliasing"
           --mandir=$out/share/man
-                            ${
-                              if sysconfDir == "" then "" else "--sysconfdir=${sysconfDir}"
-                            }
+                            ${if sysconfDir == "" then "" else "--sysconfdir=${sysconfDir}"}
                             ${lib.optionalString static "LDFLAGS=-static"}
-                            ${
-                              lib.withFeature (static == true || popt == null) "included-popt"
-                            }
+                            ${lib.withFeature (static == true || popt == null) "included-popt"}
                             ${lib.withFeature (avahi != null) "avahi"}
                             ${lib.withFeature (gtk3 != null) "gtk"}
                             --without-gnome

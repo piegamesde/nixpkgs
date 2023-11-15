@@ -131,10 +131,7 @@ let
     let
       withFallback =
         thisPkgs:
-        (if adjacentPackages == null then self else thisPkgs)
-        // {
-          recurseForDerivations = false;
-        };
+        (if adjacentPackages == null then self else thisPkgs) // { recurseForDerivations = false; };
     in
     {
       # Here are package sets of from related stages. They are all in the form
@@ -185,15 +182,12 @@ let
     in
     res;
 
-  aliases =
-    self: super:
-    lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
+  aliases = self: super: lib.optionalAttrs config.allowAliases (import ./aliases.nix lib self super);
 
   # stdenvOverrides is used to avoid having multiple of versions
   # of certain dependencies that were used in bootstrapping the
   # standard environment.
-  stdenvOverrides =
-    self: super: (super.stdenv.overrides or (_: _: { })) self super;
+  stdenvOverrides = self: super: (super.stdenv.overrides or (_: _: { })) self super;
 
   # Allow packages to be overridden globally via the `packageOverrides'
   # configuration option, which must be a function that takes `pkgs'
@@ -204,9 +198,7 @@ let
   # ... pkgs.foo ...").
   configOverrides =
     self: super:
-    lib.optionalAttrs allowCustomOverrides (
-      (config.packageOverrides or (super: { })) super
-    );
+    lib.optionalAttrs allowCustomOverrides ((config.packageOverrides or (super: { })) super);
 
   # Convenience attributes for instantitating package sets. Each of
   # these will instantiate a new version of allPackages. Currently the
@@ -221,9 +213,7 @@ let
     # that target system. For instance, pkgsCross.raspberryPi.hello,
     # will refer to the "hello" package built for the ARM6-based
     # Raspberry Pi.
-    pkgsCross =
-      lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; })
-        lib.systems.examples;
+    pkgsCross = lib.mapAttrs (n: crossSystem: nixpkgsFun { inherit crossSystem; }) lib.systems.examples;
 
     pkgsLLVM = nixpkgsFun {
       overlays = [ (self': super': { pkgsLLVM = super'; }) ] ++ overlays;
@@ -243,12 +233,7 @@ let
       if stdenv.hostPlatform.isLinux && stdenv.buildPlatform.is64bit then
         nixpkgsFun {
           overlays = [ (self': super': { pkgsMusl = super'; }) ] ++ overlays;
-          ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              "localSystem"
-            else
-              "crossSystem"
-          } = {
+          ${if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"} = {
             parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
           };
         }
@@ -261,12 +246,7 @@ let
       if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86 then
         nixpkgsFun {
           overlays = [ (self': super': { pkgsi686Linux = super'; }) ] ++ overlays;
-          ${
-            if stdenv.hostPlatform == stdenv.buildPlatform then
-              "localSystem"
-            else
-              "crossSystem"
-          } = {
+          ${if stdenv.hostPlatform == stdenv.buildPlatform then "localSystem" else "crossSystem"} = {
             parsed = stdenv.hostPlatform.parsed // {
               cpu = lib.systems.parse.cpuTypes.i686;
             };
@@ -294,10 +274,7 @@ let
     # in one go when calling Nixpkgs, for performance and simplicity.
     appendOverlays =
       extraOverlays:
-      if extraOverlays == [ ] then
-        self
-      else
-        nixpkgsFun { overlays = args.overlays ++ extraOverlays; };
+      if extraOverlays == [ ] then self else nixpkgsFun { overlays = args.overlays ++ extraOverlays; };
 
     # NOTE: each call to extend causes a full nixpkgs rebuild, adding ~130MB
     #       of allocations. DO NOT USE THIS IN NIXPKGS.
@@ -315,14 +292,10 @@ let
         overlays = [ (self': super': { pkgsStatic = super'; }) ] ++ overlays;
       }
       // lib.optionalAttrs stdenv.hostPlatform.isLinux {
-        crossSystem =
-          {
-            isStatic = true;
-            parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
-          }
-          // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") {
-            gcc.abi = "elfv2";
-          };
+        crossSystem = {
+          isStatic = true;
+          parsed = makeMuslParsedPlatform stdenv.hostPlatform.parsed;
+        } // lib.optionalAttrs (stdenv.hostPlatform.system == "powerpc64-linux") { gcc.abi = "elfv2"; };
       }
     );
   };

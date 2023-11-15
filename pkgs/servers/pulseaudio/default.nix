@@ -180,20 +180,14 @@ stdenv.mkDerivation rec {
       "-Dbluez5=${if !libOnly && bluetoothSupport then "enabled" else "disabled"}"
       # advanced bluetooth audio codecs are provided by gstreamer
       "-Dbluez5-gstreamer=${
-        if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then
-          "enabled"
-        else
-          "disabled"
+        if (!libOnly && bluetoothSupport && advancedBluetoothCodecs) then "enabled" else "disabled"
       }"
       "-Ddatabase=simple"
       "-Ddoxygen=false"
       "-Delogind=disabled"
       # gsettings does not support cross-compilation
       "-Dgsettings=${
-        if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then
-          "enabled"
-        else
-          "disabled"
+        if stdenv.isLinux && (stdenv.buildPlatform == stdenv.hostPlatform) then "enabled" else "disabled"
       }"
       "-Dgstreamer=disabled"
       "-Dgtk=disabled"
@@ -244,13 +238,11 @@ stdenv.mkDerivation rec {
     '';
 
   preFixup =
-    lib.optionalString
-      (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform))
-      ''
-        wrapProgram $out/libexec/pulse/gsettings-helper \
-         --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
-         --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
-      ''
+    lib.optionalString (stdenv.isLinux && (stdenv.hostPlatform == stdenv.buildPlatform)) ''
+      wrapProgram $out/libexec/pulse/gsettings-helper \
+       --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/${pname}-${version}" \
+       --prefix GIO_EXTRA_MODULES : "${lib.getLib dconf}/lib/gio/modules"
+    ''
     # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do

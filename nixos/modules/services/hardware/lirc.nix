@@ -68,9 +68,7 @@ in
 
     systemd.services.lircd =
       let
-        configFile = pkgs.writeText "lircd.conf" (
-          builtins.concatStringsSep "\n" cfg.configs
-        );
+        configFile = pkgs.writeText "lircd.conf" (builtins.concatStringsSep "\n" cfg.configs);
       in
       {
         description = "LIRC daemon service";

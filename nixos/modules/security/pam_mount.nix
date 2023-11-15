@@ -18,9 +18,7 @@ let
     ${pkgs.lsof}/bin/lsof | ${pkgs.gnugrep}/bin/grep $MNTPT | ${pkgs.gawk}/bin/awk '{print $2}' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -$SIGNAL
   '';
 
-  anyPamMount = any (attrByPath [ "pamMount" ] false) (
-    attrValues config.security.pam.services
-  );
+  anyPamMount = any (attrByPath [ "pamMount" ] false) (attrValues config.security.pam.services);
 in
 
 {
@@ -161,11 +159,9 @@ in
           <pam_mount>
           <debug enable="${toString cfg.debugLevel}" />
           <!-- if activated, requires ofl from hxtools to be present -->
-          <logout wait="${toString cfg.logoutWait}" hup="${
-            if cfg.logoutHup then "yes" else "no"
-          }" term="${if cfg.logoutTerm then "yes" else "no"}" kill="${
-            if cfg.logoutKill then "yes" else "no"
-          }" />
+          <logout wait="${toString cfg.logoutWait}" hup="${if cfg.logoutHup then "yes" else "no"}" term="${
+            if cfg.logoutTerm then "yes" else "no"
+          }" kill="${if cfg.logoutKill then "yes" else "no"}" />
           <!-- set PATH variable for pam_mount module -->
           <path>${makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)}</path>
           <!-- create mount point if not present -->
@@ -180,8 +176,7 @@ in
           <cryptmount>${pkgs.pam_mount}/bin/mount.crypt %(VOLUME) %(MNTPT)</cryptmount>
           <cryptumount>${pkgs.pam_mount}/bin/umount.crypt %(MNTPT)</cryptumount>
           <pmvarrun>${pkgs.pam_mount}/bin/pmvarrun -u %(USER) -o %(OPERATION)</pmvarrun>
-          ${optionalString oflRequired
-            "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
+          ${optionalString oflRequired "<ofl>${fake_ofl}/bin/fake_ofl %(SIGNAL) %(MNTPT)</ofl>"}
           ${concatStrings (map userVolumeEntry (attrValues extraUserVolumes))}
           ${concatStringsSep "\n" cfg.extraVolumes}
           </pam_mount>

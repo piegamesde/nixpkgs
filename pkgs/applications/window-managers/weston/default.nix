@@ -91,21 +91,17 @@ stdenv.mkDerivation rec {
       gst_all_1.gst-plugins-base
     ];
 
-  mesonFlags =
-    [
-      "-Dbackend-drm-screencast-vaapi=${lib.boolToString (vaapi != null)}"
-      "-Dbackend-rdp=${lib.boolToString (freerdp != null)}"
-      "-Dxwayland=${lib.boolToString (xwayland != null)}" # Default is true!
-      (lib.mesonBool "remoting" buildRemoting)
-      "-Dpipewire=${lib.boolToString (pipewire != null)}"
-      "-Dimage-webp=${lib.boolToString (libwebp != null)}"
-      (lib.mesonBool "demo-clients" buildDemo)
-      "-Dsimple-clients="
-      "-Dtest-junit-xml=false"
-    ]
-    ++ lib.optionals (xwayland != null) [
-      "-Dxwayland-path=${xwayland.out}/bin/Xwayland"
-    ];
+  mesonFlags = [
+    "-Dbackend-drm-screencast-vaapi=${lib.boolToString (vaapi != null)}"
+    "-Dbackend-rdp=${lib.boolToString (freerdp != null)}"
+    "-Dxwayland=${lib.boolToString (xwayland != null)}" # Default is true!
+    (lib.mesonBool "remoting" buildRemoting)
+    "-Dpipewire=${lib.boolToString (pipewire != null)}"
+    "-Dimage-webp=${lib.boolToString (libwebp != null)}"
+    (lib.mesonBool "demo-clients" buildDemo)
+    "-Dsimple-clients="
+    "-Dtest-junit-xml=false"
+  ] ++ lib.optionals (xwayland != null) [ "-Dxwayland-path=${xwayland.out}/bin/Xwayland" ];
 
   passthru.providedSessions = [ "weston" ];
 

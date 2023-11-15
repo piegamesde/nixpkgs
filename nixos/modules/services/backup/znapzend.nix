@@ -39,9 +39,7 @@ let
     description = "string of the form number{b|k|M|G}";
   };
 
-  enabledFeatures = concatLists (
-    mapAttrsToList (name: enabled: optional enabled name) cfg.features
-  );
+  enabledFeatures = concatLists (mapAttrsToList (name: enabled: optional enabled name) cfg.features);
 
   # Type for a string that must contain certain other strings (the list parameter).
   # Note that these would need regex escaping.
@@ -53,9 +51,7 @@ let
     str
     // {
       check = x: str.check x && all isList (matching x);
-      description = "string containing all of the characters ${
-          concatStringsSep ", " list
-        }";
+      description = "string containing all of the characters ${concatStringsSep ", " list}";
     };
 
   timestampType = stringContainingStrings [
@@ -76,9 +72,7 @@ let
 
           label = mkOption {
             type = str;
-            description =
-              lib.mdDoc
-                "Label for this destination. Defaults to the attribute name.";
+            description = lib.mdDoc "Label for this destination. Defaults to the attribute name.";
           };
 
           plan = mkOption {
@@ -281,10 +275,7 @@ let
   stripSlashes = replaceStrings [ "/" ] [ "." ];
 
   attrsToFile =
-    config:
-    concatStringsSep "\n" (
-      builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config)
-    );
+    config: concatStringsSep "\n" (builtins.attrValues (mapAttrs (n: v: "${n}=${v}") config));
 
   mkDestAttrs =
     dst:
@@ -306,10 +297,7 @@ let
       # mbuffer is not referenced by its full path to accommodate non-NixOS systems or differing mbuffer versions between source and target
       mbuffer =
         with mbuffer;
-        if enable then
-          "mbuffer" + optionalString (port != null) ":${toString port}"
-        else
-          "off";
+        if enable then "mbuffer" + optionalString (port != null) ":${toString port}" else "off";
       mbuffer_size = mbuffer.size;
       post_znap_cmd = nullOff postsnap;
       pre_znap_cmd = nullOff presnap;
@@ -319,9 +307,7 @@ let
       tsformat = timestampFormat;
       zend_delay = toString sendDelay;
     }
-    // foldr (a: b: a // b) { } (
-      map mkDestAttrs (builtins.attrValues destinations)
-    );
+    // foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations));
 
   files =
     mapAttrs'
@@ -376,9 +362,7 @@ in
       autoCreation = mkOption {
         type = bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Automatically create the destination dataset if it does not exist.";
+        description = lib.mdDoc "Automatically create the destination dataset if it does not exist.";
       };
 
       zetup = mkOption {
@@ -535,9 +519,7 @@ in
                 "--loglevel=${cfg.logLevel}"
                 (optionalString cfg.noDestroy "--nodestroy")
                 (optionalString cfg.autoCreation "--autoCreation")
-                (optionalString (enabledFeatures != [ ])
-                  "--features=${concatStringsSep "," enabledFeatures}"
-                )
+                (optionalString (enabledFeatures != [ ]) "--features=${concatStringsSep "," enabledFeatures}")
               ];
             in
             "${pkgs.znapzend}/bin/znapzend ${args}";

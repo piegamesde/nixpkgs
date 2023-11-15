@@ -90,9 +90,7 @@ stdenv.mkDerivation (
 
       ${wrapLaunchGame "-${mod.name}"}
 
-      substitute ${
-        ./openra-mod.desktop
-      } $(mkdirp $out/share/applications)/${pname}.desktop \
+      substitute ${./openra-mod.desktop} $(mkdirp $out/share/applications)/${pname}.desktop \
         --subst-var-by name ${escapeShellArg mod.name} \
         --subst-var-by title ${escapeShellArg mod.title} \
         --subst-var-by description ${escapeShellArg mod.description}

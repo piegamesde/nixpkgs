@@ -103,9 +103,7 @@ let
     '';
 
   getPoolFilesystems =
-    pool:
-    filter (x: x.fsType == "zfs" && (fsToPool x) == pool)
-      config.system.build.fileSystems;
+    pool: filter (x: x.fsType == "zfs" && (fsToPool x) == pool) config.system.build.fileSystems;
 
   getPoolMounts =
     prefix: pool:
@@ -113,8 +111,7 @@ let
       # Remove the "/" suffix because even though most mountpoints
       # won't have it, the "/" mountpoint will, and we can't have the
       # trailing slash in "/sysroot/" in stage 1.
-      mountPoint =
-        fs: escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
+      mountPoint = fs: escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint));
     in
     map (x: "${mountPoint x}.mount") (getPoolFilesystems pool);
 
@@ -131,9 +128,7 @@ let
       in
       {
         hasKeys = keys != [ ];
-        command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${
-            toString keys
-          }";
+        command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${toString keys}";
       };
 
   createImportService =
@@ -595,8 +590,7 @@ in
           message = "If you enable boot.zfs.forceImportAll, you must also enable boot.zfs.forceImportRoot";
         }
         {
-          assertion =
-            cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll;
+          assertion = cfgZfs.allowHibernation -> !cfgZfs.forceImportRoot && !cfgZfs.forceImportAll;
           message = "boot.zfs.allowHibernation while force importing is enabled will cause data corruption";
         }
       ];
@@ -606,9 +600,7 @@ in
         # https://github.com/openzfs/zfs/issues/260
         # https://github.com/openzfs/zfs/issues/12842
         # https://github.com/NixOS/nixpkgs/issues/106093
-        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [
-          "nohibernate"
-        ];
+        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
 
         extraModulePackages = [
           (
@@ -710,9 +702,7 @@ in
       boot.loader.grub = mkIf (inInitrd || inSystem) { zfsSupport = true; };
 
       services.zfs.zed.settings = {
-        ZED_EMAIL_PROG = mkIf cfgZED.enableMail (
-          mkDefault "${pkgs.mailutils}/bin/mail"
-        );
+        ZED_EMAIL_PROG = mkIf cfgZED.enableMail (mkDefault "${pkgs.mailutils}/bin/mail");
         PATH = lib.makeBinPath [
           cfgZfs.package
           pkgs.coreutils
@@ -747,9 +737,7 @@ in
         };
 
       system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
-      environment.systemPackages = [
-        cfgZfs.package
-      ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
+      environment.systemPackages = [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
 
       services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
       systemd.packages = [ cfgZfs.package ];
@@ -896,9 +884,7 @@ in
                 after = [ "zfs-import.target" ];
                 serviceConfig = {
                   Type = "oneshot";
-                  ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${
-                      toString (numSnapshots snapName)
-                    }";
+                  ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${toString (numSnapshots snapName)}";
                 };
                 restartIfChanged = false;
               };

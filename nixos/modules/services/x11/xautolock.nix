@@ -62,9 +62,7 @@ in
 
       notifier = mkOption {
         default = null;
-        example =
-          literalExpression
-            ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
+        example = literalExpression ''"''${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'"'';
         type = types.nullOr types.str;
 
         description = lib.mdDoc ''
@@ -152,8 +150,7 @@ in
         ]
         (
           option: {
-            assertion =
-              cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
+            assertion = cfg.${option} != null -> builtins.substring 0 1 cfg.${option} == "/";
             message = "Please specify a canonical path for `services.xserver.xautolock.${option}`";
           }
         )

@@ -137,8 +137,7 @@ let
   };
 
   mailOption =
-    optionalString
-      (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
+    optionalString (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
       "--mail=${pkgs.mailutils}/bin/mail";
 in
 {

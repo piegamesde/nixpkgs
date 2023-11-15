@@ -14,9 +14,7 @@ let
   version =
     let
       packageJson = lib.importJSON ./package.json;
-      splits = builtins.split "^.*#v(.*)$" (
-        builtins.getAttr "onlykey" (builtins.head packageJson)
-      );
+      splits = builtins.split "^.*#v(.*)$" (builtins.getAttr "onlykey" (builtins.head packageJson));
       matches = builtins.elemAt splits 1;
       elem = builtins.head matches;
     in

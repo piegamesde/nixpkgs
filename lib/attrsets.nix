@@ -113,8 +113,7 @@ rec {
     value:
     let
       len = length attrPath;
-      atDepth =
-        n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
+      atDepth = n: if n == len then value else { ${elemAt attrPath n} = atDepth (n + 1); };
     in
     atDepth 0;
 
@@ -252,8 +251,7 @@ rec {
             else if isAttrs value then
               # If we do have a value and it's an attribute set, override it
               # with the nested modifications
-              value
-              // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name}) nested
+              value // mapAttrs (name: go (prefixLength + 1) (value ? ${name}) value.${name}) nested
             else
               # However if it's not an attribute set, we can't apply the nested
               # modifications, throw an error
@@ -332,9 +330,7 @@ rec {
        catAttrs :: String -> [AttrSet] -> [Any]
   */
   catAttrs =
-    builtins.catAttrs or (
-      attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l)
-    );
+    builtins.catAttrs or (attr: l: concatLists (map (s: if s ? ${attr} then [ s.${attr} ] else [ ]) l));
 
   /* Filter an attribute set by removing all attributes for which the
      given predicate return false.
@@ -466,13 +462,7 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr
-      (
-        n: a:
-        foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (
-          attrNames n
-        )
-      )
+    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
       { }
       list_of_attrs;
 
@@ -522,11 +512,7 @@ rec {
     foldl'
       (
         listOfAttrs: attrName:
-        concatMap
-          (
-            attrs:
-            map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}
-          )
+        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
           listOfAttrs
       )
       [ { } ]
@@ -788,8 +774,7 @@ rec {
        zipAttrsWith :: (String -> [ Any ] -> Any) -> [ AttrSet ] -> AttrSet
   */
   zipAttrsWith =
-    builtins.zipAttrsWith
-      or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
+    builtins.zipAttrsWith or (f: sets: zipAttrsWithNames (concatMap attrNames sets) f sets);
 
   /* Merge sets of attributes and combine each attribute value in to a list.
 
@@ -972,10 +957,7 @@ rec {
   showAttrPath =
     # Attribute path to render to a string
     path:
-    if path == [ ] then
-      "<root attribute path>"
-    else
-      concatMapStringsSep "." escapeNixIdentifier path;
+    if path == [ ] then "<root attribute path>" else concatMapStringsSep "." escapeNixIdentifier path;
 
   /* Get a package output.
      If no output is found, fallback to `.out` and then to the default.
@@ -989,10 +971,7 @@ rec {
   */
   getOutput =
     output: pkg:
-    if !pkg ? outputSpecified || !pkg.outputSpecified then
-      pkg.${output} or pkg.out or pkg
-    else
-      pkg;
+    if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
 
   /* Get a package's `bin` output.
      If the output does not exist, fallback to `.out` and then to the default.
@@ -1094,11 +1073,7 @@ rec {
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
       mask =
         builtins.mapAttrs
-          (
-            name: value:
-            builtins.throw
-              "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
-          )
+          (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
           intersection;
     in
     (x // y) // mask;
@@ -1107,7 +1082,5 @@ rec {
   zipWithNames = zipAttrsWithNames;
 
   # DEPRECATED
-  zip =
-    builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead"
-      zipAttrsWith;
+  zip = builtins.trace "lib.zip is deprecated, use lib.zipAttrsWith instead" zipAttrsWith;
 }

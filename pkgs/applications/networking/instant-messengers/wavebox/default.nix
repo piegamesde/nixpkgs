@@ -28,9 +28,7 @@ let
     categories = [ "Network" ];
   };
 
-  tarball = "Wavebox_${
-      lib.replaceStrings [ "." ] [ "_" ] (toString version)
-    }_linux_${bits}.tar.gz";
+  tarball = "Wavebox_${lib.replaceStrings [ "." ] [ "_" ] (toString version)}_linux_${bits}.tar.gz";
 in
 stdenv.mkDerivation {
   pname = "wavebox";

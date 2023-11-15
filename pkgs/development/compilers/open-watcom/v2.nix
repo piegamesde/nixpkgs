@@ -86,9 +86,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     prettyName = "open-watcom-v2";
-    updateScript = unstableGitUpdater {
-      url = "https://github.com/open-watcom/open-watcom-v2.git";
-    };
+    updateScript = unstableGitUpdater { url = "https://github.com/open-watcom/open-watcom-v2.git"; };
   };
 
   meta = with lib; {

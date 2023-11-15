@@ -142,9 +142,7 @@ stdenv.mkDerivation rec {
     tar xf build/distributions/JabRef-${version}.tar -C $out --strip-components=1
 
     # remove openjfx libs for other platforms
-    rm $out/lib/javafx-*-win.jar ${
-      lib.optionalString stdenv.isAarch64 "$out/lib/javafx-*-linux.jar"
-    }
+    rm $out/lib/javafx-*-win.jar ${lib.optionalString stdenv.isAarch64 "$out/lib/javafx-*-linux.jar"}
 
     # workaround for https://github.com/NixOS/nixpkgs/issues/162064
     unzip $out/lib/javafx-web-*.jar libjfxwebkit.so -d $out/lib/

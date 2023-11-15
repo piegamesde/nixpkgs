@@ -25,9 +25,7 @@ let
       self.xmonad-extras
     ];
 
-  xmonad-vanilla = pkgs.xmonad-with-packages.override {
-    inherit ghcWithPackages packages;
-  };
+  xmonad-vanilla = pkgs.xmonad-with-packages.override { inherit ghcWithPackages packages; };
 
   xmonad-config =
     let
@@ -218,9 +216,7 @@ in
         {
           name = "xmonad";
           start = ''
-            systemd-cat -t xmonad -- ${xmonad}/bin/xmonad ${
-              lib.escapeShellArgs cfg.xmonadCliArgs
-            } &
+            systemd-cat -t xmonad -- ${xmonad}/bin/xmonad ${lib.escapeShellArgs cfg.xmonadCliArgs} &
             waitPID=$!
           '';
         }

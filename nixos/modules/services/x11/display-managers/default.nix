@@ -150,8 +150,7 @@ let
   wmDefault = cfg.windowManager.default;
 
   defaultSessionFromLegacyOptions =
-    dmFallbackDefault
-    + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
+    dmFallbackDefault + optionalString (wmDefault != null && wmDefault != "none") "+${wmDefault}";
 in
 
 {
@@ -163,9 +162,7 @@ in
         internal = true;
         default = "${xorg.xauth}/bin/xauth";
         defaultText = literalExpression ''"''${pkgs.xorg.xauth}/bin/xauth"'';
-        description =
-          lib.mdDoc
-            "Path to the {command}`xauth` program used by display managers.";
+        description = lib.mdDoc "Path to the {command}`xauth` program used by display managers.";
       };
 
       xserverBin = mkOption {
@@ -284,9 +281,7 @@ in
         apply = val: {
           wrapper = xsessionWrapper;
           desktops = installedSessions;
-          sessionNames =
-            concatMap (p: p.providedSessions)
-              cfg.displayManager.sessionPackages;
+          sessionNames = concatMap (p: p.providedSessions) cfg.displayManager.sessionPackages;
           # We do not want to force users to set defaultSession when they have only single DE.
           autologinSession =
             if cfg.displayManager.defaultSession != null then
@@ -306,21 +301,13 @@ in
             description = "session name";
             check =
               d:
-              assertMsg
-                (
-                  d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames)
-                )
-                ''
-                  Default graphical session, '${d}', not found.
-                  Valid names for 'services.xserver.displayManager.defaultSession' are:
-                    ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
-                '';
+              assertMsg (d != null -> (str.check d && elem d cfg.displayManager.sessionData.sessionNames)) ''
+                Default graphical session, '${d}', not found.
+                Valid names for 'services.xserver.displayManager.defaultSession' are:
+                  ${concatStringsSep "\n  " cfg.displayManager.sessionData.sessionNames}
+              '';
           };
-        default =
-          if dmDefault != null || wmDefault != null then
-            defaultSessionFromLegacyOptions
-          else
-            null;
+        default = if dmDefault != null || wmDefault != null then defaultSessionFromLegacyOptions else null;
         defaultText = literalMD ''
           Taken from display manager settings or window manager settings, if either is set.
         '';
@@ -346,9 +333,7 @@ in
           type = types.lines;
           default = "";
           example = "rm -f /var/log/my-display-manager.log";
-          description =
-            lib.mdDoc
-              "Script executed before the display manager is started.";
+          description = lib.mdDoc "Script executed before the display manager is started.";
         };
 
         execCmd = mkOption {
@@ -360,9 +345,7 @@ in
         environment = mkOption {
           type = types.attrsOf types.unspecified;
           default = { };
-          description =
-            lib.mdDoc
-              "Additional environment variables needed by the display manager.";
+          description = lib.mdDoc "Additional environment variables needed by the display manager.";
         };
 
         logToFile = mkOption {
@@ -421,9 +404,7 @@ in
   config = {
     assertions = [
       {
-        assertion =
-          cfg.displayManager.autoLogin.enable
-          -> cfg.displayManager.autoLogin.user != null;
+        assertion = cfg.displayManager.autoLogin.enable -> cfg.displayManager.autoLogin.user != null;
         message = ''
           services.xserver.displayManager.autoLogin.enable requires services.xserver.displayManager.autoLogin.user to be set
         '';
@@ -522,8 +503,7 @@ in
             let
               sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
               script = xsession dm wm;
-              desktopNames =
-                if dm ? desktopNames then concatStringsSep ";" dm.desktopNames else sessionName;
+              desktopNames = if dm ? desktopNames then concatStringsSep ";" dm.desktopNames else sessionName;
             in
             optional (dm.name != "none" || wm.name != "none") (
               pkgs.writeTextFile {
@@ -557,9 +537,7 @@ in
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS
     # as some programs have behavior that depends on them being present
-    environment.sessionVariables.XDG_DATA_DIRS = [
-      "${cfg.displayManager.sessionData.desktops}/share"
-    ];
+    environment.sessionVariables.XDG_DATA_DIRS = [ "${cfg.displayManager.sessionData.desktops}/share" ];
   };
 
   imports = [

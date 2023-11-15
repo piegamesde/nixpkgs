@@ -25,18 +25,12 @@ let
     pool: poolOpts:
     pkgs.writeText "phpfpm-${pool}.conf" ''
       [global]
-      ${concatStringsSep "\n" (
-        mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings)}
       ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
 
       [${pool}]
-      ${concatStringsSep "\n" (
-        mapAttrsToList (n: v: "${n} = ${toStr v}") poolOpts.settings
-      )}
-      ${concatStringsSep "\n" (
-        mapAttrsToList (n: v: "env[${n}] = ${toStr v}") poolOpts.phpEnv
-      )}
+      ${concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") poolOpts.settings)}
+      ${concatStringsSep "\n" (mapAttrsToList (n: v: "env[${n}] = ${toStr v}") poolOpts.phpEnv)}
       ${optionalString (poolOpts.extraConfig != null) poolOpts.extraConfig}
     '';
 
@@ -164,8 +158,7 @@ let
       };
 
       config = {
-        socket =
-          if poolOpts.listen == "" then "${runtimeDir}/${name}.sock" else poolOpts.listen;
+        socket = if poolOpts.listen == "" then "${runtimeDir}/${name}.sock" else poolOpts.listen;
         group = mkDefault poolOpts.user;
         phpOptions = mkBefore cfg.phpOptions;
 

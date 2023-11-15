@@ -13,9 +13,7 @@ let
   pythonInterpreter = python.pythonForBuild.interpreter;
   pythonSitePackages = python.sitePackages;
 
-  nonOverlayedPython = pkgs.python3.pythonForBuild.withPackages (
-    ps: [ ps.tomlkit ]
-  );
+  nonOverlayedPython = pkgs.python3.pythonForBuild.withPackages (ps: [ ps.tomlkit ]);
   makeRemoveSpecialDependenciesHook =
     { fields, kind }:
     nonOverlayedPython.pkgs.callPackage
@@ -39,11 +37,7 @@ let
       { };
   makeSetupHookArgs =
     deps:
-    if
-      lib.elem "propagatedBuildInputs" (
-        builtins.attrNames (builtins.functionArgs makeSetupHook)
-      )
-    then
+    if lib.elem "propagatedBuildInputs" (builtins.attrNames (builtins.functionArgs makeSetupHook)) then
       { propagatedBuildInputs = deps; }
     else
       { inherit deps; };
@@ -128,9 +122,7 @@ in
             '';
           };
 
-          pythonPath =
-            [ ]
-            ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
+          pythonPath = [ ] ++ lib.optional (lib.versionOlder python.version "3.9") unparser;
         in
         makeSetupHook
           {
@@ -147,7 +139,6 @@ in
   # When the "wheel" package itself is a wheel the nixpkgs hook (which pulls in "wheel") leads to infinite recursion
   # It doesn't _really_ depend on wheel though, it just copies the wheel.
   wheelUnpackHook =
-    callPackage
-      (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
+    callPackage (_: makeSetupHook { name = "wheel-unpack-hook.sh"; } ./wheel-unpack-hook.sh)
       { };
 }

@@ -76,8 +76,7 @@ let
 
   # Ensure the CLI uses our generated configFile
   wrappedBinaries =
-    pkgs.runCommandLocal "apcupsd-wrapped-binaries"
-      { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+    pkgs.runCommandLocal "apcupsd-wrapped-binaries" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
       ''
         for p in "${lib.getBin pkgs.apcupsd}/bin/"*; do
             bname=$(basename "$p")

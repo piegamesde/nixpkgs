@@ -18,18 +18,16 @@
   gitDependencyBranch = callPackage ./git-dependency-branch { };
   maturin = callPackage ./maturin { };
   v1 = callPackage ./v1 { };
-  gitDependencyWorkspaceInheritance =
-    callPackage ./git-dependency-workspace-inheritance
-      {
-        replaceWorkspaceValues =
-          writers.writePython3 "replace-workspace-values"
-            {
-              libraries = with python3Packages; [
-                tomli
-                tomli-w
-              ];
-              flakeIgnore = [ "E501" ];
-            }
-            (builtins.readFile ../../replace-workspace-values.py);
-      };
+  gitDependencyWorkspaceInheritance = callPackage ./git-dependency-workspace-inheritance {
+    replaceWorkspaceValues =
+      writers.writePython3 "replace-workspace-values"
+        {
+          libraries = with python3Packages; [
+            tomli
+            tomli-w
+          ];
+          flakeIgnore = [ "E501" ];
+        }
+        (builtins.readFile ../../replace-workspace-values.py);
+  };
 }

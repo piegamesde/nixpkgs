@@ -15,9 +15,7 @@ let
     accessToken = "@ACCESS_TOKEN@"; # will be replaced in "generateConfig"
     homeserverUrl =
       if cfg.pantalaimon.enable then
-        "http://${cfg.pantalaimon.options.listenAddress}:${
-          toString cfg.pantalaimon.options.listenPort
-        }"
+        "http://${cfg.pantalaimon.options.listenAddress}:${toString cfg.pantalaimon.options.listenPort}"
       else
         cfg.homeserverUrl;
 
@@ -53,8 +51,7 @@ let
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
     let
       yqEvalStr =
-        concatImapStringsSep " * "
-          (pos: _: "select(fileIndex == ${toString (pos - 1)})")
+        concatImapStringsSep " * " (pos: _: "select(fileIndex == ${toString (pos - 1)})")
           configFiles;
       yqEvalArgs = concatStringsSep " " configFiles;
     in
@@ -208,8 +205,7 @@ in
     ];
 
     services.pantalaimon-headless.instances."mjolnir" =
-      mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; }
-      // cfg.pantalaimon.options;
+      mkIf cfg.pantalaimon.enable { homeserver = cfg.homeserverUrl; } // cfg.pantalaimon.options;
 
     systemd.services.mjolnir = {
       description = "mjolnir - a moderation tool for Matrix";

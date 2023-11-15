@@ -19,10 +19,8 @@
   # This is the default binutils, but with *this* version of LLD rather
   # than the default LLVM verion's, if LLD is the choice. We use these for
   # the `useLLVM` bootstrapping below.
-  bootBintoolsNoLibc ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-  bootBintools ?
-    if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
+  bootBintoolsNoLibc ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
+  bootBintools ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
   darwin,
 }:
 
@@ -32,8 +30,7 @@ let
   dash-candidate = lib.optionalString (candidate != "") "-${candidate}";
   rev = ""; # When using a Git commit
   rev-version = ""; # When using a Git commit
-  version =
-    if rev != "" then rev-version else "${release_version}${dash-candidate}";
+  version = if rev != "" then rev-version else "${release_version}${dash-candidate}";
   targetConfig = stdenv.targetPlatform.config;
 
   monorepoSrc = fetchFromGitHub {
@@ -92,8 +89,7 @@ let
           ln -s "${targetLlvmLibraries.compiler-rt.out}/share" "$rsrc/share"
         '';
 
-      bintoolsNoLibc' =
-        if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
+      bintoolsNoLibc' = if bootBintoolsNoLibc == null then tools.bintoolsNoLibc else bootBintoolsNoLibc;
       bintools' = if bootBintools == null then tools.bintools else bootBintools;
     in
     {
@@ -184,14 +180,10 @@ let
         cc = tools.clang-unwrapped;
         libcxx = targetLlvmLibraries.libcxx;
         bintools = bintools';
-        extraPackages =
-          [
-            libcxx.cxxabi
-            targetLlvmLibraries.compiler-rt
-          ]
-          ++ lib.optionals (!stdenv.targetPlatform.isWasm) [
-            targetLlvmLibraries.libunwind
-          ];
+        extraPackages = [
+          libcxx.cxxabi
+          targetLlvmLibraries.compiler-rt
+        ] ++ lib.optionals (!stdenv.targetPlatform.isWasm) [ targetLlvmLibraries.libunwind ];
         extraBuildCommands = mkExtraBuildCommands cc;
         nixSupport.cc-cflags =
           [
@@ -200,10 +192,7 @@ let
             "-B${targetLlvmLibraries.compiler-rt}/lib"
           ]
           ++ lib.optional (!stdenv.targetPlatform.isWasm) "--unwindlib=libunwind"
-          ++
-            lib.optional
-              (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false)
-              "-lunwind"
+          ++ lib.optional (!stdenv.targetPlatform.isWasm && stdenv.targetPlatform.useLLVM or false) "-lunwind"
           ++ lib.optional stdenv.targetPlatform.isWasm "-fno-exceptions";
       };
 
@@ -292,10 +281,7 @@ let
 
       # N.B. condition is safe because without useLLVM both are the same.
       compiler-rt =
-        if stdenv.hostPlatform.isAndroid then
-          libraries.compiler-rt-libc
-        else
-          libraries.compiler-rt-no-libc;
+        if stdenv.hostPlatform.isAndroid then libraries.compiler-rt-libc else libraries.compiler-rt-no-libc;
 
       stdenv = overrideCC stdenv buildLlvmTools.clang;
 

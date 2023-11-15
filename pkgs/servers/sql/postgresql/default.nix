@@ -22,8 +22,7 @@ let
       libkrb5,
 
       # This is important to obtain a version of `libpq` that does not depend on systemd.
-      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd
-        && !stdenv.hostPlatform.isStatic,
+      enableSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd && !stdenv.hostPlatform.isStatic,
       gssSupport ? with stdenv.hostPlatform; !isWindows && !isStatic,
 
       # for postgresql.pkgs
@@ -146,12 +145,7 @@ let
           ./patches/findstring.patch
         ]
         ++ lib.optionals stdenv'.isLinux [
-          (
-            if atLeast "13" then
-              ./patches/socketdir-in-run-13.patch
-            else
-              ./patches/socketdir-in-run.patch
-          )
+          (if atLeast "13" then ./patches/socketdir-in-run-13.patch else ./patches/socketdir-in-run.patch)
         ];
 
       installTargets = [ "install-world" ];
@@ -220,12 +214,10 @@ let
           ''}
         '';
 
-      postFixup =
-        lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc")
-          ''
-            # initdb needs access to "locale" command from glibc.
-            wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
-          '';
+      postFixup = lib.optionalString (!stdenv'.isDarwin && stdenv'.hostPlatform.libc == "glibc") ''
+        # initdb needs access to "locale" command from glibc.
+        wrapProgram $out/bin/initdb --prefix PATH ":" ${glibc.bin}/bin
+      '';
 
       doCheck = !stdenv'.isDarwin;
       # autodetection doesn't seem to able to find this, but it's there.
@@ -290,13 +282,9 @@ let
               }
               this.pkgs;
 
-          tests =
-            {
-              postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
-            }
-            // lib.optionalAttrs jitSupport {
-              postgresql-jit = nixosTests.postgresql-jit.${thisAttr};
-            };
+          tests = {
+            postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
+          } // lib.optionalAttrs jitSupport { postgresql-jit = nixosTests.postgresql-jit.${thisAttr}; };
         }
         // lib.optionalAttrs jitSupport { inherit (llvmPackages) llvm; };
 

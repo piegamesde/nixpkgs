@@ -98,23 +98,18 @@ let
       }
     )
     ++ optional langFortran ../gfortran-driving.patch
-    ++
-      optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-        ../ppc-musl.patch
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
       fetchpatch {
         url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
         sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
       }
     )
-    ++
-      optional (targetPlatform.libc == "musl")
-        ../libgomp-dont-force-initial-exec.patch
+    ++ optional (targetPlatform.libc == "musl") ../libgomp-dont-force-initial-exec.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ [ ../libsanitizer-no-cyclades-9.patch ];
@@ -299,18 +294,13 @@ stdenv.mkDerivation (
       ++ optional (targetPlatform.isAarch64) "--enable-fix-cortex-a53-843419"
       ++ optional targetPlatform.isNetBSD "--disable-libcilkrts";
 
-    targetConfig =
-      if targetPlatform != hostPlatform then targetPlatform.config else null;
+    targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
-    buildFlags =
-      optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform)
-        (if profiledCompiler then "profiledbootstrap" else "bootstrap");
+    buildFlags = optional (targetPlatform == hostPlatform && hostPlatform == buildPlatform) (
+      if profiledCompiler then "profiledbootstrap" else "bootstrap"
+    );
 
-    inherit (callFile ../common/strip-attributes.nix { })
-      stripDebugList
-      stripDebugListTarget
-      preFixup
-    ;
+    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
@@ -371,11 +361,7 @@ stdenv.mkDerivation (
 
   //
     optionalAttrs
-      (
-        targetPlatform != hostPlatform
-        && targetPlatform.libc == "msvcrt"
-        && crossStageStatic
-      )
+      (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
       {
         makeFlags = [
           "all-gcc"

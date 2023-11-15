@@ -22,9 +22,7 @@ let
   #
   # TODO(@Ericson2314) Make unconditional, or optional but always true by
   # default.
-  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (
-    targetPlatform.config + "-"
-  );
+  targetPrefix = lib.optionalString (targetPlatform != hostPlatform) (targetPlatform.config + "-");
 
   # See description in cc-wrapper.
   suffixSalt =
@@ -48,9 +46,7 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  outputs = [
-    "out"
-  ] ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
+  outputs = [ "out" ] ++ optionals propagateDoc ([ "man" ] ++ optional (pkg-config ? doc) "doc");
 
   passthru = {
     inherit targetPrefix suffixSalt;

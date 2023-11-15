@@ -8,9 +8,7 @@
 }:
 
 {
-  stable =
-    throw
-      "plover.stable was removed because it used Python 2. Use plover.dev instead."; # added 2022-06-05
+  stable = throw "plover.stable was removed because it used Python 2. Use plover.dev instead."; # added 2022-06-05
 
   dev =
     with python3Packages;

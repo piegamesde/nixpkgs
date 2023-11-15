@@ -83,17 +83,13 @@ let
         dataDir = mkOption {
           type = types.path;
           default = "/var/lib/blockbook-frontend-${name}";
-          description =
-            lib.mdDoc
-              "Location of blockbook-frontend-${name} data directory.";
+          description = lib.mdDoc "Location of blockbook-frontend-${name} data directory.";
         };
 
         debug = mkOption {
           type = types.bool;
           default = false;
-          description =
-            lib.mdDoc
-              "Debug mode, return more verbose errors, reload templates on each request.";
+          description = lib.mdDoc "Debug mode, return more verbose errors, reload templates on each request.";
         };
 
         internal = mkOption {
@@ -223,9 +219,7 @@ in
     services.blockbook-frontend = mkOption {
       type = types.attrsOf (types.submodule blockbookOpts);
       default = { };
-      description =
-        lib.mdDoc
-          "Specification of one or more blockbook-frontend instances.";
+      description = lib.mdDoc "Specification of one or more blockbook-frontend instances.";
     };
   };
 
@@ -319,9 +313,7 @@ in
         )
         eachBlockbook;
 
-    users.groups =
-      mapAttrs' (instanceName: cfg: (nameValuePair "${cfg.group}" { }))
-        eachBlockbook;
+    users.groups = mapAttrs' (instanceName: cfg: (nameValuePair "${cfg.group}" { })) eachBlockbook;
   };
 
   meta.maintainers = with maintainers; [ _1000101 ];

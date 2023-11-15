@@ -28,9 +28,7 @@ let
 in
 {
   options.services.jicofo = with types; {
-    enable = mkEnableOption (
-      lib.mdDoc "Jitsi Conference Focus - component of Jitsi Meet"
-    );
+    enable = mkEnableOption (lib.mdDoc "Jitsi Conference Focus - component of Jitsi Meet");
 
     xmppHost = mkOption {
       type = str;

@@ -12,8 +12,7 @@
 let
   cfg = config.boot.bootspec;
   children =
-    lib.mapAttrs
-      (childName: childConfig: childConfig.configuration.system.build.toplevel)
+    lib.mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel)
       config.specialisation;
   schemas = {
     v1 = rec {

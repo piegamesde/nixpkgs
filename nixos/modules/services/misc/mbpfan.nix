@@ -14,9 +14,7 @@ let
 in
 {
   options.services.mbpfan = {
-    enable = mkEnableOption (
-      lib.mdDoc "mbpfan, fan controller daemon for Apple Macs and MacBooks"
-    );
+    enable = mkEnableOption (lib.mdDoc "mbpfan, fan controller daemon for Apple Macs and MacBooks");
 
     package = mkOption {
       type = types.package;
@@ -46,23 +44,17 @@ in
         options.general.low_temp = mkOption {
           type = types.int;
           default = 63;
-          description =
-            lib.mdDoc
-              "If temperature is below this, fans will run at minimum speed.";
+          description = lib.mdDoc "If temperature is below this, fans will run at minimum speed.";
         };
         options.general.high_temp = mkOption {
           type = types.int;
           default = 66;
-          description =
-            lib.mdDoc
-              "If temperature is above this, fan speed will gradually increase.";
+          description = lib.mdDoc "If temperature is above this, fan speed will gradually increase.";
         };
         options.general.max_temp = mkOption {
           type = types.int;
           default = 86;
-          description =
-            lib.mdDoc
-              "If temperature is above this, fans will run at maximum speed.";
+          description = lib.mdDoc "If temperature is above this, fans will run at maximum speed.";
         };
         options.general.polling_interval = mkOption {
           type = types.int;

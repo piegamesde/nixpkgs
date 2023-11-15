@@ -40,9 +40,7 @@ let
         upload_limit = cfg.uploadLimit;
         lan_encrypt_data = cfg.encryptLAN;
       }
-      // optionalAttrs (cfg.directoryRoot != "") {
-        directory_root = cfg.directoryRoot;
-      }
+      // optionalAttrs (cfg.directoryRoot != "") { directory_root = cfg.directoryRoot; }
       // optionalAttrs cfg.enableWebUI {
         webui =
           {
@@ -52,9 +50,7 @@ let
           // (optionalAttrs (cfg.httpPass != "") { password = cfg.httpPass; })
           // (optionalAttrs (cfg.apiKey != "") { api_key = cfg.apiKey; });
       }
-      // optionalAttrs (sharedFoldersRecord != [ ]) {
-        shared_folders = sharedFoldersRecord;
-      }
+      // optionalAttrs (sharedFoldersRecord != [ ]) { shared_folders = sharedFoldersRecord; }
     )
   );
 
@@ -83,8 +79,7 @@ let
         ${pkgs.jq}/bin/jq \
           '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
           ${
-            lib.concatMapStringsSep " \\\n  "
-              (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
+            lib.concatMapStringsSep " \\\n  " (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
               sharedFoldersSecretFiles
           } \
           <${configFile} \

@@ -20,9 +20,7 @@ let
   opt = options.services.quorum;
   dataDir = "/var/lib/quorum";
   genesisFile = pkgs.writeText "genesis.json" (builtins.toJSON cfg.genesis);
-  staticNodesFile = pkgs.writeText "static-nodes.json" (
-    builtins.toJSON cfg.staticNodes
-  );
+  staticNodesFile = pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
 in
 {
   options = {
@@ -46,9 +44,7 @@ in
       port = mkOption {
         type = types.port;
         default = 21000;
-        description =
-          lib.mdDoc
-            "Override the default port on which to listen for connections.";
+        description = lib.mdDoc "Override the default port on which to listen for connections.";
       };
 
       nodekeyFile = mkOption {
@@ -112,9 +108,7 @@ in
         port = mkOption {
           type = types.port;
           default = 22004;
-          description =
-            lib.mdDoc
-              "Override the default port on which to listen for RPC connections.";
+          description = lib.mdDoc "Override the default port on which to listen for RPC connections.";
         };
 
         api = mkOption {
@@ -140,9 +134,7 @@ in
         port = mkOption {
           type = types.port;
           default = 8546;
-          description =
-            lib.mdDoc
-              "Override the default port on which to listen for WS-RPC connections.";
+          description = lib.mdDoc "Override the default port on which to listen for WS-RPC connections.";
         };
 
         api = mkOption {
@@ -197,9 +189,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.quorum ];
-    systemd.tmpfiles.rules = [
-      "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -" ];
     systemd.services.quorum = {
       description = "Quorum daemon";
       after = [ "network.target" ];
@@ -234,9 +224,7 @@ in
                       --mine --minerthreads 1 \
                       ${
                         optionalString (cfg.rpc.enable)
-                          "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${
-                            toString cfg.rpc.port
-                          } --rpcapi ${cfg.rpc.api}"
+                          "--rpc --rpcaddr ${cfg.rpc.address} --rpcport ${toString cfg.rpc.port} --rpcapi ${cfg.rpc.api}"
                       } \
                       ${
                         optionalString (cfg.ws.enable)

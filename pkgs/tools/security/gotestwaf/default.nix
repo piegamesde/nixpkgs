@@ -22,9 +22,7 @@ buildGoModule rec {
   # Some tests require networking as of v0.4.0
   doCheck = false;
 
-  ldflags = [
-    "-X github.com/wallarm/gotestwaf/internal/version.Version=v${version}"
-  ];
+  ldflags = [ "-X github.com/wallarm/gotestwaf/internal/version.Version=v${version}" ];
 
   postFixup = ''
     # Rename binary

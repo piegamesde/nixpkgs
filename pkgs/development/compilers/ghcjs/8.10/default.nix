@@ -41,9 +41,7 @@ let
           }
         )
 
-        (callPackage ./common-overrides.nix {
-          inherit haskellLib fetchpatch buildPackages;
-        })
+        (callPackage ./common-overrides.nix { inherit haskellLib fetchpatch buildPackages; })
         ghcjsDepOverrides
       ]
     );

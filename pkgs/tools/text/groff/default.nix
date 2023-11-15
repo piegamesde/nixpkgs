@@ -78,9 +78,7 @@ stdenv.mkDerivation rec {
       substituteInPlace contrib/groffer/roff2.pl \
         --replace "'gs'" "'${lib.getBin ghostscript}/bin/gs'"
       substituteInPlace contrib/pdfmark/pdfroff.sh \
-        --replace '$GROFF_GHOSTSCRIPT_INTERPRETER' "${
-          lib.getBin ghostscript
-        }/bin/gs" \
+        --replace '$GROFF_GHOSTSCRIPT_INTERPRETER' "${lib.getBin ghostscript}/bin/gs" \
         --replace '$GROFF_AWK_INTERPRETER' "${lib.getBin gawk}/bin/gawk"
     '';
 
@@ -92,9 +90,7 @@ stdenv.mkDerivation rec {
       texinfo
     ]
     # Required due to the patch that changes .ypp files.
-    ++
-      lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9")
-        bison;
+    ++ lib.optional (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "9") bison;
   buildInputs =
     [
       perl
@@ -126,9 +122,7 @@ stdenv.mkDerivation rec {
       "--with-awk=${lib.getBin gawk}/bin/gawk"
       "--with-appresdir=${placeholder "out"}/lib/X11/app-defaults"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
-      "gl_cv_func_signbit=yes"
-    ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "gl_cv_func_signbit=yes" ];
 
   makeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     # Trick to get the build system find the proper 'native' groff

@@ -50,8 +50,7 @@ stdenv.mkDerivation {
       python3
       poppler
     ]
-    ++ lib.optionals withDocs [ libxslt ]
-    ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration-gtk2 ];
+    ++ lib.optionals withDocs [ libxslt ] ++ lib.optionals stdenv.isDarwin [ gtk-mac-integration-gtk2 ];
 
   nativeBuildInputs = [
     appstream-glib

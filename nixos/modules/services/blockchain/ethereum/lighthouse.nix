@@ -244,10 +244,7 @@ in
 
         ${pkgs.lighthouse}/bin/lighthouse beacon_node \
           --disable-upnp \
-          ${
-            lib.optionalString cfg.beacon.disableDepositContractSync
-              "--disable-deposit-contract-sync"
-          } \
+          ${lib.optionalString cfg.beacon.disableDepositContractSync "--disable-deposit-contract-sync"} \
           --port ${toString cfg.beacon.port} \
           --listen-address ${cfg.beacon.address} \
           --network ${cfg.network} \
@@ -258,9 +255,7 @@ in
           --execution-jwt ''${CREDENTIALS_DIRECTORY}/LIGHTHOUSE_JWT \
           ${
             lib.optionalString cfg.beacon.http.enable
-              "--http --http-address ${cfg.beacon.http.address} --http-port ${
-                toString cfg.beacon.http.port
-              }"
+              "--http --http-address ${cfg.beacon.http.address} --http-port ${toString cfg.beacon.http.port}"
           } \
           ${
             lib.optionalString cfg.beacon.metrics.enable

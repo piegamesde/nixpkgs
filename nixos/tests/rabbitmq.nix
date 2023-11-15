@@ -5,9 +5,7 @@ import ./make-test-python.nix (
   let
     # in real life, you would keep this out of your repo and deploy it to a safe
     # location using safe means.
-    configKeyPath =
-      pkgs.writeText "fake-config-key"
-        "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01";
+    configKeyPath = pkgs.writeText "fake-config-key" "hOjWzSEn2Z7cHzKOcf6i183O2NdjurSuoMDIIv01";
   in
   {
     name = "rabbitmq";

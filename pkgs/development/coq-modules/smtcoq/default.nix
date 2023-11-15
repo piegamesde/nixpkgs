@@ -59,8 +59,7 @@ mkCoqDerivation {
       ]
     );
   mlPlugin = true;
-  nativeBuildInputs =
-    (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
+  nativeBuildInputs = (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
 
   # This is meant to ease future troubleshooting of cvc4 build failures
   passthru = {

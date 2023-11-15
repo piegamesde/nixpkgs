@@ -83,15 +83,9 @@ in
             default = 0;
             description = lib.mdDoc "Set debug log level.";
           };
-          options.exit-on-end = mkEnableOption (
-            lib.mdDoc "exit instead of restarting when a game ends"
-          );
-          options.Guests = mkEnableOption (
-            lib.mdDoc "guests to login if auth is enabled"
-          );
-          options.Newusers = mkEnableOption (
-            lib.mdDoc "new users to login if auth is enabled"
-          );
+          options.exit-on-end = mkEnableOption (lib.mdDoc "exit instead of restarting when a game ends");
+          options.Guests = mkEnableOption (lib.mdDoc "guests to login if auth is enabled");
+          options.Newusers = mkEnableOption (lib.mdDoc "new users to login if auth is enabled");
           options.port = mkOption {
             type = types.port;
             default = 5556;
@@ -121,9 +115,7 @@ in
           };
         };
       };
-      openFirewall = mkEnableOption (
-        lib.mdDoc "opening the firewall for the port listening for clients"
-      );
+      openFirewall = mkEnableOption (lib.mdDoc "opening the firewall for the port listening for clients");
     };
   };
   config = mkIf cfg.enable {
@@ -236,9 +228,7 @@ in
         SystemCallErrorNumber = "EPERM";
       };
     };
-    networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.port ];
-    };
+    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.port ]; };
   };
   meta.maintainers = with lib.maintainers; [ julm ];
 }

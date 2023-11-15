@@ -121,11 +121,7 @@ let
   configFile =
     let
       mkValueString =
-        v:
-        if builtins.isList v then
-          concatStringsSep "," v
-        else
-          generators.mkValueStringDefault { } v;
+        v: if builtins.isList v then concatStringsSep "," v else generators.mkValueStringDefault { } v;
 
       mkKeyValue =
         k: v:
@@ -168,9 +164,7 @@ in
           {
             freeformType = datasetSettingsType;
             options = commonOptions // datasetOptions;
-            config.use_template = modules.mkAliasAndWrapDefsWithPriority id (
-              options.useTemplate or { }
-            );
+            config.use_template = modules.mkAliasAndWrapDefsWithPriority id (options.useTemplate or { });
             config.process_children_only = modules.mkAliasAndWrapDefsWithPriority id (
               options.processChildrenOnly or { }
             );

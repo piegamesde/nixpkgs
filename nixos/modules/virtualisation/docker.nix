@@ -185,9 +185,7 @@ in
           "net.ipv4.conf.all.forwarding" = mkOverride 98 true;
           "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
         };
-        environment.systemPackages = [
-          cfg.package
-        ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+        environment.systemPackages = [ cfg.package ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
         users.groups.docker.gid = config.ids.gids.docker;
         systemd.packages = [ cfg.package ];
 
@@ -215,10 +213,9 @@ in
             ];
           };
 
-          path =
-            [ pkgs.kmod ]
-            ++ optional (cfg.storageDriver == "zfs") pkgs.zfs
-            ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+          path = [
+            pkgs.kmod
+          ] ++ optional (cfg.storageDriver == "zfs") pkgs.zfs ++ optional cfg.enableNvidia pkgs.nvidia-docker;
         };
 
         systemd.sockets.docker = {

@@ -218,8 +218,7 @@ let
     in
     self.haskellSrc2nix {
       name = "${name}-${version}";
-      sha256 = ''
-        $(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")'';
+      sha256 = ''$(sed -e 's/.*"SHA256":"//' -e 's/".*$//' "${component}/${name}.json")'';
       src = "${component}/${name}.cabal";
     };
 
@@ -259,8 +258,7 @@ package-set { inherit pkgs lib callPackage; } self
   #
   # e.g., while overriding a package set:
   #    '... foo = self.callHackage "foo" "1.5.3" {}; ...'
-  callHackage =
-    name: version: callPackageKeepDeriver (self.hackage2nix name version);
+  callHackage = name: version: callPackageKeepDeriver (self.hackage2nix name version);
 
   # callHackageDirect
   #   :: { pkg :: Text, ver :: Text, sha256 :: Text }
@@ -291,16 +289,10 @@ package-set { inherit pkgs lib callPackage; } self
   callCabal2nixWithOptions =
     name: src: extraCabal2nixOptions: args:
     let
-      filter =
-        path: type:
-        pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
+      filter = path: type: pkgs.lib.hasSuffix ".cabal" path || baseNameOf path == "package.yaml";
       expr = self.haskellSrc2nix {
         inherit name extraCabal2nixOptions;
-        src =
-          if pkgs.lib.canCleanSource src then
-            pkgs.lib.cleanSourceWith { inherit src filter; }
-          else
-            src;
+        src = if pkgs.lib.canCleanSource src then pkgs.lib.cleanSourceWith { inherit src filter; } else src;
       };
     in
     overrideCabal (orig: { inherit src; }) (callPackageKeepDeriver expr args);
@@ -340,9 +332,7 @@ package-set { inherit pkgs lib callPackage; } self
   developPackage =
     {
       root,
-      name ? lib.optionalString (builtins.typeOf root == "path") (
-        builtins.baseNameOf root
-      ),
+      name ? lib.optionalString (builtins.typeOf root == "path") (builtins.baseNameOf root),
       source-overrides ? { },
       overrides ? self: super: { },
       modifier ? drv: drv,
@@ -353,18 +343,14 @@ package-set { inherit pkgs lib callPackage; } self
     let
       drv =
         (extensible-self.extend (
-          pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides)
-            overrides
+          pkgs.lib.composeExtensions (self.packageSourceOverrides source-overrides) overrides
         )).callCabal2nixWithOptions
           name
           root
           cabal2nixOptions
           { };
     in
-    if returnShellEnv then
-      (modifier drv).envFunc { inherit withHoogle; }
-    else
-      modifier drv;
+    if returnShellEnv then (modifier drv).envFunc { inherit withHoogle; } else modifier drv;
 
   # This can be used to easily create a derivation containing GHC and the specified set of Haskell packages.
   #
@@ -376,9 +362,7 @@ package-set { inherit pkgs lib callPackage; } self
   # GHC is setup with a package database with all the specified Haskell packages.
   #
   # ghcWithPackages :: (HaskellPkgSet -> [ HaskellPkg ]) -> Derivation
-  ghcWithPackages = self.callPackage ./with-packages-wrapper.nix {
-    haskellPackages = self;
-  };
+  ghcWithPackages = self.callPackage ./with-packages-wrapper.nix { haskellPackages = self; };
 
   # Put 'hoogle' into the derivation's PATH with a database containing all
   # the package's dependencies; run 'hoogle server --local' in a shell to
@@ -548,8 +532,7 @@ package-set { inherit pkgs lib callPackage; } self
       #
       #   isNotSelected lens [ frontend backend common ]
       #   => true
-      isNotSelected =
-        input: pkgs.lib.all (p: input.outPath or null != p.outPath) selected;
+      isNotSelected = input: pkgs.lib.all (p: input.outPath or null != p.outPath) selected;
 
       # A function that takes a list of list of derivations, filters out all
       # the `selected` packages from each list, and concats the results.
@@ -568,8 +551,7 @@ package-set { inherit pkgs lib callPackage; } self
       # `backend`, then zipperCombinedPkgs needs to be careful to filter out
       # `common`, because cabal will end up ignoring that built version,
       # assuming new-style commands.
-      zipperCombinedPkgs =
-        vals: pkgs.lib.concatMap (drvList: pkgs.lib.filter isNotSelected drvList) vals;
+      zipperCombinedPkgs = vals: pkgs.lib.concatMap (drvList: pkgs.lib.filter isNotSelected drvList) vals;
 
       # Zip `cabalDepsForSelected` into a single attribute list, combining
       # the derivations in all the individual attributes.
@@ -597,11 +579,7 @@ package-set { inherit pkgs lib callPackage; } self
       # packageInputs are set correctly.
       genericBuilderArgs =
         {
-          pname =
-            if pkgs.lib.length selected == 1 then
-              (pkgs.lib.head selected).name
-            else
-              "packages";
+          pname = if pkgs.lib.length selected == 1 then (pkgs.lib.head selected).name else "packages";
           version = "0";
           license = null;
         }
@@ -617,9 +595,7 @@ package-set { inherit pkgs lib callPackage; } self
       # This is a derivation created with `haskellPackages.mkDerivation`.
       #
       # pkgWithCombinedDeps :: HaskellDerivation
-      pkgWithCombinedDeps = self.mkDerivation (
-        genericBuilderArgsModifier genericBuilderArgs
-      );
+      pkgWithCombinedDeps = self.mkDerivation (genericBuilderArgsModifier genericBuilderArgs);
 
       # The derivation returned from `envFunc` for `pkgWithCombinedDeps`.
       #
@@ -645,8 +621,7 @@ package-set { inherit pkgs lib callPackage; } self
       old:
       mkDerivationArgs
       // {
-        nativeBuildInputs =
-          old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
+        nativeBuildInputs = old.nativeBuildInputs ++ mkDerivationArgs.nativeBuildInputs or [ ];
         buildInputs = old.buildInputs ++ mkDerivationArgs.buildInputs or [ ];
       }
     );

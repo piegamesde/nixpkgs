@@ -122,8 +122,7 @@ in
       }
     ];
 
-    system.requiredKernelConfig =
-      with config.lib.kernelConfig; [ (isModule "ZRAM") ];
+    system.requiredKernelConfig = with config.lib.kernelConfig; [ (isModule "ZRAM") ];
 
     # Disabling this for the moment, as it would create and mkswap devices twice,
     # once in stage 2 boot, and again when the zram-reloader service starts.
@@ -145,16 +144,11 @@ in
                   in
                   {
                     zram-size =
-                      if cfg.memoryMax != null then
-                        "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
-                      else
-                        size;
+                      if cfg.memoryMax != null then "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)" else size;
                     compression-algorithm = cfg.algorithm;
                     swap-priority = cfg.priority;
                   }
-                  // lib.optionalAttrs (cfg.writebackDevice != null) {
-                    writeback-device = cfg.writebackDevice;
-                  };
+                  // lib.optionalAttrs (cfg.writebackDevice != null) { writeback-device = cfg.writebackDevice; };
               })
               devices
           )

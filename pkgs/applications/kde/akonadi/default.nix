@@ -70,10 +70,7 @@ mkDerivation {
     "dev"
   ];
   CXXFLAGS = [
-    ''
-      -DNIXPKGS_MYSQL_MYSQLD=\"${
-        lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqld"
-      }\"''
+    ''-DNIXPKGS_MYSQL_MYSQLD=\"${lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqld"}\"''
     ''
       -DNIXPKGS_MYSQL_MYSQLADMIN=\"${
         lib.optionalString mysqlSupport "${lib.getBin mariadb}/bin/mysqladmin"
@@ -102,9 +99,7 @@ mkDerivation {
     "-I${lib.getDev kio}/include/KF5" # Fixes: kio_version.h: No such file or directory
   ];
 
-  cmakeFlags =
-    lib.optional (defaultDriver != "MYSQL")
-      "-DDATABASE_BACKEND=${defaultDriver}";
+  cmakeFlags = lib.optional (defaultDriver != "MYSQL") "-DDATABASE_BACKEND=${defaultDriver}";
 
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing

@@ -87,18 +87,14 @@ in
     };
 
     nginxConfig = mkOption {
-      type = types.submodule (
-        import ../web-servers/nginx/vhost-options.nix { inherit config lib; }
-      );
+      type = types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; });
       default = { };
       example = literalExpression ''
         {
           serverAliases = [ "wiki.''${config.networking.domain}" ];
         }
       '';
-      description =
-        lib.mdDoc
-          "Extra configuration for the nginx virtual host of Jirafeau.";
+      description = lib.mdDoc "Extra configuration for the nginx virtual host of Jirafeau.";
     };
 
     package = mkOption {
@@ -143,10 +139,7 @@ in
             extraConfig =
               let
                 clientMaxBodySize =
-                  if cfg.maxUploadSizeMegabytes == 0 then
-                    "0"
-                  else
-                    "${cfg.maxUploadSizeMegabytes}m";
+                  if cfg.maxUploadSizeMegabytes == 0 then "0" else "${cfg.maxUploadSizeMegabytes}m";
               in
               ''
                 index index.php;

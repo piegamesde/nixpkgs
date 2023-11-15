@@ -555,9 +555,7 @@ in
       '';
     };
 
-    rateLimiter.enable = lib.mkEnableOption (
-      lib.mdDoc "rate limiter for the application web server"
-    );
+    rateLimiter.enable = lib.mkEnableOption (lib.mdDoc "rate limiter for the application web server");
     rateLimiter.requests = lib.mkOption {
       type = lib.types.int;
       default = 5000;
@@ -578,9 +576,7 @@ in
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == defaultUser) {
-      ${defaultUser} = { };
-    };
+    users.groups = lib.optionalAttrs (cfg.group == defaultUser) { ${defaultUser} = { }; };
 
     systemd.tmpfiles.rules = [
       "f ${cfg.secretKeyFile} 0600 ${cfg.user} ${cfg.group} -"
@@ -657,9 +653,7 @@ in
             WEB_CONCURRENCY = builtins.toString cfg.concurrency;
             MAXIMUM_IMPORT_SIZE = builtins.toString cfg.maximumImportSize;
             DEBUG = cfg.debugOutput;
-            GOOGLE_ANALYTICS_ID =
-              lib.optionalString (cfg.googleAnalyticsId != null)
-                cfg.googleAnalyticsId;
+            GOOGLE_ANALYTICS_ID = lib.optionalString (cfg.googleAnalyticsId != null) cfg.googleAnalyticsId;
             SENTRY_DSN = lib.optionalString (cfg.sentryDsn != null) cfg.sentryDsn;
             SENTRY_TUNNEL = lib.optionalString (cfg.sentryTunnel != null) cfg.sentryTunnel;
             TEAM_LOGO = lib.optionalString (cfg.logo != null) cfg.logo;
@@ -670,9 +664,7 @@ in
             RATE_LIMITER_DURATION_WINDOW = builtins.toString cfg.rateLimiter.durationWindow;
           }
 
-          (lib.mkIf (cfg.slackAuthentication != null) {
-            SLACK_CLIENT_ID = cfg.slackAuthentication.clientId;
-          })
+          (lib.mkIf (cfg.slackAuthentication != null) { SLACK_CLIENT_ID = cfg.slackAuthentication.clientId; })
 
           (lib.mkIf (cfg.googleAuthentication != null) {
             GOOGLE_CLIENT_ID = cfg.googleAuthentication.clientId;
@@ -763,13 +755,9 @@ in
         script = ''
           export SECRET_KEY="$(head -n1 ${lib.escapeShellArg cfg.secretKeyFile})"
           export UTILS_SECRET="$(head -n1 ${lib.escapeShellArg cfg.utilsSecretFile})"
-          export AWS_SECRET_ACCESS_KEY="$(head -n1 ${
-            lib.escapeShellArg cfg.storage.secretKeyFile
-          })"
+          export AWS_SECRET_ACCESS_KEY="$(head -n1 ${lib.escapeShellArg cfg.storage.secretKeyFile})"
           ${lib.optionalString (cfg.slackAuthentication != null) ''
-            export SLACK_CLIENT_SECRET="$(head -n1 ${
-              lib.escapeShellArg cfg.slackAuthentication.secretFile
-            })"
+            export SLACK_CLIENT_SECRET="$(head -n1 ${lib.escapeShellArg cfg.slackAuthentication.secretFile})"
           ''}
           ${lib.optionalString (cfg.googleAuthentication != null) ''
             export GOOGLE_CLIENT_SECRET="$(head -n1 ${

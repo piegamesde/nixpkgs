@@ -19,8 +19,7 @@
 let
 
   version = "0.8.1";
-  modulesVersion =
-    with lib; versions.major version + "." + versions.minor version;
+  modulesVersion = with lib; versions.major version + "." + versions.minor version;
   modulesPath = "lib/SoapySDR/modules" + modulesVersion;
   extraPackagesSearchPath = lib.makeSearchPath modulesPath extraPackages;
 in
@@ -59,9 +58,7 @@ stdenv.mkDerivation (
 
     propagatedBuildInputs = lib.optional usePython python.pkgs.numpy;
 
-    cmakeFlags = [
-      "-DCMAKE_BUILD_TYPE=Release"
-    ] ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON";
+    cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ] ++ lib.optional usePython "-DUSE_PYTHON_CONFIG=ON";
 
     # https://github.com/pothosware/SoapySDR/issues/352
     postPatch = ''

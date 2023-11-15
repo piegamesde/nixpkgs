@@ -40,15 +40,11 @@ let
 
         # copy additional plugin(s), theme(s) and language(s)
         ${concatStringsSep "\n" (
-          mapAttrsToList
-            (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
+          mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
             cfg.themes
         )}
         ${concatStringsSep "\n" (
-          mapAttrsToList
-            (
-              name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}"
-            )
+          mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
             cfg.plugins
         )}
         ${concatMapStringsSep "\n"
@@ -65,28 +61,21 @@ let
       AUTOMATIC_UPDATER_DISABLED = true;
       DB_NAME = cfg.database.name;
       DB_HOST = "${cfg.database.host}:${
-          if cfg.database.socket != null then
-            cfg.database.socket
-          else
-            toString cfg.database.port
+          if cfg.database.socket != null then cfg.database.socket else toString cfg.database.port
         }";
       DB_USER = cfg.database.user;
       DB_CHARSET = "utf8";
       # Always set DB_PASSWORD even when passwordFile is not set. This is the
       # default Wordpress behaviour.
       DB_PASSWORD =
-        if (cfg.database.passwordFile != null) then
-          { _file = cfg.database.passwordFile; }
-        else
-          "";
+        if (cfg.database.passwordFile != null) then { _file = cfg.database.passwordFile; } else "";
     }
     // cfg.settings;
 
   wpConfig =
     hostName: cfg:
     let
-      conf_gen =
-        c: mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});") cfg.mergedConfig;
+      conf_gen = c: mapAttrsToList (k: v: "define('${k}', ${mkPhpValue v});") cfg.mergedConfig;
     in
     pkgs.writeTextFile {
       name = "wp-config-${hostName}.php";
@@ -127,10 +116,7 @@ let
     else if isHasAttr "_raw" then
       v._raw
     else
-      abort
-        "The Wordpress config value ${
-          lib.generators.toPretty { } v
-        } can not be encoded.";
+      abort "The Wordpress config value ${lib.generators.toPretty { } v} can not be encoded.";
 
   secretsVars = [
     "AUTH_KEY"
@@ -234,9 +220,7 @@ let
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
-          defaultText =
-            literalExpression
-              "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
+          defaultText = literalExpression "{ inherit (pkgs.wordpressPackages.themes) twentytwentythree; }";
           description = lib.mdDoc ''
             Path(s) to respective theme(s) which are copied from the 'theme' directory.
 
@@ -329,9 +313,7 @@ let
             type = types.nullOr types.path;
             default = null;
             defaultText = literalExpression "/run/mysqld/mysqld.sock";
-            description =
-              lib.mdDoc
-                "Path to the unix socket file to use for authentication.";
+            description = lib.mdDoc "Path to the unix socket file to use for authentication.";
           };
 
           createLocally = mkOption {
@@ -490,22 +472,20 @@ in
             eachSite
           );
 
-        services.mysql =
-          mkIf (any (v: v.database.createLocally) (attrValues eachSite))
-            {
-              enable = true;
-              package = mkDefault pkgs.mariadb;
-              ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
-              ensureUsers =
-                mapAttrsToList
-                  (hostName: cfg: {
-                    name = cfg.database.user;
-                    ensurePermissions = {
-                      "${cfg.database.name}.*" = "ALL PRIVILEGES";
-                    };
-                  })
-                  eachSite;
-            };
+        services.mysql = mkIf (any (v: v.database.createLocally) (attrValues eachSite)) {
+          enable = true;
+          package = mkDefault pkgs.mariadb;
+          ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
+          ensureUsers =
+            mapAttrsToList
+              (hostName: cfg: {
+                name = cfg.database.user;
+                ensurePermissions = {
+                  "${cfg.database.name}.*" = "ALL PRIVILEGES";
+                };
+              })
+              eachSite;
+        };
 
         services.phpfpm.pools =
           mapAttrs'
@@ -638,9 +618,7 @@ in
                     priority = 500;
                     extraConfig = ''
                       fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                      fastcgi_pass unix:${
-                        config.services.phpfpm.pools."wordpress-${hostName}".socket
-                      };
+                      fastcgi_pass unix:${config.services.phpfpm.pools."wordpress-${hostName}".socket};
                       fastcgi_index index.php;
                       include "${config.services.nginx.package}/conf/fastcgi.conf";
                       fastcgi_param PATH_INFO $fastcgi_path_info;

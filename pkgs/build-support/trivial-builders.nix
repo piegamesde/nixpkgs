@@ -355,9 +355,7 @@ rec {
             ${stdenv.shellDryRun} "$target"
             # use shellcheck which does not include docs
             # pandoc takes long to build and documentation isn't needed for in nixpkgs usage
-            ${
-              lib.getExe (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)
-            } "$target"
+            ${lib.getExe (haskell.lib.compose.justStaticExecutables shellcheck.unwrapped)} "$target"
             runHook postCheck
           ''
         else
@@ -624,8 +622,7 @@ rec {
   # docs in doc/builders/special/makesetuphook.section.md
   makeSetupHook =
     {
-      name ? lib.warn "calling makeSetupHook without passing a name is deprecated."
-          "hook",
+      name ? lib.warn "calling makeSetupHook without passing a name is deprecated." "hook",
       deps ? [ ],
       # hooks go in nativeBuildInput so these will be nativeBuildInput
       propagatedBuildInputs ? [ ],
@@ -645,9 +642,7 @@ rec {
           propagatedBuildInputs =
             # remove list conditionals before 23.11
             lib.warnIf (!lib.isList deps)
-              "'deps' argument to makeSetupHook must be a list. content of deps: ${
-                toString deps
-              }"
+              "'deps' argument to makeSetupHook must be a list. content of deps: ${toString deps}"
               (
                 lib.warnIf (deps != [ ])
                   "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${
@@ -768,9 +763,7 @@ rec {
         lib.mapAttrs'
           (name: value: {
             inherit value;
-            name = lib.head (
-              builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name
-            );
+            name = lib.head (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name);
           })
           derivations;
       # The syntax of output paths differs between outputs named `out`
@@ -788,8 +781,7 @@ rec {
               (
                 output:
                 lib.filter lib.isList (
-                  builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})"
-                    string
+                  builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string
                 )
               )
               (lib.remove "out" value.outputs)
@@ -819,9 +811,7 @@ rec {
           )
           packages
       );
-      allPaths = lib.concatStringsSep "\n" (
-        lib.unique (sources ++ namedOutputPaths ++ outputPaths)
-      );
+      allPaths = lib.concatStringsSep "\n" (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
     in
     if builtins ? getContext then

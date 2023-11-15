@@ -89,9 +89,7 @@ in
     };
 
     environment.budgie.excludePackages = mkOption {
-      description =
-        mdDoc
-          "Which packages Budgie should exclude from the default environment.";
+      description = mdDoc "Which packages Budgie should exclude from the default environment.";
       type = with types; listOf package;
       default = [ ];
       example = literalExpression "[ pkgs.mate-terminal ]";
@@ -99,8 +97,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages =
-      with pkgs; [ budgie.budgie-desktop ];
+    services.xserver.displayManager.sessionPackages = with pkgs; [ budgie.budgie-desktop ];
 
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkDefault true;
@@ -118,9 +115,7 @@ in
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [
-      pkgs.budgie.budgie-desktop-view
-    ];
+    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
 
     environment.extraInit = ''
       ${concatMapStrings

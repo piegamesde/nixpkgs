@@ -369,9 +369,7 @@ let
       # We generate a different name (a `-refresh` suffix) when `dynamicEndpointRefreshSeconds`
       # to avoid that the same service switches `Type` (`oneshot` vs `simple`),
       # with the intent to make scripting more obvious.
-      serviceName =
-        peerUnitServiceName interfaceName peer.publicKey
-          dynamicRefreshEnabled;
+      serviceName = peerUnitServiceName interfaceName peer.publicKey dynamicRefreshEnabled;
     in
     nameValuePair serviceName {
       description = "WireGuard Peer - ${interfaceName} - ${peer.publicKey}";
@@ -411,9 +409,7 @@ let
               else
                 peer.dynamicEndpointRefreshSeconds;
           };
-      unitConfig = lib.optionalAttrs dynamicRefreshEnabled {
-        StartLimitIntervalSec = 0;
-      };
+      unitConfig = lib.optionalAttrs dynamicRefreshEnabled { StartLimitIntervalSec = 0; };
 
       script =
         let
@@ -424,16 +420,13 @@ let
             ++
               optional (peer.persistentKeepalive != null)
                 ''persistent-keepalive "${toString peer.persistentKeepalive}"''
-            ++
-              optional (peer.allowedIPs != [ ])
-                ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
+            ++ optional (peer.allowedIPs != [ ]) ''allowed-ips "${concatStringsSep "," peer.allowedIPs}"''
           );
           route_setup = optionalString interfaceCfg.allowedIPsAsRoutes (
             concatMapStringsSep "\n"
               (
                 allowedIP:
-                ''
-                  ${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
+                ''${ip} route replace "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
               )
               peer.allowedIPs
           );
@@ -459,8 +452,7 @@ let
             concatMapStringsSep "\n"
               (
                 allowedIP:
-                ''
-                  ${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
+                ''${ip} route delete "${allowedIP}" dev "${interfaceName}" table "${interfaceCfg.table}"''
               )
               peer.allowedIPs
           );
@@ -477,10 +469,7 @@ let
     let
       mkPeerUnit =
         peer:
-        (peerUnitServiceName name peer.publicKey (
-          peer.dynamicEndpointRefreshSeconds != 0
-        ))
-        + ".service";
+        (peerUnitServiceName name peer.publicKey (peer.dynamicEndpointRefreshSeconds != 0)) + ".service";
     in
     nameValuePair "wireguard-${name}" rec {
       description = "WireGuard Tunnel - ${name}";
@@ -530,23 +519,16 @@ let
 
         ${ipPreMove} link add dev "${name}" type wireguard
         ${optionalString
-          (
-            values.interfaceNamespace != null
-            && values.interfaceNamespace != values.socketNamespace
-          )
+          (values.interfaceNamespace != null && values.interfaceNamespace != values.socketNamespace)
           ''${ipPreMove} link set "${name}" netns "${ns}"''}
         ${optionalString (values.mtu != null)
           ''${ipPostMove} link set "${name}" mtu ${toString values.mtu}''}
 
-        ${concatMapStringsSep "\n"
-          (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'')
-          values.ips}
+        ${concatMapStringsSep "\n" (ip: ''${ipPostMove} address add "${ip}" dev "${name}"'') values.ips}
 
         ${concatStringsSep " " (
           [ ''${wg} set "${name}" private-key "${privKey}"'' ]
-          ++
-            optional (values.listenPort != null)
-              ''listen-port "${toString values.listenPort}"''
+          ++ optional (values.listenPort != null) ''listen-port "${toString values.listenPort}"''
           ++ optional (values.fwMark != null) ''fwmark "${values.fwMark}"''
         )}
 
@@ -570,10 +552,7 @@ let
       ];
       ns = last nsList;
     in
-    if (length nsList > 0 && ns != "init") then
-      ''ip netns exec "${ns}" "${cmd}"''
-    else
-      cmd;
+    if (length nsList > 0 && ns != "init") then ''ip netns exec "${ns}" "${cmd}"'' else cmd;
 in
 
 {
@@ -669,9 +648,7 @@ in
             )
             all_peers;
 
-      boot.extraModulePackages =
-        optional (versionOlder kernel.kernel.version "5.6")
-          kernel.wireguard;
+      boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
       environment.systemPackages = [ pkgs.wireguard-tools ];
 
       systemd.services =

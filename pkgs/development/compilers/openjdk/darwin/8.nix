@@ -89,9 +89,7 @@ let
     # fixupPhase is moving the man to share/man which breaks it because it's a
     # relative symlink.
     postFixup = ''
-      ln -nsf ../zulu-${
-        lib.versions.major version
-      }.jdk/Contents/Home/man $out/share/man
+      ln -nsf ../zulu-${lib.versions.major version}.jdk/Contents/Home/man $out/share/man
     '';
 
     passthru = {

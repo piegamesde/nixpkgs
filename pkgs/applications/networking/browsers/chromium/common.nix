@@ -180,9 +180,7 @@ let
   buildPath = "out/${buildType}";
   libExecPath = "$out/libexec/${packageName}";
 
-  ungoogler = ungoogled-chromium {
-    inherit (upstream-info.deps.ungoogled-patches) rev sha256;
-  };
+  ungoogler = ungoogled-chromium { inherit (upstream-info.deps.ungoogled-patches) rev sha256; };
 
   base = rec {
     pname = "${packageName}-unwrapped";
@@ -326,9 +324,7 @@ let
 
       ''
       + lib.optionalString systemdSupport ''
-        sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
-          lib.getLib systemd
-        }/lib/\1!' \
+        sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${lib.getLib systemd}/lib/\1!' \
           device/udev_linux/udev?_loader.cc
       ''
       + ''
@@ -435,9 +431,7 @@ let
       ${python3.pythonForBuild}/bin/python3 build/linux/unbundle/replace_gn_files.py --system-libraries ${
         toString gnSystemLibraries
       }
-      ${gnChromium}/bin/gn gen --args=${
-        lib.escapeShellArg gnFlags
-      } out/Release | tee gn-gen-outputs.txt
+      ${gnChromium}/bin/gn gen --args=${lib.escapeShellArg gnFlags} out/Release | tee gn-gen-outputs.txt
 
       # Fail if `gn gen` contains a WARNING.
       grep -o WARNING gn-gen-outputs.txt && echo "Found gn WARNING, exiting nix build" && exit 1

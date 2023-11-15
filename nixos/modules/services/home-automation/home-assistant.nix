@@ -16,15 +16,11 @@ let
   # options shown in settings.
   # We post-process the result to add support for YAML functions, like secrets or includes, see e.g.
   # https://www.home-assistant.io/docs/configuration/secrets/
-  filteredConfig =
-    lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ]))
-      cfg.config or { };
-  configFile =
-    pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; }
-      ''
-        cp ${format.generate "configuration.yaml" filteredConfig} $out
-        sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
-      '';
+  filteredConfig = lib.converge (lib.filterAttrsRecursive (_: v: !elem v [ null ])) cfg.config or { };
+  configFile = pkgs.runCommand "configuration.yaml" { preferLocalBuild = true; } ''
+    cp ${format.generate "configuration.yaml" filteredConfig} $out
+    sed -i -e "s/'\!\([a-z_]\+\) \(.*\)'/\!\1 \2/;s/^\!\!/\!/;" $out
+  '';
   lovelaceConfig = cfg.lovelaceConfig or { };
   lovelaceConfigFile = format.generate "ui-lovelace.yaml" lovelaceConfig;
 
@@ -49,8 +45,7 @@ let
     if isDerivation config then
       [ ]
     else if isAttrs config then
-      optional (config ? platform) config.platform
-      ++ concatMap usedPlatforms (attrValues config)
+      optional (config ? platform) config.platform ++ concatMap usedPlatforms (attrValues config)
     else if isList config then
       concatMap usedPlatforms config
     else
@@ -76,8 +71,7 @@ let
         # Respect overrides that already exist in the passed package and
         # concat it with values passed via the module.
         extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
-        extraPackages =
-          ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
+        extraPackages = ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
       }
     ));
 in
@@ -125,16 +119,13 @@ in
     # Running home-assistant on NixOS is considered an installation method that is unsupported by the upstream project.
     # https://github.com/home-assistant/architecture/blob/master/adr/0012-define-supported-installation-method.md#decision
     enable = mkEnableOption (
-      lib.mdDoc
-        "Home Assistant. Please note that this installation method is unsupported upstream"
+      lib.mdDoc "Home Assistant. Please note that this installation method is unsupported upstream"
     );
 
     configDir = mkOption {
       default = "/var/lib/hass";
       type = types.path;
-      description =
-        lib.mdDoc
-          "The config directory, where your {file}`configuration.yaml` is located.";
+      description = lib.mdDoc "The config directory, where your {file}`configuration.yaml` is located.";
     };
 
     extraComponents = mkOption {
@@ -394,9 +385,7 @@ in
     };
 
     package = mkOption {
-      default = pkgs.home-assistant.overrideAttrs (
-        oldAttrs: { doInstallCheck = false; }
-      );
+      default = pkgs.home-assistant.overrideAttrs (oldAttrs: { doInstallCheck = false; });
       defaultText = literalExpression ''
         pkgs.home-assistant.overrideAttrs (oldAttrs: {
           doInstallCheck = false;
@@ -435,9 +424,7 @@ in
       }
     ];
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      cfg.config.http.server_port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.config.http.server_port ];
 
     # symlink the configuration to /etc/home-assistant
     environment.etc = lib.mkMerge [
@@ -666,9 +653,7 @@ in
           RestrictNamespaces = true;
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
-          SupplementaryGroups =
-            optionals (any useComponent componentsUsingSerialDevices)
-              [ "dialout" ];
+          SupplementaryGroups = optionals (any useComponent componentsUsingSerialDevices) [ "dialout" ];
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service"

@@ -182,9 +182,7 @@ let
         };
 
         shell = mkOption {
-          type = types.nullOr (
-            types.either types.shellPackage (types.passwdEntry types.path)
-          );
+          type = types.nullOr (types.either types.shellPackage (types.passwdEntry types.path));
           default = pkgs.shadow;
           defaultText = literalExpression "pkgs.shadow";
           example = literalExpression "pkgs.bashInteractive";
@@ -370,12 +368,9 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (mkIf
-          (
-            config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]
-          )
-          { autoSubUidGidRange = mkDefault true; }
-        )
+        (mkIf (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]) {
+          autoSubUidGidRange = mkDefault true;
+        })
       ];
     };
 
@@ -493,19 +488,13 @@ let
       (builtins.attrNames set)
     ).dup;
 
-  uidsAreUnique =
-    idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users)
-      "uid";
-  gidsAreUnique =
-    idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups)
-      "gid";
+  uidsAreUnique = idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
+  gidsAreUnique = idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
   sdInitrdUidsAreUnique =
-    idsAreUnique
-      (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
+    idsAreUnique (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
       "uid";
   sdInitrdGidsAreUnique =
-    idsAreUnique
-      (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
+    idsAreUnique (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
       "gid";
 
   spec = pkgs.writeText "users-groups.json" (
@@ -723,9 +712,7 @@ in
 
   config =
     let
-      cryptSchemeIdPatternGroup = "(${
-          lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds
-        })";
+      cryptSchemeIdPatternGroup = "(${lib.concatStringsSep "|" pkgs.libxcrypt.enabledCryptSchemeIds})";
     in
     {
 
@@ -858,8 +845,7 @@ in
           '';
           "/etc/group".text = ''
             ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:")
-                config.boot.initrd.systemd.groups
+              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups
             )}
           '';
         };
@@ -897,8 +883,7 @@ in
             message = "UIDs and GIDs must be unique!";
           }
           {
-            assertion =
-              !cfg.enforceIdUniqueness || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
+            assertion = !cfg.enforceIdUniqueness || (sdInitrdUidsAreUnique && sdInitrdGidsAreUnique);
             message = "systemd initrd UIDs and GIDs must be unique!";
           }
           {
@@ -942,9 +927,7 @@ in
             name: user:
             [
               {
-                assertion =
-                  (user.hashedPassword != null)
-                  -> (builtins.match ".*:.*" user.hashedPassword == null);
+                assertion = (user.hashedPassword != null) -> (builtins.match ".*:.*" user.hashedPassword == null);
                 message = ''
                   The password hash of user "${user.name}" contains a ":" character.
                   This is invalid and would break the login system because the fields
@@ -955,8 +938,7 @@ in
                 assertion =
                   let
                     xor = a: b: a && !b || b && !a;
-                    isEffectivelySystemUser =
-                      user.isSystemUser || (user.uid != null && user.uid < 1000);
+                    isEffectivelySystemUser = user.isSystemUser || (user.uid != null && user.uid < 1000);
                   in
                   xor isEffectivelySystemUser user.isNormalUser;
                 message = ''
@@ -976,8 +958,7 @@ in
             ]
             ++ (map
               (shell: {
-                assertion =
-                  (user.shell == pkgs.${shell}) -> (config.programs.${shell}.enable == true);
+                assertion = (user.shell == pkgs.${shell}) -> (config.programs.${shell}.enable == true);
                 message = ''
                   users.users.${user.name}.shell is set to ${shell}, but
                   programs.${shell}.enable is not true. This will cause the ${shell}

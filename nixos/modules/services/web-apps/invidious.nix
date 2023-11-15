@@ -26,20 +26,13 @@ let
             "."
             +
               lib.optionalString (cfg.database.host != null)
-                ''
-                  [0].db.password = "'"'"$(cat ${
-                    lib.escapeShellArg cfg.database.passwordFile
-                  })"'"'"''
+                ''[0].db.password = "'"'"$(cat ${lib.escapeShellArg cfg.database.passwordFile})"'"'"''
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
-          jqFiles = [
-            settingsFile
-          ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
+          jqFiles = [ settingsFile ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
         in
         ''
-          export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${
-            lib.escapeShellArgs jqFiles
-          })"
+          export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${lib.escapeShellArgs jqFiles})"
           exec ${cfg.package}/bin/invidious
         '';
 
@@ -123,9 +116,7 @@ let
 
     systemd.services.invidious-db-clean = {
       description = "Invidious database cleanup";
-      documentation = [
-        "https://docs.invidious.io/Database-Information-and-Maintenance.md"
-      ];
+      documentation = [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ];
       startAt = lib.mkDefault "weekly";
       path = [ config.services.postgresql.package ];
       script = ''

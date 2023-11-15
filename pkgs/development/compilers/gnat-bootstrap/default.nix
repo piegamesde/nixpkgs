@@ -21,9 +21,7 @@
 }:
 
 let
-  throwUnsupportedSystem =
-    throw
-      "Unsupported system: ${stdenv.hostPlatform.system}";
+  throwUnsupportedSystem = throw "Unsupported system: ${stdenv.hostPlatform.system}";
 
   versionMap = rec {
     "11" =

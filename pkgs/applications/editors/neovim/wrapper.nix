@@ -41,11 +41,7 @@ let
     }@args:
     let
 
-      wrapperArgsStr =
-        if lib.isString wrapperArgs then
-          wrapperArgs
-        else
-          lib.escapeShellArgs wrapperArgs;
+      wrapperArgsStr = if lib.isString wrapperArgs then wrapperArgs else lib.escapeShellArgs wrapperArgs;
 
       # "--add-flags" (lib.escapeShellArgs flags)
       # wrapper args used both when generating the manifest and in the final neovim executable
@@ -59,10 +55,7 @@ let
         ]
         ++
           lib.optionals
-            (
-              packpathDirs.myNeovimPackages.start != [ ]
-              || packpathDirs.myNeovimPackages.opt != [ ]
-            )
+            (packpathDirs.myNeovimPackages.start != [ ] || packpathDirs.myNeovimPackages.opt != [ ])
             [
               "--add-flags"
               ''--cmd "set packpath^=${vimUtils.packDir packpathDirs}"''

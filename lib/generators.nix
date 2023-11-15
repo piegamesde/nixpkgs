@@ -33,11 +33,7 @@ rec {
     v:
     with builtins;
     let
-      err =
-        t: v:
-        abort (
-          "generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}"
-        );
+      err = t: v: abort ("generators.mkValueStringDefault: " + "${t} not supported: ${toPretty { } v}");
     in
     if isInt v then
       toString v
@@ -246,10 +242,7 @@ rec {
           subsections = tail sections;
           subsection = concatStringsSep "." subsections;
         in
-        if containsQuote || subsections == [ ] then
-          name
-        else
-          ''${section} "${subsection}"'';
+        if containsQuote || subsections == [ ] then name else ''${section} "${subsection}"'';
 
       # generation for multiple ini values
       mkKeyValue =
@@ -303,8 +296,7 @@ rec {
         "__toString"
         "__pretty"
       ];
-      stepIntoAttr =
-        evalNext: name: if builtins.elem name specialAttrs then id else evalNext;
+      stepIntoAttr = evalNext: name: if builtins.elem name specialAttrs then id else evalNext;
       transform =
         depth:
         if depthLimit != null && depth > depthLimit then
@@ -395,8 +387,7 @@ rec {
                   "''\${"
                   "'''"
                 ];
-            singlelineResult =
-              ''"'' + concatStringsSep "\\n" (map escapeSingleline lines) + ''"'';
+            singlelineResult = ''"'' + concatStringsSep "\\n" (map escapeSingleline lines) + ''"'';
             multilineResult =
               let
                 escapedLines = map escapeMultiline lines;
@@ -423,17 +414,12 @@ rec {
           if v == [ ] then
             "[ ]"
           else
-            "["
-            + introSpace
-            + libStr.concatMapStringsSep introSpace (go (indent + "  ")) v
-            + outroSpace
-            + "]"
+            "[" + introSpace + libStr.concatMapStringsSep introSpace (go (indent + "  ")) v + outroSpace + "]"
         else if isFunction v then
           let
             fna = lib.functionArgs v;
             showFnas = concatStringsSep ", " (
-              libAttr.mapAttrsToList (name: hasDefVal: if hasDefVal then name + "?" else name)
-                fna
+              libAttr.mapAttrsToList (name: hasDefVal: if hasDefVal then name + "?" else name) fna
             );
           in
           if fna == { } then "<function>" else "<function, args: {${showFnas}}>"
@@ -453,9 +439,7 @@ rec {
                 (
                   name: value:
                   "${libStr.escapeNixIdentifier name} = ${
-                    builtins.addErrorContext "while evaluating an attribute `${name}`" (
-                      go (indent + "  ") value
-                    )
+                    builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)
                   };"
                 )
                 v
@@ -558,11 +542,7 @@ rec {
       concatItems = lib.strings.concatStringsSep ", ";
     in
     if isAttrs v then
-      "{ ${
-        concatItems (
-          lib.attrsets.mapAttrsToList (key: value: "${key} = ${toDhall args value}") v
-        )
-      } }"
+      "{ ${concatItems (lib.attrsets.mapAttrsToList (key: value: "${key} = ${toDhall args value}") v)} }"
     else if isList v then
       "[ ${concatItems (map (toDhall args) v)} ]"
     else if isInt v then
@@ -649,8 +629,7 @@ rec {
         _type == "lua-inline";
 
       generatedBindings =
-        assert lib.assertMsg (badVarNames == [ ])
-            "Bad Lua var names: ${toPretty { } badVarNames}";
+        assert lib.assertMsg (badVarNames == [ ]) "Bad Lua var names: ${toPretty { } badVarNames}";
         libStr.concatStrings (
           lib.attrsets.mapAttrsToList
             (key: value: ''
@@ -674,9 +653,7 @@ rec {
         if v == [ ] then
           "{}"
         else
-          "{${introSpace}${
-            concatItems (map (value: "${toLua innerArgs value}") v)
-          }${outroSpace}}"
+          "{${introSpace}${concatItems (map (value: "${toLua innerArgs value}") v)}${outroSpace}}"
       )
     else if isAttrs v then
       (
@@ -687,9 +664,7 @@ rec {
         else
           "{${introSpace}${
             concatItems (
-              lib.attrsets.mapAttrsToList
-                (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}")
-                v
+              lib.attrsets.mapAttrsToList (key: value: "[${builtins.toJSON key}] = ${toLua innerArgs value}") v
             )
           }${outroSpace}}"
       )

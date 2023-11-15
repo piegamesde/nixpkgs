@@ -21,8 +21,7 @@
   enableGUI ? false,
 }:
 
-assert cudaSupport
-  -> (cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null);
+assert cudaSupport -> (cudaPackages ? cudatoolkit && cudaPackages.cudatoolkit != null);
 assert enablePython -> pythonPackages != null;
 
 stdenv.mkDerivation rec {
@@ -93,9 +92,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enablePython [
       "-DBUILD_PYTHON_BINDINGS:bool=true"
-      "-DXXNIX_PYTHON_SITEPACKAGES=${
-        placeholder "out"
-      }/${pythonPackages.python.sitePackages}"
+      "-DXXNIX_PYTHON_SITEPACKAGES=${placeholder "out"}/${pythonPackages.python.sitePackages}"
     ]
     ++ lib.optional cudaSupport "-DBUILD_WITH_CUDA:bool=true";
 

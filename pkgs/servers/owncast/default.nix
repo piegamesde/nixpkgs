@@ -38,9 +38,7 @@ buildGoModule rec {
 
       setupScript = ''
         [ ! -d "$PWD/webroot" ] && (
-          ${coreutils}/bin/cp --no-preserve=mode -r "${
-            placeholder "out"
-          }/webroot" "$PWD"
+          ${coreutils}/bin/cp --no-preserve=mode -r "${placeholder "out"}/webroot" "$PWD"
         )
 
         [ ! -d "$PWD/static" ] && (

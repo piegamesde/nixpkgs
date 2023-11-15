@@ -65,9 +65,7 @@ stdenv.mkDerivation rec {
   # N.B. this only adjusts the install_name after all libraries are installed;
   # packages containing multiple interdependent libraries may have
   # LC_LOAD_DYLIB entries containing @rpath, requiring manual fixup
-  propagatedBuildInputs = lib.optionals stdenv.targetPlatform.isDarwin [
-    fixDarwinDylibNames
-  ];
+  propagatedBuildInputs = lib.optionals stdenv.targetPlatform.isDarwin [ fixDarwinDylibNames ];
 
   postPatch = ''
     patchShebangs --build tests/bash/testscript

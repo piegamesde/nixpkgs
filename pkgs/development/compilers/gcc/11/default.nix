@@ -95,9 +95,7 @@ let
     ++ optional langAda ../gnat-cflags-11.patch
     ++ optional langD ../libphobos.patch
     ++ optional langFortran ../gfortran-driving.patch
-    ++
-      optional (targetPlatform.libc == "musl" && targetPlatform.isPower)
-        ../ppc-musl.patch
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
 
     ++ optionals stdenv.isDarwin [
       (fetchpatch {
@@ -108,14 +106,11 @@ let
       })
     ]
     # https://github.com/osx-cross/homebrew-avr/issues/280#issuecomment-1272381808
-    ++
-      optional (stdenv.isDarwin && targetPlatform.isAvr)
-        ./avr-gcc-11.3-darwin.patch
+    ++ optional (stdenv.isDarwin && targetPlatform.isAvr) ./avr-gcc-11.3-darwin.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
     ++
-      optional
-        (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
+      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
         ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     # openjdk build fails without this on -march=opteron; is upstream in gcc12
@@ -307,8 +302,7 @@ lib.pipe
 
       configureFlags = callFile ../common/configure-flags.nix { };
 
-      targetConfig =
-        if targetPlatform != hostPlatform then targetPlatform.config else null;
+      targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
       buildFlags =
         let
@@ -316,20 +310,12 @@ lib.pipe
             lib.optionalString (profiledCompiler) "profiled"
             +
               lib.optionalString
-                (
-                  targetPlatform == hostPlatform
-                  && hostPlatform == buildPlatform
-                  && !disableBootstrap
-                )
+                (targetPlatform == hostPlatform && hostPlatform == buildPlatform && !disableBootstrap)
                 "bootstrap";
         in
         lib.optional (target != "") target;
 
-      inherit (callFile ../common/strip-attributes.nix { })
-        stripDebugList
-        stripDebugListTarget
-        preFixup
-      ;
+      inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
 
       # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
       ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";
@@ -389,11 +375,7 @@ lib.pipe
 
     //
       optionalAttrs
-        (
-          targetPlatform != hostPlatform
-          && targetPlatform.libc == "msvcrt"
-          && crossStageStatic
-        )
+        (targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt" && crossStageStatic)
         {
           makeFlags = [
             "all-gcc"

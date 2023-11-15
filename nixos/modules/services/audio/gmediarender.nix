@@ -47,9 +47,7 @@ in
       '';
     };
 
-    package = mkPackageOptionMD pkgs "gmediarender" {
-      default = "gmrender-resurrect";
-    };
+    package = mkPackageOptionMD pkgs "gmediarender" { default = "gmrender-resurrect"; };
 
     port = mkOption {
       type = types.nullOr types.port;
@@ -92,13 +90,9 @@ in
             + optionalString (cfg.friendlyName != null) (
               "--friendly-name=${utils.escapeSystemdExecArg cfg.friendlyName} "
             )
-            + optionalString (cfg.initialVolume != 0) (
-              "--initial-volume=${toString cfg.initialVolume} "
-            )
+            + optionalString (cfg.initialVolume != 0) ("--initial-volume=${toString cfg.initialVolume} ")
             + optionalString (cfg.port != null) ("--port=${toString cfg.port} ")
-            + optionalString (cfg.uuid != null) (
-              "--uuid=${utils.escapeSystemdExecArg cfg.uuid} "
-            );
+            + optionalString (cfg.uuid != null) ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ");
           Restart = "always";
           RuntimeDirectory = "gmediarender";
 

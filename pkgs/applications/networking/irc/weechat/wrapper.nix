@@ -26,9 +26,7 @@ let
       perlInterpreter = perlPackages.perl;
       availablePlugins =
         let
-          simplePlugin = name: {
-            pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so";
-          };
+          simplePlugin = name: { pluginFile = "${weechat.${name}}/lib/weechat/plugins/${name}.so"; };
         in
         rec {
           python = (simplePlugin "python") // {
@@ -85,8 +83,7 @@ let
         let
           init = builtins.replaceStrings [ "\n" ] [ ";" ] (config.init or "");
 
-          mkScript =
-            drv: lib.forEach drv.scripts (script: "/script load ${drv}/share/${script}");
+          mkScript = drv: lib.forEach drv.scripts (script: "/script load ${drv}/share/${script}");
 
           scripts = builtins.concatStringsSep ";" (
             lib.foldl (scripts: drv: scripts ++ mkScript drv) [ ] (config.scripts or [ ])
@@ -99,8 +96,7 @@ let
         (writeScriptBin bin ''
           #!${runtimeShell}
           export WEECHAT_EXTRA_LIBDIR=${pluginsDir}
-          ${lib.concatMapStringsSep "\n" (p: lib.optionalString (p ? extraEnv) p.extraEnv)
-            plugins}
+          ${lib.concatMapStringsSep "\n" (p: lib.optionalString (p ? extraEnv) p.extraEnv) plugins}
           exec ${weechat}/bin/${bin} "$@" --run-command ${lib.escapeShellArg init}
         '')
         // {

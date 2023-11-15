@@ -117,9 +117,7 @@ in
         default = 500;
         example = 0;
         type = types.int;
-        description =
-          lib.mdDoc
-            "Time in milliseconds for which tmux waits after an escape is input.";
+        description = lib.mdDoc "Time in milliseconds for which tmux waits after an escape is input.";
       };
 
       extraConfig = mkOption {
@@ -150,9 +148,7 @@ in
       newSession = mkOption {
         default = false;
         type = types.bool;
-        description =
-          lib.mdDoc
-            "Automatically spawn a session if trying to attach and none are running.";
+        description = lib.mdDoc "Automatically spawn a session if trying to attach and none are running.";
       };
 
       reverseSplit = mkOption {
@@ -172,9 +168,7 @@ in
         default = defaultShortcut;
         example = "a";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Ctrl following by this key is used as the main shortcut.";
+        description = lib.mdDoc "Ctrl following by this key is used as the main shortcut.";
       };
 
       terminal = mkOption {
@@ -224,9 +218,7 @@ in
       systemPackages = [ pkgs.tmux ] ++ cfg.plugins;
 
       variables = {
-        TMUX_TMPDIR =
-          lib.optional cfg.secureSocket
-            ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
+        TMUX_TMPDIR = lib.optional cfg.secureSocket ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
       };
     };
     security.wrappers = mkIf cfg.withUtempter {

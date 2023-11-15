@@ -25,9 +25,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ setuptools ];
 
-  propagatedBuildInputs = [
-    pytoolconfig
-  ] ++ pytoolconfig.optional-dependencies.global;
+  propagatedBuildInputs = [ pytoolconfig ] ++ pytoolconfig.optional-dependencies.global;
 
   nativeCheckInputs = [
     pytest-timeout

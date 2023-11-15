@@ -141,9 +141,7 @@ in
             )
             cfg.configs
           )
-          // (lib.optionalAttrs (cfg.filters != null) {
-            "snapper/filters/default.txt".text = cfg.filters;
-          });
+          // (lib.optionalAttrs (cfg.filters != null) { "snapper/filters/default.txt".text = cfg.filters; });
       };
 
       services.dbus.packages = [ pkgs.snapper ];

@@ -56,9 +56,7 @@ let
     ++ [ "--stream.port=${toString cfg.port}" ]
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
-    ++
-      optionalNull cfg.streamBuffer
-        "--stream.stream_buffer=${toString cfg.streamBuffer}"
+    ++ optionalNull cfg.streamBuffer "--stream.stream_buffer=${toString cfg.streamBuffer}"
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
     ++ optional cfg.sendToMuted "--stream.send_to_muted"
     # tcp json rpc
@@ -73,9 +71,7 @@ let
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
     ]
-    ++
-      optional (cfg.http.docRoot != null)
-        ''--http.doc_root="${toString cfg.http.docRoot}"''
+    ++ optional (cfg.http.docRoot != null) ''--http.doc_root="${toString cfg.http.docRoot}"''
   );
 in
 {

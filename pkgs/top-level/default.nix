@@ -60,25 +60,15 @@ let
   inherit (lib) throwIfNot;
 
   checked =
-    throwIfNot (lib.isList overlays)
-      "The overlays argument to nixpkgs must be a list."
-      lib.foldr
-      (
-        x:
-        throwIfNot (lib.isFunction x)
-          "All overlays passed to nixpkgs must be functions."
-      )
+    throwIfNot (lib.isList overlays) "The overlays argument to nixpkgs must be a list." lib.foldr
+      (x: throwIfNot (lib.isFunction x) "All overlays passed to nixpkgs must be functions.")
       (r: r)
       overlays
       throwIfNot
       (lib.isList crossOverlays)
       "The crossOverlays argument to nixpkgs must be a list."
       lib.foldr
-      (
-        x:
-        throwIfNot (lib.isFunction x)
-          "All crossOverlays passed to nixpkgs must be functions."
-      )
+      (x: throwIfNot (lib.isFunction x) "All crossOverlays passed to nixpkgs must be functions.")
       (r: r)
       crossOverlays;
 
@@ -141,8 +131,7 @@ let
 
   # Partially apply some arguments for building bootstraping stage pkgs
   # sets. Only apply arguments which no stdenv would want to override.
-  allPackages =
-    newArgs: import ./stage.nix ({ inherit lib nixpkgsFun; } // newArgs);
+  allPackages = newArgs: import ./stage.nix ({ inherit lib nixpkgsFun; } // newArgs);
 
   boot = import ../stdenv/booter.nix { inherit lib allPackages; };
 

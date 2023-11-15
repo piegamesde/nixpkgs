@@ -42,8 +42,7 @@ assert javahlBindings -> jdk != null && perl != null;
 let
   # Update libtool for macOS 11 support
   needsAutogen =
-    stdenv.hostPlatform.isDarwin
-    && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11";
+    stdenv.hostPlatform.isDarwin && lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11";
 
   common =
     {
@@ -54,9 +53,7 @@ let
     stdenv.mkDerivation (
       rec {
         inherit version;
-        pname = "subversion${
-            lib.optionalString (!bdbSupport && perlBindings && pythonBindings) "-client"
-          }";
+        pname = "subversion${lib.optionalString (!bdbSupport && perlBindings && pythonBindings) "-client"}";
 
         src = fetchurl {
           url = "mirror://apache/subversion/subversion-${version}.tar.bz2";

@@ -30,8 +30,7 @@ let
     attr:
     "{${
       concatStringsSep "\n" (
-        mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},")
-          attr
+        mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr
       )
     }}";
 
@@ -53,10 +52,7 @@ let
       throw "Unrecognized type";
 
   formatPy =
-    attrs:
-    concatStringsSep "\n" (
-      mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs
-    );
+    attrs: concatStringsSep "\n" (mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs);
 
   pyType =
     with types;

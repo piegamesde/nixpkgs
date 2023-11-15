@@ -52,12 +52,8 @@ let
       ;
     };
 
-  basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a) (
-    import ./builtin-plugins.nix inputs
-  );
-  allPlugins = lib.mapAttrs (_: mkPlugin) (
-    lib.recursiveUpdate basePlugins pluginOverrides
-  );
+  basePlugins = lib.mapAttrs (_: a: { builtin = true; } // a) (import ./builtin-plugins.nix inputs);
+  allPlugins = lib.mapAttrs (_: mkPlugin) (lib.recursiveUpdate basePlugins pluginOverrides);
   builtinPlugins = lib.filterAttrs (_: p: p.builtin) allPlugins;
   enabledPlugins = lib.filterAttrs (_: p: p.enable) allPlugins;
   disabledPlugins = lib.filterAttrs (_: p: !p.enable) allPlugins;
@@ -162,9 +158,7 @@ python3Packages.buildPythonApplication rec {
     ++ pluginWrapperBins;
 
   disabledTestPaths = lib.flatten (
-    attrValues (
-      lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ]) disabledPlugins
-    )
+    attrValues (lib.mapAttrs (n: v: v.testPaths ++ [ "test/test_${n}.py" ]) disabledPlugins)
   );
 
   checkPhase = ''
@@ -198,21 +192,19 @@ python3Packages.buildPythonApplication rec {
 
   passthru.plugins = allPlugins;
 
-  passthru.tests.gstreamer =
-    runCommand "beets-gstreamer-test" { meta.timeout = 60; }
-      ''
-          set -euo pipefail
-          export HOME=$(mktemp -d)
-          mkdir $out
+  passthru.tests.gstreamer = runCommand "beets-gstreamer-test" { meta.timeout = 60; } ''
+      set -euo pipefail
+      export HOME=$(mktemp -d)
+      mkdir $out
 
-          cat << EOF > $out/config.yaml
-        replaygain:
-          backend: gstreamer
-        EOF
+      cat << EOF > $out/config.yaml
+    replaygain:
+      backend: gstreamer
+    EOF
 
-          echo $out/config.yaml
-          ${beets}/bin/beet -c $out/config.yaml > /dev/null
-      '';
+      echo $out/config.yaml
+      ${beets}/bin/beet -c $out/config.yaml > /dev/null
+  '';
 
   meta = with lib; {
     description = "Music tagger and library organizer";

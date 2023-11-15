@@ -10,18 +10,14 @@ let
   # Replace a list entry at defined index with set value
   ireplace =
     idx: value: list:
-    (genList (i: if i == idx then value else (builtins.elemAt list i)) (
-      length list
-    ));
+    (genList (i: if i == idx then value else (builtins.elemAt list i)) (length list));
 
   # Normalize package names as per PEP 503
   normalizePackageName =
     name:
     let
       parts = builtins.split "[-_.]+" name;
-      partsWithoutSeparator =
-        builtins.filter (x: builtins.typeOf x == "string")
-          parts;
+      partsWithoutSeparator = builtins.filter (x: builtins.typeOf x == "string") parts;
     in
     lib.strings.toLower (lib.strings.concatStringsSep "-" partsWithoutSeparator);
 
@@ -40,9 +36,7 @@ let
       minor = l: lib.elemAt l 1;
       joinVersion = v: lib.concatStringsSep "." v;
     in
-    joinVersion (
-      if major pyVer == major ver && minor pyVer == minor ver then ver else pyVer
-    );
+    joinVersion (if major pyVer == major ver && minor pyVer == minor ver then ver else pyVer);
 
   # Compare a semver expression with a version
   isCompatible =
@@ -56,9 +50,7 @@ let
       splitRe =
         "("
         + (builtins.concatStringsSep "|" (
-          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (
-            lib.attrNames operators
-          )
+          builtins.map (x: lib.replaceStrings [ "|" ] [ "\\|" ] x) (lib.attrNames operators)
         ))
         + ")";
     in
@@ -228,8 +220,7 @@ let
       hash,
     }:
     let
-      pathParts =
-        (builtins.filter ({ prefix, path }: "NETRC" == prefix) builtins.nixPath);
+      pathParts = (builtins.filter ({ prefix, path }: "NETRC" == prefix) builtins.nixPath);
       netrc_file = if (pathParts != [ ]) then (builtins.head pathParts).path else "";
     in
     pkgs.runCommand file
@@ -261,16 +252,10 @@ let
           ]
           (throw missingBuildBackendError)
           pyProject;
-      requiredPkgs =
-        builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0)
-          requires;
+      requiredPkgs = builtins.map (n: lib.elemAt (builtins.match "([^!=<>~[]+).*" n) 0) requires;
     in
     builtins.map
-      (
-        drvAttr:
-        pythonPackages.${drvAttr}
-          or (throw "unsupported build system requirement ${drvAttr}")
-      )
+      (drvAttr: pythonPackages.${drvAttr} or (throw "unsupported build system requirement ${drvAttr}"))
       requiredPkgs;
 
   # Find gitignore files recursively in parent directory stopping with .git
@@ -283,9 +268,9 @@ let
       hasGitIgnore = builtins.pathExists gitIgnore;
       gitIgnores = if hasGitIgnore then [ gitIgnore ] else [ ];
     in
-    lib.optionals
-      (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot)
-      (findGitIgnores parent)
+    lib.optionals (builtins.pathExists path && builtins.toString path != "/" && !isGitRoot) (
+      findGitIgnores parent
+    )
     ++ gitIgnores;
 
   /* Provides a source filtering mechanism that:
@@ -326,9 +311,7 @@ let
   };
 
   # Machine tag for our target platform (if available)
-  getTargetMachine =
-    stdenv:
-    manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
+  getTargetMachine = stdenv: manyLinuxTargetMachines.${stdenv.targetPlatform.parsed.cpu.name} or null;
 in
 {
   inherit

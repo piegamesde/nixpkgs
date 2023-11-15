@@ -26,10 +26,8 @@
   # Whether to perform release builds: longer compile times, faster binaries.
   release ? true,
   # Additional crate2nix configuration if it exists.
-  crateConfig ? if builtins.pathExists ./crate-config.nix then
-    pkgs.callPackage ./crate-config.nix { }
-  else
-    { },
+  crateConfig ?
+    if builtins.pathExists ./crate-config.nix then pkgs.callPackage ./crate-config.nix { } else { },
 }:
 
 rec {
@@ -1093,8 +1091,7 @@ rec {
           {
             name = "libc";
             packageId = "libc";
-            target =
-              { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
+            target = { target, features }: ((target."os" == "macos") || (target."os" == "freebsd"));
           }
         ];
       };
@@ -1715,16 +1712,14 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."os" == "android") || (target."os" == "linux"));
+            target = { target, features }: ((target."os" == "android") || (target."os" == "linux"));
           }
           {
             name = "once_cell";
             packageId = "once_cell";
             optional = true;
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."os" == "android") || (target."os" == "linux"));
+            target = { target, features }: ((target."os" == "android") || (target."os" == "linux"));
             features = [ "std" ];
           }
           {
@@ -1754,11 +1749,7 @@ rec {
                 || (target."arch" == "x86_64")
                 || (
                   ((target."arch" == "aarch64") || (target."arch" == "arm"))
-                  && (
-                    (target."os" == "android")
-                    || (target."os" == "fuchsia")
-                    || (target."os" == "linux")
-                  )
+                  && ((target."os" == "android") || (target."os" == "fuchsia") || (target."os" == "linux"))
                 )
               );
           }
@@ -1806,8 +1797,7 @@ rec {
             name = "libc";
             packageId = "libc";
             usesDefaultFeatures = false;
-            target =
-              { target, features }: ((target."unix" or false) || (target."windows" or false));
+            target = { target, features }: ((target."unix" or false) || (target."windows" or false));
           }
         ];
         features = {
@@ -3963,14 +3953,12 @@ rec {
           {
             name = "winapi-i686-pc-windows-gnu";
             packageId = "winapi-i686-pc-windows-gnu";
-            target =
-              { target, features }: (stdenv.hostPlatform.config == "i686-pc-windows-gnu");
+            target = { target, features }: (stdenv.hostPlatform.config == "i686-pc-windows-gnu");
           }
           {
             name = "winapi-x86_64-pc-windows-gnu";
             packageId = "winapi-x86_64-pc-windows-gnu";
-            target =
-              { target, features }: (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu");
+            target = { target, features }: (stdenv.hostPlatform.config == "x86_64-pc-windows-gnu");
           }
         ];
         features = {
@@ -4157,19 +4145,12 @@ rec {
 
       # This doesn't appear to be officially documented anywhere yet.
       # See https://github.com/rust-lang-nursery/rust-forge/issues/101.
-      os =
-        if stdenv.hostPlatform.isDarwin then
-          "macos"
-        else
-          stdenv.hostPlatform.parsed.kernel.name;
+      os = if stdenv.hostPlatform.isDarwin then "macos" else stdenv.hostPlatform.parsed.kernel.name;
       arch = stdenv.hostPlatform.parsed.cpu.name;
       family = "unix";
       env = "gnu";
       endian =
-        if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
-          "little"
-        else
-          "big";
+        if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then "little" else "big";
       pointer_width = toString stdenv.hostPlatform.parsed.cpu.bits;
       vendor = stdenv.hostPlatform.parsed.vendor.name;
       debug_assertions = false;
@@ -4302,9 +4283,7 @@ rec {
         }
         ''
           echo tested by ${test}
-          ${lib.concatMapStringsSep "\n"
-            (output: "ln -s ${crate.${output}} ${"$"}${output}")
-            crate.outputs}
+          ${lib.concatMapStringsSep "\n" (output: "ln -s ${crate.${output}} ${"$"}${output}") crate.outputs}
         '';
 
     # A restricted overridable version of builtRustCratesWithFeatures.
@@ -4342,10 +4321,7 @@ rec {
                   if crateOverrides == pkgs.defaultCrateOverrides then
                     buildRustCrateForPkgs
                   else
-                    pkgs:
-                    (buildRustCrateForPkgs pkgs).override {
-                      defaultCrateOverrides = crateOverrides;
-                    }
+                    pkgs: (buildRustCrateForPkgs pkgs).override { defaultCrateOverrides = crateOverrides; }
                 );
             builtRustCrates = builtRustCratesWithFeatures {
               inherit packageId features;
@@ -4458,13 +4434,10 @@ rec {
               dependencies = crateConfig.buildDependencies or [ ];
             };
             filterEnabledDependenciesForThis =
-              dependencies:
-              filterEnabledDependencies { inherit dependencies features target; };
+              dependencies: filterEnabledDependencies { inherit dependencies features target; };
             dependenciesWithRenames = lib.filter (d: d ? "rename") (
               filterEnabledDependenciesForThis (
-                (crateConfig.buildDependencies or [ ])
-                ++ (crateConfig.dependencies or [ ])
-                ++ devDependencies
+                (crateConfig.buildDependencies or [ ]) ++ (crateConfig.dependencies or [ ]) ++ devDependencies
               )
             );
             # Crate renames have the form:
@@ -4500,8 +4473,7 @@ rec {
                   # Not rate-limited, CDN URL.
                   url = "https://static.crates.io/crates/${crateConfig.crateName}/${crateConfig.crateName}-${crateConfig.version}.crate";
                   sha256 =
-                    assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}");
-                    crateConfig.sha256;
+                    assert (lib.assertMsg (crateConfig ? sha256) "Missing sha256 for ${name}"); crateConfig.sha256;
                 });
               extraRustcOpts =
                 lib.lists.optional (targetFeatures != [ ])
@@ -4530,9 +4502,7 @@ rec {
       assert (builtins.isList dependencies);
       assert (builtins.isAttrs target);
       let
-        enabledDependencies = filterEnabledDependencies {
-          inherit dependencies features target;
-        };
+        enabledDependencies = filterEnabledDependencies { inherit dependencies features target; };
         depDerivation = dependency: buildByPackageId dependency.packageId;
       in
       map depDerivation enabledDependencies;
@@ -4580,9 +4550,7 @@ rec {
             features = rootFeatures;
             inherit packageId target;
           };
-          diffedDefaultPackageFeatures = diffDefaultPackageFeatures {
-            inherit packageId target;
-          };
+          diffedDefaultPackageFeatures = diffDefaultPackageFeatures { inherit packageId target; };
         };
       in
       {
@@ -4659,13 +4627,9 @@ rec {
       assert (builtins.isAttrs target);
       assert (builtins.isBool runTests);
       let
-        crateConfig =
-          crateConfigs."${packageId}"
-            or (builtins.throw "Package not found: ${packageId}");
+        crateConfig = crateConfigs."${packageId}" or (builtins.throw "Package not found: ${packageId}");
         expandedFeatures = expandFeatures (crateConfig.features or { }) features;
-        enabledFeatures =
-          enableFeatures (crateConfig.dependencies or [ ])
-            expandedFeatures;
+        enabledFeatures = enableFeatures (crateConfig.dependencies or [ ]) expandedFeatures;
         depWithResolvedFeatures =
           dependency:
           let
@@ -4717,9 +4681,7 @@ rec {
           featuresByPackageId // { "${packageId}" = combinedFeatures; };
         cacheWithDependencies = resolveDependencies cacheWithSelf "dep" (
           crateConfig.dependencies or [ ]
-          ++ lib.optionals (runTests && packageId == rootPackageId) (
-            crateConfig.devDependencies or [ ]
-          )
+          ++ lib.optionals (runTests && packageId == rootPackageId) (crateConfig.devDependencies or [ ])
         );
         cacheWithAll = resolveDependencies cacheWithDependencies "build" (
           crateConfig.buildDependencies or [ ]
@@ -4745,10 +4707,7 @@ rec {
             targetFunc = dep.target or (features: true);
           in
           targetFunc { inherit features target; }
-          && (
-            !(dep.optional or false)
-            || builtins.any (doesFeatureEnableDependency dep) features
-          )
+          && (!(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features)
         )
         dependencies;
 
@@ -4818,15 +4777,12 @@ rec {
       assert (builtins.isList features);
       assert (builtins.isAttrs dependency);
       let
-        defaultOrNil =
-          if dependency.usesDefaultFeatures or true then [ "default" ] else [ ];
+        defaultOrNil = if dependency.usesDefaultFeatures or true then [ "default" ] else [ ];
         explicitFeatures = dependency.features or [ ];
         additionalDependencyFeatures =
           let
             dependencyPrefix = (dependency.rename or dependency.name) + "/";
-            dependencyFeatures =
-              builtins.filter (f: lib.hasPrefix dependencyPrefix f)
-                features;
+            dependencyFeatures = builtins.filter (f: lib.hasPrefix dependencyPrefix f) features;
           in
           builtins.map (lib.removePrefix dependencyPrefix) dependencyFeatures;
       in
@@ -4838,9 +4794,7 @@ rec {
       assert (builtins.isList features);
       assert (builtins.all builtins.isString features);
       let
-        outFeaturesSet =
-          lib.foldl (set: feature: set // { "${feature}" = 1; }) { }
-            features;
+        outFeaturesSet = lib.foldl (set: feature: set // { "${feature}" = 1; }) { } features;
         outFeaturesUnique = builtins.attrNames outFeaturesSet;
       in
       builtins.sort (a: b: a < b) outFeaturesUnique;

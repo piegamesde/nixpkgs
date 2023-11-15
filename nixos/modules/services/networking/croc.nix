@@ -28,9 +28,7 @@ in
       default = "pass123";
       description = lib.mdDoc "Password or passwordfile for the relay.";
     };
-    openFirewall = lib.mkEnableOption (
-      lib.mdDoc "opening of the peer port(s) in the firewall"
-    );
+    openFirewall = lib.mkEnableOption (lib.mdDoc "opening of the peer port(s) in the firewall");
     debug = lib.mkEnableOption (lib.mdDoc "debug logs");
   };
 
@@ -79,9 +77,7 @@ in
         RootDirectory = rootDir;
         # Avoid mounting rootDir in the own rootDir of ExecStart='s mount namespace.
         InaccessiblePaths = [ "-+${rootDir}" ];
-        BindReadOnlyPaths = [
-          builtins.storeDir
-        ] ++ lib.optional (types.path.check cfg.pass) cfg.pass;
+        BindReadOnlyPaths = [ builtins.storeDir ] ++ lib.optional (types.path.check cfg.pass) cfg.pass;
         # This is for BindReadOnlyPaths=
         # to allow traversal of directories they create in RootDirectory=.
         UMask = "0066";

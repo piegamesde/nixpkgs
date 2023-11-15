@@ -13,8 +13,7 @@
 assert wayland.withLibraries;
 
 let
-  mkDerivation =
-    if stdenv.isDarwin then stdenv.mkDerivation else gnustep.gsmakeDerivation;
+  mkDerivation = if stdenv.isDarwin then stdenv.mkDerivation else gnustep.gsmakeDerivation;
 in
 mkDerivation {
   pname = "owl-compositor";
@@ -31,12 +30,8 @@ mkDerivation {
   postPatch = lib.optionalString stdenv.isDarwin ''
     sed -i "/ibtool/d" configure
     mkdir -p build/Owl.app/Contents/Resources/English.lproj
-    cp ${
-      ./mac/MainMenu.nib
-    } build/Owl.app/Contents/Resources/English.lproj/MainMenu.nib
-    cp ${
-      ./mac/OwlPreferences.nib
-    } build/Owl.app/Contents/Resources/English.lproj/OwlPreferences.nib
+    cp ${./mac/MainMenu.nib} build/Owl.app/Contents/Resources/English.lproj/MainMenu.nib
+    cp ${./mac/OwlPreferences.nib} build/Owl.app/Contents/Resources/English.lproj/OwlPreferences.nib
   '';
 
   strictDeps = true;
@@ -72,9 +67,7 @@ mkDerivation {
   configureScript = "../configure";
 
   # error: "Your gnustep-base was configured for the objc-nonfragile-abi but you are not using it now."
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (!stdenv.isDarwin)
-      "-fobjc-runtime=gnustep-2.0";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString (!stdenv.isDarwin) "-fobjc-runtime=gnustep-2.0";
 
   installPhase = ''
     runHook preInstall

@@ -225,9 +225,7 @@ in
             "--pool eventlet"
             "--without-heartbeat"
           ];
-          description =
-            lib.mdDoc
-              "Extra arguments passed to the Celery responsible for webhooks.";
+          description = lib.mdDoc "Extra arguments passed to the Celery responsible for webhooks.";
         };
         celeryConfig = mkOption {
           type = types.lines;
@@ -256,15 +254,11 @@ in
               "${srvCfg.group}" = { };
             }
             // optionalAttrs
-              (
-                cfg.postgresql.enable
-                && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")
-              )
+              (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or ""))
               { "postgres".members = [ srvCfg.user ]; }
-            //
-              optionalAttrs
-                (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or ""))
-                { "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ]; };
+            // optionalAttrs (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
+              "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
+            };
         };
 
         services.nginx = mkIf cfg.nginx.enable {
@@ -273,9 +267,7 @@ in
               forceSSL = mkDefault true;
               locations."/".proxyPass = "http://${cfg.listenAddress}:${toString srvCfg.port}";
               locations."/static" = {
-                root = "${
-                    pkgs.sourcehut.${srvsrht}
-                  }/${pkgs.sourcehut.python.sitePackages}/${srvsrht}";
+                root = "${pkgs.sourcehut.${srvsrht}}/${pkgs.sourcehut.python.sitePackages}/${srvsrht}";
                 extraConfig = mkDefault ''
                   expires 30d;
                 '';
@@ -318,11 +310,7 @@ in
         );
 
         services.sourcehut.settings = mkMerge [
-          {
-            "${srv}.sr.ht".origin =
-              mkDefault
-                "https://${srv}.${cfg.settings."sr.ht".global-domain}";
-          }
+          { "${srv}.sr.ht".origin = mkDefault "https://${srv}.${cfg.settings."sr.ht".global-domain}"; }
 
           (mkIf cfg.postgresql.enable {
             "${srv}.sr.ht".connection-string =
@@ -424,10 +412,7 @@ in
               wantedBy = [ "${srvsrht}.service" ];
               partOf = [ "${srvsrht}.service" ];
               preStart = ''
-                cp ${
-                  pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py"
-                    srvCfg.webhooks.celeryConfig
-                } \
+                cp ${pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" srvCfg.webhooks.celeryConfig} \
                    /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
               '';
               serviceConfig = {

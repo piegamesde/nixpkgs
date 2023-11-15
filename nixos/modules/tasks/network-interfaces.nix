@@ -19,9 +19,7 @@ let
   hasSits = cfg.sits != { };
   hasGres = cfg.greTunnels != { };
   hasBonds = cfg.bonds != { };
-  hasFous =
-    cfg.fooOverUDP != { }
-    || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
+  hasFous = cfg.fooOverUDP != { } || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
@@ -31,16 +29,12 @@ let
         (
           i:
           attrNames (
-            filterAttrs
-              (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces))
-              i.interfaces
+            filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces
           )
         )
         (attrValues cfg.vswitches);
 
-  slaveIfs = map (i: cfg.interfaces.${i}) (
-    filter (i: cfg.interfaces ? ${i}) slaves
-  );
+  slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
   rstpBridges = flip filterAttrs cfg.bridges (_: { rstp, ... }: rstp);
 
@@ -74,8 +68,7 @@ let
   );
 
   # We must escape interfaces due to the systemd interpretation
-  subsystemDevice =
-    interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
+  subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
 
   addrOpts =
     v:
@@ -90,9 +83,7 @@ let
         };
 
         prefixLength = mkOption {
-          type = types.addCheck types.int (
-            n: n >= 0 && n <= (if v == 4 then 32 else 128)
-          );
+          type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
           description = lib.mdDoc ''
             Subnet mask of the interface, specified as the number of
             bits in the prefix (`${if v == 4 then "24" else "64"}`).
@@ -109,9 +100,7 @@ let
       };
 
       prefixLength = mkOption {
-        type = types.addCheck types.int (
-          n: n >= 0 && n <= (if v == 4 then 32 else 128)
-        );
+        type = types.addCheck types.int (n: n >= 0 && n <= (if v == 4 then 32 else 128));
         description = lib.mdDoc ''
           Subnet mask of the network, specified as the number of
           bits in the prefix (`${if v == 4 then "24" else "64"}`).
@@ -357,9 +346,7 @@ let
 
         virtualType = mkOption {
           default = if hasPrefix "tun" name then "tun" else "tap";
-          defaultText =
-            literalExpression
-              ''if hasPrefix "tun" name then "tun" else "tap"'';
+          defaultText = literalExpression ''if hasPrefix "tun" name then "tun" else "tap"'';
           type =
             with types;
             enum [
@@ -519,9 +506,7 @@ let
     };
   };
   tempaddrDoc = concatStringsSep "\n" (
-    mapAttrsToList
-      (name: { description, ... }: ''- `"${name}"` to ${description};'')
-      tempaddrValues
+    mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'') tempaddrValues
   );
 
   hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
@@ -582,9 +567,7 @@ in
             The FQDN is required but cannot be determined. Please make sure that
             both networking.hostName and networking.domain are set properly.
           '';
-      defaultText =
-        literalExpression
-          ''"''${networking.hostName}.''${networking.domain}"'';
+      defaultText = literalExpression ''"''${networking.hostName}.''${networking.domain}"'';
       description = lib.mdDoc ''
         The fully qualified domain name (FQDN) of this host. It is the result
         of combining `networking.hostName` and `networking.domain.` Using this
@@ -648,9 +631,7 @@ in
         address = "131.211.84.1";
         interface = "enp3s0";
       };
-      type = types.nullOr (
-        types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts)
-      );
+      type = types.nullOr (types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts));
       description = lib.mdDoc ''
         The default gateway. It can be left empty if it is auto-detected through DHCP.
         It can be specified as a string or an option set along with a network interface.
@@ -663,9 +644,7 @@ in
         address = "2001:4d0:1e04:895::1";
         interface = "enp3s0";
       };
-      type = types.nullOr (
-        types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts)
-      );
+      type = types.nullOr (types.coercedTo types.str gatewayCoerce (types.submodule gatewayOpts));
       description = lib.mdDoc ''
         The default ipv6 gateway. It can be left empty if it is auto-detected through DHCP.
         It can be specified as a string or an option set along with a network interface.
@@ -791,9 +770,7 @@ in
             options = {
 
               interfaces = mkOption {
-                description =
-                  lib.mdDoc
-                    "The physical network interfaces connected by the vSwitch.";
+                description = lib.mdDoc "The physical network interfaces connected by the vSwitch.";
                 type = with types; attrsOf (submodule vswitchInterfaceOpts);
               };
 
@@ -892,9 +869,7 @@ in
                   "eth1"
                 ];
                 type = types.listOf types.str;
-                description =
-                  lib.mdDoc
-                    "The physical network interfaces connected by the bridge.";
+                description = lib.mdDoc "The physical network interfaces connected by the bridge.";
               };
 
               rstp = mkOption {
@@ -1037,9 +1012,7 @@ in
               interface = mkOption {
                 example = "enp4s0";
                 type = types.str;
-                description =
-                  lib.mdDoc
-                    "The interface the macvlan will transmit packets through.";
+                description = lib.mdDoc "The interface the macvlan will transmit packets through.";
               };
 
               mode = mkOption {
@@ -1430,9 +1403,7 @@ in
               device = mkOption {
                 type = types.str;
                 example = "wlp6s0";
-                description =
-                  lib.mdDoc
-                    "The name of the underlying hardware WLAN device as assigned by `udev`.";
+                description = lib.mdDoc "The name of the underlying hardware WLAN device as assigned by `udev`.";
               };
 
               type = mkOption {
@@ -1480,9 +1451,7 @@ in
               fourAddr = mkOption {
                 type = types.nullOr types.bool;
                 default = null;
-                description =
-                  lib.mdDoc
-                    "Whether to enable `4-address mode` with type `managed`.";
+                description = lib.mdDoc "Whether to enable `4-address mode` with type `managed`.";
               };
 
               mac = mkOption {
@@ -1588,8 +1557,7 @@ in
       ))
       ++ [
         {
-          assertion =
-            cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
+          assertion = cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
           message = "Invalid value given to the networking.hostId option.";
         }
       ];
@@ -1613,14 +1581,11 @@ in
         "net.ipv6.conf.all.disable_ipv6" = mkDefault (!cfg.enableIPv6);
         "net.ipv6.conf.default.disable_ipv6" = mkDefault (!cfg.enableIPv6);
         # networkmanager falls back to "/proc/sys/net/ipv6/conf/default/use_tempaddr"
-        "net.ipv6.conf.default.use_tempaddr" =
-          tempaddrValues.${cfg.tempAddresses}.sysctl;
+        "net.ipv6.conf.default.use_tempaddr" = tempaddrValues.${cfg.tempAddresses}.sysctl;
       }
       // listToAttrs (
         forEach interfaces (
-          i:
-          nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp"
-            i.proxyARP
+          i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP
         )
       )
       // listToAttrs (
@@ -1630,9 +1595,7 @@ in
             opt = i.tempAddress;
             val = tempaddrValues.${opt}.sysctl;
           in
-          nameValuePair
-            "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr"
-            val
+          nameValuePair "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr" val
         )
       );
 
@@ -1679,15 +1642,11 @@ in
     '';
 
     environment.etc.hostid = mkIf (cfg.hostId != null) { source = hostidFile; };
-    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) {
-      source = hostidFile;
-    };
+    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) { source = hostidFile; };
 
     # static hostname configuration needed for hostnamectl and the
     # org.freedesktop.hostname1 dbus service (both provided by systemd)
-    environment.etc.hostname = mkIf (cfg.hostName != "") {
-      text = cfg.hostName + "\n";
-    };
+    environment.etc.hostname = mkIf (cfg.hostName != "") { text = cfg.hostName + "\n"; };
 
     environment.systemPackages =
       [
@@ -1788,12 +1747,8 @@ in
               wlanListDeviceFirst =
                 device: interfaces:
                 if hasAttr device interfaces then
-                  mapAttrsToList (n: v: v // { _iName = n; }) (
-                    filterAttrs (n: _: n == device) interfaces
-                  )
-                  ++ mapAttrsToList (n: v: v // { _iName = n; }) (
-                    filterAttrs (n: _: n != device) interfaces
-                  )
+                  mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n == device) interfaces)
+                  ++ mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n != device) interfaces)
                 else
                   mapAttrsToList (n: v: v // { _iName = n; }) interfaces;
 
@@ -1821,9 +1776,7 @@ in
                   ${optionalString (current.type == "monitor" && current.flags != null)
                     "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
                   ${optionalString (current.type == "managed" && current.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${
-                      if current.fourAddr then "on" else "off"
-                    }"}
+                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
                   ${optionalString (current.mac != null)
                     "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
                 '';
@@ -1840,9 +1793,7 @@ in
                   ${optionalString (new.type == "monitor" && new.flags != null)
                     "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
                   ${optionalString (new.type == "managed" && new.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${
-                      if new.fourAddr then "on" else "off"
-                    }"}
+                    "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${if new.fourAddr then "on" else "off"}"}
                   ${optionalString (new.mac != null)
                     "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
                 '';
@@ -1863,15 +1814,13 @@ in
               ''
                 # It is important to have that rule first as overwriting the NAME attribute also prevents the
                 # next rules from matching.
-                ${flip (concatMapStringsSep "\n")
-                  (wlanListDeviceFirst device wlanDeviceInterfaces.${device})
-                  (
-                    interface:
-                    ''
-                      ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
-                        systemdAttrs interface._iName
-                      }, RUN+="${newInterfaceScript interface}"''
-                  )}
+                ${flip (concatMapStringsSep "\n") (wlanListDeviceFirst device wlanDeviceInterfaces.${device}) (
+                  interface:
+                  ''
+                    ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", ENV{INTERFACE}=="${interface._iName}", ${
+                      systemdAttrs interface._iName
+                    }, RUN+="${newInterfaceScript interface}"''
+                )}
 
                 # Add the required, new WLAN interfaces to the default WLAN interface with the
                 # persistent, default name as assigned by udev.

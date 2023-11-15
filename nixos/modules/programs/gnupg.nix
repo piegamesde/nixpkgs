@@ -14,10 +14,7 @@ let
   xserverCfg = config.services.xserver;
 
   defaultPinentryFlavor =
-    if
-      xserverCfg.desktopManager.lxqt.enable
-      || xserverCfg.desktopManager.plasma5.enable
-    then
+    if xserverCfg.desktopManager.lxqt.enable || xserverCfg.desktopManager.plasma5.enable then
       "qt"
     else if xserverCfg.desktopManager.xfce.enable then
       "gtk2"
@@ -126,13 +123,9 @@ in
       wantedBy = [ "sockets.target" ];
     };
 
-    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable {
-      wantedBy = [ "sockets.target" ];
-    };
+    systemd.user.sockets.dirmngr = mkIf cfg.dirmngr.enable { wantedBy = [ "sockets.target" ]; };
 
-    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [
-      pkgs.gcr
-    ];
+    services.dbus.packages = mkIf (cfg.agent.pinentryFlavor == "gnome3") [ pkgs.gcr ];
 
     environment.systemPackages = with pkgs; [ cfg.package ];
     systemd.packages = [ cfg.package ];

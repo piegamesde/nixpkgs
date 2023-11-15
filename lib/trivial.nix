@@ -90,18 +90,13 @@ rec {
   and = x: y: x && y;
 
   # bitwise “and”
-  bitAnd =
-    builtins.bitAnd
-      or (import ./zip-int-bits.nix (a: b: if a == 1 && b == 1 then 1 else 0));
+  bitAnd = builtins.bitAnd or (import ./zip-int-bits.nix (a: b: if a == 1 && b == 1 then 1 else 0));
 
   # bitwise “or”
-  bitOr =
-    builtins.bitOr
-      or (import ./zip-int-bits.nix (a: b: if a == 1 || b == 1 then 1 else 0));
+  bitOr = builtins.bitOr or (import ./zip-int-bits.nix (a: b: if a == 1 || b == 1 then 1 else 0));
 
   # bitwise “xor”
-  bitXor =
-    builtins.bitXor or (import ./zip-int-bits.nix (a: b: if a != b then 1 else 0));
+  bitXor = builtins.bitXor or (import ./zip-int-bits.nix (a: b: if a != b then 1 else 0));
 
   # bitwise “not”
   bitNot = builtins.sub (-1);
@@ -218,10 +213,7 @@ rec {
     let
       suffixFile = ../.version-suffix;
     in
-    if pathExists suffixFile then
-      lib.strings.fileContents suffixFile
-    else
-      "pre-git";
+    if pathExists suffixFile then lib.strings.fileContents suffixFile else "pre-git";
 
   /* Attempts to return the the current revision of nixpkgs and
      returns the supplied default value otherwise.
@@ -439,9 +431,7 @@ rec {
     lib.throwIfNot (unexpected == [ ])
       "${msg}: ${
         builtins.concatStringsSep ", " (builtins.map builtins.toString unexpected)
-      } unexpected; valid ones: ${
-        builtins.concatStringsSep ", " (builtins.map builtins.toString valid)
-      }";
+      } unexpected; valid ones: ${builtins.concatStringsSep ", " (builtins.map builtins.toString valid)}";
 
   info = msg: builtins.trace "INFO: ${msg}";
 
@@ -481,8 +471,7 @@ rec {
   /* Check whether something is a function or something
      annotated with function args.
   */
-  isFunction =
-    f: builtins.isFunction f || (f ? __functor && isFunction (f.__functor f));
+  isFunction = f: builtins.isFunction f || (f ? __functor && isFunction (f.__functor f));
 
   /* Turns any non-callable values into constant functions.
      Returns callable values as is.

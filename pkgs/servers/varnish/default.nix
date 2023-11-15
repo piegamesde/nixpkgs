@@ -62,15 +62,11 @@ let
       '';
 
       postInstall = ''
-        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${
-          lib.makeBinPath [ stdenv.cc ]
-        }"
+        wrapProgram "$out/sbin/varnishd" --prefix PATH : "${lib.makeBinPath [ stdenv.cc ]}"
       '';
 
       # https://github.com/varnishcache/varnish-cache/issues/1875
-      env.NIX_CFLAGS_COMPILE =
-        lib.optionalString stdenv.isi686
-          "-fexcess-precision=standard";
+      env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isi686 "-fexcess-precision=standard";
 
       outputs = [
         "out"
@@ -81,9 +77,7 @@ let
       passthru = {
         python = python3;
         tests =
-          nixosTests."varnish${
-            builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)
-          }";
+          nixosTests."varnish${builtins.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor version)}";
       };
 
       meta = with lib; {

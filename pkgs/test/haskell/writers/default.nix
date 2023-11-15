@@ -21,8 +21,7 @@ runCommand "test-haskell-writers"
     };
   }
   ''
-    ${writeTest "success" "test-haskell-bin-writer"
-      "${bin.haskell}/bin/${bin.haskell.name}"}
+    ${writeTest "success" "test-haskell-bin-writer" "${bin.haskell}/bin/${bin.haskell.name}"}
     ${writeTest "success" "test-haskell-simple-writer" simple.haskell}
     ${writeTest "success" "test-haskell-path-writer" path.haskell}
     touch $out

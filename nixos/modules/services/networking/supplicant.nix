@@ -14,8 +14,7 @@ let
 
   # We must escape interfaces due to the systemd interpretation
   subsystemDevice =
-    interface:
-    "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
+    interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
 
   serviceName =
     iface:
@@ -40,34 +39,23 @@ let
           if (iface == "WLAN" || iface == "LAN") then
             [ "sys-subsystem-net-devices-%i.device" ]
           else
-            (
-              if (iface == "DBUS") then
-                [ "dbus.service" ]
-              else
-                (map subsystemDevice (splitString " " iface))
-            )
+            (if (iface == "DBUS") then [ "dbus.service" ] else (map subsystemDevice (splitString " " iface)))
         )
         ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
 
       ifaceArg = concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
       driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
       bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
-      confFileArg =
-        optionalString (suppl.configFile.path != null)
-          "-c${suppl.configFile.path}";
-      extraConfFile =
-        pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}"
-          ''
-            ${optionalString suppl.userControlled.enable
-              "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
-            ${optionalString suppl.configFile.writable "update_config=1"}
-            ${suppl.extraConf}
-          '';
+      confFileArg = optionalString (suppl.configFile.path != null) "-c${suppl.configFile.path}";
+      extraConfFile = pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}" ''
+        ${optionalString suppl.userControlled.enable
+          "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
+        ${optionalString suppl.configFile.writable "update_config=1"}
+        ${suppl.extraConf}
+      '';
     in
     {
-      description = "Supplicant ${iface}${
-          optionalString (iface == "WLAN" || iface == "LAN") " %I"
-        }";
+      description = "Supplicant ${iface}${optionalString (iface == "WLAN" || iface == "LAN") " %I"}";
       wantedBy = [ "multi-user.target" ] ++ deps;
       wants = [ "network.target" ];
       bindsTo = deps;
@@ -160,9 +148,7 @@ in
                 type = types.str;
                 default = "";
                 example = "-e/run/wpa_supplicant/entropy.bin";
-                description =
-                  lib.mdDoc
-                    "Command line arguments to add when executing `wpa_supplicant`.";
+                description = lib.mdDoc "Command line arguments to add when executing `wpa_supplicant`.";
               };
 
               driver = mkOption {
@@ -174,9 +160,7 @@ in
               bridge = mkOption {
                 type = types.str;
                 default = "";
-                description =
-                  lib.mdDoc
-                    "Name of the bridge interface that wpa_supplicant should listen at.";
+                description = lib.mdDoc "Name of the bridge interface that wpa_supplicant should listen at.";
               };
 
               userControlled = {
@@ -252,9 +236,7 @@ in
 
     services.dbus.packages = [ pkgs.wpa_supplicant ];
 
-    systemd.services =
-      mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v))
-        cfg;
+    systemd.services = mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v)) cfg;
 
     services.udev.packages = [
       (pkgs.writeTextFile {

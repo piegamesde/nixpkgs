@@ -131,9 +131,7 @@ in
     };
     users.groups.apache-kafka = { };
 
-    systemd.tmpfiles.rules =
-      map (logDir: "d '${logDir}' 0700 apache-kafka - - -")
-        cfg.logDirs;
+    systemd.tmpfiles.rules = map (logDir: "d '${logDir}' 0700 apache-kafka - - -") cfg.logDirs;
 
     systemd.services.apache-kafka = {
       description = "Apache Kafka Daemon";

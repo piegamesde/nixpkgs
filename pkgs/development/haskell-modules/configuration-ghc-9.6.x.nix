@@ -6,10 +6,7 @@ let
   inherit (pkgs) lib;
 
   jailbreakWhileRevision =
-    rev:
-    overrideCabal (
-      old: { jailbreak = assert old.revision or "0" == toString rev; true; }
-    );
+    rev: overrideCabal (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
   checkAgainAfter =
     pkg: ver: msg: act:
     if builtins.compareVersions pkg.version ver <= 0 then
@@ -17,8 +14,7 @@ let
     else
       builtins.throw
         "Check if '${msg}' was resolved in ${pkg.pname} ${pkg.version} and update or remove this";
-  jailbreakForCurrentVersion =
-    p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
+  jailbreakForCurrentVersion = p: v: checkAgainAfter p v "bad bounds" (doJailbreak p);
 in
 
 self: super: {
@@ -57,10 +53,7 @@ self: super: {
   template-haskell = null;
   # terminfo is not built if GHC is a cross compiler
   terminfo =
-    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then
-      null
-    else
-      self.terminfo_0_4_1_5;
+    if pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform then null else self.terminfo_0_4_1_5;
   text = null;
   time = null;
   transformers = null;

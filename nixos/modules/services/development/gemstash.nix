@@ -18,8 +18,7 @@ let
       map
         (attrName: {
           name = ":${attrName}";
-          value =
-            if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
+          value = if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
         })
         (attrNames s)
     );
@@ -61,9 +60,7 @@ in
           bind = mkOption {
             type = types.str;
             default = "tcp://0.0.0.0:9292";
-            description =
-              lib.mdDoc
-                "Host and port combination for the server to listen on.";
+            description = lib.mdDoc "Host and port combination for the server to listen on.";
           };
           db_adapter = mkOption {
             type = types.nullOr (
@@ -82,9 +79,7 @@ in
           db_url = mkOption {
             type = types.nullOr types.str;
             default = null;
-            description =
-              lib.mdDoc
-                "The database to connect to when using postgres, mysql, or mysql2.";
+            description = lib.mdDoc "The database to connect to when using postgres, mysql, or mysql2.";
           };
         };
       };
@@ -100,9 +95,7 @@ in
       groups.gemstash = { };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      (parseBindPort cfg.settings.bind)
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ (parseBindPort cfg.settings.bind) ];
 
     systemd.services.gemstash = {
       wantedBy = [ "multi-user.target" ];
@@ -119,9 +112,7 @@ in
           RestrictSUIDSGID = true;
           LockPersonality = true;
         }
-        (mkIf (cfg.settings.base_path == "/var/lib/gemstash") {
-          StateDirectory = "gemstash";
-        })
+        (mkIf (cfg.settings.base_path == "/var/lib/gemstash") { StateDirectory = "gemstash"; })
       ];
     };
   };

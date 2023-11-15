@@ -7989,12 +7989,7 @@ in
       sha512 = "LlZChbDzg3Ir3O2S7jSo/cgWp5/QwylQVr59K4xayVq8S4/RdKzSyJkghAiZZHfhh5t4pxunUoyeg0ml1q/7aw==";
     };
     dependencies = [
-      (
-        sources."@babel/cli-7.11.6"
-        // {
-          dependencies = [ sources."source-map-0.5.7" ];
-        }
-      )
+      (sources."@babel/cli-7.11.6" // { dependencies = [ sources."source-map-0.5.7" ]; })
       sources."@babel/code-frame-7.15.8"
       sources."@babel/compat-data-7.15.0"
       (
@@ -8008,12 +8003,7 @@ in
           ];
         }
       )
-      (
-        sources."@babel/generator-7.15.8"
-        // {
-          dependencies = [ sources."source-map-0.5.7" ];
-        }
-      )
+      (sources."@babel/generator-7.15.8" // { dependencies = [ sources."source-map-0.5.7" ]; })
       sources."@babel/helper-annotate-as-pure-7.15.4"
       sources."@babel/helper-builder-binary-assignment-operator-visitor-7.15.4"
       sources."@babel/helper-compilation-targets-7.15.4"
@@ -8096,12 +8086,7 @@ in
       sources."@babel/plugin-transform-typeof-symbol-7.14.5"
       sources."@babel/plugin-transform-unicode-escapes-7.14.5"
       sources."@babel/plugin-transform-unicode-regex-7.14.5"
-      (
-        sources."@babel/preset-env-7.11.5"
-        // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."@babel/preset-env-7.11.5" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."@babel/preset-modules-0.1.4"
       sources."@babel/register-7.11.5"
       sources."@babel/runtime-7.15.4"
@@ -8195,12 +8180,7 @@ in
           ];
         }
       )
-      (
-        sources."@octokit/request-error-1.2.1"
-        // {
-          dependencies = [ sources."@octokit/types-2.16.2" ];
-        }
-      )
+      (sources."@octokit/request-error-1.2.1" // { dependencies = [ sources."@octokit/types-2.16.2" ]; })
       sources."@octokit/rest-16.43.2"
       sources."@octokit/types-6.34.0"
       (
@@ -8263,12 +8243,7 @@ in
         }
       )
       sources."@sinonjs/commons-1.8.3"
-      (
-        sources."@sinonjs/formatio-3.2.2"
-        // {
-          dependencies = [ sources."@sinonjs/samsam-3.3.3" ];
-        }
-      )
+      (sources."@sinonjs/formatio-3.2.2" // { dependencies = [ sources."@sinonjs/samsam-3.3.3" ]; })
       sources."@sinonjs/samsam-2.1.3"
       sources."@sinonjs/text-encoding-0.7.1"
       sources."@types/glob-7.2.0"
@@ -8292,15 +8267,8 @@ in
         sources."anymatch-2.0.0"
         // {
           dependencies = [
-            (
-              sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; }
-            )
-            (
-              sources."fill-range-4.0.0"
-              // {
-                dependencies = [ sources."extend-shallow-2.0.1" ];
-              }
-            )
+            (sources."braces-2.3.2" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
+            (sources."fill-range-4.0.0" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
             (sources."is-number-3.0.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."micromatch-3.1.10"
             sources."normalize-path-2.1.1"
@@ -8334,9 +8302,7 @@ in
       sources."babel-plugin-dynamic-import-node-2.3.3"
       sources."babel-plugin-istanbul-5.2.0"
       sources."balanced-match-1.0.2"
-      (
-        sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; }
-      )
+      (sources."base-0.11.2" // { dependencies = [ sources."define-property-1.0.0" ]; })
       sources."before-after-hook-2.2.2"
       sources."binary-extensions-1.13.1"
       sources."bindings-1.5.0"
@@ -8402,18 +8368,8 @@ in
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
-            (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
           ];
@@ -8451,23 +8407,13 @@ in
       )
       sources."conventional-changelog-angular-5.0.13"
       sources."conventional-changelog-conventionalcommits-4.4.0"
-      (
-        sources."conventional-changelog-writer-4.1.0"
-        // {
-          dependencies = [ sources."split-1.0.1" ];
-        }
-      )
+      (sources."conventional-changelog-writer-4.1.0" // { dependencies = [ sources."split-1.0.1" ]; })
       sources."conventional-commit-types-3.0.0"
       sources."conventional-commits-filter-2.0.7"
       sources."conventional-commits-parser-3.2.2"
       sources."convert-source-map-1.8.0"
       sources."copy-descriptor-0.1.1"
-      (
-        sources."core-js-compat-3.18.3"
-        // {
-          dependencies = [ sources."semver-7.0.0" ];
-        }
-      )
+      (sources."core-js-compat-3.18.3" // { dependencies = [ sources."semver-7.0.0" ]; })
       sources."core-util-is-1.0.3"
       sources."cosmiconfig-7.0.1"
       sources."create-error-class-3.0.2"
@@ -8490,12 +8436,7 @@ in
       sources."dateformat-3.0.3"
       sources."debug-2.6.9"
       sources."decamelize-1.2.0"
-      (
-        sources."decamelize-keys-1.1.0"
-        // {
-          dependencies = [ sources."map-obj-1.0.1" ];
-        }
-      )
+      (sources."decamelize-keys-1.1.0" // { dependencies = [ sources."map-obj-1.0.1" ]; })
       sources."decode-uri-component-0.2.0"
       sources."dedent-0.7.0"
       sources."deep-eql-3.0.1"
@@ -8552,30 +8493,15 @@ in
           dependencies = [
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
-            (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
           ];
         }
       )
       sources."expand-tilde-2.0.2"
-      (
-        sources."extend-shallow-3.0.2"
-        // {
-          dependencies = [ sources."is-extendable-1.0.1" ];
-        }
-      )
+      (sources."extend-shallow-3.0.2" // { dependencies = [ sources."is-extendable-1.0.1" ]; })
       sources."external-editor-3.1.0"
       (
         sources."extglob-2.0.4"
@@ -8586,9 +8512,7 @@ in
           ];
         }
       )
-      (
-        sources."fast-glob-3.2.7" // { dependencies = [ sources."glob-parent-5.1.2" ]; }
-      )
+      (sources."fast-glob-3.2.7" // { dependencies = [ sources."glob-parent-5.1.2" ]; })
       sources."fastq-1.13.0"
       sources."figures-2.0.0"
       sources."file-uri-to-path-1.0.0"
@@ -8602,12 +8526,7 @@ in
       (sources."findup-0.1.5" // { dependencies = [ sources."commander-2.1.0" ]; })
       sources."findup-sync-4.0.0"
       (sources."flat-4.1.1" // { dependencies = [ sources."is-buffer-2.0.5" ]; })
-      (
-        sources."follow-redirects-1.5.10"
-        // {
-          dependencies = [ sources."debug-3.1.0" ];
-        }
-      )
+      (sources."follow-redirects-1.5.10" // { dependencies = [ sources."debug-3.1.0" ]; })
       sources."for-in-1.0.2"
       (
         sources."foreground-child-2.0.0"
@@ -8708,12 +8627,7 @@ in
       sources."iconv-lite-0.4.24"
       sources."ignore-5.1.8"
       sources."ignore-by-default-1.0.1"
-      (
-        sources."import-fresh-3.3.0"
-        // {
-          dependencies = [ sources."resolve-from-4.0.0" ];
-        }
-      )
+      (sources."import-fresh-3.3.0" // { dependencies = [ sources."resolve-from-4.0.0" ]; })
       sources."import-from-3.0.0"
       sources."import-lazy-2.1.0"
       sources."imurmurhash-0.1.4"
@@ -8724,12 +8638,7 @@ in
       sources."ini-1.3.8"
       sources."inquirer-6.5.2"
       sources."internal-slot-1.0.3"
-      (
-        sources."into-stream-5.1.1"
-        // {
-          dependencies = [ sources."p-is-promise-3.0.0" ];
-        }
-      )
+      (sources."into-stream-5.1.1" // { dependencies = [ sources."p-is-promise-3.0.0" ]; })
       sources."invariant-2.2.4"
       sources."invert-kv-2.0.0"
       sources."is-accessor-descriptor-1.0.0"
@@ -8896,9 +8805,7 @@ in
                 ];
               }
             )
-            (
-              sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; }
-            )
+            (sources."read-pkg-up-7.0.1" // { dependencies = [ sources."type-fest-0.8.1" ]; })
             sources."semver-7.3.5"
             sources."type-fest-0.18.1"
             sources."yallist-4.0.0"
@@ -8918,12 +8825,7 @@ in
       sources."minimatch-3.0.4"
       sources."minimist-1.2.5"
       sources."minimist-options-4.1.0"
-      (
-        sources."mixin-deep-1.3.2"
-        // {
-          dependencies = [ sources."is-extendable-1.0.1" ];
-        }
-      )
+      (sources."mixin-deep-1.3.2" // { dependencies = [ sources."is-extendable-1.0.1" ]; })
       (sources."mkdirp-0.5.1" // { dependencies = [ sources."minimist-0.0.8" ]; })
       (
         sources."mocha-6.2.0"
@@ -8939,12 +8841,7 @@ in
           ];
         }
       )
-      (
-        sources."mocha-junit-reporter-1.18.0"
-        // {
-          dependencies = [ sources."strip-ansi-4.0.0" ];
-        }
-      )
+      (sources."mocha-junit-reporter-1.18.0" // { dependencies = [ sources."strip-ansi-4.0.0" ]; })
       (
         sources."mocha-multi-reporters-1.1.7"
         // {
@@ -8965,12 +8862,7 @@ in
       sources."nice-try-1.0.5"
       (sources."nise-1.5.3" // { dependencies = [ sources."lolex-5.1.2" ]; })
       sources."node-emoji-1.11.0"
-      (
-        sources."node-environment-flags-1.0.5"
-        // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."node-environment-flags-1.0.5" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."node-fetch-2.6.5"
       sources."node-modules-regexp-1.0.0"
       sources."node-preload-0.2.1"
@@ -8987,12 +8879,7 @@ in
         }
       )
       sources."nopt-1.0.10"
-      (
-        sources."normalize-package-data-2.5.0"
-        // {
-          dependencies = [ sources."semver-5.7.1" ];
-        }
-      )
+      (sources."normalize-package-data-2.5.0" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."normalize-path-3.0.0"
       sources."normalize-url-4.5.1"
       sources."npm-6.14.15"
@@ -9036,9 +8923,7 @@ in
             sources."define-property-0.2.5"
             sources."is-accessor-descriptor-0.1.6"
             sources."is-data-descriptor-0.1.4"
-            (
-              sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; }
-            )
+            (sources."is-descriptor-0.1.6" // { dependencies = [ sources."kind-of-5.1.0" ]; })
             sources."kind-of-3.2.2"
           ];
         }
@@ -9088,12 +8973,7 @@ in
       sources."path-is-inside-1.0.2"
       sources."path-key-2.0.1"
       sources."path-parse-1.0.7"
-      (
-        sources."path-to-regexp-1.8.0"
-        // {
-          dependencies = [ sources."isarray-0.0.1" ];
-        }
-      )
+      (sources."path-to-regexp-1.8.0" // { dependencies = [ sources."isarray-0.0.1" ]; })
       sources."path-type-4.0.0"
       sources."pathval-1.1.1"
       sources."picocolors-1.0.0"
@@ -9127,12 +9007,7 @@ in
       sources."qs-1.2.2"
       sources."queue-microtask-1.2.3"
       sources."quick-lru-4.0.1"
-      (
-        sources."rc-1.2.8"
-        // {
-          dependencies = [ sources."strip-json-comments-2.0.1" ];
-        }
-      )
+      (sources."rc-1.2.8" // { dependencies = [ sources."strip-json-comments-2.0.1" ]; })
       (
         sources."read-pkg-3.0.0"
         // {
@@ -9244,12 +9119,7 @@ in
       (sources."semver-diff-2.1.0" // { dependencies = [ sources."semver-5.7.1" ]; })
       sources."semver-regex-2.0.0"
       sources."set-blocking-2.0.0"
-      (
-        sources."set-value-2.0.1"
-        // {
-          dependencies = [ sources."extend-shallow-2.0.1" ];
-        }
-      )
+      (sources."set-value-2.0.1" // { dependencies = [ sources."extend-shallow-2.0.1" ]; })
       sources."shebang-command-1.2.0"
       sources."shebang-regex-1.0.0"
       sources."side-channel-1.0.4"
@@ -9263,36 +9133,16 @@ in
           dependencies = [
             sources."define-property-0.2.5"
             sources."extend-shallow-2.0.1"
-            (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
-            (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
             sources."source-map-0.5.7"
           ];
         }
       )
-      (
-        sources."snapdragon-node-2.1.1"
-        // {
-          dependencies = [ sources."define-property-1.0.0" ];
-        }
-      )
-      (
-        sources."snapdragon-util-3.0.1"
-        // {
-          dependencies = [ sources."kind-of-3.2.2" ];
-        }
-      )
+      (sources."snapdragon-node-2.1.1" // { dependencies = [ sources."define-property-1.0.0" ]; })
+      (sources."snapdragon-util-3.0.1" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       sources."sntp-0.2.4"
       sources."source-map-0.6.1"
       sources."source-map-resolve-0.5.3"
@@ -9315,30 +9165,15 @@ in
       sources."spdx-license-ids-3.0.10"
       sources."split-0.2.10"
       sources."split-string-3.1.0"
-      (
-        sources."split2-3.2.2"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."split2-3.2.2" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."sprintf-js-1.0.3"
       (
         sources."static-extend-0.1.2"
         // {
           dependencies = [
             sources."define-property-0.2.5"
-            (
-              sources."is-accessor-descriptor-0.1.6"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
-            (
-              sources."is-data-descriptor-0.1.4"
-              // {
-                dependencies = [ sources."kind-of-3.2.2" ];
-              }
-            )
+            (sources."is-accessor-descriptor-0.1.6" // { dependencies = [ sources."kind-of-3.2.2" ]; })
+            (sources."is-data-descriptor-0.1.4" // { dependencies = [ sources."kind-of-3.2.2" ]; })
             sources."is-descriptor-0.1.6"
             sources."kind-of-5.1.0"
           ];
@@ -9346,31 +9181,19 @@ in
       )
       sources."stream-combiner-0.0.4"
       sources."stream-combiner2-1.1.1"
-      (
-        sources."string-width-2.1.1"
-        // {
-          dependencies = [ sources."strip-ansi-4.0.0" ];
-        }
-      )
+      (sources."string-width-2.1.1" // { dependencies = [ sources."strip-ansi-4.0.0" ]; })
       sources."string.prototype.trimend-1.0.4"
       sources."string.prototype.trimstart-1.0.4"
       sources."string_decoder-1.1.1"
       sources."stringstream-0.0.6"
-      (
-        sources."strip-ansi-5.2.0" // { dependencies = [ sources."ansi-regex-4.1.0" ]; }
-      )
+      (sources."strip-ansi-5.2.0" // { dependencies = [ sources."ansi-regex-4.1.0" ]; })
       sources."strip-bom-4.0.0"
       sources."strip-eof-1.0.0"
       sources."strip-final-newline-2.0.0"
       sources."strip-indent-3.0.0"
       sources."strip-json-comments-3.0.1"
       sources."supports-color-5.5.0"
-      (
-        sources."supports-hyperlinks-1.0.1"
-        // {
-          dependencies = [ sources."has-flag-2.0.0" ];
-        }
-      )
+      (sources."supports-hyperlinks-1.0.1" // { dependencies = [ sources."has-flag-2.0.0" ]; })
       sources."tape-2.3.0"
       sources."temp-dir-1.0.0"
       (sources."tempy-0.3.0" // { dependencies = [ sources."type-fest-0.3.1" ]; })
@@ -9387,21 +9210,11 @@ in
       sources."test-exclude-5.2.3"
       sources."text-extensions-1.9.0"
       sources."through-2.3.8"
-      (
-        sources."through2-4.0.2"
-        // {
-          dependencies = [ sources."readable-stream-3.6.0" ];
-        }
-      )
+      (sources."through2-4.0.2" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
       sources."timed-out-4.0.1"
       sources."tmp-0.0.33"
       sources."to-fast-properties-2.0.0"
-      (
-        sources."to-object-path-0.3.0"
-        // {
-          dependencies = [ sources."kind-of-3.2.2" ];
-        }
-      )
+      (sources."to-object-path-0.3.0" // { dependencies = [ sources."kind-of-3.2.2" ]; })
       sources."to-regex-3.0.2"
       sources."to-regex-range-5.0.1"
       sources."touch-3.1.0"

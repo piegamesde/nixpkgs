@@ -40,8 +40,7 @@ let
   };
 
   bits = builtins.toString stdenv.hostPlatform.parsed.cpu.bits;
-  osname =
-    if stdenv.isDarwin then "osx" else stdenv.hostPlatform.parsed.kernel.name;
+  osname = if stdenv.isDarwin then "osx" else stdenv.hostPlatform.parsed.kernel.name;
 
   pathToDmd = "\${NIX_BUILD_TOP}/dmd/generated/${osname}/release/${bits}/dmd";
 in
@@ -139,12 +138,9 @@ stdenv.mkDerivation rec {
       # of it, so just remove it until the most recent change.
       rm dmd/test/compilable/ddocYear.d
     ''
-    +
-      lib.optionalString
-        (lib.versionAtLeast version "2.089.0" && lib.versionOlder version "2.092.2")
-        ''
-          rm dmd/test/dshell/test6952.d
-        ''
+    + lib.optionalString (lib.versionAtLeast version "2.089.0" && lib.versionOlder version "2.092.2") ''
+      rm dmd/test/dshell/test6952.d
+    ''
     + lib.optionalString (lib.versionAtLeast version "2.092.2") ''
       substituteInPlace dmd/test/dshell/test6952.d --replace "/usr/bin/env bash" "${bash}/bin/bash"
     ''
@@ -167,9 +163,7 @@ stdenv.mkDerivation rec {
     tzdata
   ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
 
-  nativeCheckInputs = [
-    gdb
-  ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
+  nativeCheckInputs = [ gdb ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
 
   buildFlags = [
     "BUILD=release"
@@ -189,9 +183,7 @@ stdenv.mkDerivation rec {
     make -C dmd -f posix.mak $buildFlags -j$buildJobs HOST_DMD=${HOST_DMD}
     make -C druntime -f posix.mak $buildFlags -j$buildJobs DMD=${pathToDmd}
     echo ${tzdata}/share/zoneinfo/ > TZDatabaseDirFile
-    echo ${
-      lib.getLib curl
-    }/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} > LibcurlPathFile
+    echo ${lib.getLib curl}/lib/libcurl${stdenv.hostPlatform.extensions.sharedLibrary} > LibcurlPathFile
     make -C phobos -f posix.mak $buildFlags -j$buildJobs DMD=${pathToDmd} DFLAGS="-version=TZDatabaseDir -version=LibcurlPath -J$PWD"
 
     runHook postBuild

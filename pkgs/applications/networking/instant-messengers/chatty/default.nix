@@ -76,9 +76,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PURPLE_PLUGIN_PATH : ${
-        lib.escapeShellArg (pidgin.makePluginPath plugins)
-      }
+      --prefix PURPLE_PLUGIN_PATH : ${lib.escapeShellArg (pidgin.makePluginPath plugins)}
       ${lib.concatMapStringsSep " " (p: p.wrapArgs or "") plugins}
     )
   '';

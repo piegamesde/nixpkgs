@@ -51,8 +51,7 @@ pythonPackages.callPackage
       ;
       fileCandidates =
         let
-          supportedRegex =
-            ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
+          supportedRegex = ("^.*(" + builtins.concatStringsSep "|" supportedExtensions + ")");
           matchesVersion =
             fname:
             builtins.match
@@ -75,22 +74,16 @@ pythonPackages.callPackage
           hasSupportedExtension = fname: builtins.match supportedRegex fname != null;
           isCompatibleEgg =
             fname:
-            !lib.strings.hasSuffix ".egg" fname
-            || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
+            !lib.strings.hasSuffix ".egg" fname || lib.strings.hasSuffix "py${python.pythonVersion}.egg" fname;
         in
-        builtins.filter
-          (
-            f:
-            matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file
-          )
+        builtins.filter (f: matchesVersion f.file && hasSupportedExtension f.file && isCompatibleEgg f.file)
           files;
       toPath = s: pwd + "/${s}";
       isLocked = lib.length fileCandidates > 0;
       isSource = source != null;
       isGit = isSource && source.type == "git";
       isUrl = isSource && source.type == "url";
-      isWheelUrl =
-        isSource && source.type == "url" && lib.strings.hasSuffix ".whl" source.url;
+      isWheelUrl = isSource && source.type == "url" && lib.strings.hasSuffix ".whl" source.url;
       isDirectory = isSource && source.type == "directory";
       isFile = isSource && source.type == "file";
       isLegacy = isSource && source.type == "legacy";
@@ -118,9 +111,7 @@ pythonPackages.callPackage
           eggs = builtins.filter isEgg fileCandidates;
           # the `wheel` package cannot be built from a wheel, since that requires the wheel package
           # this causes a circular dependency so we special-case ignore its `preferWheel` attribute value
-          entries =
-            (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist)
-            ++ eggs;
+          entries = (if preferWheel' then binaryDist ++ sourceDist else sourceDist ++ binaryDist) ++ eggs;
           lockFileEntry =
             (
               if lib.length entries > 0 then
@@ -173,9 +164,7 @@ pythonPackages.callPackage
       nativeBuildInputs =
         [ hooks.poetry2nixFixupHook ]
         ++ lib.optional (!pythonPackages.isPy27) hooks.poetry2nixPythonRequiresPatchHook
-        ++
-          lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null)
-            autoPatchelfHook
+        ++ lib.optional (isLocked && (getManyLinuxDeps fileInfo.name).str != null) autoPatchelfHook
         ++ lib.optionals (format == "wheel") [
           hooks.wheelUnpackHook
           pythonPackages.pipInstallHook
@@ -191,9 +180,7 @@ pythonPackages.callPackage
         (
           lib.optional (isLocked) (getManyLinuxDeps fileInfo.name).pkg
           ++ lib.optional isDirectory buildSystemPkgs
-          ++
-            lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-              pythonPackages.setuptools
+          ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) pythonPackages.setuptools
         );
 
       propagatedBuildInputs =
@@ -238,15 +225,11 @@ pythonPackages.callPackage
               inherit (source) url;
               submodules = true;
               rev = source.resolved_reference or source.reference;
-              ref =
-                sourceSpec.branch or (
-                  if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD"
-                );
+              ref = sourceSpec.branch or (if sourceSpec ? tag then "refs/tags/${sourceSpec.tag}" else "HEAD");
             }
-            // (lib.optionalAttrs
-              ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4"))
-              { allRefs = true; }
-            )
+            // (lib.optionalAttrs ((sourceSpec ? rev) && (lib.versionAtLeast builtins.nixVersion "2.4")) {
+              allRefs = true;
+            })
           ))
         else if isWheelUrl then
           builtins.fetchurl {

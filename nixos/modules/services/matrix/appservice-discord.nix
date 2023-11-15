@@ -84,9 +84,7 @@ in
       url = mkOption {
         type = types.str;
         default = "http://localhost:${toString cfg.port}";
-        defaultText =
-          literalExpression
-            ''"http://localhost:''${toString config.${opt.port}}"'';
+        defaultText = literalExpression ''"http://localhost:''${toString config.${opt.port}}"'';
         description = lib.mdDoc ''
           The URL where the application service is listening for HS requests.
         '';
@@ -110,9 +108,7 @@ in
 
       serviceDependencies = mkOption {
         type = with types; listOf str;
-        default =
-          optional config.services.matrix-synapse.enable
-            "matrix-synapse.service";
+        default = optional config.services.matrix-synapse.enable "matrix-synapse.service";
         defaultText = literalExpression ''
           optional config.services.matrix-synapse.enable "matrix-synapse.service"
         '';
@@ -137,10 +133,7 @@ in
           ${cfg.package}/bin/matrix-appservice-discord \
             --generate-registration \
             --url=${escapeShellArg cfg.url} \
-            ${
-              optionalString (cfg.localpart != null)
-                "--localpart=${escapeShellArg cfg.localpart}"
-            } \
+            ${optionalString (cfg.localpart != null) "--localpart=${escapeShellArg cfg.localpart}"} \
             --config='${settingsFile}' \
             --file='${registrationFile}'
         fi

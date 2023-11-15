@@ -47,9 +47,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/main.cpp --replace "/sbin/modprobe" "modprobe"
-    substituteInPlace src/calibrate/calibrate.cpp --replace "/usr/bin/xset" "${
-      lib.getExe xorg.xset
-    }"
+    substituteInPlace src/calibrate/calibrate.cpp --replace "/usr/bin/xset" "${lib.getExe xorg.xset}"
     substituteInPlace src/tuning/bluetooth.cpp --replace "/usr/bin/hcitool" "hcitool"
   '';
 

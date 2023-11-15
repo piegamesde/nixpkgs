@@ -66,8 +66,7 @@ let
     else if config.security.doas.enable then
       "doas"
     else
-      throw
-        "The btrbk nixos module needs either sudo or doas enabled in the configuration";
+      throw "The btrbk nixos module needs either sudo or doas enabled in the configuration";
 
   addDefaults = settings: { backend = "btrfs-progs-${sudo_doas}"; } // settings;
 
@@ -126,9 +125,7 @@ in
         default = "best-effort";
       };
       instances = mkOption {
-        description =
-          lib.mdDoc
-            "Set of btrbk instances. The instance named `btrbk` is the default one.";
+        description = lib.mdDoc "Set of btrbk instances. The instance named `btrbk` is the default one.";
         type =
           with types;
           attrsOf (
@@ -146,9 +143,7 @@ in
                   type =
                     let
                       t = types.attrsOf (
-                        types.either types.str (
-                          t // { description = "instances of this type recursively"; }
-                        )
+                        types.either types.str (t // { description = "instances of this type recursively"; })
                       );
                     in
                     t;
@@ -188,9 +183,7 @@ in
               options = {
                 key = mkOption {
                   type = str;
-                  description =
-                    lib.mdDoc
-                      "SSH public key allowed to login as user `btrbk` to run remote backups.";
+                  description = lib.mdDoc "SSH public key allowed to login as user `btrbk` to run remote backups.";
                 };
                 roles = mkOption {
                   type = listOf (
@@ -304,8 +297,7 @@ in
             in
             ''
               command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
-                optionalString (cfg.niceness >= 1)
-                  "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+                optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
               } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
           )
           cfg.sshAccess;

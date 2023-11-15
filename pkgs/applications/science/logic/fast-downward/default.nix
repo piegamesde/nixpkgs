@@ -28,9 +28,7 @@ stdenv.mkDerivation rec {
     osi
   ];
 
-  cmakeFlags = lib.optionals osi.withCplex [
-    "-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex"
-  ];
+  cmakeFlags = lib.optionals osi.withCplex [ "-DDOWNWARD_CPLEX_ROOT=${cplex}/cplex" ];
 
   configurePhase = ''
     python build.py release

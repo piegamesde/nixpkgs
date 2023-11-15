@@ -88,9 +88,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the Buildbot continuous integration server.";
+        description = lib.mdDoc "Whether to enable the Buildbot continuous integration server.";
       };
 
       extraConfig = mkOption {
@@ -121,9 +119,7 @@ in
       builders = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Builders.";
-        default = [
-          "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)"
-        ];
+        default = [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ];
       };
 
       workers = mkOption {
@@ -135,9 +131,7 @@ in
       reporters = mkOption {
         default = [ ];
         type = types.listOf types.str;
-        description =
-          lib.mdDoc
-            "List of reporter objects used to present build status to various users.";
+        description = lib.mdDoc "List of reporter objects used to present build status to various users.";
       };
 
       user = mkOption {
@@ -155,9 +149,7 @@ in
       extraGroups = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description =
-          lib.mdDoc
-            "List of extra groups that the buildbot user should be a part of.";
+        description = lib.mdDoc "List of extra groups that the buildbot user should be a part of.";
       };
 
       home = mkOption {
@@ -192,9 +184,7 @@ in
       listenAddress = mkOption {
         default = "0.0.0.0";
         type = types.str;
-        description =
-          lib.mdDoc
-            "Specifies the bind address on which the buildbot HTTP interface listens.";
+        description = lib.mdDoc "Specifies the bind address on which the buildbot HTTP interface listens.";
       };
 
       buildbotUrl = mkOption {
@@ -224,9 +214,7 @@ in
       port = mkOption {
         default = 8010;
         type = types.port;
-        description =
-          lib.mdDoc
-            "Specifies port number on which the buildbot HTTP interface listens.";
+        description = lib.mdDoc "Specifies port number on which the buildbot HTTP interface listens.";
       };
 
       package = mkOption {
@@ -248,9 +236,7 @@ in
         type = types.functionTo (types.listOf types.package);
         default = pythonPackages: with pythonPackages; [ ];
         defaultText = literalExpression "pythonPackages: with pythonPackages; [ ]";
-        description =
-          lib.mdDoc
-            "Packages to add the to the PYTHONPATH of the buildbot process.";
+        description = lib.mdDoc "Packages to add the to the PYTHONPATH of the buildbot process.";
         example = literalExpression "pythonPackages: with pythonPackages; [ requests ]";
       };
     };

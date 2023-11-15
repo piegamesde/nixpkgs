@@ -40,9 +40,7 @@ buildPythonApplication rec {
 
   postPatch = ''
     substituteInPlace ./tests/unit/conftest.py \
-      --replace @strictdoc_root_path@ "${
-        placeholder "out"
-      }/${python3.sitePackages}/strictdoc"
+      --replace @strictdoc_root_path@ "${placeholder "out"}/${python3.sitePackages}/strictdoc"
 
     substituteInPlace requirements.txt \
       --replace "jinja2 >= 2.11.2, <3.0" "jinja2 >= 2.11.2" \

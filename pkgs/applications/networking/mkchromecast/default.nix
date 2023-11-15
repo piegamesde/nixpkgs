@@ -77,9 +77,7 @@ python3Packages.buildPythonApplication rec {
   postInstall =
     ''
       substituteInPlace $out/lib/${python3Packages.python.libPrefix}/site-packages/mkchromecast/video.py \
-        --replace '/usr/share/mkchromecast/nodejs/' '${
-          placeholder "out"
-        }/share/mkchromecast/nodejs/'
+        --replace '/usr/share/mkchromecast/nodejs/' '${placeholder "out"}/share/mkchromecast/nodejs/'
     ''
     + lib.optionalString stdenv.isDarwin ''
       install -Dm 755 -t $out/bin bin/audiodevice

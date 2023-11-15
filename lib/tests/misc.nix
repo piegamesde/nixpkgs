@@ -342,9 +342,7 @@ runTests {
       in
       {
         storePath = isStorePath goodPath;
-        storePathDerivation =
-          isStorePath
-            (import ../.. { system = "x86_64-linux"; }).hello;
+        storePathDerivation = isStorePath (import ../.. { system = "x86_64-linux"; }).hello;
         storePathAppendix = isStorePath "${goodPath}/bin/python";
         nonAbsolute = isStorePath (concatStrings (tail (stringToCharacters goodPath)));
         asPath = isStorePath (/. + goodPath);
@@ -1268,9 +1266,8 @@ runTests {
     in
     {
       expr =
-        (builtins.tryEval (
-          generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)
-        )).success;
+        (builtins.tryEval (generators.toPretty { } (generators.withRecursion { depthLimit = 2; } a)))
+        .success;
       expected = false;
     };
 
@@ -1479,9 +1476,7 @@ runTests {
         "typescript-language-server"
         "--stdio"
       ];
-      settings.workspace.library =
-        generators.mkLuaInline
-          ''vim.api.nvim_get_runtime_file("", true)'';
+      settings.workspace.library = generators.mkLuaInline ''vim.api.nvim_get_runtime_file("", true)'';
     };
     expected = ''
       {
@@ -1581,17 +1576,11 @@ runTests {
         submodule =
           { lib, ... }:
           {
-            freeformType = lib.types.attrsOf (
-              lib.types.submodule { options.bar = lib.mkOption { }; }
-            );
+            freeformType = lib.types.attrsOf (lib.types.submodule { options.bar = lib.mkOption { }; });
             options.bar = lib.mkOption { };
           };
 
-        module =
-          { lib, ... }:
-          {
-            options.foo = lib.mkOption { type = lib.types.submodule submodule; };
-          };
+        module = { lib, ... }: { options.foo = lib.mkOption { type = lib.types.submodule submodule; }; };
 
         options = (evalModules { modules = [ module ]; }).options;
 

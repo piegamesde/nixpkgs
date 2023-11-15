@@ -37,8 +37,7 @@ let
                       extraArgs = [ ];
                     };
                 args = lib.escapeShellArgs (
-                  opts.extraArgs
-                  ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
+                  opts.extraArgs ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
                 );
               in
               ''
@@ -78,17 +77,13 @@ in
                 description =
                   lib.mkDoc
                     ".desktop file to modify. Only necessary if it uses the absolute path to the executable.";
-                example =
-                  literalExpression
-                    ''"''${pkgs.firefox}/share/applications/firefox.desktop"'';
+                example = literalExpression ''"''${pkgs.firefox}/share/applications/firefox.desktop"'';
               };
               profile = mkOption {
                 type = types.nullOr types.path;
                 default = null;
                 description = lib.mdDoc "Profile to use";
-                example =
-                  literalExpression
-                    ''"''${pkgs.firejail}/etc/firejail/firefox.profile"'';
+                example = literalExpression ''"''${pkgs.firejail}/etc/firejail/firefox.profile"'';
               };
               extraArgs = mkOption {
                 type = types.listOf types.str;

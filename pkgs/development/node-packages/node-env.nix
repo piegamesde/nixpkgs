@@ -202,18 +202,13 @@ let
       };
     in
     ''
-      node ${pinpointDependenciesFromPackageJSON} ${
-        if production then "production" else "development"
-      }
+      node ${pinpointDependenciesFromPackageJSON} ${if production then "production" else "development"}
 
       ${lib.optionalString (dependencies != [ ]) ''
         if [ -d node_modules ]
         then
             cd node_modules
-            ${
-              lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency)
-                dependencies
-            }
+            ${lib.concatMapStrings (dependency: pinpointDependenciesOfPackage dependency) dependencies}
             cd ..
         fi
       ''}
@@ -458,8 +453,7 @@ let
       production,
     }:
     let
-      forceOfflineFlag =
-        if bypassCache then "--offline" else "--registry http://www.example.com";
+      forceOfflineFlag = if bypassCache then "--offline" else "--registry http://www.example.com";
     in
     ''
       # Pinpoint the versions of all dependencies to the ones that are actually being used
@@ -564,9 +558,7 @@ let
             python
             nodejs
           ]
-          ++ lib.optional (stdenv.isLinux) utillinux
-          ++ lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs;
+          ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit nodejs;
 
@@ -678,9 +670,7 @@ let
     in
     stdenv.mkDerivation (
       {
-        name = "node-dependencies-${name}${
-            if version == null then "" else "-${version}"
-          }";
+        name = "node-dependencies-${name}${if version == null then "" else "-${version}"}";
 
         buildInputs =
           [
@@ -688,9 +678,7 @@ let
             python
             nodejs
           ]
-          ++ lib.optional (stdenv.isLinux) utillinux
-          ++ lib.optional (stdenv.isDarwin) libtool
-          ++ buildInputs;
+          ++ lib.optional (stdenv.isLinux) utillinux ++ lib.optional (stdenv.isDarwin) libtool ++ buildInputs;
 
         inherit dontStrip; # Stripping may fail a build for some package deployments
         inherit dontNpmInstall unpackPhase buildPhase;

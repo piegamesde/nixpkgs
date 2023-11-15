@@ -257,13 +257,9 @@ in
 
     environment.etc =
       let
-        policiesJSON = policyFormat.generate "firefox-policies.json" {
-          inherit (cfg) policies;
-        };
+        policiesJSON = policyFormat.generate "firefox-policies.json" { inherit (cfg) policies; };
       in
-      mkIf (cfg.policies != { }) {
-        "firefox/policies/policies.json".source = "${policiesJSON}";
-      };
+      mkIf (cfg.policies != { }) { "firefox/policies/policies.json".source = "${policiesJSON}"; };
 
     # Preferences are converted into a policy
     programs.firefox.policies = {

@@ -10,8 +10,7 @@ with lib;
 let
   cfg = config.networking.networkmanager;
 
-  delegateWireless =
-    config.networking.wireless.enable == true && cfg.unmanaged != [ ];
+  delegateWireless = config.networking.wireless.enable == true && cfg.unmanaged != [ ];
 
   enableIwd = cfg.wifi.backend == "iwd";
 
@@ -29,9 +28,7 @@ let
   mkSection = name: attrs: ''
     [${name}]
     ${lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (
-        lib.filterAttrs (k: v: v != null) attrs
-      )
+      lib.mapAttrsToList (k: v: "${k}=${mkValue v}") (lib.filterAttrs (k: v: v != null) attrs)
     )}
   '';
 
@@ -42,13 +39,11 @@ let
         dhcp = cfg.dhcp;
         dns = cfg.dns;
         # If resolvconf is disabled that means that resolv.conf is managed by some other module.
-        rc-manager =
-          if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
+        rc-manager = if config.networking.resolvconf.enable then "resolvconf" else "unmanaged";
         firewall-backend = cfg.firewallBackend;
       })
       (mkSection "keyfile" {
-        unmanaged-devices =
-          if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
+        unmanaged-devices = if cfg.unmanaged == [ ] then null else lib.concatStringsSep ";" cfg.unmanaged;
       })
       (mkSection "logging" {
         audit = config.security.audit.enable;
@@ -114,9 +109,7 @@ let
     sed '/nameserver /d' /etc/resolv.conf > $tmp
     grep 'nameserver ' /etc/resolv.conf | \
       grep -vf ${ns (cfg.appendNameservers ++ cfg.insertNameservers)} > $tmp.ns
-    cat $tmp ${ns cfg.insertNameservers} $tmp.ns ${
-      ns cfg.appendNameservers
-    } > /etc/resolv.conf
+    cat $tmp ${ns cfg.insertNameservers} $tmp.ns ${ns cfg.appendNameservers} > /etc/resolv.conf
     rm -f $tmp $tmp.ns
   '';
 
@@ -148,13 +141,10 @@ let
     '';
   };
 
-  packages =
-    [
-      pkgs.modemmanager
-      pkgs.networkmanager
-    ]
-    ++ cfg.plugins
-    ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
+  packages = [
+    pkgs.modemmanager
+    pkgs.networkmanager
+  ] ++ cfg.plugins ++ lib.optionals (!delegateWireless && !enableIwd) [ pkgs.wpa_supplicant ];
 in
 {
 
@@ -243,11 +233,7 @@ in
               check =
                 p:
                 lib.assertMsg
-                  (
-                    types.package.check p
-                    && p ? networkManagerPlugin
-                    && lib.isString p.networkManagerPlugin
-                  )
+                  (types.package.check p && p ? networkManagerPlugin && lib.isString p.networkManagerPlugin)
                   ''
                     Package ‘${p.name}’, is not a NetworkManager plug-in.
                     Those need to have a ‘networkManagerPlugin’ attribute.
@@ -520,17 +506,15 @@ in
       // optionalAttrs cfg.enableFccUnlock {
         "ModemManager/fcc-unlock.d".source = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/*";
       }
-      //
-        optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ])
-          {
-            "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
-          }
+      // optionalAttrs (cfg.appendNameservers != [ ] || cfg.insertNameservers != [ ]) {
+        "NetworkManager/dispatcher.d/02overridedns".source = overrideNameserversScript;
+      }
       // listToAttrs (
         lib.imap1
           (i: s: {
-            name = "NetworkManager/dispatcher.d/${
-                dispatcherTypesSubdirMap.${s.type}
-              }03userscript${lib.fixedWidthNumber 4 i}";
+            name = "NetworkManager/dispatcher.d/${dispatcherTypesSubdirMap.${s.type}}03userscript${
+                lib.fixedWidthNumber 4 i
+              }";
             value = {
               mode = "0544";
               inherit (s) source;
@@ -584,9 +568,7 @@ in
       wantedBy = [ "network-online.target" ];
     };
 
-    systemd.services.ModemManager.aliases = [
-      "dbus-org.freedesktop.ModemManager1.service"
-    ];
+    systemd.services.ModemManager.aliases = [ "dbus-org.freedesktop.ModemManager1.service" ];
 
     systemd.services.NetworkManager-dispatcher = {
       wantedBy = [ "network.target" ];
@@ -620,9 +602,7 @@ in
         ];
       }
 
-      (mkIf cfg.enableStrongSwan {
-        networkmanager.plugins = [ pkgs.networkmanager_strongswan ];
-      })
+      (mkIf cfg.enableStrongSwan { networkmanager.plugins = [ pkgs.networkmanager_strongswan ]; })
 
       (mkIf enableIwd { wireless.iwd.enable = true; })
 

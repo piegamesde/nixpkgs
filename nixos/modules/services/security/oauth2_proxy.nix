@@ -38,12 +38,9 @@ let
     };
   };
 
-  authenticatedEmailsFile =
-    pkgs.writeText "authenticated-emails"
-      cfg.email.addresses;
+  authenticatedEmailsFile = pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
-  getProviderOptions =
-    cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
+  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
 
   allConfig =
     with cfg;
@@ -86,9 +83,7 @@ let
     // lib.optionalAttrs (cfg.email.addresses != null) {
       authenticated-emails-file = authenticatedEmailsFile;
     }
-    // lib.optionalAttrs (cfg.passBasicAuth) {
-      basic-auth-password = cfg.basicAuthPassword;
-    }
+    // lib.optionalAttrs (cfg.passBasicAuth) { basic-auth-password = cfg.basicAuthPassword; }
     // lib.optionalAttrs (cfg.htpasswd.file != null) {
       display-htpasswd-file = cfg.htpasswd.displayForm;
     }
@@ -106,9 +101,7 @@ let
       if isDerivation attr then
         mapConfig key (toString attr)
       else if (builtins.typeOf attr) == "set" then
-        concatStringsSep " " (
-          mapAttrsToList (name: value: mapConfig (key + "-" + name) value) attr
-        )
+        concatStringsSep " " (mapAttrsToList (name: value: mapConfig (key + "-" + name) value) attr)
       else if (builtins.typeOf attr) == "list" then
         concatMapStringsSep " " (mapConfig key) attr
       else if (builtins.typeOf attr) == "bool" then

@@ -123,9 +123,7 @@ stdenv.mkDerivation rec {
   passthru =
     let
       # When we override the interpreter we also need to override the spliced versions of the interpreter
-      inputs' =
-        lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun")
-          inputs;
+      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
       override =
         attr:
         let
@@ -146,10 +144,7 @@ stdenv.mkDerivation rec {
       luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
       luaOnHostForHost = override pkgsHostHost.${luaAttr};
       luaOnTargetForTarget =
-        if lib.hasAttr luaAttr pkgsTargetTarget then
-          (override pkgsTargetTarget.${luaAttr})
-        else
-          { };
+        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
     };
 
   meta =

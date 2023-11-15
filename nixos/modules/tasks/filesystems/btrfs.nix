@@ -68,25 +68,19 @@ in
         ]
       );
 
-      boot.initrd.extraUtilsCommands =
-        mkIf (inInitrd && !config.boot.initrd.systemd.enable)
-          ''
-            copy_bin_and_libs ${pkgs.btrfs-progs}/bin/btrfs
-            ln -sv btrfs $out/bin/btrfsck
-            ln -sv btrfsck $out/bin/fsck.btrfs
-          '';
+      boot.initrd.extraUtilsCommands = mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
+        copy_bin_and_libs ${pkgs.btrfs-progs}/bin/btrfs
+        ln -sv btrfs $out/bin/btrfsck
+        ln -sv btrfsck $out/bin/fsck.btrfs
+      '';
 
-      boot.initrd.extraUtilsCommandsTest =
-        mkIf (inInitrd && !config.boot.initrd.systemd.enable)
-          ''
-            $out/bin/btrfs --version
-          '';
+      boot.initrd.extraUtilsCommandsTest = mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
+        $out/bin/btrfs --version
+      '';
 
-      boot.initrd.postDeviceCommands =
-        mkIf (inInitrd && !config.boot.initrd.systemd.enable)
-          ''
-            btrfs device scan
-          '';
+      boot.initrd.postDeviceCommands = mkIf (inInitrd && !config.boot.initrd.systemd.enable) ''
+        btrfs device scan
+      '';
     })
 
     (mkIf enableAutoScrub {

@@ -68,9 +68,7 @@ stdenv.mkDerivation rec {
       "--without-lmdb"
     ]
     ++ lib.optional enableGSSAPI "--with-gssapi=${libkrb5.dev}/bin/krb5-config"
-    ++
-      lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-        "BUILD_CC=$(CC_FOR_BUILD)";
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "BUILD_CC=$(CC_FOR_BUILD)";
 
   postInstall = ''
     moveToOutput bin/bind9-config $dev
@@ -101,9 +99,7 @@ stdenv.mkDerivation rec {
   # https://github.com/NixOS/nixpkgs/pull/192962
   doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux);
   checkTarget = "unit";
-  checkInputs = [
-    cmocka
-  ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
+  checkInputs = [ cmocka ] ++ lib.optionals (!stdenv.hostPlatform.isMusl) [ tzdata ];
   preCheck = lib.optionalString stdenv.hostPlatform.isMusl ''
     # musl doesn't respect TZDIR, skip timezone-related tests
     sed -i '/^ISC_TEST_ENTRY(isc_time_formatISO8601L/d' tests/isc/time_test.c
@@ -120,9 +116,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.isc.org/bind/";
     description = "Domain name server";
     license = licenses.mpl20;
-    changelog = "https://downloads.isc.org/isc/bind9/cur/${
-        lib.versions.majorMinor version
-      }/CHANGES";
+    changelog = "https://downloads.isc.org/isc/bind9/cur/${lib.versions.majorMinor version}/CHANGES";
     maintainers = with maintainers; [ globin ];
     platforms = platforms.unix;
 

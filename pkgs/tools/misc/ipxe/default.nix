@@ -116,10 +116,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out
     ${lib.concatStringsSep "\n" (
       lib.mapAttrsToList
-        (
-          from: to:
-          if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}"
-        )
+        (from: to: if to == null then "cp -v ${from} $out" else "cp -v ${from} $out/${to}")
         targets
     )}
 

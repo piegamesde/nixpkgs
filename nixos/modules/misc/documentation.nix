@@ -23,9 +23,7 @@ let
     m:
     let
       f = import m;
-      instance = f (
-        mapAttrs (n: _: abort "evaluating ${n} for `meta` failed") (functionArgs f)
-      );
+      instance = f (mapAttrs (n: _: abort "evaluating ${n} for `meta` failed") (functionArgs f));
     in
     cfg.nixos.options.splitBuild
     && builtins.isPath m
@@ -39,9 +37,7 @@ let
     in
     {
       lazy = p.right;
-      eager =
-        p.wrong
-        ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
+      eager = p.wrong ++ optionals cfg.nixos.includeAllModules (extraModules ++ modules);
     };
 
   manual = import ../../doc/manual rec {
@@ -99,9 +95,7 @@ let
           libPath = filter (pkgs.path + "/lib");
           pkgsLibPath = filter (pkgs.path + "/pkgs/pkgs-lib");
           nixosPath = filter (pkgs.path + "/nixos");
-          modules =
-            map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'')
-              docModules.lazy;
+          modules = map (p: ''"${removePrefix "${modulesPath}/" (toString p)}"'') docModules.lazy;
         }
         ''
           export NIX_STORE_DIR=$TMPDIR/store
@@ -390,17 +384,13 @@ in
       # depending on which backend is active.
       (mkIf cfg.man.enable {
         environment.pathsToLink = [ "/share/man" ];
-        environment.extraOutputsToInstall = [
-          "man"
-        ] ++ optional cfg.dev.enable "devman";
+        environment.extraOutputsToInstall = [ "man" ] ++ optional cfg.dev.enable "devman";
       })
 
       (mkIf cfg.info.enable {
         environment.systemPackages = [ pkgs.texinfoInteractive ];
         environment.pathsToLink = [ "/share/info" ];
-        environment.extraOutputsToInstall = [
-          "info"
-        ] ++ optional cfg.dev.enable "devinfo";
+        environment.extraOutputsToInstall = [ "info" ] ++ optional cfg.dev.enable "devinfo";
         environment.extraSetup = ''
           if [ -w $out/share/info ]; then
             shopt -s nullglob
@@ -413,9 +403,7 @@ in
 
       (mkIf cfg.doc.enable {
         environment.pathsToLink = [ "/share/doc" ];
-        environment.extraOutputsToInstall = [
-          "doc"
-        ] ++ optional cfg.dev.enable "devdoc";
+        environment.extraOutputsToInstall = [ "doc" ] ++ optional cfg.dev.enable "devdoc";
       })
 
       (mkIf cfg.nixos.enable {

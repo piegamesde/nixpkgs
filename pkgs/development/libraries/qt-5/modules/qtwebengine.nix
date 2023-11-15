@@ -157,9 +157,7 @@ qtModule {
     ''
     # Patch library paths in Chromium sources
     + lib.optionalString (!stdenv.isDarwin) ''
-      sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${
-        lib.getLib systemd
-      }/lib/\1!' \
+      sed -i -e '/lib_loader.*Load/s!"\(libudev\.so\)!"${lib.getLib systemd}/lib/\1!' \
         src/3rdparty/chromium/device/udev_linux/udev?_loader.cc
 
       sed -i -e '/libpci_loader.*Load/s!"\(libpci\.so\)!"${pciutils}/lib/\1!' \
@@ -363,10 +361,7 @@ qtModule {
       (lib.lists.filter (
         parsedPlatform:
         with parsedPlatform;
-        isUnix
-        && (
-          isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian)
-        )
+        isUnix && (isx86_32 || isx86_64 || isAarch32 || isAarch64 || (isMips && isLittleEndian))
       ))
       (map (plat: plat.system))
     ];

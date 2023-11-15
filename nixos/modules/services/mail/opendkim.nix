@@ -58,9 +58,7 @@ in
       enable = mkOption {
         type = types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Whether to enable the OpenDKIM sender authentication system.";
+        description = lib.mdDoc "Whether to enable the OpenDKIM sender authentication system.";
       };
 
       socket = mkOption {
@@ -125,15 +123,11 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "opendkim") {
-      opendkim.gid = config.ids.gids.opendkim;
-    };
+    users.groups = optionalAttrs (cfg.group == "opendkim") { opendkim.gid = config.ids.gids.opendkim; };
 
     environment.systemPackages = [ pkgs.opendkim ];
 
-    systemd.tmpfiles.rules = [
-      "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"
-    ];
+    systemd.tmpfiles.rules = [ "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -" ];
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";

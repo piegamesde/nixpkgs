@@ -32,9 +32,7 @@ in
       svnBaseDir = mkOption {
         type = types.str;
         default = "/repos";
-        description =
-          lib.mdDoc
-            "Base directory from which Subversion repositories are accessed.";
+        description = lib.mdDoc "Base directory from which Subversion repositories are accessed.";
       };
     };
   };

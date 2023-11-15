@@ -21,9 +21,7 @@ let
       protocols = ${concatStringsSep " " cfg.protocols}
       sendmail_path = /run/wrappers/bin/sendmail
       # defining mail_plugins must be done before the first protocol {} filter because of https://doc.dovecot.org/configuration_manual/config_file/config_file_syntax/#variable-expansion
-      mail_plugins = $mail_plugins ${
-        concatStringsSep " " cfg.mailPlugins.globally.enable
-      }
+      mail_plugins = $mail_plugins ${concatStringsSep " " cfg.mailPlugins.globally.enable}
     ''
 
     (concatStringsSep "\n" (
@@ -47,8 +45,7 @@ let
           ssl_cert = <${cfg.sslServerCert}
           ssl_key = <${cfg.sslServerKey}
           ${optionalString (cfg.sslCACert != null) ("ssl_ca = <" + cfg.sslCACert)}
-          ${optionalString cfg.enableDHE
-            "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
+          ${optionalString cfg.enableDHE "ssl_dh = <${config.security.dhparams.params.dovecot2.path}"}
           disable_plaintext_auth = yes
         ''
     )
@@ -86,8 +83,7 @@ let
       plugin {
         ${
           concatStringsSep "\n" (
-            mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}")
-              cfg.sieveScripts
+            mapAttrsToList (to: from: "sieve_${to} = ${stateDir}/sieve/${to}") cfg.sieveScripts
           )
         }
       }
@@ -126,8 +122,7 @@ let
   modulesDir = pkgs.symlinkJoin {
     name = "dovecot-modules";
     paths = map (pkg: "${pkg}/lib/dovecot") (
-      [ dovecotPkg ]
-      ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules
+      [ dovecotPkg ] ++ map (module: module.override { dovecot = dovecotPkg; }) cfg.modules
     );
   };
 
@@ -213,28 +208,18 @@ in
   options.services.dovecot2 = {
     enable = mkEnableOption (lib.mdDoc "the dovecot 2.x POP3/IMAP server");
 
-    enablePop3 = mkEnableOption (
-      lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)"
-    );
+    enablePop3 = mkEnableOption (lib.mdDoc "starting the POP3 listener (when Dovecot is enabled)");
 
-    enableImap =
-      mkEnableOption (
-        lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)"
-      )
-      // {
-        default = true;
-      };
+    enableImap = mkEnableOption (lib.mdDoc "starting the IMAP listener (when Dovecot is enabled)") // {
+      default = true;
+    };
 
-    enableLmtp = mkEnableOption (
-      lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)"
-    );
+    enableLmtp = mkEnableOption (lib.mdDoc "starting the LMTP listener (when Dovecot is enabled)");
 
     protocols = mkOption {
       type = types.listOf types.str;
       default = [ ];
-      description =
-        lib.mdDoc
-          "Additional listeners to start when Dovecot is enabled.";
+      description = lib.mdDoc "Additional listeners to start when Dovecot is enabled.";
     };
 
     user = mkOption {
@@ -253,9 +238,7 @@ in
       type = types.lines;
       default = "";
       example = "mail_debug = yes";
-      description =
-        lib.mdDoc
-          "Additional entries to put verbatim into Dovecot's config file.";
+      description = lib.mdDoc "Additional entries to put verbatim into Dovecot's config file.";
     };
 
     mailPlugins =
@@ -280,9 +263,7 @@ in
           submodule {
             options = {
               globally = mkOption {
-                description =
-                  lib.mdDoc
-                    "Additional entries to add to the mail_plugins variable for all protocols";
+                description = lib.mdDoc "Additional entries to add to the mail_plugins variable for all protocols";
                 type = plugins "top-level";
                 example = {
                   enable = [ "virtual" ];
@@ -292,9 +273,7 @@ in
                 };
               };
               perProtocol = mkOption {
-                description =
-                  lib.mdDoc
-                    "Additional entries to add to the mail_plugins variable, per protocol";
+                description = lib.mdDoc "Additional entries to add to the mail_plugins variable, per protocol";
                 type = attrsOf (plugins "corresponding per-protocol");
                 default = { };
                 example = {
@@ -385,17 +364,13 @@ in
     };
 
     enablePAM =
-      mkEnableOption (
-        lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins"
-      )
+      mkEnableOption (lib.mdDoc "creating a own Dovecot PAM service and configure PAM user logins")
       // {
         default = true;
       };
 
     enableDHE =
-      mkEnableOption (
-        lib.mdDoc "enable ssl_dh and generation of primes for the key exchange"
-      )
+      mkEnableOption (lib.mdDoc "enable ssl_dh and generation of primes for the key exchange")
       // {
         default = true;
       };
@@ -409,8 +384,7 @@ in
     };
 
     showPAMFailure = mkEnableOption (
-      lib.mdDoc
-        "showing the PAM failure message on authentication error (useful for OTPW)"
+      lib.mdDoc "showing the PAM failure message on authentication error (useful for OTPW)"
     );
 
     mailboxes = mkOption {
@@ -435,9 +409,7 @@ in
           Spam = { specialUse = "Junk"; auto = "create"; };
         }
       '';
-      description =
-        lib.mdDoc
-          "Configure mailboxes and auto create or subscribe them.";
+      description = lib.mdDoc "Configure mailboxes and auto create or subscribe them.";
     };
 
     enableQuota = mkEnableOption (lib.mdDoc "the dovecot quota service");
@@ -454,9 +426,7 @@ in
       type = types.str;
       default = "100G";
       example = "10G";
-      description =
-        lib.mdDoc
-          "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %.";
+      description = lib.mdDoc "Quota limit for the user in bytes. Supports suffixes b, k, M, G, T and %.";
     };
   };
 
@@ -468,9 +438,7 @@ in
       params.dovecot2 = { };
     };
     services.dovecot2.protocols =
-      optional cfg.enableImap "imap"
-      ++ optional cfg.enablePop3 "pop3"
-      ++ optional cfg.enableLmtp "lmtp";
+      optional cfg.enableImap "imap" ++ optional cfg.enablePop3 "pop3" ++ optional cfg.enableLmtp "lmtp";
 
     services.dovecot2.mailPlugins = mkIf cfg.enableQuota {
       globally.enable = [ "quota" ];
@@ -503,12 +471,8 @@ in
       {
         dovenull.gid = config.ids.gids.dovenull2;
       }
-      // optionalAttrs (cfg.group == "dovecot2") {
-        dovecot2.gid = config.ids.gids.dovecot2;
-      }
-      // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) {
-        ${cfg.mailGroup} = { };
-      };
+      // optionalAttrs (cfg.group == "dovecot2") { dovecot2.gid = config.ids.gids.dovecot2; }
+      // optionalAttrs (cfg.createMailUser && cfg.mailGroup != null) { ${cfg.mailGroup} = { }; };
 
     environment.etc."dovecot/modules".source = modulesDir;
     environment.etc."dovecot/dovecot.conf".source = cfg.configFile;
@@ -569,10 +533,7 @@ in
       {
         assertion =
           (cfg.sslServerCert == null) == (cfg.sslServerKey == null)
-          && (
-            cfg.sslCACert != null
-            -> !(cfg.sslServerCert == null || cfg.sslServerKey == null)
-          );
+          && (cfg.sslCACert != null -> !(cfg.sslServerCert == null || cfg.sslServerKey == null));
         message = "dovecot needs both sslServerCert and sslServerKey defined for working crypto";
       }
       {
@@ -580,8 +541,7 @@ in
         message = "dovecot is configured with showPAMFailure while enablePAM is disabled";
       }
       {
-        assertion =
-          cfg.sieveScripts != { } -> (cfg.mailUser != null && cfg.mailGroup != null);
+        assertion = cfg.sieveScripts != { } -> (cfg.mailUser != null && cfg.mailGroup != null);
         message = "dovecot requires mailUser and mailGroup to be set when sieveScripts is set";
       }
     ];

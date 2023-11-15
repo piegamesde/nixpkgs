@@ -70,9 +70,7 @@ in
       options.port = mkOption {
         type = types.port;
         default = 8200;
-        description =
-          lib.mdDoc
-            "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
+        description = lib.mdDoc "Port number for HTTP traffic (descriptions, SOAP, media transfer).";
       };
       options.db_dir = mkOption {
         type = types.path;
@@ -111,9 +109,7 @@ in
           "no"
         ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Whether to enable inotify monitoring to automatically discover new files.";
+        description = lib.mdDoc "Whether to enable inotify monitoring to automatically discover new files.";
       };
       options.enable_tivo = mkOption {
         type = types.enum [
@@ -121,9 +117,7 @@ in
           "no"
         ];
         default = "no";
-        description =
-          lib.mdDoc
-            "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
+        description = lib.mdDoc "Support for streaming .jpg and .mp3 files to a TiVo supporting HMO.";
       };
       options.wide_links = mkOption {
         type = types.enum [
@@ -224,9 +218,7 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [
-      cfg.settings.port
-    ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.port ];
     networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 1900 ];
 
     users.users.minidlna = {

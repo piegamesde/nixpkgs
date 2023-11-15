@@ -69,10 +69,7 @@ let
   envFile = pkgs.writeText "peertube.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList
-          (
-            name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ]
-          )
+        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
           env
       ))
     )
@@ -92,11 +89,9 @@ let
     lib.optionalString cfg.enableWebHttps ''
       add_header Strict-Transport-Security      'max-age=63072000; includeSubDomains';
     ''
-    +
-      lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-        ''
-          add_header Alt-Svc                        'h3=":443"; ma=86400';
-        ''
+    + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+      add_header Alt-Svc                        'h3=":443"; ma=86400';
+    ''
     + ''
       add_header Access-Control-Allow-Origin    '*';
       add_header Access-Control-Allow-Methods   'GET, OPTIONS';
@@ -206,9 +201,7 @@ in
       createLocally = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description =
-          lib.mdDoc
-            "Configure local PostgreSQL database server for PeerTube.";
+        description = lib.mdDoc "Configure local PostgreSQL database server for PeerTube.";
       };
 
       host = lib.mkOption {
@@ -258,11 +251,7 @@ in
 
       host = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default =
-          if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then
-            "127.0.0.1"
-          else
-            null;
+        default = if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then "127.0.0.1" else null;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && !config.${opt.redis.enableUnixSocket}
           then "127.0.0.1"
@@ -273,8 +262,7 @@ in
 
       port = lib.mkOption {
         type = lib.types.nullOr lib.types.port;
-        default =
-          if cfg.redis.createLocally && cfg.redis.enableUnixSocket then null else 31638;
+        default = if cfg.redis.createLocally && cfg.redis.enableUnixSocket then null else 31638;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && config.${opt.redis.enableUnixSocket}
           then null
@@ -325,8 +313,7 @@ in
     assertions = [
       {
         assertion =
-          cfg.serviceEnvironmentFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
+          cfg.serviceEnvironmentFile == null || !lib.hasPrefix builtins.storeDir cfg.serviceEnvironmentFile;
         message = ''
           <option>services.peertube.serviceEnvironmentFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -340,26 +327,20 @@ in
         '';
       }
       {
-        assertion =
-          !(
-            cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null)
-          );
+        assertion = !(cfg.redis.enableUnixSocket && (cfg.redis.host != null || cfg.redis.port != null));
         message = ''
           <option>services.peertube.redis.createLocally</option> and redis network connection (<option>services.peertube.redis.host</option> or <option>services.peertube.redis.port</option>) enabled. Disable either of them.
         '';
       }
       {
-        assertion =
-          cfg.redis.enableUnixSocket
-          || (cfg.redis.host != null && cfg.redis.port != null);
+        assertion = cfg.redis.enableUnixSocket || (cfg.redis.host != null && cfg.redis.port != null);
         message = ''
           <option>services.peertube.redis.host</option> and <option>services.peertube.redis.port</option> needs to be set if <option>services.peertube.redis.enableUnixSocket</option> is not enabled.
         '';
       }
       {
         assertion =
-          cfg.redis.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
+          cfg.redis.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.redis.passwordFile;
         message = ''
           <option>services.peertube.redis.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -368,8 +349,7 @@ in
       }
       {
         assertion =
-          cfg.database.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
+          cfg.database.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.database.passwordFile;
         message = ''
           <option>services.peertube.database.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -377,9 +357,7 @@ in
         '';
       }
       {
-        assertion =
-          cfg.smtp.passwordFile == null
-          || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
+        assertion = cfg.smtp.passwordFile == null || !lib.hasPrefix builtins.storeDir cfg.smtp.passwordFile;
         message = ''
           <option>services.peertube.smtp.passwordFile</option> points to
           a file in the Nix store. You should use a quoted absolute path to
@@ -413,9 +391,7 @@ in
           bin = lib.mkDefault "/var/lib/peertube/storage/bin/";
           avatars = lib.mkDefault "/var/lib/peertube/storage/avatars/";
           videos = lib.mkDefault "/var/lib/peertube/storage/videos/";
-          streaming_playlists =
-            lib.mkDefault
-              "/var/lib/peertube/storage/streaming-playlists/";
+          streaming_playlists = lib.mkDefault "/var/lib/peertube/storage/streaming-playlists/";
           redundancy = lib.mkDefault "/var/lib/peertube/storage/redundancy/";
           logs = lib.mkDefault "/var/lib/peertube/storage/logs/";
           previews = lib.mkDefault "/var/lib/peertube/storage/previews/";
@@ -481,8 +457,7 @@ in
         RestrictAddressFamilies = [ "AF_UNIX" ];
         MemoryDenyWriteExecute = true;
         # System Call Filtering
-        SystemCallFilter =
-          "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
+        SystemCallFilter = "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
       } // cfgService;
     };
 
@@ -522,12 +497,10 @@ in
           secrets:
             peertube: '$(cat ${cfg.secrets.secretsFile})'
         ''}
-        ${lib.optionalString
-          ((!cfg.database.createLocally) && (cfg.database.passwordFile != null))
-          ''
-            database:
-              password: '$(cat ${cfg.database.passwordFile})'
-          ''}
+        ${lib.optionalString ((!cfg.database.createLocally) && (cfg.database.passwordFile != null)) ''
+          database:
+            password: '$(cat ${cfg.database.passwordFile})'
+        ''}
         ${lib.optionalString (cfg.redis.passwordFile != null) ''
           redis:
             auth: '$(cat ${cfg.redis.passwordFile})'
@@ -615,11 +588,9 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            +
-              lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-                ''
-                  add_header Alt-Svc                          'h3=":443"; ma=86400';
-                '';
+            + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              add_header Alt-Svc                          'h3=":443"; ma=86400';
+            '';
         };
 
         locations."~ ^/api/v1/(videos|video-playlists|video-channels|users/me)" = {
@@ -634,11 +605,9 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            +
-              lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-                ''
-                  add_header Alt-Svc                          'h3=":443"; ma=86400';
-                '';
+            + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              add_header Alt-Svc                          'h3=":443"; ma=86400';
+            '';
         };
 
         locations."@api" = {
@@ -711,11 +680,9 @@ in
             + lib.optionalString cfg.enableWebHttps ''
               add_header Strict-Transport-Security        'max-age=63072000; includeSubDomains';
             ''
-            +
-              lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-                ''
-                  add_header Alt-Svc                          'h3=":443"; ma=86400';
-                '';
+            + lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.http3 ''
+              add_header Alt-Svc                          'h3=":443"; ma=86400';
+            '';
         };
 
         locations."^~ /lazy-static/avatars/" = {

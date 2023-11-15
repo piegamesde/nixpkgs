@@ -323,9 +323,7 @@ in
               null;
           defaultText = literalExpression "null";
           example = "/run/mysqld/mysqld.sock";
-          description =
-            lib.mdDoc
-              "Path to the unix socket file to use for authentication.";
+          description = lib.mdDoc "Path to the unix socket file to use for authentication.";
         };
 
         path = mkOption {
@@ -491,25 +489,18 @@ in
                   "fcgi+unix"
                 ];
                 default = "http";
-                description =
-                  lib.mdDoc
-                    ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
+                description = lib.mdDoc ''Listen protocol. `+unix` means "over unix", not "in addition to."'';
               };
 
               HTTP_ADDR = mkOption {
                 type = types.either types.str types.path;
                 default =
-                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then
-                    "/run/gitea/gitea.sock"
-                  else
-                    "0.0.0.0";
+                  if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0";
                 defaultText =
                   literalExpression
                     ''
                       if lib.hasSuffix "+unix" cfg.settings.server.PROTOCOL then "/run/gitea/gitea.sock" else "0.0.0.0"'';
-                description =
-                  lib.mdDoc
-                    "Listen address. Must be a path when using a unix socket.";
+                description = lib.mdDoc "Listen address. Must be a path when using a unix socket.";
               };
 
               HTTP_PORT = mkOption {
@@ -526,9 +517,7 @@ in
 
               ROOT_URL = mkOption {
                 type = types.str;
-                default = "http://${cfg.settings.server.DOMAIN}:${
-                    toString cfg.settings.server.HTTP_PORT
-                  }/";
+                default = "http://${cfg.settings.server.DOMAIN}:${toString cfg.settings.server.HTTP_PORT}/";
                 defaultText =
                   literalExpression
                     ''
@@ -593,9 +582,7 @@ in
       extraConfig = mkOption {
         type = with types; nullOr str;
         default = null;
-        description =
-          lib.mdDoc
-            "Configuration lines appended to the generated gitea configuration file.";
+        description = lib.mdDoc "Configuration lines appended to the generated gitea configuration file.";
       };
     };
   };
@@ -603,8 +590,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion =
-          cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
+        assertion = cfg.database.createDatabase -> useSqlite || cfg.database.user == cfg.user;
         message = "services.gitea.database.user must match services.gitea.user if the database is to be automatically provisioned";
       }
     ];
@@ -656,21 +642,19 @@ in
       lfs = mkIf cfg.lfs.enable { PATH = cfg.lfs.contentDir; };
     };
 
-    services.postgresql =
-      optionalAttrs (usePostgresql && cfg.database.createDatabase)
-        {
-          enable = mkDefault true;
+    services.postgresql = optionalAttrs (usePostgresql && cfg.database.createDatabase) {
+      enable = mkDefault true;
 
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
-              };
-            }
-          ];
-        };
+      ensureDatabases = [ cfg.database.name ];
+      ensureUsers = [
+        {
+          name = cfg.database.user;
+          ensurePermissions = {
+            "DATABASE ${cfg.database.name}" = "ALL PRIVILEGES";
+          };
+        }
+      ];
+    };
 
     services.mysql = optionalAttrs (useMysql && cfg.database.createDatabase) {
       enable = mkDefault true;
@@ -722,10 +706,9 @@ in
 
     systemd.services.gitea = {
       description = "gitea";
-      after =
-        [ "network.target" ]
-        ++ lib.optional usePostgresql "postgresql.service"
-        ++ lib.optional useMysql "mysql.service";
+      after = [
+        "network.target"
+      ] ++ lib.optional usePostgresql "postgresql.service" ++ lib.optional useMysql "mysql.service";
       wantedBy = [ "multi-user.target" ];
       path = [
         cfg.package

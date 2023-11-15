@@ -31,10 +31,9 @@ stdenv.mkDerivation (
     pname = "rocblas";
     version = "5.4.3";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -62,9 +61,7 @@ stdenv.mkDerivation (
         openmp
         amd-blis
       ]
-      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [
-        python3Packages.pyyaml
-      ];
+      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [ python3Packages.pyyaml ];
 
     cmakeFlags =
       [
@@ -91,9 +88,7 @@ stdenv.mkDerivation (
       ]
       ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
       ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [
-        "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"
-      ];
+      ++ lib.optionals (buildTests || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
 
     # Tensile REALLY wants to write to the nix directory if we include it normally
     postPatch = lib.optionalString buildTensile ''

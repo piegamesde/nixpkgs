@@ -105,9 +105,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "matterbridge") {
-      matterbridge = { };
-    };
+    users.groups = optionalAttrs (cfg.group == "matterbridge") { matterbridge = { }; };
 
     systemd.services.matterbridge = {
       description = "Matterbridge chat platform bridge";

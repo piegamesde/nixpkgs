@@ -96,9 +96,7 @@ let
   #   ...
   # }
   # ```
-  compilerPlatforms =
-    lib.mapAttrs (_: v: packagePlatforms v)
-      pkgs.haskell.packages;
+  compilerPlatforms = lib.mapAttrs (_: v: packagePlatforms v) pkgs.haskell.packages;
 
   # This function lets you specify specific packages
   # which are to be tested on a list of specific GHC
@@ -192,9 +190,7 @@ let
   # names of packages in an attribute set that are maintained
   maintainedPkgNames =
     set:
-    builtins.attrNames (
-      lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set
-    );
+    builtins.attrNames (lib.filterAttrs (_: v: builtins.length (v.meta.maintainers or [ ]) > 0) set);
 
   recursiveUpdateMany = builtins.foldl' lib.recursiveUpdate { };
 
@@ -231,8 +227,7 @@ let
   # }
   removePlatforms =
     platformsToRemove: packageSet:
-    lib.mapAttrsRecursive
-      (_: val: if lib.isList val then removeMany platformsToRemove val else val)
+    lib.mapAttrsRecursive (_: val: if lib.isList val then removeMany platformsToRemove val else val)
       packageSet;
 
   jobs = recursiveUpdateMany [
@@ -253,8 +248,7 @@ let
               # the ghcjs attributes in haskell.compiler with a reference to the bootstrap
               # ghcjs attribute in their bootstrap package set (exposed via passthru) which
               # would otherwise be ignored by Hydra.
-              bootGhcjs =
-                (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
+              bootGhcjs = (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
             }
           )
         );
@@ -386,21 +380,19 @@ let
       };
 
       # GHCs linked to musl.
-      pkgsMusl.haskell.compiler =
-        lib.recursiveUpdate (packagePlatforms pkgs.pkgsMusl.haskell.compiler)
-          {
-            # remove musl ghc865Binary since it is known to be broken and
-            # causes an evaluation error on darwin.
-            # TODO: remove ghc865Binary altogether and use ghc8102Binary
-            ghc865Binary = { };
+      pkgsMusl.haskell.compiler = lib.recursiveUpdate (packagePlatforms pkgs.pkgsMusl.haskell.compiler) {
+        # remove musl ghc865Binary since it is known to be broken and
+        # causes an evaluation error on darwin.
+        # TODO: remove ghc865Binary altogether and use ghc8102Binary
+        ghc865Binary = { };
 
-            ghcjs = { };
-            ghcjs810 = { };
+        ghcjs = { };
+        ghcjs810 = { };
 
-            # Can't be built with musl, see meta.broken comment in the drv
-            integer-simple.ghc884 = { };
-            integer-simple.ghc88 = { };
-          };
+        # Can't be built with musl, see meta.broken comment in the drv
+        integer-simple.ghc884 = { };
+        integer-simple.ghc88 = { };
+      };
 
       # Get some cache going for MUSL-enabled GHC.
       pkgsMusl.haskellPackages =
@@ -468,10 +460,7 @@ let
             };
 
             haskell.packages.ghcHEAD = {
-              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD)
-                ghc
-                hello
-              ;
+              inherit (packagePlatforms pkgs.pkgsCross.ghcjs.haskell.packages.ghcHEAD) ghc hello;
             };
           };
     })
@@ -552,9 +541,7 @@ let
             # Filter out all Darwin derivations.  We don't want flakey Darwin
             # derivations and flakey Hydra Darwin builders to block the
             # mergeable job from successfully building.
-            filterInLinux = lib.filter (
-              drv: drv.system == "x86_64-linux" || drv.system == "aarch64-linux"
-            );
+            filterInLinux = lib.filter (drv: drv.system == "x86_64-linux" || drv.system == "aarch64-linux");
           in
           filterInLinux (
             accumulateDerivations [
@@ -594,9 +581,7 @@ let
           maintainers = lib.teams.haskell.members;
         };
         constituents = accumulateDerivations (
-          builtins.map (name: jobs.haskellPackages."${name}") (
-            maintainedPkgNames pkgs.haskellPackages
-          )
+          builtins.map (name: jobs.haskellPackages."${name}") (maintainedPkgNames pkgs.haskellPackages)
         );
       };
 

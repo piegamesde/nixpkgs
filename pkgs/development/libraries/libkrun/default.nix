@@ -59,9 +59,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional sevVariant openssl;
 
-  makeFlags = [
-    "PREFIX=${placeholder "out"}"
-  ] ++ lib.optional sevVariant "SEV=1";
+  makeFlags = [ "PREFIX=${placeholder "out"}" ] ++ lib.optional sevVariant "SEV=1";
 
   postFixup = lib.optionalString stdenv.isDarwin ''
     install_name_tool -id $out/lib/libkrun.dylib $out/lib/libkrun.${version}.dylib
@@ -73,7 +71,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     maintainers = with maintainers; [ nickcao ];
     platforms = libkrunfw.meta.platforms;
-    sourceProvenance =
-      with sourceTypes; lib.optionals stdenv.isDarwin [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; lib.optionals stdenv.isDarwin [ binaryNativeCode ];
   };
 }

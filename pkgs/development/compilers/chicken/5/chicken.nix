@@ -50,11 +50,9 @@ stdenv.mkDerivation rec {
       "POSTINSTALL_PROGRAM=install_name_tool"
     ]);
 
-  nativeBuildInputs =
-    [ makeWrapper ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
-      darwin.autoSignDarwinBinariesHook
-    ];
+  nativeBuildInputs = [
+    makeWrapper
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
 
   buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
 
@@ -69,9 +67,7 @@ stdenv.mkDerivation rec {
   doCheck = !stdenv.isDarwin;
   postCheck = ''
     ./csi -R chicken.pathname -R chicken.platform \
-       -p "(assert (equal? \"${
-         toString binaryVersion
-       }\" (pathname-file (car (repository-path)))))"
+       -p "(assert (equal? \"${toString binaryVersion}\" (pathname-file (car (repository-path)))))"
   '';
 
   doInstallCheck = true;

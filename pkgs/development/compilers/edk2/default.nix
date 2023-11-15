@@ -70,8 +70,7 @@ let
       ];
 
     env.NIX_CFLAGS_COMPILE =
-      "-Wno-return-type"
-      + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation";
+      "-Wno-return-type" + lib.optionalString (stdenv.cc.isGNU) " -Wno-error=stringop-truncation";
 
     hardeningDisable = [
       "format"

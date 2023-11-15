@@ -52,9 +52,7 @@ let
           maintainers = with lib.maintainers; [ pedrohlc ];
           description =
             "Built using the best configuration and kernel sources for desktop, multimedia, and gaming workloads."
-            +
-              lib.optionalString isLqx
-                " (Same as linux_zen but less aggressive release schedule)";
+            + lib.optionalString isLqx " (Same as linux_zen but less aggressive release schedule)";
         };
       }
       // (args.argsOverride or { })

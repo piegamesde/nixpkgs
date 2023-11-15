@@ -13,9 +13,7 @@ in
 {
   ###### interface
   options = {
-    services.xserver.windowManager.ratpoison.enable = mkEnableOption (
-      lib.mdDoc "ratpoison"
-    );
+    services.xserver.windowManager.ratpoison.enable = mkEnableOption (lib.mdDoc "ratpoison");
   };
 
   ###### implementation

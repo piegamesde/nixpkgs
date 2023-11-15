@@ -43,11 +43,7 @@ with self;
     let
       modules = lib.filter hasPerlModule drvs;
     in
-    lib.unique (
-      [ perl ]
-      ++ modules
-      ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules)
-    );
+    lib.unique ([ perl ] ++ modules ++ lib.concatLists (lib.catAttrs "requiredPerlModules" modules));
 
   # Convert derivation to a perl module.
   toPerlModule =
@@ -2962,8 +2958,7 @@ with self;
       hash = "sha256-x1+S40QizFplqwXRVYQrcBRSQ06a77ZJ1uIonEfvZwg=";
     };
     meta = {
-      description = ''
-        Report errors from perspective of caller of a "clan" of modules'';
+      description = ''Report errors from perspective of caller of a "clan" of modules'';
       homepage = "https://github.com/karenetheridge/Carp-Clan";
       license = with lib.licenses; [
         artistic1
@@ -3796,9 +3791,7 @@ with self;
       url = "mirror://cpan/authors/id/I/IL/ILMARI/Catalyst-Plugin-Static-Simple-0.36.tar.gz";
       hash = "sha256-Nrczj5a+9PJoX3pFVbFRl5Oud4O9PW0iyX87cY8wlFQ=";
     };
-    patches = [
-      ../development/perl-modules/catalyst-plugin-static-simple-etag.patch
-    ];
+    patches = [ ../development/perl-modules/catalyst-plugin-static-simple-etag.patch ];
     propagatedBuildInputs = [
       CatalystRuntime
       MIMETypes
@@ -6611,9 +6604,7 @@ with self;
       hash = "sha256-PMcSbVhBEHI3qb4txcf7wWfPPEtM40Z4qESLhQdXAUw=";
     };
     propagatedBuildInputs = [ ClassMix ];
-    perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC";
+    perlPreHook = lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
     meta = {
       description = "The Eksblowfish block cipher";
       license = with lib.licenses; [
@@ -6915,9 +6906,7 @@ with self;
       hash = "sha256-k+vfqu/P6atoPwEhyF8kR12Bl/C87EYBghnkERQ03eM=";
     };
     propagatedBuildInputs = [ DigestSHA1 ];
-    perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC";
+    perlPreHook = lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
     meta = {
       description = "Emulate MySQL PASSWORD() function";
       license = with lib.licenses; [
@@ -7349,9 +7338,7 @@ with self;
       url = "mirror://cpan/authors/id/G/GT/GTERMARS/CSS-Minifier-XS-0.09.tar.gz";
       hash = "sha256-iKaZf6DfazlNHjRr0OV81WWFfiF9gHtlLxdrAGvm2tc=";
     };
-    perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC";
+    perlPreHook = lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
     meta = {
       description = "XS based CSS minifier";
       homepage = "https://metacpan.org/release/CSS-Minifier-XS";
@@ -12669,9 +12656,7 @@ with self;
       hash = "sha256-oC+/KFQGqKTZOZKE8DLy1VxWl1FUwuFnS9EJg3uAluw=";
     };
     buildInputs = [ ExtUtilsCChecker ];
-    perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
+    perlPreHook = lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC"; # fix undefined reference to `__stack_chk_fail_local'
     meta = {
       description = "Modify attributes of symlinks without dereferencing them";
       license = with lib.licenses; [
@@ -13378,8 +13363,7 @@ with self;
       TestFatal
     ];
     meta = {
-      description = ''
-        Define functions and methods with parameter lists ("subroutine signatures")'';
+      description = ''Define functions and methods with parameter lists ("subroutine signatures")'';
       license = with lib.licenses; [
         artistic1
         gpl1Plus
@@ -14103,9 +14087,7 @@ with self;
       ClassAccessor
       ParseRecDescent
     ];
-    patches = [
-      ../development/perl-modules/Google-ProtocolBuffers-multiline-comments.patch
-    ];
+    patches = [ ../development/perl-modules/Google-ProtocolBuffers-multiline-comments.patch ];
     meta = {
       description = "Simple interface to Google Protocol Buffers";
       homepage = "https://github.com/csirtgadgets/google-protocolbuffers-perl";
@@ -17071,9 +17053,7 @@ with self;
       url = "mirror://cpan/authors/id/G/GT/GTERMARS/JavaScript-Minifier-XS-0.11.tar.gz";
       hash = "sha256-FRISykvVCy9eHebQHjywhGBAe9dfJ9/IFi8veSeDnu4=";
     };
-    perlPreHook =
-      lib.optionalString (stdenv.isi686 || stdenv.isDarwin)
-        "export LD=$CC";
+    perlPreHook = lib.optionalString (stdenv.isi686 || stdenv.isDarwin) "export LD=$CC";
     meta = {
       description = "XS based JavaScript minifier";
       homepage = "https://metacpan.org/release/JavaScript-Minifier-XS";
@@ -17109,11 +17089,9 @@ with self;
       hash = "sha256-REqIdVqJ/6KlQkq07R0R3KYYCOvvV+gSQ0JGGanoYnw=";
     };
     # Do not abort cross-compilation on failure to load native JSON module into host perl
-    preConfigure =
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-        ''
-          substituteInPlace Makefile.PL --replace "exit 0;" ""
-        '';
+    preConfigure = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
+      substituteInPlace Makefile.PL --replace "exit 0;" ""
+    '';
     buildInputs = [ TestPod ];
     meta = {
       description = "JSON (JavaScript Object Notation) encoder/decoder";
@@ -17359,9 +17337,7 @@ with self;
       TextUnidecode
       XMLLibXSLT
     ];
-    nativeBuildInputs = [
-      pkgs.makeWrapper
-    ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
+    nativeBuildInputs = [ pkgs.makeWrapper ] ++ lib.optional stdenv.isDarwin shortenPerlShebang;
     makeMakerFlags = [
       "TEXMF=\${tex}"
       "NOMKTEXLSR"
@@ -17470,9 +17446,7 @@ with self;
       ApacheTest
       ExtUtilsXSBuilder
     ];
-    propagatedBuildInputs = [
-      (pkgs.apacheHttpdPackages.mod_perl.override { inherit perl; })
-    ];
+    propagatedBuildInputs = [ (pkgs.apacheHttpdPackages.mod_perl.override { inherit perl; }) ];
     makeMakerFlags = [
       "--with-apache2-src=${pkgs.apacheHttpd.dev}"
       "--with-apache2-apxs=${pkgs.apacheHttpd.dev}/bin/apxs"
@@ -23199,9 +23173,7 @@ with self;
       TryTiny
     ];
     perlPreHook = "export LD=$CC";
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.isi686
-        "-fno-stack-protector";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isi686 "-fno-stack-protector";
     hardeningDisable = lib.optional stdenv.isi686 "stackprotector";
     meta = {
       description = "Moose minus the antlers";
@@ -25006,13 +24978,9 @@ with self;
 
     configurePhase = ''
       substituteInPlace Makefile.PL \
-        --replace "@@libpaths@@" '${
-          lib.concatStringsSep "\n" (map (f: "-L${f}/lib") buildInputs)
-        }'
+        --replace "@@libpaths@@" '${lib.concatStringsSep "\n" (map (f: "-L${f}/lib") buildInputs)}'
 
-      cp -v ${
-        ../development/perl-modules/perl-opengl-gl-extensions.txt
-      } utils/glversion.txt
+      cp -v ${../development/perl-modules/perl-opengl-gl-extensions.txt} utils/glversion.txt
 
       perl Makefile.PL PREFIX=$out INSTALLDIRS=site $makeMakerFlags
     '';
@@ -26344,9 +26312,7 @@ with self;
       HTTPMessage
       TryTiny
     ];
-    patches = [
-      ../development/perl-modules/Plack-test-replace-DES-hash-with-bcrypt.patch
-    ];
+    patches = [ ../development/perl-modules/Plack-test-replace-DES-hash-with-bcrypt.patch ];
     meta = {
       description = "Perl Superglue for Web frameworks and Web Servers (PSGI toolkit)";
       homepage = "https://github.com/plack/Plack";
@@ -29841,9 +29807,7 @@ with self;
     };
   };
 
-  strip-nondeterminism =
-    callPackage ../development/perl-modules/strip-nondeterminism
-      { };
+  strip-nondeterminism = callPackage ../development/perl-modules/strip-nondeterminism { };
 
   StructDumb = buildPerlModule {
     pname = "Struct-Dumb";
@@ -30343,9 +30307,7 @@ with self;
         hash = "sha256-nCypGyi6bZDEXqdb7wlGGzk9cFzmYkWGP1slBpXDfHw=";
       })
     ];
-    buildInputs =
-      lib.optional stdenv.isDarwin
-        pkgs.darwin.apple_sdk.frameworks.Carbon;
+    buildInputs = lib.optional stdenv.isDarwin pkgs.darwin.apple_sdk.frameworks.Carbon;
     doCheck = !stdenv.isAarch64;
     meta = {
       description = "Perl extension for getting CPU information. Currently only number of CPU's supported.";
@@ -35758,9 +35720,7 @@ with self;
         name = "WWWCurl-curl-7.71.0.patch";
       })
     ];
-    env.NIX_CFLAGS_COMPILE =
-      lib.optionalString stdenv.cc.isClang
-        "-Wno-return-type";
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-return-type";
     buildInputs = [ pkgs.curl ];
     doCheck = false; # performs network access
     meta = {
@@ -35879,9 +35839,7 @@ with self;
     };
   };
 
-  WWWYoutubeViewer =
-    callPackage ../development/perl-modules/WWW-YoutubeViewer
-      { };
+  WWWYoutubeViewer = callPackage ../development/perl-modules/WWW-YoutubeViewer { };
 
   Want = buildPerlPackage {
     pname = "Want";
@@ -36430,9 +36388,7 @@ with self;
       url = "mirror://cpan/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz";
       hash = "sha256-0zEzJJHFHMz7TLlP/ET5zXM3jmGEmNSjffngQ2YcUV0=";
     };
-    patches = [
-      ../development/perl-modules/xml-parser-0001-HACK-Assumes-Expat-paths-are-good.patch
-    ];
+    patches = [ ../development/perl-modules/xml-parser-0001-HACK-Assumes-Expat-paths-are-good.patch ];
     postPatch =
       lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         substituteInPlace Expat/Makefile.PL --replace 'use English;' '#'

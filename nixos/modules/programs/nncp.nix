@@ -16,9 +16,7 @@ in
 {
   options.programs.nncp = {
 
-    enable = mkEnableOption (
-      lib.mdDoc "NNCP (Node to Node copy) utilities and configuration"
-    );
+    enable = mkEnableOption (lib.mdDoc "NNCP (Node to Node copy) utilities and configuration");
 
     group = mkOption {
       type = types.str;

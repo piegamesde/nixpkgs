@@ -130,14 +130,9 @@ let
 
       optionalLocation =
         let
-          pos =
-            builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name")
-              attrs;
+          pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name") attrs;
         in
-        if pos == null then
-          ""
-        else
-          " at ${pos.file}:${toString pos.line}:${toString pos.column}";
+        if pos == null then "" else " at ${pos.file}:${toString pos.line}:${toString pos.column}";
 
       leftPadName =
         name: against:
@@ -174,19 +169,12 @@ let
             * If ${theirName} provides executables that are called at run time, pass its
               bin path to makeWrapperArgs:
 
-                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${
-                    lib.getName drv
-                  } ] }" ];
+                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${lib.getName drv} ] }" ];
 
           ${optionalLocation}
         '';
 
-      checkDrv =
-        drv:
-        if (isPythonModule drv) && (isMismatchedPython drv) then
-          throwMismatch drv
-        else
-          drv;
+      checkDrv = drv: if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
     in
     inputs:
     builtins.map (checkDrv) inputs;
@@ -285,9 +273,9 @@ let
           + attrs.postFixup or "";
 
         # Python packages built through cross-compilation are always for the host platform.
-        disallowedReferences =
-          lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform)
-            [ python.pythonForBuild ];
+        disallowedReferences = lib.optionals (python.stdenv.hostPlatform != python.stdenv.buildPlatform) [
+          python.pythonForBuild
+        ];
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 

@@ -17,8 +17,7 @@ let
 
   # Used to make unique paths for each cert/account config set
   mkHash = with builtins; val: substring 0 20 (hashString "sha256" val);
-  mkAccountHash =
-    acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
+  mkAccountHash = acmeServer: data: mkHash "${toString acmeServer} ${data.keyType} ${data.email}";
   accountDirRoot = "/var/lib/acme/.lego/accounts/";
 
   # There are many services required to make cert renewals work.
@@ -152,9 +151,7 @@ let
       acmeServer = data.server;
       useDns = data.dnsProvider != null;
       destPath = "/var/lib/acme/${cert}";
-      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [
-        "acme-selfsigned-${cert}.service"
-      ];
+      selfsignedDeps = optionals (cfg.preliminarySelfsigned) [ "acme-selfsigned-${cert}.service" ];
 
       # Minica and lego have a "feature" which replaces * with _. We need
       # to make this substitution to reference the output files from both programs.
@@ -257,11 +254,7 @@ let
       # We need to collect all the ACME webroots to grant them write
       # access in the systemd service.
       webroots = lib.remove null (
-        lib.unique (
-          builtins.map (certAttrs: certAttrs.webroot) (
-            lib.attrValues config.security.acme.certs
-          )
-        )
+        lib.unique (builtins.map (certAttrs: certAttrs.webroot) (lib.attrValues config.security.acme.certs))
       );
     in
     {
@@ -327,9 +320,7 @@ let
           minica \
             --ca-key ca/key.pem \
             --ca-cert ca/cert.pem \
-            --domains ${
-              escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))
-            }
+            --domains ${escapeShellArg (builtins.concatStringsSep "," ([ data.domain ] ++ extraDomains))}
 
           # Create files to match directory layout for real certificates
           cd '${keyName}'
@@ -406,19 +397,13 @@ let
                   ${data.postRun}
                   ${
                     optionalString (data.reloadServices != [ ])
-                      "systemctl --no-block try-reload-or-restart ${
-                        escapeShellArgs data.reloadServices
-                      }"
+                      "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
                   }
                 fi
               '');
           }
           //
-            optionalAttrs
-              (
-                data.listenHTTP != null
-                && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024
-              )
+            optionalAttrs (data.listenHTTP != null && toInt (elemAt (splitString ":" data.listenHTTP) 1) < 1024)
               {
                 CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
                 AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
@@ -539,17 +524,13 @@ let
         # When ! isDefaults then this is the option declaration for the
         # security.acme.certs.<name> path, which has the extra inheritDefaults
         # option, which if disabled means that we can't inherit it
-        default =
-          if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
+        default = if isDefaults || !config.inheritDefaults then default else cfg.defaults.${name};
         # The docs however don't need to depend on inheritDefaults, they should
         # stay constant. Though notably it wouldn't matter much, because to get
         # the option information, a submodule with name `<name>` is evaluated
         # without any definitions.
         defaultText =
-          if isDefaults then
-            default
-          else
-            literalExpression "config.security.acme.defaults.${name}";
+          if isDefaults then default else literalExpression "config.security.acme.defaults.${name}";
       };
     in
     {
@@ -569,11 +550,9 @@ let
           '';
         };
 
-        enableDebugLogs =
-          mkEnableOption (lib.mdDoc "debug logging for this certificate")
-          // {
-            inherit (defaultAndText "enableDebugLogs" true) default defaultText;
-          };
+        enableDebugLogs = mkEnableOption (lib.mdDoc "debug logging for this certificate") // {
+          inherit (defaultAndText "enableDebugLogs" true) default defaultText;
+        };
 
         webroot = mkOption {
           type = types.nullOr types.str;
@@ -751,17 +730,13 @@ let
           type = types.str;
           readOnly = true;
           default = "/var/lib/acme/${name}";
-          description =
-            lib.mdDoc
-              "Directory where certificate and other state is stored.";
+          description = lib.mdDoc "Directory where certificate and other state is stored.";
         };
 
         domain = mkOption {
           type = types.str;
           default = name;
-          description =
-            lib.mdDoc
-              "Domain to fetch certificate for (defaults to the entry name).";
+          description = lib.mdDoc "Domain to fetch certificate for (defaults to the entry name).";
         };
 
         extraDomainNames = mkOption {
@@ -795,9 +770,7 @@ let
         inheritDefaults = mkOption {
           default = true;
           example = true;
-          description =
-            lib.mdDoc
-              "Whether to inherit values set in `security.acme.defaults` or not.";
+          description = lib.mdDoc "Whether to inherit values set in `security.acme.defaults` or not.";
           type = lib.types.bool;
         };
       };
@@ -1103,8 +1076,7 @@ in
                 '';
               }
               {
-                assertion =
-                  data.dnsProvider != null || data.webroot != null || data.listenHTTP != null;
+                assertion = data.dnsProvider != null || data.webroot != null || data.listenHTTP != null;
                 message = ''
                   One of `security.acme.certs.${cert}.dnsProvider`,
                   `security.acme.certs.${cert}.webroot`, or
@@ -1127,22 +1099,17 @@ in
         {
           "acme-fixperms" = userMigrationService;
         }
-        // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService)
-          certConfigs
-        )
+        // (mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewService) certConfigs)
         // (optionalAttrs (cfg.preliminarySelfsigned) (
           {
             "acme-selfsigned-ca" = selfsignCAService;
           }
-          // (mapAttrs'
-            (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
+          // (mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
             certConfigs
           )
         ));
 
-      systemd.timers =
-        mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer)
-          certConfigs;
+      systemd.timers = mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer) certConfigs;
 
       systemd.targets =
         let
@@ -1174,9 +1141,7 @@ in
                 hash: confs:
                 let
                   leader = "acme-${(builtins.head confs).cert}.service";
-                  dependantServices = map (conf: "acme-${conf.cert}.service") (
-                    builtins.tail confs
-                  );
+                  dependantServices = map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
                 in
                 nameValuePair "acme-account-${hash}" {
                   requiredBy = dependantServices;

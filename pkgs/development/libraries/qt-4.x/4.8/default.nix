@@ -34,8 +34,7 @@
   coreutils,
   libXi,
   alsa-lib,
-  libGLSupported ?
-    lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
+  libGLSupported ? lib.elem stdenv.hostPlatform.system lib.platforms.mesaPlatforms,
   gtkStyle ? stdenv.hostPlatform == stdenv.buildPlatform,
   gtk2,
   gdk-pixbuf,
@@ -61,16 +60,13 @@
 #    false build-time dependencies
 
 stdenv.mkDerivation rec {
-  pname =
-    "qt" + lib.optionalString (docs && demos && examples && developerBuild) "-full";
+  pname = "qt" + lib.optionalString (docs && demos && examples && developerBuild) "-full";
   version = "4.8.7";
 
   src = fetchurl {
     url =
       "http://download.qt-project.org/official_releases/qt/"
-      + "${
-          lib.versions.majorMinor version
-        }/${version}/qt-everywhere-opensource-src-${version}.tar.gz";
+      + "${lib.versions.majorMinor version}/${version}/qt-everywhere-opensource-src-${version}.tar.gz";
     sha256 = "183fca7n7439nlhxyg1z7aky0izgbyll3iwakw4gwivy16aj5272";
   };
 
@@ -211,11 +207,7 @@ stdenv.mkDerivation rec {
   configureFlags =
     let
       mk = cond: name: "-${lib.optionalString (!cond) "no-"}${name}";
-      platformFlag =
-        if stdenv.hostPlatform != stdenv.buildPlatform then
-          "-xplatform"
-        else
-          "-platform";
+      platformFlag = if stdenv.hostPlatform != stdenv.buildPlatform then "-xplatform" else "-platform";
     in
     (
       if stdenv.hostPlatform != stdenv.buildPlatform then
@@ -365,9 +357,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.isDarwin "-I${lib.getDev libcxx}/include/c++/v1"
   );
 
-  NIX_LDFLAGS =
-    lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin)
-      "-lglib-2.0";
+  NIX_LDFLAGS = lib.optionalString (stdenv.isFreeBSD || stdenv.isDarwin) "-lglib-2.0";
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     # resolve "extra qualification on member" error

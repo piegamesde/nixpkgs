@@ -82,9 +82,7 @@ let
 
         # remove dependency-heavy packages from the basic collections
         collection-basic = orig.collection-basic // {
-          deps =
-            lib.filter (n: n != "metafont" && n != "xdvi")
-              orig.collection-basic.deps;
+          deps = lib.filter (n: n != "metafont" && n != "xdvi") orig.collection-basic.deps;
         };
         # add them elsewhere so that collections cover all packages
         collection-metapost = orig.collection-metapost // {
@@ -179,9 +177,7 @@ let
     lib.optionals final [
       # tlnet-final snapshot; used when texlive.tlpdb is frozen
       # the TeX Live yearly freeze typically happens in mid-March
-      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${
-        toString texliveYear
-      }/tlnet-final"
+      "http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${toString texliveYear}/tlnet-final"
       "ftp://tug.org/texlive/historic/${toString texliveYear}/tlnet-final"
     ]
     ++ [
@@ -230,9 +226,7 @@ let
           if args ? url then
             [ args.url ]
           else
-            map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (
-              args.urlPrefixes or urlPrefixes
-            )
+            map (up: "${up}/archive/${urlName}.r${toString revision}.tar.xz") (args.urlPrefixes or urlPrefixes)
         );
     in
     runCommand "texlive-${tlName}"
@@ -245,9 +239,7 @@ let
             {
               inherit pname tlType version;
             }
-            // lib.optionalAttrs (tlType == "run" && args ? deps) {
-              tlDeps = map (n: tl.${n}) args.deps;
-            }
+            // lib.optionalAttrs (tlType == "run" && args ? deps) { tlDeps = map (n: tl.${n}) args.deps; }
             // lib.optionalAttrs (tlType == "run") {
               hasFormats = args.hasFormats or false;
               hasHyphens = args.hasHyphens or false;
@@ -338,8 +330,7 @@ tl
               combine {
                 ${pname} = attrs;
                 extraName = "combined" + lib.removePrefix "scheme" pname;
-                extraVersion =
-                  with version; if final then "-final" else ".${year}${month}${day}";
+                extraVersion = with version; if final then "-final" else ".${year}${month}${day}";
               }
             )
         )

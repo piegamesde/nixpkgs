@@ -79,9 +79,7 @@ final: prev: {
         --prefix NODE_PATH : ${final.postcss}/lib/node_modules
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/autoprefixer.nix {
-        inherit (final) autoprefixer;
-      };
+      simple-execution = callPackage ./package-tests/autoprefixer.nix { inherit (final) autoprefixer; };
     };
   };
 
@@ -114,9 +112,7 @@ final: prev: {
   bitwarden-cli = prev."@bitwarden/cli".override {
     name = "bitwarden-cli";
     nativeBuildInputs =
-      with pkgs;
-      [ pkg-config ]
-      ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      with pkgs; [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
     buildInputs = with pkgs; [
       pixman
       cairo
@@ -192,27 +188,20 @@ final: prev: {
 
   # NOTE: this is a stub package to fetch npm dependencies for
   # ../../applications/video/epgstation/client
-  epgstation-client =
-    prev."epgstation-client-../../applications/video/epgstation/client".override
-      (
-        oldAttrs: {
-          meta = oldAttrs.meta // {
-            platforms = lib.platforms.none;
-          };
-        }
-      );
+  epgstation-client = prev."epgstation-client-../../applications/video/epgstation/client".override (
+    oldAttrs: {
+      meta = oldAttrs.meta // {
+        platforms = lib.platforms.none;
+      };
+    }
+  );
 
   expo-cli = prev."expo-cli".override (
     oldAttrs: {
       # The traveling-fastlane-darwin optional dependency aborts build on Linux.
       dependencies =
         builtins.filter
-          (
-            d:
-            d.packageName != "@expo/traveling-fastlane-${
-              if stdenv.isLinux then "darwin" else "linux"
-            }"
-          )
+          (d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}")
           oldAttrs.dependencies;
     }
   );
@@ -502,9 +491,7 @@ final: prev: {
         ln -s '${final.postcss}/lib/node_modules/postcss' "$out/lib/node_modules/postcss"
       '';
       passthru.tests = {
-        simple-execution = callPackage ./package-tests/postcss-cli.nix {
-          inherit (final) postcss-cli;
-        };
+        simple-execution = callPackage ./package-tests/postcss-cli.nix { inherit (final) postcss-cli; };
       };
       meta = oldAttrs.meta // {
         maintainers = with lib.maintainers; [ Luflosi ];
@@ -528,16 +515,12 @@ final: prev: {
       wrapProgram "$out/bin/prisma" \
         --set PRISMA_MIGRATION_ENGINE_BINARY ${prisma-engines}/bin/migration-engine \
         --set PRISMA_QUERY_ENGINE_BINARY ${prisma-engines}/bin/query-engine \
-        --set PRISMA_QUERY_ENGINE_LIBRARY ${
-          lib.getLib prisma-engines
-        }/lib/libquery_engine.node \
+        --set PRISMA_QUERY_ENGINE_LIBRARY ${lib.getLib prisma-engines}/lib/libquery_engine.node \
         --set PRISMA_FMT_BINARY ${prisma-engines}/bin/prisma-fmt
     '';
 
     passthru.tests = {
-      simple-execution = pkgs.callPackage ./package-tests/prisma.nix {
-        inherit (final) prisma;
-      };
+      simple-execution = pkgs.callPackage ./package-tests/prisma.nix { inherit (final) prisma; };
     };
   };
 
@@ -547,9 +530,7 @@ final: prev: {
 
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
     postInstall = ''
-      wrapProgram "$out/bin/pulp" --suffix PATH : ${
-        lib.makeBinPath [ pkgs.purescript ]
-      }
+      wrapProgram "$out/bin/pulp" --suffix PATH : ${lib.makeBinPath [ pkgs.purescript ]}
     '';
   };
 
@@ -626,9 +607,7 @@ final: prev: {
       unset nodePath
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/tailwindcss.nix {
-        inherit (final) tailwindcss;
-      };
+      simple-execution = callPackage ./package-tests/tailwindcss.nix { inherit (final) tailwindcss; };
     };
   };
 
@@ -637,28 +616,24 @@ final: prev: {
     buildInputs = [ pkgs.libusb1 ];
   };
 
-  tedicross =
-    prev."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override
-      {
-        nativeBuildInputs = with pkgs; [
-          makeWrapper
-          libtool
-          autoconf
-        ];
-        postInstall = ''
-          makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
-            --add-flags "$out/lib/node_modules/tedicross/main.js"
-        '';
-      };
+  tedicross = prev."tedicross-git+https://github.com/TediCross/TediCross.git#v0.8.7".override {
+    nativeBuildInputs = with pkgs; [
+      makeWrapper
+      libtool
+      autoconf
+    ];
+    postInstall = ''
+      makeWrapper '${nodejs}/bin/node' "$out/bin/tedicross" \
+        --add-flags "$out/lib/node_modules/tedicross/main.js"
+    '';
+  };
 
   thelounge = prev.thelounge.override (
     oldAttrs: {
       buildInputs = [ final.node-pre-gyp ];
       postInstall = ''
         echo /var/lib/thelounge > $out/lib/node_modules/thelounge/.thelounge_home
-        patch -d $out/lib/node_modules/thelounge -p1 < ${
-          ./thelounge-packages-path.patch
-        }
+        patch -d $out/lib/node_modules/thelounge -p1 < ${./thelounge-packages-path.patch}
       '';
       passthru.tests = {
         inherit (nixosTests) thelounge;
@@ -754,9 +729,7 @@ final: prev: {
       done
     '';
     passthru.tests = {
-      simple-execution = callPackage ./package-tests/vega-lite.nix {
-        inherit (final) vega-lite;
-      };
+      simple-execution = callPackage ./package-tests/vega-lite.nix { inherit (final) vega-lite; };
     };
   };
 
@@ -780,9 +753,7 @@ final: prev: {
       ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
   };
 
-  webtorrent-cli = prev.webtorrent-cli.override {
-    buildInputs = [ final.node-gyp-build ];
-  };
+  webtorrent-cli = prev.webtorrent-cli.override { buildInputs = [ final.node-gyp-build ]; };
 
   wrangler = prev.wrangler.override (
     oldAttrs: {

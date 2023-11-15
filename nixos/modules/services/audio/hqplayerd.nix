@@ -89,9 +89,7 @@ in
         "hqplayer/hqplayerd.xml" = mkIf (cfg.config != null) {
           source = pkgs.writeText "hqplayerd.xml" cfg.config;
         };
-        "hqplayer/hqplayerd4-key.xml" = mkIf (cfg.licenseFile != null) {
-          source = cfg.licenseFile;
-        };
+        "hqplayer/hqplayerd4-key.xml" = mkIf (cfg.licenseFile != null) { source = cfg.licenseFile; };
       };
       systemPackages = [ pkg ];
     };

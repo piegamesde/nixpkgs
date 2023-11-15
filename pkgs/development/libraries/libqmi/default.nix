@@ -64,19 +64,16 @@ stdenv.mkDerivation rec {
       docbook-xsl-nons
       docbook_xml_dtd_43
     ]
-    ++
-      lib.optionals
-        (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-        [ mesonEmulatorHook ];
+    ++ lib.optionals (withIntrospection && !stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
+      mesonEmulatorHook
+    ];
 
   buildInputs = [
     bash-completion
     libmbim
   ] ++ lib.optionals withIntrospection [ libgudev ];
 
-  propagatedBuildInputs = [
-    glib
-  ] ++ lib.optionals withIntrospection [ libqrtr-glib ];
+  propagatedBuildInputs = [ glib ] ++ lib.optionals withIntrospection [ libqrtr-glib ];
 
   mesonFlags = [
     "-Dudevdir=${placeholder "out"}/lib/udev"

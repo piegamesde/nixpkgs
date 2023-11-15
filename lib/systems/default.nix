@@ -31,9 +31,7 @@ rec {
       final =
         {
           # Prefer to parse `config` as it is strictly more informative.
-          parsed = parse.mkSystemFromString (
-            if args ? config then args.config else args.system
-          );
+          parsed = parse.mkSystemFromString (if args ? config then args.config else args.system);
           # Either of these can be losslessly-extracted from `parsed` iff parsing succeeds.
           system = parse.doubleFromSystem final.parsed;
           config = parse.tripleFromSystem final.parsed;
@@ -226,8 +224,7 @@ rec {
               null;
           # The canonical name for this attribute is darwinSdkVersion, but some
           # platforms define the old name "sdkVer".
-          darwinSdkVersion =
-            final.sdkVer or (if final.isAarch64 then "11.0" else "10.12");
+          darwinSdkVersion = final.sdkVer or (if final.isAarch64 then "11.0" else "10.12");
           darwinMinVersion = final.darwinSdkVersion;
           darwinMinVersionVariable =
             if final.isMacOS then
@@ -265,9 +262,7 @@ rec {
                 ''${pkgs.runtimeShell} -c '"$@"' --''
               else if final.isWindows then
                 "${wine}/bin/wine${lib.optionalString (final.parsed.cpu.bits == 64) "64"}"
-              else if
-                final.isLinux && pkgs.stdenv.hostPlatform.isLinux && final.qemuArch != null
-              then
+              else if final.isLinux && pkgs.stdenv.hostPlatform.isLinux && final.qemuArch != null then
                 "${qemu-user}/bin/qemu-${final.qemuArch}"
               else if final.isWasi then
                 "${pkgs.wasmtime}/bin/wasmtime"
@@ -292,8 +287,7 @@ rec {
         // args;
     in
     assert final.useAndroidPrebuilt -> final.isAndroid;
-    assert lib.foldl
-        (pass: { assertion, message }: if assertion final then pass else throw message)
+    assert lib.foldl (pass: { assertion, message }: if assertion final then pass else throw message)
         true
         (final.parsed.abi.assertions or [ ]);
     final;

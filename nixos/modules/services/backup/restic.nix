@@ -206,9 +206,7 @@ in
               description = lib.mdDoc ''
                 Extra extended options to be passed to the restic --option flag.
               '';
-              example = [
-                "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'"
-              ];
+              example = [ "sftp.command='ssh backup@192.168.1.100 -i /home/user/.ssh/id_rsa -s sftp'" ];
             };
 
             initialize = mkOption {
@@ -316,9 +314,7 @@ in
           n: v:
           "services.restic.backups.${n}.s3CredentialsFile is deprecated, please use services.restic.backups.${n}.environmentFile instead."
         )
-        (
-          filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups
-        );
+        (filterAttrs (n: v: v.s3CredentialsFile != null) config.services.restic.backups);
     assertions =
       mapAttrsToList
         (n: v: {
@@ -335,11 +331,7 @@ in
             resticCmd = "${backup.package}/bin/restic${extraOptions}";
             excludeFlags =
               if (backup.exclude != [ ]) then
-                [
-                  "--exclude-file=${
-                    pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)
-                  }"
-                ]
+                [ "--exclude-file=${pkgs.writeText "exclude-patterns" (concatStringsSep "\n" backup.exclude)}" ]
               else
                 [ ];
             filesFromTmpFile = "/run/restic-backups-${name}/includes";
@@ -354,8 +346,7 @@ in
             ];
             # Helper functions for rclone remotes
             rcloneRemoteName = builtins.elemAt (splitString ":" backup.repository) 1;
-            rcloneAttrToOpt =
-              v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
+            rcloneAttrToOpt = v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
             rcloneAttrToConf = v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
             toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
           in
@@ -369,47 +360,35 @@ in
                   RESTIC_REPOSITORY_FILE = backup.repositoryFile;
                 }
                 // optionalAttrs (backup.rcloneOptions != null) (
-                  mapAttrs'
-                    (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
+                  mapAttrs' (name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value))
                     backup.rcloneOptions
                 )
-                // optionalAttrs (backup.rcloneConfigFile != null) {
-                  RCLONE_CONFIG = backup.rcloneConfigFile;
-                }
+                // optionalAttrs (backup.rcloneConfigFile != null) { RCLONE_CONFIG = backup.rcloneConfigFile; }
                 // optionalAttrs (backup.rcloneConfig != null) (
-                  mapAttrs'
-                    (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
+                  mapAttrs' (name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value))
                     backup.rcloneConfig
                 );
               path = [ pkgs.openssh ];
               restartIfChanged = false;
-              serviceConfig =
-                {
-                  Type = "oneshot";
-                  ExecStart =
-                    (optionals (backupPaths != "") [
-                      "${resticCmd} backup ${
-                        concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
-                      } ${backupPaths}"
-                    ])
-                    ++ pruneCmd;
-                  User = backup.user;
-                  RuntimeDirectory = "restic-backups-${name}";
-                  CacheDirectory = "restic-backups-${name}";
-                  CacheDirectoryMode = "0700";
-                  PrivateTmp = true;
-                }
-                // optionalAttrs (backup.environmentFile != null) {
-                  EnvironmentFile = backup.environmentFile;
-                };
+              serviceConfig = {
+                Type = "oneshot";
+                ExecStart =
+                  (optionals (backupPaths != "") [
+                    "${resticCmd} backup ${
+                      concatStringsSep " " (backup.extraBackupArgs ++ excludeFlags)
+                    } ${backupPaths}"
+                  ])
+                  ++ pruneCmd;
+                User = backup.user;
+                RuntimeDirectory = "restic-backups-${name}";
+                CacheDirectory = "restic-backups-${name}";
+                CacheDirectoryMode = "0700";
+                PrivateTmp = true;
+              } // optionalAttrs (backup.environmentFile != null) { EnvironmentFile = backup.environmentFile; };
             }
             //
               optionalAttrs
-                (
-                  backup.initialize
-                  || backup.dynamicFilesFrom != null
-                  || backup.backupPrepareCommand != null
-                )
+                (backup.initialize || backup.dynamicFilesFrom != null || backup.backupPrepareCommand != null)
                 {
                   preStart = ''
                     ${optionalString (backup.backupPrepareCommand != null) ''
@@ -419,25 +398,20 @@ in
                       ${resticCmd} snapshots || ${resticCmd} init
                     ''}
                     ${optionalString (backup.dynamicFilesFrom != null) ''
-                      ${
-                        pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom
-                      } > ${filesFromTmpFile}
+                      ${pkgs.writeScript "dynamicFilesFromScript" backup.dynamicFilesFrom} > ${filesFromTmpFile}
                     ''}
                   '';
                 }
-            //
-              optionalAttrs
-                (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null)
-                {
-                  postStop = ''
-                    ${optionalString (backup.backupCleanupCommand != null) ''
-                      ${pkgs.writeScript "backupCleanupCommand" backup.backupCleanupCommand}
-                    ''}
-                    ${optionalString (backup.dynamicFilesFrom != null) ''
-                      rm ${filesFromTmpFile}
-                    ''}
-                  '';
-                }
+            // optionalAttrs (backup.dynamicFilesFrom != null || backup.backupCleanupCommand != null) {
+              postStop = ''
+                ${optionalString (backup.backupCleanupCommand != null) ''
+                  ${pkgs.writeScript "backupCleanupCommand" backup.backupCleanupCommand}
+                ''}
+                ${optionalString (backup.dynamicFilesFrom != null) ''
+                  rm ${filesFromTmpFile}
+                ''}
+              '';
+            }
           )
         )
         config.services.restic.backups;

@@ -33,8 +33,7 @@ let
       broken ? false,
     }:
     let
-      fullVersion =
-        version + lib.optionalString (beta != null) "-beta${toString beta}";
+      fullVersion = version + lib.optionalString (beta != null) "-beta${toString beta}";
       name = "${pname}-${fullVersion}";
     in
     stdenv.mkDerivation {

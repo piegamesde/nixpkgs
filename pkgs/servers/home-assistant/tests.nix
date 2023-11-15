@@ -125,10 +125,8 @@ lib.listToAttrs (
               ++ home-assistant.getPackages component home-assistant.python.pkgs
               ++ extraCheckInputs.${component} or [ ];
 
-            disabledTests =
-              old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
-            disabledTestPaths =
-              old.disabledTestPaths or [ ] ++ extraDisabledTestPaths.${component} or [ ];
+            disabledTests = old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
+            disabledTestPaths = old.disabledTestPaths or [ ] ++ extraDisabledTestPaths.${component} or [ ];
 
             # components are more often racy than the core
             dontUsePytestXdist = true;

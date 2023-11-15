@@ -77,8 +77,7 @@ in
     services.gnome.gnome-initial-setup = {
 
       enable = mkEnableOption (
-        lib.mdDoc
-          "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system"
+        lib.mdDoc "GNOME Initial Setup, a Simple, easy, and safe way to prepare a new system"
       );
     };
   };
@@ -87,10 +86,9 @@ in
 
   config = mkIf config.services.gnome.gnome-initial-setup.enable {
 
-    environment.systemPackages =
-      [ pkgs.gnome.gnome-initial-setup ]
-      ++ optional (versionOlder config.system.stateVersion "20.03")
-        createGisStampFilesAutostart;
+    environment.systemPackages = [
+      pkgs.gnome.gnome-initial-setup
+    ] ++ optional (versionOlder config.system.stateVersion "20.03") createGisStampFilesAutostart;
 
     systemd.packages = [ pkgs.gnome.gnome-initial-setup ];
 
@@ -100,8 +98,6 @@ in
       "gnome-welcome-tour.service"
     ];
 
-    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [
-      "gnome-initial-setup.service"
-    ];
+    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [ "gnome-initial-setup.service" ];
   };
 }

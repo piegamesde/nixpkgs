@@ -17,10 +17,9 @@ stdenv.mkDerivation (
     pname = "rocrand";
     version = "5.4.3";
 
-    outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -36,9 +35,7 @@ stdenv.mkDerivation (
       hip
     ];
 
-    buildInputs =
-      lib.optionals buildTests [ gtest ]
-      ++ lib.optionals buildBenchmarks [ gbenchmark ];
+    buildInputs = lib.optionals buildTests [ gtest ] ++ lib.optionals buildBenchmarks [ gbenchmark ];
 
     cmakeFlags =
       [

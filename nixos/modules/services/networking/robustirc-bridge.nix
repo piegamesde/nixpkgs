@@ -38,9 +38,7 @@ in
 
       serviceConfig = {
         DynamicUser = true;
-        ExecStart = "${pkgs.robustirc-bridge}/bin/robustirc-bridge ${
-            concatStringsSep " " cfg.extraFlags
-          }";
+        ExecStart = "${pkgs.robustirc-bridge}/bin/robustirc-bridge ${concatStringsSep " " cfg.extraFlags}";
         Restart = "on-failure";
 
         # Hardening

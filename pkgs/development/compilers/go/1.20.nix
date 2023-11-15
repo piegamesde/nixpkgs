@@ -44,8 +44,7 @@ let
       "s390x" = "s390x";
       "x86_64" = "amd64";
     }
-    .${platform.parsed.cpu.name}
-      or (throw "Unsupported system: ${platform.parsed.cpu.name}");
+    .${platform.parsed.cpu.name} or (throw "Unsupported system: ${platform.parsed.cpu.name}");
 
   # We need a target compiler which is still runnable at build time,
   # to handle the cross-building case where build != host == target
@@ -66,9 +65,7 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ ]
     ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [
-      stdenv.cc.libc.static
-    ];
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
     Foundation
@@ -78,9 +75,7 @@ stdenv.mkDerivation rec {
 
   depsBuildTarget = lib.optional isCross targetCC;
 
-  depsTargetTarget =
-    lib.optional stdenv.targetPlatform.isWindows
-      threadsCross.package;
+  depsTargetTarget = lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
 
   postPatch = ''
     patchShebangs .
@@ -117,10 +112,8 @@ stdenv.mkDerivation rec {
 
   # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
   # to be different from CC/CXX
-  CC_FOR_TARGET =
-    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
-  CXX_FOR_TARGET =
-    if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
+  CC_FOR_TARGET = if isCross then "${targetCC}/bin/${targetCC.targetPrefix}cc" else null;
+  CXX_FOR_TARGET = if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
 
   GOARM = toString (
     lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
@@ -132,8 +125,7 @@ stdenv.mkDerivation rec {
   GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
   CGO_ENABLED = 1;
 
-  GOROOT_BOOTSTRAP =
-    if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
+  GOROOT_BOOTSTRAP = if useGccGoBootstrap then goBootstrap else "${goBootstrap}/share/go";
 
   buildPhase = ''
     runHook preBuild
@@ -172,13 +164,12 @@ stdenv.mkDerivation rec {
           ''}
         ''
       else
-        lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system)
-          ''
-            rm -rf bin/*_*
-            ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
-              rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
-            ''}
-          ''
+        lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
+          rm -rf bin/*_*
+          ${lib.optionalString (!(GOHOSTARCH == GOARCH && GOOS == GOHOSTOS)) ''
+            rm -rf pkg/${GOOS}_${GOARCH} pkg/tool/${GOOS}_${GOARCH}
+          ''}
+        ''
     );
 
   installPhase = ''
@@ -199,9 +190,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog = "https://go.dev/doc/devel/release#go${
-        lib.versions.majorMinor version
-      }";
+    changelog = "https://go.dev/doc/devel/release#go${lib.versions.majorMinor version}";
     description = "The Go Programming language";
     homepage = "https://go.dev/";
     license = licenses.bsd3;

@@ -24,9 +24,7 @@ stdenv.mkDerivation rec {
     substituteInPlace noice.c --replace 'printw(str);' 'printw("%s", str);'
   '';
 
-  configFile = optionalString (conf != null) (
-    builtins.toFile "config.def.h" conf
-  );
+  configFile = optionalString (conf != null) (builtins.toFile "config.def.h" conf);
   preBuild = optionalString (conf != null) "cp ${configFile} config.def.h";
 
   buildInputs = [ ncurses ];

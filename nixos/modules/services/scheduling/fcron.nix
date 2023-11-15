@@ -64,17 +64,13 @@ in
       maxSerialJobs = mkOption {
         type = types.int;
         default = 1;
-        description =
-          lib.mdDoc
-            "Maximum number of serial jobs which can run simultaneously.";
+        description = lib.mdDoc "Maximum number of serial jobs which can run simultaneously.";
       };
 
       queuelen = mkOption {
         type = types.nullOr types.int;
         default = null;
-        description =
-          lib.mdDoc
-            "Number of jobs the serial queue and the lavg queue can contain.";
+        description = lib.mdDoc "Number of jobs the serial queue and the lavg queue can contain.";
       };
 
       systab = mkOption {
@@ -106,10 +102,7 @@ in
               let
                 isSendmailWrapped = lib.hasAttr "sendmail" config.security.wrappers;
                 sendmailPath =
-                  if isSendmailWrapped then
-                    "/run/wrappers/bin/sendmail"
-                  else
-                    "${config.system.path}/bin/sendmail";
+                  if isSendmailWrapped then "/run/wrappers/bin/sendmail" else "${config.system.path}/bin/sendmail";
               in
               pkgs.writeText "fcron.conf" ''
                 fcrontabs   =       /var/spool/fcron
@@ -176,9 +169,7 @@ in
 
       serviceConfig = {
         Type = "forking";
-        ExecStart = "${pkgs.fcron}/sbin/fcron -m ${
-            toString cfg.maxSerialJobs
-          } ${queuelen}";
+        ExecStart = "${pkgs.fcron}/sbin/fcron -m ${toString cfg.maxSerialJobs} ${queuelen}";
       };
     };
   };
